@@ -141,4 +141,6 @@ docs/_build/
 # PyBuilder
 target/
 
+#Data Base files
 
+*.sqlite3
