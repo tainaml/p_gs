@@ -38,11 +38,11 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'account',
-    'article',
-    'comment',
-    'question',
-    'userprofile'
+    'rede_gsti.apps.account',
+    'rede_gsti.apps.article',
+    'rede_gsti.apps.comment',
+    'rede_gsti.apps.question',
+    'rede_gsti.apps.userprofile'
 )
 
 MIDDLEWARE_CLASSES = (
