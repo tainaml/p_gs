@@ -26,11 +26,12 @@ apt-get install -y libjpeg-dev libtiff-dev zlib1g-dev libfreetype6-dev liblcms2-
 # Git (we'd rather avoid people keeping credentials for git commits in the repo, but sometimes we need it for pip requirements that aren't in PyPI)
 apt-get install -y git
 
+# Translation rules
+apt-get install -y gettext
+
 # Postgresql
 sudo sh /vagrant/provision/database.sh
-
-
-apt-get -y install libpq-dev
+apt-get install -y libpq-dev
 
 # virtualenv global setup
 if ! command -v pip; then
