@@ -144,3 +144,7 @@ target/
 #Data Base files
 
 *.sqlite3
+
+# Front-end modules (npm, assets)
+# rede_gsti/static (to future)
+resources/node_modules
