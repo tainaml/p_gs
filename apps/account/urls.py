@@ -1,10 +1,10 @@
 __author__ = 'phillip'
-
 from django.conf.urls import url
-
-import views
+from . import views
 
 urlpatterns = [
-    url(r'^sign-up/$', views.sign_up, name='signup'),
-    url(r'^register/$', views.register, name='register'),
-    ]
+
+    url(r'^signup/', views.signup, name='signup'),
+    url(r'^register/', views.register, name='register')
+
+]
