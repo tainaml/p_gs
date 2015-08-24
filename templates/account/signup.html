@@ -1,0 +1,35 @@
+<script src='https://www.google.com/recaptcha/api.js?hl=pt-BR'></script>
+
+
+<form action="{% url 'account:register' %}" method="post">
+    {% csrf_token %}
+    <input type="text" name="username" placeholder="Username" maxlength="30">
+    {% if form.username.errors %}  {{ form.username.errors }} {% endif %}
+    <p></p>
+
+    <input type="text" name="first_name" placeholder="Name" maxlength="30">
+    {% if form.first_name.errors %}  {{ form.first_name.errors }} {% endif %}
+    <p></p>
+
+    <input type="text" name="last_name" placeholder="Last name" maxlength="150">
+    {% if form.last_name.errors %}  {{ form.last_name.errors }} {% endif %}
+    <p></p>
+
+    <input type="email" name="email" placeholder="Email" maxlength="150">
+    {% if form.email.errors %}  {{ form.email.errors }} {% endif %}
+    <p></p>
+
+    <input type="password" name="password" placeholder="Password">
+    {% if form.password.errors %}  {{ form.password.errors }} {% endif %}
+    <p></p>
+
+    <input type="password" name="password_confirmation" placeholder="Confirm password">
+    {% if form.password_confirmation.errors %}  {{ form.password_confirmation.errors }} {% endif %}
+    <p></p>
+
+    <div class="g-recaptcha" data-sitekey="6LccmgsTAAAAAGrsvn7r7aiIcnvbuIS7pyP0qv1K"></div>
+    {% if form.captcha.errors %}  {{ form.captcha.errors }} {% endif %}
+    <p></p>
+    <input type="submit" value="enviar" name="submit">
+
+</form>
