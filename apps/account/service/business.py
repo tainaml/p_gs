@@ -1,7 +1,11 @@
+import hashlib
+import random
+
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.models import User
 from django.core.mail import send_mail
 from django.conf import settings
+from apps.account.models import MailValidation
 
 __author__ = 'phillip'
 
@@ -73,6 +77,8 @@ def register_user(parameters=None):
     user = create_user(parameters)
     if user and user.email:
 
+        token = register_token(user)
+
         send_mail(
             subject='Assunto',
             message='Message',
@@ -81,3 +87,14 @@ def register_user(parameters=None):
             fail_silently=False)
 
     return user
+
+
+def register_token(user):
+
+    salt = hashlib.sha1(str(random.random())).hexdigest()[:5]
+    activation_key = hashlib.sha1(salt+user.email).hexdigest()
+
+    token = MailValidation(token=activation_key, user=user)
+    token.save()
+
+    return token if token.pk is not None else False
