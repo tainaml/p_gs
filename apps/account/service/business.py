@@ -7,6 +7,20 @@ __author__ = 'phillip'
 
 
 def create_user_by_parameters(parameters):
+
+    """
+    Method for create a User model Object populated with a dict of parameters.
+
+    :param parameters: Dict of values, this key are(
+        first_name
+        last_name
+        username
+        email
+        password
+        is_active
+    )
+    :return: populated user
+    """
     user = User()
     user.first_name = parameters['first_name']
     user.last_name = parameters['last_name']
@@ -20,16 +34,17 @@ def create_user_by_parameters(parameters):
 def create_user(parameters=None):
 
     """
-    Create_user method needs a array of parameters.
-    Each parameter is named, a list of parameters are:
+    Method for get User Model Object and save him.
+
+    :param parameters: Dict of values, this key are(
         first_name
         last_name
         username
         email
         password
         is_active
-
-    return: populated user if user are save ou False if has errors
+    )
+    :return: populated user if user are save ou False if has errors
     """
     if not parameters:
         parameters = {}
@@ -43,8 +58,15 @@ def create_user(parameters=None):
 
 def register_user(parameters=None):
     """
-    Method for registar one user and send confirmation email link.
-
+    Method for register user and send confirmation email link.
+    :param parameters: Dict of values, this key are(
+        first_name
+        last_name
+        username
+        email
+        password
+    )
+    :return: populated user if user are save ou False if has errors
     """
 
     parameters['is_active'] = False
