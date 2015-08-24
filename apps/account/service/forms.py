@@ -4,6 +4,7 @@ import business as Business
 __author__ = 'phillip'
 from django import forms
 
+
 class SignUpForm(forms.Form):
 
     username = forms.CharField(max_length=100, required=True)
@@ -22,7 +23,6 @@ class SignUpForm(forms.Form):
 
         if cleaned_data.has_key('username') and User.objects.filter(username=cleaned_data['username']).exists():
             raise forms.ValidationError({'username': ["Username is already in use."]})
-
 
     def save(self):
         try:
