@@ -1,0 +1,17 @@
+
+
+<form action="{% url 'account:do_login' %}" method="post">
+    {% csrf_token %}
+
+    <input type="text" name="username" placeholder="Username" maxlength="100">
+    {% if form.username.errors %}  {{ form.username.errors }} {% endif %}
+    <p></p>
+
+    <input type="password" name="password" placeholder="Password" maxlength="50">
+
+    {% if errors %}  {{ errors.password }} {% endif %}
+    <p></p>
+
+    <input type="submit" value="enviar" name="submit" />
+
+</form>

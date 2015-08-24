@@ -2,6 +2,7 @@ from django.contrib.auth.hashers import make_password
 from django.contrib.auth.models import User
 from django.core.mail import send_mail
 from django.conf import settings
+from django.contrib.auth import authenticate, login as auth_login, logout
 
 __author__ = 'phillip'
 
@@ -81,3 +82,17 @@ def register_user(parameters=None):
             fail_silently=False)
 
     return user
+
+def authenticate_user(username_or_email=None, password=None):
+    user = authenticate(username=username_or_email, password=password)
+    return user if user and user.is_active else False
+
+def log_in_user(request=None, user=None):
+    auth_login(request, user)
+
+def logout_user(request=None):
+
+    logout(request)
+
+
+
