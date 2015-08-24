@@ -18,7 +18,7 @@ def signup(request):
         return render(request, 'account/signup.html', {form: form})
 
 
-@require_POST()
+@require_POST
 def register(request):
     '''
     Action to register new user
