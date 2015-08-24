@@ -27,6 +27,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+# Google Recaptcha keys
+#
 NORECAPTCHA_SITE_KEY = '6LccmgsTAAAAAGrsvn7r7aiIcnvbuIS7pyP0qv1K'
 NORECAPTCHA_SECRET_KEY  = '6LccmgsTAAAAANyATh7UT3uL2G2iVnCCGfAXPE5f'
 
