@@ -27,7 +27,7 @@ class SignUpForm(forms.Form):
     def save(self):
         try:
 
-            return Business.create_user(self.cleaned_data) if self.is_valid() \
+            return Business.register_user(self.cleaned_data) if self.is_valid() \
                 else False
         except ValueError, e:
             print e
