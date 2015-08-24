@@ -27,6 +27,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+# Google Recaptcha keys
+#
 NORECAPTCHA_SITE_KEY = '6LccmgsTAAAAAGrsvn7r7aiIcnvbuIS7pyP0qv1K'
 NORECAPTCHA_SECRET_KEY  = '6LccmgsTAAAAANyATh7UT3uL2G2iVnCCGfAXPE5f'
 
@@ -79,6 +81,13 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'rede_gsti.wsgi.application'
 
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.mandrillapp.com'
+EMAIL_HOST_USER = 'philliparente@gmail.com'
+EMAIL_HOST_PASSWORD = 'gZ-tr-g2VKy6zQdRIVzmxg'
+EMAIL_PORT = '587'
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
