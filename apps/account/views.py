@@ -9,11 +9,11 @@ def signup(request):
         return redirect('/')
     else:
         form = SignUpForm()
-        render(request, '../templates/account/signup.html', {form: form})
+        return render(request, '../templates/account/signup.html', {form: form})
 
     
 
-    return 
+
 
 
 def register(request):
