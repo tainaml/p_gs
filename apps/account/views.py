@@ -9,11 +9,8 @@ def signup(request):
         return redirect('/')
     else:
         form = SignUpForm()
+
         return render(request, '../templates/account/signup.html', {form: form})
-
-    
-
-
 
 
 def register(request):
@@ -22,5 +19,7 @@ def register(request):
     if form.save():
         messages.add_message(request, messages.SUCCESS, "Success")
         redirect('/index/')
+    else:
+        print form.errors.as_data()
 
     return render(request, 'account/signup.html', {'form': form})

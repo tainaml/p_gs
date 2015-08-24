@@ -18,10 +18,11 @@ class SignUpForm(forms.Form):
         cleaned_data = super(SignUpForm, self).clean()
         if cleaned_data.has_key('password') and cleaned_data.has_key('password_confirmation') and \
                         cleaned_data['password'] != cleaned_data['password_confirmation']:
-            raise forms.ValidationError("Passwords are not the same.")
+            raise forms.ValidationError({'password': ["Passwords are not the same."]})
 
         if cleaned_data.has_key('username') and User.objects.filter(username=cleaned_data['username']).exists():
-            raise forms.ValidationError("Username is already in use.")
+            raise forms.ValidationError({'username': ["Username is already in use."]})
+
 
     def save(self):
         try:
