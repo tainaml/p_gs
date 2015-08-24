@@ -29,6 +29,6 @@ class SignUpForm(forms.Form):
 
             return Business.register_user(self.cleaned_data) if self.is_valid() \
                 else False
-        except ValueError, e:
-            print e
+        except:
+
             self.add_error(None, "General error")
