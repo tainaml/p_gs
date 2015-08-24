@@ -3,6 +3,10 @@
 from apps.account.service.business import create_user
 from django.test import TestCase
 
+"""
+For run tests do:
+$ python manage.py test apps/account/tests/
+"""
 
 class TestAccountBusinessMethods(TestCase):
 
@@ -15,5 +19,6 @@ class TestAccountBusinessMethods(TestCase):
         parameters['username'] = "andrenascimento"
         parameters['email'] = "andrenascimento@ideiaseo.com"
         parameters['password'] = "1234"
+        parameters['is_active'] = False
 
         self.assertEqual(create_user(parameters).id, 1)

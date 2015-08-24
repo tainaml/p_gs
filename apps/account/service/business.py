@@ -6,30 +6,35 @@ from django.conf import settings
 __author__ = 'phillip'
 
 
-def create_user(parameters=None):
-
-    """
-    create_user method needs a array of parameters
-    each parameter is named, a list of parameters are:
-        first_name
-        last_name
-        username
-        email
-        password
-
-    return: populated user if user are save ou False if has errors
-    """
-    if not parameters:
-        parameters = {}
-
+def create_user_by_parameters(parameters):
     user = User()
-
     user.first_name = parameters['first_name']
     user.last_name = parameters['last_name']
     user.username = parameters['username']
     user.email = parameters['email']
     user.password = make_password(parameters['password'])
     user.is_active = parameters['is_active']
+    return user
+
+
+def create_user(parameters=None):
+
+    """
+    Create_user method needs a array of parameters.
+    Each parameter is named, a list of parameters are:
+        first_name
+        last_name
+        username
+        email
+        password
+        is_active
+
+    return: populated user if user are save ou False if has errors
+    """
+    if not parameters:
+        parameters = {}
+
+    user = create_user_by_parameters(parameters)
 
     user.save()
 
@@ -37,7 +42,10 @@ def create_user(parameters=None):
 
 
 def register_user(parameters=None):
-    """Metodo para cadastrar um usuario e disparar um link de confirmacao por email"""
+    """
+    Method for registar one user and send confirmation email link.
+
+    """
 
     parameters['is_active'] = False
     user = create_user(parameters)
