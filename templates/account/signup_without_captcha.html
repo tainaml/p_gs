@@ -1,6 +1,3 @@
-<script src='https://www.google.com/recaptcha/api.js?hl=pt-BR'></script>
-
-
 <form action="{% url 'account:register' %}" method="post">
     {% csrf_token %}
     <input type="text" name="username" placeholder="Username" maxlength="30">
@@ -27,8 +24,6 @@
     {% if form.password_confirmation.errors %}  {{ form.password_confirmation.errors }} {% endif %}
     <p></p>
 
-    <div class="g-recaptcha" data-sitekey="6LccmgsTAAAAAGrsvn7r7aiIcnvbuIS7pyP0qv1K"></div>
-    {% if form.captcha.errors %}  {{ form.captcha.errors }} {% endif %}
     <p></p>
     <input type="submit" value="enviar" name="submit">
 

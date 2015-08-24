@@ -3,8 +3,20 @@ from django.contrib.auth.models import User
 
 __author__ = 'phillip'
 
+
 def create_user(parameters=None):
 
+    """
+    create_user method needs a array of parameters
+    each parameter is named, a list of parameters are:
+        first_name
+        last_name
+        username
+        email
+        password
+
+    return: populated user if user are save ou False if has errors
+    """
     if not parameters:
         parameters = {}
 
