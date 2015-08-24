@@ -6,7 +6,7 @@ from django.conf import settings
 __author__ = 'phillip'
 
 def create_user(parameters=None):
-
+    """Metodo para generico para cadastrar um usuario"""
     if not parameters:
         parameters = {}
 
@@ -17,6 +17,7 @@ def create_user(parameters=None):
     user.username = parameters['username']
     user.email = parameters['email']
     user.password = make_password(parameters['password'])
+    user.is_active = parameters['is_active']
 
     user.save()
 
@@ -25,10 +26,12 @@ def create_user(parameters=None):
 
 
 def register_user(parameters=None):
+    """Metodo para cadastrar um usuario e disparar um link de confirmacao por email"""
 
+    parameters['is_active'] = False
     user = create_user(parameters)
-    if user:
-        #Todo -> move to settings file
+    if user and user.email:
+
         send_mail(
             subject='Assunto',
             message='Message',
