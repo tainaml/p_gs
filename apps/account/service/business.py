@@ -5,6 +5,7 @@ from django.conf import settings
 
 __author__ = 'phillip'
 
+
 def create_user(parameters=None):
     """Metodo para generico para cadastrar um usuario"""
     if not parameters:
@@ -22,7 +23,6 @@ def create_user(parameters=None):
     user.save()
 
     return user if user.pk is not None else False
-
 
 
 def register_user(parameters=None):
