@@ -28,8 +28,13 @@ def register(request):
     form = SignUpForm(request.POST)
     if form.save():
         messages.add_message(request, messages.SUCCESS, "Success")
-        redirect('/index/')
+        return redirect('/account/registered-successfully')
     else:
         print form.errors.as_data()
 
     return render(request, 'account/signup.html', {'form': form})
+
+
+def registered_successfully(request):
+    message = "Registered Successfully"
+    return render(request, 'account/registered_successfully.html', {'message': message})
