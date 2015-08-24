@@ -85,6 +85,7 @@ def register_user(parameters=None):
 
 def authenticate_user(username_or_email=None, password=None):
     user = authenticate(username=username_or_email, password=password)
+
     return user if user and user.is_active else False
 
 def log_in_user(request=None, user=None):
@@ -94,5 +95,9 @@ def logout_user(request=None):
 
     logout(request)
 
+def update_password(user=None, new_password=None):
+    user.set_password(new_password)
+    user.save()
 
+    return user
 

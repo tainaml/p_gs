@@ -1,7 +1,8 @@
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.views.decorators.http import require_POST
-from .service.forms import SignUpForm, LoginForm
+from .service.forms import SignUpForm, LoginForm, ChangePasswordForm
 from .service.business import log_in_user, logout_user
 
 def login(request):
@@ -18,8 +19,7 @@ def do_login(request):
 
         return redirect('/')
 
-    # is not working show form errors directyle in view. Is it a bug? =(
-    return render(request, 'account/login.html', context={form: form, 'errors': form.errors})
+    return render(request, 'account/login.html', {'form': form})
 
 def logout(request):
 
@@ -70,3 +70,18 @@ def register(request):
 def registered_successfully(request):
     message = "Registered Successfully"
     return render(request, 'account/registered_successfully.html', {'message': message})
+
+@login_required
+def change_password(request):
+
+    form = ChangePasswordForm()
+
+    return render(request, 'account/password_change.html', {'form': form})
+
+def update_password(request):
+
+    form = ChangePasswordForm(request.user, request.POST)
+    if form.process():
+        return render(request, 'account/password_change_successfully.html')
+
+    return render(request, 'account/password_change.html', {'form': form})

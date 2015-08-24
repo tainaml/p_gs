@@ -46,3 +46,41 @@ class LoginForm(forms.Form):
                 raise forms.ValidationError({'password': ["Wrong password or username."]})
             else:
                 self.instance=user
+
+class ChangePasswordForm(forms.Form):
+    old_password = forms.CharField(max_length=30, required=True)
+    new_password = forms.CharField(max_length=30, required=True)
+    new_password_confirmation = forms.CharField(max_length=30, required=True)
+
+    def __init__(self, user=None, *args, **kwargs):
+        self.user = user
+        super(ChangePasswordForm, self).__init__(*args, **kwargs)
+
+
+    def clean(self):
+        cleaned_data = super(ChangePasswordForm, self).clean()
+        if cleaned_data.has_key('old_password'):
+            is_authenticated = Business.authenticate_user(self.user.username, cleaned_data['old_password'])
+            if not is_authenticated:
+                raise forms.ValidationError({'old_password': ["Wrong old password."]})
+
+            if cleaned_data.has_key('new_password') and cleaned_data.has_key('new_password_confirmation') and \
+                        cleaned_data['new_password'] != cleaned_data['new_password_confirmation']:
+                raise forms.ValidationError({'new_password': ["Passwords are not the same."]})
+
+    def process(self):
+
+        try:
+            return Business.update_password(self.user, self.cleaned_data['new_password']) if self.is_valid() \
+                else False
+        except:
+
+            self.add_error(None, "General error")
+
+
+
+
+
+
+
+
