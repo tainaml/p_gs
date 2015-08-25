@@ -7,7 +7,7 @@ from django.conf import settings
 from django.contrib.auth import authenticate, login as auth_login, logout
 from django.db import transaction
 from django.utils import timezone
-
+from ..models import TokenType
 from apps.account.models import MailValidation
 from apps.mailmanager import send_email
 
