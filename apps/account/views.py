@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect
 from django.views.decorators.http import require_POST
 from .service.forms import SignUpForm, LoginForm, ChangePasswordForm
 from .service.business import log_in_user, logout_user, register_confirm, check_token_exist
-from .service.forms import SignUpForm
+
  
 
 def login(request):
@@ -109,6 +109,7 @@ def change_password(request):
 
     return render(request, 'account/password_change.html', {'form': form})
 
+@login_required
 def update_password(request):
 
     form = ChangePasswordForm(request.user, request.POST)

@@ -3,15 +3,14 @@ import random
 
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.models import User
-from django.core.mail import send_mail
 from django.conf import settings
 from django.contrib.auth import authenticate, login as auth_login, logout
-from django.core.urlresolvers import reverse
 from django.db import transaction
-from django.http import HttpRequest
 from django.utils import timezone
+
 from apps.account.models import MailValidation
 from apps.mailmanager import send_email
+
 
 __author__ = 'phillip'
 
@@ -84,8 +83,6 @@ def register_user(parameters=None):
 
     parameters['is_active'] = False
     user = create_user(parameters)
-    print user
-    print user.email
 
     if user and user.email:
 
