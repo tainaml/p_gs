@@ -209,7 +209,14 @@ def forgot_password(user_email=None):
         user = User.objects.get(email=user_email)
         MailValidation.objects.filter(user=user, token_type=TokenType.RECOVERY_PASSWORD_CONFIRM).update(active=False)
         token = register_token(user=user, token_type=TokenType.RECOVERY_PASSWORD_CONFIRM)
-        # TODO - method to send email
+
+        send_email(
+            to=str(user.email),
+            subject='Password Recovery',
+            template='mailmanager/password-recovery.html',
+            context={'user': user, 'token': token, 'base_url': settings.SITE_URL}
+        )
+
     except User.DoesNotExist:
         return False
 
