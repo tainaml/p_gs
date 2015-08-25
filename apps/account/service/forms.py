@@ -77,10 +77,3 @@ class ChangePasswordForm(forms.Form):
 
             self.add_error(None, "General error")
 
-
-
-
-
-
-
-
