@@ -8,7 +8,6 @@ from django import forms
 
 
 class SignUpForm(forms.Form):
-
     username = forms.CharField(max_length=100, required=True)
     first_name = forms.CharField(max_length=30, required=True)
     last_name = forms.CharField(max_length=150, required=True)
@@ -34,6 +33,7 @@ class SignUpForm(forms.Form):
 
             self.add_error(None, "General error")
 
+
 class LoginForm(forms.Form):
     username = forms.CharField(max_length=100, required=True)
     password = forms.CharField(max_length=50, required=True)
@@ -41,11 +41,13 @@ class LoginForm(forms.Form):
     def clean(self):
         cleaned_data = super(LoginForm, self).clean()
         if cleaned_data.has_key('password') and cleaned_data.has_key('username'):
-            user = Business.authenticate_user(username_or_email=cleaned_data['username'], password=cleaned_data['password'])
+            user = Business.authenticate_user(username_or_email=cleaned_data['username'],
+                                              password=cleaned_data['password'])
             if not user:
                 raise forms.ValidationError({'password': ["Wrong password or username."]})
             else:
-                self.instance=user
+                self.instance = user
+
 
 class ChangePasswordForm(forms.Form):
     old_password = forms.CharField(max_length=30, required=True)
@@ -56,7 +58,6 @@ class ChangePasswordForm(forms.Form):
         self.user = user
         super(ChangePasswordForm, self).__init__(*args, **kwargs)
 
-
     def clean(self):
         cleaned_data = super(ChangePasswordForm, self).clean()
         if cleaned_data.has_key('old_password'):
@@ -65,15 +66,51 @@ class ChangePasswordForm(forms.Form):
                 raise forms.ValidationError({'old_password': ["Wrong old password."]})
 
             if cleaned_data.has_key('new_password') and cleaned_data.has_key('new_password_confirmation') and \
-                        cleaned_data['new_password'] != cleaned_data['new_password_confirmation']:
+                    cleaned_data['new_password'] != cleaned_data['new_password_confirmation']:
                 raise forms.ValidationError({'new_password': ["Passwords are not the same."]})
 
     def process(self):
-
         try:
             return Business.update_password(self.user, self.cleaned_data['new_password']) if self.is_valid() \
                 else False
         except:
-
             self.add_error(None, "General error")
 
+
+class ForgotPasswordForm(forms.Form):
+
+    email = forms.EmailField(max_length=150, required=True)
+
+    def clean(self):
+        cleaned_data = super(ForgotPasswordForm, self).clean()
+        if 'email' in cleaned_data and not User.objects.filter(email=cleaned_data['email']).exists():
+            raise forms.ValidationError({'email': ["Does not exist account with this email."]})
+
+    def process(self):
+        try:
+            return Business.forgot_password(self.cleaned_data['email']) if self.is_valid() else False
+        except:
+            self.add_error(None, "General error")
+
+
+class RecoveryPasswordForm(forms.Form):
+
+    new_password = forms.CharField(max_length=30, required=True)
+    new_password_confirmation = forms.CharField(max_length=30, required=True)
+
+    def __init__(self, user=None, *args, **kwargs):
+        self.user = user
+        super(RecoveryPasswordForm, self).__init__(*args, **kwargs)
+
+    def clean(self):
+        cleaned_data = super(RecoveryPasswordForm, self).clean()
+        if 'new_password' in cleaned_data and 'new_password_confirmation' in cleaned_data and \
+                cleaned_data['new_password'] != cleaned_data['new_password_confirmation']:
+            raise forms.ValidationError({'new_password': ["Passwords are not the same."]})
+
+    def process(self):
+        try:
+            return Business.update_password(self.user, self.cleaned_data['new_password']) if self.is_valid() \
+                else False
+        except:
+            self.add_error(None, "General error")

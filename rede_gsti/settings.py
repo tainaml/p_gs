@@ -30,12 +30,11 @@ ALLOWED_HOSTS = []
 # Google Recaptcha keys
 #
 NORECAPTCHA_SITE_KEY = '6LccmgsTAAAAAGrsvn7r7aiIcnvbuIS7pyP0qv1K'
-NORECAPTCHA_SECRET_KEY  = '6LccmgsTAAAAANyATh7UT3uL2G2iVnCCGfAXPE5f'
+NORECAPTCHA_SECRET_KEY = '6LccmgsTAAAAANyATh7UT3uL2G2iVnCCGfAXPE5f'
 
 # Application definition
 
 INSTALLED_APPS = (
-
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -107,17 +106,14 @@ DATABASES = {
     }
 }
 
+
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
-
 TIME_ZONE = 'UTC'
-
 USE_I18N = True
-
 USE_L10N = True
-
 USE_TZ = True
 
 
@@ -125,3 +121,11 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
 STATIC_URL = '/static/'
+
+
+#
+LOGIN_URL = '/account/login'
+
+# MailValidation Time
+TIME_REGISTER_ACCOUNT = 48
+TIME_RECOVERY_PASSWORD = 8

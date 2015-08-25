@@ -8,7 +8,7 @@ from django.conf import settings
 from django.contrib.auth import authenticate, login as auth_login, logout
 from django.db import transaction
 from django.utils import timezone
-from apps.account.models import MailValidation
+from apps.account.models import MailValidation, TokenType
 
 __author__ = 'phillip'
 
@@ -83,7 +83,7 @@ def register_user(parameters=None):
     user = create_user(parameters)
     if user and user.email:
 
-        token = register_token(user)
+        token = register_token(user=user, token_type=TokenType.REGISTER_ACCOUNT_CONFIRM)
 
         send_mail(
             subject='Assunto',
@@ -104,11 +104,10 @@ def register_confirm(activation_key):
     """
 
     token = check_token_exist(activation_key)
-    if token:
-        if token.is_active() and token.is_valid():
-            user = activate_account(token)
-            if user:
-                return True
+    if token and token.is_active() and token.is_valid():
+        user = activate_account(token)
+        if user:
+            return True
 
     return False
 
@@ -135,7 +134,7 @@ def activate_account(token):
     return user
 
 
-def register_token(user):
+def register_token(user, token_type):
 
     """
     Method for register a new token
@@ -147,15 +146,17 @@ def register_token(user):
     salt = hashlib.sha1(str(random.random())).hexdigest()[:5]
     activation_key = hashlib.sha1(salt+user.email).hexdigest()
 
-    token = MailValidation(token=activation_key, user=user, link_date=timezone.now())
+    token = MailValidation(token=activation_key, user=user, link_date=timezone.now(), token_type=token_type)
     token.save()
 
     return token if token.pk is not None else False
 
 
 def check_token_exist(activation_key):
+
     """
     Method checks if token exist
+
     :param activation_key:
     :return Token if exists else False:
     """
@@ -174,6 +175,7 @@ def deactivate_token(token):
 
     return token
 
+
 def authenticate_user(username_or_email=None, password=None):
     user = authenticate(username=username_or_email, password=password)
     if not user:
@@ -186,15 +188,31 @@ def authenticate_user(username_or_email=None, password=None):
 
     return user if user and user.is_active else False
 
+
 def log_in_user(request=None, user=None):
     auth_login(request, user)
+
 
 def logout_user(request=None):
 
     logout(request)
+
 
 def update_password(user=None, new_password=None):
     user.set_password(new_password)
     user.save()
 
     return user
+
+
+@transaction.atomic()
+def forgot_password(user_email=None):
+    try:
+        user = User.objects.get(email=user_email)
+        MailValidation.objects.filter(user=user, token_type=TokenType.RECOVERY_PASSWORD_CONFIRM).update(active=False)
+        token = register_token(user=user, token_type=TokenType.RECOVERY_PASSWORD_CONFIRM)
+        # TODO - method to send email
+    except User.DoesNotExist:
+        return False
+
+    return token
