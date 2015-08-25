@@ -4,7 +4,7 @@ from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.views.decorators.http import require_POST
 from .service.forms import SignUpForm
-from .service.business import register_confirm
+from .service.business import register_confirm, check_token_exist
 
 
 def signup(request):
@@ -55,6 +55,14 @@ def registered_successfully(request):
 
 def mail_validation(request, activation_key):
 
+    """
+    Method for validate url with token sent by email to confirm user's account
+
+    :param request:
+    :param activation_key:
+    :return: HTML
+    """
+
     message = 'Token not exist'
 
     if register_confirm(activation_key):
@@ -65,5 +73,18 @@ def mail_validation(request, activation_key):
 
 def recovery_validation(request, activation_key):
 
-    message = 'checking...'
+    """
+    Method to validate url with the token sent by email to the user to change the password
+
+    :param request:
+    :param activation_key:
+    :return: HTML
+    """
+
+    message = 'Token not exist'
+
+    token = check_token_exist(activation_key)
+    if token:
+        message = 'Token exist'
+
     return render(request, 'account/recovery_validation.html', {'message': message})
