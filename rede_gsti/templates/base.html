@@ -1,0 +1,523 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>{% block title %}Portal GSTI - Home {% endblock %}</title>
+        <link rel="stylesheet" href="{% static 'stylesheets/style.css' %}">
+    </head>
+    <body>
+        <header class="header">
+            <div class="container">
+                <div class="row">
+                    <h1 class="gsti">
+                        <a href="javascript:;" class="gsti-link">Portal GSTI</a>
+                    </h1>
+                    <form class="form-search" action="/search" method="GET" role="search">
+                        <div class="form-search-input">
+                            <input type="text" placeholder="Procure pessoas, comunidades, etc.">
+                        </div>
+                        <button type="submit" class="form-search-button">
+                            <i class="gsticon gsticon-search"></i>
+                        </button>
+                    </form>
+                    <div class="user-actions">
+                        <a href="javascript:;" class="user-actions-link">Cadastre-se</a>
+                        <a href="javascript:;" class="user-actions-link">Login</a>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <section class="header-navegation">
+            <div class="container">
+                <nav class="menu-categories">
+                    <a class="governance" href="javascript:;">Governança de TI</a>
+                    •<a class="development" href="javascript:;">Desenvolvimento</a>
+                    •<a class="web-design" href="javascript:;">Web Design</a>
+                    •<a class="marketing" href="javascript:;">Marketing Digital</a>
+                    •<a class="infra" href="javascript:;">Infraestrutura</a>
+                    •<a class="databases" href="javascript:;">Banco de Dados</a>
+                </nav>
+                <nav class="menu-social">
+                    <a class="gsticon gsticon-facebook-square" href="javascript:;"></a>
+                    <a class="gsticon gsticon-google-plus-square" href="javascript:;"></a>
+                    <a class="gsticon gsticon-linkedin-square" href="javascript:;"></a>
+                    <a class="gsticon gsticon-twitter-square" href="javascript:;"></a>
+                    <a class="gsticon gsticon-youtube-square" href="javascript:;"></a>
+                </nav>
+            </div>
+        </section>
+        <!-- <main class="container text-center">{% block content %}
+            <img class="img-responsive" src="{% static 'images/under-construction.jpg' %}" alt="Em Construção">
+            <h2>Em Construção</h2>
+        {% endblock %}</main> -->
+        <main class="container">
+            <div class="highlight-area">
+                <div class="highlight-left">
+                    <div class="banner">
+                        <img class="img-responsive" src="http://placehold.it/728x90" alt="Banner Example">
+                    </div>
+                    <div class="post-list-container">
+                        <article class="article-home-large area-governance">
+                            <a href="javascript:;">
+                                <img class="img-responsive" src="http://placehold.it/170x128" alt="Placeholder">
+                            </a>
+                            <a class="article-content" href="javascript:;">Lorem Ipsum is simply dummy text of the printing and typ</a>
+                        </article>
+                        <article class="article-home-large area-governance">
+                            <a href="javascript:;">
+                                <img class="img-responsive" src="http://placehold.it/170x128" alt="Placeholder">
+                            </a>
+                            <a class="article-content" href="javascript:;">Lorem Ipsum is simply dummy text of the printing and typ</a>
+                        </article>
+                        <article class="article-home-large area-development">
+                            <a href="javascript:;">
+                                <img class="img-responsive" src="http://placehold.it/170x128" alt="Placeholder">
+                            </a>
+                            <a class="article-content" href="javascript:;">Lorem Ipsum is simply dummy text of the printing and typ</a>
+                        </article>
+                        <article class="article-home-large area-development">
+                            <a href="javascript:;">
+                                <img class="img-responsive" src="http://placehold.it/170x128" alt="Placeholder">
+                            </a>
+                            <a class="article-content" href="javascript:;">Lorem Ipsum is simply dummy text of the printing and typ</a>
+                        </article>
+                    </div>
+                    <div class="highlight-articles--large area-web-design">
+                        <a class="highlight-article-medium" href="javascript:;">Lorem Ipsum is simply dummy text of the printing</a>
+                        <a class="highlight-article-medium" href="javascript:;">Lorem Ipsum is simply dummy text of the printing</a>
+                    </div>
+                </div>
+                <div class="highlight-right">
+                    <div class="highlight-articles area-databases">
+                        <a class="highlight-article-large" href="javascript:;">Projeto do Google quer mapear telhados para produzir energia solar</a>
+                        <a class="highlight-article-large" href="javascript:;">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facere soluta</a>
+                    </div>
+                    <div class="highlight-articles area-infra">
+                        <a class="highlight-article-medium" href="javascript:;">Lorem Ipsum is simply dummy text of the printing</a>
+                        <a class="highlight-article-medium" href="javascript:;">Lorem Ipsum is simply dummy text of the printing</a>
+                    </div>
+                    <div class="highlight-articles--no-border area-marketing">
+                        <a class="highlight-article-medium" href="javascript:;">
+                            <img class="img-responsive" src="http://placehold.it/170x88" alt="Highlight banner">
+                        </a>
+                        <a class="highlight-article-medium" href="javascript:;">Lorem Ipsum is simply dummy text of the printing</a>
+                    </div>
+                    <div class="highlight-articles--no-border area-marketing">
+                        <a class="highlight-article-medium" href="javascript:;">
+                            <img class="img-responsive" src="http://placehold.it/170x88" alt="Highlight banner">
+                        </a>
+                        <a class="highlight-article-medium" href="javascript:;">Lorem Ipsum is simply dummy text of the printing</a>
+                    </div>
+                </div>
+            </div>
+            <div class="container-posts">
+                <section class="post-list--large post-list--governance">
+                    <div class="post-list-header">
+                        <h2 class="post-list-heading">Governança de TI</h2>
+                        <nav class="post-list-nav">
+                             <a class="subs" href="javascript:;">ITIL</a>•
+                             <a class="subs" href="javascript:;">COBIT</a>•
+                            <a class="subs" href="javascript:;">Cloud Computing</a>•
+                            <a class="subs" href="javascript:;">PMBOOK</a>
+                        </nav>
+                    </div>
+                    <div class="post-list-container">
+                        <article class="article-home-large">
+                            <a href="javascript:;">
+                                <img class="img-responsive" src="http://placehold.it/270x203" alt="Placeholder">
+                            </a>
+                            <div>
+                                <a class="article-category" href="javascript:;">ITIL</a>
+                                <a class="article-content" href="javascript:;">Lorem Ipsum is simply dummy text of the printing and typ esetting industry Ipsum has been.</a>
+                            </div>
+                        </article>
+                        <article class="article-home-large">
+                            <a href="javascript:;">
+                                <img class="img-responsive" src="http://placehold.it/270x203" alt="Placeholder">
+                            </a>
+                            <div>
+                                <a class="article-category" href="javascript:;">ITIL</a>
+                                <a class="article-content" href="javascript:;">Lorem Ipsum is simply dummy text of the printing and typ esetting industry Ipsum has been.</a>
+                            </div>
+                        </article>
+                        <article class="article-home-large">
+                            <a href="javascript:;">
+                                <img class="img-responsive" src="http://placehold.it/270x203" alt="Placeholder">
+                            </a>
+                            <div>
+                                <a class="article-category" href="javascript:;">ITIL</a>
+                                <a class="article-content" href="javascript:;">Lorem Ipsum is simply dummy text of the printing and typ esetting industry Ipsum has been.</a>
+                            </div>
+                        </article>
+                        <article class="article-home-large">
+                            <a href="javascript:;">
+                                <img class="img-responsive" src="http://placehold.it/270x203" alt="Placeholder">
+                            </a>
+                            <div>
+                                <a class="article-category" href="javascript:;">ITIL</a>
+                                <a class="article-content" href="javascript:;">Lorem Ipsum is simply dummy text of the printing and typ esetting industry Ipsum has been.</a>
+                            </div>
+                        </article>
+                    </div>
+                </section>
+            </div>
+            <div class="container-posts">
+                <section class="post-list--half post-list--development">
+                    <div class="post-list-header">
+                        <h2 class="post-list-heading">Desenvolvimento</h2>
+                        <nav class="post-list-nav">
+                             <a class="subs" href="javascript:;">ITIL</a>•
+                             <a class="subs" href="javascript:;">COBIT</a>•
+                            <a class="subs" href="javascript:;">Cloud Computing</a>•
+                            <a class="subs" href="javascript:;">PMBOOK</a>
+                        </nav>
+                    </div>
+                    <div class="post-list-container">
+                        <article class="article-home-small">
+                            <a href="javascript:;">
+                                <img class="img-responsive" src="http://placehold.it/170x128" alt="Placeholder">
+                            </a>
+                            <div>
+                                <a class="article-category" href="javascript:;">ITIL</a>
+                                <a class="article-content" href="javascript:;">Lorem Ipsum is simply dummy text of the printing and typ esetting industry Ipsum has been.</a>
+                            </div>
+                        </article>
+                        <article class="article-home-small">
+                            <a href="javascript:;">
+                                <img class="img-responsive" src="http://placehold.it/170x128" alt="Placeholder">
+                            </a>
+                            <div>
+                                <a class="article-category" href="javascript:;">ITIL</a>
+                                <a class="article-content" href="javascript:;">Lorem Ipsum is simply dummy text of the printing and typ esetting industry Ipsum has been.</a>
+                            </div>
+                        </article>
+                        <article class="article-home-small">
+                            <a href="javascript:;">
+                                <img class="img-responsive" src="http://placehold.it/170x128" alt="Placeholder">
+                            </a>
+                            <div>
+                                <a class="article-category" href="javascript:;">ITIL</a>
+                                <a class="article-content" href="javascript:;">Lorem Ipsum is simply dummy text of the printing and typ esetting industry Ipsum has been.</a>
+                            </div>
+                        </article>
+                    </div>
+                    <div>
+                        <hr>
+                        <article class="article-home-medium" href="javascript:;">
+                            <a class="article-category" href="javascript;;">ITIL</a>
+                            <a class="article-content" href="javascript;;">Lorem Ipsum is simply dummy text of the printing and typ esetting industry Ipsum has been.</a>
+                        </article>
+                        <article class="article-home-medium" href="javascript:;">
+                            <a class="article-category" href="javascript;;">ITIL</a>
+                            <a class="article-content" href="javascript;;">Lorem Ipsum is simply dummy text of the printing and typ esetting industry Ipsum has been.</a>
+                        </article>
+                    </div>
+                </section>
+                <section class="post-list--half post-list--marketing">
+                    <div class="post-list-header">
+                        <h2 class="post-list-heading">Marketing Digital</h2>
+                        <nav class="post-list-nav">
+                             <a class="subs" href="javascript:;">ITIL</a>•
+                             <a class="subs" href="javascript:;">COBIT</a>•
+                            <a class="subs" href="javascript:;">Cloud Computing</a>•
+                            <a class="subs" href="javascript:;">PMBOOK</a>
+                        </nav>
+                    </div>
+                    <div class="post-list-container">
+                        <article class="article-home-small">
+                            <a href="javascript:;">
+                                <img class="img-responsive" src="http://placehold.it/170x128" alt="Placeholder">
+                            </a>
+                            <div>
+                                <a class="article-category">ITIL</a>
+                                <a class="article-content">Lorem Ipsum is simply dummy text of the printing and typ esetting industry Ipsum has been.</a>
+                            </div>
+                        </article>
+                        <article class="article-home-small">
+                            <a href="javascript:;">
+                                <img class="img-responsive" src="http://placehold.it/170x128" alt="Placeholder">
+                            </a>
+                            <div>
+                                <a class="article-category">ITIL</a>
+                                <a class="article-content">Lorem Ipsum is simply dummy text of the printing and typ esetting industry Ipsum has been.</a>
+                            </div>
+                        </article>
+                        <article class="article-home-small">
+                            <a href="javascript:;">
+                                <img class="img-responsive" src="http://placehold.it/170x128" alt="Placeholder">
+                            </a>
+                            <div>
+                                <a class="article-category">ITIL</a>
+                                <a class="article-content">Lorem Ipsum is simply dummy text of the printing and typ esetting industry Ipsum has been.</a>
+                            </div>
+                        </article>
+                    </div>
+                    <div>
+                        <hr>
+                        <article class="article-home-medium" href="javascript:;">
+                            <a class="article-category" href="javascript;;">ITIL</a>
+                            <a class="article-content" href="javascript;;">Lorem Ipsum is simply dummy text of the printing and typ esetting industry Ipsum has been.</a>
+                        </article>
+                        <article class="article-home-medium" href="javascript:;">
+                            <a class="article-category" href="javascript;;">ITIL</a>
+                            <a class="article-content" href="javascript;;">Lorem Ipsum is simply dummy text of the printing and typ esetting industry Ipsum has been.</a>
+                        </article>
+                    </div>
+                </section>
+            </div>
+            <div class="container-posts">
+                <div class="banner-content-wide">
+                    <div class="banner">
+                        <img class="img-responsive" src="http://placehold.it/970x90" alt="Banner Example">
+                    </div>
+                </div>
+                <section class="post-list--half post-list--web-design">
+                    <div class="post-list-header">
+                        <h2 class="post-list-heading">Web Design</h2>
+                        <nav class="post-list-nav">
+                            <a class="subs" href="javascript:;">ITIL</a>•
+                            <a class="subs" href="javascript:;">COBIT</a>•
+                            <a class="subs" href="javascript:;">Cloud Computing</a>•
+                            <a class="subs" href="javascript:;">PMBOOK</a>
+                        </nav>
+                    </div>
+                    <div class="post-list-container">
+                        <article class="article-home-medium">
+                            <a href="javascript:;">
+                                <img class="img-responsive" src="http://placehold.it/270x203" alt="Placeholder">
+                            </a>
+                            <div>
+                                <a class="article-category" href="javascript:;">ITIL</a>
+                                <a class="article-content">Lorem Ipsum is simply dummy text of the printing and typ esetting industry Ipsum has been.</a>
+                            </div>
+                        </article>
+                        <article class="article-home-medium">
+                            <a href="javascript:;">
+                                <img class="img-responsive" src="http://placehold.it/270x203" alt="Placeholder">
+                            </a>
+                            <div>
+                                <a class="article-category" href="javascript:;">ITIL</a>
+                                <a class="article-content">Lorem Ipsum is simply dummy text of the printing and typ esetting industry Ipsum has been.</a>
+                            </div>
+                        </article>
+                    </div>
+                    <div>
+                        <hr>
+                        <article class="article-home-medium" href="javascript:;">
+                            <a class="article-category" href="javascript;;">ITIL</a>
+                            <a class="article-content" href="javascript;;">Lorem Ipsum is simply dummy text of the printing and typ esetting industry Ipsum has been.</a>
+                        </article>
+                        <article class="article-home-medium" href="javascript:;">
+                            <a class="article-category" href="javascript;;">ITIL</a>
+                            <a class="article-content" href="javascript;;">Lorem Ipsum is simply dummy text of the printing and typ esetting industry Ipsum has been.</a>
+                        </article>
+                    </div>
+                </section>
+                <section class="post-list--half post-list--infra">
+                    <div class="post-list-header">
+                        <h2 class="post-list-heading">Infraestrutura</h2>
+                        <nav class="post-list-nav">
+                             <a class="subs" href="javascript:;">ITIL</a>•
+                             <a class="subs" href="javascript:;">COBIT</a>•
+                            <a class="subs" href="javascript:;">Cloud Computing</a>•
+                            <a class="subs" href="javascript:;">PMBOOK</a>
+                        </nav>
+                    </div>
+                    <div class="post-list-container">
+                        <article class="article-home-medium">
+                            <a href="javascript:;">
+                                <img class="img-responsive" src="http://placehold.it/270x203" alt="Placeholder">
+                            </a>
+                            <div>
+                                <a class="article-category" href="javascript;;">ITIL</a>
+                                <a class="article-content">Lorem Ipsum is simply dummy text of the printing and typ esetting industry Ipsum has been.</a>
+                            </div>
+                        </article>
+                        <article class="article-home-medium">
+                            <a href="javascript:;">
+                                <img class="img-responsive" src="http://placehold.it/270x203" alt="Placeholder">
+                            </a>
+                            <div>
+                                <a class="article-category" href="javascript;;">ITIL</a>
+                                <a class="article-content">Lorem Ipsum is simply dummy text of the printing and typ esetting industry Ipsum has been.</a>
+                            </div>
+                        </article>
+                    </div>
+                    <div >
+                        <hr>
+                        <div class="article-home-medium">
+                            <a class="article-category" href="javascript:;">ITIL</a>
+                            <a class="article-content" href="javascript:;">Lorem Ipsum is simply dummy text of the printing and typ esetting industry Ipsum has been.</a>
+                        </div>
+                        <div class="article-home-medium">
+                            <a class="article-category" href="javascript:;">ITIL</a>
+                            <a class="article-content" href="javascript:;">Lorem Ipsum is simply dummy text of the printing and typ esetting industry Ipsum has been.</a>
+                        </div>
+                    </div>
+                </section>
+                <section class="post-list--third post-list--databases">
+                    <div class="post-list-header">
+                        <h2 class="post-list-heading">Banco de Dados</h2>
+                        <nav class="post-list-nav">
+                             <a class="subs" href="javascript:;">ITIL</a>•
+                             <a class="subs" href="javascript:;">COBIT</a>•
+                            <a class="subs" href="javascript:;">Cloud Computing</a>•
+                            <a class="subs" href="javascript:;">PMBOOK</a>
+                        </nav>
+                    </div>
+                    <div class="post-list-container">
+                        <article class="article-home-small">
+                            <a href="javascript:;">
+                                <img class="img-responsive" src="http://placehold.it/270x203" alt="Placeholder">
+                            </a>
+                            <div>
+                                <a class="article-category" href="javascript:;">ITIL</a>
+                                <a class="article-content" href="javascript:;">Lorem Ipsum is simply dummy text of the printing and typ esetting industry Ipsum has been.</a>
+                            </div>
+                        </article>
+                        <article class="article-home-small">
+                            <a href="javascript:;">
+                                <img class="img-responsive" src="http://placehold.it/270x203" alt="Placeholder">
+                            </a>
+                            <div>
+                                <a class="article-category" href="javascript:;">ITIL</a>
+                                <a class="article-content" href="javascript;;">Lorem Ipsum is simply dummy text of the printing and typ esetting industry Ipsum has been.</a>
+                            </div>
+                        </article>
+                        <article class="article-home-small">
+                            <a href="javascript:;">
+                                <img class="img-responsive" src="http://placehold.it/270x203" alt="Placeholder">
+                            </a>
+                            <div>
+                                <a class="article-category" href="javascript:;">ITIL</a>
+                                <a class="article-content" href="javascript:;">Lorem Ipsum is simply dummy text of the printing and typ esetting industry Ipsum has been.</a>
+                            </div>
+                        </article>
+                    </div>
+                </section>
+                <section class="post-list--small">
+                    <div class="post-list-header">
+                        <h2 class="post-list-heading">Conecte-se</h2>
+                    </div>
+                    <div class="fb-page" data-href="https://www.facebook.com/PortalGSTIpage" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="false" data-show-posts="false"><div class="fb-xfbml-parse-ignore"><blockquote cite="https://www.facebook.com/PortalGSTIpage"><a href="https://www.facebook.com/PortalGSTIpage">Portal GSTI</a></blockquote></div></div>
+                     <!-- Place this tag where you want the widget to render. -->
+                    <div id="google-badge">
+                        <div class="g-page" data-width="270" data-href="https://plus.google.com/113333419239001929124" data-layout="landscape" data-rel="publisher"></div>
+                    </div>
+                </section>
+            </div>
+        </main>
+        <footer class="footer">
+            <div class="container">
+                <ul class="list-unstyled box-list">
+                    <li class="box-list-links">
+                        <h3 class="h4 box-list-heading">Governança de TI</h3>
+                        <ul class="list-links">
+                            <li><a href="javascript:;">Simply</a></li>
+                            <li><a href="javascript:;">Scrambled</a></li>
+                            <li><a href="javascript:;">Remaining</a></li>
+                            <li><a href="javascript:;">Rublishing</a></li>
+                            <li><a href="javascript:;">Aldus</a></li>
+                            <li><a href="javascript:;">Sometimes</a></li>
+                            <li><a href="javascript:;">Uncover</a></li>
+                        </ul>
+                    </li>
+                    <li class="box-list-links">
+                        <h3 class="h4 box-list-heading">Desenvolvimento</h3>
+                        <ul class="list-links">
+                            <li><a href="javascript:;">Simply</a></li>
+                            <li><a href="javascript:;">Scrambled</a></li>
+                            <li><a href="javascript:;">Remaining</a></li>
+                            <li><a href="javascript:;">Rublishing</a></li>
+                            <li><a href="javascript:;">Aldus</a></li>
+                            <li><a href="javascript:;">Sometimes</a></li>
+                            <li><a href="javascript:;">Uncover</a></li>
+                        </ul>
+                    </li>
+                    <li class="box-list-links">
+                        <h3 class="h4 box-list-heading">Web Design</h3>
+                        <ul class="list-links">
+                            <li><a href="javascript:;">Simply</a></li>
+                            <li><a href="javascript:;">Scrambled</a></li>
+                            <li><a href="javascript:;">Remaining</a></li>
+                            <li><a href="javascript:;">Rublishing</a></li>
+                            <li><a href="javascript:;">Aldus</a></li>
+                            <li><a href="javascript:;">Sometimes</a></li>
+                            <li><a href="javascript:;">Uncover</a></li>
+                        </ul>
+                    </li>
+                    <li class="box-list-links">
+                        <h3 class="h4 box-list-heading">Marketing Digital</h3>
+                        <ul class="list-links">
+                            <li><a href="javascript:;">Simply</a></li>
+                            <li><a href="javascript:;">Scrambled</a></li>
+                            <li><a href="javascript:;">Remaining</a></li>
+                            <li><a href="javascript:;">Rublishing</a></li>
+                            <li><a href="javascript:;">Aldus</a></li>
+                            <li><a href="javascript:;">Sometimes</a></li>
+                            <li><a href="javascript:;">Uncover</a></li>
+                        </ul>
+                    </li>
+                    <li class="box-list-links">
+                        <h3 class="h4 box-list-heading">Infraestrutura</h3>
+                        <ul class="list-links">
+                            <li><a href="javascript:;">Simply</a></li>
+                            <li><a href="javascript:;">Scrambled</a></li>
+                            <li><a href="javascript:;">Remaining</a></li>
+                            <li><a href="javascript:;">Rublishing</a></li>
+                            <li><a href="javascript:;">Aldus</a></li>
+                            <li><a href="javascript:;">Sometimes</a></li>
+                            <li><a href="javascript:;">Uncover</a></li>
+                        </ul>
+                    </li>
+                    <li class="box-list-links">
+                        <h3 class="h4 box-list-heading">Banco de Dados</h3>
+                        <ul class="list-links">
+                            <li><a href="javascript:;">Simply</a></li>
+                            <li><a href="javascript:;">Scrambled</a></li>
+                            <li><a href="javascript:;">Remaining</a></li>
+                            <li><a href="javascript:;">Rublishing</a></li>
+                            <li><a href="javascript:;">Aldus</a></li>
+                            <li><a href="javascript:;">Sometimes</a></li>
+                            <li><a href="javascript:;">Uncover</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <nav class="footer-nav">
+                <div class="container">
+                    <div class="row">
+                        <span class="copyright">Portal GSTI © Copyright 2015</span>
+                        <ul class="links-help">
+                            <li class="list-item"><a href="javascript:;">Sobre</a></li>
+                            <li class="list-item"><a href="javascript:;">Regras do portal</a></li>
+                            <li class="list-item"><a href="javascript:;">Contato</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </footer>
+        {% block javascript %}{% endblock %}
+        <script src="{% static 'javascripts/shared.js' %}"></script>
+        <script src="{% static 'javascripts/main.js' %}"></script>
+        <div id="fb-root"></div>
+
+        <!-- Place this tag after the last widget tag. -->
+        <script type="text/javascript">
+        (function(d, s, id) {
+            document.getElementsByClassName('g-page')[0].setAttribute('data-width', document.getElementById('google-badge').clientWidth);
+          var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+          po.src = 'https://apis.google.com/js/platform.js';
+          var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+
+          var js, fjs = d.getElementsByTagName(s)[0];
+          if (d.getElementById(id)) return;
+          js = d.createElement(s); js.id = id;
+          js.src = "//connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v2.4&appId=625566967570537";
+          fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));</script>
+    </body>
+</html>
