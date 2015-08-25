@@ -44,15 +44,6 @@ def signup(request):
         return render(request, 'account/signup.html', {form: form})
 
 
-def signup_without_captcha(request):
-    if request.user.is_authenticated():
-        return redirect('/')
-    else:
-        form = SignUpForm()
-
-        return render(request, '../templates/account/signup_without_captcha.html', {form: form})
-
-
 @require_POST
 def register(request):
     """
