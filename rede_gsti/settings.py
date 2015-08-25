@@ -38,6 +38,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'apps.mailmanager',
     'apps.account',
     'apps.article',
     'apps.comment',
@@ -76,6 +77,14 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'rede_gsti.wsgi.application'
 
+#EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_BACKEND = 'apps.mailmanager.backend.MailManagedSender'
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.mandrillapp.com'
+EMAIL_HOST_USER = 'philliparente@gmail.com'
+EMAIL_HOST_PASSWORD = 'gZ-tr-g2VKy6zQdRIVzmxg'
+EMAIL_PORT = '587'
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
