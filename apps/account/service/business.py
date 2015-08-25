@@ -85,6 +85,13 @@ def register_user(parameters=None):
 
 def authenticate_user(username_or_email=None, password=None):
     user = authenticate(username=username_or_email, password=password)
+    if not user:
+        try:
+            user = User.objects.get(email=username_or_email)
+            if user:
+                user = authenticate(username=user.username, password=password)
+        except:
+            user = False
 
     return user if user and user.is_active else False
 
