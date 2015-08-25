@@ -1,7 +1,10 @@
+import hashlib
+import random
 from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.views.decorators.http import require_POST
 from .service.forms import SignUpForm
+from .service.business import register_confirm
 
 
 def signup(request):
@@ -45,5 +48,22 @@ def register(request):
 
 
 def registered_successfully(request):
+
     message = "Registered Successfully"
     return render(request, 'account/registered_successfully.html', {'message': message})
+
+
+def mail_validation(request, activation_key):
+
+    message = 'Token not exist'
+
+    if register_confirm(activation_key):
+        message = 'Token exist - Account verified'
+
+    return render(request, 'account/mail_validation.html', {'message': message})
+
+
+def recovery_validation(request, activation_key):
+
+    message = 'checking...'
+    return render(request, 'account/recovery_validation.html', {'message': message})
