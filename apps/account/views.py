@@ -6,7 +6,7 @@ from django.views.decorators.http import require_POST
 from .service.forms import SignUpForm, LoginForm, ChangePasswordForm, RecoveryPasswordForm, ForgotPasswordForm
 from .service.business import log_in_user, logout_user, register_confirm, check_token_exist
 
-
+ 
 @login_required
 def index(request):
     return HttpResponse('index')
@@ -27,9 +27,10 @@ def do_login(request):
 
     return render(request, 'account/login.html', {'form': form})
 
-
 def logout(request):
+
     logout_user(request)
+
     return redirect('/')
 
 
@@ -46,15 +47,6 @@ def signup(request):
         form = SignUpForm()
 
         return render(request, 'account/signup.html', {form: form})
-
-
-def signup_without_captcha(request):
-    if request.user.is_authenticated():
-        return redirect('/')
-    else:
-        form = SignUpForm()
-
-        return render(request, '../templates/account/signup_without_captcha.html', {form: form})
 
 
 @require_POST
@@ -115,6 +107,7 @@ def recovery_validation(request, activation_key):
 
 @login_required
 def change_password(request):
+
     form = ChangePasswordForm()
 
     return render(request, 'account/password_change.html', {'form': form})

@@ -3,12 +3,13 @@ import random
 
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.models import User
-from django.core.mail import send_mail
 from django.conf import settings
 from django.contrib.auth import authenticate, login as auth_login, logout
 from django.db import transaction
 from django.utils import timezone
-from apps.account.models import MailValidation, TokenType
+
+from apps.account.models import MailValidation
+from apps.mailmanager import send_email
 
 __author__ = 'phillip'
 
@@ -81,16 +82,16 @@ def register_user(parameters=None):
 
     parameters['is_active'] = False
     user = create_user(parameters)
+
     if user and user.email:
 
         token = register_token(user=user, token_type=TokenType.REGISTER_ACCOUNT_CONFIRM)
-
-        send_mail(
-            subject='Assunto',
-            message='Message',
-            from_email=settings.DEFAULT_FROM_EMAIL,
-            recipient_list=[user.email],
-            fail_silently=False)
+        send_email(
+            to=str(user.email),
+            subject='Bem vindo!',
+            template='mailmanager/register_user.html',
+            context={'user': user, 'token': token, 'base_url': settings.SITE_URL}
+        )
 
     return user
 
@@ -153,10 +154,8 @@ def register_token(user, token_type):
 
 
 def check_token_exist(activation_key):
-
     """
     Method checks if token exist
-
     :param activation_key:
     :return Token if exists else False:
     """
@@ -174,7 +173,6 @@ def deactivate_token(token):
     token.save()
 
     return token
-
 
 def authenticate_user(username_or_email=None, password=None):
     user = authenticate(username=username_or_email, password=password)

@@ -30,7 +30,7 @@ ALLOWED_HOSTS = []
 # Google Recaptcha keys
 #
 NORECAPTCHA_SITE_KEY = '6LccmgsTAAAAAGrsvn7r7aiIcnvbuIS7pyP0qv1K'
-NORECAPTCHA_SECRET_KEY = '6LccmgsTAAAAANyATh7UT3uL2G2iVnCCGfAXPE5f'
+NORECAPTCHA_SECRET_KEY  = '6LccmgsTAAAAANyATh7UT3uL2G2iVnCCGfAXPE5f'
 
 # Application definition
 
@@ -41,6 +41,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'apps.mailmanager',
     'nocaptcha_recaptcha',
     'apps.account',
     'apps.article',
@@ -80,7 +81,8 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'rede_gsti.wsgi.application'
 
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+#EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_BACKEND = 'apps.mailmanager.backend.MailManagedBackend'
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.mandrillapp.com'
 EMAIL_HOST_USER = 'philliparente@gmail.com'
@@ -129,3 +131,5 @@ LOGIN_URL = '/account/login'
 # MailValidation Time
 TIME_REGISTER_ACCOUNT = 48
 TIME_RECOVERY_PASSWORD = 8
+
+SITE_URL = 'http://localhost:8000'
