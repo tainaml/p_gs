@@ -84,8 +84,6 @@ def register_user(parameters=None):
 
     parameters['is_active'] = False
     user = create_user(parameters)
-    print user
-    print user.email
 
     if user and user.email:
 

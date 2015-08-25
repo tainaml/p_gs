@@ -118,6 +118,7 @@ def change_password(request):
 
     return render(request, 'account/password_change.html', {'form': form})
 
+@login_required
 def update_password(request):
 
     form = ChangePasswordForm(request.user, request.POST)
