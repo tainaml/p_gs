@@ -83,7 +83,7 @@ TEMPLATES = [
 WSGI_APPLICATION = 'rede_gsti.wsgi.application'
 
 #EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_BACKEND = 'apps.mailmanager.backend.MailManagedSender'
+EMAIL_BACKEND = 'apps.mailmanager.backend.MailManagedBackend'
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.mandrillapp.com'
 EMAIL_HOST_USER = 'philliparente@gmail.com'
@@ -127,3 +127,5 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
 STATIC_URL = '/static/'
+
+SITE_URL = 'http://localhost:8000/'

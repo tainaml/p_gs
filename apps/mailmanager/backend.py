@@ -6,12 +6,18 @@ from django.core.mail.backends.smtp import EmailBackend
 
 
 class MailManagedBackend(EmailBackend):
+    '''
+    Wrap Class to backend. Changes the django default backend class
+    '''
 
     def __init(self, to, subject, template, context={}, *args, **kwargs):
         super(MailManageMessage, self).__init__(to=to, subject=subject, *args, **kwargs)
 
 
 class MailManageMessage(EmailMultiAlternatives):
+    '''
+    Custom Message Class. Receive template and context to render message
+    '''
 
     def __init__(self, to, subject, template, context={}, connection=None):
 
