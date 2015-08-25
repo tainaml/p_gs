@@ -18,5 +18,6 @@ urlpatterns = [
     url(r'^mail_validation/(?P<activation_key>[0-9a-z]{40})/$', views.mail_validation, name='mail_validation'),
     url(r'^recovery_password/(?P<activation_key>[0-9a-z]{40})/$', views.recovery_validation, name='recovery_validation'),
     url(r'^do_recovery_validation/$', views.do_recovery_validation, name='do_recovery_validation'),
+    url(r'^recovery_validation/(?P<activation_key>[0-9a-z]{40})/$', views.recovery_validation, name='recovery_validation'),
 
 ]

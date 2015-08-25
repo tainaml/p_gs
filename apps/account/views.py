@@ -157,13 +157,16 @@ def do_recovery_validation(request):
 
     token = check_token_exist(request.POST['activation_key'])
     if token and token.is_active() and token.is_valid():
-        form = RecoveryPasswordForm(token.user, request.POST)
+        form = RecoveryPasswordForm(token, request.POST)
+
         if form.process():
+            message = 'Password successfully changed!'
             return render(request, 'account/password_recovery_successfully.html', {'message': message})
+
 
         return render(request, 'account/password_recovery.html', {
             'form': form,
             'activation_key': request.POST['activation_key']
         })
 
-    return render(request, 'account/recovery_validation.html', {'message': message})
+    return render(request, 'account/recovery_validation.html', {'form'})

@@ -98,19 +98,25 @@ class RecoveryPasswordForm(forms.Form):
     new_password = forms.CharField(max_length=30, required=True)
     new_password_confirmation = forms.CharField(max_length=30, required=True)
 
-    def __init__(self, user=None, *args, **kwargs):
-        self.user = user
+    def __init__(self, token=None, *args, **kwargs):
+
+        self.token = token
         super(RecoveryPasswordForm, self).__init__(*args, **kwargs)
 
     def clean(self):
         cleaned_data = super(RecoveryPasswordForm, self).clean()
         if 'new_password' in cleaned_data and 'new_password_confirmation' in cleaned_data and \
                 cleaned_data['new_password'] != cleaned_data['new_password_confirmation']:
-            raise forms.ValidationError({'new_password': ["Passwords are not the same."]})
+            raise forms.ValidationError({'new_password_confirmation': ["Passwords are not the same."]})
+
+        if not self.token or not self.token.is_valid():
+            raise forms.ValidationError("Token is no longer valid.")
 
     def process(self):
         try:
-            return Business.update_password(self.user, self.cleaned_data['new_password']) if self.is_valid() \
+
+            return Business.recovery_password(self.token, self.cleaned_data['new_password']) if self.is_valid() \
                 else False
         except:
+
             self.add_error(None, "General error")
