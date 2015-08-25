@@ -1,0 +1,17 @@
+{% load i18n %}
+
+<form action="{% url 'account:do_login' %}" method="post">
+    {% csrf_token %}
+
+    <input type="text" name="username" value="{{ form.cleaned_data.username|default_if_none:"" }}" placeholder="{% trans "Username" %}" maxlength="100">
+    {% if form.username.errors %}  {{ form.username.errors }} {% endif %}
+    <p></p>
+
+    <input type="password" name="password" placeholder="{% trans "Password" %}" maxlength="50">
+
+    {% if form.password.errors %}  {{ form.password.errors }} {% endif %}
+    <p></p>
+
+    <input type="submit" value="{% trans "Submit" %}" name="submit" />
+
+</form>
