@@ -6,9 +6,12 @@ from django.contrib.auth.models import User
 from django.core.mail import send_mail
 from django.conf import settings
 from django.contrib.auth import authenticate, login as auth_login, logout
+from django.core.urlresolvers import reverse
 from django.db import transaction
+from django.http import HttpRequest
 from django.utils import timezone
 from apps.account.models import MailValidation
+from apps.mailmanager import send_email
 
 __author__ = 'phillip'
 
@@ -81,16 +84,18 @@ def register_user(parameters=None):
 
     parameters['is_active'] = False
     user = create_user(parameters)
+    print user
+    print user.email
+
     if user and user.email:
 
         token = register_token(user)
-
-        send_mail(
-            subject='Assunto',
-            message='Message',
-            from_email=settings.DEFAULT_FROM_EMAIL,
-            recipient_list=[user.email],
-            fail_silently=False)
+        send_email(
+            to=str(user.email),
+            subject='Bem vindo!',
+            template='mailmanager/register_user.html',
+            context={'user': user, 'token': token, 'base_url': settings.SITE_URL}
+        )
 
     return user
 
