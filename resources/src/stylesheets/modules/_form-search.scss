@@ -1,0 +1,23 @@
+// ==========================================================================
+// Formulário de busca
+// ==========================================================================
+// ==========================================================================
+// <form class="form-search" action="/search" method="GET" role="search">
+//   <input class="form-search-input" type="text" placeholder="Procure pessoas, comunidades, etc.">
+//  <button type="submit" class="form-search-button"></button>
+// </form>
+// ==========================================================================
+.form-search {
+    &-#{input} {
+        @include make-xs-column(9.9);
+        @include make-lg-column(11.4111);
+        padding: 0;
+        > input { @extend .form-control; }
+    }
+    &-#{button} {
+        @extend .btn;
+        margin-left: 0;
+        background-color: $background-button;
+        color: #fff;
+    }
+}

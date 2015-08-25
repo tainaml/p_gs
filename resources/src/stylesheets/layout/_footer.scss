@@ -1,0 +1,78 @@
+// ==========================================================================
+// Layout/Footer
+// ==========================================================================
+.footer {
+    background: #0160b0;
+    a {
+        color: $link-white;
+        &:hover {
+            color: darken($link-white, 10%);
+        }
+    }
+}
+.box-list {
+    @include make-row;
+    @include list-unstyled;
+    font-weight: 600;
+    letter-spacing: -0.03em;
+
+    &-links {
+        padding-top: 2em;
+        @include make-xs-column(12);
+        @include make-sm-column(6);
+        @include make-md-column(4);
+        @include make-lg-column(2);
+    }
+    &-heading {
+        // padding-bottom: 0.5em;
+        border-bottom: 1px solid $link-white;
+        color: $link-white;
+        font-size: 1.071em;
+        line-height: 1.143em * 3;
+        font-weight: 700;
+        text-transform: uppercase;
+    }
+}
+.list-links {
+    min-height: 10em;
+    @include list-unstyled();
+}
+.footer-nav {
+    width: 100%;
+    padding-top: 10px;
+    margin-top: 1em;
+    min-height: 55px;
+    line-height: 35px;
+    background: #005398;
+
+    .copyright {
+        @include make-sm-column(7);
+        @include make-md-column(9);
+        @include make-lg-column(9);
+        color: $link-white;
+    }
+    .links-help {
+        @include list-unstyled();
+        @include make-sm-column(5);
+        @include make-md-column(3);
+        @include make-lg-column(3);
+        @extend .list-inline;
+        text-align: right;
+    }
+}
+
+#google-badge {
+    margin-top: 20px;
+    border-right: 1px solid #ccc;
+    overflow: hidden;
+    > div {
+        width: 100% !important;
+        float: left !important;
+        > iframe {
+            width: 100% !important;
+            #widget_bounds {
+                border-color: none !important;
+            }
+        }
+    }
+}

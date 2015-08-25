@@ -1,0 +1,114 @@
+// ==========================================================================
+// Layout/Header
+// ==========================================================================
+.header {
+    .gsti {
+        overflow: hidden;
+        @include make-xs-column(2);
+        @include make-lg-column(1.5);
+        padding-top: 20px;
+        padding-bottom: 20px;
+        margin-top: 0;
+        margin-bottom: 0;
+        color: $color-governance;
+        text-align: center;
+        &-#{link} {
+            width: 126px;
+            height: 40px;
+            margin: 0 auto;
+            background: url('../images/gsti.png') no-repeat center;
+            color: inherit;
+            text-indent: -9999px;
+            display: block;
+        }
+    }
+    .form-search {
+        @include make-xs-column(10);
+        @include make-lg-column(8.5);
+        padding-top: 25px;
+        padding-bottom: 20px;
+    }
+    .user-actions {
+        @include make-xs-column(12);
+        @include make-lg-column(2);
+        padding: 0;
+        @media (min-width: $screen-lg-min) {
+            padding-left: 0;
+            padding-right: 15px;
+        }
+        &-#{link} {
+            line-height: 3;
+            @media (min-width: $screen-lg-min) {
+                line-height: 5.8;
+            }
+            width: 63.5%;
+            // padding: 0 11px;
+            float: left;
+            background-color: $gray-lighter;
+            border-right: 1px solid $color-border;
+            border-left: 1px solid $color-border;
+            color: $gray;
+            font-size: 1em;
+            text-align: center;
+            &:last-child {
+                width: 36.5%;
+                border-left-width: 0;
+            }
+        }
+    }
+}
+
+// Navegações
+// ==========================================================================
+.header-navegation {
+    padding: 10px 0;
+    border-top: 1px solid $color-border;
+    border-bottom: 1px solid $color-border;
+
+    // TODO: refatorar para classes
+    .menu-categories, .menu-social {
+        color: $color-border;
+
+        > a {
+            padding: 0 5px;
+            margin-right: -4px;
+            display: inline-block;
+            color: inherit;
+            line-height: $line-height-computed;
+            transition: color 2s easy-out;
+
+            @each $name, $color in $areas {
+                &.#{$name} {
+                    color: $color;
+                    &:hover {
+                        color: darken($color, 10%);
+                    }
+                }
+            }
+        }
+    }
+    .menu-categories {
+        @include make-xs-column(12);
+        @include make-md-column(10);
+        @include make-lg-column(10);
+    }
+    .menu-social {
+        text-align: center;
+        @include make-xs-column(12);
+        @include make-sm-column(12);
+        @include make-md-column(2);
+        @include make-lg-column(2);
+        @media (min-width: $screen-lg-min) {
+            padding-right: 0;
+        }
+
+        > .gsticon {
+            color: $background-button;
+            font-size: 1.5em;
+            width: 20%;
+            &:hover {
+                color: $background-button-hover;
+            }
+        }
+    }
+}

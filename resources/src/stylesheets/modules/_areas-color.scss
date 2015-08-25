@@ -1,0 +1,11 @@
+.area {
+    @each $name, $color in $areas {
+    &-#{$name} {
+        a {
+        color: $color;
+            &:hover {
+                color: darken($color, 10%);
+            }
+        }
+    }}
+}
