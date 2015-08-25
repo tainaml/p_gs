@@ -128,4 +128,4 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-SITE_URL = 'http://localhost:8000/'
+SITE_URL = 'http://localhost:8000'
