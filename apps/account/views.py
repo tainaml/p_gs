@@ -80,7 +80,7 @@ def register(request):
     :return: HTML
     """
     form = SignUpForm(request.POST)
-    if form.save():
+    if form.process():
         messages.add_message(request, messages.SUCCESS, "Success")
         return redirect('/account/registered-successfully')
 
