@@ -9,7 +9,7 @@ from django import forms
 
 
 class SignUpForm(forms.Form):
-    username = forms.CharField(max_length=100, required=True)
+    username = forms.SlugField(max_length=100, required=True)
     first_name = forms.CharField(max_length=30, required=True)
     last_name = forms.CharField(max_length=150, required=True)
     email = forms.EmailField(max_length=150, required=True)
@@ -19,12 +19,15 @@ class SignUpForm(forms.Form):
 
     def clean(self):
         cleaned_data = super(SignUpForm, self).clean()
-        if cleaned_data.has_key('password') and cleaned_data.has_key('password_confirmation') and \
+        if 'password' in cleaned_data and 'password_confirmation' in cleaned_data and \
                 cleaned_data['password'] != cleaned_data['password_confirmation']:
             raise forms.ValidationError({'password': ["Passwords are not the same."]})
 
-        if cleaned_data.has_key('username') and User.objects.filter(username=cleaned_data['username']).exists():
+        if 'username' in cleaned_data and User.objects.filter(username=cleaned_data['username']).exists():
             raise forms.ValidationError({'username': ["Username is already in use."]})
+
+        if 'email' in cleaned_data and User.objects.filter(email=cleaned_data['email']).exists():
+            raise forms.ValidationError({'email': ["Email is already in use."]})
 
     def save(self):
         try:
@@ -40,7 +43,7 @@ class LoginForm(forms.Form):
 
     def clean(self):
         cleaned_data = super(LoginForm, self).clean()
-        if cleaned_data.has_key('password') and cleaned_data.has_key('username'):
+        if 'password' in cleaned_data and 'username' in cleaned_data:
             user = Business.authenticate_user(username_or_email=cleaned_data['username'],
                                               password=cleaned_data['password'])
             if not user:
@@ -60,12 +63,12 @@ class ChangePasswordForm(forms.Form):
 
     def clean(self):
         cleaned_data = super(ChangePasswordForm, self).clean()
-        if cleaned_data.has_key('old_password'):
+        if 'old_password' in cleaned_data:
             is_authenticated = Business.authenticate_user(self.user.username, cleaned_data['old_password'])
             if not is_authenticated:
                 raise forms.ValidationError({'old_password': ["Wrong old password."]})
 
-            if cleaned_data.has_key('new_password') and cleaned_data.has_key('new_password_confirmation') and \
+            if 'new_password' in cleaned_data and 'new_password_confirmation' in cleaned_data and \
                     cleaned_data['new_password'] != cleaned_data['new_password_confirmation']:
                 raise forms.ValidationError({'new_password': ["Passwords are not the same."]})
 
