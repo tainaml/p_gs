@@ -1,9 +1,9 @@
 var config = {};
 
-config.publicDirectory = '../rede_gsti/static';
-config.sourceDirectory = './src';
+config.publicDirectory = "../static";
+config.sourceDirectory = "./src";
 config.publicAssets    = config.publicDirectory;
 config.sourceAssets    = config.sourceDirectory;
-config.templatesDir    = '../rede_gsti/templates/';
+config.templatesDir    = "../templates";
 
 module.exports = config;

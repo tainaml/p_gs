@@ -6,6 +6,7 @@ var images    = require('../config/images');
 var sass      = require('../config/sass');
 var fonts     = require('../config/fonts');
 var watch     = require('gulp-watch');
+var browserSync  = require('browser-sync');
 
 gulp.task('watch', ['browserSync'], function() {
   watch(images.src, function() { gulp.start('images'); });
@@ -13,5 +14,9 @@ gulp.task('watch', ['browserSync'], function() {
   watch(iconFont.src, function() { gulp.start('iconFont'); });
   watch(svgSprite.src, function() { gulp.start('svg-sprite'); });
   watch(fonts.src, function() { gulp.start('fonts'); });
-  watch(html.watch, function() { gulp.start('html'); });
+  watch(html.watch, function() {
+    browserSync.reload({
+      stream: true
+    });
+  });
 });

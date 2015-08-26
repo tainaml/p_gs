@@ -11,7 +11,9 @@ module.exports = function(env) {
   var webpackConfig = {
     context: jsSrc,
 
-    plugins: [],
+    plugins: [
+      new webpack.optimize.UglifyJsPlugin()
+    ],
 
     resolve: {
       extensions: ['', '.js']

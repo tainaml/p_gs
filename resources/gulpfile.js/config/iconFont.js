@@ -5,7 +5,7 @@ module.exports = {
   name: 'Ideia icons',
   src: config.sourceAssets + '/icons/*.svg',
   dest: fontConfig.dest,
-  sassDest: config.sourceAssets + '/stylesheets/base/icons',
+  sassDest: config.sourceAssets + '/stylesheets/base/mixins/icons',
   template: './gulpfile.js/tasks/iconFont/template.sass',
   sassOutputName: '_icons.sass',
   fontPath: '../fonts',
