@@ -9,16 +9,34 @@ from .service.business import log_in_user, logout_user, register_confirm, check_
  
 @login_required
 def index(request):
-    return HttpResponse('index')
+    """
+    Show the index page
+
+    :param request:
+    :return: HTML
+    """
+    return render(request, 'account/index.html')
 
 
 def login(request):
+    """
+    Show the login form page
+
+    :param request:
+    :return: HTML
+    """
     form = LoginForm()
     return render(request, 'account/login.html', {form: form})
 
 
 @require_POST
 def do_login(request):
+    """
+    Method processing trigger the login box
+
+    :param request:
+    :return:
+    """
     form = LoginForm(request.POST)
     if form.is_valid():
         log_in_user(request, form.instance)
@@ -27,10 +45,15 @@ def do_login(request):
 
     return render(request, 'account/login.html', {'form': form})
 
+
 def logout(request):
+    """
+    Action to logout user
 
+    :param request:
+    :return:
+    """
     logout_user(request)
-
     return redirect('/')
 
 
@@ -45,7 +68,6 @@ def signup(request):
         return redirect('/')
     else:
         form = SignUpForm()
-
         return render(request, 'account/signup.html', {form: form})
 
 
@@ -53,6 +75,7 @@ def signup(request):
 def register(request):
     """
     Action to register new user
+
     :param request:
     :return: HTML
     """
@@ -65,6 +88,12 @@ def register(request):
 
 
 def registered_successfully(request):
+    """
+    Show the success message
+
+    :param request:
+    :return:
+    """
     message = "Registered Successfully"
     return render(request, 'account/registered_successfully.html', {'message': message})
 
@@ -107,14 +136,24 @@ def recovery_validation(request, activation_key):
 
 @login_required
 def change_password(request):
+    """
+    Show the change password form
 
+    :param request:
+    :return: HTML
+    """
     form = ChangePasswordForm()
-
     return render(request, 'account/password_change.html', {'form': form})
 
 
 @require_POST
 def update_password(request):
+    """
+    Action to update password
+
+    :param request:
+    :return:
+    """
     form = ChangePasswordForm(request.user, request.POST)
     if form.process():
         return render(request, 'account/password_change_successfully.html')
@@ -123,12 +162,19 @@ def update_password(request):
 
 
 def forgot_password(request):
+
     form = ForgotPasswordForm()
     return render(request, 'account/password_forgot.html', {'form': form})
 
 
 @require_POST
 def do_forgot_password(request):
+    """
+    Method to process form of
+
+    :param request:
+    :return:
+    """
     form = ForgotPasswordForm(request.POST)
     if form.process():
         message = 'A confirmation email was sent to you'
@@ -155,7 +201,6 @@ def do_recovery_validation(request):
         if form.process():
             message = 'Password successfully changed!'
             return render(request, 'account/password_recovery_successfully.html', {'message': message})
-
 
         return render(request, 'account/password_recovery.html', {
             'form': form,
