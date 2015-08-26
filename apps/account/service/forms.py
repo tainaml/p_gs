@@ -58,6 +58,7 @@ class LoginForm(IdeiaForm):
     def __process__(self):
         pass
 
+
 class ChangePasswordForm(IdeiaForm):
     old_password = forms.CharField(max_length=30, required=True)
     new_password = forms.CharField(max_length=30, required=True)
@@ -116,7 +117,8 @@ class RecoveryPasswordForm(IdeiaForm):
 
         if 'new_password' in self.cleaned_data and 'new_password_confirmation' in self.cleaned_data and \
                 self.cleaned_data['new_password'] != self.cleaned_data['new_password_confirmation']:
-            self.add_error('new_password_confirmation', ValidationError('Passwords are not the same.', code='new_password_confirmation'))
+            self.add_error('new_password_confirmation', ValidationError('Passwords are not the same.',
+                                                                        code='new_password_confirmation'))
             valid = False
 
         if not self.token or not self.token.is_valid():
