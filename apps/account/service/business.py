@@ -33,8 +33,8 @@ def create_user_by_parameters(parameters):
     user = User()
     user.first_name = parameters['first_name']
     user.last_name = parameters['last_name']
-    user.username = parameters['username']
-    user.email = parameters['email']
+    user.username = parameters['username'].lower()
+    user.email = parameters['email'].lower()
     user.password = make_password(parameters['password'])
     user.is_active = parameters['is_active']
     return user
