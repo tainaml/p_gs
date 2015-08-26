@@ -1,5 +1,6 @@
 from django import forms
 
+
 class IdeiaForm(forms.Form):
 
     def process(self):
