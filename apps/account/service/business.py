@@ -227,6 +227,4 @@ def recovery_password(token=None, new_password=None):
 
     deactivate_token(token)
     update_password(token.user, new_password)
-    token.delete()
-
     return token
