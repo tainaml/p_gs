@@ -1,3 +1,7 @@
+// TODO: Remover isso do layout
+main {
+    padding-top: 30px;
+}
 .highlight-area {
     @include make-row();
     padding-top: 30px;
@@ -62,4 +66,9 @@
     @extend %highlights-article;
     border-top: 1px solid $color-border;
     border-bottom: none;
+}
+
+.perfil-row {
+    @include make-row();
+    background: $background-perfil;
 }
