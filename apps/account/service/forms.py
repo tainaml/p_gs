@@ -20,15 +20,16 @@ class SignUpForm(IdeiaForm):
 
         if 'password' in self.cleaned_data and 'password_confirmation' in self.cleaned_data and \
                         self.cleaned_data['password'] != self.cleaned_data['password_confirmation']:
-            forms.add_error({'password': ValidationError('Passwords are not the same.', code='password')})
+            self.add_error('password', ValidationError('Passwords are not the same.', code='password'))
             valid = False
 
         if 'username' in self.cleaned_data and User.objects.filter(username=self.cleaned_data['username']).exists():
-            forms.add_error({'username': ValidationError('Username is already in use.', code='username')})
+            self.add_error('username', ValidationError('Username is already in use.', code='username'))
             valid = False
 
         if 'email' in self.cleaned_data and User.objects.filter(email=self.cleaned_data['email']).exists():
-            forms.add_error({'email': ValidationError('Email is already in use.', code='email')})
+
+            self.add_error('email', ValidationError('Email is already in use.', code='email'))
             valid = False
 
         return valid
