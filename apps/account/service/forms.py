@@ -50,10 +50,17 @@ class LoginForm(IdeiaForm):
 
         if 'password' in self.cleaned_data and 'username' in self.cleaned_data:
             self.instance = Business.authenticate_user(username_or_email=self.cleaned_data['username'],
-                                              password=self.cleaned_data['password'])
+                                                       password=self.cleaned_data['password'])
             if not self.instance:
                 self.add_error('password', ValidationError('Wrong password or username.', code='password'))
                 valid = False
+            else:
+                if self.instance.is_active is False:
+                    self.add_error(None, ValidationError('Account is not active',
+                                                         code='account_not_active'))
+                    valid = False
+                    self.account_is_active = False
+                    self.account_is_active_errors = 'Account is not active'
 
         return valid
 

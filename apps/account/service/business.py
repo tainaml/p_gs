@@ -185,7 +185,7 @@ def authenticate_user(username_or_email=None, password=None):
         except:
             user = False
 
-    return user if user and user.is_active else False
+    return user if user else False
 
 
 def log_in_user(request=None, user=None):
@@ -194,7 +194,6 @@ def log_in_user(request=None, user=None):
         return True
     except:
         return False
-
 
 
 def logout_user(request=None):
