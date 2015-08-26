@@ -9,7 +9,7 @@ from django import forms
 
 
 class SignUpForm(forms.Form):
-    username = forms.CharField(max_length=100, required=True)
+    username = forms.SlugField(max_length=100, required=True)
     first_name = forms.CharField(max_length=30, required=True)
     last_name = forms.CharField(max_length=150, required=True)
     email = forms.EmailField(max_length=150, required=True)
