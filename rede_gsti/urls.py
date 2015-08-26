@@ -18,5 +18,9 @@ from django.contrib import admin
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
+<<<<<<< HEAD
     url(r'^ninico/', include('apps.ninico.urls', namespace='ninico')),
+=======
+    url(r'^account/', include('apps.account.urls', namespace='account')),
+>>>>>>> develop
 ]
