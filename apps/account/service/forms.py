@@ -19,7 +19,7 @@ class SignUpForm(IdeiaForm):
         valid = super(SignUpForm, self).is_valid()
 
         if 'password' in self.cleaned_data and 'password_confirmation' in self.cleaned_data and \
-                        self.cleaned_data['password'] != self.cleaned_data['password_confirmation']:
+                self.cleaned_data['password'] != self.cleaned_data['password_confirmation']:
             self.add_error('password', ValidationError('Passwords are not the same.', code='password'))
             valid = False
 
@@ -28,7 +28,6 @@ class SignUpForm(IdeiaForm):
             valid = False
 
         if 'email' in self.cleaned_data and User.objects.filter(email=self.cleaned_data['email']).exists():
-
             self.add_error('email', ValidationError('Email is already in use.', code='email'))
             valid = False
 
@@ -74,50 +73,53 @@ class ChangePasswordForm(IdeiaForm):
                 valid = False
 
             if 'new_password' in self.cleaned_data and 'new_password_confirmation' in self.cleaned_data and \
-                            self.cleaned_data['new_password'] != self.cleaned_data['new_password_confirmation']:
+                    self.cleaned_data['new_password'] != self.cleaned_data['new_password_confirmation']:
                 self.add_error('new_password', ValidationError('Passwords are not the same.', code='new_password'))
                 valid = False
+
+        return valid
 
     def __process__(self):
         return Business.update_password(self.user, self.cleaned_data['new_password'])
 
 
 class ForgotPasswordForm(IdeiaForm):
-
     email = forms.EmailField(max_length=150, required=True)
 
     def is_valid(self):
-        valid = super(ChangePasswordForm, self).is_valid()
+        valid = super(ForgotPasswordForm, self).is_valid()
 
         if 'email' in self.cleaned_data and not User.objects.filter(email=self.cleaned_data['email']).exists():
             self.add_error('email', ValidationError('Does not exist account with this email.', code='email'))
             valid = False
+
+        return valid
 
     def __process__(self):
         return Business.forgot_password(self.cleaned_data['email']) if self.is_valid() else False
 
 
 class RecoveryPasswordForm(IdeiaForm):
-
     new_password = forms.CharField(max_length=30, required=True)
     new_password_confirmation = forms.CharField(max_length=30, required=True)
 
     def __init__(self, token=None, *args, **kwargs):
-
         self.token = token
         super(RecoveryPasswordForm, self).__init__(*args, **kwargs)
 
     def is_valid(self):
-        valid = super(ChangePasswordForm, self).is_valid()
+        valid = super(RecoveryPasswordForm, self).is_valid()
 
         if 'new_password' in self.cleaned_data and 'new_password_confirmation' in self.cleaned_data and \
-                        self.cleaned_data['new_password'] != self.cleaned_data['new_password_confirmation']:
+                self.cleaned_data['new_password'] != self.cleaned_data['new_password_confirmation']:
             self.add_error('new_password_confirmation', ValidationError('Passwords are not the same.', code='new_password_confirmation'))
             valid = False
 
         if not self.token or not self.token.is_valid():
             self.add_error('password', ValidationError('Token is no longer valid.', code='password'))
             valid = False
+
+        return valid
 
     def __process__(self):
         return Business.recovery_password(self.token, self.cleaned_data['new_password'])
