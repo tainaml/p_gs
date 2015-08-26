@@ -54,6 +54,10 @@ class LoginForm(IdeiaForm):
             else:
                 self.instance = user
 
+        return valid
+
+    def __process__(self):
+        pass
 
 class ChangePasswordForm(IdeiaForm):
     old_password = forms.CharField(max_length=30, required=True)
