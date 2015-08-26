@@ -189,7 +189,12 @@ def authenticate_user(username_or_email=None, password=None):
 
 
 def log_in_user(request=None, user=None):
-    auth_login(request, user)
+    try:
+        auth_login(request, user)
+        return True
+    except:
+        return False
+
 
 
 def logout_user(request=None):

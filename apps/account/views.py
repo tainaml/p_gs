@@ -37,9 +37,8 @@ def do_login(request):
     :param request:
     :return:
     """
-    form = LoginForm(request.POST)
-    if form.is_valid():
-        log_in_user(request, form.instance)
+    form = LoginForm(request, request.POST)
+    if form.process():
 
         return redirect('/')
 

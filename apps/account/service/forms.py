@@ -41,22 +41,25 @@ class LoginForm(IdeiaForm):
     username = forms.CharField(max_length=100, required=True)
     password = forms.CharField(max_length=50, required=True)
 
+    def __init__(self, request=None, *args, **kwargs):
+        self.request = request
+        super(LoginForm, self).__init__(*args, **kwargs)
+
     def is_valid(self):
         valid = super(LoginForm, self).is_valid()
 
         if 'password' in self.cleaned_data and 'username' in self.cleaned_data:
-            user = Business.authenticate_user(username_or_email=self.cleaned_data['username'],
+            self.instance = Business.authenticate_user(username_or_email=self.cleaned_data['username'],
                                               password=self.cleaned_data['password'])
-            if not user:
+            if not self.instance:
                 self.add_error('password', ValidationError('Wrong password or username.', code='password'))
                 valid = False
-            else:
-                self.instance = user
 
         return valid
 
     def __process__(self):
-        pass
+
+        return Business.log_in_user(self.request, self.instance)
 
 
 class ChangePasswordForm(IdeiaForm):
