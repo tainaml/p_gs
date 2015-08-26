@@ -12,6 +12,10 @@
     <br/>
 
     <input type="submit" value="{% trans "Submit" %}" name="submit" />
+    or <a href="{% url 'account:signup' %}">{% trans 'Registrar' %}</a>
+
+    <br/>
+
     <a href="{% url 'account:forgot_password' %}">{% trans 'Esqueceu sua senha?' %}</a>
 
 </form>

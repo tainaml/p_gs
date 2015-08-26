@@ -20,7 +20,7 @@ class SignUpForm(forms.Form):
     def clean(self):
         cleaned_data = super(SignUpForm, self).clean()
         if cleaned_data.has_key('password') and cleaned_data.has_key('password_confirmation') and \
-                        cleaned_data['password'] != cleaned_data['password_confirmation']:
+                cleaned_data['password'] != cleaned_data['password_confirmation']:
             raise forms.ValidationError({'password': ["Passwords are not the same."]})
 
         if cleaned_data.has_key('username') and User.objects.filter(username=cleaned_data['username']).exists():
@@ -31,7 +31,6 @@ class SignUpForm(forms.Form):
             return Business.register_user(self.cleaned_data) if self.is_valid() \
                 else False
         except:
-
             self.add_error(None, "General error")
 
 
@@ -115,9 +114,7 @@ class RecoveryPasswordForm(forms.Form):
 
     def process(self):
         try:
-
             return Business.recovery_password(self.token, self.cleaned_data['new_password']) if self.is_valid() \
                 else False
         except:
-
             self.add_error(None, "General error")

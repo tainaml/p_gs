@@ -1,4 +1,4 @@
 <h1 style="text-align: center; padding-top: 50px;">{{ message }}</h1>
 <p style="text-align: center">
-    <a href="#">Login</a> or <a href="{% url 'account:signup' %}">Sign Up</a>
+    <a href="{% url 'account:login' %}">{% trans "Login" %}</a> {% trans "or" %} <a href="{% url 'account:signup' %}">{% trans "Sign-up" %}</a>
 </p>

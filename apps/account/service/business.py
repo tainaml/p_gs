@@ -174,6 +174,7 @@ def deactivate_token(token):
 
     return token
 
+
 def authenticate_user(username_or_email=None, password=None):
     user = authenticate(username=username_or_email, password=password)
     if not user:
@@ -221,6 +222,7 @@ def forgot_password(user_email=None):
         return False
 
     return token
+
 
 @transaction.atomic()
 def recovery_password(token=None, new_password=None):
