@@ -25,8 +25,12 @@ def login(request):
     :param request:
     :return: HTML
     """
-    form = LoginForm()
-    return render(request, 'account/login.html', {form: form})
+
+    if not request.user.is_authenticated():
+        form = LoginForm()
+        return render(request, 'account/login.html', {form: form})
+    else:
+        return redirect('/account/')
 
 
 @require_POST
@@ -40,8 +44,7 @@ def do_login(request):
     form = LoginForm(request.POST)
     if form.is_valid():
         log_in_user(request, form.instance)
-
-        return redirect('/')
+        return redirect('/account/')
 
     return render(request, 'account/login.html', {'form': form})
 
@@ -54,7 +57,7 @@ def logout(request):
     :return:
     """
     logout_user(request)
-    return redirect('/')
+    return redirect('/account/')
 
 
 def signup(request):
