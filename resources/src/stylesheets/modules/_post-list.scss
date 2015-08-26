@@ -97,7 +97,7 @@
         @include make-lg-column(8);
         line-height: 1.7;
         text-align: right;
-        color: #e1e1e1;
+        color: $color-border;
         > .subs {
             padding: 0 10px;
             margin-left: -4px;

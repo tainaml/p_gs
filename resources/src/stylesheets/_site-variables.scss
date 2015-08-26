@@ -15,6 +15,8 @@ $color-border:      #e1e1e1 !default;
 
 $background-button: #4d6479 !default;
 $background-button-hover: lighten($background-button, 30%) !default;
+$background-follow-button: #738d00 !default;
+$background-follow-button-hover: lighten($background-follow-button, 30%) !default;
 
 $areas: (governance, $color-governance), (development, $color-development),
 (web-design, $color-web-design), (marketing, $color-marketing), (infra, $color-infra),
