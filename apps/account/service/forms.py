@@ -150,6 +150,10 @@ class ResendAccountConfirmationForm(IdeiaForm):
             self.add_error('email', ValidationError('Does not exist account with this email.', code='email'))
             valid = False
 
+        if 'email' in self.cleaned_data and User.objects.filter(email=self.cleaned_data['email'], is_active=True).exists():
+            self.add_error('email', ValidationError('This account is already active'))
+            valid = False
+
         return valid
 
     def __process__(self):

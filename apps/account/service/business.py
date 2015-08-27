@@ -105,12 +105,20 @@ def register_confirm(activation_key):
     """
 
     token = check_token_exist(activation_key)
-    if token and token.is_active() and token.is_valid():
-        user = activate_account(token)
-        if user:
-            return True
-
-    return False
+    if token:
+        if token.is_active():
+            if token.is_valid():
+                user = activate_account(token)
+                if user:
+                    return True
+                else:
+                    raise Exception('Account is not exists!')
+            else:
+                raise Exception('Token is not longer valid!')
+        else:
+            raise Exception('Token is not active!')
+    else:
+        raise Exception('Token is not exists!')
 
 
 @transaction.atomic
@@ -241,18 +249,21 @@ def resend_account_confirmation(user_email=None):
     try:
         user = User.objects.get(email=user_email)
 
-        token = MailValidation.objects.get(user=user, token_type=TokenType.REGISTER_ACCOUNT_CONFIRM, active=True)
+        if not user.is_active:
+            token = MailValidation.objects.get(user=user, token_type=TokenType.REGISTER_ACCOUNT_CONFIRM, active=True)
 
-        if not token or not token.is_valid():
-            MailValidation.objects.filter(user=user, token_type=TokenType.REGISTER_ACCOUNT_CONFIRM).update(active=False)
-            token = register_token(user=user, token_type=TokenType.REGISTER_ACCOUNT_CONFIRM)
+            if not token or not token.is_valid():
+                MailValidation.objects.filter(user=user, token_type=TokenType.REGISTER_ACCOUNT_CONFIRM).update(active=False)
+                token = register_token(user=user, token_type=TokenType.REGISTER_ACCOUNT_CONFIRM)
 
-        send_email(
-            to=str(user.email),
-            subject='Account Confirmation',
-            template='mailmanager/resend-account-confirmation.html',
-            context={'user': user, 'token': token, 'base_url': settings.SITE_URL}
-        )
+            send_email(
+                to=str(user.email),
+                subject='Account Confirmation',
+                template='mailmanager/resend-account-confirmation.html',
+                context={'user': user, 'token': token, 'base_url': settings.SITE_URL}
+            )
+        else:
+            return False
 
     except User.DoesNotExist:
         return False

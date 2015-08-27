@@ -113,8 +113,11 @@ def mail_validation(request, activation_key):
 
     message = 'Token not exist'
 
-    if register_confirm(activation_key):
+    try:
+        register_confirm(activation_key)
         message = 'Token exist - Account verified'
+    except Exception as e:
+        message = e.message
 
     return render(request, 'account/mail_validation.html', {'message': message})
 
@@ -223,7 +226,7 @@ def resend_account_confirmation(request):
 def do_resend_account_confirmation(request):
     form = ResendAccountConfirmationForm(request.POST)
     if form.process():
-        message = 'Password successfully changed!'
+        message = 'E-mail re-sent successfully!'
         return render(request, 'account/resend_account_confirmation_successfully.html', {'message': message})
 
     return render(request, 'account/resend_account_confirmation.html', {'form': form})
