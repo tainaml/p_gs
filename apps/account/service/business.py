@@ -89,7 +89,7 @@ def register_user(parameters=None):
         token = register_token(user=user, token_type=TokenType.REGISTER_ACCOUNT_CONFIRM)
         send_email(
             to=str(user.email),
-            subject=-('Bem vindo!'),
+            subject=_('Bem vindo!'),
             template='mailmanager/register_user.html',
             context={'user': user, 'token': token, 'base_url': settings.SITE_URL}
         )
