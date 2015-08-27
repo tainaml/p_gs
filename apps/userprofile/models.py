@@ -42,7 +42,7 @@ class City(models.Model):
 class UserProfile(models.Model):
 
     user = models.OneToOneField(User)
-    birth = models.DateField(default=None)
+    birth = models.DateField(null=True, blank=False)
     gender = models.CharField(max_length=1, default=None, null=True)
     city = models.ForeignKey(City)
 
