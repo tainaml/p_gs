@@ -5,4 +5,4 @@ def index(request):
     return render(request, 'home/index.html')
 
 def perfil(request):
-    return render(request, 'home/perfil.html')
+    return render(request, 'home/perfil.html', {"isLogged": False})
