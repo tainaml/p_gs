@@ -15,18 +15,10 @@
                     <h1 class="gsti">
                         <a href="javascript:;" class="gsti-link">Portal GSTI</a>
                     </h1>
-                    <form class="form-search" action="/search" method="GET" role="search">
-                        <div class="form-search-input">
-                            <input type="text" placeholder="Procure pessoas, comunidades, etc.">
-                        </div>
-                        <button type="submit" class="form-search-button">
-                            <i class="gsticon gsticon-search"></i>
-                        </button>
-                    </form>
-                    <div class="user-actions">
-                        <a href="javascript:;" class="user-actions-link">Cadastre-se</a>
-                        <a href="javascript:;" class="user-actions-link">Login</a>
+                    <div class="form-search{% if isLogged %}--logged{% endif %}">
+                        {% include 'home/partials/search.html' %}
                     </div>
+                    {% include 'home/partials/user-actions.html' %}
                 </div>
             </div>
         </header>
@@ -140,6 +132,7 @@
                 </div>
             </nav>
         </footer>
+        <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
         {% block javascripts %}{% endblock %}
     </body>
 </html>

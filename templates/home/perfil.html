@@ -1,5 +1,7 @@
 {%extends 'home/layout/base.html' %}
 
+{% block title %}Portal GSTI - Perfil{% endblock %}
+
 {% block content %}
 <div class="perfil-row">
     <!-- mudar para 2.5 -->
@@ -12,23 +14,26 @@
                     <a class="perfil-counter" href="javascript;;"><span class="counter-number">180</span> Seguidores</a>
                     <a class="perfil-counter" href="javascript:;"><span class="counter-number">88</span> Artigos</a>
                 </div>
+                <div class="follower-content">
+                    <ul class="list-unstyled clearfix">
+                        <li><a href="javascript:;" class="btn btn-follow">Seguir</a></li>
+                        <li><i class="gsticon gsticon-briefcase"></i>
+                        <a href="javascript:;">Analista de SEO</a> em <a href="javascript:;">Idea SEO</a>
+                        </li>
+                        <li><i class="gsticon gsticon-map-marker"></i>
+                        Mora em <strong>Salvador - BA - Brasil</strong></li>
+                        <li><i class="gsticon gsticon-birthday-cake"></i>
+                        Idade 26</li>
+                    </ul>
+                </div>
             </div>
         </div>
         <div class="widget widget-box">
             <div class="widget-content">
                 <ul class="perfil-actions">
-                    <li>
-                    <i class="gsticon gsticon-external-link"></i>
-                    <a href="javascript:;"><i class="gsticon gsticon-question-circle"></i> Perguntar</a>
-                    </li>
-                    <li>
-                        <i class="gsticon gsticon-external-link"></i>
-                        <a href="javascript:;"><i class="gsticon gsticon-file-text"></i> Criar  artigo</a>
-                    </li>
-                    <li>
-                        <i class="gsticon gsticon-external-link"></i>
-                        <a href="javascript:;"><i class="gsticon gsticon-pencil-square-o"></i> Editar perfil</a>
-                    </li>
+                    <li><a href="javascript:;"><i class="gsticon gsticon-question-circle"></i> Perguntar</a></li>
+                    <li><a href="javascript:;"><i class="gsticon gsticon-file-text"></i> Criar artigo</a></li>
+                    <li><a href="javascript:;"><i class="gsticon gsticon-pencil-square-o"></i> Editar perfil</a></li>
                 </ul>
             </div>
         </div>
@@ -45,53 +50,22 @@
     <!-- mudar para 9.5 -->
     <div class="col-lg-9">
         <nav class="perfil-navegation">
-            <a href="javascript::">Feed</a>•<a href="javascript::">Perfil</a>•<a href="javascript::">Sobre</a>•<a href="javascript::">Comunidades</a>•<a href="javascript::">Relacionamentos</a>•<a href="javascript::">Vídeos</a>
+            <a href="javascript:;">Feed</a>•<a href="javascript:;">Perfil</a>•<a href="javascript:;">Sobre</a>•<a href="javascript:;">Comunidades</a>•<a href="javascript:;">Relacionamentos</a>•<a href="javascript:;">Vídeos</a>
         </nav>
         <div class="row">
             <div class="col-lg-8">
                 <header class="area-title">
                     <h2>Feed</h2>
                 </header>
+                {% if isLogged %}
+                <nav class="form-search">
+                    {% include 'home/partials/search.html' with placehold='Pesquise no seu feed' only %}
+                </nav>
+                {% endif %}
                 <section class="area-content">
-                    <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
-                        <header class="post-header">
-                            <div class="post-info">
-                                <time datetime="06-17-2015" itemprop="datePublished">10/06/2015 às 01:34</time>
-                                <a href="javascript:;" data-toggle="dropdown"><i class="gsticon gsticon-gear"></i></a>
-                                <ul class="dropdown-menu list-unstyled">
-                                    <li><a href="javascript:;"><i class="gsticon gsticon-edit"></i> Editar publicação</a></li>
-                                    <li><a href="javascript:;"><i class="gsticon gsticon-paper-plane"></i> Sugerir</a></li>
-                                    <li><a href="javascript:;"><i class="gsticon gsticon-eye"></i> Ver depois</a></li>
-                                    <li><a href="javascript:;"><i class="gsticon gsticon-star"></i> Favoritar</a></li>
-                                    <li><a href="javascript:;"><i class="gsticon gsticon-exclamation-triangle"></i> Denunciar</a></li>
-                                </ul>
-                            </div>
-                            <a class="post-creator" href="javascript:;">
-                                <img src="http://placehold.it/20" alt="Creator Porst Avatar">
-                                Iury Silva</a>
-                        </header>
-                        <div class="post-content" itemprop="articleBody">
-                            <figure>
-                                <img src="http://placehold.it/170x128" alt="Post Image">
-                            </figure>
-                            <div class="post-text">
-                                <h3 class="post-title" itemprop="headline">Microsoft lança sofware beta para migrar aplicativos iOS para Windows</h3>
-                                <p>Aí, a gente pega essa bandeira, bonitinha, que estava ali no canto. Os caras gritam no ouvido dela e como ela não tem preparo, levanta a bandeira</p>
-                            </div>
-                        </div>
-                        <footer class="post-footer">
-                            <nav class="post-communities">
-                                <a href="javascript:;" class="link-to-community">Java</a>•<a href="javascript:;" class="link-to-community">MySQL</a>•<a href="javascript:;" class="link-to-community" data-toggle="dropdown">Mais <i class="gsticon gsticon-angle-down"></i></a>
-                            </nav>
-                            <div class="post-toolbar pull-right">
-                                <div class="post-count">
-                                    <a href="javascript:;" class="post-votes-up">1.026 <i class="gsticon gsticon-caret-up"></i></a>
-                                    <a href="javascript:;" class="post-votes-dow"><i class="gsticon gsticon-caret-down"></i> 4</a>
-                                </div>
-                                <div class="post-count-comments"><strong>32</strong> Comentários</div>
-                            </div>
-                        </footer>
-                    </article>
+                    {% for x in 'Lorem' %}
+                        {% include 'home/partials/perfil-post.html' %}
+                    {% endfor %}
                 </section>
             </div>
             <div class="col-lg-4">
@@ -100,7 +74,10 @@
                 </div>
                 <div class="widget widget-feed">
                     <div class="widget-header">
-                        <h3>Comunidades</h3>
+                        <span class="counter">168</span>
+                        <header class="area-title">
+                            <h3>Comunidades</h3>
+                        </header>
                     </div>
                     <div class="widget-content">
                         <div class="perfil">
@@ -129,7 +106,10 @@
                 </div>
                 <div class="widget widget-feed">
                     <div class="widget-header">
-                        <h3>Seguindo</h3>
+                        <span class="counter">168</span>
+                        <header class="area-title">
+                            <h3>Seguindo</h3>
+                        </header>
                     </div>
                     <div class="widget-content">
                         <div class="perfil">
