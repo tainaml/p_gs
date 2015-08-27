@@ -1,0 +1,7 @@
+<form action="{% url 'comment:save' %}" method="post"> {% csrf_token %}
+    <textarea name="content" id="content" placeholder="Comment here" cols="30" rows="10"></textarea>
+    <br/>
+    <input name="content_object_id" value="{{ content_object_id }}" type="hidden"/>
+    <input name="content_type" value="{{ content_type }}" type="hidden"/>
+    <input type="submit" value="Submit"/>
+</form>

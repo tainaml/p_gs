@@ -94,6 +94,9 @@ EMAIL_HOST_PASSWORD = 'gZ-tr-g2VKy6zQdRIVzmxg'
 EMAIL_PORT = '587'
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
+#Comment config
+ENTITY_TO_COMMENT = ['user']
+
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
 
