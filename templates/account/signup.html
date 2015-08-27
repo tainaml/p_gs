@@ -3,7 +3,9 @@
 
 
 <form action="{% url 'account:register' %}" method="post">
+
     {% csrf_token %}
+
     <input type="text" name="username" value="{{ form.cleaned_data.username|default_if_none:"" }}" placeholder="{% trans "Username" %}" maxlength="30">
     {% if form.username.errors %}  {{ form.username.errors }} {% endif %}
     <p></p>

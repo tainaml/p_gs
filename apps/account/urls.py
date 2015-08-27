@@ -18,5 +18,7 @@ urlpatterns = [
     url(r'^recovery_password/(?P<activation_key>[0-9a-z]{40})/$', views.recovery_validation, name='recovery_validation'),
     url(r'^do_recovery_validation/$', views.do_recovery_validation, name='do_recovery_validation'),
     url(r'^recovery_validation/(?P<activation_key>[0-9a-z]{40})/$', views.recovery_validation, name='recovery_validation'),
+    url(r'^resend_account_confirmation$', views.resend_account_confirmation, name='resend_account_confirmation'),
+    url(r'^do_resend_account_confirmation$', views.do_resend_account_confirmation, name='do_resend_account_confirmation'),
 
 ]
