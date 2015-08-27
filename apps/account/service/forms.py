@@ -4,6 +4,7 @@ from nocaptcha_recaptcha import NoReCaptchaField
 
 import business as Business
 from custom_forms.custom import forms, IdeiaForm
+from django.utils.translation import ugettext as _
 
 
 class SignUpForm(IdeiaForm):
@@ -20,15 +21,15 @@ class SignUpForm(IdeiaForm):
 
         if 'password' in self.cleaned_data and 'password_confirmation' in self.cleaned_data and \
                 self.cleaned_data['password'] != self.cleaned_data['password_confirmation']:
-            self.add_error('password', ValidationError('Passwords are not the same.', code='password'))
+            self.add_error('password', ValidationError(_('Passwords are not the same.'), code='password'))
             valid = False
 
         if 'username' in self.cleaned_data and User.objects.filter(username=self.cleaned_data['username']).exists():
-            self.add_error('username', ValidationError('Username is already in use.', code='username'))
+            self.add_error('username', ValidationError(_('Username is already in use.'), code='username'))
             valid = False
 
         if 'email' in self.cleaned_data and User.objects.filter(email=self.cleaned_data['email']).exists():
-            self.add_error('email', ValidationError('Email is already in use.', code='email'))
+            self.add_error('email', ValidationError(_('Email is already in use.'), code='email'))
             valid = False
 
         return valid
@@ -52,7 +53,7 @@ class LoginForm(IdeiaForm):
             self.instance = Business.authenticate_user(username_or_email=self.cleaned_data['username'],
                                               password=self.cleaned_data['password'])
             if not self.instance:
-                self.add_error('password', ValidationError('Wrong password or username.', code='password'))
+                self.add_error('password', ValidationError(_('Wrong password or username.'), code='password'))
                 valid = False
 
         return valid
@@ -77,12 +78,12 @@ class ChangePasswordForm(IdeiaForm):
         if 'old_password' in self.cleaned_data:
             is_authenticated = Business.authenticate_user(self.user.username, self.cleaned_data['old_password'])
             if not is_authenticated:
-                self.add_error('old_password', ValidationError('Wrong old password.', code='old_password'))
+                self.add_error('old_password', ValidationError(_('Wrong old password.'), code='old_password'))
                 valid = False
 
             if 'new_password' in self.cleaned_data and 'new_password_confirmation' in self.cleaned_data and \
                     self.cleaned_data['new_password'] != self.cleaned_data['new_password_confirmation']:
-                self.add_error('new_password', ValidationError('Passwords are not the same.', code='new_password'))
+                self.add_error('new_password', ValidationError(_('Passwords are not the same.'), code='new_password'))
                 valid = False
 
         return valid
@@ -98,7 +99,7 @@ class ForgotPasswordForm(IdeiaForm):
         valid = super(ForgotPasswordForm, self).is_valid()
 
         if 'email' in self.cleaned_data and not User.objects.filter(email=self.cleaned_data['email']).exists():
-            self.add_error('email', ValidationError('Does not exist account with this email.', code='email'))
+            self.add_error('email', ValidationError(_('Does not exist account with this email.'), code='email'))
             valid = False
 
         return valid
@@ -120,12 +121,12 @@ class RecoveryPasswordForm(IdeiaForm):
 
         if 'new_password' in self.cleaned_data and 'new_password_confirmation' in self.cleaned_data and \
                 self.cleaned_data['new_password'] != self.cleaned_data['new_password_confirmation']:
-            self.add_error('new_password_confirmation', ValidationError('Passwords are not the same.',
+            self.add_error('new_password_confirmation', ValidationError(_('Passwords are not the same.'),
                                                                         code='new_password_confirmation'))
             valid = False
 
         if not self.token or not self.token.is_valid():
-            self.add_error('password', ValidationError('Token is no longer valid.', code='password'))
+            self.add_error('password', ValidationError(_('Token is no longer valid.'), code='password'))
             valid = False
 
         return valid

@@ -10,6 +10,7 @@ from django.utils import timezone
 from ..models import TokenType
 from apps.account.models import MailValidation
 from apps.mailmanager import send_email
+from django.utils.translation import ugettext as _
 
 __author__ = 'phillip'
 
@@ -88,7 +89,7 @@ def register_user(parameters=None):
         token = register_token(user=user, token_type=TokenType.REGISTER_ACCOUNT_CONFIRM)
         send_email(
             to=str(user.email),
-            subject='Bem vindo!',
+            subject=-('Bem vindo!'),
             template='mailmanager/register_user.html',
             context={'user': user, 'token': token, 'base_url': settings.SITE_URL}
         )
@@ -218,7 +219,7 @@ def forgot_password(user_email=None):
 
         send_email(
             to=str(user.email),
-            subject='Password Recovery',
+            subject=_('Password Recovery'),
             template='mailmanager/password-recovery.html',
             context={'user': user, 'token': token, 'base_url': settings.SITE_URL}
         )
