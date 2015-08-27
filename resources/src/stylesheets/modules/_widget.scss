@@ -21,7 +21,7 @@
 //     </div>
 // </div>
 .widget {
-    &-header {
+    &-#{header} {
         position: relative;
         margin-bottom: 20px;
         &:before {
@@ -31,9 +31,16 @@
             width: 4px;
             height: 100%;
         }
+        .counter {
+            float: right;
+            color: $color-border;
+            line-height: 2.5;
+            font-size: 1.286em;
+            font-weight: 600;
+        }
     }
 
-    &-content {
+    &-#{content} {
         @extend %clearfix;
     }
 }
@@ -86,8 +93,14 @@
         }
     }
 }
+// TODO: Move this class to layout/perfil.scss
+.squad-advertising {
+    @extend %clearfix;
+    margin-bottom: 15px;
+}
 .widget-feed {
-    margin-bottom: 20px;
+    @extend %clearfix;
+    padding: 15px 0;
 
     .widget-footer {
         padding: 5px 20px;
@@ -101,6 +114,36 @@
         }
     }
 }
+.follower-content {
+    @extend %clearfix;
+    width: 100%;
+    padding: 20px 20px 0;
+    border: 1px solid $color-border;
+    border-top-width: 0;
+    > ul > li {
+        padding-top: 10px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid $color-border;
+        color: $color-link-counter;
+        letter-spacing: -0.009em;
+        &:first-child {
+            padding-top: 0;
+        }
+        &:last-child {
+            border-bottom: 0;
+        }
+    }
+    .btn-follow {
+        display: block;
+        background-color: $background-primary-button;
+        color: $link-white;
+        font-weight: 600;
+        font-size: 1.286em;
+        &:hover {
+            background-color: $background-primary-button-hover;
+        }
+    }
+}
 
 .perfil-navegation {
     padding: 10px;
@@ -111,6 +154,7 @@
     > a {
         margin-right: 5px;
         margin-left: 5px;
+        display: inline-block;
         color: $color-link-feed;
         &:hover {
             color: lighten($color-link-counter, 20%);
@@ -121,6 +165,7 @@
 .post {
     @extend %clearfix;
     padding: 10px 20px;
+    margin-bottom: 20px;
     border: 1px solid $color-border;
 
     &-#{title} {
@@ -137,19 +182,22 @@
 
         time {
             padding-right: 10px;
-            margin-right: 10px;
+            margin-right: -4px;
             border-right: 1px solid $color-time;
             color: $color-time;
         }
     }
     &-#{info} {
+        position: relative;
         float: right;
 
         .gsticon-gear {
+            padding: 2.5px 10px;
             color: $background-button;
-        }
-        > .dropdown-menu {
-            display: none;
+            &:hover,
+            &.is-active {
+                background: #f7f7f7;
+            }
         }
     }
     &-#{content} {
@@ -158,13 +206,14 @@
         // Mudar para uma classe
         figure {
             float: left;
+            margin-right: 20px;
         }
     }
     &-#{text} {
         // Usar media-query para "setar" o tamanho
-        width: 66.6%;
+        // width: 66.6%;
         padding: 20px;
-        float: left;
+        // float: left;
         color: $color-text-post;
         font-weight: 600;
         font-size: 0.857em;
@@ -194,6 +243,7 @@
         padding-top: 10px;
     }
     &-#{communities} {
+        position: relative;
         display: inline-block;
         color: $color-border;
 
@@ -208,6 +258,7 @@
     padding: 10px 20px;
     margin: 20px auto 0;
     border: 1px solid $color-border;
+    background: $link-white;
 
     > li {
         display: block;
@@ -216,16 +267,42 @@
         &:last-child {
             border-bottom: none;
         }
-        > i {
-            margin-top: 5px;
-            float: right;
-            color: $color-time;
-            line-height: 2;
-        }
         > a {
             padding-top: 5px;
             padding-bottom: 5px;
             display: block;
         }
+    }
+}
+.perfil-repositories {
+    > li > a { color: $color-link-counter; }
+}
+
+.area-title {
+    padding: 10px 20px;
+    margin-bottom: 20px;
+    border-left: 4px solid $background-button;
+    color: $background-button;
+    > h2, h3, h4, h5 {
+        margin: 0;
+        text-transform: uppercase;
+        font-size: 1.286em;
+        font-weight: 600;
+        letter-spacing: -0.05em;
+    }
+}
+.area-content {
+    padding-top: 20px;
+    border-top: 1px solid $color-border;
+}
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%; right: 0;
+    z-index: 2000;
+    min-width: 180px;
+    > ul {
+        margin: 10px 0 0;
+        box-shadow: 0 2px 3px lighten(#000000, 35%);
     }
 }

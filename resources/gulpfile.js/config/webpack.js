@@ -57,6 +57,9 @@ module.exports = function(env) {
   }
 
   if(env === 'production') {
+    webpackConfig.externals = {
+      'jquery': 'jQuery'
+    };
     webpackConfig.plugins.push(
       new webpackManifest(publicPath, 'gsti/assets'),
       new webpack.DefinePlugin({

@@ -28,6 +28,12 @@
         padding-top: 25px;
         padding-bottom: 20px;
     }
+    .form-search--logged {
+        @include make-xs-column(10);
+        @include make-lg-column(6.5);
+        padding-top: 25px;
+        padding-bottom: 20px;
+    }
     .user-actions {
         @include make-xs-column(12);
         @include make-lg-column(2);
@@ -42,9 +48,8 @@
                 line-height: 5.8;
             }
             width: 63.5%;
-            // padding: 0 11px;
             float: left;
-            background-color: $gray-lighter;
+            background-color: $white-ice;
             border-right: 1px solid $color-border;
             border-left: 1px solid $color-border;
             color: $gray;
@@ -53,6 +58,43 @@
             &:last-child {
                 width: 36.5%;
                 border-left-width: 0;
+            }
+
+        }
+    }
+    .user-actions-logged {
+        @include make-xs-column(12);
+        @include make-lg-column(4);
+        border-left: 1px solid $color-border;
+        @media (min-width: $screen-lg-min) {
+            padding-left: 0;
+            padding-right: 0;
+        }
+         &-#{link--logged} {
+            position: relative;
+            padding: 24px;
+            float: left;
+            border-right: 1px solid $color-border;
+            color: $background-button;
+            font-size: 1em;
+            line-height: 3;
+            text-align: center;
+            &:nth-child(4) {
+                min-width: 47%;
+                border-left-width: 1px;
+            }
+            .badge {
+                position: absolute;
+                top: 20%;
+                right: 20%;
+                min-width: 15px;
+                padding: 3px;
+                background-color: #c30007;
+                border-radius: 50%;
+                color: white;
+                font-weight: 600;
+                font-size: 0.714em;
+                line-height: 115%;
             }
         }
     }

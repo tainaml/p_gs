@@ -70,5 +70,6 @@ main {
 
 .perfil-row {
     @include make-row();
+    padding-bottom: 40px;
     background: $background-perfil;
 }
