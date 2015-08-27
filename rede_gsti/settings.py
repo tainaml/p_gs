@@ -129,11 +129,16 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 
-#
+# Media Paths: User upload files
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media', 'uploads')
+MEDIA_URL = '/media/uploads/'
+
+# Login Urls
 LOGIN_URL = '/account/login'
 
 # MailValidation Time
 TIME_REGISTER_ACCOUNT = 48
 TIME_RECOVERY_PASSWORD = 8
 
+# Site Urls
 SITE_URL = 'http://localhost:8000'

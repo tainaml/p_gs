@@ -144,3 +144,6 @@ target/
 #Data Base files
 
 *.sqlite3
+
+#Uploads
+/media/uploads
