@@ -56,11 +56,10 @@ class LoginForm(IdeiaForm):
                 valid = False
             else:
                 if self.instance.is_active is False:
-                    self.add_error(None, ValidationError('Account is not active',
-                                                         code='account_not_active'))
-                    valid = False
+                    self.add_error(None, ValidationError('Account is not active', code='account_not_active'))
                     self.account_is_active = False
-                    self.account_is_active_errors = 'Account is not active'
+                    self.account_is_active_errors = 'Account is not active.'
+                    valid = False
 
         return valid
 
@@ -139,3 +138,19 @@ class RecoveryPasswordForm(IdeiaForm):
 
     def __process__(self):
         return Business.recovery_password(self.token, self.cleaned_data['new_password'])
+
+
+class ResendAccountConfirmationForm(IdeiaForm):
+    email = forms.EmailField(max_length=150, required=True)
+
+    def is_valid(self):
+        valid = super(ResendAccountConfirmationForm, self).is_valid()
+
+        if 'email' in self.cleaned_data and not User.objects.filter(email=self.cleaned_data['email']).exists():
+            self.add_error('email', ValidationError('Does not exist account with this email.', code='email'))
+            valid = False
+
+        return valid
+
+    def __process__(self):
+        return Business.resend_account_confirmation(self.cleaned_data['email'])

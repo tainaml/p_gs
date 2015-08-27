@@ -234,3 +234,27 @@ def recovery_password(token=None, new_password=None):
     deactivate_token(token)
     update_password(token.user, new_password)
     return token
+
+
+@transaction.atomic()
+def resend_account_confirmation(user_email=None):
+    try:
+        user = User.objects.get(email=user_email)
+
+        token = MailValidation.objects.get(user=user, token_type=TokenType.REGISTER_ACCOUNT_CONFIRM, active=True)
+
+        if not token or not token.is_valid():
+            MailValidation.objects.filter(user=user, token_type=TokenType.REGISTER_ACCOUNT_CONFIRM).update(active=False)
+            token = register_token(user=user, token_type=TokenType.REGISTER_ACCOUNT_CONFIRM)
+
+        send_email(
+            to=str(user.email),
+            subject='Account Confirmation',
+            template='mailmanager/resend-account-confirmation.html',
+            context={'user': user, 'token': token, 'base_url': settings.SITE_URL}
+        )
+
+    except User.DoesNotExist:
+        return False
+
+    return token

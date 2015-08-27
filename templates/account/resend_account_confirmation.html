@@ -1,0 +1,17 @@
+{% load i18n %}
+
+<h1>{% trans 'Resend account confirmation' %}</h1>
+
+<form action="{% url 'account:do_resend_account_confirmation' %}" method="post">
+    {% csrf_token %}
+
+    <input type="email" value="{{ form.cleaned_data.email|default_if_none:"" }}" name="email" placeholder="{% trans "Email" %}">
+    {% if form.email.errors %}  {{ form.email.errors }} {% endif %}
+    <br/>
+
+    {{ form.non_field_errors }}
+
+    <input type="submit" value="{% trans "Submit" %}" name="submit" />
+    <a href="{% url 'account:login' %}">{% trans 'Login' %}</a>
+
+</form>

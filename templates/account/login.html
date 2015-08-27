@@ -1,4 +1,6 @@
 {% load i18n %}
+{% trans 'click here' as click_here %}
+{% url 'account:resend_account_confirmation' as url_resend_account_confirmation %}
 
 <form action="{% url 'account:do_login' %}" method="post">
     {% csrf_token %}
@@ -13,7 +15,7 @@
 
     {% if form.account_is_active_errors %}
         <ul class="errorlist">
-            <li>{{ form.account_is_active_errors }} <a href="#">{% trans 'click here' %}</a> {% trans 'to activate' %}</li>
+            <li>{{ form.account_is_active_errors }} {% blocktrans %}If you have not received the confirmation email <a href="{{ url_resend_account_confirmation }}">{{ click_here }}</a> to resend. {% endblocktrans %}</li>
         </ul>
     {% endif %}
 
