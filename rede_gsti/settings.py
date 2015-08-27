@@ -62,7 +62,7 @@ MIDDLEWARE_CLASSES = (
 )
 
 LOCALE_PATHS = (
-    'apps/account/locale'
+    os.path.join(BASE_DIR, 'locale'),
 )
 
 ROOT_URLCONF = 'rede_gsti.urls'
