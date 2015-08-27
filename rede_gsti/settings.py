@@ -61,6 +61,10 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.security.SecurityMiddleware',
 )
 
+LOCALE_PATHS = (
+    'apps/account/locale'
+)
+
 ROOT_URLCONF = 'rede_gsti.urls'
 
 TEMPLATES = [

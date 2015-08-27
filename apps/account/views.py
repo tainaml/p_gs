@@ -5,6 +5,7 @@ from django.shortcuts import render, redirect
 from django.views.decorators.http import require_POST
 from .service.forms import SignUpForm, LoginForm, ChangePasswordForm, RecoveryPasswordForm, ForgotPasswordForm
 from .service.business import log_in_user, logout_user, register_confirm, check_token_exist
+from django.utils.translation import ugettext as _
 
  
 @login_required
@@ -84,7 +85,7 @@ def register(request):
     """
     form = SignUpForm(request.POST)
     if form.process():
-        messages.add_message(request, messages.SUCCESS, "Success")
+        messages.add_message(request, messages.SUCCESS, _("Success"))
         return redirect('/account/registered-successfully')
 
     return render(request, 'account/signup.html', {'form': form})
@@ -97,7 +98,7 @@ def registered_successfully(request):
     :param request:
     :return:
     """
-    message = "Registered Successfully"
+    message = _("Registered Successfully")
     return render(request, 'account/registered_successfully.html', {'message': message})
 
 
@@ -110,10 +111,10 @@ def mail_validation(request, activation_key):
     :return: HTML
     """
 
-    message = 'Token not exist'
+    message = _('Token not exist')
 
     if register_confirm(activation_key):
-        message = 'Token exist - Account verified'
+        message = _('Token exist - Account verified')
 
     return render(request, 'account/mail_validation.html', {'message': message})
 
@@ -180,7 +181,7 @@ def do_forgot_password(request):
     """
     form = ForgotPasswordForm(request.POST)
     if form.process():
-        message = 'A confirmation email was sent to you'
+        message = _('A confirmation email was sent to you')
         return render(request, 'account/password_sent_email_successfully.html', {'message': message})
 
     return render(request, 'account/password_forgot.html', {'form': form})
@@ -195,14 +196,14 @@ def do_recovery_validation(request):
     :return: HTML
     """
 
-    message = 'Token not exist'
+    message = _('Token not exist')
 
     token = check_token_exist(request.POST['activation_key'])
     if token and token.is_active() and token.is_valid():
         form = RecoveryPasswordForm(token, request.POST)
 
         if form.process():
-            message = 'Password successfully changed!'
+            message = _('Password successfully changed!')
             return render(request, 'account/password_recovery_successfully.html', {'message': message})
 
         return render(request, 'account/password_recovery.html', {
