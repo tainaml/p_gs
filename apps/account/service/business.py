@@ -86,7 +86,7 @@ def register_user(parameters=None):
         token = register_token(user=user, token_type=TokenType.REGISTER_ACCOUNT_CONFIRM)
         send_email(
             to=str(user.email),
-            subject=-('Bem vindo!'),
+            subject=_('Bem vindo!'),
             template='mailmanager/register_user.html',
             context={'user': user, 'token': token, 'base_url': settings.SITE_URL}
         )
@@ -103,12 +103,20 @@ def register_confirm(activation_key):
     """
 
     token = check_token_exist(activation_key)
-    if token and token.is_active() and token.is_valid():
-        user = activate_account(token)
-        if user:
-            return True
-
-    return False
+    if token:
+        if token.is_active():
+            if token.is_valid():
+                user = activate_account(token)
+                if user:
+                    return True
+                else:
+                    raise Exception('Account is not exists!')
+            else:
+                raise Exception('Token is not longer valid!')
+        else:
+            raise Exception('Token is not active!')
+    else:
+        raise Exception('Token is not exists!')
 
 
 @transaction.atomic
@@ -189,7 +197,7 @@ def authenticate_user(username_or_email=None, password=None):
         except:
             user = False
 
-    return user if user and user.is_active else False
+    return user if user else False
 
 
 def log_in_user(request=None, user=None):
@@ -250,4 +258,31 @@ def recovery_password(token=None, new_password=None):
 
     deactivate_token(token)
     update_password(token.user, new_password)
+    return token
+
+
+@transaction.atomic()
+def resend_account_confirmation(user_email=None):
+    try:
+        user = User.objects.get(email=user_email)
+
+        if not user.is_active:
+            token = MailValidation.objects.get(user=user, token_type=TokenType.REGISTER_ACCOUNT_CONFIRM, active=True)
+
+            if not token or not token.is_valid():
+                MailValidation.objects.filter(user=user, token_type=TokenType.REGISTER_ACCOUNT_CONFIRM).update(active=False)
+                token = register_token(user=user, token_type=TokenType.REGISTER_ACCOUNT_CONFIRM)
+
+            send_email(
+                to=str(user.email),
+                subject='Account Confirmation',
+                template='mailmanager/resend-account-confirmation.html',
+                context={'user': user, 'token': token, 'base_url': settings.SITE_URL}
+            )
+        else:
+            return False
+
+    except User.DoesNotExist:
+        return False
+
     return token

@@ -3,7 +3,8 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.views.decorators.http import require_POST
-from .service.forms import SignUpForm, LoginForm, ChangePasswordForm, RecoveryPasswordForm, ForgotPasswordForm
+from .service.forms import SignUpForm, LoginForm, ChangePasswordForm, RecoveryPasswordForm, ForgotPasswordForm, \
+    ResendAccountConfirmationForm
 from .service.business import log_in_user, logout_user, register_confirm, check_token_exist
 from django.utils.translation import ugettext as _
 
@@ -113,8 +114,11 @@ def mail_validation(request, activation_key):
 
     message = _('Token not exist')
 
-    if register_confirm(activation_key):
+    try:
+        register_confirm(activation_key)
         message = _('Token exist - Account verified')
+    except Exception as e:
+        message = e.message
 
     return render(request, 'account/mail_validation.html', {'message': message})
 
@@ -212,3 +216,18 @@ def do_recovery_validation(request):
         })
 
     return render(request, 'account/recovery_validation.html', {'form'})
+
+
+def resend_account_confirmation(request):
+    form = ResendAccountConfirmationForm()
+    return render(request, 'account/resend_account_confirmation.html', {'form': form})
+
+
+@require_POST
+def do_resend_account_confirmation(request):
+    form = ResendAccountConfirmationForm(request.POST)
+    if form.process():
+        message = 'E-mail re-sent successfully!'
+        return render(request, 'account/resend_account_confirmation_successfully.html', {'message': message})
+
+    return render(request, 'account/resend_account_confirmation.html', {'form': form})
