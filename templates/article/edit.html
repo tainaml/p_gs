@@ -1,0 +1,47 @@
+{% load i18n %}
+<!doctype html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Article Edit/Create</title>
+</head>
+<body>
+
+<form action="{% url 'article:save' %}" enctype="multipart/form-data">
+
+    {% csrf_token %}
+
+    <p>
+        <label for="article_title">Title:</label>
+        <input type="text" id="article_title" name="title" value="{{ form.data.title }}"/>
+        {% if form.title.errors %}  {{ form.title.errors }} {% endif %}
+    </p>
+
+    <p>
+        <label for="article_text">Text:</label>
+        <textarea name="text" id="article_text" cols="30" rows="10">{{ form.data.text }}</textarea>
+        {% if form.text.errors %}  {{ form.text.errors }} {% endif %}
+    </p>
+
+    <p>
+        <label for="article_image">Imagem</label>
+        <input type="file" name="image" id="article_image">
+        {% if form.image.errors %} {{ form.image.errors }} {% endif %}
+    </p>
+
+    <p>
+    </p>
+
+    <p>
+        {% if form.data.id %}
+            <input type="hidden" name="id" value="{{ form.data.id }}">
+            <input type="submit" value="{% trans "Submit" context "save article" %}" name="submit" />
+        {% else %}
+            <input type="submit" value="{% trans "Submit" context "create article" %}" name="submit" />
+        {% endif %}
+    </p>
+
+</form>
+
+</body>
+</html>
