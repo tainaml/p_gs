@@ -1,0 +1,15 @@
+{% load comment_tags %}
+
+<ul style="list-style: none;">
+{% for comment in list_comment %}
+    <li style="padding: 10px; "><strong>{{comment.author.first_name}} {{comment.author.last_name}}: </strong>{{comment.content}}
+         <div style="display: none;" id="data-box-answer-{{ comment.id }}">
+            {% box_comment comment '/comment/index_teste' %}
+        </div>
+        <br/>
+        <a onclick="$('#data-box-answer-{{ comment.id }}').toggle('display');"  href="javascript:;">answer</a>
+        {% list_comment comment %}
+    </li>
+{% endfor %}
+</ul>
+<hr/>

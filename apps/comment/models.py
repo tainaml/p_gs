@@ -9,10 +9,11 @@ from django.utils import timezone
 class Comment(models.Model):
 
     author = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='author')
-    creation_date = models.DateTimeField(default=timezone.now())
+    creation_date = models.DateTimeField(auto_now_add=timezone.now())
     content = models.CharField(max_length=512)
     content_type = models.ForeignKey(ContentType)
     object_id = models.PositiveIntegerField()
     content_object = GenericForeignKey('content_type', 'object_id')
+    level = models.IntegerField(null=True, blank=True)
 
 
