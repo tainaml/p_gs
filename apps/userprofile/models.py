@@ -42,9 +42,9 @@ class City(models.Model):
 class UserProfile(models.Model):
 
     user = models.OneToOneField(User)
-    birth = models.DateField(null=True, blank=False)
-    gender = models.CharField(max_length=1, default=None, null=True)
-    city = models.ForeignKey(City)
+    birth = models.DateField(null=True, blank=True)
+    gender = models.CharField(max_length=1, null=True, blank=True)
+    city = models.ForeignKey(City, null=True, blank=True)
 
     def __str__(self):
         return self.user
@@ -55,3 +55,6 @@ class Occupation(models.Model):
     responsibility = models.CharField(max_length=60, blank=False)
     description = models.TextField(blank=False)
     user = models.ForeignKey(User)
+
+    def __str__(self):
+        return self.responsibility
