@@ -34,3 +34,9 @@ def create_comment(user=None, parameters=None):
 
     return comment
 
+def edit_comment(comment=None, parameters =None):
+    comment.content = parameters['content']
+
+    comment.save()
+
+    return comment

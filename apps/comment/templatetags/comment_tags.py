@@ -11,7 +11,7 @@ def box_comment(context, content_object, url_next):
     try:
         content_type = ContentType.objects.get_for_model(content_object)
 
-    except ValueError:
+    except:
         raise Http404()
 
     return {
@@ -19,6 +19,15 @@ def box_comment(context, content_object, url_next):
         'content_type': content_type,
         'url_next': url_next,
         'request': context['request']
+    }
+
+@register.inclusion_tag('comment/edit.html')
+def box_edit_comment(instance, url_next):
+
+
+    return {
+        'instance': instance,
+        'url_next': url_next
     }
 
 @register.inclusion_tag('comment/list.html', takes_context=True)

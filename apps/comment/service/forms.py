@@ -41,3 +41,36 @@ class CreateCommentForm(IdeiaForm):
             valid = False
 
         return valid
+
+class EditCommentForm(IdeiaForm):
+
+    content = forms.CharField(max_length=512, required=True)
+
+    def __init__(self, user=None, instance=None, *args, **kargs):
+        self.user = user
+        self.instance = instance
+
+        super(EditCommentForm, self).__init__(*args, **kargs)
+
+
+    def is_valid(self):
+
+        valid = super(EditCommentForm, self).is_valid()
+
+        if not self.user or not self.user.is_authenticated:
+            self.add_error(None,
+                           ValidationError(('User must be authenticated.'),
+                                           code='is_not_authenticated'))
+            valid = False
+
+        if self.user and self.instance.author and self.instance.author != self.user:
+            self.add_error(None,
+                           ValidationError(('comment edit permission denied!'),
+                                           code='is_not_authenticated'))
+            valid = False
+
+
+        return valid
+
+    def __process__(self):
+        return Business.edit_comment(self.instance, self.cleaned_data)
