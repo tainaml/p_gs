@@ -1,0 +1,10 @@
+{% load i18n %}
+
+  {% if user.is_authenticated %}
+      {% trans 'You are logged in as'  %} {{ user.username }}!
+  {% endif %}
+
+<a href="login/facebook">
+<i class="fa fa-facebook"></i>
+    Facebook OAuth2
+</a>

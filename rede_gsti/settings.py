@@ -47,7 +47,8 @@ INSTALLED_APPS = (
     'apps.article',
     'apps.comment',
     'apps.question',
-    'apps.userprofile'
+    'apps.userprofile',
+    'social.apps.django_app.default'
 )
 
 MIDDLEWARE_CLASSES = (
@@ -137,3 +138,12 @@ TIME_REGISTER_ACCOUNT = 48
 TIME_RECOVERY_PASSWORD = 8
 
 SITE_URL = 'http://localhost:8000'
+
+SOCIAL_AUTH_FACEBOOK_KEY = '1486240068359213'
+SOCIAL_AUTH_FACEBOOK_SECRET = 'd5be292ac55c13d465ae82bc19c84669'
+SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
+
+AUTHENTICATION_BACKENDS = (
+    'social.backends.facebook.FacebookOAuth2',
+    'django.contrib.auth.backends.ModelBackend',
+    )
