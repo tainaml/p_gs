@@ -51,19 +51,13 @@
     <!-- mudar para 9.5 -->
     <div class="col-lg-9">
         <nav class="perfil-navegation">
-            <a href="{% url 'ninico:feed' %}">Feed</a>•<a class="active" href="{% url 'ninico:perfil' %}">Perfil</a>•<a href="{% url 'ninico:about' %}">Sobre</a>•<a href="{% url 'ninico:communities' %}">Comunidades</a>•<a href="{% url 'ninico:relationship' %}">Relacionamentos</a>•<a href="{% url 'ninico:videos' %}">Vídeos</a>
+            <a href="{% url 'ninico:feed' %}">Feed</a>•<a href="{% url 'ninico:perfil' %}">Perfil</a>•<a href="{% url 'ninico:about' %}">Sobre</a>•<a href="{% url 'ninico:communities' %}">Comunidades</a>•<a href="{% url 'ninico:relationship' %}">Relacionamentos</a>•<a class="active" href="{% url 'ninico:videos' %}">Vídeos</a>
         </nav>
         <div class="row">
             <div class="col-lg-8">
                 <header class="area-title">
-                    <h2>Feed</h2>
+                    <h2>Vídeos</h2>
                 </header>
-                {% if isLogged %}
-                <!-- A "barra" de pesquisa não é exibida no feed, somente no -->
-                <nav class="form-search">
-                    {% include 'home/partials/search.html' with placehold='Pesquise no seu feed' only %}
-                </nav>
-                {% endif %}
                 <section class="area-content">
                     {% for x in 'Lorem' %}
                         {% include 'home/partials/perfil-post.html' %}
