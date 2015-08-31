@@ -24,6 +24,10 @@ $background-button-hover:         lighten($background-button, 30%) !default;
 $background-primary-button:       #738d00 !default;
 $background-primary-button-hover: darken($background-primary-button, 10%) !default;
 
+$background-perfil-button:        #f2f2f2 !default;
+$background-perfil-button-hover:  $background-button;
+
+
 $areas: (governance, $color-governance), (development, $color-development),
 (web-design, $color-web-design), (marketing, $color-marketing), (infra, $color-infra),
 (databases, $color-databases);

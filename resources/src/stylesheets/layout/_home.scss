@@ -14,6 +14,7 @@ main {
 .article-content {
     margin-top: 10px;
     display: block;
+    font-weight: 600;
     text-align: justify;
 }
 .banner-content-wide {
@@ -52,11 +53,13 @@ main {
 .highlight-article-large {
     @extend %highlight-article;
     width: 100%;
+    font-weight: 600;
 }
 .highlight-article-medium {
     @extend %highlight-article;
     width: 50%;
     padding-top: 20px;
+    font-weight: 600;
 }
 .highlight-articles--no-border {
     @extend %highlights-article;

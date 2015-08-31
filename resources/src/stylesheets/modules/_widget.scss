@@ -23,59 +23,6 @@
     }
 }
 
-// TODO: Mudar isso de lugar
-.perfil {
-    @extend %clearfix;
-    padding: 20px;
-    margin-top: -1px;
-    border: 1px solid $color-border;
-    > img {
-        float: left;
-        margin-right: 8px;
-        border: 4px solid $link-white;
-        box-shadow: -1px 1px 1px $color-border, 1px -1px 1px $color-border;
-    }
-    &-#{name} {
-        color: $color-link-feed;
-        font-size: 1.286em;
-        &:hover {
-            color: lighten($color-link-feed, 10%);
-        }
-    }
-    &-#{counter} {
-        display: block;
-        color: $color-link-counter;
-        font-size: 1em;
-        line-height: $line-height-computed;
-        letter-spacing: -0.005em;
-        &:hover {
-            color: lighten($color-link-counter, 10%);
-        }
-        .counter-number {
-            font-weight: 600;
-        }
-    }
-    &-#{button} {
-        min-width: 100px;
-        padding-top: 0;
-        padding-bottom: 1.5px;
-        margin-top: 5px;
-        background: $background-primary-button;
-        color: $link-white;
-        font-weight: 600;
-        font-size: 0.929em;
-        &:focus,
-        &:hover {
-            color: $link-white;
-            background: $background-primary-button-hover;
-        }
-    }
-}
-// TODO: Move this class to layout/perfil.scss
-.squad-advertising {
-    @extend %clearfix;
-    margin-bottom: 15px;
-}
 .widget-feed {
     @extend %clearfix;
     padding: 15px 0;
@@ -119,27 +66,6 @@
         font-size: 1.286em;
         &:hover {
             background: $background-primary-button-hover;
-        }
-    }
-}
-
-.perfil-navegation {
-    padding: 10px;
-    margin-bottom: 30px;
-    border: 1px solid $color-border;
-    color: $color-border;
-
-    > a {
-        margin-right: 5px;
-        margin-left: 5px;
-        display: inline-block;
-        color: $color-link-counter;
-        &.active {
-            font-weight: 600;
-            color: $color-governance;
-        }
-        &:hover {
-            color: lighten($color-link-counter, 20%);
         }
     }
 }
@@ -235,45 +161,7 @@
         }
     }
 }
-.perfil-actions,
-.perfil-repositories {
-    @include list-unstyled();
-    padding: 10px 20px;
-    margin: 20px auto 0;
-    border: 1px solid $color-border;
-    background: $link-white;
 
-    > li {
-        display: block;
-        border-bottom: 1px solid $color-border;
-        line-height: 2;
-        &:last-child {
-            border-bottom: none;
-        }
-        > a {
-            padding-top: 5px;
-            padding-bottom: 5px;
-            display: block;
-        }
-    }
-}
-.perfil-repositories {
-    > li > a { color: $color-link-counter; }
-}
-
-.area-title {
-    padding: 10px 20px;
-    margin-bottom: 20px;
-    border-left: 4px solid $background-button;
-    color: $background-button;
-    > h2, h3, h4, h5 {
-        margin: 0;
-        text-transform: uppercase;
-        font-size: 1.286em;
-        font-weight: 600;
-        letter-spacing: -0.05em;
-    }
-}
 .area-content {
     padding-top: 20px;
     border-top: 1px solid $color-border;
@@ -288,24 +176,4 @@
         margin: 10px 0 0;
         box-shadow: 0 2px 3px lighten(#000000, 35%);
     }
-}
-
-.about-text {
-    padding: 20px;
-    border: 1px solid $color-border;
-    color: $color-text-post;
-    font-size: 1.071em;
-
-    > p {
-        font-size: 1em;
-    }
-}
-
-.box-perfil {
-    @include make-xs-column(12);
-    @include make-sm-column(6);
-    @include make-md-column(4);
-    @include make-lg-column(4);
-    padding-top: 15px;
-    padding-bottom: 15px;
 }
