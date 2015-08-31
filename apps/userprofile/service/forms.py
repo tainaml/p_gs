@@ -1,5 +1,7 @@
 from django.db import models
-from apps.userprofile.models import City, Country, State
+from django.core.validators import RegexValidator
+import pickle
+from apps.userprofile.models import City
 import business as Business
 
 from django.contrib.auth.models import User
@@ -8,13 +10,52 @@ from django.utils.translation import ugettext as _
 from custom_forms.custom import forms, IdeiaForm
 
 
+class MultiWidgetBasic(forms.widgets.MultiWidget):
+    def __init__(self, attrs=None):
+        widgets = [forms.TextInput(),
+                   forms.TextInput()]
+        super(MultiWidgetBasic, self).__init__(widgets, attrs)
+
+    def decompress(self, value):
+        if value:
+            return pickle.loads(value)
+        else:
+            return ['', '']
+
+
+class OccupationField(forms.fields.MultiValueField):
+    widget = MultiWidgetBasic
+
+    def __init__(self, *args, **kwargs):
+
+        list_fields = [
+            forms.CharField(
+                error_messages={'incomplete': 'Enter a responsibility.'},
+                validators=[RegexValidator(r'^[\w\d](?:[\w\d\s])*$', 'Just text and numbers.')],
+                initial="Responsability"
+            ),
+
+            forms.CharField(
+                error_messages={'incomplete': 'Enter a description of responsibility.'},
+                validators=[RegexValidator(r'^[\w\d](?:[\w\d\s])*$', 'Just text and numbers.')],
+                initial="Description"
+            )
+        ]
+        super(OccupationField, self).__init__(list_fields, *args, **kwargs)
+
+    def compress(self, values):
+        # return pickle.dumps(values)
+        return values
+
+
 class EditProfileForm(IdeiaForm):
 
     birth = forms.DateField(input_formats=['%d/%m/%Y'], )
     gender = forms.CharField(max_length=1)
     city = forms.ModelChoiceField(queryset='')
+    occupation = OccupationField()
 
-    def __init__(self, data=None, request=None, data_model=None, set_queryset=None, *args, **kwargs):
+    def __init__(self, data=None, request=None, data_model=None, *args, **kwargs):
         self.request = request
 
         super(EditProfileForm, self).__init__(data, *args, **kwargs)

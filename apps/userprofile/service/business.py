@@ -48,6 +48,10 @@ def create_profile(user, data=None):
 def update_profile(user, data=None):
     profile = check_profile_exists(user)
 
+    dt = data
+    print dt
+    print dt['occupation']
+
     if profile:
         profile.birth = data['birth']
         profile.gender = data['gender']

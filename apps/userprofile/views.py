@@ -51,7 +51,7 @@ def update_profile(request):
 
     profile = Business.get_profile(request.user)
 
-    form = EditProfileForm(request.POST, request=request, set_queryset=request.POST['state'])
+    form = EditProfileForm(request.POST, request=request)
 
     if profile.city:
         states = Business.get_states(profile.city.state.country.id)

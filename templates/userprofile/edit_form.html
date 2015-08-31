@@ -21,7 +21,7 @@
     {{ form.data.nome }}
     {% if form.nome.errors %}  {{ form.nome.errors }} {% endif %}
 
-    <input type="date" name="birth" placeholder="{% trans "Birth date" %}" maxlength="30" value="{{ form.data.birth|date:"d/m/Y" }}">
+    <input type="date" name="birth" placeholder="{% trans "Birth date" %}" value="{{ form.data.birth|date:"d/m/Y" }}">
     {% if form.birth.errors %}  {{ form.birth.errors }} {% endif %}
     <br/>
 
@@ -51,6 +51,7 @@
     </select>
     {% if form.city.errors %}  {{ form.city.errors }} {% endif %}
     <br/>
+    <br/>
 
     <!--
     <input type="text" name="responsability" placeholder="{% trans 'Responsability' %}"/>
@@ -63,8 +64,13 @@
 
     <input type="text" name="responsability" placeholder="{% trans 'Responsability' %}"/>
     <input type="text" name="description" placeholder="{% trans 'Description of the responsability' %}" style="width: 200px;"/>
-    <br/>
     -->
+
+    {{ form.occupation }}
+    {% if form.occupation.errors %}{{ form.occupation.errors }}{% endif %}
+
+    <br/>
+    <br/>
 
     {{ form.non_field_errors }}
 
@@ -72,6 +78,7 @@
     {% trans 'or' %} <a href="{% url 'account:index' %}">{% trans 'Go to account index' %}</a>
 
 </form>
+
 
 
 <script src="http://code.jquery.com/jquery-1.11.3.min.js" type="text/javascript"></script>
