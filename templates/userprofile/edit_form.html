@@ -34,7 +34,7 @@
     <br/>
 
     <select name="country" id="country">
-        <option value="" selected disabled>{% trans "Select a country" %}</option>
+        <option value="" {% if form.data.city.state.country.id %}selected{% endif %} disabled>{% trans "Select a country" %}</option>
         {% for country in countries %}
             <option value="{{ country.id }}" {% if form.data.city.state.country.id == country.id %}selected{% endif %}>{{ country.name }}</option>
         {% endfor %}
