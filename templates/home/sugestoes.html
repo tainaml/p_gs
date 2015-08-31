@@ -1,0 +1,46 @@
+{%extends 'home/layout/base.html' %}
+
+{% block title %}Portal GSTI - Perfil{% endblock %}
+
+{% block content %}
+<div class="perfil-row">
+    <!-- mudar para 2.5 -->
+    <div class="col-lg-3">
+        {% include 'home/partials/sidebar-perfil.html' %}
+    </div>
+    <!-- mudar para 9.5 -->
+    <div class="col-lg-9">
+        <nav class="perfil-navegation">
+            <a href="{% url 'ninico:feed' %}">Feed</a>•<a class="active" href="{% url 'ninico:perfil' %}">Perfil</a>•<a href="{% url 'ninico:about' %}">Sobre</a>•<a href="{% url 'ninico:communities' %}">Comunidades</a>•<a href="{% url 'ninico:relationship' %}">Relacionamentos</a>•<a href="{% url 'ninico:videos' %}">Vídeos</a>
+        </nav>
+        <div class="row">
+            <div class="col-lg-12">
+                <header class="area-title">
+                    <h2>Sugestões</h2>
+                </header>
+                <div class="row">
+                    <div class="col-lg-4">
+                        <div class="custom-check btn">
+                            <input type="checkbox">
+                        </div>
+                        <a href="javascript:;" class="btn">
+                            <i class="gsticon gsticon-trash"></i> Remover Sugestão
+                        </a>
+                    </div>
+                    <div class="col-lg-8">
+                        <!-- A "barra" de pesquisa não é exibida no feed, somente no -->
+                        <nav class="form-search">
+                            {% include 'home/partials/search.html' with placehold='Procure um conteúdo' %}
+                        </nav>
+                    </div>
+                </div>
+                <section class="area-content">
+                    {% for x in 'Lorem' %}
+                    {% include 'home/partials/perfil-excerpt.html' %}
+                    {% endfor %}
+                </section>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

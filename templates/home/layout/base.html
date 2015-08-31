@@ -13,7 +13,7 @@
             <div class="container">
                 <div class="row">
                     <h1 class="gsti">
-                        <a href="javascript:;" class="gsti-link">Portal GSTI</a>
+                        <a href="{% url 'ninico:index' %}" class="gsti-link">Portal GSTI</a>
                     </h1>
                     <div class="form-search{% if isLogged %}--logged{% endif %}">
                         {% include 'home/partials/search.html' %}
