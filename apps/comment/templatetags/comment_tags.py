@@ -1,3 +1,5 @@
+from django.conf import settings
+
 __author__ = 'phillip'
 from django.contrib.contenttypes.models import ContentType
 from ..models import Comment
@@ -36,12 +38,14 @@ def list_comment(context, content_object):
     try:
         content = ContentType.objects.get_for_model(content_object)
         list_comment = Comment.objects.filter(content_type=content, object_id=content_object.id).order_by('-creation_date')
-
+        max_levels = settings.MAX_LEVELS if hasattr(settings,
+                                                'MAX_LEVELS') else False
 
     except ValueError:
         raise Http404()
 
     return {
         'list_comment': list_comment,
-        'request': context['request']
+        'request': context['request'],
+        'max_levels': max_levels
     }
