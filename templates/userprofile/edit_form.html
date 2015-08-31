@@ -51,7 +51,6 @@
     </select>
     {% if form.city.errors %}  {{ form.city.errors }} {% endif %}
     <br/>
-    <br/>
 
     <!--
     <input type="text" name="responsability" placeholder="{% trans 'Responsability' %}"/>
@@ -70,19 +69,20 @@
     {#    {% if form.occupation.errors %}{{ form.occupation.errors }}{% endif %}#}
 
 
-    {{ formset.management_form }}
-    <div style="display:none;" id="form_template">
-        {{ formset.empty_form.as_p }}
-    </div><!-- stores empty form for javascript -->
-    <div id="forms"></div><!-- where the generated forms go -->
+{#    {{ formset.management_form }}#}
+{#    <div style="display:none;" id="form_template">#}
+{#        {{ formset.empty_form.as_p }}#}
+{#    </div><!-- stores empty form for javascript -->#}
+{#    <div id="forms"></div><!-- where the generated forms go -->#}
+{#    <input type="text" name="quantity" value="6" />#}
+{#    <input type="button" id="generate_forms" value="Generate Forms" />#}
 
-    <br/>
+{#    <br/>#}
     <br/>
 
     {{ form.non_field_errors }}
 
-    <input type="text" name="quantity" value="6" />
-    <input type="button" id="generate_forms" value="Generate Forms" />
+
     <input type="submit" value="{% trans "Submit" %}" name="submit" />
     {% trans 'or' %} <a href="{% url 'account:index' %}">{% trans 'Go to account index' %}</a>
 

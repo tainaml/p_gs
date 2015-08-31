@@ -53,7 +53,6 @@ class EditProfileForm(IdeiaForm):
     birth = forms.DateField(input_formats=['%d/%m/%Y'])
     gender = forms.CharField(max_length=1)
     city = forms.ModelChoiceField(queryset='')
-    # occupation = OccupationField()
 
     def __init__(self, data=None, request=None, data_model=None, data_formset=None, *args, **kwargs):
         self.request = request
@@ -68,13 +67,12 @@ class EditProfileForm(IdeiaForm):
             self.data = forms.model_to_dict(data_model)
 
     def is_valid(self):
-        super_is_super_valid = super(EditProfileForm, self).is_valid()
-        is_valid = self.formset.is_valid()
+        is_valid = super(EditProfileForm, self).is_valid()
 
-        return is_valid and super_is_super_valid
+        return is_valid
 
     def __process__(self):
-        return Business.edit_profile(self.request.user, self.cleaned_data, self.formset.cleaned_data)
+        return Business.edit_profile(self.request.user, self.cleaned_data, None)
 
 
 class OccupationForm(IdeiaForm):
@@ -82,10 +80,13 @@ class OccupationForm(IdeiaForm):
     responsibility = forms.CharField(max_length=100)
     description = forms.CharField(max_length=100)
 
+    def __init__(self, request=None, *args, **kwargs):
+        self.request = request
+        super(OccupationForm, self).__init__(*args, **kwargs)
+
     def is_valid(self):
         is_valid = super(OccupationForm, self).is_valid()
-
         return is_valid
 
     def __process__(self):
-        pass
+        return Business.create_occupation(self.request.user, self.cleaned_data)

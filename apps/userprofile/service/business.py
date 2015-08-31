@@ -111,3 +111,24 @@ def get_cities(state_id=None):
         return City.objects.filter(state=state_id)
 
     return City.objects.all()
+
+
+def get_occupations(user):
+
+    try:
+        profile = get_profile(user)
+        occupations = Occupation.objects.filter(profile=profile.id)
+    except:
+        return False
+
+    return occupations
+
+
+def get_occupation(params={}):
+
+    try:
+        occupations = Occupation.objects.get(**params)
+    except:
+        return False
+
+    return occupations

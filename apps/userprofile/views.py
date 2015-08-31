@@ -1,8 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
-from django.forms import formset_factory
-from django.http import HttpResponse
+from django.forms import formset_factory, model_to_dict
 from django.shortcuts import render, redirect
 from django.views.decorators.http import require_POST
 from django.utils.translation import ugettext as _
@@ -10,9 +9,6 @@ from django.utils.translation import ugettext as _
 from apps.userprofile.service import business as Business
 from apps.userprofile.models import GenderType
 from apps.userprofile.service.forms import EditProfileForm, OccupationForm
-
-
-OccupationFormSet = formset_factory(OccupationForm, extra=0)
 
 
 def show(request, username):
@@ -28,9 +24,18 @@ def edit(request):
     countries = Business.get_countries()
 
     profile = Business.get_profile(request.user)
+    occupations = Business.get_occupations(request.user)
+
+    initials = []
+    for occupation in occupations:
+        initials.append(model_to_dict(occupation))
+
+    print initials
 
     form = EditProfileForm(data_model=profile)
-    occupation_formset = OccupationFormSet(prefix='occupation')
+
+    # OccupationFormSet = formset_factory(OccupationForm)
+    # occupation_formset = OccupationFormSet(prefix='occupation', initial=initials)
 
     if profile.city:
         states = Business.get_states(profile.city.state.country.id)
@@ -45,7 +50,7 @@ def edit(request):
         'states': states,
         'cities': cities,
         'gender': GenderType(),
-        'formset': occupation_formset
+        # 'formset': occupation_formset
     })
 
 
@@ -57,8 +62,9 @@ def update_profile(request):
 
     profile = Business.get_profile(request.user)
 
-    occupation_formset = OccupationFormSet(request.POST, prefix='occupation')
-    form = EditProfileForm(request.POST, request=request, data_formset=occupation_formset)
+    # OccupationFormSet = formset_factory(OccupationForm, extra=0)
+    # occupation_formset = OccupationFormSet(request.POST, prefix='occupation')
+    form = EditProfileForm(request.POST, request=request)
 
     if profile.city:
         states = Business.get_states(profile.city.state.country.id)
@@ -77,7 +83,7 @@ def update_profile(request):
         'states': states,
         'cities': cities,
         'gender': GenderType(),
-        'formset': occupation_formset
+        # 'formset': occupation_formset
         })
 
 
@@ -97,3 +103,37 @@ def get_city(request):
         'items': cities,
         'message': _("Select a city")
     })
+
+
+def occupation_manage(request):
+    profile = Business.get_profile(request.user)
+    occupations = Business.get_occupations(request.user)
+
+    return render(request, 'userprofile/occupation_manage.html', {'profile': profile, 'occupations': occupations})
+
+
+def occupation_add(request):
+    form = OccupationForm()
+    return render(request, 'userprofile/occupation_add.html', {'form': form})
+
+
+def occupation_create(request):
+    form = OccupationForm(request, request.POST)
+    if form.process():
+        return redirect(reverse('profile:occupation_manage'))
+    return render(request, 'userprofile/occupation_add.html', {'form': form})
+
+
+def occupation_show(request, occupation_id):
+    profile = Business.get_profile(request.user)
+    occupation = Business.get_occupation({'id': occupation_id})
+
+    return render(request, 'userprofile/occupation_show.html', {'profile': profile, 'occupation': occupation})
+
+
+def occupation_edit(request):
+    pass
+
+
+def occupation_delete(request):
+    pass

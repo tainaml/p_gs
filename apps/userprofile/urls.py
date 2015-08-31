@@ -8,6 +8,12 @@ urlpatterns = [
     url(r'^update_profile/$', views.update_profile, name='update_profile'),
     url(r'^get_state/$', views.get_state, name='get_state'),
     url(r'^get_city/$', views.get_city, name='get_city'),
+    url(r'^occupation/$', views.occupation_manage, name='occupation_manage'),
+    url(r'^occupation/(?P<occupation_id>[0-9]+)$', views.occupation_show, name='occupation_show'),
+    url(r'^occupation/add/$', views.occupation_add, name='occupation_add'),
+    url(r'^occupation/create/$', views.occupation_create, name='occupation_create'),
+    url(r'^occupation/edit/(?P<occupation_id>[0-9]+)$', views.occupation_edit, name='occupation_edit'),
+    url(r'^occupation/delete/(?P<occupation_id>[0-9]+)$', views.occupation_delete, name='occupation_delete'),
     url(r'^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/$', views.show, name='show'),
 
 ]
