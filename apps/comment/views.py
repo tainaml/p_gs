@@ -1,9 +1,9 @@
 from django.contrib.auth.decorators import login_required
 from django.http import Http404
-from django.shortcuts import render, redirect, get_object_or_404
-from django.views.decorators.http import require_POST
+from django.shortcuts import render, redirect
+from django.views.decorators.http import require_POST, require_GET
 from service.forms import CreateCommentForm, EditCommentForm
-from .models import Comment
+from .service import business as Business
 # Create your views here.
 
 def index_teste(request):
@@ -21,23 +21,35 @@ def save(request):
     form = CreateCommentForm(request.user, request.POST)
 
     if not form.process():
-
         return render(request, 'comment/create.html', {'form': form})
 
     return redirect(request.POST['next_url'])
+
 
 @login_required
 @require_POST
 def update(request):
     if 'next_url' not in request.POST or \
-        'comment_id' not in request.POST:
+                    'comment_id' not in request.POST:
         raise Http404()
-    comment = get_object_or_404(Comment, pk=request.POST['comment_id'])
 
-    form = EditCommentForm(request.user, comment, request.POST)
+    form = EditCommentForm(request.user, request.POST['comment_id'],request.POST)
 
     if not form.process():
-
         return render(request, 'comment/create.html', {'form': form})
 
     return redirect(request.POST['next_url'])
+
+
+@login_required
+@require_GET
+def delete(request, id):
+
+    comment = Business.retrieve_comment(id=id)
+    if comment:
+        Business.delete_comment(comment)
+    else:
+        raise Http404()
+
+
+    return redirect('/comment/index_teste')

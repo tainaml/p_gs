@@ -40,3 +40,17 @@ def edit_comment(comment=None, parameters =None):
     comment.save()
 
     return comment
+
+def delete_comment(comment=None):
+    content_type = ContentType.objects.get_for_model(comment)
+    children_comments = Comment.objects.filter(content_type=content_type, object_id=comment.id)
+    for child_comment in children_comments:
+        if comment:
+            delete_comment(child_comment)
+    comment.delete()
+
+def retrieve_comment(id):
+    try:
+        return Comment.objects.filter(pk=id)[0]
+    except:
+        return None

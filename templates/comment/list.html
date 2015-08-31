@@ -8,8 +8,17 @@
         {{comment.content}}
 
         <br/>
-        <a onclick="$('#data-box-edit-{{ comment.id }}').toggle('display');"  href="javascript:;">Edit</a>
+        {% if comment.author == request.user %}
+            <a onclick="$('#data-box-edit-{{ comment.id }}').toggle('display');"  href="javascript:;">Edit</a>
+        {% endif %}
+
         <a onclick="$('#data-box-answer-{{ comment.id }}').toggle('display');"  href="javascript:;">answer</a>
+
+        {% if comment.author == request.user %}
+            <a href="{% url 'comment:delete' comment.id %}">Delete</a>
+        {% endif %}
+
+
         <br/>
         <div style="display: none;" id="data-box-answer-{{ comment.id }}">
             {% box_comment comment '/comment/index_teste' %}

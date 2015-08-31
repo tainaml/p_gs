@@ -45,10 +45,12 @@ class CreateCommentForm(IdeiaForm):
 class EditCommentForm(IdeiaForm):
 
     content = forms.CharField(max_length=512, required=True)
+    comment_id = forms.IntegerField(required=True)
 
-    def __init__(self, user=None, instance=None, *args, **kargs):
+    def __init__(self, user=None, id=None, *args, **kargs):
         self.user = user
-        self.instance = instance
+        self.instance = Business.retrieve_comment(id=id)
+
 
         super(EditCommentForm, self).__init__(*args, **kargs)
 
@@ -57,9 +59,16 @@ class EditCommentForm(IdeiaForm):
 
         valid = super(EditCommentForm, self).is_valid()
 
+
+
         if not self.user or not self.user.is_authenticated:
             self.add_error(None,
                            ValidationError(('User must be authenticated.'),
+                                           code='is_not_authenticated'))
+
+        if not self.instance:
+            self.add_error(None,
+                           ValidationError(('Comment doesn\'t exist.'),
                                            code='is_not_authenticated'))
             valid = False
 
