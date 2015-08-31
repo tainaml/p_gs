@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils.translation import ugettext as _
 
 
 class GenderType():
@@ -9,6 +10,11 @@ class GenderType():
 
     MALE = 'M'
     FEMALE = 'F'
+
+    LABEL = {
+        MALE: _("MALE"),
+        FEMALE: _("FEMALE")
+    }
 
 
 class Country(models.Model):

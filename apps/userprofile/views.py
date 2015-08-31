@@ -1,6 +1,8 @@
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.core.urlresolvers import reverse
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.decorators.http import require_POST
 from django.utils.translation import ugettext as _
 
@@ -10,7 +12,10 @@ from apps.userprofile.service.forms import EditProfileForm
 
 
 def show(request, username):
-    return HttpResponse(username)
+    profile = Business.check_profile_exists(Business.get_user(username))
+    profile.gender_text = GenderType.LABEL[profile.gender]
+
+    return render(request, 'userprofile/show.html', {'profile': profile, 'gender': GenderType})
 
 
 @login_required
@@ -56,7 +61,8 @@ def update_profile(request):
         cities = None
 
     if form.process():
-        pass
+        messages.add_message(request, messages.SUCCESS, _("Profile edited successfully!"))
+        return redirect(reverse('profile:edit'))
 
     return render(request, 'userprofile/edit_form.html', {
         'form': form,

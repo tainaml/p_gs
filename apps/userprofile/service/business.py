@@ -1,8 +1,25 @@
+from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext as _
 from django.db import transaction
 
 from apps.userprofile.models import UserProfile, Country, State, City
+
+
+def check_user_exists(username_or_email=None):
+
+    user = User.objects.get(username=username_or_email)
+    if not user:
+        try:
+            user = User.objects.get(email=username_or_email)
+        except User.DoesNotExist:
+            user = False
+
+    return user
+
+
+def get_user(username_or_email=None):
+    return check_user_exists(username_or_email) if username_or_email else None
 
 
 def check_profile_exists(user=None):

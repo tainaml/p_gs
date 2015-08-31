@@ -1,0 +1,12 @@
+{% load i18n %}
+<h1 style="text-align: center; padding-top: 50px;">{{ profile.user.first_name }} {{ profile.user.last_name }}</h1>
+<div style="text-align:center;">
+    <p><b>{% trans "Gender" %}:</b> {{ profile.gender_text|title }}</p>
+    <p><b>{% trans "Birth date" %}:</b> {{ profile.birth|date:"d M Y" }}</p>
+    <p><b>{% trans "City / State / Country" %}:</b> {{ profile.city }}, {{ profile.city.state }}, {{ profile.city.state.country }}</p>
+</div>
+<p style="text-align: center">
+    <a href="{% url 'profile:edit' %}">{% trans "Edit profile" %}</a> {% trans "or" %}
+    <a href="{% url 'account:index' %}">{% trans "Go to account index" %}</a> {% trans "or" %}
+    <a href="{% url 'account:logout' %}">{% trans "Logout" %}</a>
+</p>
