@@ -151,9 +151,14 @@ SOCIAL_AUTH_FACEBOOK_SECRET = 'd5be292ac55c13d465ae82bc19c84669'
 SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
 SOCIAL_AUTH_LOGIN_REDIRECT_URL = '../../account/'
 
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '810336189711-1m8lr2mdi9ci971e96440vsdve3g2r45.apps.googleusercontent.com'
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'N6meHsg8fUGF4Ti4PKd0oh5m'
+SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = ['email']
+
 AUTHENTICATION_BACKENDS = (
     'social.backends.facebook.FacebookOAuth2',
     'django.contrib.auth.backends.ModelBackend',
+    'social.backends.google.GoogleOAuth2',
     )
 
 SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
