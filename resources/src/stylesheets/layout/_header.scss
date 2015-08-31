@@ -72,11 +72,11 @@
         }
          &-#{link--logged} {
             position: relative;
-            padding: 24px;
+            padding: 15px 22px;
             float: left;
             border-right: 1px solid $color-border;
             color: $background-button;
-            font-size: 1em;
+            font-size: 1.214em;
             line-height: 3;
             text-align: center;
             &:nth-child(4) {
@@ -85,7 +85,7 @@
             }
             .badge {
                 position: absolute;
-                top: 20%;
+                top: 15%;
                 right: 20%;
                 min-width: 15px;
                 padding: 3px;
@@ -93,7 +93,7 @@
                 border-radius: 50%;
                 color: white;
                 font-weight: 600;
-                font-size: 0.714em;
+                font-size: 0.643em;
                 line-height: 115%;
             }
         }

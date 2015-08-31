@@ -1,25 +1,3 @@
-// <div class="widget-sidebar widget-comunidades">
-//     <div class="widget-header">
-//         <h2>comunidades</h2>
-//     </div>
-//     <div class="widget-content">
-//         <div class="post"><img src="" alt=""><a href=""></a></div>
-//         <div class="post"><img src="" alt=""><a href=""></a></div>
-//         <div class="post"><img src="" alt=""><a href=""></a></div>
-//         <div class="post"><img src="" alt=""><a href=""></a></div>
-//     </div>
-// </div>
-// <div class="widget-sidebar widget-related-content">
-//     <div class="widget-header">
-//         <h2>relacionados</h2>
-//     </div>
-//     <div class="widget-content">
-//         <div class="post"><img src="" alt=""><a href=""></a></div>
-//         <div class="post"><img src="" alt=""><a href=""></a></div>
-//         <div class="post"><img src="" alt=""><a href=""></a></div>
-//         <div class="post"><img src="" alt=""><a href=""></a></div>
-//     </div>
-// </div>
 .widget {
     &-#{header} {
         position: relative;
@@ -140,7 +118,7 @@
         font-weight: 600;
         font-size: 1.286em;
         &:hover {
-            background-color: $background-primary-button-hover;
+            background: $background-primary-button-hover;
         }
     }
 }
@@ -155,7 +133,11 @@
         margin-right: 5px;
         margin-left: 5px;
         display: inline-block;
-        color: $color-link-feed;
+        color: $color-link-counter;
+        &.active {
+            font-weight: 600;
+            color: $color-governance;
+        }
         &:hover {
             color: lighten($color-link-counter, 20%);
         }
@@ -202,6 +184,7 @@
     }
     &-#{content} {
         @extend %clearfix;
+        display: block;
         border: 1px solid $color-border;
         // Mudar para uma classe
         figure {
@@ -305,4 +288,24 @@
         margin: 10px 0 0;
         box-shadow: 0 2px 3px lighten(#000000, 35%);
     }
+}
+
+.about-text {
+    padding: 20px;
+    border: 1px solid $color-border;
+    color: $color-text-post;
+    font-size: 1.071em;
+
+    > p {
+        font-size: 1em;
+    }
+}
+
+.box-perfil {
+    @include make-xs-column(12);
+    @include make-sm-column(6);
+    @include make-md-column(4);
+    @include make-lg-column(4);
+    padding-top: 15px;
+    padding-bottom: 15px;
 }
