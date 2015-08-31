@@ -49,8 +49,8 @@ INSTALLED_APPS = (
     'apps.question',
     'apps.userprofile',
     'apps.socialaccount',
-    'social.apps.django_app.default'
-
+    'social.apps.django_app.default',
+    'apps.socialactions'
 
 )
 

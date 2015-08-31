@@ -1,0 +1,11 @@
+{% if request.user.is_authenticated %}
+<ul style="list-style: none;padding: 10px;">
+    <li style="float: left;margin-right: 5px;"><a href="{% url 'socialactions:like' object_to_link content 'like' %}?url_next={{ url_next|urlencode }}"><i class="fa fa-thumbs-o-up"></i> Like ({{ likes }})</a></li>
+    <li style="float: left;margin-right: 5px;"><a href="{% url 'socialactions:like' object_to_link content 'unlike' %}?url_next={{ url_next|urlencode }}"><i class="fa fa-thumbs-o-down"></i> Unlike ({{ unlikes }})</a></li>
+</ul>
+{% else %}
+<ul style="list-style: none;border: 1px solid #e5e5e5;height: 30px;padding: 10px;">
+    <li style="float: left;margin: 5px;"><i class="fa fa-thumbs-o-up"></i> Like ({{ likes }})</li>
+    <li style="float: left;margin: 5px;"><i class="fa fa-thumbs-o-down"></i> Unlike ({{ unlikes }})</li>
+</ul>
+{% endif %}
