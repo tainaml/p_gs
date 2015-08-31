@@ -6,47 +6,7 @@
 <div class="perfil-row">
     <!-- mudar para 2.5 -->
     <div class="col-lg-3">
-        <div class="widget widget-box">
-            <div class="widget-content">
-                <div class="perfil">
-                    <img class="img-responsive" src="http://placehold.it/82" alt="Imagem 1">
-                    <a class="perfil-name" href="javascript:;">Iury Silva</a>
-                    <a class="perfil-counter" href="javascript;;"><span class="counter-number">180</span> Seguidores</a>
-                    <a class="perfil-counter" href="javascript:;"><span class="counter-number">88</span> Artigos</a>
-                </div>
-                <div class="follower-content">
-                    <ul class="list-unstyled clearfix">
-                        <!-- Esse botão será exibido quando o usuários estiver visitando a página de outro usuário -->
-                        <!-- <li><a href="javascript:;" class="btn btn-follow">Seguir</a></li> -->
-                        <li><i class="gsticon gsticon-briefcase"></i>
-                        <a href="javascript:;">Analista de SEO</a> em <a href="javascript:;">Idea SEO</a>
-                        </li>
-                        <li><i class="gsticon gsticon-map-marker"></i>
-                        Mora em <strong>Salvador - BA - Brasil</strong></li>
-                        <li><i class="gsticon gsticon-birthday-cake"></i>
-                        Idade 26</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="widget widget-box">
-            <div class="widget-content">
-                <ul class="perfil-actions">
-                    <li><a href="javascript:;"><i class="gsticon gsticon-question-circle"></i> Perguntar</a></li>
-                    <li><a href="javascript:;"><i class="gsticon gsticon-file-text"></i> Criar artigo</a></li>
-                    <li><a href="javascript:;"><i class="gsticon gsticon-pencil-square-o"></i> Editar perfil</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="widget widget-box">
-            <div class="widget-content">
-                <ul class="perfil-repositories">
-                    <li><a href="javascript:;"><i class="gsticon gsticon-star"></i> Favoritos</a></li>
-                    <li><a href="javascript:;"><i class="gsticon gsticon-eye"></i> Ver depois</a></li>
-                    <li><a href="javascript:;"><i class="gsticon gsticon-paper-plane"></i> Sugestões</a></li>
-                </ul>
-            </div>
-        </div>
+        {% include 'home/partials/sidebar-perfil.html' %}
     </div>
     <!-- mudar para 9.5 -->
     <div class="col-lg-9">
@@ -58,19 +18,29 @@
         </header>
         <div class="filter row">
             <div class="col-lg-8">
-                {% include 'home/partials/search.html' %}
+                {% include 'home/partials/search.html' with placehold='Procure por alguém' %}
             </div>
             <div class="col-lg-4 text-right">
-                DROPDOWN
+                <div class="custom-select">
+                    <span data-toggle="select" class="custom-select-item">Categorias</span>
+                    <ul class="custom-select-list">
+                        <li class="custom-select-option">Categorias</li>
+                        <li class="custom-select-option">Categorias</li>
+                        <li class="custom-select-option">Categorias</li>
+                    </ul>
+                </div>
             </div>
         </div>
         <div class="row">
+            <div class="col-lg-12">
+                <hr>
+            </div>
             <div class="box-perfil">
                 <div class="perfil">
                     <img class="img-responsive" src="http://placehold.it/82" alt="Imagem 1">
                     <a class="perfil-name" href="javascript:;">Python</a>
                     <a class="perfil-counter" href="javascript;;"><span class="counter-number">180</span> Seguidores</a>
-                    <a class="btn btn-sm" href="javascript:;">Entrou</a>
+                    <a class="btn btn-sm perfil-button-alt" href="javascript:;">Entrou</a>
                 </div>
             </div>
             <div class="box-perfil">
@@ -78,7 +48,7 @@
                     <img class="img-responsive" src="http://placehold.it/82" alt="Imagem 1">
                     <a class="perfil-name" href="javascript:;">Python</a>
                     <a class="perfil-counter" href="javascript;;"><span class="counter-number">180</span> Seguidores</a>
-                    <a class="btn btn-sm" href="javascript:;">Entrou</a>
+                    <a class="btn btn-sm perfil-button-alt" href="javascript:;">Entrou</a>
                 </div>
             </div>
             <div class="box-perfil">
@@ -86,7 +56,7 @@
                     <img class="img-responsive" src="http://placehold.it/82" alt="Imagem 1">
                     <a class="perfil-name" href="javascript:;">Python</a>
                     <a class="perfil-counter" href="javascript;;"><span class="counter-number">180</span> Seguidores</a>
-                    <a class="btn btn-sm" href="javascript:;">Entrou</a>
+                    <a class="btn btn-sm perfil-button-alt" href="javascript:;">Entrou</a>
                 </div>
             </div>
             <div class="box-perfil">
@@ -94,7 +64,7 @@
                     <img class="img-responsive" src="http://placehold.it/82" alt="Imagem 1">
                     <a class="perfil-name" href="javascript:;">Python</a>
                     <a class="perfil-counter" href="javascript;;"><span class="counter-number">180</span> Seguidores</a>
-                    <a class="btn btn-sm" href="javascript:;">Entrou</a>
+                    <a class="btn btn-sm perfil-button-alt" href="javascript:;">Entrou</a>
                 </div>
             </div>
             <div class="box-perfil">
@@ -102,7 +72,7 @@
                     <img class="img-responsive" src="http://placehold.it/82" alt="Imagem 1">
                     <a class="perfil-name" href="javascript:;">Python</a>
                     <a class="perfil-counter" href="javascript;;"><span class="counter-number">180</span> Seguidores</a>
-                    <a class="btn btn-sm" href="javascript:;">Entrou</a>
+                    <a class="btn btn-sm perfil-button-alt" href="javascript:;">Entrou</a>
                 </div>
             </div>
             <div class="box-perfil">
@@ -110,7 +80,7 @@
                     <img class="img-responsive" src="http://placehold.it/82" alt="Imagem 1">
                     <a class="perfil-name" href="javascript:;">Python</a>
                     <a class="perfil-counter" href="javascript;;"><span class="counter-number">180</span> Seguidores</a>
-                    <a class="btn btn-sm" href="javascript:;">Entrou</a>
+                    <a class="btn btn-sm perfil-button-alt" href="javascript:;">Entrou</a>
                 </div>
             </div>
         </div>
