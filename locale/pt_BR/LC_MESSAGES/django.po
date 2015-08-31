@@ -1,0 +1,119 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-08-27 13:42+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: templates/account/index.html:5
+msgid "Change password"
+msgstr ""
+
+#: templates/account/index.html:5 templates/account/mail_validation.html:8
+#: templates/account/password_recovery_successfully.html:4
+#: templates/account/password_sent_email_successfully.html:4
+#: templates/account/recovery_validation.html:4
+#: templates/account/registered_successfully.html:4
+#: templates/account/signup.html:36
+msgid "or"
+msgstr ""
+
+#: templates/account/index.html:5
+msgid "Logout"
+msgstr ""
+
+#: templates/account/login.html:6 templates/account/signup.html:7
+msgid "Username"
+msgstr ""
+
+#: templates/account/login.html:10 templates/account/password_recovery.html:9
+#: templates/account/signup.html:23
+msgid "Password"
+msgstr ""
+
+#: templates/account/login.html:14 templates/account/password_change.html:25
+#: templates/account/password_forgot.html:12
+#: templates/account/password_recovery.html:20
+#: templates/account/signup.html:35
+msgid "Submit"
+msgstr ""
+
+#: templates/account/login.html:15
+msgid "Registrar"
+msgstr ""
+
+#: templates/account/login.html:19 templates/account/password_forgot.html:3
+msgid "Esqueceu sua senha?"
+msgstr ""
+
+#: templates/account/mail_validation.html:8
+#: templates/account/password_forgot.html:13
+#: templates/account/password_recovery_successfully.html:4
+#: templates/account/password_sent_email_successfully.html:4
+#: templates/account/recovery_validation.html:4
+#: templates/account/registered_successfully.html:4
+#: templates/account/signup.html:36
+msgid "Login"
+msgstr ""
+
+#: templates/account/mail_validation.html:8
+#: templates/account/password_recovery_successfully.html:4
+#: templates/account/password_sent_email_successfully.html:4
+#: templates/account/recovery_validation.html:4
+#: templates/account/registered_successfully.html:4
+msgid "Sign-up"
+msgstr ""
+
+#: templates/account/password_change.html:13
+msgid "Old password"
+msgstr ""
+
+#: templates/account/password_change.html:17
+msgid "New password"
+msgstr ""
+
+#: templates/account/password_change.html:21
+msgid "New password confirmation"
+msgstr ""
+
+#: templates/account/password_change_successfully.html:2
+msgid "Your password has been changed!"
+msgstr ""
+
+#: templates/account/password_change_successfully.html:4
+msgid "Go to index!"
+msgstr ""
+
+#: templates/account/password_forgot.html:8 templates/account/signup.html:19
+msgid "Email"
+msgstr ""
+
+#: templates/account/password_recovery.html:3
+msgid "Nova senha"
+msgstr ""
+
+#: templates/account/password_recovery.html:13
+#: templates/account/signup.html:27
+msgid "Password Confirm"
+msgstr ""
+
+#: templates/account/signup.html:11
+msgid "First name"
+msgstr ""
+
+#: templates/account/signup.html:15
+msgid "Last Name"
+msgstr ""

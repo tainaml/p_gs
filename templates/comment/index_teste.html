@@ -1,0 +1,12 @@
+<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+{% load comment_tags %}
+
+
+
+{% comment t %} This template tag render the form to create comments 'comment/create.html' {% endcomment %}
+{% box_comment request.user request.path %}
+
+
+{% comment t %} This template tag render the comment's list 'comment/list.html' {% endcomment %}
+Comments:
+{% list_comment request.user %}

@@ -3,7 +3,9 @@
 
 
 <form action="{% url 'account:register' %}" method="post">
+
     {% csrf_token %}
+
     <input type="text" name="username" value="{{ form.cleaned_data.username|default_if_none:"" }}" placeholder="{% trans "Username" %}" maxlength="30">
     {% if form.username.errors %}  {{ form.username.errors }} {% endif %}
     <p></p>
@@ -31,6 +33,8 @@
     <div class="g-recaptcha" data-sitekey="6LccmgsTAAAAAGrsvn7r7aiIcnvbuIS7pyP0qv1K"></div>
     {% if form.captcha.errors %}  {{ form.captcha.errors }} {% endif %}
     <p></p>
+
     <input type="submit" value="{% trans "Submit" %}" name="submit">
+    {% trans 'or' %} <a href="{% url 'account:login' %}">{% trans 'Login' %}</a>
 
 </form>
