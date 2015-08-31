@@ -30,7 +30,7 @@ def context(**extra):
 def home(request):
     """Home view, displays login mechanism"""
     if request.user.is_authenticated():
-        return redirect('done')
+        return redirect('/')
     return render(request, 'socialaccount/home.html')
 
 
