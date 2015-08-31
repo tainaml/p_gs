@@ -3,8 +3,10 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.views.decorators.http import require_POST
-from .service.forms import SignUpForm, LoginForm, ChangePasswordForm, RecoveryPasswordForm, ForgotPasswordForm
+from .service.forms import SignUpForm, LoginForm, ChangePasswordForm, RecoveryPasswordForm, ForgotPasswordForm, \
+    ResendAccountConfirmationForm
 from .service.business import log_in_user, logout_user, register_confirm, check_token_exist
+from django.utils.translation import ugettext as _
 
  
 @login_required
@@ -25,8 +27,12 @@ def login(request):
     :param request:
     :return: HTML
     """
-    form = LoginForm()
-    return render(request, 'account/login.html', {form: form})
+
+    if not request.user.is_authenticated():
+        form = LoginForm()
+        return render(request, 'account/login.html', {form: form})
+    else:
+        return redirect('/account/')
 
 
 @require_POST
@@ -37,11 +43,10 @@ def do_login(request):
     :param request:
     :return:
     """
-    form = LoginForm(request.POST)
-    if form.is_valid():
-        log_in_user(request, form.instance)
+    form = LoginForm(request, request.POST)
+    if form.process():
 
-        return redirect('/')
+        return redirect('/account/')
 
     return render(request, 'account/login.html', {'form': form})
 
@@ -54,7 +59,7 @@ def logout(request):
     :return:
     """
     logout_user(request)
-    return redirect('/')
+    return redirect('/account/')
 
 
 def signup(request):
@@ -80,8 +85,8 @@ def register(request):
     :return: HTML
     """
     form = SignUpForm(request.POST)
-    if form.save():
-        messages.add_message(request, messages.SUCCESS, "Success")
+    if form.process():
+        messages.add_message(request, messages.SUCCESS, _("Success"))
         return redirect('/account/registered-successfully')
 
     return render(request, 'account/signup.html', {'form': form})
@@ -94,7 +99,7 @@ def registered_successfully(request):
     :param request:
     :return:
     """
-    message = "Registered Successfully"
+    message = _("Registered Successfully")
     return render(request, 'account/registered_successfully.html', {'message': message})
 
 
@@ -107,10 +112,13 @@ def mail_validation(request, activation_key):
     :return: HTML
     """
 
-    message = 'Token not exist'
+    message = _('Token not exist')
 
-    if register_confirm(activation_key):
-        message = 'Token exist - Account verified'
+    try:
+        register_confirm(activation_key)
+        message = _('Token exist - Account verified')
+    except Exception as e:
+        message = e.message
 
     return render(request, 'account/mail_validation.html', {'message': message})
 
@@ -177,7 +185,7 @@ def do_forgot_password(request):
     """
     form = ForgotPasswordForm(request.POST)
     if form.process():
-        message = 'A confirmation email was sent to you'
+        message = _('A confirmation email was sent to you')
         return render(request, 'account/password_sent_email_successfully.html', {'message': message})
 
     return render(request, 'account/password_forgot.html', {'form': form})
@@ -192,14 +200,14 @@ def do_recovery_validation(request):
     :return: HTML
     """
 
-    message = 'Token not exist'
+    message = _('Token not exist')
 
     token = check_token_exist(request.POST['activation_key'])
     if token and token.is_active() and token.is_valid():
         form = RecoveryPasswordForm(token, request.POST)
 
         if form.process():
-            message = 'Password successfully changed!'
+            message = _('Password successfully changed!')
             return render(request, 'account/password_recovery_successfully.html', {'message': message})
 
         return render(request, 'account/password_recovery.html', {
@@ -208,3 +216,18 @@ def do_recovery_validation(request):
         })
 
     return render(request, 'account/recovery_validation.html', {'form'})
+
+
+def resend_account_confirmation(request):
+    form = ResendAccountConfirmationForm()
+    return render(request, 'account/resend_account_confirmation.html', {'form': form})
+
+
+@require_POST
+def do_resend_account_confirmation(request):
+    form = ResendAccountConfirmationForm(request.POST)
+    if form.process():
+        message = 'E-mail re-sent successfully!'
+        return render(request, 'account/resend_account_confirmation_successfully.html', {'message': message})
+
+    return render(request, 'account/resend_account_confirmation.html', {'form': form})
