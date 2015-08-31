@@ -60,7 +60,7 @@ class Occupation(models.Model):
 
     responsibility = models.CharField(max_length=60, blank=False)
     description = models.TextField(blank=False)
-    user = models.ForeignKey(User)
+    profile = models.ForeignKey(UserProfile)
 
     def __str__(self):
         return self.responsibility

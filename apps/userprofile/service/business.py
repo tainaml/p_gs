@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from django.utils.translation import ugettext as _
 from django.db import transaction
 
-from apps.userprofile.models import UserProfile, Country, State, City
+from apps.userprofile.models import UserProfile, Country, State, City, Occupation
 
 
 def check_user_exists(username_or_email=None):
@@ -45,20 +45,51 @@ def create_profile(user, data=None):
     return profile
 
 
-def update_profile(user, data=None):
+@transaction.atomic()
+def edit_profile(user, data_profile=None, data_formset=None):
+
+    try:
+        if data_profile:
+            profile = update_profile(user, data_profile)
+
+        if data_formset:
+            for data in data_formset:
+                create_occupation(user, data)
+    except:
+        return False
+
+    return profile
+
+
+def update_profile(user=None, data=None):
+
     profile = check_profile_exists(user)
 
-    dt = data
-    print dt
-    print dt['occupation']
-
-    if profile:
+    try:
         profile.birth = data['birth']
         profile.gender = data['gender']
         profile.city = data['city']
+        profile.save()
+    except:
+        return False
 
-    profile.save()
     return profile
+
+
+def create_occupation(user=None, data=None):
+
+    profile = get_profile(user)
+
+    try:
+        occupation = Occupation()
+        occupation.responsibility = data['responsibility']
+        occupation.description = data['description']
+        occupation.profile = profile
+        occupation.save()
+    except:
+        return False
+
+    return occupation
 
 
 def get_countries(country_id=None):

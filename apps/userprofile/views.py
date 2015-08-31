@@ -1,18 +1,22 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
+from django.forms import formset_factory
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.views.decorators.http import require_POST
 from django.utils.translation import ugettext as _
 
 from apps.userprofile.service import business as Business
-from apps.userprofile.models import Country, State, City, GenderType
-from apps.userprofile.service.forms import EditProfileForm
+from apps.userprofile.models import GenderType
+from apps.userprofile.service.forms import EditProfileForm, OccupationForm
+
+
+OccupationFormSet = formset_factory(OccupationForm, extra=0)
 
 
 def show(request, username):
-    profile = Business.check_profile_exists(Business.get_user(username))
+    profile = Business.get_profile(Business.get_user(username))
     profile.gender_text = GenderType.LABEL[profile.gender]
 
     return render(request, 'userprofile/show.html', {'profile': profile, 'gender': GenderType})
@@ -26,6 +30,7 @@ def edit(request):
     profile = Business.get_profile(request.user)
 
     form = EditProfileForm(data_model=profile)
+    occupation_formset = OccupationFormSet(prefix='occupation')
 
     if profile.city:
         states = Business.get_states(profile.city.state.country.id)
@@ -40,6 +45,7 @@ def edit(request):
         'states': states,
         'cities': cities,
         'gender': GenderType(),
+        'formset': occupation_formset
     })
 
 
@@ -51,7 +57,8 @@ def update_profile(request):
 
     profile = Business.get_profile(request.user)
 
-    form = EditProfileForm(request.POST, request=request)
+    occupation_formset = OccupationFormSet(request.POST, prefix='occupation')
+    form = EditProfileForm(request.POST, request=request, data_formset=occupation_formset)
 
     if profile.city:
         states = Business.get_states(profile.city.state.country.id)
@@ -70,6 +77,7 @@ def update_profile(request):
         'states': states,
         'cities': cities,
         'gender': GenderType(),
+        'formset': occupation_formset
         })
 
 
