@@ -13,6 +13,7 @@ urlpatterns = [
     url(r'^occupation/add/$', views.occupation_add, name='occupation_add'),
     url(r'^occupation/create/$', views.occupation_create, name='occupation_create'),
     url(r'^occupation/edit/(?P<occupation_id>[0-9]+)$', views.occupation_edit, name='occupation_edit'),
+    url(r'^occupation/update/$', views.occupation_update, name='occupation_update'),
     url(r'^occupation/delete/(?P<occupation_id>[0-9]+)$', views.occupation_delete, name='occupation_delete'),
     url(r'^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/$', views.show, name='show'),
 

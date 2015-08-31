@@ -140,6 +140,10 @@ def occupation_edit(request, occupation_id):
         return redirect(reverse('profile:occupation_manage'))
 
 
+def occupation_update(request):
+    pass
+
+
 def occupation_delete(request, occupation_id):
     if occupation_id:
         if Business.delete_occupation(occupation_id):

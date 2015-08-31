@@ -16,6 +16,7 @@
 
     {{ form.non_field_errors }}
 
+    <input type="hidden" name="occupation_id" value="{{ form.data.id }}"/>
     <input type="submit" value="{% trans "Submit" %}" name="submit">
     {% trans 'or' %} <a href="{% url 'account:index' %}">{% trans 'Go to account index' %}</a>
 
