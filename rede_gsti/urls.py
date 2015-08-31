@@ -19,5 +19,6 @@ from django.contrib import admin
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^account/', include('apps.account.urls', namespace='account')),
-    url(r'^comment/', include('apps.comment.urls', namespace='comment'))
+    url(r'^comment/', include('apps.comment.urls', namespace='comment')),
+    url(r'^profile/', include('apps.userprofile.urls', namespace='profile')),
 ]
