@@ -132,3 +132,12 @@ def get_occupation(params={}):
         return False
 
     return occupations
+
+
+def delete_occupation(occupation_id):
+    occupation = get_occupation({'id': occupation_id})
+    try:
+        occupation.delete()
+    except:
+        return False
+    return True

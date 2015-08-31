@@ -131,9 +131,23 @@ def occupation_show(request, occupation_id):
     return render(request, 'userprofile/occupation_show.html', {'profile': profile, 'occupation': occupation})
 
 
-def occupation_edit(request):
-    pass
+def occupation_edit(request, occupation_id):
+    occupation = Business.get_occupation({'id': occupation_id})
+    if occupation:
+        form = OccupationForm(data_model=occupation)
+        return render(request, 'userprofile/occupation_edit.html', {'form': form})
+    else:
+        return redirect(reverse('profile:occupation_manage'))
 
 
-def occupation_delete(request):
-    pass
+def occupation_delete(request, occupation_id):
+    if occupation_id:
+        if Business.delete_occupation(occupation_id):
+            messages.add_message(request, messages.SUCCESS, _("Occupation deleted successfully!"))
+            return redirect(reverse('profile:occupation_manage'))
+        else:
+            messages.add_message(request, messages.ERROR, _("Error"))
+    else:
+        messages.add_message(request, messages.ERROR, _("Occupation invalid"))
+
+    return redirect(reverse('profile:occupation_manage'))

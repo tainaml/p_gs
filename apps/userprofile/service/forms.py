@@ -80,9 +80,12 @@ class OccupationForm(IdeiaForm):
     responsibility = forms.CharField(max_length=100)
     description = forms.CharField(max_length=100)
 
-    def __init__(self, request=None, *args, **kwargs):
+    def __init__(self, data=None, request=None, data_model=None, *args, **kwargs):
         self.request = request
-        super(OccupationForm, self).__init__(*args, **kwargs)
+        super(OccupationForm, self).__init__(data, *args, **kwargs)
+
+        if data_model is not None and isinstance(data_model, models.Model):
+            self.data = forms.model_to_dict(data_model)
 
     def is_valid(self):
         is_valid = super(OccupationForm, self).is_valid()
