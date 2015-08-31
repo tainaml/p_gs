@@ -12,7 +12,10 @@
             <a onclick="$('#data-box-edit-{{ comment.id }}').toggle('display');"  href="javascript:;">Edit</a>
         {% endif %}
 
-        <a onclick="$('#data-box-answer-{{ comment.id }}').toggle('display');"  href="javascript:;">answer</a>
+        {% if comment.level < max_levels or max_levels == False %}
+            <a onclick="$('#data-box-answer-{{ comment.id }}').toggle('display');"  href="javascript:;">answer</a>
+        {% endif %}
+
 
         {% if comment.author == request.user %}
             <a href="{% url 'comment:delete' comment.id %}">Delete</a>
