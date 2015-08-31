@@ -47,7 +47,11 @@ INSTALLED_APPS = (
     'apps.article',
     'apps.comment',
     'apps.question',
-    'apps.userprofile'
+    'apps.userprofile',
+    'apps.socialaccount',
+    'social.apps.django_app.default'
+
+
 )
 
 MIDDLEWARE_CLASSES = (
@@ -141,3 +145,33 @@ TIME_REGISTER_ACCOUNT = 48
 TIME_RECOVERY_PASSWORD = 8
 
 SITE_URL = 'http://localhost:8000'
+
+SOCIAL_AUTH_FACEBOOK_KEY = '1486240068359213'
+SOCIAL_AUTH_FACEBOOK_SECRET = 'd5be292ac55c13d465ae82bc19c84669'
+SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
+SOCIAL_AUTH_LOGIN_REDIRECT_URL = '../../account/'
+
+AUTHENTICATION_BACKENDS = (
+    'social.backends.facebook.FacebookOAuth2',
+    'django.contrib.auth.backends.ModelBackend',
+    )
+
+SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
+  'fields': 'id, name, email'
+}
+
+SOCIAL_AUTH_PIPELINE = (
+    'social.pipeline.social_auth.social_details',
+    'social.pipeline.social_auth.social_uid',
+    'social.pipeline.social_auth.auth_allowed',
+    'social.pipeline.social_auth.social_user',
+    'social.pipeline.user.get_username',
+    'apps.socialaccount.pipeline.require_email',
+    'social.pipeline.mail.mail_validation',
+    'social.pipeline.user.create_user',
+    'social.pipeline.social_auth.associate_user',
+    'social.pipeline.debug.debug',
+    'social.pipeline.social_auth.load_extra_data',
+    'social.pipeline.user.user_details',
+    'social.pipeline.debug.debug'
+)

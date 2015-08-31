@@ -20,4 +20,6 @@ urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^account/', include('apps.account.urls', namespace='account')),
     url(r'^comment/', include('apps.comment.urls', namespace='comment'))
+    url(r'^socialaccount/', include('apps.socialaccount.urls', namespace='socialaccount')),
+    url('', include('social.apps.django_app.urls', namespace='social'))
 ]
