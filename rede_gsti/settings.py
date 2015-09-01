@@ -173,6 +173,7 @@ SOCIAL_AUTH_PIPELINE = (
     'social.pipeline.user.get_username',
     'apps.socialaccount.pipeline.require_email',
     'social.pipeline.mail.mail_validation',
+    'apps.socialaccount.pipeline.username_slugify',
     'social.pipeline.user.create_user',
     'social.pipeline.social_auth.associate_user',
     'social.pipeline.debug.debug',

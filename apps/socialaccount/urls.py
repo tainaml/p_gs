@@ -8,9 +8,7 @@ urlpatterns = [
     url(r'^login/$', 'apps.socialaccount.views.home'),
     url(r'^logout/$', 'apps.socialaccount.views.logout'),
     url(r'^done/$', 'apps.socialaccount.views.done', name='done'),
-    url(r'^ajax-auth/(?P<backend>[^/]+)/$',
-        'apps.socialaccount.views.ajax_auth',
-        name='ajax-auth'),
+    url(r'^ajax-auth/(?P<backend>[^/]+)/$', 'apps.socialaccount.views.ajax_auth', name='ajax-auth'),
     url(r'^email/$', 'apps.socialaccount.views.require_email', name='require_email'),
 
 ]
