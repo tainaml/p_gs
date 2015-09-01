@@ -6,6 +6,16 @@
     <p><b>{% trans "City / State / Country" %}:</b> {{ profile.city }}, {{ profile.city.state }}, {{ profile.city.state.country }}</p>
 </div>
 
+{% if profile.occupations %}
+<div style="text-align:left; width: 350px; margin: auto;">
+    <ul>
+        {% for occupation in profile.occupations %}
+            <li>{{ occupation.responsibility }} - {{ occupation.description }}</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endif %}
+
 
 <p style="text-align: center">
     {% if request.user.is_authenticated %}

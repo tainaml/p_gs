@@ -34,7 +34,7 @@
                     <a href="{% url 'profile:occupation_edit' occupation.id %}">{% trans "Edit" %}</a> |
                     <a href="{% url 'profile:occupation_delete' occupation.id %}">{% trans "Delete" %}</a>
                     ]
-                    {{ occupation }} - {{ occupation.description }}
+                    {{ occupation.responsibility }} - {{ occupation.description }}
                 </li>
             {% endfor %}
         </ul>

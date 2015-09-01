@@ -22,7 +22,7 @@ class Country(models.Model):
     name = models.CharField(max_length=60, blank=False)
     abbreviation = models.CharField(max_length=3, blank=False)
 
-    def __str__(self):
+    def __unicode__(self):
         return self.name
 
 
@@ -32,7 +32,7 @@ class State(models.Model):
     abbreviation = models.CharField(max_length=3, blank=False)
     country = models.ForeignKey(Country)
 
-    def __str__(self):
+    def __unicode__(self):
         return self.name
 
 
@@ -41,7 +41,7 @@ class City(models.Model):
     name = models.CharField(max_length=60, blank=False)
     state = models.ForeignKey(State)
 
-    def __str__(self):
+    def __unicode__(self):
         return self.name
 
 
@@ -52,7 +52,7 @@ class UserProfile(models.Model):
     gender = models.CharField(max_length=1, null=True, blank=True)
     city = models.ForeignKey(City, null=True, blank=True)
 
-    def __str__(self):
+    def __unicode__(self):
         return self.user
 
 
@@ -62,5 +62,5 @@ class Occupation(models.Model):
     description = models.TextField(blank=False)
     profile = models.ForeignKey(UserProfile)
 
-    def __str__(self):
+    def __unicode__(self):
         return self.responsibility

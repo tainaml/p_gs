@@ -13,8 +13,10 @@ from apps.userprofile.service.forms import EditProfileForm, OccupationForm
 
 
 def show(request, username):
+
     profile = Business.get_profile(Business.get_user(username))
     profile.gender_text = GenderType.LABEL[profile.gender]
+    profile.occupations = profile.occupation_set.all()
 
     return render(request, 'userprofile/show.html', {'profile': profile, 'gender': GenderType})
 
