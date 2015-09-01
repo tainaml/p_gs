@@ -113,11 +113,10 @@ def get_cities(state_id=None):
     return City.objects.all()
 
 
-def get_occupations(user):
+def get_occupations(params={}, order_by=None):
 
     try:
-        profile = get_profile(user)
-        occupations = Occupation.objects.filter(profile=profile.id)
+        occupations = Occupation.objects.filter(**params).order_by(order_by)
     except:
         return False
 
@@ -141,3 +140,14 @@ def delete_occupation(occupation_id):
     except:
         return False
     return True
+
+
+def update_occupation(occupation, data):
+    try:
+        occupation.responsibility = data['responsibility']
+        occupation.description = data['description']
+        occupation.save()
+    except:
+        return False
+
+    return occupation

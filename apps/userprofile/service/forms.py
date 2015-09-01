@@ -80,8 +80,12 @@ class OccupationForm(IdeiaForm):
     responsibility = forms.CharField(max_length=100)
     description = forms.CharField(max_length=100)
 
-    def __init__(self, data=None, request=None, data_model=None, *args, **kwargs):
+    def __init__(self, data=None, request=None, data_model=None, instance=None, *args, **kwargs):
         self.request = request
+
+        if instance and isinstance(instance, models.Model):
+            self.instance = instance
+
         super(OccupationForm, self).__init__(data, *args, **kwargs)
 
         if data_model is not None and isinstance(data_model, models.Model):
@@ -92,4 +96,7 @@ class OccupationForm(IdeiaForm):
         return is_valid
 
     def __process__(self):
-        return Business.create_occupation(self.request.user, self.cleaned_data)
+        if self.instance:
+            return Business.update_occupation(self.instance, self.cleaned_data)
+        else:
+            return Business.create_occupation(self.request.user, self.cleaned_data)

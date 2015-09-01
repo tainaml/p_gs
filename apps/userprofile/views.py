@@ -1,3 +1,4 @@
+# coding=utf-8
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
@@ -24,18 +25,8 @@ def edit(request):
     countries = Business.get_countries()
 
     profile = Business.get_profile(request.user)
-    occupations = Business.get_occupations(request.user)
-
-    initials = []
-    for occupation in occupations:
-        initials.append(model_to_dict(occupation))
-
-    print initials
 
     form = EditProfileForm(data_model=profile)
-
-    # OccupationFormSet = formset_factory(OccupationForm)
-    # occupation_formset = OccupationFormSet(prefix='occupation', initial=initials)
 
     if profile.city:
         states = Business.get_states(profile.city.state.country.id)
@@ -50,7 +41,6 @@ def edit(request):
         'states': states,
         'cities': cities,
         'gender': GenderType(),
-        # 'formset': occupation_formset
     })
 
 
@@ -105,25 +95,30 @@ def get_city(request):
     })
 
 
+@login_required
 def occupation_manage(request):
     profile = Business.get_profile(request.user)
-    occupations = Business.get_occupations(request.user)
+    occupations = Business.get_occupations({'profile': profile}, order_by='id')
 
     return render(request, 'userprofile/occupation_manage.html', {'profile': profile, 'occupations': occupations})
 
 
+@login_required
 def occupation_add(request):
     form = OccupationForm()
     return render(request, 'userprofile/occupation_add.html', {'form': form})
 
 
+@login_required
 def occupation_create(request):
-    form = OccupationForm(request, request.POST)
+    form = OccupationForm(request.POST, request)
     if form.process():
+        messages.add_message(request, messages.SUCCESS, _("Occupation created successfully!"))
         return redirect(reverse('profile:occupation_manage'))
     return render(request, 'userprofile/occupation_add.html', {'form': form})
 
 
+@login_required
 def occupation_show(request, occupation_id):
     profile = Business.get_profile(request.user)
     occupation = Business.get_occupation({'id': occupation_id})
@@ -131,27 +126,40 @@ def occupation_show(request, occupation_id):
     return render(request, 'userprofile/occupation_show.html', {'profile': profile, 'occupation': occupation})
 
 
+@login_required
 def occupation_edit(request, occupation_id):
     occupation = Business.get_occupation({'id': occupation_id})
     if occupation:
         form = OccupationForm(data_model=occupation)
         return render(request, 'userprofile/occupation_edit.html', {'form': form})
     else:
+        messages.add_message(request, messages.WARNING, _("Occupation is not exists!"))
         return redirect(reverse('profile:occupation_manage'))
 
 
+@login_required
 def occupation_update(request):
-    pass
+    occupation = Business.get_occupation({'id': request.POST['occupation_id']})
+    if occupation:
+        form = OccupationForm(request.POST, instance=occupation)
+        if form.process():
+            messages.add_message(request, messages.SUCCESS, _("Occupation updated successfully!"))
+            return redirect(reverse('profile:occupation_manage'))
+        return render(request, 'userprofile/occupation_add.html', {'form': form})
+    else:
+        messages.add_message(request, messages.WARNING, _("Occupation is not exists!"))
+        return redirect(reverse('profile:occupation_manage'))
 
 
+@login_required
 def occupation_delete(request, occupation_id):
     if occupation_id:
         if Business.delete_occupation(occupation_id):
             messages.add_message(request, messages.SUCCESS, _("Occupation deleted successfully!"))
             return redirect(reverse('profile:occupation_manage'))
         else:
-            messages.add_message(request, messages.ERROR, _("Error"))
+            messages.add_message(request, messages.ERROR, _("Error!"))
     else:
-        messages.add_message(request, messages.ERROR, _("Occupation invalid"))
+        messages.add_message(request, messages.ERROR, _("Occupation invalid!"))
 
     return redirect(reverse('profile:occupation_manage'))
