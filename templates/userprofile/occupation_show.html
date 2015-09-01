@@ -1,0 +1,19 @@
+{% load i18n %}
+
+<h1 style="text-align: center; padding-top: 50px;">{{ profile.user.first_name }} {{ profile.user.last_name }}</h1>
+
+<p style="text-align: center">
+    <a href="{% url 'profile:edit' %}">{% trans "Edit profile" %}</a> {% trans "or" %}
+    <a href="{% url 'account:index' %}">{% trans "Go to account index" %}</a> {% trans "or" %}
+    <a href="{% url 'account:logout' %}">{% trans "Logout" %}</a>
+</p>
+
+<div style="text-align:center;">
+    <p>{{ occupation }} - {{ occupation.description }}</p>
+    <p>
+        [
+        <a href="{% url 'profile:occupation_edit' occupation.id %}">{% trans "Edit" %}</a> |
+        <a href="{% url 'profile:occupation_delete' occupation.id %}">{% trans "Delete" %}</a>
+        ]
+    </p>
+</div>
