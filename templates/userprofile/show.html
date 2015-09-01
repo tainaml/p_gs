@@ -1,9 +1,9 @@
 {% load i18n %}
 <h1 style="text-align: center; padding-top: 50px;">{{ profile.user.first_name }} {{ profile.user.last_name }}</h1>
 <div style="text-align:center;">
-    <p><b>{% trans "Gender" %}:</b> {{ profile.gender_text|title }}</p>
-    <p><b>{% trans "Birth date" %}:</b> {{ profile.birth|date:"d M Y" }}</p>
-    <p><b>{% trans "City / State / Country" %}:</b> {{ profile.city }}, {{ profile.city.state }}, {{ profile.city.state.country }}</p>
+    {% if profile.gender %}<p><b>{% trans "Gender" %}:</b> {{ profile.gender_text|title }}</p>{% endif %}
+    {% if profile.birth %}<p><b>{% trans "Birth date" %}:</b> {{ profile.birth|date:"d M Y" }}</p>{% endif %}
+    {% if profile.city %}<p><b>{% trans "City / State / Country" %}:</b> {{ profile.city }}, {{ profile.city.state }}, {{ profile.city.state.country }}</p>{% endif %}
 </div>
 
 {% if profile.occupations %}

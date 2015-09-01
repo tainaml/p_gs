@@ -162,7 +162,7 @@ AUTHENTICATION_BACKENDS = (
     )
 
 SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
-  'fields': 'id, name, email'
+    'fields': 'id, name, email'
 }
 
 SOCIAL_AUTH_PIPELINE = (
