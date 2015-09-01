@@ -82,9 +82,7 @@ class OccupationForm(IdeiaForm):
 
     def __init__(self, data=None, request=None, data_model=None, instance=None, *args, **kwargs):
         self.request = request
-
-        if instance and isinstance(instance, models.Model):
-            self.instance = instance
+        self.instance = instance if instance and isinstance(instance, models.Model) else None
 
         super(OccupationForm, self).__init__(data, *args, **kwargs)
 
