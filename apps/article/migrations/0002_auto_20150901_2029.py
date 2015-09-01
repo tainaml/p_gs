@@ -7,13 +7,13 @@ from django.db import models, migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('article', '0004_auto_20150828_1440'),
+        ('article', '0001_initial'),
     ]
 
     operations = [
         migrations.AlterField(
             model_name='article',
-            name='image',
-            field=models.ImageField(null=True, upload_to=b'article/%Y/%m/%d'),
+            name='slug',
+            field=models.SlugField(default=b'', max_length=150),
         ),
     ]

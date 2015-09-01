@@ -7,34 +7,67 @@
 </head>
 <body>
 
-<form action="{% url 'article:save' %}" enctype="multipart/form-data">
+<form action="" method="post" enctype="multipart/form-data">
 
     {% csrf_token %}
 
+    {% if messages %}
+       <ul class="messages">
+           {% for message in messages %}
+               <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+           {% endfor %}
+       </ul>
+   {% endif %}
+
+    <div>
+        {% for field, errors in form.errors.items %}
+            {% for error in errors %}
+                {{ field }}: {{ error }}
+            {% endfor %}
+        {% endfor %}
+    </div>
+
     <p>
-        <label for="article_title">Title:</label>
-        <input type="text" id="article_title" name="title" value="{{ form.data.title }}"/>
+        <label for="article-title">Title:</label>
+        {{ form.title }}
         {% if form.title.errors %}  {{ form.title.errors }} {% endif %}
     </p>
 
     <p>
+        <label for="article-slug">Slug:</label>
+        {{ form.slug }}
+        {% if form.slug.errors %} {{ form.slug.errors }} {% endif %}
+    </p>
+
+    <p>
         <label for="article_text">Text:</label>
-        <textarea name="text" id="article_text" cols="30" rows="10">{{ form.data.text }}</textarea>
+        {{ form.text }}
         {% if form.text.errors %}  {{ form.text.errors }} {% endif %}
     </p>
 
     <p>
-        <label for="article_image">Imagem</label>
-        <input type="file" name="image" id="article_image">
+        <label for="article_image">Imagem:</label>
+        {{ form.image }}
         {% if form.image.errors %} {{ form.image.errors }} {% endif %}
     </p>
 
     <p>
+        <label for="article_publish_date">Publicação:</label>
+        {{ form.publishin }}
+        {% if form.publishin.errors %} {{ form.publishin.errors }} {% endif %}
     </p>
 
     <p>
-        {% if form.data.id %}
-            <input type="hidden" name="id" value="{{ form.data.id }}">
+        <label for="article_status">Status:</label>
+        {{ form.status }}
+        {% if form.status.errors %} {{ form.status.errors }} {% endif %}
+    </p>
+
+    <p>
+
+        {% if form.instance.id %}
+            <input type="hidden" name="id" value="{{ form.instance.id }}">
+
             <input type="submit" value="{% trans "Submit" context "save article" %}" name="submit" />
         {% else %}
             <input type="submit" value="{% trans "Submit" context "create article" %}" name="submit" />

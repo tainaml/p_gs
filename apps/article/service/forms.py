@@ -1,35 +1,53 @@
-from dbus.service import FallbackObject
-from django.contrib.auth.models import User
-from django.core.exceptions import ValidationError
-from django.db.models import Model
-import business as Business
+from django.forms import ModelForm, model_to_dict
+from django.template.defaultfilters import slugify
 from custom_forms.custom import forms, IdeiaForm
-from django.utils.translation import ugettext as _
-from django.forms import model_to_dict, ModelForm
-from ..models import Article
+import business as Business
 
-
-class ArticleForm(ModelForm):
-    pass
-
-
-
-class ArticleFormB(IdeiaForm):
-
-    title = forms.CharField(required=True, max_length=100)
-    slug = forms.SlugField(max_length=150)
-    text = forms.CharField(required=True, min_length=200, max_length=2048)
-    image = forms.ImageField()
-    publishin = forms.DateTimeField(required=False)
-    status = forms.ChoiceField(required=True, choices=Article.STATUS_CHOICES)
-
-    def __init__(self, data=None, files=None, data_model=None, *args, **kwargs):
-        super(ArticleForm, self).__init__(data, files, *args, **kwargs)
-        if data_model and isinstance(data_model, Model):
-            self.data.update(forms.model_to_dict(data_model))
-
-    def is_valid(self):
-        return True
+class IdeiaModelForm(ModelForm):
+    def process(self):
+        try:
+            return self.__process__() if self.is_valid() else False
+        except NotImplementedError:
+            raise NotImplementedError
+        except Exception, e:
+            print e.message
+            self.add_error(None, "General error!")
+            return False
 
     def __process__(self):
-        return True
+        raise NotImplementedError
+
+
+class ArticleForm(IdeiaModelForm):
+
+    title = forms.CharField(required=True, max_length=100)
+    slug = forms.SlugField(max_length=150, required=False)
+    text = forms.CharField(required=True, min_length=200, max_length=2048, widget=forms.Textarea)
+    image = forms.ImageField(required=False)
+    publishin = forms.DateTimeField(required=False)
+    status = forms.ChoiceField(required=True, choices=Business.Article.STATUS_CHOICES)
+    author = forms.IntegerField(required=False)
+
+    class Meta:
+        model = Business.Article
+        exclude = []
+
+    def clean_slug(self):
+        _slug = self.cleaned_data.get('slug', '')
+        _title = self.cleaned_data.get('title')
+        _slug = _slug if _slug else slugify(_title)
+        return _slug
+
+    def clean_author(self):
+        _author = self.cleaned_data.get('author')
+        return _author if _author else self._author
+
+    def set_author(self, author):
+        self._author = author
+
+    def is_valid(self):
+        valid = super(ArticleForm, self).is_valid()
+        return valid
+
+    def __process__(self):
+        return Business.save_article(self.instance, self.cleaned_data)

@@ -8,7 +8,9 @@ class IdeiaForm(forms.Form):
             return self.__process__() if self.is_valid() else False
         except NotImplementedError:
             raise NotImplementedError
-        except:
+        except Exception, e:
+            print '[ERRO]'
+            print e.message
             self.add_error(None, "General error!")
             return False
 
