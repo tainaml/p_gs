@@ -209,3 +209,28 @@
         border: none;
     }
 }
+
+.help-text {
+    color: #5d7184;
+    font-size: 13px;
+}
+.rules-to-post {
+    padding-left: 10px;
+    color: #e1e1e1;
+    > li {
+        padding: 10px 0;
+        color: #5d7184;
+        border-bottom: 1px solid $color-border;
+        font-size: 13px;
+        letter-spacing: -0.05em;
+
+        &:last-child {
+            border-bottom: none;
+        }
+    }
+}
+
+.btn-green {
+    @extend .btn;
+    @include button-variant($btn-danger-color, #3ea909, #3ea909);
+}
