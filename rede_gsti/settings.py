@@ -102,6 +102,23 @@ DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 ENTITY_TO_COMMENT = ['user', 'comment']
 MAX_LEVELS = 2
 
+#Social config
+SOCIAL_LIKE = 1
+SOCIAL_UNLIKE = 2
+SOCIAL_FOLLOW  = 3
+SOCIAL_FAVOURITE = 4
+SOCIAL_SUGGEST = 5
+
+LABELS = {
+        SOCIAL_LIKE: 'like',
+        SOCIAL_UNLIKE: 'unlike',
+        SOCIAL_FOLLOW: 'follow',
+        SOCIAL_FAVOURITE: 'favourite',
+        SOCIAL_SUGGEST: 'suggest'
+}
+
+
+
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
 

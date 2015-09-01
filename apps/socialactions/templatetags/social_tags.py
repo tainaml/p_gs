@@ -1,41 +1,26 @@
-from django.contrib.contenttypes.models import ContentType
 from django.http import Http404
-from ..models import ActionType, UserAction
 from django import template
+from ..service import business as Business
 
 register = template.Library()
 
 @register.inclusion_tag('socialactions/like_box.html', takes_context=True)
 def like_box(context, object_to_link, url_next):
     try:
-        content = ContentType.objects.get_for_model(object_to_link)
+        content = Business.get_content_by_object(object_to_link)
 
-        likes = UserAction.objects.filter(content_type=content,
-                                          object_id=object_to_link.id,
-                                          action_type=ActionType.LIKE).count()
+        likes = Business.user_likes_by_object(user=context['request'].user,
+                content_object=object_to_link)
 
-        try:
-            i_liked = not not UserAction.objects.filter(content_type=content,
-                                            author=context['request'].user,
-                                            object_id=object_to_link.id,
-                                            action_type=ActionType.LIKE).get()
-        except:
-            i_liked = False
+        unlikes = Business.user_unlikes_by_object(user=context['request'].user,
+                content_object=object_to_link)
 
 
+        i_liked = Business.user_liked_by_object(user=context['request'].user,
+                                                content_object=object_to_link)
 
-        try:
-            i_unliked = not not UserAction.objects.filter(content_type=content,
-                                            author=context['request'].user,
-                                            object_id=object_to_link.id,
-                                            action_type=ActionType.UNLIKE).get()
-        except:
-            i_unliked = False
-
-
-        unlikes = UserAction.objects.filter(content_type=content,
-                                          object_id=object_to_link.id,
-                                          action_type=ActionType.UNLIKE).count()
+        i_unliked = Business.user_unliked_by_object(user=context['request'].user,
+                                                content_object=object_to_link)
 
 
     except ValueError:
