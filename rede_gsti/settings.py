@@ -109,14 +109,26 @@ SOCIAL_FOLLOW  = 3
 SOCIAL_FAVOURITE = 4
 SOCIAL_SUGGEST = 5
 
-LABELS = {
-        SOCIAL_LIKE: 'like',
-        SOCIAL_UNLIKE: 'unlike',
-        SOCIAL_FOLLOW: 'follow',
-        SOCIAL_FAVOURITE: 'favourite',
-        SOCIAL_SUGGEST: 'suggest'
+SOCIAL_LABELS = {
+    SOCIAL_LIKE: 'like',
+    SOCIAL_UNLIKE: 'unlike',
+    SOCIAL_FOLLOW: 'follow',
+    SOCIAL_FAVOURITE: 'favourite',
+    SOCIAL_SUGGEST: 'suggest'
 }
 
+SOCIAL_ENTITIES = {
+    SOCIAL_LIKE: ['comment'],
+    SOCIAL_UNLIKE: ['comment'],
+    SOCIAL_FOLLOW: [''],
+    SOCIAL_FAVOURITE: [''],
+    SOCIAL_SUGGEST: ['']
+}
+
+SOCIAL_INVERSE_ACTIONS = {
+    SOCIAL_LIKE: [SOCIAL_UNLIKE],
+    SOCIAL_UNLIKE: [SOCIAL_LIKE]
+}
 
 
 # Database
