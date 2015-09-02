@@ -1,4 +1,6 @@
 {% load comment_tags %}
+{% load social_tags %}
+
 
 <ul style="list-style: none;">
 {% for comment in list_comment %}
@@ -6,6 +8,7 @@
         <strong>{{comment.author.first_name}} {{comment.author.last_name}}: </strong>
 
         {{comment.content}}
+
 
         <br/>
         {% if comment.author == request.user %}
@@ -21,7 +24,7 @@
             <a href="{% url 'comment:delete' comment.id %}">Delete</a>
         {% endif %}
 
-
+            {% like_box comment request.path %}
         <br/>
         <div style="display: none;" id="data-box-answer-{{ comment.id }}">
             {% box_comment comment '/comment/index_teste' %}

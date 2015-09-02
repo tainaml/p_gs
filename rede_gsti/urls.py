@@ -22,5 +22,6 @@ urlpatterns = [
     url(r'^comment/', include('apps.comment.urls', namespace='comment')),
     url(r'^profile/', include('apps.userprofile.urls', namespace='profile')),
     url(r'^socialaccount/', include('apps.socialaccount.urls', namespace='socialaccount')),
+    url(r'^socialactions/', include('apps.socialactions.urls', namespace='socialactions')),
     url('', include('social.apps.django_app.urls', namespace='social'))
 ]

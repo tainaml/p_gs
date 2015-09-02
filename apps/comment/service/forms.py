@@ -1,4 +1,3 @@
-from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from custom_forms.custom import forms, IdeiaForm
 import business as Business
@@ -51,15 +50,12 @@ class EditCommentForm(IdeiaForm):
         self.user = user
         self.instance = Business.retrieve_comment(id=id)
 
-
         super(EditCommentForm, self).__init__(*args, **kargs)
 
 
     def is_valid(self):
 
         valid = super(EditCommentForm, self).is_valid()
-
-
 
         if not self.user or not self.user.is_authenticated:
             self.add_error(None,
