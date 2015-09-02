@@ -2,7 +2,7 @@ from django.conf.urls import url, include
 
 urlpatterns = [
 
-    url(r'^$', 'apps.socialaccount.views.home'),
+    url(r'^$', 'apps.socialaccount.views.home', name='index'),
     url(r'^home/', 'apps.socialaccount.views.home', name="home"),
     url(r'^email-sent/', 'apps.socialaccount.views.validation_sent'),
     url(r'^login/$', 'apps.socialaccount.views.home'),
