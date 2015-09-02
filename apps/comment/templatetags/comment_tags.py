@@ -10,11 +10,8 @@ register = template.Library()
 @register.inclusion_tag('comment/create.html', takes_context=True)
 def box_comment(context, content_object, url_next):
 
-
     try:
         content_type = ContentType.objects.get_for_model(content_object)
-
-
     except:
         raise Http404()
 
@@ -28,7 +25,6 @@ def box_comment(context, content_object, url_next):
 @register.inclusion_tag('comment/edit.html')
 def box_edit_comment(instance, url_next):
 
-
     return {
         'instance': instance,
         'url_next': url_next
@@ -41,8 +37,7 @@ def list_comment(context, content_object):
         content = ContentType.objects.get_for_model(content_object)
 
         list_comment = Comment.objects.filter(content_type=content, object_id=content_object.id).order_by('-creation_date')
-        max_levels = settings.MAX_LEVELS if hasattr(settings,
-                                                'MAX_LEVELS') else False
+        max_levels = settings.MAX_LEVELS if hasattr(settings, 'MAX_LEVELS') else False
 
     except ValueError:
         raise Http404()

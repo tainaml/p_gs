@@ -30,7 +30,7 @@ ALLOWED_HOSTS = []
 # Google Recaptcha keys
 #
 NORECAPTCHA_SITE_KEY = '6LccmgsTAAAAAGrsvn7r7aiIcnvbuIS7pyP0qv1K'
-NORECAPTCHA_SECRET_KEY  = '6LccmgsTAAAAANyATh7UT3uL2G2iVnCCGfAXPE5f'
+NORECAPTCHA_SECRET_KEY = '6LccmgsTAAAAANyATh7UT3uL2G2iVnCCGfAXPE5f'
 
 # Application definition
 
@@ -89,7 +89,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'rede_gsti.wsgi.application'
 
-#EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_BACKEND = 'apps.mailmanager.backend.MailManagedBackend'
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.mandrillapp.com'
@@ -98,14 +98,14 @@ EMAIL_HOST_PASSWORD = 'gZ-tr-g2VKy6zQdRIVzmxg'
 EMAIL_PORT = '587'
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
-#Comment config
+# Comment config
 ENTITY_TO_COMMENT = ['user', 'comment']
 MAX_LEVELS = 2
 
-#Social config
+# Social config
 SOCIAL_LIKE = 1
 SOCIAL_UNLIKE = 2
-SOCIAL_FOLLOW  = 3
+SOCIAL_FOLLOW = 3
 SOCIAL_FAVOURITE = 4
 SOCIAL_SUGGEST = 5
 

@@ -6,6 +6,7 @@ from service.forms import CreateCommentForm, EditCommentForm
 from .service import business as Business
 # Create your views here.
 
+
 def index_teste(request):
     return render(request, 'comment/index_teste.html')
 
@@ -29,11 +30,10 @@ def save(request):
 @login_required
 @require_POST
 def update(request):
-    if 'next_url' not in request.POST or \
-                    'comment_id' not in request.POST:
+    if 'next_url' not in request.POST or 'comment_id' not in request.POST:
         raise Http404()
 
-    form = EditCommentForm(request.user, request.POST['comment_id'],request.POST)
+    form = EditCommentForm(request.user, request.POST['comment_id'], request.POST)
 
     if not form.process():
         return render(request, 'comment/create.html', {'form': form})
@@ -50,6 +50,5 @@ def delete(request, id):
         Business.delete_comment(comment)
     else:
         raise Http404()
-
 
     return redirect('/comment/index_teste')
