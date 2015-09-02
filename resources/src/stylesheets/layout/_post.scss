@@ -1,0 +1,30 @@
+.full-post {
+    padding: 20px;
+    border: 1px solid $color-border;
+    &-#{title} {
+        padding-top: 20px;
+        border-top: 1px solid $color-border;
+        color: #5d7184;
+        font-weight: bold;
+        font-size: 24px;
+        letter-spacing: -0.03em;
+    }
+    &-#{content} {
+        padding-top: 20px;
+        margin-top: 20px;
+        border-top: 1px solid $color-border;
+        color: #6f6f6f;
+        font-weight: 600;
+        font-size: 15px;
+        line-height: 26px;
+        letter-spacing: -0.05em;
+        text-align: justify;
+    }
+    &-#{image} {
+        float: left;
+        @media (min-width: $screen-md-min) {
+            margin-right: 30px;
+            margin-bottom: 30px;
+        }
+    }
+}

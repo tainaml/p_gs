@@ -13,7 +13,9 @@ Including another URLconf
     1. Add an import:  from blog import urls as blog_urls
     2. Add a URL to urlpatterns:  url(r'^blog/', include(blog_urls))
 """
+from django.conf import settings
 from django.conf.urls import include, url
+from django.conf.urls.static import static
 from django.contrib import admin
 
 urlpatterns = [
@@ -23,5 +25,6 @@ urlpatterns = [
     url(r'^profile/', include('apps.userprofile.urls', namespace='profile')),
     url(r'^socialaccount/', include('apps.socialaccount.urls', namespace='socialaccount')),
     url(r'^socialactions/', include('apps.socialactions.urls', namespace='socialactions')),
-    url('', include('social.apps.django_app.urls', namespace='social'))
-]
+    url('', include('social.apps.django_app.urls', namespace='social')),
+    url(r'^ninico/', include('apps.ninico.urls', namespace='ninico')),
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

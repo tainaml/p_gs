@@ -1,0 +1,84 @@
+{%extends 'home/layout/base.html' %}
+
+{% block title %}Portal GSTI - Perfil{% endblock %}
+
+{% block content %}
+<div class="perfil-row">
+    <!-- mudar para 2.5 -->
+    <div class="col-lg-3">
+        {% include 'home/partials/sidebar-perfil.html' %}
+    </div>
+    <!-- mudar para 9.5 -->
+    <div class="col-lg-9">
+        <nav class="perfil-navegation">
+            <a href="{% url 'ninico:feed' %}">Feed</a>•<a href="{% url 'ninico:perfil' %}">Perfil</a>•<a href="{% url 'ninico:about' %}">Sobre</a>•<a href="{% url 'ninico:communities' %}">Comunidades</a>•<a class="active" href="{% url 'ninico:relationship' %}">Relacionamentos</a>•<a href="{% url 'ninico:videos' %}">Vídeos</a>
+        </nav>
+        <header class="area-title">
+            <h2>Relacionametos</h2>
+        </header>
+        <div class="filter row">
+            <div class="col-lg-8">
+                {% include 'home/partials/search.html' %}
+            </div>
+            <div class="col-lg-4 text-right">
+                <a class="btn btn-perfil active" href="javascript:;">Seguindo</a>
+                <a class="btn btn-perfil" href="javascript:;">Seguidores</a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <hr>
+                <p class="description-text">• Quem <a href="javascript:;">Iury Silva</a> está seguindo</p>
+            </div>
+            <div class="box-perfil">
+                <div class="perfil">
+                    <img class="img-responsive" src="http://placehold.it/82" alt="Imagem 1">
+                    <a class="perfil-name" href="javascript:;">Iury Silva</a>
+                    <a class="perfil-counter" href="javascript;;"><span class="counter-number">180</span> Seguidores</a>
+                    <a class="btn btn-sm perfil-button" href="javascript:;">Seguir</a>
+                </div>
+            </div>
+            <div class="box-perfil">
+                <div class="perfil">
+                    <img class="img-responsive" src="http://placehold.it/82" alt="Imagem 1">
+                    <a class="perfil-name" href="javascript:;">Iury Silva</a>
+                    <a class="perfil-counter" href="javascript;;"><span class="counter-number">180</span> Seguidores</a>
+                    <a class="btn btn-sm perfil-button" href="javascript:;">Seguir</a>
+                </div>
+            </div>
+            <div class="box-perfil">
+                <div class="perfil">
+                    <img class="img-responsive" src="http://placehold.it/82" alt="Imagem 1">
+                    <a class="perfil-name" href="javascript:;">Iury Silva</a>
+                    <a class="perfil-counter" href="javascript;;"><span class="counter-number">180</span> Seguidores</a>
+                    <a class="btn btn-sm perfil-button" href="javascript:;">Seguir</a>
+                </div>
+            </div>
+            <div class="box-perfil">
+                <div class="perfil">
+                    <img class="img-responsive" src="http://placehold.it/82" alt="Imagem 1">
+                    <a class="perfil-name" href="javascript:;">Iury Silva</a>
+                    <a class="perfil-counter" href="javascript;;"><span class="counter-number">180</span> Seguidores</a>
+                    <a class="btn btn-sm perfil-button" href="javascript:;">Seguir</a>
+                </div>
+            </div>
+            <div class="box-perfil">
+                <div class="perfil">
+                    <img class="img-responsive" src="http://placehold.it/82" alt="Imagem 1">
+                    <a class="perfil-name" href="javascript:;">Iury Silva</a>
+                    <a class="perfil-counter" href="javascript;;"><span class="counter-number">180</span> Seguidores</a>
+                    <a class="btn btn-sm perfil-button" href="javascript:;">Seguir</a>
+                </div>
+            </div>
+            <div class="box-perfil">
+                <div class="perfil">
+                    <img class="img-responsive" src="http://placehold.it/82" alt="Imagem 1">
+                    <a class="perfil-name" href="javascript:;">Iury Silva</a>
+                    <a class="perfil-counter" href="javascript;;"><span class="counter-number">180</span> Seguidores</a>
+                    <a class="btn btn-sm perfil-button" href="javascript:;">Seguir</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,33 @@
+// ==========================================================================
+// Variables
+// ==========================================================================
+
+// Sections colors
+// ==========================================================================
+$color-governance:                #0160b0 !default;
+$color-development:               #3ea909 !default;
+$color-web-design:                #813889 !default;
+$color-marketing:                 #f46b1b !default;
+$color-infra:                     #1e5d4c !default;
+$color-databases:                 #c30007 !default;
+$link-white:                      #fff !default;
+$color-border:                    #e1e1e1 !default;
+$color-link-feed:                 #0160b0 !default;
+$color-link-counter:              #486075 !default;
+$color-time:                      #d3d3d3 !default;
+$color-text-post:                 #6f6f6f !default;
+$white-ice:                       #f7f7f7 !default;
+
+$background-perfil:               #fcfcfc !default;
+$background-button:               #4d6479 !default;
+$background-button-hover:         lighten($background-button, 30%) !default;
+$background-primary-button:       #738d00 !default;
+$background-primary-button-hover: darken($background-primary-button, 10%) !default;
+
+$background-perfil-button:        #f2f2f2 !default;
+$background-perfil-button-hover:  $background-button;
+
+
+$areas: (governance, $color-governance), (development, $color-development),
+(web-design, $color-web-design), (marketing, $color-marketing), (infra, $color-infra),
+(databases, $color-databases);

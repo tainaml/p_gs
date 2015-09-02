@@ -1,0 +1,44 @@
+.custom-select {
+    position: relative;
+    width: 100%;
+    &-#{item} {
+        overflow: hidden;
+        height: 40px;
+        padding-left: 12px;
+        display: block;
+        border: 1px solid $color-border;
+        line-height: 2.8;
+        color: $color-time;
+        cursor: pointer;
+        font-weight: 600;
+        font-size: 1em;
+        text-align: left;
+        &:after {
+            content: $fa-var-angle-down;
+            width: 40px;
+            height: 40px;
+            float: right;
+            background: $background-button;
+            color: $link-white;
+            font: bold 17px/2.5 'FontAwesome';
+            text-align: center;
+        }
+    }
+    &-#{list} {
+        @include list-unstyled();
+        position: absolute;
+        z-index: 2300;
+        width: 100%;
+        display: none;
+        background: $link-white;
+        border: 1px solid $color-border;
+        border-top: none;
+        border-bottom: none;
+        text-align: left;
+
+    }
+    &-#{option} {
+        padding: 10px;
+        border-bottom: 1px solid $color-border;
+    }
+}
