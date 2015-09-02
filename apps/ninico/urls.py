@@ -13,4 +13,5 @@ urlpatterns = [
     url(r'^perfil/ver-depois$', views.see_after, name='ver-depois'),
     url(r'^criar-artigo$', views.write_article, name='criar-artigo'),
     url(r'^criar-pergunta$', views.write_question, name='criar-pergunta'),
+    url(r'^post$', views.post, name='post'),
 ]
