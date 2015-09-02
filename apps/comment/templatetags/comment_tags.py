@@ -7,6 +7,7 @@ from django import template
 from django.http import Http404
 register = template.Library()
 
+
 @register.inclusion_tag('comment/create.html', takes_context=True)
 def box_comment(context, content_object, url_next):
 
@@ -22,6 +23,7 @@ def box_comment(context, content_object, url_next):
         'request': context['request']
     }
 
+
 @register.inclusion_tag('comment/edit.html')
 def box_edit_comment(instance, url_next):
 
@@ -29,6 +31,7 @@ def box_edit_comment(instance, url_next):
         'instance': instance,
         'url_next': url_next
     }
+
 
 @register.inclusion_tag('comment/list.html', takes_context=True)
 def list_comment(context, content_object):
