@@ -1,5 +1,6 @@
 .full-post {
     padding: 20px;
+    margin-bottom: 30px;
     border: 1px solid $color-border;
     &-#{title} {
         padding-top: 20px;
@@ -21,10 +22,11 @@
         text-align: justify;
     }
     &-#{image} {
-        float: left;
+        display: block;
+        margin: 0 auto 20px;
         @media (min-width: $screen-md-min) {
+            float: left;
             margin-right: 30px;
-            margin-bottom: 30px;
         }
     }
 }
