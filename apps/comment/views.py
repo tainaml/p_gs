@@ -8,7 +8,7 @@ from .service import business as Business
 
 
 def index_teste(request):
-    user = User.objects.get(id=16)
+    user = User.objects.all()[0]
     return render(request, 'comment/index_teste.html', {'user': user})
 
 
