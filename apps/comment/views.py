@@ -2,6 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.http import Http404
 from django.shortcuts import render, redirect
+from django.template.context_processors import request
 from django.views.decorators.http import require_POST, require_GET
 from service.forms import CreateCommentForm, EditCommentForm
 from .service import business as Business
@@ -46,7 +47,7 @@ def update(request):
 @require_GET
 def delete(request, id):
 
-    comment = Business.retrieve_comment(id=id)
+    comment = Business.retrieve_own_comment(comment_id=id, user=request.user)
     if comment:
         Business.delete_comment(comment)
     else:

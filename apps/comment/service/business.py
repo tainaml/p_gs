@@ -57,3 +57,10 @@ def retrieve_comment(id):
         return Comment.objects.filter(pk=id)[0]
     except:
         return None
+
+
+def retrieve_own_comment(comment_id=None, user=None):
+    try:
+        return Comment.objects.get(id=comment_id, author=user)
+    except Comment.DoesNotExist:
+        return None
