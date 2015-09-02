@@ -69,6 +69,27 @@
         }
     }
 }
+.article-excerpt {
+    @extend %clearfix;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    display: block;
+    border-bottom: 1px solid $color-border;
+    font-weight: bold;
+    font-size: 13px;
+    line-height: 120%;
+    letter-spacing: -0.05em;
+    &:first-child {
+        padding-top: 0;
+    }
+    &:last-child {
+        border-bottom: none;
+    }
+    > img {
+        margin-right: 20px;
+        float: left;
+    }
+}
 
 .post {
     @extend %clearfix;
