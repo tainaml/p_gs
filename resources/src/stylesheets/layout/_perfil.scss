@@ -165,11 +165,6 @@
     }
 }
 
-.custom-check {
-    padding: 5px 10px;
-    background: #f2f2f2;
-    border: 1px solid $color-border;
-}
 .excerpt {
     width: 100%;
     margin-bottom: 20px;
@@ -213,6 +208,9 @@
 .help-text {
     color: #5d7184;
     font-size: 13px;
+    > span {
+        font-weight: 600;
+    }
 }
 .rules-to-post {
     padding-left: 10px;
@@ -230,7 +228,62 @@
     }
 }
 
+.creator {
+    @media (min-width: $screen-md-min) {
+        padding-bottom: 100px;
+    }
+}
+.editor {
+    padding-top: 15px;
+    border-top: 1px solid $color-border;
+}
+
 .btn-green {
     @extend .btn;
     @include button-variant($btn-danger-color, #3ea909, #3ea909);
+    font-weight: 600;
+}
+.btn-default {
+    @extend .btn;
+    @include button-variant(#4d6479, #f2f2f2, #e1e1e1);
+}
+.custom-file-upload {
+    padding: 35px;
+    background: #f2f2f2;
+    color: #d8d8d8;
+    cursor: pointer;
+    text-align: center;
+    > .gsticon {
+        font-size: 50px;
+    }
+    > h3 {
+        margin: 0;
+        font-weight: 600;
+        font-size: 18px;
+    }
+    a {
+        color: inherit;
+        font-weight: bold;
+        text-decoration: underline;
+    }
+}
+.custom-check {
+    padding: 5px 10px;
+    background: #f2f2f2;
+    border: 1px solid $color-border;
+}
+.custom-radio {
+    padding: 6px 11px;
+    background: #f2f2f2;
+    border: 1px solid #e1e1e1;
+    text-align: center;
+}
+.article-counter {
+    color: #cccaca;
+    font-weight: 600;
+    font-size: 13px;
+    text-align: right;
+    &-#{caracteres} {
+        color: #e12c2c;
+    }
 }
