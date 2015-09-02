@@ -47,3 +47,6 @@ cp -p /vagrant/provision/data/bashrc /home/vagrant/.bashrc
 
 # Cleanup
 apt-get clean
+
+# Install RabbitMQ broker for Celery
+apt-get install rabbitmq-server

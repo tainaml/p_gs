@@ -2,3 +2,4 @@ django>=1.8
 psycopg2
 django-nocaptcha-recaptcha
 python-social-auth
+celery
