@@ -10,13 +10,11 @@ from .service import business as Business
 from .service.forms import ArticleForm
 
 
-class ArticleEditView(View):
+class ArticleBaseView(View):
 
-    template_name = 'article/edit.html'
-    form_class = ArticleForm
-    article_not_found = Http404('Article not Found.')
+    article_not_found = Http404(_('Article not Found.'))
 
-    def __filter_article(self, request, article_id=None):
+    def filter_article(self, request, article_id=None):
         article = Business.get_article(article_id)
 
         if not article:
@@ -33,35 +31,47 @@ class ArticleEditView(View):
 
         return article
 
-    @method_decorator(login_required)
-    def get(self, request, article_id=None, article_slug=None, *args, **kwargs):
 
-        article = self.__filter_article(request, article_id)
+class ArticleView(ArticleBaseView):
 
-        if article_id and (not article.id or article.slug != article_slug):
-            '''
-            The article slug is not equals
-            '''
+    template_name = 'article/view_article.html'
+    form_class = ArticleForm
+
+    def get(self, request, article_slug, article_id):
+        article = self.filter_article(request, article_id)
+        print article.slug
+        if not str(article.slug) == str(article_slug):
             raise self.article_not_found
+
+        return render(request, self.template_name, {'article': article})
+
+
+class ArticleEditView(ArticleBaseView):
+
+    template_name = 'article/edit.html'
+    form_class = ArticleForm
+
+    @method_decorator(login_required)
+    def get(self, request, article_id=None, *args, **kwargs):
+
+        article = self.filter_article(request, article_id)
 
         form_article = ArticleForm(prefix='article', instance=article)
 
         return render(request, self.template_name, {'form': form_article})
 
     @method_decorator(login_required)
-    def post(self, request, article_id=None, article_slug=None, *args, **kwargs):
+    def post(self, request, article_id=None, *args, **kwargs):
 
-        article = self.__filter_article(request, article_id)
+        article = self.filter_article(request, article_id)
         form_article = ArticleForm(request.POST, request.FILES, prefix='article', instance=article)
         form_article.set_author(request.user)
 
         article_saved = form_article.process()
         if article_saved is not False:
-            print 'save with success'
             messages.add_message(request, messages.SUCCESS, _('Success'))
-            article_slug = form_article.instance.slug
             article_id = form_article.instance.id
-            return redirect(reverse('article:edit', args=(article_slug, article_id,)))
+            return redirect(reverse('article:edit', args=(article_id,)))
         else:
             print 'erro'
 

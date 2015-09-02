@@ -9,10 +9,14 @@ class IdeiaForm(forms.Form):
         except NotImplementedError:
             raise NotImplementedError
         except Exception, e:
-            print '[ERRO]'
-            print e.message
             self.add_error(None, "General error!")
             return False
 
     def __process__(self):
         raise NotImplementedError
+
+
+class IdeiaModelForm(forms.ModelForm, IdeiaForm):
+
+    def __init__(self, *args, **kwargs):
+        super(IdeiaModelForm, self).__init__(*args, **kwargs)

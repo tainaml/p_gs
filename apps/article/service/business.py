@@ -18,17 +18,6 @@ def get_article(article_id=None):
 
 
 def save_article(article, data):
-
-    if article.status == Article.STATUS_PUBLISH:
-        '''
-        if to be publish
-        '''
-        print 'Status: ' + str(article.status)
-        pass
-
-    print 'Article: '
-    print model_to_dict(article)
-
-    return article if article.save() else False
+    return article.save()
 
 

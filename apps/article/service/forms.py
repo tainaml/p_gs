@@ -1,22 +1,9 @@
-from django.forms import ModelForm, model_to_dict
+from django.core.exceptions import ValidationError
 from django.template.defaultfilters import slugify
-from custom_forms.custom import forms, IdeiaForm
+from django.utils import timezone
+from custom_forms.custom import forms, IdeiaModelForm
+from django.utils.translation import ugettext as _
 import business as Business
-
-class IdeiaModelForm(ModelForm):
-    def process(self):
-        try:
-            return self.__process__() if self.is_valid() else False
-        except NotImplementedError:
-            raise NotImplementedError
-        except Exception, e:
-            print e.message
-            self.add_error(None, "General error!")
-            return False
-
-    def __process__(self):
-        raise NotImplementedError
-
 
 class ArticleForm(IdeiaModelForm):
 
@@ -28,9 +15,35 @@ class ArticleForm(IdeiaModelForm):
     status = forms.ChoiceField(required=True, choices=Business.Article.STATUS_CHOICES)
     author = forms.IntegerField(required=False)
 
+    # Actions: save, publish, schedule
+    ACTION_SAVE = 1
+    ACTION_PUBLISH = 2
+    ACTION_SCHEDULE = 3
+
+    __action = ACTION_SAVE
+
     class Meta:
         model = Business.Article
         exclude = []
+
+    def clean_publishin(self):
+        _date = self.cleaned_data.get('publishin')
+        if self.__action == self.ACTION_SCHEDULE:
+            _now = timezone.now()
+            _date = _date if _date else _now
+            if _date < _now:
+                self.add_error('publishin', ValidationError(_('Publish date has invalid')))
+        elif self.__action == self.ACTION_PUBLISH:
+            _date = timezone.now()
+
+        return _date
+
+    def clean_status(self):
+        _status = self.cleaned_data.get('status', Business.Article.STATUS_DRAFT)
+        if self.__action in [self.ACTION_PUBLISH, self.ACTION_SCHEDULE]:
+            _status = Business.Article.STATUS_PUBLISH
+
+        return _status
 
     def clean_slug(self):
         _slug = self.cleaned_data.get('slug', '')
@@ -42,12 +55,31 @@ class ArticleForm(IdeiaModelForm):
         _author = self.cleaned_data.get('author')
         return _author if _author else self._author
 
+    def is_valid(self):
+        valid = True
+
+        if 'submit-publish' in self.data:
+            '''
+            Publishing action
+            '''
+            self.__action = self.ACTION_PUBLISH
+        elif 'submit-schedule' in self.data:
+            self.__action = self.ACTION_SCHEDULE
+
+        elif 'submit-save' in self.data:
+            self.__action = self.ACTION_SAVE
+            
+
+        if not super(ArticleForm, self).is_valid():
+            valid = False
+
+        if 'submit-schedule' in self.data:
+            print self.cleaned_data
+
+        return valid
+
     def set_author(self, author):
         self._author = author
-
-    def is_valid(self):
-        valid = super(ArticleForm, self).is_valid()
-        return valid
 
     def __process__(self):
         return Business.save_article(self.instance, self.cleaned_data)
