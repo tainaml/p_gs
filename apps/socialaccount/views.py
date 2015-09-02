@@ -13,6 +13,7 @@ from django.shortcuts import render
 
 from apps.socialaccount.decorators import render_to
 
+
 def logout(request):
     """Logs out user"""
     auth_logout(request)
@@ -38,6 +39,7 @@ def home(request):
 def require_email(request):
     backend = request.session['partial_pipeline']['backend']
     return context(email_required=True, backend=backend)
+
 
 @login_required
 @render_to('home.html')

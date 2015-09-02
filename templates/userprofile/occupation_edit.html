@@ -1,0 +1,23 @@
+{% load i18n %}
+
+
+<form action="{% url 'profile:occupation_update' %}" method="post">
+
+    {% csrf_token %}
+
+    <input type="text" name="responsibility" value="{{ form.data.responsibility|default_if_none:"" }}" placeholder="{% trans "Responsibility" %}">
+    {% if form.responsibility.errors %}  {{ form.responsibility.errors }} {% endif %}
+    <br/>
+
+    <input type="text" name="description" value="{{ form.data.description|default_if_none:"" }}" placeholder="{% trans "Description" %}">
+    {% if form.description.errors %}  {{ form.description.errors }} {% endif %}
+    <br/>
+    <br/>
+
+    {{ form.non_field_errors }}
+
+    <input type="hidden" name="occupation_id" value="{{ form.data.id }}"/>
+    <input type="submit" value="{% trans "Submit" %}" name="submit">
+    {% trans 'or' %} <a href="{% url 'account:index' %}">{% trans 'Go to account index' %}</a>
+
+</form>
