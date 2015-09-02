@@ -34,12 +34,14 @@ def create_comment(user=None, parameters=None):
 
     return comment
 
-def edit_comment(comment=None, parameters =None):
+
+def edit_comment(comment=None, parameters=None):
     comment.content = parameters['content']
 
     comment.save()
 
     return comment
+
 
 def delete_comment(comment=None):
     content_type = ContentType.objects.get_for_model(comment)
@@ -48,6 +50,7 @@ def delete_comment(comment=None):
         if comment:
             delete_comment(child_comment)
     comment.delete()
+
 
 def retrieve_comment(id):
     try:
