@@ -19,7 +19,8 @@
         </ul>
     {% endif %}
 
-    <input type="submit" value="{% trans "Submit" %}" name="submit" />
+    <input type="submit" value="{% trans "Login" %}" name="submit" />
+    {% trans 'or' %} <a href="{% url 'socialaccount:index' %}">{% trans 'Login Social' %}</a>
     {% trans 'or' %} <a href="{% url 'account:signup' %}">{% trans 'Registrar' %}</a>
 
     <br/>

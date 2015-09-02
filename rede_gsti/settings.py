@@ -153,7 +153,7 @@ DATABASES = {
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'pt-br'
 TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_L10N = True
@@ -167,6 +167,7 @@ STATIC_URL = '/static/'
 
 #
 LOGIN_URL = '/account/login'
+
 
 # MailValidation Time
 TIME_REGISTER_ACCOUNT = 48
@@ -190,7 +191,7 @@ AUTHENTICATION_BACKENDS = (
     )
 
 SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
-  'fields': 'id, name, email'
+    'fields': 'id, name, email'
 }
 
 SOCIAL_AUTH_PIPELINE = (
@@ -201,6 +202,8 @@ SOCIAL_AUTH_PIPELINE = (
     'social.pipeline.user.get_username',
     'apps.socialaccount.pipeline.require_email',
     'social.pipeline.mail.mail_validation',
+    'apps.socialaccount.pipeline.username_slugify',
+    'social.pipeline.social_auth.associate_by_email',
     'social.pipeline.user.create_user',
     'social.pipeline.social_auth.associate_user',
     'social.pipeline.debug.debug',
