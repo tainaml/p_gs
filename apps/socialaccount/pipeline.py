@@ -13,3 +13,12 @@ def require_email(strategy, details, user=None, is_new=False, *args, **kwargs):
             details['email'] = email
         else:
             return redirect('require_email')
+
+
+@partial
+def username_slugify(**kwargs):
+    print kwargs
+    if kwargs.get('username'):
+        kwargs['username'] = kwargs.get('username').lower()
+
+    return kwargs

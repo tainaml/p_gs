@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+
+    {% load i18n %}
+
+    <h1 style="text-align: center; padding-top: 50px;">{{ profile.user.first_name }} {{ profile.user.last_name }}</h1>
+
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <p style="text-align: center">
+        <a href="{% url 'profile:edit' %}">{% trans "Edit profile" %}</a> {% trans "or" %}
+        <a href="{% url 'profile:occupation_add' %}">{% trans "Add occupation" %}</a> {% trans "or" %}
+        <a href="{% url 'account:index' %}">{% trans "Go to account index" %}</a> {% trans "or" %}
+        <a href="{% url 'account:logout' %}">{% trans "Logout" %}</a>
+    </p>
+
+    <div style="text-align:left; width: 550px; margin: auto;">
+        <ul>
+            {% for occupation in occupations %}
+                <li>
+                    [
+                    <a href="{% url 'profile:occupation_show' occupation.id %}">{% trans "Show" %}</a> |
+                    <a href="{% url 'profile:occupation_edit' occupation.id %}">{% trans "Edit" %}</a> |
+                    <a href="{% url 'profile:occupation_delete' occupation.id %}">{% trans "Delete" %}</a>
+                    ]
+                    {{ occupation.responsibility }} - {{ occupation.description }}
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+</body>
+</html>
+
