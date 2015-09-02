@@ -21,7 +21,7 @@
     {{ form.data.nome }}
     {% if form.nome.errors %}  {{ form.nome.errors }} {% endif %}
 
-    <input type="date" name="birth" placeholder="{% trans "Birth date" %}" value="{{ form.data.birth|date:"d/m/Y" }}">
+    <input type="text" name="birth" placeholder="{% trans "Birth date" %}" value="{{ form.data.birth|date:"d/m/Y" }}">
     {% if form.birth.errors %}  {{ form.birth.errors }} {% endif %}
     <br/>
 
@@ -34,7 +34,7 @@
     <br/>
 
     <select name="country" id="country">
-        <option value="" {% if form.data.city.state.country.id %}selected{% endif %} disabled>{% trans "Select a country" %}</option>
+        <option value="" {% if not form.data.city %}selected{% endif %} disabled>{% trans "Select a country" %}</option>
         {% for country in countries %}
             <option value="{{ country.id }}" {% if form.data.city.state.country.id == country.id %}selected{% endif %}>{{ country.name }}</option>
         {% endfor %}
