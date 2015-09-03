@@ -7,6 +7,8 @@
 </head>
 <body>
 
+<a href="{% url 'article:view' form.instance.slug form.instance.id %}">Ver Artigo</a>
+
 <form action="" method="post" enctype="multipart/form-data">
 
     {% csrf_token %}
@@ -18,14 +20,6 @@
            {% endfor %}
        </ul>
    {% endif %}
-
-    <div>
-        {% for field, errors in form.errors.items %}
-            {% for error in errors %}
-                {{ field }}: {{ error }}
-            {% endfor %}
-        {% endfor %}
-    </div>
 
     <p>
         <label for="article-title">Title:</label>
