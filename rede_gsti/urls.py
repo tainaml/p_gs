@@ -13,10 +13,13 @@ Including another URLconf
     1. Add an import:  from blog import urls as blog_urls
     2. Add a URL to urlpatterns:  url(r'^blog/', include(blog_urls))
 """
-from django.conf import settings
 from django.conf.urls import include, url
 from django.conf.urls.static import static
 from django.contrib import admin
+from django.conf import settings
+
+url_statics = static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+url_media = static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
@@ -26,5 +29,6 @@ urlpatterns = [
     url(r'^socialaccount/', include('apps.socialaccount.urls', namespace='socialaccount')),
     url(r'^socialactions/', include('apps.socialactions.urls', namespace='socialactions')),
     url('', include('social.apps.django_app.urls', namespace='social')),
+    url(r'^articles/', include('apps.article.urls', namespace='article')),
     url(r'^ninico/', include('apps.ninico.urls', namespace='ninico')),
-] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+] + url_statics + url_media

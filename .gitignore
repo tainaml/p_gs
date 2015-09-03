@@ -147,4 +147,7 @@ target/
 
 # Front-end modules (npm, assets)
 # rede_gsti/static (to future)
-resources/node_modulesmedia
+resources/node_modules
+
+#Uploads
+/media/uploads

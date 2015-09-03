@@ -1,0 +1,78 @@
+{% load i18n %}
+<!doctype html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Article Edit/Create</title>
+</head>
+<body>
+
+<a href="{% url 'article:view' form.instance.slug form.instance.id %}">Ver Artigo</a>
+
+<form action="" method="post" enctype="multipart/form-data">
+
+    {% csrf_token %}
+
+    {% if messages %}
+       <ul class="messages">
+           {% for message in messages %}
+               <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+           {% endfor %}
+       </ul>
+   {% endif %}
+
+    <p>
+        <label for="article-title">Title:</label>
+        {{ form.title }}
+        {% if form.title.errors %}  {{ form.title.errors }} {% endif %}
+    </p>
+
+    <p>
+        <label for="article-slug">Slug:</label>
+        {{ form.slug }}
+        {% if form.slug.errors %} {{ form.slug.errors }} {% endif %}
+    </p>
+
+    <p>
+        <label for="article_text">Text:</label>
+        {{ form.text }}
+        {% if form.text.errors %}  {{ form.text.errors }} {% endif %}
+    </p>
+
+    <p>
+        <label for="article_image">Imagem:</label>
+        {{ form.image }}
+        {% if form.image.errors %} {{ form.image.errors }} {% endif %}
+    </p>
+
+    <p>
+        <label for="article_publish_date">Publicação:</label>
+        {{ form.publishin }}
+        {% if form.publishin.errors %} {{ form.publishin.errors }} {% endif %}
+    </p>
+
+    <p>
+        <label for="article_status">Status:</label>
+        {{ form.status }}
+        {% if form.status.errors %} {{ form.status.errors }} {% endif %}
+    </p>
+
+    <p>
+
+        <input type="submit" value="{% trans "Publish" context "publish article" %}" name="submit-publish" />
+
+        <input type="submit" value="{% trans "Schedule" context "schedule article" %}" name="submit-schedule" />
+
+        {% if form.instance.id %}
+            <input type="hidden" name="id" value="{{ form.instance.id }}" />
+            <input type="submit" value="{% trans "Save" context "save article" %}" name="submit-save" />
+            <input type="submit" value="{% trans "Trash" context "trash article" %}" name="submit-trash" />
+        {% else %}
+            <input type="submit" value="{% trans "Create" context "create article" %}" name="submit-save" />
+        {% endif %}
+    </p>
+
+</form>
+
+</body>
+</html>

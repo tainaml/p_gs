@@ -8,9 +8,15 @@ class IdeiaForm(forms.Form):
             return self.__process__() if self.is_valid() else False
         except NotImplementedError:
             raise NotImplementedError
-        except:
+        except Exception, e:
             self.add_error(None, "General error!")
             return False
 
     def __process__(self):
         raise NotImplementedError
+
+
+class IdeiaModelForm(forms.ModelForm, IdeiaForm):
+
+    def __init__(self, *args, **kwargs):
+        super(IdeiaModelForm, self).__init__(*args, **kwargs)
