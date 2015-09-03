@@ -6,6 +6,7 @@ from django.utils.translation import ugettext as _
 class Article(models.Model):
 
     STATUS_DRAFT = 0
+    STATUS_TEMP = 1
     STATUS_TRASH = 2
     STATUS_PUBLISH = 4
 

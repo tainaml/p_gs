@@ -17,6 +17,14 @@ def get_article(article_id=None):
     return article
 
 
+def create_temp_article(author):
+    article = Article()
+    article.author = author
+    article.status = Article.STATUS_TEMP
+    article.save()
+    print model_to_dict(article)
+    return article
+
 def save_article(article, data):
     return article.save()
 

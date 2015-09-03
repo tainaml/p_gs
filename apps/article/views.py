@@ -56,6 +56,10 @@ class ArticleEditView(ArticleBaseView):
 
         article = self.filter_article(request, article_id)
 
+        if not article_id:
+            article = Business.create_temp_article(request.user)
+            return redirect(reverse('article:edit', args=(article.id,)))
+
         form_article = ArticleForm(prefix='article', instance=article)
 
         return render(request, self.template_name, {'form': form_article})

@@ -28,11 +28,16 @@ class ArticleForm(IdeiaModelForm):
 
     def clean_publishin(self):
         _date = self.cleaned_data.get('publishin')
+        _now = timezone.now()
+
         if self.__action == self.ACTION_SCHEDULE:
-            _now = timezone.now()
-            _date = _date if _date else _now
-            if _date < _now:
+            if not _date:
                 self.add_error('publishin', ValidationError(_('Publish date has invalid')))
+            elif _date < _now:
+                self.add_error('publishin', ValidationError(_('Publish date has invalid')))
+            else:
+                _date = _date if _date else _now
+                
         elif self.__action == self.ACTION_PUBLISH:
             _date = timezone.now()
 
@@ -68,7 +73,6 @@ class ArticleForm(IdeiaModelForm):
 
         elif 'submit-save' in self.data:
             self.__action = self.ACTION_SAVE
-            
 
         if not super(ArticleForm, self).is_valid():
             valid = False
