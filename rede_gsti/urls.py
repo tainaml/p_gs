@@ -18,6 +18,9 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.conf import settings
 
+url_statics = static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+url_media = static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^account/', include('apps.account.urls', namespace='account')),
@@ -28,4 +31,4 @@ urlpatterns = [
     url('', include('social.apps.django_app.urls', namespace='social')),
     url(r'^articles/', include('apps.article.urls', namespace='article')),
     url(r'^ninico/', include('apps.ninico.urls', namespace='ninico')),
-] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+] + url_statics + url_media

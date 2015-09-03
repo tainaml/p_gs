@@ -184,7 +184,7 @@ TIME_REGISTER_ACCOUNT = 48
 TIME_RECOVERY_PASSWORD = 8
 
 # Site Urls
-SITE_URL = 'http://localhost:8000'SITE_URL = 'http://localhost:8000'
+SITE_URL = 'http://localhost:8000'
 
 SOCIAL_AUTH_FACEBOOK_KEY = '1486240068359213'
 SOCIAL_AUTH_FACEBOOK_SECRET = 'd5be292ac55c13d465ae82bc19c84669'
@@ -199,7 +199,7 @@ AUTHENTICATION_BACKENDS = (
     'social.backends.facebook.FacebookOAuth2',
     'django.contrib.auth.backends.ModelBackend',
     'social.backends.google.GoogleOAuth2',
-    )
+)
 
 SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
     'fields': 'id, name, email'
