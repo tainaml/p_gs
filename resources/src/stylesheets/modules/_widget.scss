@@ -1,0 +1,200 @@
+.widget {
+    &-#{header} {
+        position: relative;
+        margin-bottom: 20px;
+        &:before {
+            position: absolute;
+            top: 0; bottom: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+        }
+        .counter {
+            float: right;
+            color: $color-border;
+            line-height: 2.5;
+            font-size: 1.286em;
+            font-weight: 600;
+        }
+    }
+
+    &-#{content} {
+        @extend %clearfix;
+    }
+}
+
+.widget-feed {
+    @extend %clearfix;
+    padding: 15px 0;
+
+    .widget-footer {
+        padding: 5px 20px;
+        display: block;
+        background-color: $color-border;
+        line-height: $line-height-computed;
+
+        > .gsticon {
+            float: right;
+            line-height: inherit;
+        }
+    }
+}
+.follower-content {
+    @extend %clearfix;
+    width: 100%;
+    padding: 20px 20px 0;
+    border: 1px solid $color-border;
+    border-top-width: 0;
+    > ul > li {
+        padding-top: 10px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid $color-border;
+        color: $color-link-counter;
+        letter-spacing: -0.009em;
+        &:first-child {
+            padding-top: 0;
+        }
+        &:last-child {
+            border-bottom: 0;
+        }
+    }
+    .btn-follow {
+        display: block;
+        background-color: $background-primary-button;
+        color: $link-white;
+        font-weight: 600;
+        font-size: 1.286em;
+        &:hover {
+            background: $background-primary-button-hover;
+        }
+    }
+}
+.article-excerpt {
+    @extend %clearfix;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    display: block;
+    border-bottom: 1px solid $color-border;
+    font-weight: bold;
+    font-size: 13px;
+    line-height: 120%;
+    letter-spacing: -0.05em;
+    &:first-child {
+        padding-top: 0;
+    }
+    &:last-child {
+        border-bottom: none;
+    }
+    > img {
+        margin-right: 20px;
+        float: left;
+    }
+}
+
+.post {
+    @extend %clearfix;
+    padding: 10px 20px;
+    margin-bottom: 20px;
+    border: 1px solid $color-border;
+
+    &-#{title} {
+        margin: 0;
+        margin-bottom: 5px;
+        color: $color-text-post;
+        font-weight: 700;
+        font-size: 1.143em;
+        line-height: 1.3;
+    }
+    &-#{header} {
+        font-size: 0.929em;
+        margin-bottom: 10px;
+
+        time {
+            padding-right: 10px;
+            margin-right: -3px;
+            border-right: 1px solid $color-time;
+            color: $color-time;
+        }
+    }
+    &-#{info} {
+        position: relative;
+        float: right;
+
+        .gsticon-gear {
+            padding: 2.5px 10px;
+            color: $background-button;
+            &:hover,
+            &.is-active {
+                background: #f7f7f7;
+            }
+        }
+    }
+    &-#{content} {
+        @extend %clearfix;
+        display: block;
+        border: 1px solid $color-border;
+        // Mudar para uma classe
+        figure {
+            float: left;
+            margin-right: 20px;
+        }
+    }
+    &-#{text} {
+        // Usar media-query para "setar" o tamanho
+        // width: 66.6%;
+        padding: 20px;
+        // float: left;
+        color: $color-text-post;
+        font-weight: 600;
+        font-size: 0.857em;
+
+        p {
+            margin-bottom: 0;
+            color: $color-text-post;
+            line-height: 1.3;
+            letter-spacing: -0.005em;
+        }
+    }
+    &-#{count} {
+        padding-right: 4px;
+        display: inline-block;
+        > a {
+            color: $background-button;
+        }
+
+        &-#{comments} {
+            padding-left: 10px;
+            display: inline-block;
+            border-left: 1px solid $color-border;
+            color: $background-button;
+        }
+    }
+    &-#{footer} {
+        padding-top: 10px;
+    }
+    &-#{communities} {
+        position: relative;
+        display: inline-block;
+        color: $color-border;
+
+        > a {
+            margin: 0 10px;
+        }
+    }
+}
+
+.area-content {
+    padding-top: 20px;
+    border-top: 1px solid $color-border;
+}
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%; right: 0;
+    z-index: 2000;
+    min-width: 180px;
+    > ul {
+        margin: 10px 0 0;
+        box-shadow: 0 2px 3px lighten(#000000, 35%);
+    }
+}

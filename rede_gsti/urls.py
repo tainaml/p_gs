@@ -21,5 +21,11 @@ from django.conf import settings
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^account/', include('apps.account.urls', namespace='account')),
+    url(r'^comment/', include('apps.comment.urls', namespace='comment')),
+    url(r'^profile/', include('apps.userprofile.urls', namespace='profile')),
+    url(r'^socialaccount/', include('apps.socialaccount.urls', namespace='socialaccount')),
+    url(r'^socialactions/', include('apps.socialactions.urls', namespace='socialactions')),
+    url('', include('social.apps.django_app.urls', namespace='social')),
     url(r'^articles/', include('apps.article.urls', namespace='article')),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    url(r'^ninico/', include('apps.ninico.urls', namespace='ninico')),
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

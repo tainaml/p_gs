@@ -30,7 +30,7 @@ ALLOWED_HOSTS = []
 # Google Recaptcha keys
 #
 NORECAPTCHA_SITE_KEY = '6LccmgsTAAAAAGrsvn7r7aiIcnvbuIS7pyP0qv1K'
-NORECAPTCHA_SECRET_KEY  = '6LccmgsTAAAAANyATh7UT3uL2G2iVnCCGfAXPE5f'
+NORECAPTCHA_SECRET_KEY = '6LccmgsTAAAAANyATh7UT3uL2G2iVnCCGfAXPE5f'
 
 # Application definition
 
@@ -41,13 +41,18 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'apps.ninico',
     'apps.mailmanager',
     'nocaptcha_recaptcha',
     'apps.account',
     'apps.article',
     'apps.comment',
     'apps.question',
-    'apps.userprofile'
+    'apps.userprofile',
+    'apps.socialaccount',
+    'social.apps.django_app.default',
+    'apps.socialactions'
+
 )
 
 MIDDLEWARE_CLASSES = (
@@ -85,7 +90,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'rede_gsti.wsgi.application'
 
-#EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_BACKEND = 'apps.mailmanager.backend.MailManagedBackend'
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.mandrillapp.com'
@@ -93,6 +98,39 @@ EMAIL_HOST_USER = 'philliparente@gmail.com'
 EMAIL_HOST_PASSWORD = 'gZ-tr-g2VKy6zQdRIVzmxg'
 EMAIL_PORT = '587'
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+# Comment config
+ENTITY_TO_COMMENT = ['user', 'comment']
+MAX_LEVELS = 2
+
+# Social config
+SOCIAL_LIKE = 1
+SOCIAL_UNLIKE = 2
+SOCIAL_FOLLOW = 3
+SOCIAL_FAVOURITE = 4
+SOCIAL_SUGGEST = 5
+
+SOCIAL_LABELS = {
+    SOCIAL_LIKE: 'like',
+    SOCIAL_UNLIKE: 'unlike',
+    SOCIAL_FOLLOW: 'follow',
+    SOCIAL_FAVOURITE: 'favourite',
+    SOCIAL_SUGGEST: 'suggest'
+}
+
+SOCIAL_ENTITIES = {
+    SOCIAL_LIKE: ['comment'],
+    SOCIAL_UNLIKE: ['comment'],
+    SOCIAL_FOLLOW: [''],
+    SOCIAL_FAVOURITE: [''],
+    SOCIAL_SUGGEST: ['']
+}
+
+SOCIAL_INVERSE_ACTIONS = {
+    SOCIAL_LIKE: [SOCIAL_UNLIKE],
+    SOCIAL_UNLIKE: [SOCIAL_LIKE]
+}
+
 
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
@@ -116,7 +154,7 @@ DATABASES = {
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'pt-br'
 TIME_ZONE = 'America/Bahia'
 USE_I18N = True
 USE_L10N = True
@@ -126,8 +164,12 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, "static"),
+)
 STATIC_URL = '/static/'
 
+#
 
 # Media Paths: User upload files
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media', 'uploads')
@@ -136,9 +178,47 @@ MEDIA_URL = '/media/uploads/'
 # Login Urls
 LOGIN_URL = '/account/login'
 
+
 # MailValidation Time
 TIME_REGISTER_ACCOUNT = 48
 TIME_RECOVERY_PASSWORD = 8
 
 # Site Urls
-SITE_URL = 'http://localhost:8000'
+SITE_URL = 'http://localhost:8000'SITE_URL = 'http://localhost:8000'
+
+SOCIAL_AUTH_FACEBOOK_KEY = '1486240068359213'
+SOCIAL_AUTH_FACEBOOK_SECRET = 'd5be292ac55c13d465ae82bc19c84669'
+SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
+SOCIAL_AUTH_LOGIN_REDIRECT_URL = '../../account/'
+
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '810336189711-1m8lr2mdi9ci971e96440vsdve3g2r45.apps.googleusercontent.com'
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'N6meHsg8fUGF4Ti4PKd0oh5m'
+SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = ['email']
+
+AUTHENTICATION_BACKENDS = (
+    'social.backends.facebook.FacebookOAuth2',
+    'django.contrib.auth.backends.ModelBackend',
+    'social.backends.google.GoogleOAuth2',
+    )
+
+SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
+    'fields': 'id, name, email'
+}
+
+SOCIAL_AUTH_PIPELINE = (
+    'social.pipeline.social_auth.social_details',
+    'social.pipeline.social_auth.social_uid',
+    'social.pipeline.social_auth.auth_allowed',
+    'social.pipeline.social_auth.social_user',
+    'social.pipeline.user.get_username',
+    'apps.socialaccount.pipeline.require_email',
+    'social.pipeline.mail.mail_validation',
+    'apps.socialaccount.pipeline.username_slugify',
+    'social.pipeline.social_auth.associate_by_email',
+    'social.pipeline.user.create_user',
+    'social.pipeline.social_auth.associate_user',
+    'social.pipeline.debug.debug',
+    'social.pipeline.social_auth.load_extra_data',
+    'social.pipeline.user.user_details',
+    'social.pipeline.debug.debug'
+)

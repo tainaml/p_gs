@@ -1,0 +1,153 @@
+// ==========================================================================
+// Container com título, navegação e posts
+// ==========================================================================
+// ==========================================================================
+// <section class="post-list">
+//  <div class="post-list-header">
+//   <h2 class="post-list-heading">Título</h2>
+//   <nav class="post-list-nav">
+//    <a href="javascript:;">link</a>
+//    <a href="javascript:;">link</a>
+//    <a href="javascript:;">link</a>
+//   </nav>
+//  </div>
+//  <div class="post-list-container">
+//   <article></article>
+//  </div>
+// </section>
+// ==========================================================================
+.container-posts {
+    @include make-row();
+}
+.post-list {
+    margin: 30px 0 20px;
+    @each $name, $color in $areas {
+    &--#{$name} {
+        color: $color;
+        border-left-color: $color;
+        .article-category {
+            margin-top: 10px;
+            margin-bottom: 10px;
+            display: block;
+            color: $background-button;
+            font-size: 1em;
+        }
+        .article-content {
+            color: $color;
+            font-size: 1.143em;
+        }
+        &:hover .aticle-content,
+        &:focus .aticle-content {
+            color: darken($color, 10%);
+        }
+    } }
+
+    &--large {
+        @extend .post-list;
+        @include make-xs-column(12);
+        @include make-lg-column(12);
+    }
+    &--small {
+        @extend .post-list;
+        @include make-xs-column(12);
+        @include make-lg-column(3);
+        .post-list-header {
+            border-left: 1px solid #eee;
+        }
+        .post-list-heading {
+            @include make-xs-column(12);
+            @include make-sm-column(12);
+            @include make-lg-column(12);
+        }
+    }
+    &--third {
+        @extend .post-list;
+        @include make-xs-column(12);
+        @include make-lg-column(9);
+    }
+    &--half {
+        @extend .post-list;
+        @include make-xs-column(12);
+        @include make-lg-column(6);
+    }
+
+    &-header {
+        @extend %clearfix;
+        padding: 20px 0;
+        margin-bottom: 20px;
+        border: 1px solid #eee;
+        border-left-width: 5px;
+        border-left-color: inherit;
+        text-transform: uppercase;
+    }
+    &-heading {
+        @include make-xs-column(12);
+        @include make-sm-column(4);
+        @include make-lg-column(4);
+        margin: 0;
+        color: inherit;
+        letter-spacing: -0.0999em;
+        font: 700 1.286em $font-family-sans-serif;
+    }
+    &-nav {
+        @media (max-width: $screen-sm-min) {
+            display: none;
+        }
+        @include make-sm-column(8);
+        @include make-lg-column(8);
+        line-height: 1.7;
+        text-align: right;
+        color: $color-border;
+        > .subs {
+            padding: 0 10px;
+            margin-left: -4px;
+            color: $background-button;
+            font-size: 0.929em;
+            // font-weight: 600;
+            &:last-child {
+                padding-right: 0;
+            }
+        }
+    }
+    &-container {
+        @include make-row;
+
+        > a {
+            margin-bottom: 20px;
+        }
+    }
+    &-subcategory {
+        color: $background-button;
+    }
+}
+
+.article-home-large {
+    @include make-xs-column(12);
+    @include make-lg-column(3);
+    margin-bottom: 20px;
+    cursor: pointer;
+
+    &:hover .article-category {
+        color: $background-button-hover;
+    }
+}
+.article-home-medium  {
+    @include make-xs-column(12);
+    @include make-lg-column(6);
+    margin-bottom: 20px;
+    cursor: pointer;
+
+    &:hover .article-category {
+        color: $background-button-hover;
+    }
+}
+.article-home-small  {
+    @include make-xs-column(12);
+    @include make-lg-column(4);
+    margin-bottom: 20px;
+    cursor: pointer;
+
+    &:hover .article-category {
+        color: $background-button-hover;
+    }
+}

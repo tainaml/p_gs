@@ -1,0 +1,150 @@
+{% load i18n %}
+
+<p>
+    {{ request.user.first_name }} {{ request.user.last_name }} edit profile
+</p>
+
+
+{% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+{% endif %}
+
+
+<form action="{% url 'profile:update_profile' %}" method="post">
+
+    {% csrf_token %}
+
+    {{ form.data.nome }}
+    {% if form.nome.errors %}  {{ form.nome.errors }} {% endif %}
+
+    <input type="text" name="birth" placeholder="{% trans "Birth date" %}" value="{{ form.data.birth|date:"d/m/Y" }}">
+    {% if form.birth.errors %}  {{ form.birth.errors }} {% endif %}
+    <br/>
+
+    <label for="male">
+        <input type="radio" id="male" name="gender" value="{{ gender.MALE }}" {% if form.data.gender == gender.MALE %}checked{% endif %}/> {% trans 'Male' %}
+    </label>
+    <label for="female">
+        <input type="radio" id="female" name="gender" value="{{ gender.FEMALE }}" {% if form.data.gender == gender.FEMALE %}checked{% endif %}/> {% trans 'Female' %}
+    </label>
+    <br/>
+
+    <select name="country" id="country">
+        <option value="" {% if not form.data.city %}selected{% endif %} disabled>{% trans "Select a country" %}</option>
+        {% for country in countries %}
+            <option value="{{ country.id }}" {% if form.data.city.state.country.id == country.id %}selected{% endif %}>{{ country.name }}</option>
+        {% endfor %}
+    </select>
+    <select name="state" id="state">
+        {% for state in states %}
+            <option value="{{ state.id }}" {% if form.data.city.state.id == state.id %}selected{% endif %}>{{ state.name }}</option>
+        {% endfor %}
+    </select>
+    <select name="city" id="city">
+        {% for city in cities %}
+            <option value="{{ city.id }}" {% if form.data.city.id == city.id %}selected{% endif %}>{{ city.name }}</option>
+        {% endfor %}
+    </select>
+    {% if form.city.errors %}  {{ form.city.errors }} {% endif %}
+    <br/>
+
+    <!--
+    <input type="text" name="responsability" placeholder="{% trans 'Responsability' %}"/>
+    <input type="text" name="description" placeholder="{% trans 'Description of the responsability' %}" style="width: 200px;"/>
+    <br/>
+
+    <input type="text" name="responsability" placeholder="{% trans 'Responsability' %}"/>
+    <input type="text" name="description" placeholder="{% trans 'Description of the responsability' %}" style="width: 200px;"/>
+    <br/>
+
+    <input type="text" name="responsability" placeholder="{% trans 'Responsability' %}"/>
+    <input type="text" name="description" placeholder="{% trans 'Description of the responsability' %}" style="width: 200px;"/>
+    -->
+
+    {#    {{ form.occupation }}#}
+    {#    {% if form.occupation.errors %}{{ form.occupation.errors }}{% endif %}#}
+
+
+{#    {{ formset.management_form }}#}
+{#    <div style="display:none;" id="form_template">#}
+{#        {{ formset.empty_form.as_p }}#}
+{#    </div><!-- stores empty form for javascript -->#}
+{#    <div id="forms"></div><!-- where the generated forms go -->#}
+{#    <input type="text" name="quantity" value="6" />#}
+{#    <input type="button" id="generate_forms" value="Generate Forms" />#}
+
+{#    <br/>#}
+    <br/>
+
+    {{ form.non_field_errors }}
+
+
+    <input type="submit" value="{% trans "Submit" %}" name="submit" />
+    {% trans 'or' %} <a href="{% url 'account:index' %}">{% trans 'Go to account index' %}</a>
+
+</form>
+
+
+
+<script src="http://code.jquery.com/jquery-1.11.3.min.js" type="text/javascript"></script>
+<script>
+
+    $(function() {
+
+        $("#country").on("change", function() {
+            var $this = $(this);
+            $.ajax({
+                url: "{% url 'profile:get_state' %}",
+                method: "POST",
+                dataType: "html",
+                data: {
+                    country_id: $this.val(),
+                    csrfmiddlewaretoken: $("input:hidden[name='csrfmiddlewaretoken']").val()
+                },
+                success: function(response) {
+                    $("#state").html(response);
+                    $("#city").html('');
+                }
+            });
+        });
+
+        $("#state").on("change", function() {
+            var $this = $(this);
+            $.ajax({
+                url: "{% url 'profile:get_city' %}",
+                method: "POST",
+                dataType: "html",
+                data: {
+                    state_id: $this.val(),
+                    csrfmiddlewaretoken: $("input:hidden[name='csrfmiddlewaretoken']").val()
+                },
+                success: function(response) {
+                    $("#city").html(response);
+                }
+            });
+        });
+
+    });
+
+
+    $(function() {
+        // this is on click event just to demo.
+        // You would probably run this at page load or quantity change.
+        $("#generate_forms").click(function() {
+            // update total form count
+            quantity = $("[name=quantity]").val();
+            $("[name=occupation-TOTAL_FORMS]").val(quantity);
+
+            // copy the template and replace prefixes with the correct index
+            for (i=0;i<quantity;i++) {
+                // Note: Must use global replace here
+                html = $("#form_template").clone().html().replace(/__prefix__/g, i);
+                $("#forms").append(html);
+            };
+        })
+    })
+</script>

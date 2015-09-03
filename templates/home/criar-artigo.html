@@ -1,0 +1,59 @@
+{%extends 'home/layout/base.html' %}
+
+{% block title %}Portal GSTI - Criar Artigo{% endblock %}
+
+{% block content %}
+<div class="row creator">
+    <div class="col-lg-12">
+        <header class="area-title col-lg-7">
+            <h2>Criar Artigo</h2>
+        </header>
+        <div class="col-lg-5 text-right">
+            <a href="javascript:;" class="btn-default">Voltar</a>
+            <a href="javascript:;" class="btn-default">Salvar</a>
+            <a href="javascript:;" class="btn-default">Visualizar</a>
+            <a href="javascript:;" class="btn-green">Publicar</a>
+        </div>
+    </div>
+    <div class="col-lg-12">
+        <div class="editor">
+            <p class="help-text"><span>ATENÇÃO:</span> <br>
+            Antes de escrever um artigo certifique-se que seu conteúdo não seja copia de outro e que não contenha erros de português. <br>
+            Artigos que são submetidos a comunidades que não possuem relação vão ser penalizados. Leia as regras do Portal para saber mais.</p>
+            <div class="wrap-editor row">
+                <div class="col-lg-9">
+                    <div class="form-group">
+                        <input class="form-control" type="text" placeholder="Título do artigo">
+                    </div>
+                    <div class="form-group">
+                        <textarea class="form-control" cols="30" rows="10" placeholder="Conteúdo do artigo"></textarea>
+                        <p class="article-counter">Mínimo de caracteres: <span class="article-counter-caracteres">200</span></p>
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" type="text" placeholder="Enviar artigo para qual(is) comunidade(s)?">
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <label class="form-group">
+                        <span class="custom-radio">
+                            <input type="radio" name="publish-date" value="today" checked="checked">
+                        </span>
+                        <input class="form-control" style="display: inline; width: auto;" placeholder="Publicar artigo hoje" readonly type="text">
+                    </label>
+                    <label class="form-group">
+                        <span class="custom-radio">
+                            <input type="radio" name="publish-date">
+                        </span>
+                        <input class="form-control" style="display: inline; width: auto;" placeholder="Agendar Publicação" type="date">
+                    </label>
+                    <div class="custom-file-upload">
+                        <i class="gsticon gsticon-cloud-upload"></i>
+                        <h3>Imagem de capa</h3>
+                        <p>Arraste a imagem para este campo ou <a href="javascript:;">clique aqui</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+</div>
+{% endblock %}

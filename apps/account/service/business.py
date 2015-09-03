@@ -30,7 +30,6 @@ def create_user_by_parameters(parameters):
     )
     :return: populated user
     """
-
     user = User()
     user.first_name = parameters['first_name']
     user.last_name = parameters['last_name']
@@ -56,7 +55,6 @@ def create_user(parameters=None):
     )
     :return: populated user if user are save ou False if has errors
     """
-
     if not parameters:
         parameters = {}
 
@@ -70,7 +68,6 @@ def register_user(parameters=None):
 
     """
     Method for register user and send confirmation email link.
-
     :param parameters: Dict of values, this key are(
         first_name
         last_name
@@ -185,6 +182,12 @@ def deactivate_token(token):
 
 
 def authenticate_user(username_or_email=None, password=None):
+
+    """ This method make a query in data base for username and password match
+    :param username_or_email: Username or email to login
+    :param password: password to authenticate
+    :return:
+    """
     user = authenticate(username=username_or_email, password=password)
     if not user:
         try:
@@ -198,6 +201,11 @@ def authenticate_user(username_or_email=None, password=None):
 
 
 def log_in_user(request=None, user=None):
+    """ This method register an user as authenticated
+    :param request: Request to include user into session
+    :param user: user to attach
+    :return:
+    """
     try:
         auth_login(request, user)
         return True
@@ -206,11 +214,19 @@ def log_in_user(request=None, user=None):
 
 
 def logout_user(request=None):
-
+    """ This method invalidate user session
+    :param request: request to unlik user from session
+    :return:
+    """
     logout(request)
 
 
 def update_password(user=None, new_password=None):
+    """ This method update the user password
+    :param user: User to update password
+    :param new_password: new password to set
+    :return: User
+    """
     user.set_password(new_password)
     user.save()
 

@@ -1,0 +1,32 @@
+{% if isLogged %}
+<div class="user-actions-logged">
+    <a href="javascript:;" class="user-actions-logged-link--logged"><i class="gsticon gsticon-group"></i></a>
+    <a href="javascript:;" class="user-actions-logged-link--logged">
+        <span class="badge">2</span>
+        <i class="gsticon gsticon-comments"></i>
+    </a>
+    <a href="javascript:;" class="user-actions-logged-link--logged">
+        <span class="badge">10</span>
+        <i class="gsticon gsticon-bell"></i>
+    </a>
+    <a href="javascript:;" class="user-actions-logged-link--logged" data-toggle="dropdown">
+        <img src="http://placehold.it/40" alt="" class="img-circle">
+        Ninikowisky <i class="gsticon gsticon-angle-down"></i>
+    </a>
+    <div class="dropdown-menu">
+        <ul class="perfil-actions">
+            <li><a href="javascript:;"><i class="gsticon gsticon-feed"></i> Meu Feed</a></li>
+            <li><a href="javascript:;"><i class="gsticon gsticon-user"></i> Perfil</a></li>
+            <li><a href="javascript:;"><i class="gsticon gsticon-question-circle"></i> Perguntar</a></li>
+            <li><a href="javascript:;"><i class="gsticon gsticon-file-text"></i> Criar Artigo</a></li>
+            <li><a href="javascript:;"><i class="gsticon gsticon-gear"></i> Configurações</a></li>
+            <li><a href="javascript:;"><i class="gsticon gsticon-close"></i> Sair</a></li>
+        </ul>
+    </div>
+</div>
+{% else %}
+<div class="user-actions">
+    <a href="javascript:;" class="user-actions-link">Cadastre-se</a>
+    <a href="javascript:;" class="user-actions-link">Login</a>
+</div>
+{% endif %}
