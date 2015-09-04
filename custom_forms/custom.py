@@ -9,6 +9,7 @@ class IdeiaForm(forms.Form):
         except NotImplementedError:
             raise NotImplementedError
         except Exception, e:
+            print e.message
             self.add_error(None, "General error!")
             return False
 

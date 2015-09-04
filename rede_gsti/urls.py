@@ -29,6 +29,6 @@ urlpatterns = [
     url(r'^socialaccount/', include('apps.socialaccount.urls', namespace='socialaccount')),
     url(r'^socialactions/', include('apps.socialactions.urls', namespace='socialactions')),
     url('', include('social.apps.django_app.urls', namespace='social')),
-    url(r'^articles/', include('apps.article.urls', namespace='article')),
+    url(r'^articles/', include('apps.core.urls.article', namespace='article')),
     url(r'^ninico/', include('apps.ninico.urls', namespace='ninico')),
 ] + url_statics + url_media

@@ -41,9 +41,18 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # NINICO APP
     'apps.ninico',
+
+    # PLUGINS
     'apps.mailmanager',
     'nocaptcha_recaptcha',
+
+    # CORE
+    'apps.core',
+
+    # APPS
     'apps.account',
     'apps.article',
     'apps.comment',

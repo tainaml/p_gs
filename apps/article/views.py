@@ -35,7 +35,6 @@ class ArticleBaseView(View):
 class ArticleView(ArticleBaseView):
 
     template_name = 'article/view_article.html'
-    form_class = ArticleForm
 
     def get(self, request, article_slug, article_id):
         article = self.filter_article(request, article_id)
@@ -49,7 +48,7 @@ class ArticleView(ArticleBaseView):
 class ArticleEditView(ArticleBaseView):
 
     template_name = 'article/edit.html'
-    form_class = ArticleForm
+    form_article = ArticleForm
 
     @method_decorator(login_required)
     def get(self, request, article_id=None, *args, **kwargs):
@@ -60,7 +59,7 @@ class ArticleEditView(ArticleBaseView):
             article = Business.create_temp_article(request.user)
             return redirect(reverse('article:edit', args=(article.id,)))
 
-        form_article = ArticleForm(prefix='article', instance=article)
+        form_article = self.form_article(prefix='article', instance=article)
 
         return render(request, self.template_name, {'form': form_article})
 
@@ -68,7 +67,7 @@ class ArticleEditView(ArticleBaseView):
     def post(self, request, article_id=None, *args, **kwargs):
 
         article = self.filter_article(request, article_id)
-        form_article = ArticleForm(request.POST, request.FILES, prefix='article', instance=article)
+        form_article = self.form_article(request.POST, request.FILES, prefix='article', instance=article)
         form_article.set_author(request.user)
 
         article_saved = form_article.process()
