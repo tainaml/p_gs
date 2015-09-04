@@ -1,7 +1,8 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.core.urlresolvers import reverse
-from django.http import Http404, HttpResponseForbidden
+from django.forms import model_to_dict
+from django.http import Http404, HttpResponseForbidden, HttpResponse
 from django.shortcuts import render, redirect
 from django.utils.decorators import method_decorator
 from django.utils.translation import gettext as _
@@ -43,6 +44,32 @@ class ArticleView(ArticleBaseView):
             raise self.article_not_found
 
         return render(request, self.template_name, {'article': article})
+
+
+class ArticleDeleteView(ArticleBaseView):
+
+    template_name = ''
+
+    def return_error(self, request):
+        return HttpResponse(status=401)
+
+    def return_success(self, request):
+        return HttpResponse(status=200)
+
+    @method_decorator(login_required)
+    def get(self, request, article_id):
+        article = self.filter_article(request, article_id)
+
+        if not article.id:
+            raise self.article_not_found
+
+        if article.status == article.STATUS_TRASH:
+            raise self.article_not_found
+
+        if Business.delete_article(article):
+            return self.return_error(request)
+
+        return self.return_success(request)
 
 
 class ArticleEditView(ArticleBaseView):
