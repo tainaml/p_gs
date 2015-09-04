@@ -60,7 +60,8 @@ INSTALLED_APPS = (
     'apps.userprofile',
     'apps.socialaccount',
     'social.apps.django_app.default',
-    'apps.socialactions'
+    'apps.socialactions',
+    'apps.taxonomy'
 
 )
 
