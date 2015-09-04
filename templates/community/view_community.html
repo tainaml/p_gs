@@ -1,10 +1,5 @@
-<!DOCTYPE html>
-<html>
-<head lang="en">
-    <meta charset="UTF-8">
-    <title></title>
-</head>
-<body>
+{% load i18n %}
 
-</body>
-</html>
+<h1>{{ community.title|title }}</h1>
+<p>{{ community.description }}</p>
+<img src="{{ community.image.url }}" alt=""/>

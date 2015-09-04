@@ -55,6 +55,7 @@ INSTALLED_APPS = (
     # APPS
     'apps.account',
     'apps.article',
+    'apps.community',
     'apps.comment',
     'apps.question',
     'apps.userprofile',
