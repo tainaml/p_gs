@@ -1,4 +1,4 @@
-from django.utils import timezone
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
 __author__ = 'phillip'
 from ..models import UserAction
@@ -161,7 +161,24 @@ def act_by_content_type_and_id(user=None, content_type=None, object_id=None, act
 
 
 
+def get_users_acted_by_model(model=None, action=None, itens_per_page=None, page=None):
 
+    content_type = ContentType.objects.get_for_model(model)
+    users_actions = UserAction.objects.filter(content_type=content_type,
+                                            object_id=model.id,
+                                            action_type=action)
+
+    list =  Paginator(users_actions, itens_per_page)
+    try:
+        list = list.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        list = list.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        list = list.page(list.num_pages)
+
+    return list
 
 
 
