@@ -25,6 +25,7 @@ def create_temp_article(author):
     print model_to_dict(article)
     return article
 
+
 def save_article(article, data):
     return article.save()
 
