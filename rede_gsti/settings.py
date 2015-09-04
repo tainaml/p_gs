@@ -139,6 +139,9 @@ STATIC_URL = '/static/'
 #
 LOGIN_URL = '/account/login'
 
+CELERY_RESULT_BACKEND = 'rpc://'
+CELERY_RESULT_PERSISTENT = False
+
 # MailValidation Time
 TIME_REGISTER_ACCOUNT = 48
 TIME_RECOVERY_PASSWORD = 8
