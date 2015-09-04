@@ -30,10 +30,16 @@ class CommunityView(CommunityBaseView):
 
     template_path = 'community/view_community.html'
 
+    def get_context(self, request):
+        return {}
+
     def get(self, request, community_slug):
 
         community = self.filter_community(request, community_slug)
         if not community:
             return self.community_not_found
 
-        return render(request, self.template_path, {'community': community})
+        context = {'community': community}
+        context.update(self.get_context(request))
+
+        return render(request, self.template_path, context)

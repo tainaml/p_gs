@@ -8,6 +8,7 @@ from django.contrib.contenttypes.models import ContentType
 
 # Meta methods
 
+
 def get_by_label(str_label=None):
     if hasattr(settings, 'SOCIAL_LABELS'):
         for label in settings.SOCIAL_LABELS.keys():
@@ -160,15 +161,14 @@ def act_by_content_type_and_id(user=None, content_type=None, object_id=None, act
         raise NotFoundSocialSettings("not_found_setting_exception", "Entity %s not found in SOCIAL_ENTITIES" % action_type_key)
 
 
-
 def get_users_acted_by_model(model=None, action=None, itens_per_page=None, page=None):
 
     content_type = ContentType.objects.get_for_model(model)
     users_actions = UserAction.objects.filter(content_type=content_type,
-                                            object_id=model.id,
-                                            action_type=action)
+                                              object_id=model.id,
+                                              action_type=action)
 
-    list =  Paginator(users_actions, itens_per_page)
+    list = Paginator(users_actions, itens_per_page)
     try:
         list = list.page(page)
     except PageNotAnInteger:
