@@ -52,6 +52,9 @@ INSTALLED_APPS = (
     # CORE
     'apps.core',
 
+    #Profiling
+    'debug_toolbar',
+
     # APPS
     'apps.account',
     'apps.article',
@@ -63,6 +66,8 @@ INSTALLED_APPS = (
     'social.apps.django_app.default',
     'apps.socialactions',
     'apps.taxonomy'
+
+
 
 )
 

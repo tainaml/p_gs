@@ -161,14 +161,21 @@ def act_by_content_type_and_id(user=None, content_type=None, object_id=None, act
 
 
 
-def get_users_acted_by_model(model=None, action=None, itens_per_page=None, page=None):
+def get_users_acted_by_model(model=None, action=None, filter_parameters=None,
+                             itens_per_page=None, page=None):
+
+    if not filter_parameters:
+        filter_parameters = {}
 
     content_type = ContentType.objects.get_for_model(model)
-    users_actions = UserAction.objects.filter(content_type=content_type,
-                                            object_id=model.id,
-                                            action_type=action)
+    parameters = filter_parameters.copy()
+    parameters['content_type'] = content_type
+    parameters['object_id'] = model.id
+    parameters['action_type'] = action
 
-    list =  Paginator(users_actions, itens_per_page)
+    users_actions = UserAction.objects.filter(**parameters).prefetch_related('author')
+
+    list = Paginator(users_actions, itens_per_page)
     try:
         list = list.page(page)
     except PageNotAnInteger:
