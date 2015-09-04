@@ -1,0 +1,7 @@
+{% load i18n %}
+
+<form action="{% url 'question:save_question' %}" method="post">
+<input type="text" name="title" id="title" value="{{ form.cleaned_data.username|default_if_none:"" }}" placeholder="{% trans "Write your title question" %}" maxlength="256" />
+<input type="text" name="description" id="description" value="{{ form.cleaned_data.username|default_if_none:"" }}" placeholder="{% trans "Write your detailed question" %}" maxlength="2048" />
+<input type="submit" value="{% trans submit %}">
+</form>
