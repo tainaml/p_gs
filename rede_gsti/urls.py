@@ -31,4 +31,5 @@ urlpatterns = [
     url('', include('social.apps.django_app.urls', namespace='social')),
     url(r'^articles/', include('apps.article.urls', namespace='article')),
     url(r'^ninico/', include('apps.ninico.urls', namespace='ninico')),
+    url(r'^question/', include('apps.question.urls', namespace='question')),
 ] + url_statics + url_media
