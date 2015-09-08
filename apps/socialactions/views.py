@@ -18,3 +18,6 @@ def act(request, object_to_link, content, action):
 
     return redirect(request.GET['url_next'])
 
+
+def followers(request, content_type_id):
+    pass

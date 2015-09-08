@@ -1,0 +1,23 @@
+{% load staticfiles %}
+
+<div class="list-followers" style="max-height: 100px; overflow-y: scroll;">
+{% if followers %}
+    {% for follower in followers %}
+        <p>
+            {{ follower.author.get_full_name }}
+        </p>
+    {% endfor %}
+    <a href="{% url 'socialactions:get_followers' content_type_id=content_type.id object_filter=object.id %}?p={{ page }}">next</a>
+{% endif %}
+</div>
+
+<script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+<script src="{% static 'javascripts/jquery.jscroll.min.js' %}"></script>
+<script>
+    $(function() {
+        $('.list-followers').jscroll({
+            debug: true,
+            autoTrigger: true
+        });
+    });
+</script>
