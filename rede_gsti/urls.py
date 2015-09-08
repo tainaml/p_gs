@@ -13,18 +13,23 @@ Including another URLconf
     1. Add an import:  from blog import urls as blog_urls
     2. Add a URL to urlpatterns:  url(r'^blog/', include(blog_urls))
 """
-from django.conf import settings
 from django.conf.urls import include, url
 from django.conf.urls.static import static
 from django.contrib import admin
+from django.conf import settings
+
+url_statics = static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+url_media = static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^account/', include('apps.account.urls', namespace='account')),
     url(r'^comment/', include('apps.comment.urls', namespace='comment')),
     url(r'^profile/', include('apps.userprofile.urls', namespace='profile')),
+    url(r'^community/', include('apps.community.urls', namespace='community')),
     url(r'^socialaccount/', include('apps.socialaccount.urls', namespace='socialaccount')),
     url(r'^socialactions/', include('apps.socialactions.urls', namespace='socialactions')),
     url('', include('social.apps.django_app.urls', namespace='social')),
+    url(r'^articles/', include('apps.core.urls.article', namespace='article')),
     url(r'^ninico/', include('apps.ninico.urls', namespace='ninico')),
-] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+] + url_statics + url_media

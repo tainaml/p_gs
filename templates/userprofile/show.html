@@ -1,4 +1,9 @@
 {% load i18n %}
+<html>
+<head>
+
+</head>
+<body>
 <h1 style="text-align: center; padding-top: 50px;">{{ profile.user.first_name }} {{ profile.user.last_name }}</h1>
 <div style="text-align:center;">
     {% if profile.gender %}<p><b>{% trans "Gender" %}:</b> {{ profile.gender_text|title }}</p>{% endif %}
@@ -26,3 +31,9 @@
         <a href="{% url 'account:login' %}">{% trans "Login" %}</a>
     {% endif %}
 </p>
+
+</body>
+</html>
+
+
+

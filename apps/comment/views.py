@@ -1,14 +1,16 @@
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from django.http import Http404
 from django.shortcuts import render, redirect
+from django.template.context_processors import request
 from django.views.decorators.http import require_POST, require_GET
 from service.forms import CreateCommentForm, EditCommentForm
 from .service import business as Business
-# Create your views here.
 
 
 def index_teste(request):
-    return render(request, 'comment/index_teste.html')
+    user = User.objects.all()[0]
+    return render(request, 'comment/index_teste.html', {'user': user})
 
 
 @login_required
@@ -45,7 +47,7 @@ def update(request):
 @require_GET
 def delete(request, id):
 
-    comment = Business.retrieve_comment(id=id)
+    comment = Business.retrieve_own_comment(comment_id=id, user=request.user)
     if comment:
         Business.delete_comment(comment)
     else:

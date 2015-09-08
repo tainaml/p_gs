@@ -41,17 +41,33 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # NINICO APP
     'apps.ninico',
+
+    # PLUGINS
     'apps.mailmanager',
     'nocaptcha_recaptcha',
+
+    # CORE
+    'apps.core',
+
+    #Profiling
+    'debug_toolbar',
+
+    # APPS
     'apps.account',
     'apps.article',
+    'apps.community',
     'apps.comment',
     'apps.question',
     'apps.userprofile',
     'apps.socialaccount',
     'social.apps.django_app.default',
-    'apps.socialactions'
+    'apps.socialactions',
+    'apps.taxonomy'
+
+
 
 )
 
@@ -121,7 +137,7 @@ SOCIAL_LABELS = {
 SOCIAL_ENTITIES = {
     SOCIAL_LIKE: ['comment'],
     SOCIAL_UNLIKE: ['comment'],
-    SOCIAL_FOLLOW: [''],
+    SOCIAL_FOLLOW: ['community', 'user'],
     SOCIAL_FAVOURITE: [''],
     SOCIAL_SUGGEST: ['']
 }
@@ -155,7 +171,7 @@ DATABASES = {
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
 
 LANGUAGE_CODE = 'pt-br'
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/Bahia'
 USE_I18N = True
 USE_L10N = True
 USE_TZ = True
@@ -170,6 +186,12 @@ STATICFILES_DIRS = (
 STATIC_URL = '/static/'
 
 #
+
+# Media Paths: User upload files
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media', 'uploads')
+MEDIA_URL = '/media/uploads/'
+
+# Login Urls
 LOGIN_URL = '/account/login'
 
 
@@ -177,6 +199,7 @@ LOGIN_URL = '/account/login'
 TIME_REGISTER_ACCOUNT = 48
 TIME_RECOVERY_PASSWORD = 8
 
+# Site Urls
 SITE_URL = 'http://localhost:8000'
 
 SOCIAL_AUTH_FACEBOOK_KEY = '1486240068359213'
@@ -192,7 +215,7 @@ AUTHENTICATION_BACKENDS = (
     'social.backends.facebook.FacebookOAuth2',
     'django.contrib.auth.backends.ModelBackend',
     'social.backends.google.GoogleOAuth2',
-    )
+)
 
 SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
     'fields': 'id, name, email'

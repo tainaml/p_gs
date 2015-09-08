@@ -34,12 +34,14 @@ def create_comment(user=None, parameters=None):
 
     return comment
 
-def edit_comment(comment=None, parameters =None):
+
+def edit_comment(comment=None, parameters=None):
     comment.content = parameters['content']
 
     comment.save()
 
     return comment
+
 
 def delete_comment(comment=None):
     content_type = ContentType.objects.get_for_model(comment)
@@ -49,8 +51,16 @@ def delete_comment(comment=None):
             delete_comment(child_comment)
     comment.delete()
 
+
 def retrieve_comment(id):
     try:
         return Comment.objects.filter(pk=id)[0]
     except:
+        return None
+
+
+def retrieve_own_comment(comment_id=None, user=None):
+    try:
+        return Comment.objects.get(id=comment_id, author=user)
+    except Comment.DoesNotExist:
         return None
