@@ -56,11 +56,22 @@
                     <img class="img-responsive" src="http://placehold.it/728x90" alt="Propaganda">
                 </div>
             </div>
-            <div class="share-this-post">
+            <div class="full-post-share">
                 <h3>COMPARTILHE</h3>
                 <div class="addthis_sharing_toolbox"></div>
             </div>
         </article>
+        <div class="perfil">
+            <img class="img-responsive" src="http://placehold.it/82" alt="Imagem 1">
+            <a class="perfil-name" href="javascript:;">Iury Silva</a>
+            <span class="perfil-counter"><span class="counter-number">180</span> Seguidores</span>
+            <span class="perfil-counter"><span class="counter-number">88</span> Artigos</span>
+            <a class="perfil-counter-alt" href="javascript:;">Analista de SEO <span>em</span> Idea SEO</a>
+        </div>
+        <div class="container-comments">
+            {% include 'home/partials/comment/create.html' with size=81 %}
+            {% include 'home/partials/comment/comment.html' %}
+        </div>
     </div>
     <div class="col-lg-3">
         <div class="squad-advertising">

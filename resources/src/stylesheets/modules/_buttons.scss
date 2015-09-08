@@ -1,0 +1,16 @@
+.btn-default {
+    @extend .btn;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-weight: 600;
+    font-size: 13px;
+}
+.btn-primary {
+    @extend .btn;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background: #4d6479;
+    color: #fff;
+    font-weight: 600;
+    font-size: 13px;
+}
