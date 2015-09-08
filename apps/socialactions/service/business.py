@@ -176,7 +176,8 @@ def get_users_acted_by_model(model=None, action=None, itens_per_page=None, page=
         list = list.page(1)
     except EmptyPage:
         # If page is out of range (e.g. 9999), deliver last page of results.
-        list = list.page(list.num_pages)
+        # list = list.page(list.num_pages)
+        list = []
 
     return list
 

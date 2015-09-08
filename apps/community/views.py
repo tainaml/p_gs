@@ -30,7 +30,7 @@ class CommunityView(CommunityBaseView):
 
     template_path = 'community/view_community.html'
 
-    def get_context(self, request):
+    def get_context(self, request, community_instance=None):
         return {}
 
     def get(self, request, community_slug):
@@ -40,6 +40,6 @@ class CommunityView(CommunityBaseView):
             return self.community_not_found
 
         context = {'community': community}
-        context.update(self.get_context(request))
+        context.update(self.get_context(request, community))
 
         return render(request, self.template_path, context)
