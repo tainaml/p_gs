@@ -8,6 +8,7 @@ from django.contrib.contenttypes.models import ContentType
 
 # Meta methods
 
+
 def get_by_label(str_label=None):
     if hasattr(settings, 'SOCIAL_LABELS'):
         for label in settings.SOCIAL_LABELS.keys():
@@ -160,7 +161,6 @@ def act_by_content_type_and_id(user=None, content_type=None, object_id=None, act
         raise NotFoundSocialSettings("not_found_setting_exception", "Entity %s not found in SOCIAL_ENTITIES" % action_type_key)
 
 
-
 def get_users_acted_by_model(model=None, action=None, filter_parameters=None,
                              itens_per_page=None, page=None):
 
@@ -183,7 +183,8 @@ def get_users_acted_by_model(model=None, action=None, filter_parameters=None,
         list = list.page(1)
     except EmptyPage:
         # If page is out of range (e.g. 9999), deliver last page of results.
-        list = list.page(list.num_pages)
+        # list = list.page(list.num_pages)
+        list = []
 
     return list
 
