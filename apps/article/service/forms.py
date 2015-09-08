@@ -20,7 +20,7 @@ class ArticleForm(IdeiaModelForm):
     ACTION_PUBLISH = 2
     ACTION_SCHEDULE = 3
 
-    __action = ACTION_SAVE
+    action = ACTION_SAVE
 
     class Meta:
         model = Business.Article
@@ -30,7 +30,7 @@ class ArticleForm(IdeiaModelForm):
         _date = self.cleaned_data.get('publishin')
         _now = timezone.now()
 
-        if self.__action == self.ACTION_SCHEDULE:
+        if self.action == self.ACTION_SCHEDULE:
             if not _date:
                 self.add_error('publishin', ValidationError(_('Publish date has invalid')))
             elif _date < _now:
@@ -38,14 +38,14 @@ class ArticleForm(IdeiaModelForm):
             else:
                 _date = _date if _date else _now
                 
-        elif self.__action == self.ACTION_PUBLISH:
+        elif self.action == self.ACTION_PUBLISH:
             _date = timezone.now()
 
         return _date
 
     def clean_status(self):
         _status = self.cleaned_data.get('status', Business.Article.STATUS_DRAFT)
-        if self.__action in [self.ACTION_PUBLISH, self.ACTION_SCHEDULE]:
+        if self.action in [self.ACTION_PUBLISH, self.ACTION_SCHEDULE]:
             _status = Business.Article.STATUS_PUBLISH
 
         return _status
@@ -67,12 +67,12 @@ class ArticleForm(IdeiaModelForm):
             '''
             Publishing action
             '''
-            self.__action = self.ACTION_PUBLISH
+            self.action = self.ACTION_PUBLISH
         elif 'submit-schedule' in self.data:
             self.__action = self.ACTION_SCHEDULE
 
         elif 'submit-save' in self.data:
-            self.__action = self.ACTION_SAVE
+            self.action = self.ACTION_SAVE
 
         if not super(ArticleForm, self).is_valid():
             valid = False

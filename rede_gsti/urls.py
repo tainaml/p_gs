@@ -26,10 +26,11 @@ urlpatterns = [
     url(r'^account/', include('apps.account.urls', namespace='account')),
     url(r'^comment/', include('apps.comment.urls', namespace='comment')),
     url(r'^profile/', include('apps.userprofile.urls', namespace='profile')),
+    url(r'^community/', include('apps.community.urls', namespace='community')),
     url(r'^socialaccount/', include('apps.socialaccount.urls', namespace='socialaccount')),
     url(r'^socialactions/', include('apps.socialactions.urls', namespace='socialactions')),
     url('', include('social.apps.django_app.urls', namespace='social')),
-    url(r'^articles/', include('apps.article.urls', namespace='article')),
+    url(r'^articles/', include('apps.core.urls.article', namespace='article')),
     url(r'^ninico/', include('apps.ninico.urls', namespace='ninico')),
     url(r'^question/', include('apps.question.urls', namespace='question')),
 ] + url_statics + url_media

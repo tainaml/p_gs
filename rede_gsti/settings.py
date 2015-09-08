@@ -41,17 +41,33 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # NINICO APP
     'apps.ninico',
+
+    # PLUGINS
     'apps.mailmanager',
     'nocaptcha_recaptcha',
+
+    # CORE
+    'apps.core',
+
+    #Profiling
+    'debug_toolbar',
+
+    # APPS
     'apps.account',
     'apps.article',
+    'apps.community',
     'apps.comment',
     'apps.question',
     'apps.userprofile',
     'apps.socialaccount',
     'social.apps.django_app.default',
-    'apps.socialactions'
+    'apps.socialactions',
+    'apps.taxonomy'
+
+
 
 )
 
@@ -121,7 +137,7 @@ SOCIAL_LABELS = {
 SOCIAL_ENTITIES = {
     SOCIAL_LIKE: ['comment'],
     SOCIAL_UNLIKE: ['comment'],
-    SOCIAL_FOLLOW: [''],
+    SOCIAL_FOLLOW: ['community', 'user'],
     SOCIAL_FAVOURITE: [''],
     SOCIAL_SUGGEST: ['']
 }

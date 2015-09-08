@@ -3,3 +3,4 @@ psycopg2
 Pillow
 django-nocaptcha-recaptcha
 python-social-auth
+django-debug-toolbar

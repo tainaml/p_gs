@@ -22,10 +22,13 @@ def create_temp_article(author):
     article.author = author
     article.status = Article.STATUS_TEMP
     article.save()
-    print model_to_dict(article)
     return article
+
 
 def save_article(article, data):
     return article.save()
 
 
+def delete_article(article):
+    article.status = article.STATUS_TRASH
+    return article.save()
