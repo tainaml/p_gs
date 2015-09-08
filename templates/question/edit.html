@@ -1,6 +1,6 @@
 {% load i18n %}
 <h1>{% trans 'Question' %}</h1>
-<form action="{% url 'question:save' %}" method="post">
+<form action="{% url 'question:update' %}" method="post">
     {% csrf_token %}
     <input type="text" name="title" id="title" placeholder="{% trans "Write your title question" %}" maxlength="256" />
     <textarea name="description" id="description" placeholder="{% trans "Write your detailed question" %}" maxlength="2048"></textarea>

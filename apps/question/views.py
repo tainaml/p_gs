@@ -1,8 +1,11 @@
-from django.http import Http404
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from apps.question.models import Question
-from service.forms import CreateQuestionForm
+from service.forms import CreateQuestionForm, EditQuestionForm
+from apps.question.service import business as Business
+from django.contrib import messages
+from django.utils.translation import ugettext as _
+from django.core.urlresolvers import reverse
 
 
 def list_questions(request):
@@ -24,20 +27,35 @@ def create_question(request):
 
 @login_required
 def save_question(request):
-    form = CreateQuestionForm(request.question, request.POST)
+    form = CreateQuestionForm(request.POST, request.user)
     if not form.process():
-        return render(request, 'question/create.html', {'form': form})
+        return render(request, '../../question/create.html', {'form': form})
 
-    return redirect(request.POST['next_url'])
+    return redirect('../../question/create.html')
 
 
 @login_required
-def edit_question(request):
-    pass
+def edit_question(request, question_id):
+    question = Business.get_question(question_id)
+    if question:
+        form = EditQuestionForm(request.POST)
+        return render(request, 'question/edit.html', {'form': form})
+    else:
+        messages.add_message(request, messages.WARNING, _("Question is not exists!"))
+        return redirect(reverse('question:edit'))
 
 @login_required
 def update_question(request):
-    pass
+    question = Business.get_question({'id': request.POST['question_id']})
+    if question:
+        form = EditQuestionForm(request.POST, instance=question)
+        if form.process():
+            messages.add_message(request, messages.SUCCESS, _("Question updated successfully!"))
+            return redirect(reverse('question:edit'))
+        return render(request, 'question/edit.html', {'form': form})
+    else:
+        messages.add_message(request, messages.WARNING, _("Question is not exists!"))
+        return redirect(reverse('question:edit'))
 
 
 def show_reply(request):

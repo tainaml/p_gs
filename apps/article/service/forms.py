@@ -5,6 +5,7 @@ from custom_forms.custom import forms, IdeiaModelForm
 from django.utils.translation import ugettext as _
 import business as Business
 
+
 class ArticleForm(IdeiaModelForm):
 
     title = forms.CharField(required=True, max_length=100)

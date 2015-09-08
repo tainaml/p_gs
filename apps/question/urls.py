@@ -6,6 +6,7 @@ urlpatterns = [
     #url(r'^$', views.index, name='index'),
     url(r'^create/$', views.create_question, name='create'),
     url(r'^save/$', views.save_question, name='save'),
-    #url(r'^edit/$', views.comment, name='comment'),
+    url(r'^edit/(?P<question_id>[0-9]+)$', views.edit_question, name='edit'),
+    url(r'^update/$', views.update_question, name='update'),
 
     ]
