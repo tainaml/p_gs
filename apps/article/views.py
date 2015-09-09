@@ -37,7 +37,7 @@ class ArticleBaseView(View):
 
 class ArticleView(ArticleBaseView):
 
-    template_name = 'article/view_article.html'
+    template_name = 'article/single.html'
 
     def get(self, request, article_slug, article_id):
         article = self.filter_article(request, article_id)
@@ -82,7 +82,7 @@ class ArticleEditView(ArticleBaseView):
     template_name = 'article/article-edit.html'
     form_article = ArticleForm
 
-    def prepare_context(self, context):
+    def prepare_context(self, request, context):
         if not context or not isinstance(context, dict):
             context = {}
 
@@ -102,7 +102,7 @@ class ArticleEditView(ArticleBaseView):
 
         form_article = self.form_article(prefix='article', instance=article)
         _context = {'form_article': form_article, 'article': article}
-        return render(request, self.template_name, self.prepare_context(_context))
+        return render(request, self.template_name, self.prepare_context(request, _context))
 
     @method_decorator(login_required)
     def post(self, request, article_id=None, *args, **kwargs):
@@ -126,4 +126,4 @@ class ArticleEditView(ArticleBaseView):
             print 'erro'
 
         _context = {'form_article': form_article, 'article': article}
-        return render(request, self.template_name, self.prepare_context(_context))
+        return render(request, self.template_name, self.prepare_context(request, _context))
