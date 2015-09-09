@@ -1,0 +1,6 @@
+{% if community_followers %}
+    {% for follower in community_followers %}
+        <p>{{ follower.author.get_full_name }}</p>
+    {% endfor %}
+    <a href="{% url 'community:get_followers' community_slug=community.slug  %}?p={{ page }}">next</a>
+{% endif %}

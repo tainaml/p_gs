@@ -1,3 +1,7 @@
+.post-container {
+    @include make-lg-column-offset(1);
+    @include make-lg-column(8);
+}
 .full-post {
     padding: 20px;
     margin-bottom: 30px;
@@ -27,6 +31,43 @@
         @media (min-width: $screen-md-min) {
             float: left;
             margin-right: 30px;
+        }
+    }
+    &-#{share} {
+        padding: 20px 20px 0;
+        margin: 20px -20px 0 -20px;
+        border-top: 1px solid $color-border;
+        > h3 {
+            margin: 0;
+            margin-right: 20px;
+            float: left;
+            color: #6f6f6f;
+            font-weight: 600;
+            font-size: 18px;
+            letter-spacing: -0.05em;
+        }
+    }
+}
+.box-share {
+    @include make-lg-column(0.6);
+    position: fixed;
+    padding: 0;
+    margin-left: 35px;
+    border: 1px solid $color-border;
+    background: #fff;
+    list-style: none;
+    text-align: center;
+
+    > li {
+        padding: 10px;
+        border-bottom: 1px solid $color-border;
+        color: #4d6479;
+        font-weight: bold;
+        &:last-child {
+            border-bottom: none;
+        }
+        > a {
+            color: #4d6479;
         }
     }
 }

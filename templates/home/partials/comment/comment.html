@@ -1,0 +1,44 @@
+<div class="comment">
+    <div class="comment-user">
+        <img src="http://placehold.it/63" alt="User Avatar">
+        <div class="comment-vote">
+            <i class="gsticon gsticon-caret-up"></i>
+            <hr>
+            <i class="gsticon gsticon-caret-down"></i>
+        </div>
+    </div>
+    <div class="comment-body">
+            <header class="post-header">
+                <div class="post-info">
+                    <time datetime="06-17-2015" itemprop="datePublished">10/06/2015 às 01:34</time>
+                    <a href="javascript:;" data-toggle="dropdown"><i class="gsticon gsticon-gear"></i></a>
+                    <div class="dropdown-menu">
+                        <ul class="perfil-actions">
+                            <li><a href="javascript:;"><i class="gsticon gsticon-edit"></i> Editar publicação</a></li>
+                            <li><a href="javascript:;"><i class="gsticon gsticon-paper-plane"></i> Sugerir</a></li>
+                            <li><a href="javascript:;"><i class="gsticon gsticon-eye"></i> Ver depois</a></li>
+                            <li><a href="javascript:;"><i class="gsticon gsticon-star"></i> Favoritar</a></li>
+                            <li><a href="javascript:;"><i class="gsticon gsticon-exclamation-triangle"></i> Denunciar</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <a class="post-creator" href="javascript:;">Iury Silva</a>
+            </header>
+        <div class="comment-text">
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima voluptatibus consectetur at vero eos quasi possimus ipsa et harum, laudantium, nisi blanditiis iste, unde totam accusantium eius vel a recusandae.</p>
+        </div>
+    </div>
+    <footer class="post-footer col-lg-12">
+        <div class="post-toolbar pull-right">
+            <div class="post-count">
+                <a href="javascript:;" class="post-votes-up">1.026 <i class="gsticon gsticon-caret-up"></i></a>
+                <a href="javascript:;" class="post-votes-dow"><i class="gsticon gsticon-caret-down"></i> 4</a>
+            </div>
+            <div class="post-count-comments"><a href="javascript:;">Responder</a></div>
+        </div>
+    </footer>
+    <aside class="comments-container-child">
+        {% include 'home/partials/comment/create.html' with size=63 %}
+        {% include 'home/partials/comment/child-comment.html' %}
+    </aside>
+</div>

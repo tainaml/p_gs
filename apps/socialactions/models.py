@@ -5,6 +5,7 @@ from django.contrib.contenttypes.fields import GenericForeignKey
 
 # Create your models here.
 
+
 class UserAction(models.Model):
 
     author = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='action_author')
