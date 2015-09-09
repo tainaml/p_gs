@@ -36,3 +36,6 @@ def write_question(request):
 
 def post(request):
     return render(request, 'home/post.html')
+
+def question(request):
+    return render(request, 'home/question.html')
