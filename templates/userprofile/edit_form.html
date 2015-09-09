@@ -1,9 +1,60 @@
 {% load i18n %}
+<html>
+<head>
+    <script src="http://code.jquery.com/jquery-1.11.3.min.js" type="text/javascript"></script>
+    <script>
 
+    function fill_states(obj){
+
+            $.ajax({
+                url: "{% url 'profile:get_state' %}",
+                method: "POST",
+                dataType: "html",
+                data: {
+                    country_id: obj.val(),
+                    csrfmiddlewaretoken: $("input:hidden[name='csrfmiddlewaretoken']").val()
+                },
+                success: function(response) {
+                    $("#state").html(response);
+                    $("#city").html('');
+                }
+            });
+    }
+    function fill_cities(obj){
+
+            $.ajax({
+                url: "{% url 'profile:get_city' %}",
+                method: "POST",
+                dataType: "html",
+                data: {
+                    state_id: obj.val(),
+                    csrfmiddlewaretoken: $("input:hidden[name='csrfmiddlewaretoken']").val()
+                },
+                success: function(response) {
+                    $("#city").html(response);
+                }
+            });
+    }
+
+    $(function() {
+        var $countySelect = $("#country");
+        var $stateSelect = $("#state");
+
+        $countySelect.on("change", function() {
+            fill_states($(this));
+        });
+
+        $stateSelect.on("change", function() {
+            fill_cities($(this));
+        });
+
+    });
+</script>
+</head>
+<body>
 <p>
     {{ request.user.first_name }} {{ request.user.last_name }} edit profile
 </p>
-
 
 {% if messages %}
     <ul class="messages">
@@ -14,38 +65,40 @@
 {% endif %}
 
 
-<form action="{% url 'profile:update_profile' %}" method="post">
+
+<form action="{% url 'profile:update_profile' %}" method="post" enctype="multipart/form-data">
 
     {% csrf_token %}
 
-    {{ form.data.nome }}
-    {% if form.nome.errors %}  {{ form.nome.errors }} {% endif %}
-
-    <input type="text" name="birth" placeholder="{% trans "Birth date" %}" value="{{ form.data.birth|date:"d/m/Y" }}">
+    <input type="text" name="birth" placeholder="{% trans "Birth date" %}" value="{{ form.data_model.birth|date:"d/m/Y" }}">
     {% if form.birth.errors %}  {{ form.birth.errors }} {% endif %}
     <br/>
 
     <label for="male">
-        <input type="radio" id="male" name="gender" value="{{ gender.MALE }}" {% if form.data.gender == gender.MALE %}checked{% endif %}/> {% trans 'Male' %}
+        <input type="radio" id="male" name="gender" value="{{ gender.MALE }}" {% if form.data_model.gender == gender.MALE %}checked{% endif %}/> {% trans 'Male' %}
     </label>
     <label for="female">
-        <input type="radio" id="female" name="gender" value="{{ gender.FEMALE }}" {% if form.data.gender == gender.FEMALE %}checked{% endif %}/> {% trans 'Female' %}
+        <input type="radio" id="female" name="gender" value="{{ gender.FEMALE }}" {% if form.data_model.gender == gender.FEMALE %}checked{% endif %}/> {% trans 'Female' %}
     </label>
     <br/>
+
 
     <select name="country" id="country">
         <option value="" {% if not form.data.city %}selected{% endif %} disabled>{% trans "Select a country" %}</option>
         {% for country in countries %}
-            <option value="{{ country.id }}" {% if form.data.city.state.country.id == country.id %}selected{% endif %}>{{ country.name }}</option>
+            <option value="{{ country.id }}" {% if form.data_model.city.state.country.id == country.id %}selected{% endif %}>{{ country.name }}</option>
         {% endfor %}
     </select>
+
     <select name="state" id="state">
-        {% for state in states %}
-            <option value="{{ state.id }}" {% if form.data.city.state.id == state.id %}selected{% endif %}>{{ state.name }}</option>
+        {% for state in form.data_model.city.state.country.states.all %}
+            <option value="{{ state.id }}" {% if form.data_model.city.state.id == state.id %}selected{% endif %}>{{ state.name }}</option>
         {% endfor %}
     </select>
-    <select name="city" id="city">
-        {% for city in cities %}
+
+
+        <select name="city" id="city">
+        {% for city in form.data_model.city.state.cities.all %}
             <option value="{{ city.id }}" {% if form.data.city.id == city.id %}selected{% endif %}>{{ city.name }}</option>
         {% endfor %}
     </select>
@@ -80,6 +133,12 @@
 {#    <br/>#}
     <br/>
 
+    {% if form.data_model.profile_picture %}
+        <img src="{{ form.data_model.profile_picture.url }}" alt=""/>
+    {% endif %}
+    <input type="file" name="profile_picture" id="profile_picture"/>
+    {% if form.profile_picture.errors %}  {{ form.profile_picture.errors }} {% endif %}
+
     {{ form.non_field_errors }}
 
 
@@ -88,63 +147,8 @@
 
 </form>
 
+</body>
+</html>
 
 
-<script src="http://code.jquery.com/jquery-1.11.3.min.js" type="text/javascript"></script>
-<script>
 
-    $(function() {
-
-        $("#country").on("change", function() {
-            var $this = $(this);
-            $.ajax({
-                url: "{% url 'profile:get_state' %}",
-                method: "POST",
-                dataType: "html",
-                data: {
-                    country_id: $this.val(),
-                    csrfmiddlewaretoken: $("input:hidden[name='csrfmiddlewaretoken']").val()
-                },
-                success: function(response) {
-                    $("#state").html(response);
-                    $("#city").html('');
-                }
-            });
-        });
-
-        $("#state").on("change", function() {
-            var $this = $(this);
-            $.ajax({
-                url: "{% url 'profile:get_city' %}",
-                method: "POST",
-                dataType: "html",
-                data: {
-                    state_id: $this.val(),
-                    csrfmiddlewaretoken: $("input:hidden[name='csrfmiddlewaretoken']").val()
-                },
-                success: function(response) {
-                    $("#city").html(response);
-                }
-            });
-        });
-
-    });
-
-
-    $(function() {
-        // this is on click event just to demo.
-        // You would probably run this at page load or quantity change.
-        $("#generate_forms").click(function() {
-            // update total form count
-            quantity = $("[name=quantity]").val();
-            $("[name=occupation-TOTAL_FORMS]").val(quantity);
-
-            // copy the template and replace prefixes with the correct index
-            for (i=0;i<quantity;i++) {
-                // Note: Must use global replace here
-                html = $("#form_template").clone().html().replace(/__prefix__/g, i);
-                $("#forms").append(html);
-            };
-        })
-    })
-</script>
