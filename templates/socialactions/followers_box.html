@@ -1,0 +1,16 @@
+{% load staticfiles %}
+
+<div class="list-followers" style="max-height: 100px; overflow-y: scroll;">
+    {% include 'socialactions/followers_partial_list.html' %}
+</div>
+
+<script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+<script src="{% static 'javascripts/jquery.jscroll.min.js' %}"></script>
+<script>
+    $(function() {
+        $('.list-followers').jscroll({
+            debug: true,
+            autoTrigger: true
+        });
+    });
+</script>

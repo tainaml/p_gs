@@ -1,0 +1,11 @@
+{% load social_tags %}
+
+{% if followers %}
+    {% for follower in followers %}
+        <div style="display: block; clear: both">
+            {{ follower.author.get_full_name }}
+            {% follow_action follower.author url_next %}
+        </div>
+    {% endfor %}
+    <a href="{% url 'socialactions:get_followers' content_type_id=content_type.id object_filter_id=object.id %}?p={{ page }}&next={{ url_next|urlencode }}">next</a>
+{% endif %}

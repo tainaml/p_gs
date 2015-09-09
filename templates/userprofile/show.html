@@ -1,4 +1,6 @@
 {% load i18n %}
+{% load social_tags %}
+
 <html>
 <head>
 
@@ -6,6 +8,7 @@
 <body>
 <h1 style="text-align: center; padding-top: 50px;">{{ profile.user.first_name }} {{ profile.user.last_name }}</h1>
 <div style="text-align:center;">
+    {% follow_action profile.user request.path %}
     {% if profile.gender %}<p><b>{% trans "Gender" %}:</b> {{ profile.gender_text|title }}</p>{% endif %}
     {% if profile.birth %}<p><b>{% trans "Birth date" %}:</b> {{ profile.birth|date:"d M Y" }}</p>{% endif %}
     {% if profile.city %}<p><b>{% trans "City / State / Country" %}:</b> {{ profile.city }}, {{ profile.city.state }}, {{ profile.city.state.country }}</p>{% endif %}
@@ -31,6 +34,11 @@
         <a href="{% url 'account:login' %}">{% trans "Login" %}</a>
     {% endif %}
 </p>
+
+<hr/>
+
+Seguidores:
+{% followers_box profile.user request.path %}
 
 </body>
 </html>

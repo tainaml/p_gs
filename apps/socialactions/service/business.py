@@ -37,13 +37,24 @@ def get_content_object(content_type=None, object_id=None):
     return content_object
 
 
+def get_content_object_by_id_and_content_type_id_and_action_id(content_type=None, object_id=None, action_type=None):
+    try:
+        user_action = UserAction.objects.filter(content_type=content_type,
+                                                object_id=object_id,
+                                                action_type=action_type)[0]
+    except UserAction.DoesNotExist:
+        user_action = None
+
+    return user_action
+
+
 def user_acted_by_object_and_action_id(user=None, content_object=None, action_type_id=None):
     content_type = ContentType.objects.get_for_model(content_object)
     try:
         user_action = UserAction.objects.filter(content_type=content_type,
-                                            author=user,
-                                            object_id=content_object.id,
-                                            action_type=action_type_id)[0]
+                                                author=user,
+                                                object_id=content_object.id,
+                                                action_type=action_type_id)[0]
     except:
         user_action = False
 
@@ -189,5 +200,28 @@ def get_users_acted_by_model(model=None, action=None, filter_parameters=None,
     return list
 
 
+def get_users_acted_by_author(author=None, action=None, content_type=None,
+                              filter_parameters=None, items_per_page=None, page=None):
+    if not filter_parameters:
+        filter_parameters = {}
 
+    content_type = get_model_type(content_type)
+    parameters = filter_parameters.copy()
+    parameters['content_type'] = content_type
+    parameters['author'] = author
+    parameters['action_type'] = action
 
+    users_actions = UserAction.objects.filter(**parameters).prefetch_related('author')
+
+    if items_per_page is not None and page is not None:
+        list_users = Paginator(users_actions, items_per_page)
+        try:
+            list_users = list_users.page(page)
+        except PageNotAnInteger:
+            list_users = list_users.page(1)
+        except EmptyPage:
+            list_users = []
+    else:
+        list_users = users_actions
+
+    return list_users
