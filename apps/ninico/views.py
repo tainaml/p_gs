@@ -28,6 +28,9 @@ def suggestions(request):
 def see_after(request):
     return render(request, 'home/ver-depois.html')
 
+def favorites(request):
+    return render(request, 'home/favoritos.html')
+
 def write_article(request):
     return render(request, 'home/criar-artigo.html')
 
