@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from apps.question.models import Question
-from service.forms import CreateQuestionForm, EditQuestionForm
+from service.forms import CreateQuestionForm, EditQuestionForm, \
+    CommentReplyForm
 from apps.question.service import business as Business
 from django.contrib import messages
 from django.utils.translation import ugettext as _
@@ -54,7 +55,7 @@ def edit_question(request, question_id):
 def update_question(request):
     question = Business.get_question(request.POST['question_id'])
     if question:
-        form = EditQuestionForm(question, request.POST )
+        form = EditQuestionForm(question, request.POST)
         if form.process():
             messages.add_message(request, messages.SUCCESS, _("Question updated successfully!"))
             return redirect(reverse('question:edit'))
@@ -64,23 +65,23 @@ def update_question(request):
         return redirect(reverse('question:edit'))
 
 
-def show_reply(request):
-    pass
+def show_question(request, question_id):
+    question = Business.get_question(question_id)
+    if question:
+        return render(request, 'question/show.html', {'question': question})
+    else:
+        messages.add_message(request, messages.WARNING, _("Question is not exists!"))
+        return redirect(reverse('question:show'))
 
 
 @login_required
-def create_reply(request):
-    pass
+def comment_reply(request):
+    form = CommentReplyForm(request.POST, request.user)
+    if not form.process():
+        return render(request, '../../question/show.html', {'form': form})
 
+    return redirect('../../question/show.html')
 
-@login_required
-def save_reply(request):
-    pass
-
-
-@login_required
-def edit_reply(request):
-    pass
 
 
 @login_required

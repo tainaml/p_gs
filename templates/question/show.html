@@ -1,0 +1,14 @@
+{% load i18n %}
+<div>
+    <div name="question_id">{{ question.id }}</div>
+    <div name="title" id="title">{{ question.title }}</div>
+    <div name="description" id="description">{{ question.description }}</div>
+</div>
+
+<form action="{% url 'question:comment_reply' %}" method="post">
+    {% csrf_token %}
+    <input type="hidden" name="question_id" value="{{ question.id }}" />
+    <textarea name="description" id="description" placeholder="Comment here" cols="30" rows="10"></textarea>
+    <input type="submit" value="Submit"/>
+</form>
+

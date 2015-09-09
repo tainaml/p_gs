@@ -36,3 +36,22 @@ class EditQuestionForm(IdeiaForm):
 
     def __process__(self):
         return Business.update_question(self.cleaned_data, self.instance)
+
+
+class CommentReplyForm(IdeiaForm):
+    description = forms.CharField(max_length=2048, required=True)
+
+    def __init__(self, instance=None, user=None, *args, **kargs):
+        super(CommentReplyForm, self).__init__(instance, *args, **kargs)
+        self.instance = instance
+        self.user = user
+        self.question = instance["question_id"]
+        self.description = instance["description"]
+
+
+    def is_valid(self):
+        is_valid = super(CommentReplyForm, self).is_valid()
+        return is_valid
+
+    def __process__(self):
+        return Business.comment_reply(self.cleaned_data, self.user, self.question)
