@@ -1,3 +1,7 @@
+.post-container {
+    @include make-lg-column-offset(1);
+    @include make-lg-column(8);
+}
 .full-post {
     padding: 20px;
     margin-bottom: 30px;
@@ -41,6 +45,29 @@
             font-weight: 600;
             font-size: 18px;
             letter-spacing: -0.05em;
+        }
+    }
+}
+.box-share {
+    @include make-lg-column(0.6);
+    position: fixed;
+    padding: 0;
+    margin-left: 35px;
+    border: 1px solid $color-border;
+    background: #fff;
+    list-style: none;
+    text-align: center;
+
+    > li {
+        padding: 10px;
+        border-bottom: 1px solid $color-border;
+        color: #4d6479;
+        font-weight: bold;
+        &:last-child {
+            border-bottom: none;
+        }
+        > a {
+            color: #4d6479;
         }
     }
 }
