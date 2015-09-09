@@ -14,8 +14,4 @@
         </div>
     {% endfor %}
     <a data-jscroll-next href="{% url 'socialactions:get_followers' content_type_id=content_type.id object_filter_id=object.id %}?p={{ page }}&next={{ url_next|urlencode }}">next</a>
-{% else %}
-    <div class="box-perfil">
-        NOTHING
-    </div>
 {% endif %}
