@@ -28,8 +28,6 @@ def followers(request, content_type_id, object_filter_id):
                                                                                         object_id=object_filter_id,
                                                                                         action_type=settings.SOCIAL_FOLLOW)
 
-        print model_obj.content_object
-
         list_followers = Business.get_users_acted_by_model(model=model_obj.content_object,
                                                            action=settings.SOCIAL_FOLLOW,
                                                            itens_per_page=10,
@@ -41,6 +39,7 @@ def followers(request, content_type_id, object_filter_id):
         'followers': list_followers,
         'content_type': list_followers[0].content_type if list_followers and list_followers[0].content_type else None,
         'object': model_obj.content_object,
+        'url_next': request.GET['next'] if 'next' in request.GET else '',
         'page': (list_followers.number if list_followers and list_followers.number else 0) + 1
     }
 
