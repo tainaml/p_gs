@@ -7,7 +7,7 @@
             {{ follower.author.get_full_name }}
         </p>
     {% endfor %}
-    <a href="{% url 'socialactions:get_followers' content_type_id=content_type.id object_filter=object.id %}?p={{ page }}">next</a>
+    <a href="{% url 'socialactions:get_followers' content_type_id=content_type.id object_filter_id=object.id %}?p={{ page }}">next</a>
 {% endif %}
 </div>
 
