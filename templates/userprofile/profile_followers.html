@@ -1,0 +1,58 @@
+{%extends 'home/layout/base.html' %}
+
+{% load staticfiles %}
+{% load social_tags %}
+
+{% block title %}Portal GSTI - Perfil{% endblock %}
+
+{% block content %}
+    <main class="container">
+        <div class="perfil-row">
+            <!-- mudar para 2.5 -->
+            <div class="col-lg-3">
+                {% include 'home/partials/sidebar-perfil.html' %}
+            </div>
+            <!-- mudar para 9.5 -->
+            <div class="col-lg-9">
+                <nav class="perfil-navegation">
+                    <a href="{% url 'ninico:feed' %}">Feed</a>•<a href="{% url 'ninico:perfil' %}">Perfil</a>•<a href="{% url 'ninico:about' %}">Sobre</a>•<a href="{% url 'ninico:communities' %}">Comunidades</a>•<a class="active" href="{% url 'ninico:relationship' %}">Relacionamentos</a>•<a href="{% url 'ninico:videos' %}">Vídeos</a>
+                </nav>
+                <header class="area-title">
+                    <h2>Relacionametos</h2>
+                </header>
+                <div class="filter row">
+                    <div class="col-lg-8">
+                        {% include 'home/partials/search.html' %}
+                    </div>
+                    <div class="col-lg-4 text-right">
+                        <a class="btn btn-perfil" href="{% url 'profile:followings' username=profile.user.username %}">Seguindo</a>
+                        <a class="btn btn-perfil active" href="{% url 'profile:followers' username=profile.user.username %}">Seguidores</a>
+                    </div>
+                </div>
+                <div class="row j-scroll-followers j-scroll-follower-container">
+                    <div class="col-lg-12">
+                        <hr>
+                        <p class="description-text">• Quem segue <a href="javascript:;">{{ profile.user.get_full_name }}</a></p>
+                    </div>
+
+                    {# templatetag - load followers #}
+                    {% followers_box profile.user request.path %}
+
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock %}
+
+
+{% block javascripts %}
+    <script src="{% static 'javascripts/jquery.jscroll.min.js' %}"></script>
+    <script>
+        $(function() {
+            $(".j-scroll-followers").jscroll({
+                contentSelect: ".j-scroll-follower-container",
+                nextSelect: "a[data-jscroll-next]"
+            });
+        });
+    </script>
+{% endblock %}

@@ -16,5 +16,7 @@ urlpatterns = [
     url(r'^occupation/update/$', views.occupation_update, name='occupation_update'),
     url(r'^occupation/delete/(?P<occupation_id>[0-9]+)$', views.occupation_delete, name='occupation_delete'),
     url(r'^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/$', views.show, name='show'),
+    url(r'^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/followings/$', views.profile_followings, name='followings'),
+    url(r'^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/followers/$', views.profile_followers, name='followers'),
 
 ]

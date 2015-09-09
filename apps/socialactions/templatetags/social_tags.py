@@ -45,7 +45,7 @@ def followers_box(context, content_object, url_next):
     try:
         followers = Business.get_users_acted_by_model(model=content_object,
                                                       action=settings.SOCIAL_FOLLOW,
-                                                      itens_per_page=10,
+                                                      itens_per_page=9,
                                                       page=1)
 
     except ValueError:
@@ -56,6 +56,28 @@ def followers_box(context, content_object, url_next):
         'content_type': followers[0].content_type if followers and followers[0].content_type else None,
         'object': content_object,
         'page': (followers.number if followers and followers.number else 0) + 1,
+        'url_next': url_next,
+        'request': context['request']
+    }
+
+
+@register.inclusion_tag('socialactions/followings_box.html', takes_context=True)
+def followings_box(context, author, content_type, url_next):
+    try:
+        followings = Business.get_users_acted_by_author(author=author,
+                                                        action=settings.SOCIAL_FOLLOW,
+                                                        content_type=content_type,
+                                                        items_per_page=9,
+                                                        page=1)
+
+    except ValueError:
+        raise Http404()
+
+    return {
+        'followings': followings,
+        'content_type': followings[0].content_type if followings and followings[0].content_type else None,
+        'object': author,
+        'page': (followings.number if followings and followings.number else 0) + 1,
         'url_next': url_next,
         'request': context['request']
     }
