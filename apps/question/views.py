@@ -49,7 +49,7 @@ def edit_question(request, question_id):
         })
     else:
         messages.add_message(request, messages.WARNING, _("Question is not exists!"))
-        return redirect(reverse('question:edit'))
+        return redirect(reverse('question:edit', args=question.id))
 
 @login_required
 def update_question(request):
@@ -62,7 +62,7 @@ def update_question(request):
         return render(request, 'question/edit.html', {'form': form})
     else:
         messages.add_message(request, messages.WARNING, _("Question is not exists!"))
-        return redirect(reverse('question:edit'))
+        return redirect(reverse('question:edit', args=request.POST["question_id"]))
 
 
 def show_question(request, question_id):
@@ -71,7 +71,7 @@ def show_question(request, question_id):
         return render(request, 'question/show.html', {'question': question})
     else:
         messages.add_message(request, messages.WARNING, _("Question is not exists!"))
-        return redirect(reverse('question:show'))
+        return redirect(reverse('question:show', args=request.POST["question_id"]))
 
 
 @login_required
