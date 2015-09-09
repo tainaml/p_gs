@@ -39,16 +39,22 @@ def edit_question(request, question_id):
     question = Business.get_question(question_id)
     if question:
         form = EditQuestionForm(request.POST)
-        return render(request, 'question/edit.html', {'form': form})
+        return render(request, 'question/edit.html',
+        {
+            'form': form,
+            'question_id': question.id,
+            'title': question.title,
+            'description': question.description
+        })
     else:
         messages.add_message(request, messages.WARNING, _("Question is not exists!"))
         return redirect(reverse('question:edit'))
 
 @login_required
 def update_question(request):
-    question = Business.get_question({'id': request.POST['question_id']})
+    question = Business.get_question(request.POST['question_id'])
     if question:
-        form = EditQuestionForm(request.POST, instance=question)
+        form = EditQuestionForm(question, request.POST )
         if form.process():
             messages.add_message(request, messages.SUCCESS, _("Question updated successfully!"))
             return redirect(reverse('question:edit'))
