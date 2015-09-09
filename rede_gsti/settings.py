@@ -48,6 +48,7 @@ INSTALLED_APPS = (
     # PLUGINS
     'apps.mailmanager',
     'nocaptcha_recaptcha',
+    'widget_tweaks',
 
     # CORE
     'apps.core',
@@ -66,9 +67,6 @@ INSTALLED_APPS = (
     'social.apps.django_app.default',
     'apps.socialactions',
     'apps.taxonomy'
-
-
-
 )
 
 MIDDLEWARE_CLASSES = (

@@ -29,6 +29,10 @@ class Article(models.Model):
     status = models.IntegerField(choices=STATUS_CHOICES, null=False)
 
 
+    def is_published(self):
+        return self.status == self.STATUS_PUBLISH
+
+
     def __unicode__(self):
 
         return self.title

@@ -30,6 +30,6 @@ urlpatterns = [
     url(r'^socialactions/', include('apps.socialactions.urls', namespace='socialactions')),
     url('', include('social.apps.django_app.urls', namespace='social')),
     url(r'^community/', include('apps.core.urls.community', namespace='community')),
-    url(r'^articles/', include('apps.core.urls.article', namespace='article')),
+    url(r'^', include('apps.core.urls.article', namespace='article')),
     url(r'^ninico/', include('apps.ninico.urls', namespace='ninico')),
 ] + url_statics + url_media
