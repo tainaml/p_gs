@@ -1,5 +1,6 @@
 __author__ = 'phillip'
 
+
 class NotFoundSocialSettings(Exception):
     def __init__(self, value, setting_name):
         self.value = value
