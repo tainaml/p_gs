@@ -12,19 +12,24 @@
     <!-- mudar para 9.5 -->
     <div class="col-lg-9">
         <nav class="perfil-navegation">
-            <a class="active" href="{% url 'ninico:comunidade' %}">Feed</a>•<a href="{% url 'ninico:comunidade-perguntas' %}">Perguntas</a>•<a href="{% url 'ninico:comunidade-membros' %}">Membros</a>•<a href="{% url 'ninico:comunidade-sobre' %}">Sobre</a>•<a href="{% url 'ninico:comunidade-videos' %}">Vídeos</a>
+            <a href="{% url 'ninico:comunidade' %}">Feed</a>•<a class="active" href="{% url 'ninico:comunidade-perguntas' %}">Perguntas</a>•<a href="{% url 'ninico:comunidade-membros' %}">Membros</a>•<a href="{% url 'ninico:comunidade-sobre' %}">Sobre</a>•<a href="{% url 'ninico:comunidade-videos' %}">Vídeos</a>
         </nav>
         <div class="row">
             <div class="col-lg-8">
                 <header class="area-title">
-                    <h2>Feed</h2>
+                    <h2>Perguntas</h2>
                 </header>
                 <nav class="form-search">
                     {% include 'home/partials/search.html' with placehold='Pesquise no seu feed' only %}
                 </nav>
                 <section class="area-content">
+                    <div class="text-right">
+                        <a href="javascript:;" class="btn btn-default">Respondidas</a>
+                        <a href="javascript:;" class="btn btn-default">Não respondidas</a>
+                        <br><br>
+                    </div>
                     {% for x in 'Lorem' %}
-                        {% include 'home/partials/perfil-post.html' %}
+                        {% include 'home/partials/comunidade-question.html' %}
                     {% endfor %}
                 </section>
             </div>
@@ -55,19 +60,6 @@
                             <img src="http://placehold.it/70x53" alt="Imagem 1">
                             <span>Microsoft lança software beta para migrar aplicativos iOS para Windows</span>
                         </a>
-                    </div>
-                </div>
-                <div class="widget widget-feed">
-                    <div class="widget-header">
-                        <header class="area-title">
-                            <h3>Últimas Perguntas</h3>
-                        </header>
-                    </div>
-                    <div class="widget-content">
-                        <a class="article-excerpt color-green" href="javascript:;">Microsoft lança software beta para migrar aplicativos iOS para Windows</a>
-                        <a class="article-excerpt color-green" href="javascript:;">Microsoft lança software beta para migrar aplicativos iOS para Windows</a>
-                        <a class="article-excerpt color-green" href="javascript:;">Microsoft lança software beta para migrar aplicativos iOS para Windows</a>
-                        <a class="article-excerpt color-green" href="javascript:;">Microsoft lança software beta para migrar aplicativos iOS para Windows</a>
                     </div>
                 </div>
             </div>
