@@ -26,7 +26,7 @@ def create_temp_article(author):
 
 
 def save_article(article, data):
-    return article.save()
+    return True if not article.save() == False else False
 
 
 def delete_article(article):

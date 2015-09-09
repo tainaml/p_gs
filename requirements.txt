@@ -2,5 +2,6 @@ django>=1.8
 psycopg2
 Pillow
 django-nocaptcha-recaptcha
+django-widget-tweaks
 python-social-auth
 django-debug-toolbar

@@ -12,7 +12,7 @@ class ArticleForm(IdeiaModelForm):
     text = forms.CharField(required=True, min_length=200, max_length=2048, widget=forms.Textarea)
     image = forms.ImageField(required=False)
     publishin = forms.DateTimeField(required=False)
-    status = forms.ChoiceField(required=True, choices=Business.Article.STATUS_CHOICES)
+    status = forms.ChoiceField(required=False, choices=Business.Article.STATUS_CHOICES)
     author = forms.IntegerField(required=False)
 
     # Actions: save, publish, schedule
@@ -62,6 +62,9 @@ class ArticleForm(IdeiaModelForm):
 
     def is_valid(self):
         valid = True
+
+        print '[data]'
+        print self.data
 
         if 'submit-publish' in self.data:
             '''
