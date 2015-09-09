@@ -41,7 +41,6 @@ class ArticleView(ArticleBaseView):
 
     def get(self, request, article_slug, article_id):
         article = self.filter_article(request, article_id)
-        print article.slug
         if not str(article.slug) == str(article_slug):
             raise self.article_not_found
 
@@ -116,14 +115,12 @@ class ArticleEditView(ArticleBaseView):
 
         article_saved = form_article.process()
 
-        print 'Article Saved: ', str(article_saved)
-
         if article_saved is not False:
             messages.add_message(request, messages.SUCCESS, _('Success'))
             article_id = form_article.instance.id
             return redirect(reverse('article:edit', args=(article_id,)))
         else:
-            print 'erro'
+            messages.add_message(request, messages.ERROR, _('Generic Error'))
 
         _context = {'form_article': form_article, 'article': article}
         return render(request, self.template_name, self.prepare_context(request, _context))

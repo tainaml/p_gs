@@ -63,9 +63,6 @@ class ArticleForm(IdeiaModelForm):
     def is_valid(self):
         valid = True
 
-        print '[data]'
-        print self.data
-
         if 'submit-publish' in self.data:
             '''
             Publishing action
@@ -80,8 +77,8 @@ class ArticleForm(IdeiaModelForm):
         if not super(ArticleForm, self).is_valid():
             valid = False
 
-        if 'submit-schedule' in self.data:
-            print self.cleaned_data
+        #if 'submit-schedule' in self.data:
+
 
         return valid
 

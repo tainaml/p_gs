@@ -20,9 +20,4 @@ class CoreArticleForm(ArticleForm):
     def is_valid(self):
 
         valid = super(CoreArticleForm, self).is_valid()
-        print 'data'
-        print self.data
-        #tax_instance = ObjectTaxonomy.objects.get(object_id=self.cleaned_data['id'])
-        #tax_form = CoreArticleCategoriesForm(self.data, prefix='categoria', instance=tax_instance)
-
         return valid
