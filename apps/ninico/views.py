@@ -22,6 +22,15 @@ def videos(request):
 def communities(request):
     return render(request, 'home/perfil-comunidades.html')
 
+def community(request):
+    return render(request, 'home/comunidade.html')
+
+def community_about(request):
+    return render(request, 'home/comunidade-sobre.html')
+
+def community_videos(request):
+    return render(request, 'home/comunidade-videos.html')
+
 def suggestions(request):
     return render(request, 'home/sugestoes.html')
 
