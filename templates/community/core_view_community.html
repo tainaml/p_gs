@@ -1,0 +1,28 @@
+{% load i18n %}
+{% load staticfiles %}
+
+<h1>{{ community.title|title }}</h1>
+<img src="{{ community.image.url }}" alt="" width="150"/>
+<p>{{ community.description }}</p>
+
+<hr/>
+
+Seguidores:
+
+<div class="list-followers" style="max-height: 100px; overflow-y: scroll;">
+    {% for follower in community_followers %}
+        <p>{{ follower.author.get_full_name }}</p>
+    {% endfor %}
+    <a href="{% url 'community:get_followers' community_slug=community.slug  %}?p={{ page }}">next</a>
+</div>
+
+<script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+<script src="{% static 'javascripts/jquery.jscroll.min.js' %}"></script>
+<script>
+    $(function() {
+        $('.list-followers').jscroll({
+            debug: true,
+            autoTrigger: true
+        });
+    });
+</script>

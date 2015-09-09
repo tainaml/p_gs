@@ -16,6 +16,5 @@ def act(request, object_to_link, content, action):
     except NotFoundSocialSettings:
         raise Http404()
 
-
     return redirect(request.GET['url_next'])
 

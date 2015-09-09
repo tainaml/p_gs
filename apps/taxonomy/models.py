@@ -6,12 +6,18 @@ from django.contrib.contenttypes.fields import GenericForeignKey
 
 class Term(models.Model):
     description = models.CharField(max_length=100)
-    parent = models.ForeignKey("self")
+    parent = models.ForeignKey("self", null=True, blank=True)
+
+    def __unicode__(self):
+        return self.description
 
 class Taxonomy(models.Model):
     description = models.CharField(max_length=100)
-    parent = models.ForeignKey("self")
+    parent = models.ForeignKey("self", null=True, blank=True)
     term = models.ForeignKey(Term)
+
+    def __unicode__(self):
+        return self.description
 
 class ObjectTaxonomy(models.Model):
     taxonomy = models.ForeignKey(Taxonomy)
