@@ -28,6 +28,9 @@ def community(request):
 def community_about(request):
     return render(request, 'home/comunidade-sobre.html')
 
+def community_question(request):
+    return render(request, 'home/comunidade-perguntas.html')
+
 def community_videos(request):
     return render(request, 'home/comunidade-videos.html')
 

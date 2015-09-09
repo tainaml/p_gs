@@ -139,6 +139,11 @@
             margin-right: 20px;
         }
     }
+    .question-text {
+        color: #5d7184;
+        font-weight: 400;
+        font-size: 16px;
+    }
     &-#{text} {
         // Usar media-query para "setar" o tamanho
         // width: 66.6%;

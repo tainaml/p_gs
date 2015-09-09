@@ -12,7 +12,7 @@
     <!-- mudar para 9.5 -->
     <div class="col-lg-9">
         <nav class="perfil-navegation">
-            <a class="active" href="{% url 'ninico:comunidade' %}">Feed</a>•<a href="{% url 'ninico:comunidade-perguntas' %}">Perguntas</a>•<a href="{% url 'ninico:comunidade-membros' %}">Membros</a>•<a href="{% url 'ninico:comunidade-sobre' %}">Sobre</a>•<a href="{% url 'ninico:comunidade-videos' %}">Vídeos</a>
+            <a href="{% url 'ninico:comunidade' %}">Feed</a>•<a class="active" href="{% url 'ninico:comunidade-perguntas' %}">Perguntas</a>•<a href="{% url 'ninico:comunidade-membros' %}">Membros</a>•<a href="{% url 'ninico:comunidade-sobre' %}">Sobre</a>•<a href="{% url 'ninico:comunidade-videos' %}">Vídeos</a>
         </nav>
         <div class="row">
             <div class="col-lg-8">
@@ -23,6 +23,11 @@
                     {% include 'home/partials/search.html' with placehold='Pesquise no seu feed' only %}
                 </nav>
                 <section class="area-content">
+                    <div class="text-right">
+                        <a href="javascript:;" class="btn btn-default">Respondidas</a>
+                        <a href="javascript:;" class="btn btn-default">Não respondidas</a>
+                        <br><br>
+                    </div>
                     {% for x in 'Lorem' %}
                         {% include 'home/partials/comunidade-question.html' %}
                     {% endfor %}
