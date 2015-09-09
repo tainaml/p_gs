@@ -1,14 +1,7 @@
 {% load staticfiles %}
 
 <div class="list-followers" style="max-height: 100px; overflow-y: scroll;">
-{% if followers %}
-    {% for follower in followers %}
-        <p>
-            {{ follower.author.get_full_name }}
-        </p>
-    {% endfor %}
-    <a href="{% url 'socialactions:get_followers' content_type_id=content_type.id object_filter_id=object.id %}?p={{ page }}">next</a>
-{% endif %}
+    {% include 'socialactions/followers_partial_list.html' %}
 </div>
 
 <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
