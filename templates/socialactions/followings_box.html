@@ -1,0 +1,21 @@
+{% load social_tags %}
+
+{% if followings %}
+    {% for following in followings %}
+        <div class="box-perfil">
+            <div class="perfil">
+                <img class="img-responsive" src="http://placehold.it/82" alt="{{ following.content_object.get_full_name }}">
+                <a class="perfil-name" href="{% url 'profile:show' following.content_object.username %}">{{ following.content_object.get_full_name }}</a>
+                <a class="perfil-counter" href="{% url 'profile:followers' username=following.content_object.username %}"><span class="counter-number">180</span> Seguidores</a>
+                {% if request.user and request.user.is_authenticated %}
+                {% follow_action following.content_object url_next %}
+                {% endif %}
+            </div>
+        </div>
+    {% endfor %}
+    <a data-jscroll-next href="{% url 'socialactions:get_followings' content_type_id=content_type.id object_filter_id=object.id %}?p={{ page }}&next={{ url_next|urlencode }}">next</a>
+{% else %}
+    <div class="box-perfil">
+        NOTHING
+    </div>
+{% endif %}

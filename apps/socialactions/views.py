@@ -43,4 +43,31 @@ def followers(request, content_type_id, object_filter_id):
         'page': (list_followers.number if list_followers and list_followers.number else 0) + 1
     }
 
-    return render(request, 'socialactions/followers_partial_list.html', context)
+    return render(request, 'socialactions/followers_box.html', context)
+
+
+def followings(request, content_type_id, object_filter_id):
+
+    page = request.GET['p'] if 'p' in request.GET else 1
+
+    try:
+        model_obj = Business.get_content_object_by_id_and_content_type_id_and_action_id(content_type=content_type_id,
+                                                                                        object_id=object_filter_id,
+                                                                                        action_type=settings.SOCIAL_FOLLOW)
+
+        list_followings = Business.get_users_acted_by_author(author=model_obj.content_object,
+                                                             action=settings.SOCIAL_FOLLOW,
+                                                             items_per_page=10,
+                                                             page=page)
+    except ValueError:
+        raise Http404()
+
+    context = {
+        'followers': list_followings,
+        'content_type': list_followings[0].content_type if list_followings and list_followings[0].content_type else None,
+        'object': model_obj.content_object,
+        'url_next': request.GET['next'] if 'next' in request.GET else '',
+        'page': (list_followings.number if list_followings and list_followings.number else 0) + 1
+    }
+
+    return render(request, 'socialactions/followers_box.html', context)
