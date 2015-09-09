@@ -17,14 +17,14 @@
         <div class="row">
             <div class="col-lg-8">
                 <header class="area-title">
-                    <h2>Perguntas</h2>
+                    <h2>Feed</h2>
                 </header>
                 <nav class="form-search">
                     {% include 'home/partials/search.html' with placehold='Pesquise no seu feed' only %}
                 </nav>
                 <section class="area-content">
                     {% for x in 'Lorem' %}
-                        {% include 'home/partials/comunidade-question.html' %}
+                        {% include 'home/partials/perfil-post.html' %}
                     {% endfor %}
                 </section>
             </div>
@@ -55,6 +55,19 @@
                             <img src="http://placehold.it/70x53" alt="Imagem 1">
                             <span>Microsoft lança software beta para migrar aplicativos iOS para Windows</span>
                         </a>
+                    </div>
+                </div>
+                <div class="widget widget-feed">
+                    <div class="widget-header">
+                        <header class="area-title">
+                            <h3>Últimas Perguntas</h3>
+                        </header>
+                    </div>
+                    <div class="widget-content">
+                        <a class="article-excerpt color-green" href="javascript:;">Microsoft lança software beta para migrar aplicativos iOS para Windows</a>
+                        <a class="article-excerpt color-green" href="javascript:;">Microsoft lança software beta para migrar aplicativos iOS para Windows</a>
+                        <a class="article-excerpt color-green" href="javascript:;">Microsoft lança software beta para migrar aplicativos iOS para Windows</a>
+                        <a class="article-excerpt color-green" href="javascript:;">Microsoft lança software beta para migrar aplicativos iOS para Windows</a>
                     </div>
                 </div>
             </div>
