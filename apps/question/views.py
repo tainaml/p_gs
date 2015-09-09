@@ -80,7 +80,7 @@ def comment_reply(request):
     if not form.process():
         return render(request, '../../question/show.html', {'form': form})
 
-    return redirect('../../question/show.html')
+    return redirect(reverse('question:show', args=request.POST["question_id"]))
 
 
 

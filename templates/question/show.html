@@ -1,9 +1,12 @@
 {% load i18n %}
+{% load comment_reply %}
 <div>
     <div name="question_id">{{ question.id }}</div>
     <div name="title" id="title">{{ question.title }}</div>
     <div name="description" id="description">{{ question.description }}</div>
 </div>
+{% list_reply question.id %}
+
 
 <form action="{% url 'question:comment_reply' %}" method="post">
     {% csrf_token %}
