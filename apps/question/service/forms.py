@@ -69,9 +69,31 @@ class CommentReplyForm(IdeiaForm):
 class EditAnswerForm(IdeiaModelForm):
     description = forms.CharField(max_length=2048, required=True)
 
+    user = None
+
     class Meta:
         model = Business.Answer
         exclude = ['author', 'answer_date', 'question']
+
+    def set_author(self, user):
+        self.user = user
+
+    def is_valid(self):
+        is_valid = super(EditAnswerForm, self).is_valid()
+
+        if not self.user or not self.user.is_authenticated:
+            self.add_error(None,
+                           ValidationError(('User must be authenticated.'),
+                                           code='is_not_authenticated'))
+            is_valid = False
+
+        if self.user != self.instance.author:
+            self.add_error(None,
+            ValidationError(('User dont have access'),
+                                               code='is_not_permission'))
+            is_valid = False
+
+        return is_valid
 
     def __process__(self):
         return Business.update_reply(self.cleaned_data, self.instance)

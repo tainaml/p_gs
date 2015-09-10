@@ -8,7 +8,7 @@
            {% endfor %}
        </ul>
    {% endif %}
-   
+
     {% csrf_token %}
     <input type="hidden" name="reply_id" value="{{ reply.id }}" />
     <textarea name="description" id="description" placeholder="{% trans  'Comment here' %}" cols="30" rows="10">{{ reply.description }}</textarea>

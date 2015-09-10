@@ -105,6 +105,7 @@ def update_reply(request):
     answer = business.get_answer(request.POST['reply_id'])
     if answer:
         form = EditAnswerForm(instance=answer, data=request.POST)
+        form.set_author(request.user)
         if form.process():
             messages.add_message(
                 request,
