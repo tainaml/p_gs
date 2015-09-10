@@ -15,11 +15,7 @@ def save_question(logged_user, params=None):
 
 def update_question(params=None, question=None):
 
-    question.title = params["title"]
-    question.description = params["description"]
-
-    question.save()
-    return question
+    return False if question.save() is False else question
 
 
 def comment_reply(params=None, logged_user=None, question_id=None):
@@ -37,10 +33,7 @@ def comment_reply(params=None, logged_user=None, question_id=None):
 
 def update_reply(params=None, answer=None):
 
-    answer.description = params["description"]
-
-    answer.save()
-    return answer
+    return False if answer.save() is False else answer
 
 
 def get_question(question_id=None):
