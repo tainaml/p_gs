@@ -30,18 +30,9 @@ def edit(request):
 
     form = EditProfileForm(data_model=profile)
 
-    if profile.city:
-        states = Business.get_states(profile.city.state.country.id)
-        cities = Business.get_cities(profile.city.state.id)
-    else:
-        states = None
-        cities = None
-
     return render(request, 'userprofile/edit_form.html', {
         'form': form,
         'countries': countries,
-        'states': states,
-        'cities': cities,
         'gender': GenderType(),
     })
 
@@ -54,9 +45,7 @@ def update_profile(request):
 
     profile = Business.get_profile(request.user)
 
-    # OccupationFormSet = formset_factory(OccupationForm, extra=0)
-    # occupation_formset = OccupationFormSet(request.POST, prefix='occupation')
-    form = EditProfileForm(request.POST, request=request)
+    form = EditProfileForm(request.user, profile, request.POST, request.FILES)
 
     if profile.city:
         states = Business.get_states(profile.city.state.country.id)

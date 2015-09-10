@@ -29,7 +29,8 @@ class Country(models.Model):
 class State(models.Model):
     name = models.CharField(max_length=60, blank=False)
     abbreviation = models.CharField(max_length=3, blank=False)
-    country = models.ForeignKey(Country)
+    country = models.ForeignKey(Country, related_name='states')
+
 
     def __unicode__(self):
         return self.name
@@ -37,7 +38,7 @@ class State(models.Model):
 
 class City(models.Model):
     name = models.CharField(max_length=60, blank=False)
-    state = models.ForeignKey(State)
+    state = models.ForeignKey(State, related_name='cities')
 
     def __unicode__(self):
         return self.name
@@ -48,6 +49,7 @@ class UserProfile(models.Model):
     birth = models.DateField(null=True, blank=True)
     gender = models.CharField(max_length=1, null=True, blank=True)
     city = models.ForeignKey(City, null=True, blank=True)
+    profile_picture = models.ImageField(max_length=100, upload_to='userprofile/%Y/%m/%d', blank=True, default='')
 
     def __unicode__(self):
         return self.user
