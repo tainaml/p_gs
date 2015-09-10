@@ -1,0 +1,22 @@
+{% load i18n %}
+
+{% for reply in list_comment %}
+    <ul>
+        <li>
+        <b>Descrição:</b> {{ reply.description }}
+        <b>{{ reply.author.get_full_name }}</b>
+
+        {% if reply.author == request.user %}
+            <a onclick="$('#data-box-edit-{{ reply.id }}').toggle('display');"  href="javascript:;">{%  trans 'Edit' %}</a>
+        {% endif %}
+        <div style="display: none;" id="data-box-edit-{{ reply.id }}">
+            <form action="{% url 'question:update_reply' %}" method="post">
+                {% csrf_token %}
+                <input type="hidden" name="reply_id" value="{{ reply.id }}" />
+                <textarea name="description" id="description" placeholder="{% trans  'Comment here' %}" cols="30" rows="10">{{ reply.description }}</textarea>
+                <input type="submit" value="Submit"/>
+            </form>
+        </div>
+        </li>
+    </ul>
+{% endfor %}
