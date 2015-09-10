@@ -84,7 +84,7 @@ def followings_box(context, author, content_type, url_next):
 
 
 @register.inclusion_tag('socialactions/followers_partial_actions.html', takes_context=True)
-def follow_action(context, object_to_link, url_next):
+def follow_action(context, object_to_link, url_next, btn_class="btn-sm perfil-button"):
 
     try:
         content = Business.get_content_by_object(object_to_link)
@@ -104,5 +104,17 @@ def follow_action(context, object_to_link, url_next):
         'content': content.model,
         'followings': following_list,
         'url_next': url_next,
-        'request': context['request']
+        'request': context['request'],
+        'btn_class': btn_class
     }
+
+
+@register.simple_tag()
+def followers_count(user):
+
+    try:
+        count = Business.followers_count(content_object=user)
+    except ValueError:
+        raise Http404()
+
+    return count
