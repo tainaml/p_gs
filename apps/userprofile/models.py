@@ -45,7 +45,7 @@ class City(models.Model):
 
 
 class UserProfile(models.Model):
-    user = models.OneToOneField(User)
+    user = models.OneToOneField(User, related_name='profile')
     birth = models.DateField(null=True, blank=True)
     gender = models.CharField(max_length=1, null=True, blank=True)
     city = models.ForeignKey(City, null=True, blank=True)
@@ -84,6 +84,9 @@ class UserProfile(models.Model):
     def occupations(self):
         return self.occupation_set.all().order_by('-id')[0] if self.has_occupation() else None
 
+    def get_profile_picture(self):
+
+        return self.profile_picture if self.profile_picture else None
 
 class Occupation(models.Model):
     profile = models.ForeignKey(UserProfile)
