@@ -2,7 +2,7 @@
 {% trans 'click here' as click_here %}
 {% url 'account:resend_account_confirmation' as url_resend_account_confirmation %}
 
-<form action="{% url 'account:do_login' %}" method="post">
+<form action="{% url 'account:do_login' %}?next={{ url_next }}" method="post">
     {% csrf_token %}
 
     <input type="text" name="username" value="{{ form.cleaned_data.username|default_if_none:"" }}" placeholder="{% trans "Username" %}" maxlength="100">

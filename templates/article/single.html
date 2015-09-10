@@ -1,4 +1,7 @@
 {%extends 'home/layout/base.html' %}
+{% load taxonomy_tags %}
+
+{% load thumbor_tags %}
 
 {% block title %}{{ article.title }} - Portal GSTI{% endblock %}
 
@@ -42,18 +45,8 @@
                     <h1 class="full-post-title">{{ article.title }}</h1>
                 </header>
                 <aside class="post-footer">
-                    <nav class="post-communities">
-                        <a href="javascript:;" class="link-to-community">Java</a>•<a href="javascript:;" class="link-to-community">MySQL</a>•<a href="javascript:;" class="link-to-community" data-toggle="dropdown">Mais <i class="gsticon gsticon-angle-down"></i></a>
-                        <div class="dropdown-menu">
-                            <ul class="perfil-actions">
-                                <li><a href="javascript:;">matemática</a></li>
-                                <li><a href="javascript:;">Português</a></li>
-                                <li><a href="javascript:;">Literatura</a></li>
-                                <li><a href="javascript:;">Termodinâmica</a></li>
-                                <li><a href="javascript:;">Física</a></li>
-                            </ul>
-                        </div>
-                    </nav>
+                    {% taxonomies article %}
+
                     <div class="post-toolbar pull-right">
                         <div class="post-count">
                             <a href="javascript:;" class="post-votes-up">1.026 <i class="gsticon gsticon-caret-up"></i></a>
@@ -64,7 +57,7 @@
                 </aside>
                 <div class="full-post-content">
                     {% if article.image %}
-                        <img class="full-post-image" src="{{ article.image.url }}" alt="">
+                        <img class="full-post-image" src="{% thumbor_url article.image.url width=500 smart=True fit_in=True %}" />
                     {% endif %}
                     {{ article.text }}
                     <div class="post-advertising text-center">

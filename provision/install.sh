@@ -33,6 +33,12 @@ apt-get install -y gettext
 sudo sh /vagrant/provision/database.sh
 apt-get install -y libpq-dev
 
+# Thumbor
+apt-get install -y python-pip build-dep python-opencv opencv-dev python-numpy python-dev
+apt-get install -y ffmpeg libjpeg-dev libpng-dev libtiff-dev libjasper-dev libgtk2.0-dev
+apt-get install -y python-numpy python-pycurl webp python-opencv python-dev
+
+
 # virtualenv global setup
 if ! command -v pip; then
     easy_install -U pip
@@ -46,4 +52,7 @@ cp -p /vagrant/provision/data/bashrc /home/vagrant/.bashrc
 
 
 # Cleanup
-apt-get clean
+apt-get clean -y
+
+# Upgrade
+apt-get upgrade -y
