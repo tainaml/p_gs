@@ -154,3 +154,28 @@ def occupation_delete(request, occupation_id):
         messages.add_message(request, messages.ERROR, _("Occupation invalid!"))
 
     return redirect(reverse('profile:occupation_manage'))
+
+
+def profile_followings(request, username):
+
+    profile = Business.get_profile(Business.get_user(username))
+    profile.gender_text = GenderType.LABEL[profile.gender] if profile.gender else None
+
+    context = {
+        'profile': profile
+    }
+
+    return render(request, 'userprofile/profile_followings.html', context)
+
+
+def profile_followers(request, username):
+    template_path = 'userprofile/profile_followers.html'
+
+    profile = Business.get_profile(Business.get_user(username))
+    profile.gender_text = GenderType.LABEL[profile.gender] if profile.gender else None
+
+    context = {
+        'profile': profile
+    }
+
+    return render(request, 'userprofile/profile_followers.html', context)

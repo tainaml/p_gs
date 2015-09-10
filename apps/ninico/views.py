@@ -22,11 +22,26 @@ def videos(request):
 def communities(request):
     return render(request, 'home/perfil-comunidades.html')
 
+def community(request):
+    return render(request, 'home/comunidade.html')
+
+def community_about(request):
+    return render(request, 'home/comunidade-sobre.html')
+
+def community_question(request):
+    return render(request, 'home/comunidade-perguntas.html')
+
+def community_videos(request):
+    return render(request, 'home/comunidade-videos.html')
+
 def suggestions(request):
     return render(request, 'home/sugestoes.html')
 
 def see_after(request):
     return render(request, 'home/ver-depois.html')
+
+def favorites(request):
+    return render(request, 'home/favoritos.html')
 
 def write_article(request):
     return render(request, 'home/criar-artigo.html')

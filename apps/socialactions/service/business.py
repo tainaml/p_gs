@@ -37,11 +37,9 @@ def get_content_object(content_type=None, object_id=None):
     return content_object
 
 
-def get_content_object_by_id_and_content_type_id_and_action_id(content_type=None, object_id=None, action_type=None):
+def get_user_by_params(params=None):
     try:
-        user_action = UserAction.objects.filter(content_type=content_type,
-                                                object_id=object_id,
-                                                action_type=action_type)[0]
+        user_action = UserAction.objects.filter(**params)[0]
     except UserAction.DoesNotExist:
         user_action = None
 
@@ -208,7 +206,7 @@ def get_users_acted_by_author(author=None, action=None, content_type=None,
     content_type = get_model_type(content_type)
     parameters = filter_parameters.copy()
     parameters['content_type'] = content_type
-    parameters['author'] = author
+    parameters['author'] = author.id
     parameters['action_type'] = action
 
     users_actions = UserAction.objects.filter(**parameters).prefetch_related('author')
