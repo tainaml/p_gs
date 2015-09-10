@@ -1,0 +1,18 @@
+<nav class="post-communities">
+    {% for taxonomy_object in taxonomies %}
+        <a href="javascript:;" class="link-to-community">{{ taxonomy_object.taxonomy }}</a>•
+    {% endfor %}
+
+    <a href="javascript:;" class="link-to-community">MySQL</a>•
+    <a href="javascript:;" class="link-to-community" data-toggle="dropdown">Mais <i class="gsticon gsticon-angle-down"></i></a>
+
+    <div class="dropdown-menu">
+        <ul class="perfil-actions">
+            <li><a href="javascript:;">matemática</a></li>
+            <li><a href="javascript:;">Português</a></li>
+            <li><a href="javascript:;">Literatura</a></li>
+            <li><a href="javascript:;">Termodinâmica</a></li>
+            <li><a href="javascript:;">Física</a></li>
+        </ul>
+    </div>
+</nav>

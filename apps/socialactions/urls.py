@@ -8,4 +8,5 @@ urlpatterns = [
 
     url(r'^act/(?P<object_to_link>[0-9]+)/(?P<content>[a-zA-Z]+)/(?P<action>[a-zA-Z]+)', views.act, name='act'),
     url(r'^followers/(?P<content_type_id>[0-9]+)/(?P<object_filter_id>[0-9]+)/$', views.followers, name='get_followers'),
+    url(r'^followings/(?P<content_type_id>[0-9]+)/(?P<object_filter_id>[0-9]+)/$', views.followings, name='get_followings'),
 ]

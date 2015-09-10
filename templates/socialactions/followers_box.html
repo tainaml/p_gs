@@ -1,16 +1,17 @@
-{% load staticfiles %}
+{% load social_tags %}
 
-<div class="list-followers" style="max-height: 100px; overflow-y: scroll;">
-    {% include 'socialactions/followers_partial_list.html' %}
-</div>
-
-<script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
-<script src="{% static 'javascripts/jquery.jscroll.min.js' %}"></script>
-<script>
-    $(function() {
-        $('.list-followers').jscroll({
-            debug: true,
-            autoTrigger: true
-        });
-    });
-</script>
+{% if followers %}
+    {% for follower in followers %}
+        <div class="box-perfil">
+            <div class="perfil">
+                <img class="img-responsive" src="http://placehold.it/82" alt="{{ follower.author.get_full_name }}">
+                <a class="perfil-name" href="{% url 'profile:show' follower.author.username %}">{{ follower.author.get_full_name }}</a>
+                <a class="perfil-counter" href="{% url 'profile:followers' username=follower.author.username %}"><span class="counter-number">180</span> Seguidores</a>
+                {% if request.user and request.user.is_authenticated %}
+                {% follow_action follower.author url_next %}
+                {% endif %}
+            </div>
+        </div>
+    {% endfor %}
+    <a data-jscroll-next href="{% url 'socialactions:get_followers' content_type_id=content_type.id object_filter_id=object.id %}?p={{ page }}&next={{ url_next|urlencode }}">next</a>
+{% endif %}

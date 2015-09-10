@@ -3,8 +3,7 @@ from django.core.validators import RegexValidator
 import pickle
 from apps.userprofile.models import City
 import business as Business
-
-from django.contrib.auth.models import User
+from django.core.exceptions import ValidationError
 from django.utils.translation import ugettext as _
 
 from custom_forms.custom import forms, IdeiaForm
@@ -53,26 +52,34 @@ class EditProfileForm(IdeiaForm):
     birth = forms.DateField(input_formats=['%d/%m/%Y'])
     gender = forms.CharField(max_length=1)
     city = forms.ModelChoiceField(queryset='')
+    profile_picture = forms.ImageField(required=False)
 
-    def __init__(self, data=None, request=None, data_model=None, data_formset=None, *args, **kwargs):
-        self.request = request
-        self.formset = data_formset
+    def __init__(self, user=None, data_model=None, *args, **kwargs):
+        self.user = user
+        self.data_model = data_model
 
-        super(EditProfileForm, self).__init__(data, *args, **kwargs)
+        super(EditProfileForm, self).__init__(*args, **kwargs)
 
         if self.data and 'state' in self.data:
             self.fields['city'].queryset = City.objects.filter(state=self.data['state'])
 
-        if data_model is not None and isinstance(data_model, models.Model):
-            self.data = forms.model_to_dict(data_model)
-
     def is_valid(self):
+
         is_valid = super(EditProfileForm, self).is_valid()
+        image = self.cleaned_data.get('profile_picture', False)
+        if image:
+            if image._size > 1024 * 1024:
+                self.add_error('profile_picture', ValidationError(_('Image size more than 1mb.'), code='profile_picture'))
+                is_valid = False
+
 
         return is_valid
 
+
+
     def __process__(self):
-        return Business.edit_profile(self.request.user, self.cleaned_data, None)
+        return Business.edit_profile(self.user, self.cleaned_data, None)
+
 
 
 class OccupationForm(IdeiaForm):
