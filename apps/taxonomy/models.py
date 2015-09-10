@@ -13,14 +13,14 @@ class Term(models.Model):
 
 class Taxonomy(models.Model):
     description = models.CharField(max_length=100)
-    parent = models.ForeignKey("self", null=True, blank=True)
-    term = models.ForeignKey(Term)
+    parent = models.ForeignKey("self", null=True, blank=True, related_name='taxonomies')
+    term = models.ForeignKey(Term, related_name='taxonomies')
 
     def __unicode__(self):
         return self.description
 
 class ObjectTaxonomy(models.Model):
-    taxonomy = models.ForeignKey(Taxonomy)
+    taxonomy = models.ForeignKey(Taxonomy, related_name='taxonomy_objects')
     content_type = models.ForeignKey(ContentType)
     object_id = models.PositiveIntegerField()
     content_object = GenericForeignKey('content_type', 'object_id')
