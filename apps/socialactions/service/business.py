@@ -122,7 +122,7 @@ def user_followed(user=None, content_type=None, object_id=None):
 
 def user_likes_by_object(user=None, content_object=None):
 
-    return user_count_acted_by_object(user,content_object, 'like')
+    return user_count_acted_by_object(user, content_object, 'like')
 
 
 def user_likes_by_object_content_type_and_id(user=None, content_type=None, object_id=None):
@@ -132,12 +132,17 @@ def user_likes_by_object_content_type_and_id(user=None, content_type=None, objec
 
 def user_unlikes_by_object(user=None, content_object=None):
 
-    return user_count_acted_by_object(user,content_object, 'unlike')
+    return user_count_acted_by_object(user, content_object, 'unlike')
 
 
 def user_unlikes_by_object_content_type_and_id(user=None, content_type=None, object_id=None):
 
     return user_count_acted_by_content_and_id(user,content_type, object_id, 'unlike')
+
+
+def followers_count(user=None, content_object=None):
+
+    return user_count_acted_by_object(user, content_object, 'follow')
 
 # Action methods
 

@@ -106,3 +106,14 @@ def follow_action(context, object_to_link, url_next):
         'url_next': url_next,
         'request': context['request']
     }
+
+
+@register.simple_tag()
+def followers_count(user):
+
+    try:
+        count = Business.followers_count(content_object=user)
+    except ValueError:
+        raise Http404()
+
+    return count
