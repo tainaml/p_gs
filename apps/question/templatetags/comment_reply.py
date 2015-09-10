@@ -6,8 +6,8 @@ register = template.Library()
 
 
 
-@register.inclusion_tag('question/comments.html')
-def list_reply(question_id):
+@register.inclusion_tag('question/comments.html', takes_context=True)
+def list_reply(context, question_id):
 
     try:
 
@@ -17,5 +17,6 @@ def list_reply(question_id):
         raise Http404()
 
     return {
-        'list_comment': list_comment
+        'list_comment': list_comment,
+        'request': context['request']
     }

@@ -55,3 +55,18 @@ class CommentReplyForm(IdeiaForm):
 
     def __process__(self):
         return Business.comment_reply(self.cleaned_data, self.user, self.question)
+
+
+class EditAnswerForm(IdeiaForm):
+    description = forms.CharField(max_length=2048, required=True)
+
+    def __init__(self, instance=None, *args, **kargs):
+        super(EditAnswerForm, self).__init__(*args, **kargs)
+        self.instance = instance if instance and isinstance(instance, models.Model) else None
+
+    def is_valid(self):
+        is_valid = super(EditAnswerForm, self).is_valid()
+        return is_valid
+
+    def __process__(self):
+        return Business.update_reply(self.cleaned_data, self.instance)
