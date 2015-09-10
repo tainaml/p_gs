@@ -2,16 +2,19 @@
 {% load article_tags %}
 
 <div class="perfil">
-    <img class="img-responsive" src="http://placehold.it/82" alt="Imagem 1">
+    <img class="img-responsive" src="{{ profile.profile_picture.url }}" alt="{{ profile.user.get_full_name }}" width="82">
     <a class="perfil-name" href="javascript:;">{{ profile.user.get_full_name }}</a>
-    <a class="perfil-counter" href="javascript:;"><span class="counter-number">{% followers_count profile.user %}</span> Seguidores</a>
+    <a class="perfil-counter" href="{% url "profile:followers" username=profile.user.username %}"><span class="counter-number">{% followers_count profile.user %}</span> Seguidores</a>
     <a class="perfil-counter" href="javascript:;"><span class="counter-number">{% articles_count profile.user %}</span> Artigos</a>
 </div>
 <div class="follower-content">
     <ul class="list-unstyled clearfix">
         <!-- Esse botão será exibido quando o usuários estiver visitando a página de outro usuário -->
         {% if request.user != profile.user %}
-        <li><a href="javascript:;" class="btn btn-follow">Seguir</a></li>
+        <li>
+            <!-- <a href="javascript:;" class="btn btn-follow">Seguir</a> -->
+            {% follow_action profile.user request.path "btn-follow" %}
+        </li>
         {% endif %}
 
         {% if profile.has_occupation %}

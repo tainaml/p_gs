@@ -28,11 +28,13 @@ def login(request):
     :return: HTML
     """
 
+    url_next = request.GET['next'] if 'next' in request.GET else '/account/'
+
     if not request.user.is_authenticated():
         form = LoginForm()
-        return render(request, 'account/login.html', {form: form})
+        return render(request, 'account/login.html', {'form': form, 'url_next': url_next})
     else:
-        return redirect('/account/')
+        return redirect(url_next)
 
 
 @require_POST
@@ -43,12 +45,14 @@ def do_login(request):
     :param request:
     :return:
     """
+
+    url_next = request.GET['next'] if 'next' in request.GET else '/account/'
+
     form = LoginForm(request, request.POST)
     if form.process():
+        return redirect(url_next)
 
-        return redirect('/account/')
-
-    return render(request, 'account/login.html', {'form': form})
+    return render(request, 'account/login.html', {'form': form, 'url_next': url_next})
 
 
 def logout(request):

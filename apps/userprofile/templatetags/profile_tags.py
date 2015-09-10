@@ -17,5 +17,6 @@ def profile_box(context, user):
         raise Http404()
 
     return {
-        'profile': profile
+        'profile': profile,
+        'request': context['request']
     }
