@@ -1,6 +1,8 @@
 {%extends 'home/layout/base.html' %}
 {% load taxonomy_tags %}
 
+{% load thumbor_tags %}
+
 {% block title %}{{ article.title }} - Portal GSTI{% endblock %}
 
 {% block content %}
@@ -55,7 +57,7 @@
                 </aside>
                 <div class="full-post-content">
                     {% if article.image %}
-                        <img class="full-post-image" src="{{ article.image.url }}" alt="">
+                        <img class="full-post-image" src="{% thumbor_url article.image.url width=500 smart=True fit_in=True %}" />
                     {% endif %}
                     {{ article.text }}
                     <div class="post-advertising text-center">
