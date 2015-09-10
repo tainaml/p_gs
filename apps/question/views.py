@@ -28,9 +28,13 @@ def create_question(request):
 def save_question(request):
     form = CreateQuestionForm(request.POST, request.user)
     if not form.process():
-        return render(request, 'question/create', {'form': form})
+        messages.add_message(request, messages.WARNING,
+                                     _("Question not created!"))
+        return redirect(reverse('question:create'))
 
-    return redirect('../../question/create.html')
+    messages.add_message(request, messages.SUCCESS,
+                             _("Question created sucessfully!"))
+    return redirect(reverse('question:create'))
 
 
 @login_required
@@ -54,7 +58,7 @@ def edit_question(request, question_id):
             messages.WARNING, _("Question is not exists!")
         )
 
-        return redirect(reverse('question:edit', args=question.id))
+        return redirect(reverse('question:show', args=question.id))
 
 
 @login_required
@@ -65,13 +69,12 @@ def update_question(request):
         if form.process():
             messages.add_message(request, messages.SUCCESS,
                                  _("Question updated successfully!"))
-            return redirect(reverse('question:edit'))
-        return render(request, 'question/edit.html', {'form': form})
+            return redirect(reverse('question:show', args=(request.POST["question_id"],)))
     else:
         messages.add_message(request, messages.WARNING,
                              _("Question is not exists!"))
         return redirect(
-            reverse('question:edit', args=(request.POST["question_id"],)))
+            reverse('question:show', args=(request.POST["question_id"],)))
 
 
 def show_question(request, question_id):
