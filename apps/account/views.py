@@ -36,7 +36,10 @@ class LoginView(View):
         :return: HTML
         """
 
-        url_next = request.GET['next'] if 'next' in request.GET else '/account/'
+        url_next = '/account/'
+
+        if 'next' in request.GET and request.GET['next']:
+            url_next = request.GET['next']
 
         if not request.user.is_authenticated():
             form = LoginForm()
@@ -52,7 +55,10 @@ class LoginView(View):
         :return:
         """
 
-        url_next = request.GET['next'] if 'next' in request.GET else '/account/'
+        url_next = '/account/'
+
+        if 'next' in request.GET and request.GET['next']:
+            url_next = request.GET['next']
 
         form = LoginForm(request, request.POST)
         if form.process():
