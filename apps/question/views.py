@@ -21,7 +21,7 @@ def create_question(request):
 
 @login_required
 def save_question(request):
-    form = CreateQuestionForm(request.POST, request.user)
+    form = CreateQuestionForm(request.user, request.POST)
     if not form.process():
         messages.add_message(
             request,
@@ -34,6 +34,7 @@ def save_question(request):
             messages.SUCCESS,
             _("Question created sucessfully!")
         )
+        return redirect(reverse('question:show', args=(form.instance.id,)))
 
     return render(request, 'question/create.html',
             {
@@ -127,6 +128,9 @@ def update_reply(request):
                 messages.SUCCESS,
                 _("Answer updated successfully!")
             )
+
+            return redirect(reverse('question:show', args=(form.instance.question.id,)))
+
 
         return  render(
             request,
