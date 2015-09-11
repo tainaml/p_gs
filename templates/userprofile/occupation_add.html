@@ -1,7 +1,7 @@
 {% load i18n %}
 
 
-<form action="{% url 'profile:occupation_create' %}" method="post">
+<form action="{% url 'profile:occupation_add' %}" method="post">
 
     {% csrf_token %}
 
@@ -9,8 +9,8 @@
     {% if form.responsibility.errors %}  {{ form.responsibility.errors }} {% endif %}
     <br/>
 
-    <input type="text" name="description" value="{{ form.cleaned_data.description|default_if_none:"" }}" placeholder="{% trans "Description" %}">
-    {% if form.description.errors %}  {{ form.description.errors }} {% endif %}
+    <input type="text" name="company" value="{{ form.cleaned_data.company|default_if_none:"" }}" placeholder="{% trans "Company" %}">
+    {% if form.company.errors %}  {{ form.company.errors }} {% endif %}
     <br/>
     <br/>
 
