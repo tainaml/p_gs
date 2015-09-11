@@ -26,9 +26,18 @@ def create_temp_article(author):
 
 
 def save_article(article, data):
-    return article.save()
+    return True if not article.save() == False else False
 
 
 def delete_article(article):
     article.status = article.STATUS_TRASH
     return article.save()
+
+
+def count_articles(author):
+    try:
+        count = Article.objects.filter(author=author).count()
+    except:
+        return 0
+
+    return count

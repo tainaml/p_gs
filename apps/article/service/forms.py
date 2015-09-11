@@ -5,6 +5,7 @@ from custom_forms.custom import forms, IdeiaModelForm
 from django.utils.translation import ugettext as _
 import business as Business
 
+
 class ArticleForm(IdeiaModelForm):
 
     title = forms.CharField(required=True, max_length=100)
@@ -12,7 +13,7 @@ class ArticleForm(IdeiaModelForm):
     text = forms.CharField(required=True, min_length=200, max_length=2048, widget=forms.Textarea)
     image = forms.ImageField(required=False)
     publishin = forms.DateTimeField(required=False)
-    status = forms.ChoiceField(required=True, choices=Business.Article.STATUS_CHOICES)
+    status = forms.ChoiceField(required=False, choices=Business.Article.STATUS_CHOICES)
     author = forms.IntegerField(required=False)
 
     # Actions: save, publish, schedule
@@ -77,8 +78,8 @@ class ArticleForm(IdeiaModelForm):
         if not super(ArticleForm, self).is_valid():
             valid = False
 
-        if 'submit-schedule' in self.data:
-            print self.cleaned_data
+        #if 'submit-schedule' in self.data:
+
 
         return valid
 

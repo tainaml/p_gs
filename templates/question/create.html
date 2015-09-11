@@ -1,0 +1,19 @@
+{% load i18n %}
+<h1>{% trans 'Question' %}</h1>
+{{ form.non_field_errors }}
+<form action="{% url 'question:save' %}" method="post">
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    {% csrf_token %}
+    <input type="text" name="title" id="title" placeholder="{% trans "Write your title question" %}" maxlength="256" />
+    {% if form.title.errors %}<span class="help-block">{{ form.title.errors }}</span> {% endif %}
+    <textarea name="description" id="description" placeholder="{% trans "Write your detailed question" %}" maxlength="2048"></textarea>
+    {% if form.description.errors %}<span class="help-block">{{ form.description.errors }}</span> {% endif %}
+    <input type="submit" value="{% trans 'submit' %}">
+</form>

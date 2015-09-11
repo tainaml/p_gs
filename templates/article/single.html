@@ -1,0 +1,140 @@
+{%extends 'home/layout/base.html' %}
+{% load taxonomy_tags %}
+
+{% load thumbor_tags %}
+
+{% block title %}{{ article.title }} - Portal GSTI{% endblock %}
+
+{% block content %}
+<main class="container">
+    <div class="perfil-row">
+        <ul class="box-share">
+            <li class="comment-vote">
+                <span style="display: block">132</span>
+                <i class="gsticon gsticon-caret-up"></i>
+                <hr>
+                <i class="gsticon gsticon-caret-down"></i>
+                <span style="display: block">5</span>
+            </li>
+            <li><a href="javascript:;"><i class="gsticon gsticon-star"></i></a></li>
+            <li><a href="javascript:;"><i class="gsticon gsticon-eye"></i></a></li>
+            <li><a href="javascript:;"><i class="gsticon gsticon-paper-plane"></i></a></li>
+        </ul>
+        <div class="post-container">
+            <article class="full-post">
+                <header class="post-header">
+                    <div class="post-info">
+                        <time datetime="{{ article.publishin|date:'m-d-Y' }}" itemprop="datePublished">
+                            {{ article.publishin|date:'d/m/Y' }} às {{ article.publishin|date:'G:i' }}
+                        </time>
+                        <a href="javascript:;" data-toggle="dropdown"><i class="gsticon gsticon-gear"></i></a>
+                        <div class="dropdown-menu">
+                            <ul class="perfil-actions">
+                                <li><a href="javascript:;"><i class="gsticon gsticon-edit"></i> Editar publicação</a></li>
+                                <li><a href="javascript:;"><i class="gsticon gsticon-paper-plane"></i> Sugerir</a></li>
+                                <li><a href="javascript:;"><i class="gsticon gsticon-eye"></i> Ver depois</a></li>
+                                <li><a href="javascript:;"><i class="gsticon gsticon-star"></i> Favoritar</a></li>
+                                <li><a href="javascript:;"><i class="gsticon gsticon-exclamation-triangle"></i> Denunciar</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <a class="post-creator" href="{% url 'profile:show' article.author.username %}">
+                        <img src="http://placehold.it/20" alt="Creator Porst Avatar">
+                        {{ article.author.get_full_name }}
+                    </a>
+                    <h1 class="full-post-title">{{ article.title }}</h1>
+                </header>
+                <aside class="post-footer">
+                    {% taxonomies article %}
+
+                    <div class="post-toolbar pull-right">
+                        <div class="post-count">
+                            <a href="javascript:;" class="post-votes-up">1.026 <i class="gsticon gsticon-caret-up"></i></a>
+                            <a href="javascript:;" class="post-votes-dow"><i class="gsticon gsticon-caret-down"></i> 4</a>
+                        </div>
+                        <div class="post-count-comments"><strong>32</strong> Comentários</div>
+                    </div>
+                </aside>
+                <div class="full-post-content">
+                    {% if article.image %}
+                        <img class="full-post-image" src="{% thumbor_url article.image.url width=500 smart=True fit_in=True %}" />
+                    {% endif %}
+                    {{ article.text }}
+                    <div class="post-advertising text-center">
+                        <img class="img-responsive" src="http://placehold.it/728x90" alt="Propaganda">
+                    </div>
+                </div>
+                <div class="full-post-share">
+                    <h3>COMPARTILHE</h3>
+                    <div class="addthis_sharing_toolbox"></div>
+                </div>
+            </article>
+            <div class="perfil">
+                <img class="img-responsive" src="http://placehold.it/82" alt="Imagem 1">
+                <a class="perfil-name" href="javascript:;">Iury Silva</a>
+                <span class="perfil-counter"><span class="counter-number">180</span> Seguidores</span>
+                <span class="perfil-counter"><span class="counter-number">88</span> Artigos</span>
+                <a class="perfil-counter-alt" href="javascript:;">Analista de SEO <span>em</span> Idea SEO</a>
+            </div>
+            <div class="container-comments">
+                {% include 'home/partials/comment/create.html' with size=81 %}
+                {% include 'home/partials/comment/comment.html' %}
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="squad-advertising">
+                <img class="img-responsive" src="http://placehold.it/270x225" alt="Propaganda aqui">
+            </div>
+            <div class="widget widget-feed">
+                <div class="widget-header">
+                    <header class="area-title">
+                        <h3>Comunidades</h3>
+                    </header>
+                </div>
+                <div class="widget-content">
+                    <div class="perfil">
+                        <img src="http://placehold.it/82" alt="Imagem 1">
+                        <a class="perfil-name" href="javascript:;">Java</a>
+                        <span class="perfil-counter"><span class="counter-number">12.568</span> Seguidores</span>
+                        <a class="btn perfil-button" href="javascript:;">Entrar</a>
+                    </div>
+                    <div class="perfil">
+                        <img src="http://placehold.it/82" alt="Imagem 1">
+                        <a class="perfil-name" href="javascript:;">MySQL</a>
+                        <span class="perfil-counter"><span class="counter-number">50.000</span> Seguidores</span>
+                        <a class="btn perfil-button-alt" href="javascript:;">Participando</a>
+                    </div>
+                </div>
+            </div>
+            <div class="widget widget-feed">
+                <div class="widget-header">
+                    <header class="area-title">
+                        <h3>Artigos Relacionados</h3>
+                    </header>
+                </div>
+                <div class="widget-content">
+                    <a class="article-excerpt">
+                        <img src="http://placehold.it/70x53" alt="Imagem 1">
+                        <span>Microsoft lança software beta para migrar aplicativos iOS para Windows</span>
+                    </a>
+                    <a class="article-excerpt">
+                        <img src="http://placehold.it/70x53" alt="Imagem 1">
+                        <span>Microsoft lança software beta para migrar aplicativos iOS para Windows</span>
+                    </a>
+                    <a class="article-excerpt">
+                        <img src="http://placehold.it/70x53" alt="Imagem 1">
+                        <span>Microsoft lança software beta para migrar aplicativos iOS para Windows</span>
+                    </a>
+                    <a class="article-excerpt">
+                        <img src="http://placehold.it/70x53" alt="Imagem 1">
+                        <span>Microsoft lança software beta para migrar aplicativos iOS para Windows</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}
+{% block javascripts %}
+<script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-55e70ed11db7fa4e" async></script>
+{% endblock %}

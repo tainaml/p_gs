@@ -69,7 +69,13 @@ def update_profile(user=None, data=None):
         profile.birth = data['birth']
         profile.gender = data['gender']
         profile.city = data['city']
+        if data['profile_picture'] and profile.profile_picture != data['profile_picture']:
+
+            profile.profile_picture.delete()
+            profile.profile_picture = data['profile_picture']
+
         profile.save()
+
     except:
         return False
 

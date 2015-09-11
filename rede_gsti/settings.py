@@ -48,6 +48,8 @@ INSTALLED_APPS = (
     # PLUGINS
     'apps.mailmanager',
     'nocaptcha_recaptcha',
+    'widget_tweaks',
+    'django_thumbor',
 
     # CORE
     'apps.core',
@@ -60,15 +62,12 @@ INSTALLED_APPS = (
     'apps.article',
     'apps.community',
     'apps.comment',
-    'apps.question',
     'apps.userprofile',
+    'apps.question',
     'apps.socialaccount',
     'social.apps.django_app.default',
     'apps.socialactions',
     'apps.taxonomy'
-
-
-
 )
 
 MIDDLEWARE_CLASSES = (
@@ -191,6 +190,14 @@ STATIC_URL = '/static/'
 # Media Paths: User upload files
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media', 'uploads')
 MEDIA_URL = '/media/uploads/'
+
+
+# THUMBOR
+THUMBOR_SERVER = 'http://localhost:8888'
+THUMBOR_MEDIA_URL = 'http://localhost:8000/media/uploads'
+THUMBOR_SECURITY_KEY = 'MY_SECURE_KEY'
+THUMBOR_ARGUMENTS = {}
+
 
 # Login Urls
 LOGIN_URL = '/account/login'

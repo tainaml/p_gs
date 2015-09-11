@@ -1,0 +1,20 @@
+{% load i18n %}
+{% load comment_reply %}
+<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+
+<ul>
+    <li><div name="question_id"><b>ID:</b> {{ question.id }}</div>
+    <div name="title" id="title"><b>Título:</b> {{ question.title }}</div>
+    <div name="description" id="description"><b>Descrição:</b> {{ question.description }}</div></li>
+
+{% list_reply question.id %}
+</ul>
+
+<form action="{% url 'question:comment_reply' %}" method="post">
+    {{ form.non_field_errors }}
+    {% csrf_token %}
+    <input type="hidden" name="question_id" value="{{ question.id }}" />
+    <textarea name="description" id="description" placeholder="{% trans  'Comment here' %}" cols="30" rows="10"></textarea>
+    {% if form.description.errors %}<span class="help-block">{{ form.description.errors }}</span> {% endif %}
+    <input type="submit" value="Submit"/>
+</form>

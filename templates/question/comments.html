@@ -1,0 +1,17 @@
+{% load i18n %}
+
+{% for reply in list_comment %}
+    <ul>
+        <li>
+        <b>Descrição:</b> {{ reply.description }}
+        <b>{{ reply.author.get_full_name }}</b>
+
+        {% if reply.author == request.user %}
+            <a onclick="$('#data-box-edit-{{ reply.id }}').toggle('display');"  href="javascript:;">{%  trans 'Edit' %}</a>
+        {% endif %}
+        <div style="display: none;" id="data-box-edit-{{ reply.id }}">
+            {% include "question/edit_answer.html" %}
+        </div>
+        </li>
+    </ul>
+{% endfor %}

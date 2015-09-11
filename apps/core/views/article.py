@@ -6,3 +6,5 @@ from ..forms.article import CoreArticleForm
 class CoreArticleEditView(views.ArticleEditView):
 
     form_article = CoreArticleForm
+
+
