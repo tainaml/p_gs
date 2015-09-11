@@ -26,7 +26,6 @@ class OccupationField(forms.fields.MultiValueField):
     widget = MultiWidgetBasic
 
     def __init__(self, *args, **kwargs):
-
         list_fields = [
             forms.CharField(
                 error_messages={'incomplete': 'Enter a responsibility.'},
@@ -48,7 +47,6 @@ class OccupationField(forms.fields.MultiValueField):
 
 
 class EditProfileForm(IdeiaForm):
-
     birth = forms.DateField(input_formats=['%d/%m/%Y'])
     gender = forms.CharField(max_length=1)
     city = forms.ModelChoiceField(queryset='')
@@ -69,23 +67,19 @@ class EditProfileForm(IdeiaForm):
         image = self.cleaned_data.get('profile_picture', False)
         if image:
             if image._size > 1024 * 1024:
-                self.add_error('profile_picture', ValidationError(_('Image size more than 1mb.'), code='profile_picture'))
+                self.add_error('profile_picture',
+                               ValidationError(_('Image size more than 1mb.'), code='profile_picture'))
                 is_valid = False
 
-
         return is_valid
-
-
 
     def __process__(self):
         return Business.edit_profile(self.user, self.cleaned_data, None)
 
 
-
 class OccupationForm(IdeiaForm):
-
     responsibility = forms.CharField(max_length=100)
-    description = forms.CharField(max_length=100)
+    company = forms.CharField(max_length=100)
 
     def __init__(self, data=None, request=None, data_model=None, instance=None, *args, **kwargs):
         self.request = request

@@ -2,180 +2,286 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
-from django.forms import formset_factory, model_to_dict
+from django.db import models
+from django.http import Http404, HttpResponse
 from django.shortcuts import render, redirect
-from django.views.decorators.http import require_POST
+from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _
+from django.views.generic import View
+from django.views.decorators.http import require_POST
 
-from apps.userprofile.service import business as Business
 from apps.userprofile.models import GenderType
+from apps.userprofile.service import business as Business
 from apps.userprofile.service.forms import EditProfileForm, OccupationForm
 
 
-def show(request, username):
+class ProfileBaseView(View):
 
-    profile = Business.get_profile(Business.get_user(username))
-    profile.gender_text = GenderType.LABEL[profile.gender] if profile.gender else None
-    profile.occupations = profile.occupation_set.all()
+    not_found = Http404(_('Profile not Found.'))
 
-    return render(request, 'userprofile/show.html', {'profile': profile, 'gender': GenderType})
+    def filter(self, request, user_or_username=None):
 
+        if user_or_username and isinstance(user_or_username, unicode):
+            profile = Business.get_profile(Business.get_user(user_or_username))
+        elif user_or_username and isinstance(user_or_username, models.Model):
+            profile = Business.get_profile(user_or_username)
+        else:
+            profile = None
 
-@login_required
-def edit(request):
+        if not profile:
+            '''
+            Only works when community exists
+            '''
+            raise self.not_found
 
-    countries = Business.get_countries()
+        return profile
 
-    profile = Business.get_profile(request.user)
-
-    form = EditProfileForm(data_model=profile)
-
-    return render(request, 'userprofile/edit_form.html', {
-        'form': form,
-        'countries': countries,
-        'gender': GenderType(),
-    })
-
-
-@login_required
-@require_POST
-def update_profile(request):
-
-    countries = Business.get_countries()
-
-    profile = Business.get_profile(request.user)
-
-    form = EditProfileForm(request.user, profile, request.POST, request.FILES)
-
-    if profile.city:
-        states = Business.get_states(profile.city.state.country.id)
-        cities = Business.get_cities(profile.city.state.id)
-    else:
-        states = None
-        cities = None
-
-    if form.process():
-        messages.add_message(request, messages.SUCCESS, _("Profile edited successfully!"))
-        return redirect(reverse('profile:edit'))
-
-    return render(request, 'userprofile/edit_form.html', {
-        'form': form,
-        'countries': countries,
-        'states': states,
-        'cities': cities,
-        'gender': GenderType(),
-        # 'formset': occupation_formset
-        })
+    def get_context(self, request, profile_instance=None):
+        return {}
 
 
-@require_POST
-def get_state(request):
-    states = Business.get_states(country_id=request.POST['country_id'])
-    return render(request, 'userprofile/components/select_options.html', {
-        'items': states,
-        'message': _("Select a state")
-    })
+class ProfileShowView(ProfileBaseView):
+
+    template_path = 'userprofile/show.html'
+
+    def get(self, request, username):
+
+        profile = self.filter(request, username)
+        profile.gender_text = GenderType.LABEL[profile.gender] if profile.gender else None
+        profile.occupations = profile.occupation_set.all()
+
+        context = {'profile': profile}
+        context.update(self.get_context(request, profile))
+
+        return render(request, self.template_path, context)
 
 
-@require_POST
-def get_city(request):
-    cities = Business.get_cities(state_id=request.POST['state_id'])
-    return render(request, 'userprofile/components/select_options.html', {
-        'items': cities,
-        'message': _("Select a city")
-    })
+class ProfileEditView(ProfileBaseView):
+
+    template_path = 'userprofile/edit_form.html'
+    form_profile = EditProfileForm
+
+    @method_decorator(login_required)
+    def get(self, request, *args, **kwargs):
+
+        profile = self.filter(request, request.user)
+
+        countries = Business.get_countries()
+        form = self.form_profile(data_model=profile)
+
+        context = {
+            'form': form,
+            'countries': countries,
+            'gender': GenderType(),
+        }
+        context.update(self.get_context(request, profile))
+
+        return render(request, self.template_path, context)
+
+    @method_decorator(login_required)
+    def post(self, request, *args, **kwargs):
+
+        profile = self.filter(request, request.user)
+        if profile.city:
+            states = Business.get_states(profile.city.state.country.id)
+            cities = Business.get_cities(profile.city.state.id)
+        else:
+            states = None
+            cities = None
+
+        countries = Business.get_countries()
+        form = self.form_profile(request.user, profile, request.POST, request.FILES)
+
+        if form.process():
+            messages.add_message(request, messages.SUCCESS, _("Profile edited successfully!"))
+            return redirect(reverse('profile:edit'))
+
+        context = {
+            'form': form,
+            'countries': countries,
+            'states': states,
+            'cities': cities,
+            'gender': GenderType()
+        }
+
+        return render(request, self.template_path, context)
 
 
-@login_required
-def occupation_manage(request):
-    profile = Business.get_profile(request.user)
-    occupations = Business.get_occupations({'profile': profile}, order_by='id')
+class ProfileGetState(ProfileBaseView):
 
-    return render(request, 'userprofile/occupation_manage.html', {'profile': profile, 'occupations': occupations})
+    template_path = 'userprofile/components/select_options.html'
 
+    def post(self, request, *args, **kwargs):
+        states = Business.get_states(country_id=request.POST['country_id'])
 
-@login_required
-def occupation_add(request):
-    form = OccupationForm()
-    return render(request, 'userprofile/occupation_add.html', {'form': form})
+        context = {
+            'items': states,
+            'message': _("Select a state")
+        }
 
-
-@login_required
-def occupation_create(request):
-    form = OccupationForm(request.POST, request)
-    if form.process():
-        messages.add_message(request, messages.SUCCESS, _("Occupation created successfully!"))
-        return redirect(reverse('profile:occupation_manage'))
-    return render(request, 'userprofile/occupation_add.html', {'form': form})
+        return render(request, self.template_path, context)
 
 
-@login_required
-def occupation_show(request, occupation_id):
-    profile = Business.get_profile(request.user)
-    occupation = Business.get_occupation({'id': occupation_id})
+class ProfileGetCity(ProfileBaseView):
 
-    return render(request, 'userprofile/occupation_show.html', {'profile': profile, 'occupation': occupation})
+    template_path = 'userprofile/components/select_options.html'
 
+    def post(self, request, *args, **kwargs):
+        cities = Business.get_cities(state_id=request.POST['state_id'])
 
-@login_required
-def occupation_edit(request, occupation_id):
-    occupation = Business.get_occupation({'id': occupation_id})
-    if occupation:
-        form = OccupationForm(data_model=occupation)
-        return render(request, 'userprofile/occupation_edit.html', {'form': form})
-    else:
-        messages.add_message(request, messages.WARNING, _("Occupation is not exists!"))
-        return redirect(reverse('profile:occupation_manage'))
+        context = {
+            'items': cities,
+            'message': _("Select a city")
+        }
+
+        return render(request, self.template_path, context)
 
 
-@login_required
-def occupation_update(request):
-    occupation = Business.get_occupation({'id': request.POST['occupation_id']})
-    if occupation:
-        form = OccupationForm(request.POST, instance=occupation)
+class OccupationManageView(ProfileBaseView):
+
+    template_path = 'userprofile/occupation_manage.html'
+
+    @method_decorator(login_required)
+    def get(self, request):
+
+        profile = self.filter(request, request.user)
+        # occupations = Business.get_occupations({'profile': profile}, order_by='id')
+        occupations = profile.occupation_set.all().order_by('id')
+
+        context = {
+            'profile': profile,
+            'occupations': occupations
+        }
+        context.update(self.get_context(request, profile))
+
+        return render(request, self.template_path, context)
+
+
+class OccupationAddView(ProfileBaseView):
+
+    template_path = 'userprofile/occupation_add.html'
+    form_occupation = OccupationForm
+
+    @method_decorator(login_required)
+    def get(self, request):
+
+        form = self.form_occupation()
+
+        context = {'form': form}
+        context.update(self.get_context(request))
+
+        return render(request, self.template_path, context)
+
+    @method_decorator(login_required)
+    def post(self, request):
+
+        form = self.form_occupation(request.POST, request)
+        if form.process():
+            messages.add_message(request, messages.SUCCESS, _("Occupation created successfully!"))
+            return redirect(reverse('profile:occupation_manage'))
+
+        context = {'form': form}
+        context.update(self.get_context(request))
+
+        return render(request, self.template_path, context)
+
+
+class OccupationShowView(ProfileBaseView):
+
+    template_path = 'userprofile/occupation_show.html'
+
+    @method_decorator(login_required)
+    def get(self, request, occupation_id):
+
+        profile = self.filter(request, request.user)
+        occupation = Business.get_occupation({'id': occupation_id})
+
+        if not occupation:
+            raise self.not_found
+
+        context = {
+            'profile': profile,
+            'occupation': occupation
+        }
+        context.update(self.get_context(request, profile))
+
+        return render(request, self.template_path, context)
+
+
+class OccupationEditView(ProfileBaseView):
+
+    template_path = 'userprofile/occupation_edit.html'
+    form_occupation = OccupationForm
+
+    @method_decorator(login_required)
+    def get(self, request, occupation_id=None):
+
+        occupation = Business.get_occupation({'id': occupation_id})
+
+        if not occupation:
+            raise self.not_found
+
+        form = self.form_occupation(data_model=occupation)
+
+        context = {
+            'form': form,
+            'occupation': occupation
+        }
+        context.update(self.get_context(request))
+
+        return render(request, self.template_path, context)
+
+    @method_decorator(login_required)
+    def post(self, request, occupation_id=None):
+
+        occupation = Business.get_occupation({'id': occupation_id})
+
+        if not occupation:
+            raise self.not_found
+
+        form = self.form_occupation(request.POST, instance=occupation)
         if form.process():
             messages.add_message(request, messages.SUCCESS, _("Occupation updated successfully!"))
             return redirect(reverse('profile:occupation_manage'))
-        return render(request, 'userprofile/occupation_add.html', {'form': form})
-    else:
-        messages.add_message(request, messages.WARNING, _("Occupation is not exists!"))
+
+        context = {
+            'form': form,
+            'occupation': occupation
+        }
+        context.update(self.get_context(request))
+
+        return render(request, self.template_path, context)
+
+
+class OccupationDeleteView(ProfileBaseView):
+
+    template_path = ''
+
+    def return_error(self, request):
+        messages.add_message(request, messages.ERROR, _("Error! Occupation was not deleted!"))
         return redirect(reverse('profile:occupation_manage'))
 
+    def return_success(self, request):
+        messages.add_message(request, messages.SUCCESS, _("Occupation deleted successfully!"))
+        return redirect(reverse('profile:occupation_manage'))
 
-@login_required
-def occupation_delete(request, occupation_id):
-    if occupation_id:
+    @method_decorator(login_required)
+    def get(self, request, occupation_id=None, *args, **kwargs):
+
+        if not occupation_id:
+            raise self.not_found
+
         if Business.delete_occupation(occupation_id):
-            messages.add_message(request, messages.SUCCESS, _("Occupation deleted successfully!"))
-            return redirect(reverse('profile:occupation_manage'))
-        else:
-            messages.add_message(request, messages.ERROR, _("Error!"))
-    else:
-        messages.add_message(request, messages.ERROR, _("Occupation invalid!"))
+            return self.return_success(request)
 
-    return redirect(reverse('profile:occupation_manage'))
+        return self.return_error(request)
 
 
-def profile_followings(request, username):
+class ProfileFollowingsView(ProfileShowView):
 
-    profile = Business.get_profile(Business.get_user(username))
-    profile.gender_text = GenderType.LABEL[profile.gender] if profile.gender else None
-
-    context = {
-        'profile': profile
-    }
-
-    return render(request, 'userprofile/profile_followings.html', context)
+    template_path = 'userprofile/profile_followings.html'
 
 
-def profile_followers(request, username):
+class ProfileFollowersView(ProfileShowView):
+
     template_path = 'userprofile/profile_followers.html'
-
-    profile = Business.get_profile(Business.get_user(username))
-    profile.gender_text = GenderType.LABEL[profile.gender] if profile.gender else None
-
-    context = {
-        'profile': profile
-    }
-
-    return render(request, 'userprofile/profile_followers.html', context)

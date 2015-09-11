@@ -9,7 +9,7 @@
 </p>
 
 <div style="text-align:center;">
-    <p>{{ occupation }} - {{ occupation.description }}</p>
+    <p>{{ occupation.responsibility }} - {{ occupation.company }}</p>
     <p>
         [
         <a href="{% url 'profile:occupation_edit' occupation.id %}">{% trans "Edit" %}</a> |
