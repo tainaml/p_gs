@@ -14,11 +14,6 @@ def list_questions(request):
     return render(request, 'question/list.html', {'questions': questions})
 
 
-# TODO 'see how filter model'
-def list_question(request):
-    pass
-
-
 @login_required
 def create_question(request):
     return render(request, 'question/create.html')
@@ -26,30 +21,38 @@ def create_question(request):
 
 @login_required
 def save_question(request):
-    form = CreateQuestionForm(request.POST, request.user)
+    form = CreateQuestionForm(request.user, request.POST)
     if not form.process():
-        messages.add_message(request, messages.WARNING,
-                                     _("Question not created!"))
-        return redirect(reverse('question:create'))
+        messages.add_message(
+            request,
+            messages.WARNING,
+            _("Question not created!")
+        )
+    else:
+        messages.add_message(
+            request,
+            messages.SUCCESS,
+            _("Question created sucessfully!")
+        )
+        return redirect(reverse('question:show', args=(form.instance.id,)))
 
-    messages.add_message(request, messages.SUCCESS,
-                             _("Question created sucessfully!"))
-    return redirect(reverse('question:create'))
+    return render(request, 'question/create.html',
+            {
+                'form': form
+            })
 
 
 @login_required
 def edit_question(request, question_id):
     question = business.get_question(question_id)
     if question:
-        form = EditQuestionForm(request.POST)
+        form = EditQuestionForm(instance=question)
         return render(
             request,
             'question/edit.html',
             {
                 'form': form,
-                'question_id': question.id,
-                'title': question.title,
-                'description': question.description
+                'question': question
             }
         )
     else:
@@ -65,11 +68,16 @@ def edit_question(request, question_id):
 def update_question(request):
     question = business.get_question(request.POST['question_id'])
     if question:
-        form = EditQuestionForm(question, request.POST)
+        form = EditQuestionForm(data=request.POST, instance=question)
+        form.set_author(request.user)
         if form.process():
             messages.add_message(request, messages.SUCCESS,
                                  _("Question updated successfully!"))
-            return redirect(reverse('question:show', args=(request.POST["question_id"],)))
+        return render(request, 'question/edit.html',
+        {
+            'form': form,
+            'question': question
+        })
     else:
         messages.add_message(request, messages.WARNING,
                              _("Question is not exists!"))
@@ -92,24 +100,49 @@ def show_question(request, question_id):
 def comment_reply(request):
     form = CommentReplyForm(request.POST, request.user)
     if not form.process():
-        return render(request, '../../question/show.html', {'form': form})
+        messages.add_message(request, messages.WARNING, _("Answer not created!"))
+        return  render(
+            request,
+            'question/edit_answer.html',
+            {
+                'form': form
+            }
+        )
+    else:
+        messages.add_message(request, messages.SUCCESS, _("Answer created!"))
+        return redirect(
+            reverse('question:show', args=(request.POST["question_id"],)))
 
-    return redirect(reverse('question:show', args=(request.POST["question_id"],)))
+
 
 
 @login_required
 def update_reply(request):
-    reply = business.get_answer(request.POST['reply_id'])
-    if reply:
-        form = EditAnswerForm(reply, request.POST)
+    answer = business.get_answer(request.POST['reply_id'])
+    if answer:
+        form = EditAnswerForm(instance=answer, data=request.POST)
+        form.set_author(request.user)
         if form.process():
-            messages.add_message(request, messages.SUCCESS,
-                                 _("Answer updated successfully!"))
+            messages.add_message(
+                request,
+                messages.SUCCESS,
+                _("Answer updated successfully!")
+            )
 
-        return redirect(reverse('question:show', args=(reply.question.id,)))
+            return redirect(reverse('question:show', args=(form.instance.question.id,)))
+
+
+        return  render(
+            request,
+            'question/edit_answer.html',
+            {
+                'form': form,
+                'reply': answer
+            }
+        )
 
     else:
         messages.add_message(request, messages.WARNING,
                              _("Answer not exists!"))
         return redirect(
-            reverse('question:show', args=(reply.question.id,)))
+            reverse('question:show', args=(answer.question.id,)))

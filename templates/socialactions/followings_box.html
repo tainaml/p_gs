@@ -1,15 +1,14 @@
 {% load social_tags %}
+{% load thumbor_tags %}
 
 {% if followings %}
     {% for following in followings %}
         <div class="box-perfil">
             <div class="perfil">
-                <img class="img-responsive" src="http://placehold.it/82" alt="{{ following.content_object.get_full_name }}">
+                <img class="img-responsive" src="{% thumbor_url following.content_object.profile.get_profile_picture.url width=82 smart=True fit_in=True %}" alt="{{ following.content_object.get_full_name }}">
                 <a class="perfil-name" href="{% url 'profile:show' following.content_object.username %}">{{ following.content_object.get_full_name }}</a>
-                <a class="perfil-counter" href="{% url 'profile:followers' username=following.content_object.username %}"><span class="counter-number">180</span> Seguidores</a>
-                {% if request.user and request.user.is_authenticated %}
+                <a class="perfil-counter" href="{% url 'profile:followers' username=following.content_object.username %}"><span class="counter-number">{% followers_count following.content_object %}</span> Seguidores</a>
                 {% follow_action following.content_object url_next %}
-                {% endif %}
             </div>
         </div>
     {% endfor %}

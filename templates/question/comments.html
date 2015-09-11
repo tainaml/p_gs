@@ -10,12 +10,7 @@
             <a onclick="$('#data-box-edit-{{ reply.id }}').toggle('display');"  href="javascript:;">{%  trans 'Edit' %}</a>
         {% endif %}
         <div style="display: none;" id="data-box-edit-{{ reply.id }}">
-            <form action="{% url 'question:update_reply' %}" method="post">
-                {% csrf_token %}
-                <input type="hidden" name="reply_id" value="{{ reply.id }}" />
-                <textarea name="description" id="description" placeholder="{% trans  'Comment here' %}" cols="30" rows="10">{{ reply.description }}</textarea>
-                <input type="submit" value="Submit"/>
-            </form>
+            {% include "question/edit_answer.html" %}
         </div>
         </li>
     </ul>

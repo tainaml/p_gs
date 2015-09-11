@@ -36,11 +36,13 @@ class LoginView(View):
         :return: HTML
         """
 
+        url_next = request.GET['next'] if 'next' in request.GET else '/account/'
+
         if not request.user.is_authenticated():
             form = LoginForm()
             return render(request, 'account/login.html', {form: form})
         else:
-            return redirect('/account/')
+            return redirect(url_next)
 
     def post(self, request):
         """
@@ -49,10 +51,13 @@ class LoginView(View):
         :param request:
         :return:
         """
+
+        url_next = request.GET['next'] if 'next' in request.GET else '/account/'
+
         form = LoginForm(request, request.POST)
         if form.process():
 
-            return redirect('/account/')
+            return redirect(url_next)
 
         return render(request, 'account/login.html', {'form': form})
 

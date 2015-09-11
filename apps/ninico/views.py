@@ -34,6 +34,9 @@ def community_question(request):
 def community_videos(request):
     return render(request, 'home/comunidade-videos.html')
 
+def community_members(request):
+    return render(request, 'home/comunidade-membros.html')
+
 def suggestions(request):
     return render(request, 'home/sugestoes.html')
 
