@@ -87,4 +87,4 @@ class SocialActionFollowingsViews(SocialActionBaseView):
             'page': (list_followings.number if list_followings and list_followings.number else 0) + 1
         }
 
-        return render(request, self.not_found, context)
+        return render(request, self.template_path, context)
