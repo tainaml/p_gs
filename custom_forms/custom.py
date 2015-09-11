@@ -1,8 +1,6 @@
 from django import forms
 
-
-class IdeiaForm(forms.Form):
-
+class AbstractIdeiaForm(object):
     def process(self):
         try:
             return self.__process__() if self.is_valid() else False
@@ -16,8 +14,19 @@ class IdeiaForm(forms.Form):
     def __process__(self):
         raise NotImplementedError
 
+    def is_valid(self):
+        raise NotImplementedError
 
-class IdeiaModelForm(forms.ModelForm, IdeiaForm):
+    def add_error(self, *args, **kwargs):
+        raise NotImplementedError
+
+class IdeiaForm(forms.Form, AbstractIdeiaForm):
+    def __init__(self, *args, **kwargs):
+        super(IdeiaForm, self).__init__(*args, **kwargs)
+
+
+
+class IdeiaModelForm(forms.ModelForm, AbstractIdeiaForm):
 
     def __init__(self, *args, **kwargs):
         super(IdeiaModelForm, self).__init__(*args, **kwargs)
