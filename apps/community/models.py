@@ -10,3 +10,6 @@ class Community(models.Model):
 
     def __unicode__(self):
         return self.title
+
+    def get_picture(self):
+        return self.image if self.image else None

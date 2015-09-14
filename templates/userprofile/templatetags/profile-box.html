@@ -5,7 +5,7 @@
 
 
 <div class="perfil">
-    <img class="img-responsive" src="{% thumbor_url profile.get_profile_picture.url width=82 smart=True fit_in=True %}" alt="{{ profile.user.get_full_name }}">
+    <img class="img-responsive" src="{% thumbor_url profile.get_profile_picture.url width=82 height=82 smart=True fit_in=True %}" alt="{{ profile.user.get_full_name }}">
     <a class="perfil-name" href="javascript:;">{{ profile.user.get_full_name }}</a>
     <a class="perfil-counter" href="{% url "profile:followers" username=profile.user.username %}"><span class="counter-number">{% followers_count profile.user %}</span> Seguidores</a>
     <a class="perfil-counter" href="javascript:;"><span class="counter-number">{% articles_count profile.user %}</span> Artigos</a>

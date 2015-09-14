@@ -118,3 +118,25 @@ def followers_count(user):
         raise Http404()
 
     return count
+
+
+@register.inclusion_tag('socialactions/communities_box.html', takes_context=True)
+def communities_box(context, user, url_next):
+    try:
+        communities = Business.get_users_acted_by_author(author=user,
+                                                         action=settings.SOCIAL_FOLLOW,
+                                                         content_type='community',
+                                                         items_per_page=1,
+                                                         page=1)
+
+    except ValueError:
+        raise Http404()
+
+    return {
+        'communities': communities,
+        'content_type': communities[0].content_type if communities and communities[0].content_type else None,
+        'object': user,
+        'page': (communities.number if communities and communities.number else 0) + 1,
+        'url_next': url_next,
+        'request': context['request']
+    }

@@ -29,15 +29,17 @@
                         <a class="btn btn-perfil active" href="{% url 'profile:followers' username=profile.user.username %}">Seguidores</a>
                     </div>
                 </div>
-                <div class="row j-scroll-followers j-scroll-follower-container">
+                <div class="row">
                     <div class="col-lg-12">
                         <hr>
                         <p class="description-text">• Quem segue <a href="javascript:;">{{ profile.user.get_full_name }}</a></p>
                     </div>
-
-                    {# templatetag - load followers #}
-                    {% followers_box profile.user request.path %}
-
+                    <div class="col-lg-12">
+                        <div class="row j-scroll-followers j-scroll-followers-container">
+                            {# templatetag - load followers #}
+                            {% followers_box profile.user request.path %}
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

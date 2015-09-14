@@ -59,9 +59,15 @@ class SocialActionFollowersViews(SocialActionBaseView):
         return render(request, self.template_path, context)
 
 
-class SocialActionFollowingsViews(SocialActionBaseView):
+class SocialActionBaseFollowings(SocialActionBaseView):
 
     template_path = 'socialactions/followings_box.html'
+
+    def get_template(self, template_type=None):
+        return self.template_path
+
+    def get_context(self, request, model_obj, list_items):
+        return {}
 
     def get(self, request, content_type_id, object_filter_id):
         page = request.GET['p'] if 'p' in request.GET else 1
@@ -79,12 +85,28 @@ class SocialActionFollowingsViews(SocialActionBaseView):
         except ValueError:
             raise Http404()
 
-        context = {
-            'followings': list_followings,
-            'content_type': list_followings[0].content_type if list_followings and list_followings[0].content_type else None,
-            'object': model_obj.author,
-            'url_next': request.GET['next'] if 'next' in request.GET else '',
-            'page': (list_followings.number if list_followings and list_followings.number else 0) + 1
-        }
+        context = {}
+        context.update(self.get_context(request, model_obj, list_followings))
+
+        if model_obj and model_obj.content_type.model:
+            self.get_template(model_obj.content_type.model)
 
         return render(request, self.template_path, context)
+
+
+class SocialActionFollowingsViews(SocialActionBaseFollowings):
+
+    def get_template(self, template_type=None):
+        if template_type and template_type == "comunity":
+            self.template_path = 'socialactions/communities_box.html'
+
+        return self.template_path
+
+    def get_context(self, request, model_obj, list_items):
+        return {
+            'items': list_items,
+            'content_type': list_items[0].content_type if list_items and list_items[0].content_type else list_items,
+            'object': model_obj.author,
+            'url_next': request.GET['next'] if 'next' in request.GET else '',
+            'page': (list_items.number if list_items and list_items.number else 0) + 1
+        }
