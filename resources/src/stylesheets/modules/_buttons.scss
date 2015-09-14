@@ -14,3 +14,48 @@
     font-weight: 600;
     font-size: 13px;
 }
+
+.btn-green {
+    @extend .btn;
+    @include button-variant($btn-danger-color, #3ea909, #3ea909);
+    font-weight: 600;
+}
+.btn-default {
+    @include button-variant(#4d6479, #f2f2f2, #e1e1e1);
+}
+
+.btn-login-google,
+.btn-login-facebook {
+    @extend .btn;
+    position: relative;
+    width: 49.5%;
+    height: 40px;
+    font-weight: 600;
+    font-size: 15px;
+    > i {
+        position: absolute;
+        top: 0; left: 0;
+        width: 40px;
+        min-height: 99%;
+        height: auto;
+        line-height: 2.5;
+        text-align: center;
+    }
+}
+.btn-login-facebook {
+    @include button-variant(#fff, #4e69a1, #4e69a1);
+    > i { background-color: #3c5a98; }
+}
+.btn-login-google {
+    @include button-variant(#fff, #d7392e, #d7392e);
+    > i { background-color: #d4281b; }
+}
+
+.btn-action {
+    @extend .btn;
+    @include button-variant(#fff, #738d00, #738d00);
+    height: 40px;
+    display: block;
+    font-weight: 600;
+    font-size: 15px;
+}

@@ -77,19 +77,24 @@
 // Modal header
 // Top section of the modal w/ title and dismiss
 .modal-header {
-  padding: $modal-title-padding;
+  // padding: $modal-title-padding;
+  padding: 10px 20px;
   border-bottom: 1px solid $modal-header-border-color;
   min-height: ($modal-title-padding + $modal-title-line-height);
+  background: #f2f2f2;
 }
 // Close icon
 .modal-header .close {
-  margin-top: -2px;
+  margin-top: 5px;
+  color: #486075;
+  cursor: pointer;
 }
 
 // Title text within header
 .modal-title {
   margin: 0;
   line-height: $modal-title-line-height;
+  color: #486075;
 }
 
 // Modal body
@@ -97,6 +102,10 @@
 .modal-body {
   position: relative;
   padding: $modal-inner-padding;
+  color: #486075;
+  font-size: 15px;
+  font-family: $font-family-sans-serif;
+  letter-spacing: -0.05em;
 }
 
 // Footer (for actions)
@@ -130,12 +139,20 @@
   overflow: scroll;
 }
 
+.modal-ordered-list {
+  padding-left: 30px;
+  font-weight: bold;
+  li > span {
+    font-weight: normal;
+  }
+}
+
 // Scale up the modal
 @media (min-width: $screen-sm-min) {
   // Automatically set modal's width for larger viewports
   .modal-dialog {
     width: $modal-md;
-    margin: 30px auto;
+    margin: 188px auto;
   }
   .modal-content {
     @include box-shadow(0 5px 15px rgba(0,0,0,.5));
@@ -147,4 +164,5 @@
 
 @media (min-width: $screen-md-min) {
   .modal-lg { width: $modal-lg; }
+  .modal-large { width: 870px;}
 }
