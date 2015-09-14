@@ -5,17 +5,10 @@ import business as Business
 
 
 class ContactForm(IdeiaForm):
-    SUBJECTS = (
-        (0, 'Select'),
-        (1, 'Sugest comunity'),
-        (2, 'Announce'),
-        (3, 'Sugest feature'),
-        (4, 'Send bug'),
-    )
 
-    name = forms.CharField(max_length=100)
-    email = forms.EmailField()
-    subject = forms.ChoiceField(choices=SUBJECTS, required=True)
+    name = forms.CharField(max_length=100, required=False)
+    email = forms.EmailField(required=False)
+    subject = forms.ModelChoiceField(queryset=Business.get_contact_subjects(), required=True)
     message = forms.CharField(max_length=1024, required=True)
 
     def __init__(self, user=None, *args, **kargs):
@@ -26,15 +19,19 @@ class ContactForm(IdeiaForm):
 
         is_valid = super(ContactForm, self).is_valid()
 
-        if not self.user.is_authenticated and self.cleaned_data['name'] is '':
-            self.add_error('name', ValidationError(_('This field is required.'), code='email'))
-            is_valid = False
-        elif not self.user.is_authenticated and self.cleaned_data['email'] is '':
-            self.add_error('email', ValidationError(_('This field is required.'), code='email'))
+        if self.user.is_authenticated() and self.cleaned_data['subject'] is not '' and self.cleaned_data['message'] is not '':
+            return True
+
+        # if self.cleaned_data['subject'] == u'0':
+        #     self.add_error('subject', ValidationError(_('This field is required.'), code='subject'))
+        #     is_valid = False
+
+        if not self.user.is_authenticated() and not self.cleaned_data['name'] :
+            self.add_error('name', ValidationError(_('This field is required.'), code='name'))
             is_valid = False
 
-        if self.cleaned_data['subject'] == u'0':
-            self.add_error('subject', ValidationError(_('This field is required.'), code='subject'))
+        if not self.user.is_authenticated() and not self.cleaned_data['email']:
+            self.add_error('email', ValidationError(_('This field is required.'), code='email'))
             is_valid = False
 
         return is_valid

@@ -18,14 +18,15 @@
     <div><input type="email" name="email" id="email" placeholder="{% trans "Email" %}" />
     {% if form.email.errors %}<span class="help-block">{{ form.email.errors }}</span> {% endif %}</div>
 
-    <div><select name="subject" id="subject">
-        <option value="0">{% trans "Select" %}</option>
-        <option value="1">{% trans "Sugest comunity" %}</option>
-        <option value="2">{% trans "Announce" %}</option>
-        <option value="3">{% trans "Sugest feature" %}</option>
-        <option value="4">{% trans "Send bug" %}</option>
-    </select>
-    {% if form.subject.errors %}<span class="help-block">{{ form.subject.errors }}</span> {% endif %}</div>
+    <div>
+        <select name="subject" id="subject">
+            <option value="0">{% trans "Select" %}</option>
+            {% for subject in subjects %}
+            <option value="{{ subject.id }}">{%  trans subject.title %}</option>
+            {% endfor %}
+        </select>
+
+        {% if form.subject.errors %}<span class="help-block">{{ form.subject.errors }}</span> {% endif %}</div>
 
     <div><textarea name="message" id="message" placeholder="{% trans "Message" %}"></textarea>
     {% if form.message.errors %}<span class="help-block">{{ form.message.errors }}</span> {% endif %}</div>

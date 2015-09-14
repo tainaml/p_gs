@@ -16,12 +16,23 @@ class Migration(migrations.Migration):
             name='Contact',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('name', models.CharField(max_length=100, blank=True)),
-                ('email', models.CharField(max_length=100, blank=True)),
-                ('subject', models.CharField(max_length=100)),
+                ('contact_name', models.CharField(max_length=100, null=True, blank=True)),
+                ('contact_email', models.CharField(max_length=100, null=True, blank=True)),
                 ('message', models.CharField(max_length=1024)),
                 ('created', models.DateTimeField(auto_now_add=True)),
-                ('author', models.ForeignKey(to=settings.AUTH_USER_MODEL, blank=True)),
+                ('author', models.ForeignKey(blank=True, to=settings.AUTH_USER_MODEL, null=True)),
             ],
+        ),
+        migrations.CreateModel(
+            name='ContactSubject',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('title', models.CharField(max_length=100, null=True, blank=True)),
+            ],
+        ),
+        migrations.AddField(
+            model_name='contact',
+            name='subject',
+            field=models.ForeignKey(to='contact.ContactSubject'),
         ),
     ]
