@@ -31,7 +31,6 @@ class State(models.Model):
     abbreviation = models.CharField(max_length=3, blank=False)
     country = models.ForeignKey(Country, related_name='states')
 
-
     def __unicode__(self):
         return self.name
 
@@ -87,6 +86,7 @@ class UserProfile(models.Model):
     def get_profile_picture(self):
 
         return self.profile_picture if self.profile_picture else None
+
 
 class Occupation(models.Model):
     profile = models.ForeignKey(UserProfile)

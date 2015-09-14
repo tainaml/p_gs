@@ -8,7 +8,7 @@ from ..service import business as Business
 register = template.Library()
 
 
-@register.inclusion_tag('userprofile/templatetags/profile_box.html', takes_context=True)
+@register.inclusion_tag('userprofile/templatetags/profile-box.html', takes_context=True)
 def profile_box(context, user):
 
     try:

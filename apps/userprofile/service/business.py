@@ -82,14 +82,14 @@ def update_profile(user=None, data=None):
     return profile
 
 
-def create_occupation(user=None, data=None):
+def create_occupation(user=None, data={}):
 
     profile = get_profile(user)
 
     try:
         occupation = Occupation()
         occupation.responsibility = data['responsibility']
-        occupation.description = data['description']
+        occupation.company = data['company']
         occupation.profile = profile
         occupation.save()
     except:
@@ -140,8 +140,9 @@ def get_occupation(params={}):
 
 
 def delete_occupation(occupation_id):
-    occupation = get_occupation({'id': occupation_id})
+
     try:
+        occupation = get_occupation({'id': occupation_id})
         occupation.delete()
     except:
         return False
@@ -151,7 +152,7 @@ def delete_occupation(occupation_id):
 def update_occupation(occupation, data):
     try:
         occupation.responsibility = data['responsibility']
-        occupation.description = data['description']
+        occupation.description = data['company']
         occupation.save()
     except:
         return False
