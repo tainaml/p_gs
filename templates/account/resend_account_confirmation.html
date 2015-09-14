@@ -2,7 +2,7 @@
 
 <h1>{% trans 'Resend account confirmation' %}</h1>
 
-<form action="{% url 'account:do_resend_account_confirmation' %}" method="post">
+<form action="{% url 'account:resend_account_confirmation' %}" method="post">
     {% csrf_token %}
 
     <input type="email" value="{{ form.cleaned_data.email|default_if_none:"" }}" name="email" placeholder="{% trans "Email" %}">

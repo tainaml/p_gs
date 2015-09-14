@@ -2,7 +2,7 @@
 <script src='https://www.google.com/recaptcha/api.js?hl=pt-BR'></script>
 
 
-<form action="{% url 'account:register' %}" method="post">
+<form action="{% url 'account:signup' %}" method="post">
 
     {% csrf_token %}
 

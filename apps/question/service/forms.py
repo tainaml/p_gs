@@ -9,13 +9,13 @@ class CreateQuestionForm(IdeiaForm):
     title = forms.CharField(max_length=256, required=True)
     description = forms.CharField(max_length=2048, required=True)
 
-    def __init__(self, data, user=None, question=None, *args, **kargs):
-        self.question = question
+    def __init__(self, user=None, *args, **kargs):
         self.user = user
-        super(CreateQuestionForm, self).__init__(data, *args, **kargs)
+        super(CreateQuestionForm, self).__init__(*args, **kargs)
 
     def __process__(self):
-        return Business.save_question(self.user, self.cleaned_data)
+        self.instance = Business.save_question(self.user, self.cleaned_data)
+        return self.instance
 
 
 class EditQuestionForm(IdeiaModelForm):

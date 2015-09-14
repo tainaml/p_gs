@@ -2,6 +2,14 @@
 {% load comment_reply %}
 <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
 
+{% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
 <ul>
     <li><div name="question_id"><b>ID:</b> {{ question.id }}</div>
     <div name="title" id="title"><b>Título:</b> {{ question.title }}</div>

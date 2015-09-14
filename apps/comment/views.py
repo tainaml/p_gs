@@ -1,56 +1,97 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.core.urlresolvers import reverse
 from django.http import Http404
 from django.shortcuts import render, redirect
-from django.template.context_processors import request
-from django.views.decorators.http import require_POST, require_GET
-from service.forms import CreateCommentForm, EditCommentForm
+from django.utils.decorators import method_decorator
+from django.utils.translation import ugettext as _
+from django.views.generic import View
+
+from .service.forms import CreateCommentForm, EditCommentForm
 from .service import business as Business
 
 
-def index_teste(request):
-    user = User.objects.all()[0]
-    return render(request, 'comment/index_teste.html', {'user': user})
+class CommentBaseView(View):
+
+    not_found = Http404(_('Comment not Found.'))
+
+    def get_context(self, request=None, instance=None):
+        return {}
 
 
-@login_required
-@require_POST
-def save(request):
-    if 'content_object_id' not in request.POST \
-            or 'content_type' not in request.POST \
-            or 'next_url' not in request.POST:
-        raise Http404()
+class CommentIndexView(CommentBaseView):
 
-    form = CreateCommentForm(request.user, request.POST)
+    template_path = 'comment/index_teste.html'
 
-    if not form.process():
-        return render(request, 'comment/create.html', {'form': form})
+    def get(self, request):
+        user = User.objects.all()[0]
 
-    return redirect(request.POST['next_url'])
+        context = {'user': user}
+        context.update(self.get_context(request))
+
+        return render(request, self.template_path, context)
 
 
-@login_required
-@require_POST
-def update(request):
-    if 'next_url' not in request.POST or 'comment_id' not in request.POST:
-        raise Http404()
+class CommentSaveView(CommentBaseView):
 
-    form = EditCommentForm(request.user, request.POST['comment_id'], request.POST)
+    template_path = 'comment/create.html'
+    form_comment = CreateCommentForm
 
-    if not form.process():
-        return render(request, 'comment/create.html', {'form': form})
+    @method_decorator(login_required)
+    def post(self, request):
 
-    return redirect(request.POST['next_url'])
+        if 'content_object_id' not in request.POST \
+                or 'content_type' not in request.POST \
+                or 'next_url' not in request.POST:
+            raise Http404()
+
+        form = self.form_comment(request.user, request.POST)
+
+        context = {'form': form}
+        context.update(self.get_context(request))
+
+        if not form.process():
+            return render(request, self.template_path, context)
+
+        return redirect(request.POST['next_url'])
 
 
-@login_required
-@require_GET
-def delete(request, id):
+class CommentUpdateView(CommentBaseView):
 
-    comment = Business.retrieve_own_comment(comment_id=id, user=request.user)
-    if comment:
-        Business.delete_comment(comment)
-    else:
-        raise Http404()
+    template_path = 'comment/create.html'
+    form_comment = EditCommentForm
 
-    return redirect('/comment/index_teste')
+    @method_decorator(login_required)
+    def post(self, request):
+        if 'next_url' not in request.POST or 'comment_id' not in request.POST:
+            raise Http404()
+
+        comment = Business.retrieve_own_comment(comment_id=request.POST['comment_id'],
+                                                user=request.user)
+        if not comment:
+            raise self.not_found
+
+        form = self.form_comment(request.user, request.POST['comment_id'], request.POST)
+
+        context = {'form': form}
+        context.update(self.get_context(request))
+
+        if not form.process():
+            return render(request, self.template_path, context)
+
+        return redirect(request.POST['next_url'])
+
+
+class CommentDeleteView(CommentBaseView):
+
+    @method_decorator(login_required)
+    def get(self, request, comment_id):
+
+        comment = Business.retrieve_own_comment(comment_id=comment_id, user=request.user)
+
+        if comment:
+            Business.delete_comment(comment)
+        else:
+            raise self.not_found
+
+        return redirect(reverse('comment:index_teste'))
