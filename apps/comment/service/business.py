@@ -18,15 +18,12 @@ def create_comment(user=None, parameters=None):
     max_levels = settings.MAX_LEVELS if hasattr(settings,
                                                 'MAX_LEVELS') else False
 
-
     comment.level = content_object.level + 1 if hasattr(content_object,
                                                         'level') else 1
     if max_levels is not False and comment.level > max_levels:
         comment.content_object = content_object.content_object
     else:
         comment.content_object = content_object
-
-
 
     comment.content = parameters['content']
 
