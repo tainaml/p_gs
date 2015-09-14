@@ -278,9 +278,14 @@ class OccupationDeleteView(ProfileBaseView):
 
 class ProfileFollowingsView(ProfileShowView):
 
-    template_path = 'userprofile/profile_followings.html'
+    template_path = 'userprofile/profile-followings.html'
 
 
 class ProfileFollowersView(ProfileShowView):
 
-    template_path = 'userprofile/profile_followers.html'
+    template_path = 'userprofile/profile-followers.html'
+
+
+class ProfileCommunitiesView(ProfileShowView):
+
+    template_path = 'userprofile/profile-communities.html'
