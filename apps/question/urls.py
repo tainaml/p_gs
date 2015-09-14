@@ -9,6 +9,6 @@ urlpatterns = [
     url(r'^update/$', views.UpdateQuestionView.as_view(), name='update'),
     url(r'^show/(?P<question_id>[0-9]+)$', views.ShowQuestionView.as_view(), name='show'),
     url(r'^comment_reply/$', views.CommentReplayView.as_view(), name='comment_reply'),
-    url(r'^update_reply/$', views.UpdateQuestionView.as_view(), name='update_reply'),
+    url(r'^update_reply/$', views.UpdateReplyView.as_view(), name='update_reply'),
 
 ]
