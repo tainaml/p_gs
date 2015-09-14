@@ -1,0 +1,52 @@
+.modal-menssage {
+    color: #778796;
+    font-weight: 600;
+    font-size: 18px;
+    text-align: center;
+    > i {
+        color: #738d00;
+    }
+}
+.modal-divider {
+    position: relative;
+    margin: 10px auto;
+    text-align: center;
+    > span {
+        position: relative;
+        padding: 0 10px;
+        background-color: #fff;
+        z-index: 456;
+    }
+    &:before {
+        content: " ";
+        position: absolute;
+        top: 50%;
+        z-index: 400;
+        width: 100%;
+        display: block;
+        border-top: 1px solid $color-border;
+    }
+    &:after {
+        content: " ";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        z-index: 455;
+        width: 5%;
+        display: block;
+        border-top: 1px solid #fff;
+    }
+}
+
+.modal-tools {
+    @extend %clearfix;
+    padding-top: 10px;
+    margin-top: 10px;
+    border-top: 1px solid $color-border;
+    > a {
+        width: 49.5%;
+        display: inline-block;
+        &.left { text-align: left; }
+        &.right { text-align: right; }
+    }
+}
