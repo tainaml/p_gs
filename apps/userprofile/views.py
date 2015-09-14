@@ -42,13 +42,12 @@ class ProfileBaseView(View):
 
 class ProfileShowView(ProfileBaseView):
 
-    template_path = 'userprofile/show.html'
+    template_path = 'userprofile/profile.html'
 
     def get(self, request, username):
 
         profile = self.filter(request, username)
-        profile.gender_text = GenderType.LABEL[profile.gender] if profile.gender else None
-        profile.occupations = profile.occupation_set.all()
+        # profile.gender_text = GenderType.LABEL[profile.gender] if profile.gender else None
 
         context = {'profile': profile}
         context.update(self.get_context(request, profile))
