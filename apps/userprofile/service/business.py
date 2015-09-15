@@ -8,12 +8,12 @@ from apps.userprofile.models import UserProfile, Country, State, City, Occupatio
 
 def check_user_exists(username_or_email=None):
 
-    user = User.objects.get(username=username_or_email)
-    if not user:
-        try:
+    try:
+        user = User.objects.get(username=username_or_email)
+        if not user:
             user = User.objects.get(email=username_or_email)
-        except User.DoesNotExist:
-            user = False
+    except User.DoesNotExist:
+        user = False
 
     return user
 
@@ -24,10 +24,12 @@ def get_user(username_or_email=None):
 
 def check_profile_exists(user=None):
 
-    user = User.objects.get(id=user.id)
+    user = get_user(user.username)
 
     try:
         profile = UserProfile.objects.get(user=user)
+    except User.DoesNotExist:
+        profile = False
     except UserProfile.DoesNotExist:
         profile = create_profile(user)
 
