@@ -10,9 +10,7 @@ register = template.Library()
 def list_reply(context, question_id):
 
     try:
-
         list_comment = Answer.objects.filter(question=question_id).order_by('-answer_date')
-
     except ValueError:
         raise Http404()
 
