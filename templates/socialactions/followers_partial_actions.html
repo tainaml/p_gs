@@ -1,6 +1,6 @@
-{% if request.user and request.user.id != object_to_link %}
-    {% if object_to_link not in followings %}
-    <a class="btn {{ btn_class }}" href="{% url 'socialactions:act' object_to_link content 'follow' %}?url_next={{ url_next|urlencode }}">
+{% if request.user and request.user != object_to_link %}
+    {% if object_to_link.id not in followings %}
+    <a class="btn {{ btn_class }}" href="{% url 'socialactions:act' object_to_link.id content 'follow' %}?url_next={{ url_next|urlencode }}">
         {% if content == "community" %}
             Entrar
         {% else %}
@@ -8,7 +8,7 @@
         {% endif %}
     </a>
     {% else %}
-    <a class="btn {{ btn_class }}-alt"  href="{% url 'socialactions:act' object_to_link content 'follow' %}?url_next={{ url_next|urlencode }}">
+    <a class="btn {{ btn_class }}-alt"  href="{% url 'socialactions:act' object_to_link.id content 'follow' %}?url_next={{ url_next|urlencode }}">
         {% if content == "community" %}
             Participando
         {% else %}
