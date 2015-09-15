@@ -65,19 +65,18 @@ def edit_profile(user, data_profile=None, data_formset=None):
 
 def update_profile(user=None, data=None):
 
-    profile = check_profile_exists(user)
+    profile = get_profile(user)
 
     try:
         profile.birth = data['birth']
         profile.gender = data['gender']
         profile.city = data['city']
-        if data['profile_picture'] and profile.profile_picture != data['profile_picture']:
 
+        if data['profile_picture'] and profile.profile_picture != data['profile_picture']:
             profile.profile_picture.delete()
             profile.profile_picture = data['profile_picture']
 
         profile.save()
-
     except:
         return False
 
