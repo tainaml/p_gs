@@ -162,7 +162,6 @@ def act_by_content_type_and_id(user=None, content_type=None, object_id=None, act
             if inverse_action_user is not False:
                 inverse_action_user.delete()
 
-
     if content_type in settings.SOCIAL_ENTITIES[action_type_key]:
         action = UserAction(
             author=user,

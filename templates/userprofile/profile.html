@@ -12,7 +12,7 @@
             <!-- mudar para 9.5 -->
             <div class="col-lg-9">
                 <nav class="perfil-navegation">
-                    <a href="{% url 'ninico:feed' %}">Feed</a>•<a class="active" href="{% url 'ninico:perfil' %}">Perfil</a>•<a href="{% url 'ninico:about' %}">Sobre</a>•<a href="{% url 'ninico:communities' %}">Comunidades</a>•<a href="{% url 'profile:followers' username=profile.user.username %}">Relacionamentos</a>•<a href="{% url 'ninico:videos' %}">Vídeos</a>
+                    <a href="{% url 'ninico:feed' %}">Feed</a>•<a class="active" href="{% url 'profile:show' username=profile.user.username %}">Perfil</a>•<a href="{% url 'ninico:about' %}">Sobre</a>•<a href="{% url 'profile:communities' username=profile.user.username %}">Comunidades</a>•<a href="{% url 'profile:followers' username=profile.user.username %}">Relacionamentos</a>•<a href="{% url 'ninico:videos' %}">Vídeos</a>
                 </nav>
                 <div class="row">
                     <div class="col-lg-8">

@@ -1,5 +1,8 @@
 {%extends 'home/layout/base.html' %}
 
+{% load staticfiles %}
+{% load social_tags %}
+
 {% block title %}Portal GSTI - Perfil{% endblock %}
 
 {% block content %}
@@ -36,6 +39,13 @@
                     <div class="col-lg-12">
                         <hr>
                     </div>
+                    <div class="col-lg-12">
+                        <div class="row j-scroll-communities j-scroll-communities-container">
+                            {# templatetag - load communities #}
+                            {% communities_box profile.user request.path %}
+                        </div>
+                    </div>
+                    <!--
                     <div class="box-perfil">
                         <div class="perfil">
                             <img class="img-responsive" src="http://placehold.it/82" alt="Imagem 1">
@@ -44,48 +54,22 @@
                             <a class="btn btn-sm perfil-button-alt" href="javascript:;">Entrou</a>
                         </div>
                     </div>
-                    <div class="box-perfil">
-                        <div class="perfil">
-                            <img class="img-responsive" src="http://placehold.it/82" alt="Imagem 1">
-                            <a class="perfil-name" href="javascript:;">Python</a>
-                            <a class="perfil-counter" href="javascript;;"><span class="counter-number">180</span> Seguidores</a>
-                            <a class="btn btn-sm perfil-button-alt" href="javascript:;">Entrou</a>
-                        </div>
-                    </div>
-                    <div class="box-perfil">
-                        <div class="perfil">
-                            <img class="img-responsive" src="http://placehold.it/82" alt="Imagem 1">
-                            <a class="perfil-name" href="javascript:;">Python</a>
-                            <a class="perfil-counter" href="javascript;;"><span class="counter-number">180</span> Seguidores</a>
-                            <a class="btn btn-sm perfil-button-alt" href="javascript:;">Entrou</a>
-                        </div>
-                    </div>
-                    <div class="box-perfil">
-                        <div class="perfil">
-                            <img class="img-responsive" src="http://placehold.it/82" alt="Imagem 1">
-                            <a class="perfil-name" href="javascript:;">Python</a>
-                            <a class="perfil-counter" href="javascript;;"><span class="counter-number">180</span> Seguidores</a>
-                            <a class="btn btn-sm perfil-button-alt" href="javascript:;">Entrou</a>
-                        </div>
-                    </div>
-                    <div class="box-perfil">
-                        <div class="perfil">
-                            <img class="img-responsive" src="http://placehold.it/82" alt="Imagem 1">
-                            <a class="perfil-name" href="javascript:;">Python</a>
-                            <a class="perfil-counter" href="javascript;;"><span class="counter-number">180</span> Seguidores</a>
-                            <a class="btn btn-sm perfil-button-alt" href="javascript:;">Entrou</a>
-                        </div>
-                    </div>
-                    <div class="box-perfil">
-                        <div class="perfil">
-                            <img class="img-responsive" src="http://placehold.it/82" alt="Imagem 1">
-                            <a class="perfil-name" href="javascript:;">Python</a>
-                            <a class="perfil-counter" href="javascript;;"><span class="counter-number">180</span> Seguidores</a>
-                            <a class="btn btn-sm perfil-button-alt" href="javascript:;">Entrou</a>
-                        </div>
-                    </div>
+                    -->
                 </div>
             </div>
         </div>
     </main>
+{% endblock %}
+
+
+{% block javascripts %}
+    <script src="{% static 'javascripts/jquery.jscroll.min.js' %}"></script>
+    <script>
+        $(function() {
+            $(".j-scroll-communities").jscroll({
+                contentSelect: ".j-scroll-communities-container",
+                nextSelect: "a[data-jscroll-next]"
+            });
+        });
+    </script>
 {% endblock %}
