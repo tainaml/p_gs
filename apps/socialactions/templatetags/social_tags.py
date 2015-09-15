@@ -110,10 +110,10 @@ def follow_action(context, object_to_link, url_next, btn_class="btn-sm perfil-bu
 
 
 @register.simple_tag()
-def followers_count(user):
+def followers_count(object_to_link):
 
     try:
-        count = Business.followers_count(content_object=user)
+        count = Business.followers_count(content_object=object_to_link)
     except ValueError:
         raise Http404()
 
