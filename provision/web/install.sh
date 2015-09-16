@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+
 # Python dev packages
 apt-get install -y build-essential python python-dev python-setuptools python-pip
 
@@ -17,6 +18,9 @@ apt-get install -y gettext
 apt-get install -y libpq-dev
 
 
+sudo apt-get autoremove
+
+
 # virtualenv global setup
 if ! command -v pip; then
     easy_install -U pip
@@ -24,7 +28,3 @@ fi
 if [[ ! -f /usr/local/bin/virtualenv ]]; then
     easy_install virtualenv virtualenvwrapper stevedore virtualenv-clone
 fi
-
-
-# Cleanup
-apt-get clean -y

@@ -18,9 +18,8 @@ apt-get update -y
 apt-get install -y git
 
 
+apt-get -f install
+
+
 # bash environment global setup
 cp -p /vagrant/provision/data/bashrc /home/vagrant/.bashrc
-
-
-# Cleanup
-apt-get clean -y
