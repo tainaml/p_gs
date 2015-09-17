@@ -1,7 +1,7 @@
 'use strict';
-const $ = require('jquery');
-const _ = require('underscore');
-const Backbone = require('backbone');
+import $ from 'jquery';
+import Backbone from 'backbone';
+// const _ = require('underscore');
 const LikeboxCollection = require('./likeBoxCollections');
 
 Backbone.$ = $;
@@ -10,11 +10,12 @@ var LikeboxView = Backbone.View.extend({
     el: '.like-box',
     template: _.template(),
     initialize: function () {
-        // this.render();
+        this.render();
     },
-    // render: function () {
+    render: function () {
         // this.$el.html(this.template(this.model.toJSON()));
-    // },
+        // return this;
+    },
     renderNumberVotes: function () {
         this.$el.find('.number-votes').html(this.model.get('votes'));
     },

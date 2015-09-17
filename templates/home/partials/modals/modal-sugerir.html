@@ -1,5 +1,5 @@
-{%block modalcontent %}
-<div class="modal-dialog modal-sm">
+{% block modalcontent %}
+<div class="modal-dialog">
     <div class="modal-content">
         <div class="modal-header">
             <span class="pull-right close" data-dismiss="modal" aria-label="Close"><span class="gsticon gsticon-close"></span></span>
@@ -7,13 +7,15 @@
         </div>
         <div class="modal-body">
             <div class="modal-form">
+                <p>Digite a quem você deseja sugerir essa publicação</p>
                 <div class="form-group">
-                    <input class="form-control" type="password" placeholder="Nova senha">
+                    <input class="form-control" type="text">
                 </div>
-                <div class="form-group">
-                    <input class="form-control" type="password" placeholder="Confirmar senha">
+                <div class="row">
+                    <div class="col-lg-4 pull-right">
+                        <a href="javascript:;" class="btn-action">Enviar</a>
+                    </div>
                 </div>
-                <a href="javascript:;" class="btn-action">Confirmar</a>
             </div>
         </div>
     </div>
