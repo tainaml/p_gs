@@ -3,11 +3,17 @@ Vagrant.configure(2) do |config|
   # Box
   config.vm.box = "ubuntu/trusty64"
 
+  #config.vm.provider "virtualbox" do |v|
+    #v.customize ["modifyvm", :id, "--cpuexecutioncap", "30"]
+    #v.cpus = 1
+    #v.memory = 256
+  #end
+
   config.vm.provider "virtualbox" do |v|
-    v.customize ["modifyvm", :id, "--cpuexecutioncap", "30"]
-    v.cpus = 1
-    v.memory = 256
-  end
+     #v.customize ["modifyvm", :id, "--cpuexecutioncap", "30"]
+     #v.cpus = 1
+     v.memory = 1024
+   end
 
   # DJANGO
   config.vm.network "forwarded_port", guest: 8000, host: 8000

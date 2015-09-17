@@ -1,0 +1,38 @@
+%notification-container {
+    @extend %clearfix;
+    overflow: hidden;
+    width: 100%;
+    padding-top: 20px;
+
+    .post-header {
+        margin-bottom: 0;
+        color: #486075;
+        font-weight: 600;
+
+        time {
+            padding-right: 0;
+            display: block;
+            border-right: none;
+        }
+    }
+}
+
+.member-notifications {
+    @extend %notification-container;
+}
+
+.questions-and-answers-notifications {
+    @extend %notification-container;
+    .notification-content {
+        padding-top: 5px;
+        margin-top: 10px;
+        border-top: 1px solid $color-border;
+        color: #6f6f6f;
+        font-weight: 600;
+    }
+}
+.notification-aside {
+    margin: 0 0 20px;
+}
+.color-warning { color: #ff8017; }
+.color-punishment { color: #d4393e; }
