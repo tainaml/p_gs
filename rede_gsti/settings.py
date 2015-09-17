@@ -161,7 +161,7 @@ DATABASES = {
         'NAME': 'vagrant',
         'USER': 'vagrant',
         'PASSWORD': 'vagrant',
-        'HOST': '10.0.2.15',
+        'HOST': '10.100.100.15',
         'PORT': '5432',
     }
 }
