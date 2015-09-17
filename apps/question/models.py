@@ -17,3 +17,6 @@ class Question(models.Model):
     author = models.ForeignKey(User, blank=False)
     question_date = models.DateTimeField(auto_now=False, auto_now_add=True, blank=False)
     correct_answer = models.OneToOneField("question.Answer", related_name="correct_answer", blank=True, null=True)
+
+    def counter_answer(self):
+        return self.question_owner.count()
