@@ -56,3 +56,7 @@ apt-get clean -y
 
 # Upgrade
 apt-get upgrade -y
+apt-get clean
+
+# Install RabbitMQ broker for Celery
+apt-get -y install rabbitmq-server
