@@ -28,7 +28,7 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 # Google Recaptcha keys
-#
+
 NORECAPTCHA_SITE_KEY = '6LccmgsTAAAAAGrsvn7r7aiIcnvbuIS7pyP0qv1K'
 NORECAPTCHA_SECRET_KEY  = '6LccmgsTAAAAANyATh7UT3uL2G2iVnCCGfAXPE5f'
 
@@ -49,7 +49,9 @@ INSTALLED_APPS = (
     'apps.question',
     'apps.userprofile',
     'apps.socialaccount',
-    'social.apps.django_app.default'
+    'social.apps.django_app.default',
+    'celery',
+    'djcelery'
 
 
 )
@@ -138,9 +140,6 @@ STATIC_URL = '/static/'
 
 #
 LOGIN_URL = '/account/login'
-
-CELERY_RESULT_BACKEND = 'rpc://'
-CELERY_RESULT_PERSISTENT = False
 
 # MailValidation Time
 TIME_REGISTER_ACCOUNT = 48
