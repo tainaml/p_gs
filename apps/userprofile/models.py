@@ -84,7 +84,6 @@ class UserProfile(models.Model):
         return self.occupation_set.all().order_by('-id')[0] if self.has_occupation() else None
 
     def get_profile_picture(self):
-
         return self.profile_picture if self.profile_picture else None
 
 

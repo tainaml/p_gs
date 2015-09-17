@@ -1,7 +1,19 @@
-{% if request.user and request.user.id != object_to_link %}
-    {% if object_to_link not in followings %}
-    <a class="btn {{ btn_class }}" href="{% url 'socialactions:act' object_to_link content 'follow' %}?url_next={{ url_next|urlencode }}">Seguir</a>
+{% if request.user and request.user != object_to_link %}
+    {% if object_to_link.id not in followings %}
+    <a class="btn {{ btn_class }}" href="{% url 'socialactions:act' object_to_link.id content 'follow' %}?url_next={{ url_next|urlencode }}">
+        {% if content == "community" %}
+            Entrar
+        {% else %}
+            Seguir
+        {% endif %}
+    </a>
     {% else %}
-    <a class="btn {{ btn_class }}-alt"  href="{% url 'socialactions:act' object_to_link content 'follow' %}?url_next={{ url_next|urlencode }}">Seguindo</a>
+    <a class="btn {{ btn_class }}-alt"  href="{% url 'socialactions:act' object_to_link.id content 'follow' %}?url_next={{ url_next|urlencode }}">
+        {% if content == "community" %}
+            Participando
+        {% else %}
+            Seguindo
+        {% endif %}
+    </a>
     {% endif %}
 {% endif %}
