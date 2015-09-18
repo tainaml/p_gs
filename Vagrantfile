@@ -65,7 +65,7 @@ Vagrant.configure(2) do |config|
     thumbor.vm.box = "ubuntu/trusty64"
 
     thumbor.vm.provider "virtualbox" do |v|
-        v.memory = 512
+        v.memory = 256
         v.cpus = 1
     end
 
