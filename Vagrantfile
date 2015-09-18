@@ -3,11 +3,16 @@ Vagrant.configure(2) do |config|
   # Box
   config.vm.box = "ubuntu/trusty64"
 
-  #config.vm.provider "virtualbox" do |v|
+  config.vm.provider "virtualbox" do |v|
     #v.customize ["modifyvm", :id, "--cpuexecutioncap", "30"]
     #v.cpus = 1
     #v.memory = 256
-  #end
+
+    v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
+
+  end
+
+
 
   if Vagrant.has_plugin?("vagrant-cachier")
     config.cache.scope = :box
@@ -21,6 +26,7 @@ Vagrant.configure(2) do |config|
   config.vm.define "db", primary: true do |db|
 
     db.vm.box = "ubuntu/trusty64"
+    db.vm.hostname = "db.redegsti.dev"
 
     db.vm.provider "virtualbox" do |v|
         v.memory = 256
@@ -39,6 +45,7 @@ Vagrant.configure(2) do |config|
   config.vm.define "web", primary: true do |web|
 
     web.vm.box = "ubuntu/trusty64"
+    web.vm.hostname = "redegsti.dev"
 
     web.vm.provider "virtualbox" do |v|
         v.memory = 256
@@ -63,6 +70,7 @@ Vagrant.configure(2) do |config|
   config.vm.define "thumbor" do |thumbor|
 
     thumbor.vm.box = "ubuntu/trusty64"
+    thumbor.vm.hostname = "thumbor.redegsti.dev"
 
     thumbor.vm.provider "virtualbox" do |v|
         v.memory = 256

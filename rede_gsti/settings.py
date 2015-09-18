@@ -162,7 +162,7 @@ DATABASES = {
         'NAME': 'vagrant',
         'USER': 'vagrant',
         'PASSWORD': 'vagrant',
-        'HOST': '10.100.100.15',
+        'HOST': 'db.redegsti.dev',
         'PORT': '5432',
     }
 }
