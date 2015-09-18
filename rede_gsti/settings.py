@@ -86,6 +86,11 @@ LOCALE_PATHS = (
     os.path.join(BASE_DIR, 'locale'),
 )
 
+# Fixtures Dir - Providing initial data with fixtures
+FIXTURES_DIR = (
+    os.path.join(BASE_DIR, "fixtures"),
+)
+
 ROOT_URLCONF = 'rede_gsti.urls'
 
 TEMPLATES = [
@@ -186,7 +191,6 @@ STATICFILES_DIRS = (
 )
 STATIC_URL = '/static/'
 
-#
 
 # Media Paths: User upload files
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media', 'uploads')

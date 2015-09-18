@@ -1,0 +1,17 @@
+[
+  {
+    "fields": {
+      "status": 1,
+      "author": 3,
+      "text": "",
+      "image": "",
+      "title": "",
+      "publishin": null,
+      "createdin": "2015-09-15T15:54:38.782Z",
+      "slug": "",
+      "updatein": "2015-09-15T15:54:38.782Z"
+    },
+    "model": "article.article",
+    "pk": 1
+  }
+]
