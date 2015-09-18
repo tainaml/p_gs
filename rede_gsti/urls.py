@@ -33,4 +33,5 @@ urlpatterns = [
     url(r'^', include('apps.core.urls.article', namespace='article')),
     url(r'^ninico/', include('apps.ninico.urls', namespace='ninico')),
     url(r'^question/', include('apps.question.urls', namespace='question')),
+    url(r'^contact/', include('apps.contact.urls', namespace='contact')),
 ] + url_statics + url_media

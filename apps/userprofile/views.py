@@ -18,15 +18,24 @@ from apps.userprofile.service.forms import EditProfileForm, OccupationForm
 class ProfileBaseView(View):
 
     not_found = Http404(_('Profile not Found.'))
+    user_not_found = Http404(_('User not Found.'))
 
     def filter(self, request, user_or_username=None):
 
         if user_or_username and isinstance(user_or_username, unicode):
-            profile = Business.get_profile(Business.get_user(user_or_username))
+            user = Business.get_user(user_or_username)
         elif user_or_username and isinstance(user_or_username, models.Model):
-            profile = Business.get_profile(user_or_username)
+            user = user_or_username
         else:
-            profile = None
+            user = None
+
+        if not user:
+            '''
+            Only works when user exists
+            '''
+            raise self.user_not_found
+
+        profile = Business.get_profile(user)
 
         if not profile:
             '''

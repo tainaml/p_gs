@@ -67,7 +67,8 @@ INSTALLED_APPS = (
     'apps.socialaccount',
     'social.apps.django_app.default',
     'apps.socialactions',
-    'apps.taxonomy'
+    'apps.taxonomy',
+    'apps.contact'
 )
 
 MIDDLEWARE_CLASSES = (

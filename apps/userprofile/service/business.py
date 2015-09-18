@@ -8,12 +8,12 @@ from apps.userprofile.models import UserProfile, Country, State, City, Occupatio
 
 def check_user_exists(username_or_email=None):
 
-    user = User.objects.get(username=username_or_email)
-    if not user:
-        try:
+    try:
+        user = User.objects.get(username=username_or_email)
+        if not user:
             user = User.objects.get(email=username_or_email)
-        except User.DoesNotExist:
-            user = False
+    except User.DoesNotExist:
+        user = False
 
     return user
 
@@ -24,10 +24,12 @@ def get_user(username_or_email=None):
 
 def check_profile_exists(user=None):
 
-    user = User.objects.get(id=user.id)
+    user = get_user(user.username)
 
     try:
         profile = UserProfile.objects.get(user=user)
+    except User.DoesNotExist:
+        profile = False
     except UserProfile.DoesNotExist:
         profile = create_profile(user)
 
@@ -63,19 +65,18 @@ def edit_profile(user, data_profile=None, data_formset=None):
 
 def update_profile(user=None, data=None):
 
-    profile = check_profile_exists(user)
+    profile = get_profile(user)
 
     try:
         profile.birth = data['birth']
         profile.gender = data['gender']
         profile.city = data['city']
-        if data['profile_picture'] and profile.profile_picture != data['profile_picture']:
 
+        if data['profile_picture'] and profile.profile_picture != data['profile_picture']:
             profile.profile_picture.delete()
             profile.profile_picture = data['profile_picture']
 
         profile.save()
-
     except:
         return False
 
