@@ -164,7 +164,7 @@ DATABASES = {
         'NAME': 'vagrant',
         'USER': 'vagrant',
         'PASSWORD': 'vagrant',
-        'HOST': 'localhost',
+        'HOST': 'db.redegsti.dev',
         'PORT': '5432',
     }
 }
@@ -196,8 +196,8 @@ MEDIA_URL = '/media/uploads/'
 
 
 # THUMBOR
-THUMBOR_SERVER = 'http://localhost:8888'
-THUMBOR_MEDIA_URL = 'http://localhost:8000/media/uploads'
+THUMBOR_SERVER = 'http://10.100.100.20:8888'
+THUMBOR_MEDIA_URL = 'http://10.100.100.10:8000/media/uploads'
 THUMBOR_SECURITY_KEY = 'MY_SECURE_KEY'
 THUMBOR_ARGUMENTS = {}
 
