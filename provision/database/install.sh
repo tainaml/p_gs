@@ -1,5 +1,6 @@
 #!/bin/sh -e
 
+
 # Fonte: https://github.com/jackdb/pg-app-dev-vm
 
 # Edit the following to change the name of the database user that will be created:
