@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-cd /var/www
+cd /vagrant
 
 echo "[Services going up]"
 

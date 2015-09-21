@@ -15,7 +15,7 @@
                     <h1 class="gsti">
                         <a href="{% url 'ninico:index' %}" class="gsti-link">Portal GSTI</a>
                     </h1>
-                    <div class="form-search{% if isLogged %}--logged{% endif %}">
+                    <div class="form-search{% if not isLogged %}--logged{% endif %}">
                         {% include 'home/partials/search.html' %}
                     </div>
                     {% include 'home/partials/user-actions.html' %}
@@ -132,6 +132,7 @@
                 </div>
             </nav>
         </footer>
+        {% comment %}
         <div class="modal fade" data-target="modal">
         {% block modalcontent %}<div class="modal-dialog modal-large">
             <div class="modal-content">
@@ -157,6 +158,7 @@
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->{% endblock %}
         </div><!-- /.modal -->
+        {% endcomment %}
         <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
         <script src="{% static 'javascripts/shared.js'%}"></script>
         <script src="{% static 'javascripts/main.js'%}"></script>
