@@ -6,6 +6,5 @@ django-nocaptcha-recaptcha
 django-widget-tweaks
 python-social-auth
 django-debug-toolbar
-python-social-auth
 celery
 django-celery
