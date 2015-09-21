@@ -21,12 +21,8 @@ class ContactForm(IdeiaForm):
 
         is_valid = super(ContactForm, self).is_valid()
 
-        if self.user.is_authenticated() and self.cleaned_data['subject'] is not '' and self.cleaned_data['message'] is not '':
+        if self.user.is_authenticated() and self.cleaned_data['subject'] is not '' and self.cleaned_data['message'] is not '' and self.cleaned_data['captcha']:
             return True
-
-        # if self.cleaned_data['subject'] == u'0':
-        #     self.add_error('subject', ValidationError(_('This field is required.'), code='subject'))
-        #     is_valid = False
 
         if not self.user.is_authenticated() and not self.cleaned_data['name'] :
             self.add_error('name', ValidationError(_('This field is required.'), code='name'))
