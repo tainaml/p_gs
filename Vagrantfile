@@ -72,7 +72,7 @@ Vagrant.configure(2) do |config|
 
     web.vm.network "private_network", ip: "10.100.100.10"
 
-    web.vm.synced_folder "./", "/var/www", create: true=
+    web.vm.synced_folder "./", "/var/www", create: true
 
     web.vm.provision "web-base-install", type: "shell",  path: "provision/base/install.sh"
     web.vm.provision "web-install", type: "shell",  path: "provision/web/install.sh"
