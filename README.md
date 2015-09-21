@@ -1,4 +1,17 @@
 
+Sugestões em desenvolvimento:
+-----------------------------
+
+* Vagrant Cachier - Plugin
+    
+    Present in Vagrant file, the Vagrant Cachier saves in cache the result of provision.
+
+    Saves .deb, pip packages and others.
+
+    For more informations, [click here](https://github.com/fgrehm/vagrant-cachier)
+
+
+
 Aplicações externas
 -------------------
 
