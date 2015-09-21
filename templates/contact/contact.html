@@ -13,12 +13,14 @@
     {% endif %}
 
     {% csrf_token %}
+    {% if not request.user.is_authenticated %}
     <div><input type="text" name="name" id="name" placeholder="{% trans "Name" %}" />
     {% if form.name.errors %}<span class="help-block">{{ form.name.errors }}</span> {% endif %}</div>
 
     <div><input type="email" name="email" id="email" placeholder="{% trans "Email" %}" />
     {% if form.email.errors %}<span class="help-block">{{ form.email.errors }}</span> {% endif %}</div>
 
+    {% endif %}
     <div>
         <select name="subject" id="subject">
             <option value="0">{% trans "Select" %}</option>
@@ -32,8 +34,10 @@
     <div><textarea name="message" id="message" placeholder="{% trans "Message" %}"></textarea>
     {% if form.message.errors %}<span class="help-block">{{ form.message.errors }}</span> {% endif %}</div>
 
+    {% if not request.user.is_authenticated %}
     <div class="g-recaptcha" data-sitekey="6LccmgsTAAAAAGrsvn7r7aiIcnvbuIS7pyP0qv1K"></div>
     {% if form.captcha.errors %}  {{ form.captcha.errors }} {% endif %}
+    {% endif %}
     <p></p>
 
     <input type="submit" value="{% trans 'submit' %}">

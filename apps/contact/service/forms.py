@@ -21,7 +21,7 @@ class ContactForm(IdeiaForm):
 
         is_valid = super(ContactForm, self).is_valid()
 
-        if self.user.is_authenticated() and self.cleaned_data['subject'] is not '' and self.cleaned_data['message'] is not '' and self.cleaned_data['captcha']:
+        if self.user.is_authenticated() and self.cleaned_data['subject'] is not '' and self.cleaned_data['message'] is not '':
             return True
 
         if not self.user.is_authenticated() and not self.cleaned_data['name'] :
