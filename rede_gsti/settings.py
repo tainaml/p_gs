@@ -88,10 +88,6 @@ LOCALE_PATHS = (
     os.path.join(BASE_DIR, 'locale'),
 )
 
-# Fixtures Dir - Providing initial data with fixtures
-FIXTURES_DIR = (
-    os.path.join(BASE_DIR, "fixtures"),
-)
 
 ROOT_URLCONF = 'rede_gsti.urls'
 
@@ -112,6 +108,9 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'rede_gsti.wsgi.application'
+
+# Populate file
+FIXTURE_FILE = 'initial_data.json'
 
 # EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_BACKEND = 'apps.mailmanager.backend.MailManagedBackend'
