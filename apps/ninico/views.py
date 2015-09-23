@@ -66,3 +66,6 @@ def member_notifications(request):
 
 def questions_and_answers_notifications(request):
     return render(request, 'home/notificacoes-perguntas-e-respostas.html')
+
+def search(request):
+    return render(request, 'home/search-result.html')

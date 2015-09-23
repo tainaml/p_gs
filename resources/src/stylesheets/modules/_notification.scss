@@ -51,12 +51,21 @@ $color-counter-notification: #b2b2b2 !default;
 .color-warning { color: #ff8017; }
 .color-punishment { color: #d4393e; }
 
+.dropdown-search {
+    top: 82% !important;
+    left: 2.4%;
+    width: 60%;
+    background: #fff;
+}
+
 .dropdown-notification {
     top: 115% !important;
     width: 90%;
     background-color: #fff;
 }
 .float-notifcations {
+    overflow-y: scroll;
+    max-height: 300px;
     border: 1px solid $color-border;
     box-shadow: 0 3px 5px #595959;
 }
@@ -81,8 +90,7 @@ $color-counter-notification: #b2b2b2 !default;
 }
 .content-float-notifications {
     @include list-unstyled();
-    max-height: 300px;
-    overflow-y: scroll;
+    margin-bottom: 0;
 }
 .item-float-notification {
     padding: 10px 20px;
