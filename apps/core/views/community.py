@@ -1,25 +1,35 @@
 from apps.community import views
+from apps.community.models import Community
 from apps.socialactions.service.business import get_users_acted_by_model
 from rede_gsti import settings
 
 
 class CoreCommunityView(views.CommunityView):
 
-    template_path = 'community/core_view_community.html'
+    template_path = 'community/community-view.html'
 
     def get_context(self, request, community_instance=None):
-        page = request.GET['p'] if 'p' in request.GET else 1
-        community_followers = get_users_acted_by_model(model=community_instance,
-                                                       action=settings.SOCIAL_FOLLOW,
-                                                       itens_per_page=9,
-                                                       page=page)
 
-        return {
-            'community_followers': community_followers,
-            'page': (community_followers.number if community_followers and community_followers.number else 0) + 1
-        }
+        if request.user and request.user.is_authenticated():
+
+            if isinstance(community_instance, Community):
+
+                community_followers = get_users_acted_by_model(model=community_instance,
+                                                               action=settings.SOCIAL_FOLLOW,
+                                                               filter_parameters={'author': request.user},
+                                                               itens_per_page=20,
+                                                               page=1)
+
+                return {'user_follows_community': community_followers}
+
+        return {}
 
 
 class CoreCommunityFollowersView(CoreCommunityView):
 
-    template_path = 'community/core_view_followers.html'
+    template_path = 'community/community-followers.html'
+
+
+class CoreCommunityAboutView(CoreCommunityView):
+
+    template_path = 'community/community-about.html'

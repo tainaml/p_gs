@@ -1,0 +1,21 @@
+{% load community_tags %}
+
+
+{% community_box community %}
+
+<div class="widget widget-box">
+    <div class="widget-content">
+        <ul class="perfil-actions">
+            {% if request.user and request.user.is_authenticated %}
+            <li><a href="javascript:;"><i class="gsticon gsticon-question-circle"></i> Perguntar</a></li>
+            <li><a href="javascript:;"><i class="gsticon gsticon-file-text"></i> Criar artigo</a></li>
+            {% elif user_follows_community %}
+            <li><a href="#"><i class="gsticon gsticon-question-circle"></i> Perguntar</a></li>
+            <li><a href="#"><i class="gsticon gsticon-file-text"></i> Criar artigo</a></li>
+            {% else %}
+            <li><a href="{% url 'ninico:criar-pergunta' %}"><i class="gsticon gsticon-question-circle"></i> Perguntar</a></li>
+            <li><a href="{% url 'ninico:criar-artigo' %}"><i class="gsticon gsticon-file-text"></i> Criar artigo</a></li>
+            {% endif %}
+        </ul>
+    </div>
+</div>
