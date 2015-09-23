@@ -21,11 +21,13 @@ class ComplaintView(View):
 
     @method_decorator(login_required)
     def post(self, request):
-        form = self.form_complaint(request.user, request.POST)
+        article = business_article.get_article(1)
+        context = {'article': article}
+        form = self.form_complaint(data=request.POST, user=request.user)
         if not form.process():
             messages.add_message(request, messages.WARNING, _("Complaint not created!"))
         else:
             messages.add_message(request, messages.SUCCESS, _("Complaint created successfully!"))
             return redirect(reverse('question:show', args=(form.instance.id,)))
 
-        return render(request, 'complaint/test_complaint.html', {'form': form})
+        return render(request, 'complaint/test_complaint.html', context)

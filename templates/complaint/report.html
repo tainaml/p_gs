@@ -13,13 +13,13 @@
 
     {% csrf_token %}
 
-    <input type="hidden" name="content_type" value="{{ content_type.id }}" />
+    <input type="hidden" name="content_type" value="{{ content_type }}" />
     <input type="hidden" name="object_id" value="{{ content_object.id }}" />
 
-    <div><textarea name="message" id="message" placeholder="{% trans "Message" %}"></textarea>
-    {% if form.message.errors %}<span class="help-block">{{ form.message.errors }}</span> {% endif %}</div>
+    <div><textarea name="description" id="description" placeholder="{% trans "Message" %}"></textarea>
+    {% if form.description.errors %}<span class="help-block">{{ form.description.errors }}</span> {% endif %}</div>
 
-    <select name="type_complaint" id="type_complaint">
+    <select name="complaint_type" id="complaint_type">
         <option value="0">{% trans "Select" %}</option>
         {% for type in type_complaint %}
         <option value="{{ type.id }}">{%  trans type.description %}</option>
