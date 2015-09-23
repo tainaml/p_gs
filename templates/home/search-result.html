@@ -1,0 +1,26 @@
+{%extends 'home/layout/base.html' %}
+
+{% block title %}Portal GSTI - Resultado da busca por Python{% endblock %}
+
+{% block content %}
+<main class="container">
+    <div class="perfil-row">
+        <div class="col-lg-9">
+            <header class="area-title">
+                <h2>Resultado da pesquisa por <strong class="color-link">Python</strong></h2>
+            </header>
+            <section class="area-content">
+                {% for x in 'Lorem ipsum' %}
+                    {% include 'home/partials/perfil-post.html' %}
+                    {% include 'home/partials/comunidade-question.html' %}
+                {% endfor %}
+            </section>
+        </div>
+        <div class="col-lg-3">
+            <div class="squad-advertising">
+                <img class="img-responsive" src="http://placehold.it/270x225" alt="Propaganda aqui">
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}

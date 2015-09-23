@@ -8,3 +8,5 @@ python-social-auth
 django-debug-toolbar
 celery
 django-celery
+django-autofixture
+django-migration-fixture

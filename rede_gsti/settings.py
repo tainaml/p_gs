@@ -50,6 +50,8 @@ INSTALLED_APPS = (
     'nocaptcha_recaptcha',
     'widget_tweaks',
     'django_thumbor',
+    'autofixture',
+    'django_migration_fixture',
 
     # CORE
     'apps.core',
@@ -89,6 +91,7 @@ LOCALE_PATHS = (
     os.path.join(BASE_DIR, 'locale'),
 )
 
+
 ROOT_URLCONF = 'rede_gsti.urls'
 
 TEMPLATES = [
@@ -108,6 +111,9 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'rede_gsti.wsgi.application'
+
+# Populate file
+FIXTURE_FILE = 'initial_data.json'
 
 # EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_BACKEND = 'apps.mailmanager.backend.MailManagedBackend'
@@ -191,7 +197,6 @@ STATICFILES_DIRS = (
 )
 STATIC_URL = '/static/'
 
-#
 
 # Media Paths: User upload files
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media', 'uploads')
