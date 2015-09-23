@@ -69,6 +69,7 @@ INSTALLED_APPS = (
     'apps.socialactions',
     'apps.taxonomy',
     'apps.contact',
+    'apps.complaint',
     'celery',
     'djcelery'
 )
@@ -120,6 +121,8 @@ DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 # Comment config
 ENTITY_TO_COMMENT = ['user', 'comment']
 MAX_LEVELS = 2
+
+ENTITY_TO_COMPLAINT = ['article', 'question']
 
 # Social config
 SOCIAL_LIKE = 1
