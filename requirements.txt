@@ -6,3 +6,7 @@ django-nocaptcha-recaptcha
 django-widget-tweaks
 python-social-auth
 django-debug-toolbar
+celery
+django-celery
+django-autofixture
+django-migration-fixture

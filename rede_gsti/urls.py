@@ -34,4 +34,6 @@ urlpatterns = [
     url(r'^ninico/', include('apps.ninico.urls', namespace='ninico')),
     url(r'^question/', include('apps.question.urls', namespace='question')),
     url(r'^contact/', include('apps.contact.urls', namespace='contact')),
+    url('^mailmanager/', include('apps.mailmanager.urls', namespace='mailmanager')),
+    url('^complaint/', include('apps.complaint.urls', namespace='complaint')),
 ] + url_statics + url_media

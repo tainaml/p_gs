@@ -15,7 +15,7 @@
                     <h1 class="gsti">
                         <a href="{% url 'ninico:index' %}" class="gsti-link">Portal GSTI</a>
                     </h1>
-                    <div class="form-search{% if isLogged %}--logged{% endif %}">
+                    <div class="form-search{% if not isLogged %}--logged{% endif %}">
                         {% include 'home/partials/search.html' %}
                     </div>
                     {% include 'home/partials/user-actions.html' %}

@@ -1,3 +1,8 @@
+// Variables
+$color-header-notification: #4d6479 !default;
+$color-counter-notification: #b2b2b2 !default;
+
+// Placeholders
 %notification-container {
     @extend %clearfix;
     overflow: hidden;
@@ -16,6 +21,14 @@
         }
     }
 }
+.notfication-area {
+    float: left;
+    color: #486075;
+    font-size: 15px;
+     > i {
+        margin-right: 5px;
+     }
+}
 
 .member-notifications {
     @extend %notification-container;
@@ -26,6 +39,7 @@
     .notification-content {
         padding-top: 5px;
         margin-top: 10px;
+        display: block;
         border-top: 1px solid $color-border;
         color: #6f6f6f;
         font-weight: 600;
@@ -36,3 +50,59 @@
 }
 .color-warning { color: #ff8017; }
 .color-punishment { color: #d4393e; }
+
+.dropdown-search {
+    top: 82% !important;
+    left: 2.4%;
+    width: 60%;
+    background: #fff;
+}
+
+.dropdown-notification {
+    top: 115% !important;
+    width: 90%;
+    background-color: #fff;
+}
+.float-notifcations {
+    overflow-y: scroll;
+    max-height: 300px;
+    border: 1px solid $color-border;
+    box-shadow: 0 3px 5px #595959;
+}
+.header-float-notifications {
+    padding: 10px 20px;
+    border-bottom: 1px solid $color-border;
+    color: $color-header-notification;
+    font-weight: 600;
+    font-size: 15px;
+}
+.footer-float-notifications {
+    padding: 10px;
+    display: block;
+    background: #f2f2f2;
+    color: #486075;
+    font-weight: 600;
+    text-align: center;
+}
+.count-notifications {
+    float: right;
+    color: $color-counter-notification;
+}
+.content-float-notifications {
+    @include list-unstyled();
+    margin-bottom: 0;
+}
+.item-float-notification {
+    padding: 10px 20px;
+    border-bottom: 1px solid $color-border;
+    color: #486075;
+    font-weight: 600;
+    font-size: 13px;
+
+    > i {
+        margin: 0 5px;
+    }
+}
+.visualized {
+    background-color: #fcfcfc;
+}

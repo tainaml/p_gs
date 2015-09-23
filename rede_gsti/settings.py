@@ -28,7 +28,7 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 # Google Recaptcha keys
-#
+
 NORECAPTCHA_SITE_KEY = '6LccmgsTAAAAAGrsvn7r7aiIcnvbuIS7pyP0qv1K'
 NORECAPTCHA_SECRET_KEY = '6LccmgsTAAAAANyATh7UT3uL2G2iVnCCGfAXPE5f'
 
@@ -50,6 +50,11 @@ INSTALLED_APPS = (
     'nocaptcha_recaptcha',
     'widget_tweaks',
     'django_thumbor',
+    'autofixture',
+    'django_migration_fixture',
+    'celery',
+    'djcelery',
+    'social.apps.django_app.default',
 
     # CORE
     'apps.core',
@@ -65,13 +70,12 @@ INSTALLED_APPS = (
     'apps.userprofile',
     'apps.question',
     'apps.socialaccount',
-    'social.apps.django_app.default',
     'apps.socialactions',
     'apps.taxonomy',
     'apps.contact',
+    'apps.complaint',
     'apps.notifications',
     'apps.rede_gsti_signals'
-
 )
 
 MIDDLEWARE_CLASSES = (
@@ -88,6 +92,7 @@ MIDDLEWARE_CLASSES = (
 LOCALE_PATHS = (
     os.path.join(BASE_DIR, 'locale'),
 )
+
 
 ROOT_URLCONF = 'rede_gsti.urls'
 
@@ -109,6 +114,9 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'rede_gsti.wsgi.application'
 
+# Populate file
+FIXTURE_FILE = 'initial_data.json'
+
 # EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_BACKEND = 'apps.mailmanager.backend.MailManagedBackend'
 EMAIL_USE_TLS = True
@@ -121,6 +129,8 @@ DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 # Comment config
 ENTITY_TO_COMMENT = ['user', 'comment']
 MAX_LEVELS = 2
+
+ENTITY_TO_COMPLAINT = ['article', 'question']
 
 # Social config
 SOCIAL_LIKE = 1
@@ -198,7 +208,6 @@ STATICFILES_DIRS = (
 )
 STATIC_URL = '/static/'
 
-#
 
 # Media Paths: User upload files
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media', 'uploads')

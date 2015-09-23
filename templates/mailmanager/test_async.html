@@ -1,0 +1,5 @@
+<form action="{% url 'mailmanager:send_async' %}" method="post">
+    {% csrf_token %}
+
+    <input type="submit" value="Submit" name="submit">
+</form>

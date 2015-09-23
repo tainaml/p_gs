@@ -32,7 +32,7 @@
         @include make-xs-column(10);
         @include make-lg-column(6.5);
         padding-top: 25px;
-        padding-bottom: 20px;
+        padding-bottom: 15px;
     }
     .user-actions {
         @include make-xs-column(12);
@@ -79,9 +79,18 @@
             font-size: 1.214em;
             line-height: 3;
             text-align: center;
+            @media (max-width: $screen-sm-min) {
+                float: none;
+                border-right-width: 0;
+            }
             &:nth-child(4) {
                 min-width: 47%;
                 border-left-width: 1px;
+                @media (max-width: $screen-sm-min) {
+                    text-align: left;
+                    display: block;
+                    border-left-width: 0;
+                }
             }
             .badge {
                 position: absolute;
