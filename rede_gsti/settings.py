@@ -68,7 +68,10 @@ INSTALLED_APPS = (
     'social.apps.django_app.default',
     'apps.socialactions',
     'apps.taxonomy',
-    'apps.contact'
+    'apps.contact',
+    'apps.notifications',
+    'apps.rede_gsti_signals'
+
 )
 
 MIDDLEWARE_CLASSES = (
@@ -148,6 +151,15 @@ SOCIAL_INVERSE_ACTIONS = {
     SOCIAL_FOLLOW: []
 }
 
+
+#Notification
+NOTIFICATION_ACTIONS = {
+    SOCIAL_LIKE: 'like',
+    SOCIAL_UNLIKE: 'unlike',
+    SOCIAL_FOLLOW: 'follow',
+    SOCIAL_FAVOURITE: 'favourite',
+    SOCIAL_SUGGEST: 'suggest'
+}
 
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
