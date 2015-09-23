@@ -1,12 +1,1 @@
-[
-  {
-    "fields": {
-      "uid": "972539042766344",
-      "extra_data": "{\"access_token\": \"CAAVHujtTVC0BAPDV2j2INNT8YsZB66DgZC9WaFD0sU5JUGS06C5SqoZAbK4GoD9CRl0zZAGnKsSdRcEHcVziyIJeznxEFdn8hdDNlZCNRkbe1zP0hRRamFiaZBEK7cLlUZCgXv3gFDcIS65aKZBOmgl600qCaPc0wVFZAydj9HrYRPA4P0medZCIPZAccSdZBnl7F41ox4GvVLdrFPHoz4ZBK5duf\", \"expires\": null, \"id\": \"972539042766344\"}",
-      "user": 1,
-      "provider": "facebook"
-    },
-    "model": "default.usersocialauth",
-    "pk": 1
-  }
-]
+[]

@@ -105,51 +105,5 @@
     },
     "model": "userprofile.city",
     "pk": 7
-  },
-  {
-    "fields": {
-      "gender": "M",
-      "profile_picture": "userprofile/2015/09/15/Raphael2.JPG",
-      "user": 1,
-      "birth": "1992-07-02",
-      "city": 1
-    },
-    "model": "userprofile.userprofile",
-    "pk": 1
-  },
-  {
-    "fields": {
-      "gender": "M",
-      "profile_picture": "userprofile/2015/09/15/photo.jpg.png",
-      "user": 2,
-      "birth": "2000-01-01",
-      "city": 1
-    },
-    "model": "userprofile.userprofile",
-    "pk": 2
-  },
-  {
-    "fields": {
-      "gender": "M",
-      "profile_picture": "userprofile/2015/09/15/praia-magnifica-wallpaper.jpg",
-      "user": 3,
-      "birth": "1989-12-19",
-      "city": 4
-    },
-    "model": "userprofile.userprofile",
-    "pk": 3
-  },
-  {
-    "fields": {
-      "profile": 1,
-      "date_begin": null,
-      "description": "Ideia SEO",
-      "company": "Ideia SEO",
-      "order": null,
-      "responsibility": "Analista de Sistema",
-      "date_end": null
-    },
-    "model": "userprofile.occupation",
-    "pk": 1
   }
 ]

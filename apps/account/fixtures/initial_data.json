@@ -1,13 +1,1 @@
-[
-  {
-    "fields": {
-      "link_date": "2015-09-15T15:39:10.601Z",
-      "active": false,
-      "token": "45dc2689e6d189ccf3aaf7018dafe640d344694f",
-      "user": 3,
-      "token_type": 1
-    },
-    "model": "account.mailvalidation",
-    "pk": 1
-  }
-]
+[]

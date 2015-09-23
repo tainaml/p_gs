@@ -50,6 +50,8 @@ INSTALLED_APPS = (
     'nocaptcha_recaptcha',
     'widget_tweaks',
     'django_thumbor',
+    'autofixture',
+    'django_migration_fixture',
 
     # CORE
     'apps.core',
