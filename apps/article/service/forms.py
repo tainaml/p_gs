@@ -15,6 +15,7 @@ class ArticleForm(IdeiaModelForm):
     publishin = forms.DateTimeField(required=False)
     status = forms.ChoiceField(required=False, choices=Business.Article.STATUS_CHOICES)
     author = forms.IntegerField(required=False)
+    relevance = forms.DecimalField(required=False)
 
     # Actions: save, publish, schedule
     ACTION_SAVE = 1
