@@ -1,0 +1,33 @@
+{% load i18n %}
+<h1>{% trans 'Complaint' %}</h1>
+
+{{ form.non_field_errors }}
+<form action="{% url 'complaint:report' %}" method="post">
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    {% csrf_token %}
+
+    <input type="hidden" name="content_type" value="{{ content_type }}" />
+    <input type="hidden" name="object_id" value="{{ content_object.id }}" />
+
+    <div><textarea name="description" id="description" placeholder="{% trans "Message" %}"></textarea>
+    {% if form.description.errors %}<span class="help-block">{{ form.description.errors }}</span> {% endif %}</div>
+
+    <select name="complaint_type" id="complaint_type">
+        <option value="0">{% trans "Select" %}</option>
+        {% for type in type_complaint %}
+        <option value="{{ type.id }}">{%  trans type.description %}</option>
+        {% endfor %}
+    </select>
+    {% if form.type_complaint.errors %}<span class="help-block">{{ form.type_complaint.errors }}</span> {% endif %}
+
+    <div>
+        <input type="submit" value="{% trans 'submit' %}">
+    </div>
+</form>
