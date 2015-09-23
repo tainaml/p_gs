@@ -1,1 +1,20 @@
-[]
+[
+  {
+    "fields": {
+      "username": "gsti",
+      "first_name": "Portal",
+      "last_name": "GSTI",
+      "is_active": true,
+      "is_superuser": true,
+      "is_staff": true,
+      "last_login": null,
+      "groups": [],
+      "user_permissions": [],
+      "password": "pbkdf2_sha256$20000$jTaC7hjBlcO1$obCYrVQXqujXDh3nQ9SE455rd02gQ85iQ/jq2laztaw=",
+      "email": "gsti@gsti.dev",
+      "date_joined": "2015-09-23T14:07:56.099Z"
+    },
+    "model": "auth.user",
+    "pk": 42
+  }
+]
