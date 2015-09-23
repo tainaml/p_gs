@@ -64,7 +64,7 @@ Vagrant.configure(2) do |config|
     web.vm.hostname = "redegsti.dev"
 
     web.vm.provider "virtualbox" do |v|
-        v.memory = 256
+        v.memory = 512
         v.cpus = 1
     end
 
@@ -77,8 +77,9 @@ Vagrant.configure(2) do |config|
     web.vm.provision "web-base-install", type: "shell",  path: "provision/base/install.sh"
     web.vm.provision "web-install", type: "shell",  path: "provision/web/install.sh"
     web.vm.provision "install-app",  type: "shell",  path: "provision/web/install-app.sh"
-    web.vm.provision "update-app",  type: "shell",  path: "provision/web/update-app.sh", run: "always"
     web.vm.provision "install-celery",  type: "shell",  path: "provision/celery/install.sh"
+    web.vm.provision "update-app",  type: "shell",  path: "provision/web/update-app.sh", run: "always"
+    web.vm.provision "up-celery",  type: "shell",  path: "provision/celery/up.sh", run: "always", privileged: false
   end
 
 end
