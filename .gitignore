@@ -150,6 +150,7 @@ target/
 resources/node_modules
 
 #Uploads
+media/
 /media/uploads
 media/cc/
 mediaceleryd.pid
