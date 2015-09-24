@@ -1,0 +1,100 @@
+{%extends 'home/layout/base.html' %}
+
+{% block title %}Portal GSTI - Perfil{% endblock %}
+
+{% block content %}
+<main class="container">
+<div class="perfil-row">
+    <!-- mudar para 2.5 -->
+    <div class="col-lg-3">
+        {#% include 'home/partials/sidebar-perfil.html' %#}
+    </div>
+    <!-- mudar para 9.5 -->
+    <div class="col-lg-9">
+        <nav class="perfil-navegation">
+            <a href="{% url 'ninico:feed' %}">Feed</a>•<a class="active" href="{% url 'ninico:perfil' %}">Perfil</a>•<a href="{% url 'ninico:about' %}">Sobre</a>•<a href="{% url 'ninico:communities' %}">Comunidades</a>•<a href="{% url 'ninico:relationship' %}">Relacionamentos</a>•<a href="{% url 'ninico:videos' %}">Vídeos</a>
+        </nav>
+        <div class="row">
+            <div class="col-lg-8">
+                <header class="area-title">
+                    <h2>Notificações</h2>
+                </header>
+                <section class="area-content">
+                    <h5 class="notfication-area"><i class="gsticon gsticon-bell"></i> Geral</h5>
+                    <a class="btn-default pull-right" href="javascript:;">Marcar todas com lidas</a>
+                    <div class="member-notifications">
+                        <div class="post">
+                            <header class="post-header">
+                                <div class="post-info"><time style="display: block;" datetime="06-17-2015" itemprop="datePublished">10/06/2015 às 01:34</time></div>
+                                <div class="post-creator">
+                                    <i class="gsticon gsticon-exclamation-triangle color-warning"></i>
+                                    Você recebeu uma <a href="javascript:;">advertência</a>
+                                </div>
+                            </header>
+                        </div>
+                        <div class="post">
+                            <header class="post-header">
+                                <div class="post-info"><time style="display: block;" datetime="06-17-2015" itemprop="datePublished">10/06/2015 às 01:34</time></div>
+                                <div class="post-creator">
+                                    <i class="gsticon gsticon-exclamation-triangle color-punishment"></i>
+                                    Você recebeu uma <a href="javascript:;">penalização</a>
+                                </div>
+                            </header>
+                        </div>
+                        <div class="post">
+                            <header class="post-header">
+                                <div class="post-info"><time style="display: block;" datetime="06-17-2015" itemprop="datePublished">10/06/2015 às 01:34</time></div>
+                                <div class="post-creator">
+                                    <img src="http://placehold.it/20" alt="Creator Post Avatar">
+                                    <a href="javascript:;">Iury Silva</a> te sugeriu uma <a href="javascript:;">publicação.</a></div>
+                            </header>
+                        </div>
+                        <div class="post">
+                            <header class="post-header">
+                                <div class="post-info"><time style="display: block;" datetime="06-17-2015" itemprop="datePublished">10/06/2015 às 01:34</time></div>
+                                <div class="post-creator">
+                                    <i class="gsticon gsticon-exclamation-triangle color-punishment"></i>
+                                    Você recebeu uma <a href="javascript:;">advertência</a>
+                                </div>
+                            </header>
+                        </div>
+                        <div class="post">
+                            <header class="post-header">
+                                <div class="post-info"><time style="display: block;" datetime="06-17-2015" itemprop="datePublished">10/06/2015 às 01:34</time></div>
+                                <div class="post-creator">
+                                    <i class="gsticon gsticon-exclamation-triangle color-warning"></i>
+                                    Você recebeu uma <a href="javascript:;">penalização</a>
+                                </div>
+                            </header>
+                        </div>
+                        <div class="post">
+                            <header class="post-header">
+                                <div class="post-info"><time style="display: block;" datetime="06-17-2015" itemprop="datePublished">10/06/2015 às 01:34</time></div>
+                                <div class="post-creator">
+                                    <i class="gsticon gsticon-exclamation-triangle color-warning"></i>
+                                    Você recebeu uma <a href="javascript:;">penalização</a>
+                                </div>
+                            </header>
+                        </div>
+                    </div>
+                </section>
+            </div>
+            <div class="col-lg-4">
+                <div class="widget widget-box">
+                    <div class="widget-content">
+                        <ul class="perfil-repositories notification-aside">
+                            <li><a href="{% url 'ninico:notificacao-membros' %}"><i class="gsticon gsticon-users"></i> Membros</a></li>
+                            <li><a href="{% url 'ninico:notificacao-perguntas-e-respostas' %}"><i class="gsticon gsticon-comments"></i> Comentários e Respostas</a></li>
+                            <li><a href="{% url 'ninico:notificacao' %}"><i class="gsticon gsticon-bell"></i> Geral</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="squad-advertising">
+                    <img class="img-responsive" src="http://placehold.it/270x225" alt="Propaganda aqui">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</main>
+{% endblock %}
