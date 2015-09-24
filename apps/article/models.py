@@ -21,6 +21,7 @@ class Article(models.Model):
     text = models.TextField(null=False, max_length=2048)
     image = models.ImageField(max_length=100, upload_to='article/%Y/%m/%d', blank=True, default='')
     author = models.ForeignKey(User, null=False, related_name='articles', verbose_name=_('Author'))
+    relevance = models.DecimalField(max_digits=2, decimal_places=2, null=False, default=00.00)
 
     createdin = models.DateTimeField(null=False, auto_now_add=True)
     updatein = models.DateTimeField(null=False, auto_now=True)

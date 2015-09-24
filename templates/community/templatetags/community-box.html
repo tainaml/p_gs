@@ -1,0 +1,18 @@
+{% load social_tags %}
+{% load thumbor_tags %}
+
+<div class="widget widget-box">
+    <div class="widget-content">
+        <div class="perfil">
+            <img class="img-responsive" src="{% thumbor_url community.get_picture.url width=82 height=82 smart=False fit_in=False %}" alt="{{ community.title }}">
+            <a class="perfil-name" href="{% url 'community:show' community.slug %}">{{ community.title }}</a>
+            <a class="perfil-counter" href="{% url 'community:followers' community.slug %}"><span class="counter-number">{% followers_count community %}</span> Seguidores</a>
+        </div>
+        <div class="follower-content">
+            <ul class="list-unstyled clearfix">
+                <!-- <li><a href="javascript:;" class="btn btn-follow">Seguir</a></li> -->
+                <li>{% follow_action community request.path "btn-follow" %}</li>
+            </ul>
+        </div>
+    </div>
+</div>

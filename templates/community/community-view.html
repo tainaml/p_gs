@@ -1,0 +1,81 @@
+{%extends 'home/layout/base.html' %}
+
+{% block title %}Portal GSTI - Comunidade{% endblock %}
+
+{% block content %}
+    <main class="container">
+        <div class="perfil-row">
+            <!-- mudar para 2.5 -->
+            <div class="col-lg-3">
+                {% include 'community/partials/community-sidebar.html' %}
+            </div>
+            <!-- mudar para 9.5 -->
+            <div class="col-lg-9">
+                <nav class="perfil-navegation">
+                    <a class="active" href="{% url 'community:show' community.slug %}">Feed</a>•<a href="{% url 'ninico:comunidade-perguntas' %}">Perguntas</a>•<a href="{% url 'community:followers' community.slug %}">Membros</a>•<a href="{% url 'community:about' community.slug %}">Sobre</a>•<a href="{% url 'ninico:comunidade-videos' %}">Vídeos</a>
+                </nav>
+                <div class="row">
+                    <div class="col-lg-8">
+                        <header class="area-title">
+                            <h2>Feed</h2>
+                        </header>
+                        <nav class="form-search">
+                            {% include 'home/partials/search.html' with placehold='Pesquise no seu feed' only %}
+                        </nav>
+                        <section class="area-content">
+                            {% for x in 'Lorem' %}
+                                {% include 'home/partials/perfil-post.html' %}
+                            {% endfor %}
+                        </section>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="squad-advertising">
+                            <img class="img-responsive" src="http://placehold.it/270x225" alt="Propaganda aqui">
+                        </div>
+                        <div class="widget widget-feed">
+                            <div class="widget-header">
+                                <header class="area-title">
+                                    <h3>Destaque</h3>
+                                </header>
+                            </div>
+                            <div class="widget-content">
+                                <a class="article-excerpt">
+                                    <img src="http://placehold.it/70x53" alt="Imagem 1">
+                                    <span>Microsoft lança software beta para migrar aplicativos iOS para Windows</span>
+                                </a>
+                                <a class="article-excerpt">
+                                    <img src="http://placehold.it/70x53" alt="Imagem 1">
+                                    <span>Microsoft lança software beta para migrar aplicativos iOS para Windows</span>
+                                </a>
+                                <a class="article-excerpt">
+                                    <img src="http://placehold.it/70x53" alt="Imagem 1">
+                                    <span>Microsoft lança software beta para migrar aplicativos iOS para Windows</span>
+                                </a>
+                                <a class="article-excerpt">
+                                    <img src="http://placehold.it/70x53" alt="Imagem 1">
+                                    <span>Microsoft lança software beta para migrar aplicativos iOS para Windows</span>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="widget widget-feed">
+                            <div class="widget-header">
+                                <header class="area-title">
+                                    <h3>Últimas Perguntas</h3>
+                                </header>
+                            </div>
+                            <div class="widget-content">
+                                <a class="article-excerpt color-green" href="javascript:;">Microsoft lança software beta para migrar aplicativos iOS para Windows</a>
+                                <a class="article-excerpt color-green" href="javascript:;">Microsoft lança software beta para migrar aplicativos iOS para Windows</a>
+                                <a class="article-excerpt color-green" href="javascript:;">Microsoft lança software beta para migrar aplicativos iOS para Windows</a>
+                                <a class="article-excerpt color-green" href="javascript:;">Microsoft lança software beta para migrar aplicativos iOS para Windows</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock %}
+<div class="modal">
+    modal here
+</div>

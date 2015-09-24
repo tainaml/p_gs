@@ -1,0 +1,24 @@
+{% load community_tags %}
+
+
+{% community_box community %}
+
+<div class="widget widget-box">
+    <div class="widget-content">
+        <ul class="perfil-actions">
+            {% if not request.user.is_authenticated %}
+                {# nao logado #}
+                <li><a href="javascript:void(0);"><i class="gsticon gsticon-question-circle"></i> Perguntar</a></li>
+                <li><a href="javascript:void(0);"><i class="gsticon gsticon-file-text"></i> Criar artigo</a></li>
+            {% elif not user_follows_community %}
+                {# logado, mas nao segue a comunidade #}
+                <li><a href="javascript:void(0);"><i class="gsticon gsticon-question-circle"></i> Perguntar</a></li>
+                <li><a href="javascript:void(0);"><i class="gsticon gsticon-file-text"></i> Criar artigo</a></li>
+            {% else %}
+                {# logado e segue a comunidade #}
+                <li><a href="{% url 'ninico:criar-pergunta' %}"><i class="gsticon gsticon-question-circle"></i> Perguntar</a></li>
+                <li><a href="{% url 'ninico:criar-artigo' %}"><i class="gsticon gsticon-file-text"></i> Criar artigo</a></li>
+            {% endif %}
+        </ul>
+    </div>
+</div>
