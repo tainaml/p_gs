@@ -1,0 +1,6 @@
+{% load thumbor_tags %}
+
+<a class="article-excerpt" href="{% url 'article:view' article_slug=record.content_object.slug article_id=record.content_object.id %}">
+    <img src="{% thumbor_url record.content_object.get_image.url width=70 height=53 smart=False fit_in=False %}" alt="{{ record.content_object.title }}">
+    <span>{{ record.content_object.title }}</span>
+</a>

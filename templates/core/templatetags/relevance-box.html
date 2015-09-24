@@ -1,10 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title></title>
-</head>
-<body>
-
-</body>
-</html>
+{% for record in records %}
+    {% if record.content_object %}
+        {% include template_path %}
+    {% endif %}
+{% endfor %}

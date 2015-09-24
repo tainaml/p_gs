@@ -56,4 +56,4 @@ def save_taxonomies_for_model(model=None, taxonomi_list=None):
 def get_taxonomies_by_model(model=None):
     content = ContentType.objects.get_for_model(model)
     return ObjectTaxonomy.objects.filter(content_type=content,
-                                                     object_id=model.id).prefetch_related('taxonomy')
+                                         object_id=model.id).prefetch_related('taxonomy')
