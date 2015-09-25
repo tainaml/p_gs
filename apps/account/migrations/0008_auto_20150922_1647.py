@@ -14,6 +14,6 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RunPython(**fixture(account, ['initial_data.json'])),
+        #migrations.RunPython(**fixture(account, ['initial_data.json'])),
 
     ]

@@ -1,5 +1,7 @@
 {%extends 'home/layout/base.html' %}
 
+{% load core_tags %}
+
 {% block title %}Portal GSTI - Comunidade{% endblock %}
 
 {% block content %}
@@ -45,6 +47,8 @@
                                 </header>
                             </div>
                             <div class="widget-content">
+                                {% relevance_box community 'article' %}
+                                <!--
                                 <a class="article-excerpt">
                                     <img src="http://placehold.it/70x53" alt="Imagem 1">
                                     <span>Microsoft lança software beta para migrar aplicativos iOS para Windows</span>
@@ -61,6 +65,7 @@
                                     <img src="http://placehold.it/70x53" alt="Imagem 1">
                                     <span>Microsoft lança software beta para migrar aplicativos iOS para Windows</span>
                                 </a>
+                                -->
                             </div>
                         </div>
                         <div class="widget widget-feed">
