@@ -1,4 +1,5 @@
 from django.contrib.contenttypes.models import ContentType
+from django.db.models import Q
 from apps.community import views
 from apps.community.models import Community
 from apps.socialactions.service.business import get_users_acted_by_model
@@ -46,15 +47,13 @@ class CoreCommunityFeedView(CoreCommunityView):
         content_types = ContentType.objects.filter(model__in=['article', 'question'])
 
         object_taxonomies = ObjectTaxonomy.objects.filter(
-            taxonomy__in=taxonomies,
-            content_type__in=content_types,
-            content_object__status__in=[4]
+            Q(taxonomy__in=taxonomies) &
+            Q(content_type__in=content_types)
 
-        ).distinct("object_id", "content_type").\
-            prefetch_related('content_object__author', 'content_object__author__profile')
+        ).distinct("object_id", "content_type", "reverse_object__relevance") \
+            .order_by("-reverse_object__relevance")
 
-        for obj in object_taxonomies:
-            print obj.content_object
+
         context.update({'object_taxonomies': object_taxonomies})
 
         return context
