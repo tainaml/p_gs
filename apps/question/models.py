@@ -1,5 +1,7 @@
+from django.contrib.contenttypes.fields import GenericRelation
 from django.db import models
 from django.contrib.auth.models import User
+from apps.taxonomy.models import ObjectTaxonomy
 
 
 class Answer(models.Model):
