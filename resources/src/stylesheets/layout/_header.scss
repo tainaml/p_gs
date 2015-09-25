@@ -115,9 +115,11 @@
     padding: 10px 0;
     border-top: 1px solid $color-border;
     border-bottom: 1px solid $color-border;
+    @media (max-width: $screen-sm-min) { border-bottom-width: 0; }
 
     // TODO: refatorar para classes
     .menu-categories, .menu-social {
+        @media (max-width: $screen-sm-min) { display: none; }
         color: $color-border;
 
         > a {
@@ -146,7 +148,6 @@
     .menu-social {
         text-align: center;
         @include make-xs-column(12);
-        @include make-sm-column(12);
         @include make-md-column(2);
         @include make-lg-column(2);
         @media (min-width: $screen-lg-min) {

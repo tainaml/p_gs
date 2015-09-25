@@ -1,6 +1,11 @@
 require('./vendor/bootstrap/');
 $(() => {
-    $('[data-target=modal]').modal({
-        show: false
-    });
+
+    $('#modal-personal-infos').modal('show');
+
+    // Modals
+    $('[data-target=modal]').modal({ show: false });
+    $('[data-toggle=modal]').on('click', function (event) {
+        $(this).parents('[data-target=modal]').modal('hide');
+    })
 });
