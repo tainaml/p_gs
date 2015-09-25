@@ -1,7 +1,11 @@
 from django.contrib.contenttypes.fields import GenericRelation
 from django.db import models
 from django.contrib.auth.models import User
+<<<<<<< HEAD
 from apps.taxonomy.models import Taxonomy, ObjectTaxonomy
+=======
+from apps.taxonomy.models import ObjectTaxonomy
+>>>>>>> 51ab84afec70c50e3034d482bca246650f7b7931
 
 
 class Answer(models.Model):
@@ -19,5 +23,6 @@ class Question(models.Model):
     author = models.ForeignKey(User, blank=False)
     question_date = models.DateTimeField(auto_now=False, auto_now_add=True, blank=False)
     correct_answer = models.OneToOneField("question.Answer", related_name="correct_answer", blank=True, null=True)
-    relevance = models.DecimalField(max_digits=2, decimal_places=2, null=False, default=00.00)
-    taxms = GenericRelation(ObjectTaxonomy, related_query_name='question')
+    relevance = models.DecimalField(max_digits=4, decimal_places=2, null=False, default=0)
+    obj_taxonomy = GenericRelation(ObjectTaxonomy, related_query_name='questions')
+
