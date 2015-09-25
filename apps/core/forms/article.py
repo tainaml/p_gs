@@ -7,18 +7,13 @@ from ..business import article as Business
 
 class CoreArticleForm(ArticleForm):
 
-    taxonomies = forms.ModelMultipleChoiceField(queryset=Taxonomy.objects.all()
-                                                , required=True)
-
-    def is_valid(self):
-
-        valid = super(CoreArticleForm, self).is_valid()
-
-        return valid
+    taxonomies = forms.ModelMultipleChoiceField(queryset=Taxonomy.objects.all())
 
     @transaction.atomic()
-    def process(self):
-        process_article = super(CoreArticleForm, self).process()
-        process_core = Business.save_taxonomies(self.instance, self.cleaned_data)
+    def __process__(self):
+        process_article = super(CoreArticleForm, self).__process__()
+        process_feed = Business.save_feed_item(self.instance, self.cleaned_data)
+        process_core = Business.save_taxonomies(process_feed, self.cleaned_data)
 
-        return process_article and process_core
+
+        return process_article if (process_article and process_core) else False
