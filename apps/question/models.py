@@ -1,11 +1,8 @@
 from django.contrib.contenttypes.fields import GenericRelation
 from django.db import models
 from django.contrib.auth.models import User
-<<<<<<< HEAD
 from apps.taxonomy.models import Taxonomy, ObjectTaxonomy
-=======
-from apps.taxonomy.models import ObjectTaxonomy
->>>>>>> 51ab84afec70c50e3034d482bca246650f7b7931
+
 
 
 class Answer(models.Model):

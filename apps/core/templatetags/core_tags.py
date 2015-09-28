@@ -42,14 +42,14 @@ def relevance_box(context, content_object, content_type, count=5, template_path=
 def last_questions(context, content_object, content_type, count=4, template_path=None):
 
     try:
-        taxonomies = TaxonomiesBusiness.get_taxonomies_by_model(content_object)
-        tax_ids = []
-        for tax in taxonomies:
-            tax_ids.append(tax.taxonomy.id)
+        records_type = ContentType.objects.get(model=content_type)
 
-        record_type = ContentType.objects.get(model='question')
+        taxonomies = TaxonomyBusiness.get_taxonomies_by_model(content_object)
+        taxonomies_list = [tax.taxonomy.id for tax in taxonomies]
 
-        records = ObjectTaxonomy.objects.filter(taxonomy__in=tax_ids, content_type=record_type).prefetch_related('content_object').distinct('object_id')[:count]
+        records = ObjectTaxonomy.objects.filter(taxonomy__in=taxonomies_list, content_type=records_type)\
+                      .order_by('-questions__question_date')\
+                      .distinct('questions__question_date', 'object_id', 'content_type_id')[:count]
 
     except ValueError:
         raise Http404()
