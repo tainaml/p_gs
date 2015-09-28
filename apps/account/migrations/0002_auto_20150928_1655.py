@@ -2,7 +2,9 @@
 from __future__ import unicode_literals
 
 from django.db import models, migrations
-import datetime
+
+from django_migration_fixture import fixture
+from apps import account
 
 
 class Migration(migrations.Migration):
@@ -12,9 +14,6 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.AlterField(
-            model_name='mailvalidation',
-            name='link_date',
-            field=models.DateTimeField(default=datetime.datetime(2015, 8, 24, 20, 21, 40, 758548)),
-        ),
+        # migrations.RunPython(**fixture(account, ['initial_data.json'])),
+
     ]

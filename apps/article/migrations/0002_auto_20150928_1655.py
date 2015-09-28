@@ -3,17 +3,17 @@ from __future__ import unicode_literals
 
 from django.db import models, migrations
 
+from django_migration_fixture import fixture
+from apps import article
+
 
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('userprofile', '0001_initial'),
+        ('article', '0001_initial'),
     ]
 
     operations = [
-        migrations.AlterField(
-            model_name='userprofile',
-            name='birth',
-            field=models.DateField(null=True),
-        ),
+        migrations.RunPython(**fixture(article, ['initial_data.json'])),
+
     ]

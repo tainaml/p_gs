@@ -10,7 +10,7 @@ from apps import comment
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('comment', '0004_comment_level'),
+        ('comment', '0001_initial'),
     ]
 
     operations = [

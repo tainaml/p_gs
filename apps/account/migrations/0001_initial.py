@@ -2,7 +2,6 @@
 from __future__ import unicode_literals
 
 from django.db import models, migrations
-import datetime
 from django.conf import settings
 
 
@@ -18,9 +17,10 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('token', models.TextField(unique=True)),
-                ('link_date', models.DateTimeField(default=datetime.datetime(2015, 8, 26, 18, 27, 22, 36565))),
-                ('is_active', models.BooleanField(default=True)),
-                ('user', models.OneToOneField(to=settings.AUTH_USER_MODEL)),
+                ('link_date', models.DateTimeField()),
+                ('active', models.BooleanField(default=True)),
+                ('token_type', models.IntegerField()),
+                ('user', models.ForeignKey(to=settings.AUTH_USER_MODEL)),
             ],
         ),
     ]

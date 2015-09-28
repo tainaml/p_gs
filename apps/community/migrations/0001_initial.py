@@ -2,13 +2,12 @@
 from __future__ import unicode_literals
 
 from django.db import models, migrations
-from django_migration_fixture import fixture
-from apps import community
+
 
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('taxonomy', '0005_auto_20150928_1445'),
+        ('taxonomy', '0001_initial'),
     ]
 
     operations = [
@@ -23,8 +22,4 @@ class Migration(migrations.Migration):
                 ('taxonomy', models.ForeignKey(to='taxonomy.Taxonomy')),
             ],
         ),
-
-        migrations.RunPython(**fixture(community, ['initial_data.json'])),
-
-
     ]

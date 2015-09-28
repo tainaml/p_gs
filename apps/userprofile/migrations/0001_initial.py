@@ -32,8 +32,11 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('responsibility', models.CharField(max_length=60)),
-                ('description', models.TextField()),
-                ('user', models.ForeignKey(to=settings.AUTH_USER_MODEL)),
+                ('company', models.CharField(max_length=60)),
+                ('date_begin', models.DateField(null=True, blank=True)),
+                ('date_end', models.DateField(null=True, blank=True)),
+                ('description', models.TextField(null=True, blank=True)),
+                ('order', models.IntegerField(null=True, blank=True)),
             ],
         ),
         migrations.CreateModel(
@@ -42,22 +45,28 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('name', models.CharField(max_length=60)),
                 ('abbreviation', models.CharField(max_length=3)),
-                ('country', models.ForeignKey(to='userprofile.Country')),
+                ('country', models.ForeignKey(related_name='states', to='userprofile.Country')),
             ],
         ),
         migrations.CreateModel(
             name='UserProfile',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('birth', models.DateField(default=None)),
-                ('gender', models.CharField(default=None, max_length=1, null=True)),
-                ('city', models.ForeignKey(to='userprofile.City')),
-                ('user', models.OneToOneField(to=settings.AUTH_USER_MODEL)),
+                ('birth', models.DateField(null=True, blank=True)),
+                ('gender', models.CharField(max_length=1, null=True, blank=True)),
+                ('profile_picture', models.ImageField(default=b'', upload_to=b'userprofile/%Y/%m/%d', blank=True)),
+                ('city', models.ForeignKey(blank=True, to='userprofile.City', null=True)),
+                ('user', models.OneToOneField(related_name='profile', to=settings.AUTH_USER_MODEL)),
             ],
+        ),
+        migrations.AddField(
+            model_name='occupation',
+            name='profile',
+            field=models.ForeignKey(to='userprofile.UserProfile'),
         ),
         migrations.AddField(
             model_name='city',
             name='state',
-            field=models.ForeignKey(to='userprofile.State'),
+            field=models.ForeignKey(related_name='cities', to='userprofile.State'),
         ),
     ]
