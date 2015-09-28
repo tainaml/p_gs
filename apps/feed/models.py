@@ -2,6 +2,7 @@ from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
 from django.utils import timezone
+from apps.taxonomy.models import Taxonomy
 
 
 class FeedObject(models.Model):
