@@ -2,8 +2,7 @@ from django.contrib.auth.models import User
 from django.contrib.contenttypes.fields import GenericRelation
 from django.db import models
 from django.utils.translation import ugettext as _
-
-from apps.taxonomy.models import ObjectTaxonomy
+from apps.feed.models import FeedObject
 
 
 class Article(models.Model):
@@ -24,16 +23,12 @@ class Article(models.Model):
     text = models.TextField(null=False, max_length=2048)
     image = models.ImageField(max_length=100, upload_to='article/%Y/%m/%d', blank=True, default='')
     author = models.ForeignKey(User, null=False, related_name='articles', verbose_name=_('Author'))
-    relevance = models.DecimalField(max_digits=4, decimal_places=2, null=False, default=0)
 
     createdin = models.DateTimeField(null=False, auto_now_add=True)
     updatein = models.DateTimeField(null=False, auto_now=True)
     publishin = models.DateTimeField(null=True)
-
+    feed = GenericRelation(FeedObject, related_query_name="article")
     status = models.IntegerField(choices=STATUS_CHOICES, null=False)
-
-    obj_taxonomy = GenericRelation(ObjectTaxonomy, related_query_name='articles')
-
 
 
     def is_published(self):

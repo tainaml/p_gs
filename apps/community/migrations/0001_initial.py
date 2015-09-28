@@ -2,11 +2,13 @@
 from __future__ import unicode_literals
 
 from django.db import models, migrations
-
+from django_migration_fixture import fixture
+from apps import community
 
 class Migration(migrations.Migration):
 
     dependencies = [
+        ('taxonomy', '0005_auto_20150928_1445'),
     ]
 
     operations = [
@@ -18,6 +20,11 @@ class Migration(migrations.Migration):
                 ('slug', models.SlugField(max_length=150)),
                 ('description', models.TextField(max_length=2048)),
                 ('image', models.ImageField(default=b'', upload_to=b'community/%Y/%m/%d', blank=True)),
+                ('taxonomy', models.ForeignKey(to='taxonomy.Taxonomy')),
             ],
         ),
+
+        migrations.RunPython(**fixture(community, ['initial_data.json'])),
+
+
     ]

@@ -7,13 +7,13 @@ from django.db import models, migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('article', '0001_initial'),
+        ('feed', '0004_auto_20150928_1603'),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='article',
-            name='slug',
-            field=models.SlugField(default=b'', max_length=150),
+            model_name='feedobject',
+            name='taxonomies',
+            field=models.ManyToManyField(related_name='feeds', to='taxonomy.Taxonomy'),
         ),
     ]

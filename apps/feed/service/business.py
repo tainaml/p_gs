@@ -11,3 +11,9 @@ def feed_get_or_create(content_instance):
     )
 
     return feed_object
+
+def save_feed_item(instance=None):
+    feed_object = feed_get_or_create(instance)
+    feed_object.save()
+
+    return feed_object
