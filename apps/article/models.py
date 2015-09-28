@@ -24,7 +24,6 @@ class Article(models.Model):
     text = models.TextField(null=False, max_length=2048)
     image = models.ImageField(max_length=100, upload_to='article/%Y/%m/%d', blank=True, default='')
     author = models.ForeignKey(User, null=False, related_name='articles', verbose_name=_('Author'))
-    relevance = models.DecimalField(max_digits=4, decimal_places=2, null=False, default=0)
 
     createdin = models.DateTimeField(null=False, auto_now_add=True)
     updatein = models.DateTimeField(null=False, auto_now=True)
@@ -32,16 +31,12 @@ class Article(models.Model):
 
     status = models.IntegerField(choices=STATUS_CHOICES, null=False)
 
-    obj_taxonomy = GenericRelation(ObjectTaxonomy, related_query_name='articles')
-
-
-
-    def is_published(self):
-        return self.status == self.STATUS_PUBLISH
-
 
     def __unicode__(self):
         return self.title
+
+    def is_published(self):
+        return self.status == self.STATUS_PUBLISH
 
     def get_image(self):
         return self.image if self.image else None

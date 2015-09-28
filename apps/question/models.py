@@ -22,4 +22,3 @@ class Question(models.Model):
     correct_answer = models.OneToOneField("question.Answer", related_name="correct_answer", blank=True, null=True)
     relevance = models.DecimalField(max_digits=4, decimal_places=2, null=False, default=0)
     obj_taxonomy = GenericRelation(ObjectTaxonomy, related_query_name='questions')
-
