@@ -121,9 +121,8 @@
     .menu-categories, .menu-social {
         @media (max-width: $screen-sm-min) { display: none; }
         color: $color-border;
-
         > a {
-            padding: 0 5px;
+            padding: 0 9px;
             margin-right: -4px;
             display: inline-block;
             color: inherit;
@@ -144,6 +143,9 @@
         @include make-xs-column(12);
         @include make-md-column(10);
         @include make-lg-column(10);
+        > .gsticon {
+            font-size: 6px;
+        }
     }
     .menu-social {
         text-align: center;
