@@ -1,1 +1,117 @@
-[]
+[
+  {
+    "fields": {
+      "description": "Categoria",
+      "parent": null
+    },
+    "model": "taxonomy.term",
+    "pk": 1
+  },
+  {
+    "fields": {
+      "description": "Comunidade",
+      "parent": null
+    },
+    "model": "taxonomy.term",
+    "pk": 2
+  },
+  {
+    "fields": {
+      "term": 1,
+      "description": "Desenvolvimento",
+      "parent": null
+    },
+    "model": "taxonomy.taxonomy",
+    "pk": 1
+  },
+  {
+    "fields": {
+      "term": 2,
+      "description": "Python",
+      "parent": 1
+    },
+    "model": "taxonomy.taxonomy",
+    "pk": 2
+  },
+  {
+    "fields": {
+      "term": 2,
+      "description": "Django",
+      "parent": 2
+    },
+    "model": "taxonomy.taxonomy",
+    "pk": 3
+  },
+  {
+    "fields": {
+      "term": 2,
+      "description": "Java",
+      "parent": 1
+    },
+    "model": "taxonomy.taxonomy",
+    "pk": 4
+  },
+  {
+    "fields": {
+      "term": 2,
+      "description": "Spring",
+      "parent": 4
+    },
+    "model": "taxonomy.taxonomy",
+    "pk": 5
+  },
+  {
+    "fields": {
+      "term": 2,
+      "description": "PHP",
+      "parent": 1
+    },
+    "model": "taxonomy.taxonomy",
+    "pk": 6
+  },
+  {
+    "fields": {
+      "term": 2,
+      "description": "Zend",
+      "parent": 6
+    },
+    "model": "taxonomy.taxonomy",
+    "pk": 7
+  },
+  {
+    "fields": {
+      "term": 2,
+      "description": "Javascript",
+      "parent": 1
+    },
+    "model": "taxonomy.taxonomy",
+    "pk": 8
+  },
+  {
+    "fields": {
+      "term": 2,
+      "description": "HTML",
+      "parent": 1
+    },
+    "model": "taxonomy.taxonomy",
+    "pk": 9
+  },
+  {
+    "fields": {
+      "term": 2,
+      "description": "CSS",
+      "parent": 11
+    },
+    "model": "taxonomy.taxonomy",
+    "pk": 10
+  },
+  {
+    "fields": {
+      "term": 1,
+      "description": "Web Design",
+      "parent": null
+    },
+    "model": "taxonomy.taxonomy",
+    "pk": 11
+  }
+]

@@ -1,5 +1,6 @@
 from django.core.exceptions import ValidationError
 from django.db import models
+from django.db import transaction
 from custom_forms.custom import forms, IdeiaForm, IdeiaModelForm
 import business as Business
 from django.conf import settings
@@ -13,6 +14,7 @@ class CreateQuestionForm(IdeiaForm):
         self.user = user
         super(CreateQuestionForm, self).__init__(*args, **kargs)
 
+    @transaction.atomic()
     def __process__(self):
         self.instance = Business.save_question(self.user, self.cleaned_data)
         return self.instance

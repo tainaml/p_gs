@@ -2,7 +2,7 @@
 
 {% load i18n %}
 
-{% block title %}Portal GSTI - Criar Artigo{% endblock %}
+{% block title %}Portal GSTI - Criar Pergunta{% endblock %}
 
 {% block content %}
     <main class="container">
@@ -50,7 +50,15 @@
                                     {% if form.description.errors %}<span class="help-block">{{ form.description.errors }}</span> {% endif %}
                                 </div>
                                 <div class="form-group">
+                                        {{ form.taxonomies }}
+                                        {% if form_question.taxonomies.errors %}  {{ form_question.taxonomies.errors }} {% endif %}
+                                    </div>
+                                <div class="form-group">
                                     <input class="form-control" type="text" placeholder="Enviar pergunta para qual(is) comunidade(s)?">
+                                </div>
+                                <div class="form-group">
+                                    {{ form.taxonomies }}
+                                    {% if form.taxonomies.errors %} {{ form.taxonomies.errors }} {% endif %}
                                 </div>
                             </div>
                             <div class="col-lg-3">

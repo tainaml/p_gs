@@ -1,5 +1,5 @@
 from django.db import models
-
+from apps.taxonomy.models import Taxonomy
 
 class Community(models.Model):
 
@@ -7,6 +7,7 @@ class Community(models.Model):
     slug = models.SlugField(blank=False, null=False, max_length=150)
     description = models.TextField(null=False, max_length=2048)
     image = models.ImageField(max_length=100, upload_to='community/%Y/%m/%d', blank=True, default='')
+    taxonomy = models.ForeignKey(Taxonomy, null=False)
 
     def __unicode__(self):
         return self.title

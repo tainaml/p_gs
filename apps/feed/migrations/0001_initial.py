@@ -8,6 +8,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('contenttypes', '0002_remove_content_type_name'),
+        ('taxonomy', '0001_initial'),
     ]
 
     operations = [
@@ -18,6 +19,7 @@ class Migration(migrations.Migration):
                 ('relevance', models.DecimalField(default=0, max_digits=4, decimal_places=2)),
                 ('object_id', models.PositiveIntegerField()),
                 ('content_type', models.ForeignKey(to='contenttypes.ContentType')),
+                ('taxonomies', models.ManyToManyField(related_name='feeds', to='taxonomy.Taxonomy')),
             ],
         ),
     ]

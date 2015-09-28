@@ -220,8 +220,8 @@ MEDIA_URL = '/media/uploads/'
 
 
 # THUMBOR
-THUMBOR_SERVER = 'http://10.100.100.20:8888'
-THUMBOR_MEDIA_URL = 'http://10.100.100.10:8000/media/uploads'
+THUMBOR_SERVER = 'http://thumbor.redegsti.dev:8888'
+THUMBOR_MEDIA_URL = 'http://redegsti.dev:8000/media/uploads'
 THUMBOR_SECURITY_KEY = 'MY_SECURE_KEY'
 THUMBOR_ARGUMENTS = {}
 
