@@ -28,15 +28,10 @@ class Article(models.Model):
     updatein = models.DateTimeField(null=False, auto_now=True)
     publishin = models.DateTimeField(null=True)
     feed = GenericRelation(FeedObject, related_query_name="article")
-    status = models.IntegerField(choices=STATUS_CHOICES, null=False)
-
+    status = models.IntegerField(choices=STATUS_CHOICES, null=False)  
 
     def is_published(self):
         return self.status == self.STATUS_PUBLISH
-
-
-    def __unicode__(self):
-        return self.title
 
     def get_image(self):
         return self.image if self.image else None

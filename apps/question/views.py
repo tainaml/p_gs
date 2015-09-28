@@ -17,7 +17,7 @@ class CreateQuestionView(View):
 
     @method_decorator(login_required)
     def get(self, request):
-
+        
         return render(request, 'question/create.html', {'form': self.form})
 
     @method_decorator(login_required)
