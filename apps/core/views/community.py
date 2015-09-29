@@ -32,11 +32,15 @@ class CoreCommunityFollowersView(CoreCommunityView):
     template_path = 'community/community-followers.html'
 
 
+
 class CoreCommunityAboutView(CoreCommunityView):
 
     template_path = 'community/community-about.html'
 
+
 class CoreCommunityFeedView(CoreCommunityView):
+
+    template_path = 'community/community-view.html'
 
     def get_context(self, request, community_instance=None):
         context = super(CoreCommunityFeedView, self).get_context(request, community_instance)
@@ -51,6 +55,3 @@ class CoreCommunityFeedView(CoreCommunityView):
         context.update({'object_taxonomies': object_taxonomies})
 
         return context
-
-    template_path = 'community/community-view.html'
-
