@@ -28,7 +28,7 @@ class CommunityBaseView(View):
 
 class CommunityView(CommunityBaseView):
 
-    template_path = 'community/view_community.html'
+    template_path = 'community/community-view.html'
 
     def get_context(self, request, community_instance=None):
         return {}
@@ -43,3 +43,13 @@ class CommunityView(CommunityBaseView):
         context.update(self.get_context(request, community))
 
         return render(request, self.template_path, context)
+
+
+class CommunityFollowersView(CommunityView):
+
+    template_path = 'community/community-followers.html'
+
+
+class CommunityAboutView(CommunityView):
+
+    template_path = 'community/community-about.html'

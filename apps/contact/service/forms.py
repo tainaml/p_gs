@@ -1,4 +1,5 @@
 from django.core.exceptions import ValidationError
+from nocaptcha_recaptcha import NoReCaptchaField
 from custom_forms.custom import IdeiaForm, forms
 from django.utils.translation import ugettext as _
 import business as Business
@@ -10,6 +11,7 @@ class ContactForm(IdeiaForm):
     email = forms.EmailField(required=False)
     subject = forms.ModelChoiceField(queryset=Business.get_contact_subjects(), required=True)
     message = forms.CharField(max_length=1024, required=True)
+    captcha = NoReCaptchaField(required=True)
 
     def __init__(self, user=None, *args, **kargs):
         self.user = user
@@ -21,10 +23,6 @@ class ContactForm(IdeiaForm):
 
         if self.user.is_authenticated() and self.cleaned_data['subject'] is not '' and self.cleaned_data['message'] is not '':
             return True
-
-        # if self.cleaned_data['subject'] == u'0':
-        #     self.add_error('subject', ValidationError(_('This field is required.'), code='subject'))
-        #     is_valid = False
 
         if not self.user.is_authenticated() and not self.cleaned_data['name'] :
             self.add_error('name', ValidationError(_('This field is required.'), code='name'))

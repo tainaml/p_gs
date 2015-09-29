@@ -1,0 +1,68 @@
+[
+  {
+    "fields": {
+      "taxonomy": 2,
+      "description": "Cras mattis consectetur purus sit amet fermentum. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Aenean lacinia bibendum nulla sed consectetur. Etiam porta sem malesuada magna mollis euismod.",
+      "slug": "python",
+      "image": "community/2015/09/15/python.sh-600x600.png",
+      "title": "Python"
+    },
+    "model": "community.community",
+    "pk": 1
+  },
+  {
+    "fields": {
+      "taxonomy": 8,
+      "description": "Vestibulum id ligula porta felis euismod semper. Maecenas sed diam eget risus varius blandit sit amet non magna. Nullam quis risus eget urna mollis ornare vel eu leo. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.\r\n\r\nVestibulum id ligula porta felis euismod semper. Etiam porta sem malesuada magna mollis euismod. Curabitur blandit tempus porttitor. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Sed posuere consectetur est at lobortis.",
+      "slug": "js",
+      "image": "community/2015/09/15/Unofficial_JavaScript_logo_2.svg.png",
+      "title": "Javascript"
+    },
+    "model": "community.community",
+    "pk": 2
+  },
+  {
+    "fields": {
+      "taxonomy": 4,
+      "description": "Vestibulum id ligula porta felis euismod semper. Sed posuere consectetur est at lobortis. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.\r\n\r\nCras mattis consectetur purus sit amet fermentum. Integer posuere erat a ante venenatis dapibus posuere velit aliquet. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Donec id elit non mi porta gravida at eget metus. Lorem ipsum dolor sit amet, consectetur adipiscing elit.\r\n\r\nInteger posuere erat a ante venenatis dapibus posuere velit aliquet. Nullam quis risus eget urna mollis ornare vel eu leo. Cras mattis consectetur purus sit amet fermentum. Aenean lacinia bibendum nulla sed consectetur.\r\n\r\nPraesent commodo cursus magna, vel scelerisque nisl consectetur et. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.",
+      "slug": "java",
+      "image": "community/2015/09/15/indroducao_java.png",
+      "title": "Java"
+    },
+    "model": "community.community",
+    "pk": 3
+  },
+  {
+    "fields": {
+      "taxonomy": 6,
+      "description": "Nullam quis risus eget urna mollis ornare vel eu leo. Sed posuere consectetur est at lobortis. Vestibulum id ligula porta felis euismod semper. Maecenas sed diam eget risus varius blandit sit amet non magna. Donec sed odio dui. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Sed posuere consectetur est at lobortis.",
+      "slug": "php",
+      "image": "community/2015/09/15/PHP_Logo.png",
+      "title": "PHP"
+    },
+    "model": "community.community",
+    "pk": 4
+  },
+  {
+    "fields": {
+      "taxonomy": 9,
+      "description": "Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Maecenas sed diam eget risus varius blandit sit amet non magna. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Nullam quis risus eget urna mollis ornare vel eu leo. Donec ullamcorper nulla non metus auctor fringilla. Maecenas sed diam eget risus varius blandit sit amet non magna.",
+      "slug": "html",
+      "image": "community/2015/09/15/html5_1.jpg",
+      "title": "HTML"
+    },
+    "model": "community.community",
+    "pk": 5
+  },
+  {
+    "fields": {
+      "taxonomy": 10,
+      "description": "Nullam quis risus eget urna mollis ornare vel eu leo. Nulla vitae elit libero, a pharetra augue. Curabitur blandit tempus porttitor. Nullam id dolor id nibh ultricies vehicula ut id elit. Nullam id dolor id nibh ultricies vehicula ut id elit. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.\r\n\r\nVivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nullam id dolor id nibh ultricies vehicula ut id elit. Sed posuere consectetur est at lobortis.",
+      "slug": "css",
+      "image": "community/2015/09/15/css3.jpg",
+      "title": "CSS"
+    },
+    "model": "community.community",
+    "pk": 6
+  }
+]

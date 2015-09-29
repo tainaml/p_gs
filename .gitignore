@@ -150,6 +150,9 @@ target/
 resources/node_modules
 
 #Uploads
+media/
 /media/uploads
 media/cc/
-media
+mediaceleryd.pid
+nohup.out
+celerybeat-schedule

@@ -7,6 +7,7 @@ from django.db import models, migrations
 class Migration(migrations.Migration):
 
     dependencies = [
+        ('taxonomy', '0001_initial'),
     ]
 
     operations = [
@@ -18,6 +19,7 @@ class Migration(migrations.Migration):
                 ('slug', models.SlugField(max_length=150)),
                 ('description', models.TextField(max_length=2048)),
                 ('image', models.ImageField(default=b'', upload_to=b'community/%Y/%m/%d', blank=True)),
+                ('taxonomy', models.ForeignKey(to='taxonomy.Taxonomy')),
             ],
         ),
     ]

@@ -18,9 +18,3 @@ class Taxonomy(models.Model):
 
     def __unicode__(self):
         return self.description
-
-class ObjectTaxonomy(models.Model):
-    taxonomy = models.ForeignKey(Taxonomy, related_name='taxonomy_objects')
-    content_type = models.ForeignKey(ContentType)
-    object_id = models.PositiveIntegerField()
-    content_object = GenericForeignKey('content_type', 'object_id')

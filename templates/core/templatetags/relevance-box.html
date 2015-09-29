@@ -1,0 +1,7 @@
+{% for record in records %}
+    {% if record.content_object %}
+
+        {% include template_path with record_content=record.content_object %}
+
+    {% endif %}
+{% endfor %}

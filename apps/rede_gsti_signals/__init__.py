@@ -1,0 +1,1 @@
+default_app_config = 'apps.rede_gsti_signals.apps.RedeGSTIConfig'

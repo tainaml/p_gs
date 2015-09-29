@@ -17,7 +17,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('title', models.CharField(max_length=100)),
-                ('slug', models.SlugField(default=b'', unique=True, max_length=150)),
+                ('slug', models.SlugField(default=b'', max_length=150)),
                 ('text', models.TextField(max_length=2048)),
                 ('image', models.ImageField(default=b'', upload_to=b'article/%Y/%m/%d', blank=True)),
                 ('createdin', models.DateTimeField(auto_now_add=True)),

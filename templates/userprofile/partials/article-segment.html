@@ -1,0 +1,54 @@
+{% load thumbor_tags %}
+<article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+    <header class="post-header">
+        <div class="post-info">
+            <time datetime="06-17-2015" itemprop="datePublished">{{ instance.publishin|date:'d/m/Y' }} às {{ instance.publishin|date:'G:i' }}</time>
+            <a href="javascript:;" data-toggle="dropdown"><i class="gsticon gsticon-gear"></i></a>
+            <div class="dropdown-menu">
+                <ul class="perfil-actions">
+                    <li><a href="javascript:;"><i class="gsticon gsticon-edit"></i> Editar publicação</a></li>
+                    <li><a href="javascript:;"><i class="gsticon gsticon-paper-plane"></i> Sugerir</a></li>
+                    <li><a href="javascript:;"><i class="gsticon gsticon-eye"></i> Ver depois</a></li>
+                    <li><a href="javascript:;"><i class="gsticon gsticon-star"></i> Favoritar</a></li>
+                    <li><a href="javascript:;"><i class="gsticon gsticon-exclamation-triangle"></i> Denunciar</a></li>
+                </ul>
+            </div>
+        </div>
+        <a class="post-creator" href="{% url 'profile:show' username=instance.author.username %}">
+            {# <img src="http://placehold.it/20" alt="Creator Porst Avatar"> #}
+            <img src="{% thumbor_url instance.author.profile.get_profile_picture.url width=20 height=20 smart=False fit_in=False %}" alt="foto de {{ instance.author.get_full_name }}">
+            {{instance.author.get_full_name}}
+        </a>
+    </header>
+    <a class="post-content" href="{% url 'article:view' instance.slug instance.id %}" itemprop="articleBody">
+        <figure>
+            <img src="http://placehold.it/170x128" alt="Post Image">
+        </figure>
+        <div class="post-text">
+            <h3 class="post-title" itemprop="headline">{{ instance.title }} </h3>
+            <p>{{ instance.text|slice:":200"}}... </p>
+        </div>
+    </a>
+    <footer class="post-footer">
+        <nav class="post-communities">
+            <a href="javascript:;" class="link-to-community">Java</a>•
+            <a href="javascript:;" class="link-to-community">MySQL</a>
+            <div class="dropdown-menu">
+                <ul class="perfil-actions">
+                    <li><a href="javascript:;">matemática</a></li>
+                    <li><a href="javascript:;">Português</a></li>
+                    <li><a href="javascript:;">Literatura</a></li>
+                    <li><a href="javascript:;">Termodinâmica</a></li>
+                    <li><a href="javascript:;">Física</a></li>
+                </ul>
+            </div>
+        </nav>
+        <div class="post-toolbar pull-right">
+            <div class="post-count">
+                <a href="javascript:;" class="post-votes-up">1.026 <i class="gsticon gsticon-caret-up"></i></a>
+                <a href="javascript:;" class="post-votes-dow"><i class="gsticon gsticon-caret-down"></i> 4</a>
+            </div>
+            <div class="post-count-comments"><strong>32</strong> Comentários</div>
+        </div>
+    </footer>
+</article>

@@ -16,8 +16,8 @@ class Migration(migrations.Migration):
             name='Answer',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('description', models.CharField(max_length=2048)),
-                ('answer_date', models.DateField(auto_now_add=True)),
+                ('description', models.TextField(max_length=2048)),
+                ('answer_date', models.DateTimeField(auto_now_add=True)),
                 ('author', models.ForeignKey(to=settings.AUTH_USER_MODEL)),
             ],
         ),
@@ -26,10 +26,15 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('title', models.CharField(max_length=256)),
-                ('description', models.CharField(max_length=2048)),
-                ('question_date', models.DateField(auto_now_add=True)),
+                ('description', models.TextField(max_length=2048)),
+                ('question_date', models.DateTimeField(auto_now_add=True)),
                 ('author', models.ForeignKey(to=settings.AUTH_USER_MODEL)),
-                ('correct_answer', models.OneToOneField(to='question.Answer')),
+                ('correct_answer', models.OneToOneField(related_name='correct_answer', null=True, blank=True, to='question.Answer')),
             ],
+        ),
+        migrations.AddField(
+            model_name='answer',
+            name='question',
+            field=models.ForeignKey(related_name='question_owner', to='question.Question'),
         ),
     ]
