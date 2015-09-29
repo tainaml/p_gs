@@ -69,26 +69,49 @@ class UserProfile(models.Model):
         if self.birth:
             return True
 
+    @property
     def age(self):
-        if self.has_age:
+        if hasattr(self, "property_age") and self.property_age:
+            return self.property_age
+
+        if self.birth:
             born = self.birth
             today = date.today()
 
             # return int(round((date.today() - self.birth).days / 365.2425, 3))
-            return today.year - born.year - ((today.month, today.day) < (born.month, born.day))
+            self.property_age = today.year - born.year - ((today.month, today.day) < (born.month, born.day))
+            return self.property_age
 
-    def has_occupation(self):
-        return True if self.occupation_set.all() else False
+        return False
 
+    @property
+    def current_occupation(self):
+        if hasattr(self, "property_current_occupation") and self.property_current_occupation:
+            return self.property_current_occupation
+
+        if self.occupation.count():
+            self.property_current_occupation = self.occupation.order_by('-id')[:1][0]
+            return self.property_current_occupation
+
+        return False
+
+    @property
     def occupations(self):
-        return self.occupation_set.all().order_by('-id')[0] if self.has_occupation() else None
+        if hasattr(self, "property_occupations") and self.property_occupations:
+            return self.property_occupations
+
+        if self.occupation.count():
+            self.property_occupations = self.occupation.order_by('-id')
+            return self.property_occupations
+
+        return False
 
     def get_profile_picture(self):
         return self.profile_picture if self.profile_picture else None
 
 
 class Occupation(models.Model):
-    profile = models.ForeignKey(UserProfile)
+    profile = models.ForeignKey(UserProfile, related_name="occupation")
     responsibility = models.CharField(max_length=60, blank=False)
     company = models.CharField(max_length=60, blank=False)
     date_begin = models.DateField(blank=True, null=True)

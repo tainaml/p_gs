@@ -1,6 +1,8 @@
 from django.contrib.contenttypes.models import ContentType
+from django.db.models import Q
 from apps.community import views
 from apps.community.models import Community
+from apps.core.forms.community import CoreCommunityFormSearch
 from apps.feed.models import FeedObject
 from apps.socialactions.service.business import get_users_acted_by_model
 from rede_gsti import settings
@@ -15,7 +17,6 @@ class CoreCommunityView(views.CommunityView):
         if request.user and request.user.is_authenticated():
 
             if isinstance(community_instance, Community):
-
                 community_followers = get_users_acted_by_model(model=community_instance,
                                                                action=settings.SOCIAL_FOLLOW,
                                                                filter_parameters={'author': request.user},
@@ -36,21 +37,39 @@ class CoreCommunityAboutView(CoreCommunityView):
 
     template_path = 'community/community-about.html'
 
-class CoreCommunityFeedView(CoreCommunityView):
+
+class CoreCommunitySearch(CoreCommunityView):
+
 
     def get_context(self, request, community_instance=None):
-        context = super(CoreCommunityFeedView, self).get_context(request, community_instance)
+        context = super(CoreCommunitySearch, self).get_context(request, community_instance)
+        itens_by_page = 2
 
-        content_types = ContentType.objects.filter(model__in=['article', 'question'])
+        self.form = CoreCommunityFormSearch(
+            community_instance,
+            ['article', 'question'],
+            itens_by_page,
+            request.GET
+        )
+        feed_objects = self.form.process()
 
-        object_taxonomies = FeedObject.objects.filter(
-            content_type__in=content_types,
-            taxonomies=community_instance.taxonomy
-        ).prefetch_related("content_object__author", "content_object__author__profile")
-
-        context.update({'object_taxonomies': object_taxonomies})
+        context.update({'feed_objects': feed_objects, 'form': self.form, 'page': self.form.cleaned_data['page'] + 1})
 
         return context
 
     template_path = 'community/community-view.html'
 
+
+class CoreCommunityList(CoreCommunitySearch):
+    def get_context(self, request, community_instance=None):
+        context = super(CoreCommunityList, self).get_context(request, community_instance)
+
+        return context
+
+    template_path = 'community/partials/community-list.html'
+
+
+class CoreCommunityFeedView(CoreCommunitySearch):
+
+
+    template_path = 'community/community-view.html'

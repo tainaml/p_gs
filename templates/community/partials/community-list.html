@@ -1,0 +1,14 @@
+{% if  feed_objects %}
+    {% for feed in feed_objects %}
+        {% with template_name=feed.content_type|stringformat:"s"|add:"-segment.html" %}
+            {% with instance=feed.content_object %}
+                {% if instance %}
+                    {% include 'userprofile/partials/'|add:template_name %}
+                {% endif %}
+            {% endwith %}
+        {% endwith %}
+    {% endfor %}
+    <a data-jscroll-next href="{% url 'community:list' community.slug %}?criterio={{ form.cleaned_data.criterio }}&page={{ page|default_if_none:form.cleaned_data.page }}&next={{ url_next|urlencode }}">next</a>
+
+{% endif %}
+

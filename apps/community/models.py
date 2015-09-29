@@ -7,7 +7,7 @@ class Community(models.Model):
     slug = models.SlugField(blank=False, null=False, max_length=150)
     description = models.TextField(null=False, max_length=2048)
     image = models.ImageField(max_length=100, upload_to='community/%Y/%m/%d', blank=True, default='')
-    taxonomy = models.ForeignKey(Taxonomy, null=False)
+    taxonomy = models.OneToOneField(Taxonomy, related_name="community_related")
 
     def __unicode__(self):
         return self.title

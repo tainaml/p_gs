@@ -1,7 +1,7 @@
 {%extends 'home/layout/base.html' %}
 
 {% load core_tags %}
-
+{% load staticfiles %}
 {% block title %}Portal GSTI - Comunidade{% endblock %}
 
 {% block content %}
@@ -22,18 +22,57 @@
                             <h2>Feed</h2>
                         </header>
                         <nav class="form-search">
-                            {% include 'home/partials/search.html' with placehold='Pesquise no seu feed' only %}
+                            <form action="{% url 'community:search' community.slug %}" method="GET" role="search">
+                                <div class="form-search-input">
+
+                                    <input type="text" name="criterio" placeholder="Persquise publicações ou perguntas..." value="{{ form.cleaned_data.criterio }}">
+
+                                </div>
+                                <div class="dropdown-menu dropdown-search">
+                                    <div class="float-notifcations">
+                                        <div class="header-float-notifications">Pessoas</div>
+                                        <ul class="content-float-notifications">
+                                            <li class="item-float-notification">
+                                                <a href="javascript:;"><img src="http://placehold.it/20" alt="Creator Post Avatar"></a>
+                                                <a href="javascript:;">Iury Silva</a>
+                                            </li>
+                                            <li class="item-float-notification">
+                                                <a href="javascript:;"><img src="http://placehold.it/20" alt="Creator Post Avatar"></a>
+                                                <a href="javascript:;">Iury Silva</a>
+                                            </li>
+                                            <li class="item-float-notification">
+                                                <a href="javascript:;"><img src="http://placehold.it/20" alt="Creator Post Avatar"></a>
+                                                <a href="javascript:;">Iury Silva</a>
+                                            </li>
+                                            <li class="item-float-notification-separator">
+                                            </li>
+                                        </ul>
+                                        <div class="header-float-notifications">Comunidades</div>
+                                        <ul class="content-float-notifications">
+                                            <li class="item-float-notification">
+                                                <a href="javascript:;"><img src="http://placehold.it/20" alt="Creator Post Avatar"></a>
+                                                <a href="javascript:;">Iury Silva</a>
+                                            </li>
+                                            <li class="item-float-notification">
+                                                <a href="javascript:;"><img src="http://placehold.it/20" alt="Creator Post Avatar"></a>
+                                                <a href="javascript:;">Iury Silva</a>
+                                            </li>
+                                            <li class="item-float-notification">
+                                                <a href="javascript:;"><img src="http://placehold.it/20" alt="Creator Post Avatar"></a>
+                                                <a href="javascript:;">Iury Silva</a>
+                                            </li>
+                                            <li class="item-float-notification-separator">
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <button type="submit" class="form-search-button">
+                                    <i class="gsticon gsticon-search"></i>
+                                </button>
+                            </form>
                         </nav>
-                        <section class="area-content">
-                            {% for object_taxonomy in object_taxonomies %}
-                                {% with template_name=object_taxonomy.content_type|stringformat:"s"|add:"-segment.html" %}
-                                    {% with instance=object_taxonomy.content_object %}
-                                        {% if instance %}
-                                            {% include 'userprofile/partials/'|add:template_name %}
-                                        {% endif %}
-                                    {% endwith %}
-                                {% endwith %}
-                            {% endfor %}
+                        <section class="area-content j-scroll j-scroll-container" id="community-list">
+                            {% include 'community/partials/community-list.html' %}
                         </section>
                     </div>
                     <div class="col-lg-4">
@@ -90,3 +129,15 @@
 <div class="modal">
     modal here
 </div>
+{% block javascripts %}
+    {{ block.super }}
+    <script src="{% static 'javascripts/jquery.jscroll.min.js' %}"></script>
+    <script>
+        $(function() {
+            $(".j-scroll").jscroll({
+                contentSelect: ".j-scroll-container",
+                nextSelect: "a[data-jscroll-next]"
+            });
+        });
+    </script>
+{% endblock %}
