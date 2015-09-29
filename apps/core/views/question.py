@@ -1,8 +1,8 @@
-from django.shortcuts import render
-from apps.core.forms.question import CoreCreateQuestionForm
+__author__ = 'phillip'
 from apps.question import views
-
+from ..forms.question import CoreQuestionForm
 
 class CoreQuestionCreateView(views.CreateQuestionView):
 
-    form_question = CoreCreateQuestionForm
+    form = CoreQuestionForm
+

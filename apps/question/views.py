@@ -13,26 +13,23 @@ from django.core.urlresolvers import reverse
 
 
 class CreateQuestionView(View):
-
-    form_question = CreateQuestionForm
+    form = CreateQuestionForm
 
     @method_decorator(login_required)
     def get(self, request):
-        form = self.form_question()
-        context = {'form': form}
-        return render(request, 'question/create.html', context)
+        
+        return render(request, 'question/create.html', {'form': self.form})
 
     @method_decorator(login_required)
     def post(self, request):
-        form = self.form_question(request.user, request.POST)
+        form = self.form(request.user, request.POST)
         if not form.process():
             messages.add_message(request, messages.WARNING, _("Question not created!"))
         else:
             messages.add_message(request, messages.SUCCESS, _("Question created successfully!"))
             return redirect(reverse('question:show', args=(form.instance.id,)))
 
-        context = {'form': form}
-        return render(request, 'question/create.html', context)
+        return render(request, 'question/create.html', {'form': form})
 
 
 class ListQuestionsView(View):

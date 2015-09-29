@@ -4,16 +4,16 @@ from __future__ import unicode_literals
 from django.db import models, migrations
 
 from django_migration_fixture import fixture
-from apps import userprofile
+from apps import question
 
 
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('userprofile', '0009_merge'),
+        ('question', '0001_initial'),
     ]
 
     operations = [
-        migrations.RunPython(**fixture(userprofile, ['initial_data.json'])),
+        migrations.RunPython(**fixture(question, ['initial_data.json'])),
 
     ]

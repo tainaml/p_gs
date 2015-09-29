@@ -4,33 +4,32 @@ from django import template
 from django.contrib.contenttypes.models import ContentType
 from django.http import Http404
 from apps.taxonomy.service import business as TaxonomiesBusiness
+from django.utils import timezone
 
-
-from apps.taxonomy.service import business as TaxonomyBusiness
-from apps.taxonomy.models import ObjectTaxonomy
+from apps.article.models import Article
+from apps.feed.models import FeedObject
 
 
 register = template.Library()
 
 
 @register.inclusion_tag('core/templatetags/relevance-box.html', takes_context=True)
-def relevance_box(context, content_object, content_type="article", count=4, template_path='core/partials/relevance/article-base.html'):
+def relevance_box(context, content_object, count=4, template_path='core/partials/relevance/article-base.html'):
 
     try:
-        feed_type = ContentType.objects.get(model="feedobject")
-        record_type = ContentType.objects.get(model=content_type)
+        record_type = ContentType.objects.get(model="article")
 
-        taxonomies = TaxonomyBusiness.get_taxonomies_by_model(content_object)
-        taxonomies_list = [tax.taxonomy.id for tax in taxonomies]
-
-        records = ObjectTaxonomy.objects.filter(
-            taxonomy__in=taxonomies_list,
-            content_type=feed_type,
-            feed_obj__content_type=record_type
+        records = FeedObject.objects.filter(
+            taxonomies=content_object.taxonomy,
+            content_type=record_type,
+            article__status=Article.STATUS_PUBLISH,
+            article__publishin__lte=timezone.now()
         ).order_by(
-            '-feed_obj__relevance',
+            '-relevance',
+            '-article__publishin'
         ).distinct(
-            'feed_obj__relevance',
+            'relevance',
+            'article__publishin',
             'object_id',
             'content_type_id'
         )[:count]
@@ -47,20 +46,4 @@ def relevance_box(context, content_object, content_type="article", count=4, temp
 
 @register.inclusion_tag('core/templatetags/last_questions.html', takes_context=True)
 def last_questions(context, content_object, content_type, count=4, template_path=None):
-
-    try:
-        records_type = ContentType.objects.get(model=content_type)
-
-        taxonomies = TaxonomyBusiness.get_taxonomies_by_model(content_object)
-        taxonomies_list = [tax.taxonomy.id for tax in taxonomies]
-
-        records = ObjectTaxonomy.objects.filter(taxonomy__in=taxonomies_list, content_type=records_type)\
-                      .order_by('-questions__question_date')\
-                      .distinct('questions__question_date', 'object_id', 'content_type_id')[:count]
-
-    except ValueError:
-        raise Http404()
-
-    return {
-        'questions': records
-    }
+    pass

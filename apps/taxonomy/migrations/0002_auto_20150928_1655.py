@@ -4,16 +4,16 @@ from __future__ import unicode_literals
 from django.db import models, migrations
 
 from django_migration_fixture import fixture
-from apps import article
+from apps import taxonomy
 
 
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('article', '0002_auto_20150901_2029'),
+        ('taxonomy', '0001_initial'),
     ]
 
     operations = [
-        migrations.RunPython(**fixture(article, ['initial_data.json'])),
+        migrations.RunPython(**fixture(taxonomy, ['initial_data.json'])),
 
     ]

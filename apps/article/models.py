@@ -2,8 +2,7 @@ from django.contrib.auth.models import User
 from django.contrib.contenttypes.fields import GenericRelation
 from django.db import models
 from django.utils.translation import ugettext as _
-
-from apps.taxonomy.models import ObjectTaxonomy
+from apps.feed.models import FeedObject
 
 
 class Article(models.Model):
@@ -28,12 +27,8 @@ class Article(models.Model):
     createdin = models.DateTimeField(null=False, auto_now_add=True)
     updatein = models.DateTimeField(null=False, auto_now=True)
     publishin = models.DateTimeField(null=True)
-
-    status = models.IntegerField(choices=STATUS_CHOICES, null=False)
-
-
-    def __unicode__(self):
-        return self.title
+    feed = GenericRelation(FeedObject, related_query_name="article")
+    status = models.IntegerField(choices=STATUS_CHOICES, null=False)  
 
     def is_published(self):
         return self.status == self.STATUS_PUBLISH

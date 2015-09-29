@@ -1,7 +1,8 @@
+{% load thumbor_tags %}
 <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
     <header class="post-header">
         <div class="post-info">
-            <time datetime="06-17-2015" itemprop="datePublished">10/06/2015 às 01:34</time>
+            <time datetime="06-17-2015" itemprop="datePublished">{{ instance.question_date|date:'d/m/Y' }} às {{ instance.question_date|date:'G:i' }}</time>
             <a href="javascript:;" data-toggle="dropdown"><i class="gsticon gsticon-gear"></i></a>
             <div class="dropdown-menu">
                 <ul class="perfil-actions">
@@ -13,18 +14,15 @@
                 </ul>
             </div>
         </div>
-        <a class="post-creator" href="javascript:;">
-            <img src="http://placehold.it/20" alt="Creator Porst Avatar">
-            {{object_taxonomy.content_object.author.get_full_name}}
-        </a>
+        <a class="post-creator" href="{% url 'profile:show' instance.author.username %}">
+            <img src="{% thumbor_url instance.author.profile.get_profile_picture.url width=20 height=20 smart=False fit_in=False %}" alt="foto de {{ instance.author.get_full_name }}">
+            {{ instance.author.get_full_name }}</a>
     </header>
-    <a class="post-content" href="javascript:;" itemprop="articleBody">
-        <figure>
-            <img src="http://placehold.it/170x128" alt="Post Image">
-        </figure>
+    <a class="post-content" href="{% url 'question:show' instance.id %}" itemprop="articleBody">
         <div class="post-text">
-            <h3 class="post-title" itemprop="headline">{% lorem 8 w random %} </h3>
-            <p>{% lorem 15 w random %}... </p>
+            <div class="question-text">Pergunta:</div>
+            <h3 class="post-title color-green" itemprop="headline">{{ instance.title }} </h3>
+            <p class="color-green">{{ instance.description|slice:":250"}}... </p>
         </div>
     </a>
     <footer class="post-footer">

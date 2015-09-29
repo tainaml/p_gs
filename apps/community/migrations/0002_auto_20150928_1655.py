@@ -4,16 +4,17 @@ from __future__ import unicode_literals
 from django.db import models, migrations
 
 from django_migration_fixture import fixture
-from apps import account
+from apps import community
 
 
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('account', '0007_auto_20150825_2227'),
+        ('community', '0001_initial'),
+        ('taxonomy', '0002_auto_20150928_1655'),
     ]
 
     operations = [
-        #migrations.RunPython(**fixture(account, ['initial_data.json'])),
+        migrations.RunPython(**fixture(community, ['initial_data.json'])),
 
     ]
