@@ -1,5 +1,6 @@
 {%extends 'home/layout/base.html' %}
 
+{% load staticfiles %}
 {% load core_tags %}
 
 {% block title %}Portal GSTI - Comunidade{% endblock %}
@@ -30,15 +31,20 @@
                                 <a href="javascript:;" class="btn btn-default">Não respondidas</a>
                                 <br><br>
                             </div>
-                            {% for object_taxonomy in object_taxonomies %}
-                                {% with template_name=object_taxonomy.content_type|stringformat:"s"|add:"-segment.html" %}
-                                    {% with instance=object_taxonomy.content_object %}
-                                        {% if instance %}
-                                            {% include 'userprofile/partials/'|add:template_name %}
-                                        {% endif %}
+                            <div class="row j-scroll-followers j-scroll-followers-container">
+                                {% if object_taxonomies %}
+                                {% for object_taxonomy in object_taxonomies %}
+                                    {% with template_name=object_taxonomy.content_type|stringformat:"s"|add:"-segment.html" %}
+                                        {% with instance=object_taxonomy.content_object %}
+                                            {% if instance %}
+                                                {% include 'userprofile/partials/'|add:template_name %}
+                                            {% endif %}
+                                        {% endwith %}
                                     {% endwith %}
-                                {% endwith %}
-                            {% endfor %}
+                                {% endfor %}
+                                <a data-jscroll-next href="{% url 'socialactions:get_followings' content_type_id=content_type.id object_filter_id=object.id %}?p={{ page }}&next={{ url_next|urlencode }}">next</a>
+                                {% endif %}
+                            </div>
                         </section>
                     </div>
                     <div class="col-lg-4">
@@ -64,3 +70,16 @@
 <div class="modal">
     modal here
 </div>
+
+
+{% block javascripts %}
+    <script src="{% static 'javascripts/jquery.jscroll.min.js' %}"></script>
+    <script>
+        $(function() {
+            $(".j-scroll-followers").jscroll({
+                contentSelect: ".j-scroll-follower-container",
+                nextSelect: "a[data-jscroll-next]"
+            });
+        });
+    </script>
+{% endblock %}
