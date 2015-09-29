@@ -65,10 +65,6 @@ class UserProfile(models.Model):
                                      self.city.state.country.name.title())
         return ""
 
-    def has_age(self):
-        if self.birth:
-            return True
-
     @property
     def age(self):
         if hasattr(self, "property_age") and self.property_age:

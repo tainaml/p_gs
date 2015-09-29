@@ -22,6 +22,7 @@ url_statics = static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 url_media = static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 urlpatterns = [
+
     url(r'^admin/', include(admin.site.urls)),
     url(r'^account/', include('apps.account.urls', namespace='account')),
     url(r'^comment/', include('apps.comment.urls', namespace='comment')),
@@ -37,4 +38,5 @@ urlpatterns = [
     url(r'^contact/', include('apps.contact.urls', namespace='contact')),
     url('^mailmanager/', include('apps.mailmanager.urls', namespace='mailmanager')),
     url('^complaint/', include('apps.complaint.urls', namespace='complaint')),
+
 ] + url_statics + url_media

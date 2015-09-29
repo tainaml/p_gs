@@ -14,23 +14,31 @@ def social_action(sender, **kwargs):
     if action:
         author = action.author
         to = None
-        if action.content_type.model in [
+
+        allowed_content_type = [
             'comment',
             'article',
             'question',
             'answer'
+        ]
 
-        ]:
+        not_allowed_content_type = [
+            'community'
+        ]
+
+        if action.content_type.model in allowed_content_type:
             to = action.content_object.author
 
         elif action.content_type.model in ['user']:
             to = action.content_object
 
-        if to != author:
-            Business.send_notification(author=action.author,
-                                           to=to,
-                                           notification_action=action.action_type,
-                                           target_object=action.content_object)
+        if action.content_type.model not in not_allowed_content_type and to != author:
+            Business.send_notification(
+                author=action.author,
+                to=to,
+                notification_action=action.action_type,
+                target_object=action.content_object
+            )
 
 @receiver(post_save, sender=Comment)
 def comment_action(sender, **kwargs):

@@ -154,7 +154,8 @@ class OccupationManageView(ProfileBaseView):
 
         profile = self.filter(request, request.user)
         # occupations = Business.get_occupations({'profile': profile}, order_by='id')
-        occupations = profile.occupations.all().order_by('id')
+        # occupations = profile.occupation_set.all().order_by('id')
+        occupations = profile.occupation.order_by('id')
 
         context = {
             'profile': profile,

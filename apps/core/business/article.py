@@ -8,5 +8,6 @@ def save_taxonomies(article_instance=None, data=None):
 
 def save_feed_item(article_instance, data=None):
     feed_object = BusinessFeed.feed_get_or_create(article_instance)
+    feed_object.date = article_instance.publishin
     feed_object.save()
     return feed_object

@@ -6,6 +6,7 @@ def save_question(logged_user, params=None):
     question = Question()
 
     question.title = params["title"]
+    question.slug = params["slug"]
     question.author = logged_user
     question.description = params["description"]
 

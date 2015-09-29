@@ -1,0 +1,40 @@
+{% load core_tags %}
+
+   <div class="squad-advertising">
+       <img class="img-responsive" src="http://placehold.it/270x225" alt="Propaganda aqui">
+   </div>
+   <div class="widget widget-feed">
+       <div class="widget-header">
+           <header class="area-title">
+               <h3>Destaque</h3>
+           </header>
+       </div>
+       <div class="widget-content">
+           <a class="article-excerpt">
+               <img src="http://placehold.it/70x53" alt="Imagem 1">
+               <span>Microsoft lança software beta para migrar aplicativos iOS para Windows</span>
+           </a>
+           <a class="article-excerpt">
+               <img src="http://placehold.it/70x53" alt="Imagem 1">
+               <span>Microsoft lança software beta para migrar aplicativos iOS para Windows</span>
+           </a>
+           <a class="article-excerpt">
+               <img src="http://placehold.it/70x53" alt="Imagem 1">
+               <span>Microsoft lança software beta para migrar aplicativos iOS para Windows</span>
+           </a>
+           <a class="article-excerpt">
+               <img src="http://placehold.it/70x53" alt="Imagem 1">
+               <span>Microsoft lança software beta para migrar aplicativos iOS para Windows</span>
+           </a>
+       </div>
+   </div>
+   <div class="widget widget-feed">
+       <div class="widget-header">
+           <header class="area-title">
+               <h3>Últimas Perguntas</h3>
+           </header>
+       </div>
+       <div class="widget-content">
+          {% last_questions community 'question' %}
+       </div>
+   </div>
