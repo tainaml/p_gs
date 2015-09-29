@@ -55,3 +55,23 @@ class CoreCommunityFeedView(CoreCommunityView):
         context.update({'object_taxonomies': object_taxonomies})
 
         return context
+
+
+class CoreCommunityQuestionFeedView(CoreCommunityView):
+
+    template_path = 'community/community-view.html'
+
+    def get_context(self, request, community_instance=None):
+        content_type = ContentType.objects.get(model='question')
+
+        object_taxonomies = FeedObject.objects.filter(
+            content_type=content_type,
+            taxonomies=community_instance.taxonomy
+        ).order_by(
+            "-question__question_date"
+        ).prefetch_related(
+            "content_object__author",
+            "content_object__author__profile"
+        )
+
+        return {'object_taxonomies': object_taxonomies}
