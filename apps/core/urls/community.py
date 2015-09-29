@@ -1,5 +1,5 @@
 from django.conf.urls import url
-from ..views.community import views, CoreCommunityView, CoreCommunityFollowersView, CoreCommunityAboutView, CoreCommunityFeedView, CoreCommunityQuestionFeedView
+from ..views.community import views, CoreCommunityFollowersView, CoreCommunityAboutView, CoreCommunityFeedView, CoreCommunityQuestionFeedView, CoreCommunitySearch, CoreCommunityList
 
 urlpatterns = [
 
