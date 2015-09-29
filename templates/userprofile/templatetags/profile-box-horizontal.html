@@ -9,23 +9,9 @@
     {% endif %}
     <img class="img-responsive" src="{% thumbor_url profile.get_profile_picture.url width=82 height=82 smart=False fit_in=False %}" alt="{{ profile.user.get_full_name }}">
     <a class="perfil-name" href="{% url 'profile:show' profile.user.username %}">{{ profile.user.get_full_name }}</a>
-    <span class="perfil-counter"><span class="counter-number">{% followers_count profile.user %}</span> Seguidores</span>
-    <span class="perfil-counter"><span class="counter-number">{% articles_count profile.user %}</span> Artigos</span>
+    <a class="perfil-counter" href="{% url "profile:followers" username=profile.user.username %}"><span class="counter-number">{% followers_count profile.user %}</span> Seguidores</a>
+    <a class="perfil-counter" href="javascript:;"><span class="counter-number">{% articles_count profile.user %}</span> Artigos</a>
     {% if profile.current_occupation %}
-        {# <a class="perfil-counter-alt" href="javascript:;">{{ profile.occupations.responsibility }} <span>em</span> {{ profile.occupations.company }}</a> #}
         <a href="javascript:;">{{ profile.current_occupation.responsibility }}</a> em <a href="javascript:;">{{ profile.current_occupation.company }}</a>
     {% endif %}
 </div>
-
-
-<!-- temporary class 'perfil-button' -->
-<!--
-<div class="perfil">
-    <a class="perfil-button pull-right text-center" href="javascript:;">Seguir</a>
-    <img class="img-responsive" src="http://placehold.it/82" alt="Imagem 1">
-    <a class="perfil-name" href="javascript:;">Iury Silva</a>
-    <span class="perfil-counter"><span class="counter-number">180</span> Seguidores</span>
-    <span class="perfil-counter"><span class="counter-number">88</span> Artigos</span>
-    <a class="perfil-counter-alt" href="javascript:;">Analista de SEO <span>em</span> Idea SEO</a>
-</div>
--->

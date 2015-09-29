@@ -27,7 +27,7 @@ class CreateQuestionView(View):
             messages.add_message(request, messages.WARNING, _("Question not created!"))
         else:
             messages.add_message(request, messages.SUCCESS, _("Question created successfully!"))
-            return redirect(reverse('question:show', args=(form.instance.id,)))
+            return redirect(reverse('question:show', args=(form.instance.slug, form.instance.id,)))
 
         return render(request, 'question/create.html', {'form': form})
 
@@ -66,6 +66,7 @@ class EditQuestionView(View):
 
 
 class UpdateQuestionView(View):
+
     @method_decorator(login_required)
     def post(self, request):
         question = business.get_question(request.POST['question_id'])
@@ -96,9 +97,11 @@ class UpdateQuestionView(View):
 
 
 class ShowQuestionView(View):
-    def get(self, request, question_id):
+
+    def get(self, request, question_slug, question_id):
         question = business.get_question(question_id)
-        if not question:
+
+        if not question or (question and question.slug != question_slug):
             raise Http404(_("Question is not exists!"))
 
         return render(request, 'question/question-show.html', {'question': question})
