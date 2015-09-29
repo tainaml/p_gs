@@ -59,7 +59,7 @@ class CoreCommunityFeedView(CoreCommunityView):
 
 class CoreCommunityQuestionFeedView(CoreCommunityView):
 
-    template_path = 'community/community-view.html'
+    template_path = 'community/community-questions.html'
 
     def get_context(self, request, community_instance=None):
         content_type = ContentType.objects.get(model='question')
