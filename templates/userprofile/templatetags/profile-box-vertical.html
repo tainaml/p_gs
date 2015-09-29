@@ -1,0 +1,41 @@
+{% load social_tags %}
+{% load article_tags %}
+{% load thumbor_tags %}
+
+<div class="perfil">
+    <img class="img-responsive" src="{% thumbor_url profile.get_profile_picture.url width=82 height=82 smart=False fit_in=False %}" alt="{{ profile.user.get_full_name }}">
+    <a class="perfil-name" href="{% url 'profile:show' profile.user.username %}">{{ profile.user.get_full_name }}</a>
+    <a class="perfil-counter" href="{% url "profile:followers" username=profile.user.username %}"><span class="counter-number">{% followers_count profile.user %}</span> Seguidores</a>
+    <a class="perfil-counter" href="javascript:;"><span class="counter-number">{% articles_count profile.user %}</span> Artigos</a>
+</div>
+<div class="follower-content">
+    <ul class="list-unstyled clearfix">
+
+        <!-- Esse botão será exibido quando o usuários estiver visitando a página de outro usuário -->
+        {% if request.user != profile.user %}
+        <li>
+            <!-- <a href="javascript:;" class="btn btn-follow">Seguir</a> -->
+            {% follow_action profile.user request.path "btn-follow" %}
+        </li>
+        {% endif %}
+
+        {% if profile.current_occupation %}
+        <li>
+            <i class="gsticon gsticon-briefcase"></i>
+            <a href="javascript:;">{{ profile.current_occupation.responsibility }}</a> em <a href="javascript:;">{{ profile.current_occupation.company }}</a>
+        </li>
+        {% endif %}
+
+        {% if profile.has_locale %}
+        <li>
+            <i class="gsticon gsticon-map-marker"></i>
+            Mora em <strong>{{ profile.locale }}</strong>
+        </li>
+        {% endif %}
+
+        {% if profile.age %}
+        <li><i class="gsticon gsticon-birthday-cake"></i> Idade {{ profile.age }}</li>
+        {% endif %}
+
+    </ul>
+</div>

@@ -50,7 +50,12 @@ class CoreCommunityFeedView(CoreCommunityView):
         object_taxonomies = FeedObject.objects.filter(
             content_type__in=content_types,
             taxonomies=community_instance.taxonomy
-        ).prefetch_related("content_object__author", "content_object__author__profile")
+        ).order_by(
+            "-date"
+        ).prefetch_related(
+            "content_object__author",
+            "content_object__author__profile"
+        )
 
         context.update({'object_taxonomies': object_taxonomies})
 
@@ -68,7 +73,7 @@ class CoreCommunityQuestionFeedView(CoreCommunityView):
             content_type=content_type,
             taxonomies=community_instance.taxonomy
         ).order_by(
-            "-question__question_date"
+            "-date"
         ).prefetch_related(
             "content_object__author",
             "content_object__author__profile"

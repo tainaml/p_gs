@@ -19,12 +19,17 @@
                 <div class="row">
                     <div class="col-lg-8">
                         <header class="area-title">
-                            <h2>Feed</h2>
+                            <h2>Perguntas</h2>
                         </header>
                         <nav class="form-search">
                             {% include 'home/partials/search.html' with placehold='Pesquise no seu feed' only %}
                         </nav>
                         <section class="area-content">
+                            <div class="text-right">
+                                <a href="javascript:;" class="btn btn-default">Respondidas</a>
+                                <a href="javascript:;" class="btn btn-default">Não respondidas</a>
+                                <br><br>
+                            </div>
                             {% for object_taxonomy in object_taxonomies %}
                                 {% with template_name=object_taxonomy.content_type|stringformat:"s"|add:"-segment.html" %}
                                     {% with instance=object_taxonomy.content_object %}

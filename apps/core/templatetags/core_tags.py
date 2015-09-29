@@ -46,4 +46,26 @@ def relevance_box(context, content_object, count=4, template_path='core/partials
 
 @register.inclusion_tag('core/templatetags/last_questions.html', takes_context=True)
 def last_questions(context, content_object, content_type, count=4, template_path=None):
-    pass
+    try:
+        record_type = ContentType.objects.get(model="question")
+
+        records = FeedObject.objects.filter(
+            taxonomies=content_object.taxonomy,
+            content_type=record_type,
+            question__question_date__lte=timezone.now()
+        ).order_by(
+            '-relevance',
+            '-question__question_date'
+        ).distinct(
+            'relevance',
+            'question__question_date',
+            'object_id',
+            'content_type_id'
+        )[:count]
+
+    except ValueError:
+        raise Http404()
+
+    return {
+        'questions': records
+    }

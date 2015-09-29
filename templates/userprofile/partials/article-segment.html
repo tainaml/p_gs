@@ -15,10 +15,9 @@
             </div>
         </div>
         <a class="post-creator" href="{% url 'profile:show' username=instance.author.username %}">
-{#            <img src="http://placehold.it/20" alt="Creator Porst Avatar">#}
+            {# <img src="http://placehold.it/20" alt="Creator Porst Avatar"> #}
             <img src="{% thumbor_url instance.author.profile.get_profile_picture.url width=20 height=20 smart=False fit_in=False %}" alt="foto de {{ instance.author.get_full_name }}">
             {{instance.author.get_full_name}}
-
         </a>
     </header>
     <a class="post-content" href="{% url 'article:view' instance.slug instance.id %}" itemprop="articleBody">
@@ -27,7 +26,7 @@
         </figure>
         <div class="post-text">
             <h3 class="post-title" itemprop="headline">{{ instance.title }} </h3>
-            <p>{{ instance.text|slice:":250"}}... </p>
+            <p>{{ instance.text|slice:":100"}}... </p>
         </div>
     </a>
     <footer class="post-footer">

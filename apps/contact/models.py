@@ -19,7 +19,6 @@ class Contact(models.Model):
     message = models.CharField(max_length=1024, blank=False)
     created = models.DateTimeField(auto_now=False, auto_now_add=True, blank=False)
 
-
     @property
     def email(self):
         if self.author:
