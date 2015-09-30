@@ -59,6 +59,21 @@ class CoreCommunitySearch(CoreCommunityView):
 
     template_path = 'community/community-view.html'
 
+
+class CoreCommunityList(CoreCommunitySearch):
+    def get_context(self, request, community_instance=None):
+        context = super(CoreCommunityList, self).get_context(request, community_instance)
+
+        return context
+
+    template_path = 'community/partials/community-list.html'
+
+
+class CoreCommunityFeedView(CoreCommunitySearch):
+
+
+    template_path = 'community/community-view.html'
+
 class CoreCommunityQuestionFeedView(CoreCommunityView):
 
     template_path = 'community/community-questions.html'
@@ -77,18 +92,3 @@ class CoreCommunityQuestionFeedView(CoreCommunityView):
         )
 
         return {'object_taxonomies': object_taxonomies}
-
-
-class CoreCommunityList(CoreCommunitySearch):
-    def get_context(self, request, community_instance=None):
-        context = super(CoreCommunityList, self).get_context(request, community_instance)
-
-        return context
-
-    template_path = 'community/partials/community-list.html'
-
-
-class CoreCommunityFeedView(CoreCommunitySearch):
-
-
-    template_path = 'community/community-view.html'
