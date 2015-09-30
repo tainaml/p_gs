@@ -40,6 +40,7 @@ class CoreCommunityAboutView(CoreCommunityView):
 
 class CoreCommunitySearch(CoreCommunityView):
 
+    template_path = 'community/community-view.html'
 
     def get_context(self, request, community_instance=None):
         context = super(CoreCommunitySearch, self).get_context(request, community_instance)
@@ -57,24 +58,59 @@ class CoreCommunitySearch(CoreCommunityView):
 
         return context
 
-    template_path = 'community/community-view.html'
-
 
 class CoreCommunityList(CoreCommunitySearch):
+
+    template_path = 'community/partials/community-list.html'
+
     def get_context(self, request, community_instance=None):
         context = super(CoreCommunityList, self).get_context(request, community_instance)
 
         return context
 
-    template_path = 'community/partials/community-list.html'
-
 
 class CoreCommunityFeedView(CoreCommunitySearch):
 
-
     template_path = 'community/community-view.html'
 
-class CoreCommunityQuestionFeedView(CoreCommunityView):
+
+class CoreCommunityQuestionSearch(CoreCommunityView):
+
+    template_path = 'community/community-questions.html'
+
+    def get_context(self, request, community_instance=None):
+        context = super(CoreCommunityQuestionSearch, self).get_context(request, community_instance)
+        itens_by_page = 2
+
+        self.form = CoreCommunityFormSearch(
+            community_instance,
+            ['question'],
+            itens_by_page,
+            request.GET
+        )
+        feed_objects = self.form.process()
+
+        context.update({'feed_objects': feed_objects, 'form': self.form, 'page': self.form.cleaned_data['page'] + 1})
+
+        return context
+
+
+class CoreCommunityQuestionFeedView(CoreCommunityQuestionSearch):
+
+    template_path = 'community/community-questions.html'
+
+
+class CoreCommunityQuestionList(CoreCommunityQuestionSearch):
+
+    template_path = 'community/partials/community-question-list.html'
+
+    def get_context(self, request, community_instance=None):
+        context = super(CoreCommunityQuestionList, self).get_context(request, community_instance)
+
+        return context
+
+
+class CoreCommunityQuestionFeed2View(CoreCommunityView):
 
     template_path = 'community/community-questions.html'
 

@@ -10,22 +10,25 @@ def get_feed_objects(community_instance=None, description=None, content_types_li
     if not content_types_list:
         content_types_list = []
 
-
     content_types = ContentType.objects.filter(model__in=content_types_list)
 
     feed_objects = FeedObject.objects.filter(
-            Q(content_type__in=content_types) &
-            Q(taxonomies=community_instance.taxonomy) &
-            (
-                Q(article__title__icontains=description) |
-                Q(article__text__icontains=description)  |
-                Q(question__title__icontains=description)|
-                Q(question__description__icontains=description)
-            )
+        Q(content_type__in=content_types) &
+        Q(taxonomies=community_instance.taxonomy) &
+        (
+            Q(article__title__icontains=description) |
+            Q(article__text__icontains=description)  |
+            Q(question__title__icontains=description)|
+            Q(question__description__icontains=description)
+        )
+    ).order_by(
+        "-date"
+    ).prefetch_related(
+        "content_object__author",
+        "content_object__author__profile"
+    )
 
-        ).prefetch_related("content_object__author", "content_object__author__profile")
-
-    feed_objects_paginated= feed_objects
+    feed_objects_paginated = feed_objects
     items_per_page = items_per_page if items_per_page else 10
     page = page if page else 1
 

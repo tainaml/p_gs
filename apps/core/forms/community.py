@@ -15,12 +15,12 @@ class CoreCommunityFormSearch(IdeiaForm):
 
         super(CoreCommunityFormSearch, self).__init__(*args, **kwargs)
 
+
     def clean(self):
         cleaned_data = super(CoreCommunityFormSearch, self).clean()
 
         cleaned_data['page'] = cleaned_data['page']\
             if 'page' in cleaned_data and cleaned_data['page'] else 1
-
 
         return cleaned_data
 
