@@ -1,3 +1,4 @@
+from ckeditor.widgets import CKEditorWidget
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.db import transaction
@@ -10,7 +11,7 @@ from django.conf import settings
 class CreateQuestionForm(IdeiaForm):
     title = forms.CharField(max_length=256, required=True)
     slug = forms.SlugField(max_length=300, required=False)
-    description = forms.CharField(max_length=2048, required=True)
+    description = forms.CharField(max_length=2048, required=True, widget=CKEditorWidget(config_name='question'))
 
     def __init__(self, user=None, *args, **kargs):
         self.user = user
@@ -30,7 +31,7 @@ class CreateQuestionForm(IdeiaForm):
 
 class EditQuestionForm(IdeiaModelForm):
     title = forms.CharField(max_length=256, required=True)
-    description = forms.CharField(max_length=2048, required=True)
+    description = forms.CharField(max_length=2048, required=True, widget=CKEditorWidget(config_name='question'))
 
     user = None
 
@@ -69,7 +70,7 @@ class EditQuestionForm(IdeiaModelForm):
 
 
 class CommentReplyForm(IdeiaForm):
-    description = forms.CharField(max_length=2048, required=True)
+    description = forms.CharField(max_length=2048, required=True, widget=CKEditorWidget(config_name='question'))
 
     def __init__(self, instance=None, user=None, *args, **kargs):
         super(CommentReplyForm, self).__init__(instance, *args, **kargs)
@@ -83,7 +84,7 @@ class CommentReplyForm(IdeiaForm):
 
 
 class EditAnswerForm(IdeiaModelForm):
-    description = forms.CharField(max_length=2048, required=True)
+    description = forms.CharField(max_length=2048, required=True, widget=CKEditorWidget(config_name='question'))
 
     user = None
 

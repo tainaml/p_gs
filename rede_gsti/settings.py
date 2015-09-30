@@ -171,6 +171,9 @@ CKEDITOR_CONFIGS = {
     'default': {
         'toolbar': 'Basic',
     },
+    'question': {
+        'toolbar': 'Basic',
+    },
     'article': {
         'toolbar': 'Custom',
         'toolbar_Custom': [
