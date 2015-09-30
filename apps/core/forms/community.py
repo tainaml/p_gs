@@ -34,3 +34,27 @@ class CoreCommunityFormSearch(IdeiaForm):
             self.itens_by_page,
             self.cleaned_data['page']
         )
+
+
+class CoreCommunityQuestionFormSearch(CoreCommunityFormSearch):
+
+    replies = forms.IntegerField(required=False)
+
+    def clean(self):
+        cleaned_data = super(CoreCommunityQuestionFormSearch, self).clean()
+
+        cleaned_data['replies'] = cleaned_data['replies']\
+            if 'replies' in cleaned_data and cleaned_data['replies'] else None
+
+        return cleaned_data
+
+    def __process__(self):
+
+        return Business.get_feed_questions(
+            self.community_instance,
+            self.cleaned_data['criterio'],
+            self.content_types,
+            self.cleaned_data['replies'],
+            self.itens_by_page,
+            self.cleaned_data['page']
+        )
