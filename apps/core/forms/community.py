@@ -38,7 +38,7 @@ class CoreCommunityFormSearch(IdeiaForm):
 
 class CoreCommunityQuestionFormSearch(CoreCommunityFormSearch):
 
-    replies = forms.IntegerField(required=False)
+    replies = forms.CharField(required=False)
 
     def clean(self):
         cleaned_data = super(CoreCommunityQuestionFormSearch, self).clean()
@@ -47,6 +47,7 @@ class CoreCommunityQuestionFormSearch(CoreCommunityFormSearch):
             if 'replies' in cleaned_data and cleaned_data['replies'] else None
 
         return cleaned_data
+
 
     def __process__(self):
 

@@ -51,16 +51,37 @@ def get_feed_questions(community_instance=None, description=None, content_types_
 
     content_types = ContentType.objects.filter(model__in=content_types_list)
 
-    feed_objects = FeedObject.objects.filter(
-        Q(content_type__in=content_types) &
-        Q(taxonomies=community_instance.taxonomy) &
-        (
-            Q(question__title__icontains=description)|
-            Q(question__description__icontains=description)
+    if replies == 'reply':
+        criteria = (
+            Q(content_type__in=content_types) &
+            Q(taxonomies=community_instance.taxonomy) &
+            (
+                Q(question__title__icontains=description) |
+                Q(question__description__icontains=description)
+            ) &
+            Q(question__question_owner__isnull=False)
         )
-    ).order_by(
-        "-date"
-    ).prefetch_related(
+    elif replies == 'non-reply':
+        criteria = (
+            Q(content_type__in=content_types) &
+            Q(taxonomies=community_instance.taxonomy) &
+            (
+                Q(question__title__icontains=description) |
+                Q(question__description__icontains=description)
+            ) &
+            Q(question__question_owner__isnull=True)
+        )
+    else:
+        criteria = (
+            Q(content_type__in=content_types) &
+            Q(taxonomies=community_instance.taxonomy) &
+            (
+                Q(question__title__icontains=description) |
+                Q(question__description__icontains=description)
+            )
+        )
+
+    feed_objects = FeedObject.objects.filter(criteria).order_by("-date").prefetch_related(
         "content_object__author",
         "content_object__author__profile",
         "taxonomies"
@@ -78,5 +99,3 @@ def get_feed_questions(community_instance=None, description=None, content_types_
         feed_objects_paginated = []
 
     return feed_objects_paginated
-
-    pass
