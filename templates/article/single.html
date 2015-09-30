@@ -1,6 +1,8 @@
 {%extends 'home/layout/base.html' %}
 {% load taxonomy_tags %}
 
+{% load social_tags %}
+{% load article_tags %}
 {% load thumbor_tags %}
 
 {% block title %}{{ article.title }} - Portal GSTI{% endblock %}
@@ -39,7 +41,7 @@
                         </div>
                     </div>
                     <a class="post-creator" href="{% url 'profile:show' article.author.username %}">
-                        <img src="http://placehold.it/20" alt="Creator Porst Avatar">
+                        <img src="{% thumbor_url article.author.profile.get_profile_picture.url width=20 height=20 smart=False fit_in=False %}" alt="foto de {{ instance.author.get_full_name }}">
                         {{ article.author.get_full_name }}
                     </a>
                     <h1 class="full-post-title">{{ article.title }}</h1>
@@ -59,7 +61,7 @@
                     {% if article.image %}
                         <img class="full-post-image" src="{% thumbor_url article.image.url width=500 smart=True fit_in=True %}" />
                     {% endif %}
-                    {{ article.text }}
+                    {{ article.text|safe }}
                     <div class="post-advertising text-center">
                         <img class="img-responsive" src="http://placehold.it/728x90" alt="Propaganda">
                     </div>
@@ -70,11 +72,14 @@
                 </div>
             </article>
             <div class="perfil">
-                <img class="img-responsive" src="http://placehold.it/82" alt="Imagem 1">
-                <a class="perfil-name" href="javascript:;">Iury Silva</a>
-                <span class="perfil-counter"><span class="counter-number">180</span> Seguidores</span>
-                <span class="perfil-counter"><span class="counter-number">88</span> Artigos</span>
-                <a class="perfil-counter-alt" href="javascript:;">Analista de SEO <span>em</span> Idea SEO</a>
+                <img src="{% thumbor_url article.author.profile.get_profile_picture.url width=82 height=82 smart=False fit_in=False %}" alt="foto de {{ instance.author.get_full_name }}">
+                <a class="perfil-name" href="javascript:;">{{article.author.get_full_name}}</a>
+                <span class="perfil-counter"><span class="counter-number">{% followers_count article.author %}</span> Seguidor(es)</span>
+                <span class="perfil-counter"><span class="counter-number">{% articles_count article.author %}</span> Artigo(s)</span>
+                {% if  article.author.profile.current_occupation%}
+                    <a class="perfil-counter-alt" href="javascript:;">{{ article.author.profile.current_occupation }} em {{ article.author.profile.current_occupationcompany }}</a>
+                {% endif %}
+
             </div>
             <div class="container-comments">
                 {% include 'home/partials/comment/create.html' with size=81 %}

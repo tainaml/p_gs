@@ -1,6 +1,6 @@
 <nav class="post-communities">
-    {% for taxonomy_object in taxonomies %}
-        <a href="javascript:;" class="link-to-community">{{ taxonomy_object.taxonomy }}</a>•
+    {% for community in communities %}
+        <a href="{% url 'community:show' community.slug %}" class="link-to-community">{{ community.taxonomy }}</a>•
     {% endfor %}
 
 

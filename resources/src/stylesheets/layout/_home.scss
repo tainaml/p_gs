@@ -51,13 +51,14 @@ main {
     letter-spacing: -0.003em;
 }
 .highlight-article-large {
-    @extend %highlight-article;
     width: 100%;
+    @include make-sm-column(6);
+    @extend %highlight-article;
     font-weight: 600;
 }
 .highlight-article-medium {
-    @extend %highlight-article;
     width: 50%;
+    @extend %highlight-article;
     padding-top: 20px;
     font-weight: 600;
 }

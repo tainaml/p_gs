@@ -1,6 +1,7 @@
 {%extends 'home/layout/base.html' %}
 
 {% load i18n %}
+{% load widget_tweaks %}
 
 {% block title %}Portal GSTI - Criar Pergunta{% endblock %}
 
@@ -46,7 +47,7 @@
                                     {% if form.title.errors %}<span class="help-block">{{ form.title.errors }}</span> {% endif %}
                                 </div>
                                 <div class="form-group">
-                                    <textarea class="form-control" cols="30" rows="10" name="description" id="description" placeholder="Descrição detalhada da pergunta" maxlength="2048"></textarea>
+                                    {% render_field form.description placeholder="Descrição detalhada da pergunta" maxlength="2048" class="form-control" rows="10" cols="30" %}
                                     {% if form.description.errors %}<span class="help-block">{{ form.description.errors }}</span> {% endif %}
                                 </div>
                                 <div class="form-group">
@@ -54,12 +55,13 @@
                                 </div>
                                 <div class="form-group">
                                     {{ form.taxonomies }}
-                                    {% if form.taxonomies.errors %} {{ form.taxonomies.errors }} {% endif %}
+                                    {% if form.taxonomies.errors %}<span class="help-block">{{ form.taxonomies.errors }}</span> {% endif %}
                                 </div>
+
                             </div>
                             <div class="col-lg-3">
                                 <ul class="rules-to-post">
-                                    <li>pesquise soluções antes de perguntar. Evite perguntas duplicadas</li>
+                                    <li>Pesquise soluções antes de perguntar. Evite perguntas duplicadas</li>
                                     <li>Certifique-se que sua pergunta não contenha erros de portugûes</li>
                                     <li>Não publique perguntas que não tenham relação com sua categoria / comunidade</li>
                                 </ul>
