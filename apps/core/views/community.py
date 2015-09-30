@@ -59,25 +59,6 @@ class CoreCommunitySearch(CoreCommunityView):
 
     template_path = 'community/community-view.html'
 
-class CoreCommunityQuestionFeedView(CoreCommunityView):
-
-    template_path = 'community/community-questions.html'
-
-    def get_context(self, request, community_instance=None):
-        content_type = ContentType.objects.get(model='question')
-
-        object_taxonomies = FeedObject.objects.filter(
-            content_type=content_type,
-            taxonomies=community_instance.taxonomy
-        ).order_by(
-            "-date"
-        ).prefetch_related(
-            "content_object__author",
-            "content_object__author__profile"
-        )
-
-        return {'object_taxonomies': object_taxonomies}
-
 
 class CoreCommunityList(CoreCommunitySearch):
     def get_context(self, request, community_instance=None):
@@ -92,7 +73,7 @@ class CoreCommunityFeedView(CoreCommunitySearch):
 
 
     template_path = 'community/community-view.html'
-    
+
 class CoreCommunityQuestionFeedView(CoreCommunityView):
 
     template_path = 'community/community-questions.html'
