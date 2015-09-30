@@ -10,12 +10,12 @@
         <div class="perfil-row">
             <!-- mudar para 2.5 -->
             <div class="col-lg-3">
-                {% include 'community/partials/community-sidebar.html' %}
+                {% include 'community/partials/community-sidebar-left.html' %}
             </div>
             <!-- mudar para 9.5 -->
             <div class="col-lg-9">
                 <nav class="perfil-navegation">
-                    <a href="{% url 'community:show' community.slug %}">Feed</a>•<a href="{% url 'ninico:comunidade-perguntas' %}">Perguntas</a>•<a class="active" href="{% url 'community:followers' community.slug %}">Membros</a>•<a href="{% url 'community:about' community.slug %}">Sobre</a>•<a href="{% url 'ninico:comunidade-videos' %}">Vídeos</a>
+                    <a href="{% url 'community:show' community.slug %}">Feed</a>•<a href="{% url 'community:questions' community.slug %}">Perguntas</a>•<a class="active" href="{% url 'community:followers' community.slug %}">Membros</a>•<a href="{% url 'community:about' community.slug %}">Sobre</a>•<a href="{% url 'ninico:comunidade-videos' %}">Vídeos</a>
                 </nav>
                 <header class="area-title">
                     <h2>Membros</h2>
@@ -55,54 +55,6 @@
                             {% followers_box community request.path %}
                         </div>
                     </div>
-{#                    <div class="box-perfil">#}
-{#                        <div class="perfil">#}
-{#                            <img class="img-responsive" src="http://placehold.it/82" alt="Imagem 1">#}
-{#                            <a class="perfil-name" href="javascript:;">Python</a>#}
-{#                            <a class="perfil-counter" href="javascript;;"><span class="counter-number">180</span> Seguidores</a>#}
-{#                            <a class="btn btn-sm perfil-button-alt" href="javascript:;">Entrou</a>#}
-{#                        </div>#}
-{#                    </div>#}
-{#                    <div class="box-perfil">#}
-{#                        <div class="perfil">#}
-{#                            <img class="img-responsive" src="http://placehold.it/82" alt="Imagem 1">#}
-{#                            <a class="perfil-name" href="javascript:;">Python</a>#}
-{#                            <a class="perfil-counter" href="javascript;;"><span class="counter-number">180</span> Seguidores</a>#}
-{#                            <a class="btn btn-sm perfil-button-alt" href="javascript:;">Entrou</a>#}
-{#                        </div>#}
-{#                    </div>#}
-{#                    <div class="box-perfil">#}
-{#                        <div class="perfil">#}
-{#                            <img class="img-responsive" src="http://placehold.it/82" alt="Imagem 1">#}
-{#                            <a class="perfil-name" href="javascript:;">Python</a>#}
-{#                            <a class="perfil-counter" href="javascript;;"><span class="counter-number">180</span> Seguidores</a>#}
-{#                            <a class="btn btn-sm perfil-button-alt" href="javascript:;">Entrou</a>#}
-{#                        </div>#}
-{#                    </div>#}
-{#                    <div class="box-perfil">#}
-{#                        <div class="perfil">#}
-{#                            <img class="img-responsive" src="http://placehold.it/82" alt="Imagem 1">#}
-{#                            <a class="perfil-name" href="javascript:;">Python</a>#}
-{#                            <a class="perfil-counter" href="javascript;;"><span class="counter-number">180</span> Seguidores</a>#}
-{#                            <a class="btn btn-sm perfil-button-alt" href="javascript:;">Entrou</a>#}
-{#                        </div>#}
-{#                    </div>#}
-{#                    <div class="box-perfil">#}
-{#                        <div class="perfil">#}
-{#                            <img class="img-responsive" src="http://placehold.it/82" alt="Imagem 1">#}
-{#                            <a class="perfil-name" href="javascript:;">Python</a>#}
-{#                            <a class="perfil-counter" href="javascript;;"><span class="counter-number">180</span> Seguidores</a>#}
-{#                            <a class="btn btn-sm perfil-button-alt" href="javascript:;">Entrou</a>#}
-{#                        </div>#}
-{#                    </div>#}
-{#                    <div class="box-perfil">#}
-{#                        <div class="perfil">#}
-{#                            <img class="img-responsive" src="http://placehold.it/82" alt="Imagem 1">#}
-{#                            <a class="perfil-name" href="javascript:;">Python</a>#}
-{#                            <a class="perfil-counter" href="javascript;;"><span class="counter-number">180</span> Seguidores</a>#}
-{#                            <a class="btn btn-sm perfil-button-alt" href="javascript:;">Entrou</a>#}
-{#                        </div>#}
-{#                    </div>#}
                 </div>
             </div>
         </div>

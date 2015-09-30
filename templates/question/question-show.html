@@ -1,8 +1,9 @@
 {%extends 'home/layout/base.html' %}
 
 {% load thumbor_tags %}
+{% load profile_tags %}
 
-{% block title %}Portal GSTI - Perfil{% endblock %}
+{% block title %}{{ question.title }} - Portal GSTI{% endblock %}
 
 {% block content %}
     <main class="container">
@@ -35,7 +36,7 @@
                                 </ul>
                             </div>
                         </div>
-                        <a class="post-creator" href="javascript:;">
+                        <a class="post-creator" href="{% url 'profile:show' question.author.username %}">
                             <img src="{% thumbor_url question.author.profile.get_profile_picture.url width=20 height=20 smart=False fit_in=False %}" alt="{{ question.author.get_full_name }}">
                             {{ question.author.get_full_name }}
                         </a>
@@ -62,11 +63,11 @@
                                 <a href="javascript:;" class="post-votes-up">1.026 <i class="gsticon gsticon-caret-up"></i></a>
                                 <a href="javascript:;" class="post-votes-dow"><i class="gsticon gsticon-caret-down"></i> 4</a>
                             </div>
-                            <div class="post-count-comments"><strong>32</strong> Respostas</div>
+                            <div class="post-count-comments"><strong>{{ question.counter_answer }}</strong> Respostas</div>
                         </div>
                     </aside>
                     <div class="full-post-content color-green">
-                        <p class="color-green">{{ question.description }}</p>
+                        <p class="color-green">{{ question.description|safe }}</p>
                         <div class="post-advertising text-center">
                             <img class="img-responsive" src="http://placehold.it/728x90" alt="Propaganda">
                         </div>
@@ -76,15 +77,9 @@
                         <div class="addthis_sharing_toolbox"></div>
                     </div>
                 </article>
-                <div class="perfil">
-                    <!-- temporary class 'perfil-button' -->
-                    <a class="perfil-button pull-right text-center" href="javascript:;">Seguir</a>
-                    <img class="img-responsive" src="http://placehold.it/82" alt="Imagem 1">
-                    <a class="perfil-name" href="javascript:;">Iury Silva</a>
-                    <span class="perfil-counter"><span class="counter-number">180</span> Seguidores</span>
-                    <span class="perfil-counter"><span class="counter-number">88</span> Artigos</span>
-                    <a class="perfil-counter-alt" href="javascript:;">Analista de SEO <span>em</span> Idea SEO</a>
-                </div>
+
+                {% profile_box question.author "horizontal" %}
+
                 <div class="container-comments">
                     {% include 'home/partials/comment/create.html' with size=81 %}
                     {% include 'home/partials/comment/comment.html' %}

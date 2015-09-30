@@ -1,4 +1,5 @@
 from django.shortcuts import redirect
+from django.utils.text import slugify
 
 from social.pipeline.partial import partial
 
@@ -19,6 +20,6 @@ def require_email(strategy, details, user=None, is_new=False, *args, **kwargs):
 def username_slugify(**kwargs):
     print kwargs
     if kwargs.get('username'):
-        kwargs['username'] = kwargs.get('username').lower()
+        kwargs['username'] = slugify(kwargs.get('username').lower())
 
     return kwargs

@@ -1,4 +1,5 @@
 {% load thumbor_tags %}
+{% load taxonomy_tags %}
 <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
     <header class="post-header">
         <div class="post-info">
@@ -15,10 +16,9 @@
             </div>
         </div>
         <a class="post-creator" href="{% url 'profile:show' username=instance.author.username %}">
-{#            <img src="http://placehold.it/20" alt="Creator Porst Avatar">#}
+            {# <img src="http://placehold.it/20" alt="Creator Porst Avatar"> #}
             <img src="{% thumbor_url instance.author.profile.get_profile_picture.url width=20 height=20 smart=False fit_in=False %}" alt="foto de {{ instance.author.get_full_name }}">
             {{instance.author.get_full_name}}
-
         </a>
     </header>
     <a class="post-content" href="{% url 'article:view' instance.slug instance.id %}" itemprop="articleBody">
@@ -27,23 +27,11 @@
         </figure>
         <div class="post-text">
             <h3 class="post-title" itemprop="headline">{{ instance.title }} </h3>
-            <p>{{ instance.text|slice:":250"}}... </p>
+            <p>{{ instance.text|safe|slice:":100"}}... </p>
         </div>
     </a>
     <footer class="post-footer">
-        <nav class="post-communities">
-            <a href="javascript:;" class="link-to-community">Java</a>•
-            <a href="javascript:;" class="link-to-community">MySQL</a>
-            <div class="dropdown-menu">
-                <ul class="perfil-actions">
-                    <li><a href="javascript:;">matemática</a></li>
-                    <li><a href="javascript:;">Português</a></li>
-                    <li><a href="javascript:;">Literatura</a></li>
-                    <li><a href="javascript:;">Termodinâmica</a></li>
-                    <li><a href="javascript:;">Física</a></li>
-                </ul>
-            </div>
-        </nav>
+        {% taxonomies instance %}
         <div class="post-toolbar pull-right">
             <div class="post-count">
                 <a href="javascript:;" class="post-votes-up">1.026 <i class="gsticon gsticon-caret-up"></i></a>
