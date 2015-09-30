@@ -25,7 +25,8 @@ def get_feed_objects(community_instance=None, description=None, content_types_li
         "-date"
     ).prefetch_related(
         "content_object__author",
-        "content_object__author__profile"
+        "content_object__author__profile",
+        "taxonomies"
     )
 
     feed_objects_paginated = feed_objects

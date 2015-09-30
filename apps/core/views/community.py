@@ -44,7 +44,7 @@ class CoreCommunitySearch(CoreCommunityView):
 
     def get_context(self, request, community_instance=None):
         context = super(CoreCommunitySearch, self).get_context(request, community_instance)
-        itens_by_page = 2
+        itens_by_page = 10
 
         self.form = CoreCommunityFormSearch(
             community_instance,
