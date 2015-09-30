@@ -24,7 +24,7 @@
         <div class="post-text">
             <div class="question-text">Pergunta:</div>
             <h3 class="post-title color-green" itemprop="headline">{{ instance.title }} </h3>
-            <p class="color-green">{{ instance.description|slice:":250"}}... </p>
+            <p class="color-green">{{ instance.description|safe|slice:":250"}}... </p>
         </div>
     </a>
     <footer class="post-footer">

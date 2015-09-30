@@ -2,6 +2,7 @@ from django.contrib.auth.models import User
 from django.contrib.contenttypes.fields import GenericRelation
 from django.db import models
 from django.utils.translation import ugettext as _
+from ckeditor.fields import RichTextField
 from apps.feed.models import FeedObject
 
 
@@ -20,7 +21,7 @@ class Article(models.Model):
 
     title = models.CharField(blank=False, null=False, max_length=100)
     slug = models.SlugField(default='', null=False, max_length=150)
-    text = models.TextField(null=False, max_length=2048)
+    text = RichTextField(null=False, max_length=2048)
     image = models.ImageField(max_length=100, upload_to='article/%Y/%m/%d', blank=True, default='')
     author = models.ForeignKey(User, null=False, related_name='articles', verbose_name=_('Author'))
 
