@@ -49,5 +49,4 @@ def save_taxonomies_for_model(model=None, taxonomi_list=None):
     return True
 
 def get_taxonomies_by_model(model=None):
-
     return model.taxonomies

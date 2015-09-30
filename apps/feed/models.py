@@ -8,7 +8,7 @@ from apps.taxonomy.models import Taxonomy
 class FeedObject(models.Model):
 
     relevance = models.DecimalField(max_digits=4, decimal_places=2, null=False, default=0)
-    date = models.DateTimeField(null=False, auto_now_add=True)
+    date = models.DateTimeField(null=True, auto_now_add=True)
 
     content_type = models.ForeignKey(ContentType)
     object_id = models.PositiveIntegerField()

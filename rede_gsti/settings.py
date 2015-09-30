@@ -55,6 +55,7 @@ INSTALLED_APPS = (
     'celery',
     'djcelery',
     'social.apps.django_app.default',
+    'ckeditor',
 
     # CORE
     'apps.core',
@@ -164,6 +165,26 @@ SOCIAL_INVERSE_ACTIONS = {
     SOCIAL_FOLLOW: []
 }
 
+
+# CKEDITOR
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'Basic',
+    },
+    'article': {
+        'toolbar': 'Custom',
+        'toolbar_Custom': [
+            ['Bold', 'Italic', 'Underline'],
+            ['NumberedList', 'BulletedList'],
+            ['Link', 'Unlink'],
+            ['RemoveFormat'],
+            ['Source']
+        ],
+        'extraPlugins': ','.join([
+            'autolink'
+        ]),
+    }
+}
 
 #Notification
 
