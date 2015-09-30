@@ -43,7 +43,7 @@ class CoreCommunitySearch(CoreCommunityView):
 
     def get_context(self, request, community_instance=None):
         context = super(CoreCommunitySearch, self).get_context(request, community_instance)
-        itens_by_page = 2
+        itens_by_page = 10
 
         self.form = CoreCommunityFormSearch(
             community_instance,
@@ -92,22 +92,3 @@ class CoreCommunityFeedView(CoreCommunitySearch):
 
 
     template_path = 'community/community-view.html'
-    
-class CoreCommunityQuestionFeedView(CoreCommunityView):
-
-    template_path = 'community/community-questions.html'
-
-    def get_context(self, request, community_instance=None):
-        content_type = ContentType.objects.get(model='question')
-
-        object_taxonomies = FeedObject.objects.filter(
-            content_type=content_type,
-            taxonomies=community_instance.taxonomy
-        ).order_by(
-            "-date"
-        ).prefetch_related(
-            "content_object__author",
-            "content_object__author__profile"
-        )
-
-        return {'object_taxonomies': object_taxonomies}

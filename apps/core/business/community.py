@@ -23,7 +23,8 @@ def get_feed_objects(community_instance=None, description=None, content_types_li
                 Q(question__description__icontains=description)
             )
 
-        ).prefetch_related("content_object__author", "content_object__author__profile")
+        ).prefetch_related("content_object__author", "content_object__author__profile", "taxonomies").\
+        order_by("-date")
 
     feed_objects_paginated= feed_objects
     items_per_page = items_per_page if items_per_page else 10
