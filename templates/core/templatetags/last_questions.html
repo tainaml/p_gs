@@ -1,0 +1,4 @@
+{% load i18n %}
+{% for question in questions %}
+    <a class="article-excerpt color-green" href="{% url 'question:show' question.content_object.slug question.content_object.id %}">{{ question.content_object.title }}</a>
+{% endfor %}

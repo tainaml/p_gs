@@ -1,4 +1,5 @@
 {% load thumbor_tags %}
+{% load taxonomy_tags %}
 <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
     <header class="post-header">
         <div class="post-info">
@@ -30,19 +31,7 @@
         </div>
     </a>
     <footer class="post-footer">
-        <nav class="post-communities">
-            <a href="javascript:;" class="link-to-community">Java</a>•
-            <a href="javascript:;" class="link-to-community">MySQL</a>
-            <div class="dropdown-menu">
-                <ul class="perfil-actions">
-                    <li><a href="javascript:;">matemática</a></li>
-                    <li><a href="javascript:;">Português</a></li>
-                    <li><a href="javascript:;">Literatura</a></li>
-                    <li><a href="javascript:;">Termodinâmica</a></li>
-                    <li><a href="javascript:;">Física</a></li>
-                </ul>
-            </div>
-        </nav>
+        {% taxonomies instance %}
         <div class="post-toolbar pull-right">
             <div class="post-count">
                 <a href="javascript:;" class="post-votes-up">1.026 <i class="gsticon gsticon-caret-up"></i></a>

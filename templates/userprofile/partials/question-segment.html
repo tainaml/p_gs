@@ -1,4 +1,5 @@
 {% load thumbor_tags %}
+{% load taxonomy_tags %}
 <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
     <header class="post-header">
         <div class="post-info">
@@ -28,7 +29,7 @@
     </a>
     <footer class="post-footer">
         <nav class="post-communities">
-            <a href="javascript:;" class="link-to-community">Java</a>•<a href="javascript:;" class="link-to-community">MySQL</a>•<a href="javascript:;" class="link-to-community" data-toggle="dropdown">Mais <i class="gsticon gsticon-angle-down"></i></a>
+            {% taxonomies instance %}
             <div class="dropdown-menu">
                 <ul class="perfil-actions">
                     <li><a href="javascript:;">matemática</a></li>

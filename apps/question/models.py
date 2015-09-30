@@ -1,6 +1,7 @@
 from django.contrib.contenttypes.fields import GenericRelation
 from django.db import models
 from django.contrib.auth.models import User
+from apps.taxonomy.models import Taxonomy
 from apps.feed.models import FeedObject
 
 
@@ -20,7 +21,6 @@ class Question(models.Model):
     author = models.ForeignKey(User, blank=False)
     question_date = models.DateTimeField(auto_now=False, auto_now_add=True, blank=False)
     correct_answer = models.OneToOneField("question.Answer", related_name="correct_answer", blank=True, null=True)
-
     feed = GenericRelation(FeedObject, related_query_name="question")
 
     def counter_answer(self):

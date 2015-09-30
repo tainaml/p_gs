@@ -9,6 +9,7 @@ class AbstractIdeiaForm(object):
         except Exception, e:
             print e.message
             self.add_error(None, "General error!")
+
             return False
 
     def __process__(self):
