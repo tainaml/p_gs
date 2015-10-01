@@ -27,8 +27,8 @@
                         </nav>
                         <section class="area-content">
                             <div class="text-right">
-                                <a href="{% url "community:questions-search" community.slug %}?criterio={{ form.cleaned_data.criterio|urlencode }}&replies=reply&page={{ page|default_if_none:form.cleaned_data.page }}&next={{ url_next|urlencode }}" class="btn btn-default">Respondidas</a>
-                                <a href="{% url "community:questions-search" community.slug %}?criterio={{ form.cleaned_data.criterio|urlencode }}&replies=non-reply&page={{ page|default_if_none:form.cleaned_data.page }}&next={{ url_next|urlencode }}" class="btn btn-default">Não respondidas</a>
+                                <a href="{% url "community:questions-search" community.slug %}?criterio={{ form.cleaned_data.criterio|urlencode }}&replies=reply&next={{ url_next|urlencode }}" class="btn btn-default">Respondidas</a>
+                                <a href="{% url "community:questions-search" community.slug %}?criterio={{ form.cleaned_data.criterio|urlencode }}&replies=non-reply&next={{ url_next|urlencode }}" class="btn btn-default">Não respondidas</a>
                                 <br><br>
                             </div>
                             <div id="community-feed-list" class="row j-scroll j-scroll-container">
