@@ -1,7 +1,11 @@
+from django.contrib.auth.decorators import login_required
 from django.http import Http404
 from django.shortcuts import render
+from django.utils.decorators import method_decorator
+
 from apps.core.forms.user import CoreUserSearchForm
 from apps.userprofile.views import ProfileShowView
+from apps.userprofile.service import business as BusinessUserprofile
 
 
 class CoreUserSearchView(ProfileShowView):
@@ -25,7 +29,7 @@ class CoreUserSearchView(ProfileShowView):
 
         return context
 
-    def get(self, request):
+    def get(self, request, **kwargs):
 
         profile = self.filter(request, request.user)
 
@@ -46,3 +50,16 @@ class CoreUserList(CoreUserSearchView):
 
 class CoreUserFeed(CoreUserSearchView):
     template_path = 'userprofile/profile.html'
+
+    @method_decorator(login_required)
+    def get(self, request, **kwargs):
+        return super(CoreUserFeed, self).get(request)
+
+    def get_context(self, request, profile_instance=None):
+        context = super(CoreUserFeed, self).get_context(request, profile_instance)
+
+        states = BusinessUserprofile.get_states(1)
+
+        context.update({'states': states})
+
+        return context

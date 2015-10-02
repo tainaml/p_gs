@@ -1,5 +1,7 @@
 {%extends 'home/layout/base.html' %}
 
+{% load staticfiles %}
+
 {% block title %}Portal GSTI - Perfil{% endblock %}
 
 {% block content %}
@@ -110,4 +112,66 @@
             </div>
         </div>
     </main>
+{% endblock %}
+
+
+{% block javascripts %}
+    {{ block.super }}
+    <script src="{% static 'javascripts/jquery.form.min.js' %}"></script>
+    <script>
+
+        function fill_states(obj){
+            $.ajax({
+                url: "{% url 'profile:get_state' %}",
+                method: "POST",
+                dataType: "html",
+                data: {
+                    country_id: obj.val(),
+                    csrfmiddlewaretoken: $("input:hidden[name='csrfmiddlewaretoken']").val()
+                },
+                success: function(response) {
+                    $("#state").html(response);
+                    $("#city").html('');
+                }
+            });
+        }
+        function fill_cities(obj){
+            $.ajax({
+                url: "{% url 'profile:get_city' %}",
+                method: "POST",
+                dataType: "html",
+                data: {
+                    state_id: obj.val(),
+                    csrfmiddlewaretoken: $("input:hidden[name='csrfmiddlewaretoken']").val()
+                },
+                success: function(response) {
+                    $("#city").html(response);
+                }
+            });
+        }
+
+        var formPersonalInfoOptions = {
+            dataType: "json",
+            beforeSerialize: function($form, options) {},
+            success: function($form, response) {
+                console.log($form);
+                console.log(response);
+            }
+        }
+
+        $(function() {
+            var $countySelect = $("#country");
+            var $stateSelect = $("#state");
+            $countySelect.on("change", function() {
+                fill_states($(this));
+            });
+            $stateSelect.on("change", function() {
+                fill_cities($(this));
+            });
+
+            $("#form-personal-info").ajaxForm(formPersonalInfoOptions);
+        });
+
+
+    </script>
 {% endblock %}

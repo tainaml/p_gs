@@ -48,7 +48,7 @@ class OccupationField(forms.fields.MultiValueField):
 
 class EditProfileForm(IdeiaForm):
     birth = forms.DateField(input_formats=['%d/%m/%Y'])
-    gender = forms.CharField(max_length=1)
+    gender = forms.CharField(max_length=1, required=False)
     city = forms.ModelChoiceField(queryset='')
     profile_picture = forms.ImageField(required=False)
 
