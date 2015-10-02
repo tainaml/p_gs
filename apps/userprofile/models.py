@@ -3,9 +3,10 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
 from django.utils.translation import ugettext as _
+from ckeditor.fields import RichTextField
 
 
-class GenderType():
+class GenderType:
     def __init__(self):
         pass
 
@@ -106,9 +107,17 @@ class UserProfile(models.Model):
         return self.profile_picture if self.profile_picture else None
 
 
+class Responsibility(models.Model):
+    name = models.CharField(max_length=60, null=False, blank=False)
+    text = RichTextField(null=True, blank=True)
+
+    def __unicode__(self):
+        return self.name
+
+
 class Occupation(models.Model):
     profile = models.ForeignKey(UserProfile, related_name="occupation")
-    responsibility = models.CharField(max_length=60, blank=False)
+    responsibility = models.ForeignKey(Responsibility)
     company = models.CharField(max_length=60, blank=False)
     date_begin = models.DateField(blank=True, null=True)
     date_end = models.DateField(blank=True, null=True)
