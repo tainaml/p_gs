@@ -62,7 +62,7 @@ class LoginView(View):
 
         form = LoginForm(request, request.POST)
         if form.process():
-
+            url_next = '/profile/feed/' if form.redirect_to_wizard else url_next
             return redirect(url_next)
 
         return render(request, 'account/login.html', {'form': form})
