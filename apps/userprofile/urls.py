@@ -16,6 +16,7 @@ urlpatterns = [
     url(r'^occupation/delete/(?P<occupation_id>[0-9]+)/$', views.OccupationDeleteView.as_view(), name='occupation_delete'),
 
     url(r'^feed/$', userView.CoreUserFeed.as_view(), name='user_feed'),
+    url(r'^list/$', userView.CoreUserList.as_view(), name='list'),
 
     url(r'^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/$', views.ProfileShowView.as_view(), name='show'),
     url(r'^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/followings/$', views.ProfileFollowingsView.as_view(), name='followings'),

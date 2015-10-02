@@ -26,7 +26,7 @@
                             </nav>
                         {% endif %}
                         <section class="area-content">
-                            {% if form.cleaned_data.criterio %}
+                            {% if feed_objects.object_list %}
                                 {% include 'userprofile/partials/user-profile-list.html' %}
                             {% else %}
                                 <span>Carregando feed...</span>
