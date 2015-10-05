@@ -49,6 +49,7 @@ function loadUsers (query, callback) {
       callback()
     },
     success: function(res) {
+      console.dir(res.repositories)
       callback(res.repositories.slice(0, 10))
     }
   })

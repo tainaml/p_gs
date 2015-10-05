@@ -1,3 +1,5 @@
+'use strict'
+
 import exclaimify from '../exclaimify';
 
 describe('exclaimify.js', () => {
