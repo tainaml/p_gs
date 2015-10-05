@@ -41,3 +41,12 @@ def count_articles(author):
         return 0
 
     return count
+
+
+def get_articles_by_user(author):
+    try:
+        articles = Article.objects.get(author=author)
+    except Article.DoesNotExist:
+        articles = False
+
+    return articles

@@ -16,6 +16,7 @@ class CoreUserSearchView(ProfileShowView):
             profile_instance,
             ['article', 'question'],
             itens_by_page,
+            request.user,
             request.GET
         )
 

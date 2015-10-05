@@ -6,10 +6,11 @@ class CoreUserSearchForm(IdeiaForm):
     criterio = forms.CharField(required=False)
     page = forms.IntegerField(required=False)
 
-    def __init__(self, profile_instance=None, content_types=None, itens_by_page=None, *args, **kwargs):
+    def __init__(self, profile_instance=None, content_types=None, itens_by_page=None, user=None, *args, **kwargs):
         self.profile_instance=profile_instance
         self.content_types = content_types
         self.itens_by_page = itens_by_page
+        self.user = user
 
         super(CoreUserSearchForm, self).__init__(*args, **kwargs)
 
@@ -30,5 +31,6 @@ class CoreUserSearchForm(IdeiaForm):
             self.cleaned_data['criterio'],
             self.content_types,
             self.itens_by_page,
-            self.cleaned_data['page']
+            self.cleaned_data['page'],
+            self.user
         )
