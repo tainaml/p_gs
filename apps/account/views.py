@@ -84,6 +84,8 @@ class LogoutView(View):
 
 class RegisterView(View):
 
+    form = SignUpForm
+
     def get(self, request):
         """
         Show the sign-up form
@@ -94,8 +96,7 @@ class RegisterView(View):
         if request.user.is_authenticated():
             return redirect('/')
         else:
-            form = SignUpForm()
-            return render(request, 'account/signup.html', {form: form})
+            return render(request, 'account/signup.html', {'form': self.form()})
 
     def post(self, request):
         """
@@ -104,7 +105,7 @@ class RegisterView(View):
         :param request:
         :return: HTML
         """
-        form = SignUpForm(request.POST)
+        form = self.form(request.POST)
         if form.process():
             messages.add_message(request, messages.SUCCESS, _("Success"))
             return redirect('/account/registered-successfully')
@@ -112,7 +113,7 @@ class RegisterView(View):
         return render(request, 'account/signup.html', {'form': form})
 
 
-class RegisteredSucessView(View):
+class RegisteredSuccessView(View):
 
     def get(self, request):
         """
