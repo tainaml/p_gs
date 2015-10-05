@@ -291,6 +291,8 @@ SOCIAL_AUTH_PIPELINE = (
     'apps.socialaccount.pipeline.username_slugify',
     'social.pipeline.social_auth.associate_by_email',
     'social.pipeline.user.create_user',
+    'apps.socialaccount.pipeline.create_profile',
+    'apps.socialaccount.pipeline.save_profile_picture',
     'social.pipeline.social_auth.associate_user',
     'social.pipeline.debug.debug',
     'social.pipeline.social_auth.load_extra_data',
