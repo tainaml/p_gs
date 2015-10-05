@@ -18,6 +18,7 @@
     "backbone": "1.2.1",
     "dropzone": "^4.0.1",
     "jquery": "2.1.4",
+    "jquery-mousewheel": "^3.1.13",
     "jquery.inputmask": "^3.2.0",
     "malihu-custom-scrollbar-plugin": "^3.0.9",
     "selectize": "^0.12.1",
