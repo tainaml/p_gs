@@ -1,11 +1,13 @@
+'use strict'
+
 import './asyncModules'
 
 require('./vendor/bootstrap/')
-// require('malihu-custom-scrollbar-plugin')($)
-// const Selectize = require('selectize')
 $(() => {
+    // require('malihu-custom-scrollbar-plugin')($)
     require('./modules')
-    $('#modal-personal-infos').modal('show')
+    // $('#modal-personal-infos').modal('show')
+    $('#modal-sugerir').modal('show')
 
     // Modals
     $('[data-target=modal]').modal({ show: false })
@@ -13,9 +15,6 @@ $(() => {
         $(this).parents('[data-target=modal]').modal('hide')
     })
 
-    // Custom scroll
-    // $('[data-toggle="custom-scroll"]').mCustomScrollbar()
-
     // Custom tags
-    // $('[data-toggle="selectize"]').Selectize();
+    // $('[data-toggle="selectize"]').Selectize()
 })
