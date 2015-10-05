@@ -1,14 +1,14 @@
-from django.contrib.auth.decorators import login_required
-from django.http import Http404
+import json
 from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 
 from apps.core.forms.user import CoreUserSearchForm
-from apps.userprofile.views import ProfileShowView
+from apps.userprofile import views
 from apps.userprofile.service import business as BusinessUserprofile
 
 
-class CoreUserSearchView(ProfileShowView):
+class CoreUserSearchView(views.ProfileShowView):
 
     template_path = 'userprofile/profile.html'
 
@@ -63,3 +63,10 @@ class CoreUserFeed(CoreUserSearchView):
         context.update({'states': states})
 
         return context
+
+
+class CoreProfileEditAjax(views.ProfileEditView):
+
+    def return_success(self, request, context=None):
+        print context
+        return json.dumps(context)

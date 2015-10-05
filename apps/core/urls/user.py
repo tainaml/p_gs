@@ -1,9 +1,11 @@
 from django.conf.urls import url
-from . import views
+from apps.userprofile import views
+from ..views import user as CoreUserProfileView
 
 urlpatterns = [
 
     url(r'^edit/$', views.ProfileEditView.as_view(), name='edit'),
+    url(r'^ajax/edit/$', CoreUserProfileView.CoreProfileEditAjax.as_view(), name='edit-ajax'),
 
     url(r'^get_state/$', views.ProfileGetState.as_view(), name='get_state'),
     url(r'^get_city/$', views.ProfileGetCity.as_view(), name='get_city'),
@@ -13,6 +15,8 @@ urlpatterns = [
     url(r'^occupation/(?P<occupation_id>[0-9]+)/$', views.OccupationShowView.as_view(), name='occupation_show'),
     url(r'^occupation/edit/(?P<occupation_id>[0-9]+)/$', views.OccupationEditView.as_view(), name='occupation_edit'),
     url(r'^occupation/delete/(?P<occupation_id>[0-9]+)/$', views.OccupationDeleteView.as_view(), name='occupation_delete'),
+
+    url(r'^feed/$', CoreUserProfileView.CoreUserFeed.as_view(), name='user_feed'),
 
     url(r'^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/$', views.ProfileShowView.as_view(), name='show'),
     url(r'^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/followings/$', views.ProfileFollowingsView.as_view(), name='followings'),

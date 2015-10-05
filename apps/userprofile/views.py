@@ -69,6 +69,12 @@ class ProfileEditView(ProfileBaseView):
     template_path = 'userprofile/edit_form.html'
     form_profile = EditProfileForm
 
+    def return_error(self, request, context=None):
+        return render(request, self.template_path, context)
+
+    def return_success(self, request, context=None):
+        return redirect(reverse('profile:edit'))
+
     @method_decorator(login_required)
     def get(self, request, *args, **kwargs):
 
@@ -97,12 +103,14 @@ class ProfileEditView(ProfileBaseView):
             states = None
             cities = None
 
-        countries = Business.get_countries()
+        countries = Business.get_countries(1)
         form = self.form_profile(request.user, profile, request.POST, request.FILES)
 
         if form.process():
             messages.add_message(request, messages.SUCCESS, _("Profile edited successfully!"))
-            return redirect(reverse('profile:edit'))
+            return self.return_success(request, {
+                'status': 200
+            })
 
         context = {
             'form': form,
@@ -112,7 +120,7 @@ class ProfileEditView(ProfileBaseView):
             'gender': GenderType()
         }
 
-        return render(request, self.template_path, context)
+        return self.return_error(request, context)
 
 
 class ProfileGetState(ProfileBaseView):
