@@ -26,15 +26,19 @@
                             </nav>
                         {% endif %}
                         <section class="area-content">
-                            {% for x in 'Lorem' %}
-                                {% include 'home/partials/perfil-post.html' %}
-                            {% endfor %}
+                            {% if feed_objects.object_list %}
+                                {% include 'userprofile/partials/user-profile-list.html' %}
+                            {% else %}
+                                <span>Carregando feed...</span>
+                            {% endif %}
                         </section>
                     </div>
+                    <!-- Right bar -->
                     <div class="col-lg-4">
                         <div class="squad-advertising">
                             <img class="img-responsive" src="http://placehold.it/270x225" alt="Propaganda aqui">
                         </div>
+                        <!-- Comunidades -->
                         <div class="widget widget-feed">
                             <div class="widget-header">
                                 <span class="counter">168</span>
@@ -67,6 +71,8 @@
                                 Ver todos
                             </a>
                         </div>
+
+                        <!-- Seguindo -->
                         <div class="widget widget-feed">
                             <div class="widget-header">
                                 <span class="counter">168</span>
