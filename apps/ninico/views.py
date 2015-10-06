@@ -69,3 +69,6 @@ def questions_and_answers_notifications(request):
 
 def search(request):
     return render(request, 'home/search-result.html')
+
+def category(request):
+    return render(request, 'home/categoria.html')

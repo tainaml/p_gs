@@ -1,6 +1,6 @@
 var config  = require('../config/webpack')('production');
 var gulp    = require('gulp');
-var logger  = require('../lib/compileLogger');
+var logger  = require('../libraries/compileLogger');
 var webpack = require('webpack');
 
 gulp.task('webpack:production', function(callback) {

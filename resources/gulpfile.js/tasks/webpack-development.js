@@ -1,6 +1,6 @@
 var config       = require('../config/webpack')('development');
 var gulp         = require('gulp');
-var logger       = require('../lib/compileLogger');
+var logger       = require('../libraries/compileLogger');
 var webpack      = require('webpack');
 var browserSync  = require('browser-sync');
 
