@@ -180,7 +180,7 @@ def get_users_ids_acted_by_model_and_action(model=None, action=None, user=None):
     content_type = ContentType.objects.get_for_model(user)
 
     users_ids = []
-    users_actions = UserAction.objects.filter(content_type=content_type, action_type=action, object_id=user.id).prefetch_related('author')
+    users_actions = UserAction.objects.filter(content_type=content_type, action_type=action, author=user).prefetch_related('author')
 
     for user in users_actions:
         users_ids.append(user.object_id)
