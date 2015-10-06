@@ -3,6 +3,7 @@
 import './asyncModules'
 
 require('./vendor/bootstrap/')
+
 $(() => {
     // require('malihu-custom-scrollbar-plugin')($)
     require('./modules')
