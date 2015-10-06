@@ -6,6 +6,9 @@ main {
     @include make-row();
     padding-top: 30px;
 }
+.highlight-area-category {
+    @include make-row();
+}
 
 .highlight-left {
     @include make-xs-column(12);

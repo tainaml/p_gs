@@ -25,4 +25,5 @@ urlpatterns = [
     url(r'^post$', views.post, name='post'),
     url(r'^question$', views.question, name='question'),
     url(r'^search$', views.search, name='pesquisa'),
+    url(r'^categoria$', views.category, name='categoria'),
 ]

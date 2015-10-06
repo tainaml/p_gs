@@ -31,11 +31,7 @@ def get_feed_objects(profile_instance=None, description=None, content_types_list
         (
             Q(taxonomies__in=taxonomy_list)              |
             Q(article__author__in=followers_id)          |
-            Q(question__author__in=followers_id)         |
-            Q(article__title__icontains=description)     |
-            Q(article__text__icontains=description)      |
-            Q(question__title__icontains=description)    |
-            Q(question__description__icontains=description)
+            Q(question__author__in=followers_id)
         )
     ).order_by(
         "-date"
