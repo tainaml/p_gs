@@ -4,7 +4,7 @@ var gulp         = require('gulp');
 // var render       = require('gulp-nunjucks-render');
 var gulpif       = require('gulp-if');
 var htmlmin      = require('gulp-htmlmin');
-var handleErrors = require('../lib/handleErrors');
+var handleErrors = require('../libraries/handleErrors');
 
 gulp.task('html', function() {
   // render.nunjucks.configure(config.nunjucks, {watch: false });

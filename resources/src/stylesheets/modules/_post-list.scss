@@ -65,6 +65,9 @@
         @extend .post-list;
         @include make-xs-column(12);
         @include make-lg-column(9);
+        .post-list-header--left-tiny {
+            border-left: 1px solid #eee;
+        }
     }
     &--half {
         @extend .post-list;
@@ -104,7 +107,6 @@
             margin-left: -4px;
             color: $background-button;
             font-size: 0.929em;
-            // font-weight: 600;
             &:last-child {
                 padding-right: 0;
             }
