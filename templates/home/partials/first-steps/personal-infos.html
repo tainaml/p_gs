@@ -10,7 +10,7 @@
                     <h5>Adicione uma foto e preencha os campos exigidos abaixo.</h5>
                 </div>
                 <div class="steps">
-                    <form id="form-personal-info" action="{% url 'profile:edit-ajax' %}" method="post" enctype="multipart/form-data">
+                    <form id="form-personal-info" action="{% url 'profile:wizard-step-personal-info-ajax' %}" method="post" enctype="multipart/form-data">
                         {% csrf_token %}
                         <ul class="step-items">
                             <li class="step active">1</li>
@@ -36,7 +36,7 @@
                             </div>
                             <div class="col-lg-8">
                                 <div class="row">
-                                    <div class="col-lg-12 item-form">
+                                    <div data-form-group class="col-lg-12 item-form">
                                         <div class="custom-select">
                                             <span data-toggle="select" data-name="area_atuacao" class="custom-select-item">Área de atuação</span>
                                             <ul class="custom-select-list">
@@ -45,11 +45,12 @@
                                                 <li data-value="003" class="custom-select-option">Some another assunto</li>
                                             </ul>
                                         </div>
+                                        <span class="help-block"></span>
                                     </div>
-                                    <div class="col-lg-6 item-form">
+                                    <div data-form-group class="col-lg-6 item-form">
                                         <div class="custom-select">
-                                            <select name="state" id="state">
-                                                <option value="" selected disabled>Selecione um estado</option>
+                                            <select name="state" id="state" class="form-control">
+                                                <option value="0" selected disabled>Selecione um estado</option>
                                                 {% for state in states %}
                                                 <option value="{{ state.id }}">{{ state.name }}</option>
                                                 {% endfor %}
@@ -61,11 +62,12 @@
 {#                                                {% endfor %}#}
 {#                                            </ul>#}
                                         </div>
+                                        <span class="help-block"></span>
                                     </div>
-                                    <div class="col-lg-6 item-form">
+                                    <div data-form-group class="col-lg-6 item-form">
                                         <div class="custom-select">
-                                            <select name="city" id="city">
-                                                <option value="" selected disabled>Selecione uma cidade</option>
+                                            <select name="city" id="city" class="form-control">
+                                                <option value="0" selected disabled>Selecione uma cidade</option>
                                             </select>
 {#                                            <span data-toggle="select" data-name="cidade" class="custom-select-item">Cidade</span>#}
 {#                                            <ul class="custom-select-list">#}
@@ -74,12 +76,14 @@
 {#                                                <li data-value="3" class="custom-select-option">Some another assunto</li>#}
 {#                                            </ul>#}
                                         </div>
+                                        <span class="help-block"></span>
                                     </div>
-                                    <div class="col-lg-6 item-form">
+                                    <div data-form-group class="col-lg-6 item-form">
                                         <div class="custom-calendar">
                                             <input type="date" name="birth" id="birth" placeholder="Aniversário">
                                             <i class="gsticon gsticon-calendar"></i>
                                         </div>
+                                        <span class="help-block"></span>
                                     </div>
                                 </div>
                             </div>

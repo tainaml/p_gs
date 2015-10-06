@@ -152,11 +152,30 @@
 
         var formPersonalInfoOptions = {
             dataType: "json",
-            beforeSerialize: function($form, options) {},
-            success: function(response) {
-                console.log(response);
+            beforeSerialize: function($form, options) {
+                $(".has-error").removeClass("has-error").find(".help-block").html("");
+            },
+            success: function(responseText, statusText, xhr, $form) {
+                $(".has-error").removeClass("has-error").find(".help-block").html("");
+
+                var $currentModal = $form.closest(".modal.fade");
+                $currentModal.modal("hide");
+                $("#modal-categories").modal("show");
+            },
+            statusCode: {
+                400: function(data) {
+                    var $json = data.responseJSON;
+                    var $errors = $json.errors;
+
+                    $.each($errors, function(key, value) {
+                        var $input = $("#"+key);
+                        if($input.length) {
+                            $input.closest("[data-form-group]").addClass("has-error").find(".help-block").html(value);
+                        }
+                    });
+                }
             }
-        }
+        };
 
         $(function() {
             var $countySelect = $("#country");

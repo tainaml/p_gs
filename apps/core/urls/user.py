@@ -7,6 +7,9 @@ urlpatterns = [
     url(r'^edit/$', views.ProfileEditView.as_view(), name='edit'),
     url(r'^ajax/edit/$', CoreUserProfileView.CoreProfileEditAjax.as_view(), name='edit-ajax'),
 
+    url(r'^wizard/step/personal-info$', CoreUserProfileView.CoreProfileWizardStepOneAjax.as_view(), name='wizard-step-personal-info-ajax'),
+    url(r'^wizard/step/filter-categories$', CoreUserProfileView.CoreProfileWizardStepTwoAjax.as_view(), name='wizard-step-filter-categories-ajax'),
+
     url(r'^get_state/$', views.ProfileGetState.as_view(), name='get_state'),
     url(r'^get_city/$', views.ProfileGetCity.as_view(), name='get_city'),
 

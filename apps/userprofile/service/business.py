@@ -83,6 +83,17 @@ def update_profile(user=None, data=None):
     return profile
 
 
+def update_wizard_step(profile, step=0):
+
+    try:
+        profile.wizard_step = step
+        profile.save()
+    except:
+        return None
+
+    return profile
+
+
 def create_occupation(user=None, data={}):
 
     profile = get_profile(user)

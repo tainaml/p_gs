@@ -1,11 +1,15 @@
 import json
+from django.core import serializers
+from django.http import JsonResponse
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
+from django.views.generic import View
 
 from apps.core.forms.user import CoreUserSearchForm
 from apps.userprofile import views
 from apps.userprofile.service import business as BusinessUserprofile
+from apps.taxonomy.service import business as BusinessTaxonomy
 
 
 class CoreUserSearchView(views.ProfileShowView):
@@ -60,13 +64,61 @@ class CoreUserFeed(CoreUserSearchView):
 
         states = BusinessUserprofile.get_states(1)
 
-        context.update({'states': states})
+        categories = BusinessTaxonomy.get_categories()
 
+        context.update({
+            'states': states,
+            'categories': categories
+        })
         return context
 
 
 class CoreProfileEditAjax(views.ProfileEditView):
 
+    def return_error(self, request, context=None):
+        _response_context = {}
+
+        if 'form' in context:
+            _form = context['form']
+            _response_context = {'errors': _form.errors}
+
+        return JsonResponse(_response_context, status=400)
+
     def return_success(self, request, context=None):
-        print context
-        return json.dumps(context)
+        return JsonResponse(context, status=200)
+
+
+class CoreProfileWizardStepOneAjax(CoreProfileEditAjax):
+
+    def get_context(self, request, profile_instance=None):
+        profile = BusinessUserprofile.update_wizard_step(profile_instance, 1)
+        return {'step': profile.wizard_step}
+
+
+class CoreProfileWizardStepTwoAjax(View):
+
+    def return_error(self, request, context=None):
+        if not context:
+            context = {}
+
+        _context = context
+
+        return JsonResponse(_context, status=400)
+
+    def return_success(self, request, context=None):
+        if not context:
+            context = {}
+
+        _context = context
+
+        return JsonResponse(_context, status=200)
+
+    def get_context(self, request, profile_instance=None):
+        return {}
+
+    @method_decorator(login_required)
+    def post(self, request, *args, **kwargs):
+        context = {}
+        context.update(self.get_context(request))
+
+        return self.return_success(request, context)

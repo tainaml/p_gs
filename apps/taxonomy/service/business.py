@@ -1,6 +1,6 @@
 import copy
 from django.contrib.contenttypes.models import ContentType
-
+from ..models import Taxonomy
 
 __author__ = 'phillip'
 
@@ -50,3 +50,7 @@ def save_taxonomies_for_model(model=None, taxonomi_list=None):
 
 def get_taxonomies_by_model(model=None):
     return model.taxonomies
+
+def get_categories():
+    categories = Taxonomy.objects.filter(term__description__icontains="categoria")
+    return categories
