@@ -181,10 +181,11 @@ CKEDITOR_CONFIGS = {
             ['NumberedList', 'BulletedList'],
             ['Link', 'Unlink'],
             ['RemoveFormat'],
+            ['Embed'],
             ['Source']
         ],
         'extraPlugins': ','.join([
-            'autolink'
+            'autolink', 'widget', 'dialog', 'embed'
         ]),
     }
 }

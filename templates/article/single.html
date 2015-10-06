@@ -62,7 +62,7 @@
                     {% if article.image %}
                         <img class="full-post-image" src="{% thumbor_url article.image.url width=500 smart=True fit_in=True %}" />
                     {% endif %}
-                    {{ article.text|safe }}
+                    {{ article.text }}
                     <div class="post-advertising text-center">
                         <img class="img-responsive" src="http://placehold.it/728x90" alt="Propaganda">
                     </div>
