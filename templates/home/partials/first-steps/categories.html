@@ -7,7 +7,7 @@
                     <h5>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</h5>
                 </div>
                 <div class="steps">
-                    <form id="form-personal-info" action="{% url 'profile:wizard-step-filter-categories-ajax' %}" method="post" enctype="multipart/form-data">
+                    <form id="form-filter-categories" action="{% url 'profile:wizard-step-filter-categories-ajax' %}" method="post" enctype="multipart/form-data">
                         {% csrf_token %}
                         <ul class="step-items list-inline text-center">
                             <li class="step active">1</li>
@@ -23,7 +23,7 @@
                                             <div class="modal-category">
                                                 <label class="modal-category-label">
                                                     <span class="modal-category-check">
-                                                        <input type="checkbox" name="category" id="category-{{ category.id }}" value="{{ category.id }}">
+                                                        <input type="checkbox" name="categories" id="category-{{ category.id }}" value="{{ category.id }}">
                                                     </span>
                                                     <span class="color-governance">{{ category.description }}</span>
                                                 </label>
@@ -86,8 +86,9 @@
                                 <hr>
                             </div>
                             <div class="col-lg-offset-4 col-lg-8 text-right">
-                                <button class="btn-default"  data-toggle="modal" data-target="#modal-personal-infos">voltar</button>
-                                <button class="btn-green" data-toggle="modal" data-target="#modal-sugestions">Avançar</button>
+                                <button class="btn-default" type="button" data-toggle="modal" data-target="#modal-personal-infos">voltar</button>
+{#                                <button class="btn-green" data-toggle="modal" data-target="#modal-sugestions">Avançar</button>#}
+                                <button class="btn-green" type="submit">Avançar</button>
                             </div>
                         </div>
                     </form>

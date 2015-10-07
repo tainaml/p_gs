@@ -10,6 +10,7 @@ from apps.core.forms.user import CoreUserSearchForm
 from apps.userprofile import views
 from apps.userprofile.service import business as BusinessUserprofile
 from apps.taxonomy.service import business as BusinessTaxonomy
+from apps.community.service import business as BusinessCommunity
 
 
 class CoreUserSearchView(views.ProfileShowView):
@@ -95,7 +96,7 @@ class CoreProfileWizardStepOneAjax(CoreProfileEditAjax):
         return {'step': profile.wizard_step}
 
 
-class CoreProfileWizardStepTwoAjax(View):
+class CoreProfileWizardStepTwoAjax(views.ProfileBaseView):
 
     def return_error(self, request, context=None):
         if not context:
@@ -114,11 +115,35 @@ class CoreProfileWizardStepTwoAjax(View):
         return JsonResponse(_context, status=200)
 
     def get_context(self, request, profile_instance=None):
-        return {}
+        profile = BusinessUserprofile.update_wizard_step(profile_instance, 2)
+        return {'step': profile.wizard_step}
 
     @method_decorator(login_required)
     def post(self, request, *args, **kwargs):
-        context = {}
-        context.update(self.get_context(request))
 
-        return self.return_success(request, context)
+        profile = self.filter(request, request.user)
+
+        context = {}
+        context.update(self.get_context(request, profile))
+
+        if 'categories' in request.POST:
+            taxonomy_categories_obj = BusinessTaxonomy.get_categories(request.POST.getlist('categories'))
+            taxonomy_categories = [category.id for category in taxonomy_categories_obj]
+
+            taxonomy_communities = BusinessTaxonomy.get_related_list_top_down([category for category in taxonomy_categories_obj])
+            communities = [community.community_related for community in taxonomy_communities if hasattr(community, "community_related")]
+
+            context['status'] = 200
+            context['categories'] = taxonomy_categories
+            context['communities'] = [community.id for community in communities]
+            context['template'] = render(request, 'core/partials/wizard/community-segment.html', {
+                'communities': communities
+            }).content
+
+            return self.return_success(request, context)
+
+        return self.return_error(request, context)
+
+
+class CoreProfileWizardStepThreeAjax(views.ProfileBaseView):
+    pass

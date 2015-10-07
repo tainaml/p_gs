@@ -177,6 +177,27 @@
             }
         };
 
+        var formFilterCategoriesOptions = {
+            dataType: "json",
+            beforeSerialize: function($form, options) {
+                $(".has-error").removeClass("has-error").find(".help-block").html("");
+            },
+            success: function(response, statusText, xhr, $form) {
+                console.log(response);
+                $(".has-error").removeClass("has-error").find(".help-block").html("");
+
+                var $currentModal = $form.closest(".modal.fade");
+                $currentModal.modal("hide");
+                $("#wizard-container-communities").html(response.template);
+                $("#modal-sugestions").modal("show");
+            },
+            statusCode: {
+                400: function(data) {
+                    alert("Breakpoint");
+                }
+            }
+        };
+
         $(function() {
             var $countySelect = $("#country");
             var $stateSelect = $("#state");
@@ -188,6 +209,7 @@
             });
 
             $("#form-personal-info").ajaxForm(formPersonalInfoOptions);
+            $("#form-filter-categories").ajaxForm(formFilterCategoriesOptions);
         });
 
 

@@ -9,6 +9,9 @@ urlpatterns = [
 
     url(r'^wizard/step/personal-info$', CoreUserProfileView.CoreProfileWizardStepOneAjax.as_view(), name='wizard-step-personal-info-ajax'),
     url(r'^wizard/step/filter-categories$', CoreUserProfileView.CoreProfileWizardStepTwoAjax.as_view(), name='wizard-step-filter-categories-ajax'),
+    url(r'^wizard/step/suggestions$', CoreUserProfileView.CoreProfileWizardStepThreeAjax.as_view(), name='wizard-step-suggestion-ajax'),
+
+    url(r'^wizard/step/suggestions/list$', CoreUserProfileView.CoreProfileWizardStepThreeAjax.as_view(), name='wizard-step-suggestion-list-ajax'),
 
     url(r'^get_state/$', views.ProfileGetState.as_view(), name='get_state'),
     url(r'^get_city/$', views.ProfileGetCity.as_view(), name='get_city'),
