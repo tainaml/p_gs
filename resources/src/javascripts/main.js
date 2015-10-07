@@ -3,12 +3,13 @@
 import './asyncModules'
 
 require('./vendor/bootstrap/')
+require('./modules/ideiaForm/')
 
 $(() => {
     // require('malihu-custom-scrollbar-plugin')($)
     require('./modules')
-    // $('#modal-personal-infos').modal('show')
-    $('#modal-sugerir').modal('show')
+    $('#modal-personal-infos').modal('show')
+    // $('#modal-sugerir').modal('show')
 
     // Modals
     $('[data-target=modal]').modal({ show: false })
