@@ -19,13 +19,16 @@
                 </nav>
                 <div class="row">
                     <div class="col-lg-8">
+                        {% if profile.user == request.user %}
                         <header class="area-title">
-                            <h2>Profile</h2>
+                            <h2>Feed</h2>
                         </header>
-                        <!-- A "barra" de pesquisa não é exibida no feed, somente no -->
-                        <nav class="form-search">
-                            {% include 'home/partials/search.html' with placehold='Pesquise no seu feed' only %}
-                        </nav>
+                        {% if isLogged %}
+                            <!-- A "barra" de pesquisa não é exibida no feed, somente no -->
+                            <nav class="form-search">
+                                {% include 'home/partials/search.html' with placehold='Pesquise no seu feed' only %}
+                            </nav>
+                        {% endif %}
                         <section class="area-content">
                             {% if feed_objects.object_list %}
                                 {% include 'userprofile/partials/user-profile-list.html' %}
@@ -33,6 +36,7 @@
                                 <span>Não existem itens a serem exibidos</span>
                             {% endif %}
                         </section>
+                        {% endif %}
                     </div>
                     <!-- Right bar -->
                     <div class="col-lg-4">
