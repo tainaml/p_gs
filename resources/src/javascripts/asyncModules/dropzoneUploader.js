@@ -52,7 +52,7 @@ var module = (element) => {
     return false
   }
 
-  function cbTriggerFile () {
+  function cbTriggerFile (event) {
     $input.trigger('click')
   }
 
@@ -91,7 +91,7 @@ var createPreview = function(file, newURL) {
   let filePath = newURL
   let image = `<img src="${filePath}" class="img-responsive" alt="${fileName}"/>`
   //append new image through jQuery Template
-  $('[data-content="file"]').append(image).show()
+  $('[data-content="file"]').html(image).show()
   $('.custom-file-content').hide()
 }
 
