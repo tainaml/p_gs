@@ -1,0 +1,22 @@
+{% load comment_core_tags %}
+{% load social_tags %}
+{% load thumbor_tags %}
+
+<div class="child-comment">
+    <header class="post-header">
+        <div class="post-info">
+            <time datetime="{{comment.creation_date}}" itemprop="datePublished">{{ comment.creation_date|date:'d/m/Y' }} às {{ comment.creation_date|date:'G:i' }}</time>
+            <a href="javascript:;" data-toggle="dropdown"><i class="gsticon gsticon-gear"></i></a>
+            <div class="dropdown-menu">
+                <ul class="perfil-actions">
+                    <li><a href="javascript:;"><i class="gsticon gsticon-edit"></i> Editar publicação</a></li>
+                    <li><a href="javascript:;"><i class="gsticon gsticon-exclamation-triangle"></i> Denunciar</a></li>
+                </ul>
+            </div>
+        </div>
+         <a class="post-creator" href="{% url 'profile:show' comment.author.username %}">{{comment.author.get_full_name}}:</a>
+    </header>
+    <div class="comment-text">
+        <p>{{ comment.content }}.</p>
+    </div>
+</div>

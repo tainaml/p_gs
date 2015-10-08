@@ -35,7 +35,7 @@ class CreateQuestionView(View):
 class ListQuestionsView(View):
     def get(self, request):
         questions = Question.objects.all()
-        return render(request, 'question/list.html', {'questions': questions})
+        return render(request, 'question/list-comment.html', {'questions': questions})
 
 
 class SaveQuestionView(View):

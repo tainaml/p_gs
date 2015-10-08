@@ -1,7 +1,10 @@
+# -*- coding: utf-8 -*-
+
+
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
-from django.http import Http404
+from django.http import Http404, JsonResponse
 from django.shortcuts import render, redirect
 from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _
@@ -35,25 +38,38 @@ class CommentIndexView(CommentBaseView):
 class CommentSaveView(CommentBaseView):
 
     template_path = 'comment/create.html'
+    comment_template_path = 'comment/comment.html'
     form_comment = CreateCommentForm
+
 
     @method_decorator(login_required)
     def post(self, request):
 
         if 'content_object_id' not in request.POST \
-                or 'content_type' not in request.POST \
-                or 'next_url' not in request.POST:
+                or 'content_type' not in request.POST:
             raise Http404()
 
         form = self.form_comment(request.user, request.POST)
 
-        context = {'form': form}
+        instance = form.process()
+        validation = True if instance else False
+
+        context = {}
+        response_data = {}
+        if validation:
+            self.template_path = self.comment_template_path
+            context['comment'] = instance
+
+        else:
+            response_data['errors'] = form.errors
+
         context.update(self.get_context(request))
 
-        if not form.process():
-            return render(request, self.template_path, context)
+        response_data['validation'] = validation
+        response_data['template'] = render(request, self.template_path, context).content
 
-        return redirect(request.POST['next_url'])
+        return JsonResponse(response_data, status=200 if validation else 400)
+
 
 
 class CommentUpdateView(CommentBaseView):
@@ -95,3 +111,30 @@ class CommentDeleteView(CommentBaseView):
             raise self.not_found
 
         return redirect(reverse('comment:index_teste'))
+
+class CommentListView(CommentBaseView):
+
+    template_path = 'comment/list-comment.html'
+
+    @method_decorator(login_required)
+    def get(self, request):
+
+        itens_by_page = 10
+
+        comments = Business.get_comments_by_content_type_and_id(
+                request.GET['content_type'],
+                request.GET['content_id'],
+                itens_by_page,
+                request.GET['page']
+        )
+
+
+        return render(request, self.template_path, {'comments': comments})
+
+class CommentAnswerView(CommentListView):
+
+    template_path = 'comment/list-answer.html'
+
+class AnswerSaveView(CommentSaveView):
+    template_path = 'comment/create.html'
+    comment_template_path = 'comment/comment-child.html'

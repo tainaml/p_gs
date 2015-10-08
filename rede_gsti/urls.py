@@ -17,6 +17,8 @@ from django.conf.urls import include, url
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.conf import settings
+from apps.comment import views as CommentView
+
 
 url_statics = static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 url_media = static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
@@ -25,7 +27,14 @@ urlpatterns = [
 
     url(r'^admin/', include(admin.site.urls)),
     url(r'^account/', include('apps.account.urls', namespace='account')),
+
     url(r'^comment/', include('apps.comment.urls', namespace='comment')),
+
+    url(r'^comment/comment-list/', CommentView.CommentListView.as_view(), name='comment-list'),
+    url(r'^comment/answer-list/', CommentView.CommentAnswerView.as_view(), name='answer-list'),
+    url(r'^comment/answer-save/', CommentView.AnswerSaveView.as_view(), name='answer-save'),
+
+
     url(r'^profile/', include('apps.userprofile.urls', namespace='profile')),
     url(r'^socialaccount/', include('apps.socialaccount.urls', namespace='socialaccount')),
     url(r'^socialactions/', include('apps.socialactions.urls', namespace='socialactions')),

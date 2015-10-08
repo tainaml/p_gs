@@ -1,6 +1,6 @@
 {%extends 'home/layout/base.html' %}
 {% load taxonomy_tags %}
-
+{% load comment_core_tags %}
 {% load social_tags %}
 {% load article_tags %}
 {% load thumbor_tags %}
@@ -81,10 +81,13 @@
                 {% endif %}
 
             </div>
-            <div class="container-comments">
-                {% include 'home/partials/comment/create.html' with size=81 %}
-                {% include 'home/partials/comment/comment.html' %}
-            </div>
+
+{#            <div class="container-comments">#}
+{#                {% include 'home/partials/comment/create.html'%}#}
+{#                {% include 'home/partials/comment/comment.html' %}#}
+{#            </div>#}
+            {% module_comment article request=request %}
+
         </div>
         <div class="col-lg-3">
             <div class="squad-advertising">
@@ -142,4 +145,122 @@
 {% endblock %}
 {% block javascripts %}
 <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-55e70ed11db7fa4e" async></script>
+    <script>
+
+    $(function(){
+
+       $(document).on("click", "*[data-toggle]", function(evt){
+            $(this).parents("div[data-list]").toggle("display");
+            $("#data-answer-"+$(this).data("object-id")).toggle("display");
+       });
+
+
+        var $xhr_load = $("*[data-xhr-load]");
+
+        $.each($xhr_load, function(key, value){
+            var $load_element = $(value);
+            $.get($load_element.data("action"), function(data){
+                $load_element.append(data);
+            });
+        });
+
+       $(document).on("submit","form[data-xhr]", function(evt){
+           evt.preventDefault();
+
+           var $form = $(this);
+           var $element_update = $("#"+$form.data("to-update"));
+
+            $.ajax({
+                method: "POST",
+                dataType: "json",
+                url: $form.attr("action"),
+                data: $form.serialize(),
+
+                success: function(data){
+                    if($form.data("xhr-position")=="append"){
+
+                        $element_update.append(data.template);
+                        $form.parent("div").toggle("display");
+                    }else{
+
+                        $element_update.prepend(data.template);
+                    }
+
+                    $form[0].reset();
+
+                    var $form_groups = $form.children("div[data-group]");
+                    $.each($form_groups, function(key, value){
+
+                       var $div = $(value);
+                       var $inputs = $div.children("textarea, input, select");
+                       $div.removeClass("has-error");
+                       $.each($inputs, function(key, value){
+                           var $input= $(value);
+                           var $help_block =$div.find(".help-block");
+
+                           if ($help_block){
+                                 $help_block.remove();
+                           }
+                        });
+                    });
+
+                },
+                statusCode: {
+                400: function(data) {
+
+                  var $errors =data.responseJSON.errors;
+                  var $form_groups = $form.children("div[data-group]");
+                  $.each($form_groups, function(key, value){
+
+                       var $div = $(value);
+                       var $inputs = $div.children("textarea, input, select");
+
+                       $.each($inputs, function(key, value){
+                           var $input= $(value);
+                           var $input_name = $input.attr("name");
+
+                           if ($errors && $errors.hasOwnProperty($input_name)){
+                             var $help_block =$div.find(".help-block");
+
+                             if ($help_block){
+                                 $help_block.remove();
+                             }
+                             $div.addClass("has-error");
+                               $("<span/>", {
+                                'text': $errors[$input_name],
+                                'class': 'help-block'
+                               }).appendTo($div);
+
+
+                           }
+                        });
+                    });
+
+                }
+
+              }
+
+
+
+           });
+
+{#           $.post($form.attr("action"), $form.serialize(),function(data){#}
+{##}
+{#                if(data.validation){#}
+{#                    $div_to_update_list.prepend(data.template);#}
+{#                    $element_update.html(data.form_template);#}
+{##}
+{#                }else{#}
+{#                    $div_to_update.html(data.template);#}
+{#                }#}
+{##}
+{#               $form = $div_to_update.children("form[data-xhr]");#}
+{#               $form.attr("data-to-update", $div_to_update.attr("id"));#}
+{#               $form.attr("data-to-update-list", $div_to_update_list.attr("id"));#}
+{#           });#}
+
+
+       });
+    });
+    </script>
 {% endblock %}
