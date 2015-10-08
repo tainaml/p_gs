@@ -1,5 +1,8 @@
+from apps.userprofile.models import Responsibility, State
 from custom_forms.custom import IdeiaForm, forms
 from ..business import user as Business
+
+from apps.userprofile.service.forms import EditProfileForm
 
 
 class CoreUserSearchForm(IdeiaForm):
@@ -32,3 +35,9 @@ class CoreUserSearchForm(IdeiaForm):
             self.itens_by_page,
             self.cleaned_data['page']
         )
+
+
+class CoreUserProfileEditForm(EditProfileForm):
+
+    responsibility = forms.ModelChoiceField(queryset=Responsibility.objects.all())
+    state = forms.ModelChoiceField(queryset=State.objects.filter(country=1))

@@ -53,7 +53,7 @@ class UserProfile(models.Model):
     wizard_step = models.IntegerField(null=False, blank=False, default=0)
 
     def __unicode__(self):
-        return self.user
+        return self.user.get_full_name()
 
     def has_locale(self):
         if self.city and self.city.state and self.city.state.country:

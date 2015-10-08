@@ -38,12 +38,20 @@
                                 <div class="row">
                                     <div data-form-group class="col-lg-12 item-form">
                                         <div class="custom-select">
+                                            <!--
                                             <span data-toggle="select" data-name="area_atuacao" class="custom-select-item">Área de atuação</span>
                                             <ul class="custom-select-list">
                                                 <li data-value="001" class="custom-select-option">Some another assunto</li>
                                                 <li data-value="002" class="custom-select-option">Some another assunto</li>
                                                 <li data-value="003" class="custom-select-option">Some another assunto</li>
                                             </ul>
+                                            -->
+                                            <select name="responsibility" id="responsibility" class="form-control">
+                                                <option value="0" {% if profile.responsibility %}selected{% endif %} disabled>Área de atuação</option>
+                                                {% for responsibility in responsibilities %}
+                                                    <option value="{{ responsibility.id }}" {% if profile.responsibility %}selected{% endif %}>{{ responsibility.name }}</option>
+                                                {% endfor %}
+                                            </select>
                                         </div>
                                         <span class="help-block"></span>
                                     </div>
@@ -52,7 +60,7 @@
                                             <select name="state" id="state" class="form-control">
                                                 <option value="0" selected disabled>Selecione um estado</option>
                                                 {% for state in states %}
-                                                <option value="{{ state.id }}">{{ state.name }}</option>
+                                                <option value="{{ state.id }}" {% if profile.city.state.id == state.id %}selected{% endif %}>{{ state.name }}</option>
                                                 {% endfor %}
                                             </select>
 {#                                            <span data-toggle="select" data-name="estado" class="custom-select-item">Estado</span>#}
@@ -67,7 +75,10 @@
                                     <div data-form-group class="col-lg-6 item-form">
                                         <div class="custom-select">
                                             <select name="city" id="city" class="form-control">
-                                                <option value="0" selected disabled>Selecione uma cidade</option>
+                                                <option value="0" {% if profile.city.id %}selected{% endif %} disabled>Selecione uma cidade</option>
+                                                {% for city in cities %}
+                                                    <option value="{{ city.id }}" {% if profile.city.id == city.id %}selected{% endif %}>{{ city.name }}</option>
+                                                {% endfor %}
                                             </select>
 {#                                            <span data-toggle="select" data-name="cidade" class="custom-select-item">Cidade</span>#}
 {#                                            <ul class="custom-select-list">#}
@@ -80,7 +91,7 @@
                                     </div>
                                     <div data-form-group class="col-lg-6 item-form">
                                         <div class="custom-calendar">
-                                            <input type="date" name="birth" id="birth" placeholder="Aniversário">
+                                            <input type="date" name="birth" id="birth" placeholder="Aniversário" value="{{ profile.birth|date:"d/m/Y" }}">
                                             <i class="gsticon gsticon-calendar"></i>
                                         </div>
                                         <span class="help-block"></span>
