@@ -1,12 +1,9 @@
-from django.contrib.contenttypes.models import ContentType
-from django.db.models import Q
 from apps.community import views
 from apps.community.models import Community
 from apps.core.forms.community import CoreCommunityFormSearch, CoreCommunityQuestionFormSearch
-from apps.feed.models import FeedObject
 from apps.socialactions.service.business import get_users_acted_by_model
 from rede_gsti import settings
-from apps.taxonomy.service import business as Business
+
 
 class CoreCommunityView(views.CommunityView):
 
