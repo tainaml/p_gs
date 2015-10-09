@@ -188,12 +188,15 @@
                 $currentModal.modal("hide");
 
                 var $wizardCommunities = $("#wizard-container-communities");
+                var $wizardJScroll = $('<div class="j-scroll-wizard-communities j-scroll-wizard-communities-container"></div>');
 
-                $wizardCommunities.html(response.template);
+                $wizardJScroll.html(response.template);
+                $wizardCommunities.html($wizardJScroll);
 
-                jScrollWizard = $wizardCommunities.jscroll({
+                jScrollWizard = $wizardJScroll.jscroll({
                     autoTrigger: false,
                     loadingHtml: '<span>Carregando...</span>',
+                    contentSelect: '.j-scroll-wizard-communities-container',
                     nextSelect: "a[data-jscroll-next]",
                     refresh: true
                 });
