@@ -1,0 +1,253 @@
+{%extends 'home/layout/base.html' %}
+
+{% load staticfiles %}
+
+{% block title %}Portal GSTI - Perfil{% endblock %}
+
+{% block content %}
+    <main class="container">
+        <div class="perfil-row">
+            <!-- mudar para 2.5 -->
+            <div class="col-lg-3">
+                {% include 'home/partials/sidebar-perfil.html' %}
+            </div>
+            <!-- mudar para 9.5 -->
+            <div class="col-lg-9">
+                <nav class="perfil-navegation">
+                    <a href="{% url 'ninico:feed' %}">Feed</a>•<a class="active" href="{% url 'profile:show' username=profile.user.username %}">Perfil</a>•<a href="{% url 'ninico:about' %}">Sobre</a>•<a href="{% url 'profile:communities' username=profile.user.username %}">Comunidades</a>•<a href="{% url 'profile:followers' username=profile.user.username %}">Relacionamentos</a>•<a href="{% url 'ninico:videos' %}">Vídeos</a>
+                </nav>
+                <div class="row">
+                    <div class="col-lg-8">
+                        <header class="area-title">
+                            <h2>Feed</h2>
+                        </header>
+                        {% if isLogged %}
+                            <!-- A "barra" de pesquisa não é exibida no feed, somente no -->
+                            <nav class="form-search">
+                                {% include 'home/partials/search.html' with placehold='Pesquise no seu feed' only %}
+                            </nav>
+                        {% endif %}
+                        <section class="area-content">
+                            {% if form.cleaned_data.criterio %}
+                                {% include 'userprofile/partials/user-profile-list.html' %}
+                            {% else %}
+                                <span>Carregando feed...</span>
+                            {% endif %}
+                        </section>
+                    </div>
+                    <!-- Right bar -->
+                    <div class="col-lg-4">
+                        <div class="squad-advertising">
+                            <img class="img-responsive" src="http://placehold.it/270x225" alt="Propaganda aqui">
+                        </div>
+                        <!-- Comunidades -->
+                        <div class="widget widget-feed">
+                            <div class="widget-header">
+                                <span class="counter">168</span>
+                                <header class="area-title">
+                                    <h3>Comunidades</h3>
+                                </header>
+                            </div>
+                            <div class="widget-content">
+                                <div class="perfil">
+                                    <img src="http://placehold.it/82" alt="Imagem 1">
+                                    <a class="perfil-name" href="javascript:;">Python</a>
+                                    <span class="perfil-counter"><span class="counter-number">12.568</span> Seguidores</span>
+                                    <a class="btn btn-sm perfil-button" href="javascript:;">Seguir</a>
+                                </div>
+                                <div class="perfil">
+                                    <img src="http://placehold.it/82" alt="Imagem 1">
+                                    <a class="perfil-name" href="javascript:;">Python</a>
+                                    <span class="perfil-counter"><span class="counter-number">12.568</span> Seguidores</span>
+                                    <a class="btn btn-sm perfil-button" href="javascript:;">Seguir</a>
+                                </div>
+                                <div class="perfil">
+                                    <img src="http://placehold.it/82" alt="Imagem 1">
+                                    <a class="perfil-name" href="javascript:;">Python</a>
+                                    <span class="perfil-counter"><span class="counter-number">12.568</span> Seguidores</span>
+                                    <a class="btn btn-sm perfil-button" href="javascript:;">Seguir</a>
+                                </div>
+                            </div>
+                            <a class="widget-footer" href="javascript:;">
+                                <i class="gsticon gsticon-plus"></i>
+                                Ver todos
+                            </a>
+                        </div>
+
+                        <!-- Seguindo -->
+                        <div class="widget widget-feed">
+                            <div class="widget-header">
+                                <span class="counter">168</span>
+                                <header class="area-title">
+                                    <h3>Seguindo</h3>
+                                </header>
+                            </div>
+                            <div class="widget-content">
+                                <div class="perfil">
+                                    <img src="http://placehold.it/82" alt="Imagem 1">
+                                    <a class="perfil-name" href="javascript:;">Python</a>
+                                    <span class="perfil-counter"><span class="counter-number">12.568</span> Seguidores</span>
+                                    <a class="btn btn-sm perfil-button" href="javascript:;">Seguir</a>
+                                </div>
+                                <div class="perfil">
+                                    <img src="http://placehold.it/82" alt="Imagem 1">
+                                    <a class="perfil-name" href="javascript:;">Python</a>
+                                    <span class="perfil-counter"><span class="counter-number">12.568</span> Seguidores</span>
+                                    <a class="btn btn-sm perfil-button" href="javascript:;">Seguir</a>
+                                </div>
+                                <div class="perfil">
+                                    <img src="http://placehold.it/82" alt="Imagem 1">
+                                    <a class="perfil-name" href="javascript:;">Python</a>
+                                    <span class="perfil-counter"><span class="counter-number">12.568</span> Seguidores</span>
+                                    <a class="btn btn-sm perfil-button" href="javascript:;">Seguir</a>
+                                </div>
+                            </div>
+                            <a class="widget-footer" href="javascript:;">
+                                <i class="gsticon gsticon-plus"></i>
+                                Ver todos
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock %}
+
+
+{% block modals %}
+    {{ block.super }}
+
+    {% if request.user and request.user.profile and request.user.profile.wizard_step <= 3 %}
+        {% include 'home/partials/first-steps/personal-infos.html' %}
+        {% include 'home/partials/first-steps/categories.html' %}
+        {% include 'home/partials/first-steps/sugestions.html' %}
+    {% endif %}
+
+{% endblock %}
+
+
+{% block javascripts %}
+    {{ block.super }}
+    <script src="{% static 'javascripts/jquery.form.min.js' %}"></script>
+    <script src="{% static 'javascripts/jquery.jscroll.min.js' %}"></script>
+    <script>
+
+        function fill_states(obj){
+            $.ajax({
+                url: "{% url 'profile:get_state' %}",
+                method: "POST",
+                dataType: "html",
+                data: {
+                    country_id: obj.val(),
+                    csrfmiddlewaretoken: $("input:hidden[name='csrfmiddlewaretoken']").val()
+                },
+                success: function(response) {
+                    $("#state").html(response);
+                    $("#city").html('');
+                }
+            });
+        }
+        function fill_cities(obj){
+            $.ajax({
+                url: "{% url 'profile:get_city' %}",
+                method: "POST",
+                dataType: "html",
+                data: {
+                    state_id: obj.val(),
+                    csrfmiddlewaretoken: $("input:hidden[name='csrfmiddlewaretoken']").val()
+                },
+                success: function(response) {
+                    $("#city").html(response);
+                }
+            });
+        }
+
+        var formPersonalInfoOptions = {
+            dataType: "json",
+            beforeSerialize: function($form, options) {
+                $(".has-error").removeClass("has-error").find(".help-block").html("");
+            },
+            success: function(responseText, statusText, xhr, $form) {
+                $(".has-error").removeClass("has-error").find(".help-block").html("");
+
+                var $currentModal = $form.closest(".modal.fade");
+                $currentModal.modal("hide");
+                $("#modal-categories").modal("show");
+            },
+            statusCode: {
+                400: function(data) {
+                    var $json = data.responseJSON;
+                    var $errors = $json.errors;
+
+                    $.each($errors, function(key, value) {
+                        var $input = $("#"+key);
+                        if($input.length) {
+                            $input.closest("[data-form-group]").addClass("has-error").find(".help-block").html(value);
+                        }
+                    });
+                }
+            }
+        };
+
+        var jScrollWizard = null;
+        var formFilterCategoriesOptions = {
+            dataType: "json",
+            beforeSerialize: function($form, options) {
+            },
+            success: function(response, statusText, xhr, $form) {
+                var $currentModal = $form.closest(".modal.fade");
+                $currentModal.modal("hide");
+
+                var $wizardCommunities = $("#wizard-container-communities");
+                var $wizardJScroll = $('<div class="j-scroll-wizard-communities j-scroll-wizard-communities-container"></div>');
+
+                $wizardJScroll.html(response.template);
+                $wizardCommunities.html($wizardJScroll);
+
+                jScrollWizard = $wizardJScroll.jscroll({
+                    autoTrigger: false,
+                    loadingHtml: '<span>Carregando...</span>',
+                    contentSelect: '.j-scroll-wizard-communities-container',
+                    nextSelect: "a[data-jscroll-next]",
+                    refresh: true
+                });
+
+                $("#modal-sugestions").modal("show");
+            },
+            statusCode: {
+                400: function(data) {
+                    alert("Breakpoint");
+                }
+            }
+        };
+
+        var formSuggestionsOptions = {
+            dataType: "json",
+            beforeSerialize: function($form, options) {},
+            success: function(response, statusText, xhr, $form) {
+                $("#modal-sugestions").modal("hide");
+            },
+            statusCode: {
+                400: function(data) {}
+            }
+        };
+
+        $(function() {
+            var $countySelect = $("#country");
+            var $stateSelect = $("#state");
+            $countySelect.on("change", function() {
+                fill_states($(this));
+            });
+            $stateSelect.on("change", function() {
+                fill_cities($(this));
+            });
+
+            $("#form-personal-info").ajaxForm(formPersonalInfoOptions);
+            $("#form-filter-categories").ajaxForm(formFilterCategoriesOptions);
+            $("#form-sugestions").ajaxForm(formSuggestionsOptions);
+        });
+
+
+    </script>
+{% endblock %}
