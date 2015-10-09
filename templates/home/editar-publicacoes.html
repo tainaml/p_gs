@@ -17,17 +17,17 @@
             <div class="row">
                 <div class="col-sm-12">
                     <header class="area-title">
-                        <h2>Feed</h2>
+                        <h2>Editar Publicações</h2>
                     </header>
                     <div class="row">
                         <div class="col-sm-8">
                             <nav class="form-search">
-                                {% include 'home/partials/search.html' with placehold='Pesquise no seu feed' only %}
+                                {% include 'home/partials/search.html' with placehold='Editar uma publicação' only %}
                             </nav>
                         </div>
                         <div class="col-sm-4">
                             <div class="custom-select">
-                                <select name="type_publication">
+                                <select class="form-control" name="type_publication">
                                     <option value="all">Todos</option>
                                 </select>
                             </div>
@@ -36,13 +36,13 @@
                     <section class="area-content">
                         <article class="publication">
                             <div class="publication-container clearfix">
-                                <img class="publication-image img-responsive pull-left" src="https://unsplash.it/200/300?image=816" alt="Technology application">
+                                <img class="publication-image img-responsive" src="https://unsplash.it/95/70?image=816" alt="Technology application">
                                 <div class="publication-content">
                                     <h3 class="publication-title">Microsoft lança software beta para migrar aplicativos iOS para Windows</h3>
                                 </div>
                             </div>
                             <footer class="publication-footer clearfix">
-                                <time class="publication-footer-date pull-right" datetime="06-17-2015">10/06/2015 às 01:34</time>
+                                <time class="publication-footer-date" datetime="06-17-2015">10/06/2015 às 01:34</time>
                                 <nav class="publication-footer-menu">
                                     <a class="publication-footer-menu-item" href="javascript:;">Editar</a>
                                     <a class="publication-footer-menu-item" href="javascript:;">Visualizar</a>
@@ -50,9 +50,38 @@
                                 </nav>
                             </footer>
                         </article>
-                    {% for x in 'Lorem' %}
-                        {% include 'home/partials/perfil-post.html' %}
-                    {% endfor %}
+                        <article class="publication">
+                            <div class="publication-container clearfix">
+                                <div class="publication-content">
+                                    <small class="publication-type question">Pergunta:</small>
+                                    <h3 class="publication-title">Lorem ipsum dolor sit amet, consectetur adipisicing elit?</h3>
+                                </div>
+                            </div>
+                            <footer class="publication-footer clearfix">
+                                <time class="publication-footer-date" datetime="06-17-2015">10/06/2015 às 01:34</time>
+                                <nav class="publication-footer-menu">
+                                    <a class="publication-footer-menu-item" href="javascript:;">Editar</a>
+                                    <a class="publication-footer-menu-item" href="javascript:;">Visualizar</a>
+                                    <a class="publication-footer-menu-item" href="javascript:;">Excluir</a>
+                                </nav>
+                            </footer>
+                        </article>
+                        <article class="publication">
+                            <div class="publication-container clearfix">
+                                <div class="publication-content">
+                                    <small class="publication-type draft">Rascunho:</small>
+                                    <h3 class="publication-title">Microsoft lança software beta para migrar aplicativos iOS para Windows</h3>
+                                </div>
+                            </div>
+                            <footer class="publication-footer clearfix">
+                                <time class="publication-footer-date" datetime="06-17-2015">10/06/2015 às 01:34</time>
+                                <nav class="publication-footer-menu">
+                                    <a class="publication-footer-menu-item" href="javascript:;">Editar</a>
+                                    <a class="publication-footer-menu-item" href="javascript:;">Visualizar</a>
+                                    <a class="publication-footer-menu-item" href="javascript:;">Excluir</a>
+                                </nav>
+                            </footer>
+                        </article>
                     </section>
                 </div>
             </div>

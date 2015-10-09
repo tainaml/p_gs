@@ -146,3 +146,48 @@
 
     &:hover .article-category { color: $background-button-hover; }
 }
+
+// Edit publications
+// ==========================================================================
+.publication {
+    border: 1px solid $color-border;
+    margin-bottom: 20px;
+}
+.publication-image {
+    margin-right: 20px;
+    float: left;
+}
+.publication-content {
+    padding: 20px;
+}
+.publication-type {
+    font-weight: 900;
+    letter-spacing: -0.05em;
+
+    &.question { color: #004ca5; }
+    &.draft { color: #c7141a; }
+}
+.publication-title {
+    margin: 0;
+    font-size: 1.2em;
+    letter-spacing: -0.05em;
+}
+
+.publication-footer {
+    padding: 10px;
+    border-top: 1px solid $color-border;
+    font-size: 0.85em;
+}
+.publication-footer-date {
+    float: right;
+    color: #d3d3d3;
+}
+.publication-footer-menu {}
+.publication-footer-menu-item {
+    padding: 0 10px;
+    border-left: 1px solid $color-border;
+    &:first-child {
+        padding-left: 0;
+        border-left: none;
+    }
+}
