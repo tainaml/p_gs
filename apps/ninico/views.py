@@ -1,6 +1,9 @@
+import json
 from django.shortcuts import render
+from django.views.decorators.http import require_POST
+from django.http import HttpResponse
 
-# Create your views here.
+
 def index(request):
     return render(request, 'home/index.html')
 
@@ -72,3 +75,15 @@ def search(request):
 
 def category(request):
     return render(request, 'home/categoria.html')
+
+
+@require_POST
+def test_abc(request):
+
+    response_data = {
+        'post': request.POST,
+        'get': request.GET,
+        'files': len(request.FILES),
+    }
+
+    return HttpResponse(json.dumps(response_data), content_type="application/json")

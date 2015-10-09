@@ -92,31 +92,74 @@ require('./validation.js');
                         $errorContainer.append($('<li>' + values[i] + '</li>'));
                     }
                 }
-
             });
-
         }
 
         function doSubmit(){
 
             var $self = $(this);
             var url = $self.attr('action') || location.href;
+            var withFiles = ($self.attr('enctype') === 'multipart/form-data');
+
+            var ajaxParams = {
+                'type': 'POST',
+                'url': url,
+                'cache': false,
+                'success': function(data){
+                    $self.trigger('formajax:success', data);
+                },
+                'error': function(jqXHR){
+                    var data = $.parseJSON(jqXHR.responseText);
+                    $self.trigger('formajax:error', [data]);
+                },
+                'dataType': 'json',
+                'data': $self.serialize()
+            };
+
+            if(withFiles){
+                if(!('FormData' in window)){
+                    // Use fake ajax. This browser dont support FormData
+                    fakeAjax($self, url)
+                }
+
+                ajaxParams.contentType = false;
+                ajaxParams.processData = false;
+                ajaxParams.data = new FormData(this);
+            }
+
+            $.ajax(ajaxParams);
+        }
+
+        function fakeAjax($self, url){
+
+            var targetId = 'fakeframex_' + $.now() + Math.random();
 
             var $iframe = $('<iframe></iframe>');
             $iframe.attr('src', 'about:blank');
-            $iframe.attr('id', 'fakeframex').attr('name', 'fakeframex');
-
-            var $fakeform = $self.clone();
-            $fakeform.replaceAll($self);
-            $fakeform.attr('target', 'fakeframex');
+            $iframe.attr('id', targetId).attr('name', targetId);
             $iframe.appendTo($('body'));
 
+            $self.off();
+            $self.attr('target', targetId);
             $iframe.on('load', function(){
-                console.log('IFrameLoaded');
-                console.log($iframe.contents());
+                var data = false;
+                $self.IdeiaAjaxForm();
+
+                try{
+                    data = $.parseJSON($iframe.contents().text());
+                    if('error' in data){
+                        $self.trigger('formajax:success', data);
+                    }else{
+                        $self.trigger('formajax:error', [data]);
+                    }
+
+                }catch(err){
+                    $self.trigger('formajax:error', [{'error': 'Generic Error'}]);
+                }
+                $iframe.remove();
             });
 
-            $fakeform.trigger('submit');
+            $self.trigger('submit');
         }
 
         function setup(){
