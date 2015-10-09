@@ -87,3 +87,6 @@ def test_abc(request):
     }
 
     return HttpResponse(json.dumps(response_data), content_type="application/json")
+
+def edit_publications(request):
+    return render(request, 'home/editar-publicacoes.html')
