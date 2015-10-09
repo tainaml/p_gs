@@ -1,16 +1,18 @@
+from apps.userprofile.models import Responsibility, State
 from custom_forms.custom import IdeiaForm, forms
 from ..business import user as Business
+
+from apps.userprofile.service.forms import EditProfileForm
 
 
 class CoreUserSearchForm(IdeiaForm):
     criterio = forms.CharField(required=False)
     page = forms.IntegerField(required=False)
 
-    def __init__(self, profile_instance=None, content_types=None, itens_by_page=None, user=None, *args, **kwargs):
+    def __init__(self, profile_instance=None, content_types=None, itens_by_page=None, *args, **kwargs):
         self.profile_instance=profile_instance
         self.content_types = content_types
         self.itens_by_page = itens_by_page
-        self.user = user
 
         super(CoreUserSearchForm, self).__init__(*args, **kwargs)
 
@@ -31,6 +33,11 @@ class CoreUserSearchForm(IdeiaForm):
             self.cleaned_data['criterio'],
             self.content_types,
             self.itens_by_page,
-            self.cleaned_data['page'],
-            self.user
+            self.cleaned_data['page']
         )
+
+
+class CoreUserProfileEditForm(EditProfileForm):
+
+    responsibility = forms.ModelChoiceField(queryset=Responsibility.objects.all())
+    state = forms.ModelChoiceField(queryset=State.objects.filter(country=1))

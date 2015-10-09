@@ -1,0 +1,2 @@
+
+require('./ajaxform.js');

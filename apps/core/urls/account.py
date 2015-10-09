@@ -1,10 +1,11 @@
 from django.conf.urls import url
-from . import views
+from apps.account import views
+from ..views import account as CoreViews
 
 urlpatterns = [
 
     url(r'^$', views.IndexView.as_view(), name='index'),
-    url(r'^signup/$', views.RegisterView.as_view(), name='signup'),
+    url(r'^signup/$', CoreViews.CoreArticleEditView.as_view(), name='signup'),
     url(r'^login/', views.LoginView.as_view(), name='login'),
     url(r'^logout/', views.LogoutView.as_view(), name='logout'),
     url(r'^change_password/', views.ChangePasswordView.as_view(), name='change_password'),

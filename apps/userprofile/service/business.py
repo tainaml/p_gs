@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from django.utils.translation import ugettext as _
 from django.db import transaction
 
-from apps.userprofile.models import UserProfile, Country, State, City, Occupation
+from apps.userprofile.models import UserProfile, Country, State, City, Occupation, Responsibility
 
 
 def check_user_exists(username_or_email=None):
@@ -79,6 +79,17 @@ def update_profile(user=None, data=None):
         profile.save()
     except:
         return False
+
+    return profile
+
+
+def update_wizard_step(profile, step=0):
+
+    try:
+        profile.wizard_step = step
+        profile.save()
+    except:
+        return None
 
     return profile
 
@@ -159,3 +170,13 @@ def update_occupation(occupation, data):
         return False
 
     return occupation
+
+
+def get_responsibilities():
+
+    try:
+        responsibilities = Responsibility.objects.all()
+    except Responsibility.DoesNotExist:
+        return False
+
+    return responsibilities

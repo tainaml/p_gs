@@ -62,7 +62,7 @@ class LoginView(View):
 
         form = LoginForm(request, request.POST)
         if form.process():
-
+            url_next = '/profile/feed/' if form.redirect_to_wizard else url_next
             return redirect(url_next)
 
         return render(request, 'account/login.html', {'form': form})
@@ -84,6 +84,8 @@ class LogoutView(View):
 
 class RegisterView(View):
 
+    form = SignUpForm
+
     def get(self, request):
         """
         Show the sign-up form
@@ -94,8 +96,7 @@ class RegisterView(View):
         if request.user.is_authenticated():
             return redirect('/')
         else:
-            form = SignUpForm()
-            return render(request, 'account/signup.html', {form: form})
+            return render(request, 'account/signup.html', {'form': self.form()})
 
     def post(self, request):
         """
@@ -104,7 +105,7 @@ class RegisterView(View):
         :param request:
         :return: HTML
         """
-        form = SignUpForm(request.POST)
+        form = self.form(request.POST)
         if form.process():
             messages.add_message(request, messages.SUCCESS, _("Success"))
             return redirect('/account/registered-successfully')
@@ -112,7 +113,7 @@ class RegisterView(View):
         return render(request, 'account/signup.html', {'form': form})
 
 
-class RegisteredSucessView(View):
+class RegisteredSuccessView(View):
 
     def get(self, request):
         """

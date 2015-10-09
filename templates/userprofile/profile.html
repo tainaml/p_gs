@@ -1,5 +1,7 @@
 {%extends 'home/layout/base.html' %}
 
+{% load staticfiles %}
+
 {% block title %}Portal GSTI - Perfil{% endblock %}
 
 {% block content %}
@@ -115,4 +117,121 @@
             </div>
         </div>
     </main>
+{% endblock %}
+
+
+{% block javascripts %}
+    {{ block.super }}
+    <script src="{% static 'javascripts/jquery.form.min.js' %}"></script>
+    <script src="{% static 'javascripts/jquery.jscroll.min.js' %}"></script>
+    <script>
+
+        function fill_states(obj){
+            $.ajax({
+                url: "{% url 'profile:get_state' %}",
+                method: "POST",
+                dataType: "html",
+                data: {
+                    country_id: obj.val(),
+                    csrfmiddlewaretoken: $("input:hidden[name='csrfmiddlewaretoken']").val()
+                },
+                success: function(response) {
+                    $("#state").html(response);
+                    $("#city").html('');
+                }
+            });
+        }
+        function fill_cities(obj){
+            $.ajax({
+                url: "{% url 'profile:get_city' %}",
+                method: "POST",
+                dataType: "html",
+                data: {
+                    state_id: obj.val(),
+                    csrfmiddlewaretoken: $("input:hidden[name='csrfmiddlewaretoken']").val()
+                },
+                success: function(response) {
+                    $("#city").html(response);
+                }
+            });
+        }
+
+        var formPersonalInfoOptions = {
+            dataType: "json",
+            beforeSerialize: function($form, options) {
+                $(".has-error").removeClass("has-error").find(".help-block").html("");
+            },
+            success: function(responseText, statusText, xhr, $form) {
+                $(".has-error").removeClass("has-error").find(".help-block").html("");
+
+                var $currentModal = $form.closest(".modal.fade");
+                $currentModal.modal("hide");
+                $("#modal-categories").modal("show");
+            },
+            statusCode: {
+                400: function(data) {
+                    var $json = data.responseJSON;
+                    var $errors = $json.errors;
+
+                    $.each($errors, function(key, value) {
+                        var $input = $("#"+key);
+                        if($input.length) {
+                            $input.closest("[data-form-group]").addClass("has-error").find(".help-block").html(value);
+                        }
+                    });
+                }
+            }
+        };
+
+        var jScrollWizard = null;
+        var formFilterCategoriesOptions = {
+            dataType: "json",
+            beforeSerialize: function($form, options) {
+            },
+            success: function(response, statusText, xhr, $form) {
+                var $currentModal = $form.closest(".modal.fade");
+                $currentModal.modal("hide");
+
+                var $wizardCommunities = $("#wizard-container-communities");
+                var $wizardJScroll = $('<div class="j-scroll-wizard-communities j-scroll-wizard-communities-container"></div>');
+
+                $wizardJScroll.html(response.template);
+                $wizardCommunities.html($wizardJScroll);
+
+                jScrollWizard = $wizardJScroll.jscroll({
+                    autoTrigger: false,
+                    loadingHtml: '<span>Carregando...</span>',
+                    contentSelect: '.j-scroll-wizard-communities-container',
+                    nextSelect: "a[data-jscroll-next]",
+                    refresh: true
+                });
+
+                console.log('jscroll new instance');
+                console.log(jScrollWizard);
+
+                $("#modal-sugestions").modal("show");
+            },
+            statusCode: {
+                400: function(data) {
+                    alert("Breakpoint");
+                }
+            }
+        };
+
+        $(function() {
+            var $countySelect = $("#country");
+            var $stateSelect = $("#state");
+            $countySelect.on("change", function() {
+                fill_states($(this));
+            });
+            $stateSelect.on("change", function() {
+                fill_cities($(this));
+            });
+
+            $("#form-personal-info").ajaxForm(formPersonalInfoOptions);
+            $("#form-filter-categories").ajaxForm(formFilterCategoriesOptions);
+        });
+
+
+    </script>
 {% endblock %}
