@@ -1,6 +1,13 @@
 {% if request.user and request.user != object_to_link %}
+
+    {% if ajax %}
+        {% url 'socialactions:act-ajax' object_to_link.id content 'follow' as act_url %}
+    {% else %}
+        {% url 'socialactions:act' object_to_link.id content 'follow' as act_url %}
+    {% endif %}
+
     {% if object_to_link.id not in followings %}
-    <a class="btn {{ btn_class }}" {% if ajax %}data-social-action-ajax{% endif %} href="{% url 'socialactions:act' object_to_link.id content 'follow' %}?url_next={{ url_next|urlencode }}">
+    <a class="btn {{ btn_class }}" {% if ajax %}data-social-action-ajax{% endif %} href="{{ act_url }}?url_next={{ url_next|urlencode }}">
         {% if content == "community" %}
             Entrar
         {% else %}
@@ -8,7 +15,7 @@
         {% endif %}
     </a>
     {% else %}
-    <a class="btn {{ btn_class }}-alt" {% if ajax %}data-social-action-ajax{% endif %}  href="{% url 'socialactions:act' object_to_link.id content 'follow' %}?url_next={{ url_next|urlencode }}">
+    <a class="btn {{ btn_class }}-alt" {% if ajax %}data-social-action-ajax{% endif %}  href="{{ act_url }}?url_next={{ url_next|urlencode }}">
         {% if content == "community" %}
             Participando
         {% else %}
