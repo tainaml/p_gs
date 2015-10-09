@@ -72,3 +72,6 @@ def search(request):
 
 def category(request):
     return render(request, 'home/categoria.html')
+
+def edit_publications(request):
+    return render(request, 'home/editar-publicacoes.html')
