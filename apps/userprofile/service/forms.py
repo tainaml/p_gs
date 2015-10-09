@@ -1,12 +1,12 @@
+import pickle
+
 from django.db import models
 from django.core.validators import RegexValidator
-import pickle
-from apps.userprofile.models import City
-import business as Business
 from django.core.exceptions import ValidationError
 from django.utils.translation import ugettext as _
-
 from custom_forms.custom import forms, IdeiaForm
+from apps.userprofile.models import City, Responsibility
+import business as Business
 
 
 class MultiWidgetBasic(forms.widgets.MultiWidget):
@@ -48,7 +48,7 @@ class OccupationField(forms.fields.MultiValueField):
 
 class EditProfileForm(IdeiaForm):
     birth = forms.DateField(input_formats=['%d/%m/%Y'])
-    gender = forms.CharField(max_length=1)
+    gender = forms.CharField(max_length=1, required=False)
     city = forms.ModelChoiceField(queryset='')
     profile_picture = forms.ImageField(required=False)
 
@@ -78,7 +78,7 @@ class EditProfileForm(IdeiaForm):
 
 
 class OccupationForm(IdeiaForm):
-    responsibility = forms.CharField(max_length=100)
+    responsibility = forms.ModelChoiceField(queryset=Responsibility.objects.all())
     company = forms.CharField(max_length=100)
 
     def __init__(self, data=None, request=None, data_model=None, instance=None, *args, **kwargs):

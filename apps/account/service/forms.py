@@ -44,6 +44,7 @@ class LoginForm(IdeiaForm):
 
     def __init__(self, request=None, *args, **kwargs):
         self.request = request
+        self.redirect_to_wizard = False
         super(LoginForm, self).__init__(*args, **kwargs)
 
     def is_valid(self):
@@ -52,6 +53,10 @@ class LoginForm(IdeiaForm):
         if 'password' in self.cleaned_data and 'username' in self.cleaned_data:
             self.instance = Business.authenticate_user(username_or_email=self.cleaned_data['username'],
                                                        password=self.cleaned_data['password'])
+
+            if not self.instance.last_login:
+                self.redirect_to_wizard = True
+
             if not self.instance:
                 self.add_error('password', ValidationError(_('Wrong password or username.'), code='password'))
                 valid = False

@@ -5,7 +5,8 @@
 
     {% csrf_token %}
 
-    <input type="text" name="responsibility" value="{{ form.data.responsibility|default_if_none:"" }}" placeholder="{% trans "Responsibility" %}">
+    {# <input type="text" name="responsibility" value="{{ form.data.responsibility|default_if_none:"" }}" placeholder="{% trans "Responsibility" %}"> #}
+    {{ form.responsibility }}
     {% if form.responsibility.errors %}  {{ form.responsibility.errors }} {% endif %}
     <br/>
 

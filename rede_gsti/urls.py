@@ -24,9 +24,9 @@ url_media = static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 urlpatterns = [
 
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^account/', include('apps.account.urls', namespace='account')),
+    url(r'^account/', include('apps.core.urls.account', namespace='account')),
     url(r'^comment/', include('apps.comment.urls', namespace='comment')),
-    url(r'^profile/', include('apps.userprofile.urls', namespace='profile')),
+    url(r'^profile/', include('apps.core.urls.user', namespace='profile')),
     url(r'^socialaccount/', include('apps.socialaccount.urls', namespace='socialaccount')),
     url(r'^socialactions/', include('apps.socialactions.urls', namespace='socialactions')),
     url('', include('social.apps.django_app.urls', namespace='social')),

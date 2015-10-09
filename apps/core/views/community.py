@@ -2,7 +2,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.db.models import Q
 from apps.community import views
 from apps.community.models import Community
-from apps.core.forms.community import CoreCommunityFormSearch, CoreCommunityQuestionFormSearch
+from apps.core.forms.community import CoreCommunityFeedFormSearch, CoreCommunityQuestionFeedFormSearch
 from apps.feed.models import FeedObject
 from apps.socialactions.service.business import get_users_acted_by_model
 from rede_gsti import settings
@@ -46,7 +46,7 @@ class CoreCommunitySearch(CoreCommunityView):
         context = super(CoreCommunitySearch, self).get_context(request, community_instance)
         itens_by_page = 10
 
-        self.form = CoreCommunityFormSearch(
+        self.form = CoreCommunityFeedFormSearch(
             community_instance,
             ['article', 'question'],
             itens_by_page,
@@ -82,7 +82,7 @@ class CoreCommunityQuestionSearch(CoreCommunityView):
         context = super(CoreCommunityQuestionSearch, self).get_context(request, community_instance)
         itens_by_page = 2
 
-        self.form = CoreCommunityQuestionFormSearch(
+        self.form = CoreCommunityQuestionFeedFormSearch(
             community_instance,
             ['question'],
             itens_by_page,

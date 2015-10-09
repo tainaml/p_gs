@@ -1,3 +1,5 @@
+{% load thumbor_tags %}
+
 <div class="modal fade" data-target="modal" id="modal-personal-infos">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -8,73 +10,106 @@
                     <h5>Adicione uma foto e preencha os campos exigidos abaixo.</h5>
                 </div>
                 <div class="steps">
-                    <ul class="step-items">
-                        <li class="step active">1</li>
-                        <li class="step">2</li>
-                        <li class="step">3</li>
-                    </ul>
-                    <div class="steps-container row">
-                        <div class="col-lg-12"><hr></div>
-                        <div class="col-lg-4">
-                            <div class="custom-file-upload set-avatar" data-module="dropzoneUploader">
-                                <div class="custom-file-content">
-                                    <i class="gsticon gsticon-cloud-upload"></i>
-                                    <h5><strong>Foto de perfil</strong></h5>
-                                    <p>Arreste a imagem para este campo ou <a href="javascript:;" data-trigger="file">clique aqui</a></p>
-                                </div>
-                                <input type="file" accept="image/*" name="avatar">
-                                <div class="custom-file-upload-result" data-content="file"></div>
-                            </div>
-                        </div>
-                        <div class="col-lg-8">
-                            <div class="row">
-                                <div class="col-lg-12 item-form">
-                                    <div class="custom-select">
-                                        <span data-toggle="select" data-name="area_atuacao" class="custom-select-item">Área de atuação</span>
-                                        <ul class="custom-select-list">
-                                            <li data-value="001" class="custom-select-option">Some another assunto</li>
-                                            <li data-value="002" class="custom-select-option">Some another assunto</li>
-                                            <li data-value="003" class="custom-select-option">Some another assunto</li>
-                                        </ul>
+                    <form id="form-personal-info" action="{% url 'profile:wizard-step-personal-info-ajax' %}" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <ul class="step-items">
+                            <li class="step active">1</li>
+                            <li class="step">2</li>
+                            <li class="step">3</li>
+                        </ul>
+                        <div class="steps-container row">
+                            <div class="col-lg-12"><hr></div>
+                            <div class="col-lg-4">
+                                <div class="custom-file-upload set-avatar" data-module="dropzoneUploader">
+                                    <div class="custom-file-content" {% if profile.get_profile_picture %}style="display:none;"{% endif %}>
+                                        <i class="gsticon gsticon-cloud-upload"></i>
+                                        <h5><strong>Foto de perfil</strong></h5>
+                                        <p>Arraste a imagem para este campo ou <a href="javascript:;" data-trigger="file">clique aqui</a></p>
                                     </div>
-                                </div>
-                                <div class="col-lg-6 item-form">
-                                    <div class="custom-select">
-                                        <span data-toggle="select" data-name="estado" class="custom-select-item">Estado</span>
-                                        <ul class="custom-select-list">
-                                            <li data-value="1" class="custom-select-option">Some another assunto</li>
-                                            <li data-value="2" class="custom-select-option">Some another assunto</li>
-                                            <li data-value="3" class="custom-select-option">Some another assunto</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 item-form">
-                                    <div class="custom-select">
-                                        <span data-toggle="select" data-name="cidade" class="custom-select-item">Cidade</span>
-                                        <ul class="custom-select-list">
-                                            <li data-value="1" class="custom-select-option">Some another assunto</li>
-                                            <li data-value="2" class="custom-select-option">Some another assunto</li>
-                                            <li data-value="3" class="custom-select-option">Some another assunto</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 item-form">
-                                    <div class="custom-calendar">
-                                        <input type="date" name="birthday" id="birthday" placeholder="Aniversário">
-                                        <i class="gsticon gsticon-calendar"></i>
+                                    <input type="file" accept="image/*" name="avatar">
+                                    <div class="custom-file-upload-result" data-content="file">
+                                        {% if profile.get_profile_picture %}
+                                            <img src="{% thumbor_url profile.get_profile_picture.url width=113 height=113 smart=False fit_in=False %}" class="img-responsive" alt="{{ profile.user.get_full_name }}">
+                                        {% endif %}
                                     </div>
                                 </div>
                             </div>
+                            <div class="col-lg-8">
+                                <div class="row">
+                                    <div data-form-group class="col-lg-12 item-form">
+                                        <div class="custom-select">
+                                            <!--
+                                            <span data-toggle="select" data-name="area_atuacao" class="custom-select-item">Área de atuação</span>
+                                            <ul class="custom-select-list">
+                                                <li data-value="001" class="custom-select-option">Some another assunto</li>
+                                                <li data-value="002" class="custom-select-option">Some another assunto</li>
+                                                <li data-value="003" class="custom-select-option">Some another assunto</li>
+                                            </ul>
+                                            -->
+                                            <select name="responsibility" id="responsibility" class="form-control">
+                                                <option value="0" {% if profile.responsibility %}selected{% endif %} disabled>Área de atuação</option>
+                                                {% for responsibility in responsibilities %}
+                                                    <option value="{{ responsibility.id }}" {% if profile.responsibility %}selected{% endif %}>{{ responsibility.name }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                        <span class="help-block"></span>
+                                    </div>
+                                    <div data-form-group class="col-lg-6 item-form">
+                                        <div class="custom-select">
+                                            <select name="state" id="state" class="form-control">
+                                                <option value="0" selected disabled>Selecione um estado</option>
+                                                {% for state in states %}
+                                                <option value="{{ state.id }}" {% if profile.city.state.id == state.id %}selected{% endif %}>{{ state.name }}</option>
+                                                {% endfor %}
+                                            </select>
+{#                                            <span data-toggle="select" data-name="estado" class="custom-select-item">Estado</span>#}
+{#                                            <ul class="custom-select-list">#}
+{#                                                {% for state in states %}#}
+{#                                                <li data-value="{{ state.id }}" class="custom-select-option">{{ state.name }}</li>#}
+{#                                                {% endfor %}#}
+{#                                            </ul>#}
+                                        </div>
+                                        <span class="help-block"></span>
+                                    </div>
+                                    <div data-form-group class="col-lg-6 item-form">
+                                        <div class="custom-select">
+                                            <select name="city" id="city" class="form-control">
+                                                <option value="0" {% if profile.city.id %}selected{% endif %} disabled>Selecione uma cidade</option>
+                                                {% for city in cities %}
+                                                    <option value="{{ city.id }}" {% if profile.city.id == city.id %}selected{% endif %}>{{ city.name }}</option>
+                                                {% endfor %}
+                                            </select>
+{#                                            <span data-toggle="select" data-name="cidade" class="custom-select-item">Cidade</span>#}
+{#                                            <ul class="custom-select-list">#}
+{#                                                <li data-value="1" class="custom-select-option">Some another assunto</li>#}
+{#                                                <li data-value="2" class="custom-select-option">Some another assunto</li>#}
+{#                                                <li data-value="3" class="custom-select-option">Some another assunto</li>#}
+{#                                            </ul>#}
+                                        </div>
+                                        <span class="help-block"></span>
+                                    </div>
+                                    <div data-form-group class="col-lg-6 item-form">
+                                        <div class="custom-calendar">
+                                            <input type="date" name="birth" id="birth" placeholder="Aniversário" value="{{ profile.birth|date:"d/m/Y" }}">
+                                            <i class="gsticon gsticon-calendar"></i>
+                                        </div>
+                                        <span class="help-block"></span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="row text-right">
-                        <div class="col-lg-12"><hr>
-                            <button class="btn-green" data-toggle="modal" data-target="#modal-categories">Avançar</button>
+                        <div class="row text-right">
+                            <div class="col-lg-12">
+                                <hr>
+{#                                <button class="btn-green" data-toggle="modal" data-target="#modal-categories">Avançar</button>#}
+                                <button class="btn-green" type="submit">Avançar</button>
+                            </div>
                         </div>
-                    </div>
-                    <input type="hidden" name="area_atuacao">
-                    <input type="hidden" name="estado">
-                    <input type="hidden" name="cidade">
+                        <input type="hidden" name="area_atuacao">
+                        <input type="hidden" name="estado">
+                        <input type="hidden" name="cidade">
+                    </form>
                 </div>
             </div>
         </div>

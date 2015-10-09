@@ -21,7 +21,6 @@ def require_email(strategy, details, user=None, is_new=False, *args, **kwargs):
 
 @partial
 def username_slugify(**kwargs):
-    print kwargs
     if kwargs.get('username'):
         kwargs['username'] = slugify(kwargs.get('username').lower())
 

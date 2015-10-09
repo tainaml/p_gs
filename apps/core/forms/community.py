@@ -1,10 +1,39 @@
+from apps.taxonomy.models import Taxonomy
 from custom_forms.custom import IdeiaForm, forms
 from ..business import community as Business
 
 __author__ = 'phillip'
 
-
 class CoreCommunityFormSearch(IdeiaForm):
+
+    criteria = forms.CharField(required=False)
+    page = forms.IntegerField(required=False)
+    taxonomies = forms.ModelMultipleChoiceField(queryset=Taxonomy.objects.all(), required=False)
+
+    def __init__(self, items_per_page=None, *args, **kwargs):
+
+        self.items_per_page = items_per_page
+        super(CoreCommunityFormSearch, self).__init__(*args, **kwargs)
+
+    def clean(self):
+
+        cleaned_data = super(CoreCommunityFormSearch, self).clean()
+        cleaned_data['page'] = cleaned_data['page'] if 'page' in cleaned_data and cleaned_data['page'] else 1
+
+        return cleaned_data
+
+    def __process__(self):
+
+        return Business.get_communities(
+            self.cleaned_data['taxonomies'],
+            self.cleaned_data['criteria'],
+            self.items_per_page,
+            self.cleaned_data['page']
+        )
+
+
+class CoreCommunityFeedFormSearch(IdeiaForm):
+
     criterio = forms.CharField(required=False)
     page = forms.IntegerField(required=False)
 
@@ -13,11 +42,11 @@ class CoreCommunityFormSearch(IdeiaForm):
         self.content_types = content_types
         self.itens_by_page = itens_by_page
 
-        super(CoreCommunityFormSearch, self).__init__(*args, **kwargs)
+        super(CoreCommunityFeedFormSearch, self).__init__(*args, **kwargs)
 
 
     def clean(self):
-        cleaned_data = super(CoreCommunityFormSearch, self).clean()
+        cleaned_data = super(CoreCommunityFeedFormSearch, self).clean()
 
         cleaned_data['page'] = cleaned_data['page']\
             if 'page' in cleaned_data and cleaned_data['page'] else 1
@@ -36,12 +65,12 @@ class CoreCommunityFormSearch(IdeiaForm):
         )
 
 
-class CoreCommunityQuestionFormSearch(CoreCommunityFormSearch):
+class CoreCommunityQuestionFeedFormSearch(CoreCommunityFeedFormSearch):
 
     replies = forms.CharField(required=False)
 
     def clean(self):
-        cleaned_data = super(CoreCommunityQuestionFormSearch, self).clean()
+        cleaned_data = super(CoreCommunityQuestionFeedFormSearch, self).clean()
 
         cleaned_data['replies'] = cleaned_data['replies']\
             if 'replies' in cleaned_data and cleaned_data['replies'] else None

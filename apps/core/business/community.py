@@ -1,6 +1,8 @@
 from django.contrib.contenttypes.models import ContentType
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.db.models import Q
+
+from apps.community.models import Community
 from apps.feed.models import FeedObject
 
 __author__ = 'phillip'
@@ -99,3 +101,27 @@ def get_feed_questions(community_instance=None, description=None, content_types_
         feed_objects_paginated = []
 
     return feed_objects_paginated
+
+
+def get_communities(taxonomies_list=None, description=None, items_per_page=None, page=None):
+
+    items_per_page = items_per_page if items_per_page else 9
+    page = page if page else 1
+
+    communities = Community.objects.filter(
+        Q(taxonomy__in=taxonomies_list) &
+        (
+            Q(title__icontains=description) |
+            Q(description__icontains=description)
+        )
+    )
+
+    communities = Paginator(communities, items_per_page)
+    try:
+        communities = communities.page(page)
+    except PageNotAnInteger:
+        communities = communities.page(1)
+    except EmptyPage:
+        communities = []
+
+    return communities
