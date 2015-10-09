@@ -164,6 +164,13 @@
             });
         });
 
+       $(document).on("click", "a[data-xhr-edit]", function(event){
+            var $link = $(this);
+            $("#comment-edit-"+ $link.data("xhr-id")).toggle("display");
+
+
+       });
+
        $(document).on("submit","form[data-xhr]", function(evt){
            evt.preventDefault();
 
@@ -207,7 +214,6 @@
                 },
                 statusCode: {
                 400: function(data) {
-
                   var $errors =data.responseJSON.errors;
                   var $form_groups = $form.children("div[data-group]");
                   $.each($form_groups, function(key, value){

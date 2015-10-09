@@ -45,7 +45,8 @@ class ArticleForm(IdeiaModelForm):
         return _date
 
     def clean_status(self):
-        _status = self.cleaned_data.get('status', Business.Article.STATUS_DRAFT)
+        _status = self.cleaned_data.get('status',
+                                        Business.Article.STATUS_DRAFT)
         if self.action in [self.ACTION_PUBLISH, self.ACTION_SCHEDULE]:
             _status = Business.Article.STATUS_PUBLISH
 

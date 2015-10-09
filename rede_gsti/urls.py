@@ -33,6 +33,7 @@ urlpatterns = [
     url(r'^comment/comment-list/', CommentView.CommentListView.as_view(), name='comment-list'),
     url(r'^comment/answer-list/', CommentView.CommentAnswerView.as_view(), name='answer-list'),
     url(r'^comment/answer-save/', CommentView.AnswerSaveView.as_view(), name='answer-save'),
+    url(r'^comment/comment-edit/', CommentView.AnswerSaveView.as_view(), name='comment-edit'),
 
 
     url(r'^profile/', include('apps.userprofile.urls', namespace='profile')),
