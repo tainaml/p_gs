@@ -12,32 +12,55 @@ require('./validation.js');
 
         var EVENT_AJAX_VALIDATION = 'ajaxform.validation';
 
+        function addError(field, error, unique){
+            var isUnique = unique || false;
+            var $target;
+
+            if(this instanceof Event){
+                $target = $(this.currentTarget);
+            }else{
+                $target = $(this);
+            }
+
+            var errors = $target.data('formErrors');
+
+            if(!(field in errors) || isUnique){
+                errors[field] = [];
+            }
+
+            errors[field].push(error);
+            $target.data('form-errors', errors);
+        }
+
         function formCancelSubmit(e){
             e.preventDefault();
             var $self = $(this);
 
             $self.one(EVENT_AJAX_VALIDATION, doValidation);
+            $self.on('formajax:error', function(event, data){
+                doShowErrors.call(this, data.errors);
+            });
 
             $self.whenEvent(EVENT_AJAX_VALIDATION).done(afterValidation);
 
             $self.find('.has-error').removeClass('has-error');
-            $self.find('.form-group-errors').children().remove();
+            $self.find('.form-group-errors').empty();
+
+            var formFields = $self.data('formFields');
+            $.each(formFields, function(key){
+                var $field = formFields[key]['object'];
+                var $group = formFields[key]['group'];
+
+                $group.find('.has-error').removeClass('has-error');
+                $group.find('.form-group-errors').empty();
+            });
+
+            $self.data('formFields', formFields);
+
             $self.data('ajaxFormEnabled', true);
             $self.data('formErrors', {});
 
-            $self.trigger(EVENT_AJAX_VALIDATION, function _addError(field, error, unique){
-                var isUnique = unique || false;
-                var event = this;
-                var $target = $(event.currentTarget);
-                var errors = $target.data('formErrors');
-
-                if(!(field in errors) || isUnique){
-                    errors[field] = [];
-                }
-
-                errors[field].push(error);
-                $target.data('form-errors', errors);
-            });
+            $self.trigger(EVENT_AJAX_VALIDATION, addError);
         }
 
         function hasErrors(errors){
@@ -75,9 +98,11 @@ require('./validation.js');
             $.each(errors, function(key, values){
 
                 if(!(key in formFields)){
+
                     $.each(values, function addErrorToOtherErrors(){
                         otherErrors.push(this);
                     });
+
                 }else{
                     $field = formFields[key]['object'];
                     $group = formFields[key]['group'];
@@ -87,6 +112,8 @@ require('./validation.js');
                     if(!$errorContainer.length){
                         $errorContainer = $('<ul class="form-group-errors"></ul>').appendTo($group);
                     }
+
+                    $errorContainer.empty();
 
                     for(var i in values){
                         $errorContainer.append($('<li>' + values[i] + '</li>'));
@@ -172,14 +199,22 @@ require('./validation.js');
 
             var fields = {};
             var $self = $(this),
-                $object, $group, field;
+                $object, $group, field, objectKey;
 
             var $formGroup = $self.data('groupClass') || defaultOptions.groupClass;
 
-            var tempFields = $self.serializeArray();
-            $.each(tempFields, function forEachFieldInFields(){
+            var tempFields = $self.find(':input');
 
-                $object = $self.find('[name=' + this.name + ']');
+            $.each(tempFields, function forEachFieldInFields(){
+                
+                $object = $(this);
+
+                objectKey = $object.attr('name') || false;
+
+                if(!objectKey){
+                    return;
+                }
+
                 $formGroup = $object.data('groupClass') || $formGroup;
                 $group = $object.closest($formGroup);
 
@@ -188,11 +223,10 @@ require('./validation.js');
                     'group': $group
                 };
 
-                fields[this.name] = field;
+                fields[objectKey] = field;
             });
 
             $self.data('formFields', fields);
-
         }
 
         $(this).each(function(){

@@ -29,7 +29,7 @@ class CoreUserSearchView(views.ProfileShowView):
 
         feed_objects = self.form.process()
 
-        context.update({'feed_objects': feed_objects, 'form': self.form, 'page': self.form.cleaned_data['page'] + 1})
+        context.update({'feed_objects': feed_objects, 'form': self.form, 'page': self.form.cleaned_data.get('page', 0) + 1})
 
         return context
 
