@@ -198,11 +198,11 @@ class CoreProfileWizardStepTwoListAjax(CoreProfileWizardStepTwoAjax):
 
         _context = context
 
-        # return JsonResponse(_context, status=200)
         return render(request, self.template_segment_path, _context, status=200)
 
     def get_context(self, request, profile_instance=None):
-        pass
+        return {}
+
 
 class CoreProfileWizardStepThreeAjax(views.ProfileBaseView):
     pass

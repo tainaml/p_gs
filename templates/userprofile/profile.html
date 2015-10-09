@@ -118,6 +118,7 @@
 {% block javascripts %}
     {{ block.super }}
     <script src="{% static 'javascripts/jquery.form.min.js' %}"></script>
+    <script src="{% static 'javascripts/jquery.jscroll.min.js' %}"></script>
     <script>
 
         function fill_states(obj){
@@ -177,18 +178,28 @@
             }
         };
 
+        var jScrollWizard = null;
         var formFilterCategoriesOptions = {
             dataType: "json",
             beforeSerialize: function($form, options) {
-                $(".has-error").removeClass("has-error").find(".help-block").html("");
             },
             success: function(response, statusText, xhr, $form) {
-                console.log(response);
-                $(".has-error").removeClass("has-error").find(".help-block").html("");
-
                 var $currentModal = $form.closest(".modal.fade");
                 $currentModal.modal("hide");
-                $("#wizard-container-communities").html(response.template);
+
+                var $wizardCommunities = $("#wizard-container-communities");
+
+                $wizardCommunities.html(response.template);
+
+                jScrollWizard = $wizardCommunities.jscroll({
+                    autoTrigger: false,
+                    loadingHtml: '<span>Carregando...</span>',
+                    nextSelect: "a[data-jscroll-next]",
+                    refresh: true
+                });
+                console.log('jscroll new instance');
+                console.log(jScrollWizard);
+
                 $("#modal-sugestions").modal("show");
             },
             statusCode: {
