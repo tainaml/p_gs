@@ -26,4 +26,5 @@ urlpatterns = [
     url(r'^question$', views.question, name='question'),
     url(r'^search$', views.search, name='pesquisa'),
     url(r'^categoria$', views.category, name='categoria'),
+    url(r'^editar-publicacoes$', views.edit_publications, name='editar_publicacoes'),
 ]
