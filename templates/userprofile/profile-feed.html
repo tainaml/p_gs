@@ -129,7 +129,7 @@
 
 {% block javascripts %}
     {{ block.super }}
-    <script src="{% static 'javascripts-plugins/jquery.jscroll.min.js' %}"></script>
+    <div data-module="jscroll"></div>
     <script>
 
         function fill_states(obj){
