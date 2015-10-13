@@ -37,7 +37,7 @@ require('./validation.js');
             var $self = $(this);
 
             $self.one(EVENT_AJAX_VALIDATION, doValidation);
-            $self.on('formajax:error', function(event, data){
+            $self.on('ajaxform.error', function(event, data){
                 doShowErrors.call(this, data.errors);
             });
 
@@ -133,11 +133,11 @@ require('./validation.js');
                 'url': url,
                 'cache': false,
                 'success': function(data){
-                    $self.trigger('formajax:success', data);
+                    $self.trigger('ajaxform.success', data);
                 },
                 'error': function(jqXHR){
                     var data = $.parseJSON(jqXHR.responseText);
-                    $self.trigger('formajax:error', [data]);
+                    $self.trigger('ajaxform.error', [data]);
                 },
                 'dataType': 'json',
                 'data': $self.serialize()
@@ -175,13 +175,13 @@ require('./validation.js');
                 try{
                     data = $.parseJSON($iframe.contents().text());
                     if('error' in data){
-                        $self.trigger('formajax:success', data);
+                        $self.trigger('ajaxform.success', data);
                     }else{
-                        $self.trigger('formajax:error', [data]);
+                        $self.trigger(ajaxform.error', [data]);
                     }
 
                 }catch(err){
-                    $self.trigger('formajax:error', [{'error': 'Generic Error'}]);
+                    $self.trigger('ajaxform.error', [{'error': 'Generic Error'}]);
                 }
                 $iframe.remove();
             });
