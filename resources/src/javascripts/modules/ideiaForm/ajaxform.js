@@ -177,7 +177,7 @@ require('./validation.js');
                     if('error' in data){
                         $self.trigger('ajaxform.success', data);
                     }else{
-                        $self.trigger(ajaxform.error', [data]);
+                        $self.trigger('ajaxform.error', [data]);
                     }
 
                 }catch(err){
