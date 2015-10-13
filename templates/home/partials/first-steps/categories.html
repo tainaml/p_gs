@@ -7,7 +7,7 @@
                     <h5>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</h5>
                 </div>
                 <div class="steps">
-                    <form id="form-filter-categories" action="{% url 'profile:wizard-step-filter-categories-ajax' %}" method="post" enctype="multipart/form-data">
+                    <form id="form-filter-categories" action="{% url 'profile:wizard-step-filter-categories-ajax' %}" method="post" enctype="multipart/form-data" data-ajaxform="true" data-group-class=".item-form">
                         {% csrf_token %}
                         <ul class="step-items list-inline text-center">
                             <li class="step active">1</li>
@@ -83,6 +83,7 @@
                                 </div>
                             </div>
                             <div class="col-lg-12">
+                                <div class="item-form"></div>
                                 <hr>
                             </div>
                             <div class="col-lg-offset-4 col-lg-8 text-right">

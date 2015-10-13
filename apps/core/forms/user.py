@@ -1,3 +1,4 @@
+from django.db import transaction
 from custom_forms.custom import IdeiaForm, forms
 from ..business import user as Business
 
@@ -44,6 +45,7 @@ class CoreUserProfileEditForm(EditProfileForm):
     state = forms.ModelChoiceField(queryset=State.objects.filter(country=1))
 
 
+    @transaction.atomic()
     def __process__(self):
         process_profile = super(CoreUserProfileEditForm, self).__process__()
         process_occupation = BusinessUserProfile.create_occupation(process_profile, data={

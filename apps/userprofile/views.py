@@ -107,6 +107,7 @@ class ProfileEditView(ProfileBaseView):
         form = self.form_profile(request.user, profile, request.POST, request.FILES)
 
         if form.process():
+            profile = form.instance
             messages.add_message(request, messages.SUCCESS, _("Profile edited successfully!"))
             context = {'status':200}
             context.update(self.get_context(request, profile))

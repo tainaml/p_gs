@@ -7,7 +7,7 @@
                     <h5>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</h5>
                 </div>
                 <div class="steps">
-                    <form id="form-sugestions" action="{% url 'profile:wizard-step-suggestion-ajax' %}" method="post" enctype="multipart/form-data">
+                    <form id="form-suggestions" action="{% url 'profile:wizard-step-suggestion-ajax' %}" method="post" enctype="multipart/form-data" data-ajaxform="true" data-group-class=".item-form">
                         {% csrf_token %}
                         <ul class="step-items list-inline text-center">
                             <li class="step active">1</li>
@@ -18,6 +18,7 @@
                         <div class="steps-container row">
                             <div class="col-lg-12" data-toggle="custom-scroll">
                                 <div id="wizard-container-communities" class="row"></div>
+                                <div class="item-form"></div>
                             </div>
                             <div class="col-lg-12">
                                 <hr>

@@ -129,7 +129,8 @@
 
 {% block javascripts %}
     {{ block.super }}
-    <div data-module="jscroll"></div>
+    {# <div data-module="jscroll"></div> #}
+    <script src="https://cdn.jsdelivr.net/jquery.jscroll/2.2.4/jquery.jscroll.min.js"></script>
     <script>
 
         function fill_states(obj){
@@ -164,21 +165,22 @@
 
         var jScrollWizard = null;
 
-        var functionAjaxSuccessStepOne = function(data) {
+        var functionAjaxSuccessStepOne = function(e, data) {
             var $this = $(this),
                 $currentModal = $this.closest(".modal.fade");
+
             $currentModal.modal("hide");
             $($currentModal.data("next-modal")).modal("show");
         };
 
-        var functionAjaxSuccessStepTwo = function(data) {
+        var functionAjaxSuccessStepTwo = function(e, data) {
             var $this = $(this),
                 $currentModal = $this.closest(".modal.fade");
 
             var $wizardCommunities = $("#wizard-container-communities");
             var $wizardJScroll = $('<div class="j-scroll-wizard-communities j-scroll-wizard-communities-container"></div>');
 
-            $wizardJScroll.html(response.template);
+            $wizardJScroll.html(data.template);
             $wizardCommunities.html($wizardJScroll);
 
             jScrollWizard = $wizardJScroll.jscroll({
@@ -193,9 +195,10 @@
             $($currentModal.data("next-modal")).modal("show");
         };
 
-        var functionAjaxSuccessStepThree = function(data) {
+        var functionAjaxSuccessStepThree = function(e, data) {
             var $this = $(this),
                 $currentModal = $this.closest(".modal.fade");
+
             $currentModal.modal("hide");
         };
 

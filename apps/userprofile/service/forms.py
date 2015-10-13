@@ -74,7 +74,8 @@ class EditProfileForm(IdeiaForm):
         return is_valid
 
     def __process__(self):
-        return Business.edit_profile(self.user, self.cleaned_data, None)
+        self.instance = Business.edit_profile(self.user, self.cleaned_data, None)
+        return self.instance
 
 
 class OccupationForm(IdeiaForm):

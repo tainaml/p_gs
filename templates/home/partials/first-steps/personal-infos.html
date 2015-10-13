@@ -47,9 +47,9 @@
                                             </ul>
                                             -->
                                             <select name="responsibility" id="responsibility" class="form-control">
-                                                <option value="0" {% if profile.responsibility %}selected{% endif %} disabled>Área de atuação</option>
+                                                <option value="0" {% if not profile.current_occupation.responsibility %}selected{% endif %} disabled>Área de atuação</option>
                                                 {% for responsibility in responsibilities %}
-                                                    <option value="{{ responsibility.id }}" {% if profile.responsibility %}selected{% endif %}>{{ responsibility.name }}</option>
+                                                    <option value="{{ responsibility.id }}" {% if responsibility.id == profile.current_occupation.responsibility.id %}selected{% endif %}>{{ responsibility.name }}</option>
                                                 {% endfor %}
                                             </select>
                                         </div>
