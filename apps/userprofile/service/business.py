@@ -51,8 +51,7 @@ def create_profile(user, data=None):
 def edit_profile(user, data_profile=None, data_formset=None):
 
     try:
-        if data_profile:
-            profile = update_profile(user, data_profile)
+        profile = update_profile(user, data_profile)
 
         if data_formset:
             for data in data_formset:
@@ -67,18 +66,19 @@ def update_profile(user=None, data=None):
 
     profile = get_profile(user)
 
-    try:
-        profile.birth = data['birth']
-        profile.gender = data['gender']
-        profile.city = data['city']
+    if data:
+        try:
+            profile.birth = data['birth']
+            profile.gender = data['gender']
+            profile.city = data['city']
 
-        if data['profile_picture'] and profile.profile_picture != data['profile_picture']:
-            profile.profile_picture.delete()
-            profile.profile_picture = data['profile_picture']
+            if data['profile_picture'] and profile.profile_picture != data['profile_picture']:
+                profile.profile_picture.delete()
+                profile.profile_picture = data['profile_picture']
 
-        profile.save()
-    except:
-        return False
+            profile.save()
+        except:
+            return False
 
     return profile
 
