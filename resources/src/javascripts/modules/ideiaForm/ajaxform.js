@@ -187,6 +187,7 @@ require('./validation.js');
             });
 
             $self.trigger('submit');
+
         }
 
         function setup(){
