@@ -18,7 +18,7 @@ class CoreUserView(ProfileShowView):
             profile_instance
         )
 
-        itens_by_page = 10
+        itens_by_page = 5
 
         form = self.form(
             profile_instance,
@@ -49,12 +49,7 @@ class CoreUserView(ProfileShowView):
 
 
 class CoreUserList(CoreUserView):
-    template_path = 'userprofile/partials/profile-list.html'
-
-    def get_context(self, request, profile_instance=None):
-        context = super(CoreUserView, self).get_context(request, profile_instance)
-
-        return context
+    template_path = 'userprofile/partials/user-profile-list.html'
 
 
 class CoreUserFeed(CoreUserView):
@@ -62,7 +57,7 @@ class CoreUserFeed(CoreUserView):
 
 
 class CoreUserProfile(CoreUserView):
-    template_path = 'userprofile/profile.html'
+    template_path = 'userprofile/profile-list.html'
     form = CoreUserProfileForm
 
     def get(self, request, username=None):
@@ -77,11 +72,11 @@ class CoreUserProfile(CoreUserView):
     def get_context(self, request, profile_instance=None):
         content_type = ContentType.objects.filter(model='article')
 
-        itens_by_page = 10
+        itens_by_page = 5
 
         form = self.form(
             profile_instance,
-            content_type[0].id,
+            content_type.first().id,
             itens_by_page,
             profile_instance.user,
             request.GET
@@ -97,4 +92,23 @@ class CoreUserProfile(CoreUserView):
 
 
 class CoreUserSearch(CoreUserView):
+
+    form = CoreUserProfileForm
     template_path = 'userprofile/profile-search.html'
+
+    def get_context(self, request, profile_instance=None):
+
+        itens_by_page = 5
+        content_type = ContentType.objects.filter(model='article')
+
+        form = self.form(
+            profile_instance,
+            content_type.first().id,
+            itens_by_page,
+            profile_instance.user,
+            request.GET
+        )
+
+        feed_objects = form.process()
+
+        return {'feed_objects': feed_objects, 'form': form, 'page': form.cleaned_data['page'] + 1}

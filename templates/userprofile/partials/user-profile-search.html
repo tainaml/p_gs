@@ -9,6 +9,6 @@
         {% endwith %}
     {% endfor %}
 
-    <a data-jscroll-next href="{% url 'profile:list' request.user %}?criterio={{ form.cleaned_data.criterio|urlencode }}&page={{ page|default_if_none:form.cleaned_data.page }}&next={{ url_next|urlencode }}">next</a>
+    <a data-jscroll-next href="{% url 'profile:search' request.user %}?criterio={{ form.cleaned_data.criterio|urlencode }}&page={{ page|default_if_none:form.cleaned_data.page }}&next={{ url_next|urlencode }}">next</a>
 
 {% endif %}

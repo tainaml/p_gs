@@ -35,8 +35,11 @@
                             </form>
                         </nav>
                         <section class="area-content">
+
                             {% if feed_objects.object_list %}
-                                {% include 'userprofile/partials/user-profile-list.html' %}
+                                <div class="j-scroll j-scroll-container">
+                                    {% include 'userprofile/partials/user-profile-list.html' %}
+                                </div>
                             {% else %}
                                 <span>Não existem itens a serem exibidos</span>
                             {% endif %}
@@ -119,4 +122,19 @@
             </div>
         </div>
     </main>
+{% endblock %}
+
+{% block javascripts %}
+    {{ block.super }}
+    <script src="{% static 'javascripts/jquery.jscroll.min.js' %}"></script>
+    <script>
+        $(function() {
+
+                $(".j-scroll").jscroll({
+                    loadingHtml: '<span>Carregando...</span>',
+                    contentSelect: ".j-scroll-container",
+                    nextSelect: "a[data-jscroll-next]"
+                });
+        });
+    </script>
 {% endblock %}

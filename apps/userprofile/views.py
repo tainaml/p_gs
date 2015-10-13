@@ -56,7 +56,6 @@ class ProfileShowView(ProfileBaseView):
     def get(self, request, username):
 
         profile = self.filter(request, username)
-        # profile.gender_text = GenderType.LABEL[profile.gender] if profile.gender else None
 
         context = {'profile': profile}
         context.update(self.get_context(request, profile))
