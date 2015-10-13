@@ -130,7 +130,7 @@
 {% block javascripts %}
     {{ block.super }}
     <script src="{% static 'javascripts/jquery.form.min.js' %}"></script>
-    <script src="{% static 'javascripts/jquery.jscroll.min.js' %}"></script>
+    <script src="{% static 'javascripts-plugins/jquery.jscroll.min.js' %}"></script>
     <script>
 
         function fill_states(obj){
@@ -243,9 +243,9 @@
                 fill_cities($(this));
             });
 
-            $("#form-personal-info").ajaxForm(formPersonalInfoOptions);
-            $("#form-filter-categories").ajaxForm(formFilterCategoriesOptions);
-            $("#form-sugestions").ajaxForm(formSuggestionsOptions);
+{#            $("#form-personal-info").ajaxForm(formPersonalInfoOptions);#}
+{#            $("#form-filter-categories").ajaxForm(formFilterCategoriesOptions);#}
+{#            $("#form-sugestions").ajaxForm(formSuggestionsOptions);#}
         });
 
 
