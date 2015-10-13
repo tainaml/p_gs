@@ -53,7 +53,7 @@ class CoreUserList(CoreUserSearchView):
 
 
 class CoreUserFeed(CoreUserSearchView):
-    template_path = 'userprofile/profile.html'
+    template_path = 'userprofile/profile-feed.html'
 
     @method_decorator(login_required)
     def get(self, request, **kwargs):
@@ -206,4 +206,37 @@ class CoreProfileWizardStepTwoListAjax(CoreProfileWizardStepTwoAjax):
 
 
 class CoreProfileWizardStepThreeAjax(views.ProfileBaseView):
-    pass
+
+    def return_error(self, request, context=None):
+        if not context:
+            context = {}
+
+        _context = context
+
+        return JsonResponse(_context, status=400)
+
+    def return_success(self, request, context=None):
+        if not context:
+            context = {}
+
+        _context = context
+
+        return JsonResponse(_context, status=200)
+
+    def get_context(self, request, profile_instance=None):
+        profile = BusinessUserprofile.update_wizard_step(profile_instance, 3)
+        return {'step': profile.wizard_step}
+
+    @method_decorator(login_required)
+    def post(self, request, *args, **kwargs):
+
+        profile = self.filter(request, request.user)
+        context = {}
+
+        if not profile:
+            context.update({'status': 400})
+            return self.return_error(request, context)
+
+        context.update({'status': 200})
+        context.update(self.get_context(request, profile))
+        return self.return_success(request, context)
