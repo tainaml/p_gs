@@ -129,7 +129,6 @@
 
 {% block javascripts %}
     {{ block.super }}
-    <script src="{% static 'javascripts/jquery.form.min.js' %}"></script>
     <script src="{% static 'javascripts-plugins/jquery.jscroll.min.js' %}"></script>
     <script>
 
@@ -163,74 +162,41 @@
             });
         }
 
-        var formPersonalInfoOptions = {
-            dataType: "json",
-            beforeSerialize: function($form, options) {
-                $(".has-error").removeClass("has-error").find(".help-block").html("");
-            },
-            success: function(responseText, statusText, xhr, $form) {
-                $(".has-error").removeClass("has-error").find(".help-block").html("");
-
-                var $currentModal = $form.closest(".modal.fade");
-                $currentModal.modal("hide");
-                $("#modal-categories").modal("show");
-            },
-            statusCode: {
-                400: function(data) {
-                    var $json = data.responseJSON;
-                    var $errors = $json.errors;
-
-                    $.each($errors, function(key, value) {
-                        var $input = $("#"+key);
-                        if($input.length) {
-                            $input.closest("[data-form-group]").addClass("has-error").find(".help-block").html(value);
-                        }
-                    });
-                }
-            }
-        };
-
         var jScrollWizard = null;
-        var formFilterCategoriesOptions = {
-            dataType: "json",
-            beforeSerialize: function($form, options) {
-            },
-            success: function(response, statusText, xhr, $form) {
-                var $currentModal = $form.closest(".modal.fade");
-                $currentModal.modal("hide");
 
-                var $wizardCommunities = $("#wizard-container-communities");
-                var $wizardJScroll = $('<div class="j-scroll-wizard-communities j-scroll-wizard-communities-container"></div>');
-
-                $wizardJScroll.html(response.template);
-                $wizardCommunities.html($wizardJScroll);
-
-                jScrollWizard = $wizardJScroll.jscroll({
-                    autoTrigger: false,
-                    loadingHtml: '<span>Carregando...</span>',
-                    contentSelect: '.j-scroll-wizard-communities-container',
-                    nextSelect: "a[data-jscroll-next]",
-                    refresh: true
-                });
-
-                $("#modal-sugestions").modal("show");
-            },
-            statusCode: {
-                400: function(data) {
-                    alert("Breakpoint");
-                }
-            }
+        var functionAjaxSuccessStepOne = function(data) {
+            var $this = $(this),
+                $currentModal = $this.closest(".modal.fade");
+            $currentModal.modal("hide");
+            $($currentModal.data("next-modal")).modal("show");
         };
 
-        var formSuggestionsOptions = {
-            dataType: "json",
-            beforeSerialize: function($form, options) {},
-            success: function(response, statusText, xhr, $form) {
-                $("#modal-sugestions").modal("hide");
-            },
-            statusCode: {
-                400: function(data) {}
-            }
+        var functionAjaxSuccessStepTwo = function(data) {
+            var $this = $(this),
+                $currentModal = $this.closest(".modal.fade");
+
+            var $wizardCommunities = $("#wizard-container-communities");
+            var $wizardJScroll = $('<div class="j-scroll-wizard-communities j-scroll-wizard-communities-container"></div>');
+
+            $wizardJScroll.html(response.template);
+            $wizardCommunities.html($wizardJScroll);
+
+            jScrollWizard = $wizardJScroll.jscroll({
+                autoTrigger: false,
+                loadingHtml: '<span>Carregando...</span>',
+                contentSelect: '.j-scroll-wizard-communities-container',
+                nextSelect: "a[data-jscroll-next]",
+                refresh: true
+            });
+
+            $currentModal.modal("hide");
+            $($currentModal.data("next-modal")).modal("show");
+        };
+
+        var functionAjaxSuccessStepThree = function(data) {
+            var $this = $(this),
+                $currentModal = $this.closest(".modal.fade");
+            $currentModal.modal("hide");
         };
 
         $(function() {
@@ -243,9 +209,9 @@
                 fill_cities($(this));
             });
 
-{#            $("#form-personal-info").ajaxForm(formPersonalInfoOptions);#}
-{#            $("#form-filter-categories").ajaxForm(formFilterCategoriesOptions);#}
-{#            $("#form-sugestions").ajaxForm(formSuggestionsOptions);#}
+            $("#form-personal-info").on("ajaxform.success", functionAjaxSuccessStepOne);
+            $("#form-filter-categories").on("ajaxform.success", functionAjaxSuccessStepTwo);
+            $("#form-suggestions").on("ajaxform.success", functionAjaxSuccessStepThree);
         });
 
 

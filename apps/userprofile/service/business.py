@@ -94,15 +94,17 @@ def update_wizard_step(profile, step=0):
     return profile
 
 
-def create_occupation(user=None, data={}):
+def create_occupation(profile=None, user=None, data={}):
 
-    profile = get_profile(user)
+    if profile:
+        profile = profile
+    elif user:
+        profile = get_profile(user)
+
+    data.update({'profile': profile})
 
     try:
-        occupation = Occupation()
-        occupation.responsibility = data['responsibility']
-        occupation.company = data['company']
-        occupation.profile = profile
+        occupation = Occupation(**data)
         occupation.save()
     except:
         return False

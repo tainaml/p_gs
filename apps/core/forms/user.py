@@ -1,7 +1,8 @@
-from apps.userprofile.models import Responsibility, State
 from custom_forms.custom import IdeiaForm, forms
 from ..business import user as Business
 
+from apps.userprofile.models import Responsibility, State
+from apps.userprofile.service import business as BusinessUserProfile
 from apps.userprofile.service.forms import EditProfileForm
 
 
@@ -41,3 +42,12 @@ class CoreUserProfileEditForm(EditProfileForm):
 
     responsibility = forms.ModelChoiceField(queryset=Responsibility.objects.all())
     state = forms.ModelChoiceField(queryset=State.objects.filter(country=1))
+
+
+    def __process__(self):
+        process_profile = super(CoreUserProfileEditForm, self).__process__()
+        process_occupation = BusinessUserProfile.create_occupation(process_profile, data={
+            'responsibility': self.cleaned_data['responsibility']
+        })
+
+        return process_profile if (process_profile and process_occupation) else False

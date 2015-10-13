@@ -29,8 +29,8 @@ def get_feed_objects(profile_instance=None, description=None, content_types_list
     feed_objects = FeedObject.objects.filter(
         Q(content_type__in=content_types) &
         (
-            Q(taxonomies__in=taxonomy_list)              |
-            Q(article__author__in=followers_id)          |
+            Q(taxonomies__in=taxonomy_list) |
+            Q(article__author__in=followers_id) |
             Q(question__author__in=followers_id)
         )
     ).order_by(
