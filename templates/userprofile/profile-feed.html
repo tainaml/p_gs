@@ -15,9 +15,9 @@
             <div class="col-lg-9">
                 <nav class="perfil-navegation">
                 {% if profile.user == request.user %}
-                    <a href="{% url 'ninico:feed' %}">Feed</a>•
+                    <a class="active" href="{% url 'profile:feed' %}">Feed</a>•
                 {% endif %}
-                    <a class="active" href="{% url 'profile:show' username=profile.user.username %}">Perfil</a>•<a href="{% url 'ninico:about' %}">Sobre</a>•<a href="{% url 'profile:communities' username=profile.user.username %}">Comunidades</a>•<a href="{% url 'profile:followers' username=profile.user.username %}">Relacionamentos</a>•<a href="{% url 'ninico:videos' %}">Vídeos</a>
+                    <a href="{% url 'profile:show' username=profile.user.username %}">Perfil</a>•<a href="{% url 'ninico:about' %}">Sobre</a>•<a href="{% url 'profile:communities' username=profile.user.username %}">Comunidades</a>•<a href="{% url 'profile:followers' username=profile.user.username %}">Relacionamentos</a>•<a href="{% url 'ninico:videos' %}">Vídeos</a>
                 </nav>
                 <div class="row">
                     <div class="col-lg-8">
@@ -40,7 +40,9 @@
                         {% endif %}
                         <section class="area-content">
                             {% if feed_objects.object_list %}
-                                {% include 'userprofile/partials/user-profile-list.html' %}
+                                <div class="j-scroll j-scroll-container">
+                                    {% include 'userprofile/partials/user-profile-list.html' %}
+                                </div>
                             {% else %}
                                 <span>Não existem itens a serem exibidos</span>
                             {% endif %}
@@ -228,22 +230,11 @@
             $("#form-filter-categories").on("ajaxform.success", functionAjaxSuccessStepTwo);
             $("#form-suggestions").on("ajaxform.success", functionAjaxSuccessStepThree);
     
-            {% if form.cleaned_data.criterio %}
-                $(".j-scroll").jscroll({
-                    loadingHtml: '<span>Carregando...</span>',
-                    contentSelect: ".j-scroll-container",
-                    nextSelect: "a[data-jscroll-next]"
-                });
-            {% else %}
-                $.get("{% url 'profile:search' user.username %}?criterio={{ form.cleaned_data.criterio|urlencode }}&page=1&next={{ url_next|urlencode }}", function( data ) {
-                    $( "#community-list" ).html( data );
-                    $(".j-scroll").jscroll({
-                        loadingHtml: '<span>Carregando...</span>',
-                        contentSelect: ".j-scroll-container",
-                        nextSelect: "a[data-jscroll-next]"
-                    });
-                });
-            {% endif %}
+            $(".j-scroll").jscroll({
+                loadingHtml: '<span>Carregando...</span>',
+                contentSelect: ".j-scroll-container",
+                nextSelect: "a[data-jscroll-next]"
+            });
         });
 
 

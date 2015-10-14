@@ -33,7 +33,11 @@ class CoreUserView(ProfileShowView):
 
         feed_objects = form.process()
 
-        context.update({'feed_objects': feed_objects, 'form': self.form, 'page': self.form.cleaned_data.get('page', 0) + 1})
+        context.update({
+            'feed_objects': feed_objects,
+            'form': form,
+            'page': form.cleaned_data.get('page', 0) + 1
+        })
 
         return context
 
@@ -49,10 +53,6 @@ class CoreUserView(ProfileShowView):
 
 class CoreUserList(CoreUserView):
     template_path = 'userprofile/partials/user-profile-list.html'
-
-
-class CoreUserFeed(CoreUserView):
-    template_path = 'userprofile/profile-feed.html'
 
 
 class CoreUserProfile(CoreUserView):
@@ -86,7 +86,7 @@ class CoreUserProfile(CoreUserView):
         return {
             'feed_objects': feed_objects,
             'form': form,
-            'page': form.cleaned_data['page'] + 1
+            'page': form.cleaned_data.get('page', 0) + 1
         }
 
 
@@ -110,9 +110,14 @@ class CoreUserSearch(CoreUserView):
 
         feed_objects = form.process()
 
-        return {'feed_objects': feed_objects, 'form': form, 'page': form.cleaned_data['page'] + 1}
-        
-class CoreUserFeed(CoreUserSearchView):
+        return {
+            'feed_objects': feed_objects,
+            'form': form,
+            'page': form.cleaned_data.get('page', 0) + 1
+        }
+
+
+class CoreUserFeed(CoreUserView):
             
     template_path = 'userprofile/profile-feed.html'
 

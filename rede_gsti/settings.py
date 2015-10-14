@@ -255,6 +255,10 @@ THUMBOR_ARGUMENTS = {}
 LOGIN_URL = '/account/login'
 
 
+# Wizard Steps
+WIZARD_STEPS_TOTAL = 3
+
+
 # MailValidation Time
 TIME_REGISTER_ACCOUNT = 48
 TIME_RECOVERY_PASSWORD = 8
