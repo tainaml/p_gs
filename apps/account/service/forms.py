@@ -5,6 +5,7 @@ from nocaptcha_recaptcha import NoReCaptchaField
 import business as Business
 from custom_forms.custom import forms, IdeiaForm
 from django.utils.translation import ugettext as _
+from rede_gsti import settings
 
 
 class SignUpForm(IdeiaForm):
@@ -54,7 +55,7 @@ class LoginForm(IdeiaForm):
             self.instance = Business.authenticate_user(username_or_email=self.cleaned_data['username'],
                                                        password=self.cleaned_data['password'])
 
-            if not self.instance.last_login:
+            if self.instance.profile.wizard_step < settings.WIZARD_STEPS_TOTAL:
                 self.redirect_to_wizard = True
 
             if not self.instance:
