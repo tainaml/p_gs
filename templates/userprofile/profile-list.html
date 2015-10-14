@@ -1,5 +1,4 @@
 {%extends 'home/layout/base.html' %}
-
 {% load staticfiles %}
 
 {% block title %}Portal GSTI - Perfil{% endblock %}
@@ -40,7 +39,9 @@
                         {% endif %}
                         <section class="area-content">
                             {% if feed_objects.object_list %}
+                            <div class="j-scroll j-scroll-container">
                                 {% include 'userprofile/partials/user-profile-list.html' %}
+                            </div>
                             {% else %}
                                 <span>Não existem itens a serem exibidos</span>
                             {% endif %}
@@ -127,125 +128,17 @@
 {% endblock %}
 
 
-{% block modals %}
-    {{ block.super }}
-
-    {% if request.user and request.user.profile and request.user.profile.wizard_step <= 3 %}
-        {% include 'home/partials/first-steps/personal-infos.html' %}
-        {% include 'home/partials/first-steps/categories.html' %}
-        {% include 'home/partials/first-steps/sugestions.html' %}
-    {% endif %}
-
-{% endblock %}
-
-
 {% block javascripts %}
     {{ block.super }}
-    {# <div data-module="jscroll"></div> #}
-    <script src="https://cdn.jsdelivr.net/jquery.jscroll/2.2.4/jquery.jscroll.min.js"></script>
+    <script src="{% static 'javascripts/jquery.jscroll.min.js' %}"></script>
     <script>
-
-        function fill_states(obj){
-            $.ajax({
-                url: "{% url 'profile:get_state' %}",
-                method: "POST",
-                dataType: "html",
-                data: {
-                    country_id: obj.val(),
-                    csrfmiddlewaretoken: $("input:hidden[name='csrfmiddlewaretoken']").val()
-                },
-                success: function(response) {
-                    $("#state").html(response);
-                    $("#city").html('');
-                }
-            });
-        }
-        function fill_cities(obj){
-            $.ajax({
-                url: "{% url 'profile:get_city' %}",
-                method: "POST",
-                dataType: "html",
-                data: {
-                    state_id: obj.val(),
-                    csrfmiddlewaretoken: $("input:hidden[name='csrfmiddlewaretoken']").val()
-                },
-                success: function(response) {
-                    $("#city").html(response);
-                }
-            });
-        }
-
-        var jScrollWizard = null;
-
-        var functionAjaxSuccessStepOne = function(e, data) {
-            var $this = $(this),
-                $currentModal = $this.closest(".modal.fade");
-
-            $currentModal.modal("hide");
-            $($currentModal.data("next-modal")).modal("show");
-        };
-
-        var functionAjaxSuccessStepTwo = function(e, data) {
-            var $this = $(this),
-                $currentModal = $this.closest(".modal.fade");
-
-            var $wizardCommunities = $("#wizard-container-communities");
-            var $wizardJScroll = $('<div class="j-scroll-wizard-communities j-scroll-wizard-communities-container"></div>');
-
-            $wizardJScroll.html(data.template);
-            $wizardCommunities.html($wizardJScroll);
-
-            jScrollWizard = $wizardJScroll.jscroll({
-                autoTrigger: false,
-                loadingHtml: '<span>Carregando...</span>',
-                contentSelect: '.j-scroll-wizard-communities-container',
-                nextSelect: "a[data-jscroll-next]",
-                refresh: true
-            });
-
-            $currentModal.modal("hide");
-            $($currentModal.data("next-modal")).modal("show");
-        };
-
-        var functionAjaxSuccessStepThree = function(e, data) {
-            var $this = $(this),
-                $currentModal = $this.closest(".modal.fade");
-
-            $currentModal.modal("hide");
-        };
-
         $(function() {
-            var $countySelect = $("#country");
-            var $stateSelect = $("#state");
-            $countySelect.on("change", function() {
-                fill_states($(this));
-            });
-            $stateSelect.on("change", function() {
-                fill_cities($(this));
-            });
 
-            $("#form-personal-info").on("ajaxform.success", functionAjaxSuccessStepOne);
-            $("#form-filter-categories").on("ajaxform.success", functionAjaxSuccessStepTwo);
-            $("#form-suggestions").on("ajaxform.success", functionAjaxSuccessStepThree);
-    
-            {% if form.cleaned_data.criterio %}
                 $(".j-scroll").jscroll({
                     loadingHtml: '<span>Carregando...</span>',
                     contentSelect: ".j-scroll-container",
                     nextSelect: "a[data-jscroll-next]"
                 });
-            {% else %}
-                $.get("{% url 'profile:search' user.username %}?criterio={{ form.cleaned_data.criterio|urlencode }}&page=1&next={{ url_next|urlencode }}", function( data ) {
-                    $( "#community-list" ).html( data );
-                    $(".j-scroll").jscroll({
-                        loadingHtml: '<span>Carregando...</span>',
-                        contentSelect: ".j-scroll-container",
-                        nextSelect: "a[data-jscroll-next]"
-                    });
-                });
-            {% endif %}
         });
-
-
     </script>
 {% endblock %}
