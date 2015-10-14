@@ -15,22 +15,26 @@
             <div class="col-lg-9">
                 <nav class="perfil-navegation">
                 {% if profile.user == request.user %}
-                    <a href="{% url 'ninico:feed' %}">Feed</a>•
+                    <a href="{% url 'profile:feed' %}">Feed</a>•
                 {% endif %}
                     <a class="active" href="{% url 'profile:show' username=profile.user.username %}">Perfil</a>•<a href="{% url 'ninico:about' %}">Sobre</a>•<a href="{% url 'profile:communities' username=profile.user.username %}">Comunidades</a>•<a href="{% url 'profile:followers' username=profile.user.username %}">Relacionamentos</a>•<a href="{% url 'ninico:videos' %}">Vídeos</a>
                 </nav>
                 <div class="row">
                     <div class="col-lg-8">
-                        {% if profile.user == request.user %}
                         <header class="area-title">
-                            <h2>Feed</h2>
+                            <h2>Profile</h2>
                         </header>
-                        {% if isLogged %}
-                            <!-- A "barra" de pesquisa não é exibida no feed, somente no -->
-                            <nav class="form-search">
-                                {% include 'home/partials/search.html' with placehold='Pesquise no seu feed' only %}
-                            </nav>
-                        {% endif %}
+                        <!-- A "barra" de pesquisa não é exibida no feed, somente no -->
+                        <nav class="form-search">
+                            <form action="{% url 'profile:search' user.username %}" method="GET" role="search">
+                                <div class="form-search-input">
+                                    <input type="text" name="criterio" placeholder="{{placehold|default:"Procure pessoas, comunidades, etc."}}">
+                                </div>
+                                <button type="submit" class="form-search-button">
+                                    <i class="gsticon gsticon-search"></i>
+                                </button>
+                            </form>
+                        </nav>
                         <section class="area-content">
                             {% if feed_objects.object_list %}
                                 {% include 'userprofile/partials/user-profile-list.html' %}
@@ -38,7 +42,6 @@
                                 <span>Não existem itens a serem exibidos</span>
                             {% endif %}
                         </section>
-                        {% endif %}
                     </div>
                     <!-- Right bar -->
                     <div class="col-lg-4">
@@ -119,116 +122,34 @@
     </main>
 {% endblock %}
 
-
 {% block javascripts %}
     {{ block.super }}
-    <script src="{% static 'javascripts/jquery.form.min.js' %}"></script>
-    <script src="{% static 'javascripts/jquery.jscroll.min.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.jscroll/2.2.4/jquery.jscroll.min.js"></script>
     <script>
+        $(function() {
 
-        function fill_states(obj){
-            $.ajax({
-                url: "{% url 'profile:get_state' %}",
-                method: "POST",
-                dataType: "html",
-                data: {
-                    country_id: obj.val(),
-                    csrfmiddlewaretoken: $("input:hidden[name='csrfmiddlewaretoken']").val()
-                },
-                success: function(response) {
-                    $("#state").html(response);
-                    $("#city").html('');
-                }
-            });
-        }
-        function fill_cities(obj){
-            $.ajax({
-                url: "{% url 'profile:get_city' %}",
-                method: "POST",
-                dataType: "html",
-                data: {
-                    state_id: obj.val(),
-                    csrfmiddlewaretoken: $("input:hidden[name='csrfmiddlewaretoken']").val()
-                },
-                success: function(response) {
-                    $("#city").html(response);
-                }
-            });
-        }
+            {% if form.cleaned_data.criterio %}
 
-        var formPersonalInfoOptions = {
-            dataType: "json",
-            beforeSerialize: function($form, options) {
-                $(".has-error").removeClass("has-error").find(".help-block").html("");
-            },
-            success: function(responseText, statusText, xhr, $form) {
-                $(".has-error").removeClass("has-error").find(".help-block").html("");
-
-                var $currentModal = $form.closest(".modal.fade");
-                $currentModal.modal("hide");
-                $("#modal-categories").modal("show");
-            },
-            statusCode: {
-                400: function(data) {
-                    var $json = data.responseJSON;
-                    var $errors = $json.errors;
-
-                    $.each($errors, function(key, value) {
-                        var $input = $("#"+key);
-                        if($input.length) {
-                            $input.closest("[data-form-group]").addClass("has-error").find(".help-block").html(value);
-                        }
-                    });
-                }
-            }
-        };
-
-        var jScrollWizard = null;
-        var formFilterCategoriesOptions = {
-            dataType: "json",
-            beforeSerialize: function($form, options) {
-            },
-            success: function(response, statusText, xhr, $form) {
-                var $currentModal = $form.closest(".modal.fade");
-                $currentModal.modal("hide");
-
-                var $wizardCommunities = $("#wizard-container-communities");
-                var $wizardJScroll = $('<div class="j-scroll-wizard-communities j-scroll-wizard-communities-container"></div>');
-
-                $wizardJScroll.html(response.template);
-                $wizardCommunities.html($wizardJScroll);
-
-                jScrollWizard = $wizardJScroll.jscroll({
-                    autoTrigger: false,
+                $(".j-scroll").jscroll({
                     loadingHtml: '<span>Carregando...</span>',
-                    contentSelect: '.j-scroll-wizard-communities-container',
-                    nextSelect: "a[data-jscroll-next]",
-                    refresh: true
+                    contentSelect: ".j-scroll-container",
+                    nextSelect: "a[data-jscroll-next]"
                 });
 
-                $("#modal-sugestions").modal("show");
-            },
-            statusCode: {
-                400: function(data) {
-                    alert("Breakpoint");
-                }
-            }
-        };
+            {% else %}
 
-        $(function() {
-            var $countySelect = $("#country");
-            var $stateSelect = $("#state");
-            $countySelect.on("change", function() {
-                fill_states($(this));
-            });
-            $stateSelect.on("change", function() {
-                fill_cities($(this));
-            });
+                $.get("{% url 'profile:search' user.username %}?criterio={{ form.cleaned_data.criterio|urlencode }}&page=1&next={{ url_next|urlencode }}", function( data ) {
+                    $( "#community-list" ).html( data );
+                    $(".j-scroll").jscroll({
+                        loadingHtml: '<span>Carregando...</span>',
+                        contentSelect: ".j-scroll-container",
+                        nextSelect: "a[data-jscroll-next]"
+                    });
+                });
 
-            $("#form-personal-info").ajaxForm(formPersonalInfoOptions);
-            $("#form-filter-categories").ajaxForm(formFilterCategoriesOptions);
+            {% endif %}
+
         });
-
-
     </script>
+
 {% endblock %}

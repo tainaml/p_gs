@@ -1,7 +1,10 @@
 from django.http import JsonResponse
+from django.contrib.contenttypes.models import ContentType
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
+from apps.core.forms.user import CoreUserSearchForm, CoreUserProfileForm
+from apps.userprofile.views import ProfileShowView
 
 from apps.core.business import community as BusinessCoreCommunity
 from apps.core.forms.community import CoreCommunityFormSearch
@@ -10,16 +13,17 @@ from apps.userprofile import views
 from apps.userprofile.service import business as BusinessUserprofile
 from apps.taxonomy.service import business as BusinessTaxonomy
 
-
-class CoreUserSearchView(views.ProfileShowView):
+class CoreUserView(ProfileShowView):
 
     template_path = 'userprofile/profile.html'
+    form = CoreUserSearchForm
 
     def get_context(self, request, profile_instance=None):
-        context = super(CoreUserSearchView, self).get_context(request, profile_instance)
-        itens_by_page = 10
+        context = super(CoreUserView, self).get_context(request, profile_instance)
 
-        self.form = CoreUserSearchForm(
+        itens_by_page = 5
+
+        form = self.form(
             profile_instance,
             ['article', 'question'],
             itens_by_page,
@@ -27,13 +31,17 @@ class CoreUserSearchView(views.ProfileShowView):
             request.GET
         )
 
-        feed_objects = self.form.process()
+        feed_objects = form.process()
 
-        context.update({'feed_objects': feed_objects, 'form': self.form, 'page': self.form.cleaned_data.get('page', 0) + 1})
+        context.update({
+            'feed_objects': feed_objects,
+            'form': form,
+            'page': form.cleaned_data.get('page', 0) + 1
+        })
 
         return context
 
-    def get(self, request, **kwargs):
+    def get(self, request, username=None):
 
         profile = self.filter(request, request.user)
 
@@ -43,16 +51,74 @@ class CoreUserSearchView(views.ProfileShowView):
         return render(request, self.template_path, context)
 
 
-class CoreUserList(CoreUserSearchView):
-    template_path = 'userprofile/partials/profile-list.html'
+class CoreUserList(CoreUserView):
+    template_path = 'userprofile/partials/user-profile-list.html'
+
+
+class CoreUserProfile(CoreUserView):
+    template_path = 'userprofile/profile-list.html'
+    form = CoreUserProfileForm
+
+    def get(self, request, username=None):
+
+        profile = self.filter(request, username)
+
+        context = {'profile': profile}
+        context.update(self.get_context(request, profile))
+
+        return render(request, self.template_path, context)
 
     def get_context(self, request, profile_instance=None):
-        context = super(CoreUserSearchView, self).get_context(request, profile_instance)
+        content_type = ContentType.objects.filter(model='article')
 
-        return context
+        itens_by_page = 5
+
+        form = self.form(
+            profile_instance,
+            content_type.first().id,
+            itens_by_page,
+            profile_instance.user,
+            request.GET
+        )
+
+        feed_objects = form.process()
+
+        return {
+            'feed_objects': feed_objects,
+            'form': form,
+            'page': form.cleaned_data.get('page', 0) + 1
+        }
 
 
-class CoreUserFeed(CoreUserSearchView):
+class CoreUserSearch(CoreUserView):
+
+    form = CoreUserProfileForm
+    template_path = 'userprofile/profile-search.html'
+
+    def get_context(self, request, profile_instance=None):
+
+        itens_by_page = 5
+        content_type = ContentType.objects.filter(model='article')
+
+        form = self.form(
+            profile_instance,
+            content_type.first().id,
+            itens_by_page,
+            profile_instance.user,
+            request.GET
+        )
+
+        feed_objects = form.process()
+
+        return {
+            'feed_objects': feed_objects,
+            'form': form,
+            'page': form.cleaned_data.get('page', 0) + 1
+        }
+
+
+class CoreUserFeed(CoreUserView):
+            
     template_path = 'userprofile/profile-feed.html'
 
     @method_decorator(login_required)
