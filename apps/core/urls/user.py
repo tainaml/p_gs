@@ -4,7 +4,7 @@ from ..views import user as CoreUserProfileView
 
 urlpatterns = [
 
-    url(r'^edit/$', views.ProfileEditView.as_view(), name='edit'),
+    url(r'^edit/$', CoreUserProfileView.CoreProfileEdit.as_view(), name='edit'),
     url(r'^ajax/edit/$', CoreUserProfileView.CoreProfileEditAjax.as_view(), name='edit-ajax'),
 
     url(r'^wizard/step/personal-info$', CoreUserProfileView.CoreProfileWizardStepOneAjax.as_view(), name='wizard-step-personal-info-ajax'),

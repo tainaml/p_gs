@@ -3,7 +3,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
-from apps.core.forms.user import CoreUserSearchForm, CoreUserProfileForm
+from apps.core.forms.user import CoreUserSearchForm, CoreUserProfileForm, CoreUserProfileFullEditForm
 from apps.userprofile.views import ProfileShowView
 
 from apps.core.business import community as BusinessCoreCommunity
@@ -140,6 +140,25 @@ class CoreUserFeed(CoreUserView):
             'responsibilities': responsibilities
         })
         return context
+
+
+class CoreProfileEdit(views.ProfileEditView):
+
+    form_profile = CoreUserProfileFullEditForm
+
+    def get_context(self, request, profile_instance=None):
+
+        states = BusinessUserprofile.get_states(1)
+        cities = BusinessUserprofile.get_cities(profile_instance.city.state.id) if profile_instance.city else None
+        responsibilities = BusinessUserprofile.get_responsibilities()
+        categories = BusinessTaxonomy.get_categories()
+
+        return {
+            'states': states,
+            'cities': cities,
+            'categories': categories,
+            'responsibilities': responsibilities
+        }
 
 
 class CoreProfileEditAjax(views.ProfileEditView):

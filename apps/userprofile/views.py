@@ -65,7 +65,7 @@ class ProfileShowView(ProfileBaseView):
 
 class ProfileEditView(ProfileBaseView):
 
-    template_path = 'userprofile/edit_form.html'
+    template_path = 'userprofile/profile-edit.html'
     form_profile = EditProfileForm
 
     def return_error(self, request, context=None):
@@ -84,6 +84,7 @@ class ProfileEditView(ProfileBaseView):
 
         context = {
             'form': form,
+            'profile': profile,
             'countries': countries,
             'gender': GenderType(),
         }
@@ -102,7 +103,7 @@ class ProfileEditView(ProfileBaseView):
             states = None
             cities = None
 
-        countries = Business.get_countries(1)
+        countries = Business.get_countries()
         form = self.form_profile(request.user, profile, request.POST, request.FILES)
 
         if form.process():
@@ -114,12 +115,13 @@ class ProfileEditView(ProfileBaseView):
 
         context = {
             'form': form,
+            'profile': profile,
             'countries': countries,
             'states': states,
             'cities': cities,
             'gender': GenderType()
         }
-
+        context.update(self.get_context(request, profile))
         return self.return_error(request, context)
 
 
@@ -128,7 +130,7 @@ class ProfileGetState(ProfileBaseView):
     template_path = 'userprofile/components/select_options.html'
 
     def post(self, request, *args, **kwargs):
-        states = Business.get_states(country_id=request.POST['country_id'])
+        states = Business.get_states(country_id=request.POST['value_id'])
 
         context = {
             'items': states,
@@ -143,7 +145,7 @@ class ProfileGetCity(ProfileBaseView):
     template_path = 'userprofile/components/select_options.html'
 
     def post(self, request, *args, **kwargs):
-        cities = Business.get_cities(state_id=request.POST['state_id'])
+        cities = Business.get_cities(state_id=request.POST['value_id'])
 
         context = {
             'items': cities,
