@@ -55,7 +55,7 @@ class LoginForm(IdeiaForm):
             self.instance = Business.authenticate_user(username_or_email=self.cleaned_data['username'],
                                                        password=self.cleaned_data['password'])
 
-            if self.instance.profile.wizard_step <= settings.WIZARD_STEPS_TOTAL:
+            if self.instance.profile.wizard_step < settings.WIZARD_STEPS_TOTAL:
                 self.redirect_to_wizard = True
 
             if not self.instance:
