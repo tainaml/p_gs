@@ -1,40 +1,121 @@
-{% load i18n %}
-<script src='https://www.google.com/recaptcha/api.js?hl=pt-BR'></script>
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>{% block title %}Portal GSTI - Home {% endblock %}</title>
+        <link rel="stylesheet" href="{% static 'stylesheets/style.css' %}">
+    </head>
+    <body>
+        <header class="header">
+            <div class="container">
+                <div class="row">
+                    <h1 class="gsti">
+                        <a href="{% url 'ninico:index' %}" class="gsti-link">Portal GSTI</a>
+                    </h1>
+                    <nav class="menu-social-signup">
+                        <a class="gsticon gsticon-facebook-square" href="javascript:;"></a>
+                        <a class="gsticon gsticon-google-plus-square" href="javascript:;"></a>
+                        <a class="gsticon gsticon-linkedin-square" href="javascript:;"></a>
+                        <a class="gsticon gsticon-twitter-square" href="javascript:;"></a>
+                        <a class="gsticon gsticon-youtube-square" href="javascript:;"></a>
+                        <a class="btn-login" href="javascript:;">Login</a>
+                    </nav>
+                </div>
+            </div>
+        </header>
+        <main class="account">
+            <div class="blue-flag">
+                <div class="container">
+                    <div class="col-md-8">
+                        <div class="account-info">
+                            <h2 class="account-description">Um mundo de informações para TI</h2>
+                            <p>É um portal de informações, é uma rede social e é um fórum para tirar dúvidas. <strong>Alguma dúvida?</strong></p>
+                        </div>
+                        <div class="embed-responsive embed-responsive-4by3">
+                            <iframe width="100%" height="480" class="embed-responsive-item" src="https://www.youtube.com/embed/sJ9HR-kcZHg" frameborder="0" allowfullscreen></iframe>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        {% load i18n %}
+                        <script src='https://www.google.com/recaptcha/api.js?hl=pt-BR'></script>
+                        <form class="form-signup" action="{% url 'account:signup' %}" method="post">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <a href="javascript:;" class="btn-login-facebook">
+                                    <i class="gsticon gsticon-facebook"></i>
+                                    Facebook</a>
+                                <a href="javascript:;" class="btn-login-google">
+                                    <i class="gsticon gsticon-google-plus"></i>
+                                    Google+</a>
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control" type="text" name="username" value="{{ form.cleaned_data.username|default_if_none:"" }}" placeholder="{% trans "Username" %}" maxlength="30">
+                                {% if form.username.errors %}  {{ form.username.errors }} {% endif %}
+                            </div>
+                            <div class="form-group form-group-half">
+                                <input class="form-control" type="text" name="first_name" value="{{ form.cleaned_data.first_name|default_if_none:"" }}" placeholder="{% trans "First name" %}" maxlength="30">
+                                {% if form.first_name.errors %}  {{ form.first_name.errors }} {% endif %}
+                            </div>
+                            <div class="form-group form-group-half">
+                                <input class="form-control" type="text" name="last_name" value="{{ form.cleaned_data.last_name|default_if_none:"" }}" placeholder="{% trans "Last Name" %}" maxlength="150">
+                                {% if form.last_name.errors %}  {{ form.last_name.errors }} {% endif %}
+                            </div>
+                            <div class="form-group {% if form.email.errors %}has-error{% endif %}">
+                                <input class="form-control" type="email" name="email" value="{{ form.cleaned_data.email|default_if_none:"" }}" placeholder="{% trans "Email" %}" maxlength="150">
+                                {% if form.email.errors %}  {{ form.email.errors }} {% endif %}
+                            </div>
 
+                            <div class="form-group {% if form.password.errors %}has-error{% endif %}">
+                                <input class="form-control" type="password" name="password" placeholder="{% trans "Password" %}">
+                                {% if form.password.errors %}  {{ form.password.errors }} {% endif %}
+                            </div>
 
-<form action="{% url 'account:signup' %}" method="post">
+                            <div class="form-group {% if form.password_confirmation.errors %}has-error{% endif%}">
+                                <input class="form-control" type="password" name="password_confirmation" placeholder="{% trans "Password Confirm" %}">
+                                {% if form.password_confirmation.errors %}  {{ form.password_confirmation.errors }} {% endif %}
+                            </div>
 
-    {% csrf_token %}
+                            <div class="form-group {% if form.captcha.errors %}has-error{% endif %}">
+                                <div class="g-recaptcha" data-sitekey="6LccmgsTAAAAAGrsvn7r7aiIcnvbuIS7pyP0qv1K"></div>
+                                {% if form.captcha.errors %}  {{ form.captcha.errors }} {% endif %}
+                            </div>
 
-    <input type="text" name="username" value="{{ form.cleaned_data.username|default_if_none:"" }}" placeholder="{% trans "Username" %}" maxlength="30">
-    {% if form.username.errors %}  {{ form.username.errors }} {% endif %}
-    <p></p>
-
-    <input type="text" name="first_name" value="{{ form.cleaned_data.first_name|default_if_none:"" }}" placeholder="{% trans "First name" %}" maxlength="30">
-    {% if form.first_name.errors %}  {{ form.first_name.errors }} {% endif %}
-    <p></p>
-
-    <input type="text" name="last_name" value="{{ form.cleaned_data.last_name|default_if_none:"" }}" placeholder="{% trans "Last Name" %}" maxlength="150">
-    {% if form.last_name.errors %}  {{ form.last_name.errors }} {% endif %}
-    <p></p>
-
-    <input type="email" name="email" value="{{ form.cleaned_data.email|default_if_none:"" }}" placeholder="{% trans "Email" %}" maxlength="150">
-    {% if form.email.errors %}  {{ form.email.errors }} {% endif %}
-    <p></p>
-
-    <input type="password" name="password" placeholder="{% trans "Password" %}">
-    {% if form.password.errors %}  {{ form.password.errors }} {% endif %}
-    <p></p>
-
-    <input type="password" name="password_confirmation" placeholder="{% trans "Password Confirm" %}">
-    {% if form.password_confirmation.errors %}  {{ form.password_confirmation.errors }} {% endif %}
-    <p></p>
-
-    <div class="g-recaptcha" data-sitekey="6LccmgsTAAAAAGrsvn7r7aiIcnvbuIS7pyP0qv1K"></div>
-    {% if form.captcha.errors %}  {{ form.captcha.errors }} {% endif %}
-    <p></p>
-
-    <input type="submit" value="{% trans "Submit" %}" name="submit">
-    {% trans 'or' %} <a href="{% url 'account:login' %}">{% trans 'Login' %}</a>
-
-</form>
+                            <input class="btn-action btn-block" type="submit" value="{% trans "Submit" %}" name="submit">
+                            <!-- {% trans 'or' %} <a href="{% url 'account:login' %}">{% trans 'Login' %}</a> -->
+                        </form>
+                        <div class="fb-account-box">
+                            <div class="fb-page" data-href="https://www.facebook.com/PortalGSTIpage" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true" data-show-posts="false"><div class="fb-xfbml-parse-ignore"><blockquote cite="https://www.facebook.com/PortalGSTIpage"><a href="https://www.facebook.com/PortalGSTIpage">Facebook</a></blockquote></div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </main>
+        <footer class="footer">
+            <nav class="footer-nav">
+                <div class="container">
+                    <div class="row">
+                        <span class="copyright">Portal GSTI © Copyright 2015</span>
+                        <ul class="links-help">
+                            <li class="list-item"><a href="javascript:;">Sobre</a></li>
+                            <li class="list-item"><a href="javascript:;">Regras do portal</a></li>
+                            <li class="list-item"><a href="javascript:;">Contato</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </footer>
+        <div id="fb-root"></div>
+        <!-- Place this tag after the last widget tag. -->
+        <script type="text/javascript">;(function(d, s, id) {
+          var js, fjs = d.getElementsByTagName(s)[0];
+          if (d.getElementById(id)) return;
+          js = d.createElement(s); js.id = id;
+          js.src = "//connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v2.4&appId=625566967570537";
+          fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));</script>
+    </body>
+</html>
