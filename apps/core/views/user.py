@@ -3,9 +3,9 @@ from django.contrib.contenttypes.models import ContentType
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
-from apps.core.forms.user import CoreUserSearchForm, CoreUserProfileForm, CoreUserProfileFullEditForm
-from apps.userprofile.views import ProfileShowView
 
+from apps.core.forms.user import CoreUserSearchForm, CoreUserProfileForm, CoreUserProfileFullEditForm, \
+    CoreSearchFollowings
 from apps.core.business import community as BusinessCoreCommunity
 from apps.core.forms.community import CoreCommunityFormSearch
 from apps.core.forms.user import CoreUserSearchForm, CoreUserProfileEditForm
@@ -13,7 +13,7 @@ from apps.userprofile import views
 from apps.userprofile.service import business as BusinessUserprofile
 from apps.taxonomy.service import business as BusinessTaxonomy
 
-class CoreUserView(ProfileShowView):
+class CoreUserView(views.ProfileShowView):
 
     template_path = 'userprofile/profile.html'
     form = CoreUserSearchForm
@@ -325,3 +325,31 @@ class CoreProfileWizardStepThreeAjax(views.ProfileBaseView):
         context.update({'status': 200})
         context.update(self.get_context(request, profile))
         return self.return_success(request, context)
+
+
+class CoreProfileFollowersSearch(views.ProfileShowView):
+    pass
+
+
+class CoreProfileFollowingsSearch(views.ProfileShowView):
+
+    template_path = "userprofile/profile-followings.html"
+    form = CoreSearchFollowings
+
+    def get_context(self, request, profile_instance=None):
+
+        items_per_page = 1
+
+        form = self.form(
+            profile_instance.user,
+            items_per_page,
+            request.GET
+        )
+
+        items = form.process()
+
+        return {
+            'items': items,
+            'form': form,
+            'page': form.cleaned_data.get('page', 0) + 1
+        }

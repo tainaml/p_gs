@@ -3,7 +3,8 @@ from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.utils import timezone
 from apps.feed.models import FeedObject
 from django.db.models import Q
-from apps.socialactions.service import business as socialBusiness
+from apps.socialactions.models import UserAction
+from apps.socialactions.service import business as BusinessSocialActions
 from rede_gsti import settings
 
 
@@ -11,16 +12,20 @@ def get_feed_objects(profile_instance=None, description=None, content_types_list
     if not content_types_list:
         content_types_list = []
 
-    followers_id = socialBusiness.get_users_ids_acted_by_model_and_action(model=profile_instance.user,
-                                                          action=settings.SOCIAL_FOLLOW,
-                                                          user=user
-                                                      )
+    followers_id = BusinessSocialActions.get_users_ids_acted_by_model_and_action(
+        model=profile_instance.user,
+        action=settings.SOCIAL_FOLLOW,
+        user=user
+    )
 
     content_types = ContentType.objects.filter(model__in=content_types_list)
 
-    communities = socialBusiness.get_users_acted_by_author(author=profile_instance.user,
-                                                     action=settings.SOCIAL_FOLLOW,
-                                                     content_type='community')
+    communities = BusinessSocialActions.get_users_acted_by_author(
+        author=profile_instance.user,
+        action=settings.SOCIAL_FOLLOW,
+        content_type='community'
+    )
+
     taxonomy_list = []
     for community in communities:
         taxonomy_list.append(community.content_object.taxonomy)
@@ -90,3 +95,19 @@ def get_articles_from_user(profile_instance=None, description=None, content_type
         feed_objects_paginated = []
 
     return feed_objects_paginated
+
+
+def get_followings(author, description=None, items_per_page=None, page=None):
+
+    content_type = ContentType.objects.get(model="user")
+
+    try:
+        users_actions = UserAction.objects.filter(
+            Q(author=author) &
+            Q(action_type=settings.SOCIAL_FOLLOW) &
+            Q(content_type=content_type)
+        )
+    except:
+        users_actions = False
+
+    return users_actions
