@@ -28,4 +28,7 @@ urlpatterns = [
     url(r'^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/followers/$', views.ProfileFollowersView.as_view(), name='followers'),
     url(r'^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/communities/$', views.ProfileCommunitiesView.as_view(), name='communities'),
 
+
+    url(r'^ajax/user/communities/$', CoreUserProfileView.CoreUserCommunitiesListAjax.as_view(), name='user-communities-ajax')
+
 ]

@@ -1,14 +1,20 @@
+from django.db.models import Q
 from django.http import JsonResponse
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
+from django.views.generic import View
+from apps.community.models import Community
 
 from apps.core.business import community as BusinessCoreCommunity
 from apps.core.forms.community import CoreCommunityFormSearch
 from apps.core.forms.user import CoreUserSearchForm, CoreUserProfileEditForm
+from apps.socialactions.models import UserAction
 from apps.userprofile import views
 from apps.userprofile.service import business as BusinessUserprofile
 from apps.taxonomy.service import business as BusinessTaxonomy
+from apps.socialactions.service import business as BusinessSocialActions
+from rede_gsti import settings
 
 
 class CoreUserSearchView(views.ProfileShowView):
@@ -240,3 +246,25 @@ class CoreProfileWizardStepThreeAjax(views.ProfileBaseView):
         context.update({'status': 200})
         context.update(self.get_context(request, profile))
         return self.return_success(request, context)
+
+
+class CoreUserCommunitiesListAjax(View):
+
+    @method_decorator(login_required)
+    def get(self, request):
+        filter_name = request.GET.get('name', False)
+        if not filter_name:
+            return JsonResponse({}, status=200)
+
+        user_communities = BusinessSocialActions.get_users_acted_by_author(
+            author=request.user,
+            action=settings.SOCIAL_FOLLOW,
+            content_type='community',
+            items_per_page=None,
+        )
+
+        communities = Community.objects.get(
+            pk__in=user_communities
+        )
+
+        return JsonResponse(communities, status=200)
