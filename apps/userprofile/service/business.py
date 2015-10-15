@@ -82,6 +82,15 @@ def update_profile(user=None, data=None):
 
     return profile
 
+def update_user(user, data={}):
+
+    try:
+        user = User.objects.filter(id=user.id).update(**data)
+    except:
+        return False
+
+    return user
+
 
 def update_wizard_step(profile, step=0):
 
