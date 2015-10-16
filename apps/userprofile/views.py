@@ -307,3 +307,14 @@ class ProfileFollowersView(ProfileShowView):
 class ProfileCommunitiesView(ProfileShowView):
 
     template_path = 'userprofile/profile-communities.html'
+
+    # rewrite to add category parameter
+    def get(self, request, username):
+
+        categories = Business.get_categories()
+        profile = self.filter(request, username)
+
+        context = {'profile': profile, 'categories': categories}
+        context.update(self.get_context(request, profile))
+
+        return render(request, self.template_path, context)

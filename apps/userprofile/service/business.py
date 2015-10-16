@@ -2,6 +2,7 @@ from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext as _
 from django.db import transaction
+from apps.taxonomy.models import Term, Taxonomy
 
 from apps.userprofile.models import UserProfile, Country, State, City, Occupation, Responsibility
 
@@ -182,3 +183,10 @@ def get_responsibilities():
         return False
 
     return responsibilities
+
+
+def get_categories():
+    term = Term.objects.filter(description="Categoria")
+    categories = Taxonomy.objects.filter(term=term)
+
+    return categories

@@ -29,9 +29,10 @@
                         <div class="custom-select">
                             <span data-toggle="select" class="custom-select-item">Categorias</span>
                             <ul class="custom-select-list">
-                                <li class="custom-select-option">Categorias</li>
-                                <li class="custom-select-option">Categorias</li>
-                                <li class="custom-select-option">Categorias</li>
+                                <li class="custom-select-option" value="0">Selecione</li>
+                            {% for category in categories %}
+                                <li class="custom-select-option" value="{{ category.id }}">{{ category.description }}</li>
+                            {% endfor %}
                             </ul>
                         </div>
                     </div>
