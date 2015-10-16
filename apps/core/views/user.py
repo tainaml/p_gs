@@ -1,3 +1,5 @@
+from django.contrib.contenttypes.models import ContentType
+from django.core import serializers
 from django.db.models import Q
 from django.http import JsonResponse
 from django.shortcuts import render
@@ -263,8 +265,17 @@ class CoreUserCommunitiesListAjax(View):
             items_per_page=None,
         )
 
-        communities = Community.objects.get(
-            pk__in=user_communities
-        )
+        community_content_type = ContentType.objects.get(model='community')
 
-        return JsonResponse(communities, status=200)
+        all_communities = Community.objects.filter(title__istartswith=filter_name)
+        communities_objects = user_communities.filter(object_id__in=all_communities, content_type=community_content_type)
+
+        communities = []
+
+        for action in communities_objects:
+            community = dict()
+            community['name'] = action.content_object.title
+            community['id'] = action.content_object.id
+            communities.append(community)
+
+        return JsonResponse(communities, status=200, safe=False)

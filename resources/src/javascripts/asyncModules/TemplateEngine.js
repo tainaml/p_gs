@@ -9,9 +9,11 @@ module.exports = function(html, options) {
 			(code += line != '' ? 'r.push("' + line.replace(/"/g, '\\"') + '");\n' : '');
 		return add;
 	}
-	while(match = re.exec(html)) {
+	var match = re.exec(html);
+	while(match) {
 		add(html.slice(cursor, match.index))(match[1], true);
 		cursor = match.index + match[0].length;
+		match = re.exec(html);
 	}
 	add(html.substr(cursor, html.length - cursor));
 	code = (code + 'return r.join(""); }').replace(/[\r\t\n]/g, '');

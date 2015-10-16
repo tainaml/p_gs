@@ -9,7 +9,7 @@ from ..business import article as Business
 class CoreArticleForm(ArticleForm):
 
     taxonomies = forms.ModelMultipleChoiceField(queryset=Taxonomy.objects.all(), cache_choices=True,)
-    communities = forms.ModelMultipleChoiceField(queryset=Community.objects.all(), cache_choices=True,)
+    communities = forms.ModelMultipleChoiceField(required=False, queryset=Community.objects.all(), cache_choices=True,)
 
     @transaction.atomic()
     def __process__(self):

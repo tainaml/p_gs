@@ -61,8 +61,12 @@ function loadItems(query, callback) {
         return callback();
     }
 
+    var _data = {};
+    _data[this.settings.searchField] = query;
+
     $.ajax({
-        url: options.url + encodeURIComponent(query),
+        url: options.url,
+        data: _data,
         type: options.method || 'GET',
         error: function(){
             callback()
