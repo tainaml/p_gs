@@ -67,11 +67,19 @@
 {% block javascripts %}
     <script src="https://cdn.jsdelivr.net/jquery.jscroll/2.2.4/jquery.jscroll.min.js"></script>
     <script>
+
+
         $(function() {
             $(".j-scroll-communities").jscroll({
                 contentSelect: ".j-scroll-communities-container",
                 nextSelect: "a[data-jscroll-next]"
             });
+
+            $("#filter-community").on("change", function() {
+                alert($("#filter-community").val() );
+            });
         });
+
+
     </script>
 {% endblock %}

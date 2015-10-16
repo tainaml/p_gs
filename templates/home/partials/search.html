@@ -1,6 +1,6 @@
 <form action="{% url 'ninico:pesquisa' %}" method="GET" role="search">
     <div class="form-search-input">
-        <input type="text" placeholder="{{placehold|default:"Procure pessoas, comunidades, etc."}}">
+        <input type="text" id="filter-community" name="filter-community" placeholder="{{placehold|default:"Procure pessoas, comunidades, etc."}}" value="">
     </div>
     <div class="dropdown-menu dropdown-search">
         <div class="float-notifcations">
