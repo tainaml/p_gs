@@ -115,3 +115,30 @@ class CoreSearchFollowings(IdeiaForm):
             self.items_per_page,
             self.cleaned_data.get('page', 0)
         )
+
+class CoreSearchFollowers(IdeiaForm):
+
+    criteria = forms.CharField(required=False)
+    page = forms.IntegerField(required=False)
+
+    def __init__(self, author, items_per_page=None, *args, **kwargs):
+        self.author = author
+        self.items_per_page = items_per_page
+        super(CoreSearchFollowers, self).__init__(*args, **kwargs)
+
+
+    def clean(self):
+
+        cleaned_data = super(CoreSearchFollowers, self).clean()
+        cleaned_data['page'] = cleaned_data['page'] if 'page' in cleaned_data and cleaned_data['page'] else 1
+
+        return cleaned_data
+
+
+    def __process__(self):
+        return Business.get_followers(
+            self.author,
+            self.cleaned_data['criteria'],
+            self.items_per_page,
+            self.cleaned_data.get('page', 0)
+        )

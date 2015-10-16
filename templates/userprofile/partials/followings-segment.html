@@ -1,7 +1,7 @@
 {% load social_tags %}
 {% load thumbor_tags %}
 
-{% if items %}
+{% if items.object_list %}
     {% for following in items %}
         <div class="box-perfil">
             <div class="perfil">
@@ -12,5 +12,5 @@
             </div>
         </div>
     {% endfor %}
-    <a data-jscroll-next href="{% url 'socialactions:followings-search' content_type_id=content_type.id object_filter_id=object.id %}?p={{ page }}&next={{ url_next|urlencode }}">next</a>
+    <a data-jscroll-next href="{% url 'profile:followings-search-list' object.username %}?criteria={{ form.cleaned_data.criteria }}&page={{ page }}&next={{ url_next|urlencode }}">next</a>
 {% endif %}

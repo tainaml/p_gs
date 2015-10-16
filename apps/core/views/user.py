@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 
 from apps.core.forms.user import CoreUserSearchForm, CoreUserProfileForm, CoreUserProfileFullEditForm, \
-    CoreSearchFollowings
+    CoreSearchFollowings, CoreSearchFollowers
 from apps.core.business import community as BusinessCoreCommunity
 from apps.core.forms.community import CoreCommunityFormSearch
 from apps.core.forms.user import CoreUserSearchForm, CoreUserProfileEditForm
@@ -327,27 +327,27 @@ class CoreProfileWizardStepThreeAjax(views.ProfileBaseView):
         return self.return_success(request, context)
 
 
-class CoreProfileFollowersSearch(views.ProfileShowView):
-    pass
-
-
 class CoreProfileFollowingsSearch(views.ProfileShowView):
 
+    items_per_page = 9
+
     template_path = "userprofile/profile-followings.html"
+
     form = CoreSearchFollowings
 
     def get_context(self, request, profile_instance=None):
 
-        items_per_page = 1
-
         form = self.form(
             profile_instance.user,
-            items_per_page,
+            self.items_per_page,
             request.GET
         )
 
         response = {}
-        response.update(form.process())
+        response_form = form.process()
+
+        if response_form:
+            response.update(response_form)
 
         return {
             'items': response.get('items'),
@@ -356,3 +356,44 @@ class CoreProfileFollowingsSearch(views.ProfileShowView):
             'form': form,
             'page': form.cleaned_data.get('page', 0) + 1
         }
+
+
+class CoreProfileFollowingsSearchList(CoreProfileFollowingsSearch):
+
+    template_path = "userprofile/partials/followings-segment.html"
+
+
+class CoreProfileFollowersSearch(views.ProfileShowView):
+
+    items_per_page = 9
+
+    template_path = "userprofile/profile-followers.html"
+
+    form = CoreSearchFollowers
+
+    def get_context(self, request, profile_instance=None):
+
+        form = self.form(
+            profile_instance.user,
+            self.items_per_page,
+            request.GET
+        )
+
+        response = {}
+        response_form = form.process()
+
+        if response_form:
+            response.update(response_form)
+
+        return {
+            'items': response.get('items'),
+            'content_type': response.get('content_type'),
+            'object': response.get('object'),
+            'form': form,
+            'page': form.cleaned_data.get('page', 0) + 1
+        }
+
+
+class CoreProfileFollowersSearchList(CoreProfileFollowersSearch):
+
+    template_path = "userprofile/partials/followers-segment.html"

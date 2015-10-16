@@ -1,6 +1,6 @@
 <form action="{% url 'profile:followers-search' profile.user.username %}" method="GET" role="search">
     <div class="form-search-input">
-        <input type="text" name="criteria" placeholder="{{placeholder|default:"Procure pessoas, comunidades, etc."}}">
+        <input type="text" name="criteria" placeholder="{{placeholder|default:"Procure pessoas, comunidades, etc."}}" value="{{ form.cleaned_data.criteria|default:"" }}">
     </div>
     <div class="dropdown-menu dropdown-search">
         <div class="float-notifcations">

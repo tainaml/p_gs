@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.contrib.contenttypes.models import ContentType
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.utils import timezone
@@ -102,16 +103,66 @@ def get_followings(author, description=None, items_per_page=None, page=None):
     content_type = ContentType.objects.get(model="user")
 
     try:
-        users_actions = UserAction.objects.filter(
+        users_filter = User.objects.filter(
+            Q(is_active=True) &
+            (
+                Q(first_name__icontains=description) |
+                Q(last_name__icontains=description)
+            )
+        )
+
+        users_followers = UserAction.objects.filter(
             Q(author=author) &
             Q(action_type=settings.SOCIAL_FOLLOW) &
             Q(content_type=content_type)
         )
+
+        users_actions = users_followers.filter(object_id__in=users_filter)
     except:
         users_actions = False
 
+    users_actions = Paginator(users_actions, items_per_page)
+    try:
+        users_actions = users_actions.page(page)
+    except PageNotAnInteger:
+        users_actions = users_actions.page(1)
+    except EmptyPage:
+        users_actions = []
+
     return {
-        'users_actions': users_actions,
+        'items': users_actions,
         'content_type': content_type,
         'object': author
+    }
+
+
+def get_followers(user_filter, description=None, items_per_page=None, page=None):
+
+    content_type = ContentType.objects.get_for_model(user_filter)
+
+    try:
+        users_actions = UserAction.objects.filter(
+            Q(action_type=settings.SOCIAL_FOLLOW) &
+            Q(content_type=content_type) &
+            Q(object_id=user_filter.id) &
+            (
+                Q(author__first_name__icontains=description) |
+                Q(author__last_name__icontains=description)
+            )
+        )
+    except:
+        users_actions = False
+
+    users_actions = Paginator(users_actions, items_per_page)
+    try:
+        users_actions = users_actions.page(page)
+    except PageNotAnInteger:
+        users_actions = users_actions.page(1)
+    except EmptyPage:
+        users_actions = []
+
+    return {
+        'items': users_actions,
+        'content_type': content_type,
+        'object': user_filter
     }
