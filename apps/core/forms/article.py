@@ -6,10 +6,23 @@ from apps.taxonomy.models import Taxonomy
 from ..business import article as Business
 
 
+class TaxonomiesChoiceField(forms.ModelMultipleChoiceField):
+
+    def clean(self, value):
+
+        return super(TaxonomiesChoiceField, self).validate(value)
+
+    def validate(self, value):
+        print 'Value:'
+        print value
+        return super(TaxonomiesChoiceField, self).validate(value)
+
+
 class CoreArticleForm(ArticleForm):
 
-    taxonomies = forms.ModelMultipleChoiceField(queryset=Taxonomy.objects.all(), cache_choices=True,)
-    communities = forms.ModelMultipleChoiceField(required=False, queryset=Community.objects.all(), cache_choices=True,)
+    taxonomies = forms.ModelMultipleChoiceField(required=False, queryset=Taxonomy.objects.all(),)
+    communities = TaxonomiesChoiceField(required=True, queryset=Community.objects.all(),)
+
 
     @transaction.atomic()
     def __process__(self):
