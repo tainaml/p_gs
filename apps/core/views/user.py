@@ -3,9 +3,9 @@ from django.contrib.contenttypes.models import ContentType
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
-from apps.core.forms.user import CoreUserSearchForm, CoreUserProfileForm, CoreUserProfileFullEditForm
-from apps.userprofile.views import ProfileShowView
 
+from apps.core.forms.user import CoreUserSearchForm, CoreUserProfileForm, CoreUserProfileFullEditForm, \
+    CoreSearchFollowings, CoreSearchFollowers
 from apps.core.business import community as BusinessCoreCommunity
 from apps.core.forms.community import CoreCommunityFormSearch
 from apps.core.forms.user import CoreUserSearchForm, CoreUserProfileEditForm
@@ -13,7 +13,7 @@ from apps.userprofile import views
 from apps.userprofile.service import business as BusinessUserprofile
 from apps.taxonomy.service import business as BusinessTaxonomy
 
-class CoreUserView(ProfileShowView):
+class CoreUserView(views.ProfileShowView):
 
     template_path = 'userprofile/profile.html'
     form = CoreUserSearchForm
@@ -325,3 +325,75 @@ class CoreProfileWizardStepThreeAjax(views.ProfileBaseView):
         context.update({'status': 200})
         context.update(self.get_context(request, profile))
         return self.return_success(request, context)
+
+
+class CoreProfileFollowingsSearch(views.ProfileShowView):
+
+    items_per_page = 9
+
+    template_path = "userprofile/profile-followings.html"
+
+    form = CoreSearchFollowings
+
+    def get_context(self, request, profile_instance=None):
+
+        form = self.form(
+            profile_instance.user,
+            self.items_per_page,
+            request.GET
+        )
+
+        response = {}
+        response_form = form.process()
+
+        if response_form:
+            response.update(response_form)
+
+        return {
+            'items': response.get('items'),
+            'content_type': response.get('content_type'),
+            'object': response.get('object'),
+            'form': form,
+            'page': form.cleaned_data.get('page', 0) + 1
+        }
+
+
+class CoreProfileFollowingsSearchList(CoreProfileFollowingsSearch):
+
+    template_path = "userprofile/partials/followings-segment.html"
+
+
+class CoreProfileFollowersSearch(views.ProfileShowView):
+
+    items_per_page = 9
+
+    template_path = "userprofile/profile-followers.html"
+
+    form = CoreSearchFollowers
+
+    def get_context(self, request, profile_instance=None):
+
+        form = self.form(
+            profile_instance.user,
+            self.items_per_page,
+            request.GET
+        )
+
+        response = {}
+        response_form = form.process()
+
+        if response_form:
+            response.update(response_form)
+
+        return {
+            'items': response.get('items'),
+            'content_type': response.get('content_type'),
+            'object': response.get('object'),
+            'form': form,
+            'page': form.cleaned_data.get('page', 0) + 1
+        }
+
+
+class CoreProfileFollowersSearchList(CoreProfileFollowersSearch):
+
+    template_path = "userprofile/partials/followers-segment.html"

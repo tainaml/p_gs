@@ -23,7 +23,7 @@
                 </header>
                 <div class="filter row">
                     <div class="col-lg-8">
-                        {% include 'home/partials/search.html' %}
+                        {% include 'userprofile/partials/search-followings.html' with placeholder="Procure por pessoas" %}
                     </div>
                     <div class="col-lg-4 text-right">
                         <a class="btn btn-perfil active" href="{% url 'profile:followings' username=profile.user.username %}">Seguindo</a>
@@ -36,10 +36,21 @@
                         <p class="description-text">• Quem <a href="{% url 'profile:show' profile.user.username %}">{{ profile.user.get_full_name }}</a> está seguindo</p>
                     </div>
                     <div class="col-lg-12">
-                        <div class="row j-scroll-followings j-scroll-followings-container">
-                            {# templatetag - load followings #}
-                            {% followings_box profile.user 'user' request.path %}
-                        </div>
+
+                        {% if not form.cleaned_data.criteria %}
+                            <div class="row j-scroll-followings j-scroll-followings-container">
+                                {% followings_box profile.user 'user' request.path %}
+                            </div>
+                        {% elif items.object_list %}
+                            <div class="row j-scroll-followings j-scroll-followings-container">
+                                {% include 'userprofile/partials/followings-segment.html' %}
+                            </div>
+                        {% else %}
+                            <hr>
+                            <p>Nenhum item foi encontrado!</p>
+                            <hr>
+                        {% endif %}
+
                     </div>
                 </div>
             </div>

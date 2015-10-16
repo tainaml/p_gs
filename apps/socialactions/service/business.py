@@ -216,8 +216,7 @@ def get_users_acted_by_model(model=None, action=None, filter_parameters=None,
     return list
 
 
-def get_users_acted_by_author(author=None, action=None, content_type=None,
-                              filter_parameters=None, items_per_page=None, page=None):
+def get_users_acted_by_author(author=None, action=None, content_type=None, filter_parameters=None, items_per_page=None, page=None):
     if not filter_parameters:
         filter_parameters = {}
 
