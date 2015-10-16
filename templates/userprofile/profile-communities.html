@@ -27,13 +27,12 @@
                     </div>
                     <div class="col-lg-4 text-right">
                         <div class="custom-select">
-                            <span data-toggle="select" class="custom-select-item">Categorias</span>
-                            <ul class="custom-select-list">
-                                <li class="custom-select-option" value="0">Selecione</li>
+                            <select id="cfilter">
+                                <option class="custom-select-option" value="0">Selecione</option>
                             {% for category in categories %}
-                                <li class="custom-select-option" value="{{ category.id }}">{{ category.description }}</li>
+                                <option class="custom-select-option" value="{{ category.id }}">{{ category.description }}</option>
                             {% endfor %}
-                            </ul>
+                            </select>
                         </div>
                     </div>
                 </div>
@@ -68,16 +67,28 @@
     <script src="https://cdn.jsdelivr.net/jquery.jscroll/2.2.4/jquery.jscroll.min.js"></script>
     <script>
 
-
         $(function() {
+
+            $(document).on('keyup','#fcommunity', function() {
+
+                var $input = $(this);
+
+                if ($input.val().length > 2){
+                    var $value = $("#cfilter option:selected").val();
+
+                    console.log($value);
+                    console.log($input.val().length);
+                }
+
+
+            });
+
             $(".j-scroll-communities").jscroll({
                 contentSelect: ".j-scroll-communities-container",
                 nextSelect: "a[data-jscroll-next]"
             });
 
-            $("#filter-community").on("change", function() {
-                alert($("#filter-community").val() );
-            });
+
         });
 
 
