@@ -110,4 +110,8 @@ def get_followings(author, description=None, items_per_page=None, page=None):
     except:
         users_actions = False
 
-    return users_actions
+    return {
+        'users_actions': users_actions,
+        'content_type': content_type,
+        'object': author
+    }

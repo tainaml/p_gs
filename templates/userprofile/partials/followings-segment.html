@@ -1,0 +1,16 @@
+{% load social_tags %}
+{% load thumbor_tags %}
+
+{% if items %}
+    {% for following in items %}
+        <div class="box-perfil">
+            <div class="perfil">
+                <img class="img-responsive" src="{% thumbor_url following.content_object.profile.get_profile_picture.url width=82 height=82 smart=False fit_in=False %}" alt="{{ following.content_object.get_full_name }}">
+                <a class="perfil-name" href="{% url 'profile:show' following.content_object.username %}">{{ following.content_object.get_full_name }}</a>
+                <a class="perfil-counter" href="{% url 'profile:followers' username=following.content_object.username %}"><span class="counter-number">{% followers_count following.content_object %}</span> Seguidores</a>
+                {% follow_action following.content_object url_next %}
+            </div>
+        </div>
+    {% endfor %}
+    <a data-jscroll-next href="{% url 'socialactions:followings-search' content_type_id=content_type.id object_filter_id=object.id %}?p={{ page }}&next={{ url_next|urlencode }}">next</a>
+{% endif %}

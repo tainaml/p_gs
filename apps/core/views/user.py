@@ -346,10 +346,13 @@ class CoreProfileFollowingsSearch(views.ProfileShowView):
             request.GET
         )
 
-        items = form.process()
+        response = {}
+        response.update(form.process())
 
         return {
-            'items': items,
+            'items': response.get('items'),
+            'content_type': response.get('content_type'),
+            'object': response.get('object'),
             'form': form,
             'page': form.cleaned_data.get('page', 0) + 1
         }
