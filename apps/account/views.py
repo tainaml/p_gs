@@ -28,6 +28,17 @@ class IndexView(View):
 
 class LoginView(View):
 
+    template_path = 'account/login.html'
+
+    def return_error(self, request, context=None):
+        return render(request, self.template_path, {'form': context['form']})
+
+    def return_success(self, request, context=None):
+        return redirect(context['url_next'])
+
+    def get_context(self, request, context=None):
+        return {}
+
     def get(self, request):
         """
         Show the login form page
@@ -43,9 +54,9 @@ class LoginView(View):
 
         if not request.user.is_authenticated():
             form = LoginForm()
-            return render(request, 'account/login.html', {form: form})
+            return self.return_error(request, {'form': form})
         else:
-            return redirect(url_next)
+            return self.return_success(request, {'url_next': url_next})
 
     def post(self, request):
         """
@@ -61,15 +72,19 @@ class LoginView(View):
             url_next = request.GET['next']
 
         form = LoginForm(request, request.POST)
+
         if form.process():
             url_next = '/profile/feed/' if form.redirect_to_wizard else url_next
-            return redirect(url_next)
+            context = {
+                'status':200,
+                'url_next': url_next
+            }
+            return self.return_success(request, context)
 
-        return render(request, 'account/login.html', {'form': form})
+        return self.return_error(request, {'form': form})
 
 
 class LogoutView(View):
-
 
     def get(self, request):
         """
@@ -79,7 +94,7 @@ class LogoutView(View):
         :return:
         """
         logout_user(request)
-        return redirect('/account/')
+        return redirect('/')
 
 
 class RegisterView(View):
@@ -192,7 +207,6 @@ class RecoveryValidationView(View):
             })
 
         return render(request, 'account/recovery_validation.html', {'form'})
-
 
 
 class ChangePasswordView(View):

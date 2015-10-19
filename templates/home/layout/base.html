@@ -15,7 +15,7 @@
                     <h1 class="gsti">
                         <a href="{% url 'ninico:index' %}" class="gsti-link">Portal GSTI</a>
                     </h1>
-                    <div class="form-search{% if not isLogged %}--logged{% endif %}">
+                    <div class="form-search{% if request.user.is_authenticated %}--logged{% endif %}">
                         {% include 'home/partials/search.html' %}
                     </div>
                     {% include 'home/partials/user-actions.html' %}
@@ -161,6 +161,7 @@
         {% endcomment %}
         {% block modals %}
 
+            {% include 'home/partials/modals/modal-login.html' %}
             {% include 'home/partials/modals/modal-sugerir.html' %}
 
         {% endblock %}
@@ -171,6 +172,17 @@
         <!-- CKEDITOR -->
         <script type="text/javascript" src="{% static "ckeditor/ckeditor/ckeditor.js" %}"></script>
         <script type="text/javascript" src="{% static "ckeditor/ckeditor-init.js" %}"></script>
+
+        <script type="text/javascript">
+            var functionAjaxSuccessLogin = function(e, data) {
+                var $form = $(this);
+                window.location.href = data.url_next;
+            };
+
+            $(function() {
+                $("#form-login").on("ajaxform.success", functionAjaxSuccessLogin);
+            });
+        </script>
 
         {% block javascripts %}
         {% endblock %}
