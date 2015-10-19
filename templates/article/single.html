@@ -78,7 +78,7 @@
                 <span class="perfil-counter"><span class="counter-number">{% followers_count article.author %}</span> Seguidor(es)</span>
                 <span class="perfil-counter"><span class="counter-number">{% articles_count article.author %}</span> Artigo(s)</span>
                 {% if  article.author.profile.current_occupation%}
-                    <a class="perfil-counter-alt" href="javascript:;">{{ article.author.profile.current_occupation }} em {{ article.author.profile.current_occupationcompany }}</a>
+                    <a class="perfil-counter-alt" href="javascript:;">{{ article.author.profile.current_occupation.responsibility.name }}</a>
                 {% endif %}
 
             </div>
