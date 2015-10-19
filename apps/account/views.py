@@ -29,6 +29,7 @@ class IndexView(View):
 class LoginView(View):
 
     template_path = 'account/login.html'
+    form_login = LoginForm
 
     def return_error(self, request, context=None):
         return render(request, self.template_path, {'form': context['form']})
@@ -53,7 +54,7 @@ class LoginView(View):
             url_next = request.GET['next']
 
         if not request.user.is_authenticated():
-            form = LoginForm()
+            form = self.form_login()
             return self.return_error(request, {'form': form})
         else:
             return self.return_success(request, {'url_next': url_next})
@@ -71,7 +72,7 @@ class LoginView(View):
         if 'next' in request.GET and request.GET['next']:
             url_next = request.GET['next']
 
-        form = LoginForm(request, request.POST)
+        form = self.form_login(request, request.POST)
 
         if form.process():
             url_next = '/profile/feed/' if form.redirect_to_wizard else url_next

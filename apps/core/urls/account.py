@@ -6,7 +6,8 @@ urlpatterns = [
 
     url(r'^$', views.IndexView.as_view(), name='index'),
     url(r'^signup/$', CoreViews.CoreRegisterView.as_view(), name='signup'),
-    url(r'^login/', CoreViews.CoreLoginView.as_view(), name='login'),
+    url(r'^login/$', views.LoginView.as_view(), name='login'),
+    url(r'^login/ajax/$', CoreViews.CoreLoginView.as_view(), name='login-ajax'),
     url(r'^logout/', views.LogoutView.as_view(), name='logout'),
     url(r'^change_password/', views.ChangePasswordView.as_view(), name='change_password'),
     url(r'^forgot_password/$', views.ForgotPasswordView.as_view(), name='forgot_password'),
