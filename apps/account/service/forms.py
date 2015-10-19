@@ -55,11 +55,8 @@ class LoginForm(IdeiaForm):
             self.instance = Business.authenticate_user(username_or_email=self.cleaned_data['username'],
                                                        password=self.cleaned_data['password'])
 
-            if self.instance.profile.wizard_step < settings.WIZARD_STEPS_TOTAL:
-                self.redirect_to_wizard = True
-
             if not self.instance:
-                self.add_error('password', ValidationError(_('Wrong password or username.'), code='password'))
+                self.add_error(None, ValidationError(_('Wrong password or username.'), code='password'))
                 valid = False
             else:
                 if self.instance.is_active is False:
@@ -67,6 +64,11 @@ class LoginForm(IdeiaForm):
                     self.account_is_active = False
                     self.account_is_active_errors = 'Account is not active.'
                     valid = False
+                else:
+                    self.account_is_active = True
+
+            if self.instance and self.instance.profile and self.instance.profile.wizard_step < settings.WIZARD_STEPS_TOTAL:
+                self.redirect_to_wizard = True
 
         return valid
 

@@ -165,6 +165,7 @@
             {% include 'home/partials/modals/modal-sugerir.html' %}
 
         {% endblock %}
+
         <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
         <script src="{% static 'javascripts/shared.js'%}"></script>
         <script src="{% static 'javascripts/main.js'%}"></script>
@@ -175,12 +176,15 @@
 
         <script type="text/javascript">
             var functionAjaxSuccessLogin = function(e, data) {
-                var $form = $(this);
                 window.location.href = data.url_next;
+            };
+            var functionAjaxErrorLogin = function(e, data) {
+                console.log(data);
             };
 
             $(function() {
                 $("#form-login").on("ajaxform.success", functionAjaxSuccessLogin);
+                $("#form-login").on("ajaxform.error", functionAjaxErrorLogin);
             });
         </script>
 

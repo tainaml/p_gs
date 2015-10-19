@@ -16,7 +16,12 @@ class CoreLoginView(views.LoginView):
 
         if 'form' in context:
             _form = context['form']
-            _response_context = {'errors': _form.errors}
+            _active = _form.account_is_active if hasattr(_form, 'account_is_active') else None
+
+            _response_context = {
+                'errors': _form.errors,
+                'is_active': _active
+            }
 
         return JsonResponse(_response_context, status=400)
 
