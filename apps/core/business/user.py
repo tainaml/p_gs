@@ -102,14 +102,20 @@ def get_followings(author, description=None, items_per_page=None, page=None):
 
     content_type = ContentType.objects.get(model="user")
 
-    try:
-        users_filter = User.objects.filter(
-            Q(is_active=True) &
-            (
-                Q(first_name__icontains=description) |
-                Q(last_name__icontains=description)
-            )
+    strings = description.strip().split(' ')
+
+    condition = (
+        Q(first_name__icontains=strings[0].strip()) |
+        Q(last_name__icontains=strings[0].strip())
+    )
+    for string in strings[1:]:
+        condition |= (
+            Q(first_name__icontains=string.strip()) |
+            Q(last_name__icontains=string.strip())
         )
+
+    try:
+        users_filter = User.objects.filter(Q(is_active=True) & condition)
 
         users_followers = UserAction.objects.filter(
             Q(author=author) &
@@ -140,15 +146,23 @@ def get_followers(user_filter, description=None, items_per_page=None, page=None)
 
     content_type = ContentType.objects.get_for_model(user_filter)
 
+    strings = description.strip().split(' ')
+
+    condition = (
+        Q(author__first_name__icontains=strings[0].strip()) |
+        Q(author__last_name__icontains=strings[0].strip())
+    )
+    for string in strings[1:]:
+        condition |= (
+            Q(author__first_name__icontains=string.strip()) |
+            Q(author__last_name__icontains=string.strip())
+        )
+
     try:
         users_actions = UserAction.objects.filter(
             Q(action_type=settings.SOCIAL_FOLLOW) &
             Q(content_type=content_type) &
-            Q(object_id=user_filter.id) &
-            (
-                Q(author__first_name__icontains=description) |
-                Q(author__last_name__icontains=description)
-            )
+            Q(object_id=user_filter.id) & condition
         )
     except:
         users_actions = False
