@@ -2,6 +2,7 @@
 
 {% load staticfiles %}
 {% load social_tags %}
+{% load thumbor_tags %}
 
 {% block title %}Portal GSTI - Perfil{% endblock %}
 
@@ -23,7 +24,52 @@
                 </header>
                 <div class="filter row">
                     <div class="col-lg-8">
-                        {% include 'home/partials/search.html' with placehold='Procure por alguém' %}
+                        <form method="GET" role="search" id="search-form" data-url="{% url 'profile:communities' profile.user.username %}">
+                            <div class="form-search-input">
+                                <input type="text" id="fcommunity" name="fcommunity" placeholder="{{placehold|default:"Procure pessoas, comunidades, etc."}}" />
+                            </div>
+                            <div class="dropdown-menu dropdown-search">
+                                <div class="float-notifcations">
+                                    <div class="header-float-notifications">Pessoas</div>
+                                    <ul class="content-float-notifications">
+                                        <li class="item-float-notification">
+                                            <a href="javascript:;"><img src="http://placehold.it/20" alt="Creator Post Avatar"></a>
+                                            <a href="javascript:;">Iury Silva</a>
+                                        </li>
+                                        <li class="item-float-notification">
+                                            <a href="javascript:;"><img src="http://placehold.it/20" alt="Creator Post Avatar"></a>
+                                            <a href="javascript:;">Iury Silva</a>
+                                        </li>
+                                        <li class="item-float-notification">
+                                            <a href="javascript:;"><img src="http://placehold.it/20" alt="Creator Post Avatar"></a>
+                                            <a href="javascript:;">Iury Silva</a>
+                                        </li>
+                                        <li class="item-float-notification-separator">
+                                        </li>
+                                    </ul>
+                                    <div class="header-float-notifications">Comunidades</div>
+                                    <ul class="content-float-notifications">
+                                        <li class="item-float-notification">
+                                            <a href="javascript:;"><img src="http://placehold.it/20" alt="Creator Post Avatar"></a>
+                                            <a href="javascript:;">Iury Silva</a>
+                                        </li>
+                                        <li class="item-float-notification">
+                                            <a href="javascript:;"><img src="http://placehold.it/20" alt="Creator Post Avatar"></a>
+                                            <a href="javascript:;">Iury Silva</a>
+                                        </li>
+                                        <li class="item-float-notification">
+                                            <a href="javascript:;"><img src="http://placehold.it/20" alt="Creator Post Avatar"></a>
+                                            <a href="javascript:;">Iury Silva</a>
+                                        </li>
+                                        <li class="item-float-notification-separator">
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <button type="submit" id="search" class="form-search-button">
+                                <i class="gsticon gsticon-search"></i>
+                            </button>
+                        </form>
                     </div>
                     <div class="col-lg-4 text-right">
                         <div class="custom-select">
@@ -43,7 +89,19 @@
                     <div class="col-lg-12">
                         <div class="row j-scroll-communities j-scroll-communities-container">
                             {# templatetag - load communities #}
-                            {% communities_box profile.user request.path %}
+                            {% if items %}
+                                {% for community in items %}
+                                    <div class="box-perfil">
+                                        <div class="perfil">
+                                            <img class="img-responsive" src="{% thumbor_url community.content_object.get_picture.url width=82 height=82 smart=False fit_in=False %}" alt="{{ community.content_object.title }}">
+                                            <a class="perfil-name" href="{% url 'community:show' community.content_object.slug %}">{{ community.content_object.title }}</a>
+                                            <a class="perfil-counter" href="{% url 'community:followers' community_slug=community.content_object.slug %}"><span class="counter-number">{% followers_count community.content_object %}</span> Seguidores</a>
+                                            {% follow_action community.content_object url_next %}
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                                <a data-jscroll-next href="{% url 'socialactions:get_followings' content_type_id=content_type.id object_filter_id=object.id %}?p={{ page }}&next={{ url_next|urlencode }}">next</a>
+                            {% endif %}
                         </div>
                     </div>
                     <!--
@@ -69,17 +127,19 @@
 
         $(function() {
 
-            $(document).on('keyup','#fcommunity', function() {
+            $(document).on('submit', "#search-form" , function(event){
+                event.preventDefault();
+                var $that = $(this);
 
-                var $input = $(this);
+                var $input = $that.find('input').val();
+                var $url = $that.data('url'));
+                var category = $("#cfilter option:selected").val();
 
-                if ($input.val().length > 2){
-                    var $value = $("#cfilter option:selected").val();
+                if ($input.length > 2){
+                    # @TODO Ajax
 
-                    console.log($value);
-                    console.log($input.val().length);
+                    console.log($that.data('url'));
                 }
-
 
             });
 

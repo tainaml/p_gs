@@ -12,7 +12,9 @@ from django.views.decorators.http import require_POST
 
 from apps.userprofile.models import GenderType
 from apps.userprofile.service import business as Business
+from apps.socialactions.service import business as SocialBusiness
 from apps.userprofile.service.forms import EditProfileForm, OccupationForm
+from rede_gsti import settings
 
 
 class ProfileBaseView(View):
@@ -303,18 +305,76 @@ class ProfileFollowersView(ProfileShowView):
 
     template_path = 'userprofile/profile-followers.html'
 
-
+# @TODO Refactor
 class ProfileCommunitiesView(ProfileShowView):
 
     template_path = 'userprofile/profile-communities.html'
 
     # rewrite to add category parameter
-    def get(self, request, username):
+    def get(self, request, username, criteria=None, category=None):
 
         categories = Business.get_categories()
+        user = Business.get_user(username)
         profile = self.filter(request, username)
 
-        context = {'profile': profile, 'categories': categories}
-        context.update(self.get_context(request, profile))
+        if not criteria or not category:
+            context = self.communities_box(user, self.template_path)
 
+            # profile = self.filter(request, username)
+            #
+            # context = {'profile': profile, 'categories': categories}
+            # context.update(self.get_context(request, profile))
+            #
+            # return render(request, self.template_path, context)
+        else:
+
+            context = self.communities_box_with_filters(
+                user,
+                self.template_path,
+                criteria,
+                category
+            )
+        context.update({'profile': profile, 'categories':categories})
         return render(request, self.template_path, context)
+
+
+    def communities_box_with_filters(self, user, url_next, criteria, category):
+        try:
+            filter_parameters = {'criteria':criteria, 'category':category}
+            communities = SocialBusiness.get_users_acted_by_author(author=user,
+                                                             action=settings.SOCIAL_FOLLOW,
+                                                             content_type='community',
+                                                             items_per_page=9,
+                                                             page=1,
+                                                             filter_parameters=filter_parameters
+                                                             )
+
+        except ValueError:
+            raise Http404()
+
+        return {
+            'items': communities,
+            'content_type': communities[0].content_type if communities and communities[0].content_type else None,
+            'object': user,
+            'page': (communities.number if communities and communities.number else 0) + 1,
+            'url_next': url_next
+        }
+
+    def communities_box(self, user, url_next):
+        try:
+            communities = SocialBusiness.get_users_acted_by_author(author=user,
+                                                             action=settings.SOCIAL_FOLLOW,
+                                                             content_type='community',
+                                                             items_per_page=9,
+                                                             page=1)
+
+        except ValueError:
+            raise Http404()
+
+        return {
+            'items': communities,
+            'content_type': communities[0].content_type if communities and communities[0].content_type else None,
+            'object': user,
+            'page': (communities.number if communities and communities.number else 0) + 1,
+            'url_next': url_next
+        }
