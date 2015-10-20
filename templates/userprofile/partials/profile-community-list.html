@@ -1,11 +1,19 @@
 {% if communities.object_list %}
-    <div class="widget-content">
-        {% for community in communities %}
-            {% include "userprofile/partials/profile-community-segment.html" with community_obj=community.content_object %}
-        {% endfor %}
+    <div class="widget widget-feed">
+        <div class="widget-header">
+            <span class="counter">168</span>
+            <header class="area-title">
+                <h3>Comunidades</h3>
+            </header>
+        </div>
+        <div class="widget-content">
+            {% for community in communities %}
+                {% include "userprofile/partials/profile-community-segment.html" with community_obj=community.content_object %}
+            {% endfor %}
+        </div>
+        <a class="widget-footer" href="{% url 'profile:communities' username=profile.user.username %}">
+            <i class="gsticon gsticon-plus"></i>
+            Ver todos
+        </a>
     </div>
-    <a class="widget-footer" href="{% url 'profile:communities' username=profile.user.username %}">
-        <i class="gsticon gsticon-plus"></i>
-        Ver todos
-    </a>
 {% endif %}

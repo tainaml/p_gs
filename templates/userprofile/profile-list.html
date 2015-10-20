@@ -68,14 +68,13 @@
 
             setTimeout(function loadCommunitiesAsync() {
                 $("[data-load-async='true']").each(function (i, e) {
-                    var $this = $(this),
-                        $e = e;
-
+                    var $this = $(this);
                     $.ajax({
                         url: $this.data("url"),
                         method: $this.data("request-method"),
                         dataType: $this.data("response-type"),
                         data: {
+                            'url-next': $this.data("url-next"),
                             csrfmiddlewaretoken: $this.find("input:hidden[name='csrfmiddlewaretoken']").val()
                         },
                         success: function(data, status, xhr) {
@@ -91,7 +90,7 @@
                         }
                     });
                 });
-            }, 1000);
+            }, 500);
         });
     </script>
 {% endblock %}

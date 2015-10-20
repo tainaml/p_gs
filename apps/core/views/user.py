@@ -424,9 +424,9 @@ class CoreProfileCommunitiesLoad(views.ProfileShowView):
 
     def get_context(self, request, profile_instance=None):
 
-        url_next = request.GET.get('url-next')
+        url_next = request.POST.get('url-next')
 
-        communities = BusinessSocialActions.get_users_acted_by_author(
+        communities = BusinessSocialActions.get_random_users_acted_by_author(
             author=profile_instance.user,
             action=settings.SOCIAL_FOLLOW,
             content_type='community',
@@ -464,3 +464,48 @@ class CoreProfileCommunitiesLoadAjax(CoreProfileCommunitiesLoad):
         }
 
         return JsonResponse(_context, status=200)
+
+
+class CoreProfileFollowingsLoadAjax(views.ProfileShowView):
+
+    template_segment_path = "userprofile/partials/profile-followings-list.html"
+
+    def return_error(self, request, context=None):
+        return JsonResponse(context, status=400)
+
+    def return_success(self, request, context=None):
+        if not context:
+            context = {}
+
+        _context = {
+            'url_next': context.get('url_next'),
+            'template': render(request, self.template_segment_path, context).content
+        }
+
+        return JsonResponse(_context, status=200)
+
+    def get_context(self, request, profile_instance=None):
+
+        url_next = request.POST.get('url-next')
+
+        followings = BusinessSocialActions.get_random_users_acted_by_author(
+            author=profile_instance.user,
+            action=settings.SOCIAL_FOLLOW,
+            content_type='user',
+            items_per_page=3,
+            page=1
+        )
+
+        return {
+            'followings': followings,
+            'url_next': url_next
+        }
+
+    def post(self, request, username):
+
+        profile = self.filter(request, username)
+
+        context = {'profile': profile}
+        context.update(self.get_context(request, profile))
+
+        return self.return_success(request, context)

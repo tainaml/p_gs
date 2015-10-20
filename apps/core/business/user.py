@@ -102,17 +102,19 @@ def get_followings(author, description=None, items_per_page=None, page=None):
 
     content_type = ContentType.objects.get(model="user")
 
-    strings = description.strip().split(' ')
-
-    condition = (
-        Q(first_name__icontains=strings[0].strip()) |
-        Q(last_name__icontains=strings[0].strip())
-    )
-    for string in strings[1:]:
-        condition |= (
-            Q(first_name__icontains=string.strip()) |
-            Q(last_name__icontains=string.strip())
+    if description:
+        strings = description.strip().split(' ')
+        condition = (
+            Q(first_name__icontains=strings[0].strip()) |
+            Q(last_name__icontains=strings[0].strip())
         )
+        for string in strings[1:]:
+            condition |= (
+                Q(first_name__icontains=string.strip()) |
+                Q(last_name__icontains=string.strip())
+            )
+    else:
+        condition = True
 
     try:
         users_filter = User.objects.filter(Q(is_active=True) & condition)

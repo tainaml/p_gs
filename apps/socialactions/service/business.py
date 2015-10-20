@@ -240,3 +240,29 @@ def get_users_acted_by_author(author=None, action=None, content_type=None, filte
         list_users = users_actions
 
     return list_users
+
+
+def get_random_users_acted_by_author(author=None, action=None, content_type=None, filter_parameters=None, items_per_page=None, page=None):
+    if not filter_parameters:
+        filter_parameters = {}
+
+    content_type = get_model_type(content_type)
+    parameters = filter_parameters.copy()
+    parameters['content_type'] = content_type
+    parameters['author'] = author.id
+    parameters['action_type'] = action
+
+    users_actions = UserAction.objects.filter(**parameters).order_by('?').prefetch_related('author')
+
+    if items_per_page is not None and page is not None:
+        list_users = Paginator(users_actions, items_per_page)
+        try:
+            list_users = list_users.page(page)
+        except PageNotAnInteger:
+            list_users = list_users.page(1)
+        except EmptyPage:
+            list_users = []
+    else:
+        list_users = users_actions
+
+    return list_users
