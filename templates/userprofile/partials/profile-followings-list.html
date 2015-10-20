@@ -1,7 +1,9 @@
+{% load social_tags %}
+
 {% if followings.object_list %}
 <div class="widget widget-feed">
     <div class="widget-header">
-        <span class="counter">168</span>
+        <span class="counter">{% followings_count profile.user "user" %}</span>
         <header class="area-title">
             <h3>Seguindo</h3>
         </header>

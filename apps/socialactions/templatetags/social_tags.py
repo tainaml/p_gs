@@ -121,6 +121,17 @@ def followers_count(object_to_link):
     return count
 
 
+@register.simple_tag()
+def followings_count(author, content_type):
+
+    try:
+        count = Business.followings_count(author, content_type)
+    except ValueError:
+        raise Http404()
+
+    return count
+
+
 @register.inclusion_tag('socialactions/communities_box.html', takes_context=True)
 def communities_box(context, user, url_next):
     try:

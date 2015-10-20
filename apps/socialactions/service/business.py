@@ -144,6 +144,17 @@ def followers_count(user=None, content_object=None):
 
     return user_count_acted_by_object(user, content_object, 'follow')
 
+def followings_count(author=None, content_type=None):
+
+    content_type = ContentType.objects.get(model=content_type)
+    action_type = get_by_label("follow")
+
+    user_action_count = UserAction.objects.filter(author=author,
+                                                  content_type=content_type,
+                                                  action_type=action_type).count()
+
+    return user_action_count
+
 # Action methods
 
 
