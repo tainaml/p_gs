@@ -24,7 +24,8 @@
                 </header>
                 <div class="filter row">
                     <div class="col-lg-8">
-                        <form method="GET" role="search" id="search-form" data-url="{% url 'profile:communities' profile.user.username %}">
+                        <form method="GET" role="search" id="search-form">
+                            {% csrf_token %}
                             <div class="form-search-input">
                                 <input type="text" id="fcommunity" name="fcommunity" placeholder="{{placehold|default:"Procure pessoas, comunidades, etc."}}" />
                             </div>
@@ -127,19 +128,48 @@
 
         $(function() {
 
-            $(document).on('submit', "#search-form" , function(event){
-                event.preventDefault();
+            function filter_communities()
+            {
                 var $that = $(this);
 
-                var $input = $that.find('input').val();
-                var $url = $that.data('url'));
-                var category = $("#cfilter option:selected").val();
+                var $input = $that.find('#fcommunity').val();
+                var $category = $("#cfilter option:selected").val();
 
                 if ($input.length > 2){
-                    # @TODO Ajax
+
+                    $.ajax({
+                        url: "{% url 'profile:communities' profile.user.username %}",
+                        method: "GET",
+                        dataType: "html",
+                        data: {
+                            'criteria': $input,
+                            'category':$category,
+                            csrfmiddlewaretoken: $("input:hidden[name='csrfmiddlewaretoken']").val(),
+                        },
+                        success: function(response) {
+                            $(".j-scroll-communities-container").html(response);
+                            alert(response);
+                        }
+                    });
+
 
                     console.log($that.data('url'));
                 }
+            };
+
+            $(document).on('keyup', "#fcommunity" , function(event){
+                event.preventDefault();
+                filter_communities(event);
+            }
+
+            $(document).on('change', "#cfilter" , function(event){
+                event.preventDefault();
+                filter_communities(event);
+            }
+
+            $(document).on('submit', "#search-form" , function(event){
+                event.preventDefault();
+                filter_communities(event);
 
             });
 
