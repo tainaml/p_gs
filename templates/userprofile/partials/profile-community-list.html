@@ -1,0 +1,11 @@
+{% if communities.object_list %}
+    <div class="widget-content">
+        {% for community in communities %}
+            {% include "userprofile/partials/profile-community-segment.html" with community_obj=community.content_object %}
+        {% endfor %}
+    </div>
+    <a class="widget-footer" href="{% url 'profile:communities' username=profile.user.username %}">
+        <i class="gsticon gsticon-plus"></i>
+        Ver todos
+    </a>
+{% endif %}

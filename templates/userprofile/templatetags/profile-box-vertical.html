@@ -22,7 +22,7 @@
         {% if profile.current_occupation %}
         <li>
             <i class="gsticon gsticon-briefcase"></i>
-            <a href="javascript:;">{{ profile.current_occupation.responsibility }}</a> em <a href="javascript:;">{{ profile.current_occupation.company }}</a>
+            <a href="javascript:;">{{ profile.current_occupation.responsibility.name }}</a>
         </li>
         {% endif %}
 

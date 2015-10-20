@@ -12,6 +12,9 @@ from apps.core.forms.user import CoreUserSearchForm, CoreUserProfileEditForm
 from apps.userprofile import views
 from apps.userprofile.service import business as BusinessUserprofile
 from apps.taxonomy.service import business as BusinessTaxonomy
+from apps.socialactions.service import business as BusinessSocialActions
+from rede_gsti import settings
+
 
 class CoreUserView(views.ProfileShowView):
 
@@ -52,7 +55,17 @@ class CoreUserView(views.ProfileShowView):
 
 
 class CoreUserList(CoreUserView):
+
     template_path = 'userprofile/partials/user-profile-list.html'
+
+    def get(self, request, username=None):
+
+        profile = self.filter(request, username)
+
+        context = {'profile': profile}
+        context.update(self.get_context(request, profile))
+
+        return render(request, self.template_path, context)
 
 
 class CoreUserProfile(CoreUserView):
@@ -397,3 +410,57 @@ class CoreProfileFollowersSearch(views.ProfileShowView):
 class CoreProfileFollowersSearchList(CoreProfileFollowersSearch):
 
     template_path = "userprofile/partials/followers-segment.html"
+
+
+class CoreProfileCommunitiesLoad(views.ProfileShowView):
+
+    template_segment_path = "userprofile/partials/profile-community-list.html"
+
+    def return_error(self, request, context=None):
+        return render(request, self.template_segment_path, context)
+
+    def return_success(self, request, context=None):
+        return render(request, self.template_segment_path, context)
+
+    def get_context(self, request, profile_instance=None):
+
+        url_next = request.GET.get('url-next')
+
+        communities = BusinessSocialActions.get_users_acted_by_author(
+            author=profile_instance.user,
+            action=settings.SOCIAL_FOLLOW,
+            content_type='community',
+            items_per_page=3,
+            page=1
+        )
+
+        return {
+            'communities': communities,
+            'url_next': url_next
+        }
+
+    def post(self, request, username):
+
+        profile = self.filter(request, username)
+
+        context = {'profile': profile}
+        context.update(self.get_context(request, profile))
+
+        return self.return_success(request, context)
+
+
+class CoreProfileCommunitiesLoadAjax(CoreProfileCommunitiesLoad):
+
+    def return_error(self, request, context=None):
+        return JsonResponse(context, status=400)
+
+    def return_success(self, request, context=None):
+        if not context:
+            context = {}
+
+        _context = {
+            'url_next': context.get('url_next'),
+            'template': render(request, self.template_segment_path, context).content
+        }
+
+        return JsonResponse(_context, status=200)

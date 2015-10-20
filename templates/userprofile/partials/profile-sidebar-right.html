@@ -1,0 +1,55 @@
+<div class="col-lg-4">
+    <div class="squad-advertising">
+        <img class="img-responsive" src="http://placehold.it/270x225" alt="Propaganda aqui">
+    </div>
+    <!-- Comunidades -->
+    <div class="widget widget-feed">
+        <div class="widget-header">
+            <span class="counter">168</span>
+            <header class="area-title">
+                <h3>Comunidades</h3>
+            </header>
+        </div>
+
+        <div id="load-communities" data-load-async="true" data-url="{% url 'profile:communities-load-ajax' profile.user.username %}" data-url-next="{{ request.path }}" data-request-method="post" data-response-type="json">
+            <div class="load-async load-async-content">
+                Loading...
+            </div>
+            {% csrf_token %}
+        </div>
+    </div>
+
+    <!-- Seguindo -->
+    <div class="widget widget-feed">
+        <div class="widget-header">
+            <span class="counter">168</span>
+            <header class="area-title">
+                <h3>Seguindo</h3>
+            </header>
+        </div>
+        <div class="widget-content">
+            <div class="perfil">
+                <img src="http://placehold.it/82" alt="Imagem 1">
+                <a class="perfil-name" href="javascript:;">Python</a>
+                <span class="perfil-counter"><span class="counter-number">12.568</span> Seguidores</span>
+                <a class="btn btn-sm perfil-button" href="javascript:;">Seguir</a>
+            </div>
+            <div class="perfil">
+                <img src="http://placehold.it/82" alt="Imagem 1">
+                <a class="perfil-name" href="javascript:;">Python</a>
+                <span class="perfil-counter"><span class="counter-number">12.568</span> Seguidores</span>
+                <a class="btn btn-sm perfil-button" href="javascript:;">Seguir</a>
+            </div>
+            <div class="perfil">
+                <img src="http://placehold.it/82" alt="Imagem 1">
+                <a class="perfil-name" href="javascript:;">Python</a>
+                <span class="perfil-counter"><span class="counter-number">12.568</span> Seguidores</span>
+                <a class="btn btn-sm perfil-button" href="javascript:;">Seguir</a>
+            </div>
+        </div>
+        <a class="widget-footer" href="{% url 'profile:followings' profile.user.username %}">
+            <i class="gsticon gsticon-plus"></i>
+            Ver todos
+        </a>
+    </div>
+</div>
