@@ -63,7 +63,7 @@
                                            data-module="taxonomy"
                                            data-url="{% url 'profile:user-communities-ajax' %}"
                                            data-label-field="name"
-                                           data-value-field="id" />
+                                           data-value-field="id" multiple />
 
                                     {% if form_article.communities.errors %}  {{ form_article.communities.errors }} {% endif %}
                                 </div>

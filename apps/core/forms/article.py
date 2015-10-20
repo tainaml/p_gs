@@ -10,10 +10,20 @@ class TaxonomiesChoiceField(forms.ModelMultipleChoiceField):
 
     def clean(self, value):
 
-        return super(TaxonomiesChoiceField, self).validate(value)
+        values = []
+
+        try:
+
+            tax_objects = []
+            values = str(value[0]).split(',')
+
+        except Exception, e:
+            print e.message
+
+        return super(TaxonomiesChoiceField, self).clean(values)
 
     def validate(self, value):
-        print 'Value:'
+        print 'Validate:'
         print value
         return super(TaxonomiesChoiceField, self).validate(value)
 

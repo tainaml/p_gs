@@ -22,6 +22,7 @@ Vagrant.configure(2) do |config|
 
     thumbor.vm.box = "ubuntu/trusty64"
     thumbor.vm.hostname = "thumbor.redegsti.dev"
+    thumbor.ssh.pty = false
 
     thumbor.vm.provider "virtualbox" do |v|
         v.memory = 256
@@ -43,6 +44,7 @@ Vagrant.configure(2) do |config|
 
     db.vm.box = "ubuntu/trusty64"
     db.vm.hostname = "db.redegsti.dev"
+    db.ssh.pty = false
 
     db.vm.provider "virtualbox" do |v|
         v.memory = 256
@@ -67,6 +69,8 @@ Vagrant.configure(2) do |config|
         v.memory = 512
         v.cpus = 1
     end
+
+    web.ssh.guest_port = 2222
 
     web.vm.network "forwarded_port", guest: 8000, host: 8000
 
