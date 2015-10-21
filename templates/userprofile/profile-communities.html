@@ -147,9 +147,9 @@
                         method: "GET",
                         dataType: "html",
                         data: {
-                            'criteria': $input,
-                            'category':$category,
-                            csrfmiddlewaretoken: $("input:hidden[name='csrfmiddlewaretoken']").val(),
+                            criteria: $input,
+                            category: $category,
+                            csrfmiddlewaretoken: $("input:hidden[name='csrfmiddlewaretoken']").val()
                         },
                         success: function(response) {
                             $(".j-scroll-communities-container").html(response);

@@ -331,7 +331,6 @@ class ProfileCommunitiesView(ProfileShowView):
             self.template_path = 'userprofile/partials/profile-communities.html'
             context = self.communities_box_with_filters(
                 user,
-                self.template_path,
                 criteria,
                 category
             )
@@ -339,6 +338,8 @@ class ProfileCommunitiesView(ProfileShowView):
 
         if request.is_ajax():
             _context = {
+                'category': request.GET.get('category'),
+                'criteria': request.GET.get('criteria'),
                 'template': render(request, self.template_path, context).content
             }
             return JsonResponse(_context, status=200)
@@ -346,17 +347,17 @@ class ProfileCommunitiesView(ProfileShowView):
         return render(request, self.template_path, context)
 
 
-    def communities_box_with_filters(self, user, url_next, criteria, category):
+    def communities_box_with_filters(self, user, criteria, category):
         try:
-            communities = SocialBusiness.get_users_acted_by_author_with_parameters(author=user,
-                                                             action=settings.SOCIAL_FOLLOW,
-                                                             content_type='community',
-                                                             items_per_page=9,
-                                                             page=1,
-                                                             criteria=criteria,
-                                                             category=category
-                                                             )
-
+            communities = SocialBusiness.get_users_acted_by_author_with_parameters(
+                author=user,
+                action=settings.SOCIAL_FOLLOW,
+                content_type='community',
+                items_per_page=9,
+                page=1,
+                criteria=criteria,
+                category=category
+            )
         except ValueError:
             raise Http404()
 
@@ -369,12 +370,13 @@ class ProfileCommunitiesView(ProfileShowView):
 
     def communities_box(self, user, url_next):
         try:
-            communities = SocialBusiness.get_users_acted_by_author(author=user,
-                                                             action=settings.SOCIAL_FOLLOW,
-                                                             content_type='community',
-                                                             items_per_page=9,
-                                                             page=1)
-
+            communities = SocialBusiness.get_users_acted_by_author(
+                author=user,
+                action=settings.SOCIAL_FOLLOW,
+                content_type='community',
+                items_per_page=9,
+                page=1
+            )
         except ValueError:
             raise Http404()
 
