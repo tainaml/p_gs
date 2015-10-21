@@ -127,9 +127,11 @@ require('./validation.js');
             var $self = $(this);
             var url = $self.attr('action') || location.href;
             var withFiles = ($self.attr('enctype') === 'multipart/form-data');
+            var method = $self.attr('method') || 'post';
+
 
             var ajaxParams = {
-                'type': 'POST',
+                'type': method.toUpperCase(),
                 'url': url,
                 'cache': false,
                 'success': function(data){
