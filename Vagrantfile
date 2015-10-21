@@ -70,8 +70,6 @@ Vagrant.configure(2) do |config|
         v.cpus = 1
     end
 
-    web.ssh.guest_port = 2222
-
     web.vm.network "forwarded_port", guest: 8000, host: 8000
 
     web.vm.network "private_network", ip: "10.100.100.10"

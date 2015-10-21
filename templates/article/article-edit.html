@@ -56,8 +56,15 @@
                                 </div>
                                 <div class="form-group">
 
+                                    {% for choice in form_article.communities %}
+
+                                        {{ choice }}
+
+                                    {% endfor %}
+
                                     <input name="{{ form_article.communities.name }}"
                                            type="text"
+                                           value="python,javascript"
                                            data-toggle="selectize"
                                            placeholder="Enviar artigo para qual(is) comunidade(s)?"
                                            data-module="taxonomy"
