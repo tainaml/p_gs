@@ -2,6 +2,7 @@ from django.contrib.auth.models import User
 from django.contrib.contenttypes.models import ContentType
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.utils import timezone
+from apps.article.models import Article
 from apps.feed.models import FeedObject
 from django.db.models import Q
 from apps.socialactions.models import UserAction
@@ -97,6 +98,29 @@ def get_articles_from_user(profile_instance=None, description=None, content_type
 
     return feed_objects_paginated
 
+
+def get_articles(author, description=None, status=None, items_per_page=None, page=None):
+
+
+    condition = (Q(author=author) & (Q(title__icontains=description) | Q(text__icontains=description)))
+    if status:
+        condition &= Q(article__status=status)
+
+    posts = Article.objects.filter(condition).prefetch_related("author")
+
+    items_per_page = items_per_page if items_per_page else 10
+    page = page if page else 1
+
+    if items_per_page and page:
+        posts = Paginator(posts, items_per_page)
+        try:
+            posts = posts.page(page)
+        except PageNotAnInteger:
+            posts = posts.page(1)
+        except EmptyPage:
+            posts = []
+
+    return posts
 
 def get_followings(author, description=None, items_per_page=None, page=None):
 

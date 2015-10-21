@@ -5,7 +5,11 @@ from ..views import user as CoreUserProfileView
 urlpatterns = [
 
     url(r'^edit/$', CoreUserProfileView.CoreProfileEdit.as_view(), name='edit'),
-    url(r'^ajax/edit/$', CoreUserProfileView.CoreProfileEditAjax.as_view(), name='edit-ajax'),
+    url(r'^edit/ajax/$', CoreUserProfileView.CoreProfileEditAjax.as_view(), name='edit-ajax'),
+
+    url(r'^edit-posts/$', CoreUserProfileView.CoreProfileSearchEditPosts.as_view(), name='edit-posts'),
+    url(r'^edit-posts/search/ajax$', CoreUserProfileView.CoreProfileSearchEditPostsAjax.as_view(), name='edit-posts-search-ajax'),
+    url(r'^edit-posts/search/list/ajax$', CoreUserProfileView.CoreProfileSearchEditPostsList.as_view(), name='edit-posts-list-ajax'),
 
     url(r'^wizard/step/personal-info$', CoreUserProfileView.CoreProfileWizardStepOneAjax.as_view(), name='wizard-step-personal-info-ajax'),
     url(r'^wizard/step/filter-categories$', CoreUserProfileView.CoreProfileWizardStepTwoAjax.as_view(), name='wizard-step-filter-categories-ajax'),

@@ -4,9 +4,8 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 
-from apps.core.forms.user import CoreUserSearchForm, CoreUserProfileForm, CoreUserProfileFullEditForm, \
-    CoreSearchFollowings, CoreSearchFollowers
-from apps.core.business import community as BusinessCoreCommunity
+from apps.core.forms.user import CoreUserProfileForm, CoreUserProfileFullEditForm, \
+    CoreSearchFollowings, CoreSearchFollowers, CoreSearchArticlesForm
 from apps.core.forms.community import CoreCommunityFormSearch
 from apps.core.forms.user import CoreUserSearchForm, CoreUserProfileEditForm
 from apps.userprofile import views
@@ -509,3 +508,54 @@ class CoreProfileFollowingsLoadAjax(views.ProfileShowView):
         context.update(self.get_context(request, profile))
 
         return self.return_success(request, context)
+
+
+class CoreProfileSearchEditPosts(views.ProfileBaseView):
+
+    template_path = "userprofile/profile-edit-posts.html"
+
+    form = CoreSearchArticlesForm
+
+    def return_success(self, request, context=None):
+        return render(request, self.template_path, context)
+
+    def get(self, request):
+
+        profile = self.filter(request, request.user)
+
+        context = {'profile': profile}
+        context.update(self.get_context(request, profile))
+
+        return self.return_success(request, context)
+
+
+    def get_context(self, request, profile_instance=None):
+
+        form = self.form(request.user, 10, request.GET)
+
+        posts = form.process()
+
+        return {
+            'posts': posts,
+            'form': form,
+            'page': form.cleaned_data.get('page', 1) + 1
+        }
+
+
+class CoreProfileSearchEditPostsAjax(CoreProfileSearchEditPosts):
+
+    template_path = "userprofile/partials/profile-edit-posts-segment.html"
+
+    def return_success(self, request, context=None):
+
+        response_context = {
+            'status': 200,
+            'template': render(request, self.template_path, context)
+        }
+
+        return JsonResponse(response_context, status=200)
+
+
+class CoreProfileSearchEditPostsList(CoreProfileSearchEditPosts):
+
+    template_path = "userprofile/partials/profile-edit-posts-segment.html"

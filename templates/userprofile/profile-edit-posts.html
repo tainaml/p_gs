@@ -1,0 +1,146 @@
+{%extends 'home/layout/base.html' %}
+
+{% block title %}Portal GSTI - Perfil, Editar Publicações{% endblock %}
+
+{% block content %}
+    <main class="container main">
+        <div class="perfil-row">
+            <!-- mudar para 2.5 -->
+            <div class="col-lg-3">
+                {% include 'home/partials/sidebar-perfil.html' %}
+            </div>
+            <!-- mudar para 9.5 -->
+            <div class="col-lg-9">
+                <nav class="perfil-navegation">
+                    {% if profile.user == request.user %}<a href="{% url 'profile:feed' %}">Feed</a>•{% endif %}
+                    <a href="{% url 'profile:show' username=profile.user.username %}">Perfil</a>•
+                    <a href="{% url 'ninico:about' %}">Sobre</a>•<a href="{% url 'profile:communities' username=profile.user.username %}">Comunidades</a>•
+                    <a href="{% url 'profile:followers' username=profile.user.username %}">Relacionamentos</a>•
+                    <a href="{% url 'ninico:videos' %}">Vídeos</a>
+                </nav>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <header class="area-title">
+                            <h2>Editar Publicações</h2>
+                        </header>
+                        <div class="row">
+                            <div class="col-sm-8">
+                                <nav class="form-search">
+                                    <form action="{% url 'profile:edit-posts-search-ajax' %}" method="GET" role="search">
+                                        <div class="form-search-input">
+                                            <input type="text" id="criteria" name="criteria" placeholder="{{placehold|default:"Procure uma publicação."}}" />
+                                        </div>
+                                        <div class="dropdown-menu dropdown-search">
+                                            <div class="float-notifcations">
+                                                <div class="header-float-notifications">Pessoas</div>
+                                                <ul class="content-float-notifications">
+                                                    <li class="item-float-notification">
+                                                        <a href="javascript:;"><img src="http://placehold.it/20" alt="Creator Post Avatar"></a>
+                                                        <a href="javascript:;">Iury Silva</a>
+                                                    </li>
+                                                    <li class="item-float-notification">
+                                                        <a href="javascript:;"><img src="http://placehold.it/20" alt="Creator Post Avatar"></a>
+                                                        <a href="javascript:;">Iury Silva</a>
+                                                    </li>
+                                                    <li class="item-float-notification">
+                                                        <a href="javascript:;"><img src="http://placehold.it/20" alt="Creator Post Avatar"></a>
+                                                        <a href="javascript:;">Iury Silva</a>
+                                                    </li>
+                                                    <li class="item-float-notification-separator">
+                                                    </li>
+                                                </ul>
+                                                <div class="header-float-notifications">Comunidades</div>
+                                                <ul class="content-float-notifications">
+                                                    <li class="item-float-notification">
+                                                        <a href="javascript:;"><img src="http://placehold.it/20" alt="Creator Post Avatar"></a>
+                                                        <a href="javascript:;">Iury Silva</a>
+                                                    </li>
+                                                    <li class="item-float-notification">
+                                                        <a href="javascript:;"><img src="http://placehold.it/20" alt="Creator Post Avatar"></a>
+                                                        <a href="javascript:;">Iury Silva</a>
+                                                    </li>
+                                                    <li class="item-float-notification">
+                                                        <a href="javascript:;"><img src="http://placehold.it/20" alt="Creator Post Avatar"></a>
+                                                        <a href="javascript:;">Iury Silva</a>
+                                                    </li>
+                                                    <li class="item-float-notification-separator">
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <button type="submit" class="form-search-button">
+                                            <i class="gsticon gsticon-search"></i>
+                                        </button>
+                                    </form>
+                                </nav>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="custom-select">
+                                    <select class="form-control" id="status" name="status">
+                                        <option value="">Todos</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <section class="area-content">
+                            {% if posts %}
+                                {% for post in posts %}
+                                    <article class="publication">
+                                        <div class="publication-container clearfix">
+                                            <img class="publication-image img-responsive" src="https://unsplash.it/95/70?image=816" alt="Technology application">
+                                            <div class="publication-content">
+                                                <h3 class="publication-title">{{ post.title }}</h3>
+                                            </div>
+                                        </div>
+                                        <footer class="publication-footer clearfix">
+                                            <time class="publication-footer-date" datetime="06-17-2015">10/06/2015 às 01:34</time>
+                                            <nav class="publication-footer-menu">
+                                                <a class="publication-footer-menu-item" href="javascript:;">Editar</a>
+                                                <a class="publication-footer-menu-item" href="javascript:;">Visualizar</a>
+                                                <a class="publication-footer-menu-item" href="javascript:;">Excluir</a>
+                                            </nav>
+                                        </footer>
+                                    </article>
+                                {% endfor %}
+                            {% endif %}
+                            {% comment %}
+                            <article class="publication">
+                                <div class="publication-container clearfix">
+                                    <div class="publication-content">
+                                        <small class="publication-type question">Pergunta:</small>
+                                        <h3 class="publication-title">Lorem ipsum dolor sit amet, consectetur adipisicing elit?</h3>
+                                    </div>
+                                </div>
+                                <footer class="publication-footer clearfix">
+                                    <time class="publication-footer-date" datetime="06-17-2015">10/06/2015 às 01:34</time>
+                                    <nav class="publication-footer-menu">
+                                        <a class="publication-footer-menu-item" href="javascript:;">Editar</a>
+                                        <a class="publication-footer-menu-item" href="javascript:;">Visualizar</a>
+                                        <a class="publication-footer-menu-item" href="javascript:;">Excluir</a>
+                                    </nav>
+                                </footer>
+                            </article>
+                            <article class="publication">
+                                <div class="publication-container clearfix">
+                                    <div class="publication-content">
+                                        <small class="publication-type draft">Rascunho:</small>
+                                        <h3 class="publication-title">Microsoft lança software beta para migrar aplicativos iOS para Windows</h3>
+                                    </div>
+                                </div>
+                                <footer class="publication-footer clearfix">
+                                    <time class="publication-footer-date" datetime="06-17-2015">10/06/2015 às 01:34</time>
+                                    <nav class="publication-footer-menu">
+                                        <a class="publication-footer-menu-item" href="javascript:;">Editar</a>
+                                        <a class="publication-footer-menu-item" href="javascript:;">Visualizar</a>
+                                        <a class="publication-footer-menu-item" href="javascript:;">Excluir</a>
+                                    </nav>
+                                </footer>
+                            </article>
+                            {% endcomment %}
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock %}
