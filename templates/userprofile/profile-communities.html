@@ -128,11 +128,12 @@
 
         $(function() {
 
-            function filter_communities()
+            function filter_communities(element)
             {
-                var $that = $(this);
+                var $that = $(element);
 
-                var $input = $that.find('#fcommunity').val();
+                var $input = $('#fcommunity').val();
+                console.log($('#fcommunity'));
                 var $category = $("#cfilter option:selected").val();
 
                 if ($input.length > 2){
@@ -155,21 +156,21 @@
 
                     console.log($that.data('url'));
                 }
-            };
+            }
 
             $(document).on('keyup', "#fcommunity" , function(event){
                 event.preventDefault();
-                filter_communities(event);
-            }
+                filter_communities(event.currentTarget);
+            });
 
             $(document).on('change', "#cfilter" , function(event){
                 event.preventDefault();
-                filter_communities(event);
-            }
+                filter_communities(event.currentTarget);
+            });
 
             $(document).on('submit', "#search-form" , function(event){
                 event.preventDefault();
-                filter_communities(event);
+                filter_communities(event.currentTarget);
 
             });
 
