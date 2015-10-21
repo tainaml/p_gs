@@ -325,10 +325,9 @@ class ProfileCommunitiesView(ProfileShowView):
         user = Business.get_user(username)
         profile = self.filter(request, username)
 
-        if not criteria or not category:
+        if not criteria and not category:
             context = self.communities_box(user, self.template_path)
         else:
-            self.template_path = 'userprofile/partials/profile-communities.html'
             context = self.communities_box_with_filters(
                 user,
                 criteria,
@@ -337,6 +336,7 @@ class ProfileCommunitiesView(ProfileShowView):
         context.update({'profile': profile, 'categories':categories})
 
         if request.is_ajax():
+            self.template_path = 'userprofile/partials/profile-communities.html'
             _context = {
                 'category': request.GET.get('category'),
                 'criteria': request.GET.get('criteria'),

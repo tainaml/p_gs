@@ -1,14 +1,23 @@
 {% load social_tags %}
 {% load thumbor_tags %}
 
-{% for community in items %}
-   <div class="box-perfil">
-       <div class="perfil">
-           <img class="img-responsive" src="{% thumbor_url community.content_object.get_picture.url width=82 height=82 smart=False fit_in=False %}" alt="{{ community.content_object.title }}">
-           <a class="perfil-name" href="{% url 'community:show' community.content_object.slug %}">{{ community.content_object.title }}</a>
-           <a class="perfil-counter" href="{% url 'community:followers' community_slug=community.content_object.slug %}"><span class="counter-number">{% followers_count community.content_object %}</span> Seguidores</a>
-           {% follow_action community.content_object url_next %}
+{% if items.object_list %}
+    {% for community in items %}
+       <div class="box-perfil">
+           <div class="perfil">
+               <img class="img-responsive" src="{% thumbor_url community.content_object.get_picture.url width=82 height=82 smart=False fit_in=False %}" alt="{{ community.content_object.title }}">
+               <a class="perfil-name" href="{% url 'community:show' community.content_object.slug %}">{{ community.content_object.title }}</a>
+               <a class="perfil-counter" href="{% url 'community:followers' community_slug=community.content_object.slug %}"><span class="counter-number">{% followers_count community.content_object %}</span> Seguidores</a>
+               {% follow_action community.content_object url_next %}
+           </div>
        </div>
-   </div>
-{% endfor %}
-<a data-jscroll-next href="{% url 'socialactions:get_followings' content_type_id=content_type.id object_filter_id=object.id %}?p={{ page }}&next={{ url_next|urlencode }}">next</a>
+    {% endfor %}
+
+    <a data-jscroll-next href="{% url 'socialactions:get_followings' content_type_id=content_type.id object_filter_id=object.id %}?p={{ page }}&next={{ url_next|urlencode }}">next</a>
+
+{% else %}
+    <div class="col-lg-12">
+        <p>Nenhum resultado foi encontrado para sua pesquisa</p>
+        <hr>
+    </div>
+{% endif %}

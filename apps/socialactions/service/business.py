@@ -255,13 +255,18 @@ def get_users_acted_by_author_with_parameters(author=None, action=None, content_
     else:
         categories = []
 
-    users_actions = UserAction.objects.filter(
-        Q(content_type=content_type) &
-        Q(author=author) &
-        Q(action_type=action) &
-        Q(community__title__icontains=criteria) &
-        Q(community__taxonomy__in=categories)
-    ).prefetch_related('author')
+
+    condition = (Q(content_type=content_type) &
+                 Q(author=author) &
+                 Q(action_type=action))
+
+    if criteria:
+        condition &= Q(community__title__icontains=criteria)
+
+    if category and categories:
+        condition &= Q(community__taxonomy__in=categories)
+
+    users_actions = UserAction.objects.filter(condition).prefetch_related('author')
 
     if items_per_page is not None and page is not None:
         list_users = Paginator(users_actions, items_per_page)

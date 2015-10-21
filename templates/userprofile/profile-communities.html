@@ -23,11 +23,11 @@
                     <h2>Comunidades</h2>
                 </header>
                 <div class="filter row">
-                    <form id="search-form" action="{% url 'profile:communities' profile.user.username %}" method="GET" enctype="multipart/form-data" data-ajaxform="true" data-group-class=".form-search-input">
+                    <form id="search-form" action="{% url 'profile:communities' profile.user.username %}" method="GET" data-ajaxform="true" data-group-class=".form-search-input">
                         <div class="col-lg-8">
                             {% csrf_token %}
                             <div class="form-search-input">
-                                <input type="text" id="fcommunity" name="fcommunity" placeholder="{{placehold|default:"Procure pessoas, comunidades, etc."}}" />
+                                <input type="text" id="fcommunity" name="criteria" placeholder="{{placehold|default:"Procure comunidades."}}" />
                             </div>
                             <div class="dropdown-menu dropdown-search">
                                 <div class="float-notifcations">
@@ -73,7 +73,7 @@
                         </div>
                         <div class="col-lg-4 text-right">
                             <div class="custom-select">
-                                <select id="cfilter" class="form-control">
+                                <select id="cfilter" class="form-control" name="category">
                                     <option class="custom-select-option" value="0">Selecione</option>
                                     {% for category in categories %}
                                         <option class="custom-select-option" value="{{ category.id }}">{{ category.description }}</option>
@@ -88,9 +88,10 @@
                         <hr>
                     </div>
                     <div class="col-lg-12">
-                        <div id="communities-container" class="row j-scroll-communities j-scroll-communities-container">
+                        <div id="communities-container">
                             {# templatetag - load communities #}
                             {% if items %}
+                                <div class="row j-scroll-communities j-scroll-communities-container">
                                 {% for community in items %}
                                     <div class="box-perfil">
                                         <div class="perfil">
@@ -102,6 +103,7 @@
                                     </div>
                                 {% endfor %}
                                 <a data-jscroll-next href="{% url 'socialactions:get_followings' content_type_id=content_type.id object_filter_id=object.id %}?p={{ page }}&next={{ url_next|urlencode }}">next</a>
+                                </div>
                             {% endif %}
                         </div>
                     </div>
@@ -126,8 +128,23 @@
     <script src="https://cdn.jsdelivr.net/jquery.jscroll/2.2.4/jquery.jscroll.min.js"></script>
     <script>
 
+        var jScrollElemment = null;
         var functionAjaxSuccessFilterCommunities = function(e, data) {
-            $("#communities-container").html(data.template);
+            console.log(data);
+
+            var $divCommunities = $("#communities-container");
+            var $divJScroll = $('<div class="row j-scroll-communities j-scroll-communities-container"></div>');
+
+            $divJScroll.html(data.template);
+            $divCommunities.html($divJScroll);
+
+            jScrollElemment = $divJScroll.jscroll({
+                autoTrigger: true,
+                loadingHtml: '<span>Carregando...</span>',
+                contentSelect: '.j-scroll-communities-container',
+                nextSelect: "a[data-jscroll-next]",
+                refresh: true
+            });
         };
 
         $(function() {
@@ -162,21 +179,17 @@
                 }
             }
 
-            $(document).on('keyup', "#fcommunity" , function(event){
-                event.preventDefault();
-                filter_communities(event.currentTarget);
+            $(document).on('keyup', "#fcommunity" , function(event) {
+                var $this = $(event.currentTarget);
+
+                    if ($this.val().length > 2) $this.closest('form').submit();
             });
 
-            $(document).on('change', "#cfilter" , function(event){
-                event.preventDefault();
-                filter_communities(event.currentTarget);
+            $(document).on('change', "#cfilter" , function(event) {
+                var $this = $(event.currentTarget);
+                    $this.closest('form').submit();
             });
 
-            $(document).on('submit', "#search-form" , function(event){
-                event.preventDefault();
-                filter_communities(event.currentTarget);
-
-            });
 
             $("#search-form").on("ajaxform.success", functionAjaxSuccessFilterCommunities);
 
