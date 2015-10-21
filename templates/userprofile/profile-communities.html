@@ -7,7 +7,7 @@
 {% block title %}Portal GSTI - Perfil{% endblock %}
 
 {% block content %}
-    <main class="container">
+    <main class="container main">
         <div class="perfil-row">
             <!-- mudar para 2.5 -->
             <div class="col-lg-3">
@@ -23,8 +23,8 @@
                     <h2>Comunidades</h2>
                 </header>
                 <div class="filter row">
-                    <div class="col-lg-8">
-                        <form method="GET" role="search" id="search-form">
+                    <form id="search-form" action="{% url 'profile:communities' profile.user.username %}" method="GET" enctype="multipart/form-data" data-ajaxform="true" data-group-class=".form-search-input">
+                        <div class="col-lg-8">
                             {% csrf_token %}
                             <div class="form-search-input">
                                 <input type="text" id="fcommunity" name="fcommunity" placeholder="{{placehold|default:"Procure pessoas, comunidades, etc."}}" />
@@ -70,25 +70,25 @@
                             <button type="submit" id="search" class="form-search-button">
                                 <i class="gsticon gsticon-search"></i>
                             </button>
-                        </form>
-                    </div>
-                    <div class="col-lg-4 text-right">
-                        <div class="custom-select">
-                            <select id="cfilter">
-                                <option class="custom-select-option" value="0">Selecione</option>
-                            {% for category in categories %}
-                                <option class="custom-select-option" value="{{ category.id }}">{{ category.description }}</option>
-                            {% endfor %}
-                            </select>
                         </div>
-                    </div>
+                        <div class="col-lg-4 text-right">
+                            <div class="custom-select">
+                                <select id="cfilter" class="form-control">
+                                    <option class="custom-select-option" value="0">Selecione</option>
+                                    {% for category in categories %}
+                                        <option class="custom-select-option" value="{{ category.id }}">{{ category.description }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                    </form>
                 </div>
                 <div class="row">
                     <div class="col-lg-12">
                         <hr>
                     </div>
                     <div class="col-lg-12">
-                        <div class="row j-scroll-communities j-scroll-communities-container">
+                        <div id="communities-container" class="row j-scroll-communities j-scroll-communities-container">
                             {# templatetag - load communities #}
                             {% if items %}
                                 {% for community in items %}
@@ -125,6 +125,10 @@
 {% block javascripts %}
     <script src="https://cdn.jsdelivr.net/jquery.jscroll/2.2.4/jquery.jscroll.min.js"></script>
     <script>
+
+        var functionAjaxSuccessFilterCommunities = function(e, data) {
+            $("#communities-container").html(data.template);
+        };
 
         $(function() {
 
@@ -173,6 +177,8 @@
                 filter_communities(event.currentTarget);
 
             });
+
+            $("#search-form").on("ajaxform.success", functionAjaxSuccessFilterCommunities);
 
             $(".j-scroll-communities").jscroll({
                 contentSelect: ".j-scroll-communities-container",

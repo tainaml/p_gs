@@ -3,7 +3,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
 from django.db import models
-from django.http import Http404, HttpResponse
+from django.http import Http404, HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
 from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _
@@ -310,6 +310,12 @@ class ProfileCommunitiesView(ProfileShowView):
 
     template_path = 'userprofile/profile-communities.html'
 
+    def return_error(self, request, context=None):
+        pass
+
+    def return_success(self, request, context=None):
+        pass
+
     # rewrite to add category parameter
     def get(self, request, username):
         criteria = request.GET.get('criteria', None)
@@ -321,9 +327,7 @@ class ProfileCommunitiesView(ProfileShowView):
 
         if not criteria or not category:
             context = self.communities_box(user, self.template_path)
-
         else:
-
             self.template_path = 'userprofile/partials/profile-communities.html'
             context = self.communities_box_with_filters(
                 user,
@@ -332,6 +336,13 @@ class ProfileCommunitiesView(ProfileShowView):
                 category
             )
         context.update({'profile': profile, 'categories':categories})
+
+        if request.is_ajax():
+            _context = {
+                'template': render(request, self.template_path, context).content
+            }
+            return JsonResponse(_context, status=200)
+
         return render(request, self.template_path, context)
 
 
