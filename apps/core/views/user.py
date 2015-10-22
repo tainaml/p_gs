@@ -536,8 +536,11 @@ class CoreProfileSearchEditPosts(views.ProfileBaseView):
         posts = form.process()
         status = Article.STATUS_CHOICES
 
+        have_posts = True if hasattr(posts, 'object_list') and posts.object_list else False
+
         return {
             'posts': posts,
+            'have_posts': have_posts,
             'form': form,
             'status_list': status,
             'status': int(form.cleaned_data.get('status')) if form.cleaned_data.get('status') else None,
@@ -553,6 +556,7 @@ class CoreProfileSearchEditPostsAjax(CoreProfileSearchEditPosts):
 
         response_context = {
             'status': 200,
+            'have_posts': context.get('have_posts'),
             'template': render(request, self.template_path, context).content
         }
 

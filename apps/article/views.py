@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.core.urlresolvers import reverse
 from django.forms import model_to_dict
-from django.http import Http404, HttpResponseForbidden, HttpResponse
+from django.http import Http404, HttpResponseForbidden, HttpResponse, JsonResponse
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import render, redirect
 from django.utils.decorators import method_decorator
@@ -15,6 +15,7 @@ from .service.forms import ArticleForm
 
 class ArticleBaseView(View):
 
+    msg_article_not_found = _('Article not Found.')
     article_not_found = Http404(_('Article not Found.'))
 
     def filter_article(self, request, article_id=None):
@@ -52,11 +53,14 @@ class ArticleDeleteView(ArticleBaseView):
 
     template_name = ''
 
-    def return_error(self, request):
+    def return_error(self, request, context=None):
         return HttpResponse(status=401)
 
-    def return_success(self, request):
+    def return_success(self, request, context=None):
         return HttpResponse(status=200)
+
+    def get_context(self, request, article_instance=None):
+        return {}
 
     @method_decorator(login_required)
     def get(self, request, article_id):
@@ -74,7 +78,73 @@ class ArticleDeleteView(ArticleBaseView):
         if Business.delete_article(article):
             return self.return_error(request)
 
-        return self.return_success(request)
+        context = {'article': article}
+        context.update(self.get_context(request, article))
+
+        return self.return_success(request, context)
+
+
+class ArticleDeleteAjax(ArticleDeleteView):
+
+    def return_error(self, request, context=None):
+        response_context = context
+        return JsonResponse(response_context, status=401)
+
+    def return_success(self, request, context=None):
+
+        response_context = {'status': 200}
+
+        if  hasattr(context, 'article'):
+            article =  context.get('article')
+            response_context.update({
+                'item_id': article.id,
+                'deleted': True if article.status == 2 else False
+            })
+
+        return JsonResponse(response_context, status=200)
+
+    @method_decorator(login_required)
+    def post(self, request, article_id):
+
+        if article_id != request.POST.get('item-id'):
+            context = {
+                'status': 401,
+                'errors': {
+                    '__all__': [self.msg_article_not_found]
+                }
+            }
+            return self.return_error(request, context)
+
+        article = self.filter_article(request, article_id)
+
+        # Fail if is not owner
+        self.check_is_owner(request, article)
+
+        if not article.id:
+            context = {
+                'status': 401,
+                'errors': {
+                    '__all__': [self.msg_article_not_found]
+                }
+            }
+            return self.return_error(request, context)
+
+        if article.status == article.STATUS_TRASH:
+            context = {
+                'status': 400,
+                'errors': {
+                    '__all__': [_("This article has been deleted")]
+                }
+            }
+            return self.return_error(request, context)
+
+        if Business.delete_article(article):
+            return self.return_error(request, {'status': 400})
+
+        context = {'article': article}
+        context.update(self.get_context(request, article))
+
+        return self.return_success(request, context)
 
 
 class ArticleEditView(ArticleBaseView):

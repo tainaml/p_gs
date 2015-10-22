@@ -99,27 +99,67 @@
 {% endblock %}
 
 
+{% block modals %}
+    {{ block.super }}
+
+    {% include "home/partials/modals/modal-confirmation.html" %}
+
+{% endblock %}
+
+
 {% block javascripts %}
+    {{ block.super }}
     <script src="https://cdn.jsdelivr.net/jquery.jscroll/2.2.4/jquery.jscroll.min.js"></script>
     <script>
 
         var jScrollElemment = null;
         var functionAjaxSuccessFilterCommunities = function(e, data) {
-            console.log(data);
-
             var $divCommunities = $("#posts-container");
             var $divJScroll = $('<div class="j-scroll-posts j-scroll-posts-container"></div>');
 
             $divJScroll.html(data.template);
             $divCommunities.html($divJScroll);
 
-            jScrollElemment = $divJScroll.jscroll({
-                autoTrigger: true,
-                loadingHtml: '<span>Carregando...</span>',
-                contentSelect: '.j-scroll-posts-container',
-                nextSelect: "a[data-jscroll-next]",
-                refresh: true
-            });
+            if (data.have_posts) {
+                jScrollElemment = $divJScroll.jscroll({
+                    autoTrigger: true,
+                    loadingHtml: '<span>Carregando...</span>',
+                    contentSelect: '.j-scroll-posts-container',
+                    nextSelect: "a[data-jscroll-next]",
+                    refresh: true
+                });
+            }
+        };
+
+        var functionOpenModalToDelete = function(e) {
+            e.preventDefault();
+
+            var $btn = $(e.currentTarget),
+                $modal = $($btn.data("modal"));
+
+            $modal.find("form").attr("action", $btn.data("url"));
+            $modal.find("#item-id").val($btn.data("item"));
+            $modal.find("#title-item-to-remove").html($btn.data("title"));
+            $modal.find(".loading-container").html("");
+            $modal.find(".alert-container").html("");
+            $modal.modal("show");
+
+            return false;
+        };
+
+        var functionAjaxSuccessDeleteItem = function(e, data) {
+            var $this = $(this),
+                $modal = $($this.closest(".modal.fade")),
+                itemId = $modal.find("#item-id").val();
+
+            $modal.modal("hide");
+            $modal.find("form").attr("action", "");
+            $modal.find("#item-id").val("");
+            $modal.find("#title-item-to-remove").html("");
+            $modal.find(".loading-container").html("");
+            $modal.find(".alert-container").html("");
+
+            $("#pub-" + itemId).fadeOut("slow");
         };
 
         $(function() {
@@ -139,6 +179,9 @@
             });
 
             $("#search-form").on("ajaxform.success", functionAjaxSuccessFilterCommunities);
+            $("#confirmation-form").on("ajaxform.success", functionAjaxSuccessDeleteItem);
+
+            $(document).on("click", "[data-delete-item='true']", functionOpenModalToDelete);
 
             $(".j-scroll-posts").jscroll({
                 contentSelect: ".j-scroll-posts-container",
