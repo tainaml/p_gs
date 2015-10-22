@@ -19,6 +19,8 @@
     {% endfor %}
     <a data-jscroll-next href="{% url 'profile:edit-posts-list' %}?criteria={{ form.cleaned_data.criteria|default:"" }}&status={{ form.cleaned_data.status|default:"" }}&page={{ page }}&next={{ url_next|urlencode }}">next</a>
 {% else %}
+    {% if posts.number == 1 %}
     <p>Nenhum resultado foi encontrado para sua pesquisa</p>
     <hr>
+    {% endif %}
 {% endif %}
