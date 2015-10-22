@@ -1,0 +1,24 @@
+{% if posts %}
+    {% for post in posts %}
+        <article class="publication">
+            <div class="publication-container clearfix">
+                <img class="publication-image img-responsive" src="https://unsplash.it/95/70?image=816" alt="Technology application">
+                <div class="publication-content">
+                    <h3 class="publication-title">{{ post.title }}</h3>
+                </div>
+            </div>
+            <footer class="publication-footer clearfix">
+                <time class="publication-footer-date" datetime="{{ post.publishin|date:"d/m/Y" }}">{{ post.publishin|date:"d/m/Y à\s H:i" }}</time>
+                <nav class="publication-footer-menu">
+                    <a class="publication-footer-menu-item" href="{% url 'article:edit' post.id %}">Editar</a>
+                    <a class="publication-footer-menu-item" href="{% url 'article:view' post.slug post.id %}">Visualizar</a>
+                    <a class="publication-footer-menu-item" href="javascript:;">Excluir</a>
+                </nav>
+            </footer>
+        </article>
+    {% endfor %}
+    <a data-jscroll-next href="{% url 'profile:edit-posts-list' %}?criteria={{ form.cleaned_data.criteria|default:"" }}&status={{ form.cleaned_data.status|default:"" }}&page={{ page }}&next={{ url_next|urlencode }}">next</a>
+{% else %}
+    <p>Nenhum resultado foi encontrado para sua pesquisa</p>
+    <hr>
+{% endif %}

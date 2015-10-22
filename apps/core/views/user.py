@@ -4,10 +4,10 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 
-from apps.core.forms.user import CoreUserProfileForm, CoreUserProfileFullEditForm, \
-    CoreSearchFollowings, CoreSearchFollowers, CoreSearchArticlesForm
+from apps.core.forms.user import CoreUserProfileForm, CoreUserProfileFullEditForm, CoreSearchFollowings, CoreSearchFollowers, CoreSearchArticlesForm
 from apps.core.forms.community import CoreCommunityFormSearch
 from apps.core.forms.user import CoreUserSearchForm, CoreUserProfileEditForm
+from apps.article.models import Article
 from apps.userprofile import views
 from apps.userprofile.service import business as BusinessUserprofile
 from apps.taxonomy.service import business as BusinessTaxonomy
@@ -534,10 +534,13 @@ class CoreProfileSearchEditPosts(views.ProfileBaseView):
         form = self.form(request.user, 10, request.GET)
 
         posts = form.process()
+        status = Article.STATUS_CHOICES
 
         return {
             'posts': posts,
             'form': form,
+            'status_list': status,
+            'status': int(form.cleaned_data.get('status')) if form.cleaned_data.get('status') else None,
             'page': form.cleaned_data.get('page', 1) + 1
         }
 
@@ -550,7 +553,7 @@ class CoreProfileSearchEditPostsAjax(CoreProfileSearchEditPosts):
 
         response_context = {
             'status': 200,
-            'template': render(request, self.template_path, context)
+            'template': render(request, self.template_path, context).content
         }
 
         return JsonResponse(response_context, status=200)

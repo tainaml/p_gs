@@ -24,11 +24,12 @@
                             <h2>Editar Publicações</h2>
                         </header>
                         <div class="row">
-                            <div class="col-sm-8">
-                                <nav class="form-search">
-                                    <form action="{% url 'profile:edit-posts-search-ajax' %}" method="GET" role="search">
+                            <form id="search-form" action="{% url 'profile:edit-posts-search-ajax' %}" method="GET" data-ajaxform="true" data-group-class=".form-search-input">
+                                {% csrf_token %}
+                                <div class="col-sm-8">
+                                    <nav class="form-search">
                                         <div class="form-search-input">
-                                            <input type="text" id="criteria" name="criteria" placeholder="{{placehold|default:"Procure uma publicação."}}" />
+                                            <input type="text" id="criteria" name="criteria" placeholder="{{placehold|default:"Procure uma publicação."}}" value="{{ form.cleaned_data.criteria|default:"" }}"/>
                                         </div>
                                         <div class="dropdown-menu dropdown-search">
                                             <div class="float-notifcations">
@@ -46,8 +47,7 @@
                                                         <a href="javascript:;"><img src="http://placehold.it/20" alt="Creator Post Avatar"></a>
                                                         <a href="javascript:;">Iury Silva</a>
                                                     </li>
-                                                    <li class="item-float-notification-separator">
-                                                    </li>
+                                                    <li class="item-float-notification-separator"></li>
                                                 </ul>
                                                 <div class="header-float-notifications">Comunidades</div>
                                                 <ul class="content-float-notifications">
@@ -63,84 +63,89 @@
                                                         <a href="javascript:;"><img src="http://placehold.it/20" alt="Creator Post Avatar"></a>
                                                         <a href="javascript:;">Iury Silva</a>
                                                     </li>
-                                                    <li class="item-float-notification-separator">
-                                                    </li>
+                                                    <li class="item-float-notification-separator"></li>
                                                 </ul>
                                             </div>
                                         </div>
                                         <button type="submit" class="form-search-button">
                                             <i class="gsticon gsticon-search"></i>
                                         </button>
-                                    </form>
-                                </nav>
-                            </div>
-                            <div class="col-sm-4">
-                                <div class="custom-select">
-                                    <select class="form-control" id="status" name="status">
-                                        <option value="">Todos</option>
-                                    </select>
+                                    </nav>
                                 </div>
-                            </div>
+                                <div class="col-sm-4">
+                                    <div class="custom-select">
+                                        <select class="form-control" id="status" name="status">
+                                            <option value="">Todos</option>
+                                            {% for key, value in status_list %}
+                                                <option value="{{ key }}" {% if status == key %}selected{% endif %}>{{ value }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
                         <section class="area-content">
-                            {% if posts %}
-                                {% for post in posts %}
-                                    <article class="publication">
-                                        <div class="publication-container clearfix">
-                                            <img class="publication-image img-responsive" src="https://unsplash.it/95/70?image=816" alt="Technology application">
-                                            <div class="publication-content">
-                                                <h3 class="publication-title">{{ post.title }}</h3>
-                                            </div>
-                                        </div>
-                                        <footer class="publication-footer clearfix">
-                                            <time class="publication-footer-date" datetime="06-17-2015">10/06/2015 às 01:34</time>
-                                            <nav class="publication-footer-menu">
-                                                <a class="publication-footer-menu-item" href="javascript:;">Editar</a>
-                                                <a class="publication-footer-menu-item" href="javascript:;">Visualizar</a>
-                                                <a class="publication-footer-menu-item" href="javascript:;">Excluir</a>
-                                            </nav>
-                                        </footer>
-                                    </article>
-                                {% endfor %}
-                            {% endif %}
-                            {% comment %}
-                            <article class="publication">
-                                <div class="publication-container clearfix">
-                                    <div class="publication-content">
-                                        <small class="publication-type question">Pergunta:</small>
-                                        <h3 class="publication-title">Lorem ipsum dolor sit amet, consectetur adipisicing elit?</h3>
-                                    </div>
+                            <div id="posts-container">
+                                <div class="j-scroll-posts j-scroll-posts-container">
+                                    {% include "userprofile/partials/profile-edit-posts-segment.html" %}
                                 </div>
-                                <footer class="publication-footer clearfix">
-                                    <time class="publication-footer-date" datetime="06-17-2015">10/06/2015 às 01:34</time>
-                                    <nav class="publication-footer-menu">
-                                        <a class="publication-footer-menu-item" href="javascript:;">Editar</a>
-                                        <a class="publication-footer-menu-item" href="javascript:;">Visualizar</a>
-                                        <a class="publication-footer-menu-item" href="javascript:;">Excluir</a>
-                                    </nav>
-                                </footer>
-                            </article>
-                            <article class="publication">
-                                <div class="publication-container clearfix">
-                                    <div class="publication-content">
-                                        <small class="publication-type draft">Rascunho:</small>
-                                        <h3 class="publication-title">Microsoft lança software beta para migrar aplicativos iOS para Windows</h3>
-                                    </div>
-                                </div>
-                                <footer class="publication-footer clearfix">
-                                    <time class="publication-footer-date" datetime="06-17-2015">10/06/2015 às 01:34</time>
-                                    <nav class="publication-footer-menu">
-                                        <a class="publication-footer-menu-item" href="javascript:;">Editar</a>
-                                        <a class="publication-footer-menu-item" href="javascript:;">Visualizar</a>
-                                        <a class="publication-footer-menu-item" href="javascript:;">Excluir</a>
-                                    </nav>
-                                </footer>
-                            </article>
-                            {% endcomment %}
+                            </div>
                         </section>
                     </div>
                 </div>
             </div>
         </div>
     </main>
+{% endblock %}
+
+
+{% block javascripts %}
+    <script src="https://cdn.jsdelivr.net/jquery.jscroll/2.2.4/jquery.jscroll.min.js"></script>
+    <script>
+
+        var jScrollElemment = null;
+        var functionAjaxSuccessFilterCommunities = function(e, data) {
+            console.log(data);
+
+            var $divCommunities = $("#posts-container");
+            var $divJScroll = $('<div class="j-scroll-posts j-scroll-posts-container"></div>');
+
+            $divJScroll.html(data.template);
+            $divCommunities.html($divJScroll);
+
+            jScrollElemment = $divJScroll.jscroll({
+                autoTrigger: true,
+                loadingHtml: '<span>Carregando...</span>',
+                contentSelect: '.j-scroll-posts-container',
+                nextSelect: "a[data-jscroll-next]",
+                refresh: true
+            });
+        };
+
+        $(function() {
+            $(document).on('keyup', "#criteria" , function(event) {
+                var $this = $(event.currentTarget);
+
+                if ($this.val().length <= 2)
+                    return false;
+
+                if ($this.val().length > 2)
+                    $this.closest('form').submit();
+            });
+
+            $(document).on('change', "#status" , function(event) {
+                var $this = $(event.currentTarget);
+                $this.closest('form').submit();
+            });
+
+            $("#search-form").on("ajaxform.success", functionAjaxSuccessFilterCommunities);
+
+            $(".j-scroll-posts").jscroll({
+                contentSelect: ".j-scroll-posts-container",
+                nextSelect: "a[data-jscroll-next]"
+            });
+        });
+
+
+    </script>
 {% endblock %}

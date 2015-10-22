@@ -102,9 +102,9 @@ def get_articles_from_user(profile_instance=None, description=None, content_type
 def get_articles(author, description=None, status=None, items_per_page=None, page=None):
 
 
-    condition = (Q(author=author) & (Q(title__icontains=description) | Q(text__icontains=description)))
+    condition = Q(author=author) & (Q(title__icontains=description) | Q(text__icontains=description))
     if status:
-        condition &= Q(article__status=status)
+        condition &= Q(status=status)
 
     posts = Article.objects.filter(condition).prefetch_related("author")
 

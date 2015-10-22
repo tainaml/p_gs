@@ -24,8 +24,8 @@
                 </header>
                 <div class="filter row">
                     <form id="search-form" action="{% url 'profile:communities' profile.user.username %}" method="GET" data-ajaxform="true" data-group-class=".form-search-input">
+                        {% csrf_token %}
                         <div class="col-lg-8">
-                            {% csrf_token %}
                             <div class="form-search-input">
                                 <input type="text" id="fcommunity" name="criteria" placeholder="{{placehold|default:"Procure comunidades."}}" />
                             </div>
