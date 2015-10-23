@@ -108,22 +108,20 @@ class ShowQuestionView(View):
 
 
 class CommentReplayView(View):
+
     @method_decorator(login_required)
     def post(self, request):
+        question = business.get_question(request.POST["question_id"])
+        if not question:
+            raise Http404(_("Question not found"))
+
         form = CommentReplyForm(request.POST, request.user)
         if not form.process():
             messages.add_message(request, messages.WARNING, _("Answer not created!"))
-            return render(
-                request,
-                'question/edit_answer.html',
-                {
-                    'form': form
-                }
-            )
+            return render(request, 'question/edit_answer.html', {'form': form})
         else:
             messages.add_message(request, messages.SUCCESS, _("Answer created!"))
-            return redirect(
-                reverse('question:show', args=(request.POST["question_id"],)))
+            return redirect(reverse('question:show', args=(question.slug, request.POST["question_id"],)))
 
 
 class UpdateReplyView(View):

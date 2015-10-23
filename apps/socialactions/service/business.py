@@ -174,6 +174,20 @@ def act_by_content_type_and_id(user=None, content_type=None, object_id=None, act
         raise NotFoundSocialSettings("not_found_setting_exception", "Entity %s not found in SOCIAL_ENTITIES" % action_type_key)
 
 
+
+def get_users_ids_acted_by_model_and_action(model=None, action=None, user=None):
+
+    content_type = ContentType.objects.get_for_model(user)
+
+    users_ids = []
+    users_actions = UserAction.objects.filter(content_type=content_type, action_type=action, author=user).prefetch_related('author')
+
+    for user in users_actions:
+        users_ids.append(user.object_id)
+
+    return users_ids
+
+
 def get_users_acted_by_model(model=None, action=None, filter_parameters=None,
                              itens_per_page=None, page=None):
 

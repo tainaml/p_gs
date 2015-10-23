@@ -6,8 +6,6 @@
     {% if form.content.errors %}<span class="help-block">{{ form.content.errors }}</span> {% endif %}
 
     <br/>
-
-
     <input name="comment_id" value="{{ instance.id }}" type="hidden"/>
     <input name="next_url" value="{% if form %}{{ form.data.next_url|urlencode }}{% else %}{{ url_next|urlencode  }}{% endif %}" type="hidden"/>
     <input type="submit" value="Submit"/>

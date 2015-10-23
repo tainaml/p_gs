@@ -4,6 +4,7 @@ from django.dispatch import receiver
 from apps.socialactions.models import UserAction
 from apps.article.models import Article
 from apps.comment.models import Comment
+from apps.core.business import embeditem
 
 from apps.notifications.service import business as Business
 
@@ -40,6 +41,7 @@ def social_action(sender, **kwargs):
                 target_object=action.content_object
             )
 
+
 @receiver(post_save, sender=Comment)
 def comment_action(sender, **kwargs):
     comment = kwargs['instance']
@@ -52,11 +54,20 @@ def comment_action(sender, **kwargs):
             to = comment.content_object.author
             author = comment.author
             if to != author:
-                Business.send_notification(author=author,
-                                           to=to,
-                                           notification_action=settings.SOCIAL_COMMENT,
-                                           target_object=comment.content_object)
+                Business.send_notification(
+                    author=author,
+                    to=to,
+                    notification_action=settings.SOCIAL_COMMENT,
+                    target_object=comment.content_object
+                )
 
 
+@receiver(post_save, sender=Article)
+def article_action(sender, **kwargs):
 
+    instance = kwargs['instance'] if 'instance' in kwargs else False
+    if not instance:
+        return
 
+    embeds = embeditem.EmbedBusiness(instance)
+    embeds.save()

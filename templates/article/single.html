@@ -61,7 +61,7 @@
                     {% if article.image %}
                         <img class="full-post-image" src="{% thumbor_url article.image.url width=500 smart=True fit_in=True %}" />
                     {% endif %}
-                    {{ article.text }}
+                    {{ article.text|safe }}
                     <div class="post-advertising text-center">
                         <img class="img-responsive" src="http://placehold.it/728x90" alt="Propaganda">
                     </div>
@@ -76,8 +76,8 @@
                 <a class="perfil-name" href="javascript:;">{{article.author.get_full_name}}</a>
                 <span class="perfil-counter"><span class="counter-number">{% followers_count article.author %}</span> Seguidor(es)</span>
                 <span class="perfil-counter"><span class="counter-number">{% articles_count article.author %}</span> Artigo(s)</span>
-                {% if  article.author.profile.current_occupation%}
-                    <a class="perfil-counter-alt" href="javascript:;">{{ article.author.profile.current_occupation }} em {{ article.author.profile.current_occupationcompany }}</a>
+                {% if  article.author.profile.current_occupation %}
+                    <a class="perfil-counter-alt" href="javascript:;">{{ article.author.profile.current_occupation.resposibility.name }}</a>
                 {% endif %}
 
             </div>
@@ -121,6 +121,8 @@
                     </header>
                 </div>
                 <div class="widget-content">
+                    {% related_posts_box article "article" %}
+                    {% comment %}
                     <a class="article-excerpt">
                         <img src="http://placehold.it/70x53" alt="Imagem 1">
                         <span>Microsoft lança software beta para migrar aplicativos iOS para Windows</span>

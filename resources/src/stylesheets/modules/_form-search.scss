@@ -32,3 +32,22 @@
         text-align: center;
     }
 }
+
+.form-edit {
+    .top-marged {
+        margin-top: 20px;
+    }
+    .row-form {
+        @include make-row;
+    }
+    .form-group-inline {
+        width: 50%;
+        padding: 0 5px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        float: left;
+        @media (max-width: $screen-sm-min) {
+            width: 100%;
+        }
+    }
+}

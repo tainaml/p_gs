@@ -112,9 +112,11 @@ class CommentSaveView(CommentBaseView):
 class CommentUpdateView(CommentBaseView):
     template_path = 'comment/create.html'
     form_comment = EditCommentForm
+    instance_label = 'comment'
+    xhr = True
 
     @method_decorator(login_required)
-    def post(self, request):
+    def post(self, request=None, *args, **kwargs):
         if 'next_url' not in request.POST or 'comment_id' not in request.POST:
             raise Http404()
 
@@ -129,10 +131,7 @@ class CommentUpdateView(CommentBaseView):
 
         context = {'form': form}
 
-        if not form.process():
-            return render(request, self.template_path, context)
-
-        return redirect(request.POST['next_url'])
+        return super(CommentUpdateView, self).get(request)
 
 
 class CommentDeleteView(CommentBaseView):

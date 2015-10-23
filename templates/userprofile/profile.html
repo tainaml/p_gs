@@ -1,5 +1,7 @@
 {%extends 'home/layout/base.html' %}
 
+{% load staticfiles %}
+
 {% block title %}Portal GSTI - Perfil{% endblock %}
 
 {% block content %}
@@ -12,29 +14,39 @@
             <!-- mudar para 9.5 -->
             <div class="col-lg-9">
                 <nav class="perfil-navegation">
-                    <a href="{% url 'ninico:feed' %}">Feed</a>•<a class="active" href="{% url 'profile:show' username=profile.user.username %}">Perfil</a>•<a href="{% url 'ninico:about' %}">Sobre</a>•<a href="{% url 'profile:communities' username=profile.user.username %}">Comunidades</a>•<a href="{% url 'profile:followers' username=profile.user.username %}">Relacionamentos</a>•<a href="{% url 'ninico:videos' %}">Vídeos</a>
+                    {% if profile.user == request.user %}<a href="{% url 'profile:feed' %}">Feed</a>•{% endif %}
+                    <a class="active" href="{% url 'profile:show' username=profile.user.username %}">Perfil</a>•<a href="{% url 'ninico:about' %}">Sobre</a>•<a href="{% url 'profile:communities' username=profile.user.username %}">Comunidades</a>•<a href="{% url 'profile:followers' username=profile.user.username %}">Relacionamentos</a>•<a href="{% url 'ninico:videos' %}">Vídeos</a>
                 </nav>
                 <div class="row">
                     <div class="col-lg-8">
                         <header class="area-title">
-                            <h2>Feed</h2>
+                            <h2>Profile</h2>
                         </header>
-                        {% if isLogged %}
-                            <!-- A "barra" de pesquisa não é exibida no feed, somente no -->
-                            <nav class="form-search">
-                                {% include 'home/partials/search.html' with placehold='Pesquise no seu feed' only %}
-                            </nav>
-                        {% endif %}
+                        <!-- A "barra" de pesquisa não é exibida no feed, somente no -->
+                        <nav class="form-search">
+                            <form action="{% url 'profile:search' user.username %}" method="GET" role="search">
+                                <div class="form-search-input">
+                                    <input type="text" name="criterio" placeholder="{{placehold|default:"Procure pessoas, comunidades, etc."}}">
+                                </div>
+                                <button type="submit" class="form-search-button">
+                                    <i class="gsticon gsticon-search"></i>
+                                </button>
+                            </form>
+                        </nav>
                         <section class="area-content">
-                            {% for x in 'Lorem' %}
-                                {% include 'home/partials/perfil-post.html' %}
-                            {% endfor %}
+                            {% if feed_objects.object_list %}
+                                {% include 'userprofile/partials/user-profile-list.html' %}
+                            {% else %}
+                                <span>Não existem itens a serem exibidos</span>
+                            {% endif %}
                         </section>
                     </div>
+                    <!-- Right bar -->
                     <div class="col-lg-4">
                         <div class="squad-advertising">
                             <img class="img-responsive" src="http://placehold.it/270x225" alt="Propaganda aqui">
                         </div>
+                        <!-- Comunidades -->
                         <div class="widget widget-feed">
                             <div class="widget-header">
                                 <span class="counter">168</span>
@@ -67,6 +79,8 @@
                                 Ver todos
                             </a>
                         </div>
+
+                        <!-- Seguindo -->
                         <div class="widget widget-feed">
                             <div class="widget-header">
                                 <span class="counter">168</span>
@@ -104,4 +118,36 @@
             </div>
         </div>
     </main>
+{% endblock %}
+
+{% block javascripts %}
+    {{ block.super }}
+    <script src="https://cdn.jsdelivr.net/jquery.jscroll/2.2.4/jquery.jscroll.min.js"></script>
+    <script>
+        $(function() {
+
+            {% if form.cleaned_data.criterio %}
+
+                $(".j-scroll").jscroll({
+                    loadingHtml: '<span>Carregando...</span>',
+                    contentSelect: ".j-scroll-container",
+                    nextSelect: "a[data-jscroll-next]"
+                });
+
+            {% else %}
+
+                $.get("{% url 'profile:search' user.username %}?criterio={{ form.cleaned_data.criterio|urlencode }}&page=1&next={{ url_next|urlencode }}", function( data ) {
+                    $( "#community-list" ).html( data );
+                    $(".j-scroll").jscroll({
+                        loadingHtml: '<span>Carregando...</span>',
+                        contentSelect: ".j-scroll-container",
+                        nextSelect: "a[data-jscroll-next]"
+                    });
+                });
+
+            {% endif %}
+
+        });
+    </script>
+
 {% endblock %}

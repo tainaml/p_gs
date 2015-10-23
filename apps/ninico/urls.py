@@ -25,4 +25,8 @@ urlpatterns = [
     url(r'^post$', views.post, name='post'),
     url(r'^question$', views.question, name='question'),
     url(r'^search$', views.search, name='pesquisa'),
+    url(r'^categoria$', views.category, name='categoria'),
+    url(r'^test_abc$', views.test_abc, name='teste_abc'),
+    url(r'^editar-publicacoes$', views.edit_publications, name='editar_publicacoes'),
+    url(r'^erro-404$', views.handler404, name='erro_page'),
 ]

@@ -1,6 +1,7 @@
 import copy
 from django.contrib.contenttypes.models import ContentType
-
+from django.db.models import Q
+from ..models import Taxonomy
 
 __author__ = 'phillip'
 
@@ -15,7 +16,6 @@ def __get_related_list__(taxonomy=None, taxonomy_list=None):
         return __get_related_list__(taxonomy.parent, taxonomy_list)
 
     return list(reversed(taxonomy_list))
-
 
 def get_related_taxonomy(taxonomy_list=None):
     """
@@ -39,6 +39,37 @@ def get_related_taxonomy(taxonomy_list=None):
     return taxonomies
 
 
+def __get_related_list_top_down__(taxonomy=None, taxonomy_list=None):
+
+    if not taxonomy_list:
+        taxonomy_list = []
+
+    taxonomy_list.append(taxonomy)
+
+    if taxonomy.taxonomies_children.all():
+        children_taxonomies = taxonomy.taxonomies_children.all()
+
+        for child_taxonomy in children_taxonomies:
+            __get_related_list_top_down__(child_taxonomy, taxonomy_list)
+
+    return taxonomy_list
+
+def get_related_list_top_down(taxonomy_list=None):
+
+    if not taxonomy_list:
+        taxonomy_list = []
+
+    taxonomies = []
+
+    for taxonomy in taxonomy_list:
+        t_list = __get_related_list_top_down__(taxonomy)
+
+        for child_taxonomy in t_list:
+            if child_taxonomy not in taxonomies:
+                taxonomies.append(child_taxonomy)
+
+    return taxonomies
+
 def save_taxonomies_for_model(model=None, taxonomi_list=None):
 
     taxonomy_to_associate = get_related_taxonomy(taxonomi_list)
@@ -49,5 +80,18 @@ def save_taxonomies_for_model(model=None, taxonomi_list=None):
     return True
 
 def get_taxonomies_by_model(model=None):
-
     return model.taxonomies
+
+def get_categories(list_ids=None):
+
+    if list_ids and isinstance(list_ids, list):
+        criteria = Q(term__description__icontains="categoria") & Q(id__in=list_ids)
+    else:
+        criteria = Q(term__description__icontains="categoria")
+
+    try:
+        categories = Taxonomy.objects.filter(criteria)
+    except Taxonomy.DoesNotExist:
+        categories = None
+
+    return categories

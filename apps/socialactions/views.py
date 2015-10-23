@@ -1,5 +1,5 @@
 from django.contrib.auth.decorators import login_required
-from django.http import Http404
+from django.http import Http404, JsonResponse
 from django.shortcuts import redirect, render
 from django.utils import timezone
 from django.utils.decorators import method_decorator
@@ -14,19 +14,58 @@ class SocialActionBaseView(View):
 
     not_found = Http404(_('SocialAction not Found.'))
 
+    def return_error(self, request, context=None):
+        pass
+
+    def return_success(self, request, context=None):
+        pass
+
 
 class SocialActionView(SocialActionBaseView):
+
+    def return_error(self, request, context=None):
+        raise context['not_found']
+
+    def return_success(self, request, context=None):
+        return redirect(context['url_next'])
 
     @method_decorator(login_required)
     def get(self, request, object_to_link, content, action):
 
         try:
             Business.act_by_content_type_and_id(request.user, content, object_to_link, action)
-
         except NotFoundSocialSettings:
-            raise self.not_found
+            context = {
+                'status': 400,
+                'msg': _('SocialAction not Found.'),
+                'not_found': self.not_found
+            }
+            return self.return_error(request, context)
 
-        return redirect(request.GET['url_next'])
+        context = {
+            'status': 200,
+            'url_next': request.GET['url_next']
+        }
+        return self.return_success(request, context)
+
+
+class SocialActionAjax(SocialActionView):
+
+    def return_error(self, request, context=None):
+        if not context:
+            context = {}
+
+        _context = context
+
+        return JsonResponse(_context, status=400)
+
+    def return_success(self, request, context=None):
+        if not context:
+            context = {}
+
+        _context = context
+
+        return JsonResponse(_context, status=200)
 
 
 class SocialActionFollowersViews(SocialActionBaseView):

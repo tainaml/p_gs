@@ -1,3 +1,4 @@
+import copy
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.core.urlresolvers import reverse
@@ -113,6 +114,9 @@ class ArticleEditView(ArticleBaseView):
         form_article = self.form_article(request.POST, request.FILES, instance=article)
         form_article.set_author(request.user)
 
+        temp_form = copy.copy(form_article)
+        temp_article = copy.copy(article)
+
         article_saved = form_article.process()
 
         if article_saved is not False:
@@ -122,5 +126,5 @@ class ArticleEditView(ArticleBaseView):
         else:
             messages.add_message(request, messages.ERROR, _('Generic Error'))
 
-        _context = {'form_article': form_article, 'article': article}
+        _context = {'form_article': temp_form, 'article': temp_article}
         return render(request, self.template_name, self.prepare_context(request, _context))

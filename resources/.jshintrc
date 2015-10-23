@@ -1,4 +1,5 @@
 {
+    "asi": true,
     "browser": true,
     "node": true,
     "curly": true,
@@ -9,8 +10,10 @@
     "forin": true,
     "freeze": true,
     "immed": true,
-    "indent": 4,
+    "indent": 2,
+    "jquery": true,
     "latedef": "nofunc",
+    "laxcomma": true,
     "newcap": true,
     "noarg": true,
     "noempty": false,

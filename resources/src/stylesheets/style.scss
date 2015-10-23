@@ -8,15 +8,17 @@
 @import "vendor/bootstrap/bootstrap";
 // alterar o arquivo vendor/font-awesome/font-awesome/_path.scss
 @import "vendor/font-awesome/font-awesome";
+@import "vendor/selectize/selectize";
 
 // Site Variables
 // ==========================================================================
 @import "site-variables";
 
-// Site layout parts
-// ==========================================================================
-@import "layout";
 
 // Site Modules
 // ==========================================================================
 @import "modules";
+
+// Site layout parts
+// ==========================================================================
+@import "layout";

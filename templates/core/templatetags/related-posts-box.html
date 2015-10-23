@@ -1,0 +1,7 @@
+{% for feed_record in feed_records %}
+    {% if feed_record.content_object %}
+
+        {% include template_path with record=feed_record.content_object %}
+
+    {% endif %}
+{% endfor %}
