@@ -3,6 +3,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.utils import timezone
 from apps.article.models import Article
+from apps.core.models import EmbedItem
 from apps.feed.models import FeedObject
 from django.db.models import Q
 from apps.socialactions.models import UserAction
@@ -121,6 +122,34 @@ def get_articles(author, description=None, status=None, items_per_page=None, pag
             posts = []
 
     return posts
+
+
+def get_articles_with_videos(author, description=None, items_per_page=None, page=None):
+
+    posts = EmbedItem.objects.filter(
+        Q(embed_type=EmbedItem.TYPE_VIDEO) &
+        Q(article__author=author) &
+        Q(article__status=Article.STATUS_PUBLISH) &
+        (
+            Q(article__title__icontains=description) |
+            Q(article__text__icontains=description)
+        )
+    ).prefetch_related("content_object__author")
+
+    items_per_page = items_per_page if items_per_page else 10
+    page = page if page else 1
+
+    if items_per_page and page:
+        posts = Paginator(posts, items_per_page)
+        try:
+            posts = posts.page(page)
+        except PageNotAnInteger:
+            posts = posts.page(1)
+        except EmptyPage:
+            posts = []
+
+    return posts
+
 
 def get_followings(author, description=None, items_per_page=None, page=None):
 
