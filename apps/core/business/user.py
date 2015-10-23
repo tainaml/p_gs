@@ -107,7 +107,7 @@ def get_articles(author, description=None, status=None, items_per_page=None, pag
     if status:
         condition &= Q(status=status)
 
-    posts = Article.objects.filter(condition).prefetch_related("author")
+    posts = Article.objects.filter(condition).prefetch_related("author").exclude(status=Article.STATUS_TEMP)
 
     items_per_page = items_per_page if items_per_page else 10
     page = page if page else 1
