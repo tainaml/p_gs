@@ -14,12 +14,12 @@
             <!-- mudar para 9.5 -->
             <div class="col-lg-9">
                 <nav class="perfil-navegation">
-                    <a class="active" href="{% url 'community:show' community.slug %}">Feed</a>•<a href="{% url 'community:questions' community.slug %}">Perguntas</a>•<a href="{% url 'community:followers' community.slug %}">Membros</a>•<a href="{% url 'community:about' community.slug %}">Sobre</a>•<a href="{% url 'community:videos' community.slug %}">Vídeos</a>
+                    <a href="{% url 'community:show' community.slug %}">Feed</a>•<a href="{% url 'community:questions' community.slug %}">Perguntas</a>•<a href="{% url 'community:followers' community.slug %}">Membros</a>•<a href="{% url 'community:about' community.slug %}">Sobre</a>•<a class="active" href="{% url 'community:videos' community.slug %}">Vídeos</a>
                 </nav>
                 <div class="row">
                     <div class="col-lg-8">
                         <header class="area-title">
-                            <h2>Feed</h2>
+                            <h2>Vídeos</h2>
                         </header>
                         <nav class="form-search">
                             <form action="{% url 'community:search' community.slug %}" method="GET" role="search">
@@ -68,10 +68,11 @@
                             </form>
                         </nav>
                         <section class="area-content j-scroll j-scroll-container" id="community-list">
-                            {% if form.cleaned_data.criterio %}
-                                {% include 'community/partials/community-list.html' %}
+                            {% if feed_objects.object_list %}
+                                {% include 'community/partials/community-videos-list.html' %}
                             {% else %}
-                                <span>Carregando feed...</span>
+                                <p>Nenhum item foi encontrado</p>
+                                <hr>
                             {% endif %}
                         </section>
                     </div>
@@ -95,28 +96,11 @@
     <script src="https://cdn.jsdelivr.net/jquery.jscroll/2.2.4/jquery.jscroll.min.js"></script>
     <script>
         $(function() {
-
-            {% if form.cleaned_data.criterio %}
-
-                $(".j-scroll").jscroll({
-                    loadingHtml: '<span>Carregando...</span>',
-                    contentSelect: ".j-scroll-container",
-                    nextSelect: "a[data-jscroll-next]"
-                });
-
-            {% else %}
-
-                $.get("{% url 'community:list' community.slug %}?criterio={{ form.cleaned_data.criterio|urlencode }}&page=1&next={{ url_next|urlencode }}", function( data ) {
-                    $( "#community-list" ).html( data );
-                    $(".j-scroll").jscroll({
-                        loadingHtml: '<span>Carregando...</span>',
-                        contentSelect: ".j-scroll-container",
-                        nextSelect: "a[data-jscroll-next]"
-                    });
-                });
-
-            {% endif %}
-
+            $(".j-scroll").jscroll({
+                loadingHtml: '<span>Carregando...</span>',
+                contentSelect: ".j-scroll-container",
+                nextSelect: "a[data-jscroll-next]"
+            });
         });
     </script>
 {% endblock %}

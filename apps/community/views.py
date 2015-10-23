@@ -14,6 +14,12 @@ class CommunityBaseView(View):
 
     community_not_found = Http404(_('Community not Found.'))
 
+    def return_error(self, request, context=None):
+        pass
+
+    def return_success(self, request, context=None):
+        pass
+
     def filter_community(self, request, community_slug=None):
         community = Business.get_community(slug=community_slug)
 
