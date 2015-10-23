@@ -1,7 +1,8 @@
 {%extends 'home/layout/base.html' %}
+
 {% load staticfiles %}
 
-{% block title %}Portal GSTI - Perfil{% endblock %}
+{% block title %}Portal GSTI - Videos{% endblock %}
 
 {% block content %}
     <main class="container main">
@@ -13,36 +14,39 @@
             <!-- mudar para 9.5 -->
             <div class="col-lg-9">
                 <nav class="perfil-navegation">
-                {% if profile.user == request.user %}
-                    <a href="{% url 'profile:feed' %}">Feed</a>•
-                {% endif %}
-                    <a class="active" href="{% url 'profile:show' username=profile.user.username %}">Perfil</a>•<a href="{% url 'ninico:about' %}">Sobre</a>•<a href="{% url 'profile:communities' username=profile.user.username %}">Comunidades</a>•<a href="{% url 'profile:followers' username=profile.user.username %}">Relacionamentos</a>•<a href="{% url 'profile:videos' profile.user.username %}">Vídeos</a>
+                    {% if profile.user == request.user %}
+                        <a href="{% url 'profile:feed' %}">Feed</a>•
+                    {% endif %}
+                    <a href="{% url 'profile:show' username=profile.user.username %}">Perfil</a>•
+                    <a href="{% url 'ninico:about' %}">Sobre</a>•
+                    <a href="{% url 'profile:communities' username=profile.user.username %}">Comunidades</a>•
+                    <a href="{% url 'profile:followers' username=profile.user.username %}">Relacionamentos</a>•
+                    <a class="active" href="{% url 'profile:videos' profile.user.username %}">Vídeos</a>
                 </nav>
                 <div class="row">
                     <div class="col-lg-8">
                         <header class="area-title">
-                            <h2>Perfil</h2>
+                            <h2>Vídeos</h2>
                         </header>
-                        {% if isLogged %}
-                            <!-- A "barra" de pesquisa não é exibida no feed, somente no -->
-                            <nav class="form-search">
-                                <form action="{% url 'profile:search' user.username %}" method="GET" role="search">
-                                    <div class="form-search-input">
-                                        <input type="text" name="criterio" placeholder="{{placehold|default:"Procure pessoas, comunidades, etc."}}">
-                                    </div>
-                                    <button type="submit" class="form-search-button">
-                                        <i class="gsticon gsticon-search"></i>
-                                    </button>
-                                </form>
-                            </nav>
-                        {% endif %}
+                        <!-- A "barra" de pesquisa não é exibida no feed, somente no -->
+                        <nav class="form-search">
+                            <form action="{% url 'profile:videos-search' user.username %}" method="GET" role="search">
+                                <div class="form-search-input">
+                                    <input type="text" name="criteria" placeholder="{{placehold|default:"Procure pessoas, comunidades, etc."}}" value="{{ form.cleaned_data.criteria|default:"" }}">
+                                </div>
+                                <button type="submit" class="form-search-button">
+                                    <i class="gsticon gsticon-search"></i>
+                                </button>
+                            </form>
+                        </nav>
                         <section class="area-content">
                             {% if feed_objects.object_list %}
-                            <div class="j-scroll j-scroll-container">
-                                {% include 'userprofile/partials/user-profile-list.html' %}
-                            </div>
+                                <div class="j-scroll j-scroll-container">
+                                    {% include 'userprofile/partials/profile-videos-list.html' %}
+                                </div>
                             {% else %}
-                                <span>Não existem itens a serem exibidos</span>
+                                <p>Não existem itens a serem exibidos</p>
+                                <hr>
                             {% endif %}
                         </section>
                     </div>

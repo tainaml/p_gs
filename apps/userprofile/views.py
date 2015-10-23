@@ -22,6 +22,12 @@ class ProfileBaseView(View):
     not_found = Http404(_('Profile not Found.'))
     user_not_found = Http404(_('User not Found.'))
 
+    def return_error(self, request, context=None):
+        pass
+
+    def return_success(self, request, context=None):
+        pass
+
     def filter(self, request, user_or_username=None):
 
         if user_or_username and isinstance(user_or_username, unicode):

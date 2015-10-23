@@ -4,7 +4,8 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 
-from apps.core.forms.user import CoreUserProfileForm, CoreUserProfileFullEditForm, CoreSearchFollowings, CoreSearchFollowers, CoreSearchArticlesForm
+from apps.core.forms.user import CoreUserProfileForm, CoreUserProfileFullEditForm, CoreSearchFollowings, CoreSearchFollowers, CoreSearchArticlesForm, \
+    CoreSearchVideosForm
 from apps.core.forms.community import CoreCommunityFormSearch
 from apps.core.forms.user import CoreUserSearchForm, CoreUserProfileEditForm
 from apps.article.models import Article
@@ -566,3 +567,51 @@ class CoreProfileSearchEditPostsAjax(CoreProfileSearchEditPosts):
 class CoreProfileSearchEditPostsList(CoreProfileSearchEditPosts):
 
     template_path = "userprofile/partials/profile-edit-posts-segment.html"
+
+
+
+
+class CoreProfileVideosSearch(views.ProfileBaseView):
+
+    template_path = "userprofile/profile-videos.html"
+
+    form_videos = CoreSearchVideosForm
+
+    def return_error(self, request, context=None):
+        pass
+
+    def return_success(self, request, context=None):
+        return render(request, self.template_path, context)
+
+    def get_context(self, request, profile_instance=None):
+
+        form = self.form_videos(profile_instance.user, 10, request.GET)
+
+        videos = form.process()
+
+        have_posts = True if hasattr(videos, 'object_list') and videos.object_list else False
+
+        return {
+            'feed_objects': videos,
+            'have_posts': have_posts,
+            'form': form,
+            'page': form.cleaned_data.get('page', 1) + 1
+        }
+
+    def get(self, request, username):
+
+        profile = self.filter(request, username)
+
+        context = {'profile': profile}
+        context.update(self.get_context(request, profile))
+
+        return self.return_success(request, context)
+
+
+class CoreProfileVideosView(CoreProfileVideosSearch):
+    pass
+
+
+class CoreProfileVideosList(CoreProfileVideosSearch):
+
+    template_path = "userprofile/partials/profile-videos-list.html"
