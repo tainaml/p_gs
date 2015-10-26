@@ -31,3 +31,26 @@ class SocialActionSeeLater(View):
         }
 
         return render(request, self.template_path, context)
+
+
+class SocialActionRemoveSeeLater(View):
+    template_path = 'socialactions/see-later.html'
+
+    @method_decorator(login_required)
+    def post(self, request, username):
+
+        itens_to_remove = request.POST.getlist(u'itens_to_remove[]')
+        user = get_user(username)
+
+        try:
+            Business.remove_see_later_content(user=user, itens_to_remove=itens_to_remove)
+
+        except NotFoundSocialSettings:
+            context = {
+                'status': 400,
+                'msg': _('SocialAction not Found.'),
+                'not_found': self.not_found
+            }
+            return self.return_error(request, context)
+
+        return render(request, self.template_path)

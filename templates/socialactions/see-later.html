@@ -1,8 +1,12 @@
 {%extends 'home/layout/base.html' %}
 
+{% load staticfiles %}
+
 {% block title %}Portal GSTI - Ver depois{% endblock %}
 
 {% block content %}
+
+{% csrf_token %}
 <main class="container main">
     <div class="perfil-row">
         <!-- mudar para 2.5 -->
@@ -16,15 +20,16 @@
             </nav>
             <div class="row">
                 <div class="col-lg-12">
+                    <div class="row j-scroll j-scroll-container">
                     <header class="area-title">
-                        <h2>Ver Depois</h2>
+                        <h2> {{ request.user.username  }} Ver Depois</h2>
                     </header>
                     <div class="row">
                         <div class="col-lg-4">
                             <div class="custom-check btn">
                                 <input type="checkbox">
                             </div>
-                            <a href="javascript:;" class="btn btn-default">
+                            <a href="javascript:;" class="btn btn-default remove-see-later">
                                 <i class="gsticon gsticon-eye"></i> Marcar como visto
                             </a>
                         </div>
@@ -40,9 +45,55 @@
                             {% include 'home/partials/perfil-excerpt.html' %}
                         {% endif %}
                     </section>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </main>
+{% endblock %}
+
+{% block javascripts %}
+    {{ block.super }}
+
+    <script src="https://cdn.jsdelivr.net/jquery.jscroll/2.2.4/jquery.jscroll.min.js"></script>
+    <script>
+        $(function() {
+            $(".j-scroll").jscroll({
+                loadingHtml: '<span>Carregando...</span>',
+                contentSelect: ".j-scroll-container",
+                nextSelect: "a[data-jscroll-next]"
+            });
+
+            $(document).on('click', '.remove-see-later', function(){
+                var objects_to_remove = [];
+
+                var checkeds = $('.custom-check').find('input:checked');
+                checkeds.each(function(index, element){
+                    objects_to_remove.push($(element).data('objectId'));
+                })
+
+
+               $.ajax({
+                   url: "{% url 'core_socialactions:remove_see_later' request.user.username %}",
+                   method: 'POST',
+                   data: {
+                       itens_to_remove: objects_to_remove,
+                       csrfmiddlewaretoken: $("input:hidden[name='csrfmiddlewaretoken']").val()
+                   },
+                   success: function(data, status, xhr) {
+                       // remove elements from list
+                   },
+                   statusCode: {
+                       400: function() {
+                           $this.html("");
+                       },
+                       403: function() {
+                           $this.html("-- 403 Forbidden --");
+                       }
+                   }
+               });
+            });
+        });
+    </script>
 {% endblock %}
