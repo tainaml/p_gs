@@ -1,0 +1,21 @@
+{% if request.user.is_authenticated %}
+    <a class="{% if i_liked and i_liked.author == request.user %}liked{% endif %}" href="{% url 'socialactions:act' object_to_link content 'like' %}?url_next={{ url_next|urlencode }}" data-social-action="like" data-async-social-action="true" data-target=".count-like-post-{{ object_to_link }}">
+        <span class="count-like-post-{{ object_to_link }}" style="display: block">{{ likes }}</span>
+        <i class="gsticon gsticon-caret-up"></i>
+    </a>
+    <hr>
+    <a class="{% if i_unliked and i_unliked.author == request.user %}unliked{% endif %}" href="{% url 'socialactions:act' object_to_link content 'unlike' %}?url_next={{ url_next|urlencode }}" data-social-action="unlike"  data-async-social-action="true" data-target=".count-unlike-post-{{ object_to_link }}">
+        <i class="gsticon gsticon-caret-down" ></i>
+        <span class="count-unlike-post-{{ object_to_link }}" style="display: block">{{ unlikes }}</span>
+    </a>
+{% else %}
+    <a href="javascript:void(0);">
+        <span class="count-like-post-{{ object_to_link }}" style="display: block">{{ likes }}</span>
+        <i class="gsticon gsticon-caret-up"></i>
+    </a>
+    <hr>
+    <a href="javascript:void(0);">
+        <i class="gsticon gsticon-caret-down" ></i>
+        <span class="count-unlike-post-{{ object_to_link }}" style="display: block">{{ unlikes }}</span>
+    </a>
+{% endif %}

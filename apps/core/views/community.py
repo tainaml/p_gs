@@ -10,8 +10,8 @@ from apps.socialactions.service.business import get_users_acted_by_model
 from rede_gsti import settings
 from apps.taxonomy.service import business as Business
 
-class CoreCommunityView(views.CommunityView):
 
+class CoreCommunityView(views.CommunityView):
     template_path = 'community/community-view.html'
 
     def get_context(self, request, community_instance=None):
@@ -31,17 +31,14 @@ class CoreCommunityView(views.CommunityView):
 
 
 class CoreCommunityFollowersView(CoreCommunityView):
-
     template_path = 'community/community-followers.html'
 
 
 class CoreCommunityAboutView(CoreCommunityView):
-
     template_path = 'community/community-about.html'
 
 
 class CoreCommunitySearch(CoreCommunityView):
-
     template_path = 'community/community-view.html'
 
     def get_context(self, request, community_instance=None):
@@ -62,7 +59,6 @@ class CoreCommunitySearch(CoreCommunityView):
 
 
 class CoreCommunityList(CoreCommunitySearch):
-
     template_path = 'community/partials/community-list.html'
 
     def get_context(self, request, community_instance=None):
@@ -72,12 +68,10 @@ class CoreCommunityList(CoreCommunitySearch):
 
 
 class CoreCommunityFeedView(CoreCommunitySearch):
-
     template_path = 'community/community-view.html'
 
 
 class CoreCommunityQuestionSearch(CoreCommunityView):
-
     template_path = 'community/community-questions.html'
 
     def get_context(self, request, community_instance=None):
@@ -98,12 +92,10 @@ class CoreCommunityQuestionSearch(CoreCommunityView):
 
 
 class CoreCommunityQuestionFeedView(CoreCommunityQuestionSearch):
-
     template_path = 'community/community-questions.html'
 
 
 class CoreCommunityQuestionList(CoreCommunityQuestionSearch):
-
     template_path = 'community/partials/community-question-list.html'
 
     def get_context(self, request, community_instance=None):
@@ -113,7 +105,6 @@ class CoreCommunityQuestionList(CoreCommunityQuestionSearch):
 
 
 class CoreCommunityVideosSearch(views.CommunityView):
-
     template_path = "community/community-videos.html"
 
     form_videos = CoreCommunitySearchVideosForm
@@ -125,7 +116,6 @@ class CoreCommunityVideosSearch(views.CommunityView):
         return render(request, self.template_path, context)
 
     def get_context(self, request, community_instance=None):
-
         form = self.form_videos(community_instance, 10, request.GET)
 
         videos = form.process()
@@ -143,6 +133,6 @@ class CoreCommunityVideosSearch(views.CommunityView):
 class CoreCommunityVideosView(CoreCommunityVideosSearch):
     pass
 
-class CoreCommunityVideosList(CoreCommunityVideosSearch):
 
+class CoreCommunityVideosList(CoreCommunityVideosSearch):
     template_path = "community/partials/community-videos-list.html"

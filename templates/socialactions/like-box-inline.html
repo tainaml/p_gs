@@ -1,0 +1,7 @@
+{% if request.user.is_authenticated %}
+    <a href="{% url 'socialactions:act' object_to_link content 'like' %}?url_next={{ url_next|urlencode }}" class="post-votes-up"><span>{{ likes }}</span> <i class="gsticon gsticon-caret-up"></i></a>
+    <a href="{% url 'socialactions:act' object_to_link content 'unlike' %}?url_next={{ url_next|urlencode }}" class="post-votes-dow"><i class="gsticon gsticon-caret-down"></i> <span>{{ unlikes }}</span></a>
+{% else %}
+    <a href="javascript:void(0);" class="post-votes-up"><span>{{ likes }}</span> <i class="gsticon gsticon-caret-up"></i></a>
+    <a href="javascript:void(0);" class="post-votes-dow"><i class="gsticon gsticon-caret-down"></i> <span>{{ unlikes }}</span></a>
+{% endif %}
