@@ -4,11 +4,11 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 
-from apps.core.forms.user import CoreUserSearchForm, CoreUserProfileForm, CoreUserProfileFullEditForm, \
-    CoreSearchFollowings, CoreSearchFollowers
-from apps.core.business import community as BusinessCoreCommunity
+from apps.core.forms.user import CoreUserProfileForm, CoreUserProfileFullEditForm, CoreSearchFollowings, CoreSearchFollowers, CoreSearchArticlesForm, \
+    CoreSearchVideosForm
 from apps.core.forms.community import CoreCommunityFormSearch
 from apps.core.forms.user import CoreUserSearchForm, CoreUserProfileEditForm
+from apps.article.models import Article
 from apps.userprofile import views
 from apps.userprofile.service import business as BusinessUserprofile
 from apps.taxonomy.service import business as BusinessTaxonomy
@@ -509,3 +509,109 @@ class CoreProfileFollowingsLoadAjax(views.ProfileShowView):
         context.update(self.get_context(request, profile))
 
         return self.return_success(request, context)
+
+
+class CoreProfileSearchEditPosts(views.ProfileBaseView):
+
+    template_path = "userprofile/profile-edit-posts.html"
+
+    form = CoreSearchArticlesForm
+
+    def return_success(self, request, context=None):
+        return render(request, self.template_path, context)
+
+    def get(self, request):
+
+        profile = self.filter(request, request.user)
+
+        context = {'profile': profile}
+        context.update(self.get_context(request, profile))
+
+        return self.return_success(request, context)
+
+
+    def get_context(self, request, profile_instance=None):
+
+        form = self.form(request.user, 10, request.GET)
+
+        posts = form.process()
+        status = Article.STATUS_CHOICES
+
+        have_posts = True if hasattr(posts, 'object_list') and posts.object_list else False
+
+        return {
+            'posts': posts,
+            'have_posts': have_posts,
+            'form': form,
+            'status_list': status,
+            'status': int(form.cleaned_data.get('status')) if form.cleaned_data.get('status') else None,
+            'page': form.cleaned_data.get('page', 1) + 1
+        }
+
+
+class CoreProfileSearchEditPostsAjax(CoreProfileSearchEditPosts):
+
+    template_path = "userprofile/partials/profile-edit-posts-segment.html"
+
+    def return_success(self, request, context=None):
+
+        response_context = {
+            'status': 200,
+            'have_posts': context.get('have_posts'),
+            'template': render(request, self.template_path, context).content
+        }
+
+        return JsonResponse(response_context, status=200)
+
+
+class CoreProfileSearchEditPostsList(CoreProfileSearchEditPosts):
+
+    template_path = "userprofile/partials/profile-edit-posts-segment.html"
+
+
+
+
+class CoreProfileVideosSearch(views.ProfileBaseView):
+
+    template_path = "userprofile/profile-videos.html"
+
+    form_videos = CoreSearchVideosForm
+
+    def return_error(self, request, context=None):
+        pass
+
+    def return_success(self, request, context=None):
+        return render(request, self.template_path, context)
+
+    def get_context(self, request, profile_instance=None):
+
+        form = self.form_videos(profile_instance.user, 10, request.GET)
+
+        videos = form.process()
+
+        have_posts = True if hasattr(videos, 'object_list') and videos.object_list else False
+
+        return {
+            'feed_objects': videos,
+            'have_posts': have_posts,
+            'form': form,
+            'page': form.cleaned_data.get('page', 1) + 1
+        }
+
+    def get(self, request, username):
+
+        profile = self.filter(request, username)
+
+        context = {'profile': profile}
+        context.update(self.get_context(request, profile))
+
+        return self.return_success(request, context)
+
+
+class CoreProfileVideosView(CoreProfileVideosSearch):
+    pass
+
+
+class CoreProfileVideosList(CoreProfileVideosSearch):
+
+    template_path = "userprofile/partials/profile-videos-list.html"

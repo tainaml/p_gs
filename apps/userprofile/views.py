@@ -3,7 +3,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
 from django.db import models
-from django.http import Http404, HttpResponse
+from django.http import Http404, HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
 from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _
@@ -12,13 +12,21 @@ from django.views.decorators.http import require_POST
 
 from apps.userprofile.models import GenderType
 from apps.userprofile.service import business as Business
+from apps.socialactions.service import business as SocialBusiness
 from apps.userprofile.service.forms import EditProfileForm, OccupationForm
+from rede_gsti import settings
 
 
 class ProfileBaseView(View):
 
     not_found = Http404(_('Profile not Found.'))
     user_not_found = Http404(_('User not Found.'))
+
+    def return_error(self, request, context=None):
+        pass
+
+    def return_success(self, request, context=None):
+        pass
 
     def filter(self, request, user_or_username=None):
 
@@ -305,7 +313,85 @@ class ProfileFollowersView(ProfileShowView):
 
     template_path = 'userprofile/profile-followers.html'
 
-
+# @TODO Refactor
 class ProfileCommunitiesView(ProfileShowView):
 
     template_path = 'userprofile/profile-communities.html'
+
+    def return_error(self, request, context=None):
+        pass
+
+    def return_success(self, request, context=None):
+        pass
+
+    # rewrite to add category parameter
+    def get(self, request, username):
+        criteria = request.GET.get('criteria', None)
+        category = request.GET.get('category', 0)
+
+        categories = Business.get_categories()
+        user = Business.get_user(username)
+        profile = self.filter(request, username)
+
+        if not criteria and not category:
+            context = self.communities_box(user, self.template_path)
+        else:
+            context = self.communities_box_with_filters(
+                user,
+                criteria,
+                category
+            )
+        context.update({'profile': profile, 'categories':categories})
+
+        if request.is_ajax():
+            self.template_path = 'userprofile/partials/profile-communities.html'
+            _context = {
+                'category': request.GET.get('category'),
+                'criteria': request.GET.get('criteria'),
+                'template': render(request, self.template_path, context).content
+            }
+            return JsonResponse(_context, status=200)
+
+        return render(request, self.template_path, context)
+
+
+    def communities_box_with_filters(self, user, criteria, category):
+        try:
+            communities = SocialBusiness.get_users_acted_by_author_with_parameters(
+                author=user,
+                action=settings.SOCIAL_FOLLOW,
+                content_type='community',
+                items_per_page=9,
+                page=1,
+                criteria=criteria,
+                category=category
+            )
+        except ValueError:
+            raise Http404()
+
+        return {
+            'items': communities,
+            'content_type': communities[0].content_type if communities and communities[0].content_type else None,
+            'object': user,
+            'page': (communities.number if communities and communities.number else 0) + 1
+        }
+
+    def communities_box(self, user, url_next):
+        try:
+            communities = SocialBusiness.get_users_acted_by_author(
+                author=user,
+                action=settings.SOCIAL_FOLLOW,
+                content_type='community',
+                items_per_page=9,
+                page=1
+            )
+        except ValueError:
+            raise Http404()
+
+        return {
+            'items': communities,
+            'content_type': communities[0].content_type if communities and communities[0].content_type else None,
+            'object': user,
+            'page': (communities.number if communities and communities.number else 0) + 1,
+            'url_next': url_next
+        }
