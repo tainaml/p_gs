@@ -32,6 +32,9 @@ class SocialActionSeeLater(View):
 
         context = {
             'articles': content,
+            'url_next': request.GET['next'] if 'next' in request.GET else '',
+            'page': (content.number if content and content.number else 0) + 1,
+            'criteria':self.template_path
         }
 
         return render(request, self.template_path, context)
@@ -47,7 +50,7 @@ class SocialActionRemoveSeeLater(View):
         user = get_user(username)
 
         try:
-            Business.remove_see_later_content(user=user, itens_to_remove=itens_to_remove)
+            content = Business.remove_see_later_content(user=user, itens_to_remove=itens_to_remove)
 
         except NotFoundSocialSettings:
             context = {
@@ -56,6 +59,13 @@ class SocialActionRemoveSeeLater(View):
                 'not_found': self.not_found
             }
             return self.return_error(request, context)
+
+        context = {
+            'articles': content,
+            'url_next': request.GET['next'] if 'next' in request.GET else '',
+            'page': (content.number if content and content.number else 0) + 1,
+            'criteria':self.template_path
+        }
 
         return render(request, self.template_path)
 
@@ -79,12 +89,18 @@ class SocialActionFavourite(View):
             context = {
                 'status': 400,
                 'msg': _('SocialAction not Found.'),
-                'not_found': self.not_found
+                'not_found': self.not_found,
+                'url_next': request.GET['next'] if 'next' in request.GET else '',
+                'page': (content.number if content and content.number else 0) + 1,
+                'criteria':self.template_path
             }
             return self.return_error(request, context)
 
         context = {
             'articles': content,
+            'url_next': request.GET['next'] if 'next' in request.GET else '',
+            'page': (content.number if content and content.number else 0) + 1,
+            'criteria':self.template_path
         }
 
         return render(request, self.template_path, context)
@@ -106,8 +122,17 @@ class SocialActionRemoveFavourite(View):
             context = {
                 'status': 400,
                 'msg': _('SocialAction not Found.'),
-                'not_found': self.not_found
+                'not_found': self.not_found,
+                'url_next': request.GET['next'] if 'next' in request.GET else '',
+                'page': (itens_to_remove.number if itens_to_remove and itens_to_remove.number else 0) + 1,
+                'criteria':self.template_path
             }
             return self.return_error(request, context)
 
-        return render(request, self.template_path)
+        context = {
+            'url_next': request.GET['next'] if 'next' in request.GET else '',
+            'page': (itens_to_remove.number if itens_to_remove and itens_to_remove.number else 0) + 1,
+            'criteria':self.template_path
+        }
+
+        return render(request, self.template_path, context)

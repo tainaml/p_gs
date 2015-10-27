@@ -20,7 +20,7 @@
             </nav>
             <div class="row">
                 <div class="col-lg-12">
-                    <div class="row j-scroll j-scroll-container">
+                    <div class="row">
                     <header class="area-title">
                         <h2> {{ request.user.username  }} Ver Depois</h2>
                     </header>
@@ -85,10 +85,49 @@
                             </nav>
                         </div>
                     </div>
-                    <section class="area-content">
-                        {% if articles %}
-                            {% include 'home/partials/perfil-excerpt.html' %}
-                        {% endif %}
+                    <section class="area-content j-scroll j-scroll-container">
+                            {% if articles %}
+                                {% for article in articles %}
+                                <div class="excerpt">
+                                    <div class="custom-check"><input type="checkbox" data-object-id="{{ article.id }}"></div>
+                                    <div class="excerpt-content">
+                                        <a class="excerpt-image" href="{% url 'article:view' article.content_object.slug article.content_object.id %}">
+                                            <img src="{{ article.content_object.get_image.url }}" alt="{{ article.content_object.title }}">
+                                        </a>
+                                        <div class="excerpt-title">
+                                            <header class="post-header">
+                                                <div class="post-info">
+                                                    <time datetime="{{ article.content_object.createdin }}" itemprop="datePublished">{{ article.content_object.createdin }}</time>
+                                                    <a href="javascript:;" data-toggle="dropdown"><i class="gsticon gsticon-gear"></i></a>
+                                                    <div class="dropdown-menu">
+                                                        <ul class="perfil-actions">
+                                                            <li><a href="javascript:;"><i class="gsticon gsticon-trash remove-see-later"></i> Remover Sugestão</a></li>
+                                                            <li><a href="javascript:;"><i class="gsticon gsticon-star"></i> Favoritar</a></li>
+                                                            <li><a href="javascript:;"><i class="gsticon gsticon-paper-plane"></i> Sugerir</a></li>
+                                                            <li><a href="javascript:;"><i class="gsticon gsticon-exclamation-triangle"></i> Denunciar</a></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <a class="post-creator" href="{% url 'profile:show' article.author.username %}">
+                                                    <img src="{{ article.content_object.author.profile.get_picture }}" alt="{{ article.content_object.author.get_full_name }}">
+                                                    {{ article.content_object.author.get_full_name }}</a>
+                                            </header>
+                                            <a href="{% url 'article:view' article.content_object.slug article.content_object.id %}">{{ article.content_object.title }}</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endfor %}
+
+                                <a data-jscroll-next href="{% url 'core_socialactions:see_later' request.user.username %}?criteria={{ criteria }}&page={{ page }}&next={{ url_next }}">next</a>
+
+                            {% else %}
+
+                                {% if articles.number == 1 %}
+                                    <p>Nenhum resultado foi encontrado para sua pesquisa</p>
+                                    <hr>
+                                {% endif %}
+
+                            {% endif %}
                     </section>
                     </div>
                 </div>
