@@ -13,10 +13,14 @@ class SocialActionSeeLater(View):
     @method_decorator(login_required)
     def get(self, request, username):
 
+        criteria = None
         user = get_user(username)
+        if 'criteria' in request.GET:
+            criteria = str(request.GET['criteria'])
+            self.template_path = 'socialactions/partials/see-later.html'
 
         try:
-            content = Business.get_see_later_content(user)
+            content = Business.get_see_later_content(user, criteria)
 
         except NotFoundSocialSettings:
             context = {

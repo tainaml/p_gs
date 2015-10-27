@@ -36,7 +36,52 @@
                         <div class="col-lg-8">
                             <!-- A "barra" de pesquisa não é exibida no feed, somente no -->
                             <nav class="form-search">
-                                {% include 'home/partials/search.html' with placehold='Procure um conteúdo' %}
+                                <form action="{% url 'ninico:pesquisa' %}" method="GET" role="search" id="form-filter">
+                                    <div class="form-search-input">
+                                        <input type="text" id="see-later" name="fcommunity" placeholder="{{placehold|default:"Procure pessoas, comunidades, etc."}}" />
+                                    </div>
+                                    <div class="dropdown-menu dropdown-search">
+                                        <div class="float-notifcations">
+                                            <div class="header-float-notifications">Pessoas</div>
+                                            <ul class="content-float-notifications">
+                                                <li class="item-float-notification">
+                                                    <a href="javascript:;"><img src="http://placehold.it/20" alt="Creator Post Avatar"></a>
+                                                    <a href="javascript:;">Iury Silva</a>
+                                                </li>
+                                                <li class="item-float-notification">
+                                                    <a href="javascript:;"><img src="http://placehold.it/20" alt="Creator Post Avatar"></a>
+                                                    <a href="javascript:;">Iury Silva</a>
+                                                </li>
+                                                <li class="item-float-notification">
+                                                    <a href="javascript:;"><img src="http://placehold.it/20" alt="Creator Post Avatar"></a>
+                                                    <a href="javascript:;">Iury Silva</a>
+                                                </li>
+                                                <li class="item-float-notification-separator">
+                                                </li>
+                                            </ul>
+                                            <div class="header-float-notifications">Comunidades</div>
+                                            <ul class="content-float-notifications">
+                                                <li class="item-float-notification">
+                                                    <a href="javascript:;"><img src="http://placehold.it/20" alt="Creator Post Avatar"></a>
+                                                    <a href="javascript:;">Iury Silva</a>
+                                                </li>
+                                                <li class="item-float-notification">
+                                                    <a href="javascript:;"><img src="http://placehold.it/20" alt="Creator Post Avatar"></a>
+                                                    <a href="javascript:;">Iury Silva</a>
+                                                </li>
+                                                <li class="item-float-notification">
+                                                    <a href="javascript:;"><img src="http://placehold.it/20" alt="Creator Post Avatar"></a>
+                                                    <a href="javascript:;">Iury Silva</a>
+                                                </li>
+                                                <li class="item-float-notification-separator">
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="form-search-button">
+                                        <i class="gsticon gsticon-search"></i>
+                                    </button>
+                                </form>
                             </nav>
                         </div>
                     </div>
@@ -73,7 +118,6 @@
                     objects_to_remove.push($(element).data('objectId'));
                 })
 
-
                $.ajax({
                    url: "{% url 'core_socialactions:remove_see_later' request.user.username %}",
                    method: 'POST',
@@ -93,6 +137,31 @@
                        }
                    }
                });
+            })
+
+            $(document).on('submit', '#form-filter', function(event){
+                    event.preventDefault();
+
+                    $.ajax({
+                        url: "{% url 'core_socialactions:see_later' request.user.username %}",
+                        method: 'GET',
+                        data: {
+                            'criteria': $("#see-later").val(),
+                            csrfmiddlewaretoken: $("input:hidden[name='csrfmiddlewaretoken']").val()
+                        },
+                        success: function(data, status, xhr) {
+                            $('.area-content').html(data);
+                        },
+                        statusCode: {
+                            400: function() {
+                                $this.html("");
+                            },
+                            403: function() {
+                                $this.html("-- 403 Forbidden --");
+                            }
+                        }
+                    });
+                    return false;
             });
         });
     </script>
