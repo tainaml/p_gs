@@ -1,8 +1,10 @@
 from django.contrib.contenttypes.models import ContentType
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.db.models import Q
+from apps.article.models import Article
 
 from apps.community.models import Community
+from apps.core.models import EmbedItem
 from apps.feed.models import FeedObject
 
 __author__ = 'phillip'
@@ -125,3 +127,45 @@ def get_communities(taxonomies_list=None, description=None, items_per_page=None,
         communities = []
 
     return communities
+
+
+def get_articles_with_videos(community, description=None, items_per_page=None, page=None):
+
+    content_type = ContentType.objects.filter(model="article")
+
+    feed_objects = FeedObject.objects.filter(
+        Q(content_type=content_type) &
+        Q(taxonomies=community.taxonomy) &
+        (
+            Q(article__title__icontains=description) |
+            Q(article__text__icontains=description)
+        )
+    )
+
+    posts_videos = Article.objects.filter(
+        Q(embed__embed_type=EmbedItem.TYPE_VIDEO) &
+        Q(status=Article.STATUS_PUBLISH) &
+        (
+            Q(title__icontains=description) |
+            Q(text__icontains=description)
+        )
+    )
+
+    posts = feed_objects.filter(
+        Q(content_type=content_type) &
+        Q(object_id__in=posts_videos)
+    )
+
+    items_per_page = items_per_page if items_per_page else 10
+    page = page if page else 1
+
+    if items_per_page and page:
+        posts = Paginator(posts, items_per_page)
+        try:
+            posts = posts.page(page)
+        except PageNotAnInteger:
+            posts = posts.page(1)
+        except EmptyPage:
+            posts = []
+
+    return posts

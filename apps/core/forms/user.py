@@ -176,3 +176,31 @@ class CoreSearchArticlesForm(IdeiaForm):
             self.items_per_page,
             self.cleaned_data.get('page', 1)
         )
+
+
+class CoreSearchVideosForm(IdeiaForm):
+
+    criteria = forms.CharField(required=False)
+    page = forms.IntegerField(required=False)
+
+    def __init__(self, author=None, items_per_page=10, *args, **kwargs):
+        self.author = author
+        self.items_per_page = items_per_page
+
+        super(CoreSearchVideosForm, self).__init__(*args, **kwargs)
+
+    def clean(self):
+        cleaned_data = super(CoreSearchVideosForm, self).clean()
+
+        cleaned_data['page'] = cleaned_data['page'] \
+            if 'page' in cleaned_data and cleaned_data['page'] else 1
+
+        return cleaned_data
+
+    def __process__(self):
+        return Business.get_articles_with_videos(
+            self.author,
+            self.cleaned_data.get('criteria'),
+            self.items_per_page,
+            self.cleaned_data.get('page', 1)
+        )

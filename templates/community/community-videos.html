@@ -1,0 +1,106 @@
+{%extends 'home/layout/base.html' %}
+
+{% load core_tags %}
+{% load staticfiles %}
+{% block title %}Portal GSTI - Comunidade{% endblock %}
+
+{% block content %}
+    <main class="container main">
+        <div class="perfil-row">
+            <!-- mudar para 2.5 -->
+            <div class="col-lg-3">
+                {% include 'community/partials/community-sidebar-left.html' %}
+            </div>
+            <!-- mudar para 9.5 -->
+            <div class="col-lg-9">
+                <nav class="perfil-navegation">
+                    <a href="{% url 'community:show' community.slug %}">Feed</a>•<a href="{% url 'community:questions' community.slug %}">Perguntas</a>•<a href="{% url 'community:followers' community.slug %}">Membros</a>•<a href="{% url 'community:about' community.slug %}">Sobre</a>•<a class="active" href="{% url 'community:videos' community.slug %}">Vídeos</a>
+                </nav>
+                <div class="row">
+                    <div class="col-lg-8">
+                        <header class="area-title">
+                            <h2>Vídeos</h2>
+                        </header>
+                        <nav class="form-search">
+                            <form action="{% url 'community:search' community.slug %}" method="GET" role="search">
+                                <div class="form-search-input">
+                                    <input type="text" name="criterio" placeholder="Persquise publicações ou perguntas..." value="{{ form.cleaned_data.criterio }}">
+                                </div>
+                                <div class="dropdown-menu dropdown-search">
+                                    <div class="float-notifcations">
+                                        <div class="header-float-notifications">Pessoas</div>
+                                        <ul class="content-float-notifications">
+                                            <li class="item-float-notification">
+                                                <a href="javascript:;"><img src="http://placehold.it/20" alt="Creator Post Avatar"></a>
+                                                <a href="javascript:;">Iury Silva</a>
+                                            </li>
+                                            <li class="item-float-notification">
+                                                <a href="javascript:;"><img src="http://placehold.it/20" alt="Creator Post Avatar"></a>
+                                                <a href="javascript:;">Iury Silva</a>
+                                            </li>
+                                            <li class="item-float-notification">
+                                                <a href="javascript:;"><img src="http://placehold.it/20" alt="Creator Post Avatar"></a>
+                                                <a href="javascript:;">Iury Silva</a>
+                                            </li>
+                                            <li class="item-float-notification-separator"></li>
+                                        </ul>
+                                        <div class="header-float-notifications">Comunidades</div>
+                                        <ul class="content-float-notifications">
+                                            <li class="item-float-notification">
+                                                <a href="javascript:;"><img src="http://placehold.it/20" alt="Creator Post Avatar"></a>
+                                                <a href="javascript:;">Iury Silva</a>
+                                            </li>
+                                            <li class="item-float-notification">
+                                                <a href="javascript:;"><img src="http://placehold.it/20" alt="Creator Post Avatar"></a>
+                                                <a href="javascript:;">Iury Silva</a>
+                                            </li>
+                                            <li class="item-float-notification">
+                                                <a href="javascript:;"><img src="http://placehold.it/20" alt="Creator Post Avatar"></a>
+                                                <a href="javascript:;">Iury Silva</a>
+                                            </li>
+                                            <li class="item-float-notification-separator"></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <button type="submit" class="form-search-button">
+                                    <i class="gsticon gsticon-search"></i>
+                                </button>
+                            </form>
+                        </nav>
+                        <section class="area-content j-scroll j-scroll-container" id="community-list">
+                            {% if feed_objects.object_list %}
+                                {% include 'community/partials/community-videos-list.html' %}
+                            {% else %}
+                                <p>Nenhum item foi encontrado</p>
+                                <hr>
+                            {% endif %}
+                        </section>
+                    </div>
+                    <div class="col-lg-4">
+                        {% include 'community/partials/community-sidebar-right.html' %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock %}
+
+
+<div class="modal">
+    modal here
+</div>
+
+
+{% block javascripts %}
+    {{ block.super }}
+    <script src="https://cdn.jsdelivr.net/jquery.jscroll/2.2.4/jquery.jscroll.min.js"></script>
+    <script>
+        $(function() {
+            $(".j-scroll").jscroll({
+                loadingHtml: '<span>Carregando...</span>',
+                contentSelect: ".j-scroll-container",
+                nextSelect: "a[data-jscroll-next]"
+            });
+        });
+    </script>
+{% endblock %}
