@@ -1,6 +1,6 @@
 {% for article in articles %}
 <div class="excerpt">
-    <div class="custom-check"><input type="checkbox"></div>
+    <div class="custom-check"><input type="checkbox" data-object-id="{{ article.id }}"></div>
     <div class="excerpt-content">
         <a class="excerpt-image" href="{% url 'article:view' article.content_object.slug article.content_object.id %}">
             <img src="{{ article.content_object.get_image.url }}" alt="{{ article.content_object.title }}">
@@ -12,7 +12,7 @@
                     <a href="javascript:;" data-toggle="dropdown"><i class="gsticon gsticon-gear"></i></a>
                     <div class="dropdown-menu">
                         <ul class="perfil-actions">
-                            <li><a href="javascript:;"><i class="gsticon gsticon-trash"></i> Remover Sugestão</a></li>
+                            <li><a href="javascript:;"><i class="gsticon gsticon-trash remove-see-later"></i> Remover Sugestão</a></li>
                             <li><a href="javascript:;"><i class="gsticon gsticon-star"></i> Favoritar</a></li>
                             <li><a href="javascript:;"><i class="gsticon gsticon-paper-plane"></i> Sugerir</a></li>
                             <li><a href="javascript:;"><i class="gsticon gsticon-exclamation-triangle"></i> Denunciar</a></li>
