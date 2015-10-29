@@ -24,20 +24,13 @@
         </header>
         <section class="header-navegation">
             <div class="container">
-                <nav class="menu-categories">
-                    <a class="governance" href="javascript:;">Governança de TI</a>
-                    <i class="gsticon gsticon-circle"></i><a class="development" href="javascript:;">Desenvolvimento</a>
-                    <i class="gsticon gsticon-circle"></i><a class="web-design" href="javascript:;">Web Design</a>
-                    <i class="gsticon gsticon-circle"></i><a class="marketing" href="javascript:;">Marketing Digital</a>
-                    <i class="gsticon gsticon-circle"></i><a class="infra" href="javascript:;">Infraestrutura</a>
-                    <i class="gsticon gsticon-circle"></i><a class="databases" href="javascript:;">Banco de Dados</a>
-                </nav>
-                <nav class="menu-social">
-                    <a class="gsticon gsticon-facebook-square" href="javascript:;"></a>
-                    <a class="gsticon gsticon-google-plus-square" href="javascript:;"></a>
-                    <a class="gsticon gsticon-linkedin-square" href="javascript:;"></a>
-                    <a class="gsticon gsticon-twitter-square" href="javascript:;"></a>
-                    <a class="gsticon gsticon-youtube-square" href="javascript:;"></a>
+                {% include "home/partials/mega-dropdown.html" %}
+                <ul class="menu-social">
+                    <li><a class="gsticon gsticon-facebook-square" href="javascript:;"></a></li>
+                    <li><a class="gsticon gsticon-google-plus-square" href="javascript:;"></a></li>
+                    <li><a class="gsticon gsticon-linkedin-square" href="javascript:;"></a></li>
+                    <li><a class="gsticon gsticon-twitter-square" href="javascript:;"></a></li>
+                    <li><a class="gsticon gsticon-youtube-square" href="javascript:;"></a></li>
                 </nav>
             </div>
         </section>
