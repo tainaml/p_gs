@@ -156,6 +156,9 @@ def followings_count(author=None, content_type=None):
 
 # Action methods
 
+def suggest_post(author, object_to_link, content, to_user):
+    pass
+
 
 def act_by_content_type_and_id(user=None, content_type=None, object_id=None, action_type=None):
     action_type_key = get_by_label(action_type)
