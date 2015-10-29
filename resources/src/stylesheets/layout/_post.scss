@@ -66,8 +66,19 @@
         &:last-child {
             border-bottom: none;
         }
-        > a {
+        > a,
+        > div > a {
             color: #4d6479;
         }
+        .liked {
+            color: #00AA00;
+        }
+        .unliked {
+            color: #ac050b;
+        }
+    }
+    > li hr {
+        margin-top: 0;
+        margin-bottom: 0;
     }
 }

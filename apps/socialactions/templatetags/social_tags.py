@@ -9,7 +9,7 @@ register = template.Library()
 
 
 @register.inclusion_tag('socialactions/like_box.html', takes_context=True)
-def like_box(context, object_to_link, url_next):
+def like_box(context, object_to_link, url_next, like_type=None):
     try:
         content = Business.get_content_by_object(object_to_link)
 
@@ -28,6 +28,15 @@ def like_box(context, object_to_link, url_next):
     except ValueError:
         raise Http404()
 
+    if like_type == "inline":
+        like_box_template = "socialactions/like-box-inline.html"
+    elif like_type == "share-box":
+        like_box_template = "socialactions/like-box-share-box.html"
+    elif like_type == "share-box":
+        like_box_template = "socialactions/like-box-reply.html"
+    else:
+        like_box_template = "socialactions/like-box-default.html"
+
     return {
         'object_to_link': object_to_link.id,
         'content': content,
@@ -36,7 +45,8 @@ def like_box(context, object_to_link, url_next):
         'i_liked': i_liked,
         'i_unliked': i_unliked,
         'url_next': url_next,
-        'request': context['request']
+        'request': context['request'],
+        'like_box_template': like_box_template
     }
 
 
