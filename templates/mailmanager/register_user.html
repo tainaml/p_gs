@@ -1,24 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Welcome</title>
-</head>
-<body>
-    <h1>Hello, {{ user.first_name }} {{ user.last_name }}</h1>
-    <h3>Bem vindo ao GSTI amiguinho.</h3>
-    <p>
-        Agora você pode interagir nessa rede bacana.
-    </p>
-    <p>Lembre-se de que com grandes poderes vem grandes responsabilidades</p>
-    <p>Seu username é: {{ user.username }}</p>
-    <p>Seu e-mail é esse que você recebeu aí nos cabeçalhos - se vira nerdão.</p>
-    <p>Sua senha é: ************</p>
+{% extends "mailmanager/layout/mail-base.html" %}
+{% block title %}Welcome{% endblock %}
+{% block content %}
+<h2>Hello, {{ user.first_name }} {{ user.last_name }}</h2>
+<h3>Bem vindo ao GSTI amiguinho.</h3>
+<p>Agora você pode interagir nessa rede bacana. <br>
+Lembre-se de que com grandes poderes vem grandes responsabilidades <br>
+Seu username é: {{ user.username }} <br>
+Seu e-mail é esse que você recebeu aí nos cabeçalhos - se vira nerdão. <br>
+Sua senha é: ************</p>
 
-    {% url 'account:mail_validation' token as token_url %}
+{% url 'account:mail_validation' token as token_url %}
 
-    <p>Para ativar sua conta <a href="{{ base_url }}{{ token_url }}">clique aqui</a></p>
+<p>Para ativar sua conta <a href="{{ base_url }}{{ token_url }}">clique aqui</a></p>
 
-    <p>A url é [{{ base_url }}{{ token_url }}] caso você não tenha aprendido a seguir um link ou se seu cliente de e-mail for desmoralizado.</p>
-</body>
-</html>
+<p>A url é [{{ base_url }}{{ token_url }}] caso você não tenha aprendido a seguir um link ou se seu cliente de e-mail for desmoralizado.</p>
+{% endblock %}

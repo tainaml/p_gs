@@ -1,0 +1,40 @@
+/**********************************************
+* Ink v1.0.5 - Copyright 2013 ZURB Inc        *
+**********************************************/
+
+// Make sure the charset is set appropriately
+@charset "UTF-8";
+
+// Behold, here are all the Ink components.
+@import
+  "vendor/ink/settings",
+  "vendor/ink/components/normalize",
+  "vendor/ink/components/grid",
+  "vendor/ink/components/block-grid",
+  "vendor/ink/components/alignment",
+  "vendor/ink/components/type",
+  "vendor/ink/components/panels",
+  "vendor/ink/components/buttons",
+  "vendor/ink/components/outlook-first",
+  "vendor/ink/components/media-query";
+
+.header {
+  img {
+    display: block;
+  }
+}
+
+.highlight {
+  background: #0160b0;
+  h1 {
+    color: #fff;
+    letter-spacing: -0.05em;
+    text-align: center;
+  }
+}
+.container {
+  font-weight: 600;
+}
+.footer {
+  border-top: 1px solid #e6e6e6;
+}

@@ -95,3 +95,12 @@ def edit_publications(request):
 
 def handler404(request):
     return render(request, 'home/404.html')
+
+def email_recovery(request):
+    return render(request, 'mailmanager/password-recovery.html')
+
+def email_register(request):
+    return render(request, 'mailmanager/register_user.html')
+
+def email_resend_confirmation(request):
+    return render(request, 'mailmanager/resend-account-confirmation.html')

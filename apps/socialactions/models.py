@@ -14,3 +14,4 @@ class UserAction(models.Model):
     content_type = models.ForeignKey(ContentType)
     object_id = models.PositiveIntegerField()
     content_object = GenericForeignKey('content_type', 'object_id')
+    target_user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='target_user', null=True)
