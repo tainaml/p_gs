@@ -30,7 +30,7 @@
                         </header>
                         <!-- A "barra" de pesquisa não é exibida no feed, somente no -->
                         <nav class="form-search">
-                            <form action="{% url 'profile:videos-search' user.username %}" method="GET" role="search">
+                            <form action="{% url 'profile:videos-search' profile.user.username %}" method="GET" role="search">
                                 <div class="form-search-input">
                                     <input type="text" name="criteria" placeholder="{{placehold|default:"Procure pessoas, comunidades, etc."}}" value="{{ form.cleaned_data.criteria|default:"" }}">
                                 </div>

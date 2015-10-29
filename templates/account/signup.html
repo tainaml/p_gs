@@ -83,6 +83,8 @@
                                 {% if form.captcha.errors %} {{ form.captcha.errors }} {% endif %}
                             </div>
 
+                            {% if form.non_field_errors %} {{ form.non_field_errors }} {% endif %}
+
                             <input class="btn-action btn-block" type="submit" value="{% trans "Submit" %}" name="submit">
                             <!-- {% trans 'or' %} <a href="{% url 'account:login' %}">{% trans 'Login' %}</a> -->
                         </form>
