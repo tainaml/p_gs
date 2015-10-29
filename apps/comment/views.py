@@ -1,7 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
-from django.http import Http404
+from django.http import Http404, JsonResponse, HttpResponse
 from django.shortcuts import render, redirect
 from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _
@@ -95,3 +95,25 @@ class CommentDeleteView(CommentBaseView):
             raise self.not_found
 
         return redirect(reverse('comment:index_teste'))
+
+
+class CommentCountView(CommentBaseView):
+
+    template_path = ""
+
+    def return_success(self, request, context=None):
+        if not context:
+            context = {}
+
+        if request.is_ajax():
+            context.update({
+                'template': context.get('count', 0)
+            })
+            return JsonResponse(context, status=200)
+
+        return HttpResponse(context.get('count', 0), status=200)
+
+    def get(self, request, object_to_link, content_type):
+        count = Business.count_comments_by_id_and_content_type(object_to_link, content_type)
+        context = {'count': count}
+        return self.return_success(request, context)
