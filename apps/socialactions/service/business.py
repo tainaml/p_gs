@@ -104,7 +104,7 @@ def user_count_acted_by_content_and_id(user=None, content_type=None,
 # Specialization methods
 
 def user_liked_by_id_and_content_type(user=None, content_type=None, object_id=None):
-    return user_acted_by_content_and_object_id(user, content_type, 'like', object_id)
+    return user_acted_by_content_and_object_id(user, content_type, object_id, 'like')
 
 
 def user_liked_by_object(user=None, content_object=None):
@@ -112,7 +112,7 @@ def user_liked_by_object(user=None, content_object=None):
 
 
 def user_unliked_by_id_and_content_type(user=None, content_type=None, object_id=None):
-    return user_acted_by_content_and_object_id(user, content_type, 'unlike', object_id)
+    return user_acted_by_content_and_object_id(user, content_type, object_id, 'unlike')
 
 
 def user_unliked_by_object(user=None, content_object=None):

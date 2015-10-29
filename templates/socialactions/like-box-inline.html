@@ -1,6 +1,19 @@
 {% if request.user.is_authenticated %}
-    <a href="{% url 'socialactions:act' object_to_link content 'like' %}?url_next={{ url_next|urlencode }}" class="post-votes-up"><span>{{ likes }}</span> <i class="gsticon gsticon-caret-up"></i></a>
-    <a href="{% url 'socialactions:act' object_to_link content 'unlike' %}?url_next={{ url_next|urlencode }}" class="post-votes-dow"><i class="gsticon gsticon-caret-down"></i> <span>{{ unlikes }}</span></a>
+    <a href="{% url 'socialactions:act' object_to_link content 'like' %}?url_next={{ url_next|urlencode }}" class="post-votes-up"
+    	data-async-like="true" 
+        data-social-action="like" 
+        data-target-like=".count-like-post-{{ object_to_link }}"
+        data-target-unlike=".count-unlike-post-{{ object_to_link }}">
+    	<span class="count-like-post-{{ object_to_link }}">{{ likes }}</span> <i class="gsticon gsticon-caret-up"></i>
+    </a>
+    <a href="{% url 'socialactions:act' object_to_link content 'unlike' %}?url_next={{ url_next|urlencode }}" class="post-votes-dow"
+    	data-async-like="true" 
+        data-social-action="unlike" 
+        data-target-like=".count-like-post-{{ object_to_link }}"
+        data-target-unlike=".count-unlike-post-{{ object_to_link }}"
+        >
+    	<i class="gsticon gsticon-caret-down"></i> <span class="count-unlike-post-{{ object_to_link }}">{{ unlikes }}</span>
+    </a>
 {% else %}
     <a href="javascript:void(0);" class="post-votes-up"><span>{{ likes }}</span> <i class="gsticon gsticon-caret-up"></i></a>
     <a href="javascript:void(0);" class="post-votes-dow"><i class="gsticon gsticon-caret-down"></i> <span>{{ unlikes }}</span></a>

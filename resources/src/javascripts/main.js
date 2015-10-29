@@ -4,6 +4,7 @@ import './asyncModules'
 
 require('./vendor/bootstrap/')
 require('./modules/ideiaForm/')
+require('./modules/ideiaAsyncSocialAction/')
 
 $(() => {
     // require('malihu-custom-scrollbar-plugin')($)
