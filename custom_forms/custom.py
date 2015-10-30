@@ -7,7 +7,6 @@ class AbstractIdeiaForm(object):
         except NotImplementedError:
             raise NotImplementedError
         except Exception, e:
-            print e
             self.add_error(None, "General error!")
 
             return False

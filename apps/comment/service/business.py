@@ -91,3 +91,8 @@ def get_comments_by_content_object(content_object=None, items_per_page=None, pag
 
     return paginated_comments
 
+
+
+def count_comments_by_id_and_content_type(object_id, content_type):
+    content_type = ContentType.objects.get(model=content_type)
+    return Comment.objects.filter(object_id=object_id, content_type=content_type).count()

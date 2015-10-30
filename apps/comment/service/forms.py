@@ -5,7 +5,7 @@ from django.conf import settings
 
 
 class CreateCommentForm(IdeiaForm):
-    content = forms.CharField(max_length=512, required=True, )
+    content = forms.CharField(max_length=512, required=True)
     content_type = forms.CharField(max_length=20, required=True)
     content_object_id = forms.IntegerField(required=True)
 
