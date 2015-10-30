@@ -26,7 +26,7 @@
                                         <h5><strong>Foto de perfil</strong></h5>
                                         <p>Arraste a imagem para este campo ou <a href="javascript:;" data-trigger="file">clique aqui</a></p>
                                     </div>
-                                    <input type="file" accept="image/*" name="avatar">
+                                    <input type="file" accept="image/*" name="profile_picture">
                                     <div class="custom-file-upload-result" data-content="file">
                                         {% if profile.get_profile_picture %}
                                             <img src="{% thumbor_url profile.get_profile_picture.url width=113 height=113 smart=False fit_in=False %}" class="img-responsive" alt="{{ profile.user.get_full_name }}">
@@ -57,7 +57,7 @@
                                     </div>
                                     <div data-form-group class="col-lg-6 item-form">
                                         <div class="custom-select">
-                                            <select name="state" id="state" class="form-control">
+                                            <select name="state" id="state" class="form-control" data-ajax-change="true" data-url="{% url 'profile:get_city' %}" data-target="#city">
                                                 <option value="0" selected disabled>Selecione um estado</option>
                                                 {% for state in states %}
                                                 <option value="{{ state.id }}" {% if profile.city.state.id == state.id %}selected{% endif %}>{{ state.name }}</option>

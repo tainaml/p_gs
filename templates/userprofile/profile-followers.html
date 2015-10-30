@@ -6,7 +6,7 @@
 {% block title %}Portal GSTI - Perfil{% endblock %}
 
 {% block content %}
-    <main class="container">
+    <main class="container main">
         <div class="perfil-row">
             <!-- mudar para 2.5 -->
             <div class="col-lg-3">
@@ -23,7 +23,7 @@
                 </header>
                 <div class="filter row">
                     <div class="col-lg-8">
-                        {% include 'home/partials/search.html' %}
+                        {% include 'userprofile/partials/search-followers.html' with placeholder="Procure por pessoas" %}
                     </div>
                     <div class="col-lg-4 text-right">
                         <a class="btn btn-perfil" href="{% url 'profile:followings' username=profile.user.username %}">Seguindo</a>
@@ -36,10 +36,21 @@
                         <p class="description-text">• Quem segue <a href="{% url 'profile:show' profile.user.username %}">{{ profile.user.get_full_name }}</a></p>
                     </div>
                     <div class="col-lg-12">
+
+                        {% if not form.cleaned_data.criteria %}
                         <div class="row j-scroll-followers j-scroll-followers-container">
-                            {# templatetag - load followers #}
                             {% followers_box profile.user request.path %}
                         </div>
+                        {% elif items.object_list %}
+                        <div class="row j-scroll-followers j-scroll-followers-container">
+                            {% include 'userprofile/partials/followers-segment.html' %}
+                        </div>
+                        {% else %}
+                            <hr>
+                            <p>Nenhum item foi encontrado!</p>
+                            <hr>
+                        {% endif %}
+
                     </div>
                 </div>
             </div>

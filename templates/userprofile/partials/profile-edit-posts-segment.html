@@ -1,0 +1,35 @@
+{% load thumbor_tags %}
+
+{% if posts %}
+    {% for post in posts %}
+        <article id="pub-{{ post.id }}" class="publication">
+            <div class="publication-container clearfix">
+                {% if post.get_image %}
+                <img class="publication-image img-responsive" src="{% thumbor_url post.get_image.url width=90 height=80 smart=False fit_in=False %}" alt="{{ post.title }}">
+{#                <img class="publication-image img-responsive" src="https://unsplash.it/95/70?random" alt="Technology application">#}
+                {% endif %}
+                <div class="publication-content">
+                    {% if post.status == 0 %}<small class="publication-type draft">Rascunho:</small>{% endif %}
+                    {% if post.status == 2 %}<small class="publication-type trash">Item excluído:</small>{% endif %}
+                    <h3 class="publication-title">{{ post.title }}</h3>
+                </div>
+            </div>
+            <footer class="publication-footer clearfix">
+                <time class="publication-footer-date" datetime="{{ post.publishin|date:"d/m/Y" }}">{{ post.publishin|date:"d/m/Y à\s H:i" }}</time>
+                <nav class="publication-footer-menu">
+                    <a class="publication-footer-menu-item" href="{% url 'article:edit' post.id %}">Editar</a>
+                    <a class="publication-footer-menu-item" href="{% url 'article:view' post.slug post.id %}">Visualizar</a>
+                    {% if post.status != 2 %}
+                    <a class="publication-footer-menu-item" href="{% url 'article:delete' post.id %}" data-delete-item="true" data-url="{% url 'article:delete-async' post.id %}" data-item="{{ post.id }}" data-title="{{ post.title }}"  data-modal="#modal-confirmation">Excluir</a>
+                    {% endif %}
+                </nav>
+            </footer>
+        </article>
+    {% endfor %}
+    <a data-jscroll-next href="{% url 'profile:edit-posts-list' %}?criteria={{ form.cleaned_data.criteria|default:"" }}&status={{ form.cleaned_data.status|default:"" }}&page={{ page }}&next={{ url_next|urlencode }}">next</a>
+{% else %}
+    {% if posts.number == 1 %}
+        <p>Nenhum resultado foi encontrado para sua pesquisa</p>
+        <hr>
+    {% endif %}
+{% endif %}

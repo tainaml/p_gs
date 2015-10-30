@@ -1,38 +1,50 @@
-<div class="modal-dialog modal-sm">
-    <div class="modal-content">
-        <div class="modal-header">
-            <span class="pull-right close" data-dismiss="modal" aria-label="Close"><span class="gsticon gsticon-close"></span></span>
-            <h4 class="modal-title">Login</h4>
-        </div>
-        <div class="modal-body">
-            <div class="modal-menssage">
-                <i class="gsticon gsticon-check"></i>
-                <h4 class="message-title">Sua senha foi recuperada com sucesso!</h4>
-            </div>
-            <div class="social-login">
-                <a class="btn-login-facebook" href="javascript:;">
-                    <i class="gsticon gsticon-facebook"></i>
-                    Facebook
-                </a>
-                <a class="btn-login-google" href="javascript:;">
-                    <i class="gsticon gsticon-google-plus"></i>
-                    Google+
-                </a>
-            </div>
-            <div class="modal-divider"><span>ou</span></div>
-            <div class="modal-form">
-                <div class="form-group">
-                    <input class="form-control" type="email" placeholder="Email">
+<div class="modal fade" data-target="modal" id="modal-login">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <form id="form-login" action="{% url 'account:login-ajax' %}?next={{ request.path }}" method="POST" enctype="multipart/form-data" data-ajaxform="true" data-group-class=".form-group">
+
+                {% csrf_token %}
+
+                <div class="modal-header">
+                    <span class="pull-right close" data-dismiss="modal" aria-label="Close"><span class="gsticon gsticon-close"></span></span>
+                    <h4 class="modal-title">Login</h4>
                 </div>
-                <div class="form-group">
-                    <input class="form-control" type="password" placeholder="Senha">
+                <div class="modal-body">
+                    {% comment %}
+                    <div class="modal-menssage">
+                        <i class="gsticon gsticon-check"></i>
+                        <h4 class="message-title">Sua senha foi recuperada com sucesso!</h4>
+                    </div>
+                    {% endcomment %}
+                    <div class="social-login">
+                        <a class="btn-login-facebook" href="/login/facebook">
+                            <i class="gsticon gsticon-facebook"></i>
+                            Facebook
+                        </a>
+                        <a class="btn-login-google" href="/login/google-oauth2">
+                            <i class="gsticon gsticon-google-plus"></i>
+                            Google+
+                        </a>
+                    </div>
+                    <div class="modal-divider"><span>ou</span></div>
+                    <div class="modal-form">
+                        <div class="form-group">
+                            <input class="form-control" type="email" name="username" placeholder="Nome de usuário ou email">
+                        </div>
+                        <div class="form-group">
+                            <input class="form-control" type="password" name="password" placeholder="Senha">
+                        </div>
+                        <div class="form-group">
+                            <input class="form-control" type="hidden" name="__all__">
+                        </div>
+                        <button type="submit" class="btn-action btn-block">Entrar</button>
+                        <div class="modal-tools">
+                            <a class="left" href="{% url 'account:signup' %}">Cadastre-se</a>
+                            <a class="right" href="{% url 'account:forgot_password' %}">Esqueci a minha senha</a>
+                        </div>
+                    </div>
                 </div>
-                <a href="javascript:;" class="btn-action">Entrar</a>
-                <div class="modal-tools">
-                    <a class="left" href="javascript:;">Cadastre-se</a>
-                    <a class="right" href="javascript:;">Esqueci a minha senha</a>
-                </div>
-            </div>
+            </form>
         </div>
     </div>
 </div>

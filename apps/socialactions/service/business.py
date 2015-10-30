@@ -1,4 +1,7 @@
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from django.db.models import Q
+from apps.taxonomy.models import Taxonomy
+from apps.taxonomy.service.business import get_related_list_top_down
 
 __author__ = 'phillip'
 from ..models import UserAction
@@ -144,6 +147,17 @@ def followers_count(user=None, content_object=None):
 
     return user_count_acted_by_object(user, content_object, 'follow')
 
+def followings_count(author=None, content_type=None):
+
+    content_type = ContentType.objects.get(model=content_type)
+    action_type = get_by_label("follow")
+
+    user_action_count = UserAction.objects.filter(author=author,
+                                                  content_type=content_type,
+                                                  action_type=action_type).count()
+
+    return user_action_count
+
 # Action methods
 
 
@@ -216,8 +230,7 @@ def get_users_acted_by_model(model=None, action=None, filter_parameters=None,
     return list
 
 
-def get_users_acted_by_author(author=None, action=None, content_type=None,
-                              filter_parameters=None, items_per_page=None, page=None):
+def get_users_acted_by_author(author=None, action=None, content_type=None, filter_parameters=None, items_per_page=None, page=None):
     if not filter_parameters:
         filter_parameters = {}
 
@@ -228,6 +241,69 @@ def get_users_acted_by_author(author=None, action=None, content_type=None,
     parameters['action_type'] = action
 
     users_actions = UserAction.objects.filter(**parameters).prefetch_related('author')
+
+    if items_per_page is not None and page is not None:
+        list_users = Paginator(users_actions, items_per_page)
+        try:
+            list_users = list_users.page(page)
+        except PageNotAnInteger:
+            list_users = list_users.page(1)
+        except EmptyPage:
+            list_users = []
+    else:
+        list_users = users_actions
+
+    return list_users
+
+
+def get_random_users_acted_by_author(author=None, action=None, content_type=None, filter_parameters=None, items_per_page=None, page=None):
+    if not filter_parameters:
+        filter_parameters = {}
+
+    content_type = get_model_type(content_type)
+    parameters = filter_parameters.copy()
+    parameters['content_type'] = content_type
+    parameters['author'] = author.id
+    parameters['action_type'] = action
+
+    users_actions = UserAction.objects.filter(**parameters).order_by('?').prefetch_related('author')
+
+    if items_per_page is not None and page is not None:
+        list_users = Paginator(users_actions, items_per_page)
+        try:
+            list_users = list_users.page(page)
+        except PageNotAnInteger:
+            list_users = list_users.page(1)
+        except EmptyPage:
+            list_users = []
+    else:
+        list_users = users_actions
+
+    return list_users
+
+def get_users_acted_by_author_with_parameters(author=None, action=None, content_type=None,
+                              criteria=None, category=None, items_per_page=None, page=None):
+
+    content_type = get_model_type(content_type)
+
+    if int(category) != 0:
+        category = Taxonomy.objects.get(pk=category)
+        categories = get_related_list_top_down([category])
+    else:
+        categories = []
+
+
+    condition = (Q(content_type=content_type) &
+                 Q(author=author) &
+                 Q(action_type=action))
+
+    if criteria:
+        condition &= Q(community__title__icontains=criteria)
+
+    if category and categories:
+        condition &= Q(community__taxonomy__in=categories)
+
+    users_actions = UserAction.objects.filter(condition).prefetch_related('author')
 
     if items_per_page is not None and page is not None:
         list_users = Paginator(users_actions, items_per_page)

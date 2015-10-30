@@ -1,0 +1,22 @@
+<div class="col-lg-4">
+    <div class="squad-advertising">
+        <img class="img-responsive" src="http://placehold.it/270x225" alt="Propaganda aqui">
+    </div>
+
+    <!-- Comunidades -->
+    <div id="load-communities" data-load-async="true" data-url="{% url 'profile:communities-load-ajax' profile.user.username %}" data-url-next="{{ request.path }}" data-request-method="post" data-response-type="json">
+        <div class="load-async load-async-content">
+            Carregando...
+        </div>
+        {% csrf_token %}
+    </div>
+
+
+    <!-- Seguindo -->
+    <div id="load-followings" data-load-async="true" data-url="{% url 'profile:followings-load-ajax' profile.user.username %}" data-url-next="{{ request.path }}" data-request-method="post" data-response-type="json">
+        <div class="load-async load-async-content">
+            Carregando...
+        </div>
+        {% csrf_token %}
+    </div>
+</div>

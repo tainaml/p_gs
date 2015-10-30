@@ -4,7 +4,7 @@
 {% block title %}Portal GSTI - Perfil{% endblock %}
 
 {% block content %}
-    <main class="container">
+    <main class="container main">
         <div class="perfil-row">
             <!-- mudar para 2.5 -->
             <div class="col-lg-3">
@@ -20,9 +20,8 @@
                 </nav>
                 <div class="row">
                     <div class="col-lg-8">
-                        {% if profile.user == request.user %}
                         <header class="area-title">
-                            <h2>Feed</h2>
+                            <h2>Perfil</h2>
                         </header>
                         {% if isLogged %}
                             <!-- A "barra" de pesquisa não é exibida no feed, somente no -->
@@ -46,81 +45,9 @@
                                 <span>Não existem itens a serem exibidos</span>
                             {% endif %}
                         </section>
-                        {% endif %}
                     </div>
                     <!-- Right bar -->
-                    <div class="col-lg-4">
-                        <div class="squad-advertising">
-                            <img class="img-responsive" src="http://placehold.it/270x225" alt="Propaganda aqui">
-                        </div>
-                        <!-- Comunidades -->
-                        <div class="widget widget-feed">
-                            <div class="widget-header">
-                                <span class="counter">168</span>
-                                <header class="area-title">
-                                    <h3>Comunidades</h3>
-                                </header>
-                            </div>
-                            <div class="widget-content">
-                                <div class="perfil">
-                                    <img src="http://placehold.it/82" alt="Imagem 1">
-                                    <a class="perfil-name" href="javascript:;">Python</a>
-                                    <span class="perfil-counter"><span class="counter-number">12.568</span> Seguidores</span>
-                                    <a class="btn btn-sm perfil-button" href="javascript:;">Seguir</a>
-                                </div>
-                                <div class="perfil">
-                                    <img src="http://placehold.it/82" alt="Imagem 1">
-                                    <a class="perfil-name" href="javascript:;">Python</a>
-                                    <span class="perfil-counter"><span class="counter-number">12.568</span> Seguidores</span>
-                                    <a class="btn btn-sm perfil-button" href="javascript:;">Seguir</a>
-                                </div>
-                                <div class="perfil">
-                                    <img src="http://placehold.it/82" alt="Imagem 1">
-                                    <a class="perfil-name" href="javascript:;">Python</a>
-                                    <span class="perfil-counter"><span class="counter-number">12.568</span> Seguidores</span>
-                                    <a class="btn btn-sm perfil-button" href="javascript:;">Seguir</a>
-                                </div>
-                            </div>
-                            <a class="widget-footer" href="javascript:;">
-                                <i class="gsticon gsticon-plus"></i>
-                                Ver todos
-                            </a>
-                        </div>
-
-                        <!-- Seguindo -->
-                        <div class="widget widget-feed">
-                            <div class="widget-header">
-                                <span class="counter">168</span>
-                                <header class="area-title">
-                                    <h3>Seguindo</h3>
-                                </header>
-                            </div>
-                            <div class="widget-content">
-                                <div class="perfil">
-                                    <img src="http://placehold.it/82" alt="Imagem 1">
-                                    <a class="perfil-name" href="javascript:;">Python</a>
-                                    <span class="perfil-counter"><span class="counter-number">12.568</span> Seguidores</span>
-                                    <a class="btn btn-sm perfil-button" href="javascript:;">Seguir</a>
-                                </div>
-                                <div class="perfil">
-                                    <img src="http://placehold.it/82" alt="Imagem 1">
-                                    <a class="perfil-name" href="javascript:;">Python</a>
-                                    <span class="perfil-counter"><span class="counter-number">12.568</span> Seguidores</span>
-                                    <a class="btn btn-sm perfil-button" href="javascript:;">Seguir</a>
-                                </div>
-                                <div class="perfil">
-                                    <img src="http://placehold.it/82" alt="Imagem 1">
-                                    <a class="perfil-name" href="javascript:;">Python</a>
-                                    <span class="perfil-counter"><span class="counter-number">12.568</span> Seguidores</span>
-                                    <a class="btn btn-sm perfil-button" href="javascript:;">Seguir</a>
-                                </div>
-                            </div>
-                            <a class="widget-footer" href="javascript:;">
-                                <i class="gsticon gsticon-plus"></i>
-                                Ver todos
-                            </a>
-                        </div>
-                    </div>
+                    {% include 'userprofile/partials/profile-sidebar-right.html' %}
                 </div>
             </div>
         </div>
@@ -138,6 +65,32 @@
                 contentSelect: ".j-scroll-container",
                 nextSelect: "a[data-jscroll-next]"
             });
+
+            setTimeout(function loadCommunitiesAsync() {
+                $("[data-load-async='true']").each(function (i, e) {
+                    var $this = $(this);
+                    $.ajax({
+                        url: $this.data("url"),
+                        method: $this.data("request-method"),
+                        dataType: $this.data("response-type"),
+                        data: {
+                            'url-next': $this.data("url-next"),
+                            csrfmiddlewaretoken: $this.find("input:hidden[name='csrfmiddlewaretoken']").val()
+                        },
+                        success: function(data, status, xhr) {
+                            $this.find(".load-async-content").html(data.template);
+                        },
+                        statusCode: {
+                            400: function() {
+                                $this.html("");
+                            },
+                            403: function() {
+                                $this.html("-- 403 Forbidden --");
+                            }
+                        }
+                    });
+                });
+            }, 500);
         });
     </script>
 {% endblock %}

@@ -1,7 +1,10 @@
+from django.contrib.contenttypes.models import ContentType
 from django.db import transaction
+
 from custom_forms.custom import IdeiaForm, forms
 from ..business import user as Business
 
+from apps.article.models import Article
 from apps.userprofile.models import Responsibility, State
 from apps.userprofile.service import business as BusinessUserProfile
 from apps.userprofile.service.forms import EditProfileForm
@@ -87,3 +90,89 @@ class CoreUserProfileFullEditForm(EditProfileForm):
         })
 
         return process_profile if (process_profile and process_occupation and process_user) else False
+
+
+class CoreSearchFollowings(IdeiaForm):
+
+    criteria = forms.CharField(required=False)
+    page = forms.IntegerField(required=False)
+
+    def __init__(self, author, items_per_page=None, *args, **kwargs):
+        self.author = author
+        self.items_per_page = items_per_page
+        super(CoreSearchFollowings, self).__init__(*args, **kwargs)
+
+
+    def clean(self):
+
+        cleaned_data = super(CoreSearchFollowings, self).clean()
+        cleaned_data['page'] = cleaned_data['page'] if 'page' in cleaned_data and cleaned_data['page'] else 1
+
+        return cleaned_data
+
+
+    def __process__(self):
+        return Business.get_followings(
+            self.author,
+            self.cleaned_data['criteria'],
+            self.items_per_page,
+            self.cleaned_data.get('page', 0)
+        )
+
+
+class CoreSearchFollowers(IdeiaForm):
+
+    criteria = forms.CharField(required=False)
+    page = forms.IntegerField(required=False)
+
+    def __init__(self, author, items_per_page=None, *args, **kwargs):
+        self.author = author
+        self.items_per_page = items_per_page
+        super(CoreSearchFollowers, self).__init__(*args, **kwargs)
+
+
+    def clean(self):
+
+        cleaned_data = super(CoreSearchFollowers, self).clean()
+        cleaned_data['page'] = cleaned_data['page'] if 'page' in cleaned_data and cleaned_data['page'] else 1
+
+        return cleaned_data
+
+
+    def __process__(self):
+        return Business.get_followers(
+            self.author,
+            self.cleaned_data['criteria'],
+            self.items_per_page,
+            self.cleaned_data.get('page', 0)
+        )
+
+
+class CoreSearchArticlesForm(IdeiaForm):
+
+    criteria = forms.CharField(required=False)
+    status = forms.ChoiceField(required=False, choices=Article.STATUS_CHOICES)
+    page = forms.IntegerField(required=False)
+
+    def __init__(self, author=None, items_per_page=10, *args, **kwargs):
+        self.items_per_page = items_per_page
+        self.author = author
+
+        super(CoreSearchArticlesForm, self).__init__(*args, **kwargs)
+
+    def clean(self):
+        cleaned_data = super(CoreSearchArticlesForm, self).clean()
+
+        cleaned_data['page'] = cleaned_data['page'] \
+            if 'page' in cleaned_data and cleaned_data['page'] else 1
+
+        return cleaned_data
+
+    def __process__(self):
+        return Business.get_articles(
+            self.author,
+            self.cleaned_data.get('criteria'),
+            self.cleaned_data.get('status'),
+            self.items_per_page,
+            self.cleaned_data.get('page', 1)
+        )

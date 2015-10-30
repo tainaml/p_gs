@@ -5,7 +5,7 @@
 {% block title %}Portal GSTI - Perfil{% endblock %}
 
 {% block content %}
-    <main class="container">
+    <main class="container main">
         <div class="perfil-row">
             <!-- mudar para 2.5 -->
             <div class="col-lg-3">
@@ -48,78 +48,7 @@
                         {% endif %}
                     </div>
                     <!-- Right bar -->
-                    <div class="col-lg-4">
-                        <div class="squad-advertising">
-                            <img class="img-responsive" src="http://placehold.it/270x225" alt="Propaganda aqui">
-                        </div>
-                        <!-- Comunidades -->
-                        <div class="widget widget-feed">
-                            <div class="widget-header">
-                                <span class="counter">168</span>
-                                <header class="area-title">
-                                    <h3>Comunidades</h3>
-                                </header>
-                            </div>
-                            <div class="widget-content">
-                                <div class="perfil">
-                                    <img src="http://placehold.it/82" alt="Imagem 1">
-                                    <a class="perfil-name" href="javascript:;">Python</a>
-                                    <span class="perfil-counter"><span class="counter-number">12.568</span> Seguidores</span>
-                                    <a class="btn btn-sm perfil-button" href="javascript:;">Seguir</a>
-                                </div>
-                                <div class="perfil">
-                                    <img src="http://placehold.it/82" alt="Imagem 1">
-                                    <a class="perfil-name" href="javascript:;">Python</a>
-                                    <span class="perfil-counter"><span class="counter-number">12.568</span> Seguidores</span>
-                                    <a class="btn btn-sm perfil-button" href="javascript:;">Seguir</a>
-                                </div>
-                                <div class="perfil">
-                                    <img src="http://placehold.it/82" alt="Imagem 1">
-                                    <a class="perfil-name" href="javascript:;">Python</a>
-                                    <span class="perfil-counter"><span class="counter-number">12.568</span> Seguidores</span>
-                                    <a class="btn btn-sm perfil-button" href="javascript:;">Seguir</a>
-                                </div>
-                            </div>
-                            <a class="widget-footer" href="javascript:;">
-                                <i class="gsticon gsticon-plus"></i>
-                                Ver todos
-                            </a>
-                        </div>
-
-                        <!-- Seguindo -->
-                        <div class="widget widget-feed">
-                            <div class="widget-header">
-                                <span class="counter">168</span>
-                                <header class="area-title">
-                                    <h3>Seguindo</h3>
-                                </header>
-                            </div>
-                            <div class="widget-content">
-                                <div class="perfil">
-                                    <img src="http://placehold.it/82" alt="Imagem 1">
-                                    <a class="perfil-name" href="javascript:;">Python</a>
-                                    <span class="perfil-counter"><span class="counter-number">12.568</span> Seguidores</span>
-                                    <a class="btn btn-sm perfil-button" href="javascript:;">Seguir</a>
-                                </div>
-                                <div class="perfil">
-                                    <img src="http://placehold.it/82" alt="Imagem 1">
-                                    <a class="perfil-name" href="javascript:;">Python</a>
-                                    <span class="perfil-counter"><span class="counter-number">12.568</span> Seguidores</span>
-                                    <a class="btn btn-sm perfil-button" href="javascript:;">Seguir</a>
-                                </div>
-                                <div class="perfil">
-                                    <img src="http://placehold.it/82" alt="Imagem 1">
-                                    <a class="perfil-name" href="javascript:;">Python</a>
-                                    <span class="perfil-counter"><span class="counter-number">12.568</span> Seguidores</span>
-                                    <a class="btn btn-sm perfil-button" href="javascript:;">Seguir</a>
-                                </div>
-                            </div>
-                            <a class="widget-footer" href="javascript:;">
-                                <i class="gsticon gsticon-plus"></i>
-                                Ver todos
-                            </a>
-                        </div>
-                    </div>
+                    {% include 'userprofile/partials/profile-sidebar-right.html' %}
                 </div>
             </div>
         </div>
@@ -214,6 +143,22 @@
             $currentModal.modal("hide");
         };
 
+        var fillValues = function() {
+            var $this = $(this);
+            $.ajax({
+                url: $this.data("url"),
+                method: "POST",
+                dataType: "html",
+                data: {
+                    value_id: $this.val(),
+                    csrfmiddlewaretoken: $("input:hidden[name='csrfmiddlewaretoken']").val()
+                },
+                success: function(response) {
+                    $($this.data("target")).html(response);
+                }
+            });
+        };
+
         $(function() {
             var $countySelect = $("#country");
             var $stateSelect = $("#state");
@@ -224,6 +169,8 @@
                 fill_cities($(this));
             });
 
+            $("[data-ajax-change='true']").on("change", fillValues);
+
             $("#form-personal-info").on("ajaxform.success", functionAjaxSuccessStepOne);
             $("#form-filter-categories").on("ajaxform.success", functionAjaxSuccessStepTwo);
             $("#form-suggestions").on("ajaxform.success", functionAjaxSuccessStepThree);
@@ -233,6 +180,32 @@
                 contentSelect: ".j-scroll-container",
                 nextSelect: "a[data-jscroll-next]"
             });
+
+            setTimeout(function loadCommunitiesAsync() {
+                $("[data-load-async='true']").each(function (i, e) {
+                    var $this = $(this);
+                    $.ajax({
+                        url: $this.data("url"),
+                        method: $this.data("request-method"),
+                        dataType: $this.data("response-type"),
+                        data: {
+                            'url-next': $this.data("url-next"),
+                            csrfmiddlewaretoken: $this.find("input:hidden[name='csrfmiddlewaretoken']").val()
+                        },
+                        success: function(data, status, xhr) {
+                            $this.find(".load-async-content").html(data.template);
+                        },
+                        statusCode: {
+                            400: function() {
+                                $this.html("");
+                            },
+                            403: function() {
+                                $this.html("-- 403 Forbidden --");
+                            }
+                        }
+                    });
+                });
+            }, 500);
         });
 
 
