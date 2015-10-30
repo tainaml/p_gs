@@ -1,0 +1,194 @@
+{%extends 'home/layout/base.html' %}
+
+{% block title %}Portal GSTI - Perfil, Editar Publicações{% endblock %}
+
+{% block content %}
+    <main class="container main">
+        <div class="perfil-row">
+            <!-- mudar para 2.5 -->
+            <div class="col-lg-3">
+                {% include 'home/partials/sidebar-perfil.html' %}
+            </div>
+            <!-- mudar para 9.5 -->
+            <div class="col-lg-9">
+                <nav class="perfil-navegation">
+                    {% if profile.user == request.user %}<a href="{% url 'profile:feed' %}">Feed</a>•{% endif %}
+                    <a href="{% url 'profile:show' username=profile.user.username %}">Perfil</a>•
+                    <a href="{% url 'ninico:about' %}">Sobre</a>•<a href="{% url 'profile:communities' username=profile.user.username %}">Comunidades</a>•
+                    <a href="{% url 'profile:followers' username=profile.user.username %}">Relacionamentos</a>•
+                    <a href="{% url 'profile:videos' profile.user.username %}">Vídeos</a>
+                </nav>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <header class="area-title">
+                            <h2>Editar Publicações</h2>
+                        </header>
+                        <div class="row">
+                            <form id="search-form" action="{% url 'profile:edit-posts-search-ajax' %}" method="GET" data-ajaxform="true" data-group-class=".form-search-input">
+                                {% csrf_token %}
+                                <div class="col-sm-8">
+                                    <nav class="form-search">
+                                        <div class="form-search-input">
+                                            <input type="text" id="criteria" name="criteria" placeholder="{{placehold|default:"Procure uma publicação."}}" value="{{ form.cleaned_data.criteria|default:"" }}"/>
+                                        </div>
+                                        <div class="dropdown-menu dropdown-search">
+                                            <div class="float-notifcations">
+                                                <div class="header-float-notifications">Pessoas</div>
+                                                <ul class="content-float-notifications">
+                                                    <li class="item-float-notification">
+                                                        <a href="javascript:;"><img src="http://placehold.it/20" alt="Creator Post Avatar"></a>
+                                                        <a href="javascript:;">Iury Silva</a>
+                                                    </li>
+                                                    <li class="item-float-notification">
+                                                        <a href="javascript:;"><img src="http://placehold.it/20" alt="Creator Post Avatar"></a>
+                                                        <a href="javascript:;">Iury Silva</a>
+                                                    </li>
+                                                    <li class="item-float-notification">
+                                                        <a href="javascript:;"><img src="http://placehold.it/20" alt="Creator Post Avatar"></a>
+                                                        <a href="javascript:;">Iury Silva</a>
+                                                    </li>
+                                                    <li class="item-float-notification-separator"></li>
+                                                </ul>
+                                                <div class="header-float-notifications">Comunidades</div>
+                                                <ul class="content-float-notifications">
+                                                    <li class="item-float-notification">
+                                                        <a href="javascript:;"><img src="http://placehold.it/20" alt="Creator Post Avatar"></a>
+                                                        <a href="javascript:;">Iury Silva</a>
+                                                    </li>
+                                                    <li class="item-float-notification">
+                                                        <a href="javascript:;"><img src="http://placehold.it/20" alt="Creator Post Avatar"></a>
+                                                        <a href="javascript:;">Iury Silva</a>
+                                                    </li>
+                                                    <li class="item-float-notification">
+                                                        <a href="javascript:;"><img src="http://placehold.it/20" alt="Creator Post Avatar"></a>
+                                                        <a href="javascript:;">Iury Silva</a>
+                                                    </li>
+                                                    <li class="item-float-notification-separator"></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <button type="submit" class="form-search-button">
+                                            <i class="gsticon gsticon-search"></i>
+                                        </button>
+                                    </nav>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="custom-select">
+                                        <select class="form-control" id="status" name="status">
+                                            <option value="">Todos</option>
+                                            {% for key, value in status_list %}
+                                                <option value="{{ key }}" {% if status == key %}selected{% endif %}>{{ value }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <section class="area-content">
+                            <div id="posts-container">
+                                <div class="j-scroll-posts j-scroll-posts-container">
+                                    {% include "userprofile/partials/profile-edit-posts-segment.html" %}
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock %}
+
+
+{% block modals %}
+    {{ block.super }}
+
+    {% include "home/partials/modals/modal-confirmation.html" %}
+
+{% endblock %}
+
+
+{% block javascripts %}
+    {{ block.super }}
+    <script src="https://cdn.jsdelivr.net/jquery.jscroll/2.2.4/jquery.jscroll.min.js"></script>
+    <script>
+
+        var jScrollElemment = null;
+        var functionAjaxSuccessFilterCommunities = function(e, data) {
+            var $divCommunities = $("#posts-container");
+            var $divJScroll = $('<div class="j-scroll-posts j-scroll-posts-container"></div>');
+
+            $divJScroll.html(data.template);
+            $divCommunities.html($divJScroll);
+
+            if (data.have_posts) {
+                jScrollElemment = $divJScroll.jscroll({
+                    autoTrigger: true,
+                    loadingHtml: '<span>Carregando...</span>',
+                    contentSelect: '.j-scroll-posts-container',
+                    nextSelect: "a[data-jscroll-next]",
+                    refresh: true
+                });
+            }
+        };
+
+        var functionOpenModalToDelete = function(e) {
+            e.preventDefault();
+
+            var $btn = $(e.currentTarget),
+                $modal = $($btn.data("modal"));
+
+            $modal.find("form").attr("action", $btn.data("url"));
+            $modal.find("#item-id").val($btn.data("item"));
+            $modal.find("#title-item-to-remove").html($btn.data("title"));
+            $modal.find(".loading-container").html("");
+            $modal.find(".alert-container").html("");
+            $modal.modal("show");
+
+            return false;
+        };
+
+        var functionAjaxSuccessDeleteItem = function(e, data) {
+            var $this = $(this),
+                $modal = $($this.closest(".modal.fade")),
+                itemId = $modal.find("#item-id").val();
+
+            $modal.modal("hide");
+            $modal.find("form").attr("action", "");
+            $modal.find("#item-id").val("");
+            $modal.find("#title-item-to-remove").html("");
+            $modal.find(".loading-container").html("");
+            $modal.find(".alert-container").html("");
+
+            $("#pub-" + itemId).fadeOut("slow");
+        };
+
+        $(function() {
+            $(document).on('keyup', "#criteria" , function(event) {
+                var $this = $(event.currentTarget);
+
+                if ($this.val().length <= 2)
+                    return false;
+
+                if ($this.val().length > 2)
+                    $this.closest('form').submit();
+            });
+
+            $(document).on('change', "#status" , function(event) {
+                var $this = $(event.currentTarget);
+                $this.closest('form').submit();
+            });
+
+            $("#search-form").on("ajaxform.success", functionAjaxSuccessFilterCommunities);
+            $("#confirmation-form").on("ajaxform.success", functionAjaxSuccessDeleteItem);
+
+            $(document).on("click", "[data-delete-item='true']", functionOpenModalToDelete);
+
+            $(".j-scroll-posts").jscroll({
+                contentSelect: ".j-scroll-posts-container",
+                nextSelect: "a[data-jscroll-next]"
+            });
+        });
+
+
+    </script>
+{% endblock %}

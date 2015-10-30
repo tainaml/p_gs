@@ -1,0 +1,36 @@
+
+{% load staticfiles %}
+{% block content %}
+
+{% csrf_token %}
+    {% for article in articles %}
+    <div class="excerpt">
+        <div class="custom-check"><input type="checkbox" data-object-id="{{ article.id }}"></div>
+        <div class="excerpt-content">
+            <a class="excerpt-image" href="{% url 'article:view' article.content_object.slug article.content_object.id %}">
+                <img src="{{ article.content_object.get_image.url }}" alt="{{ article.content_object.title }}">
+            </a>
+            <div class="excerpt-title">
+                <header class="post-header">
+                    <div class="post-info">
+                        <time datetime="{{ article.content_object.createdin }}" itemprop="datePublished">{{ article.content_object.createdin }}</time>
+                        <a href="javascript:;" data-toggle="dropdown"><i class="gsticon gsticon-gear"></i></a>
+                        <div class="dropdown-menu">
+                            <ul class="perfil-actions">
+                                <li><a href="javascript:;"><i class="gsticon gsticon-trash remove-see-later"></i> Remover Sugestão</a></li>
+                                <li><a href="javascript:;"><i class="gsticon gsticon-star"></i> Favoritar</a></li>
+                                <li><a href="javascript:;"><i class="gsticon gsticon-paper-plane"></i> Sugerir</a></li>
+                                <li><a href="javascript:;"><i class="gsticon gsticon-exclamation-triangle"></i> Denunciar</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <a class="post-creator" href="{% url 'profile:show' article.author.username %}">
+                        <img src="{{ article.content_object.author.profile.get_picture }}" alt="{{ article.content_object.author.get_full_name }}">
+                        {{ article.content_object.author.get_full_name }}</a>
+                </header>
+                <a href="{% url 'article:view' article.content_object.slug article.content_object.id %}">{{ article.content_object.title }}</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+{% endblock %}

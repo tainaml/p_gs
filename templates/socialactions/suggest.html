@@ -1,0 +1,207 @@
+{%extends 'home/layout/base.html' %}
+
+{% load staticfiles %}
+
+{% block title %}Portal GSTI - Ver depois{% endblock %}
+
+{% block content %}
+
+{% csrf_token %}
+<main class="container main">
+    <div class="perfil-row">
+        <!-- mudar para 2.5 -->
+        <div class="col-lg-3">
+            {% include 'home/partials/sidebar-perfil.html' %}
+        </div>
+        <!-- mudar para 9.5 -->
+        <div class="col-lg-9">
+            <nav class="perfil-navegation">
+                <a href="{% url 'ninico:feed' %}">Feed</a>•<a href="{% url 'ninico:perfil' %}">Perfil</a>•<a href="{% url 'ninico:about' %}">Sobre</a>•<a href="{% url 'ninico:communities' %}">Comunidades</a>•<a href="{% url 'ninico:relationship' %}">Relacionamentos</a>•<a href="{% url 'ninico:videos' %}">Vídeos</a>
+            </nav>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="row">
+                    <header class="area-title">
+                        <h2> {{ request.user.username  }} Sugestões</h2>
+                    </header>
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div class="custom-check btn">
+                                <input type="checkbox">
+                            </div>
+                            <a href="javascript:;" class="btn btn-default remove-suggest">
+                                <i class="gsticon gsticon-eye"></i> Remover sugestão
+                            </a>
+                        </div>
+                        <div class="col-lg-8">
+                            <!-- A "barra" de pesquisa não é exibida no feed, somente no -->
+                            <nav class="form-search">
+                                <form action="{% url 'ninico:pesquisa' %}" method="GET" role="search" id="form-filter">
+                                    <div class="form-search-input">
+                                        <input type="text" id="suggest" name="fcommunity" placeholder="{{placehold|default:"Procure pessoas, comunidades, etc."}}" />
+                                    </div>
+                                    <div class="dropdown-menu dropdown-search">
+                                        <div class="float-notifcations">
+                                            <div class="header-float-notifications">Pessoas</div>
+                                            <ul class="content-float-notifications">
+                                                <li class="item-float-notification">
+                                                    <a href="javascript:;"><img src="http://placehold.it/20" alt="Creator Post Avatar"></a>
+                                                    <a href="javascript:;">Iury Silva</a>
+                                                </li>
+                                                <li class="item-float-notification">
+                                                    <a href="javascript:;"><img src="http://placehold.it/20" alt="Creator Post Avatar"></a>
+                                                    <a href="javascript:;">Iury Silva</a>
+                                                </li>
+                                                <li class="item-float-notification">
+                                                    <a href="javascript:;"><img src="http://placehold.it/20" alt="Creator Post Avatar"></a>
+                                                    <a href="javascript:;">Iury Silva</a>
+                                                </li>
+                                                <li class="item-float-notification-separator">
+                                                </li>
+                                            </ul>
+                                            <div class="header-float-notifications">Comunidades</div>
+                                            <ul class="content-float-notifications">
+                                                <li class="item-float-notification">
+                                                    <a href="javascript:;"><img src="http://placehold.it/20" alt="Creator Post Avatar"></a>
+                                                    <a href="javascript:;">Iury Silva</a>
+                                                </li>
+                                                <li class="item-float-notification">
+                                                    <a href="javascript:;"><img src="http://placehold.it/20" alt="Creator Post Avatar"></a>
+                                                    <a href="javascript:;">Iury Silva</a>
+                                                </li>
+                                                <li class="item-float-notification">
+                                                    <a href="javascript:;"><img src="http://placehold.it/20" alt="Creator Post Avatar"></a>
+                                                    <a href="javascript:;">Iury Silva</a>
+                                                </li>
+                                                <li class="item-float-notification-separator">
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="form-search-button">
+                                        <i class="gsticon gsticon-search"></i>
+                                    </button>
+                                </form>
+                            </nav>
+                        </div>
+                    </div>
+                    <section class="area-content j-scroll j-scroll-container">
+                            {% if articles %}
+                                {% for article in articles %}
+                                <div class="excerpt">
+                                    <div class="custom-check"><input type="checkbox" data-object-id="{{ article.id }}"></div>
+                                    <div class="excerpt-content">
+                                        <a class="excerpt-image" href="{% url 'article:view' article.content_object.slug article.content_object.id %}">
+                                            <img src="{{ article.content_object.get_image.url }}" alt="{{ article.content_object.title }}">
+                                        </a>
+                                        <div class="excerpt-title">
+                                            <header class="post-header">
+                                                <div class="post-info">
+                                                    <time datetime="{{ article.content_object.createdin }}" itemprop="datePublished">{{ article.content_object.createdin }}</time>
+                                                    <a href="javascript:;" data-toggle="dropdown"><i class="gsticon gsticon-gear"></i></a>
+                                                    <div class="dropdown-menu">
+                                                        <ul class="perfil-actions">
+                                                            <li><a href="javascript:;"><i class="gsticon gsticon-trash remove-suggest"></i> Remover Sugestão</a></li>
+                                                            <li><a href="javascript:;"><i class="gsticon gsticon-star"></i> Favoritar</a></li>
+                                                            <li><a href="javascript:;"><i class="gsticon gsticon-paper-plane"></i> Sugerir</a></li>
+                                                            <li><a href="javascript:;"><i class="gsticon gsticon-exclamation-triangle"></i> Denunciar</a></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <a class="post-creator" href="{% url 'profile:show' article.author.username %}">
+                                                    <img src="{{ article.content_object.author.profile.get_picture }}" alt="{{ article.content_object.author.get_full_name }}">
+                                                    {{ article.content_object.author.get_full_name }}</a>
+                                            </header>
+                                            <a href="{% url 'article:view' article.content_object.slug article.content_object.id %}">{{ article.content_object.title }}</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endfor %}
+
+                                <a data-jscroll-next href="{% url 'core_socialactions:suggest' request.user.username %}?criteria={{ criteria }}&page={{ page }}&next={{ url_next }}">next</a>
+
+                            {% else %}
+
+                                {% if articles == 0 %}
+                                    <p>Nenhum resultado foi encontrado para sua pesquisa</p>
+                                    <hr>
+                                {% endif %}
+
+                            {% endif %}
+                    </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}
+
+{% block javascripts %}
+    {{ block.super }}
+
+    <script src="https://cdn.jsdelivr.net/jquery.jscroll/2.2.4/jquery.jscroll.min.js"></script>
+    <script>
+        $(function() {
+            $(".j-scroll").jscroll({
+                loadingHtml: '<span>Carregando...</span>',
+                contentSelect: ".j-scroll-container",
+                nextSelect: "a[data-jscroll-next]"
+            });
+
+            $(document).on('click', '.remove-suggest', function(){
+                var objects_to_remove = [];
+
+                var checkeds = $('.custom-check').find('input:checked');
+                checkeds.each(function(index, element){
+                    objects_to_remove.push($(element).data('objectId'));
+                })
+
+               $.ajax({
+                   url: "{% url 'core_socialactions:unsuggest' request.user.username %}",
+                   method: 'POST',
+                   data: {
+                       itens_to_remove: objects_to_remove,
+                       csrfmiddlewaretoken: $("input:hidden[name='csrfmiddlewaretoken']").val()
+                   },
+                   success: function(data, status, xhr) {
+                       $('.area-content').html(data);
+                   },
+                   statusCode: {
+                       400: function() {
+                           $this.html("");
+                       },
+                       403: function() {
+                           $this.html("-- 403 Forbidden --");
+                       }
+                   }
+               });
+            })
+
+            $(document).on('submit', '#form-filter', function(event){
+                    event.preventDefault();
+
+                    $.ajax({
+                        url: "{% url 'core_socialactions:suggest' request.user.username %}",
+                        method: 'GET',
+                        data: {
+                            'criteria': $("#suggest").val(),
+                            csrfmiddlewaretoken: $("input:hidden[name='csrfmiddlewaretoken']").val()
+                        },
+                        success: function(data, status, xhr) {
+                            $('.area-content').html(data);
+                        },
+                        statusCode: {
+                            400: function() {
+                                $this.html("");
+                            },
+                            403: function() {
+                                $this.html("-- 403 Forbidden --");
+                            }
+                        }
+                    });
+                    return false;
+            });
+        });
+    </script>
+{% endblock %}

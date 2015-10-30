@@ -6,7 +6,7 @@
 {% block title %}Portal GSTI - Comunidade{% endblock %}
 
 {% block content %}
-    <main class="container">
+    <main class="container main">
         <div class="perfil-row">
             <!-- mudar para 2.5 -->
             <div class="col-lg-3">
@@ -15,7 +15,7 @@
             <!-- mudar para 9.5 -->
             <div class="col-lg-9">
                 <nav class="perfil-navegation">
-                    <a href="{% url 'community:show' community.slug %}">Feed</a>•<a class="active" href="{% url 'community:questions' community.slug %}">Perguntas</a>•<a href="{% url 'community:followers' community.slug %}">Membros</a>•<a href="{% url 'community:about' community.slug %}">Sobre</a>•<a href="{% url 'ninico:comunidade-videos' %}">Vídeos</a>
+                    <a href="{% url 'community:show' community.slug %}">Feed</a>•<a class="active" href="{% url 'community:questions' community.slug %}">Perguntas</a>•<a href="{% url 'community:followers' community.slug %}">Membros</a>•<a href="{% url 'community:about' community.slug %}">Sobre</a>•<a href="{% url 'community:videos' community.slug %}">Vídeos</a>
                 </nav>
                 <div class="row">
                     <div class="col-lg-8">
@@ -27,12 +27,16 @@
                         </nav>
                         <section class="area-content">
                             <div class="text-right">
-                                <a href="javascript:;" class="btn btn-default">Respondidas</a>
-                                <a href="javascript:;" class="btn btn-default">Não respondidas</a>
+                                <a href="{% url "community:questions-search" community.slug %}?criterio={{ form.cleaned_data.criterio|urlencode }}&replies=reply&next={{ url_next|urlencode }}" class="btn btn-default">Respondidas</a>
+                                <a href="{% url "community:questions-search" community.slug %}?criterio={{ form.cleaned_data.criterio|urlencode }}&replies=non-reply&next={{ url_next|urlencode }}" class="btn btn-default">Não respondidas</a>
                                 <br><br>
                             </div>
-                            <div class="row j-scroll j-scroll-container">
-                                {% include 'community/partials/community-question-list.html' %}
+                            <div id="community-feed-list" class="j-scroll j-scroll-container">
+                                {% if form.cleaned_data.criterio %}
+                                    {% include "community/partials/community-question-list.html" %}
+                                {% else %}
+                                    <span>Carregando feed...</span>
+                                {% endif %}
                             </div>
                         </section>
                     </div>
@@ -62,13 +66,32 @@
 
 
 {% block javascripts %}
-    <script src="{% static 'javascripts/jquery.jscroll.min.js' %}"></script>
+    {{ block.super }}
+    <script src="https://cdn.jsdelivr.net/jquery.jscroll/2.2.4/jquery.jscroll.min.js"></script>
     <script>
         $(function() {
-            $(".j-scroll").jscroll({
-                contentSelect: ".j-scroll-container",
-                nextSelect: "a[data-jscroll-next]"
-            });
+
+            {% if form.cleaned_data.criterio %}
+
+                $(".j-scroll").jscroll({
+                    loadingHtml: '<span>Carregando...</span>',
+                    contentSelect: ".j-scroll-container",
+                    nextSelect: "a[data-jscroll-next]"
+                });
+
+            {% else %}
+
+                $.get("{% url 'community:questions-list' community.slug %}?criterio={{ form.cleaned_data.criterio|urlencode }}&replies={{ form.cleaned_data.replies }}&page=1&next={{ url_next|urlencode }}", function( data ) {
+                    $( "#community-feed-list" ).html( data );
+                    $(".j-scroll").jscroll({
+                        loadingHtml: '<span>Carregando...</span>',
+                        contentSelect: ".j-scroll-container",
+                        nextSelect: "a[data-jscroll-next]"
+                    });
+                });
+
+            {% endif %}
+
         });
     </script>
 {% endblock %}

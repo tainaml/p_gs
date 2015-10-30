@@ -140,6 +140,7 @@ SOCIAL_FOLLOW = 3
 SOCIAL_FAVOURITE = 4
 SOCIAL_SUGGEST = 5
 SOCIAL_COMMENT = 6
+SOCIAL_SEE_LATER = 7
 
 SOCIAL_LABELS = {
     SOCIAL_LIKE: 'like',
@@ -147,15 +148,17 @@ SOCIAL_LABELS = {
     SOCIAL_FOLLOW: 'follow',
     SOCIAL_FAVOURITE: 'favourite',
     SOCIAL_SUGGEST: 'suggest',
-    SOCIAL_COMMENT: 'comment'
+    SOCIAL_COMMENT: 'comment',
+    SOCIAL_SEE_LATER: 'see_later'
 }
 
 SOCIAL_ENTITIES = {
-    SOCIAL_LIKE: ['comment'],
-    SOCIAL_UNLIKE: ['comment'],
+    SOCIAL_LIKE: ['comment', 'article'],
+    SOCIAL_UNLIKE: ['comment', 'article'],
     SOCIAL_FOLLOW: ['community', 'user'],
     SOCIAL_FAVOURITE: [''],
-    SOCIAL_SUGGEST: ['']
+    SOCIAL_SUGGEST: [''],
+    SOCIAL_SEE_LATER: ['article'],
 }
 
 SOCIAL_INVERSE_ACTIONS = {
@@ -173,7 +176,8 @@ NOTIFICATION_ACTIONS = {
     SOCIAL_FOLLOW: 'follow',
     SOCIAL_FAVOURITE: 'favourite',
     SOCIAL_SUGGEST: 'suggest',
-    SOCIAL_COMMENT: 'comment'
+    SOCIAL_COMMENT: 'comment',
+    SOCIAL_SEE_LATER: 'see_later'
 }
 
 # Database

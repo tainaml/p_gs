@@ -25,4 +25,11 @@ urlpatterns = [
     url(r'^post$', views.post, name='post'),
     url(r'^question$', views.question, name='question'),
     url(r'^search$', views.search, name='pesquisa'),
+    url(r'^categoria$', views.category, name='categoria'),
+    url(r'^test_abc$', views.test_abc, name='teste_abc'),
+    url(r'^editar-publicacoes$', views.edit_publications, name='editar_publicacoes'),
+    url(r'^erro-404$', views.handler404, name='erro_page'),
+    url(r'^email/recovery$', views.email_recovery, name='recovery'),
+    url(r'^email/register$', views.email_register, name='register'),
+    url(r'^email/resend-confirmation$', views.email_resend_confirmation, name='resend-confirmation'),
 ]

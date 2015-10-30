@@ -1,6 +1,7 @@
 {%extends 'home/layout/base.html' %}
 {% load taxonomy_tags %}
 
+{% load core_tags %}
 {% load social_tags %}
 {% load article_tags %}
 {% load thumbor_tags %}
@@ -8,7 +9,7 @@
 {% block title %}{{ article.title }} - Portal GSTI{% endblock %}
 
 {% block content %}
-<main class="container">
+<main class="container main">
     <div class="perfil-row">
         <ul class="box-share">
             <li class="comment-vote">
@@ -61,7 +62,7 @@
                     {% if article.image %}
                         <img class="full-post-image" src="{% thumbor_url article.image.url width=500 smart=True fit_in=True %}" />
                     {% endif %}
-                    {{ article.text }}
+                    {{ article.text|safe }}
                     <div class="post-advertising text-center">
                         <img class="img-responsive" src="http://placehold.it/728x90" alt="Propaganda">
                     </div>
@@ -77,13 +78,16 @@
                 <span class="perfil-counter"><span class="counter-number">{% followers_count article.author %}</span> Seguidor(es)</span>
                 <span class="perfil-counter"><span class="counter-number">{% articles_count article.author %}</span> Artigo(s)</span>
                 {% if  article.author.profile.current_occupation%}
-                    <a class="perfil-counter-alt" href="javascript:;">{{ article.author.profile.current_occupation }} em {{ article.author.profile.current_occupationcompany }}</a>
+                    <a class="perfil-counter-alt" href="javascript:;">{{ article.author.profile.current_occupation.responsibility.name }}</a>
                 {% endif %}
 
             </div>
             <div class="container-comments">
-                {% include 'home/partials/comment/create.html' with size=81 %}
-                {% include 'home/partials/comment/comment.html' %}
+{#                {% include 'comment/create.html' with content_type='article' content_object_id=article.id %}#}
+            </div>
+            <div data-xhr-url="{% url "comment:list" %}?content_type=article&content_id={{ article.id }}" data-xhr id="container-comments" class="container-comments j-scroll">
+{#                {% include 'home/partials/comment/create.html' with size=81 %}#}
+{#                {% include 'home/partials/comment/comment.html' %}#}
             </div>
         </div>
         <div class="col-lg-3">
@@ -118,6 +122,8 @@
                     </header>
                 </div>
                 <div class="widget-content">
+                    {% related_posts_box article "article" %}
+                    {% comment %}
                     <a class="article-excerpt">
                         <img src="http://placehold.it/70x53" alt="Imagem 1">
                         <span>Microsoft lança software beta para migrar aplicativos iOS para Windows</span>
@@ -134,6 +140,7 @@
                         <img src="http://placehold.it/70x53" alt="Imagem 1">
                         <span>Microsoft lança software beta para migrar aplicativos iOS para Windows</span>
                     </a>
+                    {% endcomment %}
                 </div>
             </div>
         </div>
@@ -141,5 +148,76 @@
 </main>
 {% endblock %}
 {% block javascripts %}
+    {{ block.super }}
 <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-55e70ed11db7fa4e" async></script>
+<script src="https://cdn.jsdelivr.net/jquery.jscroll/2.2.4/jquery.jscroll.min.js"></script>
+<script>
+
+    $.fn.renderList = function(){
+
+        return $.each(this, function(){
+
+            var $self = $(this);
+            var url = $self.data('xhr-url');
+
+            var $childs;
+
+            var request = $.ajax({
+                url: url,
+                success: function(data){
+
+                    var $element = $(data);
+                    $element.appendTo($self);
+
+                    $childs = $element.find('div[data-xhr-url]');
+                    $self.jscroll({
+                        loadingHtml: '<span>Carregando...</span>',
+                        contentSelect: "#" + $self.attr("id"),
+                        nextSelect: "a[data-jscroll-next]",
+                        autoTrigger: false
+                    });
+                },
+                complete: function(){
+                    if($childs.length){
+                        $childs.renderList();
+                    }
+                }
+            });
+
+        });
+
+    };
+
+    $(function(){
+        var xhr_contents = $("div[data-xhr]");
+        xhr_contents.renderList();
+
+
+
+
+        $(document).on("ajaxform.success", "form[data-ajaxform=\"true\"]", function(event, data){
+            var $form = $(this);
+
+            var action = $form.data("action");
+            var $div_to_update = $($form.data("update"));
+
+            if (action=="append"){
+                $div_to_update.append(data.template);
+                $form[0].reset();
+            }else if (action=="prepend"){
+                $div_to_update.prepend(data.template);
+                $form[0].reset();
+            }else if (action=="replace"){
+
+                $div_to_update.html(data.template);
+            }
+
+        });
+
+
+
+    });
+</script>
+
 {% endblock %}
+

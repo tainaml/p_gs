@@ -1,0 +1,22 @@
+{% if feed_objects %}
+
+    {% for feed in feed_objects.object_list %}
+        {% with template_name=feed.content_type|stringformat:"s"|add:"-segment.html" %}
+            {% with instance=feed.content_object %}
+                {% if instance %}
+                    {% include 'userprofile/partials/'|add:template_name %}
+                {% endif %}
+            {% endwith %}
+        {% endwith %}
+    {% endfor %}
+
+    <a data-jscroll-next href="{% url 'profile:videos-search-list' profile.user %}?criteria={{ form.cleaned_data.criteria|urlencode }}&page={{ page|default_if_none:form.cleaned_data.page }}&next={{ url_next|urlencode }}">next</a>
+
+{% else %}
+
+    {% if feed_objects.number == 1 %}
+        <p>Nenhum resultado foi encontrado para sua pesquisa</p>
+        <hr>
+    {% endif %}
+
+{% endif %}

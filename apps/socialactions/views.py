@@ -1,5 +1,5 @@
 from django.contrib.auth.decorators import login_required
-from django.http import Http404
+from django.http import Http404, JsonResponse
 from django.shortcuts import redirect, render
 from django.utils import timezone
 from django.utils.decorators import method_decorator
@@ -14,19 +14,105 @@ class SocialActionBaseView(View):
 
     not_found = Http404(_('SocialAction not Found.'))
 
+    def return_error(self, request, context=None):
+        pass
+
+    def return_success(self, request, context=None):
+        pass
+
 
 class SocialActionView(SocialActionBaseView):
+
+    def return_error(self, request, context=None):
+        if request.is_ajax():
+            if not context:
+                context = {}
+
+            _context = context
+            return JsonResponse(_context, status=400)
+
+        raise context['not_found']
+
+    def return_success(self, request, context=None):
+        if request.is_ajax():
+            if not context:
+                context = {}
+
+            _context = context
+            return JsonResponse(_context, status=200)
+
+        return redirect(context['url_next'])
 
     @method_decorator(login_required)
     def get(self, request, object_to_link, content, action):
 
         try:
             Business.act_by_content_type_and_id(request.user, content, object_to_link, action)
+            likes = Business.user_likes_by_object_content_type_and_id(
+                user=request.user,
+                content_type=content, 
+                object_id=object_to_link
+            )
+            unlikes = Business.user_unlikes_by_object_content_type_and_id(
+                user=request.user,
+                content_type=content, 
+                object_id=object_to_link
+            )
+
+            i_liked = Business.user_liked_by_id_and_content_type(
+                user=request.user,
+                content_type=content, 
+                object_id=object_to_link
+            )
+            i_unliked = Business.user_unliked_by_id_and_content_type(
+                user=request.user,
+                content_type=content, 
+                object_id=object_to_link
+            )
+
+            if i_liked:
+                action_response = settings.SOCIAL_LABELS[settings.SOCIAL_LIKE]
+            elif i_unliked:
+                action_response = settings.SOCIAL_LABELS[settings.SOCIAL_UNLIKE]
+            else:
+                action_response = None
 
         except NotFoundSocialSettings:
-            raise self.not_found
+            context = {
+                'status': 400,
+                'msg': _('SocialAction not Found.'),
+                'not_found': self.not_found
+            }
+            return self.return_error(request, context)
+        
+        context = {
+            'status': 200,
+            'action_request': action,
+            'action_response': action_response,
+            'likes': likes,
+            'unlikes': unlikes,
+            'url_next': request.GET.get('url_next')
+        }
+        return self.return_success(request, context)
 
-        return redirect(request.GET['url_next'])
+
+class SocialActionAjax(SocialActionView):
+
+    def return_error(self, request, context=None):
+        if not context:
+            context = {}
+
+        _context = context
+
+        return JsonResponse(_context, status=400)
+
+    def return_success(self, request, context=None):
+        if not context:
+            context = {}
+
+        _context = context
+
+        return JsonResponse(_context, status=200)
 
 
 class SocialActionFollowersViews(SocialActionBaseView):

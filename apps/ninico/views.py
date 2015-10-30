@@ -1,6 +1,11 @@
+import json
 from django.shortcuts import render
+from django.views.decorators.http import require_POST
+from django.http import HttpResponse
+from django.shortcuts import render_to_response
+from django.template import RequestContext
 
-# Create your views here.
+
 def index(request):
     return render(request, 'home/index.html')
 
@@ -69,3 +74,33 @@ def questions_and_answers_notifications(request):
 
 def search(request):
     return render(request, 'home/search-result.html')
+
+def category(request):
+    return render(request, 'home/categoria.html')
+
+
+@require_POST
+def test_abc(request):
+
+    response_data = {
+        'post': request.POST,
+        'get': request.GET,
+        'files': len(request.FILES),
+    }
+
+    return HttpResponse(json.dumps(response_data), content_type="application/json")
+
+def edit_publications(request):
+    return render(request, 'home/editar-publicacoes.html')
+
+def handler404(request):
+    return render(request, 'home/404.html')
+
+def email_recovery(request):
+    return render(request, 'mailmanager/password-recovery.html')
+
+def email_register(request):
+    return render(request, 'mailmanager/register_user.html')
+
+def email_resend_confirmation(request):
+    return render(request, 'mailmanager/resend-account-confirmation.html')
