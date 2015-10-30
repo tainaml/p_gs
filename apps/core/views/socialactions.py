@@ -34,7 +34,7 @@ class SocialActionSeeLater(View):
             'articles': content,
             'url_next': request.GET['next'] if 'next' in request.GET else '',
             'page': (content.number if content and content.number else 0) + 1,
-            'criteria':self.template_path
+            'criteria': self.template_path
         }
 
         return render(request, self.template_path, context)
@@ -63,8 +63,8 @@ class SocialActionRemoveSeeLater(View):
         context = {
             'articles': content,
             'url_next': request.GET['next'] if 'next' in request.GET else '',
-            'page': (content.number if content and content.number else 0) + 1,
-            'criteria':self.template_path
+            'page': (content.page if content.page and content.page else 0) + 1,
+            'criteria': self.template_path
         }
 
         return render(request, self.template_path)
@@ -92,7 +92,7 @@ class SocialActionFavourite(View):
                 'not_found': self.not_found,
                 'url_next': request.GET['next'] if 'next' in request.GET else '',
                 'page': (content.number if content and content.number else 0) + 1,
-                'criteria':self.template_path
+                'criteria': self.template_path
             }
             return self.return_error(request, context)
 
@@ -100,7 +100,7 @@ class SocialActionFavourite(View):
             'articles': content,
             'url_next': request.GET['next'] if 'next' in request.GET else '',
             'page': (content.number if content and content.number else 0) + 1,
-            'criteria':self.template_path
+            'criteria': self.template_path
         }
 
         return render(request, self.template_path, context)
@@ -125,15 +125,15 @@ class SocialActionRemoveFavourite(View):
                 'not_found': self.not_found,
                 'url_next': request.GET['next'] if 'next' in request.GET else '',
                 'page': (itens_to_remove.number if itens_to_remove and itens_to_remove.number else 0) + 1,
-                'criteria':self.template_path
+                'criteria': self.template_path
             }
             return self.return_error(request, context)
 
         context = {
             'articles': content,
             'url_next': request.GET['next'] if 'next' in request.GET else '',
-            'page': (itens_to_remove.number if itens_to_remove and itens_to_remove.number else 0) + 1,
-            'criteria':self.template_path
+            'page': (itens_to_remove.page if itens_to_remove and itens_to_remove.page else 0) + 1,
+            'criteria': self.template_path
         }
 
         return render(request, self.template_path, context)
@@ -161,7 +161,7 @@ class SocialActionSuggest(View):
                 'not_found': self.not_found,
                 'url_next': request.GET['next'] if 'next' in request.GET else '',
                 'page': (content.number if content and content.number else 0) + 1,
-                'criteria':self.template_path
+                'criteria': self.template_path
             }
             return self.return_error(request, context)
 
@@ -169,7 +169,7 @@ class SocialActionSuggest(View):
             'articles': content,
             'url_next': request.GET['next'] if 'next' in request.GET else '',
             'page': (content.number if content and content.number else 0) + 1,
-            'criteria':self.template_path
+            'criteria': self.template_path
         }
 
         return render(request, self.template_path, context)
@@ -193,7 +193,7 @@ class SocialActionRemoveSuggest(View):
                 'msg': _('SocialAction not Found.'),
                 'not_found': self.not_found,
                 'url_next': request.GET['next'] if 'next' in request.GET else '',
-                'page': (len(itens_to_remove) if len(itens_to_remove) and len(itens_to_remove) else 0) + 1,
+                'page': (itens_to_remove.page if itens_to_remove and itens_to_remove.page else 0) + 1,
                 'criteria': self.template_path
             }
             return self.return_error(request, context)
@@ -201,7 +201,7 @@ class SocialActionRemoveSuggest(View):
         context = {
             'articles': content,
             'url_next': request.POST['next'] if 'next' in request.POST else '',
-            'page': (len(itens_to_remove) if itens_to_remove and len(itens_to_remove) else 0) + 1,
+            'page': (itens_to_remove.page if itens_to_remove and itens_to_remove.page else 0) + 1,
             'criteria': self.template_path
         }
 

@@ -143,6 +143,7 @@ class CoreCommunityVideosSearch(views.CommunityView):
 class CoreCommunityVideosView(CoreCommunityVideosSearch):
     pass
 
+
 class CoreCommunityVideosList(CoreCommunityVideosSearch):
 
     template_path = "community/partials/community-videos-list.html"
