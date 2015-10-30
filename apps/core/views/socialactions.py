@@ -5,6 +5,7 @@ from apps.core.business import socialactions as Business
 from apps.socialactions.localexceptions import NotFoundSocialSettings
 from django.contrib.auth.decorators import login_required
 from apps.userprofile.service.business import get_user
+from apps.userprofile.service import business as ProfileBusiness
 
 
 class SocialActionSeeLater(View):
@@ -15,6 +16,7 @@ class SocialActionSeeLater(View):
 
         criteria = None
         user = get_user(username)
+        profile = ProfileBusiness.get_profile(user)
         if 'criteria' in request.GET:
             criteria = str(request.GET['criteria'])
             self.template_path = 'socialactions/partials/see-later.html'
@@ -34,7 +36,8 @@ class SocialActionSeeLater(View):
             'articles': content,
             'url_next': request.GET['next'] if 'next' in request.GET else '',
             'page': (content.number if content and content.number else 0) + 1,
-            'criteria': self.template_path
+            'criteria': self.template_path,
+            'profile': profile
         }
 
         return render(request, self.template_path, context)
@@ -48,7 +51,7 @@ class SocialActionRemoveSeeLater(View):
 
         itens_to_remove = request.POST.getlist(u'itens_to_remove[]')
         user = get_user(username)
-
+        profile = ProfileBusiness.get_profile(user)
         try:
             content = Business.remove_see_later_content(user=user, itens_to_remove=itens_to_remove)
 
@@ -64,7 +67,8 @@ class SocialActionRemoveSeeLater(View):
             'articles': content,
             'url_next': request.GET['next'] if 'next' in request.GET else '',
             'page': (content.page if content.page and content.page else 0) + 1,
-            'criteria': self.template_path
+            'criteria': self.template_path,
+            'profile': profile
         }
 
         return render(request, self.template_path)
@@ -78,6 +82,7 @@ class SocialActionFavourite(View):
 
         criteria = None
         user = get_user(username)
+        profile = ProfileBusiness.get_profile(user)
         if 'criteria' in request.GET:
             criteria = str(request.GET['criteria'])
             self.template_path = 'socialactions/partials/favourite.html'
@@ -100,7 +105,8 @@ class SocialActionFavourite(View):
             'articles': content,
             'url_next': request.GET['next'] if 'next' in request.GET else '',
             'page': (content.number if content and content.number else 0) + 1,
-            'criteria': self.template_path
+            'criteria': self.template_path,
+            'profile': profile
         }
 
         return render(request, self.template_path, context)
@@ -114,7 +120,7 @@ class SocialActionRemoveFavourite(View):
 
         itens_to_remove = request.POST.getlist(u'itens_to_remove[]')
         user = get_user(username)
-
+        profile = ProfileBusiness.get_profile(user)
         try:
             content = Business.remove_favourite_content(user=user, itens_to_remove=itens_to_remove)
 
@@ -133,7 +139,8 @@ class SocialActionRemoveFavourite(View):
             'articles': content,
             'url_next': request.GET['next'] if 'next' in request.GET else '',
             'page': (itens_to_remove.page if itens_to_remove and itens_to_remove.page else 0) + 1,
-            'criteria': self.template_path
+            'criteria': self.template_path,
+            'profile': profile
         }
 
         return render(request, self.template_path, context)
@@ -147,6 +154,7 @@ class SocialActionSuggest(View):
 
         criteria = None
         user = get_user(username)
+        profile = ProfileBusiness.get_profile(user)
         if 'criteria' in request.GET:
             criteria = str(request.GET['criteria'])
             self.template_path = 'socialactions/partials/suggest.html'
@@ -169,7 +177,8 @@ class SocialActionSuggest(View):
             'articles': content,
             'url_next': request.GET['next'] if 'next' in request.GET else '',
             'page': (content.number if content and content.number else 0) + 1,
-            'criteria': self.template_path
+            'criteria': self.template_path,
+            'profile': profile
         }
 
         return render(request, self.template_path, context)
@@ -183,7 +192,7 @@ class SocialActionRemoveSuggest(View):
 
         itens_to_remove = request.POST.getlist(u'itens_to_remove[]')
         user = get_user(username)
-
+        profile = ProfileBusiness.get_profile(user)
         try:
             content = Business.remove_suggest_content(user=user, itens_to_remove=itens_to_remove)
 
@@ -202,7 +211,8 @@ class SocialActionRemoveSuggest(View):
             'articles': content,
             'url_next': request.POST['next'] if 'next' in request.POST else '',
             'page': (itens_to_remove.page if itens_to_remove and itens_to_remove.page else 0) + 1,
-            'criteria': self.template_path
+            'criteria': self.template_path,
+            'profile': profile
         }
 
         return render(request, self.template_path, context)
