@@ -209,7 +209,7 @@ require('./validation.js');
             var tempFields = $self.find(':input');
 
             $.each(tempFields, function forEachFieldInFields(){
-                
+
                 $object = $(this);
 
                 objectKey = $object.attr('name') || false;
@@ -239,7 +239,7 @@ require('./validation.js');
     };
 
     function ideiaFormOnReady(){
-        var ajaxForms = $('form[data-ajaxform]');
+        var ajaxForms = $(document).find('form[data-ajaxform]');
         ajaxForms.IdeiaAjaxForm();
     }
 
