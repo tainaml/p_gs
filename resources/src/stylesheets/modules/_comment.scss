@@ -28,7 +28,8 @@
             margin-top: 5px;
             margin-bottom: 5px;
         }
-        > i { font-size: 30px; }
+        > i,
+        > div > a > i { font-size: 30px; }
     }
     &-body { position: relative; }
 }

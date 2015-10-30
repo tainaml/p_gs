@@ -1,7 +1,8 @@
 {%extends 'home/layout/base.html' %}
-{% load taxonomy_tags %}
 
+{% load taxonomy_tags %}
 {% load core_tags %}
+{% load profile_tags %}
 {% load social_tags %}
 {% load article_tags %}
 {% load thumbor_tags %}
@@ -13,11 +14,18 @@
     <div class="perfil-row">
         <ul class="box-share">
             <li class="comment-vote">
-                <span style="display: block">132</span>
-                <i class="gsticon gsticon-caret-up"></i>
+                {% like_box article request.path "share-box" %}
+                {% comment %}
+                <a href="#" data-social-action="like" data-async="true" data-target="#count-like-post-{{ article.id }}">
+                    <span id="count-like-post-{{ article.id }}" style="display: block">132</span>
+                    <i class="gsticon gsticon-caret-up"></i>
+                </a>
                 <hr>
-                <i class="gsticon gsticon-caret-down"></i>
-                <span style="display: block">5</span>
+                <a href="#" data-social-action="unlike"  data-async="true" data-target="#count-unlike-post-{{ article.id }}">
+                    <i class="gsticon gsticon-caret-down" ></i>
+                    <span id="count-unlike-post-{{ article.id }}" style="display: block">5</span>
+                </a>
+                {% endcomment %}
             </li>
             <li><a href="javascript:;"><i class="gsticon gsticon-star"></i></a></li>
             <li><a href="javascript:;"><i class="gsticon gsticon-eye"></i></a></li>
@@ -49,13 +57,24 @@
                 </header>
                 <aside class="post-footer">
                     {% taxonomies article %}
-
                     <div class="post-toolbar pull-right">
                         <div class="post-count">
-                            <a href="javascript:;" class="post-votes-up">1.026 <i class="gsticon gsticon-caret-up"></i></a>
-                            <a href="javascript:;" class="post-votes-dow"><i class="gsticon gsticon-caret-down"></i> 4</a>
+                            {% like_box article request.path "inline" %}
+                            {% comment %}
+                            <a href="javascript:;" class="post-votes-up"><span>1.026</span> <i class="gsticon gsticon-caret-up"></i></a>
+                            <a href="javascript:;" class="post-votes-dow"><i class="gsticon gsticon-caret-down"></i> <span>4</span></a>
+                            {% endcomment %}
                         </div>
-                        <div class="post-count-comments"><strong>32</strong> Comentários</div>
+                        <div class="post-count-comments">
+                            <span id="load-count-comment-article"
+                                  data-load-async="true"
+                                  data-url="{% url 'comment:count' article.id "article" %}"
+                                  data-request-method="get"
+                                  data-response-type="json">
+                                <strong class="load-async load-async-content">0</strong>
+                                {% csrf_token %}
+                            </span> Comentário(s)
+                        </div>
                     </div>
                 </aside>
                 <div class="full-post-content">
@@ -72,16 +91,7 @@
                     <div class="addthis_sharing_toolbox"></div>
                 </div>
             </article>
-            <div class="perfil">
-                <img src="{% thumbor_url article.author.profile.get_profile_picture.url width=82 height=82 smart=False fit_in=False %}" alt="foto de {{ instance.author.get_full_name }}">
-                <a class="perfil-name" href="javascript:;">{{article.author.get_full_name}}</a>
-                <span class="perfil-counter"><span class="counter-number">{% followers_count article.author %}</span> Seguidor(es)</span>
-                <span class="perfil-counter"><span class="counter-number">{% articles_count article.author %}</span> Artigo(s)</span>
-                {% if  article.author.profile.current_occupation%}
-                    <a class="perfil-counter-alt" href="javascript:;">{{ article.author.profile.current_occupation.responsibility.name }}</a>
-                {% endif %}
-
-            </div>
+            {% profile_box article.author "horizontal" %}
             <div class="container-comments">
                 {% include 'home/partials/comment/create.html' with size=81 %}
                 {% include 'home/partials/comment/comment.html' %}
@@ -144,6 +154,38 @@
     </div>
 </main>
 {% endblock %}
+
+
 {% block javascripts %}
-<script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-55e70ed11db7fa4e" async></script>
+    {{ block.super }}
+    <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-55e70ed11db7fa4e" async></script>
+    <script>
+        $(function(){
+            setTimeout(function loadCommunitiesAsync() {
+                $("[data-load-async='true']").each(function (i, e) {
+                    var $this = $(this);
+                    $.ajax({
+                        url: $this.data("url"),
+                        method: $this.data("request-method"),
+                        dataType: $this.data("response-type"),
+                        data: {
+                            'url-next': $this.data("url-next"),
+                            csrfmiddlewaretoken: $this.find("input:hidden[name='csrfmiddlewaretoken']").val()
+                        },
+                        success: function(data, status, xhr) {
+                            $this.find(".load-async-content").html(data.template);
+                        },
+                        statusCode: {
+                            400: function() {
+                                $this.html("");
+                            },
+                            403: function() {
+                                console.log('-- 403 Forbidden --');
+                            }
+                        }
+                    });
+                });
+            }, 500);
+        });
+    </script>
 {% endblock %}

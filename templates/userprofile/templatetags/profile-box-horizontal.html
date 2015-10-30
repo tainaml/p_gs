@@ -9,8 +9,8 @@
     {% endif %}
     <img class="img-responsive" src="{% thumbor_url profile.get_profile_picture.url width=82 height=82 smart=False fit_in=False %}" alt="{{ profile.user.get_full_name }}">
     <a class="perfil-name" href="{% url 'profile:show' profile.user.username %}">{{ profile.user.get_full_name }}</a>
-    <a class="perfil-counter" href="{% url "profile:followers" username=profile.user.username %}"><span class="counter-number">{% followers_count profile.user %}</span> Seguidores</a>
-    <a class="perfil-counter" href="{% url 'profile:show' profile.user.username %}"><span class="counter-number">{% articles_count profile.user %}</span> Artigos</a>
+    <a class="perfil-counter" href="{% url "profile:followers" username=profile.user.username %}"><span class="counter-number">{% followers_count profile.user %}</span> Seguidor(es)</a>
+    <a class="perfil-counter" href="{% url 'profile:show' profile.user.username %}"><span class="counter-number">{% articles_count profile.user %}</span> Artigo(s)</a>
     {% if profile.current_occupation %}
         <a href="javascript:;">{{ profile.current_occupation.responsibility.name }}</a>
     {% endif %}

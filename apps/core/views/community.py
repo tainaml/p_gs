@@ -10,6 +10,7 @@ from apps.socialactions.service.business import get_users_acted_by_model
 from rede_gsti import settings
 from apps.taxonomy.service import business as Business
 
+
 class CoreCommunityView(views.CommunityView):
 
     template_path = 'community/community-view.html'
@@ -145,5 +146,5 @@ class CoreCommunityVideosView(CoreCommunityVideosSearch):
 
 
 class CoreCommunityVideosList(CoreCommunityVideosSearch):
-
+    
     template_path = "community/partials/community-videos-list.html"
