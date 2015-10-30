@@ -1,0 +1,7 @@
+{% for comment in comments %}
+        {% include 'comment/comment-child.html' %}
+{% endfor %}
+{% if comments %}
+    <a data-jscroll-next href="{% url 'comment:list-answer' %}?page={{ page|default_if_none:form.cleaned_data.page }}&content_id={{ form.cleaned_data.content_id }}&content_type={{ form.cleaned_data.content_type }}">next</a>
+{% endif %}
+
