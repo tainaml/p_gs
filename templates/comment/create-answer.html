@@ -1,15 +1,21 @@
 {% load thumbor_tags %}
 {{ form.non_field_errors }}
 
-<form data-xhr data-xhr-position="append" class="create-comment" data-to-update="{{ to_update }}" action="{% url 'answer-save' %}" method="post">{% csrf_token %}
+<form data-ajaxform="true" data-form-group="comment-group" class="create-comment"
+{#      action="{% url 'answer-save' %}" #}
+      method="post">{% csrf_token %}
 
-    <div class="create-comment-avatar">
-        <img src="{% thumbor_url request.user.profile.get_profile_picture.url width=63 height=63 smart=False fit_in=False %}" alt="User avatar">
+    <div class="comment-group">
+        <div class="create-comment-avatar">
+            <img src="{% thumbor_url request.user.profile.get_profile_picture.url width=63 height=63 smart=False fit_in=False %}" alt="User avatar">
+        </div>
     </div>
 
-    <div data-group='' class="create-comment-body{% if form.content.errors %} has-error{% endif %}">
-         <textarea name="content" class="form-control"  placeholder="Deixe seu comentário"></textarea>
-         <span class="help-block"></span>
+    <div class="comment-group">
+        <div class="create-comment-body{% if form.content.errors %} has-error{% endif %}">
+            <textarea name="content" class="form-control"  placeholder="Deixe seu comentário"></textarea>
+            <span class="help-block"></span>
+        </div>
     </div>
 
     <input name="size" value="{{ size }}" type="hidden"/>

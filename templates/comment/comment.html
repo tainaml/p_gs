@@ -1,10 +1,9 @@
-{% load comment_core_tags %}
 {% load social_tags %}
 {% load thumbor_tags %}
 
-<div class="comment" id="comment-{{ comment.id }}">
+<div class="comment" id="comment-{{ instance.id }}">
     <div class="comment-user">
-        <img src="{% thumbor_url comment.author.profile.get_profile_picture.url width=63 height=63 smart=False fit_in=False %}" alt="User Avatar">
+        <img src="{% thumbor_url instance.author.profile.get_profile_picture.url width=63 height=63 smart=False fit_in=False %}" alt="User Avatar">
         <div class="comment-vote">
             <i class="gsticon gsticon-caret-up"></i>
             <hr>
@@ -14,19 +13,19 @@
     <div class="comment-body">
             <header class="post-header">
                 <div class="post-info">
-                    <time datetime="06-17-2015" itemprop="datePublished">{{ comment.creation_date|date:'d/m/Y' }} às {{ comment.creation_date|date:'G:i' }}</time>
+                    <time datetime="06-17-2015" itemprop="datePublished">{{ instance.creation_date|date:'d/m/Y' }} às {{ instance.creation_date|date:'G:i' }}</time>
                     <a href="javascript:;" data-toggle="dropdown"><i class="gsticon gsticon-gear"></i></a>
                     <div class="dropdown-menu" style="display: block;">
                         <ul class="perfil-actions">
-                            <li><a data-xhr-edit data-xhr-id="{{ comment.id }}" href="javascript:;"><i class="gsticon gsticon-edit"></i> Editar comentário</a></li>
+                            <li><a data-xhr-edit data-xhr-id="{{ instance.id }}" href="javascript:;"><i class="gsticon gsticon-edit"></i> Editar comentário</a></li>
                             <li><a href="javascript:;"><i class="gsticon gsticon-exclamation-triangle"></i> Denunciar</a></li>
                         </ul>
                     </div>
                 </div>
-                <a class="post-creator" href="{% url 'profile:show' comment.author.username %}">{{comment.author.get_full_name}}:</a>
+                <a class="post-creator" href="{% url 'profile:show' instance.author.username %}">{{instance.author.get_full_name}}:</a>
             </header>
         <div class="comment-text">
-            <p>{{comment.content}}</p>
+            <p>{{instance.content}}</p>
         </div>
     </div>
     <footer class="post-footer col-lg-12">
@@ -37,26 +36,28 @@
             </div>
             <div class="post-count-comments">
 
-                <a data-object-id="{{ comment.id }}" data-toggle href="javascript:;">Responder</a>
+                <a data-object-id="{{ instance.id }}" data-toggle href="javascript:;">Responder</a>
 
             </div>
         </div>
     </footer>
     <aside class="comments-container-child">
 
-        {% with comment_id=comment.id|stringformat:"s" %}
-            <div id="data-answer-{{ comment.id }}" data-list style="display: none;">
+        {% with comment_id=instance.id|stringformat:"s" %}
+            <div id="data-answer-{{ instance.id }}" data-list style="display: none;">
                 {% include 'comment/create-answer.html' with content_object=comment to_update="data-list-"|add:comment_id content_type='comment' %}
             </div>
-            {% if comment.author == request.user %}
-                <div data-list id="comment-edit-{{ comment.id }}" style="display: none;">
-                    {% include 'comment/edit-comment.html' with content_object=comment to_update="comment-"|add:comment_id content_type='comment'  %}
+            {% if instance.author == request.user %}
+                <div data-list id="comment-edit-{{ instance.id }}" style="display: block;">
+                    {% include 'comment/edit-comment.html' with content_object=instance to_update="comment-"|add:comment_id content_type='comment'  %}
                 </div>
             {% endif %}
         {% endwith %}
 
 
-        <div  id="data-list-{{ comment.id }}" data-xhr-load data-action="{% url 'answer-list' %}?page=1&content_type=comment&content_id={{ comment.id }}" ></div>
-
+        <div  data-xhr data-xhr-url="{% url "comment:list-answer" %}?content_type=comment&content_id={{ instance.id }}"
+{#              data-action="{% url 'answer-list' %}?page=1&content_type=comment&content_id={{ instance.id }}" #}
+        ></div>
     </aside>
 </div>
+

@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from django.http import Http404, JsonResponse
 from django.shortcuts import render, redirect
@@ -9,11 +8,61 @@ from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _
 from django.views.generic import View
 
-from .service.forms import CreateCommentForm, EditCommentForm
-from .service import business as Business
+from .service.forms import CreateCommentForm, EditCommentForm, ListCommentForm
+from .service import business as comment_business
+
+class CommentListBaseView(View):
+
+    xhr = False
+    itens_by_page = 10
+    context = {}
+    response_data = {}
+    form = ListCommentForm
+
+    @property
+    def template_list_path(self):
+        raise NotImplementedError("you must specify the template_list_path property")
+
+    def do_process(self, request=None):
 
 
-class CommentBaseView(View):
+        self.response_data['template'] = render(request,
+                                           self.template_list_path,
+                                           self.context).content
+
+
+        return render(request, self.template_list_path, self.context)
+
+
+class CommentList(CommentListBaseView):
+    xhr = True
+    template_list_path = 'comment/list-comment.html'
+
+    def get(self, request=None):
+
+        form = self.form(self.itens_by_page, request.GET)
+        instance_list = form.process()
+
+        if not form.is_valid():
+            raise Http404()
+
+        self.context.update({
+            'comments': instance_list,
+            'form': form,
+            'page': form.cleaned_data['page'] + 1}
+        )
+
+
+
+        return super(CommentList, self).do_process(request)
+
+
+class CommentAnswerList(CommentList):
+    xhr = True
+    template_list_path = 'comment/list-answer.html'
+
+
+class CommentFormBaseView(View):
     not_found = Http404(_('Comment not Found.'))
     instance = None
     context = {}
@@ -26,18 +75,14 @@ class CommentBaseView(View):
 
     @property
     def fail_validation_template_path(self):
-        raise NotImplementedError("you must specify the fail_validation_template_path")
+        raise NotImplementedError(
+            "you must specify the fail_validation_template_path")
 
-    @property
-    def instance_label(self):
-        raise NotImplementedError("you must specify the instance_label")
-
-    def __do_process__(self, request=None, *args, **kwargs):
+    def do_process(self, request=None, *args, **kwargs):
 
         if self.form:
             self.instance = self.form.process()
-            self.context[self.instance_label] = self.instance
-            self.context['form'] = self.form
+            self.context.update({'instance': self.instance, 'form': self.form})
             is_valid = not not self.instance
 
             if self.xhr:
@@ -49,9 +94,6 @@ class CommentBaseView(View):
                                                        self.context).content
                 else:
                     response_data['errors'] = self.form.errors
-                    response_data['template'] = render(request,
-                                                       self.fail_validation_template_path,
-                                                       self.context).content
 
                 return JsonResponse(response_data,
                                     status=200 if is_valid else 400, *args,
@@ -59,120 +101,97 @@ class CommentBaseView(View):
             else:
 
                 return render(request,
-                       self.success_template_path if is_valid else
-                       self.fail_validation_template_path,
-                       self.context,
-                       *args,
-                       **kwargs)
+                              self.success_template_path if is_valid else
+                              self.fail_validation_template_path,
+                              self.context,
+                              *args,
+                              **kwargs)
 
         return render(request,
-                       self.success_template_path,
-                       self.context,
-                       *args,
-                       **kwargs)
-
-    def get(self, request=None, *args, **kwargs):
-        return self.__do_process__(request, *args, **kwargs)
-
-    def post(self, request=None, *args, **kwargs):
-        return self.__do_process__(request, *args, **kwargs)
+                      self.success_template_path,
+                      self.context,
+                      *args,
+                      **kwargs)
 
 
-class CommentIndexView(CommentBaseView):
-    template_path = 'comment/index_teste.html'
-
-    def get(self, request=None, *args, **kwargs):
-        user = User.objects.all()[0]
-
-        context = {'user': user}
-
-        return render(request, self.template_path, context)
-
-
-class CommentSaveView(CommentBaseView):
+class CommentSaveView(CommentFormBaseView):
     fail_validation_template_path = 'comment/create.html'
-
     success_template_path = 'comment/comment.html'
     form_comment = CreateCommentForm
-    instance_label = 'comment'
     xhr = True
 
     @method_decorator(login_required)
-    def post(self, request=None, *args, **kwargs):
-
+    def post(self, request=None):
         if 'content_object_id' not in request.POST \
                 or 'content_type' not in request.POST:
             raise Http404()
 
         self.form = self.form_comment(request.user, request.POST)
 
-        return super(CommentSaveView, self).post(request, *args, **kwargs)
+        return super(CommentSaveView, self).do_process(request)
 
 
-class CommentUpdateView(CommentBaseView):
-    template_path = 'comment/create.html'
+class CommentUpdateView(CommentFormBaseView):
+    fail_validation_template_path = 'comment/edit-comment.html'
+    success_template_path = 'comment/edit-comment.html'
+
     form_comment = EditCommentForm
-    instance_label = 'comment'
     xhr = True
 
     @method_decorator(login_required)
-    def post(self, request=None, *args, **kwargs):
-        if 'next_url' not in request.POST or 'comment_id' not in request.POST:
-            raise Http404()
-
-        comment = Business.retrieve_own_comment(
+    def post(self, request=None):
+        comment = comment_business.retrieve_own_comment(
             comment_id=request.POST['comment_id'],
             user=request.user)
+
         if not comment:
-            raise self.not_found
+            raise Http404()
 
-        form = self.form_comment(request.user, request.POST['comment_id'],
-                                 request.POST)
+        self.form = self.form_comment(request.user, request.POST['comment_id'],
+                                      request.POST)
 
-        context = {'form': form}
-
-        return super(CommentUpdateView, self).get(request)
+        return super(CommentUpdateView, self).do_process(request)
 
 
-class CommentDeleteView(CommentBaseView):
+class CommentDeleteView(CommentFormBaseView):
     @method_decorator(login_required)
     def get(self, request=None, comment_id=None, *args, **kwargs):
 
-        comment = Business.retrieve_own_comment(comment_id=comment_id,
-                                                user=request.user)
+        comment = comment_business.retrieve_own_comment(comment_id=comment_id,
+                                                        user=request.user)
 
         if comment:
-            Business.delete_comment(comment)
+            comment_business.delete_comment(comment)
         else:
             raise self.not_found
 
         return redirect(reverse('comment:index_teste'))
 
 
-class CommentListView(CommentBaseView):
-    template_path = 'comment/list-comment.html'
-
-    @method_decorator(login_required)
-    def get(self, request=None, *args, **kwargs):
-        itens_by_page = 10
-
-        comments = Business.get_comments_by_content_type_and_id(
-            request.GET['content_type'],
-            request.GET['content_id'],
-            itens_by_page,
-            request.GET['page']
-        )
-
-        self.context['comments'] = comments
-
-        return super(CommentListView, self).get(request)
-
-
-class CommentAnswerView(CommentListView):
-    template_path = 'comment/list-answer.html'
-
-
-class AnswerSaveView(CommentSaveView):
-    template_path = 'comment/create.html'
-    comment_template_path = 'comment/comment-child.html'
+# class CommentListView(CommentBaseView):
+#     template_path = 'comment/list-comment.html'
+#
+#     @method_decorator(login_required)
+#     def get(self, request=None, *args, **kwargs):
+#         itens_by_page = 10
+#
+#         comments = Business.get_comments_by_content_type_and_id(
+#             request.GET['content_type'],
+#             request.GET['content_id'],
+#             itens_by_page,
+#             request.GET['page']
+#         )
+#
+#         self.context['comments'] = comments
+#
+#         return super(CommentListView, self).get(request)
+#
+#
+# class CommentAnswerView(CommentListView):
+#     template_path = 'comment/list-answer.html'
+#
+#
+# class AnswerSaveView(CommentSaveView):
+#     template_path = 'comment/create.html'
+#     comment_template_path = 'comment/comment-child.html'
 

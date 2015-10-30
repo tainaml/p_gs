@@ -1,18 +1,13 @@
 {% load thumbor_tags %}
 {{ form.non_field_errors }}
 
-<form data-xhr data-xhr-position="append" class="create-comment" data-to-update="{{ to_update }}" action="{% url 'comment-edit' %}" method="post">{% csrf_token %}
 
-    <div data-group='' class="create-comment-body{% if form.content.errors %} has-error{% endif %}">
-         <textarea name="content" class="form-control"  placeholder="Deixe seu comentário">{{ comment.content }}</textarea>
+<form class="create-comment" data-group-class=".comment-group" data-ajaxform="true" data-action="replace"  class="create-comment" data-update="{{ to_update }}" action="{% url 'comment:edit' %}" method="post">{% csrf_token %}
+    <div class="comment-group create-comment-body{% if form.content.errors %} has-error{% endif %}">
+         <textarea name="content" class="form-control"  placeholder="Deixe seu comentário">{{ instance.content }}</textarea>
          <span class="help-block"></span>
     </div>
-
-    <input name="size" value="{{ size }}" type="hidden"/>
-    <input name="content_object_id" value="{% if form %}{{ form.data.content_object_id }}{% else %}{{ content_object.id }}{% endif %}" type="hidden"/>
-    <input name="content_type" value="{% if form %}{{ form.data.content_type }}{% else %}{{ content_type }}{% endif %}" type="hidden"/>
-    <input name="next_url" value="{% if form %}{{ form.data.next_url|urlencode }}{% else %}{{ url_next|urlencode  }}{% endif %}" type="hidden"/>
-
+    <input name="comment_id" value="{{ instance.id }}" type="hidden"/>
     <div class="create-comment-footer">
         <input type="reset" data-toggle value="Cancelar" class="btn btn-default">
         <input type="submit" value="Editar" class="btn btn-primary">

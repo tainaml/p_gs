@@ -76,7 +76,7 @@ def get_comments_by_content_object(content_object=None, items_per_page=None, pag
     comments = Comment.objects.filter(
         content_type=ContentType.objects.get_for_model(content_object),
         object_id=content_object.id
-    )
+    ).order_by("-creation_date")
 
     items_per_page = items_per_page if items_per_page else 10
 

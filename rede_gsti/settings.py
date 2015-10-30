@@ -237,6 +237,7 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "static"),
 )
 STATIC_URL = '/static/'
+STATIC_ROOT = '/home/phillip/projects/python/django/rede_gsti/staticfiles/'
 
 
 # Media Paths: User upload files
