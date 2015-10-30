@@ -182,13 +182,14 @@ def get_followings(author, description=None, items_per_page=None, page=None):
     except:
         users_actions = False
 
-    users_actions = Paginator(users_actions, items_per_page)
-    try:
-        users_actions = users_actions.page(page)
-    except PageNotAnInteger:
-        users_actions = users_actions.page(1)
-    except EmptyPage:
-        users_actions = []
+    if items_per_page and page:
+        users_actions = Paginator(users_actions, items_per_page)
+        try:
+            users_actions = users_actions.page(page)
+        except PageNotAnInteger:
+            users_actions = users_actions.page(1)
+        except EmptyPage:
+            users_actions = []
 
     return {
         'items': users_actions,

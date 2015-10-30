@@ -29,7 +29,7 @@
             </li>
             <li><a href="javascript:;"><i class="gsticon gsticon-star"></i></a></li>
             <li><a href="javascript:;"><i class="gsticon gsticon-eye"></i></a></li>
-            <li><a href="javascript:;" data-suggest="true" data-content="article" data-object="{{ article.id }}"><i class="gsticon gsticon-paper-plane"></i></a></li>
+            <li><a href="javascript:;" data-suggest-modal="true" data-content="article" data-object="{{ article.id }}" data-url="{% url 'socialactions:act-suggest' article.id 'article' %}"><i class="gsticon gsticon-paper-plane"></i></a></li>
         </ul>
         <div class="post-container">
             <article class="full-post">

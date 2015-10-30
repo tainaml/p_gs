@@ -1,10 +1,14 @@
+from django.http import JsonResponse
 from django.utils.decorators import method_decorator
 from django.views.generic import View
 from django.shortcuts import render
 from apps.core.business import socialactions as Business
+from apps.core.forms.user import CoreSearchFollowings
 from apps.socialactions.localexceptions import NotFoundSocialSettings
 from django.contrib.auth.decorators import login_required
 from apps.userprofile.service.business import get_user
+from rede_gsti import settings
+from django.utils.translation import gettext as _
 
 
 class SocialActionSeeLater(View):
@@ -206,3 +210,38 @@ class SocialActionRemoveSuggest(View):
         }
 
         return render(request, self.template_path, context)
+
+
+class SocialActionFilterFollowings(View):
+
+    def return_error(self, request, context=None):
+        if not context:
+            context = {}
+
+        _context = context
+        return JsonResponse(_context, status=400)
+
+    def return_success(self, request, context=None):
+        if not context:
+            context = {}
+
+        _context = context
+        return JsonResponse(_context, status=200)
+
+    def get(self, request):
+
+        form = CoreSearchFollowings(request.user, None, request.GET)
+        users_followings = form.process()
+        users_followings = users_followings.get('items')
+
+        users = []
+
+        for u in users_followings:
+            user = {
+                'name': u.content_object.get_full_name(),
+                'id': u.content_object.id
+            }
+            users.append(user)
+
+        context = {'users': users}
+        return self.return_success(request, context)
