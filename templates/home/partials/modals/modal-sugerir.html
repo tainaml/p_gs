@@ -9,12 +9,11 @@
                 <form id="form-suggest" action="#" method="POST" data-ajaxform="true" data-group-class=".item-group">
                     <div class="modal-form">
                         <p>Digite a quem você deseja sugerir essa publicação</p>
-                        <div class="form-group" data-module="tagger" data-tagger-type="suggest" data-url="{% url 'core_socialactions:filter_followings' %}">
-                            <input class="form-control" type="text" data-toggle="selectize">
-                        </div>
+                        <input name="users" type="text" data-module="tagger" data-tagger-type="suggest" data-url="{% url 'core_socialactions:filter_followings' %}">
                         <div class="row">
                             <div class="col-lg-12 item-group"></div>
                             <div class="col-lg-4 pull-right">
+                                {% csrf_token %}
                                 <input type="hidden" id="form-suggest-object" name="object" value="">
                                 <input type="hidden" id="form-suggest-content" name="content" value="">
                                 <button type="submit" class="btn-action btn-block">Enviar</button>

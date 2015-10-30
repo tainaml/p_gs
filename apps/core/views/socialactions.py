@@ -171,6 +171,7 @@ class SocialActionSuggest(View):
 
         context = {
             'articles': content,
+            'profile': user.profile,
             'url_next': request.GET['next'] if 'next' in request.GET else '',
             'page': (content.number if content and content.number else 0) + 1,
             'criteria':self.template_path
@@ -228,6 +229,7 @@ class SocialActionFilterFollowings(View):
         _context = context
         return JsonResponse(_context, status=200)
 
+    @method_decorator(login_required)
     def get(self, request):
 
         form = CoreSearchFollowings(request.user, None, request.GET)

@@ -1,5 +1,7 @@
+from django.contrib.auth.models import User
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.db.models import Q
+from apps.article.models import Article
 from apps.taxonomy.models import Taxonomy
 from apps.taxonomy.service.business import get_related_list_top_down
 
@@ -157,7 +159,35 @@ def followings_count(author=None, content_type=None):
 # Action methods
 
 def suggest_post(author, object_to_link, content, to_user):
-    pass
+
+    to_users = to_user.split(',')
+
+    suggested_to = []
+
+    article = Article.objects.get(id=object_to_link)
+    if not article:
+        raise Exception('Article is not exists!')
+
+    content_type = ContentType.objects.get_for_model(article)
+
+    try:
+
+        for id_user in to_users:
+            user = User.objects.get(id=id_user)
+
+            if user:
+                UserAction.objects.get_or_create(
+                    author=author,
+                    content_type=content_type,
+                    object_id=article.id,
+                    action_type=settings.SOCIAL_SUGGEST,
+                    target_user=user
+                )
+            suggested_to.append(user)
+    except:
+        raise Exception('Error!')
+
+    return True
 
 
 def act_by_content_type_and_id(user=None, content_type=None, object_id=None, action_type=None):

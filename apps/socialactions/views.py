@@ -198,7 +198,7 @@ class SocialActionFollowingsViews(SocialActionBaseFollowings):
         return render(request, self.template_path, context)
 
 
-class SocialActionSuggest(SocialActionBaseView):
+class SocialActionSuggestArticleToUser(SocialActionBaseView):
 
     def return_error(self, request, context=None):
         if request.is_ajax():
@@ -221,10 +221,10 @@ class SocialActionSuggest(SocialActionBaseView):
         return redirect(context['url_next'])
 
     @method_decorator(login_required)
-    def get(self, request, object_to_link, content, to_user):
+    def post(self, request, object_to_link, content):
 
         try:
-            Business.suggest_post(request.user, object_to_link, content, to_user)
+            Business.suggest_post(request.user, object_to_link, content, request.POST.get('users'))
         except NotFoundSocialSettings:
             context = {
                 'status': 400,

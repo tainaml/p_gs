@@ -6,19 +6,18 @@ require('selectize')
 const [suggest] = [{
     plugins: ['remove_button']
     , maxItems: 5
-    , valueField: 'url'
+    , valueField: 'id'
     , labelField: 'name'
     , searchField: 'name'
     , create: false
     , render: {
-        item: templateItem
-        , option: templateOption
+        option: templateOption
     }
     , load: loadUsers
 }]
 
 var tagger = (element) => {
-    var type = $(element).data('taggerType');
+    var type = $(element).data('taggerType')
     switch (type) {
         case 'suggest':
             $(element).selectize(suggest)
@@ -26,11 +25,11 @@ var tagger = (element) => {
 }
 
 function templateItem(item, escape) {
-    let name = item.name ? escape(item.name) : '';
+    let name = item.name ? escape(item.name) : ''
     return `<div>${name}</div>`
 }
 function templateOption(item, escape) {
-    let name = item.name ? escape(item.name) : '';
+    let name = item.name ? escape(item.name) : ''
     return `<div class="item-float-notification">
     <span><img src="http://placehold.it/20" alt="${name}"></span>
     <span>${name}</span>
@@ -52,9 +51,7 @@ function loadUsers(query, callback) {
             callback()
         },
         success: function (res) {
-            console.dir(res.users);
-            console.log(res);
-            callback(res.users)
+            callback(res.users);
         }
     })
 }
