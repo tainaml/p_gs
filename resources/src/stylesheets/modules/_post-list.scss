@@ -50,6 +50,7 @@
     &--small {
         @extend .post-list;
         @include make-xs-column(12);
+        // @include make-sm-column(6);
         @include make-lg-column(3);
         .post-list-header {
             border-left: 1px solid #eee;
@@ -64,6 +65,9 @@
         @extend .post-list;
         @include make-xs-column(12);
         @include make-lg-column(9);
+        .post-list-header--left-tiny {
+            border-left: 1px solid #eee;
+        }
     }
     &--half {
         @extend .post-list;
@@ -103,7 +107,6 @@
             margin-left: -4px;
             color: $background-button;
             font-size: 0.929em;
-            // font-weight: 600;
             &:last-child {
                 padding-right: 0;
             }
@@ -111,43 +114,80 @@
     }
     &-container {
         @include make-row;
-
-        > a {
-            margin-bottom: 20px;
-        }
+        > a { margin-bottom: 20px; }
     }
-    &-subcategory {
-        color: $background-button;
-    }
+    &-subcategory { color: $background-button; }
 }
 
 .article-home-large {
     @include make-xs-column(12);
+    @include make-sm-column(6);
     @include make-lg-column(3);
     margin-bottom: 20px;
     cursor: pointer;
 
-    &:hover .article-category {
-        color: $background-button-hover;
-    }
+    &:hover .article-category { color: $background-button-hover; }
 }
 .article-home-medium  {
     @include make-xs-column(12);
+    @include make-sm-column(6);
     @include make-lg-column(6);
     margin-bottom: 20px;
     cursor: pointer;
 
-    &:hover .article-category {
-        color: $background-button-hover;
-    }
+    &:hover .article-category { color: $background-button-hover; }
 }
 .article-home-small  {
     @include make-xs-column(12);
+    @include make-sm-column(4);
     @include make-lg-column(4);
     margin-bottom: 20px;
     cursor: pointer;
 
-    &:hover .article-category {
-        color: $background-button-hover;
+    &:hover .article-category { color: $background-button-hover; }
+}
+
+// Edit publications
+// ==========================================================================
+.publication {
+    border: 1px solid $color-border;
+    margin-bottom: 20px;
+}
+.publication-image {
+    margin-right: 20px;
+    float: left;
+}
+.publication-content {
+    padding: 20px;
+}
+.publication-type {
+    font-weight: 900;
+    letter-spacing: -0.05em;
+
+    &.question { color: #004ca5; }
+    &.draft { color: #c7141a; }
+}
+.publication-title {
+    margin: 0;
+    font-size: 1.2em;
+    letter-spacing: -0.05em;
+}
+
+.publication-footer {
+    padding: 10px;
+    border-top: 1px solid $color-border;
+    font-size: 0.85em;
+}
+.publication-footer-date {
+    float: right;
+    color: #d3d3d3;
+}
+.publication-footer-menu {}
+.publication-footer-menu-item {
+    padding: 0 10px;
+    border-left: 1px solid $color-border;
+    &:first-child {
+        padding-left: 0;
+        border-left: none;
     }
 }

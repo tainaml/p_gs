@@ -1,0 +1,61 @@
+// ==========================================================================
+// Modal primeiros passos
+// ==========================================================================
+.step-items {
+    @include list-unstyled;
+    text-align: center;
+    max-width: 570px;
+    margin: 0 auto;
+    > .step {
+        position: relative;
+        width: 40px;
+        height: 40px;
+        display: inline-block;
+        border-radius: 50%;
+        background: #d8d8d8;
+        color: #4d6479;
+        font-weight: bold;
+        font-size: 18px;
+        line-height: 40px;
+        text-align: center;
+
+        &:nth-child(n+2) {
+            margin-left: 30%;
+            &:before {
+                content: "";
+                position: absolute;
+                top: 50%;
+                width: 180px;
+                height: 5px;
+                margin-left: -189px;
+                margin-top: -2px;
+                background: #d8d8d8;
+            }
+        }
+        &.active {
+            color: #fff;
+            background: #4d6479;
+            &:before { background: #4d6479; }
+        }
+    }
+}
+
+.set-avatar {
+    padding: 10px 20px;
+    border: 8px solid #fff;
+    box-shadow: 1px 1px 1px $color-border, -1px -1px 2px $color-border;
+    h5 {
+        font-size: 15px;
+        margin: 0;
+    }
+    p { font-size: 13px; }
+}
+
+.item-form { margin-bottom: 20px; }
+
+// Modal Suggestions
+// ==========================================================================
+.suggestion {
+    @include make-lg-column(4);
+    margin-bottom: 20px;
+}

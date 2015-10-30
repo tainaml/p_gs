@@ -253,7 +253,8 @@ def get_users_acted_by_author(author=None, action=None, content_type=None, filte
     return list_users
 
 
-def get_random_users_acted_by_author(author=None, action=None, content_type=None, filter_parameters=None, items_per_page=None, page=None):
+def get_random_users_acted_by_author(author=None, action=None, content_type=None, filter_parameters=None,
+                                     items_per_page=None, page=None):
     if not filter_parameters:
         filter_parameters = {}
 
@@ -278,9 +279,9 @@ def get_random_users_acted_by_author(author=None, action=None, content_type=None
 
     return list_users
 
-def get_users_acted_by_author_with_parameters(author=None, action=None, content_type=None,
-                              criteria=None, category=None, items_per_page=None, page=None):
 
+def get_users_acted_by_author_with_parameters(author=None, action=None, content_type=None,
+                                              criteria=None, category=None, items_per_page=None, page=None):
     content_type = get_model_type(content_type)
 
     if int(category) != 0:
@@ -289,10 +290,11 @@ def get_users_acted_by_author_with_parameters(author=None, action=None, content_
     else:
         categories = []
 
-
-    condition = (Q(content_type=content_type) &
-                 Q(author=author) &
-                 Q(action_type=action))
+    condition = (
+        Q(content_type=content_type) &
+        Q(author=author) &
+        Q(action_type=action)
+    )
 
     if criteria:
         condition &= Q(community__title__icontains=criteria)

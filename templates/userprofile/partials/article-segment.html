@@ -32,7 +32,7 @@
         </figure>
         <div class="post-text">
             <h3 class="post-title" itemprop="headline">{{ instance.title }} </h3>
-            <p>{{ instance.text|slice:":100"}}... </p>
+            <p>{{ instance.text|safe|slice:":100"}}... </p>
         </div>
     </a>
     <footer class="post-footer">

@@ -1,6 +1,8 @@
-{% if not isLogged %}
+{% load thumbor_tags %}
+
+{% if request.user.is_authenticated %}
 <div class="user-actions-logged">
-    <a href="javascript:;" class="user-actions-logged-link--logged"><i class="gsticon gsticon-group"></i></a>
+    <a href="javascript:void(0);" class="user-actions-logged-link--logged"><i class="gsticon gsticon-group"></i></a>
     <div class="dropdown-menu dropdown-notification">
         <div class="float-notifcations">
             <div class="header-float-notifications">
@@ -9,54 +11,54 @@
             </div>
             <ul class="content-float-notifications">
                 <li class="item-float-notification">
-                    <a href="javascript:;"><img src="http://placehold.it/20" alt="Creator Post Avatar"></a>
-                    <a href="javascript:;">Iury Silva</a> sugeriu uma <a href="javascript:;">publicação</a>
+                    <a href="javascript:void(0);"><img src="http://placehold.it/20" alt="Creator Post Avatar"></a>
+                    <a href="javascript:void(0);">Iury Silva</a> sugeriu uma <a href="javascript:void(0);">publicação</a>
                 </li>
                 <li class="item-float-notification visualized">
                     <i class="gsticon gsticon-exclamation-triangle color-warning"></i>
-                    Você recebeu uma <a href="javascript:;">advertência</a>
+                    Você recebeu uma <a href="javascript:void(0);">advertência</a>
                 </li>
                 <li class="item-float-notification">
                     <i class="gsticon gsticon-exclamation-triangle color-punishment"></i>
-                    Você recebeu uma <a href="javascript:;">penalização</a>
+                    Você recebeu uma <a href="javascript:void(0);">penalização</a>
                 </li>
                 <li class="item-float-notification">
-                    <a href="javascript:;"><img src="http://placehold.it/20" alt="Creator Post Avatar"></a>
-                    <a href="javascript:;">Iury Silva</a> sugeriu uma <a href="javascript:;">publicação</a>
+                    <a href="javascript:void(0);"><img src="http://placehold.it/20" alt="Creator Post Avatar"></a>
+                    <a href="javascript:void(0);">Iury Silva</a> sugeriu uma <a href="javascript:void(0);">publicação</a>
                 </li>
                 <li class="item-float-notification visualized">
                     <i class="gsticon gsticon-exclamation-triangle color-warning"></i>
-                    Você recebeu uma <a href="javascript:;">advertência</a>
+                    Você recebeu uma <a href="javascript:void(0);">advertência</a>
                 </li>
                 <li class="item-float-notification visualized">
                     <i class="gsticon gsticon-exclamation-triangle color-punishment"></i>
-                    Você recebeu uma <a href="javascript:;">penalização</a>
+                    Você recebeu uma <a href="javascript:void(0);">penalização</a>
                 </li>
                 <li class="item-float-notification visualized">
                     <i class="gsticon gsticon-exclamation-triangle color-warning"></i>
-                    Você recebeu uma <a href="javascript:;">advertência</a>
+                    Você recebeu uma <a href="javascript:void(0);">advertência</a>
                 </li>
                 <li class="item-float-notification">
                     <i class="gsticon gsticon-exclamation-triangle color-punishment"></i>
-                    Você recebeu uma <a href="javascript:;">penalização</a>
+                    Você recebeu uma <a href="javascript:void(0);">penalização</a>
                 </li>
                 <li class="item-float-notification">
-                    <a href="javascript:;"><img src="http://placehold.it/20" alt="Creator Post Avatar"></a>
-                    <a href="javascript:;">Iury Silva</a> sugeriu uma <a href="javascript:;">publicação</a>
+                    <a href="javascript:void(0);"><img src="http://placehold.it/20" alt="Creator Post Avatar"></a>
+                    <a href="javascript:void(0);">Iury Silva</a> sugeriu uma <a href="javascript:void(0);">publicação</a>
                 </li>
                 <li class="item-float-notification visualized">
                     <i class="gsticon gsticon-exclamation-triangle color-warning"></i>
-                    Você recebeu uma <a href="javascript:;">advertência</a>
+                    Você recebeu uma <a href="javascript:void(0);">advertência</a>
                 </li>
                 <li class="item-float-notification visualized">
                     <i class="gsticon gsticon-exclamation-triangle color-punishment"></i>
-                    Você recebeu uma <a href="javascript:;">penalização</a>
+                    Você recebeu uma <a href="javascript:void(0);">penalização</a>
                 </li>
             </ul>
-            <a href="javascript:;" class="footer-float-notifications">Ver todos</a>
+            <a href="javascript:void(0);" class="footer-float-notifications">Ver todos</a>
         </div>
     </div>
-    <a href="javascript:;" class="user-actions-logged-link--logged">
+    <a href="javascript:void(0);" class="user-actions-logged-link--logged">
         <span class="badge">2</span>
         <i class="gsticon gsticon-comments"></i>
     </a>
@@ -68,54 +70,54 @@
             </div>
             <ul class="content-float-notifications">
                 <li class="item-float-notification">
-                    <a href="javascript:;"><img src="http://placehold.it/20" alt="Creator Post Avatar"></a>
-                    <a href="javascript:;">Iury Silva</a> sugeriu uma <a href="javascript:;">publicação</a>
+                    <a href="javascript:void(0);"><img src="http://placehold.it/20" alt="Creator Post Avatar"></a>
+                    <a href="javascript:void(0);">Iury Silva</a> sugeriu uma <a href="javascript:void(0);">publicação</a>
                 </li>
                 <li class="item-float-notification visualized">
                     <i class="gsticon gsticon-exclamation-triangle color-warning"></i>
-                    Você recebeu uma <a href="javascript:;">advertência</a>
+                    Você recebeu uma <a href="javascript:void(0);">advertência</a>
                 </li>
                 <li class="item-float-notification">
                     <i class="gsticon gsticon-exclamation-triangle color-punishment"></i>
-                    Você recebeu uma <a href="javascript:;">penalização</a>
+                    Você recebeu uma <a href="javascript:void(0);">penalização</a>
                 </li>
                 <li class="item-float-notification">
-                    <a href="javascript:;"><img src="http://placehold.it/20" alt="Creator Post Avatar"></a>
-                    <a href="javascript:;">Iury Silva</a> sugeriu uma <a href="javascript:;">publicação</a>
+                    <a href="javascript:void(0);"><img src="http://placehold.it/20" alt="Creator Post Avatar"></a>
+                    <a href="javascript:void(0);">Iury Silva</a> sugeriu uma <a href="javascript:void(0);">publicação</a>
                 </li>
                 <li class="item-float-notification visualized">
                     <i class="gsticon gsticon-exclamation-triangle color-warning"></i>
-                    Você recebeu uma <a href="javascript:;">advertência</a>
+                    Você recebeu uma <a href="javascript:void(0);">advertência</a>
                 </li>
                 <li class="item-float-notification visualized">
                     <i class="gsticon gsticon-exclamation-triangle color-punishment"></i>
-                    Você recebeu uma <a href="javascript:;">penalização</a>
+                    Você recebeu uma <a href="javascript:void(0);">penalização</a>
                 </li>
                 <li class="item-float-notification visualized">
                     <i class="gsticon gsticon-exclamation-triangle color-warning"></i>
-                    Você recebeu uma <a href="javascript:;">advertência</a>
+                    Você recebeu uma <a href="javascript:void(0);">advertência</a>
                 </li>
                 <li class="item-float-notification">
                     <i class="gsticon gsticon-exclamation-triangle color-punishment"></i>
-                    Você recebeu uma <a href="javascript:;">penalização</a>
+                    Você recebeu uma <a href="javascript:void(0);">penalização</a>
                 </li>
                 <li class="item-float-notification">
-                    <a href="javascript:;"><img src="http://placehold.it/20" alt="Creator Post Avatar"></a>
-                    <a href="javascript:;">Iury Silva</a> sugeriu uma <a href="javascript:;">publicação</a>
+                    <a href="javascript:void(0);"><img src="http://placehold.it/20" alt="Creator Post Avatar"></a>
+                    <a href="javascript:void(0);">Iury Silva</a> sugeriu uma <a href="javascript:void(0);">publicação</a>
                 </li>
                 <li class="item-float-notification visualized">
                     <i class="gsticon gsticon-exclamation-triangle color-warning"></i>
-                    Você recebeu uma <a href="javascript:;">advertência</a>
+                    Você recebeu uma <a href="javascript:void(0);">advertência</a>
                 </li>
                 <li class="item-float-notification visualized">
                     <i class="gsticon gsticon-exclamation-triangle color-punishment"></i>
-                    Você recebeu uma <a href="javascript:;">penalização</a>
+                    Você recebeu uma <a href="javascript:void(0);">penalização</a>
                 </li>
             </ul>
-            <a href="javascript:;" class="footer-float-notifications">Ver todos</a>
+            <a href="javascript:void(0);" class="footer-float-notifications">Ver todos</a>
         </div>
     </div>
-    <a href="javascript:;" class="user-actions-logged-link--logged">
+    <a href="javascript:void(0);" class="user-actions-logged-link--logged">
         <span class="badge">10</span>
         <i class="gsticon gsticon-bell"></i>
     </a>
@@ -127,71 +129,75 @@
             </div>
             <ul class="content-float-notifications">
                 <li class="item-float-notification">
-                    <a href="javascript:;"><img src="http://placehold.it/20" alt="Creator Post Avatar"></a>
-                    <a href="javascript:;">Iury Silva</a> sugeriu uma <a href="javascript:;">publicação</a>
+                    <a href="javascript:void(0);"><img src="http://placehold.it/20" alt="Creator Post Avatar"></a>
+                    <a href="javascript:void(0);">Iury Silva</a> sugeriu uma <a href="javascript:void(0);">publicação</a>
                 </li>
                 <li class="item-float-notification visualized">
                     <i class="gsticon gsticon-exclamation-triangle color-warning"></i>
-                    Você recebeu uma <a href="javascript:;">advertência</a>
+                    Você recebeu uma <a href="javascript:void(0);">advertência</a>
                 </li>
                 <li class="item-float-notification">
                     <i class="gsticon gsticon-exclamation-triangle color-punishment"></i>
-                    Você recebeu uma <a href="javascript:;">penalização</a>
+                    Você recebeu uma <a href="javascript:void(0);">penalização</a>
                 </li>
                 <li class="item-float-notification">
-                    <a href="javascript:;"><img src="http://placehold.it/20" alt="Creator Post Avatar"></a>
-                    <a href="javascript:;">Iury Silva</a> sugeriu uma <a href="javascript:;">publicação</a>
+                    <a href="javascript:void(0);"><img src="http://placehold.it/20" alt="Creator Post Avatar"></a>
+                    <a href="javascript:void(0);">Iury Silva</a> sugeriu uma <a href="javascript:void(0);">publicação</a>
                 </li>
                 <li class="item-float-notification visualized">
                     <i class="gsticon gsticon-exclamation-triangle color-warning"></i>
-                    Você recebeu uma <a href="javascript:;">advertência</a>
+                    Você recebeu uma <a href="javascript:void(0);">advertência</a>
                 </li>
                 <li class="item-float-notification visualized">
                     <i class="gsticon gsticon-exclamation-triangle color-punishment"></i>
-                    Você recebeu uma <a href="javascript:;">penalização</a>
+                    Você recebeu uma <a href="javascript:void(0);">penalização</a>
                 </li>
                 <li class="item-float-notification visualized">
                     <i class="gsticon gsticon-exclamation-triangle color-warning"></i>
-                    Você recebeu uma <a href="javascript:;">advertência</a>
+                    Você recebeu uma <a href="javascript:void(0);">advertência</a>
                 </li>
                 <li class="item-float-notification">
                     <i class="gsticon gsticon-exclamation-triangle color-punishment"></i>
-                    Você recebeu uma <a href="javascript:;">penalização</a>
+                    Você recebeu uma <a href="javascript:void(0);">penalização</a>
                 </li>
                 <li class="item-float-notification">
-                    <a href="javascript:;"><img src="http://placehold.it/20" alt="Creator Post Avatar"></a>
-                    <a href="javascript:;">Iury Silva</a> sugeriu uma <a href="javascript:;">publicação</a>
+                    <a href="javascript:void(0);"><img src="http://placehold.it/20" alt="Creator Post Avatar"></a>
+                    <a href="javascript:void(0);">Iury Silva</a> sugeriu uma <a href="javascript:void(0);">publicação</a>
                 </li>
                 <li class="item-float-notification visualized">
                     <i class="gsticon gsticon-exclamation-triangle color-warning"></i>
-                    Você recebeu uma <a href="javascript:;">advertência</a>
+                    Você recebeu uma <a href="javascript:void(0);">advertência</a>
                 </li>
                 <li class="item-float-notification visualized">
                     <i class="gsticon gsticon-exclamation-triangle color-punishment"></i>
-                    Você recebeu uma <a href="javascript:;">penalização</a>
+                    Você recebeu uma <a href="javascript:void(0);">penalização</a>
                 </li>
             </ul>
-            <a href="javascript:;" class="footer-float-notifications">Ver todos</a>
+            <a href="javascript:void(0);" class="footer-float-notifications">Ver todos</a>
         </div>
     </div>
-    <a href="javascript:;" class="user-actions-logged-link--logged" data-toggle="dropdown">
-        <img src="http://placehold.it/40" alt="" class="img-circle">
-        Ninikowisky <i class="gsticon gsticon-angle-down"></i>
+    <a href="javascript:void(0);" class="user-actions-logged-link--logged" data-toggle="dropdown">
+        {% if request.user.profile.get_profile_picture %}
+            <img src="{% thumbor_url request.user.profile.get_profile_picture.url width=40 height=40 smart=False fit_in=False %}" alt="{{ profile.user.get_full_name }}" class="img-circle">
+        {% else %}
+            <img src="http://placehold.it/40?text= " alt="" class="img-circle">
+        {% endif %}
+        {{ request.user.first_name|slice:":13" }} <i class="gsticon gsticon-angle-down"></i>
     </a>
     <div class="dropdown-menu">
         <ul class="perfil-actions">
-            <li><a href="javascript:;"><i class="gsticon gsticon-feed"></i> Meu Feed</a></li>
-            <li><a href="javascript:;"><i class="gsticon gsticon-user"></i> Perfil</a></li>
-            <li><a href="javascript:;"><i class="gsticon gsticon-question-circle"></i> Perguntar</a></li>
-            <li><a href="javascript:;"><i class="gsticon gsticon-file-text"></i> Criar Artigo</a></li>
-            <li><a href="javascript:;"><i class="gsticon gsticon-gear"></i> Configurações</a></li>
-            <li><a href="javascript:;"><i class="gsticon gsticon-close"></i> Sair</a></li>
+            <li><a href="javascript:void(0);"><i class="gsticon gsticon-feed"></i> Meu Feed</a></li>
+            <li><a href="javascript:void(0);"><i class="gsticon gsticon-user"></i> Perfil</a></li>
+            <li><a href="javascript:void(0);"><i class="gsticon gsticon-question-circle"></i> Perguntar</a></li>
+            <li><a href="javascript:void(0);"><i class="gsticon gsticon-file-text"></i> Criar Artigo</a></li>
+            <li><a href="javascript:void(0);"><i class="gsticon gsticon-gear"></i> Configurações</a></li>
+            <li><a href="javascript:void(0);"><i class="gsticon gsticon-close"></i> Sair</a></li>
         </ul>
     </div>
 </div>
 {% else %}
 <div class="user-actions">
-    <a href="javascript:;" class="user-actions-link">Cadastre-se</a>
-    <a href="javascript:;" class="user-actions-link">Login</a>
+    <a href="{% url 'account:signup' %}" class="user-actions-link">Cadastre-se</a>
+    <a href="javascript:void(0);" data-toggle="modal" data-target="#modal-login" class="user-actions-link">Login</a>
 </div>
 {% endif %}

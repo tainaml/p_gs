@@ -6,7 +6,7 @@
 {% block title %}{{ question.title }} - Portal GSTI{% endblock %}
 
 {% block content %}
-    <main class="container">
+    <main class="container main">
         <div class="perfil-row">
             <ul class="box-share">
                 <li class="comment-vote">
@@ -67,7 +67,7 @@
                         </div>
                     </aside>
                     <div class="full-post-content color-green">
-                        <p class="color-green">{{ question.description }}</p>
+                        <p class="color-green">{{ question.description|safe }}</p>
                         <div class="post-advertising text-center">
                             <img class="img-responsive" src="http://placehold.it/728x90" alt="Propaganda">
                         </div>

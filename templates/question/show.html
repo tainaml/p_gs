@@ -14,7 +14,7 @@
     <li>
         <div name="question_id"><b>ID:</b> {{ question.id }}</div>
         <div name="title" id="title"><b>Título:</b> {{ question.title }}</div>
-        <div name="description" id="description"><b>Descrição:</b> {{ question.description }}</div>
+        <div name="description" id="description"><b>Descrição:</b> {{ question.description|safe }}</div>
     </li>
 
     {% list_reply question.id %}

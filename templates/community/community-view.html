@@ -5,7 +5,7 @@
 {% block title %}Portal GSTI - Comunidade{% endblock %}
 
 {% block content %}
-    <main class="container">
+    <main class="container main">
         <div class="perfil-row">
             <!-- mudar para 2.5 -->
             <div class="col-lg-3">
@@ -73,7 +73,6 @@
                             {% else %}
                                 <span>Carregando feed...</span>
                             {% endif %}
-
                         </section>
                     </div>
                     <div class="col-lg-4">
@@ -93,29 +92,30 @@
 
 {% block javascripts %}
     {{ block.super }}
-    <script src="{% static 'javascripts/jquery.jscroll.min.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.jscroll/2.2.4/jquery.jscroll.min.js"></script>
     <script>
         $(function() {
+
             {% if form.cleaned_data.criterio %}
 
                 $(".j-scroll").jscroll({
-                loadingHtml: '<span>Carregando...</span>',
-                contentSelect: ".j-scroll-container",
-                nextSelect: "a[data-jscroll-next]"
-            });
+                    loadingHtml: '<span>Carregando...</span>',
+                    contentSelect: ".j-scroll-container",
+                    nextSelect: "a[data-jscroll-next]"
+                });
+
             {% else %}
-                $.get("{% url 'community:list' community.slug %}?criterio={{ form.cleaned_data.criterio }}&page=1&next={{ url_next|urlencode }}", function( data ) {
-                $( "#community-list" ).html( data );
-                $(".j-scroll").jscroll({
-                loadingHtml: '<span>Carregando...</span>',
-                contentSelect: ".j-scroll-container",
-                nextSelect: "a[data-jscroll-next]"
-            });
-        });
+
+                $.get("{% url 'community:list' community.slug %}?criterio={{ form.cleaned_data.criterio|urlencode }}&page=1&next={{ url_next|urlencode }}", function( data ) {
+                    $( "#community-list" ).html( data );
+                    $(".j-scroll").jscroll({
+                        loadingHtml: '<span>Carregando...</span>',
+                        contentSelect: ".j-scroll-container",
+                        nextSelect: "a[data-jscroll-next]"
+                    });
+                });
 
             {% endif %}
-
-
 
         });
     </script>

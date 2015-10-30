@@ -1,12 +1,12 @@
 var path            = require('path');
 var paths           = require('./');
 var webpack         = require('webpack');
-var webpackManifest = require('../lib/webpackManifest');
+var webpackManifest = require('../libraries/webpackManifest');
 
 module.exports = function(env) {
   var jsSrc = path.resolve(paths.sourceAssets + '/javascripts/');
   var jsDest = paths.publicAssets + '/javascripts/';
-  var publicPath = '/assets/javascripts/';
+  var publicPath = '/static/javascripts/';
 
   var webpackConfig = {
     context: jsSrc,
@@ -61,7 +61,7 @@ module.exports = function(env) {
       'jquery': 'jQuery'
     };
     webpackConfig.plugins.push(
-      new webpackManifest(publicPath, 'gsti/assets'),
+      new webpackManifest(publicPath),
       new webpack.DefinePlugin({
         'process.env': {
           'NODE_ENV': JSON.stringify('production')

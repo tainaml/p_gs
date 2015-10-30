@@ -156,3 +156,4 @@ media/cc/
 mediaceleryd.pid
 nohup.out
 celerybeat-schedule
+celeryd.pid

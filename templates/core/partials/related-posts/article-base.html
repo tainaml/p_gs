@@ -1,0 +1,10 @@
+{% load thumbor_tags %}
+
+<a class="article-excerpt" href="{% url 'article:view' article_slug=record.slug article_id=record.id %}" title="{{ record.title }}">
+    {% if record.get_image %}
+        <img src="{% thumbor_url record.get_image.url width=70 height=53 smart=False fit_in=False %}" alt="{{ record.title }}">
+    {% else %}
+        <img src="http://placehold.it/70x53" alt="{{ record.title }}">
+    {% endif %}
+    <span>{{ record.title }}</span>
+</a>

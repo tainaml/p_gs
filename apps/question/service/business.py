@@ -53,3 +53,12 @@ def get_answer(answer_id=None):
         answer = False
 
     return answer
+
+
+def get_questions_by_user(author):
+    try:
+        quests = Question.objects.get(author=author)
+    except Question.DoesNotExist:
+        quests = False
+
+    return quests

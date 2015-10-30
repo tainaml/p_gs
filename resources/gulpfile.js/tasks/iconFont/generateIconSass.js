@@ -2,7 +2,7 @@ var gulp         = require('gulp');
 var config       = require('../../config/iconFont');
 var render       = require('gulp-nunjucks-render');
 var rename       = require('gulp-rename');
-var handleErrors = require('../../lib/handleErrors');
+var handleErrors = require('../../libraries/handleErrors');
 var gutil        = require("gulp-util");
 
 module.exports = function(glyphs, options) {

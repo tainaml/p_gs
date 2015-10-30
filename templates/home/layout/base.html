@@ -15,7 +15,7 @@
                     <h1 class="gsti">
                         <a href="{% url 'ninico:index' %}" class="gsti-link">Portal GSTI</a>
                     </h1>
-                    <div class="form-search{% if not isLogged %}--logged{% endif %}">
+                    <div class="form-search{% if request.user.is_authenticated %}--logged{% endif %}">
                         {% include 'home/partials/search.html' %}
                     </div>
                     {% include 'home/partials/user-actions.html' %}
@@ -26,11 +26,11 @@
             <div class="container">
                 <nav class="menu-categories">
                     <a class="governance" href="javascript:;">Governança de TI</a>
-                    •<a class="development" href="javascript:;">Desenvolvimento</a>
-                    •<a class="web-design" href="javascript:;">Web Design</a>
-                    •<a class="marketing" href="javascript:;">Marketing Digital</a>
-                    •<a class="infra" href="javascript:;">Infraestrutura</a>
-                    •<a class="databases" href="javascript:;">Banco de Dados</a>
+                    <i class="gsticon gsticon-circle"></i><a class="development" href="javascript:;">Desenvolvimento</a>
+                    <i class="gsticon gsticon-circle"></i><a class="web-design" href="javascript:;">Web Design</a>
+                    <i class="gsticon gsticon-circle"></i><a class="marketing" href="javascript:;">Marketing Digital</a>
+                    <i class="gsticon gsticon-circle"></i><a class="infra" href="javascript:;">Infraestrutura</a>
+                    <i class="gsticon gsticon-circle"></i><a class="databases" href="javascript:;">Banco de Dados</a>
                 </nav>
                 <nav class="menu-social">
                     <a class="gsticon gsticon-facebook-square" href="javascript:;"></a>
@@ -159,9 +159,35 @@
         </div><!-- /.modal-dialog -->{% endblock %}
         </div><!-- /.modal -->
         {% endcomment %}
+        {% block modals %}
+
+            {% include 'home/partials/modals/modal-login.html' %}
+            {% include 'home/partials/modals/modal-sugerir.html' %}
+
+        {% endblock %}
+
         <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
         <script src="{% static 'javascripts/shared.js'%}"></script>
         <script src="{% static 'javascripts/main.js'%}"></script>
+
+        <!-- CKEDITOR -->
+        <script type="text/javascript" src="{% static "ckeditor/ckeditor/ckeditor.js" %}"></script>
+        <script type="text/javascript" src="{% static "ckeditor/ckeditor-init.js" %}"></script>
+
+        <script type="text/javascript">
+            var functionAjaxSuccessLogin = function(e, data) {
+                window.location.href = data.url_next;
+            };
+            var functionAjaxErrorLogin = function(e, data) {
+                console.log(data);
+            };
+
+            $(function() {
+                $("#form-login").on("ajaxform.success", functionAjaxSuccessLogin);
+                $("#form-login").on("ajaxform.error", functionAjaxErrorLogin);
+            });
+        </script>
+
         {% block javascripts %}
         {% endblock %}
     </body>

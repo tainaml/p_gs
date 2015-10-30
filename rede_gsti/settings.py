@@ -55,6 +55,7 @@ INSTALLED_APPS = (
     'celery',
     'djcelery',
     'social.apps.django_app.default',
+    'ckeditor',
 
     # CORE
     'apps.core',
@@ -168,6 +169,30 @@ SOCIAL_INVERSE_ACTIONS = {
 }
 
 
+# CKEDITOR
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'Basic',
+    },
+    'question': {
+        'toolbar': 'Basic',
+    },
+    'article': {
+        'toolbar': 'Custom',
+        'toolbar_Custom': [
+            ['Bold', 'Italic', 'Underline'],
+            ['NumberedList', 'BulletedList'],
+            ['Link', 'Unlink'],
+            ['RemoveFormat'],
+            ['Embed'],
+            ['Source']
+        ],
+        'extraPlugins': ','.join([
+            'autolink', 'widget', 'dialog', 'embed'
+        ]),
+    }
+}
+
 #Notification
 
 NOTIFICATION_ACTIONS = {
@@ -234,6 +259,10 @@ THUMBOR_ARGUMENTS = {}
 LOGIN_URL = '/account/login'
 
 
+# Wizard Steps
+WIZARD_STEPS_TOTAL = 3
+
+
 # MailValidation Time
 TIME_REGISTER_ACCOUNT = 48
 TIME_RECOVERY_PASSWORD = 8
@@ -271,6 +300,8 @@ SOCIAL_AUTH_PIPELINE = (
     'apps.socialaccount.pipeline.username_slugify',
     'social.pipeline.social_auth.associate_by_email',
     'social.pipeline.user.create_user',
+    'apps.socialaccount.pipeline.create_profile',
+    'apps.socialaccount.pipeline.save_profile_picture',
     'social.pipeline.social_auth.associate_user',
     'social.pipeline.debug.debug',
     'social.pipeline.social_auth.load_extra_data',
