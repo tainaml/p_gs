@@ -53,7 +53,6 @@ function loadUsers(query, callback) {
             callback()
         },
         success: function (res) {
-            console.log(res.users);
             callback(res.users);
         }
     })
