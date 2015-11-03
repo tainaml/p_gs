@@ -31,8 +31,9 @@ function templateItem(item, escape) {
 }
 function templateOption(item, escape) {
     let name = item.name ? escape(item.name) : ''
+    let img = item.img ? escape(item.img) : ''
     return `<div class="item-float-notification">
-    <span><img src="http://placehold.it/20" alt="${name}"></span>
+    <span><img src="${img}" alt="${name}"></span>
     <span>${name}</span>
   </div>`
 }
@@ -52,6 +53,7 @@ function loadUsers(query, callback) {
             callback()
         },
         success: function (res) {
+            console.log(res.users);
             callback(res.users);
         }
     })
