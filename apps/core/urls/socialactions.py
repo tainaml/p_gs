@@ -10,5 +10,7 @@ urlpatterns = [
     url(r'^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/perfil/sugestoes/$', socialactions.SocialActionSuggest.as_view(), name='suggest'),
     url(r'^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/perfil/remover-sugestao/$', socialactions.SocialActionRemoveSuggest.as_view(), name='unsuggest'),
 
+    url(r'^filter/followings/$', socialactions.SocialActionFilterFollowings.as_view(), name='filter_followings'),
+
 ]
 

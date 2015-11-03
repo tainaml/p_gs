@@ -182,9 +182,38 @@
                 console.log(data);
             };
 
+            var functionAjaxSuccessSuggest = function(e, data) {
+                var $self = $(this),
+                    $modalSuggest = $("#modal-suggest");
+
+                if (data.status == 200 && $modalSuggest.is(':visible')) {
+                    var $taggerSuggest = $(e.currentTarget).find("#tagger-suggest-users")[0].selectize;
+                    $taggerSuggest.clear();
+                    $modalSuggest.modal('hide');
+                }
+            };
+
+            var functionOpenSuggestModal = function(e) {
+                e.preventDefault();
+                var $self = $(this),
+                    $modalSuggest = $("#modal-suggest"),
+                    $formSuggest = $modalSuggest.find("form#form-suggest");
+
+                $formSuggest.attr("action", $self.data('url'));
+                $formSuggest.find("#form-suggest-object").val($self.data('object'));
+                $formSuggest.find("#form-suggest-content").val($self.data('content'));
+                $modalSuggest.modal("show");
+            };
+
             $(function() {
-                $("#form-login").on("ajaxform.success", functionAjaxSuccessLogin);
-                $("#form-login").on("ajaxform.error", functionAjaxErrorLogin);
+                var $formLogin = $("#form-login");
+                $formLogin.on("ajaxform.success", functionAjaxSuccessLogin);
+                $formLogin.on("ajaxform.error", functionAjaxErrorLogin);
+
+                var $formSuggest = $("#form-suggest");
+                $formSuggest.on("ajaxform.success", functionAjaxSuccessSuggest);
+
+                $("[data-suggest-modal]").on("click", functionOpenSuggestModal);
             });
         </script>
 

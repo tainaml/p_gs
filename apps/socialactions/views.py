@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from django.http import Http404, JsonResponse
 from django.shortcuts import redirect, render
 from django.utils import timezone
@@ -196,3 +197,53 @@ class SocialActionFollowingsViews(SocialActionBaseFollowings):
             self.get_template(model_obj.content_type.model)
 
         return render(request, self.template_path, context)
+
+
+class SocialActionSuggestArticleToUser(SocialActionBaseView):
+
+    def return_error(self, request, context=None):
+        if request.is_ajax():
+            if not context:
+                context = {}
+
+            _context = context
+            return JsonResponse(_context, status=400)
+
+        raise context['not_found']
+
+    def return_success(self, request, context=None):
+        if request.is_ajax():
+            if not context:
+                context = {}
+
+            _context = context
+            return JsonResponse(_context, status=200)
+
+        return redirect(context['url_next'])
+
+    @method_decorator(login_required)
+    def post(self, request, object_to_link, content):
+
+        users = request.POST.get('users', [])
+        if not users:
+            context = {
+                'status': 400,
+                'errors': {'error_field': [_('No user was selected.')]}
+            }
+            return self.return_error(request, context)
+
+        try:
+            response_suggest = Business.suggest_post(request.user, object_to_link, content, users)
+        except NotFoundSocialSettings:
+            context = {
+                'status': 400,
+                'msg': _('SocialAction not Found.'),
+                'not_found': self.not_found
+            }
+            return self.return_error(request, context)
+
+        context = {
+            'status': 200,
+            'url_next': request.GET.get('url_next')
+        }
+        return self.return_success(request, context)
