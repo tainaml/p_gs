@@ -183,11 +183,14 @@
             };
 
             var functionAjaxSuccessSuggest = function(e, data) {
-                console.log("SUCCESS");
-                console.log(data);
-            };
-            var functionAjaxErrorSuggest = function(e, data) {
-                console.log(data);
+                var $self = $(this),
+                    $modalSuggest = $("#modal-suggest");
+
+                if (data.status == 200 && $modalSuggest.is(':visible')) {
+                    var $taggerSuggest = $(e.currentTarget).find("#tagger-suggest-users")[0].selectize;
+                    $taggerSuggest.clear();
+                    $modalSuggest.modal('hide');
+                }
             };
 
             var functionOpenSuggestModal = function(e) {
@@ -209,7 +212,6 @@
 
                 var $formSuggest = $("#form-suggest");
                 $formSuggest.on("ajaxform.success", functionAjaxSuccessSuggest);
-                $formSuggest.on("ajaxform.error", functionAjaxErrorSuggest);
 
                 $("[data-suggest-modal]").on("click", functionOpenSuggestModal);
             });

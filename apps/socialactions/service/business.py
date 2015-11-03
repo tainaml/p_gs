@@ -183,7 +183,7 @@ def suggest_post(author, object_to_link, content, to_user):
                     action_type=settings.SOCIAL_SUGGEST,
                     target_user=user
                 )
-            suggested_to.append(user)
+                suggested_to.append(user)
     except:
         raise Exception('Error!')
 

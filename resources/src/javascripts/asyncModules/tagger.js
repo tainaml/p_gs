@@ -11,6 +11,7 @@ const [suggest] = [{
     , searchField: 'name'
     , create: false
     , render: {
+        item: templateItem,
         option: templateOption
     }
     , load: loadUsers

@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from django.http import Http404, JsonResponse
 from django.shortcuts import redirect, render
 from django.utils import timezone
@@ -223,8 +224,16 @@ class SocialActionSuggestArticleToUser(SocialActionBaseView):
     @method_decorator(login_required)
     def post(self, request, object_to_link, content):
 
+        users = request.POST.get('users', [])
+        if not users:
+            context = {
+                'status': 400,
+                'errors': {'error_field': [_('No user was selected.')]}
+            }
+            return self.return_error(request, context)
+
         try:
-            Business.suggest_post(request.user, object_to_link, content, request.POST.get('users'))
+            response_suggest = Business.suggest_post(request.user, object_to_link, content, users)
         except NotFoundSocialSettings:
             context = {
                 'status': 400,
