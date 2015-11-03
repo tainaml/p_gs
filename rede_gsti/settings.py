@@ -129,7 +129,7 @@ EMAIL_PORT = '587'
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 # Comment config
-ENTITY_TO_COMMENT = ['user', 'comment']
+ENTITY_TO_COMMENT = ['comment', 'article']
 MAX_LEVELS = 2
 
 ENTITY_TO_COMPLAINT = ['article', 'question']

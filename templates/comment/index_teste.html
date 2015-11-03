@@ -1,21 +1,18 @@
-<html>
-<head>
-<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-</head>
-<body>
+{%extends 'home/layout/base.html' %}
 
-{% load comment_tags %}
+{% load comment_core_tags %}
 
 
 
 {% comment t %} This template tag render the form to create comments 'comment/create.html' {% endcomment %}
-{% box_comment user request.path %}
 
 
-{% comment t %} This template tag render the comment's list 'comment/list.html' {% endcomment %}
-Comments:
-{% list_comment user %}
-</body>
-</html>
+<div class="container-comments">
+    {% box_comment user request.path %}
+    {% list_comment user %}
+</div>
+{% comment t %} This template tag render the comment's list 'comment/list-comment.html' {% endcomment %}
+
+
+
 

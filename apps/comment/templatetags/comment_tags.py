@@ -9,19 +9,25 @@ register = template.Library()
 
 
 @register.inclusion_tag('comment/create.html', takes_context=True)
-def box_comment(context, content_object, url_next):
+def box_comment(context, content_object, url_next, **kwargs):
 
     try:
         content_type = ContentType.objects.get_for_model(content_object)
-    except:
+    except ValueError, e:
         raise Http404()
 
-    return {
+    return_dict = {
         'content_object': content_object,
         'content_type': content_type.model,
         'url_next': url_next,
-        'request': context['request']
+        'request': context['request'],
+
+
     }
+    return_dict.update(kwargs)
+
+    return return_dict
+
 
 
 @register.inclusion_tag('comment/edit.html')
@@ -33,8 +39,8 @@ def box_edit_comment(instance, url_next):
     }
 
 
-@register.inclusion_tag('comment/list.html', takes_context=True)
-def list_comment(context, content_object):
+@register.inclusion_tag('comment/list-comment.html', takes_context=True)
+def list_comment(context, content_object, **kwargs):
 
     try:
         content = ContentType.objects.get_for_model(content_object)
@@ -45,8 +51,11 @@ def list_comment(context, content_object):
     except ValueError:
         raise Http404()
 
-    return {
+    return_dict = {
         'list_comment': list_comment,
         'request': context['request'],
         'max_levels': max_levels
     }
+    return_dict.update(kwargs)
+
+    return return_dict
