@@ -26,6 +26,11 @@
     @include button-variant($btn-danger-color, #4d6479, #4d6479);
     font-weight: 600;
 }
+.btn-error {
+    @extend .btn;
+    @include button-variant($btn-danger-color, $btn-danger-bg, $btn-danger-border);
+    font-weight: 600;
+}
 
 .btn-login-google,
 .btn-login-facebook {
