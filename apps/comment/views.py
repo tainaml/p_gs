@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import copy
 
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
@@ -96,6 +97,7 @@ class CommentFormBaseView(View):
                                                        self.context).content
                 else:
                     response_data['errors'] = self.form.errors
+                    print response_data['errors']
 
                 return JsonResponse(response_data,
                                     status=200 if is_valid else 400, *args,
@@ -128,14 +130,32 @@ class CommentSaveView(CommentFormBaseView):
                 or 'content_type' not in request.POST:
             raise Http404()
 
+
         self.form = self.form_comment(request.user, request.POST)
 
         return super(CommentSaveView, self).do_process(request)
 
+class CommentSaveAnswer(CommentFormBaseView):
+    fail_validation_template_path = 'comment/create-answer.html'
+    success_template_path = 'comment/comment-child.html'
+    form_comment = CreateCommentForm
+    xhr = True
+
+    @method_decorator(login_required)
+    def post(self, request=None):
+        if 'content_object_id' not in request.POST:
+            raise Http404()
+
+        parameters = copy.copy(request.POST)
+        parameters['content_type'] = 'comment'
+
+        self.form = self.form_comment(request.user, parameters)
+
+        return super(CommentSaveAnswer, self).do_process(request)
 
 class CommentUpdateView(CommentFormBaseView):
     fail_validation_template_path = 'comment/edit-comment.html'
-    success_template_path = 'comment/edit-comment.html'
+    success_template_path = 'comment/comment.html'
 
     form_comment = EditCommentForm
     xhr = True

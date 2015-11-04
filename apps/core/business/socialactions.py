@@ -109,11 +109,11 @@ def get_suggest_content(user, criteria=None, items_per_page=None, page=None):
 
     # is_friend(user, user)
 
-    condition = Q(author=user) & Q(action_type=action_type)
-    content_type = ContentType.objects.filter(model='article')
+    condition = Q(target_user=user) & Q(action_type=action_type)
+    content_type = ContentType.objects.get(model='article')
 
     UserActions = UserAction.objects.filter(
-        author=user,
+        target_user=user,
         action_type=action_type,
         content_type=content_type
     )
