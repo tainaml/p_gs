@@ -31,8 +31,7 @@
     }
     &-#{button} {
         min-width: 100px;
-        padding-top: 0;
-        padding-bottom: 1.5px;
+        padding: 0 5px 1.5px;
         margin-top: 5px;
         background: $background-primary-button;
         color: $link-white;
@@ -45,8 +44,7 @@
         }
         &-#{alt} {
             min-width: 100px;
-            padding-top: 0;
-            padding-bottom: 1.5px;
+            padding: 0 5px 1.5px;
             margin-top: 5px;
             background: $background-button;
             color: $link-white;

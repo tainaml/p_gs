@@ -157,3 +157,5 @@ mediaceleryd.pid
 nohup.out
 celerybeat-schedule
 celeryd.pid
+
+.sublime-project/
