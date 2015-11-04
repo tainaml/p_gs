@@ -1,0 +1,21 @@
+{% load thumbor_tags %}
+{% load social_tags %}
+
+{% if users.object_list %}
+
+    {% for user in users %}
+    <div class="col-lg-4">
+        <div class="perfil">
+            <img class="img-responsive" src="{% thumbor_url user.profile.get_profile_picture.url width=82 height=82 smart=False fit_in=False %}" alt="{{ user.get_full_name }}">
+            <a class="perfil-name" href="{% url 'profile:show' user.username %}">{{ user.get_full_name }}</a>
+            <a class="perfil-counter" href="{% url 'profile:followers' username=user.username %}"><span class="counter-number">{% followers_count user %}</span> Seguidor(es)</a>
+            {% follow_action user request.path %}
+        </div>
+    </div>
+    {% endfor %}
+
+    <div class="col-lg-12">
+        <a href="javascript:;" class="btn-default btn-block">Carregar mais resultados</a>
+    </div>
+
+{% endif %}

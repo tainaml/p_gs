@@ -33,11 +33,12 @@ urlpatterns = [
     url(r'^community/', include('apps.core.urls.community', namespace='community')),
     url(r'^notifications/', include('apps.core.urls.notifications', namespace='notifications')),
     url(r'^', include('apps.core.urls.article', namespace='article')),
-    url(r'', include('apps.core.urls.socialactions', namespace='core_socialactions')),
-    url(r'^ninico/', include('apps.ninico.urls', namespace='ninico')),
+    url(r'^', include('apps.core.urls.socialactions', namespace='core_socialactions')),
+    url(r'^ninico/?', include('apps.ninico.urls', namespace='ninico')),
     url(r'^question/', include('apps.core.urls.question', namespace='question')),
     url(r'^contact/', include('apps.contact.urls', namespace='contact')),
-    url('^mailmanager/', include('apps.mailmanager.urls', namespace='mailmanager')),
-    url('^complaint/', include('apps.complaint.urls', namespace='complaint')),
+    url(r'^mailmanager/', include('apps.mailmanager.urls', namespace='mailmanager')),
+    url(r'^complaint/', include('apps.complaint.urls', namespace='complaint')),
+    url(r'^', include('apps.core.urls.search', namespace='search')),
 
 ] + url_statics + url_media

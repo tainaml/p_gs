@@ -3,8 +3,8 @@
         <a class="{% if i_liked and i_liked.author == request.user %}liked{% endif %}" href="{% url 'socialactions:act' object_to_link content 'like' %}?url_next={{ url_next|urlencode }}" 
             data-async-like="true" 
             data-social-action="like" 
-            data-target-like=".count-like-post-{{ object_to_link }}"
-            data-target-unlike=".count-unlike-post-{{ object_to_link }}"
+            data-target-like=".count-like-post-{{ object_to_link }}-{{ content }}"
+            data-target-unlike=".count-unlike-post-{{ object_to_link }}-{{ content }}"
             >
             <span class="count-like-post-{{ object_to_link }}" style="display: block">{{ likes }}</span>
             <i class="gsticon gsticon-caret-up"></i>
@@ -13,11 +13,11 @@
         <a class="{% if i_unliked and i_unliked.author == request.user %}unliked{% endif %}" href="{% url 'socialactions:act' object_to_link content 'unlike' %}?url_next={{ url_next|urlencode }}" 
             data-async-like="true"
             data-social-action="unlike"
-            data-target-like=".count-like-post-{{ object_to_link }}"
-            data-target-unlike=".count-unlike-post-{{ object_to_link }}"
+            data-target-like=".count-like-post-{{ object_to_link }}-{{ content }}"
+            data-target-unlike=".count-unlike-post-{{ object_to_link }}-{{ content }}"
             >
             <i class="gsticon gsticon-caret-down" ></i>
-            <span class="count-unlike-post-{{ object_to_link }}" style="display: block">{{ unlikes }}</span>
+            <span class="count-unlike-post-{{ object_to_link }}-{{ content }}" style="display: block">{{ unlikes }}</span>
         </a>
     </div>
 {% else %}

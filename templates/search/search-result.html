@@ -1,0 +1,112 @@
+{%extends 'home/layout/base.html' %}
+
+{% block title %}Portal GSTI - Resultado da busca por Python{% endblock %}
+
+{% block content %}
+    <main class="container main">
+        <div class="row">
+            <div class="col-lg-3">
+                <header class="area-title">
+                    <h2>Tipo de resultado</h2>
+                </header>
+                <div class="widget widget-box">
+                    <div class="widget-content">
+                        <ul class="perfil-actions">
+                            <li><a href="javascript:;">Todos</a></li>
+                            <li><a href="javascript:;">Comunidades</a></li>
+                            <li><a href="javascript:;">Pessoas</a></li>
+                            <li><a href="javascript:;">Publicações</a></li>
+                            <li><a href="javascript:;">Perguntas</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-9 result-wrapper">
+
+                {% if communities.object_list %}
+                    <div class="result-container">
+                        <header class="area-title">
+                            <h2>Comunidades</h2>
+                        </header>
+                        <div class="area-content">
+                            <div class="row">
+                                {% include "search/partials/search-communities.html" %}
+                            </div>
+                            {% comment %}
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <a href="javascript:;" class="btn-default btn-block">Carregar mais resultados</a>
+                                </div>
+                            </div>
+                            {% endcomment %}
+                        </div>
+                    </div>
+                {% endif %}
+
+
+                {% if users.object_list %}
+                    <div class="result-container">
+                        <header class="area-title">
+                            <h2>Pessoas</h2>
+                        </header>
+                        <div class="area-content">
+                            <div id="" class="row">
+                                {% include "search/partials/search-users.html" %}
+                            </div>
+                            {% comment %}
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <a href="javascript:;" class="btn-default btn-block">Carregar mais resultados</a>
+                                </div>
+                            </div>
+                            {% endcomment %}
+                        </div>
+                    </div>
+                {% endif %}
+
+
+                {% if articles.object_list %}
+                    <div class="result-container">
+                        <header class="area-title">
+                            <h2>Publicações</h2>
+                        </header>
+                        <div class="area-content">
+                            <div class="row">
+                                {% include "search/partials/search-articles.html" %}
+                            </div>
+                            {% comment %}
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <a href="javascript:;" class="btn-default btn-block">Carregar mais resultados</a>
+                                </div>
+                            </div>
+                            {% endcomment %}
+                        </div>
+                    </div>
+                {% endif %}
+
+
+                {% if questions.object_list %}
+                    <div class="result-container">
+                        <header class="area-title">
+                            <h2>Perguntas</h2>
+                        </header>
+                        <div class="area-content">
+                            <div class="row">
+                                {% include "search/partials/search-questions.html" %}
+                            </div>
+                            {% comment %}
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <a href="javascript:;" class="btn-default btn-block">Carregar mais resultados</a>
+                                </div>
+                            </div>
+                            {% endcomment %}
+                        </div>
+                    </div>
+                {% endif %}
+
+            </div>
+        </div>
+    </main>
+{% endblock %}

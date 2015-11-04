@@ -1,6 +1,8 @@
-<form action="{% url 'ninico:pesquisa' %}" method="GET" role="search">
+<form action="{% url 'search:search' %}" method="GET" role="search">
     <div class="form-search-input">
-        <input type="text" id="fcommunity" name="fcommunity" placeholder="{{placehold|default:"Procure pessoas, comunidades, etc."}}" />
+        <input type="text" id="search-criteria" name="q" placeholder="{{placehold|default:"Procure pessoas, comunidades, etc."}}"
+               data-autocomplete="true"
+               data-url="{% url 'search:autocomplete' %}"/>
     </div>
     <div class="dropdown-menu dropdown-search">
         <div class="float-notifcations">
