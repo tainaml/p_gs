@@ -102,7 +102,7 @@ require('./when-event.js');
     };
 
     function ideiaAsyncLikeOnReady(){
-        var asyncLike = $('[data-async-like]');
+        var asyncLike = $(document).find('[data-async-like]');
         asyncLike.IdeiaAsyncLike();
     }
 
