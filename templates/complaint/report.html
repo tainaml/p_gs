@@ -6,7 +6,6 @@
 {% block title %}Portal GSTI - Criar Pergunta{% endblock %}
 
 {% block content %}
-<h1>{% trans 'Complaint publish' %}</h1>
 {% if messages %}
     <ul class="messages">
     {% for message in messages %}
@@ -20,7 +19,7 @@
 <div class="modal fade" data-target="modal" id="modal-denunciar">
     <div class="modal-dialog modal-sm">
         <div class="modal-content">
-            <form id="confirmation-form" action="" method="post" data-ajaxform="true" data-group-class=".alert-container" action="{% url 'complaint:report' %}" method="post" id="complaint_publish">
+            <form id="confirmation-form" method="post" data-ajaxform="true" data-group-class=".alert-container" action="{% url 'complaint:report' %}" method="post">
                 {% csrf_token %}
 
                 <input type="hidden" name="content_type" value="{{ content_type }}" />
@@ -51,25 +50,25 @@
                                 {% endfor %}
                             <label class="form-group custom-input">
                                 <span class="custom-radio">
-                                    <input type="checkbox" class="community_complaint">
+                                    <input type="checkbox" value="1" class="community_complaint">
                                 </span>
                                 CSS
                             </label>
                             <label class="form-group custom-input">
                                 <span class="custom-radio">
-                                    <input type="checkbox" class="community_complaint">
+                                    <input type="checkbox" value="2" class="community_complaint">
                                 </span>
                                 HTML
                             </label>
                             <label class="form-group custom-input">
                                 <span class="custom-radio">
-                                    <input type="checkbox" class="community_complaint">
+                                    <input type="checkbox" value="3" class="community_complaint">
                                 </span>
                                 Javascript
                             </label>
                         </div>
                     </div>
-                    <button type="button" class="btn-error btn-block" data-dismiss="modal" aria-label="Close">Denunciar</button>
+                    <button type="submit" class="btn-error btn-block" aria-label="Close">Denunciar</button>
                 </div>
             </form>
         </div>
@@ -90,9 +89,10 @@
         }
     });
 
-    $("#complaint_publish").on('submit', function(event){
+    $("#confirmation-form").on('submit', function(event){
         event.preventDefault();
 
+        console.log("teste");
         var complaint_type = $('input[type=radio][name=complaint_type]:checked').val();
         var communities = [];
         if (complaint_type == 5) {
@@ -103,6 +103,7 @@
 
         console.log(communities);
         // ajax de submissão
+        // No success do Ajax chamar $('#modal-denunciar').modal('hide');
     });
 
 
