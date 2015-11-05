@@ -1,9 +1,11 @@
 'use strict'
 
 import './asyncModules'
-import './vendor/bootstrap/'
-import './modules/ideiaForm/'
-import './modules/ideiaAsyncSocialAction/'
+
+require('./vendor/bootstrap/')
+require('./modules/ideiaForm/')
+require('./modules/ideiaAsyncSocialAction/')
+require('./modules/ideiaToggle/')
 
 $(() => {
     require('./modules')

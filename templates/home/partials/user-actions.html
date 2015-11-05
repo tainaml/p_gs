@@ -176,7 +176,7 @@
             <a href="javascript:void(0);" class="footer-float-notifications">Ver todos</a>
         </div>
     </div>
-    <a href="javascript:void(0);" class="user-actions-logged-link--logged" data-toggle="dropdown">
+    <a href="javascript:void(0);" class="user-actions-logged-link--logged" data-toggle="dropdown" data-selector="#dropdown-perfil-action">
         {% if request.user.profile.get_profile_picture %}
             <img src="{% thumbor_url request.user.profile.get_profile_picture.url width=40 height=40 smart=False fit_in=False %}" alt="{{ profile.user.get_full_name }}" class="img-circle">
         {% else %}
@@ -184,7 +184,7 @@
         {% endif %}
         {{ request.user.first_name|slice:":13" }} <i class="gsticon gsticon-angle-down"></i>
     </a>
-    <div class="dropdown-menu">
+    <div id="dropdown-perfil-action" class="dropdown-menu">
         <ul class="perfil-actions">
             <li><a href="javascript:void(0);"><i class="gsticon gsticon-feed"></i> Meu Feed</a></li>
             <li><a href="javascript:void(0);"><i class="gsticon gsticon-user"></i> Perfil</a></li>
