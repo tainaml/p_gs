@@ -69,6 +69,17 @@
         }
     }
 }
+.banner-collaborator {
+    width: 100%;
+    min-height: 40px;
+    padding-right: 20px;
+    padding-left: 20px;
+    background: #0160b0 url('../images/gsti-collaborator.png') 20px center no-repeat;
+    color: #fff;
+    font-size: 1.1em;
+    line-height: 2.7;
+    text-align: right;
+}
 .article-excerpt {
     @extend %clearfix;
     padding-top: 15px;
@@ -186,6 +197,9 @@
             margin: 0 10px;
         }
     }
+}
+.question {
+    border: 1px solid $color-green;
 }
 
 .area-content {

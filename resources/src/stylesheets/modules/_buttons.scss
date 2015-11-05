@@ -1,15 +1,11 @@
 .btn-default {
     @extend .btn;
     @include button-variant(#4d6479, #f2f2f2, #e1e1e1);
-    // padding-top: 10px;
-    // padding-bottom: 10px;
     font-weight: 600;
     font-size: 13px;
 }
 .btn-primary {
     @extend .btn;
-    // padding-top: 10px;
-    // padding-bottom: 10px;
     background: #4d6479;
     color: #fff;
     font-weight: 600;
@@ -24,6 +20,11 @@
 .btn-grey {
     @extend .btn;
     @include button-variant($btn-danger-color, #4d6479, #4d6479);
+    font-weight: 600;
+}
+.btn-error {
+    @extend .btn;
+    @include button-variant($btn-danger-color, $btn-danger-bg, $btn-danger-border);
     font-weight: 600;
 }
 
