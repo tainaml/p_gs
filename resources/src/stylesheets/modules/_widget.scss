@@ -222,6 +222,14 @@
     display: block;
 }
 
+.dropdown-content {
+  display: none;
+}
+
+.dropdown-content.open {
+  display: block;
+}
+
 .widget-feed-category {
     margin-bottom: 20px;
 }
