@@ -1,0 +1,11 @@
+{% load thumbor_tags %}
+{% load social_tags %}
+
+<div class="col-lg-4">
+    <div class="perfil">
+        <img src="{% thumbor_url community.get_picture.url width=82 height=82 smart=False fit_in=False %}" alt="{{ community.title }}">
+        <a class="perfil-name" href="{% url 'community:show' community.slug %}">{{ community.title }}</a>
+        <a class="perfil-counter" href="{% url 'community:followers' community.slug %}"><span class="counter-number">{% followers_count community %}</span> Seguidor(es)</a>
+        {% follow_action community request.path %}
+    </div>
+</div>

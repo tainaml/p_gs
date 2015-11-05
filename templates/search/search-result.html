@@ -110,3 +110,25 @@
         </div>
     </main>
 {% endblock %}
+
+
+{% block javascripts %}
+    {{ block.super }}
+
+    <script src="https://cdn.jsdelivr.net/jquery.jscroll/2.2.4/jquery.jscroll.min.js"></script>
+    <script>
+        $(function() {
+            $(".j-scroll-users").jscroll({
+                loadingHtml: '<span>Carregando...</span>',
+                contentSelect: ".j-scroll-container-user",
+                nextSelect: "a[data-jscroll-next-user]"
+            });
+
+            $(".j-scroll-users").jscroll({
+                loadingHtml: '<span>Carregando...</span>',
+                contentSelect: ".j-scroll-container-user",
+                nextSelect: "a[data-jscroll-next-user]"
+            });
+        });
+    </script>
+{% endblock %}
