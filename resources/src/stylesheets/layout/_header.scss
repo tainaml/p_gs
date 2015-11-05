@@ -130,9 +130,10 @@
             padding: 10px 0;
         }
         li > a {
-            padding: 0 9px;
+            padding: 0 8px;
             margin-right: -4px;
             color: inherit;
+            display: inline-block;
             line-height: 100%;
             transition: color 2s easy-out;
 
