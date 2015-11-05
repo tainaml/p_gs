@@ -29,7 +29,7 @@
                             <h2>Comunidades</h2>
                         </header>
                         <div class="area-content">
-                            <div class="row">
+                            <div class="row j-scroll-communities j-scroll-container-communities">
                                 {% include "search/partials/search-communities.html" %}
                             </div>
                             {% comment %}
@@ -50,7 +50,7 @@
                             <h2>Pessoas</h2>
                         </header>
                         <div class="area-content">
-                            <div id="" class="row">
+                            <div class="row j-scroll-users j-scroll-container-users">
                                 {% include "search/partials/search-users.html" %}
                             </div>
                             {% comment %}
@@ -71,7 +71,7 @@
                             <h2>Publicações</h2>
                         </header>
                         <div class="area-content">
-                            <div class="row">
+                            <div class="row j-scroll-articles j-scroll-container-articles">
                                 {% include "search/partials/search-articles.html" %}
                             </div>
                             {% comment %}
@@ -92,7 +92,7 @@
                             <h2>Perguntas</h2>
                         </header>
                         <div class="area-content">
-                            <div class="row">
+                            <div class="row j-scroll-questions j-scroll-container-questions">
                                 {% include "search/partials/search-questions.html" %}
                             </div>
                             {% comment %}
@@ -115,19 +115,34 @@
 {% block javascripts %}
     {{ block.super }}
 
-    <script src="https://cdn.jsdelivr.net/jquery.jscroll/2.2.4/jquery.jscroll.min.js"></script>
     <script>
         $(function() {
+            $(".j-scroll-communities").jscroll({
+                autoTrigger: false,
+                loadingHtml: '<span>Carregando...</span>',
+                contentSelect: ".j-scroll-container-communities",
+                nextSelect: "a[data-jscroll-next-communities]"
+            });
+
             $(".j-scroll-users").jscroll({
+                autoTrigger: false,
                 loadingHtml: '<span>Carregando...</span>',
                 contentSelect: ".j-scroll-container-user",
                 nextSelect: "a[data-jscroll-next-user]"
             });
 
-            $(".j-scroll-users").jscroll({
+            $(".j-scroll-articles").jscroll({
+                autoTrigger: false,
                 loadingHtml: '<span>Carregando...</span>',
-                contentSelect: ".j-scroll-container-user",
-                nextSelect: "a[data-jscroll-next-user]"
+                contentSelect: ".j-scroll-container-articles",
+                nextSelect: "a[data-jscroll-next-articles]"
+            });
+
+            $(".j-scroll-questions").jscroll({
+                autoTrigger: false,
+                loadingHtml: '<span>Carregando...</span>',
+                contentSelect: ".j-scroll-container-questions",
+                nextSelect: "a[data-jscroll-next-questions]"
             });
         });
     </script>

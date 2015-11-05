@@ -1,3 +1,4 @@
+from django.http import HttpResponse
 from django.shortcuts import render
 from django.views.generic import View
 
@@ -12,10 +13,10 @@ class SearchBase(View):
     form_article = Forms.SearchArticleForm
     form_question = Forms.SearchQuestionForm
 
-    def return_error(self, request, context):
+    def return_error(self, request, context=None):
         return render(request, self.template_path, context)
 
-    def return_success(self, request, context):
+    def return_success(self, request, context=None):
         return render(request, self.template_path, context)
 
     def get_context(self, request, *args, **kwargs):
@@ -60,8 +61,75 @@ class Search(SearchBase):
 
 class SearchAutocomplete(SearchBase):
 
-    def return_error(self, request, context):
+    def return_error(self, request, context=None):
         pass
 
-    def return_success(self, request, context):
+    def return_success(self, request, context=None):
         pass
+
+
+class SearchList(SearchBase):
+
+    def return_error(self, request, context=None):
+        return HttpResponse('', status=200)
+
+    def return_success(self, request, context=None):
+        return render(request, self.template_path, context)
+
+    def change_template(self, template_path):
+        self.template_path = template_path
+
+    def get(self, request, content_type):
+
+        context = {}
+
+        try:
+
+            if content_type == "communities":
+                form = self.form_community(6, False, request.GET)
+                communities = form.process()
+                context.update({
+                    'communities': communities,
+                    'form_community': form,
+                })
+
+            elif content_type == "users":
+                form = self.form_user(6, False, request.GET)
+                users = form.process()
+                context.update({
+                    'users': users,
+                    'form_user': form,
+                })
+
+            elif content_type == "articles":
+                form = self.form_article(6, False, request.GET)
+                articles = form.process()
+                context.update({
+                    'articles': articles,
+                    'form_article': form,
+                })
+
+            elif content_type == "questions":
+                form = self.form_question(6, False, request.GET)
+                questions = form.process()
+                context.update({
+                    'questions': questions,
+                    'form_question': form,
+                })
+
+            else:
+                raise Exception("Content Type is not found.")
+
+        except Exception, e:
+            print e
+            return self.return_error(request, {})
+
+        context.update({
+            'page': form.cleaned_data.get('page', 1) + 1,
+            'query_search': request.GET.get('q')
+        })
+        context.update(self.get_context(request))
+
+        self.change_template("search/partials/search-%s.html" % content_type)
+
+        return self.return_success(request, context)

@@ -5,7 +5,7 @@
     {% endfor %}
 
     <div class="col-lg-12">
-        <a href="javascript:;" class="btn-default btn-block">Carregar mais resultados</a>
+        <a data-jscroll-next-users href="{% url 'search:list' "users" %}?q={{ query_search|default:"" }}&page={{ page|default:2 }}" class="btn-default btn-block">Carregar mais resultados</a>
     </div>
 
 {% endif %}
