@@ -98,7 +98,7 @@
                 right: 20%;
                 min-width: 15px;
                 padding: 3px;
-                background-color: #c30007;
+                background-color: $color-badge;
                 border-radius: 50%;
                 color: white;
                 font-weight: 600;
@@ -112,21 +112,29 @@
 // Navegações
 // ==========================================================================
 .header-navegation {
-    padding: 10px 0;
+    position: relative;
+    // padding: 10px 0;
     border-top: 1px solid $color-border;
     border-bottom: 1px solid $color-border;
     @media (max-width: $screen-sm-min) { border-bottom-width: 0; }
 
     // TODO: refatorar para classes
     .menu-categories, .menu-social {
+        list-style: none;
+        margin-bottom: 0;
         @media (max-width: $screen-sm-min) { display: none; }
         color: $color-border;
-        > a {
-            padding: 0 9px;
-            margin-right: -4px;
+        // line-height: 49px;
+        > li {
             display: inline-block;
+            padding: 10px 0;
+        }
+        li > a {
+            padding: 0 8px;
+            margin-right: -4px;
             color: inherit;
-            line-height: $line-height-computed;
+            display: inline-block;
+            line-height: 100%;
             transition: color 2s easy-out;
 
             @each $name, $color in $areas {
@@ -143,8 +151,9 @@
         @include make-xs-column(12);
         @include make-md-column(10);
         @include make-lg-column(10);
-        > .gsticon {
-            font-size: 6px;
+        position: static;
+        li > .gsticon {
+            font-size: 8px;
         }
     }
     .menu-social {
@@ -156,7 +165,7 @@
             padding-right: 0;
         }
 
-        > .gsticon {
+        li > .gsticon {
             color: $background-button;
             font-size: 1.5em;
             width: 20%;
@@ -165,4 +174,113 @@
             }
         }
     }
+}
+
+.submenu-categories {
+    position: absolute;
+    top: 103%;
+    left: 0;
+    z-index: 20;
+    width: 100%;
+    background-color: #fff;
+    box-shadow: 0 5px 10px #4d6479;
+    .list-group-item {
+        color: #4d6479;
+        cursor: pointer;
+    }
+}
+.menu-area {
+    @include make-row();
+    border-top: 2px solid;
+    display: none;
+    // line-height: 100%;
+}
+.category-posts {
+    padding: 30px 0;
+    @include clearfix();
+    .article {
+        text-align: justify;
+        @include make-xs-column(6);
+        @include make-sm-column(2);
+        @include make-md-column(3);
+    }
+    .article-title {
+        margin-top: 10px;
+        display: block;
+        font-size: 16px;
+        letter-spacing: -0.03em;
+        word-break: break-all;
+    }
+    .article-img {
+        margin-right: auto;
+        margin-left: auto;
+        @include img-responsive();
+    }
+}
+
+#sub-governance {
+    border-top-color: $color-governance;
+    .list-group-item {
+        &:hover,
+        &.active {
+            border-left-color: $color-governance;
+            color: $color-governance;
+        }
+    }
+    .article-title { color: $color-governance; }
+}
+#sub-development {
+    border-top-color: $color-development;
+    .list-group-item {
+        &:hover,
+        &.active {
+            border-left-color: $color-development;
+            color: $color-development;
+        }
+    }
+    .article-title { color: $color-development; }
+}
+#sub-web-design {
+    border-top-color: $color-web-design;
+    .list-group-item {
+        &:hover,
+        &.active {
+            border-left-color: $color-web-design;
+            color: $color-web-design;
+        }
+    }
+    .article-title { color: $color-web-design; }
+}
+#sub-marketing {
+    border-top-color: $color-marketing;
+    .list-group-item {
+        &:hover,
+        &.active {
+            border-left-color: $color-marketing;
+            color: $color-marketing;
+        }
+    }
+    .article-title { color: $color-marketing; }
+}
+#sub-databases {
+    border-top-color: $color-databases;
+    .list-group-item {
+        &:hover,
+        &.active {
+            border-left-color: $color-databases;
+            color: $color-databases;
+        }
+    }
+    .article-title { color: $color-databases; }
+}
+#sub-infra {
+    border-top-color: $color-infra;
+    .list-group-item {
+        &:hover,
+        &.active {
+            border-left-color: $color-infra;
+            color: $color-infra;
+        }
+    }
+    .article-title { color: $color-infra; }
 }

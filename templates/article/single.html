@@ -93,7 +93,7 @@
             </article>
             {% profile_box article.author "horizontal" %}
             <div class="container-comments">
-{#                {% include 'comment/create.html' with content_type='article' content_object_id=article.id %}#}
+                {% include 'comment/create.html' with content_type='article' content_object_id=article.id %}
             </div>
             <div data-xhr-url="{% url "comment:list" %}?content_type=article&content_id={{ article.id }}" data-xhr id="container-comments" class="container-comments j-scroll">
 {#                {% include 'home/partials/comment/create.html' with size=81 %}#}
@@ -165,6 +165,31 @@
 <script src="https://cdn.jsdelivr.net/jquery.jscroll/2.2.4/jquery.jscroll.min.js"></script>
 <script>
 
+    var form_submit = function(event, data){
+            var $form = $(this);
+
+            var action = $form.data("action");
+            var $div_to_update = $($form.data("update"));
+
+            if (action=="append"){
+                $div_to_update.append(data.template);
+                $form[0].reset();
+            }else if (action=="prepend"){
+                $div_to_update.prepend(data.template);
+
+                $form[0].reset();
+            }else if (action=="replace"){
+
+                $div_to_update.html(data.template);
+            }
+            var $subforms = $div_to_update.find("form[data-ajaxform=\"true\"]");
+            $subforms.IdeiaAjaxForm();
+            $subforms.on("ajaxform.success", form_submit);
+
+            var $data_list = $div_to_update.find("div[data-xhr]");
+            $data_list.renderList();
+        };
+
     $.fn.renderList = function(){
 
         return $.each(this, function(){
@@ -188,6 +213,12 @@
                         nextSelect: "a[data-jscroll-next]",
                         autoTrigger: false
                     });
+                    var $subforms = $element.find("form[data-ajaxform=\"true\"]");
+                    console.log($subforms);
+                    $subforms.IdeiaAjaxForm();
+                    $subforms.on("ajaxform.success", form_submit);
+
+
                 },
                 complete: function(){
                     if($childs.length){
@@ -204,27 +235,7 @@
         var xhr_contents = $("div[data-xhr]");
         xhr_contents.renderList();
 
-
-
-
-        $(document).on("ajaxform.success", "form[data-ajaxform=\"true\"]", function(event, data){
-            var $form = $(this);
-
-            var action = $form.data("action");
-            var $div_to_update = $($form.data("update"));
-
-            if (action=="append"){
-                $div_to_update.append(data.template);
-                $form[0].reset();
-            }else if (action=="prepend"){
-                $div_to_update.prepend(data.template);
-                $form[0].reset();
-            }else if (action=="replace"){
-
-                $div_to_update.html(data.template);
-            }
-
-        });
+        $("form[data-ajaxform=\"true\"]").on("ajaxform.success", form_submit);
         
         setTimeout(function loadCommunitiesAsync() {
                 $("[data-load-async='true']").each(function (i, e) {

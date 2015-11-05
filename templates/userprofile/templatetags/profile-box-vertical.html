@@ -8,6 +8,9 @@
     <a class="perfil-counter" href="{% url "profile:followers" username=profile.user.username %}"><span class="counter-number">{% followers_count profile.user %}</span> Seguidores</a>
     <a class="perfil-counter" href="{% url 'profile:show' profile.user.username %}"><span class="counter-number">{% articles_count profile.user %}</span> Artigos</a>
 </div>
+<div class="banner-collaborator">
+    Colaborador do Portal GSTI
+</div>
 <div class="follower-content">
     <ul class="list-unstyled clearfix">
 

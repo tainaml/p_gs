@@ -4,6 +4,7 @@ from . import views
 urlpatterns = [
 
     url(r'^save/$', views.CommentSaveView.as_view(), name='save'),
+    url(r'^answer-save/$', views.CommentSaveAnswer.as_view(), name='answer-save'),
     url(r'^edit/$', views.CommentUpdateView.as_view(), name='edit'),
     url(r'^list/$', views.CommentList.as_view(), name='list'),
     url(r'^list-answer/$', views.CommentAnswerList.as_view(), name='list-answer'),
