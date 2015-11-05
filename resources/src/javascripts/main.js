@@ -1,11 +1,11 @@
 'use strict'
 
+import 'jscroll'
 import './asyncModules'
 
 require('./vendor/bootstrap/')
 require('./modules/ideiaForm/')
 require('./modules/ideiaAsyncSocialAction/')
-require('./modules/ideiaToggle/')
 
 $(() => {
     require('./modules')

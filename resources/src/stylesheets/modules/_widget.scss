@@ -218,6 +218,10 @@
     }
 }
 
+.open > .dropdown-menu, .dropdown-menu.open {
+    display: block;
+}
+
 .widget-feed-category {
     margin-bottom: 20px;
 }
