@@ -32,7 +32,7 @@ def like_box(context, object_to_link, url_next, like_type=None):
         like_box_template = "socialactions/like-box-inline.html"
     elif like_type == "share-box":
         like_box_template = "socialactions/like-box-share-box.html"
-    elif like_type == "share-box":
+    elif like_type == "reply":
         like_box_template = "socialactions/like-box-reply.html"
     else:
         like_box_template = "socialactions/like-box-default.html"

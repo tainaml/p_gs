@@ -1,0 +1,30 @@
+{% load social_tags %}
+{% load thumbor_tags %}
+<header class="post-header">
+    <div class="post-info" >
+        <time datetime="{{instance.creation_date}}" itemprop="datePublished">{{ instance.creation_date|date:'d/m/Y' }} às {{ instance.creation_date|date:'G:i' }}</time>
+        <a href="javascript:;" data-toggle="dropdown" data-selector="#setting-comment-{{ instance.id }}"><i class="gsticon gsticon-gear"></i></a>
+        <div class="dropdown-menu" id="setting-comment-{{ instance.id }}">
+            <ul class="perfil-actions">
+                {% if instance.author == request.user %}
+                    <li data-toggle="dropdown" data-target="#comment-edit-{{ instance.id }}"><a href="javascript:;"><i class="gsticon gsticon-edit"></i> Editar publicação</a></li>
+                {% else %}
+                    <li><a href="javascript:;"><i class="gsticon gsticon-exclamation-triangle"></i> Denunciar</a></li>
+                {% endif %}
+
+
+            </ul>
+        </div>
+    </div>
+    <a class="post-creator" href="{% url 'profile:show' instance.author.username %}">{{instance.author.get_full_name}}:</a>
+</header>
+<div class="comment-text">
+    <p>{{ instance.content }}</p>
+</div>
+ {% if instance.author == request.user %}
+     {% with comment_id=instance.id|stringformat:"s" %}
+        <div data-list id="comment-edit-{{ instance.id }}" class="dropdown-content">
+            {% include 'comment/edit-answer.html' with content_object=instance to_update="comment-"|add:comment_id content_type='comment'  %}
+        </div>
+     {% endwith %}
+{% endif %}
