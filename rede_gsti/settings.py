@@ -25,7 +25,6 @@ SECRET_KEY = '3u2oo))n_j*t#sjx*)=p*5j4mpb^7iruq4$v3%2nn!e2r2p$jj'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
 
 # Google Recaptcha keys
 
@@ -242,6 +241,7 @@ STATICFILES_DIRS = (
 )
 STATIC_URL = '/static/'
 
+STATIC_ROOT = '/home/phillip/projects/python/django/rede_gsti/staticfiles/'
 
 # Media Paths: User upload files
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media', 'uploads')
