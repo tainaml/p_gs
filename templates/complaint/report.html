@@ -40,29 +40,29 @@
                             </label>
                         {% endfor %}
                         <div class="childs-radios" style="display:none" id="communities">
-                                {% for community in communities %}
-                                    <label class="form-group custom-input">
-                                        <span class="custom-radio">
-                                            <input type="checkbox" value="{{ community.id }}" class="community_complaint" />
-                                        </span>
-                                        {{ community.title }}
-                                    </label>
-                                {% endfor %}
+                            {% for community in communities %}
+                                <label class="form-group custom-input">
+                                    <span class="custom-radio">
+                                        <input type="checkbox" value="{{ community.id }}" name="community_complaint" class="community_complaint" />
+                                    </span>
+                                    {{ community.title }}
+                                </label>
+                            {% endfor %}
                             <label class="form-group custom-input">
                                 <span class="custom-radio">
-                                    <input type="checkbox" value="1" class="community_complaint">
+                                    <input type="checkbox" value="1" name="community_complaint" class="community_complaint">
                                 </span>
                                 CSS
                             </label>
                             <label class="form-group custom-input">
                                 <span class="custom-radio">
-                                    <input type="checkbox" value="2" class="community_complaint">
+                                    <input type="checkbox" value="2" name="community_complaint" class="community_complaint">
                                 </span>
                                 HTML
                             </label>
                             <label class="form-group custom-input">
                                 <span class="custom-radio">
-                                    <input type="checkbox" value="3" class="community_complaint">
+                                    <input type="checkbox" value="3" name="community_complaint" class="community_complaint">
                                 </span>
                                 Javascript
                             </label>
