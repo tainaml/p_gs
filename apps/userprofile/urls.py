@@ -1,5 +1,6 @@
 from django.conf.urls import url
 from . import views
+from apps.core.views import user as userView
 
 urlpatterns = [
 
@@ -13,6 +14,12 @@ urlpatterns = [
     url(r'^occupation/(?P<occupation_id>[0-9]+)/$', views.OccupationShowView.as_view(), name='occupation_show'),
     url(r'^occupation/edit/(?P<occupation_id>[0-9]+)/$', views.OccupationEditView.as_view(), name='occupation_edit'),
     url(r'^occupation/delete/(?P<occupation_id>[0-9]+)/$', views.OccupationDeleteView.as_view(), name='occupation_delete'),
+
+    url(r'^feed/$', userView.CoreUserFeed.as_view(), name='user_feed'),
+    url(r'^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/$', userView.CoreUserProfile.as_view(), name='user_profile'),
+    url(r'^search/(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/$', userView.CoreUserSearch.as_view(), name='search'),
+    url(r'^list/(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/$', userView.CoreUserList.as_view(), name='list'),
+    url(r'^list_articles/(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/$', userView.CoreUserList.as_view(), name='list_articles'),
 
     url(r'^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/$', views.ProfileShowView.as_view(), name='show'),
     url(r'^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/followings/$', views.ProfileFollowingsView.as_view(), name='followings'),

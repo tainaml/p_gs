@@ -127,9 +127,11 @@ require('./validation.js');
             var $self = $(this);
             var url = $self.attr('action') || location.href;
             var withFiles = ($self.attr('enctype') === 'multipart/form-data');
+            var method = $self.attr('method') || 'post';
+
 
             var ajaxParams = {
-                'type': 'POST',
+                'type': method.toUpperCase(),
                 'url': url,
                 'cache': false,
                 'success': function(data){
@@ -207,7 +209,7 @@ require('./validation.js');
             var tempFields = $self.find(':input');
 
             $.each(tempFields, function forEachFieldInFields(){
-                
+
                 $object = $(this);
 
                 objectKey = $object.attr('name') || false;
@@ -237,7 +239,7 @@ require('./validation.js');
     };
 
     function ideiaFormOnReady(){
-        var ajaxForms = $('form[data-ajaxform]');
+        var ajaxForms = $(document).find('form[data-ajaxform]');
         ajaxForms.IdeiaAjaxForm();
     }
 

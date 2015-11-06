@@ -1,5 +1,7 @@
+{% load social_tags %}
 {% load thumbor_tags %}
 {% load taxonomy_tags %}
+
 <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
     <header class="post-header">
         <div class="post-info">
@@ -23,7 +25,10 @@
     </header>
     <a class="post-content" href="{% url 'article:view' instance.slug instance.id %}" itemprop="articleBody">
         <figure>
-            <img src="http://placehold.it/170x128" alt="Post Image">
+            {% if instance.get_image %}
+                <img src="{% thumbor_url post.get_image.url width=170 height=128 smart=False fit_in=False %}" alt="{{ instance.title }}">
+                {# <img src="http://placehold.it/170x128&text=%20" alt="{{ instance.title }}">#}
+            {% endif %}
         </figure>
         <div class="post-text">
             <h3 class="post-title" itemprop="headline">{{ instance.title }} </h3>
@@ -34,10 +39,22 @@
         {% taxonomies instance %}
         <div class="post-toolbar pull-right">
             <div class="post-count">
+                {% like_box instance request.path "inline" %}
+                {% comment %}
                 <a href="javascript:;" class="post-votes-up">1.026 <i class="gsticon gsticon-caret-up"></i></a>
                 <a href="javascript:;" class="post-votes-dow"><i class="gsticon gsticon-caret-down"></i> 4</a>
+                {% endcomment %}
             </div>
-            <div class="post-count-comments"><strong>32</strong> Comentários</div>
+            <div class="post-count-comments">
+                <span id="load-count-comment-article"
+                      data-load-async="true"
+                      data-url="{% url 'comment:count' instance.id "article" %}"
+                      data-request-method="get"
+                      data-response-type="json">
+                    <strong class="load-async load-async-content">0</strong>
+                    {% csrf_token %}
+                </span> Comentários
+            </div>
         </div>
     </footer>
 </article>

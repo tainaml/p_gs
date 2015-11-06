@@ -88,3 +88,31 @@ class CoreCommunityQuestionFeedFormSearch(CoreCommunityFeedFormSearch):
             self.itens_by_page,
             self.cleaned_data['page']
         )
+
+
+class CoreCommunitySearchVideosForm(IdeiaForm):
+
+    criteria = forms.CharField(required=False)
+    page = forms.IntegerField(required=False)
+
+    def __init__(self, community=None, items_per_page=10, *args, **kwargs):
+        self.community = community
+        self.items_per_page = items_per_page
+
+        super(CoreCommunitySearchVideosForm, self).__init__(*args, **kwargs)
+
+    def clean(self):
+        cleaned_data = super(CoreCommunitySearchVideosForm, self).clean()
+
+        cleaned_data['page'] = cleaned_data['page'] \
+            if 'page' in cleaned_data and cleaned_data['page'] else 1
+
+        return cleaned_data
+
+    def __process__(self):
+        return Business.get_articles_with_videos(
+            self.community,
+            self.cleaned_data.get('criteria'),
+            self.items_per_page,
+            self.cleaned_data.get('page', 1)
+        )

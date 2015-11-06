@@ -1,18 +1,21 @@
 from django.conf.urls import url
-from ..views.community import views, CoreCommunityFollowersView, CoreCommunityAboutView, CoreCommunityFeedView, CoreCommunityQuestionFeedView, CoreCommunitySearch, CoreCommunityList, \
-    CoreCommunityQuestionList, CoreCommunityQuestionSearch
+from ..views import community as CoreViews
 
 urlpatterns = [
 
-    url(r'^(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/$', CoreCommunityFeedView.as_view(), name='show'),
-    url(r'^(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/about/$', CoreCommunityAboutView.as_view(), name='about'),
-    url(r'^(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/followers/$', CoreCommunityFollowersView.as_view(), name='followers'),
+    url(r'^(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/$', CoreViews.CoreCommunityFeedView.as_view(), name='show'),
+    url(r'^(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/about/$', CoreViews.CoreCommunityAboutView.as_view(), name='about'),
+    url(r'^(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/followers/$', CoreViews.CoreCommunityFollowersView.as_view(), name='followers'),
 
-    url(r'^(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/search/$', CoreCommunitySearch.as_view(), name='search'),
-    url(r'^(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/list/$', CoreCommunityList.as_view(), name='list'),
+    url(r'^(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/search/$', CoreViews.CoreCommunitySearch.as_view(), name='search'),
+    url(r'^(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/list/$', CoreViews.CoreCommunityList.as_view(), name='list'),
 
-    url(r'^(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/questions/$', CoreCommunityQuestionFeedView.as_view(), name='questions'),
-    url(r'^(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/questions/search/$', CoreCommunityQuestionSearch.as_view(), name='questions-search'),
-    url(r'^(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/questions/list/$', CoreCommunityQuestionList.as_view(), name='questions-list'),
+    url(r'^(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/questions/$', CoreViews.CoreCommunityQuestionFeedView.as_view(), name='questions'),
+    url(r'^(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/questions/search/$', CoreViews.CoreCommunityQuestionSearch.as_view(), name='questions-search'),
+    url(r'^(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/questions/list/$', CoreViews.CoreCommunityQuestionList.as_view(), name='questions-list'),
+
+    url(r'^(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/videos/$', CoreViews.CoreCommunityVideosView.as_view(), name='videos'),
+    url(r'^(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/videos/search/$', CoreViews.CoreCommunityVideosSearch.as_view(), name='videos-search'),
+    url(r'^(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/videos/list/$', CoreViews.CoreCommunityVideosList.as_view(), name='videos-list'),
 
     ]

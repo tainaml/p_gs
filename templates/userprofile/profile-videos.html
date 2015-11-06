@@ -1,0 +1,100 @@
+{%extends 'home/layout/base.html' %}
+
+{% load staticfiles %}
+
+{% block title %}Portal GSTI - Videos{% endblock %}
+
+{% block content %}
+    <main class="container main">
+        <div class="perfil-row">
+            <!-- mudar para 2.5 -->
+            <div class="col-lg-3">
+                {% include 'home/partials/sidebar-perfil.html' %}
+            </div>
+            <!-- mudar para 9.5 -->
+            <div class="col-lg-9">
+                <nav class="perfil-navegation">
+                    {% if profile.user == request.user %}
+                        <a href="{% url 'profile:feed' %}">Feed</a>•
+                    {% endif %}
+                    <a href="{% url 'profile:show' username=profile.user.username %}">Perfil</a>•
+                    <a href="{% url 'ninico:about' %}">Sobre</a>•
+                    <a href="{% url 'profile:communities' username=profile.user.username %}">Comunidades</a>•
+                    <a href="{% url 'profile:followers' username=profile.user.username %}">Relacionamentos</a>•
+                    <a class="active" href="{% url 'profile:videos' profile.user.username %}">Vídeos</a>
+                </nav>
+                <div class="row">
+                    <div class="col-lg-8">
+                        <header class="area-title">
+                            <h2>Vídeos</h2>
+                        </header>
+                        <!-- A "barra" de pesquisa não é exibida no feed, somente no -->
+                        <nav class="form-search">
+                            <form action="{% url 'profile:videos-search' profile.user.username %}" method="GET" role="search">
+                                <div class="form-search-input">
+                                    <input type="text" name="criteria" placeholder="{{placehold|default:"Procure pessoas, comunidades, etc."}}" value="{{ form.cleaned_data.criteria|default:"" }}">
+                                </div>
+                                <button type="submit" class="form-search-button">
+                                    <i class="gsticon gsticon-search"></i>
+                                </button>
+                            </form>
+                        </nav>
+                        <section class="area-content">
+                            {% if feed_objects.object_list %}
+                                <div class="j-scroll j-scroll-container">
+                                    {% include 'userprofile/partials/profile-videos-list.html' %}
+                                </div>
+                            {% else %}
+                                <p>Não existem itens a serem exibidos</p>
+                                <hr>
+                            {% endif %}
+                        </section>
+                    </div>
+                    <!-- Right bar -->
+                    {% include 'userprofile/partials/profile-sidebar-right.html' %}
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock %}
+
+
+{% block javascripts %}
+    {{ block.super }}
+    <script src="https://cdn.jsdelivr.net/jquery.jscroll/2.2.4/jquery.jscroll.min.js"></script>
+    <script>
+        $(function() {
+            $(".j-scroll").jscroll({
+                loadingHtml: '<span>Carregando...</span>',
+                contentSelect: ".j-scroll-container",
+                nextSelect: "a[data-jscroll-next]"
+            });
+
+            setTimeout(function loadCommunitiesAsync() {
+                $("[data-load-async='true']").each(function (i, e) {
+                    var $this = $(this);
+                    $.ajax({
+                        url: $this.data("url"),
+                        method: $this.data("request-method"),
+                        dataType: $this.data("response-type"),
+                        data: {
+                            'url-next': $this.data("url-next"),
+                            csrfmiddlewaretoken: $this.find("input:hidden[name='csrfmiddlewaretoken']").val()
+                        },
+                        success: function(data, status, xhr) {
+                            $this.find(".load-async-content").html(data.template);
+                        },
+                        statusCode: {
+                            400: function() {
+                                $this.html("");
+                            },
+                            403: function() {
+                                $this.html("-- 403 Forbidden --");
+                            }
+                        }
+                    });
+                });
+            }, 500);
+        });
+    </script>
+{% endblock %}

@@ -2,16 +2,19 @@ from django.contrib.contenttypes.models import ContentType
 from django.core import serializers
 from django.db.models import Q
 from django.http import JsonResponse
+from django.contrib.contenttypes.models import ContentType
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.views.generic import View
 from apps.community.models import Community
 
-from apps.core.business import community as BusinessCoreCommunity
+from apps.core.forms.user import CoreUserProfileForm, CoreUserProfileFullEditForm, CoreSearchFollowings, CoreSearchFollowers, CoreSearchArticlesForm, \
+    CoreSearchVideosForm
 from apps.core.forms.community import CoreCommunityFormSearch
 from apps.core.forms.user import CoreUserSearchForm, CoreUserProfileEditForm
 from apps.socialactions.models import UserAction
+from apps.article.models import Article
 from apps.userprofile import views
 from apps.userprofile.service import business as BusinessUserprofile
 from apps.taxonomy.service import business as BusinessTaxonomy
@@ -19,15 +22,17 @@ from apps.socialactions.service import business as BusinessSocialActions
 from rede_gsti import settings
 
 
-class CoreUserSearchView(views.ProfileShowView):
+class CoreUserView(views.ProfileShowView):
 
     template_path = 'userprofile/profile.html'
+    form = CoreUserSearchForm
 
     def get_context(self, request, profile_instance=None):
-        context = super(CoreUserSearchView, self).get_context(request, profile_instance)
-        itens_by_page = 10
+        context = super(CoreUserView, self).get_context(request, profile_instance)
 
-        self.form = CoreUserSearchForm(
+        itens_by_page = 5
+
+        form = self.form(
             profile_instance,
             ['article', 'question'],
             itens_by_page,
@@ -35,13 +40,17 @@ class CoreUserSearchView(views.ProfileShowView):
             request.GET
         )
 
-        feed_objects = self.form.process()
+        feed_objects = form.process()
 
-        context.update({'feed_objects': feed_objects, 'form': self.form, 'page': self.form.cleaned_data.get('page', 0) + 1})
+        context.update({
+            'feed_objects': feed_objects,
+            'form': form,
+            'page': form.cleaned_data.get('page', 0) + 1
+        })
 
         return context
 
-    def get(self, request, **kwargs):
+    def get(self, request, username=None):
 
         profile = self.filter(request, request.user)
 
@@ -51,16 +60,84 @@ class CoreUserSearchView(views.ProfileShowView):
         return render(request, self.template_path, context)
 
 
-class CoreUserList(CoreUserSearchView):
-    template_path = 'userprofile/partials/profile-list.html'
+class CoreUserList(CoreUserView):
+
+    template_path = 'userprofile/partials/user-profile-list.html'
+
+    def get(self, request, username=None):
+
+        profile = self.filter(request, username)
+
+        context = {'profile': profile}
+        context.update(self.get_context(request, profile))
+
+        return render(request, self.template_path, context)
+
+
+class CoreUserProfile(CoreUserView):
+    template_path = 'userprofile/profile-list.html'
+    form = CoreUserProfileForm
+
+    def get(self, request, username=None):
+
+        profile = self.filter(request, username)
+
+        context = {'profile': profile}
+        context.update(self.get_context(request, profile))
+
+        return render(request, self.template_path, context)
 
     def get_context(self, request, profile_instance=None):
-        context = super(CoreUserSearchView, self).get_context(request, profile_instance)
+        content_type = ContentType.objects.filter(model='article')
 
-        return context
+        itens_by_page = 5
+
+        form = self.form(
+            profile_instance,
+            content_type.first().id,
+            itens_by_page,
+            profile_instance.user,
+            request.GET
+        )
+
+        feed_objects = form.process()
+
+        return {
+            'feed_objects': feed_objects,
+            'form': form,
+            'page': form.cleaned_data.get('page', 0) + 1
+        }
 
 
-class CoreUserFeed(CoreUserSearchView):
+class CoreUserSearch(CoreUserView):
+
+    form = CoreUserProfileForm
+    template_path = 'userprofile/profile-search.html'
+
+    def get_context(self, request, profile_instance=None):
+
+        itens_by_page = 5
+        content_type = ContentType.objects.filter(model='article')
+
+        form = self.form(
+            profile_instance,
+            content_type.first().id,
+            itens_by_page,
+            profile_instance.user,
+            request.GET
+        )
+
+        feed_objects = form.process()
+
+        return {
+            'feed_objects': feed_objects,
+            'form': form,
+            'page': form.cleaned_data.get('page', 0) + 1
+        }
+
+
+class CoreUserFeed(CoreUserView):
+            
     template_path = 'userprofile/profile-feed.html'
 
     @method_decorator(login_required)
@@ -82,6 +159,25 @@ class CoreUserFeed(CoreUserSearchView):
             'responsibilities': responsibilities
         })
         return context
+
+
+class CoreProfileEdit(views.ProfileEditView):
+
+    form_profile = CoreUserProfileFullEditForm
+
+    def get_context(self, request, profile_instance=None):
+
+        states = BusinessUserprofile.get_states(1)
+        cities = BusinessUserprofile.get_cities(profile_instance.city.state.id) if profile_instance.city else None
+        responsibilities = BusinessUserprofile.get_responsibilities()
+        categories = BusinessTaxonomy.get_categories()
+
+        return {
+            'states': states,
+            'cities': cities,
+            'categories': categories,
+            'responsibilities': responsibilities
+        }
 
 
 class CoreProfileEditAjax(views.ProfileEditView):
@@ -249,6 +345,282 @@ class CoreProfileWizardStepThreeAjax(views.ProfileBaseView):
         context.update(self.get_context(request, profile))
         return self.return_success(request, context)
 
+
+class CoreProfileFollowingsSearch(views.ProfileShowView):
+
+    items_per_page = 9
+
+    template_path = "userprofile/profile-followings.html"
+
+    form = CoreSearchFollowings
+
+    def get_context(self, request, profile_instance=None):
+
+        form = self.form(
+            profile_instance.user,
+            self.items_per_page,
+            request.GET
+        )
+
+        response = {}
+        response_form = form.process()
+
+        if response_form:
+            response.update(response_form)
+
+        return {
+            'items': response.get('items'),
+            'content_type': response.get('content_type'),
+            'object': response.get('object'),
+            'form': form,
+            'page': form.cleaned_data.get('page', 0) + 1
+        }
+
+
+class CoreProfileFollowingsSearchList(CoreProfileFollowingsSearch):
+
+    template_path = "userprofile/partials/followings-segment.html"
+
+
+class CoreProfileFollowersSearch(views.ProfileShowView):
+
+    items_per_page = 9
+
+    template_path = "userprofile/profile-followers.html"
+
+    form = CoreSearchFollowers
+
+    def get_context(self, request, profile_instance=None):
+
+        form = self.form(
+            profile_instance.user,
+            self.items_per_page,
+            request.GET
+        )
+
+        response = {}
+        response_form = form.process()
+
+        if response_form:
+            response.update(response_form)
+
+        return {
+            'items': response.get('items'),
+            'content_type': response.get('content_type'),
+            'object': response.get('object'),
+            'form': form,
+            'page': form.cleaned_data.get('page', 0) + 1
+        }
+
+
+class CoreProfileFollowersSearchList(CoreProfileFollowersSearch):
+
+    template_path = "userprofile/partials/followers-segment.html"
+
+
+class CoreProfileCommunitiesLoad(views.ProfileShowView):
+
+    template_segment_path = "userprofile/partials/profile-community-list.html"
+
+    def return_error(self, request, context=None):
+        return render(request, self.template_segment_path, context)
+
+    def return_success(self, request, context=None):
+        return render(request, self.template_segment_path, context)
+
+    def get_context(self, request, profile_instance=None):
+
+        url_next = request.POST.get('url-next')
+
+        communities = BusinessSocialActions.get_random_users_acted_by_author(
+            author=profile_instance.user,
+            action=settings.SOCIAL_FOLLOW,
+            content_type='community',
+            items_per_page=3,
+            page=1
+        )
+
+        return {
+            'communities': communities,
+            'url_next': url_next
+        }
+
+    def post(self, request, username):
+
+        profile = self.filter(request, username)
+
+        context = {'profile': profile}
+        context.update(self.get_context(request, profile))
+
+        return self.return_success(request, context)
+
+
+class CoreProfileCommunitiesLoadAjax(CoreProfileCommunitiesLoad):
+
+    def return_error(self, request, context=None):
+        return JsonResponse(context, status=400)
+
+    def return_success(self, request, context=None):
+        if not context:
+            context = {}
+
+        _context = {
+            'url_next': context.get('url_next'),
+            'template': render(request, self.template_segment_path, context).content
+        }
+
+        return JsonResponse(_context, status=200)
+
+
+class CoreProfileFollowingsLoadAjax(views.ProfileShowView):
+
+    template_segment_path = "userprofile/partials/profile-followings-list.html"
+
+    def return_error(self, request, context=None):
+        return JsonResponse(context, status=400)
+
+    def return_success(self, request, context=None):
+        if not context:
+            context = {}
+
+        _context = {
+            'url_next': context.get('url_next'),
+            'template': render(request, self.template_segment_path, context).content
+        }
+
+        return JsonResponse(_context, status=200)
+
+    def get_context(self, request, profile_instance=None):
+
+        url_next = request.POST.get('url-next')
+
+        followings = BusinessSocialActions.get_random_users_acted_by_author(
+            author=profile_instance.user,
+            action=settings.SOCIAL_FOLLOW,
+            content_type='user',
+            items_per_page=3,
+            page=1
+        )
+
+        return {
+            'followings': followings,
+            'url_next': url_next
+        }
+
+    def post(self, request, username):
+
+        profile = self.filter(request, username)
+
+        context = {'profile': profile}
+        context.update(self.get_context(request, profile))
+
+        return self.return_success(request, context)
+
+
+class CoreProfileSearchEditPosts(views.ProfileBaseView):
+
+    template_path = "userprofile/profile-edit-posts.html"
+
+    form = CoreSearchArticlesForm
+
+    def return_success(self, request, context=None):
+        return render(request, self.template_path, context)
+
+    def get(self, request):
+
+        profile = self.filter(request, request.user)
+
+        context = {'profile': profile}
+        context.update(self.get_context(request, profile))
+
+        return self.return_success(request, context)
+
+
+    def get_context(self, request, profile_instance=None):
+
+        form = self.form(request.user, 10, request.GET)
+
+        posts = form.process()
+        status = Article.STATUS_CHOICES
+
+        have_posts = True if hasattr(posts, 'object_list') and posts.object_list else False
+
+        return {
+            'posts': posts,
+            'have_posts': have_posts,
+            'form': form,
+            'status_list': status,
+            'status': int(form.cleaned_data.get('status')) if form.cleaned_data.get('status') else None,
+            'page': form.cleaned_data.get('page', 1) + 1
+        }
+
+
+class CoreProfileSearchEditPostsAjax(CoreProfileSearchEditPosts):
+
+    template_path = "userprofile/partials/profile-edit-posts-segment.html"
+
+    def return_success(self, request, context=None):
+
+        response_context = {
+            'status': 200,
+            'have_posts': context.get('have_posts'),
+            'template': render(request, self.template_path, context).content
+        }
+
+        return JsonResponse(response_context, status=200)
+
+
+class CoreProfileSearchEditPostsList(CoreProfileSearchEditPosts):
+
+    template_path = "userprofile/partials/profile-edit-posts-segment.html"
+
+
+
+
+class CoreProfileVideosSearch(views.ProfileBaseView):
+
+    template_path = "userprofile/profile-videos.html"
+
+    form_videos = CoreSearchVideosForm
+
+    def return_error(self, request, context=None):
+        pass
+
+    def return_success(self, request, context=None):
+        return render(request, self.template_path, context)
+
+    def get_context(self, request, profile_instance=None):
+
+        form = self.form_videos(profile_instance.user, 10, request.GET)
+
+        videos = form.process()
+
+        have_posts = True if hasattr(videos, 'object_list') and videos.object_list else False
+
+        return {
+            'feed_objects': videos,
+            'have_posts': have_posts,
+            'form': form,
+            'page': form.cleaned_data.get('page', 1) + 1
+        }
+
+    def get(self, request, username):
+
+        profile = self.filter(request, username)
+
+        context = {'profile': profile}
+        context.update(self.get_context(request, profile))
+
+        return self.return_success(request, context)
+
+
+class CoreProfileVideosView(CoreProfileVideosSearch):
+    pass
+
+
+class CoreProfileVideosList(CoreProfileVideosSearch):
+
+    template_path = "userprofile/partials/profile-videos-list.html"
 
 class CoreUserCommunitiesListAjax(View):
 

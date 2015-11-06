@@ -1,28 +1,42 @@
-<div class="excerpt">
-    <div class="custom-check"><input type="checkbox"></div>
-    <div class="excerpt-content">
-        <a class="excerpt-image" href="javascript:;">
-            <img src="http://placehold.it/80x61" alt="Placehold Image">
-        </a>
-        <div class="excerpt-title">
-            <header class="post-header">
-                <div class="post-info">
-                    <time datetime="06-17-2015" itemprop="datePublished">10/06/2015 às 01:34</time>
-                    <a href="javascript:;" data-toggle="dropdown"><i class="gsticon gsticon-gear"></i></a>
-                    <div class="dropdown-menu">
-                        <ul class="perfil-actions">
-                            <li><a href="javascript:;"><i class="gsticon gsticon-trash"></i> Remover Sugestão</a></li>
-                            <li><a href="javascript:;"><i class="gsticon gsticon-star"></i> Favoritar</a></li>
-                            <li><a href="javascript:;"><i class="gsticon gsticon-paper-plane"></i> Sugerir</a></li>
-                            <li><a href="javascript:;"><i class="gsticon gsticon-exclamation-triangle"></i> Denunciar</a></li>
-                        </ul>
+{% if articles %}
+    {% for article in articles %}
+    <div class="excerpt">
+        <div class="custom-check"><input type="checkbox" data-object-id="{{ article.id }}"></div>
+        <div class="excerpt-content">
+            <a class="excerpt-image" href="{% url 'article:view' article.content_object.slug article.content_object.id %}">
+                <img src="{{ article.content_object.get_image.url }}" alt="{{ article.content_object.title }}">
+            </a>
+            <div class="excerpt-title">
+                <header class="post-header">
+                    <div class="post-info">
+                        <time datetime="{{ article.content_object.createdin }}" itemprop="datePublished">{{ article.content_object.createdin }}</time>
+                        <a href="javascript:;" data-toggle="dropdown"><i class="gsticon gsticon-gear"></i></a>
+                        <div class="dropdown-menu">
+                            <ul class="perfil-actions">
+                                <li><a href="javascript:;"><i class="gsticon gsticon-trash remove-see-later"></i> Remover Sugestão</a></li>
+                                <li><a href="javascript:;"><i class="gsticon gsticon-star"></i> Favoritar</a></li>
+                                <li><a href="javascript:;"><i class="gsticon gsticon-paper-plane"></i> Sugerir</a></li>
+                                <li><a href="javascript:;"><i class="gsticon gsticon-exclamation-triangle"></i> Denunciar</a></li>
+                            </ul>
+                        </div>
                     </div>
-                </div>
-                <a class="post-creator" href="javascript:;">
-                    <img src="http://placehold.it/20" alt="Creator Porst Avatar">
-                    Iury Silva</a>
-            </header>
-            <a href="javascript:;">Microsoft lança software beta para migrar aplicativos iOS para Windows lança software beta para migrar aplicativos iOS para Windows</a>
+                    <a class="post-creator" href="{% url 'profile:show' article.author.username %}">
+                        <img src="{{ article.content_object.author.profile.get_picture }}" alt="{{ article.content_object.author.get_full_name }}">
+                        {{ article.content_object.author.get_full_name }}</a>
+                </header>
+                <a href="{% url 'article:view' article.content_object.slug article.content_object.id %}">{{ article.content_object.title }}</a>
+            </div>
         </div>
     </div>
-</div>
+    {% endfor %}
+
+    <a data-jscroll-next href="{% url 'core_socialactions:remove_see_later' request.user.username %}?criteria={{ form.cleaned_data.criteria|urlencode }}&page={{ page|default_if_none:form.cleaned_data.page }}&next={{ url_next|urlencode }}">next</a>
+
+{% else %}
+
+    {% if articles.number == 1 %}
+        <p>Nenhum resultado foi encontrado para sua pesquisa</p>
+        <hr>
+    {% endif %}
+
+{% endif %}

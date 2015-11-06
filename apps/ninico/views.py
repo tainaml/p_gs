@@ -2,6 +2,8 @@ import json
 from django.shortcuts import render
 from django.views.decorators.http import require_POST
 from django.http import HttpResponse
+from django.shortcuts import render_to_response
+from django.template import RequestContext
 
 
 def index(request):
@@ -90,3 +92,15 @@ def test_abc(request):
 
 def edit_publications(request):
     return render(request, 'home/editar-publicacoes.html')
+
+def handler404(request):
+    return render(request, 'home/404.html')
+
+def email_recovery(request):
+    return render(request, 'mailmanager/password-recovery.html')
+
+def email_register(request):
+    return render(request, 'mailmanager/register_user.html')
+
+def email_resend_confirmation(request):
+    return render(request, 'mailmanager/resend-account-confirmation.html')

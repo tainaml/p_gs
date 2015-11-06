@@ -1,7 +1,8 @@
 {%extends 'home/layout/base.html' %}
-{% load taxonomy_tags %}
 
+{% load taxonomy_tags %}
 {% load core_tags %}
+{% load profile_tags %}
 {% load social_tags %}
 {% load article_tags %}
 {% load thumbor_tags %}
@@ -9,19 +10,26 @@
 {% block title %}{{ article.title }} - Portal GSTI{% endblock %}
 
 {% block content %}
-<main class="container">
+<main class="container main">
     <div class="perfil-row">
         <ul class="box-share">
             <li class="comment-vote">
-                <span style="display: block">132</span>
-                <i class="gsticon gsticon-caret-up"></i>
+                {% like_box article request.path "share-box" %}
+                {% comment %}
+                <a href="#" data-social-action="like" data-async="true" data-target="#count-like-post-{{ article.id }}">
+                    <span id="count-like-post-{{ article.id }}" style="display: block">132</span>
+                    <i class="gsticon gsticon-caret-up"></i>
+                </a>
                 <hr>
-                <i class="gsticon gsticon-caret-down"></i>
-                <span style="display: block">5</span>
+                <a href="#" data-social-action="unlike"  data-async="true" data-target="#count-unlike-post-{{ article.id }}">
+                    <i class="gsticon gsticon-caret-down" ></i>
+                    <span id="count-unlike-post-{{ article.id }}" style="display: block">5</span>
+                </a>
+                {% endcomment %}
             </li>
             <li><a href="javascript:;"><i class="gsticon gsticon-star"></i></a></li>
             <li><a href="javascript:;"><i class="gsticon gsticon-eye"></i></a></li>
-            <li><a href="javascript:;"><i class="gsticon gsticon-paper-plane"></i></a></li>
+            <li><a href="javascript:;" data-suggest-modal="true" data-content="article" data-object="{{ article.id }}" data-url="{% url 'socialactions:act-suggest' article.id 'article' %}"><i class="gsticon gsticon-paper-plane"></i></a></li>
         </ul>
         <div class="post-container">
             <article class="full-post">
@@ -49,13 +57,24 @@
                 </header>
                 <aside class="post-footer">
                     {% taxonomies article %}
-
                     <div class="post-toolbar pull-right">
                         <div class="post-count">
-                            <a href="javascript:;" class="post-votes-up">1.026 <i class="gsticon gsticon-caret-up"></i></a>
-                            <a href="javascript:;" class="post-votes-dow"><i class="gsticon gsticon-caret-down"></i> 4</a>
+                            {% like_box article request.path "inline" %}
+                            {% comment %}
+                            <a href="javascript:;" class="post-votes-up"><span>1.026</span> <i class="gsticon gsticon-caret-up"></i></a>
+                            <a href="javascript:;" class="post-votes-dow"><i class="gsticon gsticon-caret-down"></i> <span>4</span></a>
+                            {% endcomment %}
                         </div>
-                        <div class="post-count-comments"><strong>32</strong> Comentários</div>
+                        <div class="post-count-comments">
+                            <span id="load-count-comment-article"
+                                  data-load-async="true"
+                                  data-url="{% url 'comment:count' article.id "article" %}"
+                                  data-request-method="get"
+                                  data-response-type="json">
+                                <strong class="load-async load-async-content">0</strong>
+                                {% csrf_token %}
+                            </span> Comentário(s)
+                        </div>
                     </div>
                 </aside>
                 <div class="full-post-content">
@@ -72,19 +91,13 @@
                     <div class="addthis_sharing_toolbox"></div>
                 </div>
             </article>
-            <div class="perfil">
-                <img src="{% thumbor_url article.author.profile.get_profile_picture.url width=82 height=82 smart=False fit_in=False %}" alt="foto de {{ instance.author.get_full_name }}">
-                <a class="perfil-name" href="javascript:;">{{article.author.get_full_name}}</a>
-                <span class="perfil-counter"><span class="counter-number">{% followers_count article.author %}</span> Seguidor(es)</span>
-                <span class="perfil-counter"><span class="counter-number">{% articles_count article.author %}</span> Artigo(s)</span>
-                {% if  article.author.profile.current_occupation%}
-                    <a class="perfil-counter-alt" href="javascript:;">{{ article.author.profile.current_occupation }} em {{ article.author.profile.current_occupationcompany }}</a>
-                {% endif %}
-
-            </div>
+            {% profile_box article.author "horizontal" %}
             <div class="container-comments">
-                {% include 'home/partials/comment/create.html' with size=81 %}
-                {% include 'home/partials/comment/comment.html' %}
+                {% include 'comment/create.html' with content_type='article' content_object_id=article.id %}
+            </div>
+            <div data-xhr-url="{% url "comment:list" %}?content_type=article&content_id={{ article.id }}" data-xhr id="container-comments" class="container-comments j-scroll">
+{#                {% include 'home/partials/comment/create.html' with size=81 %}#}
+{#                {% include 'home/partials/comment/comment.html' %}#}
             </div>
         </div>
         <div class="col-lg-3">
@@ -144,6 +157,115 @@
     </div>
 </main>
 {% endblock %}
+
+
 {% block javascripts %}
+    {{ block.super }}
 <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-55e70ed11db7fa4e" async></script>
+<script src="https://cdn.jsdelivr.net/jquery.jscroll/2.2.4/jquery.jscroll.min.js"></script>
+<script>
+
+    var form_submit = function(event, data){
+            var $form = $(this);
+
+            var action = $form.data("action");
+            var $div_to_update = $($form.data("update"));
+
+            if (action=="append"){
+                $div_to_update.append(data.template);
+                $form[0].reset();
+            }else if (action=="prepend"){
+                $div_to_update.prepend(data.template);
+
+                $form[0].reset();
+            }else if (action=="replace"){
+
+                $div_to_update.html(data.template);
+            }
+            var $subforms = $div_to_update.find("form[data-ajaxform=\"true\"]");
+            $subforms.IdeiaAjaxForm();
+            $subforms.on("ajaxform.success", form_submit);
+
+            var $data_list = $div_to_update.find("div[data-xhr]");
+            $data_list.renderList();
+        };
+
+    $.fn.renderList = function(){
+
+        return $.each(this, function(){
+
+            var $self = $(this);
+            var url = $self.data('xhr-url');
+
+            var $childs;
+
+            var request = $.ajax({
+                url: url,
+                success: function(data){
+
+                    var $element = $(data);
+                    $element.appendTo($self);
+
+                    $childs = $element.find('div[data-xhr-url]');
+                    $self.jscroll({
+                        loadingHtml: '<span>Carregando...</span>',
+                        contentSelect: "#" + $self.attr("id"),
+                        nextSelect: "a[data-jscroll-next]",
+                        autoTrigger: false
+                    });
+                    var $subforms = $element.find("form[data-ajaxform=\"true\"]");
+                    console.log($subforms);
+                    $subforms.IdeiaAjaxForm();
+                    $subforms.on("ajaxform.success", form_submit);
+
+
+                },
+                complete: function(){
+                    if($childs.length){
+                        $childs.renderList();
+                    }
+                }
+            });
+
+        });
+
+    };
+
+    $(function(){
+        var xhr_contents = $("div[data-xhr]");
+        xhr_contents.renderList();
+
+        $("form[data-ajaxform=\"true\"]").on("ajaxform.success", form_submit);
+        
+        setTimeout(function loadCommunitiesAsync() {
+                $("[data-load-async='true']").each(function (i, e) {
+                    var $this = $(this);
+                    $.ajax({
+                        url: $this.data("url"),
+                        method: $this.data("request-method"),
+                        dataType: $this.data("response-type"),
+                        data: {
+                            'url-next': $this.data("url-next"),
+                            csrfmiddlewaretoken: $this.find("input:hidden[name='csrfmiddlewaretoken']").val()
+                        },
+                        success: function(data, status, xhr) {
+                            $this.find(".load-async-content").html(data.template);
+                        },
+                        statusCode: {
+                            400: function() {
+                                $this.html("");
+                            },
+                            403: function() {
+                                console.log('-- 403 Forbidden --');
+                            }
+                        }
+                    });
+                });
+            }, 500);
+
+
+    });
+</script>
+
 {% endblock %}
+

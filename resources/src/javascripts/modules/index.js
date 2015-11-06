@@ -1,1 +1,2 @@
-require('./custom-elements.js');
+require('./custom-elements');
+require('./mega-dropdown');

@@ -5,7 +5,7 @@
 {% block title %}Portal GSTI - Comunidade{% endblock %}
 
 {% block content %}
-    <main class="container">
+    <main class="container main">
         <div class="perfil-row">
             <!-- mudar para 2.5 -->
             <div class="col-lg-3">
@@ -14,7 +14,7 @@
             <!-- mudar para 9.5 -->
             <div class="col-lg-9">
                 <nav class="perfil-navegation">
-                    <a class="active" href="{% url 'community:show' community.slug %}">Feed</a>•<a href="{% url 'community:questions' community.slug %}">Perguntas</a>•<a href="{% url 'community:followers' community.slug %}">Membros</a>•<a href="{% url 'community:about' community.slug %}">Sobre</a>•<a href="{% url 'ninico:comunidade-videos' %}">Vídeos</a>
+                    <a class="active" href="{% url 'community:show' community.slug %}">Feed</a>•<a href="{% url 'community:questions' community.slug %}">Perguntas</a>•<a href="{% url 'community:followers' community.slug %}">Membros</a>•<a href="{% url 'community:about' community.slug %}">Sobre</a>•<a href="{% url 'community:videos' community.slug %}">Vídeos</a>
                 </nav>
                 <div class="row">
                     <div class="col-lg-8">
@@ -92,7 +92,7 @@
 
 {% block javascripts %}
     {{ block.super }}
-    <script src="{% static 'javascripts/jquery.jscroll.min.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.jscroll/2.2.4/jquery.jscroll.min.js"></script>
     <script>
         $(function() {
 

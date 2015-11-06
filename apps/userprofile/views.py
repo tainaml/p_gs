@@ -3,7 +3,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
 from django.db import models
-from django.http import Http404, HttpResponse
+from django.http import Http404, HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
 from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _
@@ -12,13 +12,21 @@ from django.views.decorators.http import require_POST
 
 from apps.userprofile.models import GenderType
 from apps.userprofile.service import business as Business
+from apps.socialactions.service import business as SocialBusiness
 from apps.userprofile.service.forms import EditProfileForm, OccupationForm
+from rede_gsti import settings
 
 
 class ProfileBaseView(View):
 
     not_found = Http404(_('Profile not Found.'))
     user_not_found = Http404(_('User not Found.'))
+
+    def return_error(self, request, context=None):
+        pass
+
+    def return_success(self, request, context=None):
+        pass
 
     def filter(self, request, user_or_username=None):
 
@@ -56,7 +64,6 @@ class ProfileShowView(ProfileBaseView):
     def get(self, request, username):
 
         profile = self.filter(request, username)
-        # profile.gender_text = GenderType.LABEL[profile.gender] if profile.gender else None
 
         context = {'profile': profile}
         context.update(self.get_context(request, profile))
@@ -66,7 +73,7 @@ class ProfileShowView(ProfileBaseView):
 
 class ProfileEditView(ProfileBaseView):
 
-    template_path = 'userprofile/edit_form.html'
+    template_path = 'userprofile/profile-edit.html'
     form_profile = EditProfileForm
 
     def return_error(self, request, context=None):
@@ -85,6 +92,7 @@ class ProfileEditView(ProfileBaseView):
 
         context = {
             'form': form,
+            'profile': profile,
             'countries': countries,
             'gender': GenderType(),
         }
@@ -103,24 +111,25 @@ class ProfileEditView(ProfileBaseView):
             states = None
             cities = None
 
-        countries = Business.get_countries(1)
+        countries = Business.get_countries()
         form = self.form_profile(request.user, profile, request.POST, request.FILES)
 
         if form.process():
             profile = form.instance
             messages.add_message(request, messages.SUCCESS, _("Profile edited successfully!"))
-            context = {'status':200}
+            context = {'status': 200}
             context.update(self.get_context(request, profile))
             return self.return_success(request, context)
 
         context = {
             'form': form,
+            'profile': profile,
             'countries': countries,
             'states': states,
             'cities': cities,
             'gender': GenderType()
         }
-
+        context.update(self.get_context(request, profile))
         return self.return_error(request, context)
 
 
@@ -129,7 +138,7 @@ class ProfileGetState(ProfileBaseView):
     template_path = 'userprofile/components/select_options.html'
 
     def post(self, request, *args, **kwargs):
-        states = Business.get_states(country_id=request.POST['country_id'])
+        states = Business.get_states(country_id=request.POST['value_id'])
 
         context = {
             'items': states,
@@ -144,7 +153,7 @@ class ProfileGetCity(ProfileBaseView):
     template_path = 'userprofile/components/select_options.html'
 
     def post(self, request, *args, **kwargs):
-        cities = Business.get_cities(state_id=request.POST['state_id'])
+        cities = Business.get_cities(state_id=request.POST['value_id'])
 
         context = {
             'items': cities,
@@ -304,7 +313,85 @@ class ProfileFollowersView(ProfileShowView):
 
     template_path = 'userprofile/profile-followers.html'
 
-
+# @TODO Refactor
 class ProfileCommunitiesView(ProfileShowView):
 
     template_path = 'userprofile/profile-communities.html'
+
+    def return_error(self, request, context=None):
+        pass
+
+    def return_success(self, request, context=None):
+        pass
+
+    # rewrite to add category parameter
+    def get(self, request, username):
+        criteria = request.GET.get('criteria', None)
+        category = request.GET.get('category', 0)
+
+        categories = Business.get_categories()
+        user = Business.get_user(username)
+        profile = self.filter(request, username)
+
+        if not criteria and not category:
+            context = self.communities_box(user, self.template_path)
+        else:
+            context = self.communities_box_with_filters(
+                user,
+                criteria,
+                category
+            )
+        context.update({'profile': profile, 'categories':categories})
+
+        if request.is_ajax():
+            self.template_path = 'userprofile/partials/profile-communities.html'
+            _context = {
+                'category': request.GET.get('category'),
+                'criteria': request.GET.get('criteria'),
+                'template': render(request, self.template_path, context).content
+            }
+            return JsonResponse(_context, status=200)
+
+        return render(request, self.template_path, context)
+
+
+    def communities_box_with_filters(self, user, criteria, category):
+        try:
+            communities = SocialBusiness.get_users_acted_by_author_with_parameters(
+                author=user,
+                action=settings.SOCIAL_FOLLOW,
+                content_type='community',
+                items_per_page=9,
+                page=1,
+                criteria=criteria,
+                category=category
+            )
+        except ValueError:
+            raise Http404()
+
+        return {
+            'items': communities,
+            'content_type': communities[0].content_type if communities and communities[0].content_type else None,
+            'object': user,
+            'page': (communities.number if communities and communities.number else 0) + 1
+        }
+
+    def communities_box(self, user, url_next):
+        try:
+            communities = SocialBusiness.get_users_acted_by_author(
+                author=user,
+                action=settings.SOCIAL_FOLLOW,
+                content_type='community',
+                items_per_page=9,
+                page=1
+            )
+        except ValueError:
+            raise Http404()
+
+        return {
+            'items': communities,
+            'content_type': communities[0].content_type if communities and communities[0].content_type else None,
+            'object': user,
+            'page': (communities.number if communities and communities.number else 0) + 1,
+            'url_next': url_next
+        }

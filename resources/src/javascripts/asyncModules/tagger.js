@@ -22,11 +22,11 @@ const [suggest] = [{
 }]
 
 var tagger = (element) => {
-  var type = $(element).data('taggerType')
-  switch (type) {
-    case 'suggest':
-      $(element).selectize(suggest)
-  }
+    var type = $(element).data('taggerType')
+    switch (type) {
+        case 'suggest':
+            $(element).selectize(suggest)
+    }
 }
 
 function templateItem (item, escape) {
@@ -45,22 +45,24 @@ function templateOption (item, escape) {
   </div>`
 }
 
-function loadUsers (query, callback) {
-  var options = this.$wrapper.prev().data()
-  if (!query.length) {
-    return callback()
-  }
-  $.ajax({
-    url: options.url + encodeURIComponent(query),
-    type: 'GET',
-    error: function() {
-      callback()
-    },
-    success: function(res) {
-      console.dir(res.repositories)
-      callback(res.repositories.slice(0, 10))
+function loadUsers(query, callback) {
+    var options = this.$wrapper.prev().data();
+    if (!query.length) {
+        return callback()
     }
-  })
+    $.ajax({
+        url: options.url,
+        type: 'GET',
+        data: {
+            criteria: query
+        },
+        error: function () {
+            callback()
+        },
+        success: function (res) {
+            callback(res.users);
+        }
+    })
 }
 
 

@@ -7,14 +7,14 @@
     </div>
 </div>
 {% endif %}
-
 {% if profile.user == request.user %}
 <div class="widget widget-box">
     <div class="widget-content">
         <ul class="perfil-actions">
             <li><a href="{% url 'question:create' %}"><i class="gsticon gsticon-question-circle"></i> Perguntar</a></li>
             <li><a href="{% url 'article:create' %}"><i class="gsticon gsticon-file-text"></i> Criar artigo</a></li>
-            <li><a href="javascript:;"><i class="gsticon gsticon-pencil-square-o"></i> Editar perfil</a></li>
+            <li><a href="{% url 'profile:edit' %}"><i class="gsticon gsticon-pencil"></i> Editar perfil</a></li>
+            <li><a href="{% url 'profile:edit-posts' %}"><i class="gsticon gsticon-pencil-square-o"></i> Editar Publicações</a></li>
         </ul>
     </div>
 </div>
