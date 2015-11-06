@@ -13,10 +13,10 @@ class ComplaintForm(IdeiaForm):
     complaint_type = forms.ModelChoiceField(queryset=Business.get_type_complaint(), required=True)
     content_type = forms.CharField(max_length=20, required=True)
     object_id = forms.IntegerField(required=True)
-    community_complaint = forms.ModelChoiceField(queryset=Community.objects.all, required=False)
+    community_complaint = forms.ModelMultipleChoiceField(queryset=Community.objects.all(), required=False)
 
-    def __init__(self, user=None, *args, **kargs):
-        super(ComplaintForm, self).__init__(*args, **kargs)
+    def __init__(self, user=None, *args, **kwargs):
+        super(ComplaintForm, self).__init__(*args, **kwargs)
         self.user = user
 
     def __process__(self):

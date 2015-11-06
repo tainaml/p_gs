@@ -19,7 +19,7 @@
 <div class="modal fade" data-target="modal" id="modal-denunciar">
     <div class="modal-dialog modal-sm">
         <div class="modal-content">
-            <form id="confirmation-form" method="post" data-ajaxform="true" data-group-class=".alert-container" action="{% url 'complaint:report' %}" method="post">
+            <form id="confirmation-form" method="post" data-group-class=".alert-container" action="{% url 'complaint:report' %}">
                 {% csrf_token %}
 
                 <input type="hidden" name="content_type" value="{{ content_type }}" />
@@ -92,7 +92,6 @@
     $("#confirmation-form").on('submit', function(event){
         event.preventDefault();
 
-        console.log("teste");
         var complaint_type = $('input[type=radio][name=complaint_type]:checked').val();
         var communities = [];
         if (complaint_type == 5) {
@@ -101,7 +100,19 @@
             });
         }
 
-        console.log(communities);
+        $.ajax({
+            url: $this.data("url"),
+            method: "POST",
+            dataType: "html",
+            data: {
+                value_id: $this.val(),
+                csrfmiddlewaretoken: $("input:hidden[name='csrfmiddlewaretoken']").val()
+            },
+            success: function(response) {
+                $($this.data("target")).html(response);
+            }
+        });
+        return false;
         // ajax de submissão
         // No success do Ajax chamar $('#modal-denunciar').modal('hide');
     });

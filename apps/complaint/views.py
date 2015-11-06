@@ -28,7 +28,7 @@ class ComplaintView(View):
     def post(self, request):
         article = business_article.get_article(1)
         context = {'article': article}
-        form = self.form_complaint(data=request.POST, user=request.user)
+        form = self.form_complaint(request.user, request.POST)
         if not form.process():
             messages.add_message(request, messages.WARNING, _("Complaint not created!"))
         else:
