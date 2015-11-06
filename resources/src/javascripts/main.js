@@ -6,6 +6,7 @@ import './asyncModules'
 require('./vendor/bootstrap/')
 require('./modules/ideiaForm/')
 require('./modules/ideiaAsyncSocialAction/')
+require('./modules/ideiaAutocomplete/')
 
 $(() => {
     require('./modules')

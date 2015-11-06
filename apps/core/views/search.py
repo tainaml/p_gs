@@ -1,4 +1,4 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
 from django.views.generic import View
 
@@ -61,11 +61,44 @@ class Search(SearchBase):
 
 class SearchAutocomplete(SearchBase):
 
+    template_path = "search/partials/search-autocomplete.html"
+
     def return_error(self, request, context=None):
         pass
 
     def return_success(self, request, context=None):
-        pass
+        if not context:
+            context = {}
+
+        _context = {
+            'template': render(request, self.template_path, context).content
+        }
+
+        if request.is_ajax():
+            return JsonResponse(_context, status=200)
+
+    def get(self, request):
+
+        form_community = self.form_community(None, True, request.GET)
+        form_user = self.form_user(None, True, request.GET)
+
+        try:
+            communities_filtered = form_community.process()
+            users_filtered = form_user.process()
+        except Exception, e:
+            print e
+            return self.return_error(request, {})
+
+        context = {
+            'communities': communities_filtered,
+            'users': users_filtered,
+            'form_community': form_community,
+            'form_user': form_user,
+            'query_search': request.GET.get('q')
+        }
+        context.update(self.get_context(request))
+
+        return self.return_success(request, context)
 
 
 class SearchList(SearchBase):
