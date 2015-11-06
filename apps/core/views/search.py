@@ -133,3 +133,11 @@ class SearchList(SearchBase):
         self.change_template("search/partials/search-%s.html" % content_type)
 
         return self.return_success(request, context)
+
+
+class SearchContent(SearchList):
+
+    template_path = "search/search-result.html"
+
+    def change_template(self, template_path):
+        return self.template_path

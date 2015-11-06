@@ -5,22 +5,9 @@
 {% block content %}
     <main class="container main">
         <div class="row">
-            <div class="col-lg-3">
-                <header class="area-title">
-                    <h2>Tipo de resultado</h2>
-                </header>
-                <div class="widget widget-box">
-                    <div class="widget-content">
-                        <ul class="perfil-actions">
-                            <li><a href="javascript:;">Todos</a></li>
-                            <li><a href="javascript:;">Comunidades</a></li>
-                            <li><a href="javascript:;">Pessoas</a></li>
-                            <li><a href="javascript:;">Publicações</a></li>
-                            <li><a href="javascript:;">Perguntas</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
+
+            {% include "search/partials/search-sidebar-left.html" %}
+
             <div class="col-lg-9 result-wrapper">
 
                 {% if communities.object_list %}
