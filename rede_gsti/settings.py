@@ -129,7 +129,7 @@ EMAIL_PORT = '587'
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 # Comment config
-ENTITY_TO_COMMENT = ['comment', 'article', 'question']
+ENTITY_TO_COMMENT = ['comment', 'article']
 MAX_LEVELS = 2
 
 ENTITY_TO_COMPLAINT = ['article', 'question']
@@ -154,8 +154,8 @@ SOCIAL_LABELS = {
 }
 
 SOCIAL_ENTITIES = {
-    SOCIAL_LIKE: ['comment', 'article'],
-    SOCIAL_UNLIKE: ['comment', 'article'],
+    SOCIAL_LIKE: ['comment', 'article', 'question'],
+    SOCIAL_UNLIKE: ['comment', 'article', 'question'],
     SOCIAL_FOLLOW: ['community', 'user'],
     SOCIAL_FAVOURITE: [''],
     SOCIAL_SUGGEST: [''],
