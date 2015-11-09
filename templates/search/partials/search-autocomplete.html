@@ -1,0 +1,47 @@
+{% load thumbor_tags %}
+
+<div class="float-notifcations">
+    {% if users %}
+    <div class="header-float-notifications">Pessoas</div>
+    <ul class="content-float-notifications">
+        {% for user in users %}
+        <li class="item-float-notification">
+            <a href="{% url 'profile:show' user.get_username %}">
+                {% if user.profile.get_profile_picture %}
+                <img src="{% thumbor_url user.profile.get_profile_picture.url width=20 height=20 smart=False fit_in=False %}" width="20" height="20" alt="Foto de {{ user.get_full_name }}">
+                {% else %}
+                <img src="http://placehold.it/20?text={{ user.first_name|slice:":1" }}{{ user.last_name|slice:":1" }}" width="20" height="20" alt="Foto de {{ user.get_full_name }}">
+                {% endif %}
+            </a>
+            <a href="{% url 'profile:show' user.get_username %}">{{ user.get_full_name }}</a>
+        </li>
+        {% endfor %}
+        <li class="item-float-notification-separator">
+        </li>
+    </ul>
+    {% endif %}
+
+    {% if communities %}
+    <div class="header-float-notifications">Comunidades</div>
+    <ul class="content-float-notifications">
+        {% for community in communities %}
+            <li class="item-float-notification">
+                <a href="{% url 'community:show' community.slug %};">
+                    {% if community.get_picture %}
+                        <img src="{% thumbor_url community.get_picture.url width=20 height=20 smart=False fit_in=False %}" width="20" height="20" alt="Foto de {{ community.title }}">
+                    {% else %}
+                        <img src="http://placehold.it/20?text={{ community.title|slice:":1" }}" width="20" height="20" alt="Foto de {{ community.title }}">
+                    {% endif %}
+                </a>
+                <a href="{% url 'community:show' community.slug %}">{{ community.title }}</a>
+            </li>
+        {% endfor %}
+        <li class="item-float-notification-separator">
+        </li>
+    </ul>
+    {% endif %}
+
+    {% if not users and not communities %}
+    <div class="header-float-notifications">Nenhum resultado foi encontrado</div>
+    {% endif %}
+</div>

@@ -1,0 +1,52 @@
+{% load thumbor_tags %}
+{% load social_tags %}
+{% load taxonomy_tags %}
+
+<div class="col-lg-12">
+    <article class="post question" itemscope itemtype="http://schema.org/BlogPosting">
+        <header class="post-header">
+            <div class="post-info">
+                <time datetime="{{ question.question_date }}" itemprop="datePublished">{{ question.question_date|date:'d/m/Y' }} às {{ question.question_date|date:'G:i' }}</time>
+                <a href="javascript:;" data-toggle="dropdown"><i class="gsticon gsticon-gear"></i></a>
+                <div class="dropdown-menu">
+                    <ul class="perfil-actions">
+                        <li><a href="javascript:;"><i class="gsticon gsticon-edit"></i> Editar publicação</a></li>
+                        <li><a href="javascript:;"><i class="gsticon gsticon-paper-plane"></i> Sugerir</a></li>
+                        <li><a href="javascript:;"><i class="gsticon gsticon-eye"></i> Ver depois</a></li>
+                        <li><a href="javascript:;"><i class="gsticon gsticon-star"></i> Favoritar</a></li>
+                        <li><a href="javascript:;"><i class="gsticon gsticon-exclamation-triangle"></i> Denunciar</a></li>
+                    </ul>
+                </div>
+            </div>
+            <a class="post-creator" href="{% url 'profile:show' username=question.author.username %}">
+                <img src="{% thumbor_url question.author.profile.get_profile_picture.url width=20 height=20 smart=False fit_in=False %}" alt="foto de {{ question.author.get_full_name }}">
+                {{ question.author.get_full_name }}
+            </a> <span class="label label-default">Pergunta</span>
+        </header>
+        <a class="post-content" href="{% url 'question:show' question.slug question.id %}" itemprop="articleBody">
+            <div class="post-text">
+                <h3 class="post-title" itemprop="headline">{{ question.title }}</h3>
+                <p>{{ question.description|safe|slice:":250"}}... </p>
+            </div>
+        </a>
+        <footer class="post-footer">
+            <nav class="post-communities">
+                {% taxonomies question %}
+                {#                        <a href="javascript:;" class="link-to-community">Java</a>•<a href="javascript:;" class="link-to-community">MySQL</a>•<a href="javascript:;" class="link-to-community" data-toggle="dropdown">Mais <i class="gsticon gsticon-angle-down"></i></a>#}
+                <div class="dropdown-menu">
+                    <ul class="perfil-actions">
+                        <li><a href="javascript:;">matemática</a></li>
+                        <li><a href="javascript:;">Português</a></li>
+                        <li><a href="javascript:;">Literatura</a></li>
+                        <li><a href="javascript:;">Termodinâmica</a></li>
+                        <li><a href="javascript:;">Física</a></li>
+                    </ul>
+                </div>
+            </nav>
+            <div class="post-toolbar pull-right">
+                <div class="post-count">{% like_box question request.path "inline" %}</div>
+                <div class="post-count-comments"><strong>{{ question.counter_answer }}</strong> Resposta(s)</div>
+            </div>
+        </footer>
+    </article>
+</div>

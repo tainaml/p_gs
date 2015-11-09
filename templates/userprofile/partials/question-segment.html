@@ -1,6 +1,8 @@
 {% load thumbor_tags %}
 {% load taxonomy_tags %}
-<article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+{% load social_tags %}
+
+<article class="post question" itemscope itemtype="http://schema.org/BlogPosting">
     <header class="post-header">
         <div class="post-info">
             <time datetime="06-17-2015" itemprop="datePublished">{{ instance.question_date|date:'d/m/Y' }} às {{ instance.question_date|date:'G:i' }}</time>
@@ -23,7 +25,7 @@
     <a class="post-content" href="{% url 'question:show' instance.slug instance.id %}" itemprop="articleBody">
         <div class="post-text">
             <div class="question-text">Pergunta:</div>
-            <h3 class="post-title color-green" itemprop="headline">{{ instance.title }} </h3>
+            <h3 class="post-title color-green" itemprop="headline">{{ instance.title }}</h3>
             <p class="color-green">{{ instance.description|safe|slice:":250"}}... </p>
         </div>
     </a>
@@ -42,8 +44,7 @@
         </nav>
         <div class="post-toolbar pull-right">
             <div class="post-count">
-                <a href="javascript:;" class="post-votes-up">1.026 <i class="gsticon gsticon-caret-up"></i></a>
-                <a href="javascript:;" class="post-votes-dow"><i class="gsticon gsticon-caret-down"></i> 4</a>
+                {% like_box instance request.path "inline" %}
             </div>
             <div class="post-count-comments"><strong>{{ instance.counter_answer }}</strong> Resposta(s)</div>
         </div>

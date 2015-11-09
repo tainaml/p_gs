@@ -2,8 +2,8 @@
     <a href="{% url 'socialactions:act' object_to_link content 'like' %}?url_next={{ url_next|urlencode }}" 
         data-async-like="true" 
         data-social-action="like" 
-        data-target-like=".count-like-post-{{ object_to_link }}"
-        data-target-unlike=".count-unlike-post-{{ object_to_link }}"
+        data-target-like=".count-like-post-{{ object_to_link }}-{{ content }}"
+        data-target-unlike=".count-unlike-post-{{ object_to_link }}-{{ content }}"
         >
         <i class="gsticon gsticon-caret-up"></i>
     </a>
@@ -11,8 +11,8 @@
     <a href="{% url 'socialactions:act' object_to_link content 'unlike' %}?url_next={{ url_next|urlencode }}" 
         data-async-like="true" 
         data-social-action="unlike" 
-        data-target-like=".count-like-post-{{ object_to_link }}"
-        data-target-unlike=".count-unlike-post-{{ object_to_link }}"
+        data-target-like=".count-like-post-{{ object_to_link }}-{{ content }}"
+        data-target-unlike=".count-unlike-post-{{ object_to_link }}-{{ content }}"
         >
         <i class="gsticon gsticon-caret-down" ></i>
     </a>

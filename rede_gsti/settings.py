@@ -153,8 +153,8 @@ SOCIAL_LABELS = {
 }
 
 SOCIAL_ENTITIES = {
-    SOCIAL_LIKE: ['comment', 'article'],
-    SOCIAL_UNLIKE: ['comment', 'article'],
+    SOCIAL_LIKE: ['comment', 'article', 'question'],
+    SOCIAL_UNLIKE: ['comment', 'article', 'question'],
     SOCIAL_FOLLOW: ['community', 'user'],
     SOCIAL_FAVOURITE: [''],
     SOCIAL_SUGGEST: [''],

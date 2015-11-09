@@ -1,8 +1,13 @@
-<form action="{% url 'ninico:pesquisa' %}" method="GET" role="search">
+<form action="{% url 'search:search' %}" method="GET" role="search">
+    {% csrf_token %}
     <div class="form-search-input">
-        <input type="text" id="fcommunity" name="fcommunity" placeholder="{{placehold|default:"Procure pessoas, comunidades, etc."}}" />
+        <input type="text" id="search-criteria" name="q" placeholder="{{placehold|default:"Procure pessoas, comunidades, etc."}}" autocomplete="off"
+               data-autocomplete="true"
+               data-autocomplete-timeout="500"
+               data-autocomplete-target="#dropdown-search"
+               data-autocomplete-url="{% url 'search:autocomplete' %}"/>
     </div>
-    <div class="dropdown-menu dropdown-search">
+    <div id="dropdown-search" class="dropdown-menu dropdown-search">
         <div class="float-notifcations">
             <div class="header-float-notifications">Pessoas</div>
             <ul class="content-float-notifications">

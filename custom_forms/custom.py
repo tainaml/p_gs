@@ -15,10 +15,10 @@ class AbstractIdeiaForm(object):
         raise NotImplementedError
 
     def is_valid(self):
-        raise NotImplementedError
+        pass
 
     def add_error(self, *args, **kwargs):
-        raise NotImplementedError
+        pass
 
 
 class IdeiaForm(forms.Form, AbstractIdeiaForm):

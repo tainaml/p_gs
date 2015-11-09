@@ -1,0 +1,18 @@
+<div class="col-lg-3">
+    <div class="result-container">
+        <header class="area-title">
+            <h2>Tipo de resultado</h2>
+        </header>
+        <div class="widget widget-box">
+            <div class="widget-content">
+                <ul class="perfil-actions search-menu-content">
+                    <li><a href="{% url "search:search" %}?q={{ query_search|default:"" }}">Todos</a></li>
+                    <li><a href="{% url "search:search-content" "communities"  %}?q={{ query_search|default:"" }}">Comunidades</a></li>
+                    <li><a href="{% url "search:search-content" "users"  %}?q={{ query_search|default:"" }}">Pessoas</a></li>
+                    <li><a href="{% url "search:search-content" "articles"  %}?q={{ query_search|default:"" }}">Publicações</a></li>
+                    <li><a href="{% url "search:search-content" "questions"  %}?q={{ query_search|default:"" }}">Perguntas</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
