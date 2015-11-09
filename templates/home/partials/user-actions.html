@@ -1,3 +1,4 @@
+{% load i18n %}
 {% load thumbor_tags %}
 
 {% if request.user.is_authenticated %}
@@ -9,7 +10,7 @@
                 <span class="count-notifications">10</span>
                 <i class="gsticon gsticon-users"></i> Membros
             </div>
-            <ul class="content-float-notifications">
+            <ul class="content-float-notifications" data-toggle="custom-scroll">
                 <li class="item-float-notification">
                     <a href="javascript:void(0);"><img src="http://placehold.it/20" alt="Creator Post Avatar"></a>
                     <a href="javascript:void(0);">Iury Silva</a> sugeriu uma <a href="javascript:void(0);">publicação</a>
@@ -68,7 +69,7 @@
                 <span class="count-notifications">10</span>
                 <i class="gsticon gsticon-comments"></i> Perguntas e Respostas
             </div>
-            <ul class="content-float-notifications">
+            <ul class="content-float-notifications" data-toggle="custom-scroll">
                 <li class="item-float-notification">
                     <a href="javascript:void(0);"><img src="http://placehold.it/20" alt="Creator Post Avatar"></a>
                     <a href="javascript:void(0);">Iury Silva</a> sugeriu uma <a href="javascript:void(0);">publicação</a>
@@ -127,7 +128,7 @@
                 <span class="count-notifications">10</span>
                 <i class="gsticon gsticon-bell"></i> Geral
             </div>
-            <ul class="content-float-notifications">
+            <ul class="content-float-notifications" data-toggle="custom-scroll">
                 <li class="item-float-notification">
                     <a href="javascript:void(0);"><img src="http://placehold.it/20" alt="Creator Post Avatar"></a>
                     <a href="javascript:void(0);">Iury Silva</a> sugeriu uma <a href="javascript:void(0);">publicação</a>
@@ -186,12 +187,12 @@
     </a>
     <div id="dropdown-perfil-action" class="dropdown-menu">
         <ul class="perfil-actions">
-            <li><a href="{% url 'profile:feed' %}"><i class="gsticon gsticon-feed"></i> Meu Feed</a></li>
-            <li><a href="{% url 'profile:show' request.user.get_username %}"><i class="gsticon gsticon-user"></i> Perfil</a></li>
-            <li><a href="{% url 'question:create' %}"><i class="gsticon gsticon-question-circle"></i> Perguntar</a></li>
-            <li><a href="{% url 'article:create' %}"><i class="gsticon gsticon-file-text"></i> Criar Artigo</a></li>
+            <li><a href="javascript:void(0);"><i class="gsticon gsticon-feed"></i> Meu Feed</a></li>
+            <li><a href="{% url 'profile:show' request.user.username %}"><i class="gsticon gsticon-user"></i> {% trans "Profile" %}</a></li>
+            <li><a href="javascript:void(0);"><i class="gsticon gsticon-question-circle"></i> Perguntar</a></li>
+            <li><a href="javascript:void(0);"><i class="gsticon gsticon-file-text"></i> Criar Artigo</a></li>
             <li><a href="javascript:void(0);"><i class="gsticon gsticon-gear"></i> Configurações</a></li>
-            <li><a href="{% url 'account:logout' %}"><i class="gsticon gsticon-close"></i> Sair</a></li>
+            <li><a href="{% url 'account:logout' %}"><i class="gsticon gsticon-close"></i> {% trans "Logout" %}</a></li>
         </ul>
     </div>
 </div>
