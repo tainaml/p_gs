@@ -3,7 +3,7 @@ from django.contrib.contenttypes.fields import GenericRelation
 from django.db import models
 from django.utils.translation import ugettext as _
 from ckeditor.fields import RichTextField
-from apps.core.models import EmbedItem
+from apps.core.models.embed import EmbedItem
 from apps.feed.models import FeedObject
 
 

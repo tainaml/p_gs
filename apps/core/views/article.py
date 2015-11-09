@@ -1,3 +1,5 @@
+import json
+from django.http import HttpResponse
 from django.shortcuts import render
 from apps.article import views
 from ..forms.article import CoreArticleForm
@@ -6,3 +8,6 @@ from ..forms.article import CoreArticleForm
 class CoreArticleEditView(views.ArticleEditView):
 
     form_article = CoreArticleForm
+
+
+
