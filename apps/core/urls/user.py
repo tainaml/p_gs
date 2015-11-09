@@ -46,7 +46,7 @@ urlpatterns = [
     url(r'^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/communities/load/ajax/$', CoreUserProfileView.CoreProfileCommunitiesLoadAjax.as_view(), name='communities-load-ajax'),
 
 
-    url(r'^ajax/user/communities/$', CoreUserProfileView.CoreUserCommunitiesListAjax.as_view(), name='user-communities-ajax')
+    url(r'^ajax/user/communities/$', CoreUserProfileView.CoreUserCommunitiesListAjax.as_view(), name='user-communities-ajax'),
 
     url(r'^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/videos/$', CoreUserProfileView.CoreProfileVideosView.as_view(), name='videos'),
     url(r'^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/videos/search/$', CoreUserProfileView.CoreProfileVideosSearch.as_view(), name='videos-search'),

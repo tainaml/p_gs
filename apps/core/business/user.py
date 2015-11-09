@@ -3,7 +3,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.utils import timezone
 from apps.article.models import Article
-from apps.core.models import EmbedItem
+from apps.core.models.embed import EmbedItem
 from apps.feed.models import FeedObject
 from django.db.models import Q
 from apps.socialactions.models import UserAction
