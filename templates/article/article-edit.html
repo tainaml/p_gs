@@ -55,11 +55,24 @@
                                     <p class="article-counter">Mínimo de caracteres: <span class="article-counter-caracteres">200</span></p>
                                 </div>
                                 <div class="form-group">
-                                    <input class="form-control" type="text" placeholder="Enviar artigo para qual(is) comunidade(s)?">
-                                </div>
-                                <div class="form-group">
-                                    {{ form_article.taxonomies }}
-                                    {% if form_article.taxonomies.errors %}  {{ form_article.taxonomies.errors }} {% endif %}
+
+                                    {% for choice in form_article.communities %}
+
+                                        {{ choice }}
+
+                                    {% endfor %}
+
+                                    <input name="{{ form_article.communities.name }}"
+                                           type="text"
+                                           value="python,javascript"
+                                           data-toggle="selectize"
+                                           placeholder="Enviar artigo para qual(is) comunidade(s)?"
+                                           data-module="taxonomy"
+                                           data-url="{% url 'profile:user-communities-ajax' %}"
+                                           data-label-field="name"
+                                           data-value-field="id" multiple />
+
+                                    {% if form_article.communities.errors %}  {{ form_article.communities.errors }} {% endif %}
                                 </div>
                             </div>
                             <div class="col-lg-3">

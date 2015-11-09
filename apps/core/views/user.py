@@ -1,13 +1,19 @@
+from django.contrib.contenttypes.models import ContentType
+from django.core import serializers
+from django.db.models import Q
 from django.http import JsonResponse
 from django.contrib.contenttypes.models import ContentType
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
+from django.views.generic import View
+from apps.community.models import Community
 
 from apps.core.forms.user import CoreUserProfileForm, CoreUserProfileFullEditForm, CoreSearchFollowings, CoreSearchFollowers, CoreSearchArticlesForm, \
     CoreSearchVideosForm
 from apps.core.forms.community import CoreCommunityFormSearch
 from apps.core.forms.user import CoreUserSearchForm, CoreUserProfileEditForm
+from apps.socialactions.models import UserAction
 from apps.article.models import Article
 from apps.userprofile import views
 from apps.userprofile.service import business as BusinessUserprofile
@@ -615,3 +621,33 @@ class CoreProfileVideosView(CoreProfileVideosSearch):
 class CoreProfileVideosList(CoreProfileVideosSearch):
 
     template_path = "userprofile/partials/profile-videos-list.html"
+
+class CoreUserCommunitiesListAjax(View):
+
+    @method_decorator(login_required)
+    def get(self, request):
+        filter_name = request.GET.get('name', False)
+        if not filter_name:
+            return JsonResponse({}, status=200)
+
+        user_communities = BusinessSocialActions.get_users_acted_by_author(
+            author=request.user,
+            action=settings.SOCIAL_FOLLOW,
+            content_type='community',
+            items_per_page=None,
+        )
+
+        community_content_type = ContentType.objects.get(model='community')
+
+        all_communities = Community.objects.filter(title__istartswith=filter_name)
+        communities_objects = user_communities.filter(object_id__in=all_communities, content_type=community_content_type)
+
+        communities = []
+
+        for action in communities_objects:
+            community = dict()
+            community['name'] = action.content_object.title
+            community['id'] = action.content_object.id
+            communities.append(community)
+
+        return JsonResponse(communities, status=200, safe=False)

@@ -155,7 +155,7 @@ class CommentSaveAnswer(CommentFormBaseView):
 
 class CommentUpdateView(CommentFormBaseView):
     fail_validation_template_path = 'comment/edit-comment.html'
-    success_template_path = 'comment/comment.html'
+    success_template_path = 'comment/comment-segment.html'
 
     form_comment = EditCommentForm
     xhr = True
@@ -173,6 +173,28 @@ class CommentUpdateView(CommentFormBaseView):
                                       request.POST)
 
         return super(CommentUpdateView, self).do_process(request)
+
+
+class CommentUpdateAnswerView(CommentFormBaseView):
+    fail_validation_template_path = 'comment/edit-answer.html'
+    success_template_path = 'comment/comment-child-segment.html'
+
+    form_comment = EditCommentForm
+    xhr = True
+
+    @method_decorator(login_required)
+    def post(self, request=None):
+        comment = comment_business.retrieve_own_comment(
+            comment_id=request.POST['comment_id'],
+            user=request.user)
+
+        if not comment:
+            raise Http404()
+
+        self.form = self.form_comment(request.user, request.POST['comment_id'],
+                                      request.POST)
+
+        return super(CommentUpdateAnswerView, self).do_process(request)
 
 
 class CommentDeleteView(CommentFormBaseView):

@@ -15,17 +15,6 @@
         <ul class="box-share">
             <li class="comment-vote">
                 {% like_box article request.path "share-box" %}
-                {% comment %}
-                <a href="#" data-social-action="like" data-async="true" data-target="#count-like-post-{{ article.id }}">
-                    <span id="count-like-post-{{ article.id }}" style="display: block">132</span>
-                    <i class="gsticon gsticon-caret-up"></i>
-                </a>
-                <hr>
-                <a href="#" data-social-action="unlike"  data-async="true" data-target="#count-unlike-post-{{ article.id }}">
-                    <i class="gsticon gsticon-caret-down" ></i>
-                    <span id="count-unlike-post-{{ article.id }}" style="display: block">5</span>
-                </a>
-                {% endcomment %}
             </li>
             <li><a href="javascript:;"><i class="gsticon gsticon-star"></i></a></li>
             <li><a href="javascript:;"><i class="gsticon gsticon-eye"></i></a></li>
@@ -179,7 +168,6 @@
 
                 $form[0].reset();
             }else if (action=="replace"){
-
                 $div_to_update.html(data.template);
             }
             var $subforms = $div_to_update.find("form[data-ajaxform=\"true\"]");
@@ -188,6 +176,7 @@
 
             var $data_list = $div_to_update.find("div[data-xhr]");
             $data_list.renderList();
+
         };
 
     $.fn.renderList = function(){
@@ -211,18 +200,30 @@
                         loadingHtml: '<span>Carregando...</span>',
                         contentSelect: "#" + $self.attr("id"),
                         nextSelect: "a[data-jscroll-next]",
-                        autoTrigger: false
+                        autoTrigger: false,
+                        callback: function(data){
+                            var $div_jscroll = $(".jscroll-added");
+                            var $jscroll_subforms = $div_jscroll.find("form[data-ajaxform=\"true\"]");
+                            $jscroll_subforms.IdeiaAjaxForm();
+                            $jscroll_subforms.on("ajaxform.success", form_submit);
+                            $div_jscroll.removeClass("jscroll-added");
+                        }
                     });
                     var $subforms = $element.find("form[data-ajaxform=\"true\"]");
-                    console.log($subforms);
                     $subforms.IdeiaAjaxForm();
                     $subforms.on("ajaxform.success", form_submit);
 
-
+                    var async_like = $self.find('[data-async-like]');
+                    async_like.IdeiaAsyncLike();
+                    async_like.removeData("async-like");
                 },
                 complete: function(){
                     if($childs.length){
+
                         $childs.renderList();
+
+
+
                     }
                 }
             });

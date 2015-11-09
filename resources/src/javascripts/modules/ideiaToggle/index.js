@@ -1,1 +1,0 @@
-require('./ideia-toggle.js');
