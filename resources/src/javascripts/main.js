@@ -1,5 +1,6 @@
 'use strict'
 
+import 'jscroll'
 import './asyncModules'
 
 require('./vendor/bootstrap/')

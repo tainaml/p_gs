@@ -4,7 +4,7 @@ from django.db.models import Q
 from apps.article.models import Article
 
 from apps.community.models import Community
-from apps.core.models import EmbedItem
+from apps.core.models.embed import EmbedItem
 from apps.feed.models import FeedObject
 
 __author__ = 'phillip'
