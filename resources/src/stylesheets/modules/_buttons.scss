@@ -67,3 +67,19 @@
     font-weight: 600;
     font-size: 15px;
 }
+
+.btn-follow {
+    @extend .btn;
+    @include button-variant($link-white, $background-primary-button, $background-primary-button);
+    display: block;
+    font-weight: 600;
+    font-size: 1.286em;
+}
+.btn-follow-alt {
+    @extend .btn;
+    @include button-variant(#fff, #4d6479, #4d6479);
+    display: block;
+    font-weight: 600;
+    font-size: 1.286em;
+
+}

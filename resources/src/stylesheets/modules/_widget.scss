@@ -58,16 +58,6 @@
             border-bottom: 0;
         }
     }
-    .btn-follow {
-        display: block;
-        background-color: $background-primary-button;
-        color: $link-white;
-        font-weight: 600;
-        font-size: 1.286em;
-        &:hover {
-            background: $background-primary-button-hover;
-        }
-    }
 }
 .banner-collaborator {
     width: 100%;

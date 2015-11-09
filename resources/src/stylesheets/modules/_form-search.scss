@@ -51,3 +51,12 @@
         }
     }
 }
+
+.errorlist {
+    padding-left: 0;
+    list-style: none;
+    li {
+        color: $state-danger-text;
+        font-size: 0.9em;
+    }
+}
