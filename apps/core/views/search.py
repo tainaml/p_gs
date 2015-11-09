@@ -79,8 +79,8 @@ class SearchAutocomplete(SearchBase):
 
     def get(self, request):
 
-        form_community = self.form_community(None, True, request.GET)
-        form_user = self.form_user(None, True, request.GET)
+        form_community = self.form_community(3, True, request.GET)
+        form_user = self.form_user(3, True, request.GET)
 
         try:
             communities_filtered = form_community.process()
