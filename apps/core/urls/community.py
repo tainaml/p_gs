@@ -18,4 +18,7 @@ urlpatterns = [
     url(r'^(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/videos/search/$', CoreViews.CoreCommunityVideosSearch.as_view(), name='videos-search'),
     url(r'^(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/videos/list/$', CoreViews.CoreCommunityVideosList.as_view(), name='videos-list'),
 
+
+    url(r'^load/async/(?P<object_id>[0-9]+)/(?P<content_type>[a-z]+)/$', CoreViews.CoreCommunityLoad.as_view(), name='load-communities-async'),
+
     ]

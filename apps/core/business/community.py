@@ -118,13 +118,14 @@ def get_communities(taxonomies_list=None, description=None, items_per_page=None,
         )
     )
 
-    communities = Paginator(communities, items_per_page)
-    try:
-        communities = communities.page(page)
-    except PageNotAnInteger:
-        communities = communities.page(1)
-    except EmptyPage:
-        communities = []
+    if items_per_page and page:
+        communities = Paginator(communities, items_per_page)
+        try:
+            communities = communities.page(page)
+        except PageNotAnInteger:
+            communities = communities.page(1)
+        except EmptyPage:
+            communities = []
 
     return communities
 
@@ -169,3 +170,17 @@ def get_articles_with_videos(community, description=None, items_per_page=None, p
             posts = []
 
     return posts
+
+
+def get_random_communities_by_article_or_question(object_id=None, content_type=None):
+
+    content_type = ContentType.objects.get(model=content_type)
+
+    feed = FeedObject.objects.get(
+        object_id=object_id,
+        content_type=content_type
+    )
+
+    communities = feed.communities.all().order_by('?')
+
+    return communities

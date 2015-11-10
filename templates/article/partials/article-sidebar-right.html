@@ -1,0 +1,27 @@
+{% load core_tags %}
+
+<div class="col-lg-3">
+    <div class="squad-advertising">
+        <img class="img-responsive" src="http://placehold.it/270x225" alt="Propaganda aqui">
+    </div>
+
+    <!-- Comunidades -->
+    <div id="load-communities" data-load-async="true" data-load-async-url="{% url 'community:load-communities-async' article.id "article" %}" data-load-async-url-next="{{ request.path }}" data-load-async-method="post" data-load-async-response-type="json">
+        <div class="load-async load-async-content">
+            Carregando...
+        </div>
+        {% csrf_token %}
+    </div>
+
+
+    <div class="widget widget-feed">
+        <div class="widget-header">
+            <header class="area-title">
+                <h3>Artigos Relacionados</h3>
+            </header>
+        </div>
+        <div class="widget-content">
+            {% related_posts_box article "article" %}
+        </div>
+    </div>
+</div>

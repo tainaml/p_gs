@@ -1,0 +1,39 @@
+<div class="col-lg-3">
+    <div class="squad-advertising">
+        <img class="img-responsive" src="http://placehold.it/270x225" alt="Propaganda aqui">
+    </div>
+
+    <!-- Comunidades -->
+    <div id="load-communities" data-load-async="true" data-load-async-url="{% url 'community:load-communities-async' question.id "question" %}" data-load-async-url-next="{{ request.path }}" data-load-async-method="post" data-load-async-response-type="json">
+        <div class="load-async load-async-content">
+            Carregando...
+        </div>
+        {% csrf_token %}
+    </div>
+
+    <div class="widget widget-feed">
+        <div class="widget-header">
+            <header class="area-title">
+                <h3>Artigos Relacionados</h3>
+            </header>
+        </div>
+        <div class="widget-content">
+            <a class="article-excerpt" href="javascript:;">
+                <img src="http://placehold.it/70x53" alt="Imagem 1">
+                <span class="color-green">Microsoft lança software beta para migrar aplicativos iOS para Windows</span>
+            </a>
+            <a class="article-excerpt" href="javascript:;">
+                <img src="http://placehold.it/70x53" alt="Imagem 1">
+                <span class="color-green">Microsoft lança software beta para migrar aplicativos iOS para Windows</span>
+            </a>
+            <a class="article-excerpt" href="javascript:;">
+                <img src="http://placehold.it/70x53" alt="Imagem 1">
+                <span class="color-green">Microsoft lança software beta para migrar aplicativos iOS para Windows</span>
+            </a>
+            <a class="article-excerpt" href="javascript:;">
+                <img src="http://placehold.it/70x53" alt="Imagem 1">
+                <span class="color-green">Microsoft lança software beta para migrar aplicativos iOS para Windows</span>
+            </a>
+        </div>
+    </div>
+</div>

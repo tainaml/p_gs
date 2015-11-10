@@ -1,5 +1,6 @@
 from django.contrib.contenttypes.models import ContentType
 from django.db.models import Q
+from django.http import JsonResponse
 from django.shortcuts import render
 from apps.community import views
 from apps.community.models import Community
@@ -9,6 +10,7 @@ from apps.feed.models import FeedObject
 from apps.socialactions.service.business import get_users_acted_by_model
 from rede_gsti import settings
 from apps.taxonomy.service import business as Business
+from apps.core.business import community as BusinessCommunity
 
 
 class CoreCommunityView(views.CommunityView):
@@ -148,3 +150,46 @@ class CoreCommunityVideosView(CoreCommunityVideosSearch):
 class CoreCommunityVideosList(CoreCommunityVideosSearch):
     
     template_path = "community/partials/community-videos-list.html"
+
+
+class CoreCommunityLoad(views.View):
+
+    template_path = ""
+
+    def return_error(self, request, context=None):
+        pass
+
+    def return_success(self, request, context=None):
+        if not context:
+            context = {}
+
+        if request.is_ajax():
+            _context = {
+                'template': render(request, self.template_path, context).content
+            }
+            return JsonResponse(_context, status=200)
+
+    def change_template(self, template_path):
+        self.template_path = template_path
+
+    def get_context(self, request, *args, **kwargs):
+        return {}
+
+    def post(self, request, object_id, content_type):
+
+        url_next = request.POST.get('url-next')
+
+        communities = BusinessCommunity.get_random_communities_by_article_or_question(
+            object_id=object_id,
+            content_type=content_type
+        )
+
+        context = {
+            'communities': communities,
+            'url_next': url_next
+        }
+        context.update(self.get_context(request))
+
+        self.change_template("%s/partials/%s-community-list.html" % (content_type, content_type))
+
+        return self.return_success(request, context)

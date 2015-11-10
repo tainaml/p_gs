@@ -48,9 +48,9 @@
             <div class="post-count-comments">
                 <span id="load-count-comment-article"
                       data-load-async="true"
-                      data-url="{% url 'comment:count' instance.id "article" %}"
-                      data-request-method="get"
-                      data-response-type="json">
+                      data-load-async-url="{% url 'comment:count' instance.id "article" %}"
+                      data-load-async-method="get"
+                      data-load-async-response-type="json">
                     <strong class="load-async load-async-content">0</strong>
                     {% csrf_token %}
                 </span> Comentários
