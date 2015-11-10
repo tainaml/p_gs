@@ -9,6 +9,7 @@ from apps.community.models import Community
 class ComplaintType(models.Model):
 
     description = models.TextField(null=False, max_length=256)
+    order = models.IntegerField()
 
 
 class Complaint(models.Model):

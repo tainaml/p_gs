@@ -9,7 +9,7 @@ entity_to_complaint = settings.ENTITY_TO_COMPLAINT if hasattr(settings,
 
 
 def get_type_complaint():
-    complain_type = ComplaintType.objects.all()
+    complain_type = ComplaintType.objects.all().order_by('order')
 
     return complain_type
 

@@ -23,6 +23,13 @@ class ComplaintForm(IdeiaForm):
         result = Business.create_complaint(parameters=self.cleaned_data, user=self.user)
         return result
 
+    def clean_community_complaint(self):
+        list_communities = []
+        communities = self.data.get(u'community_complaint[]')
+        for id in communities:
+            list_communities.push(int(id))
+        return list_communities
+
     def is_valid(self):
 
         valid = super(ComplaintForm, self).is_valid()

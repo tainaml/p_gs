@@ -19,7 +19,7 @@
 <div class="modal fade" data-target="modal" id="modal-denunciar">
     <div class="modal-dialog modal-sm">
         <div class="modal-content">
-            <form id="confirmation-form" method="post" data-group-class=".alert-container" action="{% url 'complaint:report' %}">
+            <form id="confirmation-form" method="post" data-group-class=".alert-container" action="{% url 'complaint:report' article.id %}">
                 {% csrf_token %}
 
                 <input type="hidden" name="content_type" value="{{ content_type }}" />
@@ -48,24 +48,6 @@
                                     {{ community.title }}
                                 </label>
                             {% endfor %}
-                            <label class="form-group custom-input">
-                                <span class="custom-radio">
-                                    <input type="checkbox" value="1" name="community_complaint" class="community_complaint">
-                                </span>
-                                CSS
-                            </label>
-                            <label class="form-group custom-input">
-                                <span class="custom-radio">
-                                    <input type="checkbox" value="2" name="community_complaint" class="community_complaint">
-                                </span>
-                                HTML
-                            </label>
-                            <label class="form-group custom-input">
-                                <span class="custom-radio">
-                                    <input type="checkbox" value="3" name="community_complaint" class="community_complaint">
-                                </span>
-                                Javascript
-                            </label>
                         </div>
                     </div>
                     <button type="submit" class="btn-error btn-block" aria-label="Close">Denunciar</button>
@@ -78,8 +60,9 @@
 
 {% block javascripts %}
 <script>
+    var community_complaint = {{ community_complaint }};
     $('input[type=radio][name=complaint_type]').change(function() {
-        if($('input[type=radio][name=complaint_type]:checked').val() == 5) {
+        if($('input[type=radio][name=complaint_type]:checked').val() == community_complaint) {
             $("#communities").slideDown();
         } else {
             $("#communities").slideUp();
@@ -91,30 +74,33 @@
 
     $("#confirmation-form").on('submit', function(event){
         event.preventDefault();
-
         var complaint_type = $('input[type=radio][name=complaint_type]:checked').val();
         var communities = [];
-        if (complaint_type == 5) {
+        if (complaint_type == community_complaint) {
             $(".community_complaint:checked").each(function() {
                 communities.push($(this).val());
             });
         }
 
+        console.log(communities);
         $.ajax({
-            url: $this.data("url"),
+            url: $("#confirmation-form").data("url"),
             method: "POST",
             dataType: "html",
+            complaint: "{{ article.id }}",
             data: {
-                value_id: $this.val(),
-                csrfmiddlewaretoken: $("input:hidden[name='csrfmiddlewaretoken']").val()
+                object_id: {{ content_object.id }},
+                csrfmiddlewaretoken: $("input:hidden[name='csrfmiddlewaretoken']").val(),
+                community_complaint: communities,
+                complaint_type: complaint_type,
+                content_type:'{{ content_type }}',
             },
             success: function(response) {
-                $($this.data("target")).html(response);
+                $($("#confirmation-form").data("target")).html(response);
+                $('#modal-denunciar').modal('hide');
             }
         });
         return false;
-        // ajax de submissão
-        // No success do Ajax chamar $('#modal-denunciar').modal('hide');
     });
 
 

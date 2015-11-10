@@ -9,6 +9,7 @@ from apps.article.service import business as business_article
 from apps.complaint.service.form import ComplaintForm
 from django.utils.translation import ugettext as _
 from apps.feed.models import FeedObject
+from rede_gsti import settings
 
 
 class ComplaintView(View):
@@ -16,17 +17,21 @@ class ComplaintView(View):
     form_complaint = ComplaintForm
 
     @method_decorator(login_required)
-    def get(self, request):
-        article = business_article.get_article(1)
-        #content_type = ContentType.objects.filter(model="article")
-        #feed_object = FeedObject.objects.filter(article=article,content_type=content_type)
-        #communities = feed_object.article.communities
-        context = {'article': article} #, 'communities':communities}
+    def get(self, request, complaint):
+        article = business_article.get_article(complaint)
+        content_type = ContentType.objects.filter(model="article")
+        feed_object = FeedObject.objects.filter(
+            article=article,
+            content_type=content_type
+        ).first()
+        communities = feed_object.communities.all()
+        context = {'article': article, 'communities': communities}
+
         return render(request, 'complaint/test_complaint.html', context)
 
     @method_decorator(login_required)
-    def post(self, request):
-        article = business_article.get_article(1)
+    def post(self, request, complaint):
+        article = business_article.get_article(complaint)
         context = {'article': article}
         form = self.form_complaint(request.user, request.POST)
         if not form.process():
