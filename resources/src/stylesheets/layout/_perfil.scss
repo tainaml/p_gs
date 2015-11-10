@@ -3,6 +3,8 @@
     padding: 20px;
     margin-top: -1px;
     border: 1px solid $color-border;
+
+    > a > img,
     > img {
         float: left;
         margin-right: 8px;

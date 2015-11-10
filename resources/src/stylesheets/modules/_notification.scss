@@ -54,7 +54,7 @@ $color-counter-notification: #b2b2b2 !default;
 .dropdown-search {
     top: 82% !important;
     left: 2.4%;
-    width: 60%;
+    width: 80%;
     background: #fff;
 }
 
@@ -102,6 +102,10 @@ $color-counter-notification: #b2b2b2 !default;
 
     > i {
         margin: 0 5px;
+    }
+    > .perfil {
+        padding: 0;
+        border: none;
     }
 }
 .visualized {
