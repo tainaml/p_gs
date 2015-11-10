@@ -1,0 +1,16 @@
+{% load social_tags %}
+
+{% if communities %}
+    <div class="widget widget-feed">
+        <div class="widget-header">
+            <header class="area-title">
+                <h3>Comunidades</h3>
+            </header>
+        </div>
+        <div class="widget-content">
+            {% for community in communities %}
+                {% include "article/partials/article-community-segment.html" with community_obj=community %}
+            {% endfor %}
+        </div>
+    </div>
+{% endif %}
