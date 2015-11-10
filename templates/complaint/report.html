@@ -19,7 +19,7 @@
 <div class="modal fade" data-target="modal" id="modal-denunciar">
     <div class="modal-dialog modal-sm">
         <div class="modal-content">
-            <form id="confirmation-form" method="post" data-group-class=".alert-container" action="{% url 'complaint:report' article.id %}">
+            <form id="confirmation-form" method="post" data-group-class=".alert-container" action="{% url 'complaint:report' article.id %}" data-ajaxform="true" data-group-class=".form-group">
                 {% csrf_token %}
 
                 <input type="hidden" name="content_type" value="{{ content_type }}" />
@@ -72,36 +72,26 @@
         }
     });
 
-    $("#confirmation-form").on('submit', function(event){
-        event.preventDefault();
-        var complaint_type = $('input[type=radio][name=complaint_type]:checked').val();
-        var communities = [];
-        if (complaint_type == community_complaint) {
-            $(".community_complaint:checked").each(function() {
-                communities.push($(this).val());
-            });
-        }
+    var functionAjaxSuccessLogin = function(e, data) {
+        $($("#confirmation-form").data("target")).html(response);
+        $('#modal-denunciar').modal('hide');
+    };
+    var functionAjaxErrorLogin = function(e, data) {
+        console.log(data);
+    };
 
-        console.log(communities);
-        $.ajax({
-            url: $("#confirmation-form").data("url"),
-            method: "POST",
-            dataType: "html",
-            complaint: "{{ article.id }}",
-            data: {
-                object_id: {{ content_object.id }},
-                csrfmiddlewaretoken: $("input:hidden[name='csrfmiddlewaretoken']").val(),
-                community_complaint: communities,
-                complaint_type: complaint_type,
-                content_type:'{{ content_type }}',
-            },
-            success: function(response) {
-                $($("#confirmation-form").data("target")).html(response);
-                $('#modal-denunciar').modal('hide');
-            }
-        });
-        return false;
+    $(function() {
+        var $formLogin = $("#confirmation-form");
+        $formLogin.on("ajaxform.success", functionAjaxSuccessLogin);
+        $formLogin.on("ajaxform.error", functionAjaxErrorLogin);
+
+        var $formSuggest = $("#form-suggest");
+        $formSuggest.on("ajaxform.success", functionAjaxSuccessSuggest);
+
+        $("[data-suggest-modal]").on("click", functionOpenSuggestModal);
     });
+
+
 
 
 </script>
