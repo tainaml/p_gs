@@ -4,12 +4,13 @@
 
 // Vendors [Icon fonts and Bootstrap]
 // ==========================================================================
-@import "http://fonts.googleapis.com/css?family=Open+Sans:400,600,700";
 @import "vendor/bootstrap/bootstrap";
+$url: web-fonts-url(("Open Sans": ("500", "600", "700")));
+@import url($url);
 // alterar o arquivo vendor/font-awesome/font-awesome/_path.scss
 @import "vendor/font-awesome/font-awesome";
 @import "vendor/selectize/selectize";
-@import "vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar";
+@import "vendor/perfect-scrollbar/main";
 
 // Site Variables
 // ==========================================================================

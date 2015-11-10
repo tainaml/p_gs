@@ -2,16 +2,17 @@
 
 import 'jscroll'
 import './asyncModules'
-
-require('./vendor/bootstrap/')
-require('./modules/ideiaForm/')
-require('./modules/ideiaAsyncSocialAction/')
-require('./modules/ideiaAutocomplete/')
-require('./modules/ideiaLoadAsync/')
+import './vendor/bootstrap/'
+import './modules/ideiaForm/'
+import './modules/ideiaAsyncSocialAction/'
+import './modules/ideiaAutocomplete/'
+import './modules/ideiaLoadAsync/'
 
 $(() => {
     require('./modules')
-    $('#modal-personal-infos').modal('show');
+    require('perfect-scrollbar/jquery')($);
+
+    $('[data-toggle="custom-scroll"] > .float-notifcations').perfectScrollbar();
 
     // Modals
     $('[data-target=modal]').modal({ show: false });
