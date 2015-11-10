@@ -1,4 +1,4 @@
-(function($){
+;(function($){
 
     $.fn.extend({
 
@@ -28,6 +28,7 @@
                             $target.show();
                             $self.attr('data-autocomplete-response', true);
                             $self.trigger(EVENT_AJAX_SUCCESS, data);
+                            $('[data-toggle="custom-scroll"] > .float-notifcations').perfectScrollbar();
                         },
                         error: function(jqXHR){
                             var data = $.parseJSON(jqXHR.responseText);
@@ -47,6 +48,7 @@
                 },
                 showTyping = function(e){
                     if($self.data('autocompleteResponse') == true && $target.length && $target.is(':hidden')){
+                        $('[data-toggle="custom-scroll"] > .float-notifcations').perfectScrollbar();
                         $target.show();
                     }
                 };

@@ -64,7 +64,8 @@ $color-counter-notification: #b2b2b2 !default;
     background-color: #fff;
 }
 .float-notifcations {
-    overflow-y: scroll;
+    position: relative;
+    overflow: auto;
     max-height: 300px;
     border: 1px solid $color-border;
     box-shadow: 0 3px 5px #595959;

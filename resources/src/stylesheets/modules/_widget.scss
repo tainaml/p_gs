@@ -207,6 +207,11 @@
         box-shadow: 0 2px 3px lighten(#000000, 35%);
     }
 }
+.dropdown-search {
+    .header-float-notifications {
+        background-color: $color-border;
+    }
+}
 
 .open > .dropdown-menu, .dropdown-menu.open {
     display: block;
