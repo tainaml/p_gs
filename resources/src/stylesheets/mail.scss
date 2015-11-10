@@ -5,7 +5,7 @@
 // Make sure the charset is set appropriately
 @charset "UTF-8";
 @import "vendor/bootstrap/mixins/web-fonts";
-$url: web-fonts-url(("Open Sans": ("500", "600", "700")));
+$url: web-fonts-url(("Open Sans": ("400", "600", "700")));
 @import url($url);
 
 // Behold, here are all the Ink components.
