@@ -1,4 +1,5 @@
 {% load thumbor_tags %}
+{% load social_tags %}
 
 <div class="float-notifcations">
     {% if users %}
@@ -15,7 +16,7 @@
                     {% endif %}
                 </a>
                 <a href="{% url 'profile:show' user.get_username %}">{{ user.get_full_name }}</a>
-                <a href="{% url 'profile:show' user.get_username %}" class="perfil-counter">180 Seguidores</a>
+                <a href="{% url 'profile:followers' user.get_username %}" class="perfil-counter">{% followers_count user %} Seguidores</a>
             </div>
         </li>
         {% endfor %}
@@ -38,7 +39,7 @@
                         {% endif %}
                     </a>
                     <a href="{% url 'community:show' community.slug %}">{{ community.title }}</a>
-                    <a href="{% url 'community:show' community.slug %}" class="perfil-counter">180 Seguidores</a>
+                    <a href="{% url 'community:followers' community.slug %}" class="perfil-counter">{% followers_count community %} Seguidores</a>
                 </div>
             </li>
         {% endfor %}
