@@ -19,17 +19,6 @@ class ComplaintForm(IdeiaForm):
         super(ComplaintForm, self).__init__(*args, **kwargs)
         self.user = user
 
-    def __process__(self):
-        result = Business.create_complaint(parameters=self.cleaned_data, user=self.user)
-        return result
-
-    def clean_community_complaint(self):
-        list_communities = []
-        communities = self.data.get(u'community_complaint[]')
-        for id in communities:
-            list_communities.push(int(id))
-        return list_communities
-
     def is_valid(self):
 
         valid = super(ComplaintForm, self).is_valid()
@@ -46,3 +35,7 @@ class ComplaintForm(IdeiaForm):
             valid = False
 
         return valid
+
+    def __process__(self):
+        result = Business.create_complaint(parameters=self.cleaned_data, user=self.user)
+        return result

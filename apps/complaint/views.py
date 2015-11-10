@@ -31,9 +31,13 @@ class ComplaintView(View):
 
     @method_decorator(login_required)
     def post(self, request, complaint):
+
+        post = request.POST.copy()
+        post['community_complaint'] = request.POST[u'community_complaint[]']
+
         article = business_article.get_article(complaint)
         context = {'article': article}
-        form = self.form_complaint(request.user, request.POST)
+        form = self.form_complaint(request.user, post)
         if not form.process():
             messages.add_message(request, messages.WARNING, _("Complaint not created!"))
         else:
