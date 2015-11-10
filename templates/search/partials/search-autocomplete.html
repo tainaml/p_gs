@@ -31,7 +31,7 @@
         {% for community in communities %}
             <li class="item-float-notification">
                 <div class="perfil">
-                    <a href="{% url 'community:show' community.slug %};">
+                    <a href="{% url 'community:show' community.slug %}">
                         {% if community.get_picture %}
                             <img src="{% thumbor_url community.get_picture.url width=50 height=50 smart=False fit_in=False %}" width="50" height="50" alt="Foto de {{ community.title }}">
                         {% else %}
