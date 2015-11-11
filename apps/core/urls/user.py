@@ -30,6 +30,13 @@ urlpatterns = [
     url(r'^list/(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/$', CoreUserProfileView.CoreUserList.as_view(), name='list'),
     url(r'^list_articles/(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/$', CoreUserProfileView.CoreUserList.as_view(), name='list_articles'),
 
+    url(r'^ver-depois/$', CoreUserProfileView.SocialActionSeeLater.as_view(), name='see_later'),
+    url(r'^remover-ver-depois/$', CoreUserProfileView.SocialActionRemoveSeeLater.as_view(), name='remove_see_later'),
+    url(r'^favoritos/$', CoreUserProfileView.SocialActionFavourite.as_view(), name='favourite'),
+    url(r'^desfavoritar/$', CoreUserProfileView.SocialActionRemoveFavourite.as_view(), name='unfavourite'),
+    url(r'^sugestoes/$', CoreUserProfileView.SocialActionSuggest.as_view(), name='suggest'),
+    url(r'^remover-sugestao/$', CoreUserProfileView.SocialActionRemoveSuggest.as_view(), name='unsuggest'),
+
     url(r'^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/$', CoreUserProfileView.CoreUserProfile.as_view(), name='show'),
     # url(r'^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/$', views.ProfileShowView.as_view(), name='show'),
 
@@ -45,10 +52,9 @@ urlpatterns = [
     url(r'^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/communities/$', views.ProfileCommunitiesView.as_view(), name='communities'),
     url(r'^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/communities/load/ajax/$', CoreUserProfileView.CoreProfileCommunitiesLoadAjax.as_view(), name='communities-load-ajax'),
 
-
-    url(r'^ajax/user/communities/$', CoreUserProfileView.CoreUserCommunitiesListAjax.as_view(), name='user-communities-ajax'),
-
     url(r'^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/videos/$', CoreUserProfileView.CoreProfileVideosView.as_view(), name='videos'),
     url(r'^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/videos/search/$', CoreUserProfileView.CoreProfileVideosSearch.as_view(), name='videos-search'),
     url(r'^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/videos/search/list/$', CoreUserProfileView.CoreProfileVideosList.as_view(), name='videos-search-list'),
+
+    url(r'^ajax/user/communities/$', CoreUserProfileView.CoreUserCommunitiesListAjax.as_view(), name='user-communities-ajax'),
 ]
