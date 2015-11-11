@@ -1,6 +1,7 @@
 .post-container {
     @include make-lg-column-offset(1);
     @include make-lg-column(8);
+    padding-bottom: 80px;
 }
 .full-post {
     padding: 20px;
