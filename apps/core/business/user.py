@@ -71,10 +71,11 @@ def get_articles_from_user(profile_instance=None, description=None, content_type
     feed_objects = FeedObject.objects.filter(
         Q(content_type=content_type) &
         Q(article__author=profile_instance.user) &
+        Q(article__status=Article.STATUS_PUBLISH) &
         (
             Q(article__title__icontains=description)|
             Q(article__text__icontains=description)
-        ) & Q(article__status=Article.STATUS_PUBLISH)
+        )
     ).order_by(
         "-date"
     ).prefetch_related(
@@ -84,7 +85,6 @@ def get_articles_from_user(profile_instance=None, description=None, content_type
         "date"
     )
 
-    feed_objects_paginated = feed_objects
     items_per_page = items_per_page if items_per_page else 10
     page = page if page else 1
 

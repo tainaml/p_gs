@@ -50,6 +50,7 @@ class UserProfile(models.Model):
     gender = models.CharField(max_length=1, null=True, blank=True)
     city = models.ForeignKey(City, null=True, blank=True)
     profile_picture = models.ImageField(max_length=100, upload_to='userprofile/%Y/%m/%d', blank=True, default='')
+    contributor = models.BooleanField(null=False, blank=False, default=False)
     wizard_step = models.IntegerField(null=False, blank=False, default=0)
 
     def __unicode__(self):
@@ -106,6 +107,9 @@ class UserProfile(models.Model):
 
     def get_profile_picture(self):
         return self.profile_picture if self.profile_picture else None
+
+    def isContributor(self):
+        return self.contributor
 
 
 class Responsibility(models.Model):

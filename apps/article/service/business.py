@@ -36,7 +36,7 @@ def delete_article(article):
 
 def count_articles(author):
     try:
-        count = Article.objects.filter(author=author).count()
+        count = Article.objects.filter(author=author, status=Article.STATUS_PUBLISH).count()
     except:
         return 0
 
