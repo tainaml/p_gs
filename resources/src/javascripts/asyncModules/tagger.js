@@ -6,7 +6,7 @@ require('selectize')
 const [suggest] = [{
   plugins: ['remove_button']
   , maxItems: 5
-  , valueField: 'url'
+  , valueField: 'id'
   , labelField: 'name'
   , searchField: 'name'
   , create: false
@@ -15,10 +15,6 @@ const [suggest] = [{
     , option: templateOption
   }
   , load: loadUsers
-}, {
-
-
-
 }]
 
 var tagger = (element) => {
@@ -30,17 +26,13 @@ var tagger = (element) => {
 }
 
 function templateItem (item, escape) {
-  console.log('ITEM');
-  console.dir(this);
   let name = item.name ? escape(item.name) : ''
   return `<div>${name}</div>`
 }
 function templateOption (item, escape) {
-  console.log('OPTION');
-  console.dir(this.$input);
   let name = item.name ? escape(item.name) : ''
   return `<div class="item-float-notification">
-    <span><img src="http://placehold.it/20" alt="${name}"></span>
+    <span><img src="${item.img}" alt="${name}"></span>
     <span>${name}</span>
   </div>`
 }
