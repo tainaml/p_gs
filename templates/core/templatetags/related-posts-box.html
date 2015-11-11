@@ -1,7 +1,14 @@
-{% for feed_record in feed_records %}
-    {% if feed_record.content_object %}
-
-        {% include template_path with record=feed_record.content_object %}
-
-    {% endif %}
-{% endfor %}
+{% if feed_records %}
+<div class="widget widget-feed">
+    <div class="widget-header">
+        <header class="area-title">
+            <h3>Artigos Relacionados</h3>
+        </header>
+    </div>
+    <div class="widget-content">
+        {% for feed_record in feed_records %}
+            {% include template_path with record=feed_record.content_object %}
+        {% endfor %}
+    </div>
+</div>
+{% endif %}

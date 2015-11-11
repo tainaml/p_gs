@@ -13,15 +13,11 @@
         {% csrf_token %}
     </div>
 
-
-    <div class="widget widget-feed">
-        <div class="widget-header">
-            <header class="area-title">
-                <h3>Artigos Relacionados</h3>
-            </header>
+    <!-- Artigos Relacionados -->
+    <div id="load-related-posts" data-load-async="true" data-load-async-url="{% url 'core:related-posts' article.id "article" "article" 4 %}" data-load-async-url-next="{{ request.path }}" data-load-async-method="post" data-load-async-response-type="json">
+        <div class="load-async load-async-content">
+            Carregando...
         </div>
-        <div class="widget-content">
-            {% related_posts_box article "article" %}
-        </div>
+        {% csrf_token %}
     </div>
 </div>
