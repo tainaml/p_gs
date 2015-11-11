@@ -20,4 +20,4 @@ class Complaint(models.Model):
     content_object = GenericForeignKey('content_type', 'object_id')
     author = models.ForeignKey(settings.AUTH_USER_MODEL)
     creation_date = models.DateTimeField(auto_now_add=timezone.now())
-    communities = models.ManyToManyField(Community, null=True)
+    communities = models.ManyToManyField(Community)
