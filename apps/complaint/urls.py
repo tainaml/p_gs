@@ -3,5 +3,5 @@ from . import views
 from . import views
 
 urlpatterns = [
-    url(r'', views.ComplaintView.as_view(), name='report'),
+    url(r'^(?P<complaint>\w{0,50})/$', views.ComplaintView.as_view(), name='report')
 ]

@@ -133,6 +133,9 @@ MAX_LEVELS = 2
 
 ENTITY_TO_COMPLAINT = ['article', 'question']
 
+# Complaint config
+COMPLAINT_COMMUNITY = 10
+
 # Social config
 SOCIAL_LIKE = 1
 SOCIAL_UNLIKE = 2

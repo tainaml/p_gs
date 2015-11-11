@@ -1,14 +1,18 @@
 .container-comments {margin-top: 20px; }
 .comments-container-child {
     width: 100%;
+    padding-bottom: 20px;
     padding-left: 80px;
     margin-top: 20px;
+    margin-bottom: 20px;
     float: left;
+    border-bottom: 1px solid $color-border;
 }
 .comment {
     @extend %clearfix;
     padding-top: 20px;
     > .post-footer {
+        padding-top: 0;
         padding-bottom: 10px;
         border-bottom: 1px solid $color-border;
     }
@@ -29,9 +33,22 @@
             margin-bottom: 5px;
         }
         > i,
-        > div > a > i { font-size: 30px; }
+        > div > a > i {
+            color: #4d6479;
+            font-size: 30px;
+        }
+        > div > hr {
+            margin-top: 0;
+            margin-bottom: 0;
+        }
     }
-    &-body { position: relative; }
+    &-body {
+        // position: relative;
+        .post-creator {
+            font-weight: 600;
+            font-size: 1.5em;
+        }
+    }
 }
 
 //

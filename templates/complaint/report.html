@@ -1,33 +1,92 @@
+{%extends 'home/layout/base.html' %}
+
 {% load i18n %}
-<h1>{% trans 'Complaint' %}</h1>
+{% load widget_tweaks %}
+
+{% block title %}Portal GSTI - Criar Pergunta{% endblock %}
+
+{% block content %}
+{% if messages %}
+    <ul class="messages">
+    {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+    </ul>
+{% endif %}
 
 {{ form.non_field_errors }}
-<form action="{% url 'complaint:report' %}" method="post">
-    {% if messages %}
-        <ul class="messages">
-            {% for message in messages %}
-                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-            {% endfor %}
-        </ul>
-    {% endif %}
 
-    {% csrf_token %}
+<div class="modal fade" data-target="modal" id="modal-denunciar">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <form id="confirmation-form" method="post" data-group-class=".alert-container" action="{% url 'complaint:report' content_object.id %}" data-ajaxform="true" data-group-class=".form-group">
+                {% csrf_token %}
 
-    <input type="hidden" name="content_type" value="{{ content_type }}" />
-    <input type="hidden" name="object_id" value="{{ content_object.id }}" />
+                <input type="hidden" name="content_type" value="{{ content_type }}" />
+                <input type="hidden" name="object_id" value="{{ content_object.id }}" />
 
-    <div><textarea name="description" id="description" placeholder="{% trans "Message" %}"></textarea>
-    {% if form.description.errors %}<span class="help-block">{{ form.description.errors }}</span> {% endif %}</div>
-
-    <select name="complaint_type" id="complaint_type">
-        <option value="0">{% trans "Select" %}</option>
-        {% for type in type_complaint %}
-        <option value="{{ type.id }}">{%  trans type.description %}</option>
-        {% endfor %}
-    </select>
-    {% if form.type_complaint.errors %}<span class="help-block">{{ form.type_complaint.errors }}</span> {% endif %}
-
-    <div>
-        <input type="submit" value="{% trans 'submit' %}">
+                <div class="modal-header">
+                    <span class="pull-right close" data-dismiss="modal" aria-label="Close"><span class="gsticon gsticon-close"></span></span>
+                    <h4 class="modal-title">Denunciar publicação</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-form clearfix">
+                        {% for type in type_complaint %}
+                            <label class="form-group custom-input">
+                                <span class="custom-radio">
+                                    <input type="radio" name="complaint_type" class="complaint_type" value="{{ type.id }}" />
+                                </span>
+                                {%  trans type.description %}
+                            </label>
+                        {% endfor %}
+                        <div class="childs-radios" style="display:none" id="communities">
+                            {% for community in communities %}
+                                <label class="form-group custom-input">
+                                    <span class="custom-radio">
+                                        <input type="checkbox" value="{{ community.id }}" name="community_complaint" class="community_complaint" />
+                                    </span>
+                                    {{ community.title }}
+                                </label>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <button type="submit" class="btn-error btn-block" aria-label="Close">Denunciar</button>
+                </div>
+            </form>
+        </div>
     </div>
-</form>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+<script>
+    var community_complaint = {{ community_complaint }};
+    $('input[type=radio][name=complaint_type]').change(function() {
+        if($('input[type=radio][name=complaint_type]:checked').val() == community_complaint) {
+            $("#communities").slideDown();
+        } else {
+            $("#communities").slideUp();
+            $(".community_complaint:checked").each(function() {
+                $(".community_complaint").prop("checked", false);
+            });
+        }
+    });
+
+    var functionAjaxSuccess = function(e, data) {
+        $('#modal-denunciar').modal('hide');
+    };
+    var functionAjaxError = function(e, data) {
+        $('#modal-denunciar').modal('hide');
+    };
+
+    $(function() {
+        var $formLogin = $("#confirmation-form");
+        $formLogin.on("ajaxform.success", functionAjaxSuccess);
+        $formLogin.on("ajaxform.error", functionAjaxError);
+    });
+
+
+
+
+</script>
+{% endblock %}

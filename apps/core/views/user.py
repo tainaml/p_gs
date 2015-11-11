@@ -1,24 +1,24 @@
 from django.contrib.contenttypes.models import ContentType
-from django.core import serializers
-from django.db.models import Q
-from django.http import JsonResponse
-from django.contrib.contenttypes.models import ContentType
-from django.shortcuts import render
-from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse, Http404
 from django.utils.decorators import method_decorator
 from django.views.generic import View
-from apps.community.models import Community
+from django.shortcuts import render
+from django_thumbor import generate_url
+from django.contrib.auth.decorators import login_required
+from django.utils.translation import gettext as _
 
-from apps.core.forms.user import CoreUserProfileForm, CoreUserProfileFullEditForm, CoreSearchFollowings, CoreSearchFollowers, CoreSearchArticlesForm, \
-    CoreSearchVideosForm
+from apps.community.models import Community
+from apps.core.forms.user import CoreUserProfileForm, CoreUserProfileFullEditForm, CoreSearchFollowers, CoreSearchArticlesForm, CoreSearchVideosForm
 from apps.core.forms.community import CoreCommunityFormSearch
 from apps.core.forms.user import CoreUserSearchForm, CoreUserProfileEditForm
-from apps.socialactions.models import UserAction
 from apps.article.models import Article
 from apps.userprofile import views
 from apps.userprofile.service import business as BusinessUserprofile
 from apps.taxonomy.service import business as BusinessTaxonomy
 from apps.socialactions.service import business as BusinessSocialActions
+from apps.core.business import socialactions as Business
+from apps.core.forms.user import CoreSearchFollowings
+from apps.socialactions.localexceptions import NotFoundSocialSettings
 from rede_gsti import settings
 
 
@@ -575,8 +575,6 @@ class CoreProfileSearchEditPostsList(CoreProfileSearchEditPosts):
     template_path = "userprofile/partials/profile-edit-posts-segment.html"
 
 
-
-
 class CoreProfileVideosSearch(views.ProfileBaseView):
 
     template_path = "userprofile/profile-videos.html"
@@ -622,6 +620,7 @@ class CoreProfileVideosList(CoreProfileVideosSearch):
 
     template_path = "userprofile/partials/profile-videos-list.html"
 
+
 class CoreUserCommunitiesListAjax(View):
 
     @method_decorator(login_required)
@@ -651,3 +650,202 @@ class CoreUserCommunitiesListAjax(View):
             communities.append(community)
 
         return JsonResponse(communities, status=200, safe=False)
+
+
+class CoreProfileSocialActionsBase(View):
+
+    template_path = ""
+
+    def return_error(self, request, context=None):
+        if request.is_ajax():
+            return JsonResponse({'error': context.get('msg')}, status=400)
+        raise Http404(context.get('msg'))
+
+    def return_success(self, request, context=None):
+        if request.is_ajax():
+            _context = {
+                'template': render(request, self.template_path, context).content
+            }
+            return JsonResponse(_context, status=200)
+
+        return render(request, self.template_path, context)
+
+
+class SocialActionSeeLater(CoreProfileSocialActionsBase):
+    template_path = 'socialactions/see-later.html'
+
+    @method_decorator(login_required)
+    def get(self, request):
+
+        criteria = None
+        if 'criteria' in request.GET:
+            criteria = str(request.GET['criteria'])
+            self.template_path = 'socialactions/partials/see-later.html'
+
+        try:
+            content = Business.get_see_later_content(request.user, criteria)
+
+        except NotFoundSocialSettings:
+            context = {
+                'status': 400,
+                'msg': _('SocialAction not Found.'),
+            }
+            return self.return_error(request, context)
+
+        context = {
+            'articles': content,
+            'url_next': request.GET['next'] if 'next' in request.GET else '',
+            'page': (content.number if content and content.number else 0) + 1,
+            'criteria': self.template_path,
+            'profile': request.user.profile
+        }
+
+        return self.return_success(request, context)
+
+
+class SocialActionRemoveSeeLater(CoreProfileSocialActionsBase):
+    template_path = 'socialactions/see-later.html'
+
+    @method_decorator(login_required)
+    def post(self, request):
+
+        itens_to_remove = request.POST.getlist(u'itens_to_remove[]')
+        try:
+            content = Business.remove_see_later_content(user=request.user, itens_to_remove=itens_to_remove)
+
+        except NotFoundSocialSettings:
+            context = {
+                'status': 400,
+                'msg': _('SocialAction not Found.'),
+            }
+            return self.return_error(request, context)
+
+        context = {
+            'articles': content,
+            'url_next': request.GET['next'] if 'next' in request.GET else '',
+            'page': (content.page if content.page and content.page else 0) + 1,
+            'criteria': self.template_path,
+            'profile': request.user.profile
+        }
+
+        return self.return_success(request, context)
+
+
+class SocialActionFavourite(CoreProfileSocialActionsBase):
+    template_path = 'socialactions/favourite.html'
+
+    @method_decorator(login_required)
+    def get(self, request):
+
+        criteria = None
+        if 'criteria' in request.GET:
+            criteria = str(request.GET['criteria'])
+            self.template_path = 'socialactions/partials/favourite.html'
+
+        try:
+            content = Business.get_favourite_content(request.user, criteria)
+
+        except NotFoundSocialSettings:
+            context = {
+                'status': 400,
+                'msg': _('SocialAction not Found.'),
+            }
+            return self.return_error(request, context)
+
+        context = {
+            'articles': content,
+            'url_next': request.GET['next'] if 'next' in request.GET else '',
+            'page': (content.number if content and content.number else 0) + 1,
+            'criteria': self.template_path,
+            'profile': request.user.profile
+        }
+
+        return self.return_success(request, context)
+
+
+class SocialActionRemoveFavourite(CoreProfileSocialActionsBase):
+    template_path = 'socialactions/favourite.html'
+
+    @method_decorator(login_required)
+    def post(self, request):
+
+        itens_to_remove = request.POST.getlist(u'itens_to_remove[]')
+        try:
+            content = Business.remove_favourite_content(user=request.user, itens_to_remove=itens_to_remove)
+
+        except NotFoundSocialSettings:
+            context = {
+                'status': 400,
+                'msg': _('SocialAction not Found.'),
+            }
+            return self.return_error(request, context)
+
+        context = {
+            'articles': content,
+            'url_next': request.GET['next'] if 'next' in request.GET else '',
+            'page': (itens_to_remove.page if itens_to_remove and itens_to_remove.page else 0) + 1,
+            'criteria': self.template_path,
+            'profile': request.user.profile
+        }
+
+        return self.return_success(request, context)
+
+
+class SocialActionSuggest(CoreProfileSocialActionsBase):
+    template_path = 'socialactions/suggest.html'
+
+    @method_decorator(login_required)
+    def get(self, request):
+
+        criteria = None
+        if 'criteria' in request.GET:
+            criteria = str(request.GET['criteria'])
+            self.template_path = 'socialactions/partials/suggest.html'
+
+        try:
+            content = Business.get_suggest_content(request.user, criteria)
+
+        except NotFoundSocialSettings:
+            context = {
+                'status': 400,
+                'msg': _('SocialAction not Found.'),
+            }
+            return self.return_error(request, context)
+
+        context = {
+            'articles': content,
+            'url_next': request.GET['next'] if 'next' in request.GET else '',
+            'page': (content.number if content and content.number else 0) + 1,
+            'criteria': self.template_path,
+            'profile': request.user.profile
+        }
+
+        return self.return_success(request, context)
+
+
+class SocialActionRemoveSuggest(CoreProfileSocialActionsBase):
+    template_path = 'socialactions/partials/suggest.html'
+
+    @method_decorator(login_required)
+    def post(self, request):
+
+        itens_to_remove = request.POST.getlist(u'itens_to_remove[]')
+        try:
+            content = Business.remove_suggest_content(user=request.user, itens_to_remove=itens_to_remove)
+
+        except NotFoundSocialSettings:
+            context = {
+                'status': 400,
+                'msg': _('SocialAction not Found.')
+            }
+            return self.return_error(request, context)
+
+        context = {
+            'articles': content,
+            'url_next': request.POST['next'] if 'next' in request.POST else '',
+            'page': (itens_to_remove.page if itens_to_remove and itens_to_remove.page else 0) + 1,
+            'criteria': self.template_path,
+            'profile': request.user.profile
+        }
+
+        return self.return_success(request, context)

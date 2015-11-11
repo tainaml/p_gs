@@ -1,5 +1,6 @@
 from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import ValidationError
+from apps.community.models import Community
 from custom_forms.custom import forms, IdeiaForm
 import business as Business
 from django.conf import settings
@@ -8,17 +9,15 @@ entity_to_complaint = settings.ENTITY_TO_COMPLAINT if hasattr(settings, 'ENTITY_
 
 
 class ComplaintForm(IdeiaForm):
-    description = forms.CharField(max_length=512, required=True)
+    description = forms.CharField(max_length=512, required=False)
     complaint_type = forms.ModelChoiceField(queryset=Business.get_type_complaint(), required=True)
     content_type = forms.CharField(max_length=20, required=True)
     object_id = forms.IntegerField(required=True)
+    community_complaint = forms.ModelMultipleChoiceField(queryset=Community.objects.all(), required=False)
 
-    def __init__(self, user=None, *args, **kargs):
-        super(ComplaintForm, self).__init__(*args, **kargs)
+    def __init__(self, user=None, *args, **kwargs):
+        super(ComplaintForm, self).__init__(*args, **kwargs)
         self.user = user
-
-    def __process__(self):
-        return Business.create_complaint(parameters=self.cleaned_data, user=self.user)
 
     def is_valid(self):
 
@@ -36,3 +35,7 @@ class ComplaintForm(IdeiaForm):
             valid = False
 
         return valid
+
+    def __process__(self):
+        result = Business.create_complaint(parameters=self.cleaned_data, user=self.user)
+        return result

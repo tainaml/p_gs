@@ -110,6 +110,9 @@
                 </div>
             </nav>
         </footer>
+
+        {% include 'home/partials/modals/modal-login.html' %}
+
         <div id="fb-root"></div>
         <!-- Place this tag after the last widget tag. -->
         <script type="text/javascript">;(function(d, s, id) {
@@ -119,5 +122,21 @@
           js.src = "//connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v2.4&appId=625566967570537";
           fjs.parentNode.insertBefore(js, fjs);
         }(document, 'script', 'facebook-jssdk'));</script>
+        <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+        <script src="{% static 'javascripts/shared.js'%}"></script>
+        <script src="{% static 'javascripts/main.js'%}"></script>
+        <script type="text/javascript">
+            var functionAjaxSuccessLogin = function(e, data) {
+                window.location.href = data.url_next;
+            };
+
+            $(function() {
+                var $formLogin = $("#form-login");
+                $formLogin.on("ajaxform.success", functionAjaxSuccessLogin);
+                $formLogin.on("ajaxform.error", functionAjaxErrorLogin);
+
+                var $formSuggest = $("#form-suggest");
+            });
+        </script>
     </body>
 </html>
