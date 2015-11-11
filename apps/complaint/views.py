@@ -1,5 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.contenttypes.models import ContentType
+from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.utils.decorators import method_decorator
 from django.views.generic import View
@@ -35,10 +36,10 @@ class ComplaintView(View):
         article = business_article.get_article(complaint)
         context = {'article': article}
         form = self.form_complaint(request.user, request.POST)
-        if not form.process():
+        result = form.process()
+        if not result:
             messages.add_message(request, messages.WARNING, _("Complaint not created!"))
+            return JsonResponse({}, status=400)
         else:
             messages.add_message(request, messages.SUCCESS, _("Complaint created successfully!"))
-            return redirect(reverse('question:show', args=(form.instance.id,)))
-
-        return render(request, 'complaint/test_complaint.html', context)
+            return JsonResponse({}, status=200)

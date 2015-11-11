@@ -19,7 +19,7 @@
 <div class="modal fade" data-target="modal" id="modal-denunciar">
     <div class="modal-dialog modal-sm">
         <div class="modal-content">
-            <form id="confirmation-form" method="post" data-group-class=".alert-container" action="{% url 'complaint:report' article.id %}" data-ajaxform="true" data-group-class=".form-group">
+            <form id="confirmation-form" method="post" data-group-class=".alert-container" action="{% url 'complaint:report' content_object.id %}" data-ajaxform="true" data-group-class=".form-group">
                 {% csrf_token %}
 
                 <input type="hidden" name="content_type" value="{{ content_type }}" />
@@ -72,23 +72,17 @@
         }
     });
 
-    var functionAjaxSuccessLogin = function(e, data) {
-        $($("#confirmation-form").data("target")).html(response);
+    var functionAjaxSuccess = function(e, data) {
         $('#modal-denunciar').modal('hide');
     };
-    var functionAjaxErrorLogin = function(e, data) {
-        console.log(data);
+    var functionAjaxError = function(e, data) {
+        $('#modal-denunciar').modal('hide');
     };
 
     $(function() {
         var $formLogin = $("#confirmation-form");
-        $formLogin.on("ajaxform.success", functionAjaxSuccessLogin);
-        $formLogin.on("ajaxform.error", functionAjaxErrorLogin);
-
-        var $formSuggest = $("#form-suggest");
-        $formSuggest.on("ajaxform.success", functionAjaxSuccessSuggest);
-
-        $("[data-suggest-modal]").on("click", functionOpenSuggestModal);
+        $formLogin.on("ajaxform.success", functionAjaxSuccess);
+        $formLogin.on("ajaxform.error", functionAjaxError);
     });
 
 
