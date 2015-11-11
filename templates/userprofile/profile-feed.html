@@ -180,6 +180,12 @@
                 contentSelect: ".j-scroll-container",
                 nextSelect: "a[data-jscroll-next]"
             });
+
+            {% if request.user and request.user.profile and request.user.profile.wizard_step < 1 %}
+                $("#modal-personal-infos").modal("show");
+            {% elif request.user and request.user.profile and request.user.profile.wizard_step < 3 %}
+                $("#modal-categories").modal("show");
+            {% endif %}
         });
 
 
