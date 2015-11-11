@@ -1,7 +1,6 @@
 from django.contrib.auth.models import User
 from django.contrib.contenttypes.models import ContentType
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
-from django.utils import timezone
 from apps.article.models import Article
 from apps.core.models.embed import EmbedItem
 from apps.feed.models import FeedObject
@@ -75,7 +74,7 @@ def get_articles_from_user(profile_instance=None, description=None, content_type
         (
             Q(article__title__icontains=description)|
             Q(article__text__icontains=description)
-        )
+        ) & Q(article__status=Article.STATUS_PUBLISH)
     ).order_by(
         "-date"
     ).prefetch_related(
