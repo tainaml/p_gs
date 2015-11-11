@@ -41,4 +41,6 @@ urlpatterns = [
     url(r'^complaint/', include('apps.complaint.urls', namespace='complaint')),
     url(r'^', include('apps.core.urls.search', namespace='search')),
 
+
+
 ] + url_statics + url_media

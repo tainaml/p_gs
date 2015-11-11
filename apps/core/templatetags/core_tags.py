@@ -4,12 +4,12 @@ from django import template
 from django.contrib.contenttypes.models import ContentType
 from django.db.models import Q
 from django.http import Http404
-from apps.taxonomy.service import business as TaxonomiesBusiness
 from django.utils import timezone
-
+from django.core.cache import cache
+from django.utils.text import slugify
 from apps.article.models import Article
 from apps.feed.models import FeedObject
-
+from apps.taxonomy.models import Taxonomy
 
 register = template.Library()
 
@@ -114,8 +114,28 @@ def related_posts_box(context, instance, post_type=None, count=4, template_path=
         'template_path': template_path
     }
 
+@register.inclusion_tag("core/templatetags/footer.html")
+def footer():
+    footer = cache.get("footer")
+    if not footer:
+        cache.set("footer", {}, None)
+        footer = cache.get("footer")
 
 
+        categories = Taxonomy.objects.filter(term__description="Categoria")
+        taxonomies = Taxonomy.objects.filter(parent=categories).order_by("description")
+
+        for taxonomy in taxonomies:
+            slug = slugify(taxonomy.parent.description).replace("-", "_")
+            if slug not in footer.keys():
+                footer[slug] = []
+
+            footer[slug].append(taxonomy.community_related)
+
+
+    return {
+        'footer': footer
+    }
 
 
 

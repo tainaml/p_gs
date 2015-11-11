@@ -17,6 +17,9 @@ apt-get install -y gettext
 # Postgresql
 apt-get install -y libpq-dev
 
+#Memcached
+sudo apt-get install memcached
+
 
 sudo apt-get autoremove
 

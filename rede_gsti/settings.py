@@ -308,3 +308,11 @@ SOCIAL_AUTH_PIPELINE = (
     'social.pipeline.user.user_details',
     'social.pipeline.debug.debug'
 )
+
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+        'LOCATION': '127.0.0.1:11211',
+    }
+}

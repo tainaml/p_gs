@@ -41,6 +41,9 @@ class ArticleView(ArticleBaseView):
 
     template_name = 'article/single.html'
 
+    # def dispatch(self, request, *args, **kwargs):
+    #     return super(ArticleView, self).dispatch(*args, **kwargs)
+
     def get(self, request, article_slug, article_id):
         article = self.filter_article(request, article_id)
         if not str(article.slug) == str(article_slug):
