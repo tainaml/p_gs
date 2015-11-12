@@ -21,7 +21,7 @@ def require_email(strategy, details, user=None, is_new=False, *args, **kwargs):
 @partial
 def validate_username(**kwargs):
     username = kwargs.get('username')
-    users = len(User.objects.filter(username=username)>0)
+    users = len(User.objects.filter(username=username))
     if username and users > 0:
         kwargs['username'] = username+str(users+1)
 
