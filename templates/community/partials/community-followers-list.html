@@ -1,0 +1,23 @@
+{% load social_tags %}
+{% load thumbor_tags %}
+
+{% if followers %}
+    {% for follower in followers %}
+        <div class="box-perfil">
+            <div class="perfil">
+                <img class="img-responsive" src="{% thumbor_url follower.author.profile.get_profile_picture.url width=82 height=82 smart=False fit_in=False %}" alt="{{ follower.author.get_full_name }}">
+                <a class="perfil-name" href="{% url 'profile:show' follower.author.username %}">{{ follower.author.get_full_name }}</a>
+                <a class="perfil-counter" href="{% url 'profile:followers' username=follower.author.username %}"><span class="counter-number">{% followers_count follower.author %}</span> Seguidores</a>
+                {% follow_action follower.author url_next %}
+            </div>
+        </div>
+    {% endfor %}
+    <a data-jscroll-next href="{% url 'community:search-followers-list' %}?page={{ form.cleaned_data.page|default:2 }}&criteria={{ form.cleaned_data.criteria|default:'' }}&state={{ form.cleaned_data.state.id|default:'' }}&city={{ form.cleaned_data.city.id|default:'' }}&next={{ url_next|urlencode }}">next</a>
+{% else %}
+    {% if followers.number == 1 %}
+        <div class="col-lg-12">
+            <p>Nenhum resultado para sua busca.</p>
+            <hr>
+        </div>
+    {% endif %}
+{% endif %}

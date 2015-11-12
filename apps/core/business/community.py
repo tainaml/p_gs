@@ -6,6 +6,9 @@ from apps.article.models import Article
 from apps.community.models import Community
 from apps.core.models.embed import EmbedItem
 from apps.feed.models import FeedObject
+from apps.socialactions.models import UserAction
+from apps.socialactions.service import business as BusinessSocialActions
+from rede_gsti import settings
 
 __author__ = 'phillip'
 
@@ -184,3 +187,48 @@ def get_random_communities_by_article_or_question(object_id=None, content_type=N
     communities = feed.communities.all().order_by('?')
 
     return communities
+
+
+def get_followers(data=None, items_per_page=None, page=None, startswith=None):
+
+    community = data.get('community')
+    content_type = ContentType.objects.get_for_model(community)
+
+    criteria = (
+        Q(content_type=content_type) &
+        Q(object_id=community.id) &
+        Q(action_type=settings.SOCIAL_FOLLOW)
+    )
+
+    if data.get('criteria'):
+        criteria = criteria & (
+            (
+                Q(author__first_name__icontains=data.get('criteria')) |
+                Q(author__last_name__icontains=data.get('criteria'))
+            )
+        )
+
+    if data.get('state'):
+        criteria = criteria & (Q(author__profile__city__state=data.get('state')))
+
+    if data.get('city'):
+        criteria = criteria & (Q(author__profile__city=data.get('city')))
+
+    try:
+        followers = UserAction.objects.filter(criteria)
+    except ValueError:
+        return False
+
+    items_per_page = items_per_page if items_per_page else 9
+    page = page if page else 1
+
+    if items_per_page and page:
+        followers = Paginator(followers, items_per_page)
+        try:
+            followers = followers.page(page)
+        except PageNotAnInteger:
+            followers = followers.page(1)
+        except EmptyPage:
+            followers = []
+
+    return followers

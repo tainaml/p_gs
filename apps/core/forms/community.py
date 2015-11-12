@@ -1,4 +1,6 @@
+from apps.community.models import Community
 from apps.taxonomy.models import Taxonomy
+from apps.userprofile.models import State, City
 from custom_forms.custom import IdeiaForm, forms
 from ..business import community as Business
 
@@ -115,4 +117,36 @@ class CoreCommunitySearchVideosForm(IdeiaForm):
             self.cleaned_data.get('criteria'),
             self.items_per_page,
             self.cleaned_data.get('page', 1)
+        )
+
+
+class CoreCommunityFollowersForm(IdeiaForm):
+
+    community = forms.ModelChoiceField(queryset=Community.objects.all(), required=True)
+    criteria = forms.CharField(required=False)
+    state = forms.ModelChoiceField(queryset=State.objects.filter(country=1), required=False)
+    city = forms.ModelChoiceField(queryset='', required=False)
+    page = forms.IntegerField(required=False)
+
+    def __init__(self, startswith=False, items_per_page=None, *args, **kwargs):
+        self.startswith = startswith
+        self.items_per_page = items_per_page
+
+        super(CoreCommunityFollowersForm, self).__init__(*args, **kwargs)
+
+        if self.data and 'state' in self.data and self.data.get('state'):
+            self.fields['city'].queryset = City.objects.filter(state=self.data['state'])
+
+    def clean(self):
+        cleaned_data = super(CoreCommunityFollowersForm, self).clean()
+        cleaned_data['page'] = cleaned_data['page'] if 'page' in cleaned_data and cleaned_data['page'] else 1
+
+        return cleaned_data
+
+    def __process__(self):
+        return Business.get_followers(
+            self.cleaned_data,
+            self.items_per_page,
+            self.cleaned_data.get('page'),
+            self.startswith
         )
