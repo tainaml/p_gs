@@ -176,7 +176,7 @@ def suggest_post(author, object_to_link, content, to_user):
             user = User.objects.get(id=id_user)
 
             if user:
-                UserAction.objects.get_or_create(
+                user_action, created = UserAction.objects.get_or_create(
                     author=author,
                     content_type=content_type,
                     object_id=article.id,

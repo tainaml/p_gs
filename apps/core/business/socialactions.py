@@ -112,7 +112,7 @@ def get_suggest_content(user, criteria=None, items_per_page=None, page=None):
     condition = Q(target_user=user) & Q(action_type=action_type)
     content_type = ContentType.objects.get(model='article')
 
-    UserActions = UserAction.objects.filter(
+    user_actions = UserAction.objects.filter(
         target_user=user,
         action_type=action_type,
         content_type=content_type
@@ -124,12 +124,12 @@ def get_suggest_content(user, criteria=None, items_per_page=None, page=None):
             Q(text__icontains=criteria)
         )
 
-        UserActions = UserActions.filter(object_id__in=articles)
+        user_actions = user_actions.filter(object_id__in=articles)
 
     items_per_page = items_per_page if items_per_page else 10
     page = page if page else 1
 
-    articles_paginated = Paginator(UserActions, items_per_page)
+    articles_paginated = Paginator(user_actions, items_per_page)
     try:
         articles_paginated = articles_paginated.page(page)
     except PageNotAnInteger:
