@@ -192,7 +192,8 @@ def suggest_post(author, object_to_link, content, to_user):
 
 def act_by_content_type_and_id(user=None, content_type=None, object_id=None, action_type=None):
     action_type_key = get_by_label(action_type)
-    inverse_action_list = settings.SOCIAL_INVERSE_ACTIONS[action_type_key]
+    inverse_action_list = settings.SOCIAL_INVERSE_ACTIONS[action_type_key] \
+        if action_type_key in settings.SOCIAL_INVERSE_ACTIONS.keys() else []
     user_acted = user_acted_by_content_and_object_id(user, content_type, object_id, action_type)
 
     if user_acted and user_acted.action_type == action_type_key:
