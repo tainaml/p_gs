@@ -1,12 +1,20 @@
 from django.conf import settings
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from apps.community.models import Community
 from apps.socialactions.models import UserAction
 from apps.article.models import Article
 from apps.comment.models import Comment
 from apps.core.business import embeditem
-
+from django.core.cache import cache
 from apps.notifications.service import business as Business
+
+@receiver(post_save, sender=Community)
+def refresh_footer(sender, **kwargs):
+    footer = cache.get("footer")
+    if footer:
+        cache.delete("footer")
+
 
 @receiver(post_save, sender=UserAction)
 def social_action(sender, **kwargs):

@@ -117,11 +117,10 @@ def related_posts_box(context, instance, post_type=None, count=4, template_path=
 @register.inclusion_tag("core/templatetags/footer.html")
 def footer():
     footer = cache.get("footer")
+
     if not footer:
-        cache.set("footer", {}, None)
-        footer = cache.get("footer")
 
-
+        footer = {}
         categories = Taxonomy.objects.filter(term__description="Categoria")
         taxonomies = Taxonomy.objects.filter(parent=categories).order_by("description")
 
@@ -132,8 +131,9 @@ def footer():
 
             footer[slug].append(taxonomy.community_related)
 
-
+        cache.set("footer", footer, None)
     return {
+
         'footer': footer
     }
 
