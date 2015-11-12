@@ -25,11 +25,11 @@
                     <h2>Membros</h2>
                 </header>
                 <div class="filter row">
-                    <form id="form-search-followers" name="filterMember" action="{% url 'community:search-followers' %}" method="GET" role="search" data-ajaxform="true" data-group-class=".form-group">
+                    <form id="form-search-followers" name="filterMember" action="{% url 'community:search-followers' %}?next={{ request.path }}" method="GET" role="search" data-ajaxform="true" data-group-class=".form-group">
                         <input type="hidden" name="community" value="{{ community.id }}">
                         <div class="col-lg-7">
                             <div class="form-search-input">
-                                <input type="text" id="filterName" name="criteria" placeholder="{{ placehold|default:"Procure por alguém." }}"/>
+                                <input type="text" id="filterName" name="criteria" placeholder="{{ placehold|default:"Procure por alguém." }}" autocomplete="off">
                             </div>
                             <button type="submit" class="form-search-button">
                                 <i class="gsticon gsticon-search"></i>

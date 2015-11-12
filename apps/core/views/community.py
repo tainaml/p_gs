@@ -200,7 +200,7 @@ class CoreCommunityLoad(views.View):
 
 class CoreCommunityFollowersSearch(views.CommunityBaseView):
 
-    template_path = ""
+    template_path = "community/partials/community-followers-list.html"
 
     form = CoreCommunityFollowersForm
 
@@ -220,11 +220,18 @@ class CoreCommunityFollowersSearch(views.CommunityBaseView):
 
         context = {
             'followers': followers,
-            'form': form
+            'form': form,
+            'url_next': request.GET.get('next', '')
         }
         context.update(self.get_context(request))
 
         return self.return_success(request, context)
 
     def get_context(self, request):
-        pass
+        return {}
+
+
+class CoreCommunityFollowersSearchList(CoreCommunityFollowersSearch):
+
+    def return_success(self, request, context=None):
+        return render(request, self.template_path, context)

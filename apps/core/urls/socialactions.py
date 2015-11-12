@@ -6,4 +6,3 @@ urlpatterns = [
     url(r'^filter/followings/$', socialactions.SocialActionFilterFollowings.as_view(), name='filter_followings'),
 
 ]
-

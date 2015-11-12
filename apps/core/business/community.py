@@ -194,22 +194,28 @@ def get_followers(data=None, items_per_page=None, page=None, startswith=None):
     community = data.get('community')
     content_type = ContentType.objects.get_for_model(community)
 
-    try:
-        followers = UserAction.objects.filter(
-            Q(content_type=content_type) &
-            Q(object_id=community.id) &
-            Q(action_type=settings.SOCIAL_FOLLOW) &
+    criteria = (
+        Q(content_type=content_type) &
+        Q(object_id=community.id) &
+        Q(action_type=settings.SOCIAL_FOLLOW)
+    )
+
+    if data.get('criteria'):
+        criteria = criteria & (
             (
-                (
-                    Q(author__first_name__icontains=data.get('criteria')) |
-                    Q(author__last_name__icontains=data.get('criteria'))
-                ) &
-                (
-                    Q(author__profile__city__state=data.get('state')) &
-                    Q(author__profile__city=data.get('city'))
-                )
+                Q(author__first_name__icontains=data.get('criteria')) |
+                Q(author__last_name__icontains=data.get('criteria'))
             )
         )
+
+    if data.get('state'):
+        criteria = criteria & (Q(author__profile__city__state=data.get('state')))
+
+    if data.get('city'):
+        criteria = criteria & (Q(author__profile__city=data.get('city')))
+
+    try:
+        followers = UserAction.objects.filter(criteria)
     except ValueError:
         return False
 
