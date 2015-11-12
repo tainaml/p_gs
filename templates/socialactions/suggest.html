@@ -103,15 +103,11 @@
                             {% if articles %}
                                 {% for article in articles %}
                                     <div class="excerpt">
-                                        <div class="custom-check"><input type="checkbox"
-                                                                         data-object-id="{{ article.id }}"></div>
+                                        <div class="custom-check"><input type="checkbox" data-object-id="{{ article.id }}"></div>
                                         <div class="excerpt-content">
-                                            <a class="excerpt-image"
-                                               href="{% url 'article:view' article.content_object.slug article.content_object.id %}">
-                                                <img src="{{ article.content_object.get_image.url }}"
-                                                     alt="{{ article.content_object.title }}">
+                                            <a class="excerpt-image" href="{% url 'article:view' article.content_object.slug article.content_object.id %}">
+                                                <img src="{{ article.content_object.get_image.url }}" alt="{{ article.content_object.title }}">
                                             </a>
-
                                             <div class="excerpt-title">
                                                 <header class="post-header">
                                                     <div class="post-info">
