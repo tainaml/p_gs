@@ -36,6 +36,7 @@ def get_model_type(content_type=None):
 
 
 def get_content_object(content_type=None, object_id=None):
+
     content_type = get_model_type(content_type)
     content_object = content_type.get_object_for_this_type(pk=object_id)
 

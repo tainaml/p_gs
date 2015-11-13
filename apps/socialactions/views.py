@@ -1,8 +1,6 @@
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User
 from django.http import Http404, JsonResponse
 from django.shortcuts import redirect, render
-from django.utils import timezone
 from django.utils.decorators import method_decorator
 from django.utils.translation import gettext as _
 from django.views.generic import View
@@ -247,3 +245,14 @@ class SocialActionSuggestArticleToUser(SocialActionBaseView):
             'url_next': request.GET.get('url_next')
         }
         return self.return_success(request, context)
+
+
+class SocialUserActed(View):
+    @method_decorator(login_required)
+    def get(self, request, object_to_link, content, action):
+        try:
+            data = {'acted': not not Business.user_acted_by_content_and_object_id(request.user, content, object_to_link, action)}
+        except:
+            raise Http404()
+
+        return JsonResponse(data)
