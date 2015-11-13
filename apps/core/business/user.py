@@ -38,7 +38,7 @@ def get_feed_objects(profile_instance=None, description=None, content_types_list
             Q(taxonomies__in=taxonomy_list) |
             Q(article__author__in=followers_id) |
             Q(question__author__in=followers_id)
-        )
+        ) & Q(article__status=Article.STATUS_PUBLISH)
     ).order_by(
         "-date"
     ).prefetch_related(
@@ -72,6 +72,40 @@ def get_articles_from_user(profile_instance=None, description=None, content_type
         Q(content_type=content_type) &
         Q(article__author=profile_instance.user) &
         Q(article__status=Article.STATUS_PUBLISH) &
+        (
+            Q(article__title__icontains=description)|
+            Q(article__text__icontains=description)
+        )
+    ).order_by(
+        "-date"
+    ).prefetch_related(
+        "content_object__author"
+    ).distinct(
+        "object_id",
+        "date"
+    )
+
+    items_per_page = items_per_page if items_per_page else 10
+    page = page if page else 1
+
+    feed_objects_paginated = Paginator(feed_objects, items_per_page)
+    try:
+        feed_objects_paginated = feed_objects_paginated.page(page)
+    except PageNotAnInteger:
+        feed_objects_paginated = feed_objects_paginated.page(1)
+    except EmptyPage:
+        feed_objects_paginated = []
+
+    return feed_objects_paginated
+
+
+def get_active_articles_from_user(profile_instance=None, description=None, content_type=None, items_per_page=None, page=None, user=None):
+
+    feed_objects = FeedObject.objects.filter(
+        Q(content_type=content_type) &
+        Q(article__author=profile_instance.user) &
+        Q(article__status=Article.STATUS_PUBLISH) &
+        Q(article__slug__isnull=False) &
         (
             Q(article__title__icontains=description)|
             Q(article__text__icontains=description)
