@@ -1,0 +1,14 @@
+{% if questions %}
+<div class="widget widget-feed">
+    <div class="widget-header">
+        <header class="area-title">
+            <h3>Artigos Relacionados</h3>
+        </header>
+    </div>
+    <div class="widget-content">
+        {% for question_obj in questions %}
+            {% include "question/partials/question-related-questions-segment.html" with question=question_obj.content_object %}
+        {% endfor %}
+    </div>
+</div>
+{% endif %}
