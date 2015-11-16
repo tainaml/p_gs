@@ -11,29 +11,12 @@
         {% csrf_token %}
     </div>
 
-    <div class="widget widget-feed">
-        <div class="widget-header">
-            <header class="area-title">
-                <h3>Artigos Relacionados</h3>
-            </header>
+    <!-- Questoes Relacionadas -->
+    <div id="load-related-questions" data-load-async="true" data-load-async-url="{% url 'question:related-questions-async' question.id "question" %}" data-load-async-url-next="{{ request.path }}" data-load-async-method="get" data-load-async-response-type="json">
+        <div class="load-async load-async-content">
+            Carregando...
         </div>
-        <div class="widget-content">
-            <a class="article-excerpt" href="javascript:;">
-                <img src="http://placehold.it/70x53" alt="Imagem 1">
-                <span class="color-green">Microsoft lança software beta para migrar aplicativos iOS para Windows</span>
-            </a>
-            <a class="article-excerpt" href="javascript:;">
-                <img src="http://placehold.it/70x53" alt="Imagem 1">
-                <span class="color-green">Microsoft lança software beta para migrar aplicativos iOS para Windows</span>
-            </a>
-            <a class="article-excerpt" href="javascript:;">
-                <img src="http://placehold.it/70x53" alt="Imagem 1">
-                <span class="color-green">Microsoft lança software beta para migrar aplicativos iOS para Windows</span>
-            </a>
-            <a class="article-excerpt" href="javascript:;">
-                <img src="http://placehold.it/70x53" alt="Imagem 1">
-                <span class="color-green">Microsoft lança software beta para migrar aplicativos iOS para Windows</span>
-            </a>
-        </div>
+        {% csrf_token %}
     </div>
+
 </div>
