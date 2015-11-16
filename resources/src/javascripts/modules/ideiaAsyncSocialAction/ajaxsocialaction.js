@@ -4,7 +4,7 @@ require('./when-event.js');
 
     'use strict';
 
-    $.fn.IdeiaAsyncLike = function(action){
+    $.fn.IdeiaAsyncLike = function(action) {
 
         var defaultOptions = {
             'parentGroup'   : '.async-like-group',
@@ -24,10 +24,10 @@ require('./when-event.js');
 
         var EVENT_AJAX_SUCCESS = 'asynclike.success';
         var EVENT_AJAX_ERROR   = 'asynclike.error';
-        
-        function ascynLikeCancel(e){
+
+        function ascynLikeCancel (e) {
             e.preventDefault();
-            
+
             var $self = $(this);
 
             $self.one(EVENT_AJAX_SUCCESS, function(event, data){
@@ -37,7 +37,7 @@ require('./when-event.js');
             doSubmit.call(this);
         }
 
-        function doRefreshCounters(data){
+        function doRefreshCounters (data) {
             var $self = $(this),
                 $selfParent = $self.closest($self.data('parentGroup') || defaultOptions.parentGroup),
                 $socialAction = $self.data('socialAction');
@@ -52,7 +52,7 @@ require('./when-event.js');
             if(data.action_response){
                 $selfParent.find(e[$socialAction]).addClass(c[$socialAction]);
             }
-            
+
             var tempElemLike = $($self.data('target-like'));
             var tempElemUnLike = $($self.data('target-unlike'));
 
@@ -67,15 +67,15 @@ require('./when-event.js');
             });
         }
 
-        function doSubmit(){
+        function doSubmit () {
             var $self = $(this);
             var url = $self.attr('href') || $self.data('url');
             var method = $self.data('method') || 'get';
 
             var ajaxParams = {
-                'type': method.toUpperCase(),
-                'url': url,
-                'cache': false,
+                type: method.toUpperCase(),
+                url: url,
+                cache: false,
                 success: function(data){
                     $self.trigger(EVENT_AJAX_SUCCESS, data);
                 },
