@@ -261,8 +261,12 @@ class SocialActXHR(View):
 
     @method_decorator(login_required)
     def get(self, request, object_to_link, content, action):
+
         try:
+            print action
             action = Business.act_by_content_type_and_id(request.user, content, object_to_link, action)
+
             return JsonResponse({'acted': not not action})
-        except:
+        except ValueError as e:
+
             raise Http404()

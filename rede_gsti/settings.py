@@ -152,7 +152,7 @@ SOCIAL_LABELS = {
     SOCIAL_FAVOURITE: 'favourite',
     SOCIAL_SUGGEST: 'suggest',
     SOCIAL_COMMENT: 'comment',
-    SOCIAL_SEE_LATER: 'see_later'
+    SOCIAL_SEE_LATER: 'see-later'
 }
 
 SOCIAL_ENTITIES = {
@@ -160,7 +160,7 @@ SOCIAL_ENTITIES = {
     SOCIAL_UNLIKE: ['comment', 'article', 'question'],
     SOCIAL_FOLLOW: ['community', 'user'],
     SOCIAL_FAVOURITE: ['article', 'question'],
-    SOCIAL_SUGGEST: [''],
+    SOCIAL_SUGGEST: ['article'],
     SOCIAL_SEE_LATER: ['article'],
 }
 
@@ -205,7 +205,7 @@ NOTIFICATION_ACTIONS = {
     SOCIAL_FAVOURITE: 'favourite',
     SOCIAL_SUGGEST: 'suggest',
     SOCIAL_COMMENT: 'comment',
-    SOCIAL_SEE_LATER: 'see_later'
+    SOCIAL_SEE_LATER: 'see-later'
 }
 
 # Database

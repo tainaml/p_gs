@@ -7,7 +7,7 @@ from . import views
 urlpatterns = [
 
     url(r'^act/(?P<object_to_link>[0-9]+)/(?P<content>[a-zA-Z]+)/(?P<action>[a-zA-Z]+)', views.SocialActionView.as_view(), name='act'),
-    url(r'^act/xhr/(?P<object_to_link>[0-9]+)/(?P<content>[a-zA-Z]+)/(?P<action>[a-zA-Z]+)', views.SocialActXHR.as_view(), name='act-xhr'),
+    url(r'^act/xhr/(?P<object_to_link>[0-9]+)/(?P<content>[a-zA-Z]+)/(?P<action>[a-z0-9]+(?:-[a-z0-9]+)*)', views.SocialActXHR.as_view(), name='act-xhr'),
     url(r'^acted/(?P<object_to_link>[0-9]+)/(?P<content>[a-zA-Z]+)/(?P<action>[a-zA-Z]+)', views.SocialUserActed.as_view(), name='acted'),
 
     url(r'^act/ajax/(?P<object_to_link>[0-9]+)/(?P<content>[a-zA-Z]+)/(?P<action>[a-zA-Z]+)', views.SocialActionAjax.as_view(), name='act-ajax'),
