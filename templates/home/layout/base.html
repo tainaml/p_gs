@@ -97,6 +97,12 @@
                 }
             };
 
+            var refreshAsyncLike = function() {
+                var asyncLike = $("[data-async-like=true]");
+                var asyncData = asyncLike.IdeiaAsyncLike();
+            };
+
+
             var functionOpenSuggestModal = function(e) {
                 e.preventDefault();
                 var $self = $(this),
