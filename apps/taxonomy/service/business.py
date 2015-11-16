@@ -70,6 +70,7 @@ def get_related_list_top_down(taxonomy_list=None):
 
     return taxonomies
 
+
 def save_taxonomies_for_model(model=None, taxonomi_list=None):
 
     taxonomy_to_associate = get_related_taxonomy(taxonomi_list)

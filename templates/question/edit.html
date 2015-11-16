@@ -1,20 +1,38 @@
 {% load i18n %}
+{% load widget_tweaks %}
+
 <h1>{% trans 'Question' %}</h1>
 {{ form.non_field_errors }}
 <form action="{% url 'question:update' %}" method="post">
-    {% if messages %}
-       <ul class="messages">
-           {% for message in messages %}
-               <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-           {% endfor %}
-       </ul>
-   {% endif %}
 
     {% csrf_token %}
+
+
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+
     <input type="hidden" name="question_id" value="{{ question.id }}" />
     <input type="text" name="title" id="title" placeholder="{% trans "Write your title question" %}" maxlength="256" value="{% if form.cleaned_data %}{{ form.cleaned_data.title|default_if_none:question.title}}{% else %}{{ question.title }} {% endif %}" />
     {% if form.title.errors %}<span class="help-block">{{ form.title.errors }}</span> {% endif %}
     <textarea name="description" id="description" placeholder="{% trans "Write your detailed question" %}" maxlength="2048">{% if form.cleaned_data %}{{ form.cleaned_data.description|default_if_none:question.description}}{% else %}{{ question.description }} {% endif %}</textarea>
     {% if form.description.errors %}<span class="help-block">{{ form.description.errors }}</span> {% endif %}
+
+    {{ form.communities.value }}
+
+    <div class="form-group">
+
+        {% render_field form.communities data-toggle="selectize" data-module="taxonomy" data-label-field="name" data-value-field="id" %}
+
+        {% if form.communities.errors %}  {{ form.communities.errors }} {% endif %}
+
+    </div>
+
+
     <input type="submit" value="{% trans 'submit' %}">
 </form>

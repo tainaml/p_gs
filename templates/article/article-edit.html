@@ -54,26 +54,51 @@
                                     {% if form_article.text.errors %}  {{ form_article.text.errors }} {% endif %}
                                     <p class="article-counter">Mínimo de caracteres: <span class="article-counter-caracteres">200</span></p>
                                 </div>
+
+                                {% comment %}
+
                                 <div class="form-group">
 
-                                    {% for choice in form_article.communities %}
+                                    {{ form_article.taxonomies }}
 
-                                        {{ choice }}
+                                </div>
 
-                                    {% endfor %}
+                                {% endcomment %}
 
-                                    <input name="{{ form_article.communities.name }}"
-                                           type="text"
-                                           value="python,javascript"
-                                           data-toggle="selectize"
-                                           placeholder="Enviar artigo para qual(is) comunidade(s)?"
-                                           data-module="taxonomy"
-                                           data-url="{% url 'profile:user-communities-ajax' %}"
-                                           data-label-field="name"
-                                           data-value-field="id" multiple />
+                                <div class="form-group">
+
+                                    {% url 'profile:user-communities-ajax' as user_ajax_url %}
+
+                                    {% render_field form_article.communities data-toggle="selectize" data-module="taxonomy" data-url="{{ user_ajax_url }}" data-label-field="name" data-value-field="id" %}
+
+                                    {% if form_article.communities.errors %}  {{ form_article.communities.errors }} {% endif %}
+
+                                </div>
+
+
+                                {% comment %}
+                                <div class="form-group">
+
+                                    {{ form_article.communities.value }}
+
+                                    <select name="{{ form_article.communities.name }}"
+                                            data-toggle="selectizea"
+                                            data-module="taxonomy"
+                                            data-url="{% url 'profile:user-communities-ajax' %}"
+                                            data-label-field="name"
+                                            data-value-field="id" multiple>
+
+
+                                        {% for item in form_article.communities.value %}
+                                            <option value="{{ item.id }}" selected>{{ item.title }}</option>
+                                        {% endfor %}
+
+                                    </select>
 
                                     {% if form_article.communities.errors %}  {{ form_article.communities.errors }} {% endif %}
                                 </div>
+                                {% endcomment %}
+
                             </div>
                             <div class="col-lg-3">
                                 {% if not article.status == article.STATUS_PUBLISH %}
