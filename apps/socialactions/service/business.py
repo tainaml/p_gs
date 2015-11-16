@@ -193,7 +193,7 @@ def suggest_post(author, object_to_link, content, to_user):
 
 
 def act_by_content_type_and_id(user=None, content_type=None, object_id=None, action_type=None):
-    print "fodeu"
+
     action_type_key = get_by_label(action_type)
 
     inverse_action_list = settings.SOCIAL_INVERSE_ACTIONS[action_type_key] \
