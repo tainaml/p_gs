@@ -1,4 +1,16 @@
 {% load i18n %}
-{% for question in questions %}
-    <a class="article-excerpt color-green" href="{% url 'question:show' question.content_object.slug question.content_object.id %}">{{ question.content_object.title }}</a>
-{% endfor %}
+{% if questions %}
+    <div class="widget widget-feed">
+        <div class="widget-header">
+            <header class="area-title">
+                <h3>Últimas Perguntas</h3>
+            </header>
+        </div>
+        <div class="widget-content">
+            {% for question in questions %}
+                <a class="article-excerpt color-green" href="{% url 'question:show' question.content_object.slug question.content_object.id %}">{{ question.content_object.title }}</a>
+            {% endfor %}
+        </div>
+    </div>
+{% endif %}
+

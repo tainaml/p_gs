@@ -1,6 +1,8 @@
 from django.contrib.auth.models import User
 from django.contrib.contenttypes.models import ContentType
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from django.utils import timezone
+from apps.community.models import Community
 from apps.article.models import Article
 from apps.core.models.embed import EmbedItem
 from apps.feed.models import FeedObject
@@ -9,6 +11,22 @@ from apps.socialactions.models import UserAction
 from apps.socialactions.service import business as BusinessSocialActions
 from rede_gsti import settings
 
+
+def get_user_communities(author):
+    user_communities = BusinessSocialActions.get_users_acted_by_author(
+        author=author,
+        action=settings.SOCIAL_FOLLOW,
+        content_type='community',
+        items_per_page=None,
+    )
+
+    community_ids = []
+    for action in user_communities:
+        community_ids.append(action.content_object.id)
+
+    communities = Community.objects.filter(pk__in=community_ids)
+
+    return communities
 
 def get_feed_objects(profile_instance=None, description=None, content_types_list=None, items_per_page=None, page=None, user=None):
     if not content_types_list:
