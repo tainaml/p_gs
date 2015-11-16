@@ -35,6 +35,10 @@ class EditQuestionForm(IdeiaModelForm):
 
     user = None
 
+    def __init__(self, user=None, *args, **kargs):
+        self.user = user
+        super(EditQuestionForm, self).__init__(*args, **kargs)
+
     class Meta:
         model = Business.Question
         exclude = ['author', 'question_date']
@@ -66,7 +70,8 @@ class EditQuestionForm(IdeiaModelForm):
         return _slug
 
     def __process__(self):
-        return Business.update_question(self.cleaned_data, self.instance)
+        question = Business.update_question(self.cleaned_data, self.instance)
+        return question
 
 
 class CommentReplyForm(IdeiaForm):

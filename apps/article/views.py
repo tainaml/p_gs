@@ -173,7 +173,7 @@ class ArticleEditView(ArticleBaseView):
             article = Business.create_temp_article(request.user)
             return redirect(reverse('article:edit', args=(article.id,)))
 
-        form_article = self.form_article(instance=article)
+        form_article = self.form_article(instance=article, author=request.user)
         _context = {'form_article': form_article, 'article': article}
         return render(request, self.template_name, self.prepare_context(request, _context))
 
@@ -184,8 +184,7 @@ class ArticleEditView(ArticleBaseView):
         # Fail if is not owner
         self.check_is_owner(request, article)
 
-        form_article = self.form_article(request.POST, request.FILES, instance=article)
-        form_article.set_author(request.user)
+        form_article = self.form_article(request.POST, request.FILES, instance=article, author=request.user)
 
         temp_form = copy.copy(form_article)
         temp_article = copy.copy(article)

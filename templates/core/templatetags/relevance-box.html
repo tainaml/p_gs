@@ -1,7 +1,19 @@
-{% for record in records %}
-    {% if record.content_object %}
+{% if records %}
+<div class="widget widget-feed">
+    <div class="widget-header">
+        <header class="area-title">
+            <h3>Destaque</h3>
+        </header>
+    </div>
+    <div class="widget-content">
+        {% for record in records %}
+            {% if record.content_object %}
 
-        {% include template_path with record_content=record.content_object %}
+                {% include template_path with record_content=record.content_object %}
 
-    {% endif %}
-{% endfor %}
+            {% endif %}
+        {% endfor %}
+    </div>
+</div>
+{% endif %}
+

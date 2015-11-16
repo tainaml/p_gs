@@ -17,8 +17,8 @@ class CreateQuestionView(View):
 
     @method_decorator(login_required)
     def get(self, request):
-        
-        return render(request, 'question/create.html', {'form': self.form})
+        form = self.form(request.user)
+        return render(request, 'question/create.html', {'form': form})
 
     @method_decorator(login_required)
     def post(self, request):
@@ -39,9 +39,12 @@ class ListQuestionsView(View):
 
 
 class SaveQuestionView(View):
+
+    form = CreateQuestionForm
+
     @method_decorator(login_required)
     def post(self, request):
-        form = CreateQuestionForm(request.user, request.POST)
+        form = self.form(request.user, request.POST)
         if not form.process():
             messages.add_message(request, messages.WARNING, _("Question not created!"))
         else:
@@ -52,11 +55,14 @@ class SaveQuestionView(View):
 
 
 class EditQuestionView(View):
+
+    form = EditQuestionForm
+
     @method_decorator(login_required)
     def get(self, request, question_id):
         question = business.get_question(question_id)
         if question:
-            form = EditQuestionForm(instance=question)
+            form = self.form(user=request.user, instance=question)
             context = {'form': form, 'question': question}
             return render(request, 'question/edit.html', context)
         else:
@@ -67,18 +73,21 @@ class EditQuestionView(View):
 
 class UpdateQuestionView(View):
 
+    form = EditQuestionForm
+
     @method_decorator(login_required)
     def post(self, request):
         question = business.get_question(request.POST['question_id'])
         if question:
-            form = EditQuestionForm(data=request.POST, instance=question)
-            form.set_author(request.user)
+            form = self.form(data=request.POST, instance=question, user=request.user)
             if form.process():
                 messages.add_message(
                     request,
                     messages.SUCCESS,
                     _("Question updated successfully!")
                 )
+            else:
+                messages.add_message(request, messages.ERROR, 'Erro ao carregar question')
 
             return render(request, 'question/edit.html', {
                 'form': form,

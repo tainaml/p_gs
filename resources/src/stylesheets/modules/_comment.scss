@@ -1,4 +1,4 @@
-.container-comments {margin-top: 20px; }
+.container-comments { margin-top: 20px; }
 .comments-container-child {
     width: 100%;
     padding-bottom: 20px;
@@ -113,5 +113,8 @@
         color: #6f6f6f;
         font-size: 1em;
         letter-spacing: -0.05em;
+    }
+    &:last-child {
+
     }
 }
