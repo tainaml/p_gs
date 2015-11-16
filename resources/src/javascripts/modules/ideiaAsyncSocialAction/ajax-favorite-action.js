@@ -1,7 +1,7 @@
 require('./when-event.js');
 
 ;(function ( $, window, document ) {
-    var pluginName = 'ajaxFavoriteAction',
+    var pluginName = 'ajaxSocialAction',
         defaults = {
             activeClass: 'item-active'
         };
@@ -49,6 +49,6 @@ require('./when-event.js');
         });
     };
 
-    $('[data-action=favourite]').ajaxFavoriteAction();
+    $('[data-action=social]').ajaxSocialAction();
 
 })(jQuery, window, document);
