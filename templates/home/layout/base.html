@@ -97,6 +97,10 @@
                 }
             };
 
+            var refreshAsyncLike = function() {
+                $("[data-async-like=true]").IdeiaAsyncLike();
+            };
+
             var functionOpenSuggestModal = function(e) {
                 e.preventDefault();
                 var $self = $(this),
