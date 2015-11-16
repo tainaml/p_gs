@@ -1,2 +1,2 @@
 
-require('./ajaxsocialaction.js');
+require('./asynclike.js');
