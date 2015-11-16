@@ -58,15 +58,15 @@
             </div>
         </section>
         {% block content %}{% endblock %}
-        {% footer %}
-        {% comment %}
 
-        {% endcomment %}
+        {% footer %}
+
         {% block modals %}
 
             {% include 'home/partials/modals/modal-login.html' %}
             {% include 'home/partials/modals/modal-sugerir.html' %}
             {% include 'home/partials/modals/modal-denunciar.html' %}
+            {% include 'home/partials/modals/modal-rules.html' %}
 
         {% endblock %}
 
