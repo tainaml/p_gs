@@ -104,7 +104,7 @@
                         <ul class="links-help">
                             <li class="list-item"><a href="javascript:;">Sobre</a></li>
                             <li class="list-item"><a href="javascript:;" data-toggle="modal" data-target="#modal-rules">Regras do portal</a></li>
-                            <li class="list-item"><a href="javascript:;">Contato</a></li>
+                            <li class="list-item"><a href="{% url 'contact:create' %}" id="link-contact" data-async-module="click" data-async-target="#modal-content-form-contact" data-async-method="get">Contato</a></li>
                         </ul>
                     </div>
                 </div>
@@ -113,6 +113,7 @@
 
         {% include 'home/partials/modals/modal-login.html' %}
         {% include 'home/partials/modals/modal-rules.html' %}
+        {% include 'home/partials/modals/modal-contato.html' %}
 
         <div id="fb-root"></div>
         <!-- Place this tag after the last widget tag. -->
@@ -131,12 +132,17 @@
                 window.location.href = data.url_next;
             };
 
+            var functionAjaxSuccessTriggerContactModal = function(e, data) {
+                var $modalContact = $("#modal-contact");
+                $modalContact.modal("show");
+            };
+
             $(function() {
                 var $formLogin = $("#form-login");
                 $formLogin.on("ajaxform.success", functionAjaxSuccessLogin);
-                $formLogin.on("ajaxform.error", functionAjaxErrorLogin);
 
-                var $formSuggest = $("#form-suggest");
+                var $linkModal = $("#link-contact");
+                $linkModal.on("async.click.success", functionAjaxSuccessTriggerContactModal);
             });
         </script>
     </body>
