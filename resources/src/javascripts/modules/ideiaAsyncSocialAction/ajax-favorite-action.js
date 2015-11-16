@@ -22,7 +22,7 @@ require('./when-event.js');
             $that = $( this.element );
 
         $.getJSON(urlCheck, function ( result ) {
-            $that.addClass( result.acted ? 'item-active' : '' );
+            $that.parent().toggleClass( result.acted ? 'item-active' : '' );
         });
 
         this.activeFavourite();
@@ -35,7 +35,7 @@ require('./when-event.js');
             event.preventDefault();
 
             $.getJSON( ajaxUrl, function ( result ) {
-                $($that.element).addClass(result.acted ? $that._defaults.activeClass : '' );
+                $($that.element).parent().toggleClass(result.acted ? $that._defaults.activeClass : '' );
             });
         });
     }
