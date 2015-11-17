@@ -25,6 +25,8 @@ SECRET_KEY = '3u2oo))n_j*t#sjx*)=p*5j4mpb^7iruq4$v3%2nn!e2r2p$jj'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+INTERNAL_IPS = ('127.0.0.1', '10.0.2.2', '10.100.100.20', '10.100.100.15', '10.100.100.10')
+
 
 # Google Recaptcha keys
 

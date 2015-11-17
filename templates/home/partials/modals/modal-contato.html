@@ -1,40 +1,16 @@
-{% block modalcontent %}
-<div class="modal-dialog">
-    <div class="modal-content">
-        <div class="modal-header">
-            <span class="pull-right close" data-dismiss="modal" aria-label="Close"><span class="gsticon gsticon-close"></span></span>
-            <h4 class="modal-title">Contato</h4>
-        </div>
-        <div class="modal-body">
-            <div class="modal-form">
-                <div class="form-group">
-                    <div class="custom-select">
-                        <span data-toggle="select" class="custom-select-item">Assunto</span>
-                        <ul class="custom-select-list">
-                            <li class="custom-select-option">Some another assunto</li>
-                            <li class="custom-select-option">Some another assunto</li>
-                            <li class="custom-select-option">Some another assunto</li>
-                        </ul>
-                    </div>
-                </div>
-                <!-- Exibido quando o usuário não está logado -->
-                <div class="form-group">
-                    <input class="form-control" type="text" placeholder="Nome">
-                </div>
-                <div class="form-group">
-                    <input class="form-control" type="email" placeholder="Email">
-                </div>
-                <div class="form-group">
-                    <textarea class="form-control" rows="7" placeholder="Mensagem"></textarea>
-                </div>
-                <!-- /Exibido quando o usuário não está logado -->
-                <div class="row">
-                    <div class="col-lg-4 pull-right">
-                        <a href="javascript:;" class="btn-action">Enviar</a>
-                    </div>
-                </div>
+<div id="modal-contact" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="pull-right close" data-dismiss="modal" aria-label="Close"><span class="gsticon gsticon-close"></span></span>
+                <h4 class="modal-title">Contato</h4>
+            </div>
+            <div class="modal-body">
+                <div id="modal-content-form-contact" class="modal-form"></div>
             </div>
         </div>
     </div>
 </div>
-{% endblock %}
+
+<div id="modal-contact-successfully" class="modal fade"></div>
+
