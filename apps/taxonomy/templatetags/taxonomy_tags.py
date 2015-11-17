@@ -10,14 +10,26 @@ register = template.Library()
 @register.inclusion_tag('taxonomy/taxonomies.html')
 def taxonomies(content_object):
 
-    communities = Community.objects.filter(
-        taxonomy=Taxonomy.objects.filter(feeds=FeedObject.objects.get(
-        content_type=ContentType.objects.get_for_model(content_object),
-        object_id=content_object.id,
+    content_type = ContentType.objects.get_for_model(content_object)
 
+    if content_type.model == "article":
+        communities = Community.objects.filter(feeds=FeedObject.objects.get(
+            content_type=content_type,
+            object_id=content_object.id
+        )).prefetch_related("taxonomy")
+
+    elif content_type.model == "question":
+        communities = Community.objects.filter(
+            taxonomy=Taxonomy.objects.filter(
+                feeds=FeedObject.objects.get(
+                    content_type=ContentType.objects.get_for_model(content_object),
+                    object_id=content_object.id)
             )
-        )
-    ).prefetch_related("taxonomy")
+        ).prefetch_related("taxonomy")
+    else:
+        communities = []
+
+
 
     return {
         'communities': communities
