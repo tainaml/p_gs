@@ -4,7 +4,7 @@
                     <li class="box-list-links">
                         <h3 class="h4 box-list-heading">Governança de TI</h3>
                         <ul class="list-links">
-                            {% for community in footer.governanca_de_ti %}
+                            {% for community in categories.governanca_de_ti %}
                                 <li><a href="{% url "community:show" community.slug %}">{{ community.title }}</a></li>
                             {% endfor %}
                         </ul>
@@ -12,7 +12,7 @@
                     <li class="box-list-links">
                         <h3 class="h4 box-list-heading">Desenvolvimento</h3>
                         <ul class="list-links">
-                            {% for community in footer.desenvolvimento %}
+                            {% for community in categories.desenvolvimento %}
                                 <li><a href="{% url "community:show" community.slug %}">{{ community.title }}</a></li>
                             {% endfor %}
                         </ul>
@@ -20,7 +20,7 @@
                     <li class="box-list-links">
                         <h3 class="h4 box-list-heading">Web Design</h3>
                         <ul class="list-links">
-                            {% for community in footer.web_design %}
+                            {% for community in categories.web_design %}
                                 <li><a href="{% url "community:show" community.slug %}">{{ community.title }}</a></li>
                             {% endfor %}
                         </ul>
@@ -28,7 +28,7 @@
                     <li class="box-list-links">
                         <h3 class="h4 box-list-heading">Marketing Digital</h3>
                         <ul class="list-links">
-                            {% for community in footer.marketing_digital %}
+                            {% for community in categories.marketing_digital %}
                                 <li><a href="{% url "community:show" community.slug %}">{{ community.title }}</a></li>
                             {% endfor %}
                         </ul>
@@ -36,7 +36,7 @@
                     <li class="box-list-links">
                         <h3 class="h4 box-list-heading">Infraestrutura</h3>
                         <ul class="list-links">
-                            {% for community in footer.infraestrutura %}
+                            {% for community in categories.infraestrutura %}
                                 <li><a href="{% url "community:show" community.slug %}">{{ community.title }}</a></li>
                             {% endfor %}
                         </ul>
@@ -44,7 +44,7 @@
                     <li class="box-list-links">
                         <h3 class="h4 box-list-heading">Banco de Dados</h3>
                         <ul class="list-links">
-                            {% for community in footer.banco_de_dados %}
+                            {% for community in categories.banco_de_dados %}
                                 <li><a href="{% url "community:show" community.slug %}">{{ community.title }}</a></li>
                             {% endfor %}
                         </ul>

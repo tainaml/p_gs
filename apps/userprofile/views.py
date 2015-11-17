@@ -9,7 +9,7 @@ from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _
 from django.views.generic import View
 from django.views.decorators.http import require_POST
-
+from django.core.cache import cache
 from apps.userprofile.models import GenderType
 from apps.userprofile.service import business as Business
 from apps.socialactions.service import business as SocialBusiness
@@ -332,6 +332,7 @@ class ProfileCommunitiesView(ProfileShowView):
         categories = Business.get_categories()
         user = Business.get_user(username)
         profile = self.filter(request, username)
+
 
         if not criteria and not category:
             context = self.communities_box(user, self.template_path)

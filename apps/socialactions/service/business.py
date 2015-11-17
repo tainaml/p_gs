@@ -280,7 +280,7 @@ def get_users_acted_by_author(author=None, action=None, content_type=None, filte
     parameters['author'] = author.id
     parameters['action_type'] = action
 
-    users_actions = UserAction.objects.filter(**parameters).prefetch_related('author')
+    users_actions = UserAction.objects.filter(**parameters).prefetch_related('author', "content_object")
 
     if items_per_page is not None and page is not None:
         list_users = Paginator(users_actions, items_per_page)
