@@ -1,29 +1,72 @@
-from django.shortcuts import render
-from apps.contact.service import business
+from django.core.urlresolvers import reverse
+from django.http import JsonResponse
+from django.shortcuts import render, redirect
+from django.views.generic import View
+from apps.contact.service import business as Business
 from apps.contact.service.forms import ContactForm
 from django.contrib import messages
 from django.utils.translation import ugettext as _
 
 
-def create(request):
-    subjects = business.get_contact_subjects()
-    return render(request, 'contact/contact.html', {'subjects': subjects})
+class ContactView(View):
+
+    template_path = "contact/contact.html"
+
+    form = ContactForm
+
+    def return_success(self, request, context=None):
+        if request.is_ajax():
+            return JsonResponse({
+                'template': render(request, self.template_path, context).content
+            })
+        return render(request, self.template_path, context)
+
+    def get(self, request):
+
+        subjects = Business.get_contact_subjects()
+        return self.return_success(request, {'subjects': subjects})
 
 
-def save(request):
-    subjects = business.get_contact_subjects()
-    form = ContactForm(request.user, request.POST)
-    if form.process():
-        messages.add_message(
-            request,
-            messages.SUCCESS,
-            _("Contact created!")
-        )
-    else:
-        messages.add_message(
-            request,
-            messages.WARNING,
-            _("Contact not created!")
-        )
+class ContactSaveViews(View):
 
-    return render(request, 'contact/contact.html', {'form': form, 'subjects': subjects})
+    template_path = "contact/contact.html"
+
+    form = ContactForm
+
+    def return_error(self, request, context=None):
+        subjects = Business.get_contact_subjects()
+        context.update({'subjects': subjects})
+
+        if request.is_ajax():
+            return JsonResponse({
+                'template': render(request, self.template_path, context).content
+            })
+
+
+        messages.add_message(request, messages.SUCCESS, context.get('message'))
+        return render(request, self.template_path, context)
+
+    def return_success(self, request, context=None):
+        if request.is_ajax():
+            return JsonResponse({
+                'template': render(request, self.template_path, context).content
+            })
+
+        messages.add_message(request, messages.SUCCESS, context.get('message'))
+        return redirect(reverse('contact:create'))
+
+    def post(self, request):
+
+        form = self.form(request.user, request.POST)
+        context = {}
+        if form.process():
+            message = _("Contact created!")
+            return self.return_success(request, {'message': message})
+        else:
+            message = _("Contact not created!")
+            context.update({'message': message})
+
+
+        context.update({'form': form})
+
+        return self.return_error(request, context)

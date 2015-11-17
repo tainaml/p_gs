@@ -40,7 +40,6 @@
                     </div>
                     <div class="col-md-4">
                         {% load i18n %}
-                        <script src='https://www.google.com/recaptcha/api.js?hl=pt-BR'></script>
                         <form class="form-signup" action="{% url 'account:signup' %}" method="post">
                             {% csrf_token %}
                             <div class="form-group">
@@ -104,7 +103,7 @@
                         <ul class="links-help">
                             <li class="list-item"><a href="javascript:;">Sobre</a></li>
                             <li class="list-item"><a href="javascript:;" data-toggle="modal" data-target="#modal-rules">Regras do portal</a></li>
-                            <li class="list-item"><a href="javascript:;">Contato</a></li>
+                            <li class="list-item"><a href="{% url 'contact:create' %}" id="link-contact" data-async-module="click" data-async-target="#modal-content-form-contact" data-async-method="get">Contato</a></li>
                         </ul>
                     </div>
                 </div>
@@ -113,6 +112,7 @@
 
         {% include 'home/partials/modals/modal-login.html' %}
         {% include 'home/partials/modals/modal-rules.html' %}
+        {% include 'home/partials/modals/modal-contato.html' %}
 
         <div id="fb-root"></div>
         <!-- Place this tag after the last widget tag. -->
@@ -126,17 +126,41 @@
         <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
         <script src="{% static 'javascripts/shared.js'%}"></script>
         <script src="{% static 'javascripts/main.js'%}"></script>
+        <script src="https://www.google.com/recaptcha/api.js?hl=pt-BR" async defer></script>
+
         <script type="text/javascript">
             var functionAjaxSuccessLogin = function(e, data) {
                 window.location.href = data.url_next;
             };
 
+            var functionAjaxSuccessTriggerContactModal = function(e, data) {
+                var $modalContact = $("#modal-contact");
+                $modalContact.find("form[data-ajaxform=true]").IdeiaAjaxForm();
+                {% if request.user.is_anonymous %}
+                    grecaptcha.render('g-recaptcha', {
+                        'sitekey': '6LccmgsTAAAAAGrsvn7r7aiIcnvbuIS7pyP0qv1K'
+                    });
+                {% endif %}
+                $modalContact.modal("show");
+
+                var functionAjaxSuccessContact = function(e, data) {
+                    var $modalContact = $("#modal-contact");
+                    var $modalContactSuccessfully = $("#modal-contact-successfully");
+                    $modalContactSuccessfully.html(data.template);
+                    $modalContact.modal("hide");
+                    $modalContactSuccessfully.modal("show");
+                };
+
+                var $formContactModal = $("#form-contact-modal");
+                $formContactModal.on("ajaxform.success", functionAjaxSuccessContact);
+            };
+
             $(function() {
                 var $formLogin = $("#form-login");
                 $formLogin.on("ajaxform.success", functionAjaxSuccessLogin);
-                $formLogin.on("ajaxform.error", functionAjaxErrorLogin);
 
-                var $formSuggest = $("#form-suggest");
+                var $linkModal = $("#link-contact");
+                $linkModal.on("async.click.success", functionAjaxSuccessTriggerContactModal);
             });
         </script>
     </body>

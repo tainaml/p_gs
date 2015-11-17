@@ -1,1 +1,2 @@
-require('./loadasync.js');
+require('./async-load.js');
+require('./async-click.js');
