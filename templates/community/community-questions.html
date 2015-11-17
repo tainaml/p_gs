@@ -69,7 +69,8 @@
                 $(".j-scroll").jscroll({
                     loadingHtml: '<span>Carregando...</span>',
                     contentSelect: ".j-scroll-container",
-                    nextSelect: "a[data-jscroll-next]"
+                    nextSelect: "a[data-jscroll-next]",
+                    callback: refreshAsyncLike
                 });
 
             {% else %}
@@ -79,7 +80,8 @@
                     $(".j-scroll").jscroll({
                         loadingHtml: '<span>Carregando...</span>',
                         contentSelect: ".j-scroll-container",
-                        nextSelect: "a[data-jscroll-next]"
+                        nextSelect: "a[data-jscroll-next]",
+                        callback: refreshAsyncLike
                     });
                 });
 

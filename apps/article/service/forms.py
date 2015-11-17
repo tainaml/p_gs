@@ -28,6 +28,14 @@ class ArticleForm(IdeiaModelForm):
         model = Business.Article
         exclude = []
 
+    def __init__(self, data=None, files=None, author=False, *args, **kwargs):
+
+        super(ArticleForm, self).__init__(data, files, *args, **kwargs)
+
+        if author:
+            self.set_author(author)
+
+
     def clean_publishin(self):
         _date = self.cleaned_data.get('publishin')
         _now = timezone.now()

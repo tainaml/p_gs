@@ -74,40 +74,8 @@
 
 {% block javascripts %}
     {{ block.super }}
-    {# <div data-module="jscroll"></div> #}
 
     <script>
-
-        function fill_states(obj){
-            $.ajax({
-                url: "{% url 'profile:get_state' %}",
-                method: "POST",
-                dataType: "html",
-                data: {
-                    country_id: obj.val(),
-                    csrfmiddlewaretoken: $("input:hidden[name='csrfmiddlewaretoken']").val()
-                },
-                success: function(response) {
-                    $("#state").html(response);
-                    $("#city").html('');
-                }
-            });
-        }
-        function fill_cities(obj){
-            $.ajax({
-                url: "{% url 'profile:get_city' %}",
-                method: "POST",
-                dataType: "html",
-                data: {
-                    state_id: obj.val(),
-                    csrfmiddlewaretoken: $("input:hidden[name='csrfmiddlewaretoken']").val()
-                },
-                success: function(response) {
-                    $("#city").html(response);
-                }
-            });
-        }
-
         var jScrollWizard = null;
 
         var functionAjaxSuccessStepOne = function(e, data) {
@@ -164,15 +132,6 @@
         };
 
         $(function() {
-            var $countySelect = $("#country");
-            var $stateSelect = $("#state");
-            $countySelect.on("change", function() {
-                fill_states($(this));
-            });
-            $stateSelect.on("change", function() {
-                fill_cities($(this));
-            });
-
             $("[data-ajax-change='true']").on("change", fillValues);
 
             $("#form-personal-info").on("ajaxform.success", functionAjaxSuccessStepOne);
@@ -182,7 +141,8 @@
             $(".j-scroll").jscroll({
                 loadingHtml: '<span>Carregando...</span>',
                 contentSelect: ".j-scroll-container",
-                nextSelect: "a[data-jscroll-next]"
+                nextSelect: "a[data-jscroll-next]",
+                callback: refreshAsyncLike
             });
 
             {% if request.user and request.user.profile and request.user.profile.wizard_step < 1 %}
