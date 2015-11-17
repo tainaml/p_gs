@@ -28,7 +28,7 @@
                 </header>
                 <div class="filter row">
                     <form id="search-form" action="{% url 'profile:communities' profile.user.username %}" method="GET" data-ajaxform="true" data-group-class=".form-search-input">
-                        {% csrf_token %}
+
                         <div class="col-lg-8">
                             <div class="form-search-input">
                                 <input type="text" id="fcommunity" name="criteria" placeholder="{{placehold|default:"Procure comunidades."}}" />
@@ -63,13 +63,14 @@
                                         <div class="perfil">
                                             <img class="img-responsive" src="{% thumbor_url community.content_object.get_picture.url width=82 height=82 smart=False fit_in=False %}" alt="{{ community.content_object.title }}">
                                             <a class="perfil-name" href="{% url 'community:show' community.content_object.slug %}">{{ community.content_object.title }}</a>
-                                            <a class="perfil-counter" href="{% url 'community:followers' community_slug=community.content_object.slug %}"><span class="counter-number">{% followers_count community.content_object %}</span> Seguidores</a>
+                                            <a class="perfil-counter" href="{% url 'community:followers' community_slug=community.content_object.slug %}"><span class="counter-number">{% followers_count community.content_object %}
+                                            </span> Seguidores</a>
                                             {% follow_action community.content_object request.path %}
 
                                         </div>
                                     </div>
                                 {% endfor %}
-                                <a data-jscroll-next href="{% url 'socialactions:get_followings' content_type_id=content_type.id object_filter_id=object.id %}?p={{ page }}&next={{ url_next|urlencode }}">next</a>
+                                <a data-jscroll-next href="{% url 'socialactions:get_followings' content_type_id=content_type.id object_filter_id=object.id %}?p={{ page }}&next={{ url_next|urlencode }}&criteria={{ criteria }}&category={{ category }}">next</a>
                                 </div>
                             {% endif %}
                         </div>
@@ -97,14 +98,13 @@
 
         var jScrollElemment = null;
         var functionAjaxSuccessFilterCommunities = function(e, data) {
-            console.log(data);
 
             var $divCommunities = $("#communities-container");
             var $divJScroll = $('<div class="row j-scroll-communities j-scroll-communities-container"></div>');
 
             $divJScroll.html(data.template);
             $divCommunities.html($divJScroll);
-
+            console.log($divJScroll);
             jScrollElemment = $divJScroll.jscroll({
                 autoTrigger: true,
                 loadingHtml: '<span>Carregando...</span>',
