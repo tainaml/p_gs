@@ -1,7 +1,7 @@
-<div class="modal fade" data-target="modal" id="modal-recuperar-senha">
+<div id="modal-forgot-password" class="modal fade" data-target="modal">
     <div class="modal-dialog modal-sm">
         <div class="modal-content">
-            <form id="form-recuperar-senha" action="{% url 'account:forgot_password' %}" method="POST"  data-ajaxform="true" data-group-class=".form-group">
+            <form id="form-forgot-password" action="{% url 'account:forgot_password' %}" method="POST"  data-ajaxform="true" data-group-class=".form-group">
                 {% csrf_token %}
                 <div class="modal-header">
                     <span class="pull-right close" data-dismiss="modal" aria-label="Close"><span class="gsticon gsticon-close"></span></span>
@@ -19,3 +19,5 @@
         </div>
     </div>
 </div>
+
+<div id="modal-forgot-password-successfully" class="modal fade"></div>

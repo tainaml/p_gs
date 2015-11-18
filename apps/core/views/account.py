@@ -35,19 +35,21 @@ class CoreLoginView(views.LoginView):
 class CoreForgotPassword(views.ForgotPasswordView):
 
     def return_error(self, request, context=None):
-        _response_context = {}
+        _context = {}
 
         if 'form' in context:
             _form = context['form']
-            _active = _form.account_is_active if hasattr(_form, 'account_is_active') else None
+            _context = {'errors': _form.errors}
 
-            _response_context = {
-                'errors': _form.errors,
-                'is_active': _active
-            }
-
-        return JsonResponse(_response_context, status=400)
+        return JsonResponse(_context, status=400)
 
     def return_success(self, request, context=None):
 
-        return JsonResponse(context, status=200)
+        if not context:
+            context = {}
+
+        _context = {
+            'template': render(request, 'account/partials/account-password-response-modal.html', context).content
+        }
+
+        return JsonResponse(_context, status=200)

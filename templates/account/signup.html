@@ -134,6 +134,14 @@
                 window.location.href = data.url_next;
             };
 
+            var functionAjaxSuccessForgotPassword = function(e, data) {
+                var $modalForgotPassword = $("#modal-forgot-password");
+                var $modalForgotPasswordSuccessfully = $("#modal-forgot-password-successfully");
+                $modalForgotPasswordSuccessfully.html(data.template);
+                $modalForgotPassword.modal("hide");
+                $modalForgotPasswordSuccessfully.modal("show");
+            };
+
             var functionAjaxSuccessTriggerContactModal = function(e, data) {
                 var $modalContact = $("#modal-contact");
                 $modalContact.find("form[data-ajaxform=true]").IdeiaAjaxForm();
@@ -159,6 +167,9 @@
             $(function() {
                 var $formLogin = $("#form-login");
                 $formLogin.on("ajaxform.success", functionAjaxSuccessLogin);
+
+                var $formForgot = $("#form-forgot-password");
+                $formForgot.on("ajaxform.success", functionAjaxSuccessForgotPassword);
 
                 var $linkModal = $("#link-contact");
                 $linkModal.on("async.click.success", functionAjaxSuccessTriggerContactModal);
