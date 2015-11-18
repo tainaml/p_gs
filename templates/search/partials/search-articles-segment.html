@@ -11,7 +11,7 @@
                 <div class="dropdown-menu">
                     <ul class="perfil-actions">
                         <li><a href="javascript:;"><i class="gsticon gsticon-edit"></i> Editar publicação</a></li>
-                        <li><a href="javascript:;"><i class="gsticon gsticon-paper-plane"></i> Sugerir</a></li>
+                        <li><a href="javascript:;" data-suggest-modal="true" data-content="article" data-object="{{ article.id }}" data-url="{% url 'socialactions:act-suggest' article.id 'article' %}"><i class="gsticon gsticon-paper-plane"></i> Sugerir</a></li>
                         <li><a href="javascript:;"><i class="gsticon gsticon-eye"></i> Ver depois</a></li>
                         <li><a href="javascript:;"><i class="gsticon gsticon-star"></i> Favoritar</a></li>
                         <li><a href="javascript:;"><i class="gsticon gsticon-exclamation-triangle"></i> Denunciar</a></li>
@@ -31,7 +31,7 @@
             </figure>
             <div class="post-text">
                 <h3 class="post-title" itemprop="headline">{{ article.title }} </h3>
-                <p>{{ article.text|safe|slice:":100"}}... </p>
+                <p>{{ article.text|striptags|safe|escape|slice:":100"}}... </p>
             </div>
         </a>
         <footer class="post-footer">
