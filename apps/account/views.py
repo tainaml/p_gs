@@ -240,9 +240,17 @@ class ChangePasswordView(View):
 
 class ForgotPasswordView(View):
 
+    def return_error(self, request, context=None):
+
+        return render(request, 'account/password_forgot.html', context)
+
+    def return_success(self, request, context=None):
+
+        return render(request, 'account/password_sent_email_successfully.html', context)
+
     def get(self, request):
         form = ForgotPasswordForm()
-        return render(request, 'account/password_forgot.html', {'form': form})
+        return self.return_error(request, {'form': form})
 
     def post(self, request):
         """
@@ -254,9 +262,9 @@ class ForgotPasswordView(View):
         form = ForgotPasswordForm(request.POST)
         if form.process():
             message = _('A confirmation email was sent to you')
-            return render(request, 'account/password_sent_email_successfully.html', {'message': message})
+            return self.return_success(request, {'message': message})
 
-        return render(request, 'account/password_forgot.html', {'form': form})
+        return self.return_error(request, {'form': form})
 
 
 class ResendAccountConfirmationView(View):
