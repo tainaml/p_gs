@@ -24,7 +24,12 @@ require('jquery');
                             'csrfmiddlewaretoken': $self.find("input:hidden[name='csrfmiddlewaretoken']").val()
                         },
                         success: function(data, status, xhr) {
-                            $self.find(".load-async-content").html(data.template);
+                            var target = $self.data("loadAsyncTarget");
+                            if(!target) {
+                                $self.find(".load-async-content").html(data.template);
+                            } else {
+                                $(target).html(data.template);
+                            }
                         },
                         statusCode: {
                             400: function() {

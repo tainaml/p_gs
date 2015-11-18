@@ -67,6 +67,7 @@
             {% include 'home/partials/modals/modal-sugerir.html' %}
             {% include 'home/partials/modals/modal-denunciar.html' %}
             {% include 'home/partials/modals/modal-rules.html' %}
+            {% include 'home/partials/modals/modal-contato.html' %}
 
         {% endblock %}
 
@@ -78,12 +79,35 @@
         <script type="text/javascript" src="{% static "ckeditor/ckeditor/ckeditor.js" %}"></script>
         <script type="text/javascript" src="{% static "ckeditor/ckeditor-init.js" %}"></script>
 
+        {% if request.user.is_anonymous %}
+            <script src="https://www.google.com/recaptcha/api.js?hl=pt-BR" async defer></script>
+        {% endif %}
+
         <script type="text/javascript">
             var functionAjaxSuccessLogin = function(e, data) {
                 window.location.href = data.url_next;
             };
-            var functionAjaxErrorLogin = function(e, data) {
-                console.log(data);
+
+            var functionAjaxSuccessTriggerContactModal = function(e, data) {
+                var $modalContact = $("#modal-contact");
+                $modalContact.find("form[data-ajaxform=true]").IdeiaAjaxForm();
+                {% if request.user.is_anonymous %}
+                    grecaptcha.render('g-recaptcha', {
+                        'sitekey': '6LccmgsTAAAAAGrsvn7r7aiIcnvbuIS7pyP0qv1K'
+                    });
+                {% endif %}
+                $modalContact.modal("show");
+
+                var functionAjaxSuccessContact = function(e, data) {
+                    var $modalContact = $("#modal-contact");
+                    var $modalContactSuccessfully = $("#modal-contact-successfully");
+                    $modalContactSuccessfully.html(data.template);
+                    $modalContact.modal("hide");
+                    $modalContactSuccessfully.modal("show");
+                };
+
+                var $formContactModal = $("#form-contact-modal");
+                $formContactModal.on("ajaxform.success", functionAjaxSuccessContact);
             };
 
             var functionAjaxSuccessSuggest = function(e, data) {
@@ -118,7 +142,9 @@
             $(function() {
                 var $formLogin = $("#form-login");
                 $formLogin.on("ajaxform.success", functionAjaxSuccessLogin);
-                $formLogin.on("ajaxform.error", functionAjaxErrorLogin);
+
+                var $linkModal = $("#link-contact");
+                $linkModal.on("async.click.success", functionAjaxSuccessTriggerContactModal);
 
                 var $formSuggest = $("#form-suggest");
                 $formSuggest.on("ajaxform.success", functionAjaxSuccessSuggest);

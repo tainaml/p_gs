@@ -6,7 +6,7 @@
         {% url 'socialactions:act' object_to_link.id content 'follow' as act_url %}
     {% endif %}
 
-    {% if object_to_link.id not in followings %}
+    {% if not followed %}
     <a class="btn {{ btn_class }}" {% if ajax %}data-social-action-ajax{% endif %} href="{{ act_url }}?url_next={{ url_next|urlencode }}">
         {% if content == "community" %}
             Entrar

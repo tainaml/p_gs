@@ -93,13 +93,9 @@ def follow_action(context, object_to_link, url_next, btn_class="btn-sm perfil-bu
 
     try:
         content = Business.get_content_by_object(object_to_link)
-
-        followings = Business.get_users_acted_by_author(author=context['request'].user,
-                                                        action=settings.SOCIAL_FOLLOW,
-                                                        content_type=content.model)
-        following_list = []
-        for following in followings:
-            following_list.append(following.content_object.id)
+        followed = Business.user_acted_by_object(user=context['request'].user,
+                                                 content_object=object_to_link,
+                                                 action_type='follow')
 
     except ValueError:
         raise Http404()
@@ -107,7 +103,7 @@ def follow_action(context, object_to_link, url_next, btn_class="btn-sm perfil-bu
     return {
         'object_to_link': object_to_link,
         'content': content.model,
-        'followings': following_list,
+        'followed': followed,
         'url_next': url_next,
         'request': context['request'],
         'btn_class': btn_class,

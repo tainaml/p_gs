@@ -1,18 +1,20 @@
 <nav class="post-communities">
-    {% for community in communities %}
-        <a href="{% url 'community:show' community.slug %}" class="link-to-community">{{ community.taxonomy }}</a>•
+
+    {% for community in communities|slice:":3" %}
+        <a href="{% url 'community:show' community.slug %}" class="link-to-community">{{ community.taxonomy }}</a>{% if not forloop.last or communities|length > 3 %} • {% endif %}
     {% endfor %}
 
+    {% if communities|length > 3 %}
+        <a href="javascript:;" class="link-to-community" data-toggle="dropdown">Mais <i class="gsticon gsticon-angle-down"></i></a>
+        <div class="dropdown-menu">
+            <ul class="perfil-actions">
 
-    <a href="javascript:;" class="link-to-community" data-toggle="dropdown">Mais <i class="gsticon gsticon-angle-down"></i></a>
+                {% for community in communities|slice:"3:" %}
+                    <li><a href="{% url 'community:show' community.slug %}" class="link-to-community">{{ community.taxonomy }}</a></li>
+                {% endfor %}
 
-    <div class="dropdown-menu">
-        <ul class="perfil-actions">
-            <li><a href="javascript:;">matemática</a></li>
-            <li><a href="javascript:;">Português</a></li>
-            <li><a href="javascript:;">Literatura</a></li>
-            <li><a href="javascript:;">Termodinâmica</a></li>
-            <li><a href="javascript:;">Física</a></li>
-        </ul>
-    </div>
+            </ul>
+        </div>
+    {% endif %}
+
 </nav>
