@@ -29,8 +29,6 @@ def taxonomies(content_object):
     else:
         communities = []
 
-
-
     return {
         'communities': communities
     }
