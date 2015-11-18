@@ -146,10 +146,7 @@
                                         </div>
                                     </div>
                                 {% endfor %}
-
-                                <a data-jscroll-next
-                                   href="{% url 'profile:suggest' %}?criteria={{ criteria }}&page={{ page }}&next={{ url_next }}">next</a>
-
+                                    <a data-jscroll-next href="{% url 'profile:suggestList' %}?criteria={{ criteria }}&page={{ page }}&next={{ url_next }}">next</a>
                             {% else %}
 
                                 {% if articles == 0 %}

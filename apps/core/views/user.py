@@ -824,6 +824,12 @@ class SocialActionSuggest(CoreProfileSocialActionsBase):
         return self.return_success(request, context)
 
 
+class SocialActionSuggestList(SocialActionSuggest):
+
+    def return_success(self, request, context=None):
+        return render(request, 'socialactions/partials/suggest.html', context)
+
+
 class SocialActionRemoveSuggest(CoreProfileSocialActionsBase):
     template_path = 'socialactions/partials/suggest.html'
 
