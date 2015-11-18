@@ -90,7 +90,8 @@
                 $currentModal = $this.closest(".modal.fade");
 
             var $wizardCommunities = $("#wizard-container-communities");
-            var $wizardJScroll = $('<div class="j-scroll-wizard-communities j-scroll-wizard-communities-container"></div>');
+            var $wizardJScroll = $('<div />');
+                $wizardJScroll.addClass("j-scroll-wizard-communities j-scroll-wizard-communities-container");
 
             $wizardJScroll.html(data.template);
             $wizardCommunities.html($wizardJScroll);
@@ -108,10 +109,7 @@
         };
 
         var functionAjaxSuccessStepThree = function(e, data) {
-            var $this = $(this),
-                $currentModal = $this.closest(".modal.fade");
-
-            $currentModal.modal("hide");
+            location.reload();
         };
 
         var fillValues = function() {
