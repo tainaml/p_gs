@@ -32,12 +32,14 @@
                         </header>
                         <div class="row">
                             <div class="col-lg-4">
-                                <div class="custom-check btn">
-                                    <input type="checkbox">
-                                </div>
-                                <a href="javascript:;" class="btn btn-default remove-suggest">
-                                    <i class="gsticon gsticon-eye"></i> Remover sugestão
-                                </a>
+
+                                <form id="removeSuggest" data-ajaxform="true" data-group-class=".alert-container" action="{% url 'profile:unsuggest' %}">
+                                    {% csrf_token %}
+                                    <div class="custom-check btn" id="selectAll">
+                                        <input type="checkbox"  />
+                                    </div>
+                                    <button type="submit" class="btn btn-default remove-suggest"><i class="gsticon gsticon-eye"></i> Remover sugestão</button>
+                                </form>
                             </div>
                             <div class="col-lg-8">
                                 <!-- A "barra" de pesquisa não é exibida no feed, somente no -->
@@ -102,8 +104,8 @@
                         <section class="area-content j-scroll j-scroll-container">
                             {% if articles %}
                                 {% for article in articles %}
-                                    <div class="excerpt">
-                                        <div class="custom-check"><input type="checkbox" data-object-id="{{ article.id }}"></div>
+                                    <div class="excerpt" id="{{ article.id }}">
+                                        <div class="custom-check"><input type="checkbox" class="chk" data-object-id="{{ article.id }}"></div>
                                         <div class="excerpt-content">
                                             <a class="excerpt-image" href="{% url 'article:view' article.content_object.slug article.content_object.id %}">
                                                 <img src="{{ article.content_object.get_image.url }}" alt="{{ article.content_object.title }}">
@@ -144,10 +146,7 @@
                                         </div>
                                     </div>
                                 {% endfor %}
-
-                                <a data-jscroll-next
-                                   href="{% url 'profile:suggest' %}?criteria={{ criteria }}&page={{ page }}&next={{ url_next }}">next</a>
-
+                                    <a data-jscroll-next href="{% url 'profile:suggestList' %}?criteria={{ criteria }}&page={{ page }}&next={{ url_next }}">next</a>
                             {% else %}
 
                                 {% if articles == 0 %}
@@ -176,23 +175,35 @@
                 nextSelect: "a[data-jscroll-next]"
             });
 
-            $(document).on('click', '.remove-suggest', function () {
-                var objects_to_remove = [];
-
-                var checkeds = $('.custom-check').find('input:checked');
-                checkeds.each(function (index, element) {
-                    objects_to_remove.push($(element).data('objectId'));
+            $(function () {
+                $('#selectAll').find('input').change(function(){
+                    $(".chk").prop("checked",$(this).prop("checked"));
                 })
+            });
+
+            $(document).on('click', '.remove-suggest', function () {
+                var $objects_to_remove = [];
+
+                var checkeds = $('.custom-check').not('#selectAll').find('input:checked');
+                checkeds.each(function (index, element) {
+                    $objects_to_remove.push($(element).data('objectId'));
+                })
+
+                console.log($objects_to_remove);
 
                 $.ajax({
                     url: "{% url 'profile:unsuggest' %}",
                     method: 'POST',
                     data: {
-                        itens_to_remove: objects_to_remove,
+                        'itens_to_remove[]': $objects_to_remove,
                         csrfmiddlewaretoken: $("input:hidden[name='csrfmiddlewaretoken']").val()
                     },
                     success: function (data, status, xhr) {
-                        $('.area-content').html(data);
+                        console.log(data);
+                        $.each(data.removedItens, function(index, value){
+                            $("#"+value).remove();
+                        })
+
                     },
                     statusCode: {
                         400: function () {

@@ -107,8 +107,6 @@ def get_suggest_content(user, criteria=None, items_per_page=None, page=None):
 
     action_type = settings.SOCIAL_SUGGEST
 
-    # is_friend(user, user)
-
     condition = Q(target_user=user) & Q(action_type=action_type)
     content_type = ContentType.objects.get(model='article')
 
@@ -129,34 +127,26 @@ def get_suggest_content(user, criteria=None, items_per_page=None, page=None):
     items_per_page = items_per_page if items_per_page else 10
     page = page if page else 1
 
-    articles_paginated = Paginator(user_actions, items_per_page)
+    feed_objects_paginated = Paginator(user_actions, items_per_page)
     try:
-        articles_paginated = articles_paginated.page(page)
+        feed_objects_paginated = feed_objects_paginated.page(page)
     except PageNotAnInteger:
-        articles_paginated = articles_paginated.page(1)
+        feed_objects_paginated = feed_objects_paginated.page(1)
     except EmptyPage:
-        articles_paginated = []
+        feed_objects_paginated = []
 
-    return articles_paginated
-
+    return feed_objects_paginated
 
 def remove_suggest_content(user, itens_to_remove, items_per_page=None, page=None):
 
     action_type = settings.SOCIAL_SUGGEST
 
+    removed_itens = []
     try:
         for item in itens_to_remove:
-            UserAction.objects.filter(author=user, action_type=action_type, id=item).delete()
+            UserAction.objects.filter(target_user=user, action_type=action_type, id=item).delete()
+            removed_itens.append(item)
     except Exception as e:
         raise e.message("Erro ao remover elemento")
 
-    return UserAction.objects.filter(author=user, action_type=action_type)
-
-
-# If one user folow another user and that user folow back the author user, they're friends.
-# def is_friend(author, target):
-
-    # user_acted_by_object()
-    # users = user_followed(author)
-    # for _user in users:
-    #     print _user
+    return removed_itens
