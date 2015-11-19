@@ -13,7 +13,7 @@
                     <li><a href="javascript:;" data-suggest-modal="true" data-content="article" data-object="{{ instance.id }}" data-url="{% url 'socialactions:act-suggest' instance.id 'article' %}"><i class="gsticon gsticon-paper-plane"></i> Sugerir</a></li>
                     <li><a href="javascript:;"><i class="gsticon gsticon-eye"></i> Ver depois</a></li>
                     <li><a href="javascript:;"><i class="gsticon gsticon-star"></i> Favoritar</a></li>
-                    <li><a href="javascript:;"><i class="gsticon gsticon-exclamation-triangle"></i> Denunciar</a></li>
+                    <li><a href="{% url 'complaint:report' 'article' instance.id %}" data-trigger="report" data-async-module="click" data-async-target="#modal-report" data-async-method="get"><i class="gsticon gsticon-exclamation-triangle"></i> Denunciar</a></li>
                 </ul>
             </div>
         </div>

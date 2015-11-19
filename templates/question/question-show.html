@@ -29,10 +29,9 @@
                             <div class="dropdown-menu">
                                 <ul class="perfil-actions">
                                     <li><a href="javascript:;"><i class="gsticon gsticon-edit"></i> Editar publicação</a></li>
-                                    <li><a href="javascript:;"><i class="gsticon gsticon-paper-plane"></i> Sugerir</a></li>
                                     <li><a href="javascript:;"><i class="gsticon gsticon-eye"></i> Ver depois</a></li>
                                     <li><a href="javascript:;"><i class="gsticon gsticon-star"></i> Favoritar</a></li>
-                                    <li><a href="javascript:;"><i class="gsticon gsticon-exclamation-triangle"></i> Denunciar</a></li>
+                                    <li><a href="{% url 'complaint:report' 'question' instance.id %}" data-trigger="report" data-async-module="click" data-async-target="#modal-report" data-async-method="get"><i class="gsticon gsticon-exclamation-triangle"></i> Denunciar</a></li>
                                 </ul>
                             </div>
                         </div>

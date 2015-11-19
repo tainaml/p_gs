@@ -39,6 +39,9 @@
                                 <li><a data-action="favourite" data-action-type="text" data-action-text="Favoritar" data-action-text-alt="Favoritado" data-object="{{ article.id }}" data-article="{{ article.id }}" data-url-check="{% url 'socialactions:acted' article.id 'article' 'favourite' %}" href="{% url 'socialactions:act-xhr' article.id 'article' 'favourite' %}?url_next={{ request.path|urlencode }}"><i class="gsticon gsticon-star"></i> <span>Favoritar</span></a></li>
 
                                 <li><a href="javascript:;"><i class="gsticon gsticon-exclamation-triangle"></i> Denunciar</a></li>
+                                <li><a href="javascript:;"><i class="gsticon gsticon-eye"></i> Ver depois</a></li>
+                                <li><a href="javascript:;"><i class="gsticon gsticon-star"></i> Favoritar</a></li>
+                                <li><a href="{% url 'complaint:report' 'article' article.id %}" data-trigger="report" data-async-module="click" data-async-target="#modal-report" data-async-method="get"><i class="gsticon gsticon-exclamation-triangle"></i> Denunciar</a></li>
                             </ul>
                         </div>
                     </div>
