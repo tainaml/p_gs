@@ -15,3 +15,15 @@ class UserAction(models.Model):
     object_id = models.PositiveIntegerField()
     content_object = GenericForeignKey('content_type', 'object_id')
     target_user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='target_user', null=True)
+
+
+class Counter(models.Model):
+
+    action_type = models.PositiveIntegerField()
+
+    object_id = models.PositiveIntegerField()
+    content_type = models.ForeignKey(ContentType)
+    content_object = GenericForeignKey('content_type', 'object_id')
+
+    target_user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='target_user_counter', null=True)
+    count = models.PositiveIntegerField()
