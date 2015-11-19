@@ -227,7 +227,8 @@
                         csrfmiddlewaretoken: $("input:hidden[name='csrfmiddlewaretoken']").val()
                     },
                     success: function (data, status, xhr) {
-                        $('.area-content').html(data);
+                        console.log(data.template);
+                        $('.area-content').html(data.template);
                     },
                     statusCode: {
                         400: function () {
