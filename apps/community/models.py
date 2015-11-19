@@ -9,6 +9,8 @@ class Community(models.Model):
     slug = models.SlugField(blank=False, null=False, max_length=150)
     description = models.TextField(null=False, max_length=2048)
     image = models.ImageField(max_length=100, upload_to='community/%Y/%m/%d', blank=True, default='')
+    relevance = models.DecimalField(max_digits=4, decimal_places=2, null=False, default=0)
+
     taxonomy = models.OneToOneField(Taxonomy, related_name="community_related")
     user_action = GenericRelation(UserAction, related_query_name="community")
 
