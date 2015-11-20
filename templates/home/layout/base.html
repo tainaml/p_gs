@@ -120,7 +120,6 @@
             };
 
             var functionAjaxSuccessTriggerReport = function(e, data) {
-                console.log('oaksoa');
                 var $modalReport = $("#modal-report");
                 $modalReport.find("form[data-ajaxform=true]").IdeiaAjaxForm();
                 $modalReport.modal("show");
@@ -128,12 +127,9 @@
                 var $formReport = $("#form-report");
 
                 $('input[type=radio][name=complaint_type]').change(function() {
-                    console.log('oaksoaksokasoaoskoaksokasoasas');
                     if($('input[type=radio][name=complaint_type]:checked').val() == $formReport.data('community-complaint')) {
-                        console.log('ifou');
                         $("#communities").slideDown();
                     } else {
-                        console.log('not ifou');
                         $("#communities").slideUp();
                         $(".community_complaint:checked").each(function() {
                             $(".community_complaint").prop("checked", false);
@@ -144,12 +140,8 @@
                 var functionAjaxReportSuccess = function(e, data) {
                     $('#modal-report').modal('hide');
                 };
-                var functionAjaxReportError = function(e, data) {
-                    $('#modal-report').modal('hide');
-                };
 
                 $formReport.on("ajaxform.success", functionAjaxReportSuccess);
-{#                $formReport.on("ajaxform.error", functionAjaxReportError);#}
             };
 
             var functionAjaxSuccessSuggest = function(e, data) {
