@@ -1,13 +1,17 @@
 from django.contrib import messages
+from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
+from django.core.urlresolvers import reverse
+from django.db import transaction
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.utils.decorators import method_decorator
 from django.views.decorators.http import require_POST
 from django.views.generic import View
+from rede_gsti import settings
 from .service.forms import SignUpForm, LoginForm, ChangePasswordForm, RecoveryPasswordForm, ForgotPasswordForm, \
     ResendAccountConfirmationForm
-from .service.business import log_in_user, logout_user, register_confirm, check_token_exist
+from .service.business import log_in_user, logout_user, register_confirm, check_token_exist, log_in_user_no_credentials
 from django.utils.translation import ugettext as _
 
 
@@ -77,7 +81,7 @@ class LoginView(View):
         if form.process():
             url_next = '/profile/feed/' if form.redirect_to_wizard else url_next
             context = {
-                'status':200,
+                'status': 200,
                 'url_next': url_next
             }
             return self.return_success(request, context)
@@ -144,6 +148,7 @@ class RegisteredSuccessView(View):
 
 class MailValidationView(View):
 
+    @transaction.atomic()
     def get(self, request, activation_key):
         """
         Method for validate url with token sent by email to confirm user's account
@@ -156,8 +161,22 @@ class MailValidationView(View):
         message = _('Token not exist')
 
         try:
-            register_confirm(activation_key)
+            user, token_verified = register_confirm(activation_key)
             message = _('Token exist - Account verified')
+
+            if token_verified and user and user.is_active:
+
+                try:
+                    log_in_user_no_credentials(request, user)
+
+                    if user.profile.wizard_step < settings.WIZARD_STEPS_TOTAL:
+                        return redirect(reverse('profile:feed'))
+                    else:
+                        return redirect('/')
+
+                except Exception, e:
+                    pass
+
         except Exception as e:
             message = e.message
 
