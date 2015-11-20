@@ -120,7 +120,6 @@
             };
 
             var functionAjaxSuccessTriggerReport = function(e, data) {
-                console.log('oaksoa');
                 var $modalReport = $("#modal-report");
                 $modalReport.find("form[data-ajaxform=true]").IdeiaAjaxForm();
                 $modalReport.modal("show");
@@ -128,12 +127,9 @@
                 var $formReport = $("#form-report");
 
                 $('input[type=radio][name=complaint_type]').change(function() {
-                    console.log('oaksoaksokasoaoskoaksokasoasas');
                     if($('input[type=radio][name=complaint_type]:checked').val() == $formReport.data('community-complaint')) {
-                        console.log('ifou');
                         $("#communities").slideDown();
                     } else {
-                        console.log('not ifou');
                         $("#communities").slideUp();
                         $(".community_complaint:checked").each(function() {
                             $(".community_complaint").prop("checked", false);
@@ -144,12 +140,8 @@
                 var functionAjaxReportSuccess = function(e, data) {
                     $('#modal-report').modal('hide');
                 };
-                var functionAjaxReportError = function(e, data) {
-                    $('#modal-report').modal('hide');
-                };
 
                 $formReport.on("ajaxform.success", functionAjaxReportSuccess);
-{#                $formReport.on("ajaxform.error", functionAjaxReportError);#}
             };
 
             var functionAjaxSuccessSuggest = function(e, data) {
@@ -165,7 +157,10 @@
 
             var refreshAsyncLike = function() {
                 var asyncLike = $("[data-async-like=true]");
-                var asyncData = asyncLike.IdeiaAsyncLike();
+                var asyncLikeData = asyncLike.IdeiaAsyncLike();
+
+                var asyncClick = $("[data-async-module=click]");
+                var asyncClickData = asyncClick.IdeiaAsyncClick();
             };
 
             var functionOpenSuggestModal = function(e) {
@@ -181,22 +176,12 @@
             };
 
             $(function() {
-                var $formLogin = $("#form-login");
-                $formLogin.on("ajaxform.success", functionAjaxSuccessLogin);
-
-                var $formForgot = $("#form-forgot-password");
-                $formForgot.on("ajaxform.success", functionAjaxSuccessForgotPassword);
-
-                var $linkModal = $("#link-contact");
-                $linkModal.on("async.click.success", functionAjaxSuccessTriggerContactModal);
-
-                var $linkReport = $('[data-trigger="report"]');
-                $linkReport.on("async.click.success", functionAjaxSuccessTriggerReport);
-
-                var $formSuggest = $("#form-suggest");
-                $formSuggest.on("ajaxform.success", functionAjaxSuccessSuggest);
-
-                $("[data-suggest-modal]").on("click", functionOpenSuggestModal);
+                $(document).on("ajaxform.success", "#form-login", functionAjaxSuccessLogin);
+                $(document).on("ajaxform.success", "#form-forgot-password", functionAjaxSuccessForgotPassword);
+                $(document).on("ajaxform.success", "#form-suggest", functionAjaxSuccessSuggest);
+                $(document).on("click", "[data-suggest-modal]", functionOpenSuggestModal);
+                $(document).on("async.click.success", '[data-trigger="report"]', functionAjaxSuccessTriggerReport);
+                $(document).on("async.click.success", "#link-contact", functionAjaxSuccessTriggerContactModal);
             });
         </script>
 

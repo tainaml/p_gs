@@ -99,7 +99,8 @@
         var functionAjaxSuccessFilterCommunities = function(e, data) {
 
             var $divCommunities = $("#communities-container");
-            var $divJScroll = $('<div class="row j-scroll-communities j-scroll-communities-container"></div>');
+            var $divJScroll = $('<div />');
+                $divJScroll.addClass("row j-scroll-wizard-communities j-scroll-wizard-communities-container");
 
             $divJScroll.html(data.template);
             $divCommunities.html($divJScroll);
@@ -109,7 +110,7 @@
                 loadingHtml: '<span>Carregando...</span>',
                 contentSelect: '.j-scroll-communities-container',
                 nextSelect: "a[data-jscroll-next]",
-                refresh: true
+                refresh: trued
             });
         };
 
