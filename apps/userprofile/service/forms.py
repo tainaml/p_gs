@@ -7,6 +7,7 @@ from django.utils.translation import ugettext as _
 from custom_forms.custom import forms, IdeiaForm
 from apps.userprofile.models import City, Responsibility
 import business as Business
+from rede_gsti import settings
 
 
 class MultiWidgetBasic(forms.widgets.MultiWidget):
@@ -65,7 +66,13 @@ class EditProfileForm(IdeiaForm):
 
         is_valid = super(EditProfileForm, self).is_valid()
         image = self.cleaned_data.get('profile_picture', False)
+
         if image:
+            if image.content_type not in settings.IMAGES_ALLOWED:
+                self.add_error('profile_picture',
+                               ValidationError(_('Image format is not allowed.'), code='profile_picture'))
+                is_valid = False
+
             if image._size > 1024 * 1024:
                 self.add_error('profile_picture',
                                ValidationError(_('Image size more than 1mb.'), code='profile_picture'))
