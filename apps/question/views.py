@@ -17,12 +17,13 @@ class CreateQuestionView(View):
 
     @method_decorator(login_required)
     def get(self, request):
-        form = self.form(request.user)
+        form = self.form(user=request.user)
         return render(request, 'question/create.html', {'form': form})
 
     @method_decorator(login_required)
     def post(self, request):
-        form = self.form(request.user, request.POST)
+        form = self.form(data=request.POST, user=request.user)
+        print form.is_valid()
         if not form.process():
             messages.add_message(request, messages.WARNING, _("Question not created!"))
         else:
@@ -44,7 +45,7 @@ class SaveQuestionView(View):
 
     @method_decorator(login_required)
     def post(self, request):
-        form = self.form(request.user, request.POST)
+        form = self.form(request.POST, user=request.user)
         if not form.process():
             messages.add_message(request, messages.WARNING, _("Question not created!"))
         else:

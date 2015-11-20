@@ -23,8 +23,6 @@
     <textarea name="description" id="description" placeholder="{% trans "Write your detailed question" %}" maxlength="2048">{% if form.cleaned_data %}{{ form.cleaned_data.description|default_if_none:question.description}}{% else %}{{ question.description }} {% endif %}</textarea>
     {% if form.description.errors %}<span class="help-block">{{ form.description.errors }}</span> {% endif %}
 
-    {{ form.communities.value }}
-
     <div class="form-group">
 
         {% render_field form.communities data-toggle="selectize" data-module="taxonomy" data-label-field="name" data-value-field="id" %}
