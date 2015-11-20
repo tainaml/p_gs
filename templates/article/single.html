@@ -118,6 +118,7 @@
 
             var $data_list = $div_to_update.find("div[data-xhr]");
             $data_list.renderList();
+            refreshAsyncLike();
 
         };
 
@@ -165,6 +166,8 @@
                     }
                 }
             });
+
+            refreshAsyncLike();
         });
     };
 
