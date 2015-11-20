@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from django.contrib.contenttypes.models import ContentType
 from django.http import JsonResponse, Http404
 from django.utils.decorators import method_decorator
@@ -247,7 +248,7 @@ class CoreProfileWizardStepTwoAjax(views.ProfileBaseView):
             context.update({'status': 400})
             return self.return_error(request, context)
 
-        form = CoreCommunityFormSearch(3, request.GET)
+        form = CoreCommunityFormSearch(6, request.GET)
         communities = form.process()
         taxonomies = [taxonomy.id for taxonomy in form.cleaned_data['taxonomies']]
 
@@ -273,7 +274,7 @@ class CoreProfileWizardStepTwoAjax(views.ProfileBaseView):
             taxonomy_communities = BusinessTaxonomy.get_related_list_top_down(taxonomy_categories_obj)
             taxonomies = [tax.id for tax in taxonomy_communities]
 
-            form = CoreCommunityFormSearch(3, {"taxonomies": taxonomies})
+            form = CoreCommunityFormSearch(6, {"taxonomies": taxonomies})
             communities = form.process()
 
             context['status'] = 200
@@ -823,13 +824,24 @@ class SocialActionSuggest(CoreProfileSocialActionsBase):
         return self.return_success(request, context)
 
 
+class SocialActionSuggestList(SocialActionSuggest):
+
+    def return_success(self, request, context=None):
+        return render(request, 'socialactions/partials/suggest.html', context)
+
+
 class SocialActionRemoveSuggest(CoreProfileSocialActionsBase):
     template_path = 'socialactions/partials/suggest.html'
 
     @method_decorator(login_required)
     def post(self, request):
 
-        itens_to_remove = request.POST.getlist(u'itens_to_remove[]')
+        itens = request.POST.getlist('itens_to_remove[]')
+        itens_to_remove = []
+
+        for item in itens:
+            itens_to_remove.append(int(item))
+
         try:
             content = Business.remove_suggest_content(user=request.user, itens_to_remove=itens_to_remove)
 
@@ -840,12 +852,4 @@ class SocialActionRemoveSuggest(CoreProfileSocialActionsBase):
             }
             return self.return_error(request, context)
 
-        context = {
-            'articles': content,
-            'url_next': request.POST['next'] if 'next' in request.POST else '',
-            'page': (itens_to_remove.page if itens_to_remove and itens_to_remove.page else 0) + 1,
-            'criteria': self.template_path,
-            'profile': request.user.profile
-        }
-
-        return self.return_success(request, context)
+        return JsonResponse({'removedItens': content}, status=200)

@@ -15,17 +15,16 @@ def get_type_complaint():
 
 @transaction.atomic
 def create_complaint(parameters, user):
-    complaint = Complaint()
 
     content_type = ContentType.objects.get(model=parameters['content_type'])
 
-    complaint.description = parameters['description']
-    complaint.complaint_type = parameters['complaint_type']
-    complaint.content_type = content_type
-    complaint.object_id = parameters['object_id']
-    complaint.author = user
-
-    complaint.save()
+    complaint, created = Complaint.objects.get_or_create(
+        description=parameters['description'],
+        complaint_type=parameters['complaint_type'],
+        content_type=content_type,
+        object_id=parameters['object_id'],
+        author=user
+    )
 
     for community in parameters['community_complaint']:
         complaint.communities.add(community)

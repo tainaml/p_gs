@@ -11,10 +11,9 @@
                 <div class="dropdown-menu">
                     <ul class="perfil-actions">
                         <li><a href="javascript:;"><i class="gsticon gsticon-edit"></i> Editar publicação</a></li>
-                        <li><a href="javascript:;"><i class="gsticon gsticon-paper-plane"></i> Sugerir</a></li>
                         <li><a href="javascript:;"><i class="gsticon gsticon-eye"></i> Ver depois</a></li>
                         <li><a href="javascript:;"><i class="gsticon gsticon-star"></i> Favoritar</a></li>
-                        <li><a href="javascript:;"><i class="gsticon gsticon-exclamation-triangle"></i> Denunciar</a></li>
+                        <li><a href="{% url 'complaint:report' 'question' question.id %}" data-trigger="report" data-async-module="click" data-async-target="#modal-report" data-async-method="get"><i class="gsticon gsticon-exclamation-triangle"></i> Denunciar</a></li>
                     </ul>
                 </div>
             </div>
@@ -32,7 +31,6 @@
         <footer class="post-footer">
             <nav class="post-communities">
                 {% taxonomies question %}
-                {#                        <a href="javascript:;" class="link-to-community">Java</a>•<a href="javascript:;" class="link-to-community">MySQL</a>•<a href="javascript:;" class="link-to-community" data-toggle="dropdown">Mais <i class="gsticon gsticon-angle-down"></i></a>#}
                 <div class="dropdown-menu">
                     <ul class="perfil-actions">
                         <li><a href="javascript:;">matemática</a></li>

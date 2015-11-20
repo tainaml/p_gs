@@ -29,7 +29,7 @@ class ComplaintForm(IdeiaForm):
             entity_to_complaint = False
 
         if not entity_to_complaint or self.cleaned_data['content_type'] not in entity_to_complaint:
-            self.add_error(None,
+            self.add_error('generic_error',
                            ValidationError(('Content Type is not specified.'),
                                            code='content_is_not_specified'))
             valid = False
@@ -37,5 +37,4 @@ class ComplaintForm(IdeiaForm):
         return valid
 
     def __process__(self):
-        result = Business.create_complaint(parameters=self.cleaned_data, user=self.user)
-        return result
+        return Business.create_complaint(parameters=self.cleaned_data, user=self.user)

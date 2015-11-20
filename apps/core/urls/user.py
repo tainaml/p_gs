@@ -35,6 +35,8 @@ urlpatterns = [
     url(r'^favoritos/$', CoreUserProfileView.SocialActionFavourite.as_view(), name='favourite'),
     url(r'^desfavoritar/$', CoreUserProfileView.SocialActionRemoveFavourite.as_view(), name='unfavourite'),
     url(r'^sugestoes/$', CoreUserProfileView.SocialActionSuggest.as_view(), name='suggest'),
+    url(r'^sugestoes/list/$', CoreUserProfileView.SocialActionSuggestList.as_view(), name='suggestList'),
+
     url(r'^remover-sugestao/$', CoreUserProfileView.SocialActionRemoveSuggest.as_view(), name='unsuggest'),
 
     url(r'^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/$', CoreUserProfileView.CoreUserProfile.as_view(), name='show'),

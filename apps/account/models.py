@@ -7,7 +7,6 @@ from rede_gsti import settings
 
 
 class TokenType():
-
     REGISTER_ACCOUNT_CONFIRM = 1
     RECOVERY_PASSWORD_CONFIRM = 2
 
@@ -18,7 +17,6 @@ class TokenType():
 
 
 class MailValidation(models.Model):
-
     user = models.ForeignKey(User)
     token = models.TextField(unique=True)
     link_date = models.DateTimeField()

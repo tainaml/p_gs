@@ -17,12 +17,12 @@ from django.conf.urls import include, url
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.conf import settings
-
+from apps.ninico.views import index as PROJECT_ROOT
 url_statics = static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 url_media = static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 urlpatterns = [
-
+    url(r'^$', PROJECT_ROOT, name='index'),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^account/', include('apps.core.urls.account', namespace='account')),
     url(r'^comment/', include('apps.comment.urls', namespace='comment')),
@@ -36,12 +36,11 @@ urlpatterns = [
     url(r'^', include('apps.core.urls.socialactions', namespace='core_socialactions')),
     url(r'^ninico/?', include('apps.ninico.urls', namespace='ninico')),
     url(r'^question/', include('apps.core.urls.question', namespace='question')),
-    url(r'^contact/', include('apps.contact.urls', namespace='contact')),
+    url(r'^contact/', include('apps.core.urls.contact', namespace='contact')),
     url(r'^mailmanager/', include('apps.mailmanager.urls', namespace='mailmanager')),
     url(r'^complaint/', include('apps.complaint.urls', namespace='complaint')),
     url(r'^', include('apps.core.urls.search', namespace='search')),
     url(r'^', include('apps.core.urls.core', namespace='core')),
-
 
 
 ] + url_statics + url_media

@@ -2,6 +2,8 @@
 
 {% load thumbor_tags %}
 {% load profile_tags %}
+{% load social_tags %}
+{% load taxonomy_tags %}
 
 {% block title %}{{ question.title }} - Portal GSTI{% endblock %}
 
@@ -10,11 +12,7 @@
         <div class="perfil-row">
             <ul class="box-share">
                 <li class="comment-vote">
-                    <span style="display: block">132</span>
-                    <i class="gsticon gsticon-caret-up"></i>
-                    <hr>
-                    <i class="gsticon gsticon-caret-down"></i>
-                    <span style="display: block">5</span>
+                    {% like_box question request.path "share-box" %}
                 </li>
                 <li><a href="javascript:;"><i class="gsticon gsticon-star"></i></a></li>
                 <li><a href="javascript:;"><i class="gsticon gsticon-eye"></i></a></li>
@@ -29,10 +27,9 @@
                             <div class="dropdown-menu">
                                 <ul class="perfil-actions">
                                     <li><a href="javascript:;"><i class="gsticon gsticon-edit"></i> Editar publicação</a></li>
-                                    <li><a href="javascript:;"><i class="gsticon gsticon-paper-plane"></i> Sugerir</a></li>
                                     <li><a href="javascript:;"><i class="gsticon gsticon-eye"></i> Ver depois</a></li>
                                     <li><a href="javascript:;"><i class="gsticon gsticon-star"></i> Favoritar</a></li>
-                                    <li><a href="javascript:;"><i class="gsticon gsticon-exclamation-triangle"></i> Denunciar</a></li>
+                                    <li><a href="{% url 'complaint:report' 'question' question.id %}" data-trigger="report" data-async-module="click" data-async-target="#modal-report" data-async-method="get"><i class="gsticon gsticon-exclamation-triangle"></i> Denunciar</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -46,22 +43,10 @@
                         </h1>
                     </header>
                     <aside class="post-footer">
-                        <nav class="post-communities">
-                            <a href="javascript:;" class="link-to-community">Java</a>•<a href="javascript:;" class="link-to-community">MySQL</a>•<a href="javascript:;" class="link-to-community" data-toggle="dropdown">Mais <i class="gsticon gsticon-angle-down"></i></a>
-                            <div class="dropdown-menu">
-                                <ul class="perfil-actions">
-                                    <li><a href="javascript:;">Matemática</a></li>
-                                    <li><a href="javascript:;">Português</a></li>
-                                    <li><a href="javascript:;">Literatura</a></li>
-                                    <li><a href="javascript:;">Termodinâmica</a></li>
-                                    <li><a href="javascript:;">Física</a></li>
-                                </ul>
-                            </div>
-                        </nav>
+                        {% taxonomies question %}
                         <div class="post-toolbar pull-right">
                             <div class="post-count">
-                                <a href="javascript:;" class="post-votes-up">1.026 <i class="gsticon gsticon-caret-up"></i></a>
-                                <a href="javascript:;" class="post-votes-dow"><i class="gsticon gsticon-caret-down"></i> 4</a>
+                                {% like_box question request.path "inline" %}
                             </div>
                             <div class="post-count-comments"><strong>{{ question.counter_answer }}</strong> Respostas</div>
                         </div>

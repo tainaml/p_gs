@@ -116,25 +116,25 @@ def related_posts_box(context, instance, post_type=None, count=4, template_path=
 
 @register.inclusion_tag("core/templatetags/footer.html")
 def footer():
-    footer = cache.get("footer")
+    categories_cached = cache.get("categories")
 
-    if not footer:
+    if not categories_cached:
 
-        footer = {}
+        categories_cached = {}
         categories = Taxonomy.objects.filter(term__description="Categoria")
         taxonomies = Taxonomy.objects.filter(parent=categories).order_by("description")
 
         for taxonomy in taxonomies:
             slug = slugify(taxonomy.parent.description).replace("-", "_")
-            if slug not in footer.keys():
-                footer[slug] = []
+            if slug not in categories_cached.keys():
+                categories_cached[slug] = []
 
-            footer[slug].append(taxonomy.community_related)
+            categories_cached[slug].append(taxonomy.community_related)
 
-        cache.set("footer", footer, None)
+        cache.set("categories", categories_cached, None)
     return {
 
-        'footer': footer
+        'categories': categories_cached
     }
 
 

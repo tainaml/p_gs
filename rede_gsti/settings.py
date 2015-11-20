@@ -79,6 +79,7 @@ INSTALLED_APPS = (
     'apps.notifications',
     'apps.rede_gsti_signals',
     'apps.feed',
+    'apps.configuration',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -120,6 +121,10 @@ WSGI_APPLICATION = 'rede_gsti.wsgi.application'
 # Populate file
 FIXTURE_FILE = 'initial_data.json'
 
+
+IMAGES_ALLOWED = ['image/jpeg','image/png']
+
+
 # EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_BACKEND = 'apps.mailmanager.backend.MailManagedBackend'
 EMAIL_USE_TLS = True
@@ -136,7 +141,7 @@ MAX_LEVELS = 2
 ENTITY_TO_COMPLAINT = ['article', 'question']
 
 # Complaint config
-COMPLAINT_COMMUNITY = 10
+COMPLAINT_COMMUNITY = 5
 
 # Social config
 SOCIAL_LIKE = 1

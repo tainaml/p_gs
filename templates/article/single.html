@@ -16,8 +16,8 @@
             <li class="comment-vote">
                 {% like_box article request.path "share-box" %}
             </li>
-            <li><a data-action="social" data-url-check="{% url 'socialactions:acted' article.id 'article' 'favourite' %}" href="{% url 'socialactions:act-xhr' article.id 'article' 'favourite' %}?url_next={{ request.path|urlencode }}"><i class="gsticon gsticon-star"></i></a></li>
-            <li><a data-action="social" data-url-check="{% url 'socialactions:acted' article.id 'article' 'see-later' %}" href="{% url 'socialactions:act-xhr' article.id 'article' 'see-later' %}?url_next={{ request.path|urlencode }}"><i class="gsticon gsticon-eye"></i></a></li>
+            <li><a data-action="favourite" data-action-type="icon" data-object="{{ article.id }}" data-url-check="{% url 'socialactions:acted' article.id 'article' 'favourite' %}" href="{% url 'socialactions:act-xhr' article.id 'article' 'favourite' %}?url_next={{ request.path|urlencode }}"><i class="gsticon gsticon-star"></i></a></li>
+            <li><a data-action="see-later" data-action-type="icon" data-url-check="{% url 'socialactions:acted' article.id 'article' 'see-later' %}" data-object="{{ article.id }}" href="{% url 'socialactions:act-xhr' article.id 'article' 'see-later' %}?url_next={{ request.path|urlencode }}"><i class="gsticon gsticon-eye"></i></a></li>
             <li><a href="javascript:;" data-suggest-modal="true" data-content="article" data-object="{{ article.id }}" data-url="{% url 'socialactions:act-suggest' article.id 'article' %}"><i class="gsticon gsticon-paper-plane"></i></a></li>
         </ul>
         <div class="post-container">
@@ -32,9 +32,9 @@
                             <ul class="perfil-actions">
                                 <li><a href="javascript:;"><i class="gsticon gsticon-edit"></i> Editar publicação</a></li>
                                 <li><a href="javascript:;" data-suggest-modal="true" data-content="article" data-object="{{ article.id }}" data-url="{% url 'socialactions:act-suggest' article.id 'article' %}"><i class="gsticon gsticon-paper-plane"></i> Sugerir</a></li>
-                                <li><a href="javascript:;"><i class="gsticon gsticon-eye"></i> Ver depois</a></li>
-                                <li><a href="javascript:;"><i class="gsticon gsticon-star"></i> Favoritar</a></li>
-                                <li><a href="javascript:;"><i class="gsticon gsticon-exclamation-triangle"></i> Denunciar</a></li>
+                                <li><a data-action="see-later" data-action-type="text" data-action-text="Ver depois" data-action-text-alt="Desmarcar como visto" data-object="{{ article.id }}" data-url-check="{% url 'socialactions:acted' article.id 'article' 'see-later' %}" href="{% url 'socialactions:act-xhr' article.id 'article' 'see-later' %}?url_next={{ request.path|urlencode }}"><i class="gsticon gsticon-eye"></i> <span>Ver depois</span></a></li>
+                                <li><a data-action="favourite" data-action-type="text" data-action-text="Favoritar" data-action-text-alt="Favoritado" data-object="{{ article.id }}" data-article="{{ article.id }}" data-url-check="{% url 'socialactions:acted' article.id 'article' 'favourite' %}" href="{% url 'socialactions:act-xhr' article.id 'article' 'favourite' %}?url_next={{ request.path|urlencode }}"><i class="gsticon gsticon-star"></i> <span>Favoritar</span></a></li>
+                                <li><a href="{% url 'complaint:report' 'article' article.id %}" data-trigger="report" data-async-module="click" data-async-target="#modal-report" data-async-method="get"><i class="gsticon gsticon-exclamation-triangle"></i> Denunciar</a></li>
                             </ul>
                         </div>
                     </div>
@@ -99,7 +99,7 @@
     var form_submit = function(event, data){
             var $form = $(this);
 
-            var action = $form.data("action");
+            var action = $form.data("toggle");
             var $div_to_update = $($form.data("update"));
 
             if (action=="append"){
@@ -118,6 +118,7 @@
 
             var $data_list = $div_to_update.find("div[data-xhr]");
             $data_list.renderList();
+            refreshAsyncLike();
 
         };
 
@@ -165,6 +166,8 @@
                     }
                 }
             });
+
+            refreshAsyncLike();
         });
     };
 

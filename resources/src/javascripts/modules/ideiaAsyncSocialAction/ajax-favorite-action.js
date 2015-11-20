@@ -1,6 +1,7 @@
 require('./when-event.js');
 
 ;(function ( $, window, document ) {
+    'use strict';
     var pluginName = 'ajaxSocialAction',
         defaults = {
             activeClass: 'item-active'
@@ -22,7 +23,7 @@ require('./when-event.js');
             $that = $( this.element );
 
         $.getJSON(urlCheck, function ( result ) {
-            $that.parent().toggleClass( result.acted ? 'item-active' : '' );
+            checkResult( $that, result );
         });
 
         this.activeFavourite();
@@ -30,25 +31,46 @@ require('./when-event.js');
     Plugin.prototype.activeFavourite = function () {
         var $that = this;
 
-        $( $that.element ).on( 'click.active', function ( event ) {
+        $( $that.element ).on( 'click.action', function ( event ) {
             var ajaxUrl = event.currentTarget.href;
             event.preventDefault();
 
             $.getJSON( ajaxUrl, function ( result ) {
-                $($that.element).parent().toggleClass(result.acted ? $that._defaults.activeClass : '' );
+                checkResult( $that.element, result );
             });
         });
+    };
+
+    function checkResult ( el, result ) {
+        var element = $(el);
+        result.action = element.data('action');
+        console.log(result.acted);
+        if ( result.acted ) {
+            $('[data-action='+ result.action +'][data-action-type="icon"]').parent('li').addClass( 'item-active' );
+            $('[data-action='+ result.action +'][data-action-type="text"]')
+                .find('span').text( $('[data-action='+ result.action +'][data-action-type="text"]').data( 'actionTextAlt' ));
+
+        } else {
+            $('[data-action='+result.action +'][data-action-type="icon"]').parent('li').removeClass( 'item-active' );
+            $('[data-action='+ result.action +'][data-action-type="text"]')
+                .find('span').text( $('[data-action='+ result.action +'][data-action-type="text"]').data( 'actionText' ));
+            console.log(element.data('actionText'));
+        }
     }
+
+    $('[data-action]').on('change:action', function ( event, data ) {
+        checkResult(event.currentTarget, data);
+    });
 
     $.fn[pluginName] = function ( options ) {
         return this.each(function () {
-            if ( !$.data ( this, "plugin_" + pluginName )) {
-                $.data ( this, "plugin_" + pluginName,
+            if ( !$.data ( this, 'plugin_' + pluginName )) {
+                $.data ( this, 'plugin_' + pluginName,
                 new Plugin( this, options ));
             }
         });
     };
 
-    $('[data-action=social]').ajaxSocialAction();
+    $('[data-action]').ajaxSocialAction();
 
 })(jQuery, window, document);

@@ -16,7 +16,6 @@
                 <nav class="perfil-navegation">
                     {% if profile.user == request.user %}<a class="active" href="{% url 'profile:feed' %}">Feed</a> •{% endif %}
                     <a href="{% url 'profile:show' username=profile.user.username %}">Perfil</a> •
-                    <a href="{% url 'ninico:about' %}">Sobre</a> •
                     <a href="{% url 'profile:communities' username=profile.user.username %}">Comunidades</a> •
                     <a href="{% url 'profile:followers' username=profile.user.username %}">Relacionamentos</a> •
                     <a href="{% url 'profile:videos' profile.user.username %}">Vídeos</a>
@@ -91,7 +90,8 @@
                 $currentModal = $this.closest(".modal.fade");
 
             var $wizardCommunities = $("#wizard-container-communities");
-            var $wizardJScroll = $('<div class="j-scroll-wizard-communities j-scroll-wizard-communities-container"></div>');
+            var $wizardJScroll = $('<div />');
+                $wizardJScroll.addClass("j-scroll-wizard-communities j-scroll-wizard-communities-container");
 
             $wizardJScroll.html(data.template);
             $wizardCommunities.html($wizardJScroll);
@@ -109,10 +109,7 @@
         };
 
         var functionAjaxSuccessStepThree = function(e, data) {
-            var $this = $(this),
-                $currentModal = $this.closest(".modal.fade");
-
-            $currentModal.modal("hide");
+            location.reload();
         };
 
         var fillValues = function() {
