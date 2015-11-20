@@ -99,7 +99,7 @@
     var form_submit = function(event, data){
             var $form = $(this);
 
-            var action = $form.data("action");
+            var action = $form.data("toggle");
             var $div_to_update = $($form.data("update"));
 
             if (action=="append"){

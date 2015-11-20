@@ -1,9 +1,12 @@
 from datetime import date
+from django.conf import settings
+from django.contrib.contenttypes.models import ContentType
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
 from django.utils.translation import ugettext as _
 from ckeditor.fields import RichTextField
+from apps.socialactions.models import Counter
 
 
 class GenderType:
@@ -82,6 +85,19 @@ class UserProfile(models.Model):
             return self.property_age
 
         return False
+
+    #User Action Follower
+    @property
+    def followers(self):
+        try:
+            return Counter.objects.defer("count").get(
+                action_type=settings.SOCIAL_FOLLOW,
+                object_id=self.id,
+                content_type= ContentType.objects.get(model='community')
+
+            ).count
+        except:
+            return 0
 
     @property
     def current_occupation(self):
