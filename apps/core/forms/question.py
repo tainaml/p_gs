@@ -29,6 +29,14 @@ class CoreCreateQuestionForm(CreateQuestionForm, BaseCoreQuestionForm):
         super(CoreCreateQuestionForm, self).set_author(user)
         self.filter_comunities(user)
 
+    @transaction.atomic()
+    def __process__(self):
+        process_question = super(CoreCreateQuestionForm, self).__process__()
+        process_feed = CoreFeedBusiness.save_feed_question(self.instance, self.cleaned_data)
+        process_taxonomies = self.save_taxonomies(process_feed, self.cleaned_data)
+
+        return process_question if (process_question and process_taxonomies) else False
+
 
 class CoreEditQuestionForm(EditQuestionForm, BaseCoreQuestionForm):
 
