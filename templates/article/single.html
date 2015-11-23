@@ -107,7 +107,10 @@
                 $form[0].reset();
             }else if (action=="prepend"){
                 $div_to_update.prepend(data.template);
-
+                var $form_to_hide = $form.parent(".dropdown-content");
+                if ($form_to_hide){
+                    $form_to_hide.removeClass("open");
+                }
                 $form[0].reset();
             }else if (action=="replace"){
                 $div_to_update.html(data.template);
