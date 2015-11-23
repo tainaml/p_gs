@@ -235,3 +235,17 @@ class CoreCommunityFollowersSearchList(CoreCommunityFollowersSearch):
 
     def return_success(self, request, context=None):
         return render(request, self.template_path, context)
+
+
+class CommunityRelated(CoreCommunityView):
+
+    def post(self, request, community_slug):
+
+        community = self.filter_community(request, community_slug)
+        if not community:
+            return self.community_not_found
+
+        context = {'community': community}
+        context.update(self.get_context(request, community))
+
+        return render(request, self.template_path, context)
