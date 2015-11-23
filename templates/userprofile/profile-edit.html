@@ -61,17 +61,33 @@
                                     {% endfor %}
                                 {% endif %}
                             </div>
-                            <div class="form-group-inline">
-                                <label for="residency_state">Estado que nasceu</label>
-                                <select class="form-control" name="residency_state">
-                                    <option value="ba">Bahia</option>
+                            <div class="form-group-inline {% if form.state_hometown.errors %}has-error{% endif %}">
+                                <label for="state_hometown">Estado que nasceu</label>
+                                <select class="form-control" id="state_hometown" name="state_hometown" data-ajax-change="true" data-url="{% url 'profile:get_city' %}" data-target="#city_hometown">
+                                    <option value="" {% if not form.data_model.city_hometown %}selected{% endif %} disabled>{% trans "Selecione um estado" %}</option>
+                                    {% for state in states %}
+                                        <option value="{{ state.id }}" {% if form.data_model.city_hometown.state.id == state.id %}selected{% endif %}>{{ state.name }}</option>
+                                    {% endfor %}
                                 </select>
+                                {% if form.state_hometown.errors %}
+                                    {% for error in form.state_hometown.errors %}
+                                        <span class="help-block">{{ error|escape }}</span>
+                                    {% endfor %}
+                                {% endif %}
                             </div>
-                            <div class="form-group-inline">
-                                <label for="residency_city">Cidade que nasceu</label>
-                                <select class="form-control" name="residency_city">
-                                    <option value="ssa">Salvador</option>
+                            <div class="form-group-inline {% if form.city_hometown.errors %}has-error{% endif %}">
+                                <label for="city_hometown">Cidade que nasceu</label>
+                                <select class="form-control" id="city_hometown" name="city_hometown">
+                                    <option value="" {% if not form.data_model.city_hometown %}selected{% endif %} disabled>{% trans "Selecione uma cidade" %}</option>
+                                    {% for city in form.data_model.city_hometown.state.cities.all %}
+                                        <option value="{{ city.id }}" {% if form.data_model.city_hometown.id == city.id %}selected{% endif %}>{{ city.name }}</option>
+                                    {% endfor %}
                                 </select>
+                                {% if form.city_hometown.errors %}
+                                    {% for error in form.city_hometown.errors %}
+                                        <span class="help-block">{{ error|escape }}</span>
+                                    {% endfor %}
+                                {% endif %}
                             </div>
                         </div>
                     </div>

@@ -5,7 +5,7 @@ from custom_forms.custom import IdeiaForm, forms
 from ..business import user as Business
 
 from apps.article.models import Article
-from apps.userprofile.models import Responsibility, State
+from apps.userprofile.models import Responsibility, State, City
 from apps.userprofile.service import business as BusinessUserProfile
 from apps.userprofile.service.forms import EditProfileForm
 
@@ -77,6 +77,15 @@ class CoreUserProfileFullEditForm(EditProfileForm):
     last_name = forms.CharField(max_length=100)
     responsibility = forms.ModelChoiceField(queryset=Responsibility.objects.all())
     state = forms.ModelChoiceField(queryset=State.objects.filter(country=1))
+    state_hometown = forms.ModelChoiceField(queryset=State.objects.filter(country=1))
+    city_hometown = forms.ModelChoiceField(queryset='')
+
+    def __init__(self, user=None, data_model=None, *args, **kwargs):
+        super(CoreUserProfileFullEditForm, self).__init__(user, data_model, *args, **kwargs)
+
+        if self.data and 'state_hometown' in self.data:
+            self.fields['city_hometown'].queryset = City.objects.filter(state=self.data['state_hometown'])
+
 
     @transaction.atomic()
     def __process__(self):
