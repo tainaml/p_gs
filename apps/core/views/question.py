@@ -6,7 +6,6 @@ from ..business import question as BusinessQuestion
 
 class CoreQuestionCreateView(views.CreateQuestionView):
     form = QuestionForms.CoreCreateQuestionForm
-    pass
 
 
 class CoreSaveQuestionView(views.SaveQuestionView):
