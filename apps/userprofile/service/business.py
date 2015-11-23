@@ -73,6 +73,9 @@ def update_profile(user=None, data=None):
             profile.gender = data['gender']
             profile.city = data['city']
 
+            if data.get('city_hometown'):
+                profile.city_hometown = data.get('city_hometown')
+
             if data['profile_picture'] and profile.profile_picture != data['profile_picture']:
                 profile.profile_picture.delete()
                 profile.profile_picture = data['profile_picture']

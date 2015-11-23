@@ -51,7 +51,8 @@ class UserProfile(models.Model):
     user = models.OneToOneField(User, related_name='profile')
     birth = models.DateField(null=True, blank=True)
     gender = models.CharField(max_length=1, null=True, blank=True)
-    city = models.ForeignKey(City, null=True, blank=True)
+    city = models.ForeignKey(City, null=True, blank=True, related_name='profiles_city')
+    city_hometown = models.ForeignKey(City, null=True, blank=True, related_name='profiles_city_hometown')
     profile_picture = models.ImageField(max_length=100, upload_to='userprofile/%Y/%m/%d', blank=True, default='')
     contributor = models.BooleanField(null=False, blank=False, default=False)
     wizard_step = models.IntegerField(null=False, blank=False, default=0)
@@ -59,13 +60,13 @@ class UserProfile(models.Model):
     def __unicode__(self):
         return self.user.get_full_name()
 
-    def has_locale(self):
+    def has_locale_living(self):
         if self.city and self.city.state and self.city.state.country:
             return True
         return False
 
     def locale(self):
-        if self.has_locale():
+        if self.has_locale_living():
             return "%s - %s - %s" % (self.city.name.title(),
                                      self.city.state.abbreviation.upper(),
                                      self.city.state.country.name.title())
