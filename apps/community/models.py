@@ -1,6 +1,8 @@
+from django.conf import settings
 from django.contrib.contenttypes.fields import GenericRelation
+from django.contrib.contenttypes.models import ContentType
 from django.db import models
-from apps.socialactions.models import UserAction
+from apps.socialactions.models import UserAction, Counter
 from apps.taxonomy.models import Taxonomy
 
 class Community(models.Model):
@@ -19,3 +21,19 @@ class Community(models.Model):
 
     def get_picture(self):
         return self.image if self.image else None
+
+    #User Action Follower
+    @property
+    def followers(self):
+        try:
+            return Counter.objects.defer("count").get(
+                action_type=settings.SOCIAL_FOLLOW,
+                object_id=self.id,
+                content_type= ContentType.objects.get(model='community')
+
+            ).count
+        except:
+            return 0
+
+
+

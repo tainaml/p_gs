@@ -15,6 +15,7 @@
                 <div class="modal-form clearfix">
 
                     {% for type in type_complaint %}
+                        {% if content_type.model == "comment" and type.id != community_complaint or content_type.model != "comment" %}
                         <div class="form-group">
                             <label class="custom-input">
                                 <span class="custom-radio">
@@ -23,10 +24,11 @@
                                 {{ type.description }}
                             </label>
                         </div>
+                        {% endif %}
                     {% endfor %}
 
+                    {% if communities %}
                     <div class="childs-radios" style="display:none" id="communities">
-
                         {% for community in communities %}
                             <div class="form-group">
                                 <label class="custom-input">
@@ -37,8 +39,9 @@
                                 </label>
                             </div>
                         {% endfor %}
-
                     </div>
+                    {% endif %}
+
                 </div>
                 <button type="submit" class="btn-error btn-block" aria-label="Close">Denunciar</button>
             </div>

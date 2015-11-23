@@ -121,6 +121,10 @@ WSGI_APPLICATION = 'rede_gsti.wsgi.application'
 # Populate file
 FIXTURE_FILE = 'initial_data.json'
 
+
+IMAGES_ALLOWED = ['image/jpeg','image/png']
+
+
 # EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_BACKEND = 'apps.mailmanager.backend.MailManagedBackend'
 EMAIL_USE_TLS = True

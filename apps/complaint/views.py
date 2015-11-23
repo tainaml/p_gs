@@ -25,6 +25,7 @@ class ComplaintView(View):
 
         if request.is_ajax():
             _context = {
+                'message': context.get('message'),
                 'template': render(request, self.template_path, context).content
             }
             return JsonResponse(_context, status=status)
@@ -34,28 +35,37 @@ class ComplaintView(View):
     @method_decorator(login_required)
     def get(self, request, object_type, object_id):
 
+        status = 200
+        context = {
+            'community_complaint': settings.COMPLAINT_COMMUNITY,
+            'type_complaint': Business.get_type_complaint(),
+            'communities': None
+        }
+
         try:
             content_type = ContentType.objects.get(model=object_type)
             content_object = content_type.get_object_for_this_type(id=object_id)
 
-            feed = FeedObject.objects.get(
-                object_id=content_object.id,
-                content_type=content_type
-            )
-
-            communities = feed.communities.all()
-
-            context = {
+            context.update({
                 'content_object': content_object,
-                'content_type': content_type,
-                'communities': communities,
-                'community_complaint': settings.COMPLAINT_COMMUNITY,
-                'type_complaint': Business.get_type_complaint()
-            }
+                'content_type': content_type
+            })
 
-            status = 200
+            try:
+                feed = FeedObject.objects.get(
+                    object_id=content_object.id,
+                    content_type=content_type
+                )
+
+                communities = feed.communities.all()
+                context.update({'communities': communities})
+
+            except Exception, e:
+                context.update({'message': e.message})
+
+
         except Exception, e:
-            context = {'message': e}
+            context.update({'message': e.message})
             status = 400
 
         return self.response(request, status, context)

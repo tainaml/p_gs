@@ -157,7 +157,10 @@
 
             var refreshAsyncLike = function() {
                 var asyncLike = $("[data-async-like=true]");
-                var asyncData = asyncLike.IdeiaAsyncLike();
+                var asyncLikeData = asyncLike.IdeiaAsyncLike();
+
+                var asyncClick = $("[data-async-module=click]");
+                var asyncClickData = asyncClick.IdeiaAsyncClick();
             };
 
             var functionOpenSuggestModal = function(e) {
@@ -173,22 +176,12 @@
             };
 
             $(function() {
-                var $formLogin = $("#form-login");
-                $formLogin.on("ajaxform.success", functionAjaxSuccessLogin);
-
-                var $formForgot = $("#form-forgot-password");
-                $formForgot.on("ajaxform.success", functionAjaxSuccessForgotPassword);
-
-                var $linkModal = $("#link-contact");
-                $linkModal.on("async.click.success", functionAjaxSuccessTriggerContactModal);
-
-                var $linkReport = $('[data-trigger="report"]');
-                $linkReport.on("async.click.success", functionAjaxSuccessTriggerReport);
-
-                var $formSuggest = $("#form-suggest");
-                $formSuggest.on("ajaxform.success", functionAjaxSuccessSuggest);
-
-                $("[data-suggest-modal]").on("click", functionOpenSuggestModal);
+                $(document).on("ajaxform.success", "#form-login", functionAjaxSuccessLogin);
+                $(document).on("ajaxform.success", "#form-forgot-password", functionAjaxSuccessForgotPassword);
+                $(document).on("ajaxform.success", "#form-suggest", functionAjaxSuccessSuggest);
+                $(document).on("click", "[data-suggest-modal]", functionOpenSuggestModal);
+                $(document).on("async.click.success", '[data-trigger="report"]', functionAjaxSuccessTriggerReport);
+                $(document).on("async.click.success", "#link-contact", functionAjaxSuccessTriggerContactModal);
             });
         </script>
 
