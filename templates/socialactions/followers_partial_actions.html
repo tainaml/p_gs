@@ -7,20 +7,24 @@
     {% endif %}
 
     {% if not followed %}
-    <a class="btn {{ btn_class }}" {% if ajax %}data-social-action-ajax{% endif %} href="{{ act_url }}?url_next={{ url_next|urlencode }}">
+    <a class="btn {{ btn_class }}" data-hover="backend-text" {% if ajax %}data-social-action-ajax{% endif %} href="{{ act_url }}?url_next={{ url_next|urlencode }}">
+        <span>
         {% if content == "community" %}
             Entrar
         {% else %}
             Seguir
         {% endif %}
+        </span>
     </a>
     {% else %}
-    <a class="btn {{ btn_class }}-alt" {% if ajax %}data-social-action-ajax{% endif %}  href="{{ act_url }}?url_next={{ url_next|urlencode }}">
+    <a class="btn {{ btn_class }}-alt" data-hover="backend-text" {% if ajax %}data-social-action-ajax{% endif %}  href="{{ act_url }}?url_next={{ url_next|urlencode }}">
+        <span>
         {% if content == "community" %}
             Participando
         {% else %}
             Seguindo
         {% endif %}
+        </span>
     </a>
     {% endif %}
 {% endif %}

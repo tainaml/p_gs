@@ -78,8 +78,48 @@
 .btn-follow-alt {
     @extend .btn;
     @include button-variant(#fff, #4d6479, #4d6479);
+    position: relative;
+    overflow: hidden;
     display: block;
     font-weight: 600;
     font-size: 1.286em;
 
+    span {
+        transition: 0.6s;
+        transition-delay: 0.2s;
+    }
+
+    &:hover {
+        color: $link-white;
+        background: $btn-danger-bg;
+    }
+
+    &:before,
+    &:after {
+        content: '';
+        position: absolute;
+        top: 0.67em; left: 0;
+        width: 100%;
+        text-align: center;
+        opacity: 0;
+        transition: .4s,opacity .6s;
+    }
+
+    &:before {
+        content: attr(data-hover);
+        transform: translate(-150%,0);
+    }
+
+    &:hover span,
+    &:active span {
+        opacity: 0;
+        transform: scale(0.3);
+    }
+
+    &:hover:before,
+    &:active:after {
+        opacity: 1;
+        transform: translate(0,0);
+        transition-delay: .4s;
+    }
 }
