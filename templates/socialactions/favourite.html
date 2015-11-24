@@ -5,7 +5,7 @@
 {% block title %}Portal GSTI - Ver depois{% endblock %}
 
 {% block content %}
-
+{% load thumbor_tags %}
     {% csrf_token %}
     <main class="container main">
         <div class="perfil-row">
@@ -102,16 +102,20 @@
                         <section class="area-content j-scroll j-scroll-container">
                             {% if articles %}
                                 {% for article in articles %}
+
                                     <div class="excerpt">
                                         <div class="custom-check"><input type="checkbox"
                                                                          data-object-id="{{ article.id }}"></div>
                                         <div class="excerpt-content">
-                                            <a class="excerpt-image"
-                                               href="{% url 'article:view' article.content_object.slug article.content_object.id %}">
-                                                <img src="{{ article.content_object.get_image.url }}"
-                                                     alt="{{ article.content_object.title }}">
-                                            </a>
 
+                                                {% if article.content_object.get_image %}
+                                                    <a class="excerpt-image"
+                                               href="{% url 'article:view' article.content_object.slug article.content_object.id %}">
+                                                    <img src="{{ article.content_object.get_image.url }}"
+                                                     alt="{{ article.content_object.title }}">
+                                                    </a>
+                                                    ehheheh
+                                                {% endif %}
                                             <div class="excerpt-title">
                                                 <header class="post-header">
                                                     <div class="post-info">
@@ -137,11 +141,10 @@
                                                             </ul>
                                                         </div>
                                                     </div>
-                                                    <a class="post-creator"
-                                                       href="{% url 'profile:show' article.author.username %}">
-                                                        <img src="{{ article.content_object.author.profile.get_picture }}"
-                                                             alt="{{ article.content_object.author.get_full_name }}">
-                                                        {{ article.content_object.author.get_full_name }}</a>
+                                                    <a class="post-creator" href="{% url 'profile:show' article.content_object.author.username %}">
+                                                            <img src="{% thumbor_url article.content_object.author.profile.get_profile_picture.url width=20 height=20 smart=False fit_in=False %}" alt="foto de {{ article.content_object.author.get_full_name }}">
+                                                            {{ article.content_object.author.get_full_name }}
+                                                    </a>
                                                 </header>
                                                 <a href="{% url 'article:view' article.content_object.slug article.content_object.id %}">{{ article.content_object.title }}</a>
                                             </div>
