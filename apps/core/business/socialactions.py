@@ -50,20 +50,19 @@ def remove_see_later_content(user, itens_to_remove, items_per_page=None, page=No
         for item in itens_to_remove:
             UserAction.objects.filter(author=user, action_type=action_type, id=item).delete()
     except Exception as e:
-        raise e.message("Erro ao remover elemento")
+        raise Exception("Erro ao remover elemento")
 
     return UserAction.objects.filter(author=user, action_type=action_type)
 
 
-def get_favourite_content(user, criteria=None, items_per_page=None, page=None):
+def get_favourite_content(author, criteria=None, items_per_page=None, page=None):
 
     action_type = settings.SOCIAL_FAVOURITE
 
-    condition = Q(author=user) & Q(action_type=action_type)
-    content_type = ContentType.objects.filter(model='article')
+    content_type = ContentType.objects.filter(model__in=['article', 'question'])
 
     UserActions = UserAction.objects.filter(
-        author=user,
+        author=author,
         action_type=action_type,
         content_type=content_type
     )
@@ -76,18 +75,18 @@ def get_favourite_content(user, criteria=None, items_per_page=None, page=None):
 
         UserActions = UserActions.filter(object_id__in=articles)
 
-    items_per_page = items_per_page if items_per_page else 10
+    items_per_page = items_per_page if items_per_page else 9
     page = page if page else 1
 
-    articles_paginated = Paginator(UserActions, items_per_page)
+    items = Paginator(UserActions, items_per_page)
     try:
-        articles_paginated = articles_paginated.page(page)
+        items = items.page(page)
     except PageNotAnInteger:
-        articles_paginated = articles_paginated.page(1)
+        items = items.page(1)
     except EmptyPage:
-        articles_paginated = []
+        items = []
 
-    return articles_paginated
+    return items
 
 
 def remove_favourite_content(user, itens_to_remove, items_per_page=None, page=None):

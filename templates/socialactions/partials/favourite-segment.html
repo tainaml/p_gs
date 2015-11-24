@@ -4,45 +4,33 @@
                                      data-object-id="{{ article.id }}"></div>
     <div class="excerpt-content">
 
-            {% if article.content_object.get_image %}
-                <a class="excerpt-image"
-           href="{% url 'article:view' article.content_object.slug article.content_object.id %}">
-                <img src="{{ article.content_object.get_image.url }}"
-                 alt="{{ article.content_object.title }}">
-                </a>
+        {% if instance.get_image %}
+            <a class="excerpt-image" href="{% url 'article:view' instance.slug instance.id %}">
+                <img src="{{ instance.get_image.url }}" alt="{{ instance.title }}">
+            </a>
+        {% endif %}
 
-            {% endif %}
-            <div class="excerpt-title">
-                <header class="post-header">
-                    <div class="post-info">
-                        <time datetime="{{ article.content_object.createdin }}"
-                              itemprop="datePublished">{{ article.content_object.createdin }}</time>
-                        <a href="javascript:;" data-toggle="dropdown"><i
-                                class="gsticon gsticon-gear"></i></a>
-
-                        <div class="dropdown-menu">
-                            <ul class="perfil-actions">
-                                <li><a href="javascript:;"><i
-                                        class="gsticon gsticon-trash remove-see-later"></i>
-                                    Remover Sugestão</a></li>
-                                <li><a href="javascript:;"><i
-                                        class="gsticon gsticon-star"></i> Favoritar</a>
-                                </li>
-                                <li><a href="javascript:;"><i
-                                        class="gsticon gsticon-paper-plane"></i>
-                                    Sugerir</a></li>
-                                <li><a href="javascript:;"><i
-                                        class="gsticon gsticon-exclamation-triangle"></i>
-                                    Denunciar</a></li>
-                            </ul>
-                        </div>
+        <div class="excerpt-title">
+            <header class="post-header">
+                <div class="post-info">
+                    <time datetime="{{ instance.createdin }}" itemprop="datePublished">{{ instance.createdin }}</time>
+                    <a href="javascript:;" data-toggle="dropdown"><i class="gsticon gsticon-gear"></i></a>
+                    <div class="dropdown-menu">
+                        <ul class="perfil-actions">
+                            <li><a href="javascript:;"><i class="gsticon gsticon-trash remove-see-later"></i> Remover Sugestão</a></li>
+                            <li><a href="javascript:;"><i class="gsticon gsticon-star"></i> Favoritar</a></li>
+                            <li><a href="javascript:;"><i class="gsticon gsticon-paper-plane"></i> Sugerir</a></li>
+                            <li><a href="javascript:;"><i class="gsticon gsticon-exclamation-triangle"></i> Denunciar</a></li>
+                        </ul>
                     </div>
-                    <a class="post-creator" href="{% url 'profile:show' article.content_object.author.username %}">
-                            <img src="{% thumbor_url article.content_object.author.profile.get_profile_picture.url width=20 height=20 smart=False fit_in=False %}" alt="foto de {{ article.content_object.author.get_full_name }}">
-                            {{ article.content_object.author.get_full_name }}
-                    </a>
-                </header>
-                <a href="{% url 'article:view' article.content_object.slug article.content_object.id %}">{{ article.content_object.title }}</a>
-            </div>
+                </div>
+                <a class="post-creator" href="{% url 'profile:show' instance.author.username %}">
+                    <img src="{% thumbor_url instance.author.profile.get_profile_picture.url width=20 height=20 smart=False fit_in=False %}" alt="foto de {{ instance.author.get_full_name }}">
+                    {{ instance.author.get_full_name }}
+                </a>
+            </header>
+            <a href="{% url 'article:view' instance.slug instance.id %}">{{ instance.title }}</a>
+        </div>
+
     </div>
 </div>

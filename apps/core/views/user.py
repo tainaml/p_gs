@@ -10,7 +10,7 @@ from django.utils.translation import gettext as _
 
 from apps.community.models import Community
 from apps.core.forms.user import CoreUserProfileForm, CoreUserProfileFullEditForm, CoreSearchFollowers, CoreSearchArticlesForm, CoreSearchVideosForm, \
-    CoreSearchCommunitiesForm
+    CoreSearchCommunitiesForm, CoreSearchFavouriteForm
 from apps.core.forms.community import CoreCommunityFormSearch
 from apps.core.forms.user import CoreUserSearchForm, CoreUserProfileEditForm
 from apps.article.models import Article
@@ -709,6 +709,7 @@ class CoreProfileSocialActionsBase(View):
     def return_error(self, request, context=None):
         if request.is_ajax():
             return JsonResponse({'error': context.get('msg')}, status=400)
+
         raise Http404(context.get('msg'))
 
     def return_success(self, request, context=None):
@@ -782,37 +783,35 @@ class SocialActionRemoveSeeLater(CoreProfileSocialActionsBase):
 
 
 class SocialActionFavourite(CoreProfileSocialActionsBase):
+
     template_path = 'socialactions/favourite.html'
+    template_path_partial = 'socialactions/partials/favourite.html'
+
+    form = CoreSearchFavouriteForm
 
     @method_decorator(login_required)
     def get(self, request):
 
-        criteria = None
-        if 'criteria' in request.GET:
-            criteria = str(request.GET['criteria'])
-            self.template_path = 'socialactions/partials/favourite.html'
-
-        try:
-            print criteria
-            content = Business.get_favourite_content(request.user, criteria)
-
-        except NotFoundSocialSettings:
-            context = {
-                'status': 400,
-                'msg': _('SocialAction not Found.'),
-            }
-            return self.return_error(request, context)
+        form = self.form(request.user, 1, request.GET)
+        items = form.process()
 
         context = {
-            'articles': content,
-            'url_next': request.GET['next'] if 'next' in request.GET else '',
-            'page': (content.number if content and content.number else 0) + 1,
-            'criteria': self.template_path,
+            'form': form,
+            'items': items,
+            'url_next': request.GET.get('next'),
             'profile': request.user.profile
         }
 
+        if request.is_ajax():
+            self.template_path = self.template_path_partial
+
         return self.return_success(request, context)
 
+
+class SocialActionFavouriteList(SocialActionFavourite):
+
+    def return_success(self, request, context=None):
+        return render(request, self.template_path_partial, context)
 
 class SocialActionRemoveFavourite(CoreProfileSocialActionsBase):
     template_path = 'socialactions/favourite.html'
