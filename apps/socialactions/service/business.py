@@ -327,8 +327,8 @@ def get_users_acted_by_author_with_parameters(author=None, action=None, content_
                                               criteria=None, category=None, items_per_page=None, page=None):
     content_type = get_model_type(content_type)
 
-    if int(category) != 0:
-        category = Taxonomy.objects.get(pk=category)
+    if category:
+        # category = Taxonomy.objects.get(pk=category)
         categories = get_related_list_top_down([category])
     else:
         categories = []

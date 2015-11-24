@@ -9,7 +9,8 @@ from django.contrib.auth.decorators import login_required
 from django.utils.translation import gettext as _
 
 from apps.community.models import Community
-from apps.core.forms.user import CoreUserProfileForm, CoreUserProfileFullEditForm, CoreSearchFollowers, CoreSearchArticlesForm, CoreSearchVideosForm
+from apps.core.forms.user import CoreUserProfileForm, CoreUserProfileFullEditForm, CoreSearchFollowers, CoreSearchArticlesForm, CoreSearchVideosForm, \
+    CoreSearchCommunitiesForm
 from apps.core.forms.community import CoreCommunityFormSearch
 from apps.core.forms.user import CoreUserSearchForm, CoreUserProfileEditForm
 from apps.article.models import Article
@@ -20,6 +21,7 @@ from apps.socialactions.service import business as BusinessSocialActions
 from apps.core.business import socialactions as Business
 from apps.core.forms.user import CoreSearchFollowings
 from apps.socialactions.localexceptions import NotFoundSocialSettings
+from apps.userprofile.service import business as BusinessUserProfile
 from rede_gsti import settings
 
 
@@ -620,6 +622,53 @@ class CoreProfileVideosView(CoreProfileVideosSearch):
 class CoreProfileVideosList(CoreProfileVideosSearch):
 
     template_path = "userprofile/partials/profile-videos-list.html"
+
+
+class CoreProfileCommunitiesSearchView(views.ProfileBaseView):
+
+    template_path = "userprofile/profile-communities.html"
+    template_path_segment = "userprofile/partials/profile-communities.html"
+
+    form = CoreSearchCommunitiesForm
+
+    def return_error(self, request, context=None):
+        pass
+
+    def return_success(self, request, context=None):
+        if request.is_ajax():
+            _context = {
+                'template': render(request, 'userprofile/partials/profile-communities.html', context).content
+            }
+            return JsonResponse(_context, status=200)
+        return render(request, self.template_path, context)
+
+    def get_context(self, request, profile_instance=None):
+
+        form = self.form(profile_instance.user, 9, request.GET)
+        communities = form.process()
+        categories = BusinessUserProfile.get_categories()
+
+        return {
+            'items': communities,
+            'form': form,
+            'page': form.cleaned_data.get('page', 1) + 1,
+            'categories': categories
+        }
+
+    def get(self, request, username):
+
+        profile = self.filter(request, username)
+
+        context = {'profile': profile}
+        context.update(self.get_context(request, profile))
+
+        return self.return_success(request, context)
+
+
+class CoreProfileCommunitiesSearchListView(CoreProfileCommunitiesSearchView):
+
+    def return_success(self, request, context=None):
+        return render(request, self.template_path_segment, context)
 
 
 class CoreUserCommunitiesListAjax(View):
