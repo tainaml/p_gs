@@ -744,6 +744,7 @@ class SocialActionFavourite(CoreProfileSocialActionsBase):
             self.template_path = 'socialactions/partials/favourite.html'
 
         try:
+            print criteria
             content = Business.get_favourite_content(request.user, criteria)
 
         except NotFoundSocialSettings:
