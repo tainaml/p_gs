@@ -8,14 +8,28 @@ import business as Business
 from django.conf import settings
 
 
-class CreateQuestionForm(IdeiaForm):
+class CreateQuestionForm(IdeiaModelForm):
+
     title = forms.CharField(max_length=256, required=True)
     slug = forms.SlugField(max_length=300, required=False)
     description = forms.CharField(max_length=2048, required=True, widget=CKEditorWidget(config_name='question'))
 
-    def __init__(self, user=None, *args, **kargs):
+    user = None
+
+    class Meta:
+        model = Business.Question
+        exclude = ['author', 'question_date']
+
+    def is_valid(self):
+        valid = super(CreateQuestionForm, self).is_valid()
+        return valid
+
+    def __init__(self, data=None, files=None, user=None, *args, **kargs):
+        super(CreateQuestionForm, self).__init__(data, files, *args, **kargs)
+        self.set_author(user)
+
+    def set_author(self, user):
         self.user = user
-        super(CreateQuestionForm, self).__init__(*args, **kargs)
 
     def clean_slug(self):
         _slug = self.cleaned_data.get('slug', '')
@@ -29,19 +43,7 @@ class CreateQuestionForm(IdeiaForm):
         return self.instance
 
 
-class EditQuestionForm(IdeiaModelForm):
-    title = forms.CharField(max_length=256, required=True)
-    description = forms.CharField(max_length=2048, required=True, widget=CKEditorWidget(config_name='question'))
-
-    user = None
-
-    def __init__(self, user=None, *args, **kargs):
-        self.user = user
-        super(EditQuestionForm, self).__init__(*args, **kargs)
-
-    class Meta:
-        model = Business.Question
-        exclude = ['author', 'question_date']
+class EditQuestionForm(CreateQuestionForm):
 
     def set_author(self, user):
         self.user = user
@@ -62,12 +64,6 @@ class EditQuestionForm(IdeiaModelForm):
             is_valid = False
 
         return is_valid
-
-    def clean_slug(self):
-        _slug = self.cleaned_data.get('slug', '')
-        _title = self.cleaned_data.get('title')
-        _slug = _slug if _slug else slugify(_title)
-        return _slug
 
     def __process__(self):
         question = Business.update_question(self.cleaned_data, self.instance)

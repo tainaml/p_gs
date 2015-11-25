@@ -9,53 +9,38 @@ from apps.question.service.forms import forms,\
     CreateQuestionForm, EditQuestionForm
 from ..business import user as UserBusiness
 from ..business import feed as CoreFeedBusiness
+from taxonomies import CoreTaxonomiesMixin
 
 
-class CoreQuestionMixinForm(IdeiaModelForm):
+class BaseCoreQuestionForm(CoreTaxonomiesMixin):
 
-    taxonomies = forms.ModelMultipleChoiceField(required=False, queryset=Taxonomy.objects.all(),)
-    communities = forms.ModelMultipleChoiceField(required=True, queryset=Community.objects.all(),)
-
-    def __init__(self, *args, **kwargs):
-
-        kwargs['initial'] = kwargs.get('initial', {})
-        instance = kwargs.get('instance', None)
-
-        if instance is not None:
-            feed_item = FeedBusiness.feed_get_or_create(instance)
-
-            initial = {
-                'communities': feed_item.communities.all(),
-                'taxonomies': feed_item.taxonomies.all()
-            }
-
-            kwargs['initial'].update(initial)
-
-        super(CoreQuestionMixinForm, self).__init__(*args, **kwargs)
-
-        communities = self.fields.get('communities')
-        if communities:
-            communities.queryset = UserBusiness.get_user_communities(self.user)
-
-
+    @transaction.atomic()
     def __process__(self):
-        process_question = super(CoreQuestionMixinForm, self).__process__()
-        process_feed = FeedBusiness.save_feed_item(process_question)
+        process_question = super(BaseCoreQuestionForm, self).__process__()
+        process_feed = CoreFeedBusiness.save_feed_question(self.instance, self.cleaned_data)
+        process_taxonomies = self.save_taxonomies(process_feed, self.cleaned_data)
 
-        process_communities = CoreFeedBusiness.save_communities(process_feed, self.cleaned_data)
-        process_core = CoreFeedBusiness.save_taxonomies(process_feed, self.cleaned_data)
-
-        return process_question if (process_question and process_communities and process_core) else False
+        return process_question if (process_question and process_taxonomies) else False
 
 
-class CoreCreateQuestionForm(CreateQuestionForm, CoreQuestionMixinForm):
+class CoreCreateQuestionForm(CreateQuestionForm, BaseCoreQuestionForm):
 
-    def __init__(self, user=None, *args, **kargs):
-        self.user = user
-        super(CoreCreateQuestionForm, self).__init__(*args, **kargs)
+    def set_author(self, user):
+        super(CoreCreateQuestionForm, self).set_author(user)
+        self.filter_comunities(user)
 
-
-class CoreEditQuestionForm(EditQuestionForm, CoreQuestionMixinForm):
-
+    @transaction.atomic()
     def __process__(self):
-        return super(CoreEditQuestionForm, self).__process__()
+        process_question = super(CoreCreateQuestionForm, self).__process__()
+        process_feed = CoreFeedBusiness.save_feed_question(self.instance, self.cleaned_data)
+        process_taxonomies = self.save_taxonomies(process_feed, self.cleaned_data)
+
+        return process_question if (process_question and process_taxonomies) else False
+
+
+class CoreEditQuestionForm(EditQuestionForm, BaseCoreQuestionForm):
+
+    def set_author(self, user):
+        super(CoreEditQuestionForm, self).set_author(user)
+        self.filter_comunities(user)
+

@@ -108,7 +108,7 @@ def register_confirm(activation_key):
             if token.is_valid():
                 user = activate_account(token)
                 if user:
-                    return True
+                    return user, True
                 else:
                     raise Exception('Account is not exists!')
             else:
@@ -213,6 +213,19 @@ def log_in_user(request=None, user=None):
         return False
 
 
+def log_in_user_no_credentials(request, user):
+
+    from django.contrib.auth import load_backend, login
+    if not hasattr(user, 'backend'):
+        for backend in settings.AUTHENTICATION_BACKENDS:
+            if user == load_backend(backend).get_user(user.pk):
+                user.backend = backend
+                break
+    if hasattr(user, 'backend'):
+        return login(request, user)
+
+
+
 def logout_user(request=None):
     """ This method invalidate user session
     :param request: request to unlik user from session
@@ -267,7 +280,7 @@ def resend_account_confirmation(user_email=None):
         user = User.objects.get(email=user_email)
 
         if not user.is_active:
-            token = MailValidation.objects.get(user=user, token_type=TokenType.REGISTER_ACCOUNT_CONFIRM, active=True)
+            token = MailValidation.objects.filter(user=user, token_type=TokenType.REGISTER_ACCOUNT_CONFIRM, active=True).first()
 
             if not token or not token.is_valid():
                 MailValidation.objects.filter(user=user, token_type=TokenType.REGISTER_ACCOUNT_CONFIRM).update(active=False)

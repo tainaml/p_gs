@@ -11,6 +11,7 @@
         {% csrf_token %}
     </div>
 
+    {% comment %}
     <!-- Questoes Relacionadas -->
     <div id="load-related-questions" data-load-async="true" data-load-async-url="{% url 'question:related-questions-async' question.id "question" %}" data-load-async-url-next="{{ request.path }}" data-load-async-method="get" data-load-async-response-type="json">
         <div class="load-async load-async-content">
@@ -18,5 +19,6 @@
         </div>
         {% csrf_token %}
     </div>
+    {% endcomment %}
 
 </div>

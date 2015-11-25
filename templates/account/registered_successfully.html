@@ -1,5 +1,14 @@
-{% load i18n %}
-<h1 style="text-align: center; padding-top: 50px;">{{ message }}</h1>
-<p style="text-align: center">
-    <a href="{% url 'account:login' %}">{% trans "Login" %}</a> {% trans "or" %} <a href="{% url 'account:signup' %}">{% trans "Sign-up" %}</a>
-</p>
+{% extends 'home/layout/base.html'%}
+
+{% block content %}
+    <main class="container main">
+        <div class="error-page">
+            <h2 class="error-page-title">
+                <i class="gsticon gsticon-check"></i>
+            </h2>
+            <h4 class="error-page-subtitle">{{ message }}</h4>
+            <p class="error-page-description">Enviamos um email para você confirmar a sua conta. Vai lá e confirma! Estamos esperando por você!</p>
+            <a href="{% url 'index' %}" class="btn-grey error-page-btn">Página inicial</a>
+        </div>
+    </main>
+{% endblock %}

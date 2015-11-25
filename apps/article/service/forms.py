@@ -5,6 +5,7 @@ from django.utils import timezone
 from custom_forms.custom import forms, IdeiaModelForm
 from django.utils.translation import ugettext as _
 import business as Business
+from rede_gsti import settings
 
 
 class ArticleForm(IdeiaModelForm):
@@ -73,6 +74,14 @@ class ArticleForm(IdeiaModelForm):
 
     def is_valid(self):
         valid = True
+
+        image = self.cleaned_data.get('image', False)
+
+        if image:
+            if image.content_type not in settings.IMAGES_ALLOWED:
+                self.add_error('image',
+                               ValidationError(_('Image format is not allowed.'), code='image'))
+                valid = False
 
         if 'submit-publish' in self.data:
             '''

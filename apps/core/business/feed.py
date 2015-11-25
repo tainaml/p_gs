@@ -1,4 +1,5 @@
 from apps.taxonomy.service import business as BusinessTaxonomy
+from apps.feed.service import business as BusinessFeed
 
 def save_taxonomies(feed_instance=None, data=None):
 
@@ -16,3 +17,8 @@ def save_communities(feed_instance=None, data=None):
     feed_instance.communities = temp_communities
     feed_instance.save()
     return feed_instance
+
+def save_feed_question(question, data=None):
+    feed_object = BusinessFeed.feed_get_or_create(question)
+    feed_object.save()
+    return feed_object

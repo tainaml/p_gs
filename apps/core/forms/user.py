@@ -1,13 +1,16 @@
-from django.contrib.contenttypes.models import ContentType
+
 from django.db import transaction
 
 from custom_forms.custom import IdeiaForm, forms
 from ..business import user as Business
 
 from apps.article.models import Article
-from apps.userprofile.models import Responsibility, State
+from apps.userprofile.models import Responsibility, State, City
 from apps.userprofile.service import business as BusinessUserProfile
 from apps.userprofile.service.forms import EditProfileForm
+from apps.socialactions.service import business as BusinessSocialActions
+from apps.taxonomy.models import Taxonomy, Term
+from rede_gsti import settings
 
 
 class CoreUserSearchForm(IdeiaForm):
@@ -77,6 +80,15 @@ class CoreUserProfileFullEditForm(EditProfileForm):
     last_name = forms.CharField(max_length=100)
     responsibility = forms.ModelChoiceField(queryset=Responsibility.objects.all())
     state = forms.ModelChoiceField(queryset=State.objects.filter(country=1))
+    state_hometown = forms.ModelChoiceField(queryset=State.objects.filter(country=1))
+    city_hometown = forms.ModelChoiceField(queryset='')
+
+    def __init__(self, user=None, data_model=None, *args, **kwargs):
+        super(CoreUserProfileFullEditForm, self).__init__(user, data_model, *args, **kwargs)
+
+        if self.data and 'state_hometown' in self.data:
+            self.fields['city_hometown'].queryset = City.objects.filter(state=self.data['state_hometown'])
+
 
     @transaction.atomic()
     def __process__(self):
@@ -203,4 +215,38 @@ class CoreSearchVideosForm(IdeiaForm):
             self.cleaned_data.get('criteria'),
             self.items_per_page,
             self.cleaned_data.get('page', 1)
+        )
+
+
+class CoreSearchCommunitiesForm(IdeiaForm):
+
+    criteria = forms.CharField(required=False)
+    category = forms.ModelChoiceField(queryset=Taxonomy.objects.filter(term=Term.objects.get(description__icontains='categoria')), required=False)
+    page = forms.IntegerField(required=False)
+
+    def __init__(self, author, items_per_page, *args, **kwargs):
+        self.author = author
+        self.items_per_page = items_per_page
+
+        super(CoreSearchCommunitiesForm, self).__init__(*args, **kwargs)
+
+
+    def clean(self):
+        cleaned_data = super(CoreSearchCommunitiesForm, self).clean()
+
+        cleaned_data['page'] = cleaned_data['page'] \
+            if 'page' in cleaned_data and cleaned_data['page'] else 1
+
+        return cleaned_data
+
+
+    def __process__(self):
+        return BusinessSocialActions.get_users_acted_by_author_with_parameters(
+            author=self.author,
+            action=settings.SOCIAL_FOLLOW,
+            content_type='community',
+            items_per_page=self.items_per_page,
+            page=self.cleaned_data.get('page', 1),
+            criteria=self.cleaned_data.get('criteria'),
+            category=self.cleaned_data.get('category')
         )

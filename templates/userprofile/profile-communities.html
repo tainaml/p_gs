@@ -27,10 +27,9 @@
                 </header>
                 <div class="filter row">
                     <form id="search-form" action="{% url 'profile:communities' profile.user.username %}" method="GET" data-ajaxform="true" data-group-class=".form-search-input">
-
                         <div class="col-lg-8">
                             <div class="form-search-input">
-                                <input type="text" id="fcommunity" name="criteria" placeholder="{{placehold|default:"Procure comunidades."}}" />
+                                <input type="text" id="fcommunity" name="criteria" placeholder="{{placehold|default:"Procure comunidades."}}" autocomplete="off" />
                             </div>
                             <button type="submit" id="search" class="form-search-button">
                                 <i class="gsticon gsticon-search"></i>
@@ -39,7 +38,7 @@
                         <div class="col-lg-4 text-right">
                             <div class="custom-select">
                                 <select id="cfilter" class="form-control" name="category">
-                                    <option class="custom-select-option" value="0">Selecione</option>
+                                    <option class="custom-select-option" value="">Selecione</option>
                                     {% for category in categories %}
                                         <option class="custom-select-option" value="{{ category.id }}">{{ category.description }}</option>
                                     {% endfor %}
@@ -54,22 +53,9 @@
                     </div>
                     <div class="col-lg-12">
                         <div id="communities-container">
-                            {# templatetag - load communities #}
                             {% if items %}
-                                <div class="row j-scroll-communities j-scroll-communities-container">
-                                {% for community in items %}
-                                    <div class="box-perfil">
-                                        <div class="perfil">
-                                            <img class="img-responsive" src="{% thumbor_url community.content_object.get_picture.url width=82 height=82 smart=False fit_in=False %}" alt="{{ community.content_object.title }}">
-                                            <a class="perfil-name" href="{% url 'community:show' community.content_object.slug %}">{{ community.content_object.title }}</a>
-                                            <a class="perfil-counter" href="{% url 'community:followers' community_slug=community.content_object.slug %}"><span class="counter-number">{% followers_count community.content_object %}
-                                            </span> Seguidores</a>
-                                            {% follow_action community.content_object request.path %}
-
-                                        </div>
-                                    </div>
-                                {% endfor %}
-                                <a data-jscroll-next href="{% url 'socialactions:get_followings' content_type_id=content_type.id object_filter_id=object.id %}?p={{ page }}&next={{ url_next|urlencode }}&criteria={{ criteria }}&category={{ category }}">next</a>
+                                <div id="communities-container-partial" class="row j-scroll-communities j-scroll-communities-container">
+                                    {% include "userprofile/partials/profile-communities.html" %}
                                 </div>
                             {% endif %}
                         </div>
@@ -95,7 +81,8 @@
 
     <script>
 
-        var jScrollElemment = null;
+        var jScrollElemment = null,
+            timeoutReference= null;
         var functionAjaxSuccessFilterCommunities = function(e, data) {
 
             var $divCommunities = $("#communities-container");
@@ -115,14 +102,14 @@
         };
 
         $(function() {
-            $(document).on('keyup', "#fcommunity" , function(event) {
-                var $this = $(event.currentTarget);
+            $(document).on('input', "#fcommunity", function (e) {
+                var $this = $(e.currentTarget);
 
-                if ($this.val().length <= 2)
-                    return false;
-
-                if ($this.val().length > 2)
+                if (e.type=='keyup' && e.keyCode!=8) return;
+                if (timeoutReference) clearTimeout(timeoutReference);
+                timeoutReference = setTimeout(function(){
                     $this.closest('form').submit();
+                }, 500);
             });
 
             $(document).on('change', "#cfilter" , function(event) {
