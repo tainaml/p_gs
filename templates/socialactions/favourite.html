@@ -91,7 +91,7 @@
                 var checkeds = $('.custom-check').find('input:checked');
                 checkeds.each(function (index, element) {
                     objects_to_remove.push($(element).data('objectId'));
-                })
+                });
 
                 $.ajax({
                     url: "{% url 'profile:remove_see_later' %}",

@@ -45,6 +45,8 @@
             background: $background-primary-button-hover;
         }
         &-#{alt} {
+            position: relative;
+            overflow: hidden;
             min-width: 100px;
             padding: 0 5px 1.5px;
             margin-top: 5px;
@@ -52,6 +54,50 @@
             color: $link-white;
             font-weight: 600;
             font-size: 0.929em;
+
+            span {
+                transition: 0.4s;
+                transition-delay: 0.2s;
+            }
+
+            &:hover {
+                color: $link-white;
+                background: $btn-danger-bg;
+            }
+
+            &:before,
+            &:after {
+                content: '';
+                position: absolute;
+                top: 0em;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                // line-height: 2;
+                text-align: center;
+                opacity: 0;
+                transition: .2s,opacity .4s;
+            }
+
+            &:before {
+                content: attr(data-hover);
+                transform: translate(0, 0);
+            }
+
+            &:hover span,
+            &:active span {
+                opacity: 0;
+                transform: scale(0.3);
+            }
+
+            &:hover:before,
+            &:active:after {
+                color: $link-white;
+                background: $btn-danger-bg;
+                opacity: 1;
+                transform: translate(0,0);
+                transition-delay: .4s;
+            }
         }
     }
 }
@@ -178,14 +224,11 @@
         vertical-align: top;
     }
     &-#{image} {
-        display: inline-block;
+        float: left;
         margin-right: 20px;
         vertical-align: top;
     }
     &-#{title} {
-        width: 86%;
-        display: inline-block;
-
         > .post-header { margin-bottom: 0; }
         > a {
             margin: 0px 0px 5px;
