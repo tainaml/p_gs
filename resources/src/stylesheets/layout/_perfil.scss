@@ -72,6 +72,8 @@
                 top: 0em;
                 left: 0;
                 width: 100%;
+                height: 100%;
+                // line-height: 2;
                 text-align: center;
                 opacity: 0;
                 transition: .2s,opacity .4s;
@@ -79,7 +81,7 @@
 
             &:before {
                 content: attr(data-hover);
-                transform: translate(-150%,0);
+                transform: translate(0, 0);
             }
 
             &:hover span,
