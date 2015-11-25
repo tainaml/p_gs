@@ -10,7 +10,7 @@ from django.utils.translation import gettext as _
 
 from apps.community.models import Community
 from apps.core.forms.user import CoreUserProfileForm, CoreUserProfileFullEditForm, CoreSearchFollowers, CoreSearchArticlesForm, CoreSearchVideosForm, \
-    CoreSearchCommunitiesForm, CoreSearchFavouriteForm
+    CoreSearchCommunitiesForm, CoreSearchFavouriteForm, CoreRemoveSocialActionForm
 from apps.core.forms.community import CoreCommunityFormSearch
 from apps.core.forms.user import CoreUserSearchForm, CoreUserProfileEditForm
 from apps.article.models import Article
@@ -792,12 +792,13 @@ class SocialActionFavourite(CoreProfileSocialActionsBase):
     @method_decorator(login_required)
     def get(self, request):
 
-        form = self.form(request.user, 1, request.GET)
+        form = self.form(request.user, 9, request.GET)
         items = form.process()
 
         context = {
             'form': form,
             'items': items,
+            'page': form.cleaned_data.get('page', 1) + 1,
             'url_next': request.GET.get('next'),
             'profile': request.user.profile
         }
@@ -816,29 +817,23 @@ class SocialActionFavouriteList(SocialActionFavourite):
 class SocialActionRemoveFavourite(CoreProfileSocialActionsBase):
     template_path = 'socialactions/favourite.html'
 
+    form = CoreRemoveSocialActionForm
+    action = settings.SOCIAL_FAVOURITE
+
+    def return_error(self, request, context=None):
+        return JsonResponse(context, status=400)
+
+    def return_success(self, request, context=None):
+        return JsonResponse(context, status=200)
+
     @method_decorator(login_required)
     def post(self, request):
 
-        itens_to_remove = request.POST.getlist(u'itens_to_remove[]')
-        try:
-            content = Business.remove_favourite_content(user=request.user, itens_to_remove=itens_to_remove)
+        form = self.form(self.action, request.POST)
+        if form.process():
+            return self.return_success(request, {'removed_items': form.processed})
 
-        except NotFoundSocialSettings:
-            context = {
-                'status': 400,
-                'msg': _('SocialAction not Found.'),
-            }
-            return self.return_error(request, context)
-
-        context = {
-            'articles': content,
-            'url_next': request.GET['next'] if 'next' in request.GET else '',
-            'page': (itens_to_remove.page if itens_to_remove and itens_to_remove.page else 0) + 1,
-            'criteria': self.template_path,
-            'profile': request.user.profile
-        }
-
-        return self.return_success(request, context)
+        return self.return_error(request, {'status': 400})
 
 
 class SocialActionSuggest(CoreProfileSocialActionsBase):

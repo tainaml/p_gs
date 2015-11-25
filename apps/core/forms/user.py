@@ -1,5 +1,6 @@
 
 from django.db import transaction
+from apps.socialactions.models import UserAction
 
 from custom_forms.custom import IdeiaForm, forms
 from ..business import user as Business
@@ -282,3 +283,35 @@ class CoreSearchFavouriteForm(IdeiaForm):
             self.items_per_page,
             self.cleaned_data.get('page', 1)
         )
+
+
+class CoreRemoveSocialActionForm(IdeiaForm):
+
+    items_to_remove = forms.ModelMultipleChoiceField(queryset=UserAction.objects.all())
+
+    def __init__(self, action, *args, **kwargs):
+
+        self.action = action
+        self.processed = False
+
+        super(CoreRemoveSocialActionForm, self).__init__(*args, **kwargs)
+
+    def is_valid(self):
+
+        is_valid = super(CoreRemoveSocialActionForm, self).is_valid()
+
+        action_allowed = [settings.SOCIAL_SUGGEST, settings.SOCIAL_FAVOURITE, settings.SOCIAL_SEE_LATER]
+
+        if self.action not in action_allowed:
+            is_valid = False
+
+        return is_valid
+
+    def __process__(self):
+
+        self.processed = CoreBusinessSocialActions.remove_social_actions(
+            self.action,
+            self.cleaned_data.get('items_to_remove')
+        )
+
+        return self.processed

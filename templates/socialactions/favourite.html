@@ -2,7 +2,7 @@
 
 {% load staticfiles %}
 
-{% block title %}Portal GSTI - Ver depois{% endblock %}
+{% block title %}Portal GSTI - Favoritos{% endblock %}
 
 {% block content %}
 {% load thumbor_tags %}
@@ -28,19 +28,20 @@
                         </header>
                         <div class="row">
                             <div class="col-lg-4">
-                                <div class="custom-check btn">
-                                    <input type="checkbox">
-                                </div>
-                                <a href="javascript:;" class="btn btn-default remove-favourite">
-                                    <i class="gsticon gsticon-eye"></i> Desfavoritar
-                                </a>
+                                <form id="form-unfavourite" action="{% url 'profile:unfavourite' %}" data-ajaxform="true" data-group-class=".alert-container" >
+                                    {% csrf_token %}
+                                    <label class="custom-check btn" id="select-all">
+                                        <input type="checkbox" />
+                                    </label>
+                                    <button type="submit" class="btn btn-default remove-favourite"><i class="gsticon gsticon-star-o"></i> Desfavoritar</button>
+                                    <div id="input-group"></div>
+                                </form>
                             </div>
                             <div class="col-lg-8">
-                                <!-- A "barra" de pesquisa não é exibida no feed, somente no -->
                                 <nav class="form-search">
                                     <form id="form-filter" action="{% url 'profile:favourite' %}" method="GET" role="search" data-ajaxform="true">
                                         <div class="form-search-input">
-                                            <input type="text" id="favourite" name="criteria" placeholder="{{ placehold|default:"Termo  de pesquisa." }}" autocomplete="off"/>
+                                            <input type="text" id="filter-criteria" name="criteria" placeholder="{{ placehold|default:"Termo de pesquisa." }}" autocomplete="off"/>
                                         </div>
                                         <button type="submit" class="form-search-button">
                                             <i class="gsticon gsticon-search"></i>
@@ -49,18 +50,16 @@
                                 </nav>
                             </div>
                         </div>
-                        <section class="area-content j-scroll j-scroll-container">
-                            {% if items %}
-                                {% for item in items %}
-                                    {% include 'socialactions/partials/favourite-segment.html' with instance=item.content_object %}
-                                {% endfor %}
-                                <a data-jscroll-next href="{% url 'profile:favourite-list' %}?criteria={{ form.cleaned_data.criteria }}&page={{ form.cleaned_data.page }}&next={{ url_next }}">next</a>
-                            {% else %}
-                                {% if articles.number == 1 %}
-                                    <p>Nenhum resultado foi encontrado para sua pesquisa</p>
-                                    <hr>
+                        <section class="area-content ">
+                            <div id="filter-container">
+                                {% if items.object_list %}
+                                    <div class="j-scroll j-scroll-container">
+                                        {% include "socialactions/partials/favourite.html" %}
+                                    </div>
+                                {% else %}
+                                    <span>Não existem itens a serem exibidos</span>
                                 {% endif %}
-                            {% endif %}
+                            </div>
                         </section>
                     </div>
                 </div>
@@ -70,74 +69,69 @@
 {% endblock %}
 
 {% block javascripts %}
+
     {{ block.super }}
 
+    <script type="text/javascript">
+        var jScrollElemment = null,
+            timeoutReference= null;
+        var functionAjaxFormSuccessFilter = function(e, data) {
 
-    <script>
-        var functionAjaxFormSuccessFilter = function(e, data){
-            $('.area-content').html(data);
+            var $divContainer = $("#filter-container");
+            var $divJScroll = $('<div />');
+            $divJScroll.addClass("j-scroll j-scroll-container");
+
+            $divJScroll.html(data.template);
+            $divContainer.html($divJScroll);
+            jScrollElemment = $divJScroll.jscroll({
+                autoTrigger: true,
+                loadingHtml: '<span>Carregando...</span>',
+                contentSelect: '.j-scroll-container',
+                nextSelect: "a[data-jscroll-next]",
+                refresh: true
+            });
         };
 
+        var functionAjaxFormSuccessFormUnfavourite = function(e, data) {
+            $.each(data.removed_items, function(i, v){
+                $("#"+v).remove();
+            });
+        };
+
+        $(function(){
+            var $inputGroup = $("#input-group");
+            var $selectAll = $("#select-all");
+            var functionChangeCheckbox = function(){
+                var $this = $(this);
+                $(".chk").prop("checked",$this.prop("checked"));
+            };
+            $selectAll.find("input").on("change", functionChangeCheckbox);
+            $(document).on("change", ".chk", function(){
+                $inputGroup.empty();
+                $(".chk:checked").each(function(){
+                    $inputGroup.append('<input type="hidden" name="items_to_remove" value="'+$(this).val()+'"/>');
+                });
+            });
+        });
+
         $(function () {
+            $(document).on('input', "#filter-criteria", function (e) {
+                var $this = $(e.currentTarget);
+                if (e.type=='keyup' && e.keyCode!=8) return;
+                if (timeoutReference) clearTimeout(timeoutReference);
+                timeoutReference = setTimeout(function(){
+                    $this.closest('form').submit();
+                }, 500);
+            });
+
             $(".j-scroll").jscroll({
                 loadingHtml: '<span>Carregando...</span>',
                 contentSelect: ".j-scroll-container",
                 nextSelect: "a[data-jscroll-next]"
             });
 
-            $(document).on('click', '.remove-favourite', function () {
-                var objects_to_remove = [];
-
-                var checkeds = $('.custom-check').find('input:checked');
-                checkeds.each(function (index, element) {
-                    objects_to_remove.push($(element).data('objectId'));
-                })
-
-                $.ajax({
-                    url: "{% url 'profile:remove_see_later' %}",
-                    method: 'POST',
-                    data: {
-                        itens_to_remove: objects_to_remove,
-                        csrfmiddlewaretoken: $("input:hidden[name='csrfmiddlewaretoken']").val()
-                    },
-                    success: function (data, status, xhr) {
-                        // remove elements from list
-                    },
-                    statusCode: {
-                        400: function () {
-                            $this.html("");
-                        },
-                        403: function () {
-                            $this.html("-- 403 Forbidden --");
-                        }
-                    }
-                });
-            })
-
-            $(document).on('submit', '#form-filter', function (event) {
-                event.preventDefault();
-
-                $.ajax({
-                    url: "{% url 'profile:see_later' %}",
-                    method: 'GET',
-                    data: {
-                        'criteria': $("#favourite").val(),
-                        csrfmiddlewaretoken: $("input:hidden[name='csrfmiddlewaretoken']").val()
-                    },
-                    success: function (data, status, xhr) {
-                        $('.area-content').html(data);
-                    },
-                    statusCode: {
-                        400: function () {
-                            $this.html("");
-                        },
-                        403: function () {
-                            $this.html("-- 403 Forbidden --");
-                        }
-                    }
-                });
-                return false;
-            });
+            $(document).on("ajaxform.success", "#form-filter", functionAjaxFormSuccessFilter);
+            $(document).on("ajaxform.success", "#form-unfavourite", functionAjaxFormSuccessFormUnfavourite);
         });
     </script>
 {% endblock %}

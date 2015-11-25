@@ -1,11 +1,11 @@
 {% load thumbor_tags %}
 
- <div class="excerpt">
-    <div class="custom-check"><input type="checkbox" data-object-id="{{ article.id }}"></div>
+<div id="{{ item.id }}" class="excerpt" >
+    <div class="custom-check"><input class="chk" type="checkbox" name="items-unfavourite" value="{{ item.id }}" data-object-type="{{ item.content_type }}" data-object-id="{{ instance.id }}"></div>
     <div class="excerpt-content">
         {% if instance.get_image %}
             <a class="excerpt-image" href="{% url 'article:view' instance.slug instance.id %}">
-                <img src="{% thumbor_url instance.get_image.url width=80 height=80 smart=False fit_in=False %}" alt="{{ instance.title }}">
+                <img src="{% thumbor_url instance.get_image.url width=80 height=60 smart=False fit_in=False %}" alt="{{ instance.title }}">
             </a>
         {% endif %}
         <div class="excerpt-title">
@@ -14,12 +14,7 @@
                     <time datetime="{{ instance.createdin }}" itemprop="datePublished">{{ instance.createdin }}</time>
                     <a href="javascript:;" data-toggle="dropdown"><i class="gsticon gsticon-gear"></i></a>
                     <div class="dropdown-menu">
-                        <ul class="perfil-actions">
-                            <li><a href="javascript:;"><i class="gsticon gsticon-trash remove-see-later"></i> Remover Sugestão</a></li>
-                            <li><a href="javascript:;"><i class="gsticon gsticon-star"></i> Favoritar</a></li>
-                            <li><a href="javascript:;"><i class="gsticon gsticon-paper-plane"></i> Sugerir</a></li>
-                            <li><a href="javascript:;"><i class="gsticon gsticon-exclamation-triangle"></i> Denunciar</a></li>
-                        </ul>
+                        {% include "socialactions/partials/dropdown-actions.html" %}
                     </div>
                 </div>
                 <a class="post-creator" href="{% url 'profile:show' instance.author.username %}">

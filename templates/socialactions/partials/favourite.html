@@ -1,9 +1,15 @@
+{% if items %}
 
-{% load staticfiles %}
-{% block content %}
-
-    {% for article in articles %}
-        {% include 'socialactions/partials/favourite-segment.html' %}
+    {% for item in items %}
+        {% with template_name=item.content_type|stringformat:"s"|add:"-segment.html" %}
+            {% with instance=item.content_object %}
+                {% if instance %}
+                    {% include 'socialactions/partials/favourite-'|add:template_name %}
+                {% endif %}
+            {% endwith %}
+        {% endwith %}
     {% endfor %}
 
-{% endblock %}
+    <a data-jscroll-next href="{% url 'profile:favourite-list' %}?criteria={{ form.cleaned_data.criteria|urlencode }}&page={{ page|default_if_none:form.cleaned_data.page }}&next={{ request.path }}">next</a>
+
+{% endif %}

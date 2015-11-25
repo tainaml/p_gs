@@ -97,7 +97,7 @@ def remove_favourite_content(user, itens_to_remove, items_per_page=None, page=No
         for item in itens_to_remove:
             UserAction.objects.filter(author=user, action_type=action_type, id=item).delete()
     except Exception as e:
-        raise e.message("Erro ao remover elemento")
+        raise Exception("Erro ao remover elemento")
 
     return UserAction.objects.filter(author=user, action_type=action_type)
 
@@ -136,6 +136,7 @@ def get_suggest_content(user, criteria=None, items_per_page=None, page=None):
 
     return feed_objects_paginated
 
+
 def remove_suggest_content(user, itens_to_remove, items_per_page=None, page=None):
 
     action_type = settings.SOCIAL_SUGGEST
@@ -149,3 +150,21 @@ def remove_suggest_content(user, itens_to_remove, items_per_page=None, page=None
         raise e.message("Erro ao remover elemento")
 
     return removed_itens
+
+
+def remove_social_actions(action_type, items_to_remove, user=None, target_user=None):
+
+    action_allowed = [settings.SOCIAL_SUGGEST, settings.SOCIAL_FAVOURITE, settings.SOCIAL_SEE_LATER]
+
+    if action_type not in action_allowed:
+        raise Exception("Invalid action!")
+
+    removed_items = []
+    try:
+        for item in items_to_remove:
+            UserAction.objects.filter(id=item.id, action_type=action_type).delete()
+            removed_items.append(item.id)
+    except Exception:
+        raise Exception("Erro ao remover elemento")
+
+    return removed_items
