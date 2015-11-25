@@ -224,14 +224,11 @@
         vertical-align: top;
     }
     &-#{image} {
-        display: inline-block;
+        float: left;
         margin-right: 20px;
         vertical-align: top;
     }
     &-#{title} {
-        width: 86%;
-        display: inline-block;
-
         > .post-header { margin-bottom: 0; }
         > a {
             margin: 0px 0px 5px;
