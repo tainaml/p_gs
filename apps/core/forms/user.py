@@ -293,6 +293,8 @@ class CoreRemoveSocialActionForm(IdeiaForm):
 
         self.action = action
         self.processed = False
+        self.author = None
+        self.target_user = None
 
         super(CoreRemoveSocialActionForm, self).__init__(*args, **kwargs)
 
@@ -307,11 +309,19 @@ class CoreRemoveSocialActionForm(IdeiaForm):
 
         return is_valid
 
+    def set_author(self, author):
+        self.author = author
+
+    def set_target_user(self, user):
+        self.target_user = user
+
     def __process__(self):
 
         self.processed = CoreBusinessSocialActions.remove_social_actions(
             self.action,
-            self.cleaned_data.get('items_to_remove')
+            self.cleaned_data.get('items_to_remove'),
+            self.author,
+            self.target_user
         )
 
         return self.processed

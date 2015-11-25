@@ -814,6 +814,7 @@ class SocialActionFavouriteList(SocialActionFavourite):
     def return_success(self, request, context=None):
         return render(request, self.template_path_partial, context)
 
+
 class SocialActionRemoveFavourite(CoreProfileSocialActionsBase):
     template_path = 'socialactions/favourite.html'
 
@@ -830,6 +831,7 @@ class SocialActionRemoveFavourite(CoreProfileSocialActionsBase):
     def post(self, request):
 
         form = self.form(self.action, request.POST)
+        form.set_author(request.user)
         if form.process():
             return self.return_success(request, {'removed_items': form.processed})
 
