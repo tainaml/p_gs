@@ -147,12 +147,12 @@ def remove_suggest_content(user, itens_to_remove, items_per_page=None, page=None
             UserAction.objects.filter(target_user=user, action_type=action_type, id=item).delete()
             removed_itens.append(item)
     except Exception as e:
-        raise e.message("Erro ao remover elemento")
+        raise Exception("Erro ao remover elemento")
 
     return removed_itens
 
 
-def remove_social_actions(action_type, items_to_remove, user=None, target_user=None):
+def remove_social_actions(action_type, items_to_remove, author=None, target_user=None):
 
     action_allowed = [settings.SOCIAL_SUGGEST, settings.SOCIAL_FAVOURITE, settings.SOCIAL_SEE_LATER]
 
@@ -162,8 +162,12 @@ def remove_social_actions(action_type, items_to_remove, user=None, target_user=N
     removed_items = []
     try:
         for item in items_to_remove:
-            UserAction.objects.filter(id=item.id, action_type=action_type).delete()
-            removed_items.append(item.id)
+            if author:
+                UserAction.objects.filter(id=item.id, action_type=action_type, author=author).delete()
+                removed_items.append(item.id)
+            elif target_user:
+                UserAction.objects.filter(id=item.id, action_type=action_type, target_user=target_user).delete()
+                removed_items.append(item.id)
     except Exception:
         raise Exception("Erro ao remover elemento")
 
