@@ -1,5 +1,6 @@
-from django.contrib.contenttypes.models import ContentType
+
 from django.db import transaction
+from apps.socialactions.models import UserAction
 
 from custom_forms.custom import IdeiaForm, forms
 from ..business import user as Business
@@ -8,6 +9,10 @@ from apps.article.models import Article
 from apps.userprofile.models import Responsibility, State, City
 from apps.userprofile.service import business as BusinessUserProfile
 from apps.userprofile.service.forms import EditProfileForm
+from apps.socialactions.service import business as BusinessSocialActions
+from apps.core.business import socialactions as CoreBusinessSocialActions
+from apps.taxonomy.models import Taxonomy, Term
+from rede_gsti import settings
 
 
 class CoreUserSearchForm(IdeiaForm):
@@ -213,3 +218,110 @@ class CoreSearchVideosForm(IdeiaForm):
             self.items_per_page,
             self.cleaned_data.get('page', 1)
         )
+
+
+class CoreSearchCommunitiesForm(IdeiaForm):
+
+    criteria = forms.CharField(required=False)
+    category = forms.ModelChoiceField(queryset=Taxonomy.objects.filter(term=Term.objects.get(description__icontains='categoria')), required=False)
+    page = forms.IntegerField(required=False)
+
+    def __init__(self, author, items_per_page, *args, **kwargs):
+        self.author = author
+        self.items_per_page = items_per_page
+
+        super(CoreSearchCommunitiesForm, self).__init__(*args, **kwargs)
+
+
+    def clean(self):
+        cleaned_data = super(CoreSearchCommunitiesForm, self).clean()
+
+        cleaned_data['page'] = cleaned_data['page'] \
+            if 'page' in cleaned_data and cleaned_data['page'] else 1
+
+        return cleaned_data
+
+
+    def __process__(self):
+        return BusinessSocialActions.get_users_acted_by_author_with_parameters(
+            author=self.author,
+            action=settings.SOCIAL_FOLLOW,
+            content_type='community',
+            items_per_page=self.items_per_page,
+            page=self.cleaned_data.get('page', 1),
+            criteria=self.cleaned_data.get('criteria'),
+            category=self.cleaned_data.get('category')
+        )
+
+
+class CoreSearchFavouriteForm(IdeiaForm):
+
+    criteria = forms.CharField(required=False)
+    page = forms.IntegerField(required=False)
+
+    def __init__(self, author, items_per_page, *args, **kwargs):
+
+        self.author = author
+        self.items_per_page = items_per_page
+
+        super(CoreSearchFavouriteForm, self).__init__(*args, **kwargs)
+
+
+    def clean(self):
+        cleaned_data = super(CoreSearchFavouriteForm, self).clean()
+
+        cleaned_data['page'] = cleaned_data['page'] \
+            if 'page' in cleaned_data and cleaned_data['page'] else 1
+
+        return cleaned_data
+
+
+    def __process__(self):
+        return CoreBusinessSocialActions.get_favourite_content(
+            self.author,
+            self.cleaned_data.get('criteria'),
+            self.items_per_page,
+            self.cleaned_data.get('page', 1)
+        )
+
+
+class CoreRemoveSocialActionForm(IdeiaForm):
+
+    items_to_remove = forms.ModelMultipleChoiceField(queryset=UserAction.objects.all())
+
+    def __init__(self, action, *args, **kwargs):
+
+        self.action = action
+        self.processed = False
+        self.author = None
+        self.target_user = None
+
+        super(CoreRemoveSocialActionForm, self).__init__(*args, **kwargs)
+
+    def is_valid(self):
+
+        is_valid = super(CoreRemoveSocialActionForm, self).is_valid()
+
+        action_allowed = [settings.SOCIAL_SUGGEST, settings.SOCIAL_FAVOURITE, settings.SOCIAL_SEE_LATER]
+
+        if self.action not in action_allowed:
+            is_valid = False
+
+        return is_valid
+
+    def set_author(self, author):
+        self.author = author
+
+    def set_target_user(self, user):
+        self.target_user = user
+
+    def __process__(self):
+
+        self.processed = CoreBusinessSocialActions.remove_social_actions(
+            self.action,
+            self.cleaned_data.get('items_to_remove'),
+            self.author,
+            self.target_user
+        )
+
+        return self.processed

@@ -2,6 +2,7 @@
 {% load thumbor_tags %}
 
 {% if items.object_list %}
+
     {% for community in items %}
        <div class="box-perfil">
            <div class="perfil">
@@ -13,11 +14,6 @@
        </div>
     {% endfor %}
 
-    <a data-jscroll-next href="{% url 'socialactions:get_followings' content_type_id=content_type.id object_filter_id=object.id %}?p={{ page }}&next={{ url_next|urlencode }}">next</a>
+    <a data-jscroll-next href="{% url 'profile:communities-list' user.get_username %}?page={{ page }}&next={{ url_next|urlencode }}&criteria={{ form.cleaned_data.criteria|default:"" }}&category={{ form.cleaned_data.category.id|default:"" }}">next</a>
 
-{% else %}
-    <div class="col-lg-12">
-        <p>Nenhum resultado foi encontrado para sua pesquisa</p>
-        <hr>
-    </div>
 {% endif %}

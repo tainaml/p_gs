@@ -33,6 +33,7 @@ urlpatterns = [
     url(r'^ver-depois/$', CoreUserProfileView.SocialActionSeeLater.as_view(), name='see_later'),
     url(r'^remover-ver-depois/$', CoreUserProfileView.SocialActionRemoveSeeLater.as_view(), name='remove_see_later'),
     url(r'^favoritos/$', CoreUserProfileView.SocialActionFavourite.as_view(), name='favourite'),
+    url(r'^favoritos/list/$', CoreUserProfileView.SocialActionFavouriteList.as_view(), name='favourite-list'),
     url(r'^desfavoritar/$', CoreUserProfileView.SocialActionRemoveFavourite.as_view(), name='unfavourite'),
     url(r'^sugestoes/$', CoreUserProfileView.SocialActionSuggest.as_view(), name='suggest'),
     url(r'^sugestoes/list/$', CoreUserProfileView.SocialActionSuggestList.as_view(), name='suggestList'),
@@ -51,7 +52,9 @@ urlpatterns = [
     url(r'^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/followers/search/$', CoreUserProfileView.CoreProfileFollowersSearch.as_view(), name='followers-search'),
     url(r'^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/followers/search/list/$', CoreUserProfileView.CoreProfileFollowersSearchList.as_view(), name='followers-search-list'),
 
-    url(r'^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/communities/$', views.ProfileCommunitiesView.as_view(), name='communities'),
+    # url(r'^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/communities/$', views.ProfileCommunitiesView.as_view(), name='communities'),
+    url(r'^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/communities/$', CoreUserProfileView.CoreProfileCommunitiesSearchView.as_view(), name='communities'),
+    url(r'^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/communities/list/$', CoreUserProfileView.CoreProfileCommunitiesSearchListView.as_view(), name='communities-list'),
     url(r'^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/communities/load/ajax/$', CoreUserProfileView.CoreProfileCommunitiesLoadAjax.as_view(), name='communities-load-ajax'),
 
     url(r'^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/videos/$', CoreUserProfileView.CoreProfileVideosView.as_view(), name='videos'),
