@@ -9,6 +9,7 @@ from apps.feed.models import FeedObject
 from apps.socialactions.models import UserAction
 from apps.socialactions.service import business as BusinessSocialActions
 from rede_gsti import settings
+from apps.taxonomy.models import Taxonomy
 
 __author__ = 'phillip'
 
@@ -232,3 +233,18 @@ def get_followers(data=None, items_per_page=None, page=None, startswith=None):
             followers = []
 
     return followers
+
+
+# @TODO refactor
+def get_related_communities(community_slug):
+
+    community = Community.objects.get(slug=community_slug)
+
+    community_tax = Taxonomy.objects.get(description=community.title)
+
+    children = Taxonomy.objects.filter(parent_id=community_tax.id)
+    parent = Taxonomy.objects.filter(id=community_tax.parent_id)
+
+    communities = Community.objects.filter(Q(taxonomy_id__in=children) | Q(taxonomy_id__in=parent))
+
+    return communities

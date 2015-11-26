@@ -239,13 +239,14 @@ class CoreCommunityFollowersSearchList(CoreCommunityFollowersSearch):
 
 class CommunityRelated(CoreCommunityView):
 
-    def post(self, request, community_slug):
+    template_path = "community/partials/community-related.html"
 
-        community = self.filter_community(request, community_slug)
-        if not community:
+    def get(self, request, community_slug=None):
+
+        communities = BusinessCommunity.get_related_communities(community_slug)
+        if not communities:
             return self.community_not_found
 
-        context = {'community': community}
-        context.update(self.get_context(request, community))
+        context = {'communities': communities}
 
-        return render(request, self.template_path, context)
+        return JsonResponse({'template':render(request, self.template_path, context).content})
