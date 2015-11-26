@@ -245,7 +245,7 @@ class CommunityRelated(CoreCommunityView):
 
         communities = BusinessCommunity.get_related_communities(community_slug)
         if not communities:
-            return self.community_not_found
+            return JsonResponse({'template':render(request, self.template_path, {}).content}, status=400)
 
         context = {'communities': communities}
 
