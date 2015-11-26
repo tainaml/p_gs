@@ -241,15 +241,10 @@ def get_related_communities(community_slug):
     community = Community.objects.get(slug=community_slug)
 
     community_tax = Taxonomy.objects.get(description=community.title)
-    development = Taxonomy.objects.get(description="Desenvolvimento")
 
     children = Taxonomy.objects.filter(parent_id=community_tax.id)
-    parent = Taxonomy.objects.get(id=community_tax.parent_id)
-    result = children
+    parent = Taxonomy.objects.filter(id=community_tax.parent_id)
 
-    if not (parent is None or parent.id == development.id):
-        result.update(parent)
-
-    communities = Community.objects.filter(taxonomy_id__in=result)
+    communities = Community.objects.filter(Q(taxonomy_id__in=children) | Q(taxonomy_id__in=parent))
 
     return communities

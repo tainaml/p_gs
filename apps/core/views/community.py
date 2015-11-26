@@ -248,6 +248,5 @@ class CommunityRelated(CoreCommunityView):
             return self.community_not_found
 
         context = {'communities': communities}
-        # context.update(self.get_context(request, community))
 
         return JsonResponse({'template':render(request, self.template_path, context).content})
