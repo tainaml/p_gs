@@ -88,6 +88,7 @@ class ArticleForm(IdeiaModelForm):
             Publishing action
             '''
             self.action = self.ACTION_PUBLISH
+
         elif 'submit-schedule' in self.data:
             self.__action = self.ACTION_SCHEDULE
 
@@ -98,8 +99,6 @@ class ArticleForm(IdeiaModelForm):
             valid = False
 
         #if 'submit-schedule' in self.data:
-
-
         return valid
 
     def set_author(self, author):
