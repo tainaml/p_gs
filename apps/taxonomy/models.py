@@ -6,6 +6,7 @@ from django.contrib.contenttypes.fields import GenericForeignKey
 
 class Term(models.Model):
     description = models.CharField(max_length=100)
+    slug = models.SlugField(unique=False, blank=True, default="")
     parent = models.ForeignKey("self", null=True, blank=True)
 
     def __unicode__(self):
@@ -13,6 +14,7 @@ class Term(models.Model):
 
 class Taxonomy(models.Model):
     description = models.CharField(max_length=100)
+    slug = models.SlugField(unique=False, blank=True, default="")
     parent = models.ForeignKey("self", null=True, blank=True, related_name='taxonomies_children')
     term = models.ForeignKey(Term, related_name='taxonomies')
 

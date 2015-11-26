@@ -62,7 +62,7 @@ INSTALLED_APPS = (
     'apps.core',
 
     #Profiling
-    'debug_toolbar',
+    #'debug_toolbar',
 
     # APPS
     'apps.account',
@@ -257,6 +257,10 @@ STATIC_ROOT = '/home/phillip/projects/python/django/rede_gsti/staticfiles/'
 # Media Paths: User upload files
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media', 'uploads')
 MEDIA_URL = '/media/uploads/'
+
+
+# extramigrations
+NASHVEGAS_MIGRATIONS_DIRECTORY = 'migrations/'
 
 
 # THUMBOR

@@ -1,4 +1,7 @@
 {% extends 'home/layout/base.html'%}
+
+{% load home_blocks %}
+
 {% block content %}
 <main class="container main">
     <div class="highlight-area">
@@ -69,55 +72,9 @@
         </div>
     </div>
     <div class="container-posts">
-        <section class="post-list--large post-list--governance">
-            <div class="post-list-header">
-                <h2 class="post-list-heading">Governança de TI</h2>
-                <nav class="post-list-nav">
-                     <a class="subs" href="javascript:;">ITIL</a>•
-                     <a class="subs" href="javascript:;">COBIT</a>•
-                    <a class="subs" href="javascript:;">Cloud Computing</a>•
-                    <a class="subs" href="javascript:;">PMBOOK</a>
-                </nav>
-            </div>
-            <div class="post-list-container">
-                <article class="article-home-large">
-                    <a href="javascript:;">
-                        <img class="img-responsive" src="http://placehold.it/270x203" alt="Placeholder">
-                    </a>
-                    <div>
-                        <a class="article-category" href="javascript:;">ITIL</a>
-                        <a class="article-content" href="javascript:;">Lorem Ipsum is simply dummy text of the printing and typ esetting industry Ipsum has been.</a>
-                    </div>
-                </article>
-                <article class="article-home-large">
-                    <a href="javascript:;">
-                        <img class="img-responsive" src="http://placehold.it/270x203" alt="Placeholder">
-                    </a>
-                    <div>
-                        <a class="article-category" href="javascript:;">ITIL</a>
-                        <a class="article-content" href="javascript:;">Lorem Ipsum is simply dummy text of the printing and typ esetting industry Ipsum has been.</a>
-                    </div>
-                </article>
-                <article class="article-home-large">
-                    <a href="javascript:;">
-                        <img class="img-responsive" src="http://placehold.it/270x203" alt="Placeholder">
-                    </a>
-                    <div>
-                        <a class="article-category" href="javascript:;">ITIL</a>
-                        <a class="article-content" href="javascript:;">Lorem Ipsum is simply dummy text of the printing and typ esetting industry Ipsum has been.</a>
-                    </div>
-                </article>
-                <article class="article-home-large">
-                    <a href="javascript:;">
-                        <img class="img-responsive" src="http://placehold.it/270x203" alt="Placeholder">
-                    </a>
-                    <div>
-                        <a class="article-category" href="javascript:;">ITIL</a>
-                        <a class="article-content" href="javascript:;">Lorem Ipsum is simply dummy text of the printing and typ esetting industry Ipsum has been.</a>
-                    </div>
-                </article>
-            </div>
-        </section>
+
+        {% home_block_full_width 'governanca-de-ti' class_name='governance' %}
+
     </div>
     <div class="container-posts">
         <section class="post-list--half post-list--development">
