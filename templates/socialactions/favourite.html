@@ -107,7 +107,7 @@
                 $(".chk").prop("checked",$this.prop("checked"));
             };
             $selectAll.find("input").on("change", functionChangeCheckbox);
-            $(document).on("change", ".chk", function(){
+            $(document).on("change", ".chk, #select-all", function(){
                 $inputGroup.empty();
                 $(".chk:checked").each(function(){
                     $inputGroup.append('<input type="hidden" name="items_to_remove" value="'+$(this).val()+'"/>');
