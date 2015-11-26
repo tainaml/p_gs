@@ -20,7 +20,6 @@
                         <a href="{% url 'profile:feed' %}">Feed</a> •
                     {% endif %}
                     <a href="{% url 'profile:show' username=profile.user.username %}">Perfil</a> •
-                    <a href="{% url 'ninico:about' %}">Sobre</a> •
                     <a href="{% url 'profile:communities' username=profile.user.username %}">Comunidades</a> •
                     <a href="{% url 'profile:followers' username=profile.user.username %}">Relacionamentos</a> •
                     <a href="{% url 'profile:videos' profile.user.username %}">Vídeos</a>
@@ -99,68 +98,79 @@
                                 </nav>
                             </div>
                         </div>
-                        <section class="area-content j-scroll j-scroll-container">
-                            {% if articles %}
-                                {% for article in articles %}
-                                    <div class="excerpt">
-                                        <div class="custom-check"><input type="checkbox"
-                                                                         data-object-id="{{ article.id }}"></div>
-                                        <div class="excerpt-content">
-                                            <a class="excerpt-image"
-                                               href="{% url 'article:view' article.content_object.slug article.content_object.id %}">
-                                                <img src="{{ article.content_object.get_image.url }}"
-                                                     alt="{{ article.content_object.title }}">
-                                            </a>
-
-                                            <div class="excerpt-title">
-                                                <header class="post-header">
-                                                    <div class="post-info">
-                                                        <time datetime="{{ article.content_object.createdin }}"
-                                                              itemprop="datePublished">{{ article.content_object.createdin }}</time>
-                                                        <a href="javascript:;" data-toggle="dropdown"><i
-                                                                class="gsticon gsticon-gear"></i></a>
-
-                                                        <div class="dropdown-menu">
-                                                            <ul class="perfil-actions">
-                                                                <li><a href="javascript:;"><i
-                                                                        class="gsticon gsticon-trash remove-see-later"></i>
-                                                                    Remover Sugestão</a></li>
-                                                                <li><a href="javascript:;"><i
-                                                                        class="gsticon gsticon-star"></i> Favoritar</a>
-                                                                </li>
-                                                                <li><a href="javascript:;"><i
-                                                                        class="gsticon gsticon-paper-plane"></i>
-                                                                    Sugerir</a></li>
-                                                                <li><a href="javascript:;"><i
-                                                                        class="gsticon gsticon-exclamation-triangle"></i>
-                                                                    Denunciar</a></li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                    <a class="post-creator"
-                                                       href="{% url 'profile:show' article.author.username %}">
-                                                        <img src="{{ article.content_object.author.profile.get_picture }}"
-                                                             alt="{{ article.content_object.author.get_full_name }}">
-                                                        {{ article.content_object.author.get_full_name }}</a>
-                                                </header>
-                                                <a href="{% url 'article:view' article.content_object.slug article.content_object.id %}">{{ article.content_object.title }}</a>
-                                            </div>
-                                        </div>
+                        <section class="area-content ">
+                            <div id="filter-container">
+                                {% if items.object_list %}
+                                    <div class="j-scroll j-scroll-container">
+                                        {% include "socialactions/partials/list.html" %}
                                     </div>
-                                {% endfor %}
-
-                                <a data-jscroll-next
-                                   href="{% url 'profile:see_later' %}?criteria={{ criteria }}&page={{ page }}&next={{ url_next }}">next</a>
-
-                            {% else %}
-
-                                {% if articles.number == 1 %}
-                                    <p>Nenhum resultado foi encontrado para sua pesquisa</p>
-                                    <hr>
+                                {% else %}
+                                    <span>Não existem itens a serem exibidos</span>
                                 {% endif %}
-
-                            {% endif %}
+                            </div>
                         </section>
+{#                        <section class="area-content j-scroll j-scroll-container">#}
+{#                            {% if articles %}#}
+{#                                {% for article in articles %}#}
+{#                                    <div class="excerpt">#}
+{#                                        <div class="custom-check"><input type="checkbox"#}
+{#                                                                         data-object-id="{{ article.id }}"></div>#}
+{#                                        <div class="excerpt-content">#}
+{#                                            <a class="excerpt-image"#}
+{#                                               href="{% url 'article:view' article.content_object.slug article.content_object.id %}">#}
+{#                                                <img src="{{ article.content_object.get_image.url }}"#}
+{#                                                     alt="{{ article.content_object.title }}">#}
+{#                                            </a>#}
+{##}
+{#                                            <div class="excerpt-title">#}
+{#                                                <header class="post-header">#}
+{#                                                    <div class="post-info">#}
+{#                                                        <time datetime="{{ article.content_object.createdin }}"#}
+{#                                                              itemprop="datePublished">{{ article.content_object.createdin }}</time>#}
+{#                                                        <a href="javascript:;" data-toggle="dropdown"><i#}
+{#                                                                class="gsticon gsticon-gear"></i></a>#}
+{##}
+{#                                                        <div class="dropdown-menu">#}
+{#                                                            <ul class="perfil-actions">#}
+{#                                                                <li><a href="javascript:;"><i#}
+{#                                                                        class="gsticon gsticon-trash remove-see-later"></i>#}
+{#                                                                    Remover Sugestão</a></li>#}
+{#                                                                <li><a href="javascript:;"><i#}
+{#                                                                        class="gsticon gsticon-star"></i> Favoritar</a>#}
+{#                                                                </li>#}
+{#                                                                <li><a href="javascript:;"><i#}
+{#                                                                        class="gsticon gsticon-paper-plane"></i>#}
+{#                                                                    Sugerir</a></li>#}
+{#                                                                <li><a href="javascript:;"><i#}
+{#                                                                        class="gsticon gsticon-exclamation-triangle"></i>#}
+{#                                                                    Denunciar</a></li>#}
+{#                                                            </ul>#}
+{#                                                        </div>#}
+{#                                                    </div>#}
+{#                                                    <a class="post-creator"#}
+{#                                                       href="{% url 'profile:show' article.author.username %}">#}
+{#                                                        <img src="{{ article.content_object.author.profile.get_picture }}"#}
+{#                                                             alt="{{ article.content_object.author.get_full_name }}">#}
+{#                                                        {{ article.content_object.author.get_full_name }}</a>#}
+{#                                                </header>#}
+{#                                                <a href="{% url 'article:view' article.content_object.slug article.content_object.id %}">{{ article.content_object.title }}</a>#}
+{#                                            </div>#}
+{#                                        </div>#}
+{#                                    </div>#}
+{#                                {% endfor %}#}
+{##}
+{#                                <a data-jscroll-next#}
+{#                                   href="{% url 'profile:see_later' %}?criteria={{ criteria }}&page={{ page }}&next={{ url_next }}">next</a>#}
+{##}
+{#                            {% else %}#}
+{##}
+{#                                {% if articles.number == 1 %}#}
+{#                                    <p>Nenhum resultado foi encontrado para sua pesquisa</p>#}
+{#                                    <hr>#}
+{#                                {% endif %}#}
+{##}
+{#                            {% endif %}#}
+{#                        </section>#}
                     </div>
                 </div>
             </div>

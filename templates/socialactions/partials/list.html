@@ -4,7 +4,7 @@
         {% with template_name=item.content_type|stringformat:"s"|add:"-segment.html" %}
             {% with instance=item.content_object %}
                 {% if instance %}
-                    {% include 'socialactions/partials/favourite-'|add:template_name %}
+                    {% include 'socialactions/partials/'|add:template_name %}
                 {% endif %}
             {% endwith %}
         {% endwith %}

@@ -172,3 +172,39 @@ def remove_social_actions(action_type, items_to_remove, author=None, target_user
         raise Exception("Erro ao remover elemento")
 
     return removed_items
+
+
+def get_content_by_action(description, action_type, items_per_page=None, page=None, author=None, target_user=None):
+
+    content_type = ContentType.objects.filter(model__in=['article', 'question'])
+
+    criteria = Q(action_type=action_type,) & Q(content_type=content_type)
+
+    if author:
+        criteria &= Q(author=author)
+
+    if target_user:
+        criteria &= Q(target_user=target_user)
+
+    UserActions = UserAction.objects.filter(criteria)
+
+    if description:
+        articles = Article.objects.filter(
+            Q(title__icontains=description) |
+            Q(text__icontains=description)
+        )
+
+        UserActions = UserActions.filter(object_id__in=articles)
+
+    items_per_page = items_per_page if items_per_page else 9
+    page = page if page else 1
+
+    items = Paginator(UserActions, items_per_page)
+    try:
+        items = items.page(page)
+    except PageNotAnInteger:
+        items = items.page(1)
+    except EmptyPage:
+        items = []
+
+    return items
