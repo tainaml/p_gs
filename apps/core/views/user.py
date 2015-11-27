@@ -10,7 +10,7 @@ from django.utils.translation import gettext as _
 
 from apps.community.models import Community
 from apps.core.forms.user import CoreUserProfileForm, CoreUserProfileFullEditForm, CoreSearchFollowers, CoreSearchArticlesForm, CoreSearchVideosForm, \
-    CoreSearchCommunitiesForm, CoreSearchFavouriteForm, CoreRemoveSocialActionForm
+    CoreSearchCommunitiesForm, CoreSearchFavouriteForm, CoreRemoveSocialActionForm, CoreSearchSocialActionsForm
 from apps.core.forms.community import CoreCommunityFormSearch
 from apps.core.forms.user import CoreUserSearchForm, CoreUserProfileEditForm
 from apps.article.models import Article
@@ -723,69 +723,64 @@ class CoreProfileSocialActionsBase(View):
 
 
 class SocialActionSeeLater(CoreProfileSocialActionsBase):
+
     template_path = 'socialactions/see-later.html'
+    template_path_partial = 'socialactions/partials/list.html'
+
+    form = CoreSearchSocialActionsForm
 
     @method_decorator(login_required)
     def get(self, request):
 
-        criteria = None
-        if 'criteria' in request.GET:
-            criteria = str(request.GET['criteria'])
-            self.template_path = 'socialactions/partials/see-later.html'
-
-        try:
-            content = Business.get_see_later_content(request.user, criteria)
-
-        except NotFoundSocialSettings:
-            context = {
-                'status': 400,
-                'msg': _('SocialAction not Found.'),
-            }
-            return self.return_error(request, context)
+        form = self.form(settings.SOCIAL_SEE_LATER, 9, request.GET)
+        form.set_author(request.user)
+        items = form.process()
 
         context = {
-            'articles': content,
-            'url_next': request.GET['next'] if 'next' in request.GET else '',
-            'page': (content.number if content and content.number else 0) + 1,
-            'criteria': self.template_path,
+            'form': form,
+            'items': items,
+            'page': form.cleaned_data.get('page', 1) + 1,
+            'url_next': request.GET.get('next'),
             'profile': request.user.profile
         }
+
+        if request.is_ajax():
+            self.template_path = self.template_path_partial
 
         return self.return_success(request, context)
 
 
+class SocialActionSeeLaterList(SocialActionSeeLater):
+
+    def return_success(self, request, context=None):
+        return render(request, self.template_path_partial, context)
+
+
 class SocialActionRemoveSeeLater(CoreProfileSocialActionsBase):
-    template_path = 'socialactions/see-later.html'
+    form = CoreRemoveSocialActionForm
+    action = settings.SOCIAL_SEE_LATER
+
+    def return_error(self, request, context=None):
+        return JsonResponse(context, status=400)
+
+    def return_success(self, request, context=None):
+        return JsonResponse(context, status=200)
 
     @method_decorator(login_required)
     def post(self, request):
 
-        itens_to_remove = request.POST.getlist(u'itens_to_remove[]')
-        try:
-            content = Business.remove_see_later_content(user=request.user, itens_to_remove=itens_to_remove)
+        form = self.form(self.action, request.POST)
+        form.set_author(request.user)
+        if form.process():
+            return self.return_success(request, {'removed_items': form.processed})
 
-        except NotFoundSocialSettings:
-            context = {
-                'status': 400,
-                'msg': _('SocialAction not Found.'),
-            }
-            return self.return_error(request, context)
-
-        context = {
-            'articles': content,
-            'url_next': request.GET['next'] if 'next' in request.GET else '',
-            'page': (content.page if content.page and content.page else 0) + 1,
-            'criteria': self.template_path,
-            'profile': request.user.profile
-        }
-
-        return self.return_success(request, context)
+        return self.return_error(request, {'status': 400})
 
 
 class SocialActionFavourite(CoreProfileSocialActionsBase):
 
     template_path = 'socialactions/favourite.html'
-    template_path_partial = 'socialactions/partials/favourite.html'
+    template_path_partial = 'socialactions/partials/list.html'
 
     form = CoreSearchFavouriteForm
 
@@ -816,8 +811,6 @@ class SocialActionFavouriteList(SocialActionFavourite):
 
 
 class SocialActionRemoveFavourite(CoreProfileSocialActionsBase):
-    template_path = 'socialactions/favourite.html'
-
     form = CoreRemoveSocialActionForm
     action = settings.SOCIAL_FAVOURITE
 

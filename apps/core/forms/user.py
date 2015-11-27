@@ -325,3 +325,54 @@ class CoreRemoveSocialActionForm(IdeiaForm):
         )
 
         return self.processed
+
+
+class CoreSearchSocialActionsForm(IdeiaForm):
+    criteria = forms.CharField(required=False)
+    page = forms.IntegerField(required=False)
+
+    def __init__(self, action, items_per_page, *args, **kwargs):
+
+        self.action = action
+        self.items_per_page = items_per_page
+        self.author = None
+        self.target_user = None
+
+        super(CoreSearchSocialActionsForm, self).__init__(*args, **kwargs)
+
+
+    def clean(self):
+        cleaned_data = super(CoreSearchSocialActionsForm, self).clean()
+
+        cleaned_data['page'] = cleaned_data['page'] \
+            if 'page' in cleaned_data and cleaned_data['page'] else 1
+
+        return cleaned_data
+
+    def is_valid(self):
+
+        is_valid = super(CoreSearchSocialActionsForm, self).is_valid()
+
+        action_allowed = [settings.SOCIAL_SUGGEST, settings.SOCIAL_FAVOURITE, settings.SOCIAL_SEE_LATER]
+
+        if self.action not in action_allowed:
+            is_valid = False
+
+        return is_valid
+
+    def set_author(self, author):
+        self.author = author
+
+    def set_target_user(self, user):
+        self.target_user = user
+
+
+    def __process__(self):
+        return CoreBusinessSocialActions.get_content_by_action(
+            self.cleaned_data.get('criteria'),
+            self.action,
+            self.items_per_page,
+            self.cleaned_data.get('page', 1),
+            self.author,
+            self.target_user
+        )
