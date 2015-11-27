@@ -750,32 +750,31 @@ class SocialActionSeeLater(CoreProfileSocialActionsBase):
         return self.return_success(request, context)
 
 
+class SocialActionSeeLaterList(SocialActionSeeLater):
+
+    def return_success(self, request, context=None):
+        return render(request, self.template_path_partial, context)
+
+
 class SocialActionRemoveSeeLater(CoreProfileSocialActionsBase):
-    template_path = 'socialactions/see-later.html'
+    form = CoreRemoveSocialActionForm
+    action = settings.SOCIAL_SEE_LATER
+
+    def return_error(self, request, context=None):
+        return JsonResponse(context, status=400)
+
+    def return_success(self, request, context=None):
+        return JsonResponse(context, status=200)
 
     @method_decorator(login_required)
     def post(self, request):
 
-        itens_to_remove = request.POST.getlist(u'itens_to_remove[]')
-        try:
-            content = Business.remove_see_later_content(user=request.user, itens_to_remove=itens_to_remove)
+        form = self.form(self.action, request.POST)
+        form.set_author(request.user)
+        if form.process():
+            return self.return_success(request, {'removed_items': form.processed})
 
-        except NotFoundSocialSettings:
-            context = {
-                'status': 400,
-                'msg': _('SocialAction not Found.'),
-            }
-            return self.return_error(request, context)
-
-        context = {
-            'articles': content,
-            'url_next': request.GET['next'] if 'next' in request.GET else '',
-            'page': (content.page if content.page and content.page else 0) + 1,
-            'criteria': self.template_path,
-            'profile': request.user.profile
-        }
-
-        return self.return_success(request, context)
+        return self.return_error(request, {'status': 400})
 
 
 class SocialActionFavourite(CoreProfileSocialActionsBase):
@@ -812,8 +811,6 @@ class SocialActionFavouriteList(SocialActionFavourite):
 
 
 class SocialActionRemoveFavourite(CoreProfileSocialActionsBase):
-    template_path = 'socialactions/favourite.html'
-
     form = CoreRemoveSocialActionForm
     action = settings.SOCIAL_FAVOURITE
 
