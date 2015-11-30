@@ -31,39 +31,36 @@
                         </header>
                         <div class="row">
                             <div class="col-lg-4">
-                                <form id="removeSuggest" data-ajaxform="true" data-group-class=".alert-container" action="{% url 'profile:unsuggest' %}">
+                                <form id="form-remove-suggest" action="{% url 'profile:unsuggest' %}" method="post" data-ajaxform="true" data-group-class=".alert-container" >
                                     {% csrf_token %}
-                                    <label class="custom-check btn" id="selectAll">
-                                        <input type="checkbox"  />
+                                    <label class="custom-check btn" id="select-all">
+                                        <input type="checkbox" />
                                     </label>
                                     <button type="submit" class="btn btn-default remove-suggest"><i class="gsticon gsticon-paper-plane"></i> Remover sugestão</button>
+                                    <div id="input-group"></div>
                                 </form>
                             </div>
                             <div class="col-lg-8">
-                                <!-- A "barra" de pesquisa não é exibida no feed, somente no -->
                                 <nav class="form-search">
-                                    <form action="{% url 'ninico:pesquisa' %}" method="GET" role="search"
-                                          id="form-filter">
+                                    <form id="form-filter" action="{% url 'profile:suggest' %}" method="GET" role="search" data-ajaxform="true" data-group-class=".alert-container" >
                                         <div class="form-search-input">
-                                            <input type="text" id="suggest" name="fcommunity" placeholder="{{ placehold|default:"Procure pessoas, comunidades, etc." }}" autocomplete="off"/>
+                                            <input type="text" id="filter-criteria" name="criteria" placeholder="{{ placehold|default:"Termo de pesquisa." }}" autocomplete="off"/>
                                         </div>
+                                        {% comment %}
                                         <div class="dropdown-menu dropdown-search">
                                             <div class="float-notifcations">
                                                 <div class="header-float-notifications">Pessoas</div>
                                                 <ul class="content-float-notifications">
                                                     <li class="item-float-notification">
-                                                        <a href="javascript:;"><img src="http://placehold.it/20"
-                                                                                    alt="Creator Post Avatar"></a>
+                                                        <a href="javascript:;"><img src="http://placehold.it/20" alt="Creator Post Avatar"></a>
                                                         <a href="javascript:;">Iury Silva</a>
                                                     </li>
                                                     <li class="item-float-notification">
-                                                        <a href="javascript:;"><img src="http://placehold.it/20"
-                                                                                    alt="Creator Post Avatar"></a>
+                                                        <a href="javascript:;"><img src="http://placehold.it/20" alt="Creator Post Avatar"></a>
                                                         <a href="javascript:;">Iury Silva</a>
                                                     </li>
                                                     <li class="item-float-notification">
-                                                        <a href="javascript:;"><img src="http://placehold.it/20"
-                                                                                    alt="Creator Post Avatar"></a>
+                                                        <a href="javascript:;"><img src="http://placehold.it/20" alt="Creator Post Avatar"></a>
                                                         <a href="javascript:;">Iury Silva</a>
                                                     </li>
                                                     <li class="item-float-notification-separator">
@@ -72,18 +69,15 @@
                                                 <div class="header-float-notifications">Comunidades</div>
                                                 <ul class="content-float-notifications">
                                                     <li class="item-float-notification">
-                                                        <a href="javascript:;"><img src="http://placehold.it/20"
-                                                                                    alt="Creator Post Avatar"></a>
+                                                        <a href="javascript:;"><img src="http://placehold.it/20" alt="Creator Post Avatar"></a>
                                                         <a href="javascript:;">Iury Silva</a>
                                                     </li>
                                                     <li class="item-float-notification">
-                                                        <a href="javascript:;"><img src="http://placehold.it/20"
-                                                                                    alt="Creator Post Avatar"></a>
+                                                        <a href="javascript:;"><img src="http://placehold.it/20" alt="Creator Post Avatar"></a>
                                                         <a href="javascript:;">Iury Silva</a>
                                                     </li>
                                                     <li class="item-float-notification">
-                                                        <a href="javascript:;"><img src="http://placehold.it/20"
-                                                                                    alt="Creator Post Avatar"></a>
+                                                        <a href="javascript:;"><img src="http://placehold.it/20" alt="Creator Post Avatar"></a>
                                                         <a href="javascript:;">Iury Silva</a>
                                                     </li>
                                                     <li class="item-float-notification-separator">
@@ -91,6 +85,7 @@
                                                 </ul>
                                             </div>
                                         </div>
+                                        {% endcomment %}
                                         <button type="submit" class="form-search-button">
                                             <i class="gsticon gsticon-search"></i>
                                         </button>
@@ -98,60 +93,16 @@
                                 </nav>
                             </div>
                         </div>
-                        <section class="area-content j-scroll j-scroll-container">
-                            {% if articles %}
-                                {% for article in articles %}
-                                    <div class="excerpt" id="{{ article.id }}">
-                                        <div class="custom-check"><input type="checkbox" class="chk" data-object-id="{{ article.id }}"></div>
-                                        <div class="excerpt-content">
-                                            <a class="excerpt-image" href="{% url 'article:view' article.content_object.slug article.content_object.id %}">
-                                                <img src="{{ article.content_object.get_image.url }}" alt="{{ article.content_object.title }}">
-                                            </a>
-                                            <div class="excerpt-title">
-                                                <header class="post-header">
-                                                    <div class="post-info">
-                                                        <time datetime="{{ article.content_object.createdin }}"
-                                                              itemprop="datePublished">{{ article.content_object.createdin }}</time>
-                                                        <a href="javascript:;" data-toggle="dropdown"><i
-                                                                class="gsticon gsticon-gear"></i></a>
-
-                                                        <div class="dropdown-menu">
-                                                            <ul class="perfil-actions">
-                                                                <li><a href="javascript:;"><i
-                                                                        class="gsticon gsticon-trash remove-suggest"></i>
-                                                                    Remover Sugestão</a></li>
-                                                                <li><a href="javascript:;"><i
-                                                                        class="gsticon gsticon-star"></i> Favoritar</a>
-                                                                </li>
-                                                                <li><a href="javascript:;"><i
-                                                                        class="gsticon gsticon-paper-plane"></i> Sugerir</a>
-                                                                </li>
-                                                                <li><a href="javascript:;"><i
-                                                                        class="gsticon gsticon-exclamation-triangle"></i>
-                                                                    Denunciar</a></li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                    <a class="post-creator"
-                                                       href="{% url 'profile:show' article.author.username %}">
-                                                        <img src="{{ article.content_object.author.profile.get_picture }}"
-                                                             alt="{{ article.content_object.author.get_full_name }}">
-                                                        {{ article.content_object.author.get_full_name }}</a>
-                                                </header>
-                                                <a href="{% url 'article:view' article.content_object.slug article.content_object.id %}">{{ article.content_object.title }}</a>
-                                            </div>
-                                        </div>
+                        <section class="area-content ">
+                            <div id="filter-container">
+                                {% if items.object_list %}
+                                    <div class="j-scroll j-scroll-container">
+                                        {% include "socialactions/partials/list.html" %}
                                     </div>
-                                {% endfor %}
-                                    <a data-jscroll-next href="{% url 'profile:suggestList' %}?criteria={{ criteria }}&page={{ page }}&next={{ url_next }}">next</a>
-                            {% else %}
-
-                                {% if articles == 0 %}
-                                    <p>Nenhum resultado foi encontrado para sua pesquisa</p>
-                                    <hr>
+                                {% else %}
+                                    <span>Não existem itens a serem exibidos</span>
                                 {% endif %}
-
-                            {% endif %}
+                            </div>
                         </section>
                     </div>
                 </div>
@@ -160,84 +111,70 @@
     </main>
 {% endblock %}
 
+
 {% block javascripts %}
     {{ block.super }}
 
+    <script type="text/javascript">
+        var jScrollElemment = null,
+            timeoutReference= null;
+        var functionAjaxFormSuccessFilter = function(e, data) {
 
-    <script>
+            var $divContainer = $("#filter-container");
+            var $divJScroll = $('<div />');
+            $divJScroll.addClass("j-scroll j-scroll-container");
+
+            $divJScroll.html(data.template);
+            $divContainer.html($divJScroll);
+            jScrollElemment = $divJScroll.jscroll({
+                autoTrigger: true,
+                loadingHtml: '<span>Carregando...</span>',
+                contentSelect: '.j-scroll-container',
+                nextSelect: "a[data-jscroll-next]",
+                refresh: true
+            });
+        };
+
+        var functionAjaxFormSuccessFormUnSuggest = function(e, data) {
+            $.each(data.removed_items, function(i, v){
+                $("#"+v).remove();
+            });
+        };
+
+        $(function(){
+            var $inputGroup = $("#input-group");
+            var $selectAll = $("#select-all");
+            var functionChangeCheckbox = function(){
+                var $this = $(this);
+                $(".chk").prop("checked",$this.prop("checked"));
+            };
+            $selectAll.find("input").on("change", functionChangeCheckbox);
+            $(document).on("change", ".chk, #select-all", function(){
+                $inputGroup.empty();
+                $(".chk:checked").each(function(){
+                    $inputGroup.append('<input type="hidden" name="items_to_remove" value="'+$(this).val()+'"/>');
+                });
+            });
+        });
+
         $(function () {
+            $(document).on('input', "#filter-criteria", function (e) {
+                var $this = $(e.currentTarget);
+                if (e.type=='keyup' && e.keyCode!=8) return;
+                if (timeoutReference) clearTimeout(timeoutReference);
+                timeoutReference = setTimeout(function(){
+                    $this.closest('form').submit();
+                }, 500);
+            });
+
             $(".j-scroll").jscroll({
                 loadingHtml: '<span>Carregando...</span>',
                 contentSelect: ".j-scroll-container",
                 nextSelect: "a[data-jscroll-next]"
             });
 
-            $(function () {
-                $('#selectAll').find('input').change(function(){
-                    $(".chk").prop("checked",$(this).prop("checked"));
-                })
-            });
-
-            $(document).on('click', '.remove-suggest', function () {
-                var $objects_to_remove = [];
-
-                var checkeds = $('.custom-check').not('#selectAll').find('input:checked');
-                checkeds.each(function (index, element) {
-                    $objects_to_remove.push($(element).data('objectId'));
-                })
-
-                console.log($objects_to_remove);
-
-                $.ajax({
-                    url: "{% url 'profile:unsuggest' %}",
-                    method: 'POST',
-                    data: {
-                        'itens_to_remove[]': $objects_to_remove,
-                        csrfmiddlewaretoken: $("input:hidden[name='csrfmiddlewaretoken']").val()
-                    },
-                    success: function (data, status, xhr) {
-                        console.log(data);
-                        $.each(data.removedItens, function(index, value){
-                            $("#"+value).remove();
-                        })
-
-                    },
-                    statusCode: {
-                        400: function () {
-                            $this.html("");
-                        },
-                        403: function () {
-                            $this.html("-- 403 Forbidden --");
-                        }
-                    }
-                });
-            })
-
-            $(document).on('submit', '#form-filter', function (event) {
-                event.preventDefault();
-
-                $.ajax({
-                    url: "{% url 'profile:suggest' %}",
-                    method: 'GET',
-                    data: {
-                        'criteria': $("#suggest").val(),
-                        csrfmiddlewaretoken: $("input:hidden[name='csrfmiddlewaretoken']").val()
-                    },
-                    success: function (data, status, xhr) {
-                        console.log(data.template);
-                        $('.area-content').html(data.template);
-                    },
-                    statusCode: {
-                        400: function () {
-                            $this.html("");
-                        },
-                        403: function () {
-                            $this.html("-- 403 Forbidden --");
-                        }
-                    }
-                });
-                return false;
-            });
+            $(document).on("ajaxform.success", "#form-filter", functionAjaxFormSuccessFilter);
+            $(document).on("ajaxform.success", "#form-remove-suggest", functionAjaxFormSuccessFormUnSuggest);
         });
     </script>
 {% endblock %}

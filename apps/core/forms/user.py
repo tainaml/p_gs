@@ -340,7 +340,6 @@ class CoreSearchSocialActionsForm(IdeiaForm):
 
         super(CoreSearchSocialActionsForm, self).__init__(*args, **kwargs)
 
-
     def clean(self):
         cleaned_data = super(CoreSearchSocialActionsForm, self).clean()
 
@@ -365,7 +364,6 @@ class CoreSearchSocialActionsForm(IdeiaForm):
 
     def set_target_user(self, user):
         self.target_user = user
-
 
     def __process__(self):
         return CoreBusinessSocialActions.get_content_by_action(

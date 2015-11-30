@@ -167,8 +167,8 @@ SOCIAL_ENTITIES = {
     SOCIAL_UNLIKE: ['comment', 'article', 'question'],
     SOCIAL_FOLLOW: ['community', 'user'],
     SOCIAL_FAVOURITE: ['article', 'question'],
-    SOCIAL_SUGGEST: ['article'],
-    SOCIAL_SEE_LATER: ['article'],
+    SOCIAL_SUGGEST: ['article', 'question'],
+    SOCIAL_SEE_LATER: ['article', 'question'],
 }
 
 SOCIAL_INVERSE_ACTIONS = {
