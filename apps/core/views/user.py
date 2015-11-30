@@ -728,17 +728,19 @@ class SocialActionSeeLater(CoreProfileSocialActionsBase):
     template_path_partial = 'socialactions/partials/list.html'
 
     form = CoreSearchSocialActionsForm
+    action = settings.SOCIAL_SEE_LATER
 
     @method_decorator(login_required)
     def get(self, request):
 
-        form = self.form(settings.SOCIAL_SEE_LATER, 9, request.GET)
+        form = self.form(self.action, 9, request.GET)
         form.set_author(request.user)
         items = form.process()
 
         context = {
             'form': form,
             'items': items,
+            'action': settings.SOCIAL_LABELS[self.action],
             'page': form.cleaned_data.get('page', 1) + 1,
             'url_next': request.GET.get('next'),
             'profile': request.user.profile
@@ -782,17 +784,20 @@ class SocialActionFavourite(CoreProfileSocialActionsBase):
     template_path = 'socialactions/favourite.html'
     template_path_partial = 'socialactions/partials/list.html'
 
-    form = CoreSearchFavouriteForm
+    form = CoreSearchSocialActionsForm
+    action = settings.SOCIAL_FAVOURITE
 
     @method_decorator(login_required)
     def get(self, request):
 
-        form = self.form(request.user, 9, request.GET)
+        form = self.form(self.action, 1, request.GET)
+        form.set_author(request.user)
         items = form.process()
 
         context = {
             'form': form,
             'items': items,
+            'action': settings.SOCIAL_LABELS[self.action],
             'page': form.cleaned_data.get('page', 1) + 1,
             'url_next': request.GET.get('next'),
             'profile': request.user.profile
@@ -837,17 +842,19 @@ class SocialActionSuggest(CoreProfileSocialActionsBase):
     template_path_partial = 'socialactions/partials/list.html'
 
     form = CoreSearchSocialActionsForm
+    action = settings.SOCIAL_SUGGEST
 
     @method_decorator(login_required)
     def get(self, request):
 
-        form = self.form(settings.SOCIAL_SUGGEST, 9, request.GET)
+        form = self.form(self.action, 9, request.GET)
         form.set_target_user(request.user)
         items = form.process()
 
         context = {
             'form': form,
             'items': items,
+            'action': settings.SOCIAL_LABELS[self.action],
             'page': form.cleaned_data.get('page', 1) + 1,
             'url_next': request.GET.get('next'),
             'profile': request.user.profile
@@ -884,3 +891,38 @@ class SocialActionRemoveSuggest(CoreProfileSocialActionsBase):
             return self.return_success(request, {'removed_items': form.processed})
 
         return self.return_error(request, {'status': 400})
+
+
+class SocialActionListItems(CoreProfileSocialActionsBase):
+
+    template_path = 'socialactions/partials/list.html'
+
+    form = CoreSearchSocialActionsForm
+
+    def return_success(self, request, context=None):
+        return render(request, self.template_path, context)
+
+    @method_decorator(login_required)
+    def get(self, request, action):
+
+        action = BusinessSocialActions.get_by_label(action)
+
+        form = self.form(action, 1, request.GET)
+
+        if action == settings.SOCIAL_SUGGEST:
+            form.set_target_user(request.user)
+        else:
+            form.set_author(request.user)
+
+        items = form.process()
+
+        context = {
+            'form': form,
+            'items': items,
+            'action': settings.SOCIAL_LABELS[action],
+            'page': form.cleaned_data.get('page', 1) + 1,
+            'url_next': request.GET.get('next'),
+            'profile': request.user.profile
+        }
+
+        return self.return_success(request, context)
