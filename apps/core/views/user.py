@@ -33,12 +33,12 @@ class CoreUserView(views.ProfileShowView):
     def get_context(self, request, profile_instance=None):
         context = super(CoreUserView, self).get_context(request, profile_instance)
 
-        itens_by_page = 5
+        items_by_page = 5
 
         form = self.form(
             profile_instance,
             ['article', 'question'],
-            itens_by_page,
+            items_by_page,
             request.user,
             request.GET
         )

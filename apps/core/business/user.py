@@ -47,13 +47,15 @@ def get_feed_objects(profile_instance=None, description=None, content_types_list
     )
 
     taxonomy_list = []
+    community_list = []
     for community in communities:
         taxonomy_list.append(community.content_object.taxonomy)
+        community_list.append(community.content_object)
 
     feed_objects = FeedObject.objects.filter(
         Q(content_type__in=content_types) &
         (
-            Q(taxonomies__in=taxonomy_list) |
+            Q(communities__in=community_list) |
             Q(article__author__in=followers_id) |
             Q(question__author__in=followers_id)
         ) & Q(article__status=Article.STATUS_PUBLISH)
@@ -69,7 +71,6 @@ def get_feed_objects(profile_instance=None, description=None, content_types_list
         "date"
     )
 
-    feed_objects_paginated = feed_objects
     items_per_page = items_per_page if items_per_page else 10
     page = page if page else 1
 
