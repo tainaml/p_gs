@@ -93,7 +93,7 @@ class CoreUserProfile(CoreUserView):
     def get_context(self, request, profile_instance=None):
         content_type = ContentType.objects.filter(model='article')
 
-        itens_by_page = 5cle
+        itens_by_page = 5
 
         form = self.form(
             profile_instance,
