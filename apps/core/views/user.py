@@ -710,6 +710,7 @@ class CoreUserCommunitiesListAjax(View):
 class CoreProfileSocialActionsBase(View):
 
     template_path = ""
+    items_per_page = 9
 
     def return_error(self, request, context=None):
         if request.is_ajax():
@@ -738,7 +739,7 @@ class SocialActionSeeLater(CoreProfileSocialActionsBase):
     @method_decorator(login_required)
     def get(self, request):
 
-        form = self.form(self.action, 9, request.GET)
+        form = self.form(self.action, self.items_per_page, request.GET)
         form.set_author(request.user)
         items = form.process()
 
@@ -795,7 +796,7 @@ class SocialActionFavourite(CoreProfileSocialActionsBase):
     @method_decorator(login_required)
     def get(self, request):
 
-        form = self.form(self.action, 1, request.GET)
+        form = self.form(self.action, self.items_per_page, request.GET)
         form.set_author(request.user)
         items = form.process()
 
@@ -852,7 +853,7 @@ class SocialActionSuggest(CoreProfileSocialActionsBase):
     @method_decorator(login_required)
     def get(self, request):
 
-        form = self.form(self.action, 9, request.GET)
+        form = self.form(self.action, self.items_per_page, request.GET)
         form.set_target_user(request.user)
         items = form.process()
 
@@ -903,6 +904,7 @@ class SocialActionListItems(CoreProfileSocialActionsBase):
     template_path = 'socialactions/partials/list.html'
 
     form = CoreSearchSocialActionsForm
+    items_per_page = 10
 
     def return_success(self, request, context=None):
         return render(request, self.template_path, context)
@@ -912,7 +914,7 @@ class SocialActionListItems(CoreProfileSocialActionsBase):
 
         action = BusinessSocialActions.get_by_label(action)
 
-        form = self.form(action, 1, request.GET)
+        form = self.form(action, self.items_per_page, request.GET)
 
         if action == settings.SOCIAL_SUGGEST:
             form.set_target_user(request.user)
