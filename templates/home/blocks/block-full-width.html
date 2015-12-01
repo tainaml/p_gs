@@ -1,3 +1,6 @@
+{% load thumbor_tags %}
+
+{% if articles|length %}
 <section class="post-list--large post-list--{{ class_name }}">
     <div class="post-list-header">
         <h2 class="post-list-heading">{{ category.description }}</h2>
@@ -9,41 +12,28 @@
         </nav>
     </div>
     <div class="post-list-container">
-        <article class="article-home-large">
-            <a href="javascript:;">
-                <img class="img-responsive" src="http://placehold.it/270x203" alt="Placeholder">
-            </a>
-            <div>
-                <a class="article-category" href="javascript:;">ITIL</a>
-                <a class="article-content" href="javascript:;">Lorem Ipsum is simply dummy text of the printing and typ esetting industry Ipsum has been.</a>
-            </div>
-        </article>
-        <article class="article-home-large">
-            <a href="javascript:;">
-                <img class="img-responsive" src="http://placehold.it/270x203" alt="Placeholder">
-            </a>
-            <div>
-                <a class="article-category" href="javascript:;">ITIL</a>
-                <a class="article-content" href="javascript:;">Lorem Ipsum is simply dummy text of the printing and typ esetting industry Ipsum has been.</a>
-            </div>
-        </article>
-        <article class="article-home-large">
-            <a href="javascript:;">
-                <img class="img-responsive" src="http://placehold.it/270x203" alt="Placeholder">
-            </a>
-            <div>
-                <a class="article-category" href="javascript:;">ITIL</a>
-                <a class="article-content" href="javascript:;">Lorem Ipsum is simply dummy text of the printing and typ esetting industry Ipsum has been.</a>
-            </div>
-        </article>
-        <article class="article-home-large">
-            <a href="javascript:;">
-                <img class="img-responsive" src="http://placehold.it/270x203" alt="Placeholder">
-            </a>
-            <div>
-                <a class="article-category" href="javascript:;">ITIL</a>
-                <a class="article-content" href="javascript:;">Lorem Ipsum is simply dummy text of the printing and typ esetting industry Ipsum has been.</a>
-            </div>
-        </article>
+
+        {% for article in articles %}
+
+            {% url 'article:view' article.slug article.id as article_link %}
+
+            <article class="article-home-large" id="article__{{ article.id }}">
+                <a href="{{ article_link }}">
+                    {% if article.image %}
+                        <img
+                                class="img-responsive"
+                                src="{% thumbor_url article.image.url width=270 height=203 smart=False fit_in=False %}"
+                                alt="{{ article.title }}">
+                    {% endif %}
+                </a>
+                <div>
+                    <a class="article-category" href="{{ article_link }}">{{ article.comunity }}</a>
+                    <a class="article-content" href="{{ article_link }}">{{ article.title }}</a>
+                </div>
+            </article>
+
+        {% endfor %}
+
     </div>
 </section>
+{% endif %}

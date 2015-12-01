@@ -64,11 +64,13 @@ def home_block(block_type, category_slug, quantity_categories=4, offset=0, class
 
     article_type = ContentType.objects.get(model="article")
 
-    articles = FeedObject.objects.filter(
-        taxonomies=category,
-        content_type=article_type,
-        article__status=Article.STATUS_PUBLISH,
-        article__publishin__lte=timezone.now()
+    articles = Article.objects.filter(
+        pk__in=FeedObject.objects.filter(
+            #taxonomies=category,
+            content_type=article_type,
+        ),
+        status=Article.STATUS_PUBLISH,
+        publishin__lte=timezone.now()
     )[offset:quantity_categories]
 
     context.update({
