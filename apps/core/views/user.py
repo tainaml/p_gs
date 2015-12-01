@@ -65,11 +65,11 @@ class CoreUserView(views.ProfileShowView):
 
 class CoreUserList(CoreUserView):
 
-    template_path = 'userprofile/partials/user-profile-list.html'
+    template_path = 'userprofile/partials/user-profile-feed.html'
 
     def get(self, request, username=None):
 
-        profile = self.filter(request, username)
+        profile = self.filter(request, request.user)
 
         context = {'profile': profile}
         context.update(self.get_context(request, profile))
@@ -93,7 +93,7 @@ class CoreUserProfile(CoreUserView):
     def get_context(self, request, profile_instance=None):
         content_type = ContentType.objects.filter(model='article')
 
-        itens_by_page = 5
+        itens_by_page = 5cle
 
         form = self.form(
             profile_instance,
@@ -110,6 +110,11 @@ class CoreUserProfile(CoreUserView):
             'form': form,
             'page': form.cleaned_data.get('page', 0) + 1
         }
+
+
+class CoreUserProfileList(CoreUserProfile):
+
+    template_path = 'userprofile/partials/user-profile-list.html'
 
 
 class CoreUserSearch(CoreUserView):
