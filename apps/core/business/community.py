@@ -22,10 +22,15 @@ def get_feed_objects(community_instance=None, description=None, content_types_li
 
     feed_objects = FeedObject.objects.filter(
         Q(content_type__in=content_types) &
-        Q(taxonomies=community_instance.taxonomy) &
+        Q(communities=community_instance) &
         (
-            Q(article__title__icontains=description) |
-            Q(article__text__icontains=description)  |
+            (
+                Q(article__status=Article.STATUS_PUBLISH) &
+                (
+                    Q(article__title__icontains=description) |
+                    Q(article__text__icontains=description)
+                )
+            ) |
             Q(question__title__icontains=description)|
             Q(question__description__icontains=description)
         )
@@ -37,7 +42,7 @@ def get_feed_objects(community_instance=None, description=None, content_types_li
         "taxonomies"
     )
 
-    feed_objects_paginated = feed_objects
+
     items_per_page = items_per_page if items_per_page else 10
     page = page if page else 1
 

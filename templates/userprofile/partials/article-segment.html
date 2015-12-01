@@ -5,7 +5,7 @@
 <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
     <header class="post-header">
         <div class="post-info">
-            <time datetime="06-17-2015" itemprop="datePublished">{{ instance.publishin|date:'d/m/Y' }} às {{ instance.publishin|date:'G:i' }}</time>
+            <time datetime="{{ instance.publishin|date:"d/m/Y G:i" }}" itemprop="datePublished">{{ instance.publishin|date:'d/m/Y' }} às {{ instance.publishin|date:'G:i' }}</time>
             <a href="javascript:;" data-toggle="dropdown"><i class="gsticon gsticon-gear"></i></a>
             <div class="dropdown-menu">
                 <ul class="perfil-actions">
@@ -18,7 +18,6 @@
             </div>
         </div>
         <a class="post-creator" href="{% url 'profile:show' username=instance.author.username %}">
-            {# <img src="http://placehold.it/20" alt="Creator Porst Avatar"> #}
             <img src="{% thumbor_url instance.author.profile.get_profile_picture.url width=20 height=20 smart=False fit_in=False %}" alt="foto de {{ instance.author.get_full_name }}">
             {{instance.author.get_full_name}}
         </a>
@@ -26,13 +25,12 @@
     <a class="post-content" href="{% url 'article:view' instance.slug instance.id %}" itemprop="articleBody">
         <figure>
             {% if instance.get_image %}
-                <img src="{% thumbor_url post.get_image.url width=170 height=128 smart=False fit_in=False %}" alt="{{ instance.title }}">
-                {# <img src="http://placehold.it/170x128&text=%20" alt="{{ instance.title }}">#}
+                <img src="{% thumbor_url instance.get_image.url width=170 height=128 smart=False fit_in=False %}" alt="{{ instance.title }}">
             {% endif %}
         </figure>
         <div class="post-text">
             <h3 class="post-title" itemprop="headline">{{ instance.title }} </h3>
-            <p>{{ instance.text|safe|striptags|escape|slice:":100"}}... </p>
+            <p>{{ instance.text|safe|striptags|escape|slice:":90"}}... </p>
         </div>
     </a>
     <footer class="post-footer">

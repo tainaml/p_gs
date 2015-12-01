@@ -23,5 +23,4 @@ urlpatterns = [
     url(r'^search/followers$', CoreViews.CoreCommunityFollowersSearch.as_view(), name='search-followers'),
     url(r'^search/followers/list$', CoreViews.CoreCommunityFollowersSearchList.as_view(), name='search-followers-list'),
 
-
 ]
