@@ -184,7 +184,7 @@ class ArticleEditView(ArticleBaseView):
         # Fail if is not owner
         self.check_is_owner(request, article)
 
-        form_article = self.form_article(request.POST, request.FILES, instance=article, author=request.user)
+        form_article = self.form_article(data=request.POST, files=request.FILES, instance=article, author=request.user)
 
         temp_form = copy.copy(form_article)
         temp_article = copy.copy(article)
