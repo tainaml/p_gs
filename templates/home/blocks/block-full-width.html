@@ -21,9 +21,9 @@
                 <a href="{{ article_link }}">
                     {% if article.image %}
                         <img
-                                class="img-responsive"
-                                src="{% thumbor_url article.image.url width=270 height=203 smart=False fit_in=False %}"
-                                alt="{{ article.title }}">
+                            class="img-responsive"
+                            src="{% thumbor_url article.image.url width=270 height=203 smart=False fit_in=False %}"
+                            alt="{{ article.title }}">
                     {% endif %}
                 </a>
                 <div>

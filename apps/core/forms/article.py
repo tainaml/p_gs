@@ -10,6 +10,7 @@ from ..forms.taxonomies import CoreTaxonomiesMixin
 
 class CoreArticleForm(ArticleForm, CoreTaxonomiesMixin):
 
+
     def set_author(self, author):
         super(CoreArticleForm, self).set_author(author)
         self.filter_comunities(author)

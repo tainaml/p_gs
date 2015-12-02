@@ -1,4 +1,6 @@
 from django import forms
+from rede_gsti import settings
+
 
 class AbstractIdeiaForm(object):
     def process(self):
@@ -7,8 +9,9 @@ class AbstractIdeiaForm(object):
         except NotImplementedError:
             raise NotImplementedError
         except Exception, e:
+            if settings.DEBUG:
+                print e.message
             self.add_error(None, "General error!")
-
             return False
 
     def __process__(self):

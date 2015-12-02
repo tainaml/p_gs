@@ -67,7 +67,7 @@ class EditProfileForm(IdeiaForm):
         is_valid = super(EditProfileForm, self).is_valid()
         image = self.cleaned_data.get('profile_picture', False)
 
-        if image:
+        if image and 'image' in self.changed_data:
             if image.content_type not in settings.IMAGES_ALLOWED:
                 self.add_error('profile_picture',
                                ValidationError(_('Image format is not allowed.'), code='profile_picture'))
