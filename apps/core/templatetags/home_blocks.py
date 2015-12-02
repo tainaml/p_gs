@@ -55,8 +55,9 @@ def home_block(block_type, category_slug, quantity_categories=4, offset=0, class
 
     block = home_blocks_templates.get(block_type, None)
     if block is None:
-        return ''
+        return 'block is none'
 
+    category = []
     try:
         category = Taxonomy.objects.get(slug=category_slug)
     except Taxonomy.DoesNotExist, e:
@@ -71,11 +72,11 @@ def home_block(block_type, category_slug, quantity_categories=4, offset=0, class
         ),
         status=Article.STATUS_PUBLISH,
         publishin__lte=timezone.now()
-    )[offset:quantity_categories]
+    ).order_by('-id')[offset:quantity_categories]
 
     context.update({
         'category': category,
-        'articles': articles
+        'articles': articles.all()
     })
 
     template = render_to_string(block.template_file, context)

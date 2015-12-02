@@ -80,7 +80,6 @@ class ArticleForm(IdeiaModelForm):
 
         image = self.cleaned_data.get('image', False)
 
-
         if image and 'image' in self.changed_data:
             if image.content_type not in settings.IMAGES_ALLOWED:
                 self.add_error('image',
@@ -97,11 +96,6 @@ class ArticleForm(IdeiaModelForm):
 
         elif 'submit-save' in self.data:
             self.action = self.ACTION_SAVE
-
-
-
-        #if 'submit-schedule' in self.data:
-
 
         return valid
 
