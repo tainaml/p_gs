@@ -86,13 +86,14 @@
 .custom-input {
     width: 100%;
     float: left;
-    padding: 5px 11px 5px 0;
+    // padding: 5px 11px 5px 0;
     border: 1px solid $color-border;
     font-weight: normal;
     .custom-check,
     .custom-radio {
         border-width: 0 1px 0 0;
         margin-right: 10px;
+        display: inline-block;
     }
 }
 .custom-check {
@@ -132,4 +133,19 @@
         color: #fff;
         cursor: pointer;
     }
+}
+
+// Mover para um componente de tag's
+.cloud-tags-title {
+    color: #5d7184;
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+.tag {
+    margin-bottom: 10px;
+    color: #607384;
+    font-size: 0.8em;
+    line-height: 1.8;
+    .custom-input { font-weight: 600; }
 }
