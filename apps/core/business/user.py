@@ -33,7 +33,7 @@ def get_feed_objects(profile_instance=None, description=None, content_types_list
         content_types_list = []
 
     followers_id = BusinessSocialActions.get_users_ids_acted_by_model_and_action(
-        model=profile_instance.user,
+        model=None,
         action=settings.SOCIAL_FOLLOW,
         user=user
     )
@@ -53,18 +53,18 @@ def get_feed_objects(profile_instance=None, description=None, content_types_list
         community_list.append(community.content_object)
 
     feed_objects = FeedObject.objects.filter(
-        Q(content_type__in=content_types) &
-        (
-            Q(communities__in=community_list) |
-            Q(article__author__in=followers_id) |
-            Q(question__author__in=followers_id)
-        ) & Q(article__status=Article.STATUS_PUBLISH)
+        Q(content_type__in=content_types) & (
+            Q(communities__in=community_list) | (
+                Q(article__status=Article.STATUS_PUBLISH) &
+                Q(article__author__in=followers_id)
+            ) | Q(question__author__in=followers_id)
+        )
     ).order_by(
         "-date"
     ).prefetch_related(
         "content_object__author",
         "content_object__author__profile",
-        "taxonomies"
+        "communities"
     ).distinct(
         "object_id",
         "content_type",
