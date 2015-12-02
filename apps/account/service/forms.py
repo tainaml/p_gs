@@ -82,8 +82,10 @@ class ChangePasswordForm(IdeiaForm):
     new_password = forms.CharField(max_length=30, required=True)
     new_password_confirmation = forms.CharField(max_length=30, required=True)
 
-    def __init__(self, user=None, *args, **kwargs):
-        self.user = user
+    def __init__(self, request=None, *args, **kwargs):
+
+        self.request = request
+        self.user = request.user
         super(ChangePasswordForm, self).__init__(*args, **kwargs)
 
     def is_valid(self):
@@ -103,7 +105,11 @@ class ChangePasswordForm(IdeiaForm):
         return valid
 
     def __process__(self):
-        return Business.update_password(self.user, self.cleaned_data['new_password'])
+        return Business.update_password(
+            self.request,
+            self.user,
+            self.cleaned_data['new_password']
+        )
 
 
 class ForgotPasswordForm(IdeiaForm):
