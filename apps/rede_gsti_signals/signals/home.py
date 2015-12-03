@@ -1,9 +1,8 @@
 from django.contrib.contenttypes.models import ContentType
 from django.core.cache.utils import make_template_fragment_key
-from django.db.models.signals import post_save, m2m_changed
+from django.db.models.signals import post_save
 from django.dispatch import receiver
 from apps.article.models import Article
-from apps.community.models import Community
 from django.core.cache import cache
 from apps.feed.models import FeedObject
 
@@ -31,5 +30,3 @@ def refresh_home_block(sender, **kwargs):
     for tax in feed_object.taxonomies.all():
         temp_key = make_template_fragment_key(key_name, [tax.slug.lower()])
         cache.delete(temp_key)
-
-    print 123
