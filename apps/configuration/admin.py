@@ -1,3 +1,5 @@
 from django.contrib import admin
+from .models import ConfigKey, ConfigValues
 
-# Register your models here.
+admin.site.register(ConfigKey)
+admin.site.register(ConfigValues)

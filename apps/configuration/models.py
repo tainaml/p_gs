@@ -7,6 +7,9 @@ class ConfigKey(models.Model):
     key = models.SlugField(null=False, blank=False, unique=True)
     description = models.TextField(null=False, blank=False)
 
+    def __unicode__(self):
+        return self.description
+
 
 class ConfigValues(models.Model):
     key = models.ForeignKey('ConfigKey', null=False, blank=False)
