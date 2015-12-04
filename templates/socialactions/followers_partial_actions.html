@@ -1,13 +1,16 @@
 {% if request.user and request.user != object_to_link %}
 
-    {% if ajax %}
-        {% url 'socialactions:act-ajax' object_to_link.id content 'follow' as act_url %}
-    {% else %}
-        {% url 'socialactions:act' object_to_link.id content 'follow' as act_url %}
-    {% endif %}
+{% url 'socialactions:act-xhr' object_to_link.id content 'follow' as act_url %}
 
     {% if not followed %}
-    <a class="btn {{ btn_class }}" data-hover="{% if content == "community" %}Sair{% else %}Deixar de seguir{% endif %}" {% if ajax %}data-social-action-ajax{% endif %} href="{{ act_url }}?url_next={{ url_next|urlencode }}">
+    <a class="btn {{ btn_class }}"
+    data-action="follow" data-action-type="button"
+    data-action-text="{% if content == "community" %}Entrar{% else %}Seguir{% endif %}"
+    data-action-text-alt="{% if content == "community" %}Participando{% else %}Seguindo{% endif %}"
+    data-object="follow-{{ object_to_link.id }}"
+    data-class-name="{% if btn_class == "btn-follow" %}btn-follow btn-follow-alt{% else %}perfil-button perfil-button-alt{% endif %}"
+    data-hover="{% if content == "community" %}Sair{% else %}Desseguir{% endif %}"
+    href="{{ act_url }}?url_next={{ url_next|urlencode }}">
         <span>
         {% if content == "community" %}
             Entrar
@@ -17,7 +20,14 @@
         </span>
     </a>
     {% else %}
-    <a class="btn {{ btn_class }}-alt" data-hover="{% if content == "community" %}Sair{% else %}Deixar de seguir{% endif %}" {% if ajax %}data-social-action-ajax{% endif %}  href="{{ act_url }}?url_next={{ url_next|urlencode }}">
+    <a class="btn {{ btn_class }}-alt"
+    data-action="follow" data-action-type="button"
+    data-object="follow-{{ object_to_link.id }}"
+    data-action-text="{% if content == "community" %}Entrar{% else %}Seguir{% endif %}"
+    data-action-text-alt="{% if content == "community" %}Participando{% else %}Seguindo{% endif %}"
+    data-class-name="{% if btn_class == "btn-follow" %}btn-follow btn-follow-alt{% else %}perfil-button perfil-button-alt{% endif %}"
+    data-hover="{% if content == "community" %}Sair{% else %}Desseguir{% endif %}"
+    href="{{ act_url }}?url_next={{ url_next|urlencode }}">
         <span>
         {% if content == "community" %}
             Participando

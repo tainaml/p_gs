@@ -1,4 +1,4 @@
-require('./when-event.js');
+require('../../vendor/jquery.tinypubsub.js');
 
 ;(function ( $, window, document ) {
     'use strict';
@@ -15,52 +15,70 @@ require('./when-event.js');
         this._defaults = defaults;
         this._name = pluginName;
 
-        this.init();
-    }
-
-    Plugin.prototype.init = function init () {
-        var urlCheck = $( this.element ).data( 'urlCheck' ),
-            $that = $( this.element );
-
-        $.getJSON(urlCheck, function ( result ) {
-            checkResult( $that, result );
-        });
-
-        this.activeFavourite();
-    };
-    Plugin.prototype.activeFavourite = function () {
-        var $that = this;
-
-        $( $that.element ).on( 'click.action', function ( event ) {
-            var ajaxUrl = event.currentTarget.href;
-            event.preventDefault();
-
-            $.getJSON( ajaxUrl, function ( result ) {
-                checkResult( $that.element, result );
-            });
-        });
-    };
-
-    function checkResult ( el, result ) {
-        var element = $(el);
-        result.action = element.data('action');
-        console.log(result.acted);
-        if ( result.acted ) {
-            $('[data-action='+ result.action +'][data-action-type="icon"]').parent('li').addClass( 'item-active' );
-            $('[data-action='+ result.action +'][data-action-type="text"]')
-                .find('span').text( $('[data-action='+ result.action +'][data-action-type="text"]').data( 'actionTextAlt' ));
-
-        } else {
-            $('[data-action='+result.action +'][data-action-type="icon"]').parent('li').removeClass( 'item-active' );
-            $('[data-action='+ result.action +'][data-action-type="text"]')
-                .find('span').text( $('[data-action='+ result.action +'][data-action-type="text"]').data( 'actionText' ));
-            console.log(element.data('actionText'));
+        attachEvents(this.element);
+        if (this.element.dataset.urlCheck) {
+            $.publish('check/act',
+                [this.element, this.element.dataset.urlCheck, this.element.dataset.action]);
         }
     }
+    $.subscribe('check/act', checkActHandler);
+    $.subscribe('click/act', clickActHandler);
 
-    $('[data-action]').on('change:action', function ( event, data ) {
-        checkResult(event.currentTarget, data);
-    });
+    function checkActHandler (event, element, url, action) {
+        $.get(url, function (data) {
+            changeStyleButtonCheck[element.dataset.actionType](element.dataset.object, element.dataset.action, data.acted);
+        });
+    }
+    function clickActHandler (event, element, url, dataObject) {
+        $.get(url, function (data) {
+            $('[data-object='+dataObject+']').each(function (index) {
+                changeStyleButtonCheck[$(this).data('actionType')](element.dataset.object, element.dataset.action, data.acted);
+            });
+        });
+    }
+
+    var changeStyleButtonCheck = {
+        icon: function (dataObject, action, isActed) {
+            var selector = $('[data-object='+dataObject+'][data-action-type=icon]');
+            selector.parent('li').toggleClass(defaults.activeClass);
+        },
+        text: function (dataObject, action, isActed) {
+            var selector = $('[data-object='+dataObject+'][data-action-type=text]');
+            if (isActed) {
+                selector.find('span').text(
+                    selector.data('actionTextAlt'))
+            } else {
+                selector.find('span').text(
+                    selector.data('actionText'))
+            }
+        },
+        button: function (dataObject, action, isActed) {
+            var selector = $('[data-object='+dataObject+'][data-action-type=button]'),
+            toggleClasses = selector.data('className');
+            console.log(toggleClasses);
+            if (isActed) {
+                selector.toggleClass(toggleClasses)
+                .find('span').text(
+                    selector.data('actionTextAlt'))
+            } else {
+                selector.toggleClass(toggleClasses)
+                .find('span').text(
+                    selector.data('actionText'))
+            }
+        }
+    };
+
+    function attachEvents (element) {
+        var selector = $(element);
+        selector.on('click', handlerClick);
+    }
+    function handlerClick (event) {
+        event.preventDefault();
+
+        $.publish('click/act',
+            [event.currentTarget, event.currentTarget.href,
+                event.currentTarget.dataset.object]);
+    }
 
     $.fn[pluginName] = function ( options ) {
         return this.each(function () {
@@ -72,5 +90,8 @@ require('./when-event.js');
     };
 
     $('[data-action]').ajaxSocialAction();
+    $(document).on('async.load.success', function (event) {
+        $('[data-action]').ajaxSocialAction();
+    });
 
 })(jQuery, window, document);
