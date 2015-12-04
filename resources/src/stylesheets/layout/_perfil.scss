@@ -1,19 +1,25 @@
 .perfil {
     @extend %clearfix;
+    min-height: 132px;
     padding: 20px;
     margin-top: -1px;
     border: 1px solid $color-border;
 
     > a > img,
     > img {
+        max-width: 90px;
         float: left;
         margin-right: 8px;
         border: 4px solid $link-white;
         box-shadow: -1px 1px 1px $color-border, 1px -1px 1px $color-border;
     }
     &-#{name} {
+        overflow: hidden;
         color: $color-link-feed;
         font-size: 1.286em;
+        display: block;
+        text-overflow: ellipsis;
+        white-space: nowrap;
         &:hover {
             color: lighten($color-link-feed, 10%);
         }

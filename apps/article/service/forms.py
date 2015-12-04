@@ -75,6 +75,9 @@ class ArticleForm(IdeiaModelForm):
     def is_valid(self):
         valid = True
 
+        if not super(ArticleForm, self).is_valid():
+            valid = False
+
         image = self.cleaned_data.get('image', False)
 
         if image:
@@ -94,9 +97,6 @@ class ArticleForm(IdeiaModelForm):
 
         elif 'submit-save' in self.data:
             self.action = self.ACTION_SAVE
-
-        if not super(ArticleForm, self).is_valid():
-            valid = False
 
         #if 'submit-schedule' in self.data:
         return valid
