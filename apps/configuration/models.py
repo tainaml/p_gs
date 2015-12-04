@@ -22,7 +22,7 @@ class ConfigKey(models.Model):
 
 
 class ConfigValues(models.Model):
-    key = models.OneToOneField('ConfigKey', null=False, blank=False)
+    key = models.ForeignKey('ConfigKey', null=False, blank=False)
     value = models.TextField(null=False, blank=False)
     object_id = models.PositiveIntegerField(null=False, blank=False)
     content_type = models.ForeignKey(ContentType)

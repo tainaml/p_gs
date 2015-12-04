@@ -20,5 +20,4 @@ def create_default_settings(sender,**kwargs):
         'notify_publications': 'all'
     })
     form.set_entity(instance.user)
-
-    configs_created, configs_updated = form.process()
+    form.process()
