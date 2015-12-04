@@ -146,10 +146,7 @@ class CommentSaveAnswer(CommentFormBaseView):
         if 'content_object_id' not in request.POST:
             raise Http404()
 
-        parameters = copy.copy(request.POST)
-        parameters['content_type'] = 'comment'
-
-        self.form = self.form_comment(request.user, parameters)
+        self.form = self.form_comment(request.user, request.POST)
 
         return super(CommentSaveAnswer, self).do_process(request)
 

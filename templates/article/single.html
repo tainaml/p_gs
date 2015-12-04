@@ -83,8 +83,6 @@
                 {% include 'comment/create.html' with content_type='article' content_object_id=article.id %}
             </div>
             <div data-xhr-url="{% url "comment:list" %}?content_type=article&content_id={{ article.id }}" data-xhr id="container-comments" class="container-comments j-scroll">
-{#                {% include 'home/partials/comment/create.html' with size=81 %}#}
-{#                {% include 'home/partials/comment/comment.html' %}#}
             </div>
         </div>
         {% include "article/partials/article-sidebar-right.html" %}

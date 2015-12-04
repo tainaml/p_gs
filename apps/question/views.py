@@ -1,15 +1,111 @@
-from django.http import Http404
+from django.http import Http404, JsonResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.views.generic import View
 from apps.question.models import Question
 from service.forms import CreateQuestionForm, EditQuestionForm, \
-    CommentReplyForm, EditAnswerForm
+    CommentReplyForm, EditAnswerForm, ListAnswerForm
 from apps.question.service import business
 from django.contrib import messages
 from django.utils.translation import ugettext as _
 from django.core.urlresolvers import reverse
+from .service.business import get_question
+class FormBaseView(View):
+    not_found = Http404(_('Question not Found.'))
+    instance = None
+    context = {}
+
+    form = None
+
+    @property
+    def success_template_path(self):
+        raise NotImplementedError("you must specify the success_template_path")
+
+    def do_process(self, request=None, *args, **kwargs):
+
+        if self.form:
+            self.instance = self.form.process()
+            self.context.update({'instance': self.instance, 'form': self.form})
+            is_valid = not not self.instance
+
+            if request.is_ajax():
+                response_data = {}
+                if is_valid:
+                    response_data['is_valid'] = is_valid
+                    response_data['template'] = render(request,
+                                                       self.success_template_path,
+                                                       self.context).content
+                else:
+                    response_data['errors'] = self.form.errors
+                    print response_data['errors']
+
+                return JsonResponse(response_data,
+                                    status=200 if is_valid else 400, *args,
+                                    **kwargs)
+            else:
+
+                return render(request,
+                              self.success_template_path if is_valid else
+                              self.fail_validation_template_path,
+                              self.context,
+                              *args,
+                              **kwargs)
+
+        return render(request,
+                      self.success_template_path,
+                      self.context,
+                      *args,
+                      **kwargs)
+
+class ListBaseView(View):
+
+    itens_by_page = 10
+    context = {}
+    response_data = {}
+    form = ListAnswerForm
+
+    @property
+    def template_list_path(self):
+        raise NotImplementedError("you must specify the template_list_path property")
+
+    def do_process(self, request=None):
+
+
+        self.response_data['template'] = render(request,
+                                           self.template_list_path,
+                                           self.context).content
+
+
+        return render(request, self.template_list_path, self.context)
+
+
+class AnswerList(ListBaseView):
+    template_list_path = 'comment/list-comment.html'
+
+    def get(self, request=None):
+
+        if 'question_id' in request.GET:
+            question = get_question(request.GET['question_id'])
+        else:
+            raise Http404()
+
+        form = self.form(question, self.itens_by_page, request.GET)
+        instance_list = form.process()
+
+
+        if not form.is_valid():
+            print form.errors
+            raise Http404()
+
+        self.context.update({
+            'answers': instance_list,
+            'form': form,
+            'page': form.cleaned_data['page'] + 1}
+        )
+
+
+        return super(AnswerList, self).do_process(request)
 
 
 class CreateQuestionView(View):
@@ -114,10 +210,13 @@ class ShowQuestionView(View):
         if not question or (question and question.slug != question_slug):
             raise Http404(_("Question is not exists!"))
 
-        return render(request, 'question/question-show.html', {'question': question})
+        answers = business.get_all_answers_by_question(question)
+        return render(request, 'question/question-show.html', {'question': question, 'answers': answers})
 
 
-class CommentReplayView(View):
+class CommentReplayView(FormBaseView):
+
+    success_template_path = 'question/partials/answer-show.html'
 
     @method_decorator(login_required)
     def post(self, request):
@@ -125,33 +224,25 @@ class CommentReplayView(View):
         if not question:
             raise Http404(_("Question not found"))
 
-        form = CommentReplyForm(request.POST, request.user)
-        if not form.process():
-            messages.add_message(request, messages.WARNING, _("Answer not created!"))
-            return render(request, 'question/edit_answer.html', {'form': form})
-        else:
-            messages.add_message(request, messages.SUCCESS, _("Answer created!"))
-            return redirect(reverse('question:show', args=(question.slug, request.POST["question_id"],)))
+        self.form = CommentReplyForm(request.POST, request.user)
+
+        return super(CommentReplayView, self).do_process(request)
 
 
-class UpdateReplyView(View):
+
+
+
+class UpdateReplyView(FormBaseView):
+
+    success_template_path = 'question/partials/answer-show.html'
+
     @method_decorator(login_required)
     def post(self, request):
         answer = business.get_answer(request.POST['reply_id'])
-        if answer:
-            form = EditAnswerForm(instance=answer, data=request.POST)
-            form.set_author(request.user)
-            if form.process():
-                messages.add_message(request, messages.SUCCESS, _("Answer updated successfully!"))
-                return redirect(reverse('question:show', args=(form.instance.question.id,)))
 
-            context = {
-                'form': form,
-                'reply': answer
-            }
-            return render(request, 'question/edit_answer.html', context)
+        if answer:
+            self.form = EditAnswerForm(instance=answer, user=request.user, data=request.POST)
+            return super(UpdateReplyView, self).do_process(request)
 
         else:
-            messages.add_message(request, messages.WARNING, _("Answer not exists!"))
-            return redirect(
-                reverse('question:show', args=(answer.question.id,)))
+            raise Http404()

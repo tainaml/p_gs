@@ -1,11 +1,10 @@
 from ckeditor.widgets import CKEditorWidget
 from django.core.exceptions import ValidationError
-from django.db import models
 from django.db import transaction
 from django.utils.text import slugify
 from custom_forms.custom import forms, IdeiaForm, IdeiaModelForm
 import business as Business
-from django.conf import settings
+
 
 
 class CreateQuestionForm(IdeiaModelForm):
@@ -84,14 +83,45 @@ class CommentReplyForm(IdeiaForm):
         return Business.comment_reply(self.cleaned_data, self.user, self.question)
 
 
-class EditAnswerForm(IdeiaModelForm):
+class ListAnswerForm(IdeiaForm):
+
+    question_id = forms.IntegerField(min_value=1, required=True)
+    page = forms.IntegerField(min_value=1, required=False)
+
+    def __init__(self, question=None, itens_by_page=10, *args, **kwargs):
+        self.question = question
+        self.itens_by_page = itens_by_page
+        super(ListAnswerForm, self).__init__(*args, **kwargs)
+
+    def clean(self):
+        cleaned_data = super(ListAnswerForm, self).clean()
+        cleaned_data['page'] = cleaned_data['page']\
+            if 'page' in cleaned_data and cleaned_data['page'] else 1
+
+        return cleaned_data
+
+    def __process__(self):
+
+        return Business.get_answers_by_question(
+            question=self.question,
+            items_per_page=self.itens_by_page,
+            page=self.cleaned_data['page']
+        )
+
+
+
+
+
+class EditAnswerForm(IdeiaForm):
     description = forms.CharField(max_length=2048, required=True, widget=CKEditorWidget(config_name='question'))
 
     user = None
 
-    class Meta:
-        model = Business.Answer
-        exclude = ['author', 'answer_date', 'question']
+    def __init__(self, instance=None, user=None, *args, **kwargs):
+        self.instance = instance
+        self.user = user
+        super(EditAnswerForm, self).__init__(*args, **kwargs)
+
 
     def set_author(self, user):
         self.user = user
@@ -99,7 +129,7 @@ class EditAnswerForm(IdeiaModelForm):
     def is_valid(self):
         is_valid = super(EditAnswerForm, self).is_valid()
 
-        if not self.user or not self.user.is_authenticated:
+        if not self.user or not self.user.is_authenticated():
             self.add_error(None,
                            ValidationError(('User must be authenticated.'),
                                            code='is_not_authenticated'))

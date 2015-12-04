@@ -8,7 +8,6 @@ class AbstractIdeiaForm(object):
             raise NotImplementedError
         except Exception, e:
             self.add_error(None, "General error!")
-
             return False
 
     def __process__(self):
