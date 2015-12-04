@@ -1,3 +1,4 @@
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from ..models import Question, Answer
 
 
@@ -31,9 +32,32 @@ def comment_reply(params=None, logged_user=None, question_id=None):
     answer.save()
     return answer
 
+def get_answers_by_question(question=None, items_per_page=None, page=None):
+    answers = get_all_answers_by_question(question)
+
+    items_per_page = items_per_page if items_per_page else 10
+
+    answers_paginated = Paginator(answers, items_per_page)
+
+    try:
+        answers_paginated = answers_paginated.page(page)
+    except PageNotAnInteger:
+        answers_paginated = answers_paginated.page(1)
+    except EmptyPage:
+        answers_paginated = []
+
+    return answers_paginated
+
+def get_all_answers_by_question(question=None):
+    return Answer.objects.filter(
+        question_id=question.id
+    ).order_by("-answer_date")
+
+
+
 
 def update_reply(params=None, answer=None):
-
+    answer.description = params['description']
     return False if answer.save() is False else answer
 
 
@@ -53,6 +77,14 @@ def get_answer(answer_id=None):
         answer = False
 
     return answer
+
+def get_own_answer(user=None, **kwargs):
+    try:
+        return Answer.objects.get(author=user, **kwargs)
+    except Answer.DoesNotExist:
+        return False
+
+
 
 
 def get_questions_by_user(author):

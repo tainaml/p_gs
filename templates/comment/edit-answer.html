@@ -2,15 +2,17 @@
 {{ form.non_field_errors }}
 
 
-<form class="create-comment" data-group-class=".comment-group" data-ajaxform="true" data-toggle="replace"  class="create-comment" data-update="#{{ to_update }}" action="{% url 'comment:edit-answer' %}" method="post">{% csrf_token %}
-    <div class="comment-group create-comment-body{% if form.content.errors %} has-error{% endif %}">
-         <textarea name="content" class="form-control"  placeholder="Deixe seu comentário">{{ instance.content }}</textarea>
+<form class="create-comment" data-group-class=".comment-group" data-ajaxform="true" data-toggle="replace" data-update="#{{ to_update }}" action="{% url 'question:update_reply' %}" method="post">{% csrf_token %}
+
+    <div class="comment-group create-comment-body{% if form.description.errors %} has-error{% endif %}">
+         <textarea name="description" class="form-control"  placeholder="Deixe sua resposta">{{ instance.description }}</textarea>
          <span class="help-block"></span>
     </div>
     <div class="create-comment-footer">
-        <input type="reset" data-toggle="dropdown" data-selector="#comment-edit-{{ instance.id }}" value="Cancelar" class="btn btn-default">
+        <input type="reset" data-toggle="dropdown" data-selector="#reply-edit-{{ instance.id }}" value="Cancelar" class="btn btn-default">
         <input type="submit" value="Editar" class="btn btn-primary">
     </div>
-    <input name="comment_id" value="{{ instance.id }}" type="hidden"/>
+    <input name="question_id" value="{{ question.id }}" type="hidden"/>
+    <input name="reply_id" value="{{ instance.id }}" type="hidden"/>
 </form>
 

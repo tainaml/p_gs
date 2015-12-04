@@ -1,0 +1,22 @@
+{% load thumbor_tags %}
+{{ form.non_field_errors }}
+
+<form data-group-class=".answer-group" data-toggle="prepend" data-update="#container-answers" data-ajaxform="true" action="{% url 'question:comment_reply' %}" class="create-comment" method="post">{% csrf_token %}
+
+    <div class="create-comment-avatar">
+        <img src="{% thumbor_url request.user.profile.get_profile_picture.url width=81 height=81 smart=False fit_in=False %}" alt="User avatar">
+    </div>
+
+    <div class="answer-group create-comment-body{% if form.content.errors %} has-error{% endif %}">
+         <textarea name="description" class="form-control"  placeholder="Deixe sua resposta"></textarea>
+         <span class="help-block"></span>
+    </div>
+
+    <input name="question_id" value="{{ content_object_id }}" type="hidden"/>
+
+
+    <div class="create-comment-footer">
+        <input type="reset" data-toggle value="Cancelar" class="btn btn-default">
+        <input type="submit" value="Comentar" class="btn btn-primary">
+    </div>
+</form>
