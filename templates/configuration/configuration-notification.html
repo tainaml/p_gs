@@ -1,0 +1,113 @@
+{%extends 'home/layout/base.html' %}
+
+{% block title %}Portal GSTI - Perfil{% endblock %}
+
+{% block content %}
+    <main class="container main">
+        <div class="perfil-row">
+            <!-- mudar para 2.5 -->
+            <div class="col-lg-3">
+                {% include 'home/partials/sidebar-perfil.html' %}
+            </div>
+            <!-- mudar para 9.5 -->
+            <div class="col-lg-9">
+                <nav class="perfil-navegation">
+                    {% if profile.user == request.user %}<a href="{% url 'profile:feed' %}">Feed</a> • {% endif %}
+                    <a href="{% url 'profile:show' username=profile.user.username %}">Perfil</a> •
+                    <a href="{% url 'profile:communities' username=profile.user.username %}">Comunidades</a> •
+                    <a href="{% url 'profile:followers' username=profile.user.username %}">Relacionamentos</a> •
+                    <a href="{% url 'profile:videos' profile.user.username %}">Vídeos</a>
+                </nav>
+                <div class="row">
+                    <div class="col-lg-8">
+                        <header class="area-title">
+                            <h2>Configurações</h2>
+                        </header>
+                        <section class="area-content">
+                            <h3><i class="gsticon gsticon-bell"></i> Notificações</h3>
+                            <form id="form-config-notifications" action="{% url 'configuration:notification' %}" method="post" data-ajaxform="true">
+                                {% csrf_token %}
+                                <label class="form-group">
+                                    <span class="custom-check">
+                                        <input type="checkbox" name="notify_follow" value="true" {% if configs and configs.notify_follow == "True" %}checked="checked"{% endif %}>
+                                    </span>
+                                    <span class="form-control" style="display: inline; width: auto;">
+                                        Notificar quando alguém te seguir
+                                    </span>
+                                </label>
+                                <label class="form-group">
+                                    <span class="custom-check">
+                                        <input type="checkbox" name="notify_comment_question" value="true" {% if configs and configs.notify_comment_question == "True" %}checked="checked"{% endif %}>
+                                    </span>
+                                    <span class="form-control" style="display: inline; width: auto;">
+                                        Notificar quando alguém comentar uma pergunta sua
+                                    </span>
+                                </label>
+                                <label class="form-group">
+                                    <span class="custom-check">
+                                        <input type="checkbox" name="notify_comment_article" value="true" {% if configs and configs.notify_comment_article == "True" %}checked="checked"{% endif %}>
+                                    </span>
+                                    <span class="form-control" style="display: inline; width: auto;">
+                                        Notificar quando alguém comentar uma publicação sua
+                                    </span>
+                                </label>
+                                <hr>
+                                <label class="form-group">
+                                    <span class="custom-radio">
+                                        <input type="radio" name="notify_publications" value="all" {% if configs and configs.notify_comment_article and configs.notify_publications == "all" %}checked="checked"{% endif %}>
+                                    </span>
+                                    <span class="form-control" style="display: inline; width: auto;">
+                                        Receber todas notificações
+                                    </span>
+                                </label>
+                                <label class="form-group">
+                                    <span class="custom-radio">
+                                        <input type="radio" name="notify_publications" value="articles" {% if configs and configs.notify_comment_article and configs.notify_publications == "articles" %}checked="checked"{% endif %}>
+                                    </span>
+                                    <span class="form-control" style="display: inline; width: auto;">
+                                        Receber apenas publicações
+                                    </span>
+                                </label>
+                                <label class="form-group">
+                                    <span class="custom-radio">
+                                        <input type="radio" name="notify_publications" value="questions" {% if configs and configs.notify_comment_article and configs.notify_publications == "questions" %}checked="checked"{% endif %}>
+                                    </span>
+                                    <span class="form-control" style="display: inline; width: auto;">
+                                        Receber apenas perguntas
+                                    </span>
+                                </label>
+                                <button type="submit" class="pull-right btn-default">Salvar</button>
+                            </form>
+                        </section>
+                    </div>
+                    {% include "configuration/partials/configuration-sidebar-right.html" %}
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock %}
+
+
+{% block modals %}
+
+    {{ block.super }}
+    {% include "home/partials/modals/modal-message.html" %}
+
+{% endblock %}
+
+
+{% block javascripts %}
+    {{ block.super }}
+
+    <script>
+        var functionSuccessChangeConfigs = function(e, data) {
+            var $modalMessage = $("#modal-message");
+            $modalMessage.html(data.template);
+            $modalMessage.modal("show");
+        };
+
+        $(function(){
+            $("#form-config-notifications").on("ajaxform.success", functionSuccessChangeConfigs)
+        });
+    </script>
+{% endblock %}

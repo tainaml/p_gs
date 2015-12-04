@@ -1,7 +1,6 @@
 from django.http import JsonResponse
-from django.shortcuts import render, redirect
-from django.views.generic import View
-from apps.account.service.forms import ForgotPasswordForm
+from django.shortcuts import render
+from django.utils.translation import ugettext as _
 
 from ..forms.account import CoreSignUpForm
 from apps.account import views
@@ -50,6 +49,33 @@ class CoreForgotPassword(views.ForgotPasswordView):
 
         _context = {
             'template': render(request, 'account/partials/account-password-response-modal.html', context).content
+        }
+
+        return JsonResponse(_context, status=200)
+
+
+class CoreChangePassword(views.ChangePasswordView):
+
+    def return_error(self, request, context=None):
+        _context = {}
+
+        if 'form' in context:
+            _form = context['form']
+            _context = {'errors': _form.errors}
+
+        return JsonResponse(_context, status=400)
+
+    def return_success(self, request, context=None):
+        if not context:
+            context = {}
+
+        context.update({
+            'title': _('Change Password'),
+            'message': _('Your password has been changed!')
+        })
+
+        _context = {
+            'template': render(request, 'configuration/partials/modal/change-password-successfully.html', context).content
         }
 
         return JsonResponse(_context, status=200)

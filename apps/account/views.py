@@ -231,6 +231,14 @@ class RecoveryValidationView(View):
 
 class ChangePasswordView(View):
 
+    form = ChangePasswordForm
+
+    def return_error(self, request, context=None):
+        return render(request, 'account/password_change.html', context)
+
+    def return_success(self, request, context=None):
+        return render(request, 'account/password_change_successfully.html')
+
     @method_decorator(login_required)
     def get(self, request):
         """
@@ -239,7 +247,7 @@ class ChangePasswordView(View):
         :param request:
         :return: HTML
         """
-        form = ChangePasswordForm()
+        form = self.form()
         return render(request, 'account/password_change.html', {'form': form})
 
     @method_decorator(login_required)
@@ -250,11 +258,11 @@ class ChangePasswordView(View):
         :param request:
         :return:
         """
-        form = ChangePasswordForm(request.user, request.POST)
+        form = self.form(request, request.POST)
         if form.process():
-            return render(request, 'account/password_change_successfully.html')
+            return self.return_success(request)
 
-        return render(request, 'account/password_change.html', {'form': form})
+        return self.return_error(request, {'form': form})
 
 
 class ForgotPasswordView(View):

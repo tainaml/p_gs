@@ -176,7 +176,7 @@ def check_token_exist(activation_key):
 def deactivate_token(token):
 
     token.active = False
-    token.save()
+    token.save(update_fields=['active'])
 
     return token
 
@@ -234,14 +234,19 @@ def logout_user(request=None):
     logout(request)
 
 
-def update_password(user=None, new_password=None):
+def update_password(request=None, user=None, new_password=None):
     """ This method update the user password
     :param user: User to update password
     :param new_password: new password to set
     :return: User
     """
+    username = user.username
+
     user.set_password(new_password)
     user.save()
+
+    logout(request)
+    log_in_user_no_credentials(request, user)
 
     return user
 
