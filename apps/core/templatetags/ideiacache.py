@@ -22,10 +22,13 @@ class IdeiaCacheNode(Node):
             expire_time = self.expire_time_var.resolve(context)
         except VariableDoesNotExist:
             raise TemplateSyntaxError('"cache" tag got an unknown variable: %r' % self.expire_time_var.var)
-        try:
-            expire_time = int(expire_time) if expire_time is not None and self.cache_name else None
-        except (ValueError, TypeError):
-            raise TemplateSyntaxError('"cache" tag got a non-integer timeout value: %r' % expire_time)
+
+        if expire_time is not None:
+            try:
+                expire_time = int(expire_time)
+            except (ValueError, TypeError):
+                raise TemplateSyntaxError('"cache" tag got a non-integer timeout value: %r' % expire_time)
+
         if self.cache_name:
             try:
                 cache_name = self.cache_name.resolve(context)

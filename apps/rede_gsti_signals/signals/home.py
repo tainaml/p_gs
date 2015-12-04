@@ -9,6 +9,9 @@ from apps.feed.models import FeedObject
 @receiver(post_save, sender=Article)
 def refresh_home_block(sender, **kwargs):
     key_name = 'home-block-taxonomy'
+    block_keys = [
+        'home-block-taxonomy',
+    ]
 
     instance = kwargs['instance'] if 'instance' in kwargs else False
     if not instance:

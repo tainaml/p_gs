@@ -4,12 +4,7 @@
 <section class="post-list--large post-list--{{ class_name }}">
     <div class="post-list-header">
         <h2 class="post-list-heading">{{ category.description }}</h2>
-        <nav class="post-list-nav">
-            <a class="subs" href="javascript:;">ITIL</a>
-            <a class="subs" href="javascript:;">COBIT</a>
-            <a class="subs" href="javascript:;">Cloud Computing</a>
-            <a class="subs" href="javascript:;">PMBOOK</a>
-        </nav>
+        {% include 'home/blocks/partials/communities.html' %}
     </div>
     <div class="post-list-container">
 
@@ -24,6 +19,8 @@
                             class="img-responsive"
                             src="{% thumbor_url article.image.url width=270 height=203 smart=False fit_in=False %}"
                             alt="{{ article.title }}">
+                    {% else %}
+                        <img class="img-responsive" src="http://placehold.it/270x203" alt="Placeholder">
                     {% endif %}
                 </a>
                 <div>

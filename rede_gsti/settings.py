@@ -62,7 +62,7 @@ INSTALLED_APPS = (
     'apps.core',
 
     #Profiling
-    #'debug_toolbar',
+    'debug_toolbar',
 
     # APPS
     'apps.account',
