@@ -10,9 +10,9 @@ class ConfigNotificationsForm(IdeiaForm):
         ('questions', 'Questions')
     )
 
-    notify_follow = forms.BooleanField(required=False)
-    notify_comment_article = forms.BooleanField(required=False)
-    notify_comment_question = forms.BooleanField(required=False)
+    notify_follow = forms.BooleanField(required=False, initial=True)
+    notify_comment_article = forms.BooleanField(required=False, initial=True)
+    notify_comment_question = forms.BooleanField(required=False, initial=True)
 
     notify_publications = forms.ChoiceField(required=True, choices=NOTIFY_PUBLICATIONS_CHOICES)
 

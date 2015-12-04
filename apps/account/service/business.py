@@ -176,7 +176,7 @@ def check_token_exist(activation_key):
 def deactivate_token(token):
 
     token.active = False
-    token.save()
+    token.save(update_fields=['active'])
 
     return token
 

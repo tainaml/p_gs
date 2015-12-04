@@ -30,7 +30,7 @@ def save_configs(entity, data):
 
     content_type = ContentType.objects.get_for_model(entity)
 
-    configs_added = []
+    configs_created = []
     configs_updated = []
 
     try:
@@ -46,11 +46,11 @@ def save_configs(entity, data):
                 config.save()
 
             if created:
-                configs_added.append(config)
+                configs_created.append(config)
             else:
                 configs_updated.append(config)
 
     except Exception, e:
         return False
 
-    return configs_added, configs_updated
+    return configs_created, configs_updated
