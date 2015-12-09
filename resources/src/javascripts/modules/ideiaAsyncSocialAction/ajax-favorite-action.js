@@ -40,7 +40,11 @@ require('../../vendor/jquery.tinypubsub.js');
     var changeStyleButtonCheck = {
         icon: function (dataObject, action, isActed) {
             var selector = $('[data-object='+dataObject+'][data-action-type=icon]');
-            selector.parent('li').toggleClass(defaults.activeClass);
+            if (isActed) {
+                selector.parent('li').addClass(defaults.activeClass);
+            } else {
+                selector.parent('li').removeClass(defaults.activeClass);
+            }
         },
         text: function (dataObject, action, isActed) {
             var selector = $('[data-object='+dataObject+'][data-action-type=text]');
@@ -55,7 +59,6 @@ require('../../vendor/jquery.tinypubsub.js');
         button: function (dataObject, action, isActed) {
             var selector = $('[data-object='+dataObject+'][data-action-type=button]'),
             toggleClasses = selector.data('className');
-            console.log(toggleClasses);
             if (isActed) {
                 selector.toggleClass(toggleClasses)
                 .find('span').text(
