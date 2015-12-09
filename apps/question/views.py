@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.views.generic import View
-from apps.question.models import Question
+from apps.question.models import Question, Answer
 from service.forms import CreateQuestionForm, EditQuestionForm, \
     CommentReplyForm, EditAnswerForm, ListAnswerForm
 from apps.question.service import business
@@ -229,9 +229,6 @@ class CommentReplayView(FormBaseView):
         return super(CommentReplayView, self).do_process(request)
 
 
-
-
-
 class UpdateReplyView(FormBaseView):
 
     success_template_path = 'question/partials/answer-show.html'
@@ -246,3 +243,17 @@ class UpdateReplyView(FormBaseView):
 
         else:
             raise Http404()
+
+
+class CorrectAnswer(View):
+
+    def get(self, request, answer_id):
+
+        try:
+            question = business.set_correct_answer(answer_id)
+        except Question.DoesNotExist:
+            raise Http404(_("Question is not exists!"))
+        except Answer.DoesNotExist:
+            raise Http404(_("Answer is not exists!"))
+
+        return redirect(reverse('question:show', args=[question.slug, question.id]))

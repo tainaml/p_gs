@@ -78,6 +78,28 @@ def get_answer(answer_id=None):
 
     return answer
 
+
+def set_correct_answer(answer_id):
+
+    answer = get_answer(answer_id)
+
+    if answer:
+        question = get_question(answer.question.id)
+        if question:
+
+            if question.correct_answer and question.correct_answer == answer:
+                question.correct_answer = None
+            else:
+                question.correct_answer = answer
+
+            question.save()
+            return question
+
+        else:
+            raise Question.DoesNotExist
+    else:
+        raise Answer.DoesNotExist
+
 def get_own_answer(user=None, **kwargs):
     try:
         return Answer.objects.get(author=user, **kwargs)
