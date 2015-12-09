@@ -1,4 +1,7 @@
+from django.contrib.contenttypes.models import ContentType
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from django.db import transaction
+from apps.comment.models import Comment
 from ..models import Question, Answer
 
 
@@ -99,6 +102,29 @@ def set_correct_answer(answer_id):
             raise Question.DoesNotExist
     else:
         raise Answer.DoesNotExist
+
+
+@transaction.atomic()
+def remove_answer(answer):
+
+    content_type = ContentType.objects.get_for_model(answer)
+
+    try:
+        question = answer.question
+        question.correct_answer = None
+        question.save()
+
+        Comment.objects.filter(
+            content_type=content_type,
+            object_id=answer.id
+        ).delete()
+
+        answer.delete()
+    except Exception, e:
+        return False
+
+    return True
+
 
 def get_own_answer(user=None, **kwargs):
     try:

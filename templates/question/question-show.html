@@ -81,11 +81,53 @@
         </div>
     </main>
 {% endblock %}
+
+
+{% block modals %}
+    {{ block.super }}
+
+    {% include "home/partials/modals/modal-confirmation.html" %}
+
+{% endblock %}
+
+
+
 {% block javascripts %}
     <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-55e70ed11db7fa4e" async></script>
     <script>
 
-    var form_submit = function(event, data){
+        var functionOpenModalToDelete = function(e) {
+            e.preventDefault();
+
+            var $btn = $(e.currentTarget),
+                $modal = $($btn.data("modal"));
+
+            $modal.find("form").attr("action", $btn.data("url"));
+            $modal.find("#item-id").val($btn.data("item"));
+            $modal.find("#title-item-to-remove").html($btn.data("title"));
+            $modal.find(".loading-container").html("");
+            $modal.find(".alert-container").html("");
+            $modal.modal("show");
+        };
+
+        var functionAjaxSuccessDeleteItem = function(e, data) {
+            var $this = $(this),
+                $modal = $($this.closest(".modal.fade")),
+                itemId = $modal.find("#item-id").val();
+
+            $modal.modal("hide");
+            $modal.find("form").attr("action", "");
+            $modal.find("#item-id").val("");
+            $modal.find("#title-item-to-remove").html("");
+            $modal.find(".loading-container").html("");
+            $modal.find(".alert-container").html("");
+
+            $("#answer-" + itemId).fadeOut("slow", function(){
+                $(this).remove();
+            });
+        };
+
+        var form_submit = function(event, data){
             var $form = $(this);
 
             var action = $form.data("toggle");
@@ -114,61 +156,65 @@
 
         };
 
-    $.fn.renderList = function(){
+        $.fn.renderList = function(){
 
-        return $.each(this, function(){
+            return $.each(this, function(){
 
-            var $self = $(this);
-            var url = $self.data('xhr-url');
+                var $self = $(this);
+                var url = $self.data('xhr-url');
 
-            var $childs;
+                var $childs;
 
-            var request = $.ajax({
-                url: url,
-                success: function(data){
+                var request = $.ajax({
+                    url: url,
+                    success: function(data){
 
-                    var $element = $(data);
-                    $element.appendTo($self);
+                        var $element = $(data);
+                        $element.appendTo($self);
 
-                    $childs = $element.find('div[data-xhr-url]');
-                    $self.jscroll({
-                        loadingHtml: '<span>Carregando...</span>',
-                        contentSelect: "#" + $self.attr("id"),
-                        nextSelect: "a[data-jscroll-next]",
-                        autoTrigger: false,
-                        callback: function(data){
-                            var $div_jscroll = $(".jscroll-added");
-                            var $jscroll_subforms = $div_jscroll.find("form[data-ajaxform=\"true\"]");
-                            $jscroll_subforms.IdeiaAjaxForm();
-                            $jscroll_subforms.on("ajaxform.success", form_submit);
-                            $div_jscroll.removeClass("jscroll-added");
+                        $childs = $element.find('div[data-xhr-url]');
+                        $self.jscroll({
+                            loadingHtml: '<span>Carregando...</span>',
+                            contentSelect: "#" + $self.attr("id"),
+                            nextSelect: "a[data-jscroll-next]",
+                            autoTrigger: false,
+                            callback: function(data){
+                                var $div_jscroll = $(".jscroll-added");
+                                var $jscroll_subforms = $div_jscroll.find("form[data-ajaxform=\"true\"]");
+                                $jscroll_subforms.IdeiaAjaxForm();
+                                $jscroll_subforms.on("ajaxform.success", form_submit);
+                                $div_jscroll.removeClass("jscroll-added");
+                            }
+                        });
+                        var $subforms = $element.find("form[data-ajaxform=\"true\"]");
+                        $subforms.IdeiaAjaxForm();
+                        $subforms.on("ajaxform.success", form_submit);
+
+                        var async_like = $self.find('[data-async-like]');
+                        async_like.IdeiaAsyncLike();
+                        async_like.removeData("async-like");
+                    },
+                    complete: function(){
+                        if($childs.length){
+                            $childs.renderList();
                         }
-                    });
-                    var $subforms = $element.find("form[data-ajaxform=\"true\"]");
-                    $subforms.IdeiaAjaxForm();
-                    $subforms.on("ajaxform.success", form_submit);
-
-                    var async_like = $self.find('[data-async-like]');
-                    async_like.IdeiaAsyncLike();
-                    async_like.removeData("async-like");
-                },
-                complete: function(){
-                    if($childs.length){
-                        $childs.renderList();
                     }
-                }
+                });
+
+                refreshAsyncLike();
             });
+        };
 
-            refreshAsyncLike();
+        $(function(){
+            var xhr_contents = $("div[data-xhr]");
+            xhr_contents.renderList();
+
+            $("form[data-ajaxform=\"true\"]").on("ajaxform.success", form_submit);
+
+
+            $("#confirmation-form").on("ajaxform.success", functionAjaxSuccessDeleteItem);
+            $(document).on("click", "[data-delete-item=true]", functionOpenModalToDelete);
+
         });
-    };
-
-    $(function(){
-        var xhr_contents = $("div[data-xhr]");
-        xhr_contents.renderList();
-
-        $("form[data-ajaxform=\"true\"]").on("ajaxform.success", form_submit);
-
-    });
 </script>
 {% endblock %}

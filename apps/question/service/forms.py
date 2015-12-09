@@ -2,6 +2,7 @@ from ckeditor.widgets import CKEditorWidget
 from django.core.exceptions import ValidationError
 from django.db import transaction
 from django.utils.text import slugify
+from apps.question.models import Answer
 from custom_forms.custom import forms, IdeiaForm, IdeiaModelForm
 import business as Business
 
@@ -109,9 +110,6 @@ class ListAnswerForm(IdeiaForm):
         )
 
 
-
-
-
 class EditAnswerForm(IdeiaForm):
     description = forms.CharField(max_length=2048, required=True, widget=CKEditorWidget(config_name='question'))
 
@@ -145,3 +143,18 @@ class EditAnswerForm(IdeiaForm):
 
     def __process__(self):
         return Business.update_reply(self.cleaned_data, self.instance)
+
+
+class RemoveAnswerForm(IdeiaForm):
+
+    answer = forms.ModelChoiceField(queryset=Answer.objects.all(), required=True)
+
+    def __init__(self, *args, **kwargs):
+        super(RemoveAnswerForm, self).__init__(*args, **kwargs)
+
+    def is_valid(self):
+        is_valid = super(RemoveAnswerForm, self).is_valid()
+        return is_valid
+
+    def __process__(self):
+        return Business.remove_answer(self.cleaned_data.get('answer'))

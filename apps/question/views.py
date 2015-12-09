@@ -5,7 +5,7 @@ from django.utils.decorators import method_decorator
 from django.views.generic import View
 from apps.question.models import Question, Answer
 from service.forms import CreateQuestionForm, EditQuestionForm, \
-    CommentReplyForm, EditAnswerForm, ListAnswerForm
+    CommentReplyForm, EditAnswerForm, ListAnswerForm, RemoveAnswerForm
 from apps.question.service import business
 from django.contrib import messages
 from django.utils.translation import ugettext as _
@@ -257,3 +257,29 @@ class CorrectAnswer(View):
             raise Http404(_("Answer is not exists!"))
 
         return redirect(reverse('question:show', args=[question.slug, question.id]))
+
+
+class RemoveAnswer(View):
+
+
+    @method_decorator(login_required)
+    def post(self, request):
+
+        answer = business.get_answer(request.POST["item-id"])
+        if not answer:
+            if request.is_ajax():
+                return JsonResponse({
+                    'errors': _("Answer not found!")
+                }, status=400)
+            raise Http404(_("Answer not found"))
+
+        form = RemoveAnswerForm({
+            'answer': answer.id
+        })
+
+        if form.process():
+            response_data = {'status': 'ok'}
+            return JsonResponse(response_data, status=200)
+
+        response_data = {'errors': form.errors}
+        return JsonResponse(response_data, status=400)

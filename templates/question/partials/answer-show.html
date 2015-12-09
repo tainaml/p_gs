@@ -16,6 +16,16 @@
                     <ul class="perfil-actions">
                         {% if instance.author == request.user %}
                             <li><a data-xhr-edit data-toggle="dropdown" data-target="#comment-edit-{{ instance.id }}" data-xhr-id="{{ instance.id }}" href="javascript:;"><i class="gsticon gsticon-edit"></i> Editar resposta</a></li>
+                            <li>
+                                <a href="javascript:;"
+                                   data-delete-item="true"
+                                   data-modal="#modal-confirmation"
+                                   data-url="{% url 'question:remove-answer' %}"
+                                   data-item="{{ instance.id }}"
+                                   data-title="de {{ instance.author.first_name }} ({{ instance.description|safe|striptags|escape|slice:":50"}}...)">
+                                    <i class="gsticon gsticon-trash"></i> Remover resposta
+                                </a>
+                            </li>
                         {% else %}
                             <li><a href="{% url 'complaint:report' 'comment' instance.id %}" data-trigger="report" data-async-module="click" data-async-target="#modal-report" data-async-method="get"><i class="gsticon gsticon-exclamation-triangle"></i> Denunciar</a></li>
                         {% endif %}

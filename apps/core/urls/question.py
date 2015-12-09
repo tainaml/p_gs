@@ -14,7 +14,7 @@ urlpatterns = [
     url(r'^update_reply/$', views.UpdateReplyView.as_view(), name='update_reply'),
     url(r'^load/related/(?P<question_id>[0-9]+)/(?P<content_type>[a-z]+)/$', CoreViews.CoreQuestionRelatedView.as_view(), name='related-questions-async'),
     url(r'^correct-answer/(?P<answer_id>[0-9]+)$', views.CorrectAnswer.as_view(), name='correct-answer'),
-
+    url(r'^remove-answer$', views.RemoveAnswer.as_view(), name='remove-answer'),
 
     url(r'^(?P<question_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/(?P<question_id>[0-9]+)/$', views.ShowQuestionView.as_view(), name='show')
 
