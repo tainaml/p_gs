@@ -3,7 +3,6 @@ from __future__ import unicode_literals
 
 from django.db import migrations, models
 
-
 class Migration(migrations.Migration):
 
     dependencies = [
@@ -15,5 +14,5 @@ class Migration(migrations.Migration):
             model_name='configvalues',
             name='key',
             field=models.ForeignKey(to='configuration.ConfigKey'),
-        ),
+        )
     ]
