@@ -102,7 +102,10 @@
                     loadingHtml: '<span>Carregando...</span>',
                     contentSelect: ".j-scroll-container",
                     nextSelect: "a[data-jscroll-next]",
-                    callback: refreshAsyncLike
+                    callback: function () {
+                        refreshAsyncLike();
+                        $('[data-action]').ajaxSocialAction();
+                    }
                 });
 
             {% else %}
