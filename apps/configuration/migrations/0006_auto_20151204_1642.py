@@ -2,8 +2,6 @@
 from __future__ import unicode_literals
 
 from django.db import migrations, models
-from django_migration_fixture import fixture
-from apps import configuration
 
 class Migration(migrations.Migration):
 
@@ -16,6 +14,5 @@ class Migration(migrations.Migration):
             model_name='configvalues',
             name='key',
             field=models.ForeignKey(to='configuration.ConfigKey'),
-        ),
-        migrations.RunPython(**fixture(configuration, ['initial_data.json']))
+        )
     ]
