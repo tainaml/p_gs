@@ -48,7 +48,11 @@ a.label {
 }
 
 .label-primary {
-  @include label-variant($label-primary-bg);
+  // @include label-variant($label-primary-bg);
+  background-color: #4d6479;
+  .gsticon-trophy {
+    color: #ffd33b;
+  }
 }
 
 .label-success {
@@ -67,6 +71,7 @@ a.label {
   @include label-variant($label-danger-bg);
 }
 .label-link {
-  @include label-variant($label-default-bg);
+  background: #f2f2f2;
+  border: 1px solid #e1e1e1;
   color: #337ab7;
 }
