@@ -1,5 +1,4 @@
 from distutils.command.register import register
-
 from django import template
 from django.contrib.contenttypes.models import ContentType
 from django.db.models import Q

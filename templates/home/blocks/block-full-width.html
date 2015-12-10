@@ -1,36 +1,36 @@
 {% load thumbor_tags %}
 
 {% if articles|length %}
-<section class="post-list--large post-list--{{ class_name }}">
-    <div class="post-list-header">
-        <h2 class="post-list-heading">{{ category.description }}</h2>
-        {% include 'home/blocks/partials/communities.html' %}
-    </div>
-    <div class="post-list-container">
+    <section class="post-list--large post-list--{{ class_name }}">
+        <div class="post-list-header">
+            <h2 class="post-list-heading">{{ category.description }}</h2>
+            {% include 'home/blocks/partials/communities.html' %}
+        </div>
+        <div class="post-list-container">
 
-        {% for article in articles %}
+            {% for article in articles %}
 
-            {% url 'article:view' article.slug article.id as article_link %}
+                {% url 'article:view' article.slug article.id as article_link %}
 
-            <article class="article-home-large" id="article__{{ article.id }}">
-                <a href="{{ article_link }}">
-                    {% if article.image %}
-                        <img
-                            class="img-responsive"
-                            src="{% thumbor_url article.image.url width=270 height=203 smart=False fit_in=False %}"
-                            alt="{{ article.title }}">
-                    {% else %}
-                        <img class="img-responsive" src="http://placehold.it/270x203" alt="Placeholder">
-                    {% endif %}
-                </a>
-                <div>
-                    <a class="article-category" href="{{ article_link }}">{{ article.comunity }}</a>
-                    <a class="article-content" href="{{ article_link }}">{{ article.title }}</a>
-                </div>
-            </article>
+                <article class="article-home-large" id="article__{{ article.id }}">
+                    <a href="{{ article_link }}">
+                        {% if article.image %}
+                            <img
+                                    class="img-responsive"
+                                    src="{% thumbor_url article.image.url width=270 height=203 smart=False fit_in=False %}"
+                                    alt="{{ article.title }}">
+                        {% else %}
+                            <img class="img-responsive" src="http://placehold.it/270x203" alt="Placeholder">
+                        {% endif %}
+                    </a>
+                    <div>
+                        {% include 'home/blocks/partials/article_community.html' with article=article article_link=article_link %}
+                        <a class="article-content" href="{{ article_link }}">{{ article.title }}</a>
+                    </div>
+                </article>
 
-        {% endfor %}
+            {% endfor %}
 
-    </div>
-</section>
+        </div>
+    </section>
 {% endif %}
