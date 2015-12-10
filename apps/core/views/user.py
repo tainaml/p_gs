@@ -10,7 +10,7 @@ from django.utils.translation import gettext as _
 
 from apps.community.models import Community
 from apps.core.forms.user import CoreUserProfileForm, CoreUserProfileFullEditForm, CoreSearchFollowers, CoreSearchArticlesForm, CoreSearchVideosForm, \
-    CoreSearchCommunitiesForm
+    CoreSearchCommunitiesForm, CoreSearchFavouriteForm, CoreRemoveSocialActionForm, CoreSearchSocialActionsForm
 from apps.core.forms.community import CoreCommunityFormSearch
 from apps.core.forms.user import CoreUserSearchForm, CoreUserProfileEditForm
 from apps.article.models import Article
@@ -33,12 +33,12 @@ class CoreUserView(views.ProfileShowView):
     def get_context(self, request, profile_instance=None):
         context = super(CoreUserView, self).get_context(request, profile_instance)
 
-        itens_by_page = 5
+        items_by_page = 5
 
         form = self.form(
             profile_instance,
             ['article', 'question'],
-            itens_by_page,
+            items_by_page,
             request.user,
             request.GET
         )
@@ -65,11 +65,11 @@ class CoreUserView(views.ProfileShowView):
 
 class CoreUserList(CoreUserView):
 
-    template_path = 'userprofile/partials/user-profile-list.html'
+    template_path = 'userprofile/partials/user-profile-feed.html'
 
     def get(self, request, username=None):
 
-        profile = self.filter(request, username)
+        profile = self.filter(request, request.user)
 
         context = {'profile': profile}
         context.update(self.get_context(request, profile))
@@ -110,6 +110,11 @@ class CoreUserProfile(CoreUserView):
             'form': form,
             'page': form.cleaned_data.get('page', 0) + 1
         }
+
+
+class CoreUserProfileList(CoreUserProfile):
+
+    template_path = 'userprofile/partials/user-profile-list.html'
 
 
 class CoreUserSearch(CoreUserView):
@@ -705,10 +710,12 @@ class CoreUserCommunitiesListAjax(View):
 class CoreProfileSocialActionsBase(View):
 
     template_path = ""
+    items_per_page = 9
 
     def return_error(self, request, context=None):
         if request.is_ajax():
             return JsonResponse({'error': context.get('msg')}, status=400)
+
         raise Http404(context.get('msg'))
 
     def return_success(self, request, context=None):
@@ -722,154 +729,145 @@ class CoreProfileSocialActionsBase(View):
 
 
 class SocialActionSeeLater(CoreProfileSocialActionsBase):
+
     template_path = 'socialactions/see-later.html'
+    template_path_partial = 'socialactions/partials/list.html'
+
+    form = CoreSearchSocialActionsForm
+    action = settings.SOCIAL_SEE_LATER
 
     @method_decorator(login_required)
     def get(self, request):
 
-        criteria = None
-        if 'criteria' in request.GET:
-            criteria = str(request.GET['criteria'])
-            self.template_path = 'socialactions/partials/see-later.html'
-
-        try:
-            content = Business.get_see_later_content(request.user, criteria)
-
-        except NotFoundSocialSettings:
-            context = {
-                'status': 400,
-                'msg': _('SocialAction not Found.'),
-            }
-            return self.return_error(request, context)
+        form = self.form(self.action, self.items_per_page, request.GET)
+        form.set_author(request.user)
+        items = form.process()
 
         context = {
-            'articles': content,
-            'url_next': request.GET['next'] if 'next' in request.GET else '',
-            'page': (content.number if content and content.number else 0) + 1,
-            'criteria': self.template_path,
+            'form': form,
+            'items': items,
+            'action': settings.SOCIAL_LABELS[self.action],
+            'page': form.cleaned_data.get('page', 1) + 1,
+            'url_next': request.GET.get('next'),
             'profile': request.user.profile
         }
 
+        if request.is_ajax():
+            self.template_path = self.template_path_partial
+
         return self.return_success(request, context)
+
+
+class SocialActionSeeLaterList(SocialActionSeeLater):
+
+    def return_success(self, request, context=None):
+        return render(request, self.template_path_partial, context)
 
 
 class SocialActionRemoveSeeLater(CoreProfileSocialActionsBase):
-    template_path = 'socialactions/see-later.html'
+    form = CoreRemoveSocialActionForm
+    action = settings.SOCIAL_SEE_LATER
+
+    def return_error(self, request, context=None):
+        return JsonResponse(context, status=400)
+
+    def return_success(self, request, context=None):
+        return JsonResponse(context, status=200)
 
     @method_decorator(login_required)
     def post(self, request):
 
-        itens_to_remove = request.POST.getlist(u'itens_to_remove[]')
-        try:
-            content = Business.remove_see_later_content(user=request.user, itens_to_remove=itens_to_remove)
+        form = self.form(self.action, request.POST)
+        form.set_author(request.user)
+        if form.process():
+            return self.return_success(request, {'removed_items': form.processed})
 
-        except NotFoundSocialSettings:
-            context = {
-                'status': 400,
-                'msg': _('SocialAction not Found.'),
-            }
-            return self.return_error(request, context)
-
-        context = {
-            'articles': content,
-            'url_next': request.GET['next'] if 'next' in request.GET else '',
-            'page': (content.page if content.page and content.page else 0) + 1,
-            'criteria': self.template_path,
-            'profile': request.user.profile
-        }
-
-        return self.return_success(request, context)
+        return self.return_error(request, {'status': 400})
 
 
 class SocialActionFavourite(CoreProfileSocialActionsBase):
+
     template_path = 'socialactions/favourite.html'
+    template_path_partial = 'socialactions/partials/list.html'
+
+    form = CoreSearchSocialActionsForm
+    action = settings.SOCIAL_FAVOURITE
 
     @method_decorator(login_required)
     def get(self, request):
 
-        criteria = None
-        if 'criteria' in request.GET:
-            criteria = str(request.GET['criteria'])
-            self.template_path = 'socialactions/partials/favourite.html'
-
-        try:
-            print criteria
-            content = Business.get_favourite_content(request.user, criteria)
-
-        except NotFoundSocialSettings:
-            context = {
-                'status': 400,
-                'msg': _('SocialAction not Found.'),
-            }
-            return self.return_error(request, context)
+        form = self.form(self.action, self.items_per_page, request.GET)
+        form.set_author(request.user)
+        items = form.process()
 
         context = {
-            'articles': content,
-            'url_next': request.GET['next'] if 'next' in request.GET else '',
-            'page': (content.number if content and content.number else 0) + 1,
-            'criteria': self.template_path,
+            'form': form,
+            'items': items,
+            'action': settings.SOCIAL_LABELS[self.action],
+            'page': form.cleaned_data.get('page', 1) + 1,
+            'url_next': request.GET.get('next'),
             'profile': request.user.profile
         }
+
+        if request.is_ajax():
+            self.template_path = self.template_path_partial
 
         return self.return_success(request, context)
 
 
+class SocialActionFavouriteList(SocialActionFavourite):
+
+    def return_success(self, request, context=None):
+        return render(request, self.template_path_partial, context)
+
+
 class SocialActionRemoveFavourite(CoreProfileSocialActionsBase):
-    template_path = 'socialactions/favourite.html'
+    form = CoreRemoveSocialActionForm
+    action = settings.SOCIAL_FAVOURITE
+
+    def return_error(self, request, context=None):
+        return JsonResponse(context, status=400)
+
+    def return_success(self, request, context=None):
+        return JsonResponse(context, status=200)
 
     @method_decorator(login_required)
     def post(self, request):
 
-        itens_to_remove = request.POST.getlist(u'itens_to_remove[]')
-        try:
-            content = Business.remove_favourite_content(user=request.user, itens_to_remove=itens_to_remove)
+        form = self.form(self.action, request.POST)
+        form.set_author(request.user)
+        if form.process():
+            return self.return_success(request, {'removed_items': form.processed})
 
-        except NotFoundSocialSettings:
-            context = {
-                'status': 400,
-                'msg': _('SocialAction not Found.'),
-            }
-            return self.return_error(request, context)
-
-        context = {
-            'articles': content,
-            'url_next': request.GET['next'] if 'next' in request.GET else '',
-            'page': (itens_to_remove.page if itens_to_remove and itens_to_remove.page else 0) + 1,
-            'criteria': self.template_path,
-            'profile': request.user.profile
-        }
-
-        return self.return_success(request, context)
+        return self.return_error(request, {'status': 400})
 
 
 class SocialActionSuggest(CoreProfileSocialActionsBase):
+
     template_path = 'socialactions/suggest.html'
+    template_path_partial = 'socialactions/partials/list.html'
+
+    form = CoreSearchSocialActionsForm
+    action = settings.SOCIAL_SUGGEST
 
     @method_decorator(login_required)
     def get(self, request):
 
-        criteria = None
-        if 'criteria' in request.GET:
-            criteria = str(request.GET['criteria'])
-            self.template_path = 'socialactions/partials/suggest.html'
-
-        try:
-            content = Business.get_suggest_content(request.user, criteria)
-
-        except NotFoundSocialSettings:
-            context = {
-                'status': 400,
-                'msg': _('SocialAction not Found.'),
-            }
-            return self.return_error(request, context)
+        form = self.form(self.action, self.items_per_page, request.GET)
+        form.set_target_user(request.user)
+        items = form.process()
 
         context = {
-            'articles': content,
-            'url_next': request.GET['next'] if 'next' in request.GET else '',
-            'page': (content.number if content and content.number else 0) + 1,
-            'criteria': self.template_path,
+            'form': form,
+            'items': items,
+            'action': settings.SOCIAL_LABELS[self.action],
+            'page': form.cleaned_data.get('page', 1) + 1,
+            'url_next': request.GET.get('next'),
             'profile': request.user.profile
         }
+
+        if request.is_ajax():
+            self.template_path = self.template_path_partial
 
         return self.return_success(request, context)
 
@@ -877,29 +875,61 @@ class SocialActionSuggest(CoreProfileSocialActionsBase):
 class SocialActionSuggestList(SocialActionSuggest):
 
     def return_success(self, request, context=None):
-        return render(request, 'socialactions/partials/suggest.html', context)
+        return render(request, self.template_path_partial, context)
 
 
 class SocialActionRemoveSuggest(CoreProfileSocialActionsBase):
-    template_path = 'socialactions/partials/suggest.html'
+    form = CoreRemoveSocialActionForm
+    action = settings.SOCIAL_SUGGEST
+
+    def return_error(self, request, context=None):
+        return JsonResponse(context, status=400)
+
+    def return_success(self, request, context=None):
+        return JsonResponse(context, status=200)
 
     @method_decorator(login_required)
     def post(self, request):
 
-        itens = request.POST.getlist('itens_to_remove[]')
-        itens_to_remove = []
+        form = self.form(self.action, request.POST)
+        form.set_target_user(request.user)
+        if form.process():
+            return self.return_success(request, {'removed_items': form.processed})
 
-        for item in itens:
-            itens_to_remove.append(int(item))
+        return self.return_error(request, {'status': 400})
 
-        try:
-            content = Business.remove_suggest_content(user=request.user, itens_to_remove=itens_to_remove)
 
-        except NotFoundSocialSettings:
-            context = {
-                'status': 400,
-                'msg': _('SocialAction not Found.')
-            }
-            return self.return_error(request, context)
+class SocialActionListItems(CoreProfileSocialActionsBase):
 
-        return JsonResponse({'removedItens': content}, status=200)
+    template_path = 'socialactions/partials/list.html'
+
+    form = CoreSearchSocialActionsForm
+    items_per_page = 10
+
+    def return_success(self, request, context=None):
+        return render(request, self.template_path, context)
+
+    @method_decorator(login_required)
+    def get(self, request, action):
+
+        action = BusinessSocialActions.get_by_label(action)
+
+        form = self.form(action, self.items_per_page, request.GET)
+
+        if action == settings.SOCIAL_SUGGEST:
+            form.set_target_user(request.user)
+        else:
+            form.set_author(request.user)
+
+        items = form.process()
+
+        context = {
+            'form': form,
+            'items': items,
+            'action': settings.SOCIAL_LABELS[action],
+            'page': form.cleaned_data.get('page', 1) + 1,
+            'url_next': request.GET.get('next'),
+            'profile': request.user.profile
+        }
+
+        return self.return_success(request, context)

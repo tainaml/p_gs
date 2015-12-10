@@ -40,6 +40,7 @@ urlpatterns = [
     url(r'^contact/', include('apps.core.urls.contact', namespace='contact')),
     url(r'^mailmanager/', include('apps.mailmanager.urls', namespace='mailmanager')),
     url(r'^complaint/', include('apps.complaint.urls', namespace='complaint')),
+    url(r'^settings/', include('apps.core.urls.configuration', namespace='configuration')),
     url(r'^', include('apps.core.urls.search', namespace='search')),
     url(r'^', include('apps.core.urls.core', namespace='core')),
 

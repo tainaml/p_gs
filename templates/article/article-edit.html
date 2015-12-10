@@ -103,27 +103,65 @@
                             <div class="col-lg-3">
                                 {% if not article.status == article.STATUS_PUBLISH %}
                                     <label class="form-group">
-                                <span class="custom-radio">
-                                    <input type="radio" name="publish-date" value="today" checked="checked">
-                                </span>
+                                        <span class="custom-radio">
+                                            <input type="radio" name="publish-date" value="today" checked="checked">
+                                        </span>
                                         <input class="form-control" style="display: inline; width: auto;" placeholder="Publicar artigo hoje" readonly type="text">
                                     </label>
                                     <label class="form-group">
-                                <span class="custom-radio">
-                                    <input type="radio" name="publish-date">
-                                </span>
-                                        {% render_field form_article.publishin placeholder="Agendar Publicaçao" class="form-control" type="date" %}
+                                        <span class="custom-radio">
+                                            <input type="radio" name="publish-date">
+                                        </span>
+                                        {% render_field form_article.publishin placeholder="Agendar Publicaçao" class="form-control" type="text" style="display: inline; width: auto;" %}
                                         {% if form_article.publishin.errors %}  {{ form_article.publishin.errors }} {% endif %}
                                     </label>
                                 {% endif %}
                                 {% if article.image %}
                                     <img src="{{ article.image.url }}" class="img-responsive" />
                                 {% endif %}
-                                <div class="custom-file-upload">
-                                    <i class="gsticon gsticon-cloud-upload"></i>
-                                    <h3>Imagem de capa</h3>
-                                    <p>Arraste a imagem para este campo ou <a href="javascript:;">clique aqui</a></p>
-                                    <input type="file" name="{{ form_article.image.name }}" style="width: 100%" />
+                                <div class="custom-file-upload" data-module="dropzoneUploader">
+                                    <div class="custom-file-content">
+                                        <i class="gsticon gsticon-cloud-upload"></i>
+                                        <h5><strong>Foto de perfil</strong></h5>
+                                        <p>Arreste a imagem para este campo ou <a href="javascript:;" data-trigger="file">clique aqui</a></p>
+                                    </div>
+                                    <input type="file" accept="image/*" name="{{ form_article.image.name }}">
+                                    <div class="custom-file-upload-result" data-content="file"></div>
+                                </div>
+                                <div class="cloud-tags">
+                                    <h3 class="cloud-tags-title">tags</h3>
+                                    <div class="article-tags row">
+                                        <div class="col-xs-6 tag">
+                                            <label class="custom-input">
+                                                <div class="custom-check"> <input type="checkbox" /></div> Vídeos
+                                            </label>
+                                        </div>
+                                        <div class="col-xs-6 tag">
+                                            <label class="custom-input">
+                                                <div class="custom-check"> <input type="checkbox" /></div> Apostila
+                                            </label>
+                                        </div>
+                                        <div class="col-xs-6 tag">
+                                            <label class="custom-input">
+                                                <div class="custom-check"> <input type="checkbox" /></div> E-book
+                                            </label>
+                                        </div>
+                                        <div class="col-xs-6 tag">
+                                            <label class="custom-input">
+                                                <div class="custom-check"> <input type="checkbox" /></div> Artigo
+                                            </label>
+                                        </div>
+                                        <div class="col-xs-6 tag">
+                                            <label class="custom-input">
+                                                <div class="custom-check"> <input type="checkbox" /></div> Slide
+                                            </label>
+                                        </div>
+                                        <div class="col-xs-6 tag">
+                                            <label class="custom-input">
+                                                <div class="custom-check"> <input type="checkbox" /></div> Templates
+                                            </label>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>

@@ -16,8 +16,8 @@
             <li class="comment-vote">
                 {% like_box article request.path "share-box" %}
             </li>
-            <li><a data-action="favourite" data-action-type="icon" data-object="{{ article.id }}" data-url-check="{% url 'socialactions:acted' article.id 'article' 'favourite' %}" href="{% url 'socialactions:act-xhr' article.id 'article' 'favourite' %}?url_next={{ request.path|urlencode }}"><i class="gsticon gsticon-star"></i></a></li>
-            <li><a data-action="see-later" data-action-type="icon" data-url-check="{% url 'socialactions:acted' article.id 'article' 'see-later' %}" data-object="{{ article.id }}" href="{% url 'socialactions:act-xhr' article.id 'article' 'see-later' %}?url_next={{ request.path|urlencode }}"><i class="gsticon gsticon-eye"></i></a></li>
+            <li><a data-action="favourite" data-action-type="icon" data-object="favourite-{{ article.id }}" data-url-check="{% url 'socialactions:acted' article.id 'article' 'favourite' %}" href="{% url 'socialactions:act-xhr' article.id 'article' 'favourite' %}?url_next={{ request.path|urlencode }}"><i class="gsticon gsticon-star"></i></a></li>
+            <li><a data-action="see-later" data-action-type="icon" data-url-check="{% url 'socialactions:acted' article.id 'article' 'see-later' %}" data-object="see-later-{{ article.id }}" href="{% url 'socialactions:act-xhr' article.id 'article' 'see-later' %}?url_next={{ request.path|urlencode }}"><i class="gsticon gsticon-eye"></i></a></li>
             <li><a href="javascript:;" data-suggest-modal="true" data-content="article" data-object="{{ article.id }}" data-url="{% url 'socialactions:act-suggest' article.id 'article' %}"><i class="gsticon gsticon-paper-plane"></i></a></li>
         </ul>
         <div class="post-container">
@@ -30,10 +30,12 @@
                         <a href="javascript:;" data-toggle="dropdown"><i class="gsticon gsticon-gear"></i></a>
                         <div class="dropdown-menu">
                             <ul class="perfil-actions">
-                                <li><a href="javascript:;"><i class="gsticon gsticon-edit"></i> Editar publicação</a></li>
+                                {% if article.author == request.user %}
+                                    <li><a href="{% url 'article:edit' article.id %}"><i class="gsticon gsticon-edit"></i> Editar publicação</a></li>
+                                {% endif %}
                                 <li><a href="javascript:;" data-suggest-modal="true" data-content="article" data-object="{{ article.id }}" data-url="{% url 'socialactions:act-suggest' article.id 'article' %}"><i class="gsticon gsticon-paper-plane"></i> Sugerir</a></li>
-                                <li><a data-action="see-later" data-action-type="text" data-action-text="Ver depois" data-action-text-alt="Desmarcar como visto" data-object="{{ article.id }}" data-url-check="{% url 'socialactions:acted' article.id 'article' 'see-later' %}" href="{% url 'socialactions:act-xhr' article.id 'article' 'see-later' %}?url_next={{ request.path|urlencode }}"><i class="gsticon gsticon-eye"></i> <span>Ver depois</span></a></li>
-                                <li><a data-action="favourite" data-action-type="text" data-action-text="Favoritar" data-action-text-alt="Favoritado" data-object="{{ article.id }}" data-article="{{ article.id }}" data-url-check="{% url 'socialactions:acted' article.id 'article' 'favourite' %}" href="{% url 'socialactions:act-xhr' article.id 'article' 'favourite' %}?url_next={{ request.path|urlencode }}"><i class="gsticon gsticon-star"></i> <span>Favoritar</span></a></li>
+                                <li><a data-action="see-later" data-action-type="text" data-action-text="Ver depois" data-action-text-alt="Desmarcar como visto" data-object="see-later-{{ article.id }}" data-url-check="{% url 'socialactions:acted' article.id 'article' 'see-later' %}" href="{% url 'socialactions:act-xhr' article.id 'article' 'see-later' %}?url_next={{ request.path|urlencode }}"><i class="gsticon gsticon-eye"></i> <span>Ver depois</span></a></li>
+                                <li><a data-action="favourite" data-action-type="text" data-action-text="Favoritar" data-action-text-alt="Favoritado" data-object="favourite-{{ article.id }}" data-article="{{ article.id }}" data-url-check="{% url 'socialactions:acted' article.id 'article' 'favourite' %}" href="{% url 'socialactions:act-xhr' article.id 'article' 'favourite' %}?url_next={{ request.path|urlencode }}"><i class="gsticon gsticon-star"></i> <span>Favoritar</span></a></li>
                                 <li><a href="{% url 'complaint:report' 'article' article.id %}" data-trigger="report" data-async-module="click" data-async-target="#modal-report" data-async-method="get"><i class="gsticon gsticon-exclamation-triangle"></i> Denunciar</a></li>
                             </ul>
                         </div>
@@ -80,10 +82,7 @@
             <div class="container-comments">
                 {% include 'comment/create.html' with content_type='article' content_object_id=article.id %}
             </div>
-            <div data-xhr-url="{% url "comment:list" %}?content_type=article&content_id={{ article.id }}" data-xhr id="container-comments" class="container-comments j-scroll">
-{#                {% include 'home/partials/comment/create.html' with size=81 %}#}
-{#                {% include 'home/partials/comment/comment.html' %}#}
-            </div>
+            <div data-xhr-url="{% url "comment:list" %}?content_type=article&content_id={{ article.id }}" data-xhr id="container-comments" class="container-comments j-scroll"></div>
         </div>
         {% include "article/partials/article-sidebar-right.html" %}
     </div>

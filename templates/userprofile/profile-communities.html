@@ -91,13 +91,15 @@
 
             $divJScroll.html(data.template);
             $divCommunities.html($divJScroll);
-            console.log($divJScroll);
             jScrollElemment = $divJScroll.jscroll({
                 autoTrigger: true,
                 loadingHtml: '<span>Carregando...</span>',
                 contentSelect: '.j-scroll-communities-container',
                 nextSelect: "a[data-jscroll-next]",
-                refresh: true
+                refresh: true,
+                callback: function () {
+                    $('[data-action]').ajaxSocialAction();
+                }
             });
         };
 
@@ -121,7 +123,10 @@
 
             $(".j-scroll-communities").jscroll({
                 contentSelect: ".j-scroll-communities-container",
-                nextSelect: "a[data-jscroll-next]"
+                nextSelect: "a[data-jscroll-next]",
+                callback: function () {
+                    $('[data-action]').ajaxSocialAction();
+                }
             });
         });
 

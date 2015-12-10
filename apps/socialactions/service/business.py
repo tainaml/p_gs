@@ -233,8 +233,11 @@ def get_users_ids_acted_by_model_and_action(model=None, action=None, user=None):
     content_type = ContentType.objects.get_for_model(user)
 
     users_ids = []
-    users_actions = UserAction.objects.filter(content_type=content_type, action_type=action,
-                                              author=user).prefetch_related('author')
+    users_actions = UserAction.objects.filter(
+        content_type=content_type,
+        action_type=action,
+        author=user
+    ).prefetch_related("author")
 
     for user in users_actions:
         users_ids.append(user.object_id)
@@ -280,7 +283,7 @@ def get_users_acted_by_author(author=None, action=None, content_type=None, filte
     parameters['author'] = author.id
     parameters['action_type'] = action
 
-    users_actions = UserAction.objects.filter(**parameters).prefetch_related('author', "content_object")
+    users_actions = UserAction.objects.filter(**parameters).prefetch_related("author", "content_object")
 
     if items_per_page is not None and page is not None:
         list_users = Paginator(users_actions, items_per_page)

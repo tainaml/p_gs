@@ -27,19 +27,22 @@ urlpatterns = [
 
     url(r'^feed/$', CoreUserProfileView.CoreUserFeed.as_view(), name='feed'),
     url(r'^search/(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/$', CoreUserProfileView.CoreUserSearch.as_view(), name='search'),
-    url(r'^list/(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/$', CoreUserProfileView.CoreUserList.as_view(), name='list'),
+    url(r'^list$', CoreUserProfileView.CoreUserList.as_view(), name='feed-list'),
     url(r'^list_articles/(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/$', CoreUserProfileView.CoreUserList.as_view(), name='list_articles'),
 
-    url(r'^ver-depois/$', CoreUserProfileView.SocialActionSeeLater.as_view(), name='see_later'),
-    url(r'^remover-ver-depois/$', CoreUserProfileView.SocialActionRemoveSeeLater.as_view(), name='remove_see_later'),
-    url(r'^favoritos/$', CoreUserProfileView.SocialActionFavourite.as_view(), name='favourite'),
-    url(r'^desfavoritar/$', CoreUserProfileView.SocialActionRemoveFavourite.as_view(), name='unfavourite'),
-    url(r'^sugestoes/$', CoreUserProfileView.SocialActionSuggest.as_view(), name='suggest'),
+    url(r'^ver-depois$', CoreUserProfileView.SocialActionSeeLater.as_view(), name='see-later'),
+    url(r'^ver-depois/list$', CoreUserProfileView.SocialActionSeeLaterList.as_view(), name='see-later-list'),
+    url(r'^remover-ver-depois$', CoreUserProfileView.SocialActionRemoveSeeLater.as_view(), name='remove-see-later'),
+    url(r'^favoritos$', CoreUserProfileView.SocialActionFavourite.as_view(), name='favourite'),
+    url(r'^favoritos/list$', CoreUserProfileView.SocialActionFavouriteList.as_view(), name='favourite-list'),
+    url(r'^desfavoritar$', CoreUserProfileView.SocialActionRemoveFavourite.as_view(), name='unfavourite'),
+    url(r'^sugestoes$', CoreUserProfileView.SocialActionSuggest.as_view(), name='suggest'),
     url(r'^sugestoes/list/$', CoreUserProfileView.SocialActionSuggestList.as_view(), name='suggestList'),
-
     url(r'^remover-sugestao/$', CoreUserProfileView.SocialActionRemoveSuggest.as_view(), name='unsuggest'),
+    url(r'^items/list/(?P<action>[a-z]+(?:-[a-z]+)*)/$', CoreUserProfileView.SocialActionListItems.as_view(), name='list-socialactions-items'),
 
     url(r'^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/$', CoreUserProfileView.CoreUserProfile.as_view(), name='show'),
+    url(r'^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/list$', CoreUserProfileView.CoreUserProfileList.as_view(), name='list'),
     # url(r'^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/$', views.ProfileShowView.as_view(), name='show'),
 
     url(r'^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/followings/$', views.ProfileFollowingsView.as_view(), name='followings'),

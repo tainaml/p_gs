@@ -1,9 +1,0 @@
-
-{% load staticfiles %}
-{% block content %}
-
-{% csrf_token %}
-    {% for article in articles %}
-        {% include 'socialactions/partials/favourite-segment.html' %}
-    {% endfor %}
-{% endblock %}

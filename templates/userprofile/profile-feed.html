@@ -7,11 +7,9 @@
 {% block content %}
     <main class="container main">
         <div class="row">
-            <!-- mudar para 2.5 -->
             <div class="col-lg-3">
                 {% include 'home/partials/sidebar-perfil.html' %}
             </div>
-            <!-- mudar para 9.5 -->
             <div class="col-lg-9">
                 <nav class="perfil-navegation">
                     {% if profile.user == request.user %}<a class="active" href="{% url 'profile:feed' %}">Feed</a> •{% endif %}
@@ -42,7 +40,7 @@
                         <section class="area-content">
                             {% if feed_objects.object_list %}
                                 <div class="j-scroll j-scroll-container">
-                                    {% include 'userprofile/partials/user-profile-list.html' %}
+                                    {% include 'userprofile/partials/user-profile-feed.html' %}
                                 </div>
                             {% else %}
                                 <span>Não existem itens a serem exibidos</span>
@@ -101,8 +99,11 @@
                 loadingHtml: '<span>Carregando...</span>',
                 contentSelect: '.j-scroll-wizard-communities-container',
                 nextSelect: "a[data-jscroll-next]",
-                refresh: true
-            });
+                refresh: true,
+                callback: function () {
+                },
+
+        });
 
             $currentModal.modal("hide");
             $($currentModal.data("next-modal")).modal("show");
@@ -139,7 +140,10 @@
                 loadingHtml: '<span>Carregando...</span>',
                 contentSelect: ".j-scroll-container",
                 nextSelect: "a[data-jscroll-next]",
-                callback: refreshAsyncLike
+                callback: function(){
+                    refreshAsyncLike();
+                    $('[data-action]').ajaxSocialAction();
+                }
             });
 
             {% if request.user and request.user.profile and request.user.profile.wizard_step < 1 %}

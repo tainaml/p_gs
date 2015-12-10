@@ -1,7 +1,7 @@
 <div id="modal-confirmation" class="modal fade">
     <div class="modal-dialog modal-sm">
         <div class="modal-content">
-            <form id="confirmation-form" action="{% url 'profile:edit-posts-search-ajax' %}" method="post" data-ajaxform="true" data-group-class=".alert-container">
+            <form id="confirmation-form" action="" method="post" data-ajaxform="true" data-group-class=".alert-container">
                 <div class="modal-header">
                     <span class="pull-right close" data-dismiss="modal" aria-label="Close"><span class="gsticon gsticon-close"></span></span>
                     <h4 class="modal-title">Está certo disso?</h4>
@@ -17,7 +17,7 @@
                 <div class="modal-footer">
                     {% csrf_token %}
                     <input type="hidden" id="item-id" name="item-id">
-                    <button type="submit" class="btn btn-default pull-right">Confirmar</button>
+                    <button type="submit" class="btn btn-default btn-danger pull-right"><i class="gsticon gsticon-trash"></i> Confirmar</button>
                     <button type="button" class="btn btn-default pull-left" data-dismiss="modal" aria-label="Close">Cancelar</button>
                 </div>
             </form>

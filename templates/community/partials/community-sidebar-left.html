@@ -2,7 +2,6 @@
 
 
 {% community_box community %}
-
 <div class="widget widget-box">
     <div class="widget-content">
         <ul class="perfil-actions">
@@ -20,5 +19,12 @@
                 <li><a href="{% url 'ninico:criar-artigo' %}"><i class="gsticon gsticon-file-text"></i> Criar artigo</a></li>
             {% endif %}
         </ul>
+    </div>
+</div>
+
+<!-- Seguindo -->
+<div id="load-communities" data-load-async="true" data-load-async-url="{% url 'community:related' community.slug %}" data-load-async-url-next="{{ request.path }}" data-load-async-method="get" data-load-async-response-type="json">
+    <div class="load-async load-async-content">
+        Carregando...
     </div>
 </div>

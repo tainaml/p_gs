@@ -91,11 +91,18 @@ class ArticleForm(IdeiaModelForm):
             Publishing action
             '''
             self.action = self.ACTION_PUBLISH
+
         elif 'submit-schedule' in self.data:
             self.__action = self.ACTION_SCHEDULE
 
         elif 'submit-save' in self.data:
             self.action = self.ACTION_SAVE
+
+        if not super(ArticleForm, self).is_valid():
+            valid = False
+
+        #if 'submit-schedule' in self.data:
+
 
         return valid
 

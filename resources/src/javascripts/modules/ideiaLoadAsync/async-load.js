@@ -2,6 +2,9 @@ require('jquery');
 
 ;(function($){
 
+    var EVENT_AJAX_SUCCESS = 'async.load.success';
+    var EVENT_AJAX_ERROR   = 'async.load.error';
+
     $.fn.extend({
 
         loadAsync: function(){
@@ -30,6 +33,7 @@ require('jquery');
                             } else {
                                 $(target).html(data.template);
                             }
+                            $self.trigger(EVENT_AJAX_SUCCESS, data);
                         },
                         statusCode: {
                             400: function() {

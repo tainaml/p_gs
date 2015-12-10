@@ -1,0 +1,5 @@
+{% for instance in answers %}
+    <div id="answer-{{ instance.id }}">
+        {% include 'question/partials/answer-show.html' %}
+    </div>
+{% endfor %}

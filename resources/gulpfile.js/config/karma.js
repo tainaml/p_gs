@@ -1,5 +1,5 @@
 var config = require('./');
-var karmaWebpack = require('karma-webpack');
+// var karmaWebpack = require('karma-webpack');
 var webpackConfig = require('./webpack')('test');
 
 var files = config.sourceDirectory + '/javascripts/**/__tests__/*';

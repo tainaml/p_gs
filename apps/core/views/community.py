@@ -235,3 +235,18 @@ class CoreCommunityFollowersSearchList(CoreCommunityFollowersSearch):
 
     def return_success(self, request, context=None):
         return render(request, self.template_path, context)
+
+
+class CommunityRelated(CoreCommunityView):
+
+    template_path = "community/partials/community-related.html"
+
+    def get(self, request, community_slug=None):
+
+        communities = BusinessCommunity.get_related_communities(community_slug)
+        if not communities:
+            return JsonResponse({'template':render(request, self.template_path, {}).content}, status=200)
+
+        context = {'communities': communities}
+
+        return JsonResponse({'template':render(request, self.template_path, context).content})

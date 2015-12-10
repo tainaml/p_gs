@@ -1,0 +1,76 @@
+{%extends 'home/layout/base.html' %}
+
+{% block title %}Portal GSTI - Configurações - Conta{% endblock %}
+
+{% block content %}
+    <main class="container main">
+        <div class="perfil-row">
+            <!-- mudar para 2.5 -->
+            <div class="col-lg-3">
+                {% include 'home/partials/sidebar-perfil.html' %}
+            </div>
+            <!-- mudar para 9.5 -->
+            <div class="col-lg-9">
+                <nav class="perfil-navegation">
+                    {% if profile.user == request.user %}<a href="{% url 'profile:feed' %}">Feed</a> • {% endif %}
+                    <a href="{% url 'profile:show' username=profile.user.username %}">Perfil</a> •
+                    <a href="{% url 'profile:communities' username=profile.user.username %}">Comunidades</a> •
+                    <a href="{% url 'profile:followers' username=profile.user.username %}">Relacionamentos</a> •
+                    <a href="{% url 'profile:videos' profile.user.username %}">Vídeos</a>
+                </nav>
+                <div class="row">
+                    <div class="col-lg-8">
+                        <header class="area-title">
+                            <h2>Configurações</h2>
+                        </header>
+                        <section class="area-content">
+                            <h4><i class="gsticon gsticon-user"></i> Conta</h4>
+                            <p>Mudar senha</p>
+                            <form id="form-change-password" action="{% url 'account:change_password' %}" method="post" data-ajaxform="true" data-group-class=".form-group">
+                                {% csrf_token %}
+                                <div class="form-group">
+                                    <input type="password" name="old_password" class="form-control"  placeholder="Senha atual" >
+                                </div>
+                                <div class="form-group">
+                                    <input type="password" name="new_password" class="form-control" placeholder="Nova senha">
+                                </div>
+                                <div class="form-group">
+                                    <input type="password" name="new_password_confirmation" class="form-control" placeholder="Confirma senha">
+                                </div>
+                                <button type="submit" class="pull-right btn-default">Salvar</button>
+                            </form>
+                        </section>
+                    </div>
+                    {% include "configuration/partials/configuration-sidebar-right.html" %}
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock %}
+
+
+{% block modals %}
+
+    {{ block.super }}
+    {% include "home/partials/modals/modal-message.html" %}
+
+{% endblock %}
+
+
+{% block javascripts %}
+    {{ block.super }}
+
+    <script>
+        var functionSuccessChangePassword = function(e, data) {
+            $("#form-change-password").find("input").val("");
+
+            var $modalMessage = $("#modal-message");
+            $modalMessage.html(data.template);
+            $modalMessage.modal("show");
+        };
+
+        $(function(){
+            $("#form-change-password").on("ajaxform.success", functionSuccessChangePassword)
+        });
+    </script>
+{% endblock %}
