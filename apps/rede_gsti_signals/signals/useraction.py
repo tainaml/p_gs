@@ -1,6 +1,10 @@
 from django.db.models.signals import post_save, post_delete
 from django.dispatch import receiver
 from apps.socialactions.models import UserAction, Counter
+from apps.article.models import Article
+from apps.comment.models import Comment
+from apps.core.business import embeditem, configuration
+from django.core.cache import cache
 from apps.notifications.service import business as Business
 
 
@@ -64,7 +68,46 @@ def social_action(sender, **kwargs):
             to = action.content_object
 
         if action.content_type.model not in not_allowed_content_type and to != author:
-            Business.send_notification(
+            if configuration.check_config_to_notify(to, action.action_type, action.content_object):
+                Business.send_notification(
+                    author=action.author,
+                    to=to,
+                    notification_action=action.action_type,
+                    target_object=action.content_object
+                )
+
+
+@receiver(post_save, sender=Comment)
+def comment_action(sender, **kwargs):
+    comment = kwargs['instance']
+
+    if comment:
+        if comment.content_type.model in [
+            'article',
+            'comment'
+        ]:
+            to = comment.content_object.author
+            author = comment.author
+            if to != author:
+                if configuration.check_config_to_notify(to, settings.SOCIAL_COMMENT, comment.content_object):
+                    Business.send_notification(
+                        author=author,
+                        to=to,
+                        notification_action=settings.SOCIAL_COMMENT,
+                        target_object=comment.content_object
+                    )
+
+
+@receiver(post_save, sender=Article)
+def article_action(sender, **kwargs):
+
+    instance = kwargs['instance'] if 'instance' in kwargs else False
+    if not instance:
+        return
+
+    embeds = embeditem.EmbedBusiness(instance)
+    embeds.save()            
+    Business.send_notification(
                 author=action.author,
                 to=to,
                 notification_action=action.action_type,
