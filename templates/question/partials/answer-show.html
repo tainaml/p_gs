@@ -33,6 +33,9 @@
                 </div>
             </div>
             <a class="post-creator" href="{% url 'profile:show' instance.author.username %}">{{instance.author.get_full_name}}</a>
+            {% if instance.question.correct_answer == instance %}
+                <span class="label label-primary"><i class="gsticon gsticon-trophy"></i> Melhor resposta</span>
+            {% endif %}
         </header>
         <div class="comment-text">
             <p>{{instance.description}}</p>
@@ -49,9 +52,9 @@
                 {% if instance.question.author == request.user %}
                 <a href="{% url 'question:correct-answer' instance.id %}">
                     {% if instance.question.correct_answer == instance %}
-                        [Melhor resposta]
+                        <span class="label label-primary">Melhor resposta</span>
                     {% else %}
-                        Melhor resposta
+                        <span class="label label-link">Melhor resposta</span>
                     {% endif %}
                 </a>
                 {% endif %}
