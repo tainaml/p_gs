@@ -24,8 +24,8 @@
                             <h2>Configurações</h2>
                         </header>
                         <section class="area-content">
-                            <h3><i class="gsticon gsticon-user"></i> Conta</h3>
-                            Mudar senha
+                            <h4><i class="gsticon gsticon-user"></i> Conta</h4>
+                            <p>Mudar senha</p>
                             <form id="form-change-password" action="{% url 'account:change_password' %}" method="post" data-ajaxform="true" data-group-class=".form-group">
                                 {% csrf_token %}
                                 <div class="form-group">
