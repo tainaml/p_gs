@@ -44,13 +44,20 @@ def __get_related_list_top_down__(taxonomy=None, taxonomy_list=None):
     if not taxonomy_list:
         taxonomy_list = []
 
+    if not taxonomy:
+        return taxonomy_list
+
     taxonomy_list.append(taxonomy)
 
-    if taxonomy.taxonomies_children.all():
-        children_taxonomies = taxonomy.taxonomies_children.all()
+    try:
+        if taxonomy.taxonomies_children.all():
+            children_taxonomies = taxonomy.taxonomies_children.all()
 
-        for child_taxonomy in children_taxonomies:
-            __get_related_list_top_down__(child_taxonomy, taxonomy_list)
+            for child_taxonomy in children_taxonomies:
+
+                __get_related_list_top_down__(child_taxonomy, taxonomy_list)
+    except Exception, e:
+        print e.message
 
     return taxonomy_list
 
