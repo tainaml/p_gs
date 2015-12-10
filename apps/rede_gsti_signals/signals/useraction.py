@@ -1,9 +1,11 @@
+from django.conf import settings
 from django.db.models.signals import post_save, post_delete
 from django.dispatch import receiver
+from apps.community.models import Community
 from apps.socialactions.models import UserAction, Counter
 from apps.article.models import Article
 from apps.comment.models import Comment
-from apps.core.business import embeditem, configuration
+from apps.core.business import embeditem
 from django.core.cache import cache
 from apps.notifications.service import business as Business
 
@@ -42,6 +44,14 @@ def count_user_actions(sender, **kwargs):
         counter_instance.count=count
         counter_instance.save()
 
+
+@receiver(post_save, sender=Community)
+def refresh_footer(sender, **kwargs):
+    footer = cache.get("footer")
+    if footer:
+        cache.delete("footer")
+
+
 @receiver(post_save, sender=UserAction)
 def social_action(sender, **kwargs):
     action = kwargs['instance']
@@ -68,13 +78,12 @@ def social_action(sender, **kwargs):
             to = action.content_object
 
         if action.content_type.model not in not_allowed_content_type and to != author:
-            if configuration.check_config_to_notify(to, action.action_type, action.content_object):
-                Business.send_notification(
-                    author=action.author,
-                    to=to,
-                    notification_action=action.action_type,
-                    target_object=action.content_object
-                )
+            Business.send_notification(
+                author=action.author,
+                to=to,
+                notification_action=action.action_type,
+                target_object=action.content_object
+            )
 
 
 @receiver(post_save, sender=Comment)
@@ -89,13 +98,12 @@ def comment_action(sender, **kwargs):
             to = comment.content_object.author
             author = comment.author
             if to != author:
-                if configuration.check_config_to_notify(to, settings.SOCIAL_COMMENT, comment.content_object):
-                    Business.send_notification(
-                        author=author,
-                        to=to,
-                        notification_action=settings.SOCIAL_COMMENT,
-                        target_object=comment.content_object
-                    )
+                Business.send_notification(
+                    author=author,
+                    to=to,
+                    notification_action=settings.SOCIAL_COMMENT,
+                    target_object=comment.content_object
+                )
 
 
 @receiver(post_save, sender=Article)
@@ -106,10 +114,4 @@ def article_action(sender, **kwargs):
         return
 
     embeds = embeditem.EmbedBusiness(instance)
-    embeds.save()            
-    Business.send_notification(
-                author=action.author,
-                to=to,
-                notification_action=action.action_type,
-                target_object=action.content_object
-            )
+    embeds.save()
