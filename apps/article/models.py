@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User
 from django.contrib.contenttypes.fields import GenericRelation
 from django.db import models
+from django.utils import timezone
 from django.utils.translation import ugettext as _
 from ckeditor.fields import RichTextField
 from apps.core.models.embed import EmbedItem
@@ -9,9 +10,9 @@ from apps.feed.models import FeedObject
 
 class Article(models.Model):
 
-    STATUS_DRAFT = 0
     STATUS_TEMP = 1
     STATUS_TRASH = 2
+    STATUS_DRAFT = 3
     STATUS_PUBLISH = 4
 
     STATUS_CHOICES = (
@@ -40,3 +41,20 @@ class Article(models.Model):
 
     def get_image(self):
         return self.image if self.image else None
+
+    def do_publish(self, update_date=False):
+        pub = self.publishin
+        if not self.publishin:
+            self.publishin = timezone.now()
+
+        if update_date:
+            self.publishin = update_date if isinstance(update_date, timezone.datetime) else timezone.now()
+
+        self.status = self.STATUS_PUBLISH
+
+    def do_save(self):
+        if not self.status:
+            self.status = self.STATUS_DRAFT
+
+        if self.status == self.STATUS_PUBLISH and not self.publishin:
+            self.publishin = timezone.now()

@@ -25,6 +25,8 @@ class ArticleForm(IdeiaModelForm):
 
     action = ACTION_SAVE
 
+    _author = None
+
     class Meta:
         model = Business.Article
         exclude = []
@@ -53,14 +55,6 @@ class ArticleForm(IdeiaModelForm):
             _date = timezone.now()
 
         return _date
-
-    def clean_status(self):
-        _status = self.cleaned_data.get('status',
-                                        Business.Article.STATUS_DRAFT)
-        if self.action in [self.ACTION_PUBLISH, self.ACTION_SCHEDULE]:
-            _status = Business.Article.STATUS_PUBLISH
-
-        return _status
 
     def clean_slug(self):
         _slug = self.cleaned_data.get('slug', '')
@@ -91,18 +85,15 @@ class ArticleForm(IdeiaModelForm):
             Publishing action
             '''
             self.action = self.ACTION_PUBLISH
+            self.instance.do_publish()
 
         elif 'submit-schedule' in self.data:
-            self.__action = self.ACTION_SCHEDULE
+            self.action = self.ACTION_SCHEDULE
+            self.instance.do_publish(self.cleaned_data.get('publishin', timezone.now()))
 
         elif 'submit-save' in self.data:
-            self.action = self.ACTION_SAVE
-
-        if not super(ArticleForm, self).is_valid():
-            valid = False
-
-        #if 'submit-schedule' in self.data:
-
+            self.instance.action = self.ACTION_SAVE
+            self.instance.do_save()
 
         return valid
 

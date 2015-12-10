@@ -55,7 +55,7 @@ class AbstractHomeBlock(object):
             feed__content_type=article_type,
             publishin__lte=timezone.now(),
             feed__taxonomies__in=[self.category],
-            status=Article.STATUS_PUBLISH
+            status__in=[Article.STATUS_PUBLISH, Article.STATUS_DRAFT]
         )
 
     def get_taxonomies(self):

@@ -1,5 +1,5 @@
-import handlers
-import configurationimport article
+import configuration
+import article
 import core
 import home
 import useraction
