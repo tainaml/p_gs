@@ -5,6 +5,7 @@ from django.core.cache import cache
 from apps.community.models import Community
 from apps.comment.models import Comment
 from apps.notifications.service import business as Business
+from apps.core.business import configuration
 
 
 @receiver(post_save, sender=Community)
@@ -26,9 +27,10 @@ def comment_action(sender, **kwargs):
             to = comment.content_object.author
             author = comment.author
             if to != author:
-                Business.send_notification(
-                    author=author,
-                    to=to,
-                    notification_action=settings.SOCIAL_COMMENT,
-                    target_object=comment.content_object
-                )
+                if configuration.check_config_to_notify(to, settings.SOCIAL_COMMENT, comment.content_object):
+                    Business.send_notification(
+                        author=author,
+                        to=to,
+                        notification_action=settings.SOCIAL_COMMENT,
+                        target_object=comment.content_object
+                    )
