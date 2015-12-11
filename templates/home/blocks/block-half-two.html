@@ -1,51 +1,40 @@
-<section class="post-list--half post-list--marketing">
+{% load thumbor_tags %}
+
+<section class="post-list--half post-list--{{ class_name }}">
     <div class="post-list-header">
-        <h2 class="post-list-heading">Marketing Digital</h2>
-        <nav class="post-list-nav">
-            <a class="subs" href="javascript:;">ITIL</a>•
-            <a class="subs" href="javascript:;">COBIT</a>•
-            <a class="subs" href="javascript:;">Cloud Computing</a>•
-            <a class="subs" href="javascript:;">PMBOOK</a>
-        </nav>
+        <h2 class="post-list-heading">{{ category.description }}</h2>
+        {% include 'home/blocks/partials/communities.html' %}
     </div>
     <div class="post-list-container">
-        <article class="article-home-small">
-            <a href="javascript:;">
-                <img class="img-responsive" src="http://placehold.it/170x128" alt="Placeholder">
-            </a>
-            <div>
-                <a class="article-category">ITIL</a>
-                <a class="article-content">Lorem Ipsum is simply dummy text of the printing and typ esetting industry Ipsum has been.</a>
-            </div>
-        </article>
-        <article class="article-home-small">
-            <a href="javascript:;">
-                <img class="img-responsive" src="http://placehold.it/170x128" alt="Placeholder">
-            </a>
-            <div>
-                <a class="article-category">ITIL</a>
-                <a class="article-content">Lorem Ipsum is simply dummy text of the printing and typ esetting industry Ipsum has been.</a>
-            </div>
-        </article>
-        <article class="article-home-small">
-            <a href="javascript:;">
-                <img class="img-responsive" src="http://placehold.it/170x128" alt="Placeholder">
-            </a>
-            <div>
-                <a class="article-category">ITIL</a>
-                <a class="article-content">Lorem Ipsum is simply dummy text of the printing and typ esetting industry Ipsum has been.</a>
-            </div>
-        </article>
+        {% for article in articles|slice:":2" %}
+
+            {% url 'article:view' article.slug article.id as article_link %}
+
+            <article class="article-home-medium" id="article__{{ article.id }}">
+                {% if article.image %}
+                    <img
+                            class="img-responsive"
+                            src="{% thumbor_url article.image.url width=270 height=203 smart=False fit_in=False %}"
+                            alt="{{ article.title }}">
+                {% else %}
+                    <img class="img-responsive" src="http://placehold.it/270x203" alt="Placeholder">
+                {% endif %}
+                <div>
+                    {% include 'home/blocks/partials/article_community.html' with article=article article_link=article_link %}
+                    <a class="article-content" href="{{ article_link }}">{{ article.title }}</a>
+                </div>
+            </article>
+
+        {% endfor %}
     </div>
     <div>
         <hr>
-        <article class="article-home-medium" href="javascript:;">
-            <a class="article-category" href="javascript;;">ITIL</a>
-            <a class="article-content" href="javascript;;">Lorem Ipsum is simply dummy text of the printing and typ esetting industry Ipsum has been.</a>
-        </article>
-        <article class="article-home-medium" href="javascript:;">
-            <a class="article-category" href="javascript;;">ITIL</a>
-            <a class="article-content" href="javascript;;">Lorem Ipsum is simply dummy text of the printing and typ esetting industry Ipsum has been.</a>
-        </article>
+        {% for article in articles|slice:"2:4" %}
+            {% url 'article:view' article.slug article.id as article_link %}
+            <div class="article-home-medium">
+                {% include 'home/blocks/partials/article_community.html' with article=article article_link=article_link %}
+                <a class="article-content" href="{{ article_link }}">{{ article.title }}</a>
+            </div>
+        {% endfor %}
     </div>
 </section>

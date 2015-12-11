@@ -1,45 +1,43 @@
 {% load thumbor_tags %}
 
-{% if articles|slice:":3"|length %}
-    <section class="post-list--half post-list--{{ class_name }}">
-        <div class="post-list-header">
-            <h2 class="post-list-heading">{{ category.description }}</h2>
-            {% include 'home/blocks/partials/communities.html' %}
-        </div>
-        <div class="post-list-container">
-            {% for article in articles|slice:":3" %}
+<section class="post-list--half post-list--{{ class_name }}">
+    <div class="post-list-header">
+        <h2 class="post-list-heading">{{ category.description }}</h2>
+        {% include 'home/blocks/partials/communities.html' %}
+    </div>
+    <div class="post-list-container">
+        {% for article in articles|slice:":3" %}
 
-                {% url 'article:view' article.slug article.id as article_link %}
+            {% url 'article:view' article.slug article.id as article_link %}
 
-                <article class="article-home-small" id="article__{{ article.id }}">
-                    <a href="{{ article_link }}">
-                        {% if article.image %}
-                            <img
-                                    class="img-responsive"
-                                    src="{% thumbor_url article.image.url width=170 height=128 smart=False fit_in=False %}"
-                                    alt="{{ article.title }}">
-                        {% else %}
-                            <img class="img-responsive" src="http://placehold.it/170x128" alt="Placeholder">
-                        {% endif %}
-                    </a>
-                    <div>
-                        {% include 'home/blocks/partials/article_community.html' with article=article article_link=article_link %}
-                        <a class="article-content" href="{{ article_link }}">{{ article.title }}</a>
-                    </div>
-                </article>
-            {% endfor %}
-        </div>
-        <div>
-            <hr>
-            {% for article in articles|slice:"3:" %}
-
-                {% url 'article:view' article.slug article.id as article_link %}
-
-                <article class="article-home-medium">
+            <article class="article-home-small" id="article__{{ article.id }}">
+                <a href="{{ article_link }}">
+                    {% if article.image %}
+                        <img
+                                class="img-responsive"
+                                src="{% thumbor_url article.image.url width=170 height=128 smart=False fit_in=False %}"
+                                alt="{{ article.title }}">
+                    {% else %}
+                        <img class="img-responsive" src="http://placehold.it/170x128" alt="Placeholder">
+                    {% endif %}
+                </a>
+                <div>
                     {% include 'home/blocks/partials/article_community.html' with article=article article_link=article_link %}
                     <a class="article-content" href="{{ article_link }}">{{ article.title }}</a>
-                </article>
-            {% endfor %}
-        </div>
-    </section>
-{% endif %}
+                </div>
+            </article>
+        {% endfor %}
+    </div>
+    <div>
+        <hr>
+        {% for article in articles|slice:"3:5" %}
+
+            {% url 'article:view' article.slug article.id as article_link %}
+
+            <article class="article-home-medium">
+                {% include 'home/blocks/partials/article_community.html' with article=article article_link=article_link %}
+                <a class="article-content" href="{{ article_link }}">{{ article.title }}</a>
+            </article>
+        {% endfor %}
+    </div>
+</section>
