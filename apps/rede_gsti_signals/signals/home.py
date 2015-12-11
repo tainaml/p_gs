@@ -38,5 +38,9 @@ def refresh_home_block(sender, **kwargs):
     for tax in feed_object.taxonomies.all():
 
         for key_name in block_keys:
-            temp_key = make_template_fragment_key(key_name, [tax.slug.lower()])
+
+            temp_key = make_template_fragment_key(key_name, (
+                tax.slug.lower()
+            ))
+
             cache.delete(temp_key)
