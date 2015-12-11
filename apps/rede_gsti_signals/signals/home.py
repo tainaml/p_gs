@@ -10,7 +10,12 @@ from apps.feed.models import FeedObject
 def refresh_home_block(sender, **kwargs):
     key_name = 'home-block-taxonomy'
     block_keys = [
-        'home-block-taxonomy',
+        'home_block_full_width',
+        'home_block_half_two',
+        'home_block_half_three',
+        'home_block_third',
+        'home_block_highlight',
+        'home_block_article_home',
     ]
 
     instance = kwargs['instance'] if 'instance' in kwargs else False
@@ -31,5 +36,7 @@ def refresh_home_block(sender, **kwargs):
         return
 
     for tax in feed_object.taxonomies.all():
-        temp_key = make_template_fragment_key(key_name, [tax.slug.lower()])
-        cache.delete(temp_key)
+
+        for key_name in block_keys:
+            temp_key = make_template_fragment_key(key_name, [tax.slug.lower()])
+            cache.delete(temp_key)

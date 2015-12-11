@@ -1,0 +1,10 @@
+<div class="highlight-articles--large area-{{ class_name }}">
+
+    {% for article in articles|slice:":2" %}
+
+        {% url 'article:view' article.slug article.id as article_link %}
+        <a class="highlight-article-medium" href="{{ article_link }}">{{ article.title }}</a>
+
+    {% endfor %}
+
+</div>

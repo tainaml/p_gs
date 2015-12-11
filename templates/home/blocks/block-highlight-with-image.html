@@ -1,0 +1,25 @@
+{% load thumbor_tags %}
+
+{% for article in articles %}
+
+    <div class="highlight-articles--no-border area-{{ class_name }}">
+
+        {% url 'article:view' article.slug article.id as article_link %}
+
+        <a class="highlight-article-medium" href="{{ article_link }}">
+            {% if article.image %}
+                <img
+                        class="img-responsive"
+                        src="{% thumbor_url article.image.url width=170 height=88 smart=False fit_in=False %}"
+                        alt="{{ article.title }}">
+            {% else %}
+                <img class="img-responsive" src="http://placehold.it/170x88" alt="Placeholder">
+            {% endif %}
+        </a>
+        <a class="highlight-article-medium" href="{{ article_link }}">{{ article.title }}</a>
+
+
+
+    </div>
+
+{% endfor %}

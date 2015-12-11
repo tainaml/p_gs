@@ -3,12 +3,11 @@ from django import template
 from django.contrib.contenttypes.models import ContentType
 from django.core.cache import get_cache
 from django.core.cache.utils import make_template_fragment_key
-from django.db.models import F, Q, Prefetch
+from django.db.models import Q, Prefetch
 from django.template.loader import render_to_string
 from django.utils import timezone
 from apps.article.models import Article
 from apps.community.models import Community
-from apps.feed.models import FeedObject
 from apps.taxonomy.models import Taxonomy
 from apps.taxonomy.service import business as TaxonomyBusiness
 
@@ -28,7 +27,7 @@ class AbstractHomeBlock(object):
 
     __context = {}
 
-    def __init__(self, category, quantity=3, cache_time=0, offset=0, show_comunities=4, class_name="without-class"):
+    def __init__(self, category, quantity=3, cache_time=0, offset=0, show_comunities=4, class_name="without-class", template=None):
 
         if not self.block_name:
             self.block_name = self.__class__.__name__
@@ -41,6 +40,9 @@ class AbstractHomeBlock(object):
         self.class_name = class_name
         self.cache_time = cache_time
         self.category = self.get_category()
+
+        if template is not None:
+            self.template_file = template
 
     def get_category(self):
         try:
@@ -140,37 +142,34 @@ class AbstractHomeBlock(object):
 
 
 class BlockFullWidth(AbstractHomeBlock):
-
     template_file = 'home/blocks/block-full-width.html'
     block_name = 'home_block_full_width'
 
 
 class BlockHalfTwo(AbstractHomeBlock):
-
     template_file = 'home/blocks/block-half-two.html'
     block_name = 'home_block_half_two'
 
 
 class BlockHalfThree(AbstractHomeBlock):
-
     template_file = 'home/blocks/block-half-three.html'
     block_name = 'home_block_half_three'
 
-    def get_context(self):
+class BlockThird(AbstractHomeBlock):
+    template_file = 'home/blocks/block-third.html'
+    block_name = 'home_block_third'
 
-        articles = self.context.get('articles', [])
+class BlockHighlight(AbstractHomeBlock):
+    template_file = 'home/blocks/highlight-simple.html'
+    block_name = 'home_block_highlight'
 
-        self.context.update({
-            'articles_master': articles[0:3],
-            'articles_others': articles[3:] if len(articles) > 3 else []
-        })
-
-        return self.context
-
+class BlockHighlightLarge(AbstractHomeBlock):
+    template_file = 'home/blocks/block-article-home-large.html'
+    block_name = 'home_block_article_home'
 
 @register.simple_tag()
-def home_block(block_class, category_slug, quantity=None, cache_time=0, show_comunities=None, offset=0, class_name="without-class"):
-    block = block_class(category_slug, quantity, cache_time, offset, show_comunities, class_name)
+def home_block(block_class, category_slug, quantity=None, cache_time=None, show_comunities=None, offset=0, class_name="without-class", template=None):
+    block = block_class(category_slug, quantity, cache_time, offset, show_comunities, class_name, template)
     return block.render()
 
 @register.simple_tag()
@@ -184,3 +183,25 @@ def home_block_half_two(*args, **kwargs):
 @register.simple_tag()
 def home_block_half_three(*args, **kwargs):
     return home_block(BlockHalfThree, *args, **kwargs)
+
+@register.simple_tag()
+def home_block_third(*args, **kwargs):
+    return home_block(BlockThird, *args, **kwargs)
+
+@register.simple_tag()
+def home_block_highlight_simple(*args, **kwargs):
+    template = kwargs.get('template', 'home/blocks/block-highlight-simple.html')
+    kwargs.update(template=template)
+    kwargs.update(show_comunities=False)
+    return home_block(BlockHighlight, *args, **kwargs)
+
+@register.simple_tag()
+def home_block_highlight_with_image(*args, **kwargs):
+    template = kwargs.get('template', 'home/blocks/block-highlight-with-image.html')
+    kwargs.update(template=template)
+    kwargs.update(show_comunities=False)
+    return home_block(BlockHighlight, *args, **kwargs)
+
+@register.simple_tag()
+def home_block_article_home(*args, **kwargs):
+    return home_block(BlockHighlightLarge, *args, **kwargs)
