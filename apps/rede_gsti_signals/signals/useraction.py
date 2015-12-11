@@ -1,12 +1,12 @@
 from django.conf import settings
 from django.db.models.signals import post_save, post_delete
 from django.dispatch import receiver
+from django.core.cache import cache
 from apps.community.models import Community
 from apps.socialactions.models import UserAction, Counter
 from apps.article.models import Article
 from apps.comment.models import Comment
-from apps.core.business import embeditem
-from django.core.cache import cache
+from apps.core.business import embeditem, configuration
 from apps.notifications.service import business as Business
 
 
@@ -78,12 +78,13 @@ def social_action(sender, **kwargs):
             to = action.content_object
 
         if action.content_type.model not in not_allowed_content_type and to != author:
-            Business.send_notification(
-                author=action.author,
-                to=to,
-                notification_action=action.action_type,
-                target_object=action.content_object
-            )
+            if configuration.check_config_to_notify(to, action.action_type, None):
+                Business.send_notification(
+                    author=action.author,
+                    to=to,
+                    notification_action=action.action_type,
+                    target_object=action.content_object
+                )
 
 
 @receiver(post_save, sender=Comment)
