@@ -13,12 +13,17 @@ def taxonomies(content_object):
 
     content_type = ContentType.objects.get_for_model(content_object)
 
-    communities = Community.objects.filter(
-        feeds=FeedObject.objects.get(
+    try:
+        feed = FeedObject.objects.get(
             content_type=content_type,
             object_id=content_object.id
         )
-    ).prefetch_related("taxonomy")
+
+        communities = Community.objects.filter(
+            feeds=feed
+        ).prefetch_related("taxonomy")
+    except:
+        communities = []
 
     return {
         'communities': communities
