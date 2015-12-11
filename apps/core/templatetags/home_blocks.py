@@ -126,7 +126,6 @@ class AbstractHomeBlock(object):
     def render(self):
 
         cache_key = make_template_fragment_key(self.block_name, (
-            self.class_name,
             self.category,
         ))
 
