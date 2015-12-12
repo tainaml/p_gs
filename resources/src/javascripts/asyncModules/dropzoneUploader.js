@@ -7,6 +7,11 @@ var module = (element) => {
   const dropZone = $(element)
   let $input = dropZone.find('input') // TODO: Change this selector name
   let $altInput = dropZone.find('[data-trigger="file"]')
+  let defaultImage = dropZone.data('original-image')
+
+  if(defaultImage){
+      fakeLoad('Imagem Padrão', defaultImage)
+  }
 
   dropZone.on({
     dragover: cbDragOver,
@@ -58,15 +63,19 @@ var module = (element) => {
 
 }
 
+var fakeLoad = function(name, src){
+  var image = $('<img/>')
+      .load(function() {
+          createPreview(name, getCanvasImage(this))
+      })
+      .attr('src', src);
+}
+
 var readFile = function (file) {
   var reader = new FileReader();
 
   reader.onload = function(e) {
-      var image = $('<img/>')
-      .load(function() {
-          createPreview(file, getCanvasImage(this))
-      })
-      .attr('src', e.target.result);
+      fakeLoad(file.name, e.target.result)
   }
   reader.readAsDataURL(file);
 }
@@ -86,8 +95,8 @@ var getCanvasImage = function(image) {
   return canvas.toDataURL('image/jpeg');
 }
 
-var createPreview = function(file, newURL) {
-  let fileName = file.name.substr(0, file.name.lastIndexOf('.')) //subtract file extension
+var createPreview = function(filename, newURL) {
+  let fileName = filename.substr(0, filename.lastIndexOf('.')) //subtract file extension
   let filePath = newURL
   let image = `<img src="${filePath}" class="img-responsive" alt="${fileName}"/>`
   //append new image through jQuery Template
