@@ -174,6 +174,7 @@ class ArticleEditView(ArticleBaseView):
             return redirect(reverse('article:edit', args=(article.id,)))
 
         form_article = self.form_article(instance=article, author=request.user)
+
         _context = {'form_article': form_article, 'article': article}
         return render(request, self.template_name, self.prepare_context(request, _context))
 

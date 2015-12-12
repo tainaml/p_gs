@@ -1,0 +1,2 @@
+
+require('./counter-core.js');

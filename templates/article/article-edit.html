@@ -40,17 +40,19 @@
                 </div>
                 <div class="col-lg-12">
                     <div class="editor">
-                        <p class="help-text"><span>ATENÇÃO:</span> <br>
+                        <p class="help-text">
+                            <span>ATENÇÃO:</span> <br>
                             Antes de escrever um artigo certifique-se que seu conteúdo não seja copia de outro e que não contenha erros de português. <br>
-                            Artigos que são submetidos a comunidades que não possuem relação vão ser penalizados. Leia as regras do Portal para saber mais.</p>
+                            Artigos que são submetidos a comunidades que não possuem relação vão ser penalizados. Leia as regras do Portal para saber mais.
+                        </p>
                         <div class="wrap-editor row">
                             <div class="col-lg-9">
                                 <div class="form-group">
-                                    {% render_field form_article.title placeholder="Titulo do artigo" class="form-control" %}
+                                    {% render_field form_article.title placeholder="Titulo do artigo" class="form-control" data-toggle="counter" data-counter-type="max" data-counter-limit=form_article.fields.title.max_length %}
                                     {% if form_article.title.errors %}  {{ form_article.title.errors }} {% endif %}
                                 </div>
                                 <div class="form-group">
-                                    {% render_field form_article.text placeholder="Conteúdo do artigo" class="form-control" rows="10" cols="30" %}
+                                    {% render_field form_article.text placeholder="Conteúdo do artigo" class="form-control" rows="10" cols="30" data-toggle="counter" data-counter-type="min" data-counter-min=form_article.fields.text.min_length %}
                                     {% if form_article.text.errors %}  {{ form_article.text.errors }} {% endif %}
                                     <p class="article-counter">Mínimo de caracteres: <span class="article-counter-caracteres">200</span></p>
                                 </div>
