@@ -7,6 +7,13 @@ var module = (element) => {
   const dropZone = $(element)
   let $input = dropZone.find('input') // TODO: Change this selector name
   let $altInput = dropZone.find('[data-trigger="file"]')
+  let defaultImage = dropZone.data('original-image')
+
+  console.dir(defaultImage)
+
+  if(defaultImage){
+    readFile(defaultImage)
+  }
 
   dropZone.on({
     dragover: cbDragOver,
