@@ -1,18 +1,17 @@
 from django.contrib import messages
-from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
 from django.db import transaction
-from django.http import HttpResponse
+from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.utils.decorators import method_decorator
-from django.views.decorators.http import require_POST
 from django.views.generic import View
+from django.utils.translation import ugettext as _
+
 from rede_gsti import settings
 from .service.forms import SignUpForm, LoginForm, ChangePasswordForm, RecoveryPasswordForm, ForgotPasswordForm, \
     ResendAccountConfirmationForm
-from .service.business import log_in_user, logout_user, register_confirm, check_token_exist, log_in_user_no_credentials
-from django.utils.translation import ugettext as _
+from .service.business import logout_user, register_confirm, check_token_exist, log_in_user_no_credentials
 
 
 class IndexView(View):
@@ -29,6 +28,17 @@ class IndexView(View):
         """
         return render(request, self.template_name)
 
+
+class IsLogged(View):
+
+    def get(self,request):
+        return self.__do__proccess(request)
+
+    def post(self,request):
+        return self.__do__proccess(request)
+
+    def __do__proccess(self, request):
+        return JsonResponse(data={'is_logged': request.user.is_authenticated()})
 
 class LoginView(View):
 

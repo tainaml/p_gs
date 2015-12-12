@@ -9,6 +9,7 @@ urlpatterns = [
     url(r'^login/$', views.LoginView.as_view(), name='login'),
     url(r'^login/ajax/$', CoreViews.CoreLoginView.as_view(), name='login-ajax'),
     url(r'^logout/', views.LogoutView.as_view(), name='logout'),
+    url(r'^is-logged/', views.IsLogged.as_view(), name='is_logged'),
     url(r'^change_password$', CoreViews.CoreChangePassword.as_view(), name='change_password'),
     url(r'^forgot_password$', CoreViews.CoreForgotPassword.as_view(), name='forgot_password'),
     url(r'^registered-successfully/$', views.RegisteredSuccessView.as_view(), name='registered_successfully'),
