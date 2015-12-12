@@ -1,12 +1,9 @@
-from django.core.exceptions import ValidationError
 from django.db import transaction
-from apps.article.service.forms import ArticleForm, forms
-from apps.community.models import Community
-from apps.taxonomy.models import Taxonomy
+
+from apps.article.service.forms import ArticleForm
 from ..business import article as Business
-from ..business import user as UserBusiness
-from ..business import feed as CoreFeedBusiness
 from ..forms.taxonomies import CoreTaxonomiesMixin
+
 
 class CoreArticleForm(ArticleForm, CoreTaxonomiesMixin):
 
