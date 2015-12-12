@@ -2,8 +2,27 @@
     <div class="widget widget-box squad-advertising">
         <div class="widget-content">
             <ul class="perfil-repositories">
-                <li><a href="{% url 'configuration:account' %}"><i class="gsticon gsticon-user"></i> Conta</a></li>
-                <li><a href="{% url 'configuration:notification' %}"><i class="gsticon gsticon-bell"></i> Notificações</a></li>
+                <li>
+                    {% if local_context == "account" %}
+                        <strong>
+                    {% endif %}
+                <a href="{% url 'configuration:account' %}"><i class="gsticon gsticon-user"></i>
+                    Conta
+                </a>
+                    {% if local_context == "account" %}
+                        </strong>
+                    {% endif %}
+
+                </li>
+                <li>
+                    {% if local_context == "notification" %}
+                        <strong>
+                    {% endif %}
+                    <a href="{% url 'configuration:notification' %}"><i class="gsticon gsticon-bell"></i> Notificações</a>
+                        {% if local_context == "account" %}
+                        </strong>
+                    {% endif %}
+                </li>
             </ul>
         </div>
     </div>
