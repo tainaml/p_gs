@@ -250,4 +250,6 @@ if ( typeof Object.create !== 'function' ) {
     });
 
 
-})( jQuery, window, document );
+})( jQuery, window, document );/**
+ * Created by raphael on 14/12/15.
+ */

@@ -15,6 +15,8 @@ if ( typeof Object.create !== 'function' ) {
 
     'use strict';
 
+    var COUNT_REGEX = /{counter}/ig;
+
     var ideiaCounter = {
         init: function( elem , options ) {
             var self = this,
@@ -58,13 +60,13 @@ if ( typeof Object.create !== 'function' ) {
 
                 self.ckeditor.on('contentDom', function() {
                     self.ckeditor.document.on( 'keydown', function() {
-                        self.countChar( self );
-                        self.calcDiff( self );
+                        self.counter( self );
+                        self.limiter( self );
                     });
 
                     self.ckeditor.document.on( 'keyup', function() {
-                        self.countChar( self );
-                        self.calcDiff( self );
+                        self.counter( self );
+                        self.limiter( self );
 
                         if ( typeof self.options.counterSlug === "boolean" && self.options.counterSlug == true) {
                             self.createSlug();
@@ -75,15 +77,15 @@ if ( typeof Object.create !== 'function' ) {
             } else {
 
                 self.$elem.keydown( function(e) {
-                    self.countChar( self );
-                    self.calcDiff( self );
+                    self.counter( self );
+                    self.limiter( self );
                 });
 
                 self.$elem.keyup( function(e) {
-                    self.countChar( self );
-                    self.calcDiff( self );
+                    self.counter( self );
+                    self.limiter( self );
 
-                    if ( typeof self.options.counterSlug === "boolean" && self.options.counterSlug == true) {
+                    if ( typeof self.options.counterSlug === "boolean" && self.options.counterSlug == true ) {
                         self.createSlug();
                     }
                 });
@@ -91,30 +93,30 @@ if ( typeof Object.create !== 'function' ) {
             }
         },
 
-        countChar: function( obj ) {
+        counter: function( obj ) {
             var self = obj;
 
-            self.content = ( self.ckeditor && CKEDITOR.status == "loaded")
+            self.content = ( self.ckeditor && CKEDITOR.status == "loaded" )
                 ? self.ckeditor.document.getBody().getText()
                 : self.$elem.val();
 
             self.count = self.content.length;
 
             if ( self.options.counterDebug ) {
-                debug( 'Count Characters - Total: ' + self.count );
+                debug( 'Method: Counter | Characters - Total: ' + self.count );
             }
         },
 
-        calcDiff: function( obj ) {
+        limiter: function( obj ) {
             var self = obj;
 
-            if ( self.count > self.options.counterLimit )
+            if ( typeof self.counterType === "string" && self.counterType == "max" && self.count > self.options.counterLimit )
                 self.$elem.val( self.$elem.val().substr( 0, self.options.counterLimit ) );
             else
                 self.help.update( self );
 
             if ( self.options.counterDebug )
-                debug( 'Calc Diff' );
+                debug( 'Method: Limiter' );
         },
 
         help: {
@@ -124,11 +126,9 @@ if ( typeof Object.create !== 'function' ) {
                     remain = null;
 
                 if ( typeof  self.options.counterType === "string" && self.options.counterType == "min" ) {
-                    remain = (self.options.counterMin >= self.count)
-                        ? self.options.counterMin - self.count
-                        : 0;
+                    remain = self.count;
                 } else {
-                    remain = (self.options.counterLimit >= self.count)
+                    remain = ( self.options.counterLimit >= self.count )
                         ? self.options.counterLimit - self.count
                         : 0;
                 }
@@ -136,14 +136,31 @@ if ( typeof Object.create !== 'function' ) {
                 self.$helpBlock = $( '<span></span>' );
                 self.$helpBlock.addClass( 'help-block text-right' );
 
-                if ( remain > 0 )
-                    message = ( remain > 1)
-                        ? self.messages[ self.lang ].remains.replace( /{countChar}/ig, remain )
-                        : self.messages[ self.lang ].remain.replace( /{countChar}/ig, remain );
-                else
-                    message = self.messages[ self.lang ].nochar.replace( /{countChar}/ig, remain );
+                if ( typeof self.options.counterType === "string" && self.options.counterType == "min" ) {
 
-                self.$helpBlock.text( message );
+                    var $span = $( '<span/>' );
+                    $span.text( remain );
+
+                    var $div = $( '<div/>' );
+                    $div.html( $span );
+
+                    if ( self.count < self.options.counterMin )
+                        $span.css({'color': self.options.counterStyle.red});
+                    else
+                        $span.css({'color': self.options.counterStyle.green});
+
+                    message = self.messages[ self.lang ].minimum.message.replace( COUNT_REGEX, $div.html() );
+
+                } else {
+                    if ( remain > 0 )
+                        message = ( remain > 1)
+                            ? self.messages[ self.lang ].limit.remains.replace( COUNT_REGEX, remain )
+                            : self.messages[ self.lang ].limit.remain.replace( COUNT_REGEX, remain );
+                    else
+                        message = self.messages[ self.lang ].limit.nochar.replace( COUNT_REGEX, remain );
+                }
+
+                self.$helpBlock.html( message );
 
                 if ( typeof self.options.counterInsert === "string" && self.options.counterInsert == 'before' ) {
                     self.$helpBlock.css({
@@ -167,10 +184,8 @@ if ( typeof Object.create !== 'function' ) {
                     message = '',
                     remain = null;
 
-                if ( typeof  self.options.counterType === "string" && self.options.counterType == 'min' ) {
-                    remain = (self.options.counterMin >= self.count)
-                        ? self.options.counterMin - self.count
-                        : 0;
+                if ( typeof  self.options.counterType === "string" && self.options.counterType == "min" ) {
+                    remain = self.count;
                 } else {
                     remain = (self.options.counterLimit >= self.count)
                         ? self.options.counterLimit - self.count
@@ -183,15 +198,32 @@ if ( typeof Object.create !== 'function' ) {
                     }
                 }
 
-                if ( remain > 0 )
-                    message = ( remain > 1)
-                        ? self.messages[ self.lang ].remains.replace( /{countChar}/ig, remain )
-                        : self.messages[ self.lang ].remain.replace( /{countChar}/ig, remain );
-                else
-                    message = self.messages[ self.lang ].nochar.replace( /{countChar}/ig, remain );
+                if ( typeof self.options.counterType === "string" && self.options.counterType == "min" ) {
+
+                    var $span = $( '<span/>' );
+                        $span.text( remain );
+
+                    var $div = $( '<div/>' );
+                        $div.html( $span );
+
+                    if ( self.count < self.options.counterMin )
+                        $span.css({'color': self.options.counterStyle.red});
+                    else
+                        $span.css({'color': self.options.counterStyle.green});
+
+                    message = self.messages[ self.lang ].minimum.message.replace( COUNT_REGEX, $div.html() );
+
+                } else {
+                    if ( remain > 0 )
+                        message = ( remain > 1 )
+                            ? self.messages[ self.lang ].limit.remains.replace( COUNT_REGEX, remain )
+                            : self.messages[ self.lang ].limit.remain.replace( COUNT_REGEX, remain );
+                    else
+                        message = self.messages[ self.lang ].limit.nochar.replace( COUNT_REGEX, remain );
+                }
 
                 if ( self.$helpBlock )
-                    self.$helpBlock.text( message );
+                    self.$helpBlock.html( message );
             }
         },
 
@@ -245,20 +277,33 @@ if ( typeof Object.create !== 'function' ) {
         counterInsert: 'after',
         counterSlug: false,
         counterSlugTarget: '#permalink',
-        counterDebug: true
+        counterDebug: false,
+        counterStyle: {
+            'red': '#E12C2C',
+            'green' : 'green'
+        }
     };
 
     $.fn.ideiaCounter.messages = {
         'pt-br': {
-            remains: 'Restam {countChar} caracteres.',
-            remain: 'Resta {countChar} carctere.',
-            nochar: 'Não há mais caracteres disponíveis.'
-
+            minimum: {
+                message: '<p class="article-counter">Número de caracteres: {counter}</p>'
+            },
+            limit: {
+                remains: 'Restam {counter} caracteres.',
+                remain: 'Resta {counter} carctere.',
+                nochar: 'Não há mais caracteres disponíveis.'
+            }
         },
         'en-us': {
-            remains: '{countChar} characters left.',
-            remain: '{countChar} character left.',
-            nochar: 'No more characters available.'
+            minimum: {
+                message: '{counter}'
+            },
+            limit: {
+                remains: '{counter} characters left.',
+                remain: '{counter} character left.',
+                nochar: 'No more characters available.'
+            }
         }
     };
 
