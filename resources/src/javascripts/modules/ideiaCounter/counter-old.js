@@ -32,16 +32,8 @@ if ( typeof Object.create !== 'function' ) {
                 : 'pt-br';
 
             self.content = (self.ckeditor)
-                ? self.ckeditor.getData()
+                ? self.ckeditor.document.getBody().getText()
                 : self.$elem.val();
-
-            if ( self.ckeditor ) {
-                self.ckeditor.on( 'contentDom', function(e) {
-                    self.content = self.ckeditor.document.getBody().getText();
-                });
-            } else {
-                self.content = self.$elem.val();
-            }
 
             self.count = self.content.length;
 
@@ -54,59 +46,35 @@ if ( typeof Object.create !== 'function' ) {
             if ( self.options.counterHelp )
                 self.help.insert( self );
 
-            if ( self.ckeditor ) {
+            self.$elem.keydown( function() {
+                self.countChar();
+                self.calcDiff();
 
-                self.ckeditor.on('contentDom', function() {
-                    self.ckeditor.document.on( 'keydown', function() {
-                        self.countChar( self );
-                        self.calcDiff( self );
-                    });
+                if ( typeof self.options.counterSlug === "boolean" && self.options.counterSlug == true) {
+                    self.createSlug();
+                }
+            });
 
-                    self.ckeditor.document.on( 'keyup', function() {
-                        self.countChar( self );
-                        self.calcDiff( self );
+            self.$elem.keyup( function() {
+                self.countChar();
+                self.calcDiff();
 
-                        if ( typeof self.options.counterSlug === "boolean" && self.options.counterSlug == true) {
-                            self.createSlug();
-                        }
-                    });
-                });
-
-            } else {
-
-                self.$elem.keydown( function(e) {
-                    self.countChar( self );
-                    self.calcDiff( self );
-                });
-
-                self.$elem.keyup( function(e) {
-                    self.countChar( self );
-                    self.calcDiff( self );
-
-                    if ( typeof self.options.counterSlug === "boolean" && self.options.counterSlug == true) {
-                        self.createSlug();
-                    }
-                });
-
-            }
+                if ( typeof self.options.counterSlug === "boolean" && self.options.counterSlug == true) {
+                    self.createSlug();
+                }
+            });
         },
 
-        countChar: function( obj ) {
-            var self = obj;
+        countChar: function() {
+            var self = this;
+            self.count = self.$elem.val().length;
 
-            self.content = ( self.ckeditor && CKEDITOR.status == "loaded")
-                ? self.ckeditor.document.getBody().getText()
-                : self.$elem.val();
-
-            self.count = self.content.length;
-
-            if ( self.options.counterDebug ) {
+            if ( self.options.counterDebug )
                 debug( 'Count Characters - Total: ' + self.count );
-            }
         },
 
-        calcDiff: function( obj ) {
-            var self = obj;
+        calcDiff: function() {
+            var self = this;
 
             if ( self.count > self.options.counterLimit )
                 self.$elem.val( self.$elem.val().substr( 0, self.options.counterLimit ) );
@@ -123,7 +91,7 @@ if ( typeof Object.create !== 'function' ) {
                     message = '',
                     remain = null;
 
-                if ( typeof  self.options.counterType === "string" && self.options.counterType == "min" ) {
+                if ( typeof  self.options.counterType === "string" && self.options.counterType == 'min' ) {
                     remain = (self.options.counterMin >= self.count)
                         ? self.options.counterMin - self.count
                         : 0;
