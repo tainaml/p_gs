@@ -5,9 +5,7 @@
 
 // Vendors [Icon fonts and Bootstrap]
 // ==========================================================================
-@import "vendor/bootstrap/mixins/web-fonts";
-$url: web-fonts-url(("Open Sans": ("400", "600", "700")));
-@import url($url);
+@import "//fonts.googleapis.com/css?family=Open+Sans:400,600,700";
 @import "vendor/bootstrap/bootstrap";
 // alterar o arquivo vendor/font-awesome/font-awesome/_path.scss
 @import "vendor/font-awesome/font-awesome";
