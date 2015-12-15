@@ -172,4 +172,12 @@
 
     });
 
+
+    $( document ).ajaxComplete( function(  event, jqXHR, ajaxOptions ) {
+        $( '[data-trigger=login]' ).each( function () {
+            var $e = $( this );
+            $e.ideiaLogin( $e.data() );
+        });
+    });
+
 })(jQuery);
