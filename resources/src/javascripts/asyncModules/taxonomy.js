@@ -24,8 +24,8 @@ var defaultSettings = {
 };
 
 var defaultTemplates = {
-    'item': '<div><%this.name%></div>',
-    'option': '<div class="item-float-notification"><span><img src="http://placehold.it/20" alt="<%this.name%>"></span><span><%this.name%></span></div>'
+    'item': '<div><span><img src="<%this.image%>" alt="<%this.name%>"></span> <span><%this.name%></span></div>',
+    'option': '<div class="item-float-notification"><span><img src="<%this.image%>" alt="<%this.name%>"></span> <span><%this.name%></span></div>'
 };
 
 function renderItem(item){

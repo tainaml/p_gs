@@ -2,6 +2,7 @@ from django.contrib.auth.models import User
 from django.contrib.contenttypes.models import ContentType
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.utils import timezone
+from django_thumbor import generate_url
 from apps.community.models import Community
 from apps.article.models import Article
 from apps.core.models.embed import EmbedItem
@@ -27,6 +28,25 @@ def get_user_communities(author):
     communities = Community.objects.filter(pk__in=community_ids)
 
     return communities
+
+
+def get_user_communities_list(author, width=20, height=20):
+
+    communities_queryset = get_user_communities(author)
+    communities = []
+
+    for community in communities_queryset:
+        img_url = str(settings.THUMBOR_MEDIA_URL) + '/' + str(community.image)
+
+        c = dict()
+        c['id'] = community.id
+        c['name'] = community.title
+        c['image'] = generate_url(img_url, width=width, height=height, thumbor_server=settings.THUMBOR_SERVER)
+
+        communities.append(c)
+
+    return communities
+
 
 def get_feed_objects(profile_instance=None, description=None, content_types_list=None, items_per_page=None, page=None, user=None):
     if not content_types_list:
@@ -92,7 +112,7 @@ def get_articles_from_user(profile_instance=None, description=None, content_type
         Q(article__author=profile_instance.user) &
         Q(article__status=Article.STATUS_PUBLISH) &
         (
-            Q(article__title__icontains=description)|
+            Q(article__title__icontains=description) |
             Q(article__text__icontains=description)
         )
     ).order_by(

@@ -1,6 +1,7 @@
 {%extends 'home/layout/base.html' %}
 
 {% load i18n %}
+{% load json_filter %}
 {% load widget_tweaks %}
 
 {% block title %}Portal GSTI - Editar Artigo{% endblock %}
@@ -60,7 +61,7 @@
 
                                     {% url 'profile:user-communities-ajax' as user_ajax_url %}
 
-                                    {% render_field form_article.communities data-toggle="selectize" data-module="taxonomy" data-placeholder="Comunidades relacionadas" data-url="{{ user_ajax_url }}" data-label-field="name" data-value-field="id" %}
+                                    {% render_field form_article.communities data-toggle="selectize" data-module="taxonomy" data-placeholder="Comunidades relacionadas" data-label-field="name" data-value-field="id" data-options=communities|jsonify %}
 
                                     {% if form_article.communities.errors %}  {{ form_article.communities.errors }} {% endif %}
 

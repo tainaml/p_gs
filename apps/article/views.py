@@ -9,8 +9,11 @@ from django.shortcuts import render, redirect
 from django.utils.decorators import method_decorator
 from django.utils.translation import gettext as _
 from django.views.generic import View
+from django_thumbor import generate_url
+from rede_gsti import settings
 from .service import business as Business
 from .service.forms import ArticleForm
+from apps.core.business import user as UserBusiness
 
 
 class ArticleBaseView(View):
@@ -175,7 +178,13 @@ class ArticleEditView(ArticleBaseView):
 
         form_article = self.form_article(instance=article, author=request.user)
 
-        _context = {'form_article': form_article, 'article': article}
+        communities = UserBusiness.get_user_communities_list(request.user)
+
+        _context = {
+            'form_article': form_article,
+            'article': article,
+            'communities': communities
+        }
         return render(request, self.template_name, self.prepare_context(request, _context))
 
     @method_decorator(login_required)
