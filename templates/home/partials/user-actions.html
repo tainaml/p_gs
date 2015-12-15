@@ -4,7 +4,7 @@
 {% if request.user.is_authenticated %}
 <div class="user-actions-logged">
     <a href="javascript:void(0);" class="user-actions-logged-link--logged"><i class="gsticon gsticon-group"></i></a>
-    <div class="dropdown-menu dropdown-notification">
+    <div class="header-dropdown-menu dropdown-notification">
         <div class="float-notifcations">
             <div class="header-float-notifications">
                 <span class="count-notifications">10</span>
@@ -63,7 +63,7 @@
         <span class="badge">2</span>
         <i class="gsticon gsticon-comments"></i>
     </a>
-    <div class="dropdown-menu dropdown-notification">
+    <div class="header-dropdown-menu dropdown-notification">
         <div class="float-notifcations">
             <div class="header-float-notifications">
                 <span class="count-notifications">10</span>
@@ -122,7 +122,7 @@
         <span class="badge">10</span>
         <i class="gsticon gsticon-bell"></i>
     </a>
-    <div class="dropdown-menu dropdown-notification">
+    <div class="header-dropdown-menu dropdown-notification">
         <div class="float-notifcations">
             <div class="header-float-notifications">
                 <span class="count-notifications">10</span>
@@ -185,7 +185,7 @@
         {% endif %}
         {{ request.user.first_name|slice:":13" }} <i class="gsticon gsticon-angle-down"></i>
     </a>
-    <div id="dropdown-perfil-action" class="dropdown-menu">
+    <div id="dropdown-perfil-action" class="header-dropdown-menu">
         <ul class="perfil-actions">
             <li><a href="{% url 'profile:feed' %}"><i class="gsticon gsticon-feed"></i> Meu Feed</a></li>
             <li><a href="{% url 'profile:show' request.user.username %}"><i class="gsticon gsticon-user"></i> {% trans "Profile" %}</a></li>
