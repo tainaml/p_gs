@@ -8,6 +8,7 @@ import './modules/ideiaAsyncSocialAction/'
 import './modules/ideiaAutocomplete/'
 import './modules/ideiaLoadAsync/'
 import './modules/ideiaCounter/'
+import './modules/ideiaLogin/'
 
 $(() => {
     require('./modules')
