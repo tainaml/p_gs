@@ -8,7 +8,11 @@ import './modules/ideiaAsyncSocialAction/'
 import './modules/ideiaAutocomplete/'
 import './modules/ideiaLoadAsync/'
 import './modules/ideiaCounter/'
+<<<<<<< HEAD
 import './modules/ideiaFilter/'
+=======
+import './modules/ideiaLogin/'
+>>>>>>> 11b2eb7271a2b85183ea0504afa92b6264a36cf5
 
 $(() => {
     require('./modules')

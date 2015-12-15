@@ -40,6 +40,7 @@ class IsLogged(View):
     def __do__proccess(self, request):
         return JsonResponse(data={'is_logged': request.user.is_authenticated()})
 
+
 class LoginView(View):
 
     template_path = 'account/login.html'
