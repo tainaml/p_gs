@@ -103,14 +103,10 @@
                                     <h3 class="cloud-tags-title">tags</h3>
                                     <div class="article-tags row">
 
-                                    {{ form_article.tags }}
-                                    {{ form_article.tags.fields }}
-                                    {{ form_article.tags.fields.queryset }}
-
-                                        {% for tag in form_article.tags.fields.queryset.all %}
+                                        {% for tag in form_article.fields.tags.queryset %}
                                             <div class="col-xs-6 tag">
                                                 <label class="custom-input">
-                                                    <div class="custom-check"> <input type="checkbox" name="tags" value="{{ tag.id }}" /></div> {{ tag.name }}
+                                                    <div class="custom-check"> <input type="checkbox" name="tags" value="{{ tag.id }}" /></div> {{ tag.tag_name }}
                                                 </label>
                                             </div>
                                         {% endfor %}
