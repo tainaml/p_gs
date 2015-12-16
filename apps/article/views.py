@@ -47,12 +47,18 @@ class ArticleView(ArticleBaseView):
     # def dispatch(self, request, *args, **kwargs):
     #     return super(ArticleView, self).dispatch(*args, **kwargs)
 
+    def get_context(self, request, article_instance=None):
+        return {}
+
     def get(self, request, article_slug, article_id):
         article = self.filter_article(request, article_id)
         if not str(article.slug) == str(article_slug):
             raise self.article_not_found
 
-        return render(request, self.template_name, {'article': article})
+        context = {'article': article}
+        context.update(self.get_context(request, article))
+
+        return render(request, self.template_name, context)
 
 
 class ArticleDeleteView(ArticleBaseView):

@@ -126,7 +126,7 @@ class UserProfile(models.Model):
         return self.profile_picture if self.profile_picture else None
 
     def isContributor(self):
-        return self.contributor
+        return self.contributor is True
 
 
 class Responsibility(models.Model):

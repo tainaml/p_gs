@@ -1,6 +1,18 @@
 from django.contrib.contenttypes.models import ContentType
 from ..models import FeedObject
 
+def get_feed(content_instance):
+    content_type = ContentType.objects.get_for_model(content_instance)
+
+    try:
+        feed_object = FeedObject.objects.get(
+            content_type=content_type,
+            object_id=content_instance.id
+        )
+    except:
+        return False
+
+    return feed_object
 
 def feed_get_or_create(content_instance):
     content_type = ContentType.objects.get_for_model(content_instance)

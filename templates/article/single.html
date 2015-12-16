@@ -24,6 +24,17 @@
             <article class="full-post">
                 <header class="post-header">
                     <div class="post-info">
+
+                        {% if request.user.profile.isContributor %}
+                            {% if feed.official %}
+                                [Oficial]
+                                <a href="{% url 'feed:set-content-official' 'article' article.id %}?next={{ request.path|urlencode }}">Marcar como não oficial</a>
+                            {% else %}
+                                [Não Oficial]
+                                <a href="{% url 'feed:set-content-official' 'article' article.id %}?next={{ request.path|urlencode }}">Marcar como Oficial</a>
+                            {% endif %}
+                        {% endif %}
+
                         <time datetime="{{ article.publishin|date:'m-d-Y' }}" itemprop="datePublished">
                             {{ article.publishin|date:'d/m/Y' }} às {{ article.publishin|date:'G:i' }}
                         </time>

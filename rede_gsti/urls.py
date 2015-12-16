@@ -41,6 +41,7 @@ urlpatterns = [
     url(r'^mailmanager/', include('apps.mailmanager.urls', namespace='mailmanager')),
     url(r'^complaint/', include('apps.complaint.urls', namespace='complaint')),
     url(r'^settings/', include('apps.core.urls.configuration', namespace='configuration')),
+    url(r'^feed/', include('apps.core.urls.feed', namespace='feed')),
     url(r'^', include('apps.core.urls.search', namespace='search')),
     url(r'^', include('apps.core.urls.core', namespace='core')),
 

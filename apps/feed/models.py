@@ -19,3 +19,5 @@ class FeedObject(models.Model):
     taxonomies = models.ManyToManyField(Taxonomy, related_name='feeds')
     communities = models.ManyToManyField(Community, related_name='feeds')
     tags = models.ManyToManyField(Tags, related_name='feeds')
+
+    official = models.BooleanField(null=False, blank=False, default=False)
