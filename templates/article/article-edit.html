@@ -106,7 +106,7 @@
                                         {% for tag in form_article.fields.tags.queryset %}
                                             <div class="col-xs-6 tag">
                                                 <label class="custom-input">
-                                                    <div class="custom-check"> <input type="checkbox" name="tags" value="{{ tag.id }}" /></div> {{ tag.tag_name }}
+                                                    <div class="custom-check"> <input type="checkbox" name="tags" value="{{ tag.id }}" {% if tag in form_article.initial.tags %}checked{% endif %} /></div> {{ tag.tag_name }}
                                                 </label>
                                             </div>
                                         {% endfor %}
