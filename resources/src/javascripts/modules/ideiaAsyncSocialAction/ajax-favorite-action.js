@@ -77,7 +77,6 @@ require('../../vendor/jquery.tinypubsub.js');
     }
     function handlerClick (event) {
         event.preventDefault();
-
         $.publish('click/act',
             [event.currentTarget, event.currentTarget.href,
                 event.currentTarget.dataset.object]);
