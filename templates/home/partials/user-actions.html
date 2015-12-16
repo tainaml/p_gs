@@ -3,14 +3,16 @@
 
 {% if request.user.is_authenticated %}
 <div class="user-actions-logged">
-    <a href="javascript:void(0);" class="user-actions-logged-link--logged"><i class="gsticon gsticon-group"></i></a>
-    <div class="header-dropdown-menu dropdown-notification">
+    <a href="javascript:void(0);" class="user-actions-logged-link--logged" data-toggle="dropdown" data-target="#dropdown-users">
+        <i class="gsticon gsticon-group"></i>
+    </a>
+    <div id="dropdown-users" class="header-dropdown-menu dropdown-notification" data-toggle="custom-scroll">
         <div class="float-notifcations">
             <div class="header-float-notifications">
                 <span class="count-notifications">10</span>
                 <i class="gsticon gsticon-users"></i> Membros
             </div>
-            <ul class="content-float-notifications" data-toggle="custom-scroll">
+            <ul class="content-float-notifications">
                 <li class="item-float-notification">
                     <a href="javascript:void(0);"><img src="http://placehold.it/20" alt="Creator Post Avatar"></a>
                     <a href="javascript:void(0);">Iury Silva</a> sugeriu uma <a href="javascript:void(0);">publicação</a>
@@ -59,17 +61,17 @@
             <a href="javascript:void(0);" class="footer-float-notifications">Ver todos</a>
         </div>
     </div>
-    <a href="javascript:void(0);" class="user-actions-logged-link--logged">
+    <a href="javascript:void(0);" class="user-actions-logged-link--logged" data-toggle="dropdown" data-target="#dropdown-comments">
         <span class="badge">2</span>
         <i class="gsticon gsticon-comments"></i>
     </a>
-    <div class="header-dropdown-menu dropdown-notification">
+    <div id="dropdown-comments" class="header-dropdown-menu dropdown-notification" data-toggle="custom-scroll">
         <div class="float-notifcations">
             <div class="header-float-notifications">
                 <span class="count-notifications">10</span>
                 <i class="gsticon gsticon-comments"></i> Perguntas e Respostas
             </div>
-            <ul class="content-float-notifications" data-toggle="custom-scroll">
+            <ul class="content-float-notifications">
                 <li class="item-float-notification">
                     <a href="javascript:void(0);"><img src="http://placehold.it/20" alt="Creator Post Avatar"></a>
                     <a href="javascript:void(0);">Iury Silva</a> sugeriu uma <a href="javascript:void(0);">publicação</a>
@@ -118,17 +120,17 @@
             <a href="javascript:void(0);" class="footer-float-notifications">Ver todos</a>
         </div>
     </div>
-    <a href="javascript:void(0);" class="user-actions-logged-link--logged">
+    <a href="javascript:void(0);" class="user-actions-logged-link--logged" data-toggle="dropdown" data-target="#dropdown-notification">
         <span class="badge">10</span>
         <i class="gsticon gsticon-bell"></i>
     </a>
-    <div class="header-dropdown-menu dropdown-notification">
+    <div id="dropdown-notification" class="header-dropdown-menu dropdown-notification" data-toggle="custom-scroll">
         <div class="float-notifcations">
             <div class="header-float-notifications">
                 <span class="count-notifications">10</span>
                 <i class="gsticon gsticon-bell"></i> Geral
             </div>
-            <ul class="content-float-notifications" data-toggle="custom-scroll">
+            <ul class="content-float-notifications">
                 <li class="item-float-notification">
                     <a href="javascript:void(0);"><img src="http://placehold.it/20" alt="Creator Post Avatar"></a>
                     <a href="javascript:void(0);">Iury Silva</a> sugeriu uma <a href="javascript:void(0);">publicação</a>
