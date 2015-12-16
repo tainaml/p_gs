@@ -1,7 +1,7 @@
 'use strict';
 
 ;(function ($) {
-    var $dropdown = $('[data-toggle="dropdown"]');
+    var $dropdown = $('.order-by > [data-toggle="dropdown"]');
     var $dropdownText = $dropdown.find('span');
     var $dropdownMenu = $dropdown.siblings('.dropdown-menu');
     var $dropdownMenuListItem = $dropdownMenu.find('li');
