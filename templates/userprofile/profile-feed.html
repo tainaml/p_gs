@@ -85,6 +85,7 @@
     {{ block.super }}
 
     <script>
+
         var jScrollWizard = null;
 
         var functionAjaxSuccessStepOne = function(e, data) {
@@ -163,6 +164,14 @@
             {% elif request.user and request.user.profile and request.user.profile.wizard_step < 3 %}
                 $("#modal-categories").modal("show");
             {% endif %}
+
+            var $social_count = $("[data-social-count=\"true\"]");
+            $.each($social_count, function(key, value){
+               var $obj = $(value);
+                $.get($obj.data("url"), function(data){
+                   $obj.text(data.count);
+                });
+            });
         });
 
 

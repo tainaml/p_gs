@@ -128,6 +128,14 @@
                     $('[data-action]').ajaxSocialAction();
                 }
             });
+
+            var $social_count = $("[data-social-count=\"true\"]");
+            $.each($social_count, function(key, value){
+               var $obj = $(value);
+                $.get($obj.data("url"), function(data){
+                   $obj.text(data.count);
+                });
+            });
         });
 
 

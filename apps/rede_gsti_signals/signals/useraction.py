@@ -3,7 +3,7 @@ from django.db.models.signals import post_save, post_delete
 from django.dispatch import receiver
 from django.core.cache import cache
 from apps.community.models import Community
-from apps.socialactions.models import UserAction, Counter
+from apps.socialactions.models import UserAction, Counter, UserActionCounter
 from apps.article.models import Article
 from apps.comment.models import Comment
 from apps.core.business import embeditem, configuration
@@ -29,21 +29,34 @@ def count_user_actions(sender, **kwargs):
                 action_type = action.action_type,
                 target_user=action.target_user).count()
 
+        count_user = UserAction.objects.filter(action_type = action.action_type,
+                author=action.author).count()
         try:
             counter_instance = Counter.objects.get(object_id=action.object_id,
                     content_type=action.content_type,
                     action_type = action.action_type,
                     target_user=action.target_user)
-        except:
+
+
+        except Counter.DoesNotExist:
             counter_instance= Counter(object_id=action.object_id,
                     content_type=action.content_type,
                     action_type = action.action_type,
                     target_user=action.target_user
                                       )
 
+        try:
+            counter_user_instance =  UserActionCounter.objects.get(action_type = action.action_type,
+                author=action.author)
+        except UserActionCounter.DoesNotExist:
+
+            counter_user_instance = UserActionCounter(author=action.author, action_type=action.action_type)
+
         counter_instance.count=count
         counter_instance.save()
 
+        counter_user_instance.count = count_user
+        counter_user_instance.save()
 
 @receiver(post_save, sender=Community)
 def refresh_footer(sender, **kwargs):

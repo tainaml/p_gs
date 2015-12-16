@@ -17,6 +17,12 @@ class UserAction(models.Model):
     target_user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='target_user', null=True)
 
 
+class UserActionCounter(models.Model):
+
+    action_type = models.PositiveIntegerField()
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='user_counter', null=True)
+    count = models.PositiveIntegerField()
+
 class Counter(models.Model):
 
     action_type = models.PositiveIntegerField()

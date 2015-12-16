@@ -5,7 +5,7 @@ from apps.article.models import Article
 from apps.taxonomy.models import Taxonomy
 from apps.taxonomy.service.business import get_related_list_top_down
 
-from ..models import UserAction
+from ..models import UserAction, Counter, UserActionCounter
 from django.conf import settings
 from ..localexceptions import NotFoundSocialSettings
 from django.contrib.contenttypes.models import ContentType
@@ -362,3 +362,14 @@ def get_users_acted_by_author_with_parameters(author=None, action=None, content_
         list_users = users_actions
 
     return list_users
+
+
+def count_actions_by_user_and_action(user=None, action=None, **filters):
+
+    try:
+        count = UserActionCounter.objects.get(author=user,
+            action_type=get_by_label(action), **filters).count
+    except UserActionCounter.DoesNotExist:
+        count = 0
+
+    return count

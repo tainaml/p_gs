@@ -1,10 +1,12 @@
-from django.http import JsonResponse
+from django.http import JsonResponse, Http404
 from django.utils.decorators import method_decorator
 from django.views.generic import View
 from django_thumbor import generate_url
 from django.contrib.auth.decorators import login_required
 
 from apps.core.forms.user import CoreSearchFollowings
+from apps.socialactions.service.forms import UserCountForm
+from apps.userprofile.service.business import get_user
 from rede_gsti import settings
 
 
@@ -51,3 +53,15 @@ class SocialActionFilterFollowings(View):
 
         context = {'users': users}
         return self.return_success(request, context)
+
+class CountActions(View):
+
+    def get(self, request, username, action):
+
+        user = get_user(username)
+        if user:
+            form_useractions = UserCountForm(user=user, data={'action': action})
+            count = form_useractions.process()
+            return JsonResponse({'count': count})
+
+        raise Http404()
