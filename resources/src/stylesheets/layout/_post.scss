@@ -54,6 +54,7 @@
     }
 }
 .box-share {
+    @media (max-width: $screen-md-min) { display: none; }
     @include make-lg-column(0.6);
     position: fixed;
     padding: 0;
@@ -64,7 +65,7 @@
     text-align: center;
 
     > li {
-        padding: 5px 10px;
+        padding: 3px 10px;
         border-bottom: 1px solid $color-border;
         color: #4d6479;
         font-weight: bold;
