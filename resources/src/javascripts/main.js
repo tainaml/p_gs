@@ -10,6 +10,7 @@ import './modules/ideiaLoadAsync/'
 import './modules/ideiaCounter/'
 import './modules/ideiaFilter/'
 import './modules/ideiaLogin/'
+import './modules/ideiaNotification/'
 
 $(() => {
     require('./modules')
@@ -23,14 +24,14 @@ $(() => {
         $(this).parents('[data-target=modal]').modal('hide');
     });
 
-    let $loggedUserAction = $('.user-actions-logged-link--logged');
-    $loggedUserAction.on('click', function (event) {
-        let $target = $(event.currentTarget);
-        let $badge = $target.find('.badge');
-
-        if ($badge.length) {
-            $badge.text('0').hide();
-        }
-    });
+    //let $loggedUserAction = $('.user-actions-logged-link--logged');
+    //$loggedUserAction.on('click', function (event) {
+    //    let $target = $(event.currentTarget);
+    //    let $badge = $target.find('.badge');
+    //
+    //    if ($badge.length) {
+    //        $badge.text('0').hide();
+    //    }
+    //});
 
 });
