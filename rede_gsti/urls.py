@@ -45,5 +45,7 @@ urlpatterns = [
     url(r'^', include('apps.core.urls.search', namespace='search')),
     url(r'^', include('apps.core.urls.core', namespace='core')),
 
+    url(r'^ckeditor/', include('ckeditor_uploader.urls')),
+
 
 ] + url_statics + url_media

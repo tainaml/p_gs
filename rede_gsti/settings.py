@@ -57,6 +57,7 @@ INSTALLED_APPS = (
     'djcelery',
     'social.apps.django_app.default',
     'ckeditor',
+    'ckeditor_uploader',
 
     # CORE
     'apps.core',
@@ -193,15 +194,25 @@ CKEDITOR_CONFIGS = {
             ['Bold', 'Italic', 'Underline'],
             ['NumberedList', 'BulletedList'],
             ['Link', 'Unlink'],
+            ['Image'],
+            #['CodeSnippet'],
             ['RemoveFormat'],
             ['Embed'],
             ['Source']
         ],
+        'filebrowserBrowseUrl': None,
         'extraPlugins': ','.join([
-            'autolink', 'widget', 'dialog', 'embed'
+            'autolink', 'autoembed', 'embedsemantic', 'widget',
+            'dialog', 'embed', 'uploadimage',
+            #'codesnippet'
         ]),
     }
 }
+
+CKEDITORALLOW_NONIMAGE_FILES = False
+CKEDITOR_RESTRICT_BY_USER = True
+CKEDITOR_UPLOAD_PATH = 'editor-uploads/'
+CKEDITOR_BROWSE_SHOW_DIRS = False
 
 #Notification
 
