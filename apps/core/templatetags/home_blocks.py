@@ -1,7 +1,7 @@
 from abc import ABCMeta
 from django import template
 from django.contrib.contenttypes.models import ContentType
-from django.core.cache import get_cache
+from django.core.cache import get_cache, caches
 from django.core.cache.utils import make_template_fragment_key
 from django.db.models import Q, Prefetch
 from django.template.loader import render_to_string
@@ -14,7 +14,7 @@ from apps.taxonomy.service import business as TaxonomyBusiness
 register = template.Library()
 article_type = ContentType.objects.get(model="article")
 
-cache = get_cache('default')
+cache = caches['default']
 
 class AbstractHomeBlock(object):
 
@@ -39,14 +39,19 @@ class AbstractHomeBlock(object):
         self.show_comunities = show_comunities
         self.class_name = class_name
         self.cache_time = cache_time
-        self.category = self.get_category()
 
         if template is not None:
             self.template_file = template
 
-    def get_category(self):
+        if not isinstance(category, Taxonomy):
+            category = self.get_category(category)
+
+        self.category = category
+
+
+    def get_category(self, category_slug):
         try:
-            category = Taxonomy.objects.get(slug=self.category_slug)
+            category = Taxonomy.objects.get(slug=category_slug)
             return category
         except Taxonomy.DoesNotExist, notExistTaxonomy:
             return None
@@ -78,19 +83,27 @@ class AbstractHomeBlock(object):
 
     def filter_articles(self):
 
+        __communities = self.get_communities()
+
+        self.context.update({
+            'communities': __communities
+        })
+
         if self.category is None:
             return False
 
-        communities = Community.objects.filter(
+        communities_filters = dict(
             taxonomy=self.category
         )
+
+        communities = Community.objects.filter(**communities_filters)
 
         articles = Article.objects.filter(
             self.custom_filters
         ).order_by(
             self.custom_order
         ).prefetch_related(
-            'feed', Prefetch('feed__communities', queryset=communities),
+            Prefetch('feed__communities', queryset=communities),
         )[self.offset:self.quantity]
 
         context = {
@@ -101,11 +114,10 @@ class AbstractHomeBlock(object):
 
         self.context.update(context)
 
-
-    def filter_communities(self):
+    def get_communities(self):
 
         if not self.show_comunities:
-            return
+            return False
 
         taxonomies = self.get_taxonomies()
 
@@ -116,9 +128,8 @@ class AbstractHomeBlock(object):
         except Community.DoesNotExist, e:
             communities = False
 
-        self.context.update({
-            'communities': communities
-        })
+
+        return communities
 
     def get_context(self):
         return self.context
@@ -133,11 +144,35 @@ class AbstractHomeBlock(object):
 
         if not template:
             self.filter_articles()
-            self.filter_communities()
             template = render_to_string(self.template_file, context=self.get_context())
             cache.set(cache_key, template, self.cache_time)
 
         return template
+
+class ArticleCommunityPartial(AbstractHomeBlock):
+
+    template_file = 'home/blocks/partials/article_community.html'
+
+    def __init__(self, article, category, template=None):
+
+        self.article = article
+
+        super(ArticleCommunityPartial, self).__init__(category, show_comunities=True, template=template)
+
+    def render(self):
+
+        taxs = self.get_taxonomies()
+
+        communities = Community.objects.filter(
+            taxonomy__in=taxs
+        ).order_by('?')
+
+        self.get_context().update({
+            'article': self.article,
+            'community': communities.first()
+        })
+
+        return render_to_string(self.template_file, context=self.get_context())
 
 
 class BlockFullWidth(AbstractHomeBlock):
@@ -204,3 +239,8 @@ def home_block_highlight_with_image(*args, **kwargs):
 @register.simple_tag()
 def home_block_article_home(*args, **kwargs):
     return home_block(BlockHighlightLarge, *args, **kwargs)
+
+@register.simple_tag(name="home_article_community")
+def home_article_community(article, category):
+    bloco = ArticleCommunityPartial(category, article)
+    return bloco.render()

@@ -1,4 +1,5 @@
 {% load thumbor_tags %}
+{% load home_blocks %}
 
 <section class="post-list--half post-list--{{ class_name }}">
     <div class="post-list-header">
@@ -20,7 +21,7 @@
                     <img class="img-responsive" src="http://placehold.it/270x203" alt="Placeholder">
                 {% endif %}
                 <div>
-                    {% include 'home/blocks/partials/article_community.html' with article=article article_link=article_link %}
+                    {% home_article_community category article %}
                     <a class="article-content" href="{{ article_link }}">{{ article.title }}</a>
                 </div>
             </article>
@@ -32,7 +33,7 @@
         {% for article in articles|slice:"2:4" %}
             {% url 'article:view' article.slug article.id as article_link %}
             <div class="article-home-medium">
-                {% include 'home/blocks/partials/article_community.html' with article=article article_link=article_link %}
+                {% home_article_community category article %}
                 <a class="article-content" href="{{ article_link }}">{{ article.title }}</a>
             </div>
         {% endfor %}

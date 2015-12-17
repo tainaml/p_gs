@@ -1,1 +1,7 @@
-<a class="article-category" href="{{ article_link }}">{{ article.feed.first.communities.first.title }}</a>
+{% url 'article:view' article.slug article.id as article_link %}
+
+<a
+        class="article-category"
+        href="{{ article_link }}">
+    {{ community.title }}
+</a>
