@@ -1,4 +1,4 @@
-from ckeditor.widgets import CKEditorWidget
+from ckeditor_uploader.widgets import CKEditorUploadingWidget
 from django.core.exceptions import ValidationError
 from django.template.defaultfilters import slugify
 from django.utils import timezone
@@ -12,7 +12,7 @@ class ArticleForm(IdeiaModelForm):
 
     title = forms.CharField(required=True, max_length=150)
     slug = forms.SlugField(max_length=150, required=False)
-    text = forms.CharField(required=True, min_length=200, widget=CKEditorWidget(config_name='article'))
+    text = forms.CharField(required=True, min_length=200, widget=CKEditorUploadingWidget(config_name='article'))
     image = forms.ImageField(required=False)
     publishin = forms.DateTimeField(required=False)
     status = forms.ChoiceField(required=False, choices=Business.Article.STATUS_CHOICES)
