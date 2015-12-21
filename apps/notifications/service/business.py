@@ -52,6 +52,7 @@ def get_notifications_by_user_and_notification_type_list(user=None,
                                                          notification_action=None):
     if not notification_action:
         notification_action = []
+
     notifications = Notification.objects.filter(
         to=user,
         notification_action__in=notification_action

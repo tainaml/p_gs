@@ -2,8 +2,9 @@
 {% load thumbor_tags %}
 
 {% if request.user.is_authenticated %}
+{% with token="14234234" %}
 <div class="user-actions-logged">
-    <a href="javascript:void(0);" class="user-actions-logged-link--logged" data-toggle="dropdown" data-target="#dropdown-users" data-trigger="notification" data-token="14234234" data-notification-type="members">
+    <a href="javascript:void(0);" class="user-actions-logged-link--logged" data-toggle="dropdown" data-target="#dropdown-users" data-trigger="notification" data-token="{{ token }}" data-notification-type="members">
         <i class="gsticon gsticon-group"></i>
     </a>
     <div id="dropdown-users" class="header-dropdown-menu dropdown-notification" data-toggle="custom-scroll">
@@ -61,8 +62,8 @@
             <a href="javascript:void(0);" class="footer-float-notifications">Ver todos</a>
         </div>
     </div>
-    <a href="javascript:void(0);" class="user-actions-logged-link--logged" data-toggle="dropdown" data-target="#dropdown-comments">
-        <span class="badge">2</span>
+
+    <a href="javascript:void(0);" class="user-actions-logged-link--logged" data-toggle="dropdown" data-target="#dropdown-comments" data-trigger="notification" data-token="{{ token }}" data-notification-type="comments">
         <i class="gsticon gsticon-comments"></i>
     </a>
     <div id="dropdown-comments" class="header-dropdown-menu dropdown-notification" data-toggle="custom-scroll">
@@ -120,8 +121,8 @@
             <a href="javascript:void(0);" class="footer-float-notifications">Ver todos</a>
         </div>
     </div>
-    <a href="javascript:void(0);" class="user-actions-logged-link--logged" data-toggle="dropdown" data-target="#dropdown-notification">
-        <span class="badge">10</span>
+
+    <a href="javascript:void(0);" class="user-actions-logged-link--logged" data-toggle="dropdown" data-target="#dropdown-notification" data-trigger="notification" data-token="{{ token }}" data-notification-type="notifications">
         <i class="gsticon gsticon-bell"></i>
     </a>
     <div id="dropdown-notification" class="header-dropdown-menu dropdown-notification" data-toggle="custom-scroll">
@@ -183,7 +184,7 @@
         {% if request.user.profile.get_profile_picture %}
             <img src="{% thumbor_url request.user.profile.get_profile_picture.url width=40 height=40 smart=False fit_in=False %}" alt="{{ profile.user.get_full_name }}" class="img-circle">
         {% else %}
-            <img src="http://placehold.it/40?text= " alt="" class="img-circle">
+            <img src="http://placehold.it/40?text= " alt="{{ profile.user.get_full_name }}" class="img-circle">
         {% endif %}
         {{ request.user.first_name|slice:":13" }} <i class="gsticon gsticon-angle-down"></i>
     </a>
@@ -199,6 +200,7 @@
         </ul>
     </div>
 </div>
+{% endwith %}
 {% else %}
 <div class="user-actions">
     <a href="{% url 'account:signup' %}" class="user-actions-link">Cadastre-se</a>

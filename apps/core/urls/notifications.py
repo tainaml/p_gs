@@ -1,7 +1,9 @@
 from django.conf.urls import url
-from ..views.notifications import CoreNotificationIndexView, CoreNotificationMembersView
+from ..views import notifications as core_view
 
 urlpatterns = [
-    url(r'^/$', CoreNotificationIndexView.as_view(), name='index'),
-    url(r'^members/$', CoreNotificationMembersView.as_view(), name='members')
+    url(r'^/$', core_view.CoreNotificationIndexView.as_view(), name='index'),
+    url(r'^members/$', core_view.CoreNotificationMembersView.as_view(), name='members'),
+
+    url(r'^poll/count/(?P<notification_type>[a-z]+)$', core_view.CoreNotificationPollingCount.as_view(), name='polling-cpunt')
 ]
