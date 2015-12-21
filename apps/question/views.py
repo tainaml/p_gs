@@ -11,6 +11,8 @@ from django.contrib import messages
 from django.utils.translation import ugettext as _
 from django.core.urlresolvers import reverse
 from .service.business import get_question
+
+
 class FormBaseView(View):
     not_found = Http404(_('Question not Found.'))
     instance = None
@@ -111,15 +113,28 @@ class AnswerList(ListBaseView):
 class CreateQuestionView(View):
     form = CreateQuestionForm
 
+    def prepare_context(self, request, context):
+        return context
+
+    def prepare_initial_data(self, initial):
+        return initial
+
     @method_decorator(login_required)
     def get(self, request):
-        form = self.form(user=request.user)
-        return render(request, 'question/create.html', {'form': form})
+
+        initial_data = self.prepare_initial_data({})
+
+        form = self.form(user=request.user, initial=initial_data)
+
+        _context = {
+            'form': form,
+        }
+
+        return render(request, 'question/create.html', self.prepare_context(request, _context))
 
     @method_decorator(login_required)
     def post(self, request):
         form = self.form(data=request.POST, user=request.user)
-        print form.is_valid()
         if not form.process():
             messages.add_message(request, messages.WARNING, _("Question not created!"))
         else:

@@ -13,7 +13,6 @@ from django_thumbor import generate_url
 from rede_gsti import settings
 from .service import business as Business
 from .service.forms import ArticleForm
-from apps.core.business import user as UserBusiness
 
 
 class ArticleBaseView(View):
@@ -165,10 +164,13 @@ class ArticleEditView(ArticleBaseView):
     form_article = ArticleForm
 
     def prepare_context(self, request, context):
-        if not context or not isinstance(context, dict):
-            context = {}
-
         return context
+
+    def prepare_initial_data(self, initial):
+        return initial
+
+    def get_temp_article(self, user):
+        return Business.create_temp_article(user)
 
     @method_decorator(login_required)
     def get(self, request, article_id=None, *args, **kwargs):
@@ -178,25 +180,37 @@ class ArticleEditView(ArticleBaseView):
         # Fail if is not owner
         self.check_is_owner(request, article)
 
+        initial_data = {}
+
         if not article_id:
-            article = Business.create_temp_article(request.user)
-            return redirect(reverse('article:edit', args=(article.id,)))
+            article = None
+            #article = self.get_temp_article(request.user)
+            #return redirect(reverse('article:edit', args=(article.id,)))
+            #return render
 
-        form_article = self.form_article(instance=article, author=request.user)
+        initial_data = self.prepare_initial_data(initial_data)
 
-        communities = UserBusiness.get_user_communities_list(request.user)
+        form_article = self.form_article(instance=article, author=request.user, initial=initial_data)
 
         _context = {
             'form_article': form_article,
             'article': article,
-            'communities': communities
         }
-        return render(request, self.template_name, self.prepare_context(request, _context))
+
+        context = self.prepare_context(request, _context)
+
+        return render(request, self.template_name, context)
 
     @method_decorator(login_required)
     def post(self, request, article_id=None, *args, **kwargs):
 
-        article = self.filter_article(request, article_id)
+        if not article_id:
+            article = self.get_temp_article(request.user)
+            article_id = article.id
+        else:
+            article = self.filter_article(request, article_id)
+
+
         # Fail if is not owner
         self.check_is_owner(request, article)
 
