@@ -1,14 +1,14 @@
-import json
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse
-from django.shortcuts import render
+from django.core.exceptions import PermissionDenied
+from django.http import Http404
+from django.utils.translation import gettext as _
 from django.utils.decorators import method_decorator
 from apps.article import views
 from apps.community.models import Community
-from apps.taxonomy.models import Taxonomy
 from ..forms.article import CoreArticleForm
 from ..business import feed as BusinessFeed
 from apps.core.business import user as UserBusiness
+
 
 class CoreArticleEditView(views.ArticleEditView):
 
@@ -39,14 +39,20 @@ class CoreArticleInCommunityView(CoreArticleEditView):
     def get(self, request, community_slug=None, *args, **kwargs):
 
         try:
-            self.article_community = Community.objects.filter(slug=community_slug)
+            self.article_community = Community.objects.get(slug=community_slug)
         except Community.DoesNotExist, e:
-            pass
+            raise Http404(_('Community not Found'))
 
-        return super(CoreArticleEditView, self).get(request, article_id=None, *args, **kwargs)
+        # raize 403 if user not follow this community
+        if self.article_community:
+            user_communities = UserBusiness.get_user_communities(request.user)
+            if self.article_community not in user_communities:
+                raise PermissionDenied(_('User need follow this community'))
+
+        return super(CoreArticleInCommunityView, self).get(request, article_id=None, *args, **kwargs)
 
     def prepare_initial_data(self, initial):
-        initial.update(communities=self.article_community)
+        initial.update(communities=[self.article_community])
         return initial
 
     def prepare_context(self, request, context):

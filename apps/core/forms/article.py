@@ -1,6 +1,5 @@
 from django.db import transaction
 from django.forms import CheckboxSelectMultiple
-
 from apps.article.service.forms import ArticleForm
 from apps.feed.service import business as FeedBusiness
 from apps.core.models.tags import Tags

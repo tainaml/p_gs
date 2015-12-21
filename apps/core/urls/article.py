@@ -15,5 +15,6 @@ urlpatterns = [
     url(r'^article/delete/async/(?P<article_id>\d+)$', views.ArticleDeleteAjax.as_view(), name='delete-async'),
     url(r'^article/(?P<article_slug>[a-z0-9]+(?:-[a-z0-9]+)*)/(?P<article_id>\d+)$', CoreArticleView.as_view(), name='view'),
 
+    # Create article in community
     url(r'^article/create/(?P<community_slug>[a-z0-9]+(?:-[a-z0-9]+)*)$', _article_create_in_community, name='create-in-category'),
 ]

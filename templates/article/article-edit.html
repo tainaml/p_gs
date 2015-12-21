@@ -15,8 +15,6 @@
 
                 {% csrf_token %}
 
-                ID: {{ article.id }}
-
                 {% if messages %}
                     <ul class="messages">
                         {% for message in messages %}
@@ -87,12 +85,6 @@
                                     </label>
                                 {% endif %}
 
-                                {% comment %}
-                                {% if article.image %}
-                                    <img src="{{ article.image.url }}" class="img-responsive" />
-                                {% endif %}
-                                {% endcomment %}
-
                                 <div class="custom-file-upload" data-module="dropzoneUploader" data-original-image="{% if article.image %} {{ article.image.url }} {% endif %}">
                                     <div class="custom-file-content">
                                         <i class="gsticon gsticon-cloud-upload"></i>
@@ -107,13 +99,13 @@
                                 <div class="cloud-tags">
                                     <h3 class="cloud-tags-title">Conteúdo Oficial</h3>
                                     <div class="article-tags row">
-
                                         <div class="col-xs-12 tag">
                                             <label class="custom-input">
-                                                <div class="custom-check"><input type="checkbox" name="official" {% if form_article.initial.official %}checked="checked"{% endif %} /></div> Oficial
+                                                <span class="custom-check">
+                                                    <input type="checkbox" name="official" {% if form_article.initial.official %}checked="checked"{% endif %} />
+                                                </span> Oficial
                                             </label>
                                         </div>
-
                                     </div>
                                 </div>
                                 {% endif %}
@@ -129,39 +121,6 @@
                                                 </label>
                                             </div>
                                         {% endfor %}
-
-                                        {% comment %}
-                                        <div class="col-xs-6 tag">
-                                            <label class="custom-input">
-                                                <div class="custom-check"> <input type="checkbox" /></div> Vídeos
-                                            </label>
-                                        </div>
-                                        <div class="col-xs-6 tag">
-                                            <label class="custom-input">
-                                                <div class="custom-check"> <input type="checkbox" /></div> Apostila
-                                            </label>
-                                        </div>
-                                        <div class="col-xs-6 tag">
-                                            <label class="custom-input">
-                                                <div class="custom-check"> <input type="checkbox" /></div> E-book
-                                            </label>
-                                        </div>
-                                        <div class="col-xs-6 tag">
-                                            <label class="custom-input">
-                                                <div class="custom-check"> <input type="checkbox" /></div> Artigo
-                                            </label>
-                                        </div>
-                                        <div class="col-xs-6 tag">
-                                            <label class="custom-input">
-                                                <div class="custom-check"> <input type="checkbox" /></div> Slide
-                                            </label>
-                                        </div>
-                                        <div class="col-xs-6 tag">
-                                            <label class="custom-input">
-                                                <div class="custom-check"> <input type="checkbox" /></div> Templates
-                                            </label>
-                                        </div>
-                                        {% endcomment %}
 
                                     </div>
                                 </div>
