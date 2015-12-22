@@ -5,7 +5,7 @@
     $.IdeiaNotification = function(element, options) {
 
         let isInactive = ( false );
-        let timeout = 20 * 1000;
+        let timeout = 1 * 1000;
         let allowed_notifications = ['members', 'comments', 'notifications'];
 
         var $document = $( document );
@@ -53,6 +53,8 @@
                 let $target = $(event.currentTarget);
                 let $badge = $target.find('.badge');
 
+                console.log( $target.data() );
+
                 $document.attr( 'title', page_title );
 
                 if ($badge.length) {
@@ -60,13 +62,17 @@
                 }
 
                 load_notifications();
-                clear_notifications( plugin );
+                clear_notifications( plugin, event );
             });
 
         };
 
-        plugin.updateData = function( options ) {
+        plugin.updateOptions = function( options ) {
             plugin.settings = $.extend({}, plugin.settings, options);
+        };
+
+        var updateData = function( options ) {
+            plugin.settings.data = $.extend({}, plugin.settings.data, options);
         };
 
         var polling = function( obj ) {
@@ -129,6 +135,8 @@
                 $document.attr( 'title', page_title + ' | Novas notificações');
             }
 
+            $element.data( 'notifications', data.notifications );
+
             if ( !$badge.length ) {
 
                 if ( data.count > 0 ) {
@@ -162,9 +170,28 @@
 
         };
 
-        var clear_notifications = function( obj ) {
+        var clear_notifications = function( obj, event ) {
 
             var items = $(obj.settings.target).find('ul > li');
+
+            if ( obj.settings.method == "post" && !obj.settings.csrf )
+                console.error( 'CSRF is not defined' );
+
+            if ( !('csrfmiddlewaretoken' in obj.settings.data) )
+                obj.settings.data['csrfmiddlewaretoken'] = null;
+
+            if ( 'csrfmiddlewaretoken' in obj.settings.data && obj.settings.csrf )
+                obj.settings.data['csrfmiddlewaretoken'] = obj.settings.csrf;
+
+            $.ajax({
+                url     : '/notifications/clear/',
+                method  : 'post',
+                dataType: 'json',
+                data    : $element.data( 'notifications' ),
+                success : function( data ) {
+
+                }
+            });
 
             setTimeout( function() {
 

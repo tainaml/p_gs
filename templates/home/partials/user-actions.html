@@ -4,7 +4,7 @@
 {% if request.user.is_authenticated %}
 {% with token="14234234" %}
 <div class="user-actions-logged">
-    <a href="javascript:void(0);" class="user-actions-logged-link--logged" data-toggle="dropdown" data-target="#dropdown-users" data-trigger="notification" data-token="{{ token }}" data-notification-type="members">
+    <a href="javascript:void(0);" class="user-actions-logged-link--logged" data-toggle="dropdown" data-target="#dropdown-users" data-trigger="notification" data-token="{{ token }}" data-csrf="{{ csrf_token }}"  data-notification-type="members">
         <i class="gsticon gsticon-group"></i>
     </a>
     <div id="dropdown-users" class="header-dropdown-menu dropdown-notification" data-toggle="custom-scroll">
@@ -63,7 +63,7 @@
         </div>
     </div>
 
-    <a href="javascript:void(0);" class="user-actions-logged-link--logged" data-toggle="dropdown" data-target="#dropdown-comments" data-trigger="notification" data-token="{{ token }}" data-notification-type="comments">
+    <a href="javascript:void(0);" class="user-actions-logged-link--logged" data-toggle="dropdown" data-target="#dropdown-comments" data-trigger="notification" data-token="{{ token }}" data-csrf="{{ csrf_token }}"  data-notification-type="comments">
         <i class="gsticon gsticon-comments"></i>
     </a>
     <div id="dropdown-comments" class="header-dropdown-menu dropdown-notification" data-toggle="custom-scroll">
@@ -122,7 +122,7 @@
         </div>
     </div>
 
-    <a href="javascript:void(0);" class="user-actions-logged-link--logged" data-toggle="dropdown" data-target="#dropdown-notification" data-trigger="notification" data-token="{{ token }}" data-notification-type="notifications">
+    <a href="javascript:void(0);" class="user-actions-logged-link--logged" data-toggle="dropdown" data-target="#dropdown-notification" data-trigger="notification" data-token="{{ token }}" data-csrf="{{ csrf_token }}" data-notification-type="notifications">
         <i class="gsticon gsticon-bell"></i>
     </a>
     <div id="dropdown-notification" class="header-dropdown-menu dropdown-notification" data-toggle="custom-scroll">

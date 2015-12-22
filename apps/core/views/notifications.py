@@ -63,8 +63,12 @@ class CoreNotificationPollingCount(NotificationBaseView):
         )
 
         count = notifications.filter(read=False).count()
+        notifications_id = [n.id for n in notifications]
 
-        context = {'count': count}
+        context = {
+            'count': count,
+            'notifications': notifications_id
+        }
         context.update(self.get_context(request))
 
         return JsonResponse(context, status=200)
