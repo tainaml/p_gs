@@ -5,5 +5,6 @@ urlpatterns = [
     url(r'^/$', core_view.CoreNotificationIndexView.as_view(), name='index'),
     url(r'^members/$', core_view.CoreNotificationMembersView.as_view(), name='members'),
 
-    url(r'^poll/count/(?P<notification_type>[a-z]+)$', core_view.CoreNotificationPollingCount.as_view(), name='polling-cpunt')
+    url(r'^clear$', core_view.CoreNotificationClear.as_view(), name='clear'),
+    url(r'^poll/count/(?P<notification_type>[a-z]+)$', core_view.CoreNotificationPollingCount.as_view(), name='polling-count')
 ]

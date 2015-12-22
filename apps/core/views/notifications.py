@@ -72,3 +72,17 @@ class CoreNotificationPollingCount(NotificationBaseView):
         context.update(self.get_context(request))
 
         return JsonResponse(context, status=200)
+
+
+class CoreNotificationClear(NotificationBaseView):
+
+    def post(self, request):
+
+        notifications_ids = request.POST.getlist('notifications[]')
+
+        notifications = Business.set_notification_as_read(notifications_ids)
+
+        context = {'notifications': [n.id for n in notifications]}
+        context.update(self.get_context(request))
+
+        return JsonResponse(context, status=200)

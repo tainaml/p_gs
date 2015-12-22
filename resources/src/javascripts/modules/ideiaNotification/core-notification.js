@@ -5,7 +5,7 @@
     $.IdeiaNotification = function(element, options) {
 
         let isInactive = ( false );
-        let timeout = 1 * 1000;
+        let timeout = 10 * 1000;
         let allowed_notifications = ['members', 'comments', 'notifications'];
 
         var $document = $( document );
@@ -53,8 +53,6 @@
                 let $target = $(event.currentTarget);
                 let $badge = $target.find('.badge');
 
-                console.log( $target.data() );
-
                 $document.attr( 'title', page_title );
 
                 if ($badge.length) {
@@ -72,7 +70,7 @@
         };
 
         var updateData = function( options ) {
-            plugin.settings.data = $.extend({}, plugin.settings.data, options);
+            plugin.settings = $.extend({}, plugin.settings, options);
         };
 
         var polling = function( obj ) {
@@ -183,13 +181,34 @@
             if ( 'csrfmiddlewaretoken' in obj.settings.data && obj.settings.csrf )
                 obj.settings.data['csrfmiddlewaretoken'] = obj.settings.csrf;
 
+            if ( !( 'notifications' in obj.settings.data ) && $element.data( 'notifications' ))
+                obj.settings.data['notifications'] = $element.data( 'notifications' );
+
             $.ajax({
-                url     : '/notifications/clear/',
+                url     : '/notifications/clear',
                 method  : 'post',
                 dataType: 'json',
-                data    : $element.data( 'notifications' ),
+                data    : obj.settings.data,
                 success : function( data ) {
+                    if ( data.notifications.length > 0 ) {
 
+                        var notifications = $element.data( 'notifications' );
+
+                        console.log( notifications );
+                        console.log( $element.data( 'notifications' ) );
+
+                        $.each( data.notifications, function( i, e ) {
+                            if ( $.inArray( e, notifications ) ) {
+                                var index = notifications.indexOf( e );
+                                notifications.splice(index, 1);
+                            }
+                        });
+
+                        $element.data( 'notifications', notifications );
+
+                        console.log( notifications );
+                        console.log( $element.data( 'notifications' ) );
+                    }
                 }
             });
 
