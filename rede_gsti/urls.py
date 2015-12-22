@@ -35,6 +35,7 @@ urlpatterns = [
     url(r'^notifications/', include('apps.core.urls.notifications', namespace='notifications')),
     url(r'^', include('apps.core.urls.article', namespace='article')),
     url(r'^', include('apps.core.urls.socialactions', namespace='core_socialactions')),
+    url(r'^category-feed/', include('apps.core.urls.category', namespace='category')),
     url(r'^ninico/?', include('apps.ninico.urls', namespace='ninico')),
     url(r'^question/', include('apps.core.urls.question', namespace='question')),
     url(r'^contact/', include('apps.core.urls.contact', namespace='contact')),
