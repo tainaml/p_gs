@@ -45,6 +45,7 @@
     padding: 20px 20px 0;
     border: 1px solid $color-border;
     border-top-width: 0;
+    background: $link-white;
     > ul > li {
         padding-top: 10px;
         padding-bottom: 10px;
@@ -97,6 +98,7 @@
     padding: 10px 20px;
     margin-bottom: 20px;
     border: 1px solid $color-border;
+    background: $link-white;
 
     &-#{title} {
         margin: 0;
