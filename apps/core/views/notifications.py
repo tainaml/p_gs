@@ -62,7 +62,9 @@ class CoreNotificationPollingCount(NotificationBaseView):
             notification_group
         )
 
-        count = notifications.filter(read=False).count()
+        notifications = notifications.filter(read=False)
+
+        count = notifications.count()
         notifications_id = [n.id for n in notifications]
 
         context = {

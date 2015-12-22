@@ -60,7 +60,7 @@
                 }
 
                 load_notifications();
-                clear_notifications( plugin, event );
+                clear_notifications( plugin );
             });
 
         };
@@ -168,9 +168,10 @@
 
         };
 
-        var clear_notifications = function( obj, event ) {
+        var clear_notifications = function( obj ) {
 
             var items = $(obj.settings.target).find('ul > li');
+            var notifications = $element.data( 'notifications' ) || [];
 
             if ( obj.settings.method == "post" && !obj.settings.csrf )
                 console.error( 'CSRF is not defined' );
@@ -181,36 +182,29 @@
             if ( 'csrfmiddlewaretoken' in obj.settings.data && obj.settings.csrf )
                 obj.settings.data['csrfmiddlewaretoken'] = obj.settings.csrf;
 
-            if ( !( 'notifications' in obj.settings.data ) && $element.data( 'notifications' ))
-                obj.settings.data['notifications'] = $element.data( 'notifications' );
+            obj.settings.data['notifications'] = notifications;
 
-            $.ajax({
-                url     : '/notifications/clear',
-                method  : 'post',
-                dataType: 'json',
-                data    : obj.settings.data,
-                success : function( data ) {
-                    if ( data.notifications.length > 0 ) {
+            if ( notifications.length > 0 ) {
+                $.ajax({
+                    url     : '/notifications/clear',
+                    method  : 'post',
+                    dataType: 'json',
+                    data    : obj.settings.data,
+                    success : function( data ) {
+                        if ( data.notifications.length > 0 ) {
 
-                        var notifications = $element.data( 'notifications' );
+                            $.each( data.notifications, function( i, e ) {
+                                if ( $.inArray( e, notifications ) !== -1 ) {
+                                    var index = notifications.indexOf( e );
+                                    notifications.splice(index, 1);
+                                }
+                            });
 
-                        console.log( notifications );
-                        console.log( $element.data( 'notifications' ) );
-
-                        $.each( data.notifications, function( i, e ) {
-                            if ( $.inArray( e, notifications ) ) {
-                                var index = notifications.indexOf( e );
-                                notifications.splice(index, 1);
-                            }
-                        });
-
-                        $element.data( 'notifications', notifications );
-
-                        console.log( notifications );
-                        console.log( $element.data( 'notifications' ) );
+                            $element.data( 'notifications', notifications );
+                        }
                     }
-                }
-            });
+                });
+            }
 
             setTimeout( function() {
 
