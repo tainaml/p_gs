@@ -1,6 +1,8 @@
 from django.conf import settings
+from django.http import JsonResponse, Http404
 from django.shortcuts import render
 from apps.notifications.service import business as Business
+from apps.notifications.service.forms import ListNotificationForm
 
 __author__ = 'phillip'
 from apps.notifications.views import NotificationBaseView
@@ -22,8 +24,7 @@ class CoreNotificationIndexView(NotificationBaseView):
 
         return render(request, self.template_path, context)
 
-class CoreNotificationMembersView(NotificationBaseView):
-    template_path = 'notifications/members.html'
+class CoreNotificationListView(NotificationBaseView):
 
     template_path = 'userprofile/notifications/partials/list-notifications.html'
     form = ListNotificationForm
