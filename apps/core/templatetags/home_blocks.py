@@ -16,6 +16,8 @@ article_type = ContentType.objects.get(model="article")
 
 cache = caches['default']
 
+home_block_counter = 0
+
 class AbstractHomeBlock(object):
 
     __metaclass__ = ABCMeta
@@ -104,7 +106,7 @@ class AbstractHomeBlock(object):
             self.custom_order
         ).prefetch_related(
             Prefetch('feed__communities', queryset=communities),
-        )[self.offset:self.quantity]
+        )[self.offset:self.quantity + self.offset]
 
         context = {
             'class_name': self.class_name,

@@ -1,0 +1,125 @@
+{% extends 'home/layout/base.html'%}
+
+{% load home_blocks %}
+
+{% with class_name=class_name|default_if_none:"default" %}
+
+    {% block content %}
+
+        <main class="container main">
+            <div class="row">
+                <div class="post-list--large post-list--{{ class_name }}">
+                    <div class="post-list-header">
+                        <h2 class="post-list-heading">governança de TI</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="highlight-area-category">
+                <div class="highlight-left">
+                    <div class="banner">
+                        <img class="img-responsive" src="http://placehold.it/728x90" alt="Banner Example">
+                    </div>
+                    <div class="post-list-container">
+
+                        {% home_block_article_home category_slug class_name=class_name quantity=4 offset=0 cache_time=0 %}
+
+                    </div>
+
+                    {% home_block_highlight_simple category_slug class_name=class_name quantity=2 offset=4 cache_time=0 %}
+
+                </div>
+                <div class="highlight-right">
+
+                    {% home_block_highlight_simple category_slug class_name=class_name quantity=2 offset=6 cache_time=0 %}
+
+                    {% home_block_highlight_simple category_slug class_name=class_name quantity=2 offset=8 cache_time=0 %}
+
+                    {% home_block_highlight_with_image category_slug class_name=class_name quantity=2 offset=10 cache_time=0 %}
+
+                </div>
+            </div>
+            <div class="container-posts">
+                {% home_block_full_width category_slug class_name=class_name quantity=4 offset=12 cache_time=0 %}
+            </div>
+            <div class="container-posts">
+                <div class="banner-content-wide">
+                    <div class="banner">
+                        <img class="img-responsive" src="http://placehold.it/970x90" alt="Banner Example">
+                    </div>
+                </div>
+
+                {% home_block_third category_slug class_name=class_name quantity=9 offset=16 cache_time=0 %}
+
+                <section class="post-list--small">
+                    <div class="post-list-header">
+                        <h2 class="post-list-heading">Comunidades</h2>
+                    </div>
+                    <div class="widget widget-feed-category">
+                        <div class="widget-content">
+                            <div class="perfil">
+                                <img src="http://placehold.it/82" alt="">
+                                <a href="javascript:;" class="perfil-name">Java</a>
+                        <span class="perfil-counter">
+                            <span class="counter-number">50.000</span> Seguidores
+                        </span>
+                                <a href="javascript:;" class="btn btn-sm perfil-button">Seguir</a>
+                            </div>
+                            <div class="perfil">
+                                <img src="http://placehold.it/82" alt="">
+                                <a href="javascript:;" class="perfil-name">Java</a>
+                        <span class="perfil-counter">
+                            <span class="counter-number">50.000</span> Seguidores
+                        </span>
+                                <a href="javascript:;" class="btn btn-sm perfil-button">Seguir</a>
+                            </div>
+                            <div class="perfil">
+                                <img src="http://placehold.it/82" alt="">
+                                <a href="javascript:;" class="perfil-name">Java</a>
+                        <span class="perfil-counter">
+                            <span class="counter-number">50.000</span> Seguidores
+                        </span>
+                                <a href="javascript:;" class="btn btn-sm perfil-button">Seguir</a>
+                            </div>
+                            <div class="perfil">
+                                <img src="http://placehold.it/82" alt="">
+                                <a href="javascript:;" class="perfil-name">Java</a>
+                        <span class="perfil-counter">
+                            <span class="counter-number">50.000</span> Seguidores
+                        </span>
+                                <a href="javascript:;" class="btn btn-sm perfil-button">Seguir</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="post-list-header">
+                        <h2 class="post-list-heading">Conecte-se</h2>
+                    </div>
+                    <div class="fb-page" data-href="https://www.facebook.com/PortalGSTIpage" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="false" data-show-posts="false"><div class="fb-xfbml-parse-ignore"><blockquote cite="https://www.facebook.com/PortalGSTIpage"><a href="https://www.facebook.com/PortalGSTIpage">FB Portal GSTI</a></blockquote></div></div>
+                    <!-- Place this tag where you want the widget to render. -->
+                    <div id="google-badge">
+                        <div class="g-page" data-width="270" data-href="https://plus.google.com/113333419239001929124" data-layout="landscape" data-rel="publisher"></div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    {% endblock %}
+
+    {% block javascripts %}
+        <div id="fb-root"></div>
+        <!-- Place this tag after the last widget tag. -->
+        <script type="text/javascript">
+            (function() {
+                document.getElementsByClassName('g-page')[0].setAttribute('data-width', document.getElementById('google-badge').clientWidth);
+                var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+                po.src = 'https://apis.google.com/js/platform.js';
+                var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+            })();
+
+            (function(d, s, id) {
+                var js, fjs = d.getElementsByTagName(s)[0];
+                if (d.getElementById(id)) return;
+                js = d.createElement(s); js.id = id;
+                js.src = "//connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v2.4&appId=625566967570537";
+                fjs.parentNode.insertBefore(js, fjs);
+            }(document, 'script', 'facebook-jssdk'));</script>
+    {% endblock %}
+{% endwith %}
