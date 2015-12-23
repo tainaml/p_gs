@@ -22,6 +22,7 @@
                     <div class="col-lg-8">
                         {% if profile.user == request.user %}
                         <header class="area-title">
+                            {% comment %}
                             <div class="order-by">
                                 <p>Classificado por</p>
                                 <div class="dropdown">
@@ -34,6 +35,7 @@
                                     </ul>
                                 </div>
                             </div>
+                            {% endcomment %}
                             <h2>Feed</h2>
                         </header>
                         {% if isLogged %}
