@@ -125,3 +125,12 @@
         transition-delay: .4s;
     }
 }
+
+.follower-content .btn-follow,
+.follower-content .btn-follow-alt {
+    margin-bottom: 10px;
+}
+.follower-content > ul > li:only-child > .btn-follow,
+.follower-content > ul > li:only-child > .btn-follow-alt {
+    margin-bottom: 0;
+}

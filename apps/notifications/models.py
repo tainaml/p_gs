@@ -20,10 +20,7 @@ class Notification(models.Model):
     notification_date = models.DateTimeField(auto_now=True)
     notification_action = models.PositiveIntegerField()
 
+    read = models.BooleanField(null=False, blank=False, default=False)
+
     class Meta:
         app_label = "notifications"
-
-
-
-
-

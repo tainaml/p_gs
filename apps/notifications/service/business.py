@@ -1,4 +1,6 @@
 __author__ = 'phillip'
+
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.contenttypes.models import ContentType
 from ..models import Notification
 from ..local_exceptions import NotValidNotificationSettings
@@ -48,13 +50,53 @@ def send_notification_to_many(author=None, to_list=None,
 
     return notification_list
 
+
 def get_notifications_by_user_and_notification_type_list(user=None,
-                                                         notification_action=None):
-    if not notification_action:
-        notification_action = []
+                                                         notification_actions=None,
+                                                         items_per_page=None, page=None):
+    if not notification_actions:
+        notification_actions = []
+
     notifications = Notification.objects.filter(
         to=user,
-        notification_action__in=notification_action
-    )
+        notification_action__in=notification_actions
+    ).order_by("-notification_date")
+
+    items_per_page = items_per_page if items_per_page else 10
+
+    paginated_notifications = Paginator(notifications, items_per_page)
+
+    try:
+        paginated_notifications = paginated_notifications.page(page)
+    except PageNotAnInteger:
+        paginated_notifications = paginated_notifications.page(1)
+    except EmptyPage:
+        paginated_notifications = []
+
+    return paginated_notifications
+
+
+def count_notifications(user=None, notification_actions=None):
+    if not notification_actions:
+        notification_actions = []
+
+    notifications = Notification.objects.filter(
+        to=user,
+        notification_action__in=notification_actions,
+        read=False
+    ).order_by("-notification_date")
 
     return notifications
+
+
+def set_notification_as_read(notifications_ids):
+    notifications_read = []
+
+    notifications = Notification.objects.filter(id__in=notifications_ids)
+
+    for n in notifications:
+        n.read = True
+        n.save()
+        notifications_read.append(n)
+
+    return notifications_read

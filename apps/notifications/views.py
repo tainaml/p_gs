@@ -5,6 +5,28 @@ from django.http import Http404
 
 __author__ = 'phillip'
 
+class NotificationListBaseView(View):
+
+    xhr = False
+    itens_by_page = 10
+    context = {}
+    response_data = {}
+    # form = ListNotificationForm
+
+    @property
+    def template_list_path(self):
+        raise NotImplementedError("you must specify the template_list_path property")
+
+    def do_process(self, request=None):
+
+
+        self.response_data['template'] = render(request,
+                                           self.template_list_path,
+                                           self.context).content
+
+
+        return render(request, self.template_list_path, self.context)
+
 
 class NotificationBaseView(View):
     not_found = Http404(_('Notifications not Found.'))

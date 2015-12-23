@@ -1,0 +1,12 @@
+{% for notification in notifications %}
+    {% include 'userprofile/notifications/partials/notification-segment.html' %}
+{% endfor %}
+{% if notifications %}
+<a class="btn-default btn-block" data-jscroll-next href="{{ request.path }}?page={{ page|default_if_none:form.cleaned_data.page }}">Carregar mais notificações</a>
+<p></p>
+
+{% endif %}
+
+
+
+

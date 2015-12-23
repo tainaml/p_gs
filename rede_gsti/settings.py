@@ -215,15 +215,20 @@ CKEDITOR_UPLOAD_PATH = 'editor-uploads/'
 CKEDITOR_BROWSE_SHOW_DIRS = False
 
 #Notification
+class NotificationActions():
+    LIKE = {}
+
 
 NOTIFICATION_ACTIONS = {
-    SOCIAL_LIKE: 'like',
-    SOCIAL_UNLIKE: 'unlike',
-    SOCIAL_FOLLOW: 'follow',
-    SOCIAL_FAVOURITE: 'favourite',
-    SOCIAL_SUGGEST: 'suggest',
-    SOCIAL_COMMENT: 'comment',
-    SOCIAL_SEE_LATER: 'see-later'
+
+    1: 'like',
+    2: 'unlike',
+    3: 'follow',
+    4: 'favourite',
+    5: 'suggest',
+    6: 'comment',
+    7: 'see-later'
+
 }
 
 # Database

@@ -13,7 +13,7 @@ from apps.taxonomy.models import Taxonomy
 
 __author__ = 'phillip'
 
-def get_feed_objects(community_instance=None, description=None, content_types_list=None, items_per_page=None, page=None):
+def get_feed_objects(community_instance=None, description=None, content_types_list=None, items_per_page=None, page=None, official=None):
 
     if not content_types_list:
         content_types_list = []
@@ -42,6 +42,8 @@ def get_feed_objects(community_instance=None, description=None, content_types_li
         "taxonomies"
     )
 
+    if official is True:
+        feed_objects = feed_objects.filter(official=official)
 
     items_per_page = items_per_page if items_per_page else 10
     page = page if page else 1

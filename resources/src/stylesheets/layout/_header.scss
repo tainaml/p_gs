@@ -2,6 +2,7 @@
 // Layout/Header
 // ==========================================================================
 .header {
+    background: $link-white;
     .gsti {
         overflow: hidden;
         @include make-xs-column(2);
@@ -31,8 +32,8 @@
     .form-search--logged {
         @include make-xs-column(10);
         @include make-lg-column(6.5);
-        padding-top: 25px;
-        padding-bottom: 15px;
+        padding-top: 20px;
+        padding-bottom: 20px;
     }
     .user-actions {
         @include make-xs-column(12);
@@ -72,13 +73,14 @@
         }
          &-#{link--logged} {
             position: relative;
-            padding: 15px 22px;
+            padding: 16px 22px;
             float: left;
             border-right: 1px solid $color-border;
             color: $background-button;
             font-size: 1.214em;
             line-height: 3;
             text-align: center;
+            background-color: $white-ice;
             @media (max-width: $screen-sm-min) {
                 float: none;
                 border-right-width: 0;
@@ -105,6 +107,11 @@
                 font-size: 0.643em;
                 line-height: 115%;
             }
+            .img-circle {
+              padding: 3px;
+              background: $link-white;
+              @include box-shadow(0 0px 0px 1px $color-border);
+            }
         }
     }
 }
@@ -116,6 +123,7 @@
     // padding: 10px 0;
     border-top: 1px solid $color-border;
     border-bottom: 1px solid $color-border;
+    background: $link-white;
     @media (max-width: $screen-sm-min) { border-bottom-width: 0; }
 
     // TODO: refatorar para classes

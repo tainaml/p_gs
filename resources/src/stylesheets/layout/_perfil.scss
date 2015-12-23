@@ -4,6 +4,7 @@
     padding: 20px;
     margin-top: -1px;
     border: 1px solid $color-border;
+    background: $link-white;
 
     > a > img,
     > img {
@@ -119,6 +120,7 @@
     margin-bottom: 30px;
     border: 1px solid $color-border;
     color: $color-border;
+    background: $link-white;
 
     > a {
         margin-right: 5px;
@@ -158,6 +160,17 @@
     }
 }
 
+.dropdown-menu {
+    padding-top: 0;
+    padding-bottom: 0;
+    > .perfil-actions {
+        margin-top: 0;
+        padding: 5px 20px;
+        border: none;
+        font-size: 13px;
+    }
+}
+
 .perfil-repositories {
     > li > a { color: $color-link-counter; }
     .counter {
@@ -171,7 +184,7 @@
 
 .area-title {
     padding: 10px 20px;
-    margin-top: 20px;
+    //margin-top: 20px;
     margin-bottom: 20px;
     border-left: 4px solid $background-button;
     color: $background-button;

@@ -25,12 +25,14 @@
                 <header class="post-header">
                     <div class="post-info">
 
-                        {% if request.user.profile.isContributor %}
-                            {% if feed.official %}
-                                [Oficial]
+                        {% if feed.official %}
+                            [Oficial]
+                            {% if request.user.profile.isContributor %}
                                 <a href="{% url 'feed:set-content-official' 'article' article.id %}?next={{ request.path|urlencode }}">Marcar como não oficial</a>
-                            {% else %}
+                            {% endif %}
+                        {% else %}
                                 [Não Oficial]
+                            {% if request.user.profile.isContributor %}
                                 <a href="{% url 'feed:set-content-official' 'article' article.id %}?next={{ request.path|urlencode }}">Marcar como Oficial</a>
                             {% endif %}
                         {% endif %}

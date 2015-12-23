@@ -38,6 +38,7 @@ class CoreCommunityFeedFormSearch(IdeiaForm):
 
     criterio = forms.CharField(required=False)
     page = forms.IntegerField(required=False)
+    official = forms.BooleanField(required=False)
 
     def __init__(self, community_instance=None, content_types=None, itens_by_page=None, *args, **kwargs):
         self.community_instance=community_instance
@@ -53,6 +54,8 @@ class CoreCommunityFeedFormSearch(IdeiaForm):
         cleaned_data['page'] = cleaned_data['page']\
             if 'page' in cleaned_data and cleaned_data['page'] else 1
 
+        cleaned_data['official'] = cleaned_data.get('official', False)
+
         return cleaned_data
 
 
@@ -63,7 +66,8 @@ class CoreCommunityFeedFormSearch(IdeiaForm):
             self.cleaned_data['criterio'],
             self.content_types,
             self.itens_by_page,
-            self.cleaned_data['page']
+            self.cleaned_data['page'],
+            self.cleaned_data.get('official')
         )
 
 
