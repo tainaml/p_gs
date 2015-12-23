@@ -206,7 +206,11 @@
     min-width: 180px;
     > ul {
         margin: 10px 0 0;
+        padding: 5px 20px;
         box-shadow: 0 2px 3px lighten(#000000, 35%);
+        > li > a {
+            font-size: 13px;
+        }
     }
 }
 .dropdown-search {

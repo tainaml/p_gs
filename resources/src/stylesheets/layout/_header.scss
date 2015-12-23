@@ -32,8 +32,8 @@
     .form-search--logged {
         @include make-xs-column(10);
         @include make-lg-column(6.5);
-        padding-top: 25px;
-        padding-bottom: 15px;
+        padding-top: 20px;
+        padding-bottom: 20px;
     }
     .user-actions {
         @include make-xs-column(12);

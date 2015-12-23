@@ -160,6 +160,17 @@
     }
 }
 
+.dropdown-menu {
+    padding-top: 0;
+    padding-bottom: 0;
+    > .perfil-actions {
+        margin-top: 0;
+        padding: 5px 20px;
+        border: none;
+        font-size: 13px;
+    }
+}
+
 .perfil-repositories {
     > li > a { color: $color-link-counter; }
     .counter {
