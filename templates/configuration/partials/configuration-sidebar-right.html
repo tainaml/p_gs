@@ -3,25 +3,18 @@
         <div class="widget-content">
             <ul class="perfil-repositories">
                 <li>
-                    {% if local_context == "account" %}
-                        <strong>
-                    {% endif %}
-                <a href="{% url 'configuration:account' %}"><i class="gsticon gsticon-user"></i>
-                    Conta
-                </a>
-                    {% if local_context == "account" %}
-                        </strong>
-                    {% endif %}
-
+                    <a href="{% url 'configuration:account' %}"><i class="gsticon gsticon-user"></i>
+                        {% if local_context == "account" %}<strong>{% endif %}
+                        Conta
+                        {% if local_context == "account" %}</strong>{% endif %}
+                    </a>
                 </li>
                 <li>
-                    {% if local_context == "notification" %}
-                        <strong>
-                    {% endif %}
-                    <a href="{% url 'configuration:notification' %}"><i class="gsticon gsticon-bell"></i> Notificações</a>
-                        {% if local_context == "account" %}
-                        </strong>
-                    {% endif %}
+                    <a href="{% url 'configuration:notification' %}"><i class="gsticon gsticon-bell"></i>
+                        {% if local_context == "notification" %}<strong>{% endif %}
+                        Notificações
+                        {% if local_context == "notification" %}</strong>{% endif %}
+                    </a>
                 </li>
             </ul>
         </div>

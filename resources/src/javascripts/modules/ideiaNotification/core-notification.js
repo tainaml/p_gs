@@ -15,7 +15,8 @@
 
             notificationType: null,
 
-            url     : '/notifications/poll/count/[notification_type]',
+            urlCount: '/notifications/poll/count/[notification_type]',
+            urlLoad : '/notifications/poll/load/[notification_type]',
             method  : 'get',
             dataType: 'json',
             token   : null,
@@ -33,6 +34,8 @@
         plugin.init = function() {
 
             plugin.settings = $.extend({}, defaults, options);
+
+            validate_configs( plugin );
 
             setInterval( function() {
                 polling( plugin );
@@ -53,50 +56,57 @@
                 let $target = $(event.currentTarget);
                 let $badge = $target.find('.badge');
 
-                $document.attr( 'title', page_title );
+                if ( $target.data( 'notifications').length > 0 ) {
+                    $document.attr( 'title', page_title );
+                }
 
                 if ($badge.length) {
                     $badge.text('0').hide();
                 }
 
-                load_notifications();
-                clear_notifications( plugin );
+                load_notifications( plugin );
+
+                setTimeout( function() {
+                    clear_notifications( plugin );
+                }, 1500 );
             });
 
         };
 
-        plugin.updateOptions = function( options ) {
-            plugin.settings = $.extend({}, plugin.settings, options);
-        };
+        var validate_configs = function( obj ) {
 
-        var updateData = function( options ) {
-            plugin.settings = $.extend({}, plugin.settings, options);
-        };
+            var is_valid = true;
+            var errors = [];
 
-        var polling = function( obj ) {
-            if ( !isInactive ) {
-
-                if ( polling_is_valid( obj ) ) {
-
-                    if ( !('token' in obj.settings.data) && obj.settings.token )
-                        obj.settings.data['token'] = obj.settings.token;
-
-                    $.ajax({
-                        url: obj.settings.url.replace('[notification_type]', obj.settings.notificationType),
-                        method: obj.settings.method,
-                        dataType: obj.settings.dataType,
-                        data: obj.settings.data,
-                        success: function( data, textStatus, jqXHR ) {
-                            polling_success( obj, data, textStatus, jqXHR );
-                        },
-                        error: function( jqXHR, textStatus, errorThrown ) {
-                            polling_failure( obj, jqXHR, textStatus, errorThrown );
-                        }
-                    });
-
-                }
-
+            if ( !obj.settings.notificationType ) {
+                is_valid = false;
+                errors.push( 'Notification Type is not defined!' );
             }
+
+            if ( $.inArray( obj.settings.notificationType, allowed_notifications ) === -1 ) {
+                is_valid = false;
+                errors.push( 'Notification Type is not allowed!' );
+            }
+
+            if ( !obj.settings.token ) {
+                is_valid = false;
+                errors.push( 'Token is not defined!' );
+            }
+
+            if ( obj.settings.method == "post" && !obj.settings.csrf ) {
+                is_valid = false;
+                errors.push( 'CSRF is not defined!' );
+            }
+
+            if ( !is_valid ) {
+                console.error( errors );
+            } else {
+                if ( obj.settings.csrf )
+                    obj.settings.data['csrfmiddlewaretoken'] = obj.settings.csrf;
+            }
+
+
+            return false
         };
 
         var polling_is_valid = function( obj ) {
@@ -123,6 +133,32 @@
 
             return is_valid;
 
+        };
+
+        var polling = function( obj ) {
+            if ( !isInactive ) {
+
+                if ( polling_is_valid( obj ) ) {
+
+                    if ( !('token' in obj.settings.data) && obj.settings.token )
+                        obj.settings.data['token'] = obj.settings.token;
+
+                    $.ajax({
+                        url: obj.settings.urlCount.replace( '[notification_type]', obj.settings.notificationType ),
+                        method: obj.settings.method,
+                        dataType: obj.settings.dataType,
+                        data: obj.settings.data,
+                        success: function( data, textStatus, jqXHR ) {
+                            polling_success( obj, data, textStatus, jqXHR );
+                        },
+                        error: function( jqXHR, textStatus, errorThrown ) {
+                            polling_failure( obj, jqXHR, textStatus, errorThrown );
+                        }
+                    });
+
+                }
+
+            }
         };
 
         var polling_success = function( obj, data ) {
@@ -160,27 +196,35 @@
             }
         };
 
-        var polling_failure = function( obj, jqXHR, textStatus, errorThrown ) {
-            console.error( 'polling failure' );
-        };
+        var polling_failure = function( obj, jqXHR, textStatus, errorThrown ) {};
 
-        var load_notifications = function() {
+        var load_notifications = function( obj ) {
 
+            var $notificationsContainer = $( obj.settings.target );
+            var notifications = $element.data( 'notifications' ) || [];
+
+            obj.settings.data['notifications'] = notifications;
+
+            if ( notifications.length > 0 ) {
+                $.ajax({
+                    url     : obj.settings.urlLoad.replace( '[notification_type]', obj.settings.notificationType ),
+                    method  : 'get',
+                    dataType: 'json',
+                    data    : obj.settings.data,
+                    success : function( data ) {
+                        if ( data.notifications.length > 0 ) {
+                            $notificationsContainer.html( data.template );
+                            $element.data( 'notifications', notifications );
+                        }
+                    }
+                });
+            }
         };
 
         var clear_notifications = function( obj ) {
 
             var items = $(obj.settings.target).find('ul > li');
             var notifications = $element.data( 'notifications' ) || [];
-
-            if ( obj.settings.method == "post" && !obj.settings.csrf )
-                console.error( 'CSRF is not defined' );
-
-            if ( !('csrfmiddlewaretoken' in obj.settings.data) )
-                obj.settings.data['csrfmiddlewaretoken'] = null;
-
-            if ( 'csrfmiddlewaretoken' in obj.settings.data && obj.settings.csrf )
-                obj.settings.data['csrfmiddlewaretoken'] = obj.settings.csrf;
 
             obj.settings.data['notifications'] = notifications;
 
@@ -206,13 +250,10 @@
                 });
             }
 
-            setTimeout( function() {
+            $.each( items, function( i, e ) {
+                $( e ).removeClass( 'visualized' );
+            });
 
-                $.each( items, function( i, e ) {
-                    $( e ).removeClass( 'visualized' );
-                });
-
-            }, 1500 );
 
         };
 

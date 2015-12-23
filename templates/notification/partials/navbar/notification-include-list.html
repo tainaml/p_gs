@@ -1,0 +1,7 @@
+{% if notifications %}
+    {% with template_name=notification_type|stringformat:"s"|add:".html" %}
+        {% include 'notification/partials/navbar/notification-'|add:template_name %}
+    {% endwith %}
+{% else %}
+    <p class="text-center">Nenhuma notificação</p>
+{% endif %}

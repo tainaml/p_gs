@@ -72,8 +72,7 @@ class CoreNotificationMembersView(NotificationBaseView):
         return render(request, self.template_path, context)
 
 
-class CoreNotificationPollingCount(NotificationBaseView):
-    template_path = ''
+class CoreNotificationPollingBase(NotificationBaseView):
 
     def set_notification_group(self, notification_type):
         if notification_type == "members":
@@ -85,6 +84,10 @@ class CoreNotificationPollingCount(NotificationBaseView):
 
         return notification_group
 
+
+class CoreNotificationPollingCount(CoreNotificationPollingBase):
+    template_path = ''
+
     def get(self, request, notification_type):
 
         if not request.is_ajax():
@@ -92,9 +95,10 @@ class CoreNotificationPollingCount(NotificationBaseView):
 
         notification_group = self.set_notification_group(notification_type)
 
-        notifications = Business.count_notifications(
-            request.user,
-            notification_group
+        notifications, paginator = Business.get_notifications(
+            user=request.user,
+            notification_actions=notification_group,
+            read=False
         )
 
         count = notifications.count()
@@ -104,6 +108,42 @@ class CoreNotificationPollingCount(NotificationBaseView):
             'count': count,
             'notifications': notifications_id
         }
+        context.update(self.get_context(request))
+
+        return JsonResponse(context, status=200)
+
+
+class CoreNotificationPollingLoad(CoreNotificationPollingBase):
+    template_path = 'notification/partials/navbar/notification-include-list.html'
+
+    def get(self, request, notification_type):
+
+        if not request.is_ajax():
+            raise Http404()
+
+        notification_group = self.set_notification_group(notification_type)
+
+        notifications, paginator = Business.get_notifications(
+            user=request.user,
+            notification_actions=notification_group,
+            read=None,
+            items_per_page=5,
+            page=1
+        )
+
+        notifications_id = [n.id for n in notifications]
+
+        response_data = {
+            'total': paginator.count,
+            'notifications': notifications,
+            'notification_type': notification_type
+        }
+
+        context = {
+            'notifications': notifications_id,
+            'template': render(request, self.template_path, response_data).content
+        }
+
         context.update(self.get_context(request))
 
         return JsonResponse(context, status=200)

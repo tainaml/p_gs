@@ -1,3 +1,5 @@
+from django.db.models import Q
+
 __author__ = 'phillip'
 
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -76,17 +78,31 @@ def get_notifications_by_user_and_notification_type_list(user=None,
     return paginated_notifications
 
 
-def count_notifications(user=None, notification_actions=None):
+def get_notifications(user=None, notification_actions=None, read=None, items_per_page=None, page=None):
     if not notification_actions:
         notification_actions = []
 
-    notifications = Notification.objects.filter(
-        to=user,
-        notification_action__in=notification_actions,
-        read=False
-    ).order_by("-notification_date")
+    criteria = (Q(to=user) & Q(notification_action__in=notification_actions))
 
-    return notifications
+    if read is not None:
+        criteria &= Q(read=read)
+
+    notifications = Notification.objects.filter(criteria).order_by("-notification_date")
+
+    paginator = False
+
+    if items_per_page and page:
+        items_per_page = items_per_page if items_per_page else 10
+        paginator = Paginator(notifications, items_per_page)
+
+        try:
+            notifications = paginator.page(page)
+        except PageNotAnInteger:
+            notifications = paginator.page(1)
+        except EmptyPage:
+            notifications = []
+
+    return notifications, paginator
 
 
 def set_notification_as_read(notifications_ids):
