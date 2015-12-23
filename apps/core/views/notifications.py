@@ -8,31 +8,28 @@ __author__ = 'phillip'
 from apps.notifications.views import NotificationBaseView
 
 
-
 class CoreNotificationIndexView(NotificationBaseView):
     template_path = 'notifications/index.html'
 
     def get(self, request):
-
         notifications = \
-        Business.get_notifications_by_user_and_notification_type_list(
-            request.user,
-            [settings.SOCIAL_COMMENT, settings.SOCIAL_LIKE, settings.SOCIAL_UNLIKE])
+            Business.get_notifications_by_user_and_notification_type_list(
+                request.user,
+                [settings.SOCIAL_COMMENT, settings.SOCIAL_LIKE, settings.SOCIAL_UNLIKE])
 
         context = {'notifications': notifications}
         context.update(self.get_context(request))
 
         return render(request, self.template_path, context)
 
-class CoreNotificationListView(NotificationBaseView):
 
+class CoreNotificationListView(NotificationBaseView):
     template_path = 'userprofile/notifications/partials/list-notifications.html'
     form = ListNotificationForm
     notification_actions = settings.NOTIFICATION_ACTIONS.keys()
     itens_per_page = 10
 
     def get(self, request):
-
         form = self.form(
             user=request.user,
             notification_actions=self.notification_actions,
@@ -54,29 +51,26 @@ class CoreNotificationListView(NotificationBaseView):
 
 
 class CoreNotificationMemberListView(CoreNotificationListView):
-
     template_path = 'userprofile/notifications/partials/list-notifications.html'
     notification_actions = [settings.SOCIAL_FOLLOW, settings.SOCIAL_LIKE]
 
 
 class CoreAnswersAndCommentsListView(CoreNotificationListView):
-
     template_path = 'userprofile/notifications/partials/list-notifications.html'
     notification_actions = [settings.SOCIAL_FOLLOW]
 
 
 class CoreNotificationMembersView(NotificationBaseView):
-
     template_path = 'userprofile/notifications/notifications-members.html'
 
     def get(self, request):
-
         context = {
             'profile': request.user.profile,
         }
 
         context.update(self.get_context(request))
         return render(request, self.template_path, context)
+
 
 class CoreNotificationPollingCount(NotificationBaseView):
     template_path = ''
@@ -98,12 +92,10 @@ class CoreNotificationPollingCount(NotificationBaseView):
 
         notification_group = self.set_notification_group(notification_type)
 
-        notifications = Business.get_notifications_by_user_and_notification_type_list(
+        notifications = Business.count_notifications(
             request.user,
             notification_group
         )
-
-        notifications = notifications.filter(read=False)
 
         count = notifications.count()
         notifications_id = [n.id for n in notifications]
@@ -118,9 +110,7 @@ class CoreNotificationPollingCount(NotificationBaseView):
 
 
 class CoreNotificationClear(NotificationBaseView):
-
     def post(self, request):
-
         notifications_ids = request.POST.getlist('notifications[]')
 
         notifications = Business.set_notification_as_read(notifications_ids)

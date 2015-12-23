@@ -1,6 +1,6 @@
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-
 __author__ = 'phillip'
+
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.contenttypes.models import ContentType
 from ..models import Notification
 from ..local_exceptions import NotValidNotificationSettings
@@ -50,11 +50,12 @@ def send_notification_to_many(author=None, to_list=None,
 
     return notification_list
 
+
 def get_notifications_by_user_and_notification_type_list(user=None,
                                                          notification_actions=None,
                                                          items_per_page=None, page=None):
     if not notification_actions:
-        notification_action = []
+        notification_actions = []
 
     notifications = Notification.objects.filter(
         to=user,
@@ -74,8 +75,21 @@ def get_notifications_by_user_and_notification_type_list(user=None,
 
     return paginated_notifications
 
-def set_notification_as_read(notifications_ids):
 
+def count_notifications(user=None, notification_actions=None):
+    if not notification_actions:
+        notification_actions = []
+
+    notifications = Notification.objects.filter(
+        to=user,
+        notification_action__in=notification_actions,
+        read=False
+    ).order_by("-notification_date")
+
+    return notifications
+
+
+def set_notification_as_read(notifications_ids):
     notifications_read = []
 
     notifications = Notification.objects.filter(id__in=notifications_ids)
