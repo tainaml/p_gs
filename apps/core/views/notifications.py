@@ -1,9 +1,12 @@
 from django.conf import settings
 from django.shortcuts import render
 from apps.notifications.service import business as Business
+from apps.notifications.service.forms import ListNotificationForm
 
 __author__ = 'phillip'
 from apps.notifications.views import NotificationBaseView
+
+
 
 class CoreNotificationIndexView(NotificationBaseView):
     template_path = 'notifications/index.html'
@@ -20,17 +23,56 @@ class CoreNotificationIndexView(NotificationBaseView):
 
         return render(request, self.template_path, context)
 
-class CoreNotificationMembersView(NotificationBaseView):
-    template_path = 'notifications/members.html'
+class CoreNotificationListView(NotificationBaseView):
+
+    template_path = 'userprofile/notifications/partials/list-notifications.html'
+    form = ListNotificationForm
+    notification_actions = settings.NOTIFICATION_ACTIONS.keys()
+    itens_per_page = 10
 
     def get(self, request):
 
-        notifications = \
-        Business.get_notifications_by_user_and_notification_type_list(
-            request.user,
-            [settings.SOCIAL_FOLLOW])
+        form = self.form(
+            user=request.user,
+            notification_actions=self.notification_actions,
+            itens_by_page=self.itens_per_page,
+            data=request.GET
+        )
 
-        context = {'notifications': notifications}
+        notifications = form.process()
+
+        context = {
+            'notifications': notifications,
+            'profile': request.user.profile,
+            'form': form,
+            'page': form.cleaned_data['page'] + 1
+        }
         context.update(self.get_context(request))
 
+        return render(request, self.template_path, context)
+
+
+class CoreNotificationMemberListView(CoreNotificationListView):
+
+    template_path = 'userprofile/notifications/partials/list-notifications.html'
+    notification_actions = [settings.SOCIAL_FOLLOW, settings.SOCIAL_LIKE]
+
+
+class CoreAnswersAndCommentsListView(CoreNotificationListView):
+
+    template_path = 'userprofile/notifications/partials/list-notifications.html'
+    notification_actions = [settings.SOCIAL_FOLLOW]
+
+
+class CoreNotificationMembersView(NotificationBaseView):
+
+    template_path = 'userprofile/notifications/notifications-members.html'
+
+    def get(self, request):
+
+        context = {
+            'profile': request.user.profile,
+        }
+
+        context.update(self.get_context(request))
         return render(request, self.template_path, context)

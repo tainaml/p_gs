@@ -1,3 +1,5 @@
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
 __author__ = 'phillip'
 from django.contrib.contenttypes.models import ContentType
 from ..models import Notification
@@ -49,12 +51,26 @@ def send_notification_to_many(author=None, to_list=None,
     return notification_list
 
 def get_notifications_by_user_and_notification_type_list(user=None,
-                                                         notification_action=None):
-    if not notification_action:
+                                                         notification_actions=None,
+                                                         items_per_page=None, page=None):
+    if not notification_actions:
         notification_action = []
+
     notifications = Notification.objects.filter(
         to=user,
-        notification_action__in=notification_action
-    )
+        notification_action__in=notification_actions
+    ).order_by("-notification_date")
 
-    return notifications
+    items_per_page = items_per_page if items_per_page else 10
+
+    paginated_notifications = Paginator(notifications, items_per_page)
+
+    try:
+        paginated_notifications = paginated_notifications.page(page)
+    except PageNotAnInteger:
+        paginated_notifications = paginated_notifications.page(1)
+    except EmptyPage:
+        paginated_notifications = []
+
+    return paginated_notifications
+
