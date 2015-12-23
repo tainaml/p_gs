@@ -1,0 +1,2 @@
+
+require('./core-notification.js');

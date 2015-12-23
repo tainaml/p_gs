@@ -74,3 +74,15 @@ def get_notifications_by_user_and_notification_type_list(user=None,
 
     return paginated_notifications
 
+def set_notification_as_read(notifications_ids):
+
+    notifications_read = []
+
+    notifications = Notification.objects.filter(id__in=notifications_ids)
+
+    for n in notifications:
+        n.read = True
+        n.save()
+        notifications_read.append(n)
+
+    return notifications_read
