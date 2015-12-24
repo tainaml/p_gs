@@ -6,7 +6,7 @@
 
         let isInactive = ( false );
         let timeout = 10 * 1000;
-        let allowed_notifications = ['members', 'comments', 'notifications'];
+        let allowed_notifications = ['members', 'posts', 'general'];
 
         var $document = $( document );
         let page_title = $document.attr( 'title' );

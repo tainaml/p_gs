@@ -231,6 +231,12 @@ NOTIFICATION_ACTIONS = {
 
 }
 
+NOTIFICATION_GROUP = {
+    'members': [3], # follow
+    'posts'  : [6], # comment
+    'general': [1, 2] # like, unlike
+}
+
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
 

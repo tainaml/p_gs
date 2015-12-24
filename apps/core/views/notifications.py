@@ -75,14 +75,11 @@ class CoreNotificationMembersView(NotificationBaseView):
 class CoreNotificationPollingBase(NotificationBaseView):
 
     def set_notification_group(self, notification_type):
-        if notification_type == "members":
-            notification_group = [settings.SOCIAL_FOLLOW]
-        elif notification_type == "comments":
-            notification_group = [settings.SOCIAL_COMMENT]
-        else:
-            notification_group = [settings.SOCIAL_COMMENT, settings.SOCIAL_LIKE, settings.SOCIAL_UNLIKE]
 
-        return notification_group
+        if notification_type not in settings.NOTIFICATION_GROUP.keys():
+            raise Exception("There is a group for this type of notifications")
+
+        return settings.NOTIFICATION_GROUP[notification_type]
 
 
 class CoreNotificationPollingCount(CoreNotificationPollingBase):
@@ -136,6 +133,7 @@ class CoreNotificationPollingLoad(CoreNotificationPollingBase):
         response_data = {
             'total': paginator.count,
             'notifications': notifications,
+            'notifications_id': notifications_id,
             'notification_type': notification_type
         }
 
