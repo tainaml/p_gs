@@ -103,6 +103,9 @@
             } else {
                 if ( obj.settings.csrf )
                     obj.settings.data['csrfmiddlewaretoken'] = obj.settings.csrf;
+
+                if ( obj.settings.token )
+                    obj.settings.data['token'] = obj.settings.token;
             }
 
 

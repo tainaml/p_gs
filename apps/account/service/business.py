@@ -141,6 +141,20 @@ def activate_account(token):
     return user
 
 
+def create_token(user):
+
+    """
+    Method for create a new token
+    :param user:
+    :return: token
+    """
+
+    salt = hashlib.sha1(str(random.random())).hexdigest()[:5]
+    activation_key = hashlib.sha1(salt+user.email).hexdigest()
+
+    return activation_key
+
+
 def register_token(user, token_type):
 
     """
@@ -150,8 +164,7 @@ def register_token(user, token_type):
     :return: token object or False
     """
 
-    salt = hashlib.sha1(str(random.random())).hexdigest()[:5]
-    activation_key = hashlib.sha1(salt+user.email).hexdigest()
+    activation_key = create_token(user)
 
     token = MailValidation(token=activation_key, user=user, link_date=timezone.now(), token_type=token_type)
     token.save()

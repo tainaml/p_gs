@@ -1,4 +1,5 @@
 from django.db.models import Q
+from django.http import JsonResponse
 
 __author__ = 'phillip'
 
@@ -116,3 +117,17 @@ def set_notification_as_read(notifications_ids):
         notifications_read.append(n)
 
     return notifications_read
+
+
+def token_is_valid(request):
+
+    token = request.GET.get('token', False)
+    token_session = request.session.get('token', False)
+
+    if not token:
+        raise Exception('Token is not defined!')
+
+    if token_session and (token != token_session):
+        raise Exception('Token is not valid!')
+
+    return True

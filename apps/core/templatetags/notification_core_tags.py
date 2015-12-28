@@ -1,5 +1,6 @@
 from distutils.command.register import register
 from django import template
+from apps.account.service.business import create_token
 
 from rede_gsti.settings import NOTIFICATION_GROUP, NOTIFICATION_ACTIONS
 from apps.notifications.service import business as Business
@@ -44,9 +45,15 @@ def notification_navbar(context, notification_type, count=5):
     return response_data
 
 
-@register.simple_tag()
-def notification_token():
+@register.simple_tag(takes_context=True)
+def notification_token(context):
 
-    token = 34234
+    request = context['request']
+
+    token = request.session.get('token', False)
+
+    if not token:
+        token = create_token(request.user)
+        request.session['token'] = token
 
     return token

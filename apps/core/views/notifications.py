@@ -3,6 +3,7 @@ from django.http import JsonResponse, Http404
 from django.shortcuts import render
 from apps.notifications.service import business as Business
 from apps.notifications.service.forms import ListNotificationForm
+from rede_gsti.settings import NOTIFICATION_ACTIONS
 
 __author__ = 'phillip'
 from apps.notifications.views import NotificationBaseView
@@ -90,6 +91,11 @@ class CoreNotificationPollingCount(CoreNotificationPollingBase):
         if not request.is_ajax():
             raise Http404()
 
+        try:
+            Business.token_is_valid(request)
+        except Exception, e:
+            return JsonResponse({'error': e.message, 'status': 400}, status=400)
+
         notification_group = self.set_notification_group(notification_type)
 
         notifications, paginator = Business.get_notifications(
@@ -118,6 +124,11 @@ class CoreNotificationPollingLoad(CoreNotificationPollingBase):
         if not request.is_ajax():
             raise Http404()
 
+        try:
+            Business.token_is_valid(request)
+        except Exception, e:
+            return JsonResponse({'error': e.message, 'status': 400}, status=400)
+
         notification_group = self.set_notification_group(notification_type)
 
         notifications, paginator = Business.get_notifications(
@@ -133,6 +144,7 @@ class CoreNotificationPollingLoad(CoreNotificationPollingBase):
         response_data = {
             'total': paginator.count,
             'notifications': notifications,
+            'notifications_label': NOTIFICATION_ACTIONS,
             'notifications_id': notifications_id,
             'notification_type': notification_type
         }
