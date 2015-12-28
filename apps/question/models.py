@@ -26,3 +26,7 @@ class Question(models.Model):
 
     def counter_answer(self):
         return self.question_owner.count()
+
+    def get_absolute_url(self):
+        from django.core.urlresolvers import reverse
+        return reverse('question:show', args=[str(self.slug), str(self.id)])
