@@ -58,3 +58,7 @@ class Article(models.Model):
 
         if self.status == self.STATUS_PUBLISH and not self.publishin:
             self.publishin = timezone.now()
+
+    def get_absolute_url(self):
+        from django.core.urlresolvers import reverse
+        return reverse('article:view', args=[str(self.slug), str(self.id)])

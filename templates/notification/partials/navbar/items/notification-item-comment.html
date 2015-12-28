@@ -1,0 +1,8 @@
+{% load thumbor_tags %}
+
+<li class="item-float-notification {% if not notification.read %}visualized{% endif %}">
+    <a href="{% url 'profile:show' notification.author.get_username %}" title="{{ notification.author.get_full_name }}">
+        <img src="{% thumbor_url notification.author.profile.get_profile_picture.url width=20 height=20 smart=False fit_in=False %}" width="20" height="20" alt="{{ notification.author.get_full_name }}">
+    </a>
+    <a href="{% url 'profile:show' notification.author.get_username %}" title="{{ notification.author.get_full_name }}">{{ notification.author.get_full_name }}</a> comentou na sua <a href="{{ notification.target.get_absolute_url }}" title="{{ notification.target.title }}">publicação</a>
+</li>

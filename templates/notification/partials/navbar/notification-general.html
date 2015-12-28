@@ -18,7 +18,7 @@
 
             {% endfor %}
         {% else %}
-            <p class="text-center">Nenhuma notificação</p>
+            <li class="item-float-notification text-center">Nenhuma notificação</li>
         {% endif %}
 
         {% comment %}
@@ -68,5 +68,7 @@
         </li>
         {% endcomment %}
     </ul>
-    <a href="javascript:void(0);" class="footer-float-notifications">Ver todos</a>
+    {% if notifications %}
+        <a href="javascript:void(0);" class="footer-float-notifications">Ver todos</a>
+    {% endif %}
 </div>
