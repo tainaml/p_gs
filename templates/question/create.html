@@ -1,6 +1,7 @@
 {%extends 'home/layout/base.html' %}
 
 {% load i18n %}
+{% load json_filter %}
 {% load widget_tweaks %}
 
 {% block title %}Portal GSTI - Criar Pergunta{% endblock %}
@@ -54,7 +55,7 @@
 
                                     {% url 'profile:user-communities-ajax' as user_ajax_url %}
 
-                                    {% render_field form.communities data-toggle="selectize" data-module="taxonomy" data-url="{{ user_ajax_url }}" data-label-field="name" data-value-field="id" %}
+                                    {% render_field form.communities data-toggle="selectize" data-module="taxonomy" data-url="{{ user_ajax_url }}" data-label-field="name" data-value-field="id" data-options=communities|jsonify %}
 
                                     {% if form.communities.errors %}  {{ form.communities.errors }} {% endif %}
 
