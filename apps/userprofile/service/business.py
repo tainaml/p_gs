@@ -107,7 +107,10 @@ def update_wizard_step(profile, step=0):
     return profile
 
 
-def create_occupation(profile=None, user=None, data={}):
+def create_occupation(profile=None, user=None, data=None):
+
+    if not data:
+        data = {}
 
     if profile:
         profile = profile
@@ -119,6 +122,26 @@ def create_occupation(profile=None, user=None, data={}):
     try:
         occupation = Occupation(**data)
         occupation.save()
+    except:
+        return False
+
+    return occupation
+
+
+def update_or_create_occupation(profile=None, user=None, data=None):
+
+    if not data:
+        data = {}
+
+    if profile:
+        profile = profile
+    elif user:
+        profile = get_profile(user)
+
+    data.update({'profile': profile})
+
+    try:
+        occupation = Occupation.objects.update_or_create(**data)
     except:
         return False
 

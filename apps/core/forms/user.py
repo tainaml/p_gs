@@ -99,7 +99,7 @@ class CoreUserProfileFullEditForm(EditProfileForm):
             'first_name': self.cleaned_data['first_name'],
             'last_name': self.cleaned_data['last_name']
         })
-        process_occupation = BusinessUserProfile.create_occupation(process_profile, data={
+        process_occupation = BusinessUserProfile.update_or_create_occupation(process_profile, data={
             'responsibility': self.cleaned_data['responsibility']
         })
 

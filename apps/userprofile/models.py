@@ -147,4 +147,4 @@ class Occupation(models.Model):
     order = models.IntegerField(blank=True, null=True)
 
     def __unicode__(self):
-        return self.responsibility
+        return self.responsibility.name
