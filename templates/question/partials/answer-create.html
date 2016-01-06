@@ -8,7 +8,7 @@
     </div>
 
     <div class="answer-group create-comment-body{% if form.content.errors %} has-error{% endif %}">
-         <textarea name="description" class="form-control"  placeholder="Deixe sua resposta"></textarea>
+         <textarea name="description" class="form-control"  placeholder="Deixe sua resposta" data-trigger="login" data-token="{{ csrf_token }}"></textarea>
          <span class="help-block"></span>
     </div>
 
@@ -17,6 +17,6 @@
 
     <div class="create-comment-footer">
         <input type="reset" data-toggle value="Cancelar" class="btn btn-default">
-        <input type="submit" value="Responder" class="btn btn-primary">
+        <input type="submit" value="Responder" class="btn btn-primary" data-trigger="login" data-token="{{ csrf_token }}">
     </div>
 </form>

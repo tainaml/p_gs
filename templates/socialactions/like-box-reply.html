@@ -5,6 +5,7 @@
         data-social-action="like"
         data-target-like=".count-like-post-{{ object_to_link }}-{{ content }}"
         data-target-unlike=".count-unlike-post-{{ object_to_link }}-{{ content }}"
+        data-trigger="login" data-token="{{ csrf_token }}"
         >
         <i class="gsticon gsticon-caret-up"></i>
     </a>
@@ -14,12 +15,13 @@
         data-social-action="unlike"
         data-target-like=".count-like-post-{{ object_to_link }}-{{ content }}"
         data-target-unlike=".count-unlike-post-{{ object_to_link }}-{{ content }}"
+        data-trigger="login" data-token="{{ csrf_token }}"
         >
         <i class="gsticon gsticon-caret-down" ></i>
     </a>
 {% else %}
-    <a href="javascript:void(0);"><i class="gsticon gsticon-caret-up"></i></a>
+    <a href="javascript:void(0);" data-trigger="login" data-token="{{ csrf_token }}"><i class="gsticon gsticon-caret-up"></i></a>
     <hr>
-    <a href="javascript:void(0);"><i class="gsticon gsticon-caret-down"></i></a>
+    <a href="javascript:void(0);" data-trigger="login" data-token="{{ csrf_token }}"><i class="gsticon gsticon-caret-down"></i></a>
 {% endif %}
 </div>

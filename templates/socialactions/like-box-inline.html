@@ -3,7 +3,8 @@
     	data-async-like="true" 
         data-social-action="like" 
         data-target-like=".count-like-post-{{ object_to_link }}-{{ content }}"
-        data-target-unlike=".count-unlike-post-{{ object_to_link }}-{{ content }}">
+        data-target-unlike=".count-unlike-post-{{ object_to_link }}-{{ content }}"
+        data-trigger="login" data-token="{{ csrf_token }}">
     	<span class="count-like-post-{{ object_to_link }}-{{ content }}">{{ likes }}</span> <i class="gsticon gsticon-caret-up"></i>
     </a>
     <a href="{% url 'socialactions:act' object_to_link content 'unlike' %}?url_next={{ url_next|urlencode }}" class="post-votes-dow"
@@ -11,10 +12,11 @@
         data-social-action="unlike" 
         data-target-like=".count-like-post-{{ object_to_link }}-{{ content }}"
         data-target-unlike=".count-unlike-post-{{ object_to_link }}-{{ content }}"
+        data-trigger="login" data-token="{{ csrf_token }}"
         >
     	<i class="gsticon gsticon-caret-down"></i> <span class="count-unlike-post-{{ object_to_link }}-{{ content }}">{{ unlikes }}</span>
     </a>
 {% else %}
-    <a href="javascript:void(0);" class="post-votes-up"><span>{{ likes }}</span> <i class="gsticon gsticon-caret-up"></i></a>
-    <a href="javascript:void(0);" class="post-votes-dow"><i class="gsticon gsticon-caret-down"></i> <span>{{ unlikes }}</span></a>
+    <a data-trigger="login" data-token="{{ csrf_token }}" href="javascript:void(0);" class="post-votes-up"><span>{{ likes }}</span> <i class="gsticon gsticon-caret-up"></i></a>
+    <a data-trigger="login" data-token="{{ csrf_token }}" href="javascript:void(0);" class="post-votes-dow"><i class="gsticon gsticon-caret-down"></i> <span>{{ unlikes }}</span></a>
 {% endif %}

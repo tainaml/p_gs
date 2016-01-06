@@ -10,10 +10,10 @@
                 <a href="javascript:;" data-toggle="dropdown"><i class="gsticon gsticon-gear"></i></a>
                 <div class="dropdown-menu">
                     <ul class="perfil-actions">
-                        <li><a href="javascript:;"><i class="gsticon gsticon-edit"></i> Editar publicação</a></li>
-                        <li><a href="javascript:;"><i class="gsticon gsticon-eye"></i> Ver depois</a></li>
-                        <li><a href="javascript:;"><i class="gsticon gsticon-star"></i> Favoritar</a></li>
-                        <li><a href="{% url 'complaint:report' 'question' question.id %}" data-trigger="report" data-async-module="click" data-async-target="#modal-report" data-async-method="get"><i class="gsticon gsticon-exclamation-triangle"></i> Denunciar</a></li>
+                        {% if question.author == request.user %}<li><a data-trigger="login" data-token="{{ csrf_token }}" href="javascript:;"><i class="gsticon gsticon-edit"></i> Editar publicação</a></li>{% endif %}
+                        <li><a data-trigger="login" data-token="{{ csrf_token }}" href="javascript:;"><i class="gsticon gsticon-eye"></i> Ver depois</a></li>
+                        <li><a data-trigger="login" data-token="{{ csrf_token }}" href="javascript:;"><i class="gsticon gsticon-star"></i> Favoritar</a></li>
+                        <li><a data-trigger="login" data-token="{{ csrf_token }}" href="{% url 'complaint:report' 'question' question.id %}" data-report="true" data-async-module="click" data-async-target="#modal-report" data-async-method="get"><i class="gsticon gsticon-exclamation-triangle"></i> Denunciar</a></li>
                     </ul>
                 </div>
             </div>

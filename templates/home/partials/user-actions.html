@@ -5,6 +5,7 @@
 {% if request.user.is_authenticated %}
 
     <div class="user-actions-logged">
+
         {% notification_navbar "members" %}
         {% notification_navbar "posts" %}
         {% notification_navbar "general" %}
@@ -29,6 +30,7 @@
                 <li><a href="{% url 'account:logout' %}?next={{ request.path }}"><i class="gsticon gsticon-close"></i> {% trans "Logout" %}</a></li>
             </ul>
         </div>
+
     </div>
 
 {% else %}

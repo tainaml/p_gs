@@ -16,9 +16,9 @@
             <li class="comment-vote">
                 {% like_box article request.path "share-box" %}
             </li>
-            <li><a data-action="favourite" data-action-type="icon" data-object="favourite-{{ article.id }}" data-url-check="{% url 'socialactions:acted' article.id 'article' 'favourite' %}" href="{% url 'socialactions:act-xhr' article.id 'article' 'favourite' %}?url_next={{ request.path|urlencode }}"><i class="gsticon gsticon-star"></i></a></li>
-            <li><a data-action="see-later" data-action-type="icon" data-url-check="{% url 'socialactions:acted' article.id 'article' 'see-later' %}" data-object="see-later-{{ article.id }}" href="{% url 'socialactions:act-xhr' article.id 'article' 'see-later' %}?url_next={{ request.path|urlencode }}"><i class="gsticon gsticon-eye"></i></a></li>
-            <li><a href="javascript:;" data-suggest-modal="true" data-content="article" data-object="{{ article.id }}" data-url="{% url 'socialactions:act-suggest' article.id 'article' %}"><i class="gsticon gsticon-paper-plane"></i></a></li>
+            <li><a data-trigger="login" data-token="{{ csrf_token }}" data-action="favourite" data-action-type="icon" data-object="favourite-{{ article.id }}" data-url-check="{% url 'socialactions:acted' article.id 'article' 'favourite' %}" href="{% url 'socialactions:act-xhr' article.id 'article' 'favourite' %}?url_next={{ request.path|urlencode }}"><i class="gsticon gsticon-star"></i></a></li>
+            <li><a data-trigger="login" data-token="{{ csrf_token }}" data-action="see-later" data-action-type="icon" data-url-check="{% url 'socialactions:acted' article.id 'article' 'see-later' %}" data-object="see-later-{{ article.id }}" href="{% url 'socialactions:act-xhr' article.id 'article' 'see-later' %}?url_next={{ request.path|urlencode }}"><i class="gsticon gsticon-eye"></i></a></li>
+            <li><a data-trigger="login" data-token="{{ csrf_token }}" href="javascript:;" data-suggest-modal="true" data-content="article" data-object="{{ article.id }}" data-url="{% url 'socialactions:act-suggest' article.id 'article' %}"><i class="gsticon gsticon-paper-plane"></i></a></li>
         </ul>
         <div class="post-container">
             <article class="full-post">
@@ -28,12 +28,12 @@
                         {% if feed.official %}
                             [Oficial]
                             {% if request.user.profile.isContributor %}
-                                <a href="{% url 'feed:set-content-official' 'article' article.id %}?next={{ request.path|urlencode }}">Marcar como não oficial</a>
+                                <a data-trigger="login" data-token="{{ csrf_token }}" href="{% url 'feed:set-content-official' 'article' article.id %}?next={{ request.path|urlencode }}">Marcar como não oficial</a>
                             {% endif %}
                         {% else %}
                                 [Não Oficial]
                             {% if request.user.profile.isContributor %}
-                                <a href="{% url 'feed:set-content-official' 'article' article.id %}?next={{ request.path|urlencode }}">Marcar como Oficial</a>
+                                <a data-trigger="login" data-token="{{ csrf_token }}" href="{% url 'feed:set-content-official' 'article' article.id %}?next={{ request.path|urlencode }}">Marcar como Oficial</a>
                             {% endif %}
                         {% endif %}
 
@@ -46,10 +46,10 @@
                                 {% if article.author == request.user %}
                                     <li><a href="{% url 'article:edit' article.id %}"><i class="gsticon gsticon-edit"></i> Editar publicação</a></li>
                                 {% endif %}
-                                <li><a href="javascript:;" data-suggest-modal="true" data-content="article" data-object="{{ article.id }}" data-url="{% url 'socialactions:act-suggest' article.id 'article' %}"><i class="gsticon gsticon-paper-plane"></i> Sugerir</a></li>
-                                <li><a data-action="see-later" data-action-type="text" data-action-text="Ver depois" data-action-text-alt="Desmarcar como visto" data-object="see-later-{{ article.id }}" data-url-check="{% url 'socialactions:acted' article.id 'article' 'see-later' %}" href="{% url 'socialactions:act-xhr' article.id 'article' 'see-later' %}?url_next={{ request.path|urlencode }}"><i class="gsticon gsticon-eye"></i> <span>Ver depois</span></a></li>
-                                <li><a data-action="favourite" data-action-type="text" data-action-text="Favoritar" data-action-text-alt="Favoritado" data-object="favourite-{{ article.id }}" data-article="{{ article.id }}" data-url-check="{% url 'socialactions:acted' article.id 'article' 'favourite' %}" href="{% url 'socialactions:act-xhr' article.id 'article' 'favourite' %}?url_next={{ request.path|urlencode }}"><i class="gsticon gsticon-star"></i> <span>Favoritar</span></a></li>
-                                <li><a href="{% url 'complaint:report' 'article' article.id %}" data-trigger="report" data-async-module="click" data-async-target="#modal-report" data-async-method="get"><i class="gsticon gsticon-exclamation-triangle"></i> Denunciar</a></li>
+                                <li><a data-trigger="login" data-token="{{ csrf_token }}" href="javascript:;" data-suggest-modal="true" data-content="article" data-object="{{ article.id }}" data-url="{% url 'socialactions:act-suggest' article.id 'article' %}"><i class="gsticon gsticon-paper-plane"></i> Sugerir</a></li>
+                                <li><a data-trigger="login" data-token="{{ csrf_token }}" data-action="see-later" data-action-type="text" data-action-text="Ver depois" data-action-text-alt="Desmarcar como visto" data-object="see-later-{{ article.id }}" data-url-check="{% url 'socialactions:acted' article.id 'article' 'see-later' %}" href="{% url 'socialactions:act-xhr' article.id 'article' 'see-later' %}?url_next={{ request.path|urlencode }}"><i class="gsticon gsticon-eye"></i> <span>Ver depois</span></a></li>
+                                <li><a data-trigger="login" data-token="{{ csrf_token }}" data-action="favourite" data-action-type="text" data-action-text="Favoritar" data-action-text-alt="Favoritado" data-object="favourite-{{ article.id }}" data-article="{{ article.id }}" data-url-check="{% url 'socialactions:acted' article.id 'article' 'favourite' %}" href="{% url 'socialactions:act-xhr' article.id 'article' 'favourite' %}?url_next={{ request.path|urlencode }}"><i class="gsticon gsticon-star"></i> <span>Favoritar</span></a></li>
+                                <li><a data-trigger="login" data-token="{{ csrf_token }}" href="{% url 'complaint:report' 'article' article.id %}" data-report="true" data-async-module="click" data-async-target="#modal-report" data-async-method="get"><i class="gsticon gsticon-exclamation-triangle"></i> Denunciar</a></li>
                             </ul>
                         </div>
                     </div>

@@ -10,11 +10,11 @@
                 <a href="javascript:;" data-toggle="dropdown"><i class="gsticon gsticon-gear"></i></a>
                 <div class="dropdown-menu">
                     <ul class="perfil-actions">
-                        <li><a href="javascript:;"><i class="gsticon gsticon-edit"></i> Editar publicação</a></li>
-                        <li><a href="javascript:;" data-suggest-modal="true" data-content="article" data-object="{{ article.id }}" data-url="{% url 'socialactions:act-suggest' article.id 'article' %}"><i class="gsticon gsticon-paper-plane"></i> Sugerir</a></li>
-                        <li><a href="javascript:;"><i class="gsticon gsticon-eye"></i> Ver depois</a></li>
-                        <li><a href="javascript:;"><i class="gsticon gsticon-star"></i> Favoritar</a></li>
-                        <li><a href="{% url 'complaint:report' 'article' article.id %}" data-trigger="report" data-async-module="click" data-async-target="#modal-report" data-async-method="get"><i class="gsticon gsticon-exclamation-triangle"></i> Denunciar</a></li>
+                        {% if article.author == request.user %}<li><a data-trigger="login" data-token="{{ csrf_token }}" href="javascript:;"><i class="gsticon gsticon-edit"></i> Editar publicação</a></li>{% endif %}
+                        <li><a data-trigger="login" data-token="{{ csrf_token }}" href="javascript:;" data-suggest-modal="true" data-content="article" data-object="{{ article.id }}" data-url="{% url 'socialactions:act-suggest' article.id 'article' %}"><i class="gsticon gsticon-paper-plane"></i> Sugerir</a></li>
+                        <li><a data-trigger="login" data-token="{{ csrf_token }}" href="javascript:;"><i class="gsticon gsticon-eye"></i> Ver depois</a></li>
+                        <li><a data-trigger="login" data-token="{{ csrf_token }}" href="javascript:;"><i class="gsticon gsticon-star"></i> Favoritar</a></li>
+                        <li><a data-trigger="login" data-token="{{ csrf_token }}" href="{% url 'complaint:report' 'article' article.id %}" data-report="true" data-async-module="click" data-async-target="#modal-report" data-async-method="get"><i class="gsticon gsticon-exclamation-triangle"></i> Denunciar</a></li>
                     </ul>
                 </div>
             </div>

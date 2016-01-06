@@ -17,7 +17,7 @@
                             {% if instance.author == request.user %}
                                 <li><a data-xhr-edit data-toggle="dropdown" data-target="#comment-edit-{{ instance.id }}" data-xhr-id="{{ instance.id }}" href="javascript:;"><i class="gsticon gsticon-edit"></i> Editar comentário</a></li>
                             {% else %}
-                                <li><a href="{% url 'complaint:report' 'comment' instance.id %}" data-trigger="report" data-async-module="click" data-async-target="#modal-report" data-async-method="get"><i class="gsticon gsticon-exclamation-triangle"></i> Denunciar</a></li>
+                                <li><a href="{% url 'complaint:report' 'comment' instance.id %}" data-report="true" data-async-module="click" data-async-target="#modal-report" data-async-method="get"><i class="gsticon gsticon-exclamation-triangle"></i> Denunciar</a></li>
                             {% endif %}
                         </ul>
                     </div>
@@ -34,7 +34,7 @@
                 {% like_box instance request.path "inline" %}
             </div>
             <div class="post-count-comments">
-                <a data-object-id="{{ instance.id }}" data-toggle="dropdown" data-target="#data-answer-{{ instance.id }}" href="javascript:;">Responder</a>
+                <a data-object-id="{{ instance.id }}" data-toggle="dropdown" data-target="#data-answer-{{ instance.id }}" href="javascript:;" data-trigger="login" data-token="{{ csrf_token }}">Responder</a>
             </div>
         </div>
     </footer>

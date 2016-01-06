@@ -13,7 +13,7 @@
         // this is private property and is  accessible only from inside the plugin
         var defaults = {
 
-            url     : '/account/is-logged/',
+            urlCheckLogin : '/account/is-logged/',
             method  : 'post',
             dataType: 'json',
             modal   : '#modal-login',
@@ -36,7 +36,7 @@
                     obj.settings.data['csrfmiddlewaretoken'] = obj.settings.token;
 
                 $.ajax({
-                    url: obj.settings.url,
+                    url: obj.settings.urlCheckLogin,
                     method: obj.settings.method,
                     dataType: obj.settings.dataType,
                     data: obj.settings.data,
@@ -74,6 +74,8 @@
             },
 
             onFailure: function( obj, event, status ) {
+                event.preventDefault();
+
                 console.log( 'onFailure' );
                 console.log( status );
             }
