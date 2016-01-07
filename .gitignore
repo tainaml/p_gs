@@ -158,4 +158,8 @@ nohup.out
 celerybeat-schedule
 celeryd.pid
 
+staticfiles/
+
 .sublime-project/
+
+run-gunicorn.sh
