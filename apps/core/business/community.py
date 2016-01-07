@@ -245,13 +245,20 @@ def get_followers(data=None, items_per_page=None, page=None, startswith=None):
 # @TODO refactor
 def get_related_communities(community_slug):
 
-    community = Community.objects.get(slug=community_slug)
+    try:
 
-    community_tax = Taxonomy.objects.get(description=community.title)
+        community = Community.objects.get(slug=community_slug)
 
-    children = Taxonomy.objects.filter(parent_id=community_tax.id)
-    parent = Taxonomy.objects.filter(id=community_tax.parent_id)
+        community_tax = Taxonomy.objects.get(id=community.taxonomy.id)
+        children = Taxonomy.objects.filter(parent_id=community_tax.id)
+        parent = Taxonomy.objects.filter(id=community_tax.parent_id)
 
-    communities = Community.objects.filter(Q(taxonomy_id__in=children) | Q(taxonomy_id__in=parent))
+        communities = Community.objects.filter(
+            Q(taxonomy_id__in=children) |
+            Q(taxonomy_id__in=parent)
+        )
+
+    except Community.DoesNotExist:
+        return []
 
     return communities
