@@ -59,6 +59,9 @@ if ( typeof Object.create !== 'function' ) {
             if ( self.ckeditor ) {
 
                 self.ckeditor.on('contentDom', function() {
+                    self.counter( self );
+                    self.limiter( self );
+
                     self.ckeditor.document.on( 'keydown', function() {
                         self.counter( self );
                         self.limiter( self );
