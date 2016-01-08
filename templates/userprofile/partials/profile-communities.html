@@ -1,7 +1,7 @@
 {% load social_tags %}
 {% load thumbor_tags %}
 
-{% if items.object_list %}
+{% if items %}
 
     {% for community in items %}
        <div class="box-perfil">
@@ -14,6 +14,6 @@
        </div>
     {% endfor %}
 
-    <a data-jscroll-next href="{% url 'profile:communities-list' user.get_username %}?page={{ page }}&next={{ url_next|urlencode }}&criteria={{ form.cleaned_data.criteria|default:"" }}&category={{ form.cleaned_data.category.id|default:"" }}">next</a>
+    <a data-jscroll-next href="{% url 'profile:communities-list' profile.user.get_username %}?page={{ page }}&next={{ url_next|urlencode }}&criteria={{ form.cleaned_data.criteria|default:"" }}&category={{ form.cleaned_data.category.id|default:"" }}">next</a>
 
 {% endif %}
