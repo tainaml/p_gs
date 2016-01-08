@@ -1,8 +1,9 @@
-from django.http import JsonResponse
+from django.http import JsonResponse, Http404
 from django.shortcuts import render
 
 from apps.community import views
 from apps.community.models import Community
+from apps.community.service import business as Business
 from apps.core.forms.community import CoreCommunityFeedFormSearch, CoreCommunityQuestionFeedFormSearch, \
     CoreCommunitySearchVideosForm, CoreCommunityFollowersForm
 from apps.socialactions.service.business import get_users_acted_by_model
@@ -248,3 +249,25 @@ class CommunityRelated(CoreCommunityView):
         context = {'communities': communities}
 
         return JsonResponse({'template':render(request, self.template_path, context).content})
+
+
+class CommunityCheckUserFollows(views.View):
+
+    def post(self, request):
+
+        community = Business.get_community(request.POST.get('community'))
+
+        if not community:
+            return JsonResponse({'msg': 'Community not found!'}, status=400)
+
+        follows_community = get_users_acted_by_model(
+            model=community,
+            action=settings.SOCIAL_FOLLOW,
+            filter_parameters={'author': request.user},
+            itens_per_page=5,
+            page=1
+        )
+
+        follows = True if follows_community else False
+
+        return JsonResponse({'follows': follows}, status=200)
