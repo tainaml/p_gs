@@ -30,7 +30,7 @@
                         <h2>Editar Artigo</h2>
                     </header>
                     <div class="col-lg-5 text-right">
-                        <a href="javascript:;" class="btn-default">Voltar</a>
+                        <a href="javascript:;" onclick="history.back();" class="btn-default">Voltar</a>
                         <input type="submit" class="btn-default" value="{% trans "Save" context "save article" %}" name="submit-save" />
                         {% if article.slug and article.id %}
                             <a href="{% url 'article:view' article.slug article.id %}" class="btn-default" target="_blank">Visualizar</a>
