@@ -7,6 +7,7 @@
     padding: 20px;
     margin-bottom: 30px;
     border: 1px solid $color-border;
+    background: $background-white;
     &-#{title} {
         padding-top: 10px;
         margin-bottom: 0;
@@ -17,15 +18,21 @@
         letter-spacing: -0.03em;
     }
     &-#{content} {
-        // padding-top: 20px;
         margin-top: 20px;
         border-top: 1px solid $color-border;
         color: #6f6f6f;
-        font-weight: 600;
-        font-size: 15px;
-        line-height: 26px;
+        font-size: 17px;
+        line-height: 30px;
         letter-spacing: -0.05em;
-        text-align: justify;
+        > p {
+            margin-bottom: 25px;
+        }
+        > p:first-of-type {
+            margin-top: 15px;
+        }
+        > p:last-of-type {
+            margin-bottom: 0;
+        }
     }
     .post-advertising {
         margin-top: 20px;
