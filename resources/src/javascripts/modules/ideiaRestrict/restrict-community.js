@@ -18,15 +18,16 @@
 
                 event.preventDefault();
 
-                console.log( 'method verify' );
-                console.log( event );
-
                 if ( obj.settings.method == "post" && !obj.settings.token )
                     console.error( 'Token is not defined' );
 
-                if ( obj.settings.token ) {
+                if ( obj.settings.token && $element.data('ideiaRestrictStatus') != 'checking' ) {
+
+                    $element.data('ideiaRestrictStatus', 'checking');
+
                     obj.settings.data['csrfmiddlewaretoken'] = obj.settings.token;
                     obj.settings.data['community'] = obj.settings.community;
+
                     $.ajax({
                         url: obj.settings.urlCheckLogin,
                         method: obj.settings.method,
@@ -39,15 +40,12 @@
                             obj.settings.onFailure( obj, event, status );
                         }
                     });
+
                 }
 
             },
 
             check: function( obj, event, data ) {
-                event.preventDefault();
-
-                console.log(data);
-
                 if ( data.follows == true ) {
                     obj.settings.onSuccessIsFollows( obj, event, data );
                 } else {
@@ -56,15 +54,17 @@
             },
 
             onSuccessIsFollows: function( obj, event, data ) {
-                event.preventDefault();
+                if ( $element.data('ideiaRestrictStatus') != 'checked') {
+                    $element.data('ideiaRestrictStatus', 'checked');
+                }
 
-                console.log( data );
+                window.location.href = $element.attr('href');
             },
 
             onSuccessIsNotFollows: function( obj, event, data ) {
                 event.preventDefault();
 
-                console.log( data );
+                $element.data('ideiaRestrictStatus', 'checked');
 
                 var $modal = (obj.settings.type == "post")
                     ? $(obj.settings.modalPosts)
@@ -76,9 +76,7 @@
 
             onFailure: function( obj, event, status ) {
                 event.preventDefault();
-
-                console.log( 'onFailure' );
-                console.log( status );
+                console.log( 'IdeiaRestrict onFailure' );
             }
 
         };
@@ -90,9 +88,6 @@
             element = element;
 
         plugin.init = function() {
-
-            console.log( 'oaksokaos ' );
-
             plugin.settings = $.extend({}, defaults, options);
             plugin.settings = $.extend({}, plugin.settings, defaultsPrivate);
 
