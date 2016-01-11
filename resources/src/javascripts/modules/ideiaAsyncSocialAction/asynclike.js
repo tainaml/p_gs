@@ -82,11 +82,14 @@
                 e = defaultOptions.elem,
                 i = defaultOptions.inverseAction;
 
-            $selfParent.find(e[$socialAction]).removeClass(c[$socialAction]);
-            $selfParent.find(e[i[$socialAction]]).removeClass(c[i[$socialAction]]);
+            var $socialTriggers = $('[data-target-id='+$self.data('target-id')+'][data-social-action='+$socialAction+']');
+                $socialTriggers.removeClass(c[$socialAction]);
+
+            var $socialTriggersInverted = $('[data-target-id='+$self.data('target-id')+'][data-social-action='+i[$socialAction]+']');
+                $socialTriggersInverted.removeClass(c[i[$socialAction]]);
 
             if(data.action_response){
-                $selfParent.find(e[$socialAction]).addClass(c[$socialAction]);
+                $socialTriggers.addClass(c[$socialAction]);
             }
 
             var tempElemLike = $($self.data('target-like'));

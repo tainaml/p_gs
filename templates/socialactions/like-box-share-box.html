@@ -2,9 +2,11 @@
     <div class="async-like-group">
         <a class="{% if i_liked and i_liked.author == request.user %}liked{% endif %}" href="{% url 'socialactions:act' object_to_link content 'like' %}?url_next={{ url_next|urlencode }}" 
             data-async-like="true" 
-            data-social-action="like" 
+            data-social-action="like"
             data-target-like=".count-like-post-{{ object_to_link }}-{{ content }}"
             data-target-unlike=".count-unlike-post-{{ object_to_link }}-{{ content }}"
+            data-target-id="{{ object_to_link }}-{{ content }}"
+            data-target-id-action="{{ object_to_link }}-{{ content }}-like"
             data-trigger="login" data-token="{{ csrf_token }}"
             >
             <span class="count-like-post-{{ object_to_link }}-{{ content }}" style="display: block">{{ likes }}</span>
@@ -16,6 +18,8 @@
             data-social-action="unlike"
             data-target-like=".count-like-post-{{ object_to_link }}-{{ content }}"
             data-target-unlike=".count-unlike-post-{{ object_to_link }}-{{ content }}"
+            data-target-id="{{ object_to_link }}-{{ content }}"
+            data-target-id-action="{{ object_to_link }}-{{ content }}-unlike"
             data-trigger="login" data-token="{{ csrf_token }}"
             >
             <i class="gsticon gsticon-caret-down" ></i>

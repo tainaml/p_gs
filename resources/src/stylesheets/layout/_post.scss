@@ -83,8 +83,6 @@
         > div > a {
             color: #4d6479;
         }
-        .liked { color: #00AA00; }
-        .unliked { color: #ac050b; }
         &.item-active {
             background-color: #4d6479;
             > a { color: #fff; }
@@ -93,5 +91,18 @@
     > li hr {
         margin-top: 0;
         margin-bottom: 0;
+    }
+}
+
+.liked {
+    color: $color-liked !important;
+    i {
+        @extend .liked;
+    }
+}
+.unliked {
+    color: $color-unliked !important;
+    i {
+        @extend .unliked;
     }
 }
