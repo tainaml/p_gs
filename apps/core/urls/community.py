@@ -19,6 +19,9 @@ urlpatterns = [
     url(r'^(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/videos/list/$', CoreViews.CoreCommunityVideosList.as_view(), name='videos-list'),
     url(r'^(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/related/$', CoreViews.CommunityRelated.as_view(), name='related'),
 
+
+    url(r'^check/user-follows/$', CoreViews.CommunityCheckUserFollows.as_view(), name='check-user-follows'),
+
     url(r'^load/async/(?P<object_id>[0-9]+)/(?P<content_type>[a-z]+)/$', CoreViews.CoreCommunityLoad.as_view(), name='load-communities-async'),
     url(r'^search/followers$', CoreViews.CoreCommunityFollowersSearch.as_view(), name='search-followers'),
     url(r'^search/followers/list$', CoreViews.CoreCommunityFollowersSearchList.as_view(), name='search-followers-list'),

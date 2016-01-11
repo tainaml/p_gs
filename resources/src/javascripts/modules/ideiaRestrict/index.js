@@ -1,0 +1,2 @@
+
+require('./restrict-community.js');
