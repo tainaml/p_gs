@@ -63,7 +63,7 @@
 .box-share {
     @media (max-width: $screen-md-min) { display: none; }
     @include make-lg-column(0.6);
-    position: fixed;
+    position: absolute;
     padding: 0;
     margin-left: 35px;
     border: 1px solid $color-border;
