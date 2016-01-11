@@ -80,4 +80,7 @@ function affixBoxShare() {
     $(window).scroll(scrollize);
     $(window).load(scrollize)
 }
-affixBoxShare();
+
+if ($('.box-share').length && $('.full-post').length) {
+    affixBoxShare();
+}
