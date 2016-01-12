@@ -5,19 +5,24 @@
         <img class="img-responsive" src="http://placehold.it/270x225" alt="Propaganda aqui">
     </div>
 
-    <!-- Comunidades -->
-    <div id="load-communities" data-load-async="true" data-load-async-url="{% url 'community:load-communities-async' article.id "article" %}" data-load-async-url-next="{{ request.path }}" data-load-async-method="post" data-load-async-response-type="json">
-        <div class="load-async load-async-content">
-            Carregando...
-        </div>
-        {% csrf_token %}
-    </div>
+    {% if request.user_agent.is_pc %}
 
-    <!-- Artigos Relacionados -->
-    <div id="load-related-posts" data-load-async="true" data-load-async-url="{% url 'core:related-posts' article.id "article" "article" 4 %}" data-load-async-url-next="{{ request.path }}" data-load-async-method="post" data-load-async-response-type="json">
-        <div class="load-async load-async-content">
-            Carregando...
+        <!-- Comunidades -->
+        <div id="load-communities" data-load-async="true" data-load-async-url="{% url 'community:load-communities-async' article.id "article" %}" data-load-async-url-next="{{ request.path }}" data-load-async-method="post" data-load-async-response-type="json">
+            <div class="load-async load-async-content">
+                Carregando...
+            </div>
+            {% csrf_token %}
         </div>
-        {% csrf_token %}
-    </div>
+
+        <!-- Artigos Relacionados -->
+        <div id="load-related-posts" data-load-async="true" data-load-async-url="{% url 'core:related-posts' article.id "article" "article" 4 %}" data-load-async-url-next="{{ request.path }}" data-load-async-method="post" data-load-async-response-type="json">
+            <div class="load-async load-async-content">
+                Carregando...
+            </div>
+            {% csrf_token %}
+        </div>
+
+    {% endif %}
+
 </div>

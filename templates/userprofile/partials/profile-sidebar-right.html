@@ -3,20 +3,25 @@
         <img class="img-responsive" src="http://placehold.it/270x225" alt="Propaganda aqui">
     </div>
 
-    <!-- Comunidades -->
-    <div id="load-communities" data-load-async="true" data-load-async-url="{% url 'profile:communities-load-ajax' profile.user.username %}" data-load-async-url-next="{{ request.path }}" data-load-async-method="post" data-load-async-response-type="json">
-        <div class="load-async load-async-content">
-            Carregando...
+    {% if request.user_agent.is_pc %}
+
+        <!-- Comunidades -->
+        <div id="load-communities" data-load-async="true" data-load-async-url="{% url 'profile:communities-load-ajax' profile.user.username %}" data-load-async-url-next="{{ request.path }}" data-load-async-method="post" data-load-async-response-type="json">
+            <div class="load-async load-async-content">
+                Carregando...
+            </div>
+            {% csrf_token %}
         </div>
-        {% csrf_token %}
-    </div>
 
 
-    <!-- Seguindo -->
-    <div id="load-followings" data-load-async="true" data-load-async-url="{% url 'profile:followings-load-ajax' profile.user.username %}" data-load-async-url-next="{{ request.path }}" data-load-async-method="post" data-load-async-response-type="json">
-        <div class="load-async load-async-content">
-            Carregando...
+        <!-- Seguindo -->
+        <div id="load-followings" data-load-async="true" data-load-async-url="{% url 'profile:followings-load-ajax' profile.user.username %}" data-load-async-url-next="{{ request.path }}" data-load-async-method="post" data-load-async-response-type="json">
+            <div class="load-async load-async-content">
+                Carregando...
+            </div>
+            {% csrf_token %}
         </div>
-        {% csrf_token %}
-    </div>
+
+    {% endif %}
+
 </div>

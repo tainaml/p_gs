@@ -58,6 +58,7 @@ INSTALLED_APPS = (
     'social.apps.django_app.default',
     'ckeditor',
     'ckeditor_uploader',
+    'django_user_agents',
 
     # CORE
     'apps.core',
@@ -92,6 +93,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
+    'django_user_agents.middleware.UserAgentMiddleware',
 )
 
 LOCALE_PATHS = (
@@ -112,6 +114,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.core.context_processors.request'
             ],
         },
     },
@@ -355,3 +358,8 @@ CACHES = {
         'LOCATION': '127.0.0.1:11211',
     }
 }
+
+
+# Name of cache backend to cache user agents. If it not specified default
+# cache alias will be used. Set to `None` to disable caching.
+USER_AGENTS_CACHE = 'default'

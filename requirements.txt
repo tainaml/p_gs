@@ -12,3 +12,7 @@ django-autofixture
 django-migration-fixture
 django-ckeditor
 python-memcached
+pyyaml
+ua-parser
+user-agents
+django-user-agents

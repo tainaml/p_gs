@@ -3,22 +3,26 @@
         <img class="img-responsive" src="http://placehold.it/270x225" alt="Propaganda aqui">
     </div>
 
-    <!-- Comunidades -->
-    <div id="load-communities" data-load-async="true" data-load-async-url="{% url 'community:load-communities-async' question.id "question" %}" data-load-async-url-next="{{ request.path }}" data-load-async-method="post" data-load-async-response-type="json">
-        <div class="load-async load-async-content">
-            Carregando...
-        </div>
-        {% csrf_token %}
-    </div>
+    {% if request.user_agent.is_pc %}
 
-    {% comment %}
-    <!-- Questoes Relacionadas -->
-    <div id="load-related-questions" data-load-async="true" data-load-async-url="{% url 'question:related-questions-async' question.id "question" %}" data-load-async-url-next="{{ request.path }}" data-load-async-method="get" data-load-async-response-type="json">
-        <div class="load-async load-async-content">
-            Carregando...
+        <!-- Comunidades -->
+        <div id="load-communities" data-load-async="true" data-load-async-url="{% url 'community:load-communities-async' question.id "question" %}" data-load-async-url-next="{{ request.path }}" data-load-async-method="post" data-load-async-response-type="json">
+            <div class="load-async load-async-content">
+                Carregando...
+            </div>
+            {% csrf_token %}
         </div>
-        {% csrf_token %}
-    </div>
-    {% endcomment %}
+
+        {% comment %}
+        <!-- Questoes Relacionadas -->
+        <div id="load-related-questions" data-load-async="true" data-load-async-url="{% url 'question:related-questions-async' question.id "question" %}" data-load-async-url-next="{{ request.path }}" data-load-async-method="get" data-load-async-response-type="json">
+            <div class="load-async load-async-content">
+                Carregando...
+            </div>
+            {% csrf_token %}
+        </div>
+        {% endcomment %}
+
+    {% endif %}
 
 </div>

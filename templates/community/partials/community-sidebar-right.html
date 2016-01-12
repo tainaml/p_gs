@@ -3,6 +3,12 @@
     <div class="squad-advertising">
         <img class="img-responsive" src="http://placehold.it/270x225" alt="Propaganda aqui">
     </div>
-    {% relevance_box community %}
 
-    {% last_questions community 'question' %}
+
+    {% if request.user_agent.is_pc %}
+
+        {% relevance_box community %}
+
+        {% last_questions community 'question' %}
+
+    {% endif %}

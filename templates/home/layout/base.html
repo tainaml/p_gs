@@ -59,7 +59,9 @@
         </section>
         {% block content %}{% endblock %}
 
-        {% footer %}
+        {% if request.user_agent.is_pc %}
+            {% footer %}
+        {% endif %}
 
         {% block modals %}
 
