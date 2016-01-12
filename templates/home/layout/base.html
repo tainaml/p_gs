@@ -59,6 +59,12 @@
         </section>
         {% block content %}{% endblock %}
 
+        {{ request.user_agent.is_mobile }} <br>
+        {{ request.user_agent.is_tablet }} <br>
+        {{ request.user_agent.is_touch_capable }} <br>
+        {{ request.user_agent.is_pc }} <br>
+        {{ request.user_agent.is_bot }} <br>
+
         {% if request.user_agent.is_pc %}
             {% footer %}
         {% endif %}
