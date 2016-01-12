@@ -1,6 +1,5 @@
 {% load staticfiles %}
 {% load core_tags %}
-{% load user_agents %}
 
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -68,25 +67,25 @@
         {{ request.user_agent.is_pc }} <br>
         {{ request.user_agent.is_bot }} <br>
 
-        {% if request|is_mobile %}
-            Mobile device stuff...
-        {% endif %}
-
-        {% if request|is_tablet %}
-            Tablet stuff...
-        {% endif %}
-
-        {% if request|is_pc %}
-            PC stuff...
-        {% endif %}
-
-        {% if request|is_touch_capable %}
-            Touch capable device stuff...
-        {% endif %}
-
-        {% if request|is_bot %}
-            Bot stuff...
-        {% endif %}
+{#        {% if request|is_mobile %}#}
+{#            Mobile device stuff...#}
+{#        {% endif %}#}
+{##}
+{#        {% if request|is_tablet %}#}
+{#            Tablet stuff...#}
+{#        {% endif %}#}
+{##}
+{#        {% if request|is_pc %}#}
+{#            PC stuff...#}
+{#        {% endif %}#}
+{##}
+{#        {% if request|is_touch_capable %}#}
+{#            Touch capable device stuff...#}
+{#        {% endif %}#}
+{##}
+{#        {% if request|is_bot %}#}
+{#            Bot stuff...#}
+{#        {% endif %}#}
 
         {% if request.user_agent.is_pc %}
             {% footer %}
