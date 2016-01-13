@@ -174,10 +174,14 @@
                     $modalSuggest = $("#modal-suggest"),
                     $formSuggest = $modalSuggest.find("form#form-suggest");
 
-                $formSuggest.attr("action", $self.data('suggestUrl'));
+                $formSuggest.attr("action", $self.data('url'));
                 $formSuggest.find("#form-suggest-object").val($self.data('object'));
                 $formSuggest.find("#form-suggest-content").val($self.data('content'));
                 $modalSuggest.modal("show");
+
+                var $selectInput = $('#tagger-suggest-users');
+                var $selectize = $selectInput[0].selectize;
+                $selectize.focus();
             };
 
             $(function() {
