@@ -2,7 +2,7 @@
 {% load taxonomy_tags %}
 {% load social_tags %}
 
-<article class="post question" itemscope itemtype="http://schema.org/BlogPosting">
+<article class="post" itemscope itemtype="http://schema.org/BlogPosting">
     <header class="post-header">
         <div class="post-info">
             <time datetime="06-17-2015" itemprop="datePublished">{{ instance.question_date|date:'d/m/Y' }} às {{ instance.question_date|date:'G:i' }}</time>
@@ -21,12 +21,13 @@
         <a class="post-creator" href="{% url 'profile:show' instance.author.username %}">
             <img src="{% thumbor_url instance.author.profile.get_profile_picture.url width=20 height=20 smart=False fit_in=False %}" alt="foto de {{ instance.author.get_full_name }}">
             {{ instance.author.get_full_name }}
+            <span class="label label-default">pergunta</span>
         </a>
     </header>
     <a class="post-content" href="{% url 'question:show' instance.slug instance.id %}" itemprop="articleBody">
         <div class="post-text">
-            <div class="question-text">Pergunta:</div>
-            <h3 class="post-title color-green" itemprop="headline">{{ instance.title }}</h3>
+{#            <div class="question-text">Pergunta:</div>#}
+            <h3 class="post-title" itemprop="headline">{{ instance.title }}</h3>
             <p class="color-green">{{ instance.description|safe|slice:":250"}}... </p>
         </div>
     </a>
