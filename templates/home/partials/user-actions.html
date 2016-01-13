@@ -10,7 +10,7 @@
         {% notification_navbar "posts" %}
         {% notification_navbar "general" %}
 
-        <a href="javascript:void(0);" class="user-actions-logged-link--logged" data-toggle="dropdown" data-target="#dropdown-perfil-action">
+        <a href="javascript:void(0);" class="user-actions-logged-link--logged user-actions-profile" data-toggle="dropdown" data-target="#dropdown-perfil-action">
             {% if request.user.profile.get_profile_picture %}
                 <img src="{% thumbor_url request.user.profile.get_profile_picture.url width=40 height=40 smart=False fit_in=False %}" alt="{{ profile.user.get_full_name }}" class="img-circle">
             {% else %}

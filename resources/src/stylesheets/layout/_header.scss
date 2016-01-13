@@ -71,7 +71,7 @@
             padding-left: 0;
             padding-right: 0;
         }
-         &-#{link--logged} {
+        &-#{link--logged} {
             position: relative;
             padding: 16px 22px;
             float: left;
@@ -112,6 +112,9 @@
               background: $link-white;
               @include box-shadow(0 0px 0px 1px $color-border);
             }
+        }
+        & .user-actions-profile {
+            width: 190px;
         }
     }
 }
