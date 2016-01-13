@@ -9,7 +9,7 @@
     data-action-text-alt="{% if content == "community" %}Participando{% else %}Seguindo{% endif %}"
     data-object="follow-{{ object_to_link.id }}"
     data-class-name="{% if btn_class == "btn-follow" %}btn-follow btn-follow-alt{% else %}perfil-button perfil-button-alt{% endif %}"
-    data-hover="{% if content == "community" %}Sair{% else %}Desseguir{% endif %}"
+    data-hover="{% if content == "community" %}Sair{% else %}Deixar de seguir{% endif %}"
     data-trigger="login" data-token="{{ csrf_token }}"
     href="{{ act_url }}?url_next={{ url_next|urlencode }}">
         <span>
@@ -27,7 +27,7 @@
     data-action-text="{% if content == "community" %}Entrar{% else %}Seguir{% endif %}"
     data-action-text-alt="{% if content == "community" %}Participando{% else %}Seguindo{% endif %}"
     data-class-name="{% if btn_class == "btn-follow" %}btn-follow btn-follow-alt{% else %}perfil-button perfil-button-alt{% endif %}"
-    data-hover="{% if content == "community" %}Sair{% else %}Desseguir{% endif %}"
+    data-hover="{% if content == "community" %}Sair{% else %}Deixar de seguir{% endif %}"
     data-trigger="login" data-token="{{ csrf_token }}"
     href="{{ act_url }}?url_next={{ url_next|urlencode }}">
         <span>
