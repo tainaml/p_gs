@@ -7,6 +7,7 @@ from ..service import business as Business
 register = template.Library()
 
 
+@register.assignment_tag
 @register.simple_tag()
 def articles_count(author):
 

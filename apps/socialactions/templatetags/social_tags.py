@@ -111,6 +111,7 @@ def follow_action(context, object_to_link, url_next, btn_class="btn-sm perfil-bu
     }
 
 
+@register.assignment_tag
 @register.simple_tag()
 def followers_count(object_to_link):
 
