@@ -1,0 +1,16 @@
+//<div id="load-communities" data-load-async="true" data-load-async-url="{% url 'community:load-communities-async' article.id "article" %}" data-load-async-url-next="{{ request.path }}" data-load-async-method="post" data-load-async-response-type="json" data-load-async-timeout="3000">
+//    <div class="load-async load-async-content">
+//        Carregando...
+//    </div>
+//    {% csrf_token %}
+//</div>
+
+.load-async-preload {
+  @extend %clearfix;
+  width: 100%;
+  height: 150px;
+  display: block;
+  margin-bottom: 20px;
+  background: #fff url('../images/preload.gif') center no-repeat;
+  border: 1px solid $color-border;
+}

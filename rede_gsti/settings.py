@@ -362,4 +362,4 @@ CACHES = {
 
 # Name of cache backend to cache user agents. If it not specified default
 # cache alias will be used. Set to `None` to disable caching.
-USER_AGENTS_CACHE = 'default'
+USER_AGENTS_CACHE = None

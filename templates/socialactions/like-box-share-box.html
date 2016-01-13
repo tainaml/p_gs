@@ -27,13 +27,15 @@
         </a>
     </div>
 {% else %}
-    <a href="javascript:void(0);" data-trigger="login" data-token="{{ csrf_token }}">
-        <span class="count-like-post-{{ object_to_link }}" style="display: block">{{ likes }}</span>
-        <i class="gsticon gsticon-caret-up"></i>
-    </a>
-    <hr>
-    <a href="javascript:void(0);" data-trigger="login" data-token="{{ csrf_token }}">
-        <i class="gsticon gsticon-caret-down" ></i>
-        <span class="count-unlike-post-{{ object_to_link }}" style="display: block">{{ unlikes }}</span>
-    </a>
+    <div class="async-like-group">
+        <a href="javascript:void(0);" data-trigger="login" data-token="{{ csrf_token }}">
+            <span class="count-like-post-{{ object_to_link }}" style="display: block">{{ likes }}</span>
+            <i class="gsticon gsticon-caret-up"></i>
+        </a>
+        <hr>
+        <a href="javascript:void(0);" data-trigger="login" data-token="{{ csrf_token }}">
+            <i class="gsticon gsticon-caret-down" ></i>
+            <span class="count-unlike-post-{{ object_to_link }}" style="display: block">{{ unlikes }}</span>
+        </a>
+    </div>
 {% endif %}
