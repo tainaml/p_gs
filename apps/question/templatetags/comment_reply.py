@@ -1,7 +1,8 @@
-from django.contrib.contenttypes.models import ContentType
 from django.http import Http404
-from apps.question.models import Answer
 from django import template
+
+from apps.question.models import Answer
+
 register = template.Library()
 
 

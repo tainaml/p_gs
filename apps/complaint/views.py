@@ -1,15 +1,12 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.contenttypes.models import ContentType
 from django.http import JsonResponse
-from django.shortcuts import render, redirect
+from django.shortcuts import render
 from django.utils.decorators import method_decorator
 from django.views.generic import View
-from django.contrib import messages
-from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext as _
 
 from apps.feed.models import FeedObject
-from apps.article.service import business as business_article
 from apps.complaint.service.form import ComplaintForm
 from apps.complaint.service import business as Business
 from rede_gsti import settings

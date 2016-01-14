@@ -1,7 +1,6 @@
 from django.conf.urls import url
-from django.views.decorators.cache import cache_page
+
 from ..views.article import views, CoreArticleEditView, CoreArticleView, CoreArticleInCommunityView
-from apps.article import urls
 
 _article_show_view = views.ArticleView.as_view()
 _article_edit_view = CoreArticleEditView.as_view()

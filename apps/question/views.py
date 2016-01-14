@@ -3,13 +3,14 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.views.generic import View
+from django.contrib import messages
+from django.utils.translation import ugettext as _
+from django.core.urlresolvers import reverse
+
 from apps.question.models import Question, Answer
 from service.forms import CreateQuestionForm, EditQuestionForm, \
     CommentReplyForm, EditAnswerForm, ListAnswerForm, RemoveAnswerForm
 from apps.question.service import business
-from django.contrib import messages
-from django.utils.translation import ugettext as _
-from django.core.urlresolvers import reverse
 from .service.business import get_question
 
 

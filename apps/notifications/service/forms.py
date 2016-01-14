@@ -1,5 +1,3 @@
-from django.conf import settings
-from django.core.exceptions import ValidationError
 from custom_forms.custom import forms, IdeiaForm
 import business as notification_business
 __author__ = 'phillip'

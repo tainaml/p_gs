@@ -1,10 +1,8 @@
-
 from django.db import transaction
-from apps.socialactions.models import UserAction
 
+from apps.socialactions.models import UserAction
 from custom_forms.custom import IdeiaForm, forms
 from ..business import user as Business
-
 from apps.article.models import Article
 from apps.userprofile.models import Responsibility, State, City
 from apps.userprofile.service import business as BusinessUserProfile

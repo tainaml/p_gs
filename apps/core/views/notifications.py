@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.http import JsonResponse, Http404
 from django.shortcuts import render
+
 from apps.notifications.service import business as Business
 from apps.notifications.service.forms import ListNotificationForm
 from rede_gsti.settings import NOTIFICATION_ACTIONS

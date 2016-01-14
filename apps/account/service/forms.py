@@ -1,10 +1,10 @@
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from nocaptcha_recaptcha import NoReCaptchaField
+from django.utils.translation import ugettext as _
 
 import business as Business
 from custom_forms.custom import forms, IdeiaForm
-from django.utils.translation import ugettext as _
 from rede_gsti import settings
 
 

@@ -17,6 +17,7 @@ from django.conf.urls import include, url
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.conf import settings
+
 from apps.ninico.views import index as PROJECT_ROOT
 
 url_statics = static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

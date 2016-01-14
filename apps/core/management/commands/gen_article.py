@@ -1,11 +1,12 @@
 from django.contrib.contenttypes.models import ContentType
-from django.core.management.base import BaseCommand, CommandError
+from django.core.management.base import BaseCommand
 from django.utils import timezone
+
 from apps.article.models import Article
 from apps.feed.models import FeedObject
 from apps.community.models import Community
-from autofixture import AutoFixture
 from apps.core.business.feed import save_taxonomies
+
 
 class Command(BaseCommand):
 

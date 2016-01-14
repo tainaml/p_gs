@@ -1,6 +1,6 @@
 from django.conf.urls import url
-from . import views
 
+from . import views
 
 article_edit_view = views.ArticleEditView.as_view()
 article_show_view = views.ArticleView.as_view()

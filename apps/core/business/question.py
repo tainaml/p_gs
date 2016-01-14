@@ -1,10 +1,10 @@
 from django.contrib.contenttypes.models import ContentType
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.db.models import Q
+
 from apps.feed.models import FeedObject
 from apps.taxonomy.service import business as BusinessTaxonomy
 from apps.feed.service import business as BusinessFeed
-from apps.question.service import business as BusinessQuestion
 
 
 def save_taxonomies(instance=None, data=None):

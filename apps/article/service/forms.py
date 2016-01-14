@@ -2,8 +2,9 @@ from ckeditor_uploader.widgets import CKEditorUploadingWidget
 from django.core.exceptions import ValidationError
 from django.template.defaultfilters import slugify
 from django.utils import timezone
-from custom_forms.custom import forms, IdeiaModelForm
 from django.utils.translation import ugettext as _
+
+from custom_forms.custom import forms, IdeiaModelForm
 import business as Business
 from rede_gsti import settings
 

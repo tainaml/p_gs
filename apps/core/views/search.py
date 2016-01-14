@@ -4,6 +4,7 @@ from django.views.generic import View
 
 from ..forms import search as Forms
 
+
 class SearchBase(View):
 
     template_path = ""

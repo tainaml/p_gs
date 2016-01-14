@@ -1,4 +1,5 @@
 from django.conf.urls import url
+
 from ..views import notifications as core_view
 
 urlpatterns = [

@@ -1,9 +1,10 @@
 from django.contrib.contenttypes.models import ContentType
 from django.db.models import Q
-from django.http import Http404, JsonResponse
+from django.http import JsonResponse
 from django.shortcuts import render
 from django.utils import timezone
 from django.views.generic import View
+
 from apps.article.models import Article
 from apps.feed.models import FeedObject
 

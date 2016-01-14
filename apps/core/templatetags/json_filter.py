@@ -1,9 +1,9 @@
+import json
+
 from django.core.serializers import serialize
 from django.db.models.query import QuerySet, ValuesListQuerySet
 from django.utils.safestring import mark_safe
 from django.template import Library
-
-import json
 
 register = Library()
 

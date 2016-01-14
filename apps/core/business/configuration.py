@@ -1,6 +1,7 @@
 from django.contrib.contenttypes.models import ContentType
 from django.db import transaction
 from django.db.models import Q
+
 from apps.configuration.models import ConfigKey, ConfigValues, ConfigGroup
 from rede_gsti import settings
 

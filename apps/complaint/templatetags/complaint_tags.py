@@ -2,8 +2,8 @@ from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
 from django import template
 from django.http import Http404
-from apps.complaint.service import business
 
+from apps.complaint.service import business
 
 register = template.Library()
 

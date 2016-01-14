@@ -1,4 +1,5 @@
 from distutils.command.register import register
+
 from django import template
 from django.contrib.contenttypes.models import ContentType
 from django.db.models import Q
@@ -6,6 +7,7 @@ from django.http import Http404
 from django.utils import timezone
 from django.core.cache import cache
 from django.utils.text import slugify
+
 from apps.article.models import Article
 from apps.feed.models import FeedObject
 from apps.taxonomy.models import Taxonomy

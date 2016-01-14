@@ -1,5 +1,7 @@
 from django.contrib.contenttypes.models import ContentType
+
 from ..models import FeedObject
+
 
 def get_feed(content_instance):
     content_type = ContentType.objects.get_for_model(content_instance)

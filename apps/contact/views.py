@@ -2,10 +2,11 @@ from django.core.urlresolvers import reverse
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.views.generic import View
-from apps.contact.service import business as Business
-from apps.contact.service.forms import ContactForm
 from django.contrib import messages
 from django.utils.translation import ugettext as _
+
+from apps.contact.service import business as Business
+from apps.contact.service.forms import ContactForm
 
 
 class ContactView(View):

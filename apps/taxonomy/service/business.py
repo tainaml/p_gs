@@ -1,6 +1,5 @@
-import copy
-from django.contrib.contenttypes.models import ContentType
 from django.db.models import Q
+
 from ..models import Taxonomy
 
 __author__ = 'phillip'

@@ -1,4 +1,4 @@
-from django.http import JsonResponse, Http404
+from django.http import JsonResponse
 from django.shortcuts import render
 
 from apps.community import views

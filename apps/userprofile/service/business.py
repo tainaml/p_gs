@@ -1,9 +1,7 @@
-from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
-from django.utils.translation import ugettext as _
 from django.db import transaction
-from apps.taxonomy.models import Term, Taxonomy
 
+from apps.taxonomy.models import Term, Taxonomy
 from apps.userprofile.models import UserProfile, Country, State, City, Occupation, Responsibility
 
 

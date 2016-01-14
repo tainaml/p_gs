@@ -1,7 +1,7 @@
 from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
 from django.db import transaction
-from apps.community.models import Community
+
 from apps.complaint.models import ComplaintType, Complaint
 
 entity_to_complaint = settings.ENTITY_TO_COMPLAINT if hasattr(settings,

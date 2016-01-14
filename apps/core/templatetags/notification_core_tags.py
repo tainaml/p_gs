@@ -1,7 +1,8 @@
 from distutils.command.register import register
-from django import template
-from apps.account.service.business import create_token
 
+from django import template
+
+from apps.account.service.business import create_token
 from rede_gsti.settings import NOTIFICATION_GROUP, NOTIFICATION_ACTIONS
 from apps.notifications.service import business as Business
 

@@ -1,10 +1,4 @@
-from django.contrib.contenttypes.models import ContentType
-from apps.community.models import Community
-from apps.taxonomy.service import business as BusinessTaxonomy
 from apps.feed.service import business as BusinessFeed
-from apps.article.service import business as BusinessArticle
-from apps.socialactions.service import business as BusinessSocialActions
-from rede_gsti import settings
 
 
 def save_feed_item(article, data=None):
