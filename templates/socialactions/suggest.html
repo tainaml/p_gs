@@ -128,7 +128,7 @@
             $divContainer.html($divJScroll);
             jScrollElemment = $divJScroll.jscroll({
                 autoTrigger: true,
-                loadingHtml: '<span>Carregando...</span>',
+                loadingHtml: '<div class="load-async-preload"></div>',
                 contentSelect: '.j-scroll-container',
                 nextSelect: "a[data-jscroll-next]",
                 refresh: true
@@ -168,7 +168,7 @@
             });
 
             $(".j-scroll").jscroll({
-                loadingHtml: '<span>Carregando...</span>',
+                loadingHtml: '<div class="load-async-preload"></div>',
                 contentSelect: ".j-scroll-container",
                 nextSelect: "a[data-jscroll-next]"
             });

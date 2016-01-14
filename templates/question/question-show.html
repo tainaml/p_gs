@@ -176,7 +176,7 @@
 
                         $childs = $element.find('div[data-xhr-url]');
                         $self.jscroll({
-                            loadingHtml: '<span>Carregando...</span>',
+                            loadingHtml: '<div class="load-async-preload"></div>',
                             contentSelect: "#" + $self.attr("id"),
                             nextSelect: "a[data-jscroll-next]",
                             autoTrigger: false,

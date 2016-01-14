@@ -133,7 +133,7 @@
             {% if form.cleaned_data.criterio %}
 
                 $(".j-scroll").jscroll({
-                    loadingHtml: '<span>Carregando...</span>',
+                    loadingHtml: '<div class="load-async-preload"></div>',
                     contentSelect: ".j-scroll-container",
                     nextSelect: "a[data-jscroll-next]"
                 });
@@ -143,7 +143,7 @@
                 $.get("{% url 'profile:search' user.username %}?criterio={{ form.cleaned_data.criterio|urlencode }}&page=1&next={{ url_next|urlencode }}", function( data ) {
                     $( "#community-list" ).html( data );
                     $(".j-scroll").jscroll({
-                        loadingHtml: '<span>Carregando...</span>',
+                        loadingHtml: '<div class="load-async-preload"></div>',
                         contentSelect: ".j-scroll-container",
                         nextSelect: "a[data-jscroll-next]"
                     });
