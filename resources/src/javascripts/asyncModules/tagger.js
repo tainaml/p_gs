@@ -10,6 +10,7 @@ const [suggest] = [{
   , labelField: 'name'
   , searchField: 'name'
   , create: false
+  // , hideSelected: true
   , render: {
     item: templateItem
     , option: templateOption

@@ -151,12 +151,15 @@
 
             var functionAjaxSuccessSuggest = function(e, data) {
                 var $self = $(this),
-                    $modalSuggest = $("#modal-suggest");
+                    $modalSuggest = $("#modal-suggest"),
+                    $modalSuggestMessage = $("#modal-suggest-successfully");
 
                 if (data.status == 200 && $modalSuggest.is(':visible')) {
                     var $taggerSuggest = $(e.currentTarget).find("#tagger-suggest-users")[0].selectize;
+                    $taggerSuggest.blur();
                     $taggerSuggest.clear();
                     $modalSuggest.modal('hide');
+                    $modalSuggestMessage.modal("show");
                 }
             };
 
@@ -181,6 +184,7 @@
 
                 var $selectInput = $('#tagger-suggest-users');
                 var $selectize = $selectInput[0].selectize;
+                $selectize.clearCache();
                 $selectize.focus();
             };
 
@@ -192,6 +196,8 @@
                 $(document).on("async.click.success", '[data-report="true"]', functionAjaxSuccessTriggerReport);
                 $(document).on("async.click.success", "#link-contact", functionAjaxSuccessTriggerContactModal);
             });
+
+
         </script>
 
         {% block javascripts %}
