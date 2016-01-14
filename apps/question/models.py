@@ -16,7 +16,7 @@ class Answer(models.Model):
 
 class Question(models.Model):
 
-    title = models.CharField(max_length=256, blank=False)
+    title = models.CharField(max_length=70, blank=False)
     slug = models.SlugField(default='', null=False, max_length=300)
     description = RichTextField(max_length=2048, blank=False)
     author = models.ForeignKey(User)

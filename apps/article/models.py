@@ -21,7 +21,7 @@ class Article(models.Model):
         (STATUS_PUBLISH, _('Publish'))
     )
 
-    title = models.CharField(blank=False, null=False, max_length=100)
+    title = models.CharField(blank=False, null=False, max_length=70)
     slug = models.SlugField(default='', null=False, max_length=150)
     text = RichTextField(null=False, max_length=2048)
     image = models.ImageField(max_length=100, upload_to='article/%Y/%m/%d', blank=True, default='')

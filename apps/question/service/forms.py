@@ -10,7 +10,7 @@ import business as Business
 
 class CreateQuestionForm(IdeiaModelForm):
 
-    title = forms.CharField(max_length=256, required=True)
+    title = forms.CharField(max_length=70, required=True)
     slug = forms.SlugField(max_length=300, required=False)
     description = forms.CharField(max_length=2048, required=True, widget=CKEditorWidget(config_name='question'))
 

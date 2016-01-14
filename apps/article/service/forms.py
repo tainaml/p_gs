@@ -10,7 +10,7 @@ from rede_gsti import settings
 
 class ArticleForm(IdeiaModelForm):
 
-    title = forms.CharField(required=True, max_length=100)
+    title = forms.CharField(required=True, max_length=70)
     slug = forms.SlugField(max_length=150, required=False)
     text = forms.CharField(required=True, min_length=200, widget=CKEditorUploadingWidget(config_name='article'))
     image = forms.ImageField(required=False)
