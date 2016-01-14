@@ -14,3 +14,14 @@
   background: #fff url('../images/preload.gif') center no-repeat;
   border: 1px solid $color-border;
 }
+
+.jscroll-added {
+  float: left;
+  width: 100%;
+}
+.jscroll-added .jscroll-loading {}
+.jscroll-added .jscroll-loading .load-async-preload {
+  box-sizing: content-box;
+  height: 50px;
+  padding: 10px 0px;
+}
