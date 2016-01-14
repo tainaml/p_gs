@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 
-from apps.account.service.business import create_user
 from django.test import TestCase
+
+from apps.account.service.business import create_user
 
 """
 For run tests do:

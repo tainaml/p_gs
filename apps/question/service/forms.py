@@ -2,10 +2,10 @@ from ckeditor.widgets import CKEditorWidget
 from django.core.exceptions import ValidationError
 from django.db import transaction
 from django.utils.text import slugify
+
 from apps.question.models import Answer
 from custom_forms.custom import forms, IdeiaForm, IdeiaModelForm
 import business as Business
-
 
 
 class CreateQuestionForm(IdeiaModelForm):

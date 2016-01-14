@@ -3,13 +3,12 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
 from django.db import models
-from django.http import Http404, HttpResponse, JsonResponse
+from django.http import Http404, JsonResponse
 from django.shortcuts import render, redirect
 from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _
 from django.views.generic import View
-from django.views.decorators.http import require_POST
-from django.core.cache import cache
+
 from apps.userprofile.models import GenderType
 from apps.userprofile.service import business as Business
 from apps.socialactions.service import business as SocialBusiness

@@ -1,4 +1,5 @@
 from django.conf.urls import url
+
 from apps.account import views
 from ..views import account as CoreViews
 

@@ -1,7 +1,9 @@
 from django.contrib.contenttypes.models import ContentType
+
 from apps.feed.models import FeedObject
 from apps.taxonomy.service import business as BusinessTaxonomy
 from apps.feed.service import business as BusinessFeed
+
 
 def save_taxonomies(feed_instance=None, data=None):
 

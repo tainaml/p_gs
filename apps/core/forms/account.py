@@ -1,7 +1,6 @@
-from django.core.exceptions import ValidationError
 from django.db import transaction
-from apps.account.service.forms import SignUpForm
 
+from apps.account.service.forms import SignUpForm
 from ..business import account as Business
 
 

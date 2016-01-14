@@ -1,6 +1,6 @@
 from apps.community.models import Community
 from apps.taxonomy.models import Taxonomy
-from custom_forms.custom import forms, IdeiaForm, IdeiaModelForm
+from custom_forms.custom import forms, IdeiaModelForm
 from apps.feed.service import business as FeedBusiness
 from ..business import user as UserBusiness
 from ..business import feed as CoreFeedBusiness

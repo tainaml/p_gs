@@ -1,9 +1,10 @@
 from distutils.command.register import register
+
 from django.http import Http404
 from django import template
+
 from rede_gsti import settings
 from ..service import business as Business
-
 
 register = template.Library()
 

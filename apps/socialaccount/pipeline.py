@@ -4,7 +4,9 @@ from django.utils.text import slugify
 from requests import request, HTTPError, ConnectionError
 from django.core.files.base import ContentFile
 from social.pipeline.partial import partial
+
 from apps.userprofile.service.business import  get_profile as GetProfile
+
 
 @partial
 def require_email(strategy, details, user=None, is_new=False, *args, **kwargs):

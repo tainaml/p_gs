@@ -1,4 +1,5 @@
 from django.conf.urls import url
+
 from . import views
 from apps.core.views import user as userView
 

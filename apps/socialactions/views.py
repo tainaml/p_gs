@@ -4,6 +4,7 @@ from django.shortcuts import redirect, render
 from django.utils.decorators import method_decorator
 from django.utils.translation import gettext as _
 from django.views.generic import View
+
 from rede_gsti import settings
 from .service import business as Business
 from .localexceptions import NotFoundSocialSettings

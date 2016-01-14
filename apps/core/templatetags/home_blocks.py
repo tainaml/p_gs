@@ -1,11 +1,13 @@
 from abc import ABCMeta
+
 from django import template
 from django.contrib.contenttypes.models import ContentType
-from django.core.cache import get_cache, caches
+from django.core.cache import caches
 from django.core.cache.utils import make_template_fragment_key
 from django.db.models import Q, Prefetch
 from django.template.loader import render_to_string
 from django.utils import timezone
+
 from apps.article.models import Article
 from apps.community.models import Community
 from apps.taxonomy.models import Taxonomy

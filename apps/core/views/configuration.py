@@ -6,7 +6,6 @@ from django.utils.translation import ugettext as _
 from django.views.generic import View
 
 from apps.core.forms.configuration import ConfigNotificationsForm
-
 from ..business import configuration as BusinessConfig
 
 

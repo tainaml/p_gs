@@ -1,5 +1,4 @@
 from django.db.models import Q
-from django.http import JsonResponse
 
 __author__ = 'phillip'
 

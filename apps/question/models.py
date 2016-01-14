@@ -2,6 +2,7 @@ from django.contrib.contenttypes.fields import GenericRelation
 from django.db import models
 from django.contrib.auth.models import User
 from ckeditor.fields import RichTextField
+
 from apps.taxonomy.models import Taxonomy
 from apps.feed.models import FeedObject
 
@@ -12,6 +13,9 @@ class Answer(models.Model):
     author = models.ForeignKey(User, blank=False)
     answer_date = models.DateTimeField(auto_now=False, auto_now_add=True, blank=False)
     question = models.ForeignKey("question.Question", related_name="question_owner", blank=False)
+
+    def __unicode__(self):
+        return self.description[:100] + "..."
 
 
 class Question(models.Model):
@@ -30,3 +34,6 @@ class Question(models.Model):
     def get_absolute_url(self):
         from django.core.urlresolvers import reverse
         return reverse('question:show', args=[str(self.slug), str(self.id)])
+
+    def __unicode__(self):
+        return self.title + " - " + self.description[:100] + "..."

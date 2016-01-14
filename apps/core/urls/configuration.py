@@ -1,4 +1,5 @@
 from django.conf.urls import url
+
 from apps.core.views import configuration as CoreView
 
 urlpatterns = [

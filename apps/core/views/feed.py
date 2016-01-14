@@ -4,7 +4,9 @@ from django.core.exceptions import PermissionDenied
 from django.shortcuts import redirect
 from django.utils.decorators import method_decorator
 from django.views.generic import View
+
 from ..business import feed as Business
+
 
 class FeedContentOfficial(View):
 

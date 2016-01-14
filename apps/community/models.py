@@ -2,8 +2,10 @@ from django.conf import settings
 from django.contrib.contenttypes.fields import GenericRelation
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
+
 from apps.socialactions.models import UserAction, Counter
 from apps.taxonomy.models import Taxonomy
+
 
 class Community(models.Model):
 

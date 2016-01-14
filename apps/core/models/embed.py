@@ -1,7 +1,8 @@
+import re
+
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
-import re
 
 
 class EmbedItem(models.Model):

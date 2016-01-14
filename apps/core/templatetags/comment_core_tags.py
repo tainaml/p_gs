@@ -1,11 +1,10 @@
-from django.conf import settings
-
 __author__ = 'phillip'
 
 from django.contrib.contenttypes.models import ContentType
-from apps.comment.service import business as CommentBusiness
 from django import template
 from django.http import Http404
+
+from apps.comment.service import business as CommentBusiness
 
 register = template.Library()
 

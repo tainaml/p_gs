@@ -1,10 +1,8 @@
 from django import template
 from django.contrib.contenttypes.models import ContentType
-from apps.community.models import Community
 
+from apps.community.models import Community
 from apps.feed.models import FeedObject
-from apps.question.models import Question
-from apps.taxonomy.models import Taxonomy
 
 register = template.Library()
 

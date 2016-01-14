@@ -6,6 +6,9 @@ class ContactSubject(models.Model):
 
     title = models.CharField(max_length=100, blank=True, null=True)
 
+    def __unicode__(self):
+        return self.title
+
 
 class Contact(models.Model):
 
@@ -32,3 +35,6 @@ class Contact(models.Model):
             return self.author.get_full_name()
         else:
             return self.contact_name
+
+    def __unicode__(self):
+        return (self.message[:100] + "... " ) or "no message " + "(%s)" % self.subject.title

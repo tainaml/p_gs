@@ -4,13 +4,11 @@ from django.http import JsonResponse, Http404
 from django.utils.decorators import method_decorator
 from django.views.generic import View
 from django.shortcuts import render
-from django_thumbor import generate_url
 from django.contrib.auth.decorators import login_required
-from django.utils.translation import gettext as _
 
 from apps.community.models import Community
 from apps.core.forms.user import CoreUserProfileForm, CoreUserProfileFullEditForm, CoreSearchFollowers, CoreSearchArticlesForm, CoreSearchVideosForm, \
-    CoreSearchCommunitiesForm, CoreSearchFavouriteForm, CoreRemoveSocialActionForm, CoreSearchSocialActionsForm
+    CoreSearchCommunitiesForm, CoreRemoveSocialActionForm, CoreSearchSocialActionsForm
 from apps.core.forms.community import CoreCommunityFormSearch
 from apps.core.forms.user import CoreUserSearchForm, CoreUserProfileEditForm
 from apps.article.models import Article
@@ -18,9 +16,7 @@ from apps.userprofile import views
 from apps.userprofile.service import business as BusinessUserprofile
 from apps.taxonomy.service import business as BusinessTaxonomy
 from apps.socialactions.service import business as BusinessSocialActions
-from apps.core.business import socialactions as Business
 from apps.core.forms.user import CoreSearchFollowings
-from apps.socialactions.localexceptions import NotFoundSocialSettings
 from apps.userprofile.service import business as BusinessUserProfile
 from rede_gsti import settings
 

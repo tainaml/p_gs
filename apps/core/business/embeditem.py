@@ -1,5 +1,7 @@
 import re
+
 from django.contrib.contenttypes.models import ContentType
+
 from apps.core.models.embed import EmbedItem
 
 

@@ -1,4 +1,4 @@
-from django.http import HttpResponse, Http404, HttpResponseForbidden
+from django.http import HttpResponse, Http404
 from django.shortcuts import render
 from django.views.generic import View
 from django.utils.translation import gettext as _

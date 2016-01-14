@@ -1,16 +1,15 @@
 import copy
+
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.core.urlresolvers import reverse
-from django.forms import model_to_dict
-from django.http import Http404, HttpResponseForbidden, HttpResponse, JsonResponse
+from django.http import Http404, HttpResponse, JsonResponse
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import render, redirect
 from django.utils.decorators import method_decorator
 from django.utils.translation import gettext as _
 from django.views.generic import View
-from django_thumbor import generate_url
-from rede_gsti import settings
+
 from .service import business as Business
 from .service.forms import ArticleForm
 

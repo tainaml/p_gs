@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 
-from selenium import webdriver
 import unittest
+
+from selenium import webdriver
 
 """
 These tests cover all completed functions.

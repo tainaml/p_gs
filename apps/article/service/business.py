@@ -1,7 +1,4 @@
-from django.conf import settings
-from django.forms import model_to_dict
-from ..models import Article, models
-from forms import ArticleForm
+from ..models import Article
 
 
 def get_article(article_id=None):

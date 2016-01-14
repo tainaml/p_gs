@@ -1,14 +1,13 @@
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.db.models import Q
-from apps.article.models import Article
-from apps.taxonomy.models import Taxonomy
-from apps.taxonomy.service.business import get_related_list_top_down
-
-from ..models import UserAction, Counter, UserActionCounter
 from django.conf import settings
-from ..localexceptions import NotFoundSocialSettings
 from django.contrib.contenttypes.models import ContentType
+
+from apps.article.models import Article
+from apps.taxonomy.service.business import get_related_list_top_down
+from ..models import UserAction, UserActionCounter
+from ..localexceptions import NotFoundSocialSettings
 
 
 # Meta methods

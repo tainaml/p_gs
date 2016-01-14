@@ -1,9 +1,9 @@
-from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import ValidationError
+from django.conf import settings
+
 from apps.community.models import Community
 from custom_forms.custom import forms, IdeiaForm
 import business as Business
-from django.conf import settings
 
 entity_to_complaint = settings.ENTITY_TO_COMPLAINT if hasattr(settings, 'ENTITY_TO_COMPLAINT') else False
 

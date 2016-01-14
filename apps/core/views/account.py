@@ -5,6 +5,7 @@ from django.utils.translation import ugettext as _
 from ..forms.account import CoreSignUpForm
 from apps.account import views
 
+
 class CoreRegisterView(views.RegisterView):
 
     form = CoreSignUpForm

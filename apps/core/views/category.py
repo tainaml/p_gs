@@ -1,12 +1,10 @@
-from django.http import Http404, HttpResponse
+from django.http import Http404
 from django.shortcuts import render
 from django.views.generic import View
-from apps.article.models import Article
-from apps.community.models import Community
+from django.utils.translation import gettext
+
 from apps.taxonomy.models import Taxonomy
-from django.utils.translation import gettext as _, gettext
-from django.template import loader, Context
-from apps.taxonomy.service import business as TaxonomyBusiness
+
 
 class CoreCategoryPageView(View):
 

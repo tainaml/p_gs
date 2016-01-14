@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-import copy
 
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
@@ -11,6 +10,7 @@ from django.views.generic import View
 
 from .service.forms import CreateCommentForm, EditCommentForm, ListCommentForm
 from .service import business as comment_business
+
 
 class CommentListBaseView(View):
 

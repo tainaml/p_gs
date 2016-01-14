@@ -1,10 +1,10 @@
 from django.contrib.contenttypes.models import ContentType
 from django.db.models import Q
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+
 from apps.article.models import Article
 from apps.socialactions.models import UserAction
-from apps.socialactions.service.business import user_followed
 from rede_gsti import settings
-from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
 
 def get_see_later_content(user, criteria=None, items_per_page=None, page=None):

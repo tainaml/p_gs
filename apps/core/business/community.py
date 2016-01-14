@@ -1,13 +1,12 @@
 from django.contrib.contenttypes.models import ContentType
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.db.models import Q
-from apps.article.models import Article
 
+from apps.article.models import Article
 from apps.community.models import Community
 from apps.core.models.embed import EmbedItem
 from apps.feed.models import FeedObject
 from apps.socialactions.models import UserAction
-from apps.socialactions.service import business as BusinessSocialActions
 from rede_gsti import settings
 from apps.taxonomy.models import Taxonomy
 

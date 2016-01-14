@@ -1,7 +1,8 @@
 from __future__ import absolute_import
+
 from django.core.mail import get_connection
+
 from .backend import MailManageMessage
-from celery import shared_task
 
 
 def send_email(to, subject, template=None, context={}, fail_silently=False, connection=None):

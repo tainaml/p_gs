@@ -16,4 +16,7 @@ class Comment(models.Model):
     content_object = GenericForeignKey('content_type', 'object_id')
     level = models.IntegerField(null=True, blank=True)
 
+    def __unicode__(self):
+        return (self.content[:100] + "...") or "no content"
+
 

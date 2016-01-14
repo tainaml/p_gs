@@ -1,7 +1,7 @@
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
-from django.utils import timezone
+
 from apps.core.models.tags import Tags
 from apps.taxonomy.models import Taxonomy
 from apps.community.models import Community
@@ -21,3 +21,6 @@ class FeedObject(models.Model):
     tags = models.ManyToManyField(Tags, related_name='feeds')
 
     official = models.BooleanField(null=False, blank=False, default=False)
+
+    def __unicode__(self):
+        return self.content_object

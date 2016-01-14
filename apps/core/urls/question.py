@@ -1,7 +1,7 @@
 from django.conf.urls import url
+
 from apps.question import views
 from ..views import question as CoreViews
-
 
 urlpatterns = [
 
