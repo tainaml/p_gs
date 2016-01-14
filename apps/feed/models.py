@@ -21,3 +21,6 @@ class FeedObject(models.Model):
     tags = models.ManyToManyField(Tags, related_name='feeds')
 
     official = models.BooleanField(null=False, blank=False, default=False)
+
+    def __unicode__(self):
+        return self.content_object
