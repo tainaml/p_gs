@@ -111,7 +111,7 @@
 
             jScrollWizard = $wizardJScroll.jscroll({
                 autoTrigger: false,
-                loadingHtml: '<span>Carregando...</span>',
+                loadingHtml: '<div class="load-async-preload"></div>',
                 contentSelect: '.j-scroll-wizard-communities-container',
                 nextSelect: "a[data-jscroll-next]",
                 refresh: true,
@@ -152,7 +152,7 @@
             $("#form-suggestions").on("ajaxform.success", functionAjaxSuccessStepThree);
 
             $(".j-scroll").jscroll({
-                loadingHtml: '<span>Carregando...</span>',
+                loadingHtml: '<div class="load-async-preload"></div>',
                 contentSelect: ".j-scroll-container",
                 nextSelect: "a[data-jscroll-next]",
                 callback: function(){

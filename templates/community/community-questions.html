@@ -35,7 +35,7 @@
                                 {% if form.cleaned_data.criterio %}
                                     {% include "community/partials/community-question-list.html" %}
                                 {% else %}
-                                    <span>Carregando feed...</span>
+                                    <div class="load-async-preload"></div>
                                 {% endif %}
                             </div>
                         </section>
@@ -67,7 +67,7 @@
             {% if form.cleaned_data.criterio %}
 
                 $(".j-scroll").jscroll({
-                    loadingHtml: '<span>Carregando...</span>',
+                    loadingHtml: '<div class="load-async-preload"></div>',
                     contentSelect: ".j-scroll-container",
                     nextSelect: "a[data-jscroll-next]",
                     callback: refreshAsyncLike
@@ -78,7 +78,7 @@
                 $.get("{% url 'community:questions-list' community.slug %}?criterio={{ form.cleaned_data.criterio|urlencode }}&replies={{ form.cleaned_data.replies }}&page=1&next={{ url_next|urlencode }}", function( data ) {
                     $( "#community-feed-list" ).html( data );
                     $(".j-scroll").jscroll({
-                        loadingHtml: '<span>Carregando...</span>',
+                        loadingHtml: '<div class="load-async-preload"></div>',
                         contentSelect: ".j-scroll-container",
                         nextSelect: "a[data-jscroll-next]",
                         callback: refreshAsyncLike

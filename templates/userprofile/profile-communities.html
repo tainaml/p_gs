@@ -93,7 +93,7 @@
             $divCommunities.html($divJScroll);
             jScrollElemment = $divJScroll.jscroll({
                 autoTrigger: true,
-                loadingHtml: '<span>Carregando...</span>',
+                loadingHtml: '<div class="load-async-preload"></div>',
                 contentSelect: '.j-scroll-communities-container',
                 nextSelect: "a[data-jscroll-next]",
                 refresh: true,

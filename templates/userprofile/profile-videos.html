@@ -64,7 +64,7 @@
     <script>
         $(function() {
             $(".j-scroll").jscroll({
-                loadingHtml: '<span>Carregando...</span>',
+                loadingHtml: '<div class="load-async-preload"></div>',
                 contentSelect: ".j-scroll-container",
                 nextSelect: "a[data-jscroll-next]"
             });
