@@ -1,7 +1,3 @@
-/**
- * Created by raphaelfruneaux on 22/12/14.
- */
-
 if ( typeof Object.create !== 'function' ) {
     Object.create = function( obj ) {
         function F() {}
@@ -9,7 +5,6 @@ if ( typeof Object.create !== 'function' ) {
         return new F();
     }
 }
-
 
 (function( $ ) {
 
@@ -45,7 +40,7 @@ if ( typeof Object.create !== 'function' ) {
                 self.content = self.$elem.val();
             }
 
-            self.count = self.content.length;
+            self.count = self.content.trim().length;
 
             self.options = $.extend( {}, $.fn.ideiaCounter.options, options );
             self.messages = $.extend( {}, $.fn.ideiaCounter.messages );
@@ -103,7 +98,7 @@ if ( typeof Object.create !== 'function' ) {
                 ? self.ckeditor.document.getBody().getText()
                 : self.$elem.val();
 
-            self.count = self.content.length;
+            self.count = self.content.trim().length;
 
             if ( self.options.counterDebug ) {
                 debug( 'Method: Counter | Characters - Total: ' + self.count );
@@ -130,6 +125,7 @@ if ( typeof Object.create !== 'function' ) {
 
                 if ( typeof  self.options.counterType === "string" && self.options.counterType == "min" ) {
                     remain = self.count;
+                    console.log( 'remain min: ' + remain );
                 } else {
                     remain = ( self.options.counterLimit >= self.count )
                         ? self.options.counterLimit - self.count
@@ -280,7 +276,7 @@ if ( typeof Object.create !== 'function' ) {
         counterInsert: 'after',
         counterSlug: false,
         counterSlugTarget: '#permalink',
-        counterDebug: false,
+        counterDebug: true,
         counterStyle: {
             'red': '#E12C2C',
             'green' : 'green'

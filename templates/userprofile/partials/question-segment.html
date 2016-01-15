@@ -21,8 +21,8 @@
         <a class="post-creator" href="{% url 'profile:show' instance.author.username %}">
             <img src="{% thumbor_url instance.author.profile.get_profile_picture.url width=20 height=20 smart=False fit_in=False %}" alt="foto de {{ instance.author.get_full_name }}">
             {{ instance.author.get_full_name }}
-            <span class="label label-default">pergunta</span>
         </a>
+        <span class="label label-default">Pergunta</span>
     </header>
     <a class="post-content" href="{% url 'question:show' instance.slug instance.id %}" itemprop="articleBody">
         <div class="post-text">
