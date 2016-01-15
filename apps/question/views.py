@@ -220,6 +220,9 @@ class UpdateQuestionView(View):
 
 class ShowQuestionView(View):
 
+    def get_context(self, request, question_instance=None):
+        return {}
+
     def get(self, request, question_slug, question_id):
         question = business.get_question(question_id)
 
@@ -227,7 +230,9 @@ class ShowQuestionView(View):
             raise Http404(_("Question is not exists!"))
 
         answers = business.get_all_answers_by_question(question)
-        return render(request, 'question/question-show.html', {'question': question, 'answers': answers})
+        context = {'question': question, 'answers': answers}
+        context.update(self.get_context(request, question))
+        return render(request, 'question/question-show.html', context)
 
 
 class CommentReplayView(FormBaseView):

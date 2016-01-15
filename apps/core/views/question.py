@@ -9,7 +9,9 @@ from apps.community.models import Community
 from apps.question import views
 from ..forms import question as QuestionForms
 from ..business import question as BusinessQuestion
+from ..business import feed as BusinessFeed
 from apps.core.business import user as UserBusiness
+
 
 
 class CoreQuestionCreateView(views.CreateQuestionView):
@@ -92,3 +94,12 @@ class CoreQuestionRelatedView(views.View):
         context = {'questions': related_list}
 
         return self.return_success(request, context)
+
+
+class CoreQuestionView(views.ShowQuestionView):
+
+    def get_context(self, request, question_instance=None):
+        feed_object = BusinessFeed.BusinessFeed.get_feed(question_instance)
+        return {
+            'feed': feed_object
+        }

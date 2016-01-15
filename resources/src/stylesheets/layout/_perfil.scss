@@ -172,7 +172,13 @@
 }
 
 .perfil-repositories {
-    > li > a { color: $color-link-counter; }
+    > li > a {
+        color: $color-link-counter;
+        &:hover,
+        &.selected {
+            color: $color-link-counter-dark;
+        }
+    }
     .counter {
         float: right;
         color: #e1e1e1;

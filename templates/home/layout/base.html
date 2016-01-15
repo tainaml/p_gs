@@ -169,6 +169,8 @@
 
                 var asyncClick = $("[data-async-module=click]");
                 var asyncClickData = asyncClick.IdeiaAsyncClick();
+
+                $("[data-load-async=true]").loadAsync();
             };
 
             var functionOpenSuggestModal = function(e) {

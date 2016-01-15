@@ -3,27 +3,27 @@
 
     <div class="comment-user">
         <img src="{% thumbor_url instance.author.profile.get_profile_picture.url width=63 height=63 smart=False fit_in=False %}" alt="User Avatar">
-        <div class="comment-vote">
-            {% like_box instance request.path "reply" %}
-        </div>
+{#        <div class="comment-vote">#}
+{#            {% like_box instance request.path "reply" %}#}
+{#        </div>#}
     </div>
     <div class="comment-body">
-            <header class="post-header">
-                <div class="post-info">
-                    <time datetime="06-17-2015" itemprop="datePublished">{{ instance.creation_date|date:'d/m/Y' }} às {{ instance.creation_date|date:'G:i' }}</time>
-                    <a href="javascript:;" data-toggle="dropdown"><i class="gsticon gsticon-gear"></i></a>
-                    <div class="dropdown-menu">
-                        <ul class="perfil-actions">
-                            {% if instance.author == request.user %}
-                                <li><a data-xhr-edit data-toggle="dropdown" data-target="#comment-edit-{{ instance.id }}" data-xhr-id="{{ instance.id }}" href="javascript:;"><i class="gsticon gsticon-edit"></i> Editar comentário</a></li>
-                            {% else %}
-                                <li><a href="{% url 'complaint:report' 'comment' instance.id %}" data-report="true" data-async-module="click" data-async-target="#modal-report" data-async-method="get"><i class="gsticon gsticon-exclamation-triangle"></i> Denunciar</a></li>
-                            {% endif %}
-                        </ul>
-                    </div>
+        <header class="post-header">
+            <div class="post-info">
+                <time datetime="06-17-2015" itemprop="datePublished">{{ instance.creation_date|date:'d/m/Y' }} às {{ instance.creation_date|date:'G:i' }}</time>
+                <a href="javascript:;" data-toggle="dropdown"><i class="gsticon gsticon-gear"></i></a>
+                <div class="dropdown-menu">
+                    <ul class="perfil-actions">
+                        {% if instance.author == request.user %}
+                            <li><a data-xhr-edit data-toggle="dropdown" data-target="#comment-edit-{{ instance.id }}" data-xhr-id="{{ instance.id }}" href="javascript:;"><i class="gsticon gsticon-edit"></i> Editar comentário</a></li>
+                        {% else %}
+                            <li><a href="{% url 'complaint:report' 'comment' instance.id %}" data-report="true" data-async-module="click" data-async-target="#modal-report" data-async-method="get"><i class="gsticon gsticon-exclamation-triangle"></i> Denunciar</a></li>
+                        {% endif %}
+                    </ul>
                 </div>
-                <a class="post-creator" href="{% url 'profile:show' instance.author.username %}">{{instance.author.get_full_name}}</a>
-            </header>
+            </div>
+            <a class="post-creator" href="{% url 'profile:show' instance.author.username %}">{{instance.author.get_full_name}}</a>
+        </header>
         <div class="comment-text">
             <p>{{instance.content}}</p>
         </div>

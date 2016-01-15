@@ -3,6 +3,7 @@
 {% load taxonomy_tags %}
 
 <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+    {% if feed and feed.official %}<div class="label-official-content"></div>{% endif%}
     <header class="post-header">
         <div class="post-info">
             <time datetime="{{ instance.publishin|date:"d/m/Y G:i" }}" itemprop="datePublished">{{ instance.publishin|date:'d/m/Y' }} às {{ instance.publishin|date:'G:i' }}</time>
@@ -42,7 +43,7 @@
                 {% like_box instance request.path "inline" %}
             </div>
             <div class="post-count-comments">
-                <span id="load-count-comment-article"
+                <span id="load-count-comment-{{ feed.content_type.model }}-{{ instance.id }}"
                       data-load-async="true"
                       data-load-async-url="{% url 'comment:count' instance.id "article" %}"
                       data-load-async-method="get"

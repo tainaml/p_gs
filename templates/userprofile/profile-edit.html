@@ -10,13 +10,13 @@
     <div class="col-lg-9">
         <nav class="perfil-navegation">
             {% if profile.user == request.user %}<a href="{% url 'profile:feed' %}">Feed</a> •{% endif %}
-            <a href="{% url 'profile:show' username=profile.user.username %}">Perfil</a> •
+            <a href="{% url 'profile:show' username=profile.user.username %}">Publicações</a> • •
             <a href="{% url 'profile:communities' username=profile.user.username %}">Comunidades</a> •
             <a href="{% url 'profile:followers' username=profile.user.username %}">Relacionamentos</a> •
             <a href="{% url 'profile:videos' profile.user.username %}">Vídeos</a>
         </nav>
         <div class="row">
-            <div class="col-lg-8">
+            <div class="col-lg-12">
                 <div class="area-title">
                     <h2>Editar Perfil</h2>
                 </div>
@@ -31,7 +31,7 @@
                     {% endif %}
                     {% csrf_token %}
                     <div class="row">
-                        <div class="col-lg-5">
+                        <div class="col-lg-3">
                             <div class="custom-file-upload set-avatar" data-module="dropzoneUploader">
                                 <div class="custom-file-content">
                                     <i class="gsticon gsticon-cloud-upload"></i>
@@ -42,7 +42,7 @@
                                 <div class="custom-file-upload-result" data-content="file"></div>
                             </div>
                         </div>
-                        <div class="col-lg-7">
+                        <div class="col-lg-9">
                             <div class="form-group-inline {% if form.first_name.errors %}has-error{% endif %}">
                                 <label for="first_name">Nome</label>
                                 <input class="form-control" type="text" name="first_name" value="{{ request.user.first_name }}">
@@ -152,11 +152,6 @@
                     </div>
                     <input type="submit" value="Enviar" class="btn btn-default pull-right">
                 </form>
-            </div>
-            <div class="col-lg-4">
-                <div class="squad-advertising">
-                    <img class="img-responsive" src="http://placehold.it/270x225" alt="Propaganda aqui">
-                </div>
             </div>
         </div>
     </div>

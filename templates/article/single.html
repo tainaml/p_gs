@@ -22,17 +22,14 @@
         </ul>
         <div class="post-container">
             <article class="full-post">
+                {% if feed and feed.official %}<div class="label-official-content label-tall"></div>{% endif%}
                 <header class="post-header">
                     <div class="post-info">
 
-                        {% if feed.official %}
-                            [Oficial]
-                            {% if request.user.profile.isContributor %}
+                        {% if request.user.profile.isContributor %}
+                            {% if feed.official %}
                                 <a data-trigger="login" data-token="{{ csrf_token }}" href="{% url 'feed:set-content-official' 'article' article.id %}?next={{ request.path|urlencode }}">Marcar como não oficial</a>
-                            {% endif %}
-                        {% else %}
-                                [Não Oficial]
-                            {% if request.user.profile.isContributor %}
+                            {% else %}
                                 <a data-trigger="login" data-token="{{ csrf_token }}" href="{% url 'feed:set-content-official' 'article' article.id %}?next={{ request.path|urlencode }}">Marcar como Oficial</a>
                             {% endif %}
                         {% endif %}

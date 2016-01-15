@@ -20,6 +20,7 @@
             </ul>
             <div class="post-container">
                 <article class="full-post">
+                    {% if feed and feed.official %}<div class="label-official-content label-tall"></div>{% endif%}
                     <header class="post-header">
                         <div class="post-info">
                             <time datetime="{{ question.question_date|date:"m-d-Y" }}" itemprop="datePublished">{{ question.question_date|date:"d/m/Y à\s H:i" }}</time>

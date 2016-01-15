@@ -32,6 +32,7 @@ class CoreArticleView(views.ArticleView):
             'feed': feed_object
         }
 
+
 class CoreArticleInCommunityView(CoreArticleEditView):
 
     article_community = False

@@ -71,6 +71,21 @@
     line-height: 2.7;
     text-align: right;
 }
+.label-official-content {
+    position: absolute;
+    top: 0;
+    right: 0;
+    content: " ";
+    width: 20px;
+    height: 41px;
+    background: #0160b0 url('../images/gsti-collaborator.png');
+    background-size: 10.5px 15px;
+    background-position: center;
+    background-repeat: no-repeat;
+    &.label-tall {
+        height: 61px;
+    }
+}
 .article-excerpt {
     @extend %clearfix;
     padding-top: 15px;
@@ -99,6 +114,7 @@
     margin-bottom: 20px;
     border: 1px solid $color-border;
     background: $link-white;
+    position: relative;
 
     &-#{title} {
         margin: 0;

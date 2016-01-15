@@ -50,10 +50,6 @@
                                     <i class="gsticon gsticon-google-plus"></i>
                                     Google+</a>
                             </div>
-                            <div class="form-group {% if form.username.errors %}has-error{% endif %}">
-                                <input class="form-control" type="text" name="username" value="{{ form.cleaned_data.username|default_if_none:"" }}" placeholder="{% trans "Username" %}" maxlength="30">
-                                {% if form.username.errors %}  {{ form.username.errors }} {% endif %}
-                            </div>
                             <div class="form-group form-group-half {% if form.first_name.errors %}has-error{% endif %}">
                                 <input class="form-control" type="text" name="first_name" value="{{ form.cleaned_data.first_name|default_if_none:"" }}" placeholder="{% trans "First name" %}" maxlength="30">
                                 {% if form.first_name.errors %}  {{ form.first_name.errors }} {% endif %}
@@ -65,6 +61,11 @@
                             <div class="form-group {% if form.email.errors %}has-error{% endif %}">
                                 <input class="form-control" type="email" name="email" value="{{ form.cleaned_data.email|default_if_none:"" }}" placeholder="{% trans "Email" %}" maxlength="150">
                                 {% if form.email.errors %}  {{ form.email.errors }} {% endif %}
+                            </div>
+
+                            <div class="form-group {% if form.username.errors %}has-error{% endif %}">
+                                <input class="form-control" type="text" name="username" value="{{ form.cleaned_data.username|default_if_none:"" }}" placeholder="{% trans "Username" %}" maxlength="30">
+                                {% if form.username.errors %}  {{ form.username.errors }} {% endif %}
                             </div>
 
                             <div class="form-group {% if form.password.errors %}has-error{% endif %}">

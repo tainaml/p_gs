@@ -17,7 +17,7 @@
                     {% if profile.user == request.user %}
                         <a href="{% url 'profile:feed' %}">Feed</a> •
                     {% endif %}
-                    <a href="{% url 'profile:show' username=profile.user.username %}">Perfil</a> •
+                    <a href="{% url 'profile:show' username=profile.user.username %}">Publicações</a> • •
                     <a href="{% url 'profile:communities' username=profile.user.username %}">Comunidades</a> •
                     <a href="{% url 'profile:followers' username=profile.user.username %}">Relacionamentos</a> •
                     <a class="active" href="{% url 'profile:videos' profile.user.username %}">Vídeos</a>
@@ -31,7 +31,7 @@
                         <nav class="form-search">
                             <form action="{% url 'profile:videos-search' profile.user.username %}" method="GET" role="search">
                                 <div class="form-search-input">
-                                    <input type="text" name="criteria" placeholder="{{placehold|default:"Procure pessoas, comunidades, etc."}}" value="{{ form.cleaned_data.criteria|default:"" }}">
+                                    <input type="text" name="criteria" placeholder="{{placehold|default:"Procure videos"}}" value="{{ form.cleaned_data.criteria|default:"" }}">
                                 </div>
                                 <button type="submit" class="form-search-button">
                                     <i class="gsticon gsticon-search"></i>

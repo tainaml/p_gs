@@ -15,8 +15,7 @@
             <div class="col-lg-9">
                 <nav class="perfil-navegation">
                     {% if profile.user == request.user %}<a href="{% url 'profile:feed' %}">Feed</a> • {% endif %}
-                    <a class="active" href="{% url 'profile:show' username=profile.user.username %}">Perfil</a> •
-
+                    <a class="active" href="{% url 'profile:show' username=profile.user.username %}">Publicações</a> •
                     <a href="{% url 'profile:communities' username=profile.user.username %}">Comunidades</a> •
                     <a href="{% url 'profile:followers' username=profile.user.username %}">Relacionamentos</a> •
                     <a href="{% url 'profile:videos' profile.user.username %}">Vídeos</a>

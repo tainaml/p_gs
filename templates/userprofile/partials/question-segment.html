@@ -3,6 +3,7 @@
 {% load social_tags %}
 
 <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+    {% if feed and feed.official %}<div class="label-official-content"></div>{% endif%}
     <header class="post-header">
         <div class="post-info">
             <time datetime="06-17-2015" itemprop="datePublished">{{ instance.question_date|date:'d/m/Y' }} às {{ instance.question_date|date:'G:i' }}</time>

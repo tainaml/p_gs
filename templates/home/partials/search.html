@@ -1,7 +1,7 @@
 <form action="{% url 'search:search' %}" method="GET" role="search">
     {% csrf_token %}
     <div class="form-search-input">
-        <input type="text" id="search-criteria" name="q" placeholder="{{placehold|default:"Procure pessoas, comunidades, etc."}}" autocomplete="off"
+        <input type="text" id="search-criteria" name="q" placeholder="{{placehold|default:"Procure profissionais de tecnologia, comunidades e conteúdo"}}" autocomplete="off"
                data-autocomplete="true"
                data-autocomplete-timeout="500"
                data-autocomplete-target="#dropdown-search"
