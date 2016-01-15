@@ -125,7 +125,6 @@ if ( typeof Object.create !== 'function' ) {
 
                 if ( typeof  self.options.counterType === "string" && self.options.counterType == "min" ) {
                     remain = self.count;
-                    console.log( 'remain min: ' + remain );
                 } else {
                     remain = ( self.options.counterLimit >= self.count )
                         ? self.options.counterLimit - self.count
@@ -276,7 +275,7 @@ if ( typeof Object.create !== 'function' ) {
         counterInsert: 'after',
         counterSlug: false,
         counterSlugTarget: '#permalink',
-        counterDebug: true,
+        counterDebug: false,
         counterStyle: {
             'red': '#E12C2C',
             'green' : 'green'
