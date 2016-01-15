@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
@@ -23,4 +26,8 @@ class FeedObject(models.Model):
     official = models.BooleanField(null=False, blank=False, default=False)
 
     def __unicode__(self):
-        return self.content_object
+        if self.content_object and self.content_object.id:
+            if self.content_type.model=="article" or self.content_type.model=="question":
+                return ("[{0}] - ".format(self.content_type.model)).upper() + self.content_object.title
+
+        return "No related object"
