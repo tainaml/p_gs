@@ -1,4 +1,5 @@
 {% load thumbor_tags %}
+{% load widget_tweaks %}
 {{ form.non_field_errors }}
 
 <form data-group-class=".comment-group" data-toggle="prepend" data-update="#container-comments" data-ajaxform="true" action="{% url 'comment:save' %}" class="create-comment" method="post">{% csrf_token %}
@@ -8,7 +9,8 @@
     </div>
 
     <div class="comment-group create-comment-body{% if form.content.errors %} has-error{% endif %}">
-         <textarea id="text_area_content" name="content" class="form-control" placeholder="Deixe seu comentário" data-trigger="login" data-token="{{ csrf_token }}"></textarea>
+        {% render_field comment_form.content placeholder="Deixe seu comentário" class="form-control" rows="4" name="content" data-trigger="login" data-token=csrf_token %}
+{#         <textarea id="text_area_content" name="content" data-trigger="login" data-token="{{ csrf_token }}"></textarea>#}
          <span class="help-block"></span>
     </div>
 

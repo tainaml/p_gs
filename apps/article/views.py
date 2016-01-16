@@ -9,6 +9,7 @@ from django.shortcuts import render, redirect
 from django.utils.decorators import method_decorator
 from django.utils.translation import gettext as _
 from django.views.generic import View
+from apps.comment.service.forms import CreateCommentForm, EditCommentForm
 
 from .service import business as Business
 from .service.forms import ArticleForm
@@ -50,11 +51,15 @@ class ArticleView(ArticleBaseView):
 
     def get(self, request, article_slug, article_id):
         article = self.filter_article(request, article_id)
+        comment_form = CreateCommentForm
+        edit_comment_form= EditCommentForm
         if not str(article.slug) == str(article_slug):
             raise self.article_not_found
 
         context = {'article': article}
         context.update(self.get_context(request, article))
+        context.update({"comment_form": comment_form})
+        context.update({"edit_comment_form": edit_comment_form})
 
         return render(request, self.template_name, context)
 

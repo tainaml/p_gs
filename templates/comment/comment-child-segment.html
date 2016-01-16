@@ -20,7 +20,7 @@
     </a>
 </header>
 <div class="comment-text">
-    <p>{{ instance.content }}</p>
+    <p>{{ instance.content|safe }}</p>
 </div>
  {% if instance.author == request.user %}
      {% with comment_id=instance.id|stringformat:"s" %}

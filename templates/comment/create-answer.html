@@ -1,4 +1,5 @@
 {% load thumbor_tags %}
+{% load widget_tweaks %}
 {{ form.non_field_errors }}
 
 <form data-ajaxform="true" data-group-class=".comment-group" data-update="#data-list-{{ instance.id }}" data-toggle="prepend" class="create-comment"
@@ -13,6 +14,9 @@
 
     <div class="comment-group">
         <div class="create-comment-body{% if form.content.errors %} has-error{% endif %}">
+        teste de resposta
+            {% render_field comment_form.content placeholder="Deixe seu comentário" class="form-control" rows="4" name="content" data-trigger="login" data-token=csrf_token %}
+
             <textarea name="content" class="form-control"  placeholder="Deixe sua resposta" data-trigger="login" data-token="{{ csrf_token }}"></textarea>
             <span class="help-block"></span>
         </div>

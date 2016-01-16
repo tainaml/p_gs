@@ -1,12 +1,13 @@
 from django.core.exceptions import ValidationError
 from django.conf import settings
+from ckeditor_uploader.widgets import CKEditorUploadingWidget
 
 from custom_forms.custom import forms, IdeiaForm
 import business as Business
 
 
 class CreateCommentForm(IdeiaForm):
-    content = forms.CharField(max_length=512, required=True)
+    content = forms.CharField(max_length=512, required=True, widget=CKEditorUploadingWidget(config_name='comment'))
     content_type = forms.CharField(max_length=20, required=True)
     content_object_id = forms.IntegerField(required=True)
 
@@ -44,7 +45,7 @@ class CreateCommentForm(IdeiaForm):
 
 class EditCommentForm(IdeiaForm):
 
-    content = forms.CharField(max_length=512, required=True)
+    content = forms.CharField(max_length=512, required=True, widget=CKEditorUploadingWidget(config_name='comment'))
     comment_id = forms.IntegerField(required=True)
 
     def __init__(self, user=None, id=None, *args, **kargs):
