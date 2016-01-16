@@ -2,7 +2,8 @@
   {
     "fields": {
       "description": "Categoria",
-      "parent": null
+      "parent": null,
+      "slug": ""
     },
     "model": "taxonomy.term",
     "pk": 1
@@ -10,7 +11,8 @@
   {
     "fields": {
       "description": "Comunidade",
-      "parent": null
+      "parent": null,
+      "slug": ""
     },
     "model": "taxonomy.term",
     "pk": 2
@@ -19,7 +21,8 @@
     "fields": {
       "term": 1,
       "description": "Desenvolvimento",
-      "parent": null
+      "parent": null,
+      "slug": "desenvolvimento"
     },
     "model": "taxonomy.taxonomy",
     "pk": 1
@@ -28,7 +31,8 @@
     "fields": {
       "term": 2,
       "description": "Python",
-      "parent": 1
+      "parent": 1,
+      "slug": "python"
     },
     "model": "taxonomy.taxonomy",
     "pk": 2
@@ -37,7 +41,8 @@
     "fields": {
       "term": 2,
       "description": "Django",
-      "parent": 2
+      "parent": 2,
+      "slug": "django"
     },
     "model": "taxonomy.taxonomy",
     "pk": 3
@@ -46,7 +51,8 @@
     "fields": {
       "term": 2,
       "description": "Java",
-      "parent": 1
+      "parent": 1,
+      "slug": "java"
     },
     "model": "taxonomy.taxonomy",
     "pk": 4
@@ -55,7 +61,8 @@
     "fields": {
       "term": 2,
       "description": "Spring",
-      "parent": 4
+      "parent": 4,
+      "slug": "spring"
     },
     "model": "taxonomy.taxonomy",
     "pk": 5
@@ -64,7 +71,8 @@
     "fields": {
       "term": 2,
       "description": "PHP",
-      "parent": 1
+      "parent": 1,
+      "slug": "php"
     },
     "model": "taxonomy.taxonomy",
     "pk": 6
@@ -73,7 +81,8 @@
     "fields": {
       "term": 2,
       "description": "Zend",
-      "parent": 6
+      "parent": 6,
+      "slug": "zend"
     },
     "model": "taxonomy.taxonomy",
     "pk": 7
@@ -82,7 +91,8 @@
     "fields": {
       "term": 2,
       "description": "Javascript",
-      "parent": 1
+      "parent": 1,
+      "slug": "javascript"
     },
     "model": "taxonomy.taxonomy",
     "pk": 8
@@ -91,7 +101,8 @@
     "fields": {
       "term": 2,
       "description": "HTML",
-      "parent": 1
+      "parent": 1,
+      "slug": "html"
     },
     "model": "taxonomy.taxonomy",
     "pk": 9
@@ -100,7 +111,8 @@
     "fields": {
       "term": 2,
       "description": "CSS",
-      "parent": 11
+      "parent": 11,
+      "slug": "css"
     },
     "model": "taxonomy.taxonomy",
     "pk": 10
@@ -109,9 +121,50 @@
     "fields": {
       "term": 1,
       "description": "Web Design",
-      "parent": null
+      "parent": null,
+      "slug": "web-design"
     },
     "model": "taxonomy.taxonomy",
     "pk": 11
+  },
+  {
+    "fields": {
+      "term": 1,
+      "description": "Banco de dados",
+      "parent": null,
+      "slug": "banco-de-dados"
+    },
+    "model": "taxonomy.taxonomy",
+    "pk": 12
+  },
+  {
+    "fields": {
+      "term": 1,
+      "description": "infraestrutura",
+      "parent": null,
+      "slug": "infraestrutura"
+    },
+    "model": "taxonomy.taxonomy",
+    "pk": 13
+  },
+  {
+    "fields": {
+      "term": 1,
+      "description": "Marketing digital",
+      "parent": null,
+      "slug": "marketing-digital"
+    },
+    "model": "taxonomy.taxonomy",
+    "pk": 14
+  },
+  {
+    "fields": {
+      "term": 1,
+      "description": "Governanca de ti",
+      "parent": null,
+      "slug": "governanca-de-ti"
+    },
+    "model": "taxonomy.taxonomy",
+    "pk": 15
   }
 ]
