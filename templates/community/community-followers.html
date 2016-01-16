@@ -29,7 +29,7 @@
                         <input type="hidden" name="community" value="{{ community.id }}">
                         <div class="col-lg-7">
                             <div class="form-search-input">
-                                <input type="text" id="filterName" name="criteria" placeholder="{{ placehold|default:"Procure por alguém." }}" autocomplete="off">
+                                <input type="text" id="filterName" name="criteria" placeholder="{{ placehold|default:"Procure por pessoas" }}" autocomplete="off">
                             </div>
                             <button type="submit" class="form-search-button">
                                 <i class="gsticon gsticon-search"></i>
@@ -130,6 +130,7 @@
             });
             $("#form-search-followers").on("ajaxform.success", functionAjaxSuccessSearchFollowers);
             $(".j-scroll-followers").jscroll({
+                loadingHtml: '<div class="col-lg-12"><div class="load-async-preload"></div></div>',
                 contentSelect: ".j-scroll-followers-container",
                 nextSelect: "a[data-jscroll-next]"
             });

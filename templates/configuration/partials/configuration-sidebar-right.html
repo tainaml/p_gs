@@ -2,24 +2,17 @@
     <div class="widget widget-box squad-advertising">
         <div class="widget-content">
             <ul class="perfil-repositories">
-                <li>
+                <li {% if local_context == "account" %}class="active"{% endif %}>
                     <a href="{% url 'configuration:account' %}"><i class="gsticon gsticon-user"></i>
-                        {% if local_context == "account" %}<strong>{% endif %}
                         Conta
-                        {% if local_context == "account" %}</strong>{% endif %}
                     </a>
                 </li>
-                <li>
+                <li {% if local_context == "notification" %}class="active"{% endif %}>
                     <a href="{% url 'configuration:notification' %}"><i class="gsticon gsticon-bell"></i>
-                        {% if local_context == "notification" %}<strong>{% endif %}
                         Notificações
-                        {% if local_context == "notification" %}</strong>{% endif %}
                     </a>
                 </li>
             </ul>
         </div>
-    </div>
-    <div class="squad-advertising">
-        <img class="img-responsive" src="http://placehold.it/270x225" alt="Propaganda aqui">
     </div>
 </div>
