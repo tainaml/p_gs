@@ -106,9 +106,15 @@ $color-counter-notification: #b2b2b2 !default;
     > .perfil {
         padding: 0;
         border: none;
-        min-height: auto;
+        /*min-height: auto;*/
+        min-height: initial;
     }
 }
 .visualized {
     background-color: #fcfcfc;
+}
+
+#dropdown-search .item-float-notification:hover, 
+#dropdown-search .item-float-notification:hover > .perfil {
+    background: #f7f7f7;
 }
