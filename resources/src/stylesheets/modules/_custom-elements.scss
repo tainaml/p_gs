@@ -45,7 +45,8 @@
 
 .custom-file-upload {
     position: relative;
-    padding: 35px;
+    /*padding: 35px;*/
+    /*padding: 0 !important;*/
     background: #f2f2f2;
     color: #d8d8d8;
     cursor: pointer;
@@ -71,6 +72,7 @@
         cursor: pointer;
     }
     .custom-file-content {
+        padding: 10px 20px;
         // position: relative;
         // top: 0; left: 0;
         // right: 0; bottom: 0;
@@ -80,7 +82,14 @@
         text-align: center;
         > img {
             margin: 0 auto;
+            width: 100%;
+            height: auto;
         }
+    }
+}
+.custom-file-upload-larger {
+    .custom-file-content {
+        padding: 35px;
     }
 }
 .custom-input {
