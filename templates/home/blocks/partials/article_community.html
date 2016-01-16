@@ -2,6 +2,6 @@
 
 <a
         class="article-category"
-        href="{{ article_link }}">
+        href="{% url "community:show" community.slug %}">
     {{ community.title }}
 </a>
