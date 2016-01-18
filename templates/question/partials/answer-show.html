@@ -1,12 +1,9 @@
 {% load social_tags %}
 {% load thumbor_tags %}
 <div class="comment">
-    <div class="comment-user">
+    <a class="comment-user" href="{% url 'profile:show' instance.author.username %}">
         <img src="{% thumbor_url instance.author.profile.get_profile_picture.url width=63 height=63 smart=False fit_in=False %}" alt="User Avatar">
-        <div class="comment-vote">
-            {% like_box instance request.path "reply" %}
-        </div>
-    </div>
+    </a>
     <div class="comment-body">
         <header class="post-header">
             <div class="post-info">
