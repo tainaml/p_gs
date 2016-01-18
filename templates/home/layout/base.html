@@ -171,6 +171,7 @@
                 var asyncClickData = asyncClick.IdeiaAsyncClick();
 
                 $("[data-load-async=true]").loadAsync();
+                $('[data-action]').ajaxSocialAction();
                 $("[data-toggle=tooltip]").tooltip();
             };
 
