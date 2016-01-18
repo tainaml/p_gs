@@ -3,10 +3,10 @@
 
 
 <div class="perfil">
-    <img src="{% thumbor_url community_obj.get_picture.url width=82 height=82 smart=False fit_in=False %}" alt="{{ community_obj.title }}">
+    <a href="{% url 'community:show' community_obj.slug %}"><img src="{% thumbor_url community_obj.get_picture.url width=82 height=82 smart=False fit_in=False %}" alt="{{ community_obj.title }}"></a>
     <a class="perfil-name" href="{% url 'community:show' community_obj.slug %}">{{ community_obj.title }}</a>
-    <a class="perfil-counter" href="{% url 'community:followers' community_obj.slug %}">
+    <span class="perfil-counter">
         <span class="counter-number">{% followers_count community_obj as followers_count_value %}{{ followers_count_value }}</span> Seguidor{{ followers_count_value|pluralize:'es' }}
-    </a>
+    </span>
     {% follow_action community_obj url_next %}
 </div>
