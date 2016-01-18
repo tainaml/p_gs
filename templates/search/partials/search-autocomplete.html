@@ -16,7 +16,7 @@
                     {% endif %}
                 </a>
                 <a href="{% url 'profile:show' user.get_username %}" title="{{ user.get_full_name }}">{{ user.get_full_name }}</a>
-                <a href="{% url 'profile:followers' user.get_username %}" class="perfil-counter">{% followers_count user as followers_count_value %}{{ followers_count_value }} Seguidor{{ followers_count_value|pluralize:'es' }}</a>
+                <span class="perfil-counter">{% followers_count user as followers_count_value %}{{ followers_count_value }} Seguidor{{ followers_count_value|pluralize:'es' }}</span>
             </div>
         </li>
         {% endfor %}
@@ -39,7 +39,7 @@
                         {% endif %}
                     </a>
                     <a href="{% url 'community:show' community.slug %}">{{ community.title }}</a>
-                    <a href="{% url 'community:followers' community.slug %}" class="perfil-counter">{% followers_count community as followers_count_value %}{{ followers_count_value }} Seguidor{{ followers_count_value|pluralize:'es' }}</a>
+                    <span class="perfil-counter">{% followers_count community as followers_count_value %}{{ followers_count_value }} Seguidor{{ followers_count_value|pluralize:'es' }}</span>
                 </div>
             </li>
         {% endfor %}
