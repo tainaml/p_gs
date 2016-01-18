@@ -82,8 +82,8 @@ var readFile = function (file) {
 
 var getCanvasImage = function(image) {
 
-  let imgWidth = 500,
-      imgHeight = 500;
+  let imgWidth = image.width,
+      imgHeight = image.height;
 
   let canvas = document.createElement('canvas');
   canvas.width = imgWidth;

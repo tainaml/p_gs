@@ -22,19 +22,15 @@
                             <div class="col-lg-4">
                                 <div class="custom-file-upload set-avatar" 
                                     data-module="dropzoneUploader" 
-                                    {% comment %}data-original-image="{% if profile.get_profile_picture %}{{ profile.get_profile_picture.url }}{% endif %}"{% endcomment %}
+                                    data-original-image="{% if profile.get_profile_picture %}{{ profile.get_profile_picture.url }}{% endif %}"
                                     >
-                                    <div class="custom-file-content" {% if profile.get_profile_picture %}style="display:none;"{% endif %}>
+                                    <div class="custom-file-content">
                                         <i class="gsticon gsticon-cloud-upload"></i>
                                         <h5><strong>Foto de perfil</strong></h5>
                                         <p>Arraste a imagem para este campo ou <a href="javascript:;" data-trigger="file">clique aqui</a></p>
                                     </div>
                                     <input type="file" accept="image/*" name="profile_picture">
-                                    <div class="custom-file-upload-result" data-content="file">
-                                        {% if profile.get_profile_picture %}
-                                            <img src="{% thumbor_url profile.get_profile_picture.url width=150 height=150 smart=False fit_in=False %}" class="img-responsive" alt="{{ profile.user.get_full_name }}">
-                                        {% endif %}
-                                    </div>
+                                    <div class="custom-file-upload-result" data-content="file"></div>
                                 </div>
                             </div>
                             <div class="col-lg-8">
