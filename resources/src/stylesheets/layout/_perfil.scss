@@ -157,6 +157,11 @@
             padding-bottom: 5px;
             display: block;
         }
+        &.active {
+            > a {
+                color: $color-link-counter-dark;
+            }
+        }
     }
 }
 
@@ -172,16 +177,18 @@
 }
 
 .perfil-repositories {
-    > li > a {
-        color: $color-link-counter;
-        &:hover,
-        &.selected {
-            color: $color-link-counter-dark;
+    > li {
+        > a {
+            color: $color-link-counter;
+            &:hover,
+            &.selected {
+                color: $color-link-counter-dark;
+            }
         }
-    }
-    > li.active > a {
-        color: $color-link-counter-dark;
-        font-weight: 600;
+        &.active > a {
+            color: $color-link-counter-dark;
+            font-weight: 600;
+        }
     }
     .counter {
         float: right;

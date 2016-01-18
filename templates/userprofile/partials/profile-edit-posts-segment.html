@@ -10,7 +10,7 @@
                 {% endif %}
                 <div class="publication-content">
                     {% if post.status == 0 %}<small class="publication-type draft">Rascunho:</small>{% endif %}
-                    {% if post.status == 2 %}<small class="publication-type trash">Item excluído:</small>{% endif %}
+                    {% if post.status == 2 %}<small class="publication-type trash text-danger">Item excluído</small>{% endif %}
                     <h3 class="publication-title">{{ post.title }}</h3>
                 </div>
             </div>
@@ -20,7 +20,7 @@
                     <a class="publication-footer-menu-item" href="{% url 'article:edit' post.id %}">Editar</a>
                     <a class="publication-footer-menu-item" href="{% url 'article:view' post.slug post.id %}">Visualizar</a>
                     {% if post.status != 2 %}
-                    <a class="publication-footer-menu-item" href="{% url 'article:delete' post.id %}" data-delete-item="true" data-url="{% url 'article:delete-async' post.id %}" data-item="{{ post.id }}" data-title="{{ post.title }}"  data-modal="#modal-confirmation">Excluir</a>
+                    <a class="publication-footer-menu-item text-danger" href="{% url 'article:delete' post.id %}" data-delete-item="true" data-url="{% url 'article:delete-async' post.id %}" data-item="{{ post.id }}" data-title="{{ post.title }}"  data-modal="#modal-confirmation">Excluir</a>
                     {% endif %}
                 </nav>
             </footer>
