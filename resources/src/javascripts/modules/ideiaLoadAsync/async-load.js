@@ -1,63 +1,82 @@
-require('jquery');
-
-;(function($){
+;(function($) {
 
     var EVENT_AJAX_SUCCESS = 'async.load.success';
     var EVENT_AJAX_ERROR   = 'async.load.error';
 
-    $.fn.extend({
+    $.AsyncLoad = function(element, options) {
 
-        loadAsync: function(){
+        var plugin = this;
 
-            var loadContent = function(el){
+        plugin.settings = {};
 
-                var $self = $(el),
-                    url = $self.data("loadAsyncUrl") || $self.attr("href"),
-                    timeout =  $self.data("loadAsyncTimeout") || 1e3,
-                    method = $self.data("loadAsyncMethod") || "get",
-                    dataType = $self.data("loadAsyncResponseType") || "json";
+        var $element = $(element),
+            element = element;
 
-                setTimeout(function(){
-                    $.ajax({
-                        url: url,
-                        method: method,
-                        dataType: dataType,
-                        data: {
-                            'url-next': $self.data("loadAsyncUrlNext"),
-                            'csrfmiddlewaretoken': $self.find("input:hidden[name='csrfmiddlewaretoken']").val()
-                        },
-                        success: function(data, status, xhr) {
-                            var target = $self.data("loadAsyncTarget");
-                            if(!target) {
-                                $self.find(".load-async-content").html(data.template);
-                            } else {
-                                $(target).html(data.template);
-                            }
-                            $self.trigger(EVENT_AJAX_SUCCESS, data);
-                        },
-                        statusCode: {
-                            400: function() {
-                                $this.html("");
-                            },
-                            403: function() {
-                                console.log('-- 403 Forbidden --');
-                            }
-                        }
-                    });
-                }, timeout);
+        plugin.init = function() {
+
+            console.log( 'plugin init' );
+
+            plugin.do_submit(element);
+
+        };
+
+        plugin.do_submit = function(el){
+            console.log( 'plugin do_submit' );
+            var $self = $(el),
+                url = $self.data("loadAsyncUrl") || $self.attr("href"),
+                method = $self.data("loadAsyncMethod") || "get",
+                dataType = $self.data("loadAsyncResponseType") || "json",
+                timeout =  $self.data("loadAsyncTimeout") || 1e3;
+
+            var ajaxParams = {
+                url: url,
+                method: method,
+                dataType: dataType,
+                data: {
+                    'url-next': $self.data("loadAsyncUrlNext"),
+                    'csrfmiddlewaretoken': $self.find("input:hidden[name='csrfmiddlewaretoken']").val()
+                },
+                success: function(data, status, xhr) {
+                    var target = $self.data("loadAsyncTarget");
+                    if(!target) {
+                        $self.find(".load-async-content").html(data.template);
+                    } else {
+                        $(target).html(data.template);
+                    }
+                    $self.trigger(EVENT_AJAX_SUCCESS, data);
+                },
+                statusCode: {
+                    400: function() {
+                        $this.html("");
+                    },
+                    403: function() {
+                        console.log('-- 403 Forbidden --');
+                    }
+                }
             };
 
-            return this.each(function(i,el){
-                loadContent(this);
-            });
-        }
-    });
+            setTimeout(function(){
+                $.ajax(ajaxParams);
+            }, timeout);
+        };
 
-    function LoadAsyncReady() {
-        var $loadAsync = $("[data-load-async=true]");
-        $loadAsync.loadAsync();
+        plugin.init();
+    };
+
+    $.fn.loadAsync = function(options) {
+        return this.each(function() {
+            if (undefined == $(this).data('IdeiaAsyncLoad')) {
+                var plugin = new $.AsyncLoad(this, options);
+                $(this).data('IdeiaAsyncLoad', plugin);
+            }
+        });
+    };
+
+    function AsyncLoadOnReady(){
+        var asyncElem = $("[data-load-async=true]");
+        var asyncData = asyncElem.loadAsync();
     }
 
-    $(document).ready(LoadAsyncReady);
+    $(document).ready(AsyncLoadOnReady);
 
 })(jQuery);
