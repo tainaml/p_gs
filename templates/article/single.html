@@ -22,7 +22,11 @@
         </ul>
         <div class="post-container">
             <article class="full-post">
-                {% if feed and feed.official %}<div class="label-official-content label-tall"></div>{% endif%}
+                {% if feed and feed.official %}
+                    <div class="label-official-content label-tall"
+                         data-toggle="tooltip"
+                         data-original-title="Conteúdo Oficial"></div>
+                {% endif%}
                 <header class="post-header">
                     <div class="post-info">
 

@@ -24,4 +24,7 @@ $(() => {
     $('[data-toggle=modal]').on('click', function (event) {
         $(this).parents('[data-target=modal]').modal('hide');
     });
+
+    // Tooltips
+    $('[data-toggle=tooltip]').tooltip();
 });

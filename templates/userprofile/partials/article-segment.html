@@ -3,7 +3,11 @@
 {% load taxonomy_tags %}
 
 <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
-    {% if feed and feed.official %}<div class="label-official-content"></div>{% endif%}
+    {% if feed and feed.official %}
+        <div class="label-official-content"
+             data-toggle="tooltip"
+             data-original-title="Conteúdo Oficial"></div>
+    {% endif%}
     <header class="post-header">
         <div class="post-info">
             <time datetime="{{ instance.publishin|date:"d/m/Y G:i" }}" itemprop="datePublished">{{ instance.publishin|date:'d/m/Y' }} às {{ instance.publishin|date:'G:i' }}</time>
