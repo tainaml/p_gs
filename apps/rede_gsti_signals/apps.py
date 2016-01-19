@@ -8,4 +8,4 @@ class RedeGSTIConfig(AppConfig):
     verbose_name = "RedeGSTISignals"
 
     def ready(self):
-        pass
+        import signals
