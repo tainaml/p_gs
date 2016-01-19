@@ -22,15 +22,15 @@
     <div class="widget-content">
         <ul class="perfil-repositories">
             <li {% if local_context == "favourite" %}class="active"{% endif %}>
-                <span data-social-count="true" class="counter" data-url="{% url "core_socialactions:counter-actions" profile.user.username "favourite" %}"></span>
+                {# <span data-social-count="true" class="counter" data-url="{% url "core_socialactions:counter-actions" profile.user.username "favourite" %}"></span>#}
                 <a href="{% url 'profile:favourite' %}"><i class="gsticon gsticon-star"></i> Favoritos </a>
             </li>
             <li {% if local_context == "see-later" %}class="active"{% endif %}>
-                <span data-social-count="true" class="counter" data-url="{% url "core_socialactions:counter-actions" profile.user.username "see-later" %}"></span>
+                {# <span data-social-count="true" class="counter" data-url="{% url "core_socialactions:counter-actions" profile.user.username "see-later" %}"></span>#}
                 <a href="{% url 'profile:see-later' %}"><i class="gsticon gsticon-eye"></i> Ver depois </a>
             </li>
             <li {% if local_context == "suggest" %}class="active"{% endif %}>
-                <span data-social-count="true" class="counter" data-url="{% url "core_socialactions:counter-actions" profile.user.username "suggest" %}"></span>
+                {# <span data-social-count="true" class="counter" data-url="{% url "core_socialactions:counter-actions" profile.user.username "suggest" %}"></span>#}
                 <a href="{% url 'profile:suggest' %}"><i class="gsticon gsticon-paper-plane"></i> Sugestões </a>
             </li>
         </ul>
