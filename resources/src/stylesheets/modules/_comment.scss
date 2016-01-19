@@ -92,12 +92,24 @@
             border-bottom: 13px solid transparent;
             border-right: 17px solid #ccc;
         }
-
         > textarea {
             min-height: 88px;
+            resize: none;
             &:focus {
                 box-shadow: none;
                 border-color: #ccc;
+            }
+        }
+        &.has-error {
+            &:after {
+                border-right: 17px solid #A94442;
+            }
+            > textarea {
+                box-shadow: none;
+                resize: none;
+                &:focus {
+                    box-shadow: 0px 0px 6px #CE8483;
+                }
             }
         }
     }

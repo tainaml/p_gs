@@ -56,7 +56,7 @@ if (typeof jQuery === 'undefined') {
         placement: 'top',
         selector: false,
         template: '<div class="tooltip" role="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner"></div></div>',
-        trigger: 'hover focus',
+        trigger: 'hover',
         title: '',
         delay: 0,
         html: false,
