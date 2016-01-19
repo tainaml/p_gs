@@ -1,0 +1,9 @@
+<nav class="perfil-navegation">
+    {% if profile.user == request.user %}
+        <a {% if local_context == "feed" %}class="active"{% endif %} href="{% url 'profile:feed' %}">Feed</a> •
+    {% endif %}
+    <a {% if local_context == "profile" %}class="active"{% endif %} href="{% url 'profile:show' username=profile.user.username %}">Publicações</a> •
+    <a {% if local_context == "community" %}class="active"{% endif %} href="{% url 'profile:communities' username=profile.user.username %}">Comunidades</a> •
+    <a {% if local_context == "relationship" %}class="active"{% endif %} href="{% url 'profile:followers' username=profile.user.username %}">Relacionamentos</a> •
+    <a {% if local_context == "videos" %}class="active"{% endif %} href="{% url 'profile:videos' profile.user.username %}">Vídeos</a>
+</nav>

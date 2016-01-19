@@ -69,5 +69,7 @@
         {% endcomment %}
 
     </ul>
-    <a href="javascript:void(0);" class="footer-float-notifications">Ver todos</a>
+    {% if notifications %}
+        <a href="{% url 'notifications:members' %}" class="footer-float-notifications">Ver todos</a>
+    {% endif %}
 </div>

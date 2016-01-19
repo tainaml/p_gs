@@ -1,0 +1,17 @@
+{% load list_filter %}
+
+{% if notifications %}
+    {% for notification in notifications %}
+
+        {% with notification_action=notifications_label|get_at_index:notification.notification_action %}
+            {% with template_name=notification_action|stringformat:"s"|add:".html" %}
+                {% include 'notification/partials/items/notification-item-'|add:template_name %}
+            {% endwith %}
+        {% endwith %}
+
+    {% endfor %}
+{% else %}
+    <hr>
+    <p class="text-center">Nenhuma notificação</p>
+    <hr>
+{% endif %}

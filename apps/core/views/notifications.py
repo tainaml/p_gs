@@ -1,16 +1,17 @@
 from django.conf import settings
+from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse, Http404
 from django.shortcuts import render
+from django.utils.decorators import method_decorator
 
 from apps.notifications.service import business as Business
-from apps.notifications.service.forms import ListNotificationForm
+from apps.notifications.service.forms import NotificationForm
+from apps.notifications import views
+
 from rede_gsti.settings import NOTIFICATION_ACTIONS
 
-__author__ = 'phillip'
-from apps.notifications.views import NotificationBaseView
 
-
-class CoreNotificationIndexView(NotificationBaseView):
+class CoreNotificationIndexView(views.NotificationBaseView):
     template_path = 'notifications/index.html'
 
     def get(self, request):
@@ -25,9 +26,9 @@ class CoreNotificationIndexView(NotificationBaseView):
         return render(request, self.template_path, context)
 
 
-class CoreNotificationListView(NotificationBaseView):
+class CoreNotificationListView(views.NotificationBaseView):
     template_path = 'userprofile/notifications/partials/list-notifications.html'
-    form = ListNotificationForm
+    form = NotificationForm
     notification_actions = settings.NOTIFICATION_ACTIONS.keys()
     itens_per_page = 10
 
@@ -62,9 +63,10 @@ class CoreAnswersAndCommentsListView(CoreNotificationListView):
     notification_actions = [settings.SOCIAL_FOLLOW]
 
 
-class CoreNotificationMembersView(NotificationBaseView):
-    template_path = 'userprofile/notifications/notifications-members.html'
+class CoreNotificationMembersView(views.NotificationBaseView):
+    template_path = 'notification/notification-members.html'
 
+    @method_decorator(login_required)
     def get(self, request):
         context = {
             'profile': request.user.profile,
@@ -74,7 +76,7 @@ class CoreNotificationMembersView(NotificationBaseView):
         return render(request, self.template_path, context)
 
 
-class CoreNotificationPollingBase(NotificationBaseView):
+class CoreNotificationPollingBase(views.NotificationBaseView):
 
     def set_notification_group(self, notification_type):
 
@@ -160,7 +162,7 @@ class CoreNotificationPollingLoad(CoreNotificationPollingBase):
         return JsonResponse(context, status=200)
 
 
-class CoreNotificationClear(NotificationBaseView):
+class CoreNotificationClear(views.NotificationBaseView):
     def post(self, request):
         notifications_ids = request.POST.getlist('notifications[]')
 
