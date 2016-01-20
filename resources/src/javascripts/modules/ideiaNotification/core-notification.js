@@ -254,7 +254,7 @@
             }
 
             $.each( items, function( i, e ) {
-                $( e ).removeClass( 'visualized' );
+                $( e ).removeClass( 'not-visualized' );
             });
 
 

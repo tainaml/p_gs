@@ -76,7 +76,7 @@ class CoreNotificationMembersView(views.NotificationBaseView):
         return render(request, self.template_path, context)
 
 
-class CoreNotificationPollingBase(views.NotificationBaseView):
+class CoreNotificationPollingBase(views.View):
 
     def set_notification_group(self, notification_type):
 
@@ -89,6 +89,7 @@ class CoreNotificationPollingBase(views.NotificationBaseView):
 class CoreNotificationPollingCount(CoreNotificationPollingBase):
     template_path = ''
 
+    @method_decorator(login_required)
     def get(self, request, notification_type):
 
         if not request.is_ajax():
@@ -114,7 +115,6 @@ class CoreNotificationPollingCount(CoreNotificationPollingBase):
             'count': count,
             'notifications': notifications_id
         }
-        context.update(self.get_context(request))
 
         return JsonResponse(context, status=200)
 
@@ -122,6 +122,7 @@ class CoreNotificationPollingCount(CoreNotificationPollingBase):
 class CoreNotificationPollingLoad(CoreNotificationPollingBase):
     template_path = 'notification/partials/navbar/notification-include-list.html'
 
+    @method_decorator(login_required)
     def get(self, request, notification_type):
 
         if not request.is_ajax():
@@ -157,12 +158,12 @@ class CoreNotificationPollingLoad(CoreNotificationPollingBase):
             'template': render(request, self.template_path, response_data).content
         }
 
-        context.update(self.get_context(request))
-
         return JsonResponse(context, status=200)
 
 
 class CoreNotificationClear(views.NotificationBaseView):
+
+    @method_decorator(login_required)
     def post(self, request):
         notifications_ids = request.POST.getlist('notifications[]')
 
