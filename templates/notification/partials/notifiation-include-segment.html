@@ -1,6 +1,6 @@
 {% load list_filter %}
 
-{% if notifications %}
+{% if notifications.object_list %}
     {% for notification in notifications %}
 
         {% with notification_action=notifications_label|get_at_index:notification.notification_action %}
@@ -10,7 +10,10 @@
         {% endwith %}
 
     {% endfor %}
-{% else %}
+
+    <a data-jscroll-next href="{% url url_pagination %}?page={{ page|default:2 }}">Carregar mais</a>
+
+{% elif not paginator.count %}
     <hr>
     <p class="text-center">Nenhuma notificação</p>
     <hr>

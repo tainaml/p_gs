@@ -32,6 +32,7 @@ class NotificationListBaseView(View):
 class NotificationBaseView(View):
 
     template_path = None
+    template_path_partial = 'notification/partials/notifiation-include-segment.html'
     notification_type = None
 
     form_notification = NotificationForm
@@ -41,10 +42,17 @@ class NotificationBaseView(View):
             context = []
 
         if request.is_ajax():
-            response_data = {'template': render(request, self.template_path, context).content}
-            return JsonResponse(response_data, status=context.get('status', False))
+            return self.return_ajax(request, context)
 
         return render(request, self.template_path, context)
+
+    def return_ajax(self, request, context=None):
+        if not context:
+            context = []
+
+        # response_data = {'template': render(request, self.template_path_partial, context).content}
+        # return JsonResponse(response_data, status=context.get('status', 400))
+        return render(request, self.template_path_partial, context)
 
     def not_found(self, request, context=None):
         if not context:
@@ -76,9 +84,10 @@ class NotificationBaseView(View):
         except Exception, e:
             return self.not_found(request, {'error': e.message})
 
-        form = self.form_notification(2, request.GET)
+        form = self.form_notification(request.GET)
         form.set_to_user(request.user)
         form.set_notification_group(notification_group)
+        form.set_items_per_page(2)
 
         notifications, paginator = form.process()
 
@@ -86,6 +95,9 @@ class NotificationBaseView(View):
         context['paginator'] = paginator
         context['notifications'] = notifications
         context['notifications_label'] = NOTIFICATION_ACTIONS
+        context['url_pagination'] = 'notifications:%s' % self.notification_type
+        context['status'] = 200
+        context['page'] = int(form.cleaned_data.get('page')) + int(1)
 
         return self.return_process(request, context)
 

@@ -20,8 +20,10 @@
                                 <i class="gsticon gsticon-users"></i> Geral
                             </h5>
                             <button class="btn-default pull-right">Marcar todas com lidas</button>
-                            <div class="member-notifications j-scroll j-scroll-container">
-                                {% include "notification/partials/notifiation-include-segment.html" %}
+                            <div class="member-notifications">
+                                <div class="j-scroll j-scroll-container">
+                                    {% include "notification/partials/notifiation-include-segment.html" %}
+                                </div>
                             </div>
                         </section>
                     </div>
@@ -30,4 +32,19 @@
             </div>
         </div>
     </main>
+{% endblock %}
+
+
+{% block javascripts %}
+    {{ block.super }}
+    <script>
+        $(function() {
+            $(".j-scroll").jscroll({
+                loadingHtml: '<div class="load-async-preload"></div>',
+                contentSelect: ".j-scroll-container",
+                nextSelect: "a[data-jscroll-next]",
+                callback: refreshAsyncLike
+            });
+        });
+    </script>
 {% endblock %}
