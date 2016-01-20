@@ -9,6 +9,8 @@ urlpatterns = [
     url(r'^posts$', core_view.views.NotificationPostsView.as_view(), name='posts'),
     url(r'^general$', core_view.views.NotificationGeneralsView.as_view(), name='general'),
 
+    url(r'^mark-as-read', core_view.views.NotificationMarkAsRead.as_view(), name='mark-as-read'),
+
     url(r'^clear$', core_view.CoreNotificationClear.as_view(), name='clear'),
     url(r'^poll/count/(?P<notification_type>[a-z]+)$', core_view.CoreNotificationPollingCount.as_view(),
         name='polling-count'),

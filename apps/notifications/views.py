@@ -1,11 +1,12 @@
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _
 from django.views.generic import View
-from django.http import Http404, JsonResponse
+from django.http import Http404, JsonResponse, HttpResponse
 
 from apps.notifications.service.forms import NotificationForm
+from apps.notifications.service import business as Business
 
 from rede_gsti.settings import NOTIFICATION_ACTIONS, NOTIFICATION_GROUP
 
@@ -62,7 +63,7 @@ class NotificationBaseView(View):
             response_data = {'error': context.get('error', None)}
             return JsonResponse(response_data, status=404)
 
-        return Http404(_('Notification not found!'))
+        raise Http404(_('Notification not found!'))
 
     def get_context(self, request, instance=None):
         return {}
@@ -124,3 +125,42 @@ class NotificationGeneralsView(NotificationBaseView):
 
     template_path = 'notification/notification-general.html'
     notification_type = 'general'
+
+
+class NotificationMarkAsRead(NotificationBaseView):
+
+    @staticmethod
+    def bad_request():
+        raise Http404()
+
+    def return_process(self, request, context=None):
+        if 'next' not in context:
+            return self.bad_request()
+
+        return redirect(context.get('next'))
+
+    @method_decorator(login_required)
+    def post(self, request):
+
+        if 'notification' not in request.POST:
+            return self.bad_request()
+
+        if 'url_next' not in request.POST:
+            return self.bad_request()
+
+        notification_type = request.POST.get('notification')
+        url_next = request.POST.get('url_next')
+
+        notification_group = self.set_notification_group(notification_type)
+
+        notifications, paginator = Business.get_notifications(
+            user=request.user,
+            notification_actions=notification_group,
+            read=False
+        )
+        notifications_read = Business.set_notification_as_read([n.id for n in notifications])
+
+        return self.return_process(request, {
+            'notification_type': notification_type,
+            'next': url_next
+        })

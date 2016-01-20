@@ -1,0 +1,6 @@
+<form action="{% url 'notifications:mark-as-read' %}" method="post">
+    {% csrf_token %}
+    <input type="hidden" name="notification" value="{{ notification_type }}">
+    <input type="hidden" name="url_next" value="{{ request.path }}">
+    <button type="submit" class="btn-default pull-right">Marcar todas com lidas</button>
+</form>
