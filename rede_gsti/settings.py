@@ -406,6 +406,12 @@ LOGGING = {
             'formatter': 'verbose',
             'filename': '/var/log/rede_gsti/error.log'
         },
+        'signal_file': {
+            'level': 'ERROR',
+            'class': 'logging.FileHandler',
+            'formatter': 'verbose',
+            'filename': '/var/log/rede_gsti/signals.log'
+        },
         'mail_admins': {
             'level': 'ERROR',
             'class': 'django.utils.log.AdminEmailHandler'
@@ -424,6 +430,10 @@ LOGGING = {
         },
         'general': {
             'handlers': ['console', 'info_file'],
+            'level': 'INFO'
+        },
+        'signals': {
+            'handlers': ['console', 'signal_file'],
             'level': 'INFO'
         }
     }
