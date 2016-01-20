@@ -1,0 +1,11 @@
+{% load thumbor_tags %}
+
+<div class="post {% if not notification.read %}not-visualized{% endif %}" data-notification-item="{{ notification.id }}">
+    <header class="post-header">
+        <div class="post-info"><time style="display: block;" datetime="{{ notification.notification_date }}" itemprop="datePublished">{{ notification.notification_date|date:"d/m/Y às H:i" }}</time></div>
+        <div class="post-creator">
+            <a href="{% url 'profile:show' notification.author.get_username %}"><img src="{% thumbor_url notification.author.profile.get_profile_picture.url width=20 height=20 smart=False fit_in=False %}" width="20" height="20" alt="{{ notification.author.get_full_name }}"></a>
+            <a href="{% url 'profile:show' notification.author.get_username %}">{{ notification.author.get_full_name }}</a> comentou na sua <a href="javascript:;">publicação</a>
+        </div>
+    </header>
+</div>

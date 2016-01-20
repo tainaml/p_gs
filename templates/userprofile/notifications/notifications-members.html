@@ -71,17 +71,17 @@
     <script>
     $(function(){
 {#        <a class="btn-default btn-block" data-jscroll-next href="{% url 'notifications:list' %}?page=1">Test</a>#}
-        var scrollContainer = $(".j-scroll-container");
-        $.get("{% url 'notifications:list-members' %}", function(data){
-
-            scrollContainer .html(data);
-            scrollContainer.jscroll({
-                loadingHtml: '<div class="load-async-preload"></div>',
-                contentSelect: ".j-scroll-container",
-                nextSelect: "a[data-jscroll-next]",
-                autoTrigger: false
-            });
-        });
+{#        var scrollContainer = $(".j-scroll-container");#}
+{#        $.get("{% url 'notifications:list-members' %}", function(data){#}
+{##}
+{#            scrollContainer .html(data);#}
+{#            scrollContainer.jscroll({#}
+{#                loadingHtml: '<div class="load-async-preload"></div>',#}
+{#                contentSelect: ".j-scroll-container",#}
+{#                nextSelect: "a[data-jscroll-next]",#}
+{#                autoTrigger: false#}
+{#            });#}
+{#        });#}
     });
 
     </script>

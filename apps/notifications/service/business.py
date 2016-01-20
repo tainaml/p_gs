@@ -1,7 +1,4 @@
 from django.db.models import Q
-
-__author__ = 'phillip'
-
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.contenttypes.models import ContentType
 from ..models import Notification
@@ -119,7 +116,6 @@ def set_notification_as_read(notifications_ids):
 
 
 def token_is_valid(request):
-
     token = request.GET.get('token', False)
     token_session = request.session.get('token', False)
 

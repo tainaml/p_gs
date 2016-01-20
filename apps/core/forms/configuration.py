@@ -3,7 +3,6 @@ from ..business import configuration as BusinessConfig
 
 
 class ConfigNotificationsForm(IdeiaForm):
-
     NOTIFY_PUBLICATIONS_CHOICES = (
         ('all', 'All'),
         ('articles', 'Articles'),
@@ -17,7 +16,6 @@ class ConfigNotificationsForm(IdeiaForm):
     notify_publications = forms.ChoiceField(required=True, choices=NOTIFY_PUBLICATIONS_CHOICES)
 
     def __init__(self, *args, **kwargs):
-
         self.entity = None
 
         super(ConfigNotificationsForm, self).__init__(*args, **kwargs)

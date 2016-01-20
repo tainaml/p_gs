@@ -1,0 +1,53 @@
+{%extends 'home/layout/base.html' %}
+
+
+{% load staticfiles %}
+
+
+{% block title %} Portal GSTI - Notificações de membros{% endblock %}
+
+
+{% block content %}
+    <main class="container main">
+        <div class="row">
+            <div class="col-lg-3">{% include 'home/partials/sidebar-perfil.html' %}</div>
+            <div class="col-lg-9">
+                {% include "userprofile/partials/profile-navbar.html" %}
+                <div class="row">
+                    <div class="col-lg-8">
+                        <header class="area-title">
+                            <h2>Notificações</h2>
+                        </header>
+                        <section class="area-content">
+                            <h5 class="notfication-area">
+                                <i class="gsticon gsticon-users"></i> Membros
+                            </h5>
+                            {% include "notification/partials/notification-form-mark-as-read.html" with notification_type="members" %}
+                            <div class="member-notifications">
+                                <div class="j-scroll j-scroll-container">
+                                    {% include "notification/partials/notifiation-include-segment.html" %}
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                    {% include "notification/partials/sidebar/notification-sidebar-right.html" with local_context="members" %}
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock %}
+
+
+{% block javascripts %}
+    {{ block.super }}
+    <script>
+        $(function() {
+            $(".j-scroll").jscroll({
+                loadingHtml: '<div class="load-async-preload"></div>',
+                contentSelect: ".j-scroll-container",
+                nextSelect: "a[data-jscroll-next]",
+                callback: refreshAsyncLike
+            });
+        });
+    </script>
+{% endblock %}
