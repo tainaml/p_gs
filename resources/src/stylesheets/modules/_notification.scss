@@ -8,6 +8,10 @@ $color-counter-notification: #b2b2b2 !default;
     overflow: hidden;
     width: 100%;
     padding-top: 20px;
+    
+    .post.not-visualized {
+        background: #f7f7f7;
+    }
 
     .post-header {
         margin-bottom: 0;
@@ -110,7 +114,7 @@ $color-counter-notification: #b2b2b2 !default;
         min-height: initial;
     }
 }
-.visualized {
+.not-visualized {
     background-color: #fcfcfc;
 }
 

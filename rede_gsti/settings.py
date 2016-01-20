@@ -217,27 +217,34 @@ CKEDITOR_RESTRICT_BY_USER = True
 CKEDITOR_UPLOAD_PATH = 'editor-uploads/'
 CKEDITOR_BROWSE_SHOW_DIRS = False
 
-#Notification
-class NotificationActions():
-    LIKE = {}
 
+# NOTIFICATION
+NOTIFICATION_LIKE = 1
+NOTIFICATION_UNLIKE = 2
+NOTIFICATION_FOLLOW = 3
+NOTIFICATION_FAVOURITE = 4
+NOTIFICATION_SUGGEST = 5
+NOTIFICATION_COMMENT = 6
+NOTIFICATION_SEE_LATER = 7
 
 NOTIFICATION_ACTIONS = {
 
-    1: 'like',
-    2: 'unlike',
-    3: 'follow',
-    4: 'favourite',
-    5: 'suggest',
-    6: 'comment',
-    7: 'see-later'
+    NOTIFICATION_LIKE: 'like',
+    NOTIFICATION_UNLIKE: 'unlike',
+    NOTIFICATION_FOLLOW: 'follow',
+    NOTIFICATION_FAVOURITE: 'favourite',
+    NOTIFICATION_SUGGEST: 'suggest',
+    NOTIFICATION_COMMENT: 'comment',
+    NOTIFICATION_SEE_LATER: 'see-later'
 
 }
 
 NOTIFICATION_GROUP = {
-    'members': [3], # follow
-    'posts'  : [6], # comment
-    'general': [1, 2] # like, unlike
+
+    'members': [NOTIFICATION_FOLLOW],
+    'general': [NOTIFICATION_LIKE, NOTIFICATION_UNLIKE],
+    'posts': [NOTIFICATION_LIKE, NOTIFICATION_COMMENT, NOTIFICATION_COMMENT]
+
 }
 
 # Database
