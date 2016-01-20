@@ -87,7 +87,7 @@ class NotificationBaseView(View):
         form = self.form_notification(request.GET)
         form.set_to_user(request.user)
         form.set_notification_group(notification_group)
-        form.set_items_per_page(2)
+        form.set_items_per_page(10)
 
         notifications, paginator = form.process()
 
