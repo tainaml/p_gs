@@ -20,17 +20,35 @@
                 <div class="row">
                     <div class="col-lg-8">
                         <header class="area-title">
+                            <div class="order-by">
+                                <p>Classificadas por</p>
+                                <div class="dropdown">
+                                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdown-filter-posts" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                        <span>
+                                            {% if form.cleaned_data.replies == 'non-reply' %}
+                                                Não respondidas
+                                            {% else %}
+                                                Respondidas
+                                            {% endif %}
+                                        </span> <i class="gsticon gsticon-caret-down"></i>
+                                    </button>
+                                    <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown-filter-posts">
+                                        <li {% if form.cleaned_data.replies == 'reply' %}class="active"{% endif %} ><a href="{% url "community:questions-search" community.slug %}?criterio={{ form.cleaned_data.criterio|urlencode }}&replies=reply&next={{ url_next|urlencode }}" data-target=".area-content">Respondidas</a></li>
+                                        <li {% if form.cleaned_data.replies == 'non-reply' %}class="active"{% endif %}><a href="{% url "community:questions-search" community.slug %}?criterio={{ form.cleaned_data.criterio|urlencode }}&replies=non-reply&next={{ url_next|urlencode }}" data-target=".area-content">Não respondidas</a></li>
+                                    </ul>
+                                </div>
+                            </div>
                             <h2>Perguntas</h2>
                         </header>
                         <nav class="form-search">
                             {% include 'community/partials/community-question-form-search.html' with placehold='Pesquise perguntas' %}
                         </nav>
                         <section class="area-content">
-                            <div class="text-right">
+                            <!-- <div class="text-right">
                                 <a href="{% url "community:questions-search" community.slug %}?criterio={{ form.cleaned_data.criterio|urlencode }}&replies=reply&next={{ url_next|urlencode }}" class="btn btn-default">Respondidas</a>
                                 <a href="{% url "community:questions-search" community.slug %}?criterio={{ form.cleaned_data.criterio|urlencode }}&replies=non-reply&next={{ url_next|urlencode }}" class="btn btn-default">Não respondidas</a>
                                 <br><br>
-                            </div>
+                            </div> -->
                             <div id="community-feed-list" class="j-scroll j-scroll-container">
                                 {% if form.cleaned_data.criterio %}
                                     {% include "community/partials/community-question-list.html" %}
