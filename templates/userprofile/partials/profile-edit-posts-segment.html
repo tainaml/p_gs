@@ -18,7 +18,7 @@
                 <time class="publication-footer-date" datetime="{{ post.publishin|date:"d/m/Y" }}">{{ post.publishin|date:"d/m/Y à\s H:i" }}</time>
                 <nav class="publication-footer-menu">
                     <a class="publication-footer-menu-item" href="{% url 'article:edit' post.id %}">Editar</a>
-                    <a class="publication-footer-menu-item" href="{% url 'article:view' post.slug post.id %}">Visualizar</a>
+                    <a class="publication-footer-menu-item" href="{% url 'article:view' post.slug post.id %}" target="_blank">Visualizar</a>
                     {% if post.status != 2 %}
                     <a class="publication-footer-menu-item text-danger" href="{% url 'article:delete' post.id %}" data-delete-item="true" data-url="{% url 'article:delete-async' post.id %}" data-item="{{ post.id }}" data-title="{{ post.title }}"  data-modal="#modal-confirmation">Excluir</a>
                     {% endif %}
