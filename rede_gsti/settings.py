@@ -68,6 +68,7 @@ INSTALLED_APPS = (
 
     # APPS
     'apps.account',
+    'apps.geography',
     'apps.article',
     'apps.community',
     'apps.comment',

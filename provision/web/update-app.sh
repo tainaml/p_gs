@@ -1,6 +1,12 @@
 #!/bin/bash
 
+echo "[UPDATE WEB]"
+
 cd /var/www
-pip install -r requirements.txt
+
+git submodule update --init --remote -f --rebase --merge --recursive
+
+pip install --user -r requirements.txt
+
 python manage.py makemigrations
 python manage.py migrate
