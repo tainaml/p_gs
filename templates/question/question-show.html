@@ -73,7 +73,7 @@
                 {% profile_box question.author "horizontal" %}
 
                 <header class="area-title">
-                    <h2>Respostas</h2>
+                    <h2 id="answers">Respostas</h2>
                 </header>
                 <div class="container-comments">
                     {% include 'question/partials/answer-create.html' with content_type='question' content_object_id=question.id %}
