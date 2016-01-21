@@ -10,7 +10,7 @@ from apps.feed.models import FeedObject
 
 logger = logging.getLogger('signals')
 
-@receiver(post_save, sender=Article)
+@receiver(post_save, sender=FeedObject)
 def refresh_home_block(sender, **kwargs):
     logger.info("Refreshing home block...")
     key_name = 'home-block-taxonomy'
@@ -23,31 +23,19 @@ def refresh_home_block(sender, **kwargs):
         'home_block_article_home',
     ]
 
-    instance = kwargs['instance'] if 'instance' in kwargs else False
-    if not instance:
-        # Cancel signal if not exists article instance
-        logger.info('don\'t have instance or is not publish')
-        return
+    feed_object = kwargs['instance']
 
     article_type = ContentType.objects.get_for_model(Article)
+    if feed_object and feed_object.content_object and feed_object.content_type == article_type:
 
-    feed_object = None
-    feed_item = instance.feed
-
-    try:
-        feed_object = FeedObject.objects.get(object_id=instance.pk, content_type_id=article_type.pk)
-    except FeedObject.DoesNotExist, e:
-        logger.exception(e)
-        return
-
-    logger.info("Iterating taonomies...")
-    for tax in feed_object.taxonomies.all():
-        logger.info("    >" + str(tax))
-        for key_name in block_keys:
-            logger.info("        >" + key_name)
-            # temp_key = make_template_fragment_key(key_name, (
-            #     tax.slug.lower()
-            # ))
-            # workaround
-            temp_key = key_name + "-" + tax.slug.lower()
-            cache.delete(temp_key)
+        logger.info("Iterating taonomies...")
+        for tax in feed_object.taxonomies.all():
+            logger.info("    >" + str(tax))
+            for key_name in block_keys:
+                logger.info("        >" + key_name)
+                # temp_key = make_template_fragment_key(key_name, (
+                #     tax.slug.lower()
+                # ))
+                # workaround
+                temp_key = key_name + "-" + tax.slug.lower()
+                cache.delete(temp_key)
