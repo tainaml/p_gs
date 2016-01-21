@@ -12,7 +12,7 @@
         <div class="post-info">
             <time datetime="06-17-2015" itemprop="datePublished">{{ instance.question_date|date:'d/m/Y' }} às {{ instance.question_date|date:'G:i' }}</time>
             <a href="javascript:;" data-toggle="dropdown"><i class="gsticon gsticon-gear"></i></a>
-            <div class="dropdown-menu">
+            <div class="dropdown-menu dropdown-menu-right">
                 <ul class="perfil-actions">
                     {% if instance.author == request.user %}
                     <li><a data-trigger="login" data-token="{{ csrf_token }}" href="{% url 'question:edit' instance.id %}"><i class="gsticon gsticon-edit"></i> Editar publicação</a></li>

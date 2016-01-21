@@ -43,7 +43,7 @@
                             {{ article.publishin|date:'d/m/Y' }} às {{ article.publishin|date:'G:i' }}
                         </time>
                         <a href="javascript:;" data-toggle="dropdown"><i class="gsticon gsticon-gear"></i></a>
-                        <div class="dropdown-menu">
+                        <div class="dropdown-menu dropdown-menu-right">
                             <ul class="perfil-actions">
                                 {% if article.author == request.user %}
                                     <li><a href="{% url 'article:edit' article.id %}"><i class="gsticon gsticon-edit"></i> Editar publicação</a></li>
