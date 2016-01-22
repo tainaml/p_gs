@@ -190,7 +190,14 @@ CKEDITOR_CONFIGS = {
         'toolbar': 'Basic',
     },
     'question': {
-        'toolbar': 'Basic',
+        'toolbar': 'Custom',
+        'toolbar_Custom': [
+            ['Bold', 'Italic'],
+            ['CodeSnippet'],
+        ],
+        'extraPlugins': ','.join([
+            'autolink', 'widget', 'dialog', 'codesnippet'
+        ]),
     },
     'article': {
         'toolbar': 'Custom',
@@ -199,7 +206,7 @@ CKEDITOR_CONFIGS = {
             ['NumberedList', 'BulletedList'],
             ['Link', 'Unlink'],
             ['Image'],
-            #['CodeSnippet'],
+            ['CodeSnippet'],
             ['RemoveFormat'],
             ['Embed'],
             ['Source']
@@ -208,7 +215,7 @@ CKEDITOR_CONFIGS = {
         'extraPlugins': ','.join([
             'autolink', 'autoembed', 'embedsemantic', 'widget',
             'dialog', 'embed', 'uploadimage',
-            #'codesnippet'
+            'codesnippet'
         ]),
     }
 }
