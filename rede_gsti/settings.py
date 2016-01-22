@@ -422,7 +422,7 @@ LOGGING = {
             'filename': '/var/log/rede_gsti/error.log'
         },
         'signal_file': {
-            'level': 'ERROR',
+            'level': 'INFO',
             'class': 'logging.FileHandler',
             'formatter': 'verbose',
             'filename': '/var/log/rede_gsti/signals.log'
