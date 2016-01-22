@@ -6,6 +6,7 @@ from django.core.urlresolvers import reverse
 from django.http import Http404, HttpResponse, JsonResponse
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import render, redirect
+from django.utils import timezone
 from django.utils.decorators import method_decorator
 from django.utils.translation import gettext as _
 from django.views.generic import View
@@ -190,6 +191,7 @@ class ArticleEditView(ArticleBaseView):
         initial_data = self.prepare_initial_data(initial_data)
 
         form_article = self.form_article(instance=article, author=request.user, initial=initial_data)
+
 
         _context = {
             'form_article': form_article,

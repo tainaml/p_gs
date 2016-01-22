@@ -88,11 +88,10 @@ class ArticleForm(IdeiaModelForm):
             self.action = self.ACTION_PUBLISH
             self.instance.do_publish()
 
-        elif 'submit-schedule' in self.data:
-            self.action = self.ACTION_SCHEDULE
-            self.instance.do_publish(self.cleaned_data.get('publishin', timezone.now()))
-
         elif 'submit-save' in self.data:
+            '''
+            Save action
+            '''
             self.instance.action = self.ACTION_SAVE
             self.instance.do_save()
 
