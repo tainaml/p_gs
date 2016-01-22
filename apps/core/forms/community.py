@@ -1,6 +1,6 @@
 from apps.community.models import Community
 from apps.taxonomy.models import Taxonomy
-from apps.userprofile.models import State, City
+from apps.geography.models import State, City
 from custom_forms.custom import IdeiaForm, forms
 from ..business import community as Business
 

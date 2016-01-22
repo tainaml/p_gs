@@ -1,13 +1,12 @@
 from datetime import date
-
 from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext as _
 from ckeditor.fields import RichTextField
-
 from apps.socialactions.models import Counter
+from apps.geography.models import State, City, Country
 
 
 class GenderType:
@@ -23,7 +22,7 @@ class GenderType:
     }
 
 
-class Country(models.Model):
+"""class Country(models.Model):
     name = models.CharField(max_length=60, blank=False)
     abbreviation = models.CharField(max_length=3, blank=False)
 
@@ -46,7 +45,7 @@ class City(models.Model):
 
     def __unicode__(self):
         return self.name
-
+"""
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User, related_name='profile')
@@ -69,7 +68,7 @@ class UserProfile(models.Model):
     def locale(self):
         if self.has_locale_living():
             return "%s - %s - %s" % (self.city.name.title(),
-                                     self.city.state.abbreviation.upper(),
+                                     self.city.state.acronym.upper(),
                                      self.city.state.country.name.title())
         return ""
 
