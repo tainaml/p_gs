@@ -4,7 +4,8 @@ from apps.socialactions.models import UserAction
 from custom_forms.custom import IdeiaForm, forms
 from ..business import user as Business
 from apps.article.models import Article
-from apps.userprofile.models import Responsibility, State, City
+from apps.userprofile.models import Responsibility
+from apps.geography.models import State, City
 from apps.userprofile.service import business as BusinessUserProfile
 from apps.userprofile.service.forms import EditProfileForm
 from apps.socialactions.service import business as BusinessSocialActions

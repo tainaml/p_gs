@@ -140,7 +140,7 @@ class CreateQuestionView(View):
             messages.add_message(request, messages.WARNING, _("Question not created!"))
         else:
             messages.add_message(request, messages.SUCCESS, _("Question created successfully!"))
-            return redirect(reverse('question:show', args=(form.instance.slug, form.instance.id,)))
+            return redirect(reverse('question:edit', args=[form.instance.id]))
 
         return render(request, 'question/create.html', {'form': form})
 
@@ -162,7 +162,8 @@ class SaveQuestionView(View):
             messages.add_message(request, messages.WARNING, _("Question not created!"))
         else:
             messages.add_message(request, messages.SUCCESS, _("Question created successfully!"))
-            return redirect(reverse('question:show', args=(form.instance.id,)))
+
+            return redirect(reverse('question:edit', args=[form.instance.id]))
 
         return render(request, 'question/create.html', {'form': form})
 
@@ -179,10 +180,7 @@ class EditQuestionView(View):
             context = {'form': form, 'question': question}
             return render(request, 'question/edit.html', context)
         else:
-            messages.add_message(request, messages.WARNING, _("Question is not exists!"))
-
-            return redirect(reverse('question:show', args=question.id))
-
+            raise Http404( _("Question is not exists!") )
 
 class UpdateQuestionView(View):
 
@@ -191,6 +189,7 @@ class UpdateQuestionView(View):
     @method_decorator(login_required)
     def post(self, request):
         question = business.get_question(request.POST['question_id'])
+        print question
         if question:
             form = self.form(data=request.POST, instance=question, user=request.user)
             if form.process():
@@ -199,6 +198,7 @@ class UpdateQuestionView(View):
                     messages.SUCCESS,
                     _("Question updated successfully!")
                 )
+                return redirect(reverse('question:edit', args=[question.id]))
             else:
                 messages.add_message(request, messages.ERROR, 'Erro ao carregar question')
 
@@ -207,15 +207,8 @@ class UpdateQuestionView(View):
                 'question': question
             })
         else:
-            messages.add_message(
-                request,
-                messages.WARNING,
-                _("Question is not exists!")
-            )
 
-            return redirect(
-                reverse('question:show', args=(request.POST["question_id"],))
-            )
+            raise Http404(_("Question is not exists!"))
 
 
 class ShowQuestionView(View):

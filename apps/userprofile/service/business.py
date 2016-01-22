@@ -2,7 +2,8 @@ from django.contrib.auth.models import User
 from django.db import transaction
 
 from apps.taxonomy.models import Term, Taxonomy
-from apps.userprofile.models import UserProfile, Country, State, City, Occupation, Responsibility
+from apps.userprofile.models import UserProfile, Occupation, Responsibility
+from apps.geography.models import Country, State, City
 
 
 def check_user_exists(username_or_email=None):
