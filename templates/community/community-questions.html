@@ -27,12 +27,15 @@
                                         <span>
                                             {% if form.cleaned_data.replies == 'non-reply' %}
                                                 Não respondidas
-                                            {% else %}
+                                            {% elif form.cleaned_data.replies == 'reply' %}
                                                 Respondidas
+                                            {% else %}
+                                                Todas
                                             {% endif %}
                                         </span> <i class="gsticon gsticon-caret-down"></i>
                                     </button>
                                     <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown-filter-posts">
+                                    <li {% if not form.cleaned_data.replies %}class="active"{% endif %}><a href="{% url "community:questions-search" community.slug %}?criterio={{ form.cleaned_data.criterio|urlencode }}&next={{ url_next|urlencode }}" data-target=".area-content">Todas</a></li>
                                         <li {% if form.cleaned_data.replies == 'reply' %}class="active"{% endif %} ><a href="{% url "community:questions-search" community.slug %}?criterio={{ form.cleaned_data.criterio|urlencode }}&replies=reply&next={{ url_next|urlencode }}" data-target=".area-content">Respondidas</a></li>
                                         <li {% if form.cleaned_data.replies == 'non-reply' %}class="active"{% endif %}><a href="{% url "community:questions-search" community.slug %}?criterio={{ form.cleaned_data.criterio|urlencode }}&replies=non-reply&next={{ url_next|urlencode }}" data-target=".area-content">Não respondidas</a></li>
                                     </ul>
