@@ -1,66 +1,71 @@
+{% load user_agents %}
+
 <footer class="footer">
-            <div class="container">
-                <ul class="list-unstyled box-list">
-                    <li class="box-list-links">
-                        <h3 class="h4 box-list-heading">Governança de TI</h3>
-                        <ul class="list-links">
-                            {% for community in categories.governanca_de_ti %}
-                                <li><a href="{% url "community:show" community.slug %}">{{ community.title }}</a></li>
-                            {% endfor %}
-                        </ul>
-                    </li>
-                    <li class="box-list-links">
-                        <h3 class="h4 box-list-heading">Desenvolvimento</h3>
-                        <ul class="list-links">
-                            {% for community in categories.desenvolvimento %}
-                                <li><a href="{% url "community:show" community.slug %}">{{ community.title }}</a></li>
-                            {% endfor %}
-                        </ul>
-                    </li>
-                    <li class="box-list-links">
-                        <h3 class="h4 box-list-heading">Web Design</h3>
-                        <ul class="list-links">
-                            {% for community in categories.web_design %}
-                                <li><a href="{% url "community:show" community.slug %}">{{ community.title }}</a></li>
-                            {% endfor %}
-                        </ul>
-                    </li>
-                    <li class="box-list-links">
-                        <h3 class="h4 box-list-heading">Marketing Digital</h3>
-                        <ul class="list-links">
-                            {% for community in categories.marketing_digital %}
-                                <li><a href="{% url "community:show" community.slug %}">{{ community.title }}</a></li>
-                            {% endfor %}
-                        </ul>
-                    </li>
-                    <li class="box-list-links">
-                        <h3 class="h4 box-list-heading">Infraestrutura</h3>
-                        <ul class="list-links">
-                            {% for community in categories.infraestrutura %}
-                                <li><a href="{% url "community:show" community.slug %}">{{ community.title }}</a></li>
-                            {% endfor %}
-                        </ul>
-                    </li>
-                    <li class="box-list-links">
-                        <h3 class="h4 box-list-heading">Banco de Dados</h3>
-                        <ul class="list-links">
-                            {% for community in categories.banco_de_dados %}
-                                <li><a href="{% url "community:show" community.slug %}">{{ community.title }}</a></li>
-                            {% endfor %}
-                        </ul>
-                    </li>
+    {% if request|is_pc %}
+    <div class="container">
+        <ul class="list-unstyled box-list">
+            <li class="box-list-links">
+                <h3 class="h4 box-list-heading">Governança de TI</h3>
+                <ul class="list-links">
+                    {% for community in categories.governanca_de_ti %}
+                        <li><a href="{% url "community:show" community.slug %}">{{ community.title }}</a></li>
+                    {% endfor %}
+                </ul>
+            </li>
+            <li class="box-list-links">
+                <h3 class="h4 box-list-heading">Desenvolvimento</h3>
+                <ul class="list-links">
+                    {% for community in categories.desenvolvimento %}
+                        <li><a href="{% url "community:show" community.slug %}">{{ community.title }}</a></li>
+                    {% endfor %}
+                </ul>
+            </li>
+            <li class="box-list-links">
+                <h3 class="h4 box-list-heading">Web Design</h3>
+                <ul class="list-links">
+                    {% for community in categories.web_design %}
+                        <li><a href="{% url "community:show" community.slug %}">{{ community.title }}</a></li>
+                    {% endfor %}
+                </ul>
+            </li>
+            <li class="box-list-links">
+                <h3 class="h4 box-list-heading">Marketing Digital</h3>
+                <ul class="list-links">
+                    {% for community in categories.marketing_digital %}
+                        <li><a href="{% url "community:show" community.slug %}">{{ community.title }}</a></li>
+                    {% endfor %}
+                </ul>
+            </li>
+            <li class="box-list-links">
+                <h3 class="h4 box-list-heading">Infraestrutura</h3>
+                <ul class="list-links">
+                    {% for community in categories.infraestrutura %}
+                        <li><a href="{% url "community:show" community.slug %}">{{ community.title }}</a></li>
+                    {% endfor %}
+                </ul>
+            </li>
+            <li class="box-list-links">
+                <h3 class="h4 box-list-heading">Banco de Dados</h3>
+                <ul class="list-links">
+                    {% for community in categories.banco_de_dados %}
+                        <li><a href="{% url "community:show" community.slug %}">{{ community.title }}</a></li>
+                    {% endfor %}
+                </ul>
+            </li>
+        </ul>
+    </div>
+    {% endif %}
+
+    <nav class="footer-nav">
+        <div class="container">
+            <div class="row">
+                <span class="copyright">Portal GSTI © Copyright 2015</span>
+                <ul class="links-help">
+                    <li class="list-item"><a href="javascript:;">Sobre</a></li>
+                    <li class="list-item"><a href="javascript:;" data-toggle="modal" data-target="#modal-rules">Regras do portal</a></li>
+                    <li class="list-item"><a href="{% url 'contact:create' %}" id="link-contact" data-async-module="click" data-async-target="#modal-content-form-contact" data-async-method="get">Contato</a></li>
                 </ul>
             </div>
-            <nav class="footer-nav">
-                <div class="container">
-                    <div class="row">
-                        <span class="copyright">Portal GSTI © Copyright 2015</span>
-                        <ul class="links-help">
-                            <li class="list-item"><a href="javascript:;">Sobre</a></li>
-                            <li class="list-item"><a href="javascript:;" data-toggle="modal" data-target="#modal-rules">Regras do portal</a></li>
-                            <li class="list-item"><a href="{% url 'contact:create' %}" id="link-contact" data-async-module="click" data-async-target="#modal-content-form-contact" data-async-method="get">Contato</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </nav>
-        </footer>
+        </div>
+    </nav>
+</footer>
