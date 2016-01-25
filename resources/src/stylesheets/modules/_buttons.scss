@@ -1,19 +1,19 @@
 .btn-default {
     @extend .btn;
     @include button-variant(#4d6479, #f2f2f2, #e1e1e1);
-    // padding-top: 10px;
-    // padding-bottom: 10px;
     font-weight: 600;
     font-size: 13px;
 }
 .btn-primary {
     @extend .btn;
-    // padding-top: 10px;
-    // padding-bottom: 10px;
     background: #4d6479;
     color: #fff;
     font-weight: 600;
     font-size: 13px;
+    &:hover {
+        background: darken(#4d6479, 10%);
+        color: #fff;
+    }
 }
 
 .btn-green {
@@ -74,10 +74,13 @@
     display: block;
     font-weight: 600;
     font-size: 1.286em;
+
+    &:hover:active { background: #495a00; }
 }
+
 .btn-follow-alt {
     @extend .btn;
-    @include button-variant(#fff, #4d6479, #4d6479);
+    @include button-variant(#fff, #0160b0, #0160b0);
     position: relative;
     overflow: hidden;
     display: block;
