@@ -15,7 +15,7 @@
 
     <i class="gsticon gsticon-bell"></i>
 </a>
-<div id="dropdown-notification" class="header-dropdown-menu dropdown-notification" data-toggle="custom-scroll">
+<div id="dropdown-notification" class="header-dropdown-menu dropdown-notification">
 
     {% with template_name=notification_type|stringformat:"s"|add:".html" %}
         {% include 'notification/partials/navbar/notification-'|add:template_name %}
