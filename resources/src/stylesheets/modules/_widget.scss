@@ -217,9 +217,9 @@
 .header-dropdown-menu {
     display: none;
     position: absolute;
-    top: 100%; right: 0;
+    top: 100%; left: -200%;
     z-index: 2000;
-    min-width: 180px;
+    min-width: 320px;
     > ul {
         margin: 10px 0 0;
         padding: 5px 20px;
@@ -227,6 +227,10 @@
         > li > a {
             font-size: 13px;
         }
+    }
+    &.dropdown-menu-right {
+        left: auto;
+        min-width: 180px;
     }
 }
 .dropdown-search {

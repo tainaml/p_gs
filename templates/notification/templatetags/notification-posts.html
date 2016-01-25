@@ -1,27 +1,31 @@
 {% load notification_core_tags %}
 
-<a href="javascript:void(0);" class="user-actions-logged-link--logged"
-   data-toggle="dropdown"
-   data-target="#dropdown-comments"
-   data-trigger="notification"
-   data-token="{% notification_token %}"
-   data-csrf="{{ csrf_token }}"
-   data-notification-type="posts"
-   data-notifications="{{ notifications_id }}">
+<div class="dropdown dropdown-item-header">
 
-    {% if count %}
-        <span class="badge">{{ count }}</span>
-    {% endif %}
+  <a href="javascript:void(0);" class="user-actions-logged-link--logged"
+     data-toggle="dropdown"
+     data-target="#dropdown-comments"
+     data-trigger="notification"
+     data-token="{% notification_token %}"
+     data-csrf="{{ csrf_token }}"
+     data-notification-type="posts"
+     data-notifications="{{ notifications_id }}">
 
-    <i class="gsticon gsticon-comments"></i>
-</a>
-<div id="dropdown-comments" class="header-dropdown-menu dropdown-notification" data-toggle="custom-scroll">
+      {% if count %}
+          <span class="badge">{{ count }}</span>
+      {% endif %}
 
-    {% with template_name=notification_type|stringformat:"s"|add:".html" %}
-        {% include 'notification/partials/navbar/notification-'|add:template_name %}
-    {% endwith %}
+      <i class="gsticon gsticon-comments"></i>
+  </a>
+  <div id="dropdown-comments" class="header-dropdown-menu dropdown-notification" data-toggle="custom-scroll">
 
+      {% with template_name=notification_type|stringformat:"s"|add:".html" %}
+          {% include 'notification/partials/navbar/notification-'|add:template_name %}
+      {% endwith %}
+
+  </div>
 </div>
+
 
 
 {% comment %}

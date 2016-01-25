@@ -65,6 +65,7 @@
             }
         }
     }
+    .dropdown-item-header { float: left; }
     .user-actions-logged {
         @include make-xs-column(12);
         @include make-lg-column(4);
