@@ -5,7 +5,7 @@
         <span class="count-notifications">{{ total }}</span>
         <i class="gsticon gsticon-users"></i> Membros
     </div>
-    <ul class="content-float-notifications">
+    <ul class="content-float-notifications" data-toggle="custom-scroll">
 
         {% if notifications %}
             {% for notification in notifications %}

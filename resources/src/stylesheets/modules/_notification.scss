@@ -8,7 +8,7 @@ $color-counter-notification: #b2b2b2 !default;
     overflow: hidden;
     width: 100%;
     padding-top: 20px;
-    
+
     .post.not-visualized {
         background: #f7f7f7;
     }
@@ -68,9 +68,9 @@ $color-counter-notification: #b2b2b2 !default;
     background-color: #fff;
 }
 .float-notifcations {
-    position: relative;
-    overflow: auto;
-    max-height: 300px;
+    // position: relative;
+    // overflow: auto;
+    // max-height: 300px;
     border: 1px solid $color-border;
     box-shadow: 0 3px 5px #595959;
 }
@@ -95,6 +95,9 @@ $color-counter-notification: #b2b2b2 !default;
 }
 .content-float-notifications {
     @include list-unstyled();
+    position: relative;
+    overflow: auto;
+    max-height: 300px;
     margin-bottom: 0;
 }
 .item-float-notification {
@@ -118,7 +121,7 @@ $color-counter-notification: #b2b2b2 !default;
     background-color: #fcfcfc;
 }
 
-#dropdown-search .item-float-notification:hover, 
+#dropdown-search .item-float-notification:hover,
 #dropdown-search .item-float-notification:hover > .perfil {
     background: #f7f7f7;
 }
