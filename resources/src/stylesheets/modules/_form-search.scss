@@ -30,6 +30,10 @@
         background-color: $background-button;
         color: #fff;
         text-align: center;
+        &:hover {
+            background-color: darken($background-button, 10%);
+            color: #fff;
+        }
     }
 }
 
