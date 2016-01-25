@@ -6,11 +6,11 @@
         <div class="widget widget-box">
             <div class="widget-content">
                 <ul class="perfil-actions search-menu-content">
-                    <li><a href="{% url "search:search" %}?q={{ query_search|default:"" }}">Todos</a></li>
-                    <li><a href="{% url "search:search-content" "articles"  %}?q={{ query_search|default:"" }}">Publicações</a></li>
-                    <li><a href="{% url "search:search-content" "communities"  %}?q={{ query_search|default:"" }}">Comunidades</a></li>
-                    <li><a href="{% url "search:search-content" "users"  %}?q={{ query_search|default:"" }}">Pessoas</a></li>
-                    <li><a href="{% url "search:search-content" "questions"  %}?q={{ query_search|default:"" }}">Perguntas</a></li>
+                    <li {% if local_context == "all" %}class="active"{% endif %}><a href="{% url "search:search" %}?q={{ query_search|default:"" }}">Todos</a></li>
+                    <li {% if local_context == "articles" %}class="active"{% endif %}><a href="{% url "search:search-content" "articles"  %}?q={{ query_search|default:"" }}">Publicações</a></li>
+                    <li {% if local_context == "communities" %}class="active"{% endif %}><a href="{% url "search:search-content" "communities"  %}?q={{ query_search|default:"" }}">Comunidades</a></li>
+                    <li {% if local_context == "users" %}class="active"{% endif %}><a href="{% url "search:search-content" "users"  %}?q={{ query_search|default:"" }}">Pessoas</a></li>
+                    <li {% if local_context == "questions" %}class="active"{% endif %}><a href="{% url "search:search-content" "questions"  %}?q={{ query_search|default:"" }}">Perguntas</a></li>
                 </ul>
             </div>
         </div>
