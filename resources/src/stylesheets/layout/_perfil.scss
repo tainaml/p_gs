@@ -58,7 +58,7 @@
             min-width: 100px;
             padding: 0 5px 1.5px;
             margin-top: 5px;
-            background: $background-button;
+            background: #0160b0;
             color: $link-white;
             font-weight: 600;
             font-size: 0.929em;
@@ -71,6 +71,7 @@
             &:hover {
                 color: $link-white;
                 background: $btn-danger-bg;
+                border-color: $btn-danger-bg;
             }
 
             &:before,

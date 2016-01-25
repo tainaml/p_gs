@@ -95,6 +95,7 @@
     &:hover {
         color: $link-white;
         background: $btn-danger-bg;
+        border-color: $btn-danger-bg;
     }
 
     &:before,
