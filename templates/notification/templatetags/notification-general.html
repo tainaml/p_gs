@@ -1,4 +1,5 @@
 {% load notification_core_tags %}
+<div class="dropdown dropdown-item-header">
 
 <a href="javascript:void(0);" class="user-actions-logged-link--logged"
    data-toggle="dropdown"
@@ -15,12 +16,13 @@
 
     <i class="gsticon gsticon-bell"></i>
 </a>
-<div id="dropdown-notification" class="header-dropdown-menu dropdown-notification" data-toggle="custom-scroll">
+  <div id="dropdown-notification" class="header-dropdown-menu dropdown-notification">
 
-    {% with template_name=notification_type|stringformat:"s"|add:".html" %}
-        {% include 'notification/partials/navbar/notification-'|add:template_name %}
-    {% endwith %}
+      {% with template_name=notification_type|stringformat:"s"|add:".html" %}
+          {% include 'notification/partials/navbar/notification-'|add:template_name %}
+      {% endwith %}
 
+  </div>
 </div>
 
 

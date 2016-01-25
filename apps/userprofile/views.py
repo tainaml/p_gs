@@ -156,7 +156,7 @@ class ProfileGetCity(ProfileBaseView):
 
         context = {
             'items': cities,
-            'message': _("Select a city")
+            'message': _("All cities")
         }
 
         return render(request, self.template_path, context)
@@ -311,6 +311,7 @@ class ProfileFollowingsView(ProfileShowView):
 class ProfileFollowersView(ProfileShowView):
 
     template_path = 'userprofile/profile-followers.html'
+
 
 # @TODO Refactor
 class ProfileCommunitiesView(ProfileShowView):

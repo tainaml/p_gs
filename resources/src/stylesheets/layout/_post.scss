@@ -9,6 +9,7 @@
 }
 .full-post {
     position: relative;
+    z-index: 0;
     padding: 20px;
     margin-bottom: 30px;
     border: 1px solid $color-border;

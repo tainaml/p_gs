@@ -12,22 +12,20 @@ class CoreContactSaveViews(views.ContactSaveViews):
     template_path = "contact/partials/contact-form-modal.html"
 
     def return_error(self, request, context=None):
-        _context = {}
+        response_data = {}
 
         if 'form' in context:
-            _form = context['form']
-            _context = {'errors': _form.errors}
+            response_data.update({'errors': context['form'].errors})
 
-        return JsonResponse(_context, status=400)
+        return JsonResponse(response_data, status=400)
 
     def return_success(self, request, context=None):
-
         if not context:
             context = {}
 
-        _context = {
+        response_data = {
             'template': render(request, 'contact/partials/contact-response.html', context).content,
             'message': context.get('message')
         }
 
-        return JsonResponse(_context, status=200)
+        return JsonResponse(response_data, status=200)

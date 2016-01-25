@@ -22,7 +22,7 @@
                         <header class="area-title">
                             <h2>Publicações de {{ profile.user.first_name }}</h2>
                         </header>
-                        {% if isLogged %}
+                        {% if request.user.is_authenticated %}
                             <!-- A "barra" de pesquisa não é exibida no feed, somente no -->
                             <nav class="form-search">
                                 <form action="{% url 'profile:search' user.username %}" method="GET" role="search">
