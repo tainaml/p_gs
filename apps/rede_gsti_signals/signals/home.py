@@ -31,6 +31,12 @@ def refresh_home_block(sender, **kwargs):
         logger.info("Iterating taonomies...")
         for tax in feed_object.taxonomies.all():
             logger.info("    >" + str(tax))
+
+            # Limpando cache que evita duplicata na home.
+            excludes_key = 'home_block_excludes_%s' % tax.slug.lower()
+            cache.delete(excludes_key)
+
+
             for key_name in block_keys:
                 logger.info("        >" + key_name)
                 # temp_key = make_template_fragment_key(key_name, (

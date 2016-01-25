@@ -263,13 +263,21 @@ DATABASES = {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     },
-    'default': {
+    'default2': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'vagrant',
         'USER': 'vagrant',
         'PASSWORD': 'vagrant',
         'HOST': 'db.redegsti.dev',
         'PORT': '5432',
+    },
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'test_gsti',
+        'USER': 'test_gsti',
+        'PASSWORD': '1D314530_test',
+        'HOST': 'localhost',
+        'PORT': '5555',
     }
 }
 
