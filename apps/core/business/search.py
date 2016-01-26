@@ -13,9 +13,9 @@ def get_communities(description=None, items_per_page=None, page=None, startswith
     page = page if page else 1
 
     if startswith:
-        criteria = Q(title__istartswith=description)
+        criteria = Q(title__unaccent__istartswith=description)
     else:
-        criteria = Q(title__icontains=description)
+        criteria = Q(title__unaccent__icontains=description)
 
     communities = Community.objects.filter(criteria).distinct('id')
 
@@ -36,9 +36,9 @@ def get_users(description=None, items_per_page=None, page=None, startswith=False
     page = page if page else 1
 
     if startswith:
-        criteria = (Q(first_name__istartswith=description))
+        criteria = (Q(first_name__unaccent__istartswith=description))
     else:
-        criteria = (Q(first_name__icontains=description) | Q(last_name__icontains=description))
+        criteria = (Q(first_name__unaccent__icontains=description) | Q(last_name__unaccent__icontains=description))
 
     users = User.objects.filter(Q(is_active=True) & criteria).distinct('id')
 
@@ -61,8 +61,8 @@ def get_articles(description=None, items_per_page=None, page=None):
     articles = Article.objects.filter(
         Q(status=Article.STATUS_PUBLISH) &
         (
-            Q(title__icontains=description) |
-            Q(text__icontains=description)
+            Q(title__unaccent__icontains=description) |
+            Q(text__unaccent__icontains=description)
         )
     ).order_by('-publishin').distinct('id', 'publishin')
 
@@ -83,8 +83,8 @@ def get_questions(description=None, items_per_page=None, page=None):
     page = page if page else 1
 
     questions = Question.objects.filter(
-        Q(title__icontains=description) |
-        Q(description__icontains=description)
+        Q(title__unaccent__icontains=description) |
+        Q(description__unaccent__icontains=description)
     ).order_by('-question_date').distinct('id', 'question_date')
 
     questions = Paginator(questions, items_per_page)

@@ -138,7 +138,3 @@ def footer(context):
         'categories': categories_cached,
         'request': context['request']
     }
-
-
-
-
