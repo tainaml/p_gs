@@ -196,7 +196,8 @@ CKEDITOR_CONFIGS = {
             ['CodeSnippet'],
         ],
         'extraPlugins': ','.join([
-            'autolink', 'widget', 'dialog', 'codesnippet'
+            'autolink', 'widget', 'dialog',
+            'codesnippet',
         ]),
     },
     'article': {
@@ -215,7 +216,7 @@ CKEDITOR_CONFIGS = {
         'extraPlugins': ','.join([
             'autolink', 'autoembed', 'embedsemantic', 'widget',
             'dialog', 'embed', 'uploadimage',
-            'codesnippet'
+            'codesnippet',
         ]),
     }
 }
