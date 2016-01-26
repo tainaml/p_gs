@@ -68,7 +68,8 @@
                 transition-delay: 0.2s;
             }
 
-            &:hover {
+            &:hover,
+            &:focus {
                 color: $link-white;
                 background: $btn-danger-bg;
                 border-color: $btn-danger-bg;
