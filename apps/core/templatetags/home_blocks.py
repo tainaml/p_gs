@@ -1,9 +1,9 @@
 from abc import ABCMeta
+from itertools import chain
 
 from django import template
 from django.contrib.contenttypes.models import ContentType
 from django.core.cache import caches
-from django.core.cache.utils import make_template_fragment_key
 from django.db.models import Q, Prefetch
 from django.template.loader import render_to_string
 from django.utils import timezone
@@ -19,6 +19,9 @@ article_type = ContentType.objects.get(model="article")
 cache = caches['default']
 
 home_block_counter = 0
+
+home_block_excludes = []
+
 
 class AbstractHomeBlock(object):
 
@@ -102,13 +105,24 @@ class AbstractHomeBlock(object):
 
         communities = Community.objects.filter(**communities_filters)
 
+        excludes_key = 'home_block_excludes_%s' % self.category.slug.lower()
+        excludes = cache.get(excludes_key, [])
+        excludes = sorted(set(excludes))
+
         articles = Article.objects.filter(
             self.custom_filters
+        ).exclude(
+            pk__in=sorted(set(home_block_excludes)) # POG: pensar numa forma melhor de evitar duplicatas na home
         ).order_by(
             self.custom_order
         ).prefetch_related(
             Prefetch('feed__communities', queryset=communities),
         )[self.offset:self.quantity + self.offset]
+
+        for article in articles:
+            excludes.append(article.pk)
+
+        cache.set(excludes_key, excludes)
 
         context = {
             'class_name': self.class_name,
@@ -144,8 +158,14 @@ class AbstractHomeBlock(object):
         #     self.category.slug.lower(),
         # ))
         # workaround
+        if not self.category:
+            print self.category
+            return ''
+
         cache_key = self.block_name + "-" + self.category.slug.lower()
         template = cache.get(cache_key)
+
+        template = False # Uncomment to run without cache
 
         if not template:
             self.filter_articles()

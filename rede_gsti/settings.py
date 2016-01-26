@@ -270,7 +270,7 @@ DATABASES = {
         'PASSWORD': 'vagrant',
         'HOST': 'db.redegsti.dev',
         'PORT': '5432',
-    }
+    },
 }
 
 

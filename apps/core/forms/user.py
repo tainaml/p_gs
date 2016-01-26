@@ -222,7 +222,12 @@ class CoreSearchVideosForm(IdeiaForm):
 class CoreSearchCommunitiesForm(IdeiaForm):
 
     criteria = forms.CharField(required=False)
-    category = forms.ModelChoiceField(queryset=Taxonomy.objects.filter(term=Term.objects.get(description__icontains='categoria')), required=False)
+    __term = None
+    try:
+        __term = Term.objects.get(description__icontains='categoria')
+    except:
+        pass
+    category = forms.ModelChoiceField(queryset=Taxonomy.objects.filter(term=__term), required=False)
     page = forms.IntegerField(required=False)
 
     def __init__(self, author, items_per_page, *args, **kwargs):
