@@ -172,13 +172,16 @@ class EditQuestionView(View):
 
     form = EditQuestionForm
 
+    def prepare_context(self, request, context):
+        return context
+
     @method_decorator(login_required)
     def get(self, request, question_id):
         question = business.get_question(question_id)
         if question:
             form = self.form(user=request.user, instance=question)
             context = {'form': form, 'question': question}
-            return render(request, 'question/edit.html', context)
+            return render(request, 'question/edit_question.html', self.prepare_context(request, context))
         else:
             raise Http404( _("Question is not exists!") )
 
@@ -202,7 +205,7 @@ class UpdateQuestionView(View):
             else:
                 messages.add_message(request, messages.ERROR, 'Erro ao carregar question')
 
-            return render(request, 'question/edit.html', {
+            return render(request, 'question/edit_question.html', {
                 'form': form,
                 'question': question
             })

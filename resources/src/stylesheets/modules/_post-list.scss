@@ -141,6 +141,7 @@
     @include make-xs-column(12);
     @include make-sm-column(4);
     @include make-lg-column(4);
+    min-height: 240px;
     margin-bottom: 20px;
     cursor: pointer;
 

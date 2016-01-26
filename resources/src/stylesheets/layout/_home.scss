@@ -19,6 +19,9 @@
     @include make-lg-column(8);
 }
 .article-content {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    height: 70px;
     margin-top: 10px;
     display: block;
     font-weight: 600;
