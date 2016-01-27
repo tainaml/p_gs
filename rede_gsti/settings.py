@@ -196,6 +196,7 @@ CKEDITOR_CONFIGS = {
             ['Bold', 'Italic'],
             ['CodeSnippet'],
         ],
+        'entities': False,
         'extraPlugins': ','.join([
             'autolink', 'widget', 'dialog',
             'codesnippet',
@@ -213,6 +214,7 @@ CKEDITOR_CONFIGS = {
             ['Embed'],
             ['Source']
         ],
+        'entities': False,
         'filebrowserBrowseUrl': None,
         'extraPlugins': ','.join([
             'autolink', 'autoembed', 'embedsemantic', 'widget',
