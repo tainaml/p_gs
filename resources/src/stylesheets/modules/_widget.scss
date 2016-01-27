@@ -178,6 +178,8 @@
         color: $color-text-post;
         font-weight: 600;
         font-size: 0.857em;
+        word-wrap: break-word;
+        word-break: break-all;
 
         p {
             margin-bottom: 0;

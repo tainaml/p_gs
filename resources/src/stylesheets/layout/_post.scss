@@ -30,6 +30,8 @@
         font-size: 17px;
         line-height: 30px;
         letter-spacing: -0.05em;
+        word-wrap: break-word;
+        word-break: break-all;
         > p {
             margin-bottom: 25px;
         }
