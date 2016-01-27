@@ -43,8 +43,8 @@
                         <a class="post-creator" href="{% url 'profile:show' question.author.username %}">
                             <img src="{% thumbor_url question.author.profile.get_profile_picture.url width=20 height=20 smart=False fit_in=False %}" alt="{{ question.author.get_full_name }}">
                             {{ question.author.get_full_name }}
-                            <span class="label label-question">pergunta</span>
                         </a>
+                        <span class="label label-question">pergunta</span>
                         <h1 class="full-post-title">
                             {{ question.title }}
                         </h1>
