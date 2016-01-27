@@ -56,6 +56,7 @@ Vagrant.configure(2) do |config|
 
     db.vm.provision "web-base-install", type: "shell",  path: "provision/base/install.sh"
     db.vm.provision "database-install", type: "shell",  path: "provision/database/install.sh"
+    db.vm.provision "unaccent-install", type: "shell",  path: "provision/database/install-unaccent.sh"
 
   end
 
