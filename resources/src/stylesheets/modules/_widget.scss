@@ -150,6 +150,7 @@
     }
     &-#{content} {
         @extend %clearfix;
+        overflow: hidden;
         display: block;
         border: 1px solid $color-border;
         // Mudar para uma classe
@@ -176,7 +177,6 @@
         padding: 10px;
         // float: left;
         color: $color-text-post;
-        font-weight: 600;
         font-size: 0.857em;
         word-wrap: break-word;
         word-break: break-all;
