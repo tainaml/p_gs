@@ -31,6 +31,9 @@
         <meta name="msapplication-square150x150logo" content="{% static 'images/mstile-150x150.png' %}" />
         <meta name="msapplication-wide310x150logo" content="{% static 'images/mstile-310x150.png' %}" />
         <meta name="msapplication-square310x310logo" content="{% static 'images/mstile-310x310.png' %}" />
+        <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+        {% block editorfiles %}
+        {% endblock %}
     </head>
     <body>
         <header class="header">
@@ -75,13 +78,10 @@
 
         {% endblock %}
 
-        <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
         <script src="{% static 'javascripts/shared.js'%}"></script>
         <script src="{% static 'javascripts/main.js'%}"></script>
 
         <!-- CKEDITOR -->
-        <script type="text/javascript" src="{% static "ckeditor/ckeditor/ckeditor.js" %}"></script>
-        <script type="text/javascript" src="{% static "ckeditor/ckeditor-init.js" %}"></script>
 
         {% if request.user.is_anonymous %}
             <script src="https://www.google.com/recaptcha/api.js?hl=pt-BR" async defer></script>

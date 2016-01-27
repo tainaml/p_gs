@@ -1,10 +1,15 @@
 {%extends 'home/layout/base.html' %}
 
+{% load staticfiles %}
 {% load i18n %}
 {% load json_filter %}
 {% load widget_tweaks %}
 
 {% block title %}Portal GSTI - Editar Pergunta{% endblock %}
+{% block editorfiles %}
+<script type="text/javascript" src="{% static "ckeditor/ckeditor/ckeditor.js" %}"></script>
+<script type="text/javascript" src="{% static "ckeditor/ckeditor-init.js" %}"></script>
+{% endblock %}
 
 {% block content %}
     <main class="container main">
