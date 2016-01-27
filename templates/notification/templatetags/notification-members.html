@@ -13,10 +13,9 @@
       {% if count %}
           <span class="badge">{{ count }}</span>
       {% endif %}
-
-      <i class="gsticon gsticon-group"></i>
-  </a>
-  <div id="dropdown-users" class="header-dropdown-menu dropdown-notification">
+    <i class="gsticon gsticon-group"></i>
+</a>
+<div id="dropdown-users" class="header-dropdown-menu dropdown-notification">
 
       {% with template_name=notification_type|stringformat:"s"|add:".html" %}
           {% include 'notification/partials/navbar/notification-'|add:template_name %}

@@ -68,9 +68,6 @@ $color-counter-notification: #b2b2b2 !default;
     background-color: #fff;
 }
 .float-notifcations {
-    // position: relative;
-    // overflow: auto;
-    // max-height: 300px;
     border: 1px solid $color-border;
     box-shadow: 0 3px 5px #595959;
 }
@@ -115,6 +112,17 @@ $color-counter-notification: #b2b2b2 !default;
         border: none;
         /*min-height: auto;*/
         min-height: initial;
+    }
+}
+.item-float-notification-link {
+    padding: 0;
+    a {
+        display: block;
+        padding: 10px 20px;
+        color: #486075;
+
+        &:hover { background-color: #f7f7f7; }
+        span { color: #337ab7; }
     }
 }
 .not-visualized {
