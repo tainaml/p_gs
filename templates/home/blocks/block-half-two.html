@@ -28,8 +28,7 @@
 
         {% endfor %}
     </div>
-    <div>
-        <hr>
+    <div class="highlight-articles--large">
         {% for article in articles|slice:"2:4" %}
             {% url 'article:view' article.slug article.id as article_link %}
             <div class="article-home-medium">

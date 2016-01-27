@@ -169,9 +169,9 @@
         @include make-md-column(10);
         @include make-lg-column(10);
         position: static;
-        li > .gsticon {
-            font-size: 8px;
-        }
+        padding-left: 0;
+        li:first-child > a { padding-left: 0; }
+        li > .gsticon { font-size: 8px; }
     }
     .menu-social {
         text-align: center;

@@ -80,6 +80,8 @@
     @extend %highlights-article;
     border-top: 1px solid $color-border;
     border-bottom: none;
+
+    > :first-child { padding-left: 0; }
 }
 
 .perfil-row {
