@@ -95,6 +95,7 @@
     &:hover {
         color: $link-white;
         background: $btn-danger-bg;
+        border-color: $btn-danger-bg;
     }
 
     &:before,
@@ -136,4 +137,7 @@
 .follower-content > ul > li:only-child > .btn-follow,
 .follower-content > ul > li:only-child > .btn-follow-alt {
     margin-bottom: 0;
+}
+
+.remove-suggest {
 }

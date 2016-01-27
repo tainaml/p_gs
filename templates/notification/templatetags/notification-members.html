@@ -1,26 +1,27 @@
 {% load notification_core_tags %}
+<div class="dropdown dropdown-item-header">
 
-<a href="javascript:void(0);" class="user-actions-logged-link--logged"
-   data-toggle="dropdown"
-   data-target="#dropdown-users"
-   data-trigger="notification"
-   data-token="{% notification_token %}"
-   data-csrf="{{ csrf_token }}"
-   data-notification-type="members"
-   data-notifications="{{ notifications_id }}">
+  <a href="javascript:void(0);" class="user-actions-logged-link--logged"
+     data-toggle="dropdown"
+     data-target="#dropdown-users"
+     data-trigger="notification"
+     data-token="{% notification_token %}"
+     data-csrf="{{ csrf_token }}"
+     data-notification-type="members"
+     data-notifications="{{ notifications_id }}">
 
-    {% if count %}
-        <span class="badge">{{ count }}</span>
-    {% endif %}
-
+      {% if count %}
+          <span class="badge">{{ count }}</span>
+      {% endif %}
     <i class="gsticon gsticon-group"></i>
 </a>
 <div id="dropdown-users" class="header-dropdown-menu dropdown-notification">
 
-    {% with template_name=notification_type|stringformat:"s"|add:".html" %}
-        {% include 'notification/partials/navbar/notification-'|add:template_name %}
-    {% endwith %}
+      {% with template_name=notification_type|stringformat:"s"|add:".html" %}
+          {% include 'notification/partials/navbar/notification-'|add:template_name %}
+      {% endwith %}
 
+  </div>
 </div>
 
 

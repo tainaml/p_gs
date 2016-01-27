@@ -60,9 +60,7 @@
         </section>
         {% block content %}{% endblock %}
 
-        {% if request|is_pc %}
-            {% footer %}
-        {% endif %}
+        {% footer %}
 
         {% block modals %}
 

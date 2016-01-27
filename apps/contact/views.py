@@ -31,7 +31,6 @@ class ContactView(View):
 class ContactSaveViews(View):
 
     template_path = "contact/contact.html"
-
     form = ContactForm
 
     def return_error(self, request, context=None):
@@ -42,7 +41,6 @@ class ContactSaveViews(View):
             return JsonResponse({
                 'template': render(request, self.template_path, context).content
             })
-
 
         messages.add_message(request, messages.SUCCESS, context.get('message'))
         return render(request, self.template_path, context)
@@ -57,17 +55,11 @@ class ContactSaveViews(View):
         return redirect(reverse('contact:create'))
 
     def post(self, request):
-
         form = self.form(request.user, request.POST)
         context = {}
-        if form.process():
-            message = _("Contact created!")
-            return self.return_success(request, {'message': message})
-        else:
-            message = _("Contact not created!")
-            context.update({'message': message})
 
+        if form.process():
+            return self.return_success(request, {'message': _("Contact created!")})
 
         context.update({'form': form})
-
         return self.return_error(request, context)

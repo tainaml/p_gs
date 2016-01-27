@@ -8,7 +8,7 @@
         </div>
         <div class="widget-content">
             {% for question in questions %}
-                <a class="article-excerpt color-green" href="{% url 'question:show' question.content_object.slug question.content_object.id %}">{{ question.content_object.title }}</a>
+                <a class="article-excerpt" href="{% url 'question:show' question.content_object.slug question.content_object.id %}">{{ question.content_object.title }}</a>
             {% endfor %}
         </div>
     </div>

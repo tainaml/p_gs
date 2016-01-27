@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.db.models import Q
@@ -13,13 +14,21 @@ def get_communities(description=None, items_per_page=None, page=None, startswith
     page = page if page else 1
 
     if startswith:
-        criteria = Q(title__istartswith=description)
+        criteria = Q(title__unaccent__istartswith=description)
     else:
-        criteria = Q(title__icontains=description)
+        criteria = None
+        arr_description = description.split(' ')
+
+        for desc in arr_description:
+            query_criteria = Q(title__unaccent__icontains=desc)
+            criteria = query_criteria if not criteria else criteria | query_criteria
+
+        if len(arr_description) == 0:
+            criteria = True
 
     communities = Community.objects.filter(criteria).distinct('id')
-
     communities = Paginator(communities, items_per_page)
+
     try:
         communities = communities.page(page)
     except PageNotAnInteger:
@@ -36,9 +45,18 @@ def get_users(description=None, items_per_page=None, page=None, startswith=False
     page = page if page else 1
 
     if startswith:
-        criteria = (Q(first_name__istartswith=description))
+        criteria = (Q(first_name__unaccent__istartswith=description))
     else:
-        criteria = (Q(first_name__icontains=description) | Q(last_name__icontains=description))
+        criteria = None
+        arr_description = description.split(' ')
+
+        for desc in arr_description:
+            query_criteria = (Q(first_name__unaccent__icontains=desc) |
+                              Q(last_name__unaccent__icontains=desc))
+            criteria = query_criteria if not criteria else criteria | query_criteria
+
+        if len(arr_description) == 0:
+            criteria = True
 
     users = User.objects.filter(Q(is_active=True) & criteria).distinct('id')
 
@@ -58,12 +76,19 @@ def get_articles(description=None, items_per_page=None, page=None):
     items_per_page = items_per_page if items_per_page else 6
     page = page if page else 1
 
+    criteria = None
+    arr_description = description.split(' ')
+
+    for desc in arr_description:
+        query_criteria = (Q(title__unaccent__icontains=desc) |
+                          Q(text__unaccent__icontains=desc))
+        criteria = query_criteria if not criteria else criteria | query_criteria
+
+    if len(arr_description) == 0:
+        criteria = True
+
     articles = Article.objects.filter(
-        Q(status=Article.STATUS_PUBLISH) &
-        (
-            Q(title__icontains=description) |
-            Q(text__icontains=description)
-        )
+        Q(status=Article.STATUS_PUBLISH) & criteria
     ).order_by('-publishin').distinct('id', 'publishin')
 
     articles = Paginator(articles, items_per_page)
@@ -82,10 +107,18 @@ def get_questions(description=None, items_per_page=None, page=None):
     items_per_page = items_per_page if items_per_page else 6
     page = page if page else 1
 
-    questions = Question.objects.filter(
-        Q(title__icontains=description) |
-        Q(description__icontains=description)
-    ).order_by('-question_date').distinct('id', 'question_date')
+    criteria = None
+    arr_description = description.split(' ')
+
+    for desc in arr_description:
+        query_criteria = (Q(title__unaccent__icontains=desc) |
+                          Q(description__unaccent__icontains=desc))
+        criteria = query_criteria if not criteria else criteria | query_criteria
+
+    if len(arr_description) == 0:
+        criteria = True
+
+    questions = Question.objects.filter(criteria).order_by('-question_date').distinct('id', 'question_date')
 
     questions = Paginator(questions, items_per_page)
     try:

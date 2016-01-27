@@ -85,7 +85,7 @@ def social_action(sender, **kwargs):
             'community'
         ]
 
-        if action.content_type.model in allowed_content_type:
+        if action.content_type.model in allowed_content_type and action.content_object:
             to = action.content_object.author
 
         elif action.content_type.model in ['user']:

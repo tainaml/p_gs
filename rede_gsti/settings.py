@@ -42,6 +42,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.postgres',
 
     # NINICO APP
     'apps.ninico',
@@ -195,8 +196,10 @@ CKEDITOR_CONFIGS = {
             ['Bold', 'Italic'],
             ['CodeSnippet'],
         ],
+        'entities': False,
         'extraPlugins': ','.join([
-            'autolink', 'widget', 'dialog', 'codesnippet'
+            'autolink', 'widget', 'dialog',
+            'codesnippet',
         ]),
     },
     'article': {
@@ -211,11 +214,12 @@ CKEDITOR_CONFIGS = {
             ['Embed'],
             ['Source']
         ],
+        'entities': False,
         'filebrowserBrowseUrl': None,
         'extraPlugins': ','.join([
             'autolink', 'autoembed', 'embedsemantic', 'widget',
             'dialog', 'embed', 'uploadimage',
-            'codesnippet'
+            'codesnippet',
         ]),
     }
 }
@@ -270,7 +274,7 @@ DATABASES = {
         'PASSWORD': 'vagrant',
         'HOST': 'db.redegsti.dev',
         'PORT': '5432',
-    }
+    },
 }
 
 

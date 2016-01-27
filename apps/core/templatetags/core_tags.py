@@ -115,8 +115,9 @@ def related_posts_box(context, instance, post_type=None, count=4, template_path=
         'template_path': template_path
     }
 
-@register.inclusion_tag("core/templatetags/footer.html")
-def footer():
+
+@register.inclusion_tag("core/templatetags/footer.html", takes_context=True)
+def footer(context):
     categories_cached = cache.get("categories")
 
     if not categories_cached:
@@ -134,10 +135,6 @@ def footer():
 
         cache.set("categories", categories_cached, None)
     return {
-
-        'categories': categories_cached
+        'categories': categories_cached,
+        'request': context['request']
     }
-
-
-
-

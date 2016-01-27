@@ -32,6 +32,13 @@ class CoreSaveQuestionView(views.SaveQuestionView):
 class CoreEditQuestionView(views.EditQuestionView):
     form = QuestionForms.CoreEditQuestionForm
 
+    def prepare_context(self, request, context):
+        context = super(CoreEditQuestionView, self).prepare_context(request, context)
+        communities = UserBusiness.get_user_communities_list(request.user)
+
+        context.update(communities=communities)
+        return context
+
 
 class CoreUpdateQuestionView(views.UpdateQuestionView):
     form = QuestionForms.CoreEditQuestionForm
