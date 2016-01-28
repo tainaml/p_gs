@@ -22,6 +22,17 @@ $(document).on('click', function () {
     }
 });
 
+$(window).on('scroll', function (event) {
+    var top = $(document).scrollTop();
+    var navigationHeader = $('.header-navegation');
+    if (top > 84) {
+        navigationHeader.addClass('fixed');
+    } else{
+        navigationHeader.removeClass('fixed');
+    }
+    console.log('Window %o', this);
+});
+
 
 function affixBoxShare() {
 
@@ -30,7 +41,7 @@ function affixBoxShare() {
     var $window = $(window);
 
     var boxHeight = $box.outerHeight();
-    var boxPadding = 20;
+    var boxPadding = 50;
     var boxInitialTop = $box.offset().top;
     var boxOffsetTopFixed = $box.offset().top - boxPadding;
 

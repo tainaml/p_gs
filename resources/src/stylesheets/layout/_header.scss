@@ -135,6 +135,13 @@
     background: $link-white;
     @media (max-width: $screen-sm-min) { border-bottom-width: 0; }
 
+    &.fixed {
+        position: fixed;
+        top: 0; left: 0;
+        z-index: 1000;
+        width: 100%;
+    }
+
     // TODO: refatorar para classes
     .menu-categories, .menu-social {
         list-style: none;
