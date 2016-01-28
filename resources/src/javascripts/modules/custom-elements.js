@@ -1,3 +1,5 @@
+'use strict';
+
 // Custom dropdown
 $('.custom-select-item').on('click', showChilds);
 function showChilds (event) {
@@ -24,13 +26,12 @@ $(document).on('click', function () {
 
 $(window).on('scroll', function (event) {
     var top = $(document).scrollTop();
-    var navigationHeader = $('.header-navegation');
-    if (top > 84) {
+    var navigationHeader = $('.header');
+    if (top > 0) {
         navigationHeader.addClass('fixed');
-    } else{
+    } else {
         navigationHeader.removeClass('fixed');
     }
-    console.log('Window %o', this);
 });
 
 
@@ -41,7 +42,7 @@ function affixBoxShare() {
     var $window = $(window);
 
     var boxHeight = $box.outerHeight();
-    var boxPadding = 50;
+    var boxPadding = 93;
     var boxInitialTop = $box.offset().top;
     var boxOffsetTopFixed = $box.offset().top - boxPadding;
 
