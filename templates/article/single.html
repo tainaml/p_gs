@@ -67,7 +67,7 @@
                         <div class="post-count">
                             {% like_box article request.path "inline" %}
                         </div>
-                        <div class="post-count-comments">
+                        <a href="#comments" class="post-count-comments">
                             <span id="load-count-comment-article"
                                   data-load-async="true"
                                   data-load-async-url="{% url 'comment:count' article.id "article" %}"
@@ -76,7 +76,7 @@
                                 <strong class="load-async load-async-content">0</strong>
                                 {% csrf_token %}
                             </span> Comentário(s)
-                        </div>
+                        </a>
                     </div>
                 </aside>
                 <div class="full-post-content">

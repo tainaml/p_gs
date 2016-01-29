@@ -47,7 +47,7 @@
         color: $link-white;
         font-weight: 600;
         font-size: 0.929em;
-        &:focus,
+        &:focus { color: $link-white; }
         &:hover {
             color: $link-white;
             background: $background-primary-button-hover;
@@ -64,8 +64,8 @@
             font-size: 0.929em;
 
             span {
-                transition: 0.4s;
-                transition-delay: 0.2s;
+                // transition: 0.4s;
+                // transition-delay: 0.2s;
             }
 
             &:hover {
@@ -85,7 +85,7 @@
                 // line-height: 2;
                 text-align: center;
                 opacity: 0;
-                transition: .2s,opacity .4s;
+                // transition: .2s,opacity .2s;
             }
 
             &:before {
