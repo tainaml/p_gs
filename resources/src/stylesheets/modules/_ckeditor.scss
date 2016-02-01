@@ -1,6 +1,30 @@
 .django-ckeditor-widget {
     width: 100%;
 }
+.django-ckeditor-widget {
+    .cke {
+        @extend .django-ckeditor-widget;
+        width: 100% !important;
+        border: 1px solid #e5e5e5;
+        box-shadow: none;
+        & .cke_top,
+        & .cke_bottom {
+            box-shadow: none;
+            background-color: #f2f2f2;
+            background-image: none;
+        }
+        & .cke_top { border-bottom: 1px solid #e5e5e5; }
+        & .cke_bottom { border-top: 1px solid #e5e5e5; }
+        & .cke_toolgroup {
+            border-radius: 0;
+            background-image: linear-gradient(to bottom,#fcfcfc,#e5e5e5);
+            border: 1px solid #e1e1e1;
+        }
+        & .cke_button {
+            border-radius: 0;
+        }
+    }
+}
 #cke_id_text {
     width: 100% !important;
     border: 1px solid #e5e5e5;
