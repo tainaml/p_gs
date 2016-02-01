@@ -6,7 +6,7 @@ from django.contrib import messages
 from django.utils.translation import ugettext as _
 
 from apps.contact.service import business as Business
-from apps.contact.service.forms import ContactForm
+from apps.contact.service.forms import ContactForm, ContactFormNoAuthenticated
 
 
 class ContactView(View):
@@ -55,6 +55,10 @@ class ContactSaveViews(View):
         return redirect(reverse('contact:create'))
 
     def post(self, request):
+
+        if not request.user.is_authenticated():
+            self.form = ContactFormNoAuthenticated
+
         form = self.form(request.user, request.POST)
         context = {}
 
