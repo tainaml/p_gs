@@ -27,7 +27,6 @@ urlpatterns = [
     url(r'^occupation/delete/(?P<occupation_id>[0-9]+)/$', views.OccupationDeleteView.as_view(), name='occupation_delete'),
 
     url(r'^feed/$', core_user.CoreUserFeed.as_view(), name='feed'),
-    url(r'^search/(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/$', core_user.CoreUserSearch.as_view(), name='search'),
     url(r'^list$', core_user.CoreUserList.as_view(), name='feed-list'),
     url(r'^list_articles/(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/$', core_user.CoreUserList.as_view(), name='list_articles'),
 
@@ -44,6 +43,7 @@ urlpatterns = [
 
     url(r'^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/$', core_user.CoreUserProfile.as_view(), name='show'),
     url(r'^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/list$', core_user.CoreUserProfileList.as_view(), name='list'),
+    url(r'^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/search$', core_user.CoreUserSearch.as_view(), name='search'),
     # url(r'^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/$', views.ProfileShowView.as_view(), name='show'),
 
     url(r'^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/followings/$', views.ProfileFollowingsView.as_view(), name='followings'),

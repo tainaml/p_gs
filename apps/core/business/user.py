@@ -107,14 +107,21 @@ def get_feed_objects(profile_instance=None, description=None, content_types_list
 
 def get_articles_from_user(profile_instance=None, description=None, content_type=None, items_per_page=None, page=None, user=None):
 
+    criteria = None
+    arr_description = description.split(' ')
+
+    for desc in arr_description:
+        query_criteria = (Q(article__title__unaccent__icontains=desc) |
+                          Q(article__text__unaccent__icontains=desc))
+        criteria = query_criteria if not criteria else criteria | query_criteria
+
+    if len(arr_description) == 0:
+        criteria = True
+
     feed_objects = FeedObject.objects.filter(
         Q(content_type=content_type) &
         Q(article__author=profile_instance.user) &
-        Q(article__status=Article.STATUS_PUBLISH) &
-        (
-            Q(article__title__icontains=description) |
-            Q(article__text__icontains=description)
-        )
+        Q(article__status=Article.STATUS_PUBLISH) & criteria
     ).order_by(
         "-date"
     ).prefetch_related(
