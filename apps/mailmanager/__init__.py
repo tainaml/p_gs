@@ -1,11 +1,10 @@
 from __future__ import absolute_import
 
 from django.core.mail import get_connection
+from apps.mailmanager.backend import MailManageMessage
 
-from .backend import MailManageMessage
 
-
-def send_email(to, subject, template=None, context={}, fail_silently=False, connection=None):
+def send_email(to, subject, template=None, context=None, fail_silently=False, connection=None):
     '''
 
     :param to: string or tuple. Email recipient
@@ -16,6 +15,8 @@ def send_email(to, subject, template=None, context={}, fail_silently=False, conn
     :param connection: The optional email backend to use to send the mail
     :return: bool
     '''
+    if not context:
+        context = {}
     connection = connection or get_connection(fail_silently=fail_silently)
     mail = MailManageMessage(to, subject, template, context, connection=connection)
     mail.send()

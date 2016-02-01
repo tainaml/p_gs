@@ -1,6 +1,6 @@
 from django.shortcuts import render
 
-from apps.mailmanager.tasks import send_mail_async
+from apps.mailmanager import send_email
 
 
 def test_async(request):
@@ -8,5 +8,4 @@ def test_async(request):
 
 
 def send_async(request):
-    send_mail_async.delay()
     return render(request, 'mailmanager/test_async.html')

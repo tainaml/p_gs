@@ -11,7 +11,7 @@ from django.utils.translation import ugettext as _
 
 from ..models import TokenType
 from apps.account.models import MailValidation
-from apps.mailmanager.tasks import send_mail_async
+from apps.mailmanager import send_email
 
 __author__ = 'phillip'
 
@@ -85,7 +85,7 @@ def register_user(parameters=None):
     if user and user.email:
 
         token = register_token(user=user, token_type=TokenType.REGISTER_ACCOUNT_CONFIRM)
-        send_mail_async.delay(
+        send_email(
             to=str(user.email),
             subject=_('Bem vindo!'),
             template='mailmanager/register_user.html',
@@ -272,7 +272,7 @@ def forgot_password(user_email=None):
         MailValidation.objects.filter(user=user, token_type=TokenType.RECOVERY_PASSWORD_CONFIRM).update(active=False)
         token = register_token(user=user, token_type=TokenType.RECOVERY_PASSWORD_CONFIRM)
 
-        send_mail_async.delay(
+        send_email(
             to=str(user.email),
             subject=_('Password Recovery'),
             template='mailmanager/password-recovery.html',
@@ -305,7 +305,7 @@ def resend_account_confirmation(user_email=None):
                 MailValidation.objects.filter(user=user, token_type=TokenType.REGISTER_ACCOUNT_CONFIRM).update(active=False)
                 token = register_token(user=user, token_type=TokenType.REGISTER_ACCOUNT_CONFIRM)
 
-            send_mail_async.delay(
+            send_email(
                 to=str(user.email),
                 subject='Account Confirmation',
                 template='mailmanager/resend-account-confirmation.html',

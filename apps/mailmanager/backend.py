@@ -11,7 +11,7 @@ class MailManagedBackend(EmailBackend):
     '''
 
     def __init(self, to, subject, template, context={}, *args, **kwargs):
-        super(MailManageMessage, self).__init__(to=to, subject=subject, *args, **kwargs)
+        super(MailManagedBackend, self).__init__(to=to, subject=subject, *args, **kwargs)
 
 
 class MailManageMessage(EmailMultiAlternatives):

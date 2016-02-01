@@ -1,7 +1,8 @@
+from apps.mailmanager import send_email
 from celeryconfig import app
 
 __author__ = 'ladeia'
-from . import send_email
+
 
 
 @app.task
