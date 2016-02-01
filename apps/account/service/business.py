@@ -318,3 +318,7 @@ def resend_account_confirmation(user_email=None):
         return False
 
     return token
+
+
+def check_username(username=None):
+    pass

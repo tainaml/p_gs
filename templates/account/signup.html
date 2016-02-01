@@ -64,7 +64,8 @@
                             </div>
 
                             <div class="form-group {% if form.username.errors %}has-error{% endif %}">
-                                <input class="form-control" type="text" name="username" value="{{ form.cleaned_data.username|default_if_none:"" }}" placeholder="{% trans "Username" %}" maxlength="30">
+                                <input class="form-control" type="text" id="username" name="username" value="{{ form.cleaned_data.username|default_if_none:"" }}" placeholder="{% trans "Username" %}" maxlength="30"
+                                    data-check-username="{% url 'account:check-username' %}">
                                 {% if form.username.errors %}  {{ form.username.errors }} {% endif %}
                             </div>
 
@@ -131,6 +132,7 @@
         <script src="https://www.google.com/recaptcha/api.js?hl=pt-BR" async defer></script>
 
         <script type="text/javascript">
+            var timeoutReference= null;
             var functionAjaxSuccessLogin = function(e, data) {
                 window.location.href = data.url_next;
             };
@@ -174,6 +176,40 @@
 
                 var $linkModal = $("#link-contact");
                 $linkModal.on("async.click.success", functionAjaxSuccessTriggerContactModal);
+
+                $(document).on('input', "#username", function (e) {
+                    var CLASS_SENDING = 'sending',
+                        CLASS_AVAILABLE = 'available',
+                        CLASS_ERROR = 'has-error';
+
+                    var $this = $(e.currentTarget),
+                        $formGroup = $this.closest('form-group');
+
+                    if (e.type=='keyup' && e.keyCode!=8) return;
+                    if (!$this.val().trim()) return;
+                    if (timeoutReference) clearTimeout(timeoutReference);
+                    timeoutReference = setTimeout(function(){
+                        $.ajax({
+                            url: $this.data('check-username'),
+                            method: 'get',
+                            dataType: 'json',
+                            data: {'username': $this.val().trim()},
+                            beforeSend: function(jqXHR, settings) {
+                                $formGroup.removeClass(CLASS_AVAILABLE + ' ' + CLASS_ERROR)
+                                          .addClass(CLASS_SENDING);
+                            },
+                            success: function(data, textStatus, jqXHR) {
+                                $formGroup.removeClass(CLASS_SENDING)
+                                          .addClass(CLASS_AVAILABLE);
+                            },
+                            statusCode: {
+                                400: function() {
+                                    $formGroup.addClass(CLASS_ERROR);
+                                }
+                            }
+                        })
+                    }, 500);
+                });
             });
         </script>
     </body>

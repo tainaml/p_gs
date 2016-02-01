@@ -319,3 +319,9 @@ class ResendAccountConfirmationView(View):
             return render(request, 'account/resend_account_confirmation_successfully.html', {'message': message})
 
         return render(request, 'account/resend_account_confirmation.html', {'form': form})
+
+
+class CheckUsernameView(View):
+
+    def get(self, request):
+        pass
