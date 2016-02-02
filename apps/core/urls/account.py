@@ -18,5 +18,6 @@ urlpatterns = [
     url(r'^recovery_password/(?P<activation_key>[0-9a-z]{40})/$', views.RecoveryValidationView.as_view(), name='recovery_password'),
     url(r'^recovery_validation/(?P<activation_key>[0-9a-z]{40})/$', views.RecoveryValidationView.as_view(), name='recovery_validation'),
     url(r'^resend_account_confirmation$', views.ResendAccountConfirmationView.as_view(), name='resend_account_confirmation'),
+    url(r'^check-username$', views.CheckUsernameView.as_view(), name='check-username')
 
 ]

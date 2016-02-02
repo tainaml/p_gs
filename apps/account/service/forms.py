@@ -173,3 +173,11 @@ class ResendAccountConfirmationForm(IdeiaForm):
 
     def __process__(self):
         return Business.resend_account_confirmation(self.cleaned_data['email'])
+
+
+class CheckUsernameForm(IdeiaForm):
+
+    username = forms.SlugField(max_length=60, required=True)
+
+    def __process__(self):
+        return Business.username_is_available(self.cleaned_data.get('username'))
