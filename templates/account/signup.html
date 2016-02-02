@@ -178,48 +178,59 @@
                 $linkModal.on("async.click.success", functionAjaxSuccessTriggerContactModal);
 
                 $(document).on('input', "#username", function (e) {
+
                     var CLASS_SENDING = 'sending',
                         CLASS_AVAILABLE = 'has-success',
-                        CLASS_ERROR = 'has-error';
+                        CLASS_ERROR = 'has-error',
+                        MSG_ERROR_REGEX = 'Insira um "slug" válido consistindo de letras, números, sublinhados (_) ou hífens.',
+                        USERNAME_REGEX = /^([a-z0-9]+((-|_)[a-z0-9]+?)*)$/g;
 
                     var $this = $(e.currentTarget),
-                        $formGroup = $this.closest('.form-group');
+                        $formGroup = $this.closest('.form-group'),
+                        $thisValue = $this.val();
 
-                    if (e.type=='keyup' && e.keyCode!=8) return;
-                    if (!$this.val().trim()) {
-                        $formGroup.removeClass(CLASS_AVAILABLE + ' ' + CLASS_ERROR);
-                        $formGroup.find('.check-username-response').remove();
-                        return;
+                    function addError(MSG_ERROR_REGEX) {
+                        var $messageResponse = $('<span/>');
+                        $messageResponse.addClass('help-block check-username-response').text(MSG_ERROR_REGEX);
+                        $formGroup.removeClass(CLASS_SENDING).addClass(CLASS_ERROR).append($messageResponse);
                     }
+
+                    function clearEvents() {
+                        $formGroup.removeClass(CLASS_AVAILABLE + ' ' + CLASS_ERROR).addClass(CLASS_SENDING);
+                        $formGroup.find('.errorlist').remove();
+                        $formGroup.find('.check-username-response').remove();
+                    }
+
+                    clearEvents();
+
                     if (timeoutReference) clearTimeout(timeoutReference);
-                    if (!$this.hasClass(CLASS_SENDING)) {
-                        timeoutReference = setTimeout(function(){
-                            $.ajax({
-                                url: $this.data('check-username'),
-                                method: 'get',
-                                dataType: 'json',
-                                data: {'username': $this.val().trim()},
-                                beforeSend: function(jqXHR, settings) {
-                                    $formGroup.removeClass(CLASS_AVAILABLE + ' ' + CLASS_ERROR).addClass(CLASS_SENDING);
-                                    $formGroup.find('.errorlist').remove();
-                                    $formGroup.find('.check-username-response').remove();
-                                },
-                                success: function(data) {
+                    if ((e.type=='keyup' && e.keyCode!=8) || !$thisValue) return;
+                    if ( USERNAME_REGEX.test($thisValue) == false ) {
+                        addError(MSG_ERROR_REGEX);
+                        return false;
+                    }
+
+                    timeoutReference = setTimeout(function(){
+                        $.ajax({
+                            url: $this.data('check-username'),
+                            method: 'get',
+                            dataType: 'json',
+                            data: {'username': $this.val().trim()},
+                            success: function(data) {
+                                var $messageResponse = $('<span/>');
+                                $messageResponse.addClass('help-block check-username-response').text(data.message);
+                                $formGroup.removeClass(CLASS_SENDING).addClass(CLASS_AVAILABLE).append($messageResponse);
+                            },
+                            statusCode: {
+                                400: function(jqXHR) {
+                                    var data = $.parseJSON(jqXHR.responseText);
                                     var $messageResponse = $('<span/>');
                                     $messageResponse.addClass('help-block check-username-response').text(data.message);
-                                    $formGroup.removeClass(CLASS_SENDING).addClass(CLASS_AVAILABLE).append($messageResponse);
-                                },
-                                statusCode: {
-                                    400: function(jqXHR) {
-                                        var data = $.parseJSON(jqXHR.responseText);
-                                        var $messageResponse = $('<span/>');
-                                        $messageResponse.addClass('help-block check-username-response').text(data.message);
-                                        $formGroup.removeClass(CLASS_SENDING).addClass(CLASS_ERROR).append($messageResponse);
-                                    }
+                                    $formGroup.removeClass(CLASS_SENDING).addClass(CLASS_ERROR).append($messageResponse);
                                 }
-                            })
-                        }, 1000);
-                    }
+                            }
+                        });
+                    }, 1000);
                 });
             });
         </script>

@@ -177,7 +177,7 @@ class ResendAccountConfirmationForm(IdeiaForm):
 
 class CheckUsernameForm(IdeiaForm):
 
-    username = forms.SlugField(max_length=60, required=True)
+    username = forms.CharField(max_length=30, required=True)
 
     def __process__(self):
         return Business.username_is_available(self.cleaned_data.get('username'))
