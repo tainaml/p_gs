@@ -6,7 +6,7 @@
     <main class="container main">
         <div class="row">
 
-            {% include "search/partials/search-sidebar-left.html" with local_context=request.path|cut:'/search'|cut:'/' %}
+            {% include "search/partials/search-sidebar-left.html" with local_context=request.path|cut:'/search'|cut:'/'|default:'all' %}
 
             <div class="col-lg-9 result-wrapper">
 

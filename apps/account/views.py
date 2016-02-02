@@ -332,13 +332,16 @@ class CheckUsernameView(View):
         if form.process():
             message = _('Username is available!')
             status = 200
+            is_available = True
         else:
             message = _('Username is not available!')
             status = 400
+            is_available = False
 
         data = {
             'message': message,
-            'status': status
+            'status': status,
+            'is_available': is_available
         }
 
         return JsonResponse(data, status=status)

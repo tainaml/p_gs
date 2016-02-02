@@ -92,7 +92,6 @@
             plugin.settings = $.extend({}, plugin.settings, defaultsPrivate);
 
             $element.on( 'click', function( event ) {
-                console.log("No Click");
                 plugin.settings.verify( plugin, event );
             });
         };

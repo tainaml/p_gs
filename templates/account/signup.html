@@ -51,11 +51,15 @@
                                     Google+</a>
                             </div>
                             <div class="form-group form-group-half {% if form.first_name.errors %}has-error{% endif %}">
-                                <input class="form-control" type="text" name="first_name" value="{{ form.cleaned_data.first_name|default_if_none:"" }}" placeholder="{% trans "First name" %}" maxlength="30">
+                                <input class="form-control" type="text" id="first_name" name="first_name" value="{{ form.cleaned_data.first_name|default_if_none:"" }}" placeholder="{% trans "First name" %}" maxlength="30"
+                                       data-toggle="validation"
+                                       data-regex="[a-zA-Z]+">
                                 {% if form.first_name.errors %}  {{ form.first_name.errors }} {% endif %}
                             </div>
                             <div class="form-group form-group-half {% if form.last_name.errors %}has-error{% endif %}">
-                                <input class="form-control" type="text" name="last_name" value="{{ form.cleaned_data.last_name|default_if_none:"" }}" placeholder="{% trans "Last Name" %}" maxlength="150">
+                                <input class="form-control" type="text" id="last_name" name="last_name" value="{{ form.cleaned_data.last_name|default_if_none:"" }}" placeholder="{% trans "Last Name" %}" maxlength="150"
+                                       data-toggle="validation"
+                                       data-regex="[a-zA-Z]+">
                                 {% if form.last_name.errors %}  {{ form.last_name.errors }} {% endif %}
                             </div>
                             <div class="form-group {% if form.email.errors %}has-error{% endif %}">
@@ -65,7 +69,9 @@
 
                             <div class="form-group {% if form.username.errors %}has-error{% endif %}">
                                 <input class="form-control" type="text" id="username" name="username" value="{{ form.cleaned_data.username|default_if_none:"" }}" placeholder="{% trans "Username" %}" maxlength="30" autocomplete="off"
-                                    data-check-username="{% url 'account:check-username' %}">
+                                       data-toggle="validation"
+                                       data-async=true
+                                       data-url-check-validation="{% url 'account:check-username' %}">
                                 {% if form.username.errors %}  {{ form.username.errors }} {% endif %}
                             </div>
 
@@ -176,62 +182,6 @@
 
                 var $linkModal = $("#link-contact");
                 $linkModal.on("async.click.success", functionAjaxSuccessTriggerContactModal);
-
-                $(document).on('input', "#username", function (e) {
-
-                    var CLASS_SENDING = 'sending',
-                        CLASS_AVAILABLE = 'has-success',
-                        CLASS_ERROR = 'has-error',
-                        MSG_ERROR_REGEX = 'Insira um "slug" válido consistindo de letras, números, sublinhados (_) ou hífens.',
-                        USERNAME_REGEX = /^([a-z0-9]+((-|_)[a-z0-9]+?)*)$/g;
-
-                    var $this = $(e.currentTarget),
-                        $formGroup = $this.closest('.form-group'),
-                        $thisValue = $this.val();
-
-                    function addError(MSG_ERROR_REGEX) {
-                        var $messageResponse = $('<span/>');
-                        $messageResponse.addClass('help-block check-username-response').text(MSG_ERROR_REGEX);
-                        $formGroup.removeClass(CLASS_SENDING).addClass(CLASS_ERROR).append($messageResponse);
-                    }
-
-                    function clearEvents() {
-                        $formGroup.removeClass(CLASS_AVAILABLE + ' ' + CLASS_ERROR).addClass(CLASS_SENDING);
-                        $formGroup.find('.errorlist').remove();
-                        $formGroup.find('.check-username-response').remove();
-                    }
-
-                    clearEvents();
-
-                    if (timeoutReference) clearTimeout(timeoutReference);
-                    if ((e.type=='keyup' && e.keyCode!=8) || !$thisValue) return;
-                    if ( USERNAME_REGEX.test($thisValue) == false ) {
-                        addError(MSG_ERROR_REGEX);
-                        return false;
-                    }
-
-                    timeoutReference = setTimeout(function(){
-                        $.ajax({
-                            url: $this.data('check-username'),
-                            method: 'get',
-                            dataType: 'json',
-                            data: {'username': $this.val().trim()},
-                            success: function(data) {
-                                var $messageResponse = $('<span/>');
-                                $messageResponse.addClass('help-block check-username-response').text(data.message);
-                                $formGroup.removeClass(CLASS_SENDING).addClass(CLASS_AVAILABLE).append($messageResponse);
-                            },
-                            statusCode: {
-                                400: function(jqXHR) {
-                                    var data = $.parseJSON(jqXHR.responseText);
-                                    var $messageResponse = $('<span/>');
-                                    $messageResponse.addClass('help-block check-username-response').text(data.message);
-                                    $formGroup.removeClass(CLASS_SENDING).addClass(CLASS_ERROR).append($messageResponse);
-                                }
-                            }
-                        });
-                    }, 1000);
-                });
             });
         </script>
     </body>

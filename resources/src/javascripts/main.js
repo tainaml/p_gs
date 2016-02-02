@@ -12,6 +12,7 @@ import './modules/ideiaFilter/'
 import './modules/ideiaLogin/'
 import './modules/ideiaNotification/'
 import './modules/ideiaRestrict/'
+import './modules/ideiaValidationField/'
 
 $(() => {
     require('./modules')
