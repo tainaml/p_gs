@@ -156,7 +156,7 @@ class ProfileGetCity(ProfileBaseView):
 
         context = {
             'items': cities,
-            'message': _("All cities")
+            'message': _("Cidade")
         }
 
         return render(request, self.template_path, context)
