@@ -6,7 +6,7 @@ var webpackManifest = require('../libraries/webpackManifest');
 module.exports = function(env) {
   var jsSrc = path.resolve(paths.sourceAssets + '/javascripts/');
   var jsDest = paths.publicAssets + '/javascripts/';
-  var publicPath = '/static/javascripts/';
+  var publicPath = 'javascripts/';
 
   var webpackConfig = {
     context: jsSrc,
@@ -36,7 +36,7 @@ module.exports = function(env) {
       main: [ './main.js' ],
     };
 
-    webpackConfig.output= {
+    webpackConfig.output = {
       path: jsDest,
       filename: env === 'production' ? '[name]-[hash].js' : '[name].js',
       publicPath: publicPath
@@ -61,7 +61,7 @@ module.exports = function(env) {
       'jquery': 'jQuery'
     };
     webpackConfig.plugins.push(
-      new webpackManifest(publicPath),
+      new webpackManifest(publicPath, paths.publicAssets),
       new webpack.DefinePlugin({
         'process.env': {
           'NODE_ENV': JSON.stringify('production')

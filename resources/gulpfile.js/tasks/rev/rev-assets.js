@@ -11,6 +11,6 @@ gulp.task('rev-assets', function() {
   return gulp.src([config.publicDirectory + '/**/*', notThese])
     .pipe(rev())
     .pipe(gulp.dest(config.publicDirectory))
-    .pipe(rev.manifest('gsti/assets/rev-manifest.json', {merge: true}))
+    .pipe(rev.manifest(config.publicDirectory+ "/rev-manifest.json", {merge: true}))
     .pipe(gulp.dest(''));
 });

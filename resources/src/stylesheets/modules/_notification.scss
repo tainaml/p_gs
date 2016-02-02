@@ -133,3 +133,23 @@ $color-counter-notification: #b2b2b2 !default;
 #dropdown-search .item-float-notification:hover > .perfil {
     background: #f7f7f7;
 }
+
+// Form messages
+// ==========================================================================
+.messages {
+    padding-right: 15px;
+    padding-left: 15px;
+    list-style: none;
+    li {
+        padding: $alert-padding;
+        margin-bottom: $line-height-computed;
+        border: 1px solid transparent;
+        border-radius: $alert-border-radius;
+    }
+    .success {
+        @include alert-variant($alert-success-bg, $alert-success-border, $alert-success-text);
+    }
+    .error {
+        @include alert-variant($alert-danger-bg, $alert-danger-border, $alert-danger-text);
+    }
+}
