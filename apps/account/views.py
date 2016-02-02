@@ -10,7 +10,7 @@ from django.utils.translation import ugettext as _
 
 from rede_gsti import settings
 from .service.forms import SignUpForm, LoginForm, ChangePasswordForm, RecoveryPasswordForm, ForgotPasswordForm, \
-    ResendAccountConfirmationForm
+    ResendAccountConfirmationForm, CheckUsernameForm
 from .service.business import logout_user, register_confirm, check_token_exist, log_in_user_no_credentials
 
 
@@ -323,5 +323,22 @@ class ResendAccountConfirmationView(View):
 
 class CheckUsernameView(View):
 
+    form = CheckUsernameForm
+
     def get(self, request):
-        pass
+
+        form = self.form(request.GET)
+
+        if form.process():
+            message = _('Username is available!')
+            status = 200
+        else:
+            message = _('Username is not available!')
+            status = 400
+
+        data = {
+            'message': message,
+            'status': status
+        }
+
+        return JsonResponse(data, status=status)

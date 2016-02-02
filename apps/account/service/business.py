@@ -239,7 +239,6 @@ def log_in_user_no_credentials(request, user):
         return login(request, user)
 
 
-
 def logout_user(request=None):
     """ This method invalidate user session
     :param request: request to unlik user from session
@@ -320,5 +319,15 @@ def resend_account_confirmation(user_email=None):
     return token
 
 
-def check_username(username=None):
-    pass
+def username_is_available(username=None):
+    """
+    Method checks if username is available
+    :param username:
+    :return True if username is available else False:
+    """
+    try:
+        user = User.objects.get(username=username)
+    except User.DoesNotExist:
+        return True
+
+    return False if user else True

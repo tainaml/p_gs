@@ -180,6 +180,4 @@ class CheckUsernameForm(IdeiaForm):
     username = forms.SlugField(max_length=60, required=True)
 
     def __process__(self):
-        return Business.check_username(
-            self.cleaned_data.get('username')
-        )
+        return Business.username_is_available(self.cleaned_data.get('username'))
