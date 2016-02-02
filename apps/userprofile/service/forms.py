@@ -1,3 +1,4 @@
+# coding=utf-8
 import pickle
 
 from django.db import models
@@ -78,6 +79,13 @@ class EditProfileForm(IdeiaForm):
                 self.add_error('profile_picture',
                                ValidationError(_('Image size more than 1mb.'), code='profile_picture'))
                 is_valid = False
+
+        if 'gender' in self.cleaned_data:
+            if self.cleaned_data['gender'].upper() not in ['M', 'F']:
+                is_valid = False
+                self.add_error('gender',
+                               ValidationError(_('Gênero não permitido.'), code='gender'))
+
 
         return is_valid
 
