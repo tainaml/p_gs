@@ -35,8 +35,7 @@
                         <div class="col-lg-3">
                             <div class="custom-file-upload set-avatar" 
                                 data-module="dropzoneUploader" 
-                                data-original-image="{% if profile.get_profile_picture %}{{ profile.get_profile_picture.url }}{% endif %}"
-                                >
+                                data-original-image="{% if profile.get_profile_picture %}{{ profile.get_profile_picture.url }}{% endif %}">
                                 <div class="custom-file-content">
                                     <i class="gsticon gsticon-cloud-upload"></i>
                                     <h5><strong>Foto de perfil</strong></h5>
@@ -65,9 +64,31 @@
                                     {% endfor %}
                                 {% endif %}
                             </div>
+                            <div class="form-group-inline {% if form.gender.errors %}has-error{% endif %}">
+                                <label for="gender">Sexo</label>
+                                <select name="gender" id="gender" class="form-control">
+                                    <option value="">Selecione</option>
+                                    <option value="M" {% if form.data_model.gender|upper == "M" %}selected{% endif %}>Masculino</option>
+                                    <option value="F" {% if form.data_model.gender|upper == "F" %}selected{% endif %}>Feminino</option>
+                                </select>
+                            </div>
+                            <div class="form-group-inline {% if form.birth.errors %}has-error{% endif %}">
+
+                             <label for="birth">Data de Nascimento</label>
+                                <input class="form-control" type="text" name="birth" id="birth" placeholder="{% trans "Birth date" %}" value="{{ form.data_model.birth|date:"d/m/Y" }}">
+                                {% if form.birth.errors %}
+                                    {% for error in form.birth.errors %}
+                                    <span class="help-block">{{ error|escape }}</span>
+                                    {% endfor %}
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                <div class="row-form">
+                        <div class="col-lg-12">
                             <div class="form-group-inline {% if form.state_hometown.errors %}has-error{% endif %}">
                                 <label for="state_hometown">Estado que nasceu</label>
-                                <select class="form-control" id="state_hometown" name="state_hometown" data-ajax-change="true" data-url="{% url 'profile:get_city' %}" data-target="#city_hometown">
+                                <select class="form-control" id="state_hometown" name="state_hometown" data-ajax-change="true" data-url="{% url 'profile:get_city' %}" data-target="#city_hometown" data-value="{% if  form.cleaned_data.city_hometown %}{{ form.cleaned_data.city_hometown.id }}{% elif form.data_model.city_hometown %}{{ form.data_model.city_hometown.id }}{% endif %}">
                                     <option value="" {% if not form.data_model.city_hometown %}selected{% endif %} disabled>{% trans "Selecione um estado" %}</option>
                                     {% for state in states %}
                                         <option value="{{ state.id }}" {% if form.data_model.city_hometown.state.id == state.id %}selected{% endif %}>{{ state.name }}</option>
@@ -79,8 +100,8 @@
                                     {% endfor %}
                                 {% endif %}
                             </div>
-                            <div class="form-group-inline {% if form.city_hometown.errors %}has-error{% endif %}">
-                                <label for="city_hometown">Cidade que nasceu</label>
+                            <div class="form-group-inline {% if form.birth.errors %}has-error{% endif %}">
+                                            <label for="city_hometown">Cidade que nasceu</label>
                                 <select class="form-control" id="city_hometown" name="city_hometown">
                                     <option value="" {% if not form.data_model.city_hometown %}selected{% endif %} disabled>{% trans "Selecione uma cidade" %}</option>
                                     {% for city in form.data_model.city_hometown.state.cities.all %}
@@ -99,7 +120,7 @@
                         <div class="col-lg-12">
                             <div class="form-group-inline {% if form.state.errors %}has-error{% endif %}">
                                 <label for="residency_state">Estado que mora</label>
-                                <select id="residency_state" name="state" class="form-control" data-ajax-change="true" data-url="{% url 'profile:get_city' %}" data-target="#residency_city">
+                                <select id="residency_state" name="state" class="form-control" data-ajax-change="true" data-url="{% url 'profile:get_city' %}" data-target="#residency_city" data-value="{% if  form.cleaned_data.city %}{{ form.cleaned_data.city.id }}{% elif form.data_model.city %}{{ form.data_model.city.id }}{% endif %}">
                                     <option value="" {% if not form.data_model.city %}selected{% endif %} disabled>{% trans "Selecione um estado" %}</option>
                                     {% for state in form.data_model.city.state.country.states.all %}
                                         <option value="{{ state.id }}" {% if form.data_model.city.state.id == state.id %}selected{% endif %}>{{ state.name }}</option>
@@ -127,9 +148,10 @@
                             </div>
                         </div>
                     </div>
+
                     <div class="row-form">
                         <div class="col-lg-12">
-                            <div class="form-group-inline {% if form.responsibility.errors %}has-error{% endif %}">
+                            <div class="form-group{% if form.responsibility.errors %}has-error{% endif %}">
                                 <label for="responsibility">Área de atuação</label>
                                 <select name="responsibility" id="responsibility" class="form-control">
                                     <option value="" {% if not profile.current_occupation.resposibilityu.id %}selected{% endif %} disabled>Selecione uma área de atuação</option>
@@ -140,15 +162,6 @@
                                 {% if form.responsibility.errors %}
                                     {% for error in form.responsibility.errors %}
                                         <span class="help-block">{{ error|escape }}</span>
-                                    {% endfor %}
-                                {% endif %}
-                            </div>
-                            <div class="form-group-inline {% if form.birth.errors %}has-error{% endif %}">
-                                <label for="birth">Data de Nascimento</label>
-                                <input class="form-control" type="text" name="birth" id="birth" placeholder="{% trans "Birth date" %}" value="{{ form.data_model.birth|date:"d/m/Y" }}">
-                                {% if form.birth.errors %}
-                                    {% for error in form.birth.errors %}
-                                    <span class="help-block">{{ error|escape }}</span>
                                     {% endfor %}
                                 {% endif %}
                             </div>
@@ -166,24 +179,41 @@
 
 {% block javascripts %}
     <script>
-        var fillValues = function() {
-            var $this = $(this);
+
+        function fillElement($obj){
+
             $.ajax({
-                url: $this.data("url"),
+                url: $obj.data("url"),
                 method: "POST",
                 dataType: "html",
                 data: {
-                    value_id: $this.val(),
+                    value_id: $obj.val(),
                     csrfmiddlewaretoken: $("input:hidden[name='csrfmiddlewaretoken']").val()
                 },
                 success: function(response) {
-                    $($this.data("target")).html(response);
+                    var $target = $($obj.data("target"));
+                    var $value = $obj.data("value");
+                    $target.html(response);
+                    if ($value) {
+                        $target.val($obj.data("value"));
+                        $obj.data("value", "");
+                    }
+
+
                 }
             });
+        }
+        var fillValues = function() {
+            fillElement($(this));
         };
 
         $(function() {
-            $("[data-ajax-change='true']").on("change", fillValues);
+            var $elementsChange = $("[data-ajax-change='true']");
+            $.each($elementsChange, function( index, value ) {
+                fillElement($(value));
+
+            });
+            $elementsChange.on("change", fillValues);
 
             var $social_count = $("[data-social-count=\"true\"]");
             $.each($social_count, function(key, value){

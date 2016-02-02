@@ -9,5 +9,5 @@ gerar os assets e fazer o hash dos mesmos
 ### Problemas no carramentos de algum script após o passo acima
 
 Geralmente esse problema é ocasionado pela alteração na referência do script,
-adicionar o `static/` antes do `javascripts/` dentro do "shared-[hash].js"
+adicionar o `/static/` antes do `javascripts/` dentro do "shared-[hash].js"
 em static/javascripts.
