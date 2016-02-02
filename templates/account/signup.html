@@ -186,33 +186,40 @@
                         $formGroup = $this.closest('.form-group');
 
                     if (e.type=='keyup' && e.keyCode!=8) return;
-                    if (!$this.val().trim()) return;
+                    if (!$this.val().trim()) {
+                        $formGroup.removeClass(CLASS_AVAILABLE + ' ' + CLASS_ERROR);
+                        $formGroup.find('.check-username-response').remove();
+                        return;
+                    }
                     if (timeoutReference) clearTimeout(timeoutReference);
-                    timeoutReference = setTimeout(function(){
-                        $.ajax({
-                            url: $this.data('check-username'),
-                            method: 'get',
-                            dataType: 'json',
-                            data: {'username': $this.val().trim()},
-                            beforeSend: function(jqXHR, settings) {
-                                $formGroup.removeClass(CLASS_AVAILABLE + ' ' + CLASS_ERROR).addClass(CLASS_SENDING);
-                                $formGroup.find('.check-username-response').remove();
-                            },
-                            success: function(data) {
-                                var $messageResponse = $('<span/>');
-                                $messageResponse.addClass('help-block check-username-response').text(data.message);
-                                $formGroup.removeClass(CLASS_SENDING).addClass(CLASS_AVAILABLE).append($messageResponse);
-                            },
-                            statusCode: {
-                                400: function(jqXHR) {
-                                    var data = $.parseJSON(jqXHR.responseText);
+                    if (!$this.hasClass(CLASS_SENDING)) {
+                        timeoutReference = setTimeout(function(){
+                            $.ajax({
+                                url: $this.data('check-username'),
+                                method: 'get',
+                                dataType: 'json',
+                                data: {'username': $this.val().trim()},
+                                beforeSend: function(jqXHR, settings) {
+                                    $formGroup.removeClass(CLASS_AVAILABLE + ' ' + CLASS_ERROR).addClass(CLASS_SENDING);
+                                    $formGroup.find('.errorlist').remove();
+                                    $formGroup.find('.check-username-response').remove();
+                                },
+                                success: function(data) {
                                     var $messageResponse = $('<span/>');
                                     $messageResponse.addClass('help-block check-username-response').text(data.message);
-                                    $formGroup.removeClass(CLASS_SENDING).addClass(CLASS_ERROR).append($messageResponse);
+                                    $formGroup.removeClass(CLASS_SENDING).addClass(CLASS_AVAILABLE).append($messageResponse);
+                                },
+                                statusCode: {
+                                    400: function(jqXHR) {
+                                        var data = $.parseJSON(jqXHR.responseText);
+                                        var $messageResponse = $('<span/>');
+                                        $messageResponse.addClass('help-block check-username-response').text(data.message);
+                                        $formGroup.removeClass(CLASS_SENDING).addClass(CLASS_ERROR).append($messageResponse);
+                                    }
                                 }
-                            }
-                        })
-                    }, 1000);
+                            })
+                        }, 1000);
+                    }
                 });
             });
         </script>
