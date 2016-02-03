@@ -26,22 +26,21 @@
 
         plugin.init = function() {
             plugin.settings = $.extend({}, defaults, options);
-            console.log(plugin);
+            plugin.regex = new RegExp(plugin.settings.regex);
 
             $(document).on( 'input', '#' + $element.attr('id'), function( e ) {
-                plugin.clearEvents();
                 plugin.verify( e );
             });
         };
 
         plugin.verify = function( e ) {
+            plugin.clearEvents();
+
             var $e = $(e.target);
 
-            var regex = new RegExp(plugin.settings.regex);
+            if (!$e.val().trim()) return;
 
-            console.log(regex);
-
-            if ( regex.test($e.val()) == false ) {
+            if ( plugin.regex.test($e.val()) == false ) {
                 plugin.addError(plugin.settings.messageErrorRegex);
                 return;
             }
@@ -57,9 +56,6 @@
                         method: 'get',
                         dataType: 'json',
                         data: plugin.settings.data,
-                        beforeSend: function() {
-                            plugin.clearEvents();
-                        },
                         success: function(data) {
                             plugin.check( data );
                         },
