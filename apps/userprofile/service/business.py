@@ -85,6 +85,7 @@ def update_profile(user=None, data=None):
 
     return profile
 
+
 def update_user(user, data={}):
 
     try:
