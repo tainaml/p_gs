@@ -126,7 +126,7 @@ def get_communities(taxonomies_list=None, description=None, items_per_page=None,
             Q(title__icontains=description) |
             Q(description__icontains=description)
         )
-    )
+    ).order_by("description")
 
     if items_per_page and page:
         communities = Paginator(communities, items_per_page)

@@ -1,6 +1,4 @@
-# coding=utf-8
 import pickle
-
 from django.db import models
 from django.core.validators import RegexValidator
 from django.core.exceptions import ValidationError
@@ -84,7 +82,7 @@ class EditProfileForm(IdeiaForm):
             if self.cleaned_data['gender'].upper() not in ['M', 'F']:
                 is_valid = False
                 self.add_error('gender',
-                               ValidationError(_('Gênero não permitido.'), code='gender'))
+                               ValidationError(_('Gender error.'), code='gender'))
 
 
         return is_valid
