@@ -68,22 +68,29 @@ def update_profile(user=None, data=None):
 
     if data:
         try:
-            profile.birth = data['birth']
-            profile.gender = data['gender']
-            profile.city = data['city']
+
+            if data.get('birth'):
+                profile.birth = data.get('birth')
+
+            if data.get('gender'):
+                profile.gender = data.get('gender')
+
+            if data.get('city'):
+                profile.city = data.get('city')
 
             if data.get('city_hometown'):
                 profile.city_hometown = data.get('city_hometown')
 
-            if data['profile_picture'] and profile.profile_picture != data['profile_picture']:
+            if data.get('profile_picture') and profile.profile_picture != data.get('profile_picture'):
                 profile.profile_picture.delete()
-                profile.profile_picture = data['profile_picture']
+                profile.profile_picture = data.get('profile_picture')
 
             profile.save()
         except:
             return False
 
     return profile
+
 
 def update_user(user, data={}):
 

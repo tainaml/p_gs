@@ -1,8 +1,9 @@
+# coding=utf-8
+from django.core.exceptions import ValidationError
+from django.utils.translation import ugettext as _
 from django.db import transaction
 
 from apps.socialactions.models import UserAction
-from custom_forms.custom import IdeiaForm, forms
-from ..business import user as Business
 from apps.article.models import Article
 from apps.userprofile.models import Responsibility
 from apps.geography.models import State, City
@@ -11,6 +12,9 @@ from apps.userprofile.service.forms import EditProfileForm
 from apps.socialactions.service import business as BusinessSocialActions
 from apps.core.business import socialactions as CoreBusinessSocialActions
 from apps.taxonomy.models import Taxonomy, Term
+
+from ..business import user as Business
+from custom_forms.custom import IdeiaForm, forms
 from rede_gsti import settings
 
 
@@ -68,7 +72,7 @@ class CoreUserProfileEditForm(EditProfileForm):
     @transaction.atomic()
     def __process__(self):
         process_profile = super(CoreUserProfileEditForm, self).__process__()
-        process_occupation = BusinessUserProfile.create_occupation(process_profile, data={
+        process_occupation = BusinessUserProfile.update_or_create_occupation(process_profile, data={
             'responsibility': self.cleaned_data['responsibility']
         })
 
@@ -79,6 +83,7 @@ class CoreUserProfileFullEditForm(EditProfileForm):
 
     first_name = forms.CharField(max_length=100)
     last_name = forms.CharField(max_length=100)
+    gender = forms.CharField(max_length=1, required=False)
     responsibility = forms.ModelChoiceField(queryset=Responsibility.objects.all())
     state = forms.ModelChoiceField(queryset=State.objects.filter(country=1))
     state_hometown = forms.ModelChoiceField(queryset=State.objects.filter(country=1))
@@ -90,6 +95,15 @@ class CoreUserProfileFullEditForm(EditProfileForm):
         if self.data and 'state_hometown' in self.data:
             self.fields['city_hometown'].queryset = City.objects.filter(state=self.data['state_hometown'])
 
+    def is_valid(self):
+        is_valid = super(CoreUserProfileFullEditForm, self).is_valid()
+
+        if 'gender' in self.cleaned_data:
+            if self.cleaned_data['gender'].upper() not in ['M', 'F']:
+                is_valid = False
+                self.add_error('gender',
+                               ValidationError(_('Gênero não permitido.'), code='gender'))
+        return is_valid
 
     @transaction.atomic()
     def __process__(self):

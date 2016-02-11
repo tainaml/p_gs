@@ -129,6 +129,8 @@ require('./validation.js');
             var withFiles = ($self.attr('enctype') === 'multipart/form-data');
             var method = $self.attr('method') || 'post';
 
+            console.log($self.serialize());
+
 
             var ajaxParams = {
                 'type': method.toUpperCase(),

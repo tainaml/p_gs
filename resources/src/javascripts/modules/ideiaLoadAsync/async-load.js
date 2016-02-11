@@ -13,15 +13,11 @@
             element = element;
 
         plugin.init = function() {
-
-            console.log( 'plugin init' );
-
             plugin.do_submit(element);
 
         };
 
         plugin.do_submit = function(el){
-            console.log( 'plugin do_submit' );
             var $self = $(el),
                 url = $self.data("loadAsyncUrl") || $self.attr("href"),
                 method = $self.data("loadAsyncMethod") || "get",
