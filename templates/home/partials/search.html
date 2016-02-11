@@ -1,48 +1,12 @@
 <form action="{% url 'search:search' %}" method="GET" role="search">
-    {% csrf_token %}
     <div class="form-search-input">
         <input type="text" id="search-criteria" name="q" placeholder="{{placehold|default:"Procure profissionais de tecnologia, comunidades e conteúdo"}}" autocomplete="off" {% if query_search %}value="{{ query_search }}"{% endif %}
                data-autocomplete="true"
                data-autocomplete-timeout="500"
                data-autocomplete-target="#dropdown-search"
-               data-autocomplete-url="{% url 'search:autocomplete' %}"/>
+               data-autocomplete-url="{% url 'search:autocomplete' %}" />
     </div>
-    <div id="dropdown-search" class="dropdown-menu dropdown-search" data-toggle="custom-scroll">
-        <div class="float-notifcations">
-            <div class="header-float-notifications">Pessoas</div>
-            <ul class="content-float-notifications">
-                <li class="item-float-notification">
-                    <a href="javascript:;"><img src="http://placehold.it/20" alt="Creator Post Avatar"></a>
-                    <a href="javascript:;">Iury Silva</a>
-                </li>
-                <li class="item-float-notification">
-                    <a href="javascript:;"><img src="http://placehold.it/20" alt="Creator Post Avatar"></a>
-                    <a href="javascript:;">Iury Silva</a>
-                </li>
-                <li class="item-float-notification">
-                    <a href="javascript:;"><img src="http://placehold.it/20" alt="Creator Post Avatar"></a>
-                    <a href="javascript:;">Iury Silva</a>
-                </li>
-                <li class="item-float-notification-separator"></li>
-            </ul>
-            <div class="header-float-notifications">Comunidades</div>
-            <ul class="content-float-notifications">
-                <li class="item-float-notification">
-                    <a href="javascript:;"><img src="http://placehold.it/20" alt="Creator Post Avatar"></a>
-                    <a href="javascript:;">Iury Silva</a>
-                </li>
-                <li class="item-float-notification">
-                    <a href="javascript:;"><img src="http://placehold.it/20" alt="Creator Post Avatar"></a>
-                    <a href="javascript:;">Iury Silva</a>
-                </li>
-                <li class="item-float-notification">
-                    <a href="javascript:;"><img src="http://placehold.it/20" alt="Creator Post Avatar"></a>
-                    <a href="javascript:;">Iury Silva</a>
-                </li>
-                <li class="item-float-notification-separator"></li>
-            </ul>
-        </div>
-    </div>
+    <div id="dropdown-search" class="dropdown-menu dropdown-search" data-toggle="custom-scroll"></div>
     <button type="submit" class="form-search-button">
         <i class="gsticon gsticon-search"></i>
     </button>

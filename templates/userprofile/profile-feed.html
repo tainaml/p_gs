@@ -114,8 +114,8 @@
             jScrollWizard = $wizardJScroll.jscroll({
                 autoTrigger: false,
                 loadingHtml: '<div class="load-async-preload"></div>',
-                contentSelect: '.j-scroll-wizard-communities-container',
-                nextSelector: "a[data-jscroll-next]",
+                contentSelector: '.j-scroll-wizard-communities-container',
+                nextSelectoror: "a[data-jscroll-next]",
                 refresh: true,
                 callback: function() {
                     refreshAsyncLike();
@@ -155,7 +155,7 @@
 
             $(".j-scroll").jscroll({
                 loadingHtml: '<div class="load-async-preload"></div>',
-                contentSelect: ".j-scroll-container",
+                contentSelector: ".j-scroll-container",
                 nextSelector: "a[data-jscroll-next]",
                 callback: function(){
                     refreshAsyncLike();

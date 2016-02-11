@@ -129,8 +129,8 @@
             jScrollElemment = $divJScroll.jscroll({
                 autoTrigger: true,
                 loadingHtml: '<div class="load-async-preload"></div>',
-                contentSelect: '.j-scroll-container',
-                nextSelect: "a[data-jscroll-next]",
+                contentSelector: '.j-scroll-container',
+                nextSelector: "a[data-jscroll-next]",
                 refresh: true
             });
         };
@@ -169,8 +169,8 @@
 
             $(".j-scroll").jscroll({
                 loadingHtml: '<div class="load-async-preload"></div>',
-                contentSelect: ".j-scroll-container",
-                nextSelect: "a[data-jscroll-next]"
+                contentSelector: ".j-scroll-container",
+                nextSelector: "a[data-jscroll-next]"
             });
 
             $(document).on("ajaxform.success", "#form-filter", functionAjaxFormSuccessFilter);
