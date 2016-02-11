@@ -1,9 +1,16 @@
 {% load thumbor_tags %}
+{% load var_tags %}
+
+{% if notification.target_content_type.model == "article" %}
+    {% set action_verb = "comentou" %}
+{% elif notification.target_content_type.model == "question" %}
+    {% set action_verb = "respondeu" %}
+{% endif %}
 
 <li class="item-float-notification item-float-notification-link {% if not notification.read %}not-visualized{% endif %}">
     <a href="{{ notification.target.get_absolute_url }}" title="{{ notification.target.title }}">
         <img src="{% thumbor_url notification.author.profile.get_profile_picture.url width=20 height=20 smart=False fit_in=False %}" width="20" height="20" alt="{{ notification.author.get_full_name }}">
-        <span>{{ notification.author.get_full_name }}</span> {% if notification.target_content_type.model == "article" %}comentou{% elif notifiation.target_content_type.model == "question" %}respondeu{% endif %} em <span>{{ notification.target.title }}</span>
+        <span>{{ notification.author.get_full_name }}</span> {{ action_verb }} em <span>{{ notification.target.title }}</span>
     </a>
 {#    <!-- <a href="{% url 'profile:show' notification.author.get_username %}" title="{{ notification.author.get_full_name }}"></a> -->#}
 {#    <!-- <a href="{% url 'profile:show' notification.author.get_username %}" title="{{ notification.author.get_full_name }}">{{ notification.author.get_full_name }}</a> comentou na sua <a href="{{ notification.target.get_absolute_url }}" title="{{ notification.target.title }}">publicação</a> -->#}

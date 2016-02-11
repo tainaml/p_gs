@@ -23,6 +23,7 @@ def comment_action(sender, **kwargs):
     if comment:
         if comment.content_type.model in [
             'article',
+            'answer',
             'comment'
         ]:
             to = comment.content_object.author
