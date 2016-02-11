@@ -47,6 +47,7 @@ class City(models.Model):
         return self.name
 """
 
+
 class UserProfile(models.Model):
     user = models.OneToOneField(User, related_name='profile')
     birth = models.DateField(null=True, blank=True)
@@ -87,7 +88,7 @@ class UserProfile(models.Model):
 
         return False
 
-    #User Action Follower
+    # User Action Follower
     @property
     def followers(self):
         try:

@@ -109,16 +109,18 @@
             $wizardJScroll.html(data.template);
             $wizardCommunities.html($wizardJScroll);
 
+            refreshAsyncLike();
+
             jScrollWizard = $wizardJScroll.jscroll({
                 autoTrigger: false,
                 loadingHtml: '<div class="load-async-preload"></div>',
                 contentSelect: '.j-scroll-wizard-communities-container',
-                nextSelect: "a[data-jscroll-next]",
+                nextSelector: "a[data-jscroll-next]",
                 refresh: true,
-                callback: function () {
-                },
-
-        });
+                callback: function() {
+                    refreshAsyncLike();
+                }
+            });
 
             $currentModal.modal("hide");
             $($currentModal.data("next-modal")).modal("show");
@@ -154,7 +156,7 @@
             $(".j-scroll").jscroll({
                 loadingHtml: '<div class="load-async-preload"></div>',
                 contentSelect: ".j-scroll-container",
-                nextSelect: "a[data-jscroll-next]",
+                nextSelector: "a[data-jscroll-next]",
                 callback: function(){
                     refreshAsyncLike();
                     $('[data-action]').ajaxSocialAction();

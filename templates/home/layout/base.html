@@ -79,13 +79,8 @@
 
         {% endblock %}
 
-<<<<<<< HEAD
-        <script src="{% static 'javascripts/shared-ebd11a33eb57253eaa9b.js'%}"></script>
-        <script src="{% static 'javascripts/main-ebd11a33eb57253eaa9b.js'%}"></script>
-=======
         <script src="{% static 'javascripts/shared.js'%}"></script>
         <script src="{% static 'javascripts/main.js'%}"></script>
->>>>>>> develop
 
         <!-- CKEDITOR -->
 
@@ -176,7 +171,7 @@
                 var asyncClickData = asyncClick.IdeiaAsyncClick();
 
                 $("[data-load-async=true]").loadAsync();
-                $('[data-action]').ajaxSocialAction();
+                $("[data-action]").ajaxSocialAction();
                 $("[data-toggle=tooltip]").tooltip();
             };
 
