@@ -24,6 +24,7 @@
 </div>
  {% if instance.author == request.user %}
      {% with comment_id=instance.id|stringformat:"s" %}
+
         <div data-list id="comment-edit-{{ instance.id }}" class="dropdown-content">
             {% include 'comment/edit-answer.html' with content_object=instance to_update="comment-"|add:comment_id content_type='comment'  %}
         </div>

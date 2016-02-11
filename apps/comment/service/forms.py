@@ -18,6 +18,14 @@ class CreateCommentForm(IdeiaForm):
     def __process__(self):
         return Business.create_comment(self.user, self.cleaned_data)
 
+    def clean(self):
+        self.cleaned_data = super(CreateCommentForm, self).clean()
+        if 'content' in self.cleaned_data:
+            self.cleaned_data['content'] = self.cleaned_data['content'].strip()
+
+
+        return self.cleaned_data
+
     def is_valid(self):
 
         valid = super(CreateCommentForm, self).is_valid()
@@ -26,6 +34,12 @@ class CreateCommentForm(IdeiaForm):
             self.add_error(None,
                            ValidationError(('User must be authenticated.'),
                                            code='is_not_authenticated'))
+            valid = False
+
+        if 'content' in self.cleaned_data and self.cleaned_data['content'] == '':
+            self.add_error('content',
+                           ValidationError(('Is not possible to comment only with white spaces.'),
+                                           code='white_spaces'))
             valid = False
 
         try:
