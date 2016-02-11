@@ -92,34 +92,42 @@
     {{ block.super }}
 
     <script>
+        var loaderHtml = '<div class="col-lg-12"><div class="load-async-preload"></div></div>';
+        var callbackFunction = function() {
+            refreshAsyncLike();
+        };
+
         $(function() {
-            var loaderHtml = '<div class="col-lg-12"><div class="load-async-preload"></div></div>';
             $(".j-scroll-communities").jscroll({
                 autoTrigger: false,
                 loadingHtml: loaderHtml,
-                contentSelect: ".j-scroll-container-communities",
-                nextSelect: "a[data-jscroll-next-communities]"
+                contentSelector: ".j-scroll-container-communities",
+                nextSelector: "a[data-jscroll-next-communities]",
+                callback: callbackFunction()
             });
 
             $(".j-scroll-users").jscroll({
                 autoTrigger: false,
                 loadingHtml: loaderHtml,
-                contentSelect: ".j-scroll-container-user",
-                nextSelect: "a[data-jscroll-next-user]"
+                contentSelector: ".j-scroll-container-user",
+                nextSelector: "a[data-jscroll-next-users]",
+                callback: callbackFunction()
             });
 
             $(".j-scroll-articles").jscroll({
                 autoTrigger: false,
                 loadingHtml: loaderHtml,
-                contentSelect: ".j-scroll-container-articles",
-                nextSelect: "a[data-jscroll-next-articles]"
+                contentSelector: ".j-scroll-container-articles",
+                nextSelector: "a[data-jscroll-next-articles]",
+                callback: callbackFunction()
             });
 
             $(".j-scroll-questions").jscroll({
                 autoTrigger: false,
                 loadingHtml: loaderHtml,
-                contentSelect: ".j-scroll-container-questions",
-                nextSelect: "a[data-jscroll-next-questions]"
+                contentSelector: ".j-scroll-container-questions",
+                nextSelector: "a[data-jscroll-next-questions]",
+                callback: callbackFunction()
             });
         });
     </script>
