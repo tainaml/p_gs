@@ -4,8 +4,10 @@
         {% include "search/partials/search-articles-segment.html" %}
     {% endfor %}
 
-    <div class="col-lg-12">
-        <a data-jscroll-next-articles href="{% url 'search:list' "articles" %}?q={{ query_search|urlencode|default:"" }}&page={{ page|default:2 }}" class="btn-default btn-block">Carregar mais resultados</a>
-    </div>
+    {% if articles and articles.has_next %}
+        <div class="col-lg-12">
+            <a data-jscroll-next-articles href="{% url 'search:list' "articles" %}?q={{ query_search|urlencode|default:"" }}&page={{ page|default:2 }}" class="btn-default btn-block">Carregar mais resultados</a>
+        </div>
+    {% endif %}
 
 {% endif %}

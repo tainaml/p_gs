@@ -4,8 +4,10 @@
         {% include "search/partials/search-communities-segment.html" %}
     {% endfor %}
 
+    {% if communities and communities.has_next %}
     <div class="col-lg-12">
         <a data-jscroll-next-communities href="{% url 'search:list' "communities" %}?q={{ query_search|urlencode|default:"" }}&page={{ page|default:2 }}" class="btn-default btn-block">Carregar mais resultados</a>
     </div>
+    {% endif %}
 
 {% endif %}

@@ -4,8 +4,10 @@
         {% include "search/partials/search-questions-segment.html" %}
     {% endfor %}
 
+    {% if questions and questions.has_next %}
     <div class="col-lg-12">
         <a data-jscroll-next-questions href="{% url 'search:list' "questions" %}?q={{ query_search|urlencode|default:"" }}&page={{ page|default:2 }}" class="btn-default btn-block">Carregar mais resultados</a>
     </div>
+    {% endif %}
 
 {% endif %}
