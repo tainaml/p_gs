@@ -2,6 +2,7 @@ from ckeditor.widgets import CKEditorWidget
 from django.core.exceptions import ValidationError
 from django.db import transaction
 from django.utils.text import slugify
+from django.utils.translation import ugettext as _
 
 from apps.question.models import Answer
 from custom_forms.custom import forms, IdeiaForm, IdeiaModelForm
@@ -80,6 +81,21 @@ class CommentReplyForm(IdeiaForm):
         self.question = instance["question_id"]
         self.description = instance["description"]
 
+    def is_valid(self):
+        is_valid = super(CommentReplyForm, self).is_valid()
+
+        description = self.cleaned_data.get('description', '').strip()
+
+        if description == '' or description is None:
+            self.add_error('description', ValidationError(_('Your answer can not be blank'), code='description'))
+            is_valid = False
+
+        return is_valid
+
+    def clean_description(self):
+        description = self.cleaned_data.get('description', '').strip()
+        return description
+
     def __process__(self):
         return Business.comment_reply(self.cleaned_data, self.user, self.question)
 
@@ -119,7 +135,6 @@ class EditAnswerForm(IdeiaForm):
         self.instance = instance
         self.user = user
         super(EditAnswerForm, self).__init__(*args, **kwargs)
-
 
     def set_author(self, user):
         self.user = user
