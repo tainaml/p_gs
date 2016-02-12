@@ -179,6 +179,15 @@
                         var $element = $(data);
                         $element.appendTo($self);
 
+                        var regex = /^data-list-([0-9]+)$/;
+                        if (regex.test($self.attr('id'))) {
+                            var $parentSelf = $self.parent('.comments-children');
+                            if ($self.children().length > 0)
+                                $parentSelf.removeClass('no-children');
+                            else
+                                $parentSelf.addClass('no-children');
+                        }
+
                         $childs = $element.find('div[data-xhr-url]');
                         $self.jscroll({
                             loadingHtml: '<div class="load-async-preload"></div>',

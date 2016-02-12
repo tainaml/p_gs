@@ -38,8 +38,7 @@
             </div>
         </div>
     </footer>
-    <aside class="comments-container-child">
-
+    <aside class="comments-container-child comments-children no-children">
         {% with comment_id=instance.id|stringformat:"s" %}
 
             {% if instance.author == request.user %}

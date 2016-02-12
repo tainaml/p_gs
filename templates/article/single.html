@@ -123,33 +123,33 @@
 <script>
 
     var form_submit = function(event, data){
-            var $form = $(this);
+        var $form = $(this);
 
-            var action = $form.data("toggle");
-            var $div_to_update = $($form.data("update"));
+        var action = $form.data("toggle");
+        var $div_to_update = $($form.data("update"));
 
-            if (action=="append"){
-                $div_to_update.append(data.template);
-                $form[0].reset();
-            }else if (action=="prepend"){
-                $div_to_update.prepend(data.template);
-                var $form_to_hide = $form.parent(".dropdown-content");
-                if ($form_to_hide){
-                    $form_to_hide.removeClass("open");
-                }
-                $form[0].reset();
-            }else if (action=="replace"){
-                $div_to_update.html(data.template);
+        if (action=="append"){
+            $div_to_update.append(data.template);
+            $form[0].reset();
+        }else if (action=="prepend"){
+            $div_to_update.prepend(data.template);
+            var $form_to_hide = $form.parent(".dropdown-content");
+            if ($form_to_hide){
+                $form_to_hide.removeClass("open");
             }
-            var $subforms = $div_to_update.find("form[data-ajaxform=\"true\"]");
-            $subforms.IdeiaAjaxForm();
-            $subforms.on("ajaxform.success", form_submit);
+            $form[0].reset();
+        }else if (action=="replace"){
+            $div_to_update.html(data.template);
+        }
+        var $subforms = $div_to_update.find("form[data-ajaxform=\"true\"]");
+        $subforms.IdeiaAjaxForm();
+        $subforms.on("ajaxform.success", form_submit);
 
-            var $data_list = $div_to_update.find("div[data-xhr]");
-            $data_list.renderList();
-            refreshAsyncLike();
+        var $data_list = $div_to_update.find("div[data-xhr]");
+        $data_list.renderList();
+        refreshAsyncLike();
 
-        };
+    };
 
     $.fn.renderList = function(){
 
@@ -167,10 +167,19 @@
                     var $element = $(data);
                     $element.appendTo($self);
 
+                    var regex = /^data-list-([0-9]+)$/;
+                    if (regex.test($self.attr('id'))) {
+                        var $parentSelf = $self.parent('.comments-children');
+                        if ($self.children().length > 0)
+                            $parentSelf.removeClass('no-children');
+                        else
+                            $parentSelf.addClass('no-children');
+                    }
+
                     $childs = $element.find('div[data-xhr-url]');
                     $self.jscroll({
                         loadingHtml: '<div class="load-async-preload"></div>',
-                        contentSelector: "#" + $self.attr("id"),
+                        contentSelect: "#" + $self.attr("id"),
                         nextSelector: "a[data-jscroll-next]",
                         autoTrigger: false,
                         callback: function(data){
