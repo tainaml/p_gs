@@ -55,11 +55,10 @@
                                     </div>
                                     <div data-form-group class="col-lg-6 item-form">
                                         <div class="custom-select">
-                                            <select name="gender" id="gender" class="form-control" data-ajax-change="true" data-url="{% url 'profile:get_city' %}" data-target="#city">
-                                                <option value="" disabled>Sexo</option>
+                                            <select name="gender" id="gender" class="form-control">
+                                                <option value="" selected disabled>Sexo</option>
                                                 <option value="M">Masculino</option>
                                                 <option value="F">Feminino</option>
-
                                             </select>
                                         </div>
                                         <span class="help-block"></span>
@@ -67,7 +66,7 @@
                                     <div data-form-group class="col-lg-6 item-form">
                                         <div class="custom-select">
                                             <select name="state" id="state" class="form-control" data-ajax-change="true" data-url="{% url 'profile:get_city' %}" data-target="#city">
-                                                <option value="0" selected disabled>Selecione um estado</option>
+                                                <option value="0" selected disabled>Estado</option>
                                                 {% for state in states %}
                                                 <option value="{{ state.id }}" {% if profile.city.state.id == state.id %}selected{% endif %}>{{ state.name }}</option>
                                                 {% endfor %}
@@ -78,7 +77,7 @@
                                     <div data-form-group class="col-lg-6 item-form">
                                         <div class="custom-select">
                                             <select name="city" id="city" class="form-control">
-                                                <option value="0" {% if profile.city.id %}selected{% endif %} disabled>Selecione uma cidade</option>
+                                                <option value="0" {% if not profile.city.id %}selected{% endif %} disabled>Cidade</option>
                                                 {% for city in cities %}
                                                     <option value="{{ city.id }}" {% if profile.city.id == city.id %}selected{% endif %}>{{ city.name }}</option>
                                                 {% endfor %}

@@ -262,7 +262,6 @@ class CoreProfileWizardStepTwoAjax(views.ProfileBaseView):
         context.update(self.get_context(request, profile))
         return self.return_success(request, context)
 
-
     @method_decorator(login_required)
     def post(self, request, *args, **kwargs):
 
