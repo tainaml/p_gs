@@ -1,14 +1,18 @@
 {% extends "mailmanager/layout/mail-base.html" %}
 {% block title %}Welcome{% endblock %}
+{% block email_title %}EMAIL DE CONFIRMAÇÃO{% endblock email_title %}
 {% block content %}
-<h2>Olá, {{ user.first_name }} {{ user.last_name }}</h2>
-<h3>Bem vindo ao PORTAL GSTI</h3>
-<p>Agora você pode interagir na rede. <br>
-Seu username é: {{ user.username }} <br>
+<h2>Olá {{ user.first_name }}, </h2>
 
+<p>Bem vindo ao PORTAL GSTI, estamos muito felizes que queira se juntar a nós. :)</p>
+
+<p>Agora você poderá interagir na maior rede de profissionais de tecnologia.
+Seu usuário é <strong>{{ user.username }}</strong> e para ativar sua conta basta clicar no link abaixo
+
+<a style="color: #fff; background-color: #2c7906; border-color: #296f06; padding: 12px; text-decoration: none;font-size: 0.9em; font-weight: 600;" href="{% url 'account:mail_validation' token as token_url %}">ENTRAR</a>
+
+
+</p>
+    Por segurança disponibilizamos a URL completa para o cadastro:
 {% url 'account:mail_validation' token as token_url %}
-
-<p>Para ativar sua conta <a href="{{ base_url }}{{ token_url }}">clique aqui</a></p>
-
-<p>A url é [{{ base_url }}{{ token_url }}]</p>
 {% endblock %}
