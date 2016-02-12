@@ -56,7 +56,7 @@
                                     <div data-form-group class="col-lg-6 item-form">
                                         <div class="custom-select">
                                             <select name="gender" id="gender" class="form-control">
-                                                <option value="" selected disabled>Sexo</option>
+                                                <option value="" {% if not profile.gender %}selected{% endif %} disabled>Sexo</option>
                                                 <option value="M">Masculino</option>
                                                 <option value="F">Feminino</option>
                                             </select>
