@@ -7,6 +7,9 @@
     margin-bottom: 20px;
     float: left;
     border-bottom: 1px solid $color-border;
+    &.no-children {
+        border-bottom: none;
+    }
 }
 .comment {
     @extend %clearfix;

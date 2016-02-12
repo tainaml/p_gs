@@ -61,6 +61,7 @@ class FormBaseView(View):
                       *args,
                       **kwargs)
 
+
 class ListBaseView(View):
 
     itens_by_page = 10
@@ -73,12 +74,9 @@ class ListBaseView(View):
         raise NotImplementedError("you must specify the template_list_path property")
 
     def do_process(self, request=None):
-
-
         self.response_data['template'] = render(request,
-                                           self.template_list_path,
-                                           self.context).content
-
+                                                self.template_list_path,
+                                                self.context).content
 
         return render(request, self.template_list_path, self.context)
 
@@ -96,7 +94,6 @@ class AnswerList(ListBaseView):
         form = self.form(question, self.itens_by_page, request.GET)
         instance_list = form.process()
 
-
         if not form.is_valid():
             print form.errors
             raise Http404()
@@ -106,7 +103,6 @@ class AnswerList(ListBaseView):
             'form': form,
             'page': form.cleaned_data['page'] + 1}
         )
-
 
         return super(AnswerList, self).do_process(request)
 
@@ -183,7 +179,8 @@ class EditQuestionView(View):
             context = {'form': form, 'question': question}
             return render(request, 'question/edit_question.html', self.prepare_context(request, context))
         else:
-            raise Http404( _("Question is not exists!") )
+            raise Http404(_("Question is not exists!"))
+
 
 class UpdateQuestionView(View):
 
@@ -277,7 +274,6 @@ class CorrectAnswer(View):
 
 
 class RemoveAnswer(View):
-
 
     @method_decorator(login_required)
     def post(self, request):

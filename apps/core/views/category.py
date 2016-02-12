@@ -14,11 +14,9 @@ class CoreCategoryPageView(View):
     context = {}
 
     def __init__(self, **kwargs):
-
         super(CoreCategoryPageView, self).__init__(**kwargs)
 
     def get_template(self):
-
         templates = []
 
         if self.category:
@@ -30,17 +28,15 @@ class CoreCategoryPageView(View):
         return templates
 
     def get_context(self, context=None):
-
         if context and isinstance(context, list):
             self.context.update(context)
 
         return self.context
 
     def get(self, request, category_slug):
-
         try:
             self.category = Taxonomy.objects.get(slug=category_slug, term__slug='categoria')
-        except Taxonomy.DoesNotExist, e:
+        except Taxonomy.DoesNotExist:
             raise Http404(gettext('Category not found or not root category.'))
 
         self.get_context().update({
