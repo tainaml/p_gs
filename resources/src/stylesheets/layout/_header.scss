@@ -141,7 +141,18 @@
     border-top: 1px solid $color-border;
     border-bottom: 1px solid $color-border;
     background: $link-white;
-    @media (max-width: $screen-sm-min) { border-bottom-width: 0; }
+    @media (max-width: $screen-sm-min) { border-bottom-width: 0;}
+
+    &.header-navegation-border {
+        border-bottom: 2px solid;
+        &.governance {border-bottom-color: $color-governance;}
+        &.development {border-bottom-color: $color-development;}
+        &.web-design {border-bottom-color: $color-web-design;}
+        &.marketing {border-bottom-color: $color-marketing;}
+        &.infra {border-bottom-color: $color-infra;}
+        &.databases {border-bottom-color: $color-databases;}
+        &.governance {border-bottom-color: $color-governance;}
+    }
 
     // TODO: refatorar para classes
     .menu-categories, .menu-social {
@@ -180,6 +191,9 @@
         padding-left: 0;
         li:first-child > a { padding-left: 0; }
         li > .gsticon { font-size: 8px; }
+        li.active {
+            font-weight: bold;
+        }
     }
     .menu-social {
         text-align: center;

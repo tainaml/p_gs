@@ -1,5 +1,5 @@
 <ul class="menu-categories">
-    <li>
+    <li {% if menu_context == "governanca-de-ti" %}class="active"{% endif %}>
         <a class="governance" href="{% url 'category:show' 'governanca-de-ti' %}" data-sub="#sub-governance">Governança de TI</a>
         {% comment %}
         <div class="submenu-categories">
@@ -39,7 +39,7 @@
         {% endcomment %}
     </li>
     <li><i class="gsticon gsticon-circle"></i></li>
-    <li>
+    <li {% if menu_context == "desenvolvimento" %}class="active"{% endif %}>
         <a class="development" href="{% url 'category:show' 'desenvolvimento' %}" data-sub="#sub-development">Desenvolvimento</a>
         {% comment %}
         <div class="submenu-categories" data-toggle="mega-dropdown">
@@ -79,7 +79,7 @@
         {% endcomment %}
     </li>
     <li><i class="gsticon gsticon-circle"></i></li>
-    <li>
+    <li {% if menu_context == "web-design" %}class="active"{% endif %}>
         <a class="web-design" href="{% url 'category:show' 'web-design' %}" data-sub="#sub-web-design">Web Design</a>
         {% comment %}
         <div class="submenu-categories" data-toggle="mega-dropdown">
@@ -119,7 +119,7 @@
         {% endcomment %}
     </li>
     <li><i class="gsticon gsticon-circle"></i></li>
-    <li>
+    <li {% if menu_context == "marketing-digital" %}class="active"{% endif %}>
         <a class="marketing" href="{% url 'category:show' 'marketing-digital' %}" data-sub="#sub-marketing">Marketing Digital</a>
         {% comment %}
         <div class="submenu-categories" data-toggle="mega-dropdown">
@@ -159,7 +159,7 @@
         {% endcomment %}
     </li>
     <li><i class="gsticon gsticon-circle"></i></li>
-    <li>
+    <li {% if menu_context == "infraestrutura" %}class="active"{% endif %}>
         <a class="infra" href="{% url 'category:show' 'infraestrutura' %}" data-sub="#sub-infra">Infraestrutura</a>
         {% comment %}
         <div class="submenu-categories" data-toggle="mega-dropdown">
@@ -199,7 +199,7 @@
         {% endcomment %}
     </li>
     <li><i class="gsticon gsticon-circle"></i></li>
-    <li>
+    <li {% if menu_context == "banco-de-dados" %}class="active"{% endif %}>
         <a class="databases" href="{% url 'category:show' 'banco-de-dados' %}" data-sub="#sub-databases">Banco de Dados</a>
         {% comment %}
         <div class="submenu-categories" data-toggle="mega-dropdown">

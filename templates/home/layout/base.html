@@ -1,6 +1,7 @@
 {% load staticfiles %}
 {% load core_tags %}
 {% load user_agents %}
+{% load var_tags %}
 
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -50,9 +51,9 @@
                 </div>
             </div>
         </header>
-        <section class="header-navegation">
+        <section class="header-navegation {% if category_slug %}header-navegation-border {{ class_name }}{% endif %}">
             <div class="container">
-                {% include "home/partials/mega-dropdown.html" %}
+                {% include "home/partials/mega-dropdown.html" with menu_context=category_slug|default:'' %}
                 <ul class="menu-social">
                     <li><a class="gsticon gsticon-facebook-square" href="javascript:;"></a></li>
                     <li><a class="gsticon gsticon-google-plus-square" href="javascript:;"></a></li>
