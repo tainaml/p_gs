@@ -10,4 +10,10 @@
 
 .search-menu-content {
     margin-top: 0;
+
+    > .active {
+        > a {
+            font-weight: bold;
+        }
+    }
 }
