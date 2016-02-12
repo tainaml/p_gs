@@ -37,7 +37,13 @@
         </figure>
         <div class="post-text">
             <h3 class="post-title" itemprop="headline">{{ instance.title }} </h3>
-            <p>{{ instance.text|safe|striptags|escape|slice:":90"}}... </p>
+            <p>
+                {% if instance.get_image %}
+                    {{ instance.text|safe|striptags|slice:":90"}}...
+                {% else %}
+                    {{ instance.text|safe|striptags|slice:":250"}}...
+                {% endif %}
+            </p>
         </div>
     </a>
     <footer class="post-footer">

@@ -36,7 +36,13 @@
             </figure>
             <div class="post-text">
                 <h3 class="post-title" itemprop="headline">{{ article.title }} </h3>
-                <p>{{ article.text|striptags|safe|escape|slice:":100"}}... </p>
+                <p>
+                    {% if article.get_image %}
+                        {{ article.text|striptags|safe|escape|slice:":150"}}...
+                    {% else %}
+                        {{ article.text|striptags|safe|escape|slice:":250"}}{% if article.text|striptags|safe|escape|length > 250 %}...{% endif %}
+                    {% endif %}
+                </p>
             </div>
         </a>
         <footer class="post-footer">
