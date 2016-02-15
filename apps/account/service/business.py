@@ -4,7 +4,7 @@ import random
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.models import User
 from django.conf import settings
-from django.contrib.auth import authenticate, login as auth_login, logout
+from django.contrib.auth import authenticate, login as auth_login, logout, update_session_auth_hash
 from django.db import transaction
 from django.utils import timezone
 from django.utils.translation import ugettext as _
@@ -253,14 +253,11 @@ def update_password(request=None, user=None, new_password=None):
     :param new_password: new password to set
     :return: User
     """
-    username = user.username
-
     user.set_password(new_password)
     user.save()
 
     if request:
-        logout(request)
-        log_in_user_no_credentials(request, user)
+        update_session_auth_hash(request, user)
 
     return user
 
