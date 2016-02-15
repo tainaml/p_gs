@@ -17,7 +17,6 @@ from apps.userprofile.service import business as BusinessUserprofile
 from apps.taxonomy.service import business as BusinessTaxonomy
 from apps.socialactions.service import business as BusinessSocialActions
 from apps.core.forms.user import CoreSearchFollowings
-from apps.userprofile.service import business as BusinessUserProfile
 from rede_gsti import settings
 
 
@@ -150,17 +149,9 @@ class CoreUserFeed(CoreUserView):
     def get_context(self, request, profile_instance=None):
         context = super(CoreUserFeed, self).get_context(request, profile_instance)
 
-        states = BusinessUserprofile.get_states(1)
-        cities = BusinessUserprofile.get_cities(profile_instance.city.state.id) if profile_instance.city else None
-        responsibilities = BusinessUserprofile.get_responsibilities()
         categories = BusinessTaxonomy.get_categories()
+        context.update({'categories': categories})
 
-        context.update({
-            'states': states,
-            'cities': cities,
-            'categories': categories,
-            'responsibilities': responsibilities
-        })
         return context
 
 

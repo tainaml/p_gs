@@ -1,0 +1,36 @@
+from distutils.command.register import register
+from django import template
+
+from apps.userprofile.models import GenderType
+from apps.userprofile.service import business as BusinessUserprofile
+from apps.taxonomy.service import business as BusinessTaxonomy
+
+
+register = template.Library()
+
+
+@register.inclusion_tag('core/templatetags/wizard.html', takes_context=True)
+def wizard(context):
+
+    request = context.get('request')
+    profile = request.user.profile if request.user.is_authenticated() else None
+
+    BRAZIL_ID = 1
+
+    states = BusinessUserprofile.get_states(BRAZIL_ID)
+    cities = BusinessUserprofile.get_cities(profile.city.state.id) if profile.city else None
+
+    responsibilities = BusinessUserprofile.get_responsibilities()
+    categories = BusinessTaxonomy.get_categories()
+
+    response_data = {
+        'request': request,
+        'wizard_profile': profile,
+        'gender': GenderType(),
+        'states': states,
+        'cities': cities,
+        'responsibilities': responsibilities,
+        'categories': categories
+    }
+
+    return response_data

@@ -22,7 +22,7 @@
                             <div class="col-lg-4">
                                 <div class="custom-file-upload set-avatar" 
                                     data-module="dropzoneUploader" 
-                                    data-original-image="{% if profile.get_profile_picture %}{{ profile.get_profile_picture.url }}{% endif %}"
+                                    data-original-image="{% if wizard_profile.get_profile_picture %}{{ wizard_profile.get_profile_picture.url }}{% endif %}"
                                     >
                                     <div class="custom-file-content">
                                         <i class="gsticon gsticon-cloud-upload"></i>
@@ -38,9 +38,9 @@
                                     <div data-form-group class="col-lg-12 item-form">
                                         <div class="custom-select">
                                             <select name="responsibility" id="responsibility" class="form-control">
-                                                <option value="0" {% if not profile.current_occupation.responsibility %}selected{% endif %} disabled>Área de atuação</option>
+                                                <option value="0" {% if not wizard_profile.current_occupation.responsibility %}selected{% endif %} disabled>Área de atuação</option>
                                                 {% for responsibility in responsibilities %}
-                                                    <option value="{{ responsibility.id }}" {% if responsibility.id == profile.current_occupation.responsibility.id %}selected{% endif %}>{{ responsibility.name }}</option>
+                                                    <option value="{{ responsibility.id }}" {% if responsibility.id == wizard_profile.current_occupation.responsibility.id %}selected{% endif %}>{{ responsibility.name }}</option>
                                                 {% endfor %}
                                             </select>
                                         </div>
@@ -48,7 +48,7 @@
                                     </div>
                                      <div data-form-group class="col-lg-6 item-form">
                                         <div class="custom-calendar">
-                                            <input type="text" name="birth" id="birth" placeholder="Aniversário" value="{{ profile.birth|date:"d/m/Y" }}">
+                                            <input type="text" name="birth" id="birth" placeholder="Aniversário" value="{{ wizard_profile.birth|date:"d/m/Y" }}">
                                             <i class="gsticon gsticon-calendar"></i>
                                         </div>
                                         <span class="help-block"></span>
@@ -56,7 +56,7 @@
                                     <div data-form-group class="col-lg-6 item-form">
                                         <div class="custom-select">
                                             <select name="gender" id="gender" class="form-control">
-                                                <option value="" {% if not profile.gender %}selected{% endif %} disabled>Sexo</option>
+                                                <option value="" {% if not wizard_profile.gender %}selected{% endif %} disabled>Sexo</option>
                                                 <option value="M">Masculino</option>
                                                 <option value="F">Feminino</option>
                                             </select>
@@ -66,9 +66,9 @@
                                     <div data-form-group class="col-lg-6 item-form">
                                         <div class="custom-select">
                                             <select name="state" id="state" class="form-control" data-ajax-change="true" data-url="{% url 'profile:get_city' %}" data-target="#city">
-                                                <option value="0" selected disabled>Estado</option>
+                                                <option value="0" {% if not wizard_profile.city.state.id %}selected{% endif %} disabled>Estado</option>
                                                 {% for state in states %}
-                                                <option value="{{ state.id }}" {% if profile.city.state.id == state.id %}selected{% endif %}>{{ state.name }}</option>
+                                                <option value="{{ state.id }}" {% if wizard_profile.city.state.id == state.id %}selected{% endif %}>{{ state.name }}</option>
                                                 {% endfor %}
                                             </select>
                                         </div>
@@ -77,9 +77,9 @@
                                     <div data-form-group class="col-lg-6 item-form">
                                         <div class="custom-select">
                                             <select name="city" id="city" class="form-control">
-                                                <option value="0" {% if not profile.city.id %}selected{% endif %} disabled>Cidade</option>
+                                                <option value="0" {% if not wizard_profile.city.id %}selected{% endif %} disabled>Cidade</option>
                                                 {% for city in cities %}
-                                                    <option value="{{ city.id }}" {% if profile.city.id == city.id %}selected{% endif %}>{{ city.name }}</option>
+                                                    <option value="{{ city.id }}" {% if wizard_profile.city.id == city.id %}selected{% endif %}>{{ city.name }}</option>
                                                 {% endfor %}
                                             </select>
                                         </div>
