@@ -199,14 +199,14 @@
             padding: 0 5px 0 9px;
             border: 1px solid rgba(193, 193, 193, 0.3);
             color: $background-button;
-            &.post-votes-up.like {
+            &.post-votes-up.liked {
                 background: green;
                 color: white;
                 &:hover {
                     background: lighten(green, 10%);
                 }
             }
-            &.post-votes-down.unlike {
+            &.post-votes-down.unliked {
                 background: red;
                 color: white;
                 &:hover {
