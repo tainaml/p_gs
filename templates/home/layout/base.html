@@ -2,6 +2,7 @@
 {% load core_tags %}
 {% load user_agents %}
 {% load var_tags %}
+{% load wizard_tags %}
 
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -79,6 +80,10 @@
             {% include 'home/partials/modals/modal-alert-community-questions.html' %}
 
         {% endblock %}
+
+        {# Wizard #}
+        {% wizard %}
+
 
         <script src="{% static 'javascripts/shared.js'%}"></script>
         <script src="{% static 'javascripts/main.js'%}"></script>

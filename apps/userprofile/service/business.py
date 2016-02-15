@@ -4,6 +4,7 @@ from django.db import transaction
 from apps.taxonomy.models import Term, Taxonomy
 from apps.userprofile.models import UserProfile, Occupation, Responsibility
 from apps.geography.models import Country, State, City
+from rede_gsti import settings
 
 
 def check_user_exists(username_or_email=None):
@@ -137,7 +138,7 @@ def create_occupation(profile=None, user=None, data=None):
 def update_or_create_occupation(profile=None, user=None, data=None):
 
     if not data:
-        data = {}
+        raise ValueError
 
     if profile:
         profile = profile
@@ -147,8 +148,16 @@ def update_or_create_occupation(profile=None, user=None, data=None):
     data.update({'profile': profile})
 
     try:
-        occupation = Occupation.objects.update_or_create(**data)
-    except:
+        occupation = Occupation.objects.filter(profile=profile).last()
+
+        if occupation.responsibility == data.get('responsibility'):
+            return occupation
+
+        occupation = Occupation(**data)
+        occupation.save()
+    except Exception, e:
+        if settings.DEBUG:
+            print e.message
         return False
 
     return occupation

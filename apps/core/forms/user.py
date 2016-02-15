@@ -83,7 +83,6 @@ class CoreUserProfileFullEditForm(EditProfileForm):
 
     first_name = forms.CharField(max_length=100)
     last_name = forms.CharField(max_length=100)
-    gender = forms.CharField(max_length=1, required=False)
     responsibility = forms.ModelChoiceField(queryset=Responsibility.objects.all())
     state = forms.ModelChoiceField(queryset=State.objects.filter(country=1))
     state_hometown = forms.ModelChoiceField(queryset=State.objects.filter(country=1))
@@ -97,12 +96,6 @@ class CoreUserProfileFullEditForm(EditProfileForm):
 
     def is_valid(self):
         is_valid = super(CoreUserProfileFullEditForm, self).is_valid()
-
-        if 'gender' in self.cleaned_data:
-            if self.cleaned_data['gender'].upper() not in ['M', 'F']:
-                is_valid = False
-                self.add_error('gender',
-                               ValidationError(_('Gênero não permitido.'), code='gender'))
         return is_valid
 
     @transaction.atomic()

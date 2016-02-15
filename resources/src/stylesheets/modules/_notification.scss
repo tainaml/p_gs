@@ -137,8 +137,8 @@ $color-counter-notification: #b2b2b2 !default;
 // Form messages
 // ==========================================================================
 .messages {
-    padding-right: 15px;
-    padding-left: 15px;
+    padding-right: 0;
+    padding-left: 0;
     list-style: none;
     li {
         padding: $alert-padding;

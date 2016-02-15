@@ -154,7 +154,7 @@
                             <div class="form-group{% if form.responsibility.errors %}has-error{% endif %}">
                                 <label for="responsibility">Área de atuação</label>
                                 <select name="responsibility" id="responsibility" class="form-control">
-                                    <option value="" {% if not profile.current_occupation.resposibilityu.id %}selected{% endif %} disabled>Selecione uma área de atuação</option>
+                                    <option value="" {% if not profile.current_occupation.responsibility.id %}selected{% endif %} disabled>Selecione uma área de atuação</option>
                                     {% for responsibility in responsibilities %}
                                         <option value="{{ responsibility.id }}" {% if responsibility.id == profile.current_occupation.responsibility.id %}selected{% endif %}>{{ responsibility.name }}</option>
                                     {% endfor %}
@@ -209,10 +209,6 @@
 
         $(function() {
             var $elementsChange = $("[data-ajax-change='true']");
-            $.each($elementsChange, function( index, value ) {
-                fillElement($(value));
-
-            });
             $elementsChange.on("change", fillValues);
 
             var $social_count = $("[data-social-count=\"true\"]");

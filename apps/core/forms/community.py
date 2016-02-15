@@ -6,6 +6,7 @@ from ..business import community as Business
 
 __author__ = 'phillip'
 
+
 class CoreCommunityFormSearch(IdeiaForm):
 
     criteria = forms.CharField(required=False)
