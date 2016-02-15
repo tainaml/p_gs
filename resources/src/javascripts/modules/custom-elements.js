@@ -60,14 +60,16 @@ function affixBoxShare() {
             if (!$box.hasClass('fixed')) {
                 $box.addClass('fixed').css({
                     'position': 'fixed',
-                    'top': boxPadding
+                    'top': boxPadding,
+                    'zIndex': 3
                 });
             } else {
                 if (($window.scrollTop() + $box.outerHeight() + boxPadding) < postOffsetBottom) {
                     if ($box.hasClass('fixed-relative')) {
                         $box.removeClass('fixed-relative').css({
                             'position': 'fixed',
-                            'top': boxPadding
+                            'top': boxPadding,
+                            'zIndex': 3
                         });
                     }
                 } else {
