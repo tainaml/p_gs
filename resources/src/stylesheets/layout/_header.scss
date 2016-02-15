@@ -191,9 +191,6 @@
         padding-left: 0;
         li:first-child > a { padding-left: 0; }
         li > .gsticon { font-size: 8px; }
-        li.active {
-            font-weight: bold;
-        }
     }
     .menu-social {
         text-align: center;
@@ -205,13 +202,19 @@
         }
 
         li > .gsticon {
-            color: $background-button;
+            // color: $background-button;
             font-size: 1.3em;
             width: 20%;
-            &:hover {
-                color: $background-button-hover;
-            }
+            // &:hover {
+            //     color: $background-button-hover;
+            // }
         }
+        li > .gsticon-facebook-square:before { color: #3b5998; }
+        li > .gsticon-google-plus-square:before { color: #dd4b39; }
+        li > .gsticon-linkedin-square:before { color: #007bb5; }
+        li > .gsticon-twitter-square:before { color: #55acee; }
+        li > .gsticon-youtube-square:before { color: #bb0000; }
+        li.active { font-weight: bold; }
     }
 }
 
