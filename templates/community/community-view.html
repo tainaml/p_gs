@@ -42,7 +42,7 @@
                         <nav class="form-search">
                             <form action="{% url 'community:search' community.slug %}" method="GET" role="search">
                                 <div class="form-search-input">
-                                    <input type="text" name="criterio" placeholder="Persquise publicações ou perguntas..." value="{{ form.cleaned_data.criterio }}">
+                                    <input type="text" name="criterio" placeholder="Pesquise publicações ou perguntas..." value="{{ form.cleaned_data.criterio }}">
                                     <input type="hidden" name="official" value="{{ form.cleaned_data.official|default_if_none:False }}">
                                 </div>
                                 <div class="dropdown-menu dropdown-search">
