@@ -157,6 +157,21 @@ class RegisteredSuccessView(View):
         return render(request, 'account/registered_successfully.html', {'message': message})
 
 
+class RecoveryPasswordSuccessView(View):
+
+    template_message_path = "account/password-message.html"
+
+    def get(self, request):
+        """
+        Show the success message
+
+        :param request:
+        :return:
+        """
+        message = _("Password successfully recovered")
+        return render(request, self.template_message_path, {'message': message, 'icon': 'check'})
+
+
 class MailValidationView(View):
 
     @transaction.atomic()
@@ -196,7 +211,10 @@ class MailValidationView(View):
 
 class RecoveryValidationView(View):
 
-    def get(self, request, activation_key = None):
+    template_path = "account/password-recovery.html"
+    template_message_path = "account/password-message.html"
+
+    def get(self, request, activation_key=None):
         """
         Method to validate url with the token sent by email to the user to change the password
 
@@ -205,14 +223,22 @@ class RecoveryValidationView(View):
         :return: HTML
         """
 
-        message = 'Token not exist'
+        message = _('Token not exist!')
 
         token = check_token_exist(activation_key)
         if token and token.is_active() and token.is_valid():
             form = RecoveryPasswordForm()
-            return render(request, 'account/password_recovery.html', {'form': form, 'activation_key': activation_key})
+            context = {
+                'form': form,
+                'activation_key': activation_key
+            }
+            return render(request, self.template_path, context)
 
-        return render(request, 'account/recovery_validation.html', {'message': message})
+        context = {
+            'message': message,
+            'icon': 'times'
+        }
+        return render(request, self.template_message_path, context)
 
     def post(self, request, activation_key):
         """
@@ -222,22 +248,36 @@ class RecoveryValidationView(View):
         :return: HTML
         """
 
-        message = _('Token not exist')
+        message = _('Token not exist!')
 
         token = check_token_exist(request.POST['activation_key'])
         if token and token.is_active() and token.is_valid():
             form = RecoveryPasswordForm(token, request.POST)
-
             if form.process():
                 message = _('Password successfully changed!')
-                return render(request, 'account/password_recovery_successfully.html', {'message': message})
+                context = {
+                    'message': message,
+                    'icon': 'check'
+                }
 
-            return render(request, 'account/password_recovery.html', {
-                'form': form,
-                'activation_key': request.POST['activation_key']
-            })
+                if request.is_ajax():
+                    return JsonResponse({'url_next': reverse('account:recovery_successfully')}, status=200)
+                else:
+                    return render(request, self.template_message_path, context)
 
-        return render(request, 'account/recovery_validation.html', {'form'})
+            if request.is_ajax():
+                return JsonResponse({'errors': form.errors}, status=400)
+            else:
+                return render(request, self.template_path, {
+                    'form': form,
+                    'activation_key': request.POST['activation_key']
+                })
+
+        context = {
+            'message': message,
+            'icon': 'times'
+        }
+        return render(request, self.template_message_path, context)
 
 
 class ChangePasswordView(View):
