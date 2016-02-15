@@ -13,12 +13,16 @@ register = template.Library()
 def wizard(context):
 
     request = context.get('request')
-    profile = request.user.profile if request.user.is_authenticated() else None
+
+    if not request.user.is_authenticated():
+        return
+
+    profile = request.user.profile
 
     BRAZIL_ID = 1
 
     states = BusinessUserprofile.get_states(BRAZIL_ID)
-    cities = BusinessUserprofile.get_cities(profile.city.state.id) if profile.city else None
+    cities = BusinessUserprofile.get_cities(profile.city.state.id) if profile and profile.city else None
 
     responsibilities = BusinessUserprofile.get_responsibilities()
     categories = BusinessTaxonomy.get_categories()

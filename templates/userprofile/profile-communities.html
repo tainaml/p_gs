@@ -94,7 +94,7 @@
             jScrollElemment = $divJScroll.jscroll({
                 autoTrigger: true,
                 loadingHtml: '<div class="load-async-preload"></div>',
-                contentSelector: '.j-scroll-communities-container',
+                contentSelect: '.j-scroll-communities-container',
                 nextSelector: "a[data-jscroll-next]",
                 refresh: true,
                 callback: function () {
@@ -122,7 +122,7 @@
             $("#search-form").on("ajaxform.success", functionAjaxSuccessFilterCommunities);
 
             $(".j-scroll-communities").jscroll({
-                contentSelector: ".j-scroll-communities-container",
+                contentSelect: ".j-scroll-communities-container",
                 nextSelector: "a[data-jscroll-next]",
                 callback: function () {
                     $('[data-action]').ajaxSocialAction();

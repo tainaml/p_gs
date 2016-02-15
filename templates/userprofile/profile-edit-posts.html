@@ -124,7 +124,7 @@
                 jScrollElemment = $divJScroll.jscroll({
                     autoTrigger: true,
                     loadingHtml: '<div class="load-async-preload"></div>',
-                    contentSelector: '.j-scroll-posts-container',
+                    contentSelect: '.j-scroll-posts-container',
                     nextSelector: "a[data-jscroll-next]",
                     refresh: true
                 });
@@ -184,7 +184,7 @@
             $(document).on("click", "[data-delete-item='true']", functionOpenModalToDelete);
 
             $(".j-scroll-posts").jscroll({
-                contentSelector: ".j-scroll-posts-container",
+                contentSelect: ".j-scroll-posts-container",
                 nextSelector: "a[data-jscroll-next]"
             });
             var $social_count = $("[data-social-count=\"true\"]");
