@@ -106,6 +106,10 @@
         margin-right: 20px;
         float: left;
     }
+    > span {
+        overflow: hidden;
+        display: block;
+    }
 }
 
 .post {
@@ -192,7 +196,23 @@
         padding-right: 4px;
         display: inline-block;
         > a {
+            padding: 0 5px 0 9px;
+            border: 1px solid rgba(193, 193, 193, 0.3);
             color: $background-button;
+            &.post-votes-up.like {
+                background: green;
+                color: white;
+                &:hover {
+                    background: lighten(green, 10%);
+                }
+            }
+            &.post-votes-down.unlike {
+                background: red;
+                color: white;
+                &:hover {
+                    background: lighten(red, 10%);
+                }
+            }
         }
 
         &-#{comments} {

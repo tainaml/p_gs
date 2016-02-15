@@ -19,7 +19,7 @@
         padding-bottom: 10px;
         border-bottom: 1px solid $color-border;
     }
-    &-user {
+    &-#{user} {
         float: left;
         padding-right: 15px;
         min-height: 100px;
@@ -29,7 +29,7 @@
             box-shadow: -1px 1px 1px #e1e1e1, 1px -1px 1px #e1e1e1;
         }
     }
-    &-vote {
+    &-#{vote} {
         text-align: center;
         > hr {
             border-color: $color-border;
@@ -46,12 +46,13 @@
             margin-bottom: 0;
         }
     }
-    &-body {
+    &-#{body} {
         // position: relative;
         .post-creator {
             font-weight: 600;
             font-size: 1.5em;
         }
+        .comment-text { overflow: hidden; }
     }
 }
 
@@ -71,7 +72,7 @@
             box-shadow: -1px 1px 1px #e1e1e1, 1px -1px 1px #e1e1e1;
         }
     }
-    &-body {
+    &-#{body} {
         position: relative;
         overflow: hidden;
         padding-left: 15px;
@@ -126,6 +127,7 @@
     margin-top: 20px;
     .comment-text,
     .comment-text p {
+        overflow: hidden;
         color: #6f6f6f;
         font-size: 1em;
         letter-spacing: -0.05em;
