@@ -258,8 +258,9 @@ def update_password(request=None, user=None, new_password=None):
     user.set_password(new_password)
     user.save()
 
-    logout(request)
-    log_in_user_no_credentials(request, user)
+    if request:
+        logout(request)
+        log_in_user_no_credentials(request, user)
 
     return user
 
@@ -288,7 +289,7 @@ def forgot_password(user_email=None):
 def recovery_password(token=None, new_password=None):
 
     deactivate_token(token)
-    update_password(token.user, new_password)
+    update_password(user=token.user, new_password=new_password)
     return token
 
 

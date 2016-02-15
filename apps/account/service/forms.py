@@ -83,7 +83,6 @@ class ChangePasswordForm(IdeiaForm):
     new_password_confirmation = forms.CharField(max_length=30, required=True)
 
     def __init__(self, request=None, *args, **kwargs):
-
         self.request = request
         self.user = request.user
         super(ChangePasswordForm, self).__init__(*args, **kwargs)
