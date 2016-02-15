@@ -2,7 +2,7 @@
 {% load article_tags %}
 {% load thumbor_tags %}
 
-<div class="perfil">
+<div class="perfil"  id="comments">
     {% if request.user != profile.user %}
         {% follow_action profile.user request.path "pull-right text-center perfil-button" %}
     {% endif %}
