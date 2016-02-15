@@ -1,21 +1,25 @@
-{%block modalcontent %}
-<div class="modal-dialog modal-sm">
-    <div class="modal-content">
-        <div class="modal-header">
-            <span class="pull-right close" data-dismiss="modal" aria-label="Close"><span class="gsticon gsticon-close"></span></span>
-            <h4 class="modal-title">Recuperar senha</h4>
-        </div>
-        <div class="modal-body">
-            <div class="modal-form">
-                <div class="form-group">
-                    <input class="form-control" type="password" placeholder="Nova senha">
+<div id="modal-recovery-password" class="modal fade" method="post" data-target="modal">
+    <div class="modal-dialog modal-sm">
+        <form id="form-recovery-password" action="{% url 'account:recovery_validation' activation_key %}" method="POST" data-ajaxform="true" data-group-class=".form-group">
+            {% csrf_token %}
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span class="pull-right close" data-dismiss="modal" aria-label="Close"><span class="gsticon gsticon-close"></span></span>
+                    <h4 class="modal-title">Recuperar senha</h4>
                 </div>
-                <div class="form-group">
-                    <input class="form-control" type="password" placeholder="Confirmar senha">
+                <div class="modal-body">
+                    <div class="modal-form">
+                        <div class="form-group">
+                            <input class="form-control" type="password" name="new_password" id="new_password" placeholder="Nova senha">
+                        </div>
+                        <div class="form-group">
+                            <input class="form-control" type="password" name="new_password_confirmation" id="new_password_confirmation" placeholder="Confirmar senha">
+                        </div>
+                        <input type="hidden" name="activation_key" value="{{ activation_key }}"/>
+                        <button type="submit" class="btn btn-block btn-action">Confirmar</button>
+                    </div>
                 </div>
-                <a href="javascript:;" class="btn-action">Confirmar</a>
             </div>
-        </div>
+        </form>
     </div>
 </div>
-{% endblock %}
