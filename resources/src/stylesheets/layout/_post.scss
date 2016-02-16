@@ -88,6 +88,14 @@
         > a,
         > div > a {
             color: #4d6479;
+            &.liked {
+                color: $color-liked;
+                i { color: inherit; }
+            }
+            &.unliked {
+                color: $color-unliked;
+                i { color: inherit; }
+            }
         }
         &.item-active {
             background-color: #4d6479;
@@ -97,18 +105,5 @@
     > li hr {
         margin-top: 0;
         margin-bottom: 0;
-    }
-}
-
-.liked {
-    color: $color-liked !important;
-    i {
-        @extend .liked;
-    }
-}
-.unliked {
-    color: $color-unliked !important;
-    i {
-        @extend .unliked;
     }
 }
