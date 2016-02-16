@@ -15,6 +15,7 @@ urlpatterns = [
     url(r'^forgot_password$', CoreViews.CoreForgotPassword.as_view(), name='forgot_password'),
     url(r'^registered-successfully/$', views.RegisteredSuccessView.as_view(), name='registered_successfully'),
     url(r'^mail_validation/(?P<activation_key>[0-9a-z]{40})/$', views.MailValidationView.as_view(), name='mail_validation'),
+    url(r'^recovery-password/successfully/$', views.RecoveryPasswordSuccessView.as_view(), name='recovery_successfully'),
     url(r'^recovery_password/(?P<activation_key>[0-9a-z]{40})/$', views.RecoveryValidationView.as_view(), name='recovery_password'),
     url(r'^recovery_validation/(?P<activation_key>[0-9a-z]{40})/$', views.RecoveryValidationView.as_view(), name='recovery_validation'),
     url(r'^resend_account_confirmation$', views.ResendAccountConfirmationView.as_view(), name='resend_account_confirmation'),
