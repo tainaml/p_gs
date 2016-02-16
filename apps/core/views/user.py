@@ -13,7 +13,7 @@ from apps.core.forms.community import CoreCommunityFormSearch
 from apps.core.forms.user import CoreUserSearchForm, CoreUserProfileEditForm
 from apps.article.models import Article
 from apps.userprofile import views
-from apps.userprofile.service import business as BusinessUserprofile
+from apps.userprofile.service import business as BusinessUserProfile
 from apps.taxonomy.service import business as BusinessTaxonomy
 from apps.socialactions.service import business as BusinessSocialActions
 from apps.core.forms.user import CoreSearchFollowings
@@ -161,9 +161,9 @@ class CoreProfileEdit(views.ProfileEditView):
 
     def get_context(self, request, profile_instance=None):
 
-        states = BusinessUserprofile.get_states(1)
-        cities = BusinessUserprofile.get_cities(profile_instance.city.state.id) if profile_instance.city else None
-        responsibilities = BusinessUserprofile.get_responsibilities()
+        states = BusinessUserProfile.get_states(1)
+        cities = BusinessUserProfile.get_cities(profile_instance.city.state.id) if profile_instance.city else None
+        responsibilities = BusinessUserProfile.get_responsibilities()
         categories = BusinessTaxonomy.get_categories()
 
         return {
@@ -194,7 +194,7 @@ class CoreProfileEditAjax(views.ProfileEditView):
 class CoreProfileWizardStepOneAjax(CoreProfileEditAjax):
 
     def get_context(self, request, profile_instance=None):
-        profile = BusinessUserprofile.update_wizard_step(profile_instance, 1)
+        profile = BusinessUserProfile.update_wizard_step(profile_instance, 1)
         return {'step': profile.wizard_step}
 
 
@@ -227,7 +227,7 @@ class CoreProfileWizardStepTwoAjax(views.ProfileBaseView):
         return JsonResponse(_context, status=200)
 
     def get_context(self, request, profile_instance=None):
-        profile = BusinessUserprofile.update_wizard_step(profile_instance, 2)
+        profile = BusinessUserProfile.update_wizard_step(profile_instance, 2)
         return {'step': profile.wizard_step}
 
     @method_decorator(login_required)
@@ -321,7 +321,7 @@ class CoreProfileWizardStepThreeAjax(views.ProfileBaseView):
         return JsonResponse(_context, status=200)
 
     def get_context(self, request, profile_instance=None):
-        profile = BusinessUserprofile.update_wizard_step(profile_instance, 3)
+        profile = BusinessUserProfile.update_wizard_step(profile_instance, 3)
         return {'step': profile.wizard_step}
 
     @method_decorator(login_required)
