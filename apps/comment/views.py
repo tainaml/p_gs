@@ -7,6 +7,7 @@ from django.shortcuts import render, redirect
 from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _
 from django.views.generic import View
+from apps.custom_base.views import FormBaseView
 
 from .service.forms import CreateCommentForm, EditCommentForm, ListCommentForm
 from .service import business as comment_business
@@ -117,11 +118,14 @@ class CommentFormBaseView(View):
                       **kwargs)
 
 
-class CommentSaveView(CommentFormBaseView):
+class CommentSaveView(FormBaseView):
     fail_validation_template_path = 'comment/create.html'
     success_template_path = 'comment/comment.html'
-    form_comment = CreateCommentForm
-    xhr = True
+    form = CreateCommentForm
+
+    # @Override
+    def after_process(self, request=None, *args, **kwargs):
+        self.context.update({'instance': self.process_return})
 
     @method_decorator(login_required)
     def post(self, request=None):
@@ -129,8 +133,7 @@ class CommentSaveView(CommentFormBaseView):
                 or 'content_type' not in request.POST:
             raise Http404()
 
-
-        self.form = self.form_comment(request.user, request.POST)
+        self.form = self.form(request.user, request.POST)
 
         return super(CommentSaveView, self).do_process(request)
 
