@@ -120,13 +120,14 @@ def get_communities(taxonomies_list=None, description=None, items_per_page=None,
     items_per_page = items_per_page if items_per_page else 9
     page = page if page else 1
 
+
     communities = Community.objects.filter(
-        Q(taxonomy__in=taxonomies_list) &
-        (
-            Q(title__icontains=description) |
-            Q(description__icontains=description)
-        )
-    ).order_by("description")
+        Q(taxonomy__in=taxonomies_list)
+        &Q(title__icontains=description)
+
+    ).order_by("id")
+    if description:
+        communities.filter(Q(title__icontains=description))
 
     if items_per_page and page:
         communities = Paginator(communities, items_per_page)

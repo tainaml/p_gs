@@ -3,7 +3,6 @@
     {% include 'home/partials/first-steps/categories.html' %}
     {% include 'home/partials/first-steps/sugestions.html' %}
 {% endif %}
-
 <script type="text/javascript">
     var jScrollWizard = null;
 
@@ -20,11 +19,22 @@
                 $currentModal = $this.closest(".modal.fade");
 
         var $wizardCommunities = $("#wizard-container-communities");
-        var $wizardJScroll = $('<div />');
-        $wizardJScroll.addClass("j-scroll-wizard-communities j-scroll-wizard-communities-container");
+        var $wizardJScroll = $('<div />',{
+            'class': 'j-scroll-wizard-communities j-scroll-wizard-communities-container'
+        });
 
         $wizardJScroll.html(data.template);
         $wizardCommunities.html($wizardJScroll);
+
+        var $taxonomiesSerch = $("#filter-taxonomies-wizard");
+        $taxonomiesSerch.html("");
+        $.each(data.taxonomies, function(i, value){
+           $("<input />", {
+              value: value,
+              type: 'hidden',
+              name: 'taxonomies'
+            }).appendTo($taxonomiesSerch);
+        });
 
         refreshAsyncLike();
 
@@ -46,6 +56,34 @@
     var functionAjaxSuccessStepThree = function(e, data) {
         location.reload();
     };
+    var functionSubmitCommunitiesSearch = function(){
+            var $form = $(this).closest("form");
+            $form.submit();
+
+    };
+    var functionSearchCommunities = function(e, data){
+
+      var $containerCommunities = $("#wizard-container-communities");
+{#      $containerCommunities.html(data.template);#}
+
+        var $wizardJScroll = $('<div />',{
+            'class': 'j-scroll-wizard-communities j-scroll-wizard-communities-search'
+        });
+
+        $wizardJScroll.html(data.template);
+        $containerCommunities.html($wizardJScroll);
+        refreshAsyncLike();
+        $wizardJScroll.jscroll({
+            autoTrigger: false,
+            loadingHtml: '<div class="load-async-preload"></div>',
+            contentSelect: '.j-scroll-wizard-communities-container',
+            nextSelector: "a[data-jscroll-next]",
+            refresh: true,
+            callback: function() {
+                refreshAsyncLike();
+            }
+        });
+    };
 
     var fillValues = function() {
         var $this = $(this);
@@ -64,8 +102,31 @@
     };
 
     $(function() {
-        $("[data-ajax-change='true']").on("change", fillValues);
 
+        $.fn.inputTyping = function (timeInMillis, callback){
+            var $input = $(this);
+            var typingTimer;
+            $input.on('keyup', function () {
+              clearTimeout(typingTimer);
+              typingTimer = setTimeout(doneTyping, timeInMillis);
+            });
+
+            $input.on('keydown', function () {
+              clearTimeout(typingTimer);
+            });
+
+
+            var doneTyping = function  () {
+                callback.call($input);
+            };
+
+            return this;
+        };
+
+
+        $("form#form-filter-communities input[name=criteria]").inputTyping(200, functionSubmitCommunitiesSearch);
+        $("[data-ajax-change='true']").on("change", fillValues);
+        $(document).on("ajaxform.success", "#form-filter-communities", functionSearchCommunities);
         $("#form-personal-info").on("ajaxform.success", functionAjaxSuccessStepOne);
         $("#form-filter-categories").on("ajaxform.success", functionAjaxSuccessStepTwo);
         $("#form-suggestions").on("ajaxform.success", functionAjaxSuccessStepThree);

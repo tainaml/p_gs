@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-27 13:42+0000\n"
+"POT-Creation-Date: 2016-02-17 14:13-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,102 +18,488 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: templates/account/index.html:5
-msgid "Change password"
-msgstr ""
+#: apps/article/models.py:20
+msgid "Draft"
+msgstr "Rascunho"
 
-#: templates/account/index.html:5 templates/account/mail_validation.html:8
+#: apps/article/models.py:21
+msgid "Trash"
+msgstr "Lixo"
+
+#: apps/article/models.py:22
+msgid "Publish"
+msgstr "Publicar"
+
+#: apps/article/models.py:29
+msgid "Author"
+msgstr "Autor"
+
+#: apps/article/service/forms.py:49 apps/article/service/forms.py:51
+msgid "Publish date has invalid"
+msgstr "Data de publicação inválida."
+
+#: apps/article/service/forms.py:81 apps/userprofile/service/forms.py:86
+msgid "Image format is not allowed."
+msgstr "Formato da imagem não é permitido"
+
+#: apps/article/views.py:20 apps/article/views.py:21
+msgid "Article not Found."
+msgstr "Publicação não encontrada"
+
+#: apps/article/views.py:39
+msgid "Operation not permitted"
+msgstr "Operação não permitida"
+
+#: apps/article/views.py:147
+msgid "This article has been deleted"
+msgstr "Publicação removida"
+
+#: apps/article/views.py:226
+msgid "Success"
+msgstr "Sucesso"
+
+#: apps/article/views.py:230
+msgid "Generic Error"
+msgstr "Erro"
+
+#: apps/comment/views.py:69
+msgid "Comment not Found."
+msgstr "Comentário não encontrado"
+
+#: apps/community/views.py:15
+msgid "Community not Found."
+msgstr "Comunidade não encontrada"
+
+#: apps/complaint/views.py:76
+msgid "Complaint not created!"
+msgstr "Denúncia não criada"
+
+#: apps/complaint/views.py:83
+msgid "Complaint created successfully!"
+msgstr "Denúncia realizada com sucesso!"
+
+#: apps/configuration/models.py:18
+msgid "Configs Keys"
+msgstr "COnfigurar Chaves"
+
+#: apps/contact/views.py:66
+msgid "Contact created!"
+msgstr "Mensagem enviada!"
+
+#: apps/core/views/account.py:74
+msgid "Change Password"
+msgstr "Mudar senha"
+
+#: apps/core/views/account.py:75
+#: templates/account/password_change_successfully.html:2
+msgid "Your password has been changed!"
+msgstr "Sua senha foi alterada!"
+
+#: apps/core/views/article.py:46 apps/core/views/question.py:57
+msgid "Community not Found"
+msgstr "Comunidade não encontrada"
+
+#: apps/core/views/article.py:52 apps/core/views/question.py:63
+msgid "User need follow this community"
+msgstr "É necessário seguir esta comunidade"
+
+#: apps/core/views/category.py:40
+msgid "Category not found or not root category."
+msgstr "Categoria não encontrada ou não é uma categoria raiz"
+
+#: apps/core/views/configuration.py:67
+msgid "Configuration Notification"
+msgstr "Configuração de Notificação"
+
+#: apps/core/views/configuration.py:68
+msgid "Your settings have been successfully changed!"
+msgstr "Suas configurações foi alteradas com sucesso!"
+
+#: apps/geography/models.py:16
+msgid "Country"
+msgstr "País"
+
+#: apps/geography/models.py:17
+msgid "Countries"
+msgstr "Países"
+
+#: apps/geography/models.py:33
+msgid "State"
+msgstr "Estado"
+
+#: apps/geography/models.py:34
+msgid "States"
+msgstr "Estados"
+
+#: apps/geography/models.py:55
+msgid "City"
+msgstr "Cidade"
+
+#: apps/geography/models.py:56
+msgid "Cities"
+msgstr "Cidades"
+
+#: apps/notifications/views.py:23
+msgid "you must specify the template_list_path property"
+msgstr "Você precisa especificar a propriedade template_list_path"
+
+#: apps/notifications/views.py:66
+msgid "Notification not found!"
+msgstr "Notificação não encontrada"
+
+#: apps/question/service/forms.py:90
+msgid "Your answer can not be blank"
+msgstr "Sua resposta não pode estar em branco."
+
+#: apps/question/views.py:18
+msgid "Question not Found."
+msgstr "Pergunta não encontrada"
+
+#: apps/question/views.py:136 apps/question/views.py:158
+msgid "Question not created!"
+msgstr "Dùvida não encontrada"
+
+#: apps/question/views.py:138 apps/question/views.py:160
+msgid "Question created successfully!"
+msgstr "Pergunta criada com sucesso!"
+
+#: apps/question/views.py:182 apps/question/views.py:211
+#: apps/question/views.py:223 apps/question/views.py:269
+msgid "Question is not exists!"
+msgstr "Dùvida não existe"
+
+#: apps/question/views.py:199
+msgid "Question updated successfully!"
+msgstr "Pergunta criada com sucesso"
+
+#: apps/question/views.py:239
+msgid "Question not found"
+msgstr "Pergunta não encontrada"
+
+#: apps/question/views.py:271
+msgid "Answer is not exists!"
+msgstr "Resposta não existe"
+
+#: apps/question/views.py:285
+msgid "Answer not found!"
+msgstr "Resposta não encontrada"
+
+#: apps/question/views.py:287
+msgid "Answer not found"
+msgstr "Resposta não encontrada"
+
+#: apps/socialactions/views.py:15 apps/socialactions/views.py:83
+#: apps/socialactions/views.py:239
+msgid "SocialAction not Found."
+msgstr "Ação social não encontrada"
+
+#: apps/socialactions/views.py:230
+msgid "No user was selected."
+msgstr "Nenhum usuário foi selecionado"
+
+#: apps/userprofile/models.py:20
+msgid "MALE"
+msgstr "MASCULINO"
+
+#: apps/userprofile/models.py:21
+msgid "FEMALE"
+msgstr "FEMININO"
+
+#: apps/userprofile/service/forms.py:75
+msgid "Birth invalid."
+msgstr "Nascimento inválido"
+
+#: apps/userprofile/service/forms.py:81
+msgid "Gênero não permitido."
+msgstr "Gênero não permitido."
+
+#: apps/userprofile/service/forms.py:91
+msgid "Image size more than 1mb."
+msgstr "Tamanho da imagem excede 1mb"
+
+#: apps/userprofile/views.py:21
+msgid "Profile not Found."
+msgstr "Perfil nao encontrado"
+
+#: apps/userprofile/views.py:22
+msgid "User not Found."
+msgstr "Usuário não encontrado"
+
+#: apps/userprofile/views.py:118
+msgid "Profile edited successfully!"
+msgstr "Perfil editado com sucesso!"
+
+#: apps/userprofile/views.py:144
+msgid "Select a state"
+msgstr "Selecione um estado"
+
+#: apps/userprofile/views.py:159
+msgid "Cidade"
+msgstr "Cidade"
+
+#: apps/userprofile/views.py:206
+msgid "Occupation created successfully!"
+msgstr "Ocupação criada com sucesso!"
+
+#: apps/userprofile/views.py:270
+msgid "Occupation updated successfully!"
+msgstr "Ocupação alterada com sucesso!"
+
+#: apps/userprofile/views.py:287
+msgid "Error! Occupation was not deleted!"
+msgstr "Ocupação não foi deletada"
+
+#: apps/userprofile/views.py:291
+msgid "Occupation deleted successfully!"
+msgstr "Ocupação deletada com sucesso"
+
+#: templates/account/index.html:5
+msgid "Show profile"
+msgstr "Mostrar perfil"
+
+#: templates/account/index.html:5 templates/account/index.html.py:6
+#: templates/account/index.html:7 templates/account/index.html.py:8
+#: templates/account/index.html:9 templates/account/login.html:23
+#: templates/account/login.html.py:24 templates/account/mail_validation.html:8
 #: templates/account/password_recovery_successfully.html:4
 #: templates/account/password_sent_email_successfully.html:4
 #: templates/account/recovery_validation.html:4
-#: templates/account/registered_successfully.html:4
-#: templates/account/signup.html:36
+#: templates/account/resend_account_confirmation_successfully.html:5
+#: templates/account/signup.html:96
+#: templates/userprofile/occupation_add.html:21
+#: templates/userprofile/occupation_edit.html:22
+#: templates/userprofile/occupation_manage.html:22
+#: templates/userprofile/occupation_manage.html:23
+#: templates/userprofile/occupation_manage.html:24
+#: templates/userprofile/occupation_show.html:6
+#: templates/userprofile/occupation_show.html:7
+#: templates/userprofile/show.html:30 templates/userprofile/show.html.py:31
 msgid "or"
-msgstr ""
+msgstr "ou"
 
-#: templates/account/index.html:5
+#: templates/account/index.html:6
+#: templates/userprofile/occupation_manage.html:22
+#: templates/userprofile/occupation_show.html:6
+#: templates/userprofile/show.html:30
+msgid "Edit profile"
+msgstr "Editar perfil"
+
+#: templates/account/index.html:7
+#: templates/userprofile/occupation_manage.html:23
+msgid "Add occupation"
+msgstr "Adicionar ocupação"
+
+#: templates/account/index.html:8
+msgid "Manage occupation"
+msgstr "Gerenciar ocupação"
+
+#: templates/account/index.html:9
+msgid "Change password"
+msgstr "Mudar senha"
+
+#: templates/account/index.html:10
+#: templates/userprofile/occupation_manage.html:25
+#: templates/userprofile/occupation_show.html:8
+#: templates/userprofile/show.html:32
 msgid "Logout"
-msgstr ""
+msgstr "Sair"
 
-#: templates/account/login.html:6 templates/account/signup.html:7
+#: templates/account/login.html:2
+msgid "click here"
+msgstr "Clique aqui"
+
+#: templates/account/login.html:8 templates/account/signup.html:71
 msgid "Username"
-msgstr ""
+msgstr "Nome de usuário"
 
-#: templates/account/login.html:10 templates/account/password_recovery.html:9
-#: templates/account/signup.html:23
+#: templates/account/login.html:12 templates/account/password_recovery.html:9
+#: templates/account/signup.html:79
 msgid "Password"
-msgstr ""
+msgstr "Senha"
 
-#: templates/account/login.html:14 templates/account/password_change.html:25
-#: templates/account/password_forgot.html:12
-#: templates/account/password_recovery.html:20
-#: templates/account/signup.html:35
-msgid "Submit"
-msgstr ""
+#: templates/account/login.html:18
+#, python-format
+msgid ""
+"If you have not received the confirmation email <a href="
+"\"%(url_resend_account_confirmation)s\">%(click_here)s</a> to resend. "
+msgstr "Se você não recebeu o email de confirmação <a href="
+"\"%(url_resend_account_confirmation)s\">%(click_here)s</a> Para reenviá-lo. "
 
-#: templates/account/login.html:15
-msgid "Registrar"
-msgstr ""
 
-#: templates/account/login.html:19 templates/account/password_forgot.html:3
-msgid "Esqueceu sua senha?"
-msgstr ""
-
-#: templates/account/mail_validation.html:8
+#: templates/account/login.html:22 templates/account/mail_validation.html:8
 #: templates/account/password_forgot.html:13
 #: templates/account/password_recovery_successfully.html:4
 #: templates/account/password_sent_email_successfully.html:4
 #: templates/account/recovery_validation.html:4
-#: templates/account/registered_successfully.html:4
-#: templates/account/signup.html:36
+#: templates/account/resend_account_confirmation.html:15
+#: templates/account/resend_account_confirmation_successfully.html:5
+#: templates/account/signup.html:96 templates/userprofile/show.html:34
 msgid "Login"
-msgstr ""
+msgstr "Login"
+
+#: templates/account/login.html:23
+msgid "Login Social"
+msgstr "Login social"
+
+#: templates/account/login.html:24
+msgid "Registrar"
+msgstr "Registrar"
+
+#: templates/account/login.html:28 templates/account/password_forgot.html:3
+msgid "Esqueceu sua senha?"
+msgstr "Esqueceu sua senha?"
 
 #: templates/account/mail_validation.html:8
 #: templates/account/password_recovery_successfully.html:4
 #: templates/account/password_sent_email_successfully.html:4
 #: templates/account/recovery_validation.html:4
-#: templates/account/registered_successfully.html:4
+#: templates/account/resend_account_confirmation_successfully.html:5
 msgid "Sign-up"
-msgstr ""
+msgstr "Inscrever-se"
 
 #: templates/account/password_change.html:13
 msgid "Old password"
-msgstr ""
+msgstr "Senha Anterior"
 
 #: templates/account/password_change.html:17
 msgid "New password"
-msgstr ""
+msgstr "Nova senha"
 
 #: templates/account/password_change.html:21
 msgid "New password confirmation"
-msgstr ""
+msgstr "Confirmação de nova senha"
 
-#: templates/account/password_change_successfully.html:2
-msgid "Your password has been changed!"
-msgstr ""
+#: templates/account/password_change.html:25
+#: templates/account/password_forgot.html:12
+#: templates/account/password_recovery.html:20
+#: templates/account/resend_account_confirmation.html:14
+#: templates/account/signup.html:95
+#: templates/userprofile/occupation_add.html:20
+#: templates/userprofile/occupation_edit.html:21
+msgid "Submit"
+msgstr "Enviar"
 
 #: templates/account/password_change_successfully.html:4
 msgid "Go to index!"
-msgstr ""
+msgstr "Ir para início!"
 
-#: templates/account/password_forgot.html:8 templates/account/signup.html:19
+#: templates/account/password_forgot.html:8
+#: templates/account/resend_account_confirmation.html:8
+#: templates/account/signup.html:66 templates/contact/contact.html:20
 msgid "Email"
-msgstr ""
+msgstr "Email"
 
 #: templates/account/password_recovery.html:3
 msgid "Nova senha"
-msgstr ""
+msgstr "Nova senha"
 
 #: templates/account/password_recovery.html:13
-#: templates/account/signup.html:27
+#: templates/account/signup.html:84
 msgid "Password Confirm"
-msgstr ""
+msgstr "Confirmação de senha"
 
-#: templates/account/signup.html:11
+#: templates/account/resend_account_confirmation.html:3
+msgid "Resend account confirmation"
+msgstr "Reenviar confirmação de conta"
+
+#: templates/account/signup.html:54
 msgid "First name"
-msgstr ""
+msgstr "Primeiro nome"
 
-#: templates/account/signup.html:15
+#: templates/account/signup.html:60
 msgid "Last Name"
-msgstr ""
+msgstr "Último nome"
+
+#: templates/article/article-edit.html:40
+msgctxt "update article"
+msgid "Update"
+msgstr "Atualizar publicação"
+
+#: templates/article/article-edit.html:43
+msgctxt "save article"
+msgid "Save as draft"
+msgstr "Salvar como rascuho"
+
+#: templates/article/article-edit.html:44
+msgctxt "publish article"
+msgid "Publish"
+msgstr "Publicar"
+
+#: templates/contact/contact.html:3
+msgid "Contact"
+msgstr "Contato"
+
+#: templates/contact/contact.html:17
+msgid "Name"
+msgstr "Nome"
+
+#: templates/contact/contact.html:26
+msgid "Select"
+msgstr "Selecione"
+
+#: templates/contact/contact.html:34
+msgid "Message"
+msgstr "Mensagem"
+
+#: templates/contact/contact.html:44
+msgid "submit"
+msgstr "Enviar"
+
+#: templates/home/partials/user-actions.html:30
+msgid "Sair"
+msgstr "Sair"
+
+#: templates/question/comments.html:10
+#: templates/userprofile/occupation_manage.html:34
+#: templates/userprofile/occupation_show.html:15
+msgid "Edit"
+msgstr "Editar"
+
+#: templates/question/edit_answer.html:14 templates/question/show.html:26
+msgid "Comment here"
+msgstr "Comente aqui"
+
+#: templates/userprofile/occupation_add.html:13
+#: templates/userprofile/occupation_edit.html:13
+msgid "Company"
+msgstr "Empresa"
+
+#: templates/userprofile/occupation_add.html:21
+#: templates/userprofile/occupation_edit.html:22
+#: templates/userprofile/occupation_manage.html:24
+#: templates/userprofile/occupation_show.html:7
+#: templates/userprofile/show.html:31
+msgid "Go to account index"
+msgstr "Ir para início"
+
+#: templates/userprofile/occupation_manage.html:33
+msgid "Show"
+msgstr "Mostrar"
+
+#: templates/userprofile/occupation_manage.html:35
+#: templates/userprofile/occupation_show.html:16
+msgid "Delete"
+msgstr "Deletar"
+
+#: templates/userprofile/profile-edit.html:78
+#: templates/userprofile/show.html:13
+msgid "Birth date"
+msgstr "Data de nascimento"
+
+#: templates/userprofile/profile-edit.html:92
+#: templates/userprofile/profile-edit.html:124
+msgid "Selecione um estado"
+msgstr "Selecione um estado"
+
+#: templates/userprofile/profile-edit.html:106
+#: templates/userprofile/profile-edit.html:138
+msgid "Selecione uma cidade"
+msgstr "Selecione uma cidade"
+
+#: templates/userprofile/show.html:12
+msgid "Gender"
+msgstr "Sexo"
+
+#: templates/userprofile/show.html:14
+msgid "City / State / Country"
+msgstr "Cidade / Estado / País"

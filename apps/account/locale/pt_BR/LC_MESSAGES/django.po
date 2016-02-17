@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-27 13:42+0000\n"
+"POT-Creation-Date: 2016-02-17 14:13-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,59 +18,79 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: apps/account/service/business.py:222
+#: apps/account/service/business.py:90
+msgid "Bem vindo!"
+msgstr ""
+
+#: apps/account/service/business.py:274
 msgid "Password Recovery"
 msgstr ""
 
-#: apps/account/service/forms.py:24 apps/account/service/forms.py:86
-#: apps/account/service/forms.py:124
+#: apps/account/service/forms.py:25 apps/account/service/forms.py:101
+#: apps/account/service/forms.py:143
 msgid "Passwords are not the same."
 msgstr ""
 
-#: apps/account/service/forms.py:28
+#: apps/account/service/forms.py:29
 msgid "Username is already in use."
 msgstr ""
 
-#: apps/account/service/forms.py:32
+#: apps/account/service/forms.py:33
 msgid "Email is already in use."
 msgstr ""
 
-#: apps/account/service/forms.py:56
+#: apps/account/service/forms.py:59
 msgid "Wrong password or username."
 msgstr ""
 
-#: apps/account/service/forms.py:81
+#: apps/account/service/forms.py:96
 msgid "Wrong old password."
 msgstr ""
 
-#: apps/account/service/forms.py:102
+#: apps/account/service/forms.py:121
 msgid "Does not exist account with this email."
 msgstr ""
 
-#: apps/account/service/forms.py:129
+#: apps/account/service/forms.py:148
 msgid "Token is no longer valid."
 msgstr ""
 
-#: apps/account/views.py:88
+#: apps/account/views.py:141
 msgid "Success"
 msgstr ""
 
-#: apps/account/views.py:101
+#: apps/account/views.py:156
 msgid "Registered Successfully"
 msgstr ""
 
-#: apps/account/views.py:114 apps/account/views.py:199
+#: apps/account/views.py:171
+msgid "Password successfully recovered"
+msgstr ""
+
+#: apps/account/views.py:187
 msgid "Token not exist"
 msgstr ""
 
-#: apps/account/views.py:117
+#: apps/account/views.py:191
 msgid "Token exist - Account verified"
 msgstr ""
 
-#: apps/account/views.py:184
+#: apps/account/views.py:226 apps/account/views.py:251
+msgid "Token not exist!"
+msgstr ""
+
+#: apps/account/views.py:257
+msgid "Password successfully changed!"
+msgstr ""
+
+#: apps/account/views.py:342
 msgid "A confirmation email was sent to you"
 msgstr ""
 
-#: apps/account/views.py:206
-msgid "Password successfully changed!"
+#: apps/account/views.py:373
+msgid "Username is available!"
+msgstr ""
+
+#: apps/account/views.py:377
+msgid "Username is not available!"
 msgstr ""

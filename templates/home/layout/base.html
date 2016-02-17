@@ -107,6 +107,8 @@
                 $modalForgotPasswordSuccessfully.modal("show");
             };
 
+
+
             var functionAjaxSuccessTriggerContactModal = function(e, data) {
                 var $modalContact = $("#modal-contact");
                 $modalContact.find("form[data-ajaxform=true]").IdeiaAjaxForm();
@@ -198,6 +200,7 @@
             };
 
             $(function() {
+
                 $(document).on("ajaxform.success", "#form-login", functionAjaxSuccessLogin);
                 $(document).on("ajaxform.success", "#form-forgot-password", functionAjaxSuccessForgotPassword);
                 $(document).on("ajaxform.success", "#form-suggest", functionAjaxSuccessSuggest);

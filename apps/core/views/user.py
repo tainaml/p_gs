@@ -213,16 +213,11 @@ class CoreProfileWizardStepTwoAjax(views.ProfileBaseView):
     def return_success(self, request, context=None):
         if not context:
             context = {}
-
         _context = {}
         _context['page'] = context['page']
         _context['taxonomies'] = context['taxonomies']
 
-        _context['template'] = render(request, self.template_segment_path, {
-            'communities': context['communities'],
-            'taxonomies': context['taxonomies'],
-            'page': context['page']
-        }).content
+        _context['template'] = render(request, self.template_segment_path, context).content
 
         return JsonResponse(_context, status=200)
 
@@ -249,6 +244,7 @@ class CoreProfileWizardStepTwoAjax(views.ProfileBaseView):
         context['taxonomies'] = taxonomies
         context['communities'] = communities
         context['page'] = form.cleaned_data['page'] + 1
+        context['criteria'] = form.cleaned_data['criteria']
 
         context.update(self.get_context(request, profile))
         return self.return_success(request, context)
@@ -288,6 +284,7 @@ class CoreProfileWizardStepTwoAjax(views.ProfileBaseView):
 class CoreProfileWizardStepTwoListAjax(CoreProfileWizardStepTwoAjax):
 
     def return_error(self, request, context=None):
+
         pass
 
     def return_success(self, request, context=None):
@@ -301,6 +298,21 @@ class CoreProfileWizardStepTwoListAjax(CoreProfileWizardStepTwoAjax):
     def get_context(self, request, profile_instance=None):
         return {}
 
+class CoreProfileWizardStepTwoListJSON(CoreProfileWizardStepTwoListAjax):
+
+    def return_success(self, request, context=None):
+
+        if not context:
+            context = {}
+
+        _context = context
+
+        _context['template'] = render(request, self.template_segment_path, _context, status=200)
+
+        return JsonResponse(_context, status=200)
+
+    def get_context(self, request, profile_instance=None):
+        return {}
 
 class CoreProfileWizardStepThreeAjax(views.ProfileBaseView):
 

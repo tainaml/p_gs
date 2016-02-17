@@ -17,8 +17,13 @@
 
     {% if communities and communities.has_next %}
         <div class="col-lg-12">
-            <a class="btn-default btn-block" data-jscroll-next href="{% url 'profile:wizard-step-filter-categories-list-ajax' %}?page={{ page }}{% for tax in taxonomies %}&taxonomies={{ tax }}{% endfor %}">Carregar mais comunidades</a>
+            <a class="btn-default btn-block" data-jscroll-next href="{% url 'profile:wizard-step-filter-categories-list-ajax' %}?criteria={{ criteria }}&page={{ page }}{% for tax in taxonomies %}&taxonomies={{ tax }}{% endfor %}">Carregar mais comunidades</a>
         </div>
     {% endif %}
+
+{% else %}
+    <div class="col-lg-12">
+            Nenhuma comunidade encontrada com este critério de busca.
+    </div>
 
 {% endif %}
