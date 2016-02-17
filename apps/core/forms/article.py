@@ -6,7 +6,7 @@ from apps.feed.service import business as FeedBusiness
 from apps.core.models.tags import Tags
 from ..business import article as Business, tags as BusinessTags, feed as BusinessCoreFeed
 from ..forms.taxonomies import CoreTaxonomiesMixin
-from custom_forms.custom import forms
+from apps.custom_base.service.custom import forms
 
 
 class CoreArticleForm(ArticleForm, CoreTaxonomiesMixin):

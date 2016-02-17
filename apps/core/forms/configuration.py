@@ -1,4 +1,4 @@
-from custom_forms.custom import IdeiaForm, forms
+from apps.custom_base.service.custom import IdeiaForm, forms
 from ..business import configuration as BusinessConfig
 
 

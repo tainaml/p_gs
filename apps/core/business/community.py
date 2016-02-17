@@ -227,7 +227,7 @@ def get_followers(data=None, items_per_page=None, page=None, startswith=None):
     except ValueError:
         return False
 
-    items_per_page = items_per_page if items_per_page else 9
+    items_per_page = items_per_page if items_per_page else 6
     page = page if page else 1
 
     if items_per_page and page:

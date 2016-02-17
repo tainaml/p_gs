@@ -1,12 +1,13 @@
 # coding=utf-8
 import pickle
+
 from django.db import models
 from django.core.validators import RegexValidator
 from django.core.exceptions import ValidationError
 from django.utils import timezone
 from django.utils.translation import ugettext as _
 
-from custom_forms.custom import forms, IdeiaForm
+from apps.custom_base.service.custom import forms, IdeiaForm
 from apps.userprofile.models import City, Responsibility
 import business as Business
 from rede_gsti import settings

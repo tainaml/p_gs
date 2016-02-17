@@ -69,7 +69,6 @@ class CommentFormBaseView(View):
     not_found = Http404(_('Comment not Found.'))
     instance = None
     context = {}
-    xhr = False
     form = None
 
     @property
@@ -88,7 +87,7 @@ class CommentFormBaseView(View):
             self.context.update({'instance': self.instance, 'form': self.form})
             is_valid = not not self.instance
 
-            if self.xhr:
+            if request.is_ajax:
                 response_data = {}
                 if is_valid:
                     response_data['is_valid'] = is_valid

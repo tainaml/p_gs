@@ -1,7 +1,7 @@
 from apps.community.models import Community
 from apps.taxonomy.models import Taxonomy
 from apps.geography.models import State, City
-from custom_forms.custom import IdeiaForm, forms
+from apps.custom_base.service.custom import IdeiaForm, forms
 from ..business import community as Business
 
 __author__ = 'phillip'
