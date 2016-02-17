@@ -140,8 +140,19 @@ require('./validation.js');
                     $self.trigger('ajaxform.success', data);
                 },
                 'error': function(jqXHR){
-                    var data = $.parseJSON(jqXHR.responseText);
-                    $self.trigger('ajaxform.error', [data]);
+                    var data;
+                    try{
+                        data = $.parseJSON(jqXHR.responseText);
+                    }catch(e){
+
+                        console.error("Can't parse to JSON. Check the response data and contentType");
+                    }
+                    try{
+                        $self.trigger('ajaxform.error', [data]);
+                    }catch(e){
+                        console.error("Can't add error with data=", data);
+                    }
+
                 },
                 'dataType': 'json',
                 'data': $self.serialize()
