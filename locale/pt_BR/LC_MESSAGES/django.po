@@ -322,9 +322,9 @@ msgstr "Senha"
 msgid ""
 "If you have not received the confirmation email <a href="
 "\"%(url_resend_account_confirmation)s\">%(click_here)s</a> to resend. "
-msgstr ""
-"Se você não recebeu o e-mail de confirmação <a href="
-"\"%(url_resend_account_confirmation)s\">%Clique aqui</a> para reenviá-lo. "
+msgstr "Se você não recebeu o email de confirmação <a href="
+"\"%(url_resend_account_confirmation)s\">%(click_here)s</a> Para reenviá-lo. "
+
 
 #: templates/account/login.html:22 templates/account/mail_validation.html:8
 #: templates/account/password_forgot.html:13
