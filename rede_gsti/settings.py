@@ -84,6 +84,7 @@ INSTALLED_APPS = (
     'apps.rede_gsti_signals',
     'apps.feed',
     'apps.configuration',
+    'apps.custom_base'
 )
 
 MIDDLEWARE_CLASSES = (
