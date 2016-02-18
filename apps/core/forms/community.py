@@ -130,7 +130,7 @@ class CoreCommunityFollowersForm(IdeiaForm):
     community = forms.ModelChoiceField(queryset=Community.objects.all(), required=True)
     criteria = forms.CharField(required=False)
     state = forms.ModelChoiceField(queryset=State.objects.filter(country=1), required=False)
-    city = forms.ModelChoiceField(queryset='', required=False)
+    city = forms.ModelChoiceField(queryset=City.objects.all(), required=False)
     page = forms.IntegerField(required=False)
 
     def __init__(self, startswith=False, items_per_page=None, *args, **kwargs):

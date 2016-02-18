@@ -11,10 +11,8 @@ from django.views.generic import View
 class FormBaseView(View):
     context = {}
     process_return = None
+    form = None
 
-    @property
-    def form(self):
-        raise NotImplementedError("you must specify the form")
 
     @property
     def success_template_path(self):
@@ -31,7 +29,7 @@ class FormBaseView(View):
     def after_process(self, request=None, *args, **kwargs):
         pass
 
-    def __response_ajax__(self, request, *args, **kwargs):
+    def __response_json__(self, request, *args, **kwargs):
         response_data = {}
         is_valid = self.form.is_valid()
         if is_valid:
@@ -47,7 +45,7 @@ class FormBaseView(View):
                             status=200 if is_valid else 400, *args,
                             **kwargs)
 
-    def __response_postback__(self, request, *args, **kwargs):
+    def __response_render__(self, request, *args, **kwargs):
         return render(request,
                       self.success_template_path if self.form.is_valid() else
                       self.fail_validation_template_path,
@@ -55,17 +53,56 @@ class FormBaseView(View):
                       *args,
                       **kwargs)
 
-    def do_process(self, request=None, *args, **kwargs):
+    def fill_form_kwargs(self, request=None, *args, **kwargs):
+        return {'data': request.GET}
 
+
+
+    def do_process(self, request=None, *args, **kwargs):
+        if not self.form:
+            raise NotImplementedError("you must specify the class form. Ex: form = FooForm")
         self.before_process(request, *args, **kwargs)
+        self.form = self.form(**self.fill_form_kwargs(request))
         self.process_return = self.form.process()
         self.after_process(request, *args, **kwargs)
         self.context.update({'form': self.form})
 
+
         if request.is_ajax:
-            return self.__response_ajax__(request, *args, **kwargs)
+            return self.__response_json__(request, *args, **kwargs)
         else:
-            return self.__response_postback__(request, *args, **kwargs)
+            return self.__response_render__(request, *args, **kwargs)
+
+
+class FormBaseListView(FormBaseView):
+    form = None
+
+    # @Override
+    def after_process(self, request=None, *args, **kwargs):
+        self.context.update({'instance_list': self.process_return})
+
+    # @Override
+    def do_process(self, request=None, *args, **kwargs):
+        if not self.form:
+            raise NotImplementedError("you must specify the class form. Ex: form = FooForm")
+        self.before_process(request, *args, **kwargs)
+        self.form = self.form(**self.fill_form_kwargs(request))
+        self.process_return = self.form.process()
+        self.after_process(request, *args, **kwargs)
+        self.context.update({'form': self.form})
+        self.context.update({'page': self.form.cleaned_data['page'] +1})
+
+
+        return self.__response_render__(request, *args, **kwargs)
+
+
+    def get(self, request=None, *args, **kwargs):
+        if not self.form:
+            raise NotImplementedError("You must specify the form")
+        if request.GET.get("page"):
+            return self.do_process(request, *args, **kwargs)
+        else:
+            return super(FormBaseListView, self).do_process(request, *args, **kwargs)
 
 class InstanceSaveFormBaseView(FormBaseView):
     form = None
@@ -73,6 +110,10 @@ class InstanceSaveFormBaseView(FormBaseView):
     # @Override
     def after_process(self, request=None, *args, **kwargs):
         self.context.update({'instance': self.process_return})
+
+    # @Override
+    def fill_form_kwargs(self, request=None, *args, **kwargs):
+        return {'user': request.user, 'data': request.POST}
 
     @method_decorator(login_required)
     def post(self, request=None, *args, **kwargs):

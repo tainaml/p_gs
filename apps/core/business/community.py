@@ -200,10 +200,10 @@ def get_random_communities_by_article_or_question(object_id=None, content_type=N
 def get_followers(data=None, items_per_page=None, page=None, startswith=None):
 
     community = data.get('community')
-    content_type = ContentType.objects.get_for_model(community)
+    # content_type = ContentType.objects.get_for_model(community)
 
     criteria = (
-        Q(content_type=content_type) &
+        Q(content_type__model="community") &
         Q(object_id=community.id) &
         Q(action_type=settings.SOCIAL_FOLLOW)
     )

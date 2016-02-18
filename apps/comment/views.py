@@ -107,7 +107,6 @@ class CommentCountView(CommentListBaseView):
 
     def get(self, request, object_to_link, content_type):
         count = comment_business.count_comments_by_id_and_content_type(object_to_link, content_type)
-        print "here"
         context = {'count': count}
         return self.return_success(request, context)
 

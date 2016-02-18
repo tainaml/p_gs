@@ -6,6 +6,7 @@ from apps.community.models import Community
 from apps.community.service import business as Business
 from apps.core.forms.community import CoreCommunityFeedFormSearch, CoreCommunityQuestionFeedFormSearch, \
     CoreCommunitySearchVideosForm, CoreCommunityFollowersForm
+from apps.custom_base.views import FormBaseListView
 from apps.socialactions.service.business import get_users_acted_by_model
 from rede_gsti import settings
 from apps.core.business import community as BusinessCommunity
@@ -152,7 +153,7 @@ class CoreCommunityVideosView(CoreCommunityVideosSearch):
 
 
 class CoreCommunityVideosList(CoreCommunityVideosSearch):
-    
+
     template_path = "community/partials/community-videos-list.html"
 
 
@@ -198,38 +199,53 @@ class CoreCommunityLoad(views.View):
 
         return self.return_success(request, context)
 
-
-class CoreCommunityFollowersSearch(views.CommunityBaseView):
-
-    template_path = "community/partials/community-followers-list.html"
-
+class CoreCommunityFollowersSearch(FormBaseListView):
     form = CoreCommunityFollowersForm
+    success_template_path = "community/partials/community-followers-list.html"
+    fail_template_path = success_template_path
 
-    def return_success(self, request, context=None):
-        if request.is_ajax():
-            _context = {
-                'template': render(request, self.template_path, context).content
-            }
-            return JsonResponse(_context, status=200)
+    MAXIMUM_PER_PAGE = 9
 
-        return render(request, self.template_path, context)
+    # @Override
+    def after_process(self, request=None, *args, **kwargs):
+        self.context.update({'community': request.GET['community'],'followers': self.process_return, 'page': 2})
 
-    def get(self, request):
+    # @Override
+    def fill_form_kwargs(self, request=None, *args, **kwargs):
+        return {'data': request.GET, 'items_per_page': self.MAXIMUM_PER_PAGE}
 
-        form = self.form(False, 6, request.GET)
-        followers = form.process()
 
-        context = {
-            'followers': followers,
-            'form': form,
-            'url_next': request.GET.get('next', '')
-        }
-        context.update(self.get_context(request))
-
-        return self.return_success(request, context)
-
-    def get_context(self, request):
-        return {}
+# class CoreCommunityFollowersSearch(views.CommunityBaseView):
+#
+#     template_path = "community/partials/community-followers-list.html"
+#
+#     form = CoreCommunityFollowersForm
+#
+#     def return_success(self, request, context=None):
+#         if request.is_ajax():
+#             _context = {
+#                 'template': render(request, self.template_path, context).content
+#             }
+#             return JsonResponse(_context, status=200)
+#
+#         return render(request, self.template_path, context)
+#
+#     def get(self, request):
+#
+#         form = self.form(False, 6, request.GET)
+#         followers = form.process()
+#
+#         context = {
+#             'followers': followers,
+#             'form': form,
+#             'url_next': request.GET.get('next', '')
+#         }
+#         context.update(self.get_context(request))
+#
+#         return self.return_success(request, context)
+#
+#     def get_context(self, request):
+#         return {}
 
 
 class CoreCommunityFollowersSearchList(CoreCommunityFollowersSearch):
