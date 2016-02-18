@@ -180,8 +180,9 @@ def get_states(country_id=None):
 def get_cities(state_id=None):
     if state_id:
         return City.objects.filter(state=state_id)
+    else:
+        return []
 
-    return City.objects.all()
 
 
 def get_occupations(params={}, order_by=None):

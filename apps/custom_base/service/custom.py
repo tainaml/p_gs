@@ -11,9 +11,10 @@ class AbstractIdeiaForm(object):
             raise NotImplementedError
         except Exception, e:
             if settings.DEBUG:
-                print e.message
-            self.add_error(None, "General error!")
-            return False
+                raise e
+            else:
+                self.add_error(None, "General error!")
+                return False
 
     def __process__(self):
         raise NotImplementedError
