@@ -15,7 +15,6 @@ class CoreArticleForm(ArticleForm, CoreTaxonomiesMixin):
     official = forms.BooleanField(required=False)
 
     def __init__(self, *args, **kwargs):
-
         kwargs['initial'] = kwargs.get('initial', {})
         instance = kwargs.get('instance', None)
 
@@ -30,7 +29,6 @@ class CoreArticleForm(ArticleForm, CoreTaxonomiesMixin):
             kwargs['initial'].update(initial)
 
         super(CoreArticleForm, self).__init__(*args, **kwargs)
-
 
     def set_author(self, author):
         super(CoreArticleForm, self).set_author(author)

@@ -14,6 +14,7 @@ from rede_gsti import settings
 
 class ComplaintView(View):
     template_path = "complaint/report.html"
+    template_message_path = "complaint/report-message.html"
     form_complaint = ComplaintForm
 
     def response(self, request, status, context=None):
@@ -60,7 +61,6 @@ class ComplaintView(View):
             except Exception, e:
                 context.update({'message': e.message})
 
-
         except Exception, e:
             context.update({'message': e.message})
             status = 400
@@ -81,5 +81,8 @@ class ComplaintView(View):
             return JsonResponse(context, status=400)
 
         message = _("Complaint created successfully!")
-        context = {'message': message}
+        context = {
+            'message': message,
+            'template': render(request, self.template_message_path, {'message': message}).content
+        }
         return JsonResponse(context, status=200)
