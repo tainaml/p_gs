@@ -13,7 +13,6 @@ from ..business import feed as BusinessFeed
 from apps.core.business import user as UserBusiness
 
 
-
 class CoreQuestionCreateView(views.CreateQuestionView):
     form = QuestionForms.CoreCreateQuestionForm
 

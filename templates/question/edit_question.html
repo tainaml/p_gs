@@ -29,6 +29,9 @@
                         <a href="javascript:;" onclick="history.back();" class="btn-default">Voltar</a>
                         <!-- <a href="javascript:;" class="btn-green">Publicar</a> -->
                         <button type="submit" class="btn-green">Salvar</button>
+                        {% if question and question.slug and question.id %}
+                            <a href="{% url 'question:show' question.slug question.id %}" class="btn-default" target="_blank">Visualizar</a>
+                        {% endif %}
                     </div>
                 </div>
                 <div class="col-lg-12">
