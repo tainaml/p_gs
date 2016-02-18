@@ -62,7 +62,8 @@ class FormBaseView(View):
         if not self.form:
             raise NotImplementedError("you must specify the class form. Ex: form = FooForm")
         self.before_process(request, *args, **kwargs)
-        self.form = self.form(**self.fill_form_kwargs(request))
+        form_kwarg = self.fill_form_kwargs(request)
+        self.form = self.form(**form_kwarg)
         self.process_return = self.form.process()
         self.after_process(request, *args, **kwargs)
         self.context.update({'form': self.form})
@@ -92,7 +93,6 @@ class FormBaseListView(FormBaseView):
         self.context.update({'form': self.form})
         self.context.update({'page': self.form.cleaned_data['page'] +1})
 
-
         return self.__response_render__(request, *args, **kwargs)
 
 
@@ -119,7 +119,6 @@ class InstanceSaveFormBaseView(FormBaseView):
     def post(self, request=None, *args, **kwargs):
         if not self.form:
             raise NotImplementedError("You must specify the form")
-        self.form = self.form(request.user, request.POST)
 
         return super(InstanceSaveFormBaseView, self).do_process(request)
 
@@ -130,17 +129,18 @@ class InstanceUpdateFormBaseView(InstanceSaveFormBaseView):
     def instance_to_update(self, request, *args, **kwargs):
         raise NotImplementedError("you must specify how to get the instance to update")
 
+    # @Override
+    def fill_form_kwargs(self, request=None, *args, **kwargs):
+        return {'user': request.user, 'instance': self.instance_to_update(request, *args, **kwargs), 'data': request.POST, }
 
     @method_decorator(login_required)
     def post(self, request=None, *args, **kwargs):
-        instance_to_update = self.instance_to_update(request, *args, **kwargs)
+        instance = self.instance_to_update(request, *args, **kwargs)
 
-        if not instance_to_update:
+        if not instance:
             raise Http404()
         if not self.form:
             raise NotImplementedError("You must specify the form")
 
-        self.form = self.form(request.user, instance_to_update,
-                                      request.POST)
 
         return super(InstanceUpdateFormBaseView, self).do_process(request)

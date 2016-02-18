@@ -10,9 +10,9 @@ class CreateCommentForm(IdeiaForm):
     content_type = forms.CharField(max_length=20, required=True)
     content_object_id = forms.IntegerField(required=True)
 
-    def __init__(self, user=None, *args, **kargs):
+    def __init__(self, user=None, *args, **kwargs):
         self.user = user
-        super(CreateCommentForm, self).__init__(*args, **kargs)
+        super(CreateCommentForm, self).__init__(*args, **kwargs)
 
 
     def __process__(self):
