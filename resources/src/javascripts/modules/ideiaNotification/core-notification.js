@@ -67,7 +67,7 @@
 
                 setTimeout( function() {
                     clear_notifications( plugin );
-                }, 1500 );
+                }, 500 );
             });
 
         };
@@ -217,6 +217,11 @@
                         if ( data.notifications.length > 0 ) {
                             $notificationsContainer.html( data.template );
                             $element.data( 'notifications', notifications );
+
+                            $( '[data-trigger=notification-as-read]' ).each( function () {
+                                var $e = $( this );
+                                $e.IdeiaNotificationMarkAsRead( $e.data() );
+                            });
                         }
                     }
                 });

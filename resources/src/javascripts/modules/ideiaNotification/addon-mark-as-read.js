@@ -23,7 +23,7 @@
 
             $element.on( 'click', function( event ) {
                 event.preventDefault();
-                mark_notification_as_read( $( event.currentTarget ) );
+                mark_notification_as_read( $( event.currentTarget ), event );
             });
 
         };
@@ -47,7 +47,7 @@
 
         };
 
-        var mark_notification_as_read = function( $el ) {
+        var mark_notification_as_read = function( $el , event ) {
 
             var url = $el.data( 'next-url' );
             var notification = [];
@@ -55,12 +55,15 @@
             notification.push( $el.data( 'notification' ) );
 
             $.ajax({
-                url     : '/notifications/mark-as-read',
+                url     : '/notifications/mark-as-read-visualized',
                 method  : 'post',
                 dataType: 'json',
                 data    : {
                     notifications: notification,
                     csrfmiddlewaretoken: plugin.settings.data['csrfmiddlewaretoken']
+                },
+                beforeSend: function() {
+                    event.preventDefault();
                 },
                 success : function( data ) {
                     if ( data.status == true ) {

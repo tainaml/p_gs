@@ -130,6 +130,19 @@ def set_notification_as_visualized(notifications_ids):
     return notifications_visualized
 
 
+def set_notification_as_read_and_visualized(notifications_ids):
+    notifications_visualized = []
+    notifications = Notification.objects.filter(id__in=notifications_ids)
+
+    for n in notifications:
+        n.visualized = True
+        n.read = True
+        n.save(update_fields=['visualized', 'read'])
+        notifications_visualized.append(n)
+
+    return notifications_visualized
+
+
 def token_is_valid(request):
     token = request.GET.get('token', False)
     token_session = request.session.get('token', False)
