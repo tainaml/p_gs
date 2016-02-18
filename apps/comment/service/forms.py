@@ -61,9 +61,9 @@ class EditCommentForm(IdeiaForm):
     content = forms.CharField(max_length=512, required=True)
     comment_id = forms.IntegerField(required=True)
 
-    def __init__(self, user=None, id=None, *args, **kargs):
+    def __init__(self, user=None, instance=None, *args, **kargs):
         self.user = user
-        self.instance = Business.retrieve_comment(id=id)
+        self.instance = instance
 
         super(EditCommentForm, self).__init__(*args, **kargs)
 

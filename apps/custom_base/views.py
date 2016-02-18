@@ -1,5 +1,7 @@
-from django.http import JsonResponse
+from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse, Http404
 from django.shortcuts import render
+from django.utils.decorators import method_decorator
 from django.views.generic import View
 
 
@@ -64,3 +66,40 @@ class FormBaseView(View):
             return self.__response_ajax__(request, *args, **kwargs)
         else:
             return self.__response_postback__(request, *args, **kwargs)
+
+class InstanceSaveFormBaseView(FormBaseView):
+    form = None
+
+    # @Override
+    def after_process(self, request=None, *args, **kwargs):
+        self.context.update({'instance': self.process_return})
+
+    @method_decorator(login_required)
+    def post(self, request=None, *args, **kwargs):
+        if not self.form:
+            raise NotImplementedError("You must specify the form")
+        self.form = self.form(request.user, request.POST)
+
+        return super(InstanceSaveFormBaseView, self).do_process(request)
+
+
+class InstanceUpdateFormBaseView(InstanceSaveFormBaseView):
+    form = None
+
+    def instance_to_update(self, request, *args, **kwargs):
+        raise NotImplementedError("you must specify how to get the instance to update")
+
+
+    @method_decorator(login_required)
+    def post(self, request=None, *args, **kwargs):
+        instance_to_update = self.instance_to_update(request, *args, **kwargs)
+
+        if not instance_to_update:
+            raise Http404()
+        if not self.form:
+            raise NotImplementedError("You must specify the form")
+
+        self.form = self.form(request.user, instance_to_update,
+                                      request.POST)
+
+        return super(InstanceUpdateFormBaseView, self).do_process(request)
