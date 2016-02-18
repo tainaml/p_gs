@@ -55,7 +55,7 @@
                             <div class="post-count">
                                 {% like_box question request.path "inline" %}
                             </div>
-                            <div class="post-count-comments"><strong>{{ question.counter_answer }}</strong> Respostas</div>
+                            <a class="post-count-comments" href="#comments"><strong>{{ question.counter_answer }}</strong> Respostas</a>
                         </div>
                     </aside>
                     <div class="full-post-content">
@@ -70,7 +70,7 @@
                     </div>
                 </article>
 
-                {% profile_box question.author "horizontal" %}
+                <div id="comments">{% profile_box question.author "horizontal" %}</div>
 
                 <header class="area-title">
                     <h2 id="answers">Respostas</h2>
