@@ -298,6 +298,7 @@ class CoreProfileWizardStepTwoListAjax(CoreProfileWizardStepTwoAjax):
     def get_context(self, request, profile_instance=None):
         return {}
 
+
 class CoreProfileWizardStepTwoListJSON(CoreProfileWizardStepTwoListAjax):
 
     def return_success(self, request, context=None):
@@ -313,6 +314,7 @@ class CoreProfileWizardStepTwoListJSON(CoreProfileWizardStepTwoListAjax):
 
     def get_context(self, request, profile_instance=None):
         return {}
+
 
 class CoreProfileWizardStepThreeAjax(views.ProfileBaseView):
 

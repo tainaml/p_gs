@@ -21,6 +21,7 @@
             dataType: 'json',
             token   : null,
             target  : null,
+            csrf    : null,
             data    : {}
 
         };
@@ -28,8 +29,7 @@
         var plugin = this;
         plugin.settings = {};
 
-        var $element = $( element ),
-            element = element;
+        var $element = $( element );
 
         plugin.init = function() {
 
@@ -40,7 +40,6 @@
             setInterval( function() {
                 polling( plugin );
             } , timeout );
-
 
             $( window ).on( 'focus', function() {
                 isInactive = ( false );
@@ -53,7 +52,7 @@
             $element.on( 'click', function( event ) {
                 event.preventDefault();
 
-                let $target = $(event.currentTarget);
+                let $target = $( event.currentTarget );
                 let $badge = $target.find('.badge');
 
                 if ( $target.data( 'notifications').length > 0 ) {
@@ -226,7 +225,6 @@
 
         var clear_notifications = function( obj ) {
 
-            var items = $(obj.settings.target).find('ul > li');
             var notifications = $element.data( 'notifications' ) || [];
 
             obj.settings.data['notifications'] = notifications;
@@ -252,12 +250,6 @@
                     }
                 });
             }
-
-            $.each( items, function( i, e ) {
-                $( e ).removeClass( 'not-visualized' );
-            });
-
-
         };
 
         plugin.init();

@@ -9,6 +9,7 @@ class NotificationForm(IdeiaForm):
         self.notification_actions = None
         self.items_per_page = None
         self.user = None
+        self.visualized = None
         self.read = None
 
         super(NotificationForm, self).__init__(*args, **kwargs)
@@ -21,6 +22,9 @@ class NotificationForm(IdeiaForm):
 
     def set_notification_group(self, notification_group):
         self.notification_actions = notification_group
+
+    def set_visualized(self, visualized):
+        self.visualized = visualized
 
     def set_read(self, read):
         self.read = read
@@ -35,6 +39,7 @@ class NotificationForm(IdeiaForm):
         return Business.get_notifications(
             self.user,
             self.notification_actions,
+            self.visualized,
             self.read,
             self.items_per_page,
             self.cleaned_data.get('page', 1)

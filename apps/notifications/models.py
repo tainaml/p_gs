@@ -20,6 +20,7 @@ class Notification(models.Model):
     notification_action = models.PositiveIntegerField()
 
     read = models.BooleanField(null=False, blank=False, default=False)
+    visualized = models.BooleanField(null=False, blank=False, default=False)
 
     class Meta:
         app_label = "notifications"

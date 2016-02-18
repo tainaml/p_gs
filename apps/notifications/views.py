@@ -69,7 +69,6 @@ class NotificationBaseView(View):
         return {}
 
     def set_notification_group(self, notification_type):
-
         if notification_type not in NOTIFICATION_GROUP.keys():
             raise Exception("There is a group for this type of notifications")
 
@@ -127,7 +126,7 @@ class NotificationGeneralsView(NotificationBaseView):
     notification_type = 'general'
 
 
-class NotificationMarkAsRead(NotificationBaseView):
+class NotificationMarkAllAsRead(NotificationBaseView):
 
     @staticmethod
     def bad_request():
@@ -162,5 +161,46 @@ class NotificationMarkAsRead(NotificationBaseView):
 
         return self.return_process(request, {
             'notification_type': notification_type,
+            'notifications_read': notifications_read,
+            'next': url_next
+        })
+
+
+class NotificationMarkAllAsVisualized(NotificationBaseView):
+
+    @staticmethod
+    def bad_request():
+        raise Http404()
+
+    def return_process(self, request, context=None):
+        if 'next' not in context:
+            return self.bad_request()
+
+        return redirect(context.get('next'))
+
+    @method_decorator(login_required)
+    def post(self, request):
+
+        if 'notification' not in request.POST:
+            return self.bad_request()
+
+        if 'url_next' not in request.POST:
+            return self.bad_request()
+
+        notification_type = request.POST.get('notification')
+        url_next = request.POST.get('url_next')
+
+        notification_group = self.set_notification_group(notification_type)
+
+        notifications, paginator = Business.get_notifications(
+            user=request.user,
+            notification_actions=notification_group,
+            visualized=False
+        )
+        notifications_visualized = Business.set_notification_as_visualized([n.id for n in notifications])
+
+        return self.return_process(request, {
+            'notification_type': notification_type,
+            'notifications_visualized': notifications_visualized,
             'next': url_next
         })

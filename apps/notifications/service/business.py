@@ -75,11 +75,14 @@ def get_notifications_by_user_and_notification_type_list(user=None,
     return paginated_notifications
 
 
-def get_notifications(user=None, notification_actions=None, read=None, items_per_page=None, page=None):
+def get_notifications(user=None, notification_actions=None, visualized=None, read=None, items_per_page=None, page=None):
     if not notification_actions:
         notification_actions = []
 
     criteria = (Q(to=user) & Q(notification_action__in=notification_actions))
+
+    if visualized is not None:
+        criteria &= Q(visualized=visualized)
 
     if read is not None:
         criteria &= Q(read=read)
@@ -109,10 +112,22 @@ def set_notification_as_read(notifications_ids):
 
     for n in notifications:
         n.read = True
-        n.save()
+        n.save(update_fields=['read'])
         notifications_read.append(n)
 
     return notifications_read
+
+
+def set_notification_as_visualized(notifications_ids):
+    notifications_visualized = []
+    notifications = Notification.objects.filter(id__in=notifications_ids)
+
+    for n in notifications:
+        n.visualized = True
+        n.save(update_fields=['visualized'])
+        notifications_visualized.append(n)
+
+    return notifications_visualized
 
 
 def token_is_valid(request):
