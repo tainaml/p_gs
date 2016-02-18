@@ -7,7 +7,9 @@
     {% set action_verb = "respondeu" %}
 {% endif %}
 
-<li class="item-float-notification item-float-notification-link {% if not notification.read %}not-visualized{% endif %}">
+<li class="item-float-notification item-float-notification-link {% if not notification.read %}not-visualized{% endif %}"
+    data-notification-mark="read"
+    data-notification="{{ notification.id }}">
     <a href="{{ notification.target.get_absolute_url }}" title="{{ notification.target.title }}">
         <img src="{% thumbor_url notification.author.profile.get_profile_picture.url width=20 height=20 smart=False fit_in=False %}" width="20" height="20" alt="{{ notification.author.get_full_name }}">
         <span>{{ notification.author.get_full_name }}</span> {{ action_verb }} em <span>{{ notification.target.title }}</span>

@@ -150,7 +150,7 @@ def update_or_create_occupation(profile=None, user=None, data=None):
     try:
         occupation = Occupation.objects.filter(profile=profile).last()
 
-        if occupation.responsibility == data.get('responsibility'):
+        if occupation and occupation.responsibility == data.get('responsibility'):
             return occupation
 
         occupation = Occupation(**data)

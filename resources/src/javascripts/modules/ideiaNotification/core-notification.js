@@ -29,7 +29,8 @@
         plugin.settings = {};
 
         var $element = $( element ),
-            element = element;
+            $notificationList = $element.next( '.dropdown-notification' ).find( 'ul' ),
+            $notificationItems = $notificationList.find( 'li.not-visualized' );
 
         plugin.init = function() {
 
@@ -48,6 +49,13 @@
 
             $( window ).on( 'blur', function() {
                 isInactive = ( true );
+            });
+
+            $notificationItems.on( 'click', function( event ) {
+                event.preventDefault();
+
+                var $this = $( this );
+                console.log( $this.data() );
             });
 
             $element.on( 'click', function( event ) {
@@ -252,12 +260,6 @@
                     }
                 });
             }
-
-            $.each( items, function( i, e ) {
-                $( e ).removeClass( 'not-visualized' );
-            });
-
-
         };
 
         plugin.init();
