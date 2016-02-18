@@ -126,7 +126,7 @@ class NotificationGeneralsView(NotificationBaseView):
     notification_type = 'general'
 
 
-class NotificationMarkAsRead(NotificationBaseView):
+class NotificationMarkAllAsRead(NotificationBaseView):
 
     @staticmethod
     def bad_request():
@@ -166,7 +166,7 @@ class NotificationMarkAsRead(NotificationBaseView):
         })
 
 
-class NotificationMarkAsVisualized(NotificationBaseView):
+class NotificationMarkAllAsVisualized(NotificationBaseView):
 
     @staticmethod
     def bad_request():

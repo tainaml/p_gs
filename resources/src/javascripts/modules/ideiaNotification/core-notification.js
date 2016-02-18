@@ -21,6 +21,7 @@
             dataType: 'json',
             token   : null,
             target  : null,
+            csrf    : null,
             data    : {}
 
         };
@@ -28,9 +29,7 @@
         var plugin = this;
         plugin.settings = {};
 
-        var $element = $( element ),
-            $notificationList = $element.next( '.dropdown-notification' ).find( 'ul' ),
-            $notificationItems = $notificationList.find( 'li.not-visualized' );
+        var $element = $( element );
 
         plugin.init = function() {
 
@@ -42,7 +41,6 @@
                 polling( plugin );
             } , timeout );
 
-
             $( window ).on( 'focus', function() {
                 isInactive = ( false );
             });
@@ -51,17 +49,10 @@
                 isInactive = ( true );
             });
 
-            $notificationItems.on( 'click', function( event ) {
-                event.preventDefault();
-
-                var $this = $( this );
-                console.log( $this.data() );
-            });
-
             $element.on( 'click', function( event ) {
                 event.preventDefault();
 
-                let $target = $(event.currentTarget);
+                let $target = $( event.currentTarget );
                 let $badge = $target.find('.badge');
 
                 if ( $target.data( 'notifications').length > 0 ) {
@@ -234,7 +225,6 @@
 
         var clear_notifications = function( obj ) {
 
-            var items = $(obj.settings.target).find('ul > li');
             var notifications = $element.data( 'notifications' ) || [];
 
             obj.settings.data['notifications'] = notifications;

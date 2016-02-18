@@ -173,3 +173,19 @@ class CoreNotificationClear(views.NotificationBaseView):
         context.update(self.get_context(request))
 
         return JsonResponse(context, status=200)
+
+
+class CoreNotificationMarkAsRead(views.NotificationBaseView):
+
+    @method_decorator(login_required)
+    def post(self, request):
+        notifications_ids = request.POST.getlist('notifications[]')
+        notifications = Business.set_notification_as_read(notifications_ids)
+
+        context = {
+            'notifications': [n.id for n in notifications],
+            'status': True if notifications else False
+        }
+        context.update(self.get_context(request))
+
+        return JsonResponse(context, status=200)

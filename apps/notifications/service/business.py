@@ -112,7 +112,7 @@ def set_notification_as_read(notifications_ids):
 
     for n in notifications:
         n.read = True
-        n.save()
+        n.save(update_fields=['read'])
         notifications_read.append(n)
 
     return notifications_read
@@ -124,7 +124,7 @@ def set_notification_as_visualized(notifications_ids):
 
     for n in notifications:
         n.visualized = True
-        n.save()
+        n.save(update_fields=['visualized'])
         notifications_visualized.append(n)
 
     return notifications_visualized
