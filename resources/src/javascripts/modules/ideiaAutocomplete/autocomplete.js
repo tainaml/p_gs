@@ -68,9 +68,53 @@
                 }).on('focus', function(e){
                     showTyping(e);
                 });
+                $(document).on('keydown', function (e) {
+                    var eventKey = e.keyCode;
+                    if ($el.is(':focus') && $('#dropdown-search').is(':visible')) {
+                        switch (eventKey) {
+                            case 13:
+                                triggerItem(e);
+                                return false;
+                                break;
+                            case 38:
+                                activeSearchItem('up');
+                                break;
+                            case 40:
+                                activeSearchItem('down');
+                                break;
+                        }
+                    }
+                });
             });
         }
     });
+
+    // Número negativo porque o index de elementos do DOM começa em 0 (zero).
+    var itemActive = -1;
+    function activeSearchItem (direction, incrementer) {
+        var searchItems = $('#dropdown-search').find('li');
+        var itemsLength = searchItems.length - 1;
+        var firstPosition = 0;
+        searchItems.removeClass('active');
+
+        direction == 'down' ? itemActive++ : itemActive--;
+
+        if (itemActive >= firstPosition && itemActive <= itemsLength) {
+            searchItems.eq(itemActive).addClass('active');
+        } else if (itemActive <= firstPosition) {
+            searchItems.eq(firstPosition).addClass('active');
+            itemActive = firstPosition;
+        } else if (itemActive > itemsLength) {
+            searchItems.last().addClass('active');
+            itemActive = itemsLength;
+        }
+    }
+
+    function triggerItem (e) {
+        e.stopPropagation();
+        var item = $('#dropdown-search').find('.active a');
+        location.href = item.attr('href');
+    }
 
     function AutocompleteReady() {
         $("[data-autocomplete=true]").autocomplete();
@@ -79,4 +123,3 @@
     $(document).ready(AutocompleteReady);
 
 })(jQuery);
-

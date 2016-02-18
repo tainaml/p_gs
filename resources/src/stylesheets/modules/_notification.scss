@@ -108,9 +108,8 @@ $color-counter-notification: #b2b2b2 !default;
         margin: 0 5px;
     }
     > .perfil {
-        padding: 0;
         border: none;
-        /*min-height: auto;*/
+        border-bottom: 1px solid #e1e1e1;
         min-height: initial;
     }
 }
@@ -129,7 +128,9 @@ $color-counter-notification: #b2b2b2 !default;
     background-color: #fcfcfc;
 }
 
+#dropdown-search .item-float-notification.active,
 #dropdown-search .item-float-notification:hover,
+#dropdown-search .item-float-notification.active > .perfil,
 #dropdown-search .item-float-notification:hover > .perfil {
     background: #f7f7f7;
 }
