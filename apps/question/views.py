@@ -132,13 +132,18 @@ class CreateQuestionView(View):
     @method_decorator(login_required)
     def post(self, request):
         form = self.form(data=request.POST, user=request.user)
+
+        _context = {
+            'form': form,
+        }
+
         if not form.process():
             messages.add_message(request, messages.WARNING, _("Question not created!"))
         else:
             messages.add_message(request, messages.SUCCESS, _("Question created successfully!"))
             return redirect(reverse('question:edit', args=[form.instance.id]))
 
-        return render(request, 'question/create.html', {'form': form})
+        return render(request, 'question/create.html', self.prepare_context(request, _context))
 
 
 class ListQuestionsView(View):
