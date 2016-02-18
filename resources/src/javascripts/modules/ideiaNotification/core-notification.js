@@ -21,6 +21,7 @@
             dataType: 'json',
             token   : null,
             target  : null,
+            csrf    : null,
             data    : {}
 
         };
@@ -28,8 +29,7 @@
         var plugin = this;
         plugin.settings = {};
 
-        var $element = $( element ),
-            element = element;
+        var $element = $( element );
 
         plugin.init = function() {
 
@@ -40,7 +40,6 @@
             setInterval( function() {
                 polling( plugin );
             } , timeout );
-
 
             $( window ).on( 'focus', function() {
                 isInactive = ( false );
@@ -53,7 +52,7 @@
             $element.on( 'click', function( event ) {
                 event.preventDefault();
 
-                let $target = $(event.currentTarget);
+                let $target = $( event.currentTarget );
                 let $badge = $target.find('.badge');
 
                 if ( $target.data( 'notifications').length > 0 ) {
@@ -68,7 +67,7 @@
 
                 setTimeout( function() {
                     clear_notifications( plugin );
-                }, 1500 );
+                }, 500 );
             });
 
         };
@@ -218,6 +217,11 @@
                         if ( data.notifications.length > 0 ) {
                             $notificationsContainer.html( data.template );
                             $element.data( 'notifications', notifications );
+
+                            $( '[data-trigger=notification-as-read]' ).each( function () {
+                                var $e = $( this );
+                                $e.IdeiaNotificationMarkAsRead( $e.data() );
+                            });
                         }
                     }
                 });
@@ -226,7 +230,6 @@
 
         var clear_notifications = function( obj ) {
 
-            var items = $(obj.settings.target).find('ul > li');
             var notifications = $element.data( 'notifications' ) || [];
 
             obj.settings.data['notifications'] = notifications;
@@ -252,12 +255,6 @@
                     }
                 });
             }
-
-            $.each( items, function( i, e ) {
-                $( e ).removeClass( 'not-visualized' );
-            });
-
-
         };
 
         plugin.init();

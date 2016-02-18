@@ -19,7 +19,7 @@
                             <h5 class="notfication-area">
                                 <i class="gsticon gsticon-users"></i> Geral
                             </h5>
-                            <button class="btn-default pull-right">Marcar todas com lidas</button>
+                            {% include "notification/partials/notification-form-mark-as-read.html" with notification_type="general" %}
                             <div class="member-notifications">
                                 <div class="j-scroll j-scroll-container">
                                     {% include "notification/partials/notifiation-include-segment.html" %}

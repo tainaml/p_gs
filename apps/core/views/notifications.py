@@ -105,7 +105,7 @@ class CoreNotificationPollingCount(CoreNotificationPollingBase):
         notifications, paginator = Business.get_notifications(
             user=request.user,
             notification_actions=notification_group,
-            read=False
+            visualized=False
         )
 
         count = notifications.count()
@@ -138,6 +138,7 @@ class CoreNotificationPollingLoad(CoreNotificationPollingBase):
         notifications, paginator = Business.get_notifications(
             user=request.user,
             notification_actions=notification_group,
+            visualized=None,
             read=None,
             items_per_page=5,
             page=1
@@ -166,10 +167,42 @@ class CoreNotificationClear(views.NotificationBaseView):
     @method_decorator(login_required)
     def post(self, request):
         notifications_ids = request.POST.getlist('notifications[]')
-
-        notifications = Business.set_notification_as_read(notifications_ids)
+        notifications = Business.set_notification_as_visualized(notifications_ids)
 
         context = {'notifications': [n.id for n in notifications]}
+        context.update(self.get_context(request))
+
+        return JsonResponse(context, status=200)
+
+
+class CoreNotificationMarkAsRead(views.NotificationBaseView):
+
+    @method_decorator(login_required)
+    def post(self, request):
+        notifications_ids = request.POST.getlist('notifications[]')
+        notifications = Business.set_notification_as_read(notifications_ids)
+
+        context = {
+            'notifications': [n.id for n in notifications],
+            'status': True if notifications else False
+        }
+        context.update(self.get_context(request))
+
+        return JsonResponse(context, status=200)
+
+
+class CoreNotificationMarkAsReadAndVisualized(views.NotificationBaseView):
+
+    @method_decorator(login_required)
+    def post(self, request):
+
+        notifications_ids = request.POST.getlist('notifications[]')
+        notifications = Business.set_notification_as_read_and_visualized(notifications_ids)
+
+        context = {
+            'notifications': [n.id for n in notifications],
+            'status': True if notifications else False
+        }
         context.update(self.get_context(request))
 
         return JsonResponse(context, status=200)

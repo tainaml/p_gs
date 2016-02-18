@@ -1,6 +1,10 @@
 {% load thumbor_tags %}
 
-<div class="post {% if not notification.read %}not-visualized{% endif %}" data-notification-item="{{ notification.id }}">
+<div class="post {% if not notification.read %}not-visualized{% endif %}" data-notification-item="{{ notification.id }}"
+     data-trigger="notification-as-read"
+     data-csrf="{{ csrf_token }}"
+     data-next-url="{% url 'profile:show' notification.author.get_username %}"
+     data-notification="{{ notification.id }}">
     <header class="post-header">
         <div class="post-info"><time style="display: block;" datetime="{{ notification.notification_date }}" itemprop="datePublished">{{ notification.notification_date|date:"d/m/Y às H:i" }}</time></div>
         <div class="post-creator">

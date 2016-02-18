@@ -1,6 +1,10 @@
 {% load thumbor_tags %}
 
-<li class="item-float-notification item-float-notification-link {% if not notification.read %}not-visualized{% endif %}">
+<li class="item-float-notification item-float-notification-link {% if not notification.read %}not-visualized{% endif %}"
+    data-trigger="notification-as-read"
+    data-csrf="{{ csrf_token }}"
+    data-next-url="{% url 'profile:show' notification.author.get_username %}"
+    data-notification="{{ notification.id }}">
     <a href="{% url 'profile:show' notification.author.get_username %}" title="{{ notification.author.get_full_name }}">
         <img src="{% thumbor_url notification.author.profile.get_profile_picture.url width=20 height=20 smart=False fit_in=False %}" width="20" height="20" alt="{{ notification.author.get_full_name }}">
         <span>{{ notification.author.get_full_name }}</span> passou a te <span>seguir</span>
