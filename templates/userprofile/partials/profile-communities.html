@@ -1,15 +1,19 @@
 {% load social_tags %}
 {% load thumbor_tags %}
+{% load var_tags %}
+
+{% set counter_content_type = "community" %}
 
 {% if items %}
-
     {% for community in items %}
        <div class="box-perfil">
            <div class="perfil">
                <img class="img-responsive" src="{% thumbor_url community.content_object.get_picture.url width=82 height=82 smart=False fit_in=False %}" alt="{{ community.content_object.title }}">
                <a class="perfil-name" title="{{ community.content_object.title }}" href="{% url 'community:show' community.content_object.slug %}">{{ community.content_object.title }}</a>
-               <span class="perfil-counter">
-                   <span class="counter-number">{% followers_count community.content_object as followers_count_value %}{{ followers_count_value }}</span> Seguidor{{ followers_count_value|pluralize:'es' }}
+               <span class="perfil-counter"
+                     data-counter="{{ community.content_object.followers }}"
+                     data-refresh-counter="follow-{{ counter_content_type }}-{{ community.content_object.id }}">
+                   <span class="counter-number">{{ community.content_object.followers }}</span> Seguidor{{ community.content_object.followers|pluralize:'es' }}
                </span>
                {% follow_action community.content_object request.path %}
            </div>
@@ -17,5 +21,4 @@
     {% endfor %}
 
     <a data-jscroll-next href="{% url 'profile:communities-list' profile.user.get_username %}?page={{ page }}&next={{ url_next|urlencode }}&criteria={{ form.cleaned_data.criteria|default:"" }}&category={{ form.cleaned_data.category.id|default:"" }}">next</a>
-
 {% endif %}

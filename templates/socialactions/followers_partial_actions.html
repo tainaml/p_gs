@@ -4,14 +4,15 @@
 
     {% if not followed %}
     <a class="btn {{ btn_class }}"
-    data-action="follow" data-action-type="button"
-    data-object="follow-{{ content }}-{{ object_to_link.id }}"
-    data-action-text="{% if content == "community" %}Entrar{% else %}Seguir{% endif %}"
-    data-action-text-alt="{% if content == "community" %}Participando{% else %}Seguindo{% endif %}"
-    data-class-name="{% if btn_class == "btn-follow" %}btn-follow btn-follow-alt{% else %}perfil-button perfil-button-alt{% endif %}"
-    data-hover="{% if content == "community" %}Sair{% else %}Não seguir{% endif %}"
-    data-trigger="login" data-token="{{ csrf_token }}"
-    href="{{ act_url }}?url_next={{ url_next|urlencode }}">
+        data-action="follow" data-action-type="button"
+        data-object="follow-{{ content }}-{{ object_to_link.id }}"
+        data-action-text="{% if content == "community" %}Entrar{% else %}Seguir{% endif %}"
+        data-action-text-alt="{% if content == "community" %}Participando{% else %}Seguindo{% endif %}"
+        data-class-name="{% if btn_class == "btn-follow" %}btn-follow btn-follow-alt{% else %}perfil-button perfil-button-alt{% endif %}"
+        data-hover="{% if content == "community" %}Sair{% else %}Não seguir{% endif %}"
+        data-follow-content-type="{{ content }}"
+        data-trigger="login" data-token="{{ csrf_token }}"
+        href="{{ act_url }}?url_next={{ url_next|urlencode }}">
         <span>
         {% if content == "community" %}
             Entrar
@@ -22,14 +23,16 @@
     </a>
     {% else %}
     <a class="btn {{ btn_class }}-alt"
-    data-action="follow" data-action-type="button"
-    data-object="follow-{{ content }}-{{ object_to_link.id }}"
-    data-action-text="{% if content == "community" %}Entrar{% else %}Seguir{% endif %}"
-    data-action-text-alt="{% if content == "community" %}Participando{% else %}Seguindo{% endif %}"
-    data-class-name="{% if btn_class == "btn-follow" %}btn-follow btn-follow-alt{% else %}perfil-button perfil-button-alt{% endif %}"
-    data-hover="{% if content == "community" %}Sair{% else %}Não seguir{% endif %}"
-    data-trigger="login" data-token="{{ csrf_token }}"
-    href="{{ act_url }}?url_next={{ url_next|urlencode }}">
+        data-action="follow" data-action-type="button"
+        data-object="follow-{{ content }}-{{ object_to_link.id }}"
+        data-action-text="{% if content == "community" %}Entrar{% else %}Seguir{% endif %}"
+        data-action-text-alt="{% if content == "community" %}Participando{% else %}Seguindo{% endif %}"
+        data-class-name="{% if btn_class == "btn-follow" %}btn-follow btn-follow-alt{% else %}perfil-button perfil-button-alt{% endif %}"
+        data-hover="{% if content == "community" %}Sair{% else %}Não seguir{% endif %}"
+        data-follow-object="{{ object_to_link.id }}"
+        data-follow-content_type="{{ content }}"
+        data-trigger="login" data-token="{{ csrf_token }}"
+        href="{{ act_url }}?url_next={{ url_next|urlencode }}">
         <span>
         {% if content == "community" %}
             Participando
@@ -39,4 +42,5 @@
         </span>
     </a>
     {% endif %}
+
 {% endif %}
