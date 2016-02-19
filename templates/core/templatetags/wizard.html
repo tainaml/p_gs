@@ -103,6 +103,10 @@
 
     $(function() {
 
+        $("[data-clean-action=\"true\"]").on("click", function(){
+            var $input_suggestions= $("form#form-filter-communities input[name=criteria]");
+            $input_suggestions.val("");
+        });
         $.fn.inputTyping = function (timeInMillis, callback){
             var $input = $(this);
             var typingTimer;

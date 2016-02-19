@@ -4,7 +4,6 @@
             <div class="modal-body">
                 <div class="modal-menssage">
                     <h4 class="message-title">Escolha categorias de sua preferência</h4>
-                    <h5>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</h5>
                 </div>
                 <div class="steps">
                     <form id="form-filter-categories" action="{% url 'profile:wizard-step-filter-categories-ajax' %}" method="post" enctype="multipart/form-data" data-ajaxform="true" data-group-class=".item-form">
@@ -87,9 +86,9 @@
                                 <hr>
                             </div>
                             <div class="col-lg-offset-4 col-lg-8 text-right">
-                                <button class="btn-default" type="button" data-toggle="modal" data-target="#modal-personal-infos">voltar</button>
+                                <button  class="btn-default" type="button" data-toggle="modal" data-target="#modal-personal-infos">voltar</button>
 {#                                <button class="btn-green" data-toggle="modal" data-target="#modal-sugestions">Avançar</button>#}
-                                <button class="btn-green" type="submit">Avançar</button>
+                                <button data-clean-action="true" class="btn-green" type="submit">Avançar</button>
                             </div>
                         </div>
                     </form>

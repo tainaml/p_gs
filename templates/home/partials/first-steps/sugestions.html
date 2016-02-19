@@ -3,7 +3,7 @@
         <div class="modal-content">
             <div class="modal-body">
                 <div class="modal-menssage">
-                    <h4 class="message-title">Escolha comunidades de sua preferência {{ taxonomies }}</h4>
+                    <h4 class="message-title">Escolha comunidades de sua preferência</h4>
                 </div>
                 <div class="steps">
                     <ul class="step-items list-inline text-center">
@@ -16,9 +16,7 @@
                         <div class="form-group">
                             <input type="text" class="form-control" data-xhr-input="true" name="criteria" placeholder="Procure comunidades" >
                         </div>
-                        <div id="filter-taxonomies-wizard">
-
-                        </div>
+                        <div id="filter-taxonomies-wizard"></div>
                     </form>
                     <form id="form-suggestions" action="{% url 'profile:wizard-step-suggestion-ajax' %}" method="post" enctype="multipart/form-data" data-ajaxform="true" data-group-class=".item-form">
                         {% csrf_token %}
@@ -34,7 +32,7 @@
                                 <hr>
                             </div>
                             <div class="col-lg-offset-4 col-lg-8 text-right">
-                                <button class="btn-default" type="button" data-toggle="modal" data-target="#modal-categories">voltar</button>
+                                <button data-clean-action="true" class="btn-default" type="button" data-toggle="modal" data-target="#modal-categories">voltar</button>
                                 <button class="btn-green" type="submit">Concluir</button>
                             </div>
                         </div>
