@@ -1,7 +1,7 @@
 {% load thumbor_tags %}
 
 <div id="{{ item.id }}" class="excerpt" >
-    <div class="custom-check"><input class="chk" type="checkbox" name="items-unfavourite" value="{{ item.id }}" data-object-type="{{ item.content_type }}" data-object-id="{{ instance.id }}"></div>
+    <div class="custom-check"><input class="chk" type="checkbox" name="items_to_remove" value="{{ item.id }}" data-object-type="{{ item.content_type }}" data-object-id="{{ instance.id }}"></div>
     <div class="excerpt-content">
         {% if instance.get_image %}
             <a class="excerpt-image" href="{% url 'article:view' instance.slug instance.id %}">
