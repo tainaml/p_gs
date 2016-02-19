@@ -193,6 +193,8 @@ class CoreProfileEditAjax(views.ProfileEditView):
 
 class CoreProfileWizardStepOneAjax(CoreProfileEditAjax):
 
+    MESSAGE_EXTRA_TAGS = 'profile-edit-first-setp'
+
     def get_context(self, request, profile_instance=None):
         profile = BusinessUserProfile.update_wizard_step(profile_instance, 1)
         return {'step': profile.wizard_step}

@@ -74,6 +74,7 @@ class ProfileEditView(ProfileBaseView):
 
     template_path = 'userprofile/profile-edit.html'
     form_profile = EditProfileForm
+    MESSAGE_EXTRA_TAGS = 'profile-edit'
 
     def return_error(self, request, context=None):
         return render(request, self.template_path, context)
@@ -115,7 +116,7 @@ class ProfileEditView(ProfileBaseView):
 
         if form.process():
             profile = form.instance
-            messages.add_message(request, messages.SUCCESS, _("Profile edited successfully!"), 'profile-edit')
+            messages.add_message(request, messages.SUCCESS, _("Profile edited successfully!"), self.MESSAGE_EXTRA_TAGS)
             context = {'status': 200}
             context.update(self.get_context(request, profile))
             return self.return_success(request, context)
