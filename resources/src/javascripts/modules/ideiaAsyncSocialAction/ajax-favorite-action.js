@@ -33,6 +33,9 @@ require('../../vendor/jquery.tinypubsub.js');
         $.get(url, function (data) {
             $('[data-object='+dataObject+']').each(function (index) {
                 changeStyleButtonCheck[$(this).data('actionType')](element.dataset.object, element.dataset.action, data.acted);
+                if (element.dataset.action == "follow") {
+                    refreshCounters(element.dataset.object, element.dataset.action, data.acted);
+                }
             });
         });
     }
@@ -69,6 +72,26 @@ require('../../vendor/jquery.tinypubsub.js');
                     selector.data('actionText'))
             }
         }
+    };
+
+    var refreshCounters = function (dataObject, action, isActed) {
+        var selector = $('[data-refresh-counter='+dataObject+']'),
+            content = '<span class="counter-number">{c}</span>',
+            counter = selector.data('counter'),
+            follows = {
+                word: 'Seguidor',
+                word_plural: 'Seguidores'
+            },
+            word;
+
+        if (isActed) {
+            counter += 1;
+        } else {
+            counter -= 1;
+        }
+
+        word = (counter == 1) ? follows.word : follows.word_plural;
+        selector.data('counter', counter).html(content.replace('{c}', counter) + ' ' + word)
     };
 
     function attachEvents (element) {

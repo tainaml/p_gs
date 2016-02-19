@@ -199,6 +199,7 @@ class CoreCommunityLoad(views.View):
 
         return self.return_success(request, context)
 
+
 class CoreCommunityFollowersSearch(FormBaseListView):
     form = CoreCommunityFollowersForm
     success_template_path = "community/partials/community-followers-list.html"
