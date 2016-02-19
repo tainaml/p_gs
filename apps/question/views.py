@@ -138,9 +138,9 @@ class CreateQuestionView(View):
         }
 
         if not form.process():
-            messages.add_message(request, messages.WARNING, _("Question not created!"))
+            messages.add_message(request, messages.WARNING, _("Question not created!"), 'question')
         else:
-            messages.add_message(request, messages.SUCCESS, _("Question created successfully!"))
+            messages.add_message(request, messages.SUCCESS, _("Question created successfully!"), 'question')
             return redirect(reverse('question:edit', args=[form.instance.id]))
 
         return render(request, 'question/create.html', self.prepare_context(request, _context))
@@ -160,9 +160,9 @@ class SaveQuestionView(View):
     def post(self, request):
         form = self.form(request.POST, user=request.user)
         if not form.process():
-            messages.add_message(request, messages.WARNING, _("Question not created!"))
+            messages.add_message(request, messages.WARNING, _("Question not created!"), 'question')
         else:
-            messages.add_message(request, messages.SUCCESS, _("Question created successfully!"))
+            messages.add_message(request, messages.SUCCESS, _("Question created successfully!"), 'question')
 
             return redirect(reverse('question:edit', args=[form.instance.id]))
 
@@ -201,11 +201,12 @@ class UpdateQuestionView(View):
                 messages.add_message(
                     request,
                     messages.SUCCESS,
-                    _("Question updated successfully!")
+                    _("Question updated successfully!"),
+                    'question-edit'
                 )
                 return redirect(reverse('question:edit', args=[question.id]))
             else:
-                messages.add_message(request, messages.ERROR, 'Erro ao carregar question')
+                messages.add_message(request, messages.ERROR, 'Erro ao carregar question', 'question-edit')
 
             return render(request, 'question/edit_question.html', {
                 'form': form,

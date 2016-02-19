@@ -4,14 +4,7 @@
 
 {{ form.non_field_errors }}
 <form action="{% url 'contact:save' %}" method="post">
-    {% if messages %}
-        <ul class="messages">
-            {% for message in messages %}
-                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-            {% endfor %}
-        </ul>
-    {% endif %}
-
+    {% include 'core/partials/messages-flash.html' with message_extra_tags="contact" %}
     {% csrf_token %}
     {% if not request.user.is_authenticated %}
     <div><input type="text" name="name" id="name" placeholder="{% trans "Name" %}" />

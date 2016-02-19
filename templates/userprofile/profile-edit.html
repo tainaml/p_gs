@@ -22,14 +22,7 @@
                     <h2>Editar Perfil</h2>
                 </div>
                 <form class="area-content form-edit" action="{% url 'profile:edit' %}" method="post" enctype="multipart/form-data">
-                    {% if messages %}
-                        <ul class="messages">
-                            {% for message in messages %}
-                                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-                            {% endfor %}
-                        </ul>
-                        <hr>
-                    {% endif %}
+                    {% include 'core/partials/messages-flash.html' with message_extra_tags="profile-edit" show_hr=True %}
                     {% csrf_token %}
                     <div class="row">
                         <div class="col-lg-3">

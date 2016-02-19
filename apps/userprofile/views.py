@@ -115,7 +115,7 @@ class ProfileEditView(ProfileBaseView):
 
         if form.process():
             profile = form.instance
-            messages.add_message(request, messages.SUCCESS, _("Profile edited successfully!"))
+            messages.add_message(request, messages.SUCCESS, _("Profile edited successfully!"), 'profile-edit')
             context = {'status': 200}
             context.update(self.get_context(request, profile))
             return self.return_success(request, context)
@@ -203,7 +203,7 @@ class OccupationAddView(ProfileBaseView):
 
         form = self.form_occupation(request.POST, request)
         if form.process():
-            messages.add_message(request, messages.SUCCESS, _("Occupation created successfully!"))
+            messages.add_message(request, messages.SUCCESS, _("Occupation created successfully!"), 'occupation')
             return redirect(reverse('profile:occupation_manage'))
 
         context = {'form': form}
@@ -267,7 +267,7 @@ class OccupationEditView(ProfileBaseView):
 
         form = self.form_occupation(request.POST, instance=occupation)
         if form.process():
-            messages.add_message(request, messages.SUCCESS, _("Occupation updated successfully!"))
+            messages.add_message(request, messages.SUCCESS, _("Occupation updated successfully!"), 'occupation-edit')
             return redirect(reverse('profile:occupation_manage'))
 
         context = {
@@ -284,11 +284,11 @@ class OccupationDeleteView(ProfileBaseView):
     template_path = ''
 
     def return_error(self, request):
-        messages.add_message(request, messages.ERROR, _("Error! Occupation was not deleted!"))
+        messages.add_message(request, messages.ERROR, _("Error! Occupation was not deleted!"), 'occupation-delete')
         return redirect(reverse('profile:occupation_manage'))
 
     def return_success(self, request):
-        messages.add_message(request, messages.SUCCESS, _("Occupation deleted successfully!"))
+        messages.add_message(request, messages.SUCCESS, _("Occupation deleted successfully!"), 'occupation-delete')
         return redirect(reverse('profile:occupation_manage'))
 
     @method_decorator(login_required)

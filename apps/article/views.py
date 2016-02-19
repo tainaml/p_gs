@@ -105,8 +105,8 @@ class ArticleDeleteAjax(ArticleDeleteView):
 
         response_context = {'status': 200}
 
-        if  hasattr(context, 'article'):
-            article =  context.get('article')
+        if hasattr(context, 'article'):
+            article = context.get('article')
             response_context.update({
                 'item_id': article.id,
                 'deleted': True if article.status == 2 else False
@@ -192,7 +192,6 @@ class ArticleEditView(ArticleBaseView):
 
         form_article = self.form_article(instance=article, author=request.user, initial=initial_data)
 
-
         _context = {
             'form_article': form_article,
             'article': article,
@@ -211,7 +210,6 @@ class ArticleEditView(ArticleBaseView):
         else:
             article = self.filter_article(request, article_id)
 
-
         # Fail if is not owner
         self.check_is_owner(request, article)
 
@@ -223,11 +221,11 @@ class ArticleEditView(ArticleBaseView):
         article_saved = form_article.process()
 
         if article_saved is not False:
-            messages.add_message(request, messages.SUCCESS, _('Success'))
+            messages.add_message(request, messages.SUCCESS, _('Success'), 'article')
             article_id = form_article.instance.id
             return redirect(reverse('article:edit', args=(article_id,)))
         else:
-            messages.add_message(request, messages.ERROR, _('Generic Error'))
+            messages.add_message(request, messages.ERROR, _('Generic Error'), 'article')
 
         _context = {'form_article': temp_form, 'article': temp_article}
         return render(request, self.template_name, self.prepare_context(request, _context))

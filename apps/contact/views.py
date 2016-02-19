@@ -42,7 +42,7 @@ class ContactSaveViews(View):
                 'template': render(request, self.template_path, context).content
             })
 
-        messages.add_message(request, messages.SUCCESS, context.get('message'))
+        messages.add_message(request, messages.SUCCESS, context.get('message'), 'contact')
         return render(request, self.template_path, context)
 
     def return_success(self, request, context=None):
@@ -51,7 +51,7 @@ class ContactSaveViews(View):
                 'template': render(request, self.template_path, context).content
             })
 
-        messages.add_message(request, messages.SUCCESS, context.get('message'))
+        messages.add_message(request, messages.SUCCESS, context.get('message'), 'contact')
         return redirect(reverse('contact:create'))
 
     def post(self, request):
