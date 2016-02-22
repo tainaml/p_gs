@@ -44,7 +44,6 @@ urlpatterns = [
     url(r'^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/$', core_user.CoreUserProfile.as_view(), name='show'),
     url(r'^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/list$', core_user.CoreUserProfileList.as_view(), name='list'),
     url(r'^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/search$', core_user.CoreUserSearch.as_view(), name='search'),
-    # url(r'^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/$', views.ProfileShowView.as_view(), name='show'),
 
     url(r'^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/followings/$', views.ProfileFollowingsView.as_view(), name='followings'),
     url(r'^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/followings/search/$', core_user.CoreProfileFollowingsSearch.as_view(), name='followings-search'),
@@ -55,7 +54,6 @@ urlpatterns = [
     url(r'^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/followers/search/$', core_user.CoreProfileFollowersSearch.as_view(), name='followers-search'),
     url(r'^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/followers/search/list/$', core_user.CoreProfileFollowersSearchList.as_view(), name='followers-search-list'),
 
-    # url(r'^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/communities/$', views.ProfileCommunitiesView.as_view(), name='communities'),
     url(r'^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/communities/$', core_user.CoreProfileCommunitiesSearchView.as_view(), name='communities'),
     url(r'^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/communities/list/$', core_user.CoreProfileCommunitiesSearchListView.as_view(), name='communities-list'),
     url(r'^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/communities/load/ajax/$', core_user.CoreProfileCommunitiesLoadAjax.as_view(), name='communities-load-ajax'),

@@ -35,19 +35,24 @@ def create_comment(user=None, parameters=None):
 
 def edit_comment(comment=None, parameters=None):
     comment.content = parameters['content']
-
     comment.save()
 
     return comment
 
 
 def delete_comment(comment=None):
-    content_type = ContentType.objects.get_for_model(comment)
-    children_comments = Comment.objects.filter(content_type=content_type, object_id=comment.id)
-    for child_comment in children_comments:
-        if comment:
-            delete_comment(child_comment)
-    comment.delete()
+    try:
+        content_type = ContentType.objects.get_for_model(comment)
+        children_comments = Comment.objects.filter(content_type=content_type, object_id=comment.id)
+        for child_comment in children_comments:
+            if comment:
+                delete_comment(child_comment)
+        comment.delete()
+    except Exception, e:
+        if settings.DEBUG:
+            print e
+        return False
+    return True
 
 
 def retrieve_comment(id):
@@ -71,6 +76,7 @@ def get_comments_by_content_type_and_id(content_type=None, object_id=None, items
 
     return get_comments_by_content_object(content_object, items_per_page, page)
 
+
 def get_comments_by_content_object(content_object=None, items_per_page=None, page=None):
 
     comments = Comment.objects.filter(
@@ -90,7 +96,6 @@ def get_comments_by_content_object(content_object=None, items_per_page=None, pag
         paginated_comments = []
 
     return paginated_comments
-
 
 
 def count_comments_by_id_and_content_type(object_id, content_type):

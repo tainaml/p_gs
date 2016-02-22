@@ -21,13 +21,16 @@ def create_temp_article(author):
     article.save()
     return article
 
+
 def save_article(article, data):
     saved = article.save()
     return False if saved is False else article
 
+
 def delete_article(article):
     article.status = article.STATUS_TRASH
     return article.save()
+
 
 def count_articles(author):
     try:

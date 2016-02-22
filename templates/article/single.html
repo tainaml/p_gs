@@ -111,6 +111,15 @@
 </main>
 {% endblock %}
 
+
+{% block modals %}
+    {{ block.super }}
+
+    {% include "home/partials/modals/modal-confirmation.html" %}
+
+{% endblock %}
+
+
 {% block javascripts %}
     {{ block.super }}
     <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-55e70ed11db7fa4e" async></script>
@@ -123,6 +132,40 @@
     <script>hljs.initHighlightingOnLoad();</script>
 
 <script>
+
+    var functionOpenModalToDelete = function(e) {
+        e.preventDefault();
+
+        var $btn = $(e.currentTarget),
+                $modal = $($btn.data("modal"));
+
+        $modal.find("form").attr("action", $btn.data("url"));
+        $modal.find("#item-id").val($btn.data("item"));
+        $modal.find("#item-type").val($btn.data("type"));
+        $modal.find("#title-item-to-remove").html($btn.data("title"));
+        $modal.find(".loading-container").html("");
+        $modal.find(".alert-container").html("");
+        $modal.modal("show");
+    };
+
+    var functionAjaxSuccessDeleteItem = function(e, data) {
+        var $this = $(this),
+            $modal = $($this.closest(".modal.fade")),
+            itemId = $modal.find("#item-id").val(),
+            itemType = $modal.find("#item-type").val();
+
+        $modal.modal("hide");
+        $modal.find("form").attr("action", "");
+        $modal.find("#item-id").val("");
+        $modal.find("#item-type").val("");
+        $modal.find("#title-item-to-remove").html("");
+        $modal.find(".loading-container").html("");
+        $modal.find(".alert-container").html("");
+
+        $("#" + itemType + "-" + itemId).fadeOut("slow", function(){
+            $(this).remove();
+        });
+    };
 
     var form_submit = function(event, data){
         var $form = $(this);
@@ -216,6 +259,9 @@
         xhr_contents.renderList();
 
         $("form[data-ajaxform=\"true\"]").on("ajaxform.success", form_submit);
+
+        $("#confirmation-form").on("ajaxform.success", functionAjaxSuccessDeleteItem);
+        $(document).on("click", "[data-delete-item=true]", functionOpenModalToDelete);
 
     });
 </script>
