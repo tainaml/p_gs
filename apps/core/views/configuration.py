@@ -29,7 +29,6 @@ class CoreSettingsAccountView(CoreSettingsBaseView):
         return self.return_success(request, context)
 
 
-
 class CoreSettingsNotificationView(CoreSettingsBaseView):
 
     template_path = "configuration/configuration-notification.html"
@@ -40,15 +39,15 @@ class CoreSettingsNotificationView(CoreSettingsBaseView):
     @method_decorator(login_required)
     def get(self, request):
 
+        configurations = BusinessConfig.get_system_configs('notification')
         configs_obj = BusinessConfig.get_configs(request.user, 'notification')
-
         configs = {}
-
         for config in configs_obj:
             configs[config.key.key] = config.value
 
         context = {
             'profile': request.user.profile,
+            'configurations': configurations,
             'configs': configs,
             'configs_obj': configs_obj
         }
@@ -62,7 +61,6 @@ class CoreSettingsNotificationView(CoreSettingsBaseView):
         form.set_entity(request.user)
 
         if form.process():
-
             context = {
                 "title": _("Configuration Notification"),
                 "message": _("Your settings have been successfully changed!")
@@ -72,4 +70,4 @@ class CoreSettingsNotificationView(CoreSettingsBaseView):
                 'template': render(request, self.template_message_successfully, context).content
             }, status=200)
 
-        return JsonResponse({}, status=400)
+        return JsonResponse({'errors': form.errors}, status=400)

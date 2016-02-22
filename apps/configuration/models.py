@@ -16,17 +16,19 @@ class ConfigKey(models.Model):
     key = models.SlugField(null=False, blank=False, unique=True)
     description = models.TextField(null=False, blank=False)
     group = models.ForeignKey(ConfigGroup, null=False, related_name='config_keys', verbose_name=_('Configs Keys'))
+    show = models.BooleanField(null=False, blank=False, default=False)
+    order = models.IntegerField(null=True, default=None)
 
     def __unicode__(self):
-        return self.description
+        return "%s (%s)" % self.description, self.key
 
 
 class ConfigValues(models.Model):
-    key = models.ForeignKey('ConfigKey', null=False, blank=False)
+    key = models.ForeignKey('ConfigKey', null=False, blank=False, related_name='config_values', verbose_name=_('Config Values'))
     value = models.TextField(null=False, blank=False)
     object_id = models.PositiveIntegerField(null=False, blank=False)
     content_type = models.ForeignKey(ContentType)
     content_object = GenericForeignKey('content_type', 'object_id')
 
     def __unicode__(self):
-        return self.value
+        return "%s: %s" % self.key.key, self.value

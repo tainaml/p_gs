@@ -6,15 +6,34 @@ from apps.configuration.models import ConfigKey, ConfigValues, ConfigGroup
 from rede_gsti import settings
 
 
-def get_configs(entity, config_group=None):
+def get_system_configs(config_group=None, show=True):
+    if not show:
+        show = True
 
+    try:
+        criteria = Q(show=show)
+
+        if config_group:
+            group = ConfigGroup.objects.get(group=config_group)
+            criteria &= Q(group=group)
+
+        config_keys = ConfigKey.objects.filter(criteria).order_by('order')
+    except Exception, e:
+        if settings.DEBUG:
+            print e.message
+        config_keys = []
+
+    return config_keys
+
+
+def get_configs(entity, config_group=None):
     content_type = ContentType.objects.get_for_model(entity)
 
     try:
         criteria = Q(content_type=content_type) & Q(object_id=entity.id)
 
         if config_group:
-            group=ConfigGroup.objects.get(group=config_group)
+            group = ConfigGroup.objects.get(group=config_group)
             key = ConfigKey.objects.filter(group=group)
 
             criteria &= Q(key=key)
@@ -22,6 +41,8 @@ def get_configs(entity, config_group=None):
         configs = ConfigValues.objects.filter(criteria)
 
     except Exception, e:
+        if settings.DEBUG:
+            print e.message
         configs = None
 
     return configs
@@ -53,6 +74,8 @@ def save_configs(entity, data):
                 configs_updated.append(config)
 
     except Exception, e:
+        if settings.DEBUG:
+            print e.message
         return False
 
     return configs_created, configs_updated
@@ -82,7 +105,9 @@ def check_config_to_notify(to_user, action, target_object=None):
                 key=key_slug
             ))
         )
-    except:
+    except Exception, e:
+        if settings.DEBUG:
+            print e.message
         return False
 
     if config.value == "True":

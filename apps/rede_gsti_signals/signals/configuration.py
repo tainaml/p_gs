@@ -6,7 +6,7 @@ from apps.userprofile.models import UserProfile
 
 
 @receiver(post_save, sender=UserProfile)
-def create_default_settings(sender,**kwargs):
+def create_default_settings(sender, **kwargs):
 
     instance = kwargs.get('instance')
     created = kwargs.get('created')
@@ -18,6 +18,8 @@ def create_default_settings(sender,**kwargs):
         'notify_follow': True,
         'notify_comment_article': True,
         'notify_comment_question': True,
+        'notify_comment_comment': True,
+        'notify_comment_answer': True,
         'notify_publications': 'all'
     })
     form.set_entity(instance.user)

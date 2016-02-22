@@ -27,6 +27,17 @@
                             <h4><i class="gsticon gsticon-bell"></i> Notificações</h4>
                             <form id="form-config-notifications" action="{% url 'configuration:notification' %}" method="post" data-ajaxform="true">
                                 {% csrf_token %}
+                                {% for configuration in configurations %}
+                                    <div class="form-group">
+                                        <span class="custom-check pull-left" style="margin-right: 10px; padding-bottom: 4px;">
+                                            <input type="checkbox" id="{{ configuration.key }}" name="{{ configuration.key }}" value="true" {% if configs and configs.notify_follow == "True" %}checked="checked"{% endif %}>
+                                        </span>
+                                        <label class="form-control" for="{{ configuration.key }}">
+                                            {{ configuration.description }}
+                                        </label>
+                                    </div>
+                                {% endfor %}
+                                {% comment %}
                                 <div class="form-group">
                                     <span class="custom-check pull-left" style="margin-right: 10px; padding-bottom: 4px;">
                                         <input type="checkbox" id="notify_follow" name="notify_follow" value="true" {% if configs and configs.notify_follow == "True" %}checked="checked"{% endif %}>
@@ -51,6 +62,7 @@
                                         Notificar quando alguém comentar uma publicação sua
                                     </label>
                                 </div>
+                                {% endcomment %}
                                 <hr>
                                 <div class="form-group">
                                     <span class="custom-radio pull-left" style="margin-right: 10px; padding: 5px 10px 4px;">

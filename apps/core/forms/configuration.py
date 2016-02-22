@@ -12,12 +12,13 @@ class ConfigNotificationsForm(IdeiaForm):
     notify_follow = forms.BooleanField(required=False, initial=True)
     notify_comment_article = forms.BooleanField(required=False, initial=True)
     notify_comment_question = forms.BooleanField(required=False, initial=True)
+    notify_comment_comment = forms.BooleanField(required=False, initial=True)
+    notify_comment_answer = forms.BooleanField(required=False, initial=True)
 
     notify_publications = forms.ChoiceField(required=True, choices=NOTIFY_PUBLICATIONS_CHOICES)
 
     def __init__(self, *args, **kwargs):
         self.entity = None
-
         super(ConfigNotificationsForm, self).__init__(*args, **kwargs)
 
     def is_valid(self):
