@@ -5,8 +5,10 @@ from django.utils import timezone
 from django.utils.translation import ugettext as _
 
 from apps.custom_base.service.custom import forms, IdeiaModelForm
-import business as Business
 from rede_gsti import settings
+
+import business as Business
+import re
 
 
 class ArticleForm(IdeiaModelForm):
@@ -38,6 +40,12 @@ class ArticleForm(IdeiaModelForm):
 
         if author:
             self.set_author(author)
+
+    def clean_text(self):
+        regex = re.compile(r'<p>&nbsp;</p>')
+        _text = regex.sub('', self.cleaned_data.get('text'))
+
+        return _text
 
     def clean_publishin(self):
         _date = self.cleaned_data.get('publishin')
