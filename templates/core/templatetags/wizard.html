@@ -136,9 +136,15 @@
         $("#form-suggestions").on("ajaxform.success", functionAjaxSuccessStepThree);
 
         {% if request.user and request.user.profile and request.user.profile.wizard_step < 1 %}
-            $("#modal-personal-infos").modal("show");
+            $("#modal-personal-infos").modal({
+                backdrop: 'static',
+                show: true
+            });
         {% elif request.user and request.user.profile and request.user.profile.wizard_step < 3 %}
-            $("#modal-categories").modal("show");
+            $("#modal-categories").modal({
+                backdrop: 'static',
+                show: true
+            });
         {% endif %}
     });
 </script>
