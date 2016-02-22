@@ -34,12 +34,12 @@ class CommentListBaseView(View):
 class CommentList(CommentListBaseView):
     xhr = True
     template_list_path = 'comment/list-comment.html'
+    itens_by_page = 4
 
     def get(self, request=None):
 
         form = self.form(self.itens_by_page, request.GET)
         instance_list = form.process()
-
 
         if not form.is_valid():
             print form.errors
@@ -51,14 +51,13 @@ class CommentList(CommentListBaseView):
             'page': form.cleaned_data['page'] + 1}
         )
 
-
-
         return super(CommentList, self).do_process(request)
 
 
 class CommentAnswerList(CommentList):
     xhr = True
     template_list_path = 'comment/list-answer.html'
+    itens_by_page = 4
 
 
 class CommentSaveView(InstanceSaveFormBaseView):
