@@ -23,7 +23,7 @@ class CoreUserSearchForm(IdeiaForm):
     def __init__(self, profile_instance=None, content_types=None,
         itens_by_page=None, user=None, *args, **kwargs):
 
-        self.profile_instance=profile_instance
+        self.profile_instance = profile_instance
         self.content_types = content_types
         self.itens_by_page = itens_by_page
         self.user = user
@@ -119,14 +119,12 @@ class CoreSearchFollowings(IdeiaForm):
         self.items_per_page = items_per_page
         super(CoreSearchFollowings, self).__init__(*args, **kwargs)
 
-
     def clean(self):
 
         cleaned_data = super(CoreSearchFollowings, self).clean()
         cleaned_data['page'] = cleaned_data['page'] if 'page' in cleaned_data and cleaned_data['page'] else 1
 
         return cleaned_data
-
 
     def __process__(self):
         return Business.get_followings(
@@ -147,14 +145,12 @@ class CoreSearchFollowers(IdeiaForm):
         self.items_per_page = items_per_page
         super(CoreSearchFollowers, self).__init__(*args, **kwargs)
 
-
     def clean(self):
 
         cleaned_data = super(CoreSearchFollowers, self).clean()
         cleaned_data['page'] = cleaned_data['page'] if 'page' in cleaned_data and cleaned_data['page'] else 1
 
         return cleaned_data
-
 
     def __process__(self):
         return Business.get_followers(
@@ -240,7 +236,6 @@ class CoreSearchCommunitiesForm(IdeiaForm):
 
         super(CoreSearchCommunitiesForm, self).__init__(*args, **kwargs)
 
-
     def clean(self):
         cleaned_data = super(CoreSearchCommunitiesForm, self).clean()
 
@@ -248,7 +243,6 @@ class CoreSearchCommunitiesForm(IdeiaForm):
             if 'page' in cleaned_data and cleaned_data['page'] else 1
 
         return cleaned_data
-
 
     def __process__(self):
         return BusinessSocialActions.get_users_acted_by_author_with_parameters(
@@ -274,7 +268,6 @@ class CoreSearchFavouriteForm(IdeiaForm):
 
         super(CoreSearchFavouriteForm, self).__init__(*args, **kwargs)
 
-
     def clean(self):
         cleaned_data = super(CoreSearchFavouriteForm, self).clean()
 
@@ -282,7 +275,6 @@ class CoreSearchFavouriteForm(IdeiaForm):
             if 'page' in cleaned_data and cleaned_data['page'] else 1
 
         return cleaned_data
-
 
     def __process__(self):
         return CoreBusinessSocialActions.get_favourite_content(
