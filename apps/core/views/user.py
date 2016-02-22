@@ -118,13 +118,13 @@ class CoreUserSearch(CoreUserView):
 
     def get_context(self, request, profile_instance=None):
 
-        itens_by_page = 5
-        content_type = ContentType.objects.filter(model='article')
+        items_per_page = 5
+        content_type = ContentType.objects.get(model='article')
 
         form = self.form(
             profile_instance,
-            content_type.first().id,
-            itens_by_page,
+            content_type.id,
+            items_per_page,
             profile_instance.user,
             request.GET
         )
@@ -136,6 +136,15 @@ class CoreUserSearch(CoreUserView):
             'form': form,
             'page': form.cleaned_data.get('page', 0) + 1
         }
+
+    def get(self, request, username=None):
+
+        profile = self.filter(request, username)
+
+        context = {'profile': profile}
+        context.update(self.get_context(request, profile))
+
+        return render(request, self.template_path, context)
 
 
 class CoreUserFeed(CoreUserView):
