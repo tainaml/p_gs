@@ -138,7 +138,6 @@ class CoreUserSearch(CoreUserView):
         }
 
     def get(self, request, username=None):
-
         profile = self.filter(request, username)
 
         context = {'profile': profile}

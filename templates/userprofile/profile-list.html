@@ -22,7 +22,6 @@
                         <header class="area-title">
                             <h2>Publicações de {{ profile.user.first_name }}</h2>
                         </header>
-                        {% if request.user.is_authenticated %}
                             <!-- A "barra" de pesquisa não é exibida no feed, somente no -->
                             <nav class="form-search">
                                 <form action="{% url 'profile:search' user.username %}" method="GET" role="search">
@@ -34,7 +33,6 @@
                                     </button>
                                 </form>
                             </nav>
-                        {% endif %}
                         <section class="area-content">
                             {% if feed_objects.object_list %}
                             <div class="j-scroll j-scroll-container">
