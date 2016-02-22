@@ -13,7 +13,6 @@ class FormBaseView(View):
     process_return = None
     form = None
 
-
     @property
     def success_template_path(self):
         raise NotImplementedError("you must specify the success_template_path")
@@ -40,7 +39,6 @@ class FormBaseView(View):
         else:
             response_data['errors'] = self.form.errors
 
-
         return JsonResponse(response_data,
                             status=200 if is_valid else 400, *args,
                             **kwargs)
@@ -56,8 +54,6 @@ class FormBaseView(View):
     def fill_form_kwargs(self, request=None, *args, **kwargs):
         return {'data': request.GET}
 
-
-
     def do_process(self, request=None, *args, **kwargs):
         if not self.form:
             raise NotImplementedError("you must specify the class form. Ex: form = FooForm")
@@ -67,7 +63,6 @@ class FormBaseView(View):
         self.process_return = self.form.process()
         self.after_process(request, *args, **kwargs)
         self.context.update({'form': self.form})
-
 
         if request.is_ajax:
             return self.__response_json__(request, *args, **kwargs)
@@ -95,7 +90,6 @@ class FormBaseListView(FormBaseView):
 
         return self.__response_render__(request, *args, **kwargs)
 
-
     def get(self, request=None, *args, **kwargs):
         if not self.form:
             raise NotImplementedError("You must specify the form")
@@ -103,6 +97,7 @@ class FormBaseListView(FormBaseView):
             return self.do_process(request, *args, **kwargs)
         else:
             return super(FormBaseListView, self).do_process(request, *args, **kwargs)
+
 
 class InstanceSaveFormBaseView(FormBaseView):
     form = None
@@ -141,6 +136,5 @@ class InstanceUpdateFormBaseView(InstanceSaveFormBaseView):
             raise Http404()
         if not self.form:
             raise NotImplementedError("You must specify the form")
-
 
         return super(InstanceUpdateFormBaseView, self).do_process(request)

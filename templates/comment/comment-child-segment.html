@@ -1,32 +1,46 @@
 {% load social_tags %}
 {% load thumbor_tags %}
-<header class="post-header">
-    <div class="post-info" >
-        <time datetime="{{instance.creation_date}}" itemprop="datePublished">{{ instance.creation_date|date:'d/m/Y' }} às {{ instance.creation_date|date:'G:i' }}</time>
-        <a href="javascript:;" data-toggle="dropdown" data-selector="#setting-comment-{{ instance.id }}"><i class="gsticon gsticon-gear"></i></a>
-        <div class="dropdown-menu" id="setting-comment-{{ instance.id }}">
-            <ul class="perfil-actions">
-                {% if instance.author == request.user %}
-                    <li data-toggle="dropdown" data-target="#comment-edit-{{ instance.id }}"><a href="javascript:;"><i class="gsticon gsticon-edit"></i> Editar publicação</a></li>
-                {% else %}
-                    <li><a href="{% url 'complaint:report' 'comment' instance.id %}" data-report="true" data-async-module="click" data-async-target="#modal-report" data-async-method="get"><i class="gsticon gsticon-exclamation-triangle"></i> Denunciar</a></li>
-                {% endif %}
-            </ul>
-        </div>
-    </div>
-    <a class="post-creator" href="{% url 'profile:show' instance.author.username %}" title="{{instance.author.get_full_name}}">
-        <img src="{% thumbor_url instance.author.profile.get_profile_picture.url width=20 height=20 smart=False fit_in=False %}" alt="foto de {{ instance.author.get_full_name }}">
-        {{instance.author.get_full_name}}
-    </a>
-</header>
-<div class="comment-text">
-    <p>{{ instance.content }}</p>
-</div>
- {% if instance.author == request.user %}
-     {% with comment_id=instance.id|stringformat:"s" %}
 
-        <div data-list id="comment-edit-{{ instance.id }}" class="dropdown-content">
-            {% include 'comment/edit-answer.html' with content_object=instance to_update="comment-"|add:comment_id content_type='comment'  %}
+<div id="comment-{{ instance.id }}">
+    <header class="post-header">
+        <div class="post-info" >
+            <time datetime="{{instance.creation_date}}" itemprop="datePublished">{{ instance.creation_date|date:'d/m/Y' }} às {{ instance.creation_date|date:'G:i' }}</time>
+            <a href="javascript:;" data-toggle="dropdown" data-selector="#setting-comment-{{ instance.id }}"><i class="gsticon gsticon-gear"></i></a>
+            <div class="dropdown-menu" id="setting-comment-{{ instance.id }}">
+                <ul class="perfil-actions">
+                    {% if instance.author == request.user %}
+                        <li data-toggle="dropdown" data-target="#comment-edit-{{ instance.id }}"><a href="javascript:;"><i class="gsticon gsticon-edit"></i> Editar publicação</a></li>
+                        <li>
+                            <a href="javascript:;"
+                               data-delete-item="true"
+                               data-modal="#modal-confirmation"
+                               data-url="{% url 'comment:delete' %}"
+                               data-item="{{ instance.id }}"
+                               data-type="{{ instance.get_content_type }}"
+                               data-title="de {{ instance.author.first_name }} ({{ instance.content|safe|striptags|escape|slice:":50"}}...)">
+                                <i class="gsticon gsticon-trash"></i> Remover comentário
+                            </a>
+                        </li>
+                    {% else %}
+                        <li><a href="{% url 'complaint:report' 'comment' instance.id %}" data-report="true" data-async-module="click" data-async-target="#modal-report" data-async-method="get"><i class="gsticon gsticon-exclamation-triangle"></i> Denunciar</a></li>
+                    {% endif %}
+                </ul>
+            </div>
         </div>
-     {% endwith %}
-{% endif %}
+        <a class="post-creator" href="{% url 'profile:show' instance.author.username %}" title="{{instance.author.get_full_name}}">
+            <img src="{% thumbor_url instance.author.profile.get_profile_picture.url width=20 height=20 smart=False fit_in=False %}" alt="foto de {{ instance.author.get_full_name }}">
+            {{instance.author.get_full_name}}
+        </a>
+    </header>
+    <div class="comment-text">
+        <p>{{ instance.content }}</p>
+    </div>
+     {% if instance.author == request.user %}
+         {% with comment_id=instance.id|stringformat:"s" %}
+
+            <div data-list id="comment-edit-{{ instance.id }}" class="dropdown-content">
+                {% include 'comment/edit-answer.html' with content_object=instance to_update="comment-"|add:comment_id content_type='comment'  %}
+            </div>
+         {% endwith %}
+    {% endif %}
+</div>

@@ -111,6 +111,7 @@
 
             $modal.find("form").attr("action", $btn.data("url"));
             $modal.find("#item-id").val($btn.data("item"));
+            $modal.find("#item-type").val($btn.data("type"));
             $modal.find("#title-item-to-remove").html($btn.data("title"));
             $modal.find(".loading-container").html("");
             $modal.find(".alert-container").html("");
@@ -120,16 +121,18 @@
         var functionAjaxSuccessDeleteItem = function(e, data) {
             var $this = $(this),
                 $modal = $($this.closest(".modal.fade")),
-                itemId = $modal.find("#item-id").val();
+                itemId = $modal.find("#item-id").val(),
+                itemType = $modal.find("#item-type").val();
 
             $modal.modal("hide");
             $modal.find("form").attr("action", "");
             $modal.find("#item-id").val("");
+            $modal.find("#item-type").val("");
             $modal.find("#title-item-to-remove").html("");
             $modal.find(".loading-container").html("");
             $modal.find(".alert-container").html("");
 
-            $("#answer-" + itemId).fadeOut("slow", function(){
+            $("#" + itemType + "-" + itemId).fadeOut("slow", function(){
                 $(this).remove();
             });
         };

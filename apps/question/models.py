@@ -1,4 +1,5 @@
 from django.contrib.contenttypes.fields import GenericRelation
+from django.contrib.contenttypes.models import ContentType
 from django.db import models
 from django.contrib.auth.models import User
 from ckeditor.fields import RichTextField
@@ -16,6 +17,11 @@ class Answer(models.Model):
 
     def __unicode__(self):
         return self.description[:100] + "..."
+
+    @property
+    def get_content_type(self):
+        content = ContentType.objects.get_for_model(self)
+        return content.model
 
 
 class Question(models.Model):
