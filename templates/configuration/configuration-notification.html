@@ -1,5 +1,7 @@
 {%extends 'home/layout/base.html' %}
 
+{% load list_filter %}
+
 {% block title %}Portal GSTI - Perfil{% endblock %}
 
 {% block content %}
@@ -30,7 +32,7 @@
                                 {% for configuration in configurations %}
                                     <div class="form-group">
                                         <span class="custom-check pull-left" style="margin-right: 10px; padding-bottom: 4px;">
-                                            <input type="checkbox" id="{{ configuration.key }}" name="{{ configuration.key }}" value="true" {% if configs and configs.notify_follow == "True" %}checked="checked"{% endif %}>
+                                            <input type="checkbox" id="{{ configuration.key }}" name="{{ configuration.key }}" value="true" {% if configs and configs|get_at_index:configuration.key == "True" %}checked="checked"{% endif %}>
                                         </span>
                                         <label class="form-control" for="{{ configuration.key }}">
                                             {{ configuration.description }}

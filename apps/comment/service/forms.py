@@ -16,7 +16,6 @@ class CreateCommentForm(IdeiaForm):
         self.user = user
         super(CreateCommentForm, self).__init__(*args, **kwargs)
 
-
     def __process__(self):
         return Business.create_comment(self.user, self.cleaned_data)
 

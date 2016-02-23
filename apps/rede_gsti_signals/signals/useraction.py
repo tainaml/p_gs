@@ -6,7 +6,6 @@ from django.core.cache import cache
 from apps.community.models import Community
 from apps.socialactions.models import UserAction, Counter, UserActionCounter
 from apps.article.models import Article
-from apps.comment.models import Comment
 from apps.core.business import embeditem, configuration
 from apps.notifications.service import business as Business
 
@@ -22,33 +21,30 @@ def counter_post_delete(sender, **kwargs):
 
 
 def count_user_actions(sender, **kwargs):
-
     action = kwargs['instance']
     if action:
         count = UserAction.objects.filter(object_id=action.object_id,
-                content_type=action.content_type,
-                action_type = action.action_type,
-                target_user=action.target_user).count()
+                                          content_type=action.content_type,
+                                          action_type=action.action_type,
+                                          target_user=action.target_user).count()
 
-        count_user = UserAction.objects.filter(action_type = action.action_type,
-                author=action.author).count()
+        count_user = UserAction.objects.filter(action_type=action.action_type,
+                                               author=action.author).count()
         try:
             counter_instance = Counter.objects.get(object_id=action.object_id,
-                    content_type=action.content_type,
-                    action_type = action.action_type,
-                    target_user=action.target_user)
-
+                                                   content_type=action.content_type,
+                                                   action_type=action.action_type,
+                                                   target_user=action.target_user)
 
         except Counter.DoesNotExist:
-            counter_instance= Counter(object_id=action.object_id,
-                    content_type=action.content_type,
-                    action_type = action.action_type,
-                    target_user=action.target_user
-                                      )
+            counter_instance = Counter(object_id=action.object_id,
+                                       content_type=action.content_type,
+                                       action_type=action.action_type,
+                                       target_user=action.target_user)
 
         try:
-            counter_user_instance =  UserActionCounter.objects.get(action_type = action.action_type,
-                author=action.author)
+            counter_user_instance = UserActionCounter.objects.get(action_type=action.action_type,
+                                                                  author=action.author)
         except UserActionCounter.DoesNotExist:
 
             counter_user_instance = UserActionCounter(author=action.author, action_type=action.action_type)
@@ -58,6 +54,7 @@ def count_user_actions(sender, **kwargs):
 
         counter_user_instance.count = count_user
         counter_user_instance.save()
+
 
 @receiver(post_save, sender=Community)
 def refresh_footer(sender, **kwargs):
@@ -98,26 +95,6 @@ def social_action(sender, **kwargs):
                     to=to,
                     notification_action=action.action_type,
                     target_object=action.content_object
-                )
-
-
-@receiver(post_save, sender=Comment)
-def comment_action(sender, **kwargs):
-    comment = kwargs['instance']
-
-    if comment:
-        if comment.content_type.model in [
-            'article',
-            'comment'
-        ]:
-            to = comment.content_object.author
-            author = comment.author
-            if to != author:
-                Business.send_notification(
-                    author=author,
-                    to=to,
-                    notification_action=settings.SOCIAL_COMMENT,
-                    target_object=comment.content_object
                 )
 
 

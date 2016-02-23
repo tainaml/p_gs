@@ -18,9 +18,10 @@ def refresh_footer(sender, **kwargs):
 
 @receiver(post_save, sender=Comment)
 def comment_action(sender, **kwargs):
-    comment = kwargs['instance']
+    comment = kwargs.get('instance')
+    created = kwargs.get('created')
 
-    if comment:
+    if comment and created:
         if comment.content_type.model in [
             'article',
             'answer',
