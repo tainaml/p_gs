@@ -200,7 +200,7 @@ TOOLBAR_CUSTOM = [
     ['CodeSnippet'],
     ['Embed'],
     ['Maximize', 'ShowBlocks'],
-    ['Source']
+    # ['Source']
 ]
 
 # CKEDITOR
