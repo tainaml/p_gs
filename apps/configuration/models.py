@@ -21,7 +21,7 @@ class ConfigKey(models.Model):
     order = models.IntegerField(null=True, default=None)
 
     def __unicode__(self):
-        return "%s (%s)" % self.description, self.key
+        return "%s (%s)" % (self.description, self.key)
 
 
 class ConfigValues(models.Model):
@@ -32,4 +32,4 @@ class ConfigValues(models.Model):
     content_object = GenericForeignKey('content_type', 'object_id')
 
     def __unicode__(self):
-        return "%s: %s" % self.key.key, self.value
+        return "%s - %s: %s" % (self.content_object, self.key.key, self.value)
