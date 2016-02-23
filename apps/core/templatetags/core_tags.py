@@ -136,5 +136,5 @@ def footer(context):
         cache.set("categories", categories_cached, None)
     return {
         'categories': categories_cached,
-        'request': context['request']
+        'request': context.get('request')
     }

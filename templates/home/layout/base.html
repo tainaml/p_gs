@@ -83,7 +83,7 @@
         {% endblock %}
 
         {# Wizard #}
-        {% wizard %}
+        {% if request and request.user %}{% wizard %}{% endif %}
 
 
         <script src="{% static 'javascripts/shared.js'%}"></script>

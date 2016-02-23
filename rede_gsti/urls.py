@@ -20,6 +20,11 @@ from django.conf import settings
 
 from apps.ninico.views import index as PROJECT_ROOT
 
+handler400 = "apps.core.views.errors.handler400"
+handler403 = "apps.core.views.errors.handler403"
+handler404 = "apps.core.views.errors.handler404"
+handler500 = "apps.core.views.errors.handler500"
+
 url_statics = static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 url_media = static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

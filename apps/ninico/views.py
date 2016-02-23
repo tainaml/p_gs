@@ -93,7 +93,7 @@ def edit_publications(request):
     return render(request, 'home/editar-publicacoes.html')
 
 def handler404(request):
-    return render(request, 'home/404.html')
+    return render(request, 'home/../../templates/404.html')
 
 def email_recovery(request):
     return render(request, 'mailmanager/password-recovery.html')
