@@ -133,12 +133,12 @@
 
 <script>
 
-    function updateEditors(){
-        for ( instance in CKEDITOR.instances ){
-            var ckeditorInstance = CKEDITOR.instances[instance];
-            ckeditorInstance.updateElement();
-        }
-    }
+{#    function updateEditors(){#}
+{#        for ( instance in CKEDITOR.instances ){#}
+{#            var ckeditorInstance = CKEDITOR.instances[instance];#}
+{#            ckeditorInstance.updateElement();#}
+{#        }#}
+{#    }#}
 
     var functionOpenModalToDelete = function(e) {
         e.preventDefault();
@@ -240,7 +240,7 @@
                             $jscroll_subforms.IdeiaAjaxForm();
                             $jscroll_subforms.on("ajaxform.success", form_submit);
                             $jscroll_subforms.on("ajaxform.validation", function(event, addError){
-                                updateEditors();
+{#                                updateEditors();#}
 
                             });
 
@@ -276,19 +276,20 @@
     };
 
     $(function(){
-        updateEditors();
+{#        updateEditors();#}
         var xhr_contents = $("div[data-xhr]");
         xhr_contents.renderList();
         var $comment_form = $("form[data-ajaxform=\"true\"]");
         $comment_form.on("ajaxform.success", form_submit);
-        $comment_form.on("ajaxform.validation", function(event, addError){
-            updateEditors();
+        $comment_form.on("ajaxform.validation", function(event, addError) {
+{#            updateEditors();#}
 
-        $("form[data-ajaxform=\"true\"]").on("ajaxform.success", form_submit);
+            $("form[data-ajaxform=\"true\"]").on("ajaxform.success", form_submit);
 
+
+        });
         $("#confirmation-form").on("ajaxform.success", functionAjaxSuccessDeleteItem);
         $(document).on("click", "[data-delete-item=true]", functionOpenModalToDelete);
-
     });
 </script>
 
