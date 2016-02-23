@@ -1,7 +1,3 @@
-{% load thumbor_tags %}
-{{ form.non_field_errors }}
-{% load staticfiles %}
-
 <form class="create-comment" data-group-class=".comment-group" data-ajaxform="true" data-toggle="replace"  class="create-comment" data-update="#{{ to_update }}" action="{% url 'comment:edit' %}" method="post">{% csrf_token %}
     <div class="comment-group create-comment-body{% if form.content.errors %} has-error{% endif %}">
          <textarea name="content" class="form-control"  placeholder="Deixe seu comentário">{{ instance.content }}</textarea>
