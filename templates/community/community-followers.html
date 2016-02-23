@@ -93,7 +93,7 @@
                 loadingHtml: '<div class="load-async-preload"></div>',
                 contentSelect: '.j-scroll-followers-container',
                 nextSelector: "a[data-jscroll-next]",
-                refresh: false
+                callback: refreshAsyncLike()
 
             });
         };
@@ -138,7 +138,8 @@
 
                 loadingHtml: '<div class="col-lg-12"><div class="load-async-preload"></div></div>',
                 contentSelect: ".j-scroll-followers-container",
-                nextSelector: "a[data-jscroll-next]"
+                nextSelector: "a[data-jscroll-next]",
+                callback: refreshAsyncLike()
             });
         });
 

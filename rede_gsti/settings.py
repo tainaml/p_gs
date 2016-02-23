@@ -188,6 +188,20 @@ SOCIAL_INVERSE_ACTIONS = {
     SOCIAL_FAVOURITE: []
 }
 
+TOOLBAR_CUSTOM = [
+    ['Format'],
+    ['Bold', 'Italic', 'Underline', 'Strike', '-', 'RemoveFormat'],
+    ['JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
+    ['NumberedList', 'BulletedList', '-', 'Blockquote'],
+    ['Link', 'Unlink', 'Anchor'],
+    ['Find'],
+    ['HorizontalRule'],
+    ['Image'],
+    ['CodeSnippet'],
+    ['Embed'],
+    ['Maximize', 'ShowBlocks'],
+    # ['Source']
+]
 
 # CKEDITOR
 CKEDITOR_CONFIGS = {
@@ -196,13 +210,12 @@ CKEDITOR_CONFIGS = {
     },
     'question': {
         'toolbar': 'Custom',
-        'toolbar_Custom': [
-            ['Bold', 'Italic'],
-            ['CodeSnippet'],
-        ],
+        'toolbar_Custom': TOOLBAR_CUSTOM,
         'entities': False,
+        'format_tags': 'h2;h3',
         'extraPlugins': ','.join([
-            'autolink', 'widget', 'dialog',
+            'autolink', 'autoembed', 'embedsemantic', 'widget',
+            'dialog', 'embed', 'uploadimage',
             'codesnippet',
         ]),
     },
@@ -232,17 +245,9 @@ CKEDITOR_CONFIGS = {
     },
     'article': {
         'toolbar': 'Custom',
-        'toolbar_Custom': [
-            ['Bold', 'Italic', 'Underline'],
-            ['NumberedList', 'BulletedList'],
-            ['Link', 'Unlink'],
-            ['Image'],
-            ['CodeSnippet'],
-            ['RemoveFormat'],
-            ['Embed'],
-            ['Source']
-        ],
+        'toolbar_Custom': TOOLBAR_CUSTOM,
         'entities': False,
+        'format_tags': 'h2;h3',
         'filebrowserBrowseUrl': None,
         'extraPlugins': ','.join([
             'autolink', 'autoembed', 'embedsemantic', 'widget',

@@ -1,14 +1,20 @@
 {% load social_tags %}
 {% load thumbor_tags %}
+{% load var_tags %}
+
+{% set counter_content_type = "user" %}
 
 {% if items %}
     {% for following in items %}
+        {% followers_count following.content_object as followers_count_value %}
         <div class="box-perfil">
             <div class="perfil">
                 <a href="{% url 'profile:show' following.content_object.username %}"><img class="img-responsive" src="{% thumbor_url following.content_object.profile.get_profile_picture.url width=82 height=82 smart=False fit_in=False %}" alt="{{ following.content_object.get_full_name }}"></a>
                 <a class="perfil-name" title="{{ following.content_object.get_full_name }}" href="{% url 'profile:show' following.content_object.username %}">{{ following.content_object.get_full_name }}</a>
-                <span class="perfil-counter">
-                    <span class="counter-number">{% followers_count following.content_object as followers_count_value %}{{ followers_count_value }}</span> Seguidor{{ followers_count_value|pluralize:'es' }}
+                <span class="perfil-counter"
+                      data-counter="{{ followers_count_value }}"
+                      data-refresh-counter="follow-{{ counter_content_type }}-{{ following.content_object.id }}">
+                    <span class="counter-number">{{ followers_count_value }}</span> Seguidor{{ followers_count_value|pluralize:'es' }}
                 </span>
                 {% follow_action following.content_object url_next %}
             </div>

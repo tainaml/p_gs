@@ -4,7 +4,6 @@ from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.utils import timezone
 
-# Create your models here.
 
 class Comment(models.Model):
 
@@ -19,4 +18,8 @@ class Comment(models.Model):
     def __unicode__(self):
         return (self.content[:100] + "...") or "no content"
 
+    @property
+    def get_content_type(self):
+        content = ContentType.objects.get_for_model(self)
+        return content.model
 

@@ -6,7 +6,9 @@ from django.utils.translation import ugettext as _
 
 from apps.question.models import Answer
 from apps.custom_base.service.custom import forms, IdeiaForm, IdeiaModelForm
+
 import business as Business
+import re
 
 
 class CreateQuestionForm(IdeiaModelForm):
@@ -31,6 +33,12 @@ class CreateQuestionForm(IdeiaModelForm):
 
     def set_author(self, user):
         self.user = user
+
+    def clean_description(self):
+        regex = re.compile(r'<p>&nbsp;</p>')
+        _description = regex.sub('', self.cleaned_data.get('description'))
+
+        return _description
 
     def clean_slug(self):
         _slug = self.cleaned_data.get('slug', '')

@@ -99,7 +99,8 @@
             $(".j-scroll").jscroll({
                 loadingHtml: '<div class="load-async-preload"></div>',
                 contentSelect: ".j-scroll-container",
-                nextSelector: "a[data-jscroll-next]"
+                nextSelector: "a[data-jscroll-next]",
+                callback: refreshAsyncLike()
             });
         });
     </script>

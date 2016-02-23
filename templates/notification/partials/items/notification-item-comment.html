@@ -3,20 +3,41 @@
 
 {% if notification.target_content_type.model == "article" %}
     {% set action_verb = "comentou" %}
+    {% set post_name = notification.target.title %}
+    {% set url_next = notification.target.get_absolute_url %}
+    {% set show_anchor = False %}
+
 {% elif notification.target_content_type.model == "question" %}
     {% set action_verb = "respondeu" %}
+    {% set post_name = notification.target.title %}
+    {% set url_next = notification.target.get_absolute_url %}
+    {% set show_anchor = False %}
+
+{% elif notification.target_content_type.model == "comment" %}
+    {% set action_verb = "comentou seu comentário" %}
+    {% set post_name = notification.target.content_object.title %}
+    {% set url_next = notification.target.content_object.get_absolute_url %}
+    {% set show_anchor = True %}
+
+{% elif notification.target_content_type.model == "answer" %}
+    {% set action_verb = "comentou sua resposta" %}
+    {% set post_name = notification.target.question.title %}
+    {% set url_next = notification.target.question.get_absolute_url %}
+    {% set show_anchor = True %}
+
 {% endif %}
+
 
 <div class="post {% if not notification.read %}not-visualized{% endif %}" data-notification-item="{{ notification.id }}"
      data-trigger="notification-as-read"
      data-csrf="{{ csrf_token }}"
-     data-next-url="{{ notification.target.get_absolute_url }}"
+     data-next-url="{{ url_next }}{% if show_anchor %}#{{ notification.target_content_type.model }}-{{ notification.target.id }}{% endif %}"
      data-notification="{{ notification.id }}">
     <header class="post-header">
         <div class="post-info"><time style="display: block;" datetime="{{ notification.notification_date }}" itemprop="datePublished">{{ notification.notification_date|date:"d/m/Y às H:i" }}</time></div>
         <div class="post-creator">
             <a href="{% url 'profile:show' notification.author.get_username %}"><img src="{% thumbor_url notification.author.profile.get_profile_picture.url width=20 height=20 smart=False fit_in=False %}" width="20" height="20" alt="{{ notification.author.get_full_name }}"></a>
-            <a href="{% url 'profile:show' notification.author.get_username %}">{{ notification.author.get_full_name }}</a> {{ action_verb }} em <a href="{{ notification.target.get_absolute_url }}">{{ notification.target.title }}</a>
+            <a href="{% url 'profile:show' notification.author.get_username %}">{{ notification.author.get_full_name }}</a> {{ action_verb }} em <a href="{{ url_next }}{% if show_anchor %}#{{ notification.target_content_type.model }}-{{ notification.target.id }}{% endif %}" title="{{ post_name }}">{{ post_name }}</a>
         </div>
     </header>
 </div>

@@ -38,15 +38,9 @@
                                     Publicações que são submetidos a comunidades que não possuem relação vão ser penalizados. Leia as regras do Portal para saber mais.
                                 </p>
                                 {% if form.non_field_erros %}<div class="col-lg-9">{{ form.non_field_errors }}</div>{% endif %}
-                                {% if messages %}
-                                    <div class="form-group">
-                                        <ul class="messages">
-                                            {% for message in messages %}
-                                                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-                                            {% endfor %}
-                                        </ul>
-                                    </div>
-                                {% endif %}
+                                <div class="form-group">
+                                    {% include 'core/partials/messages-flash.html' with message_extra_tags="question" %}
+                                </div>
                                 <div class="form-group">
                                     {% render_field form.title placeholder="Digite aqui sua pergunta" class="form-control" maxlength="256" id="title" data-toggle="counter" data-counter-type="max" data-counter-limit=form.fields.title.max_length %}
                                     {% if form.title.errors %}<span class="help-block">{{ form.title.errors }}</span>{% endif %}

@@ -1,9 +1,7 @@
 from ckeditor.widgets import CKEditorWidget
 from django.core.exceptions import ValidationError
 from django.conf import settings
-from django.core.serializers.json import DjangoJSONEncoder
-from django.utils.functional import Promise
-from django.utils.encoding import force_text
+
 from apps.custom_base.service.custom import forms, IdeiaForm
 import business as Business
 
@@ -73,6 +71,7 @@ class CreateCommentForm(IdeiaForm):
 
         return valid
 
+
 class EditCommentForm(IdeiaForm):
 
     content = forms.CharField(max_length=8192, required=True, widget=forms.Textarea(attrs={'data-config': json_encode(getattr(settings, 'CKEDITOR_CONFIGS', None)['comment'])}))
@@ -83,7 +82,6 @@ class EditCommentForm(IdeiaForm):
         self.instance = instance
 
         super(EditCommentForm, self).__init__(*args, **kargs)
-
 
     def is_valid(self):
 
@@ -105,7 +103,6 @@ class EditCommentForm(IdeiaForm):
                            ValidationError(('comment edit permission denied!'),
                                            code='is_not_authenticated'))
             valid = False
-
 
         return valid
 
@@ -149,3 +146,28 @@ class ListCommentForm(IdeiaForm):
             self.cleaned_data['page']
         )
 
+
+class CommentDeleteForm(IdeiaForm):
+
+    comment = forms.ModelChoiceField(queryset=Comment.objects.all())
+    author = None
+
+    def __init__(self, *args, **kwargs):
+        super(CommentDeleteForm, self).__init__(*args, **kwargs)
+
+    def set_author(self, author):
+        if author:
+            self.author = author
+    
+    def is_valid(self):
+        is_valid = super(CommentDeleteForm, self).is_valid()
+
+        if 'comment' in self.cleaned_data and self.cleaned_data.get('comment').author != self.author:
+            is_valid = False
+            self.add_error('__all__', ValidationError(_('You do not have permission to perform this action.'),
+                                                      code='without-permission'))
+
+        return is_valid
+
+    def __process__(self):
+        return Business.delete_comment(self.cleaned_data.get('comment'))

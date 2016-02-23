@@ -95,6 +95,8 @@ function affixBoxShare() {
     $(window).load(scrollize)
 }
 
+$(document).find('.messages .success').delay(5000).slideUp();
+
 if ($('.box-share').length && $('.full-post').length) {
     affixBoxShare();
 }

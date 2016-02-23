@@ -13,13 +13,13 @@ def answer_question(sender, **kwargs):
     created = kwargs.get('created')
 
     if answer and created:
-            to = answer.question.author
-            author = answer.author
-            if to != author:
-                if configuration.check_config_to_notify(to, settings.SOCIAL_COMMENT, answer.question):
-                    Business.send_notification(
-                        author=author,
-                        to=to,
-                        notification_action=settings.SOCIAL_COMMENT,
-                        target_object=answer.question
-                    )
+        to = answer.question.author
+        author = answer.author
+        if to != author:
+            if configuration.check_config_to_notify(to, settings.SOCIAL_COMMENT, answer.question):
+                Business.send_notification(
+                    author=author,
+                    to=to,
+                    notification_action=settings.SOCIAL_COMMENT,
+                    target_object=answer.question
+                )

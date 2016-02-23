@@ -22,19 +22,12 @@
                     <h2>Editar Perfil</h2>
                 </div>
                 <form class="area-content form-edit" action="{% url 'profile:edit' %}" method="post" enctype="multipart/form-data">
-                    {% if messages %}
-                        <ul class="messages">
-                            {% for message in messages %}
-                                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-                            {% endfor %}
-                        </ul>
-                        <hr>
-                    {% endif %}
+                    {% include 'core/partials/messages-flash.html' with message_extra_tags="profile-edit" show_hr=True %}
                     {% csrf_token %}
                     <div class="row">
                         <div class="col-lg-3">
-                            <div class="custom-file-upload set-avatar" 
-                                data-module="dropzoneUploader" 
+                            <div class="custom-file-upload set-avatar"
+                                data-module="dropzoneUploader"
                                 data-original-image="{% if profile.get_profile_picture %}{{ profile.get_profile_picture.url }}{% endif %}">
                                 <div class="custom-file-content">
                                     <i class="gsticon gsticon-cloud-upload"></i>
@@ -75,7 +68,7 @@
                             <div class="form-group-inline {% if form.birth.errors %}has-error{% endif %}">
 
                              <label for="birth">Data de Nascimento</label>
-                                <input class="form-control" type="text" name="birth" id="birth" placeholder="{% trans "Birth date" %}" value="{{ form.data_model.birth|date:"d/m/Y" }}">
+                                    <input class="form-control datetime-picker" type="text" name="birth" id="birth" placeholder="{% trans "Birth date" %}" value="{{ form.data_model.birth|date:"d/m/Y" }}">
                                 {% if form.birth.errors %}
                                     {% for error in form.birth.errors %}
                                     <span class="help-block">{{ error|escape }}</span>
@@ -178,8 +171,23 @@
 
 
 {% block javascripts %}
+    <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/locale/pt-br.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
     <script>
-
+        $('.datetime-picker').datetimepicker({
+            format: 'DD/MM/YYYY',
+            locale: 'pt-br',
+            icons: {
+                time: 'gsticon gsticon-clock-o',
+                up: 'gsticon gsticon-chevron-up',
+                down: 'gsticon gsticon-chevron-down',
+                previous: 'gsticon gsticon-chevron-left',
+                next: 'gsticon gsticon-chevron-right',
+            },
+            viewMode: 'days',
+            showTodayButton: true
+        });
         function fillElement($obj){
 
             $.ajax({

@@ -20,8 +20,8 @@
                         <div class="steps-container row">
                             <div class="col-lg-12"><hr></div>
                             <div class="col-lg-4">
-                                <div class="custom-file-upload set-avatar" 
-                                    data-module="dropzoneUploader" 
+                                <div class="custom-file-upload set-avatar"
+                                    data-module="dropzoneUploader"
                                     data-original-image="{% if wizard_profile.get_profile_picture %}{{ wizard_profile.get_profile_picture.url }}{% endif %}"
                                     >
                                     <div class="custom-file-content">
@@ -48,7 +48,7 @@
                                     </div>
                                      <div data-form-group class="col-lg-6 item-form">
                                         <div class="custom-calendar">
-                                            <input type="text" name="birth" id="birth" placeholder="Aniversário" value="{{ wizard_profile.birth|date:"d/m/Y" }}">
+                                            <input type="text" class="datetime-picker" name="birth" id="birth" placeholder="Aniversário" value="{{ wizard_profile.birth|date:"d/m/Y" }}" autocomplete="off">
                                             <i class="gsticon gsticon-calendar"></i>
                                         </div>
                                         <span class="help-block"></span>
@@ -92,7 +92,6 @@
                         <div class="row text-right">
                             <div class="col-lg-12">
                                 <hr>
-{#                                <button class="btn-green" data-toggle="modal" data-target="#modal-categories">Avançar</button>#}
                                 <button class="btn-green" type="submit">Avançar</button>
                             </div>
                         </div>
@@ -102,3 +101,21 @@
         </div>
     </div>
 </div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/locale/pt-br.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
+<script>
+    $('.datetime-picker').datetimepicker({
+        format: 'DD/MM/YYYY',
+        locale: 'pt-br',
+        icons: {
+            time: 'gsticon gsticon-clock-o',
+            up: 'gsticon gsticon-chevron-up',
+            down: 'gsticon gsticon-chevron-down',
+            previous: 'gsticon gsticon-chevron-left',
+            next: 'gsticon gsticon-chevron-right',
+        },
+        viewMode: 'days',
+        showTodayButton: true
+    });
+</script>

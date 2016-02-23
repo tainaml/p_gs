@@ -1,0 +1,11 @@
+{% extends 'home/layout/base.html' %}
+{% block content %}
+    <main class="container main">
+        <div class="error-page">
+            <h2 class="error-page-title">400</h2>
+            <h4 class="error-page-subtitle">{% trans 'Houston, we have a problem!' %}</h4>
+            <p class="error-page-description"></p>
+            <a href="{% url 'index' %}" class="btn-grey error-page-btn">Página inicial</a>
+        </div>
+    </main>
+{% endblock %}

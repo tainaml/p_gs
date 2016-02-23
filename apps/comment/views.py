@@ -1,15 +1,13 @@
 # -*- coding: utf-8 -*-
-
 from django.contrib.auth.decorators import login_required
-from django.core.urlresolvers import reverse
-from django.http import Http404, JsonResponse, HttpResponse
-from django.shortcuts import render, redirect
 from django.utils.decorators import method_decorator
-from django.utils.translation import ugettext as _
 from django.views.generic import View
-from apps.custom_base.views import FormBaseView, InstanceSaveFormBaseView, InstanceUpdateFormBaseView
+from django.shortcuts import render
+from django.http import Http404, JsonResponse, HttpResponse
 
-from .service.forms import CreateCommentForm, EditCommentForm, ListCommentForm
+from apps.custom_base.views import InstanceSaveFormBaseView, InstanceUpdateFormBaseView
+
+from .service.forms import CreateCommentForm, EditCommentForm, ListCommentForm, CommentDeleteForm
 from .service import business as comment_business
 
 
@@ -36,12 +34,12 @@ class CommentListBaseView(View):
 class CommentList(CommentListBaseView):
     xhr = True
     template_list_path = 'comment/list-comment.html'
+    itens_by_page = 4
 
     def get(self, request=None):
 
         form = self.form(self.itens_by_page, request.GET)
         instance_list = form.process()
-
 
         if not form.is_valid():
             print form.errors
@@ -53,14 +51,14 @@ class CommentList(CommentListBaseView):
             'page': form.cleaned_data['page'] + 1}
         )
 
-
-
         return super(CommentList, self).do_process(request)
 
 
 class CommentAnswerList(CommentList):
     xhr = True
     template_list_path = 'comment/list-answer.html'
+    itens_by_page = 4
+
 
 class CommentSaveView(InstanceSaveFormBaseView):
     fail_validation_template_path = 'comment/create.html'
@@ -73,6 +71,7 @@ class CommentSaveAnswer(InstanceSaveFormBaseView):
     success_template_path = 'comment/comment-child.html'
     form = CreateCommentForm
 
+
 class CommentUpdateView(InstanceUpdateFormBaseView):
 
     fail_validation_template_path = 'comment/edit-comment.html'
@@ -83,6 +82,21 @@ class CommentUpdateView(InstanceUpdateFormBaseView):
         return comment_business.retrieve_own_comment(
             comment_id=request.POST['comment_id'],
             user=request.user)
+
+
+class CommentDeleteView(View):
+
+    @method_decorator(login_required)
+    def post(self, request):
+
+        form = CommentDeleteForm({'comment': request.POST.get('item-id')})
+        form.set_author(request.user)
+        if form.process():
+            response_data = {'status': 'ok'}
+            return JsonResponse(response_data, status=200)
+
+        response_data = {'errors': form.errors}
+        return JsonResponse(response_data, status=400)
 
 
 class CommentUpdateAnswerView(CommentUpdateView):
@@ -109,4 +123,3 @@ class CommentCountView(CommentListBaseView):
         count = comment_business.count_comments_by_id_and_content_type(object_to_link, content_type)
         context = {'count': count}
         return self.return_success(request, context)
-

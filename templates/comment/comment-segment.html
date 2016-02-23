@@ -1,11 +1,9 @@
 {% load social_tags %}
 {% load thumbor_tags %}
 
+<div id="comment-{{ instance.id }}">
     <div class="comment-user">
         <img src="{% thumbor_url instance.author.profile.get_profile_picture.url width=63 height=63 smart=False fit_in=False %}" alt="User Avatar">
-{#        <div class="comment-vote">#}
-{#            {% like_box instance request.path "reply" %}#}
-{#        </div>#}
     </div>
     <div class="comment-body">
         <header class="post-header">
@@ -16,6 +14,17 @@
                     <ul class="perfil-actions">
                         {% if instance.author == request.user %}
                             <li><a data-xhr-edit data-toggle="dropdown" data-target="#comment-edit-{{ instance.id }}" data-xhr-id="{{ instance.id }}" href="javascript:;"><i class="gsticon gsticon-edit"></i> Editar comentário</a></li>
+                            <li>
+                                <a href="javascript:;"
+                                   data-delete-item="true"
+                                   data-modal="#modal-confirmation"
+                                   data-url="{% url 'comment:delete' %}"
+                                   data-item="{{ instance.id }}"
+                                   data-type="{{ instance.get_content_type }}"
+                                   data-title="de {{ instance.author.first_name }} ({{ instance.content|safe|striptags|escape|slice:":50"}}...)">
+                                    <i class="gsticon gsticon-trash"></i> Remover comentário
+                                </a>
+                            </li>
                         {% else %}
                             <li><a href="{% url 'complaint:report' 'comment' instance.id %}" data-report="true" data-async-module="click" data-async-target="#modal-report" data-async-method="get"><i class="gsticon gsticon-exclamation-triangle"></i> Denunciar</a></li>
                         {% endif %}
@@ -40,18 +49,15 @@
     </footer>
     <aside class="comments-container-child comments-children no-children">
         {% with comment_id=instance.id|stringformat:"s" %}
-
             {% if instance.author == request.user %}
                 <div data-list id="comment-edit-{{ instance.id }}" class="dropdown-content">
                     {% include 'comment/edit-comment.html' with content_object=instance to_update="comment-"|add:comment_id content_type='comment'  %}
                 </div>
             {% endif %}
-
             <div id="data-answer-{{ instance.id }}" class="dropdown-content">
                 {% include 'comment/create-answer.html' with content_object=instance to_update="data-list-"|add:comment_id content_type='comment' %}
             </div>
-
         {% endwith %}
-
         <div id="data-list-{{ instance.id }}"  data-xhr data-xhr-url="{% url "comment:list-answer" %}?content_type=comment&content_id={{ instance.id }}"></div>
     </aside>
+</div>

@@ -36,6 +36,7 @@ def comment_reply(params=None, logged_user=None, question_id=None):
     answer.save()
     return answer
 
+
 def get_answers_by_question(question=None, items_per_page=None, page=None):
     answers = get_all_answers_by_question(question)
 
