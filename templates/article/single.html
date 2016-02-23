@@ -6,7 +6,7 @@
 {% load social_tags %}
 {% load article_tags %}
 {% load thumbor_tags %}
-
+{% load staticfiles %}
 {% block title %}{{ article.title }} - Portal GSTI{% endblock %}
 
 {% block content %}
@@ -121,8 +121,18 @@
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/styles/default.min.css">
     <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/highlight.min.js"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-
+    {% block editorfiles %}
+<script type="text/javascript" src="{% static "ckeditor/ckeditor/ckeditor.js" %}"></script>
+<script type="text/javascript" src="{% static "ckeditor/ckeditor-init.js" %}"></script>
+{% endblock %}
 <script>
+
+    function updateEditors(){
+        for ( instance in CKEDITOR.instances ){
+            var ckeditorInstance = CKEDITOR.instances[instance];
+            ckeditorInstance.updateElement();
+        }
+    }
 
     var form_submit = function(event, data){
         var $form = $(this);
@@ -189,12 +199,26 @@
                             var $jscroll_subforms = $div_jscroll.find("form[data-ajaxform=\"true\"]");
                             $jscroll_subforms.IdeiaAjaxForm();
                             $jscroll_subforms.on("ajaxform.success", form_submit);
+                            $jscroll_subforms.on("ajaxform.validation", function(event, addError){
+                                updateEditors();
+
+                            });
+
                             $div_jscroll.removeClass("jscroll-added");
                         }
                     });
                     var $subforms = $element.find("form[data-ajaxform=\"true\"]");
+
                     $subforms.IdeiaAjaxForm();
-                    $subforms.on("ajaxform.success", form_submit);
+                    $.each($subforms, function(i, form){
+                        var $editor = $(form).find("[name='content']");
+
+                        if ($editor.length){
+                            console.log($editor);
+{#                            CKEDITOR.replace($editor.get(0));#}
+                        }
+                    });
+
 
                     var async_like = $self.find('[data-async-like]');
                     async_like.IdeiaAsyncLike();
@@ -212,10 +236,16 @@
     };
 
     $(function(){
+        updateEditors();
         var xhr_contents = $("div[data-xhr]");
         xhr_contents.renderList();
+        var $comment_form = $("form[data-ajaxform=\"true\"]");
+        $comment_form.on("ajaxform.success", form_submit);
+        $comment_form.on("ajaxform.validation", function(event, addError){
+            updateEditors();
 
-        $("form[data-ajaxform=\"true\"]").on("ajaxform.success", form_submit);
+        });
+
 
     });
 </script>

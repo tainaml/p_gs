@@ -206,6 +206,30 @@ CKEDITOR_CONFIGS = {
             'codesnippet',
         ]),
     },
+    'comment': {
+        'toolbar': 'Custom',
+        'toolbar_Custom': [
+            ['Bold', 'Italic'],
+            ['CodeSnippet'],
+        ],
+        'entities': False,
+        'extraPlugins': ','.join([
+            'autolink', 'dialog',
+            'codesnippet','autogrow','placeholder',
+        ]),
+    },
+    'answer': {
+        'toolbar': 'Custom',
+        'toolbar_Custom': [
+            ['Bold', 'Italic'],
+            ['CodeSnippet'],
+        ],
+        'entities': False,
+        'extraPlugins': ','.join([
+            'autolink', 'widget', 'dialog',
+            'codesnippet',
+        ]),
+    },
     'article': {
         'toolbar': 'Custom',
         'toolbar_Custom': [

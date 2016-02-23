@@ -1,19 +1,36 @@
+from ckeditor.widgets import CKEditorWidget
 from django.core.exceptions import ValidationError
 from django.conf import settings
-
+from django.core.serializers.json import DjangoJSONEncoder
+from django.utils.functional import Promise
+from django.utils.encoding import force_text
 from apps.custom_base.service.custom import forms, IdeiaForm
 import business as Business
 
+class LazyEncoder(DjangoJSONEncoder):
+
+    def default(self, obj):
+        if isinstance(obj, Promise):
+            return force_text(obj)
+        return super(LazyEncoder, self).default(obj)
+
+
+json_encode = LazyEncoder().encode
+
+
 
 class CreateCommentForm(IdeiaForm):
-    content = forms.CharField(max_length=512, required=True)
+    content = forms.CharField(
+        max_length=8192,
+        required=True,
+        widget=forms.Textarea(attrs={'data-config': json_encode(getattr(settings, 'CKEDITOR_CONFIGS', None)['comment'])}))
+
     content_type = forms.CharField(max_length=20, required=True)
     content_object_id = forms.IntegerField(required=True)
 
     def __init__(self, user=None, *args, **kwargs):
         self.user = user
         super(CreateCommentForm, self).__init__(*args, **kwargs)
-
 
     def __process__(self):
         return Business.create_comment(self.user, self.cleaned_data)
@@ -58,7 +75,7 @@ class CreateCommentForm(IdeiaForm):
 
 class EditCommentForm(IdeiaForm):
 
-    content = forms.CharField(max_length=512, required=True)
+    content = forms.CharField(max_length=8192, required=True, widget=forms.Textarea(attrs={'data-config': json_encode(getattr(settings, 'CKEDITOR_CONFIGS', None)['comment'])}))
     comment_id = forms.IntegerField(required=True)
 
     def __init__(self, user=None, instance=None, *args, **kargs):

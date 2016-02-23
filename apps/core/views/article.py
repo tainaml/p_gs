@@ -5,6 +5,7 @@ from django.utils.translation import gettext as _
 from django.utils.decorators import method_decorator
 
 from apps.article import views
+from apps.comment.service.forms import CreateCommentForm
 from apps.community.models import Community
 from ..forms.article import CoreArticleForm
 from ..business import feed as BusinessFeed
@@ -26,10 +27,13 @@ class CoreArticleEditView(views.ArticleEditView):
 
 class CoreArticleView(views.ArticleView):
 
+    form_comment = CreateCommentForm
     def get_context(self, request, article_instance=None):
         feed_object = BusinessFeed.BusinessFeed.get_feed(article_instance)
+
         return {
-            'feed': feed_object
+            'feed': feed_object,
+            'form_comment': self.form_comment()
         }
 
 
