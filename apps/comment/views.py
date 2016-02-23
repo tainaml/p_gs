@@ -7,7 +7,7 @@ from django.shortcuts import render, redirect
 from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _
 from django.views.generic import View
-from apps.custom_base.views import FormBaseView, InstanceSaveFormBaseView, InstanceUpdateFormBaseView, FormBaseListView
+from apps.custom_base.views import FormBaseView, InstanceSaveFormBaseView, InstanceUpdateFormBaseView
 
 from .service.forms import CreateCommentForm, EditCommentForm, ListCommentForm
 from .service import business as comment_business
@@ -33,19 +33,29 @@ class CommentListBaseView(View):
         return render(request, self.template_list_path, self.context)
 
 
-class CommentList(FormBaseListView):
-    success_template_path = 'comment/list-comment.html'
-    fail_template_path = 'comment/list-comment.html'
-    form = ListCommentForm
-    itens_by_page = 4
+class CommentList(CommentListBaseView):
+    xhr = True
+    template_list_path = 'comment/list-comment.html'
 
-    # @Override
-    def fill_form_kwargs(self, request=None, *args, **kwargs):
-        return {'data': request.GET, 'itens_by_page': self.itens_by_page}
+    def get(self, request=None):
 
-   # @Override
-    def after_process(self, request=None, *args, **kwargs):
-        self.context.update({'comments': self.process_return})
+        form = self.form(self.itens_by_page, request.GET)
+        instance_list = form.process()
+
+
+        if not form.is_valid():
+            print form.errors
+            raise Http404()
+
+        self.context.update({
+            'comments': instance_list,
+            'form': form,
+            'page': form.cleaned_data['page'] + 1}
+        )
+
+
+
+        return super(CommentList, self).do_process(request)
 
 
 class CommentAnswerList(CommentList):
