@@ -1,0 +1,23 @@
+<div id="modal-resend-email-confirmation" class="modal fade" data-target="modal">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <form id="form-resend-email-confirmation" action="{% url 'account:resend_account_confirmation' %}" method="POST"  data-ajaxform="true" data-group-class=".form-group">
+                {% csrf_token %}
+                <div class="modal-header">
+                    <span class="pull-right close" data-dismiss="modal" aria-label="Close"><span class="gsticon gsticon-close"></span></span>
+                    <h4 class="modal-title">Reenviar confirmação de conta</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-form">
+                        <div class="form-group">
+                            <input class="form-control" type="email" id="email" name="email" placeholder="Digite seu email">
+                        </div>
+                        <button type="submit" class="btn-action btn-block">Enviar</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div id="modal-resend-email-confirmation-successfully" class="modal fade"></div>
