@@ -6,6 +6,7 @@
 {% load social_tags %}
 {% load article_tags %}
 {% load thumbor_tags %}
+{% load user_agents %}
 {% load staticfiles %}
 {% block title %}{{ article.title }} - Portal GSTI{% endblock %}
 
@@ -95,13 +96,22 @@
                     <div class="addthis_sharing_toolbox"></div>
                 </div>
             </article>
-            <div id="comments">
+            <div>
                 {% profile_box article.author "horizontal" %}
             </div>
+            {% if request|is_mobile %}
+            <!-- Publicações Relacionadas -->
+            <div id="load-related-posts" data-load-async="true" data-load-async-url="{% url 'core:related-posts' article.id "article" "article" 4 %}" data-load-async-url-next="{{ request.path }}" data-load-async-method="post" data-load-async-response-type="json" data-load-async-timeout="1">
+                <div class="load-async load-async-content">
+                    <div class="load-async-preload"></div>
+                </div>
+                {% csrf_token %}
+            </div>
+            {% endif %}
             <header class="area-title">
                 <h2>Comentários</h2>
             </header>
-            <div class="container-comments">
+            <div class="container-comments" id="comments">
                 {% include 'comment/create.html' with content_type='article' content_object_id=article.id %}
             </div>
             <div data-xhr-url="{% url "comment:list" %}?page=1&content_type=article&content_id={{ article.id }}" data-xhr id="container-comments" class="container-comments j-scroll"></div>
@@ -294,4 +304,3 @@
 </script>
 
 {% endblock %}
-
