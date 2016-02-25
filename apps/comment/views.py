@@ -5,7 +5,8 @@ from django.views.generic import View
 from django.shortcuts import render
 from django.http import Http404, JsonResponse, HttpResponse
 
-from apps.custom_base.views import InstanceSaveFormBaseView, InstanceUpdateFormBaseView
+from apps.custom_base.views import InstanceSaveFormBaseView, InstanceUpdateFormBaseView, FormBaseListView, \
+    InstanceDeleteFormBaseView
 
 from .service.forms import CreateCommentForm, EditCommentForm, ListCommentForm, CommentDeleteForm
 from .service import business as comment_business
@@ -31,33 +32,19 @@ class CommentListBaseView(View):
         return render(request, self.template_list_path, self.context)
 
 
-class CommentList(CommentListBaseView):
-    xhr = True
-    template_list_path = 'comment/list-comment.html'
-    itens_by_page = 4
+class CommentList(FormBaseListView):
+    success_template_path = 'comment/list-comment.html'
+    form = ListCommentForm
+    itens_per_page = 10
 
-    def get(self, request=None):
-
-        form = self.form(self.itens_by_page, request.GET)
-        instance_list = form.process()
-
-        if not form.is_valid():
-            print form.errors
-            raise Http404()
-
-        self.context.update({
-            'comments': instance_list,
-            'form': form,
-            'page': form.cleaned_data['page'] + 1}
-        )
-
-        return super(CommentList, self).do_process(request)
+    # @Override
+    def after_process(self, request=None, *args, **kwargs):
+        self.context.update({'comments': self.process_return})
 
 
 class CommentAnswerList(CommentList):
-    xhr = True
-    template_list_path = 'comment/list-answer.html'
-    itens_by_page = 4
+    success_template_path = 'comment/list-answer.html'
+    itens_per_page = 4
 
 
 class CommentSaveView(InstanceSaveFormBaseView):
