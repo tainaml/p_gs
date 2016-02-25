@@ -254,6 +254,12 @@
     color: $background-perfil-button-hover;
     font-weight: 600;
     font-size: 0.813em;
+
+    @media (max-width: $screen-lg-min) {
+        width: 100%;
+        margin-top: 10px;
+    }
+
     &:hover,
     &.active {
         background: $background-perfil-button-hover;
