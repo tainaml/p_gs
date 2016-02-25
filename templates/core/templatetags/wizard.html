@@ -8,10 +8,15 @@
 
     var functionAjaxSuccessStepOne = function(e, data) {
         var $this = $(this),
-                $currentModal = $this.closest(".modal.fade");
+            $currentModal = $this.closest(".modal.fade");
 
         $currentModal.modal("hide");
-        $($currentModal.data("next-modal")).modal("show");
+        var $nextModal = $($currentModal.data("next-modal")).modal({
+            backdrop: 'static',
+            keyboard: false,
+            show: true
+        });
+        $nextModal.modal('show');
     };
 
     var functionAjaxSuccessStepTwo = function(e, data) {
@@ -50,16 +55,20 @@
         });
 
         $currentModal.modal("hide");
-        $($currentModal.data("next-modal")).modal("show");
+        var $nextModal = $($currentModal.data("next-modal")).modal({
+            backdrop: 'static',
+            keyboard: false,
+            show: true
+        });
+{#        $nextModal.modal('show');#}
     };
 
     var functionAjaxSuccessStepThree = function(e, data) {
         location.reload();
     };
     var functionSubmitCommunitiesSearch = function(){
-            var $form = $(this).closest("form");
-            $form.submit();
-
+        var $form = $(this).closest("form");
+        $form.submit();
     };
     var functionSearchCommunities = function(e, data){
 
@@ -131,18 +140,20 @@
         $("form#form-filter-communities input[name=criteria]").inputTyping(200, functionSubmitCommunitiesSearch);
         $("[data-ajax-change='true']").on("change", fillValues);
         $(document).on("ajaxform.success", "#form-filter-communities", functionSearchCommunities);
-        $("#form-personal-info").on("ajaxform.success", functionAjaxSuccessStepOne);
-        $("#form-filter-categories").on("ajaxform.success", functionAjaxSuccessStepTwo);
-        $("#form-suggestions").on("ajaxform.success", functionAjaxSuccessStepThree);
+        $(document).on("ajaxform.success", "#form-personal-info", functionAjaxSuccessStepOne);
+        $(document).on("ajaxform.success", "#form-filter-categories", functionAjaxSuccessStepTwo);
+        $(document).on("ajaxform.success", "#form-suggestions", functionAjaxSuccessStepThree);
 
         {% if request.user and request.user.profile and request.user.profile.wizard_step < 1 %}
             $("#modal-personal-infos").modal({
                 backdrop: 'static',
+                keyboard: false,
                 show: true
             });
         {% elif request.user and request.user.profile and request.user.profile.wizard_step < 3 %}
             $("#modal-categories").modal({
                 backdrop: 'static',
+                keyboard: false,
                 show: true
             });
         {% endif %}

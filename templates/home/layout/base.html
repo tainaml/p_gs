@@ -71,12 +71,13 @@
         {% block modals %}
 
             {% include 'home/partials/modals/modal-login.html' %}
+            {% include 'home/partials/modals/modal-esqueci-senha.html' %}
+            {% include 'home/partials/modals/modal-resend-email-confirmation.html' %}
             {% include 'home/partials/modals/modal-sugerir.html' %}
             {% include 'home/partials/modals/modal-denunciar.html' %}
             {% include 'home/partials/modals/modal-rules.html' %}
             {% include 'home/partials/modals/modal-contato.html' %}
             {% include 'home/partials/modals/modal-message.html' %}
-            {% include 'home/partials/modals/modal-esqueci-senha.html' %}
             {% include 'home/partials/modals/modal-alert-community-posts.html' %}
             {% include 'home/partials/modals/modal-alert-community-questions.html' %}
 
@@ -96,8 +97,24 @@
         {% endif %}
 
         <script type="text/javascript">
+            var functionAjaxBeforeSendLogin = function() {
+                $('#account-not-active-error').hide();
+            };
+
             var functionAjaxSuccessLogin = function(e, data) {
                 window.location.href = data.url_next;
+            };
+
+            var functionAjaxErrorLogin = function(e, data) {
+                if (data.is_active == false) {
+                    $('#account-not-active-error').show().addClass('has-error');
+                }
+            };
+
+            var functionAjaxSuccessResendConfirmation = function(e, data) {
+                $('.modal.fade.in').modal('hide');
+                var $modalMessage = $('#modal-message');
+                    $modalMessage.html(data.template).modal('show');
             };
 
             var functionAjaxSuccessForgotPassword = function(e, data) {
@@ -107,8 +124,6 @@
                 $modalForgotPassword.modal("hide");
                 $modalForgotPasswordSuccessfully.modal("show");
             };
-
-
 
             var functionAjaxSuccessTriggerContactModal = function(e, data) {
                 var $modalContact = $("#modal-contact");
@@ -205,7 +220,10 @@
 
             $(function() {
 
+                $(document).on("ajaxform.before-send", "#form-login", functionAjaxBeforeSendLogin);
                 $(document).on("ajaxform.success", "#form-login", functionAjaxSuccessLogin);
+                $(document).on("ajaxform.error", "#form-login", functionAjaxErrorLogin);
+                $(document).on("ajaxform.success", "#form-resend-email-confirmation", functionAjaxSuccessResendConfirmation);
                 $(document).on("ajaxform.success", "#form-forgot-password", functionAjaxSuccessForgotPassword);
                 $(document).on("ajaxform.success", "#form-suggest", functionAjaxSuccessSuggest);
                 $(document).on("click", "[data-suggest-modal]", functionOpenSuggestModal);

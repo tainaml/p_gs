@@ -347,18 +347,26 @@ class ForgotPasswordView(View):
 
 class ResendAccountConfirmationView(View):
 
+    template_path = 'account/resend_account_confirmation.html'
+    template_success_path = 'account/resend_account_confirmation_successfully.html'
+
+    def return_error(self, request, context=None):
+        return render(request, self.template_path, {'form': context['form']})
+
+    def return_success(self, request, context=None):
+        return render(request, self.template_success_path, {'message': context.get('message')})
+
     def get(self, request):
         form = ResendAccountConfirmationForm()
-        return render(request, 'account/resend_account_confirmation.html', {'form': form})
-
+        return render(request, self.template_path, {'form': form})
 
     def post(self, request):
         form = ResendAccountConfirmationForm(request.POST)
         if form.process():
-            message = 'E-mail re-sent successfully!'
-            return render(request, 'account/resend_account_confirmation_successfully.html', {'message': message})
+            message = _('E-mail re-sent successfully!')
+            return self.return_success(request, {'message': message})
 
-        return render(request, 'account/resend_account_confirmation.html', {'form': form})
+        return self.return_error(request, {'form': form})
 
 
 class CheckUsernameView(View):

@@ -1,5 +1,7 @@
+# coding=utf-8
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
+from django.core.urlresolvers import reverse
 from nocaptcha_recaptcha import NoReCaptchaField
 from django.utils.translation import ugettext as _
 
@@ -21,7 +23,7 @@ class SignUpForm(IdeiaForm):
         valid = super(SignUpForm, self).is_valid()
 
         if 'password' in self.cleaned_data and 'password_confirmation' in self.cleaned_data and \
-                self.cleaned_data['password'] != self.cleaned_data['password_confirmation']:
+                        self.cleaned_data['password'] != self.cleaned_data['password_confirmation']:
             self.add_error('password', ValidationError(_('Passwords are not the same.'), code='password'))
             valid = False
 
@@ -43,6 +45,8 @@ class LoginForm(IdeiaForm):
     username = forms.CharField(max_length=100, required=True)
     password = forms.CharField(max_length=50, required=True)
 
+    instance = None
+
     def __init__(self, request=None, *args, **kwargs):
         self.request = request
         self.redirect_to_wizard = False
@@ -52,17 +56,26 @@ class LoginForm(IdeiaForm):
         valid = super(LoginForm, self).is_valid()
 
         if 'password' in self.cleaned_data and 'username' in self.cleaned_data:
-            self.instance = Business.authenticate_user(username_or_email=self.cleaned_data['username'],
-                                                       password=self.cleaned_data['password'])
+            self.instance = Business.authenticate_user(username_or_email=self.cleaned_data.get('username'),
+                                                       password=self.cleaned_data.get('password'))
 
             if not self.instance:
                 self.add_error(None, ValidationError(_('Wrong password or username.'), code='password'))
                 valid = False
             else:
                 if self.instance.is_active is False:
-                    self.add_error(None, ValidationError('Account is not active', code='account_not_active'))
+                    url = reverse('account:resend_account_confirmation')
+                    btn = '<a href="%s" ' \
+                          'data-toggle="modal" ' \
+                          'data-target="#modal-resend-email-confirmation">%s</a>' % (url, _('click here'))
+
+                    error = _('Account is not active.')
+                    error += '<br>'
+                    error += _('If you have not received the confirmation '
+                               'email %s to resend.') % btn
+
+                    # self.add_error(None, ValidationError(error, code='account_not_active'))
                     self.account_is_active = False
-                    self.account_is_active_errors = 'Account is not active.'
                     valid = False
                 else:
                     self.account_is_active = True
@@ -73,7 +86,6 @@ class LoginForm(IdeiaForm):
         return valid
 
     def __process__(self):
-
         return Business.log_in_user(self.request, self.instance)
 
 
@@ -97,7 +109,7 @@ class ChangePasswordForm(IdeiaForm):
                 valid = False
 
             if 'new_password' in self.cleaned_data and 'new_password_confirmation' in self.cleaned_data and \
-                    self.cleaned_data['new_password'] != self.cleaned_data['new_password_confirmation']:
+                            self.cleaned_data['new_password'] != self.cleaned_data['new_password_confirmation']:
                 self.add_error('new_password', ValidationError(_('Passwords are not the same.'), code='new_password'))
                 valid = False
 
@@ -139,7 +151,7 @@ class RecoveryPasswordForm(IdeiaForm):
         valid = super(RecoveryPasswordForm, self).is_valid()
 
         if 'new_password' in self.cleaned_data and 'new_password_confirmation' in self.cleaned_data and \
-                self.cleaned_data['new_password'] != self.cleaned_data['new_password_confirmation']:
+                        self.cleaned_data['new_password'] != self.cleaned_data['new_password_confirmation']:
             self.add_error('new_password_confirmation', ValidationError(_('Passwords are not the same.'),
                                                                         code='new_password_confirmation'))
             valid = False
@@ -164,7 +176,8 @@ class ResendAccountConfirmationForm(IdeiaForm):
             self.add_error('email', ValidationError('Does not exist account with this email.', code='email'))
             valid = False
 
-        if 'email' in self.cleaned_data and User.objects.filter(email=self.cleaned_data['email'], is_active=True).exists():
+        if 'email' in self.cleaned_data and User.objects.filter(email=self.cleaned_data['email'],
+                                                                is_active=True).exists():
             self.add_error('email', ValidationError('This account is already active'))
             valid = False
 
@@ -175,7 +188,6 @@ class ResendAccountConfirmationForm(IdeiaForm):
 
 
 class CheckUsernameForm(IdeiaForm):
-
     username = forms.CharField(max_length=30, required=True)
 
     def __process__(self):

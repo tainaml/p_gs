@@ -32,6 +32,32 @@ class CoreLoginView(views.LoginView):
         return JsonResponse(context, status=200)
 
 
+class CoreResendAccountConfirmationView(views.ResendAccountConfirmationView):
+
+    def return_error(self, request, context=None):
+        _response_context = {}
+
+        if 'form' in context:
+            _form = context['form']
+
+            _response_context = {
+                'errors': _form.errors
+            }
+
+        return JsonResponse(_response_context, status=400)
+
+    def return_success(self, request, context=None):
+        context.update({
+            'title': _('Resend confirmation email'),
+            'message': _('E-mail re-sent successfully!')
+        })
+
+        response_data = {
+            'template': render(request, 'account/partials/account-modal-message.html', context).content
+        }
+        return JsonResponse(response_data, status=200)
+
+
 class CoreForgotPassword(views.ForgotPasswordView):
 
     def return_error(self, request, context=None):

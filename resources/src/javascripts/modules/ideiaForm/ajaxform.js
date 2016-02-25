@@ -129,13 +129,13 @@ require('./validation.js');
             var withFiles = ($self.attr('enctype') === 'multipart/form-data');
             var method = $self.attr('method') || 'post';
 
-            console.log($self.serialize());
-
-
             var ajaxParams = {
                 'type': method.toUpperCase(),
                 'url': url,
                 'cache': false,
+                beforeSend: function(jqXHR) {
+                    $self.trigger('ajaxform.before-send', jqXHR);
+                },
                 'success': function(data){
                     $self.trigger('ajaxform.success', data);
                 },
@@ -144,7 +144,6 @@ require('./validation.js');
                     try{
                         data = $.parseJSON(jqXHR.responseText);
                     }catch(e){
-
                         console.error("Can't parse to JSON. Check the response data and contentType");
                     }
                     try{
