@@ -72,6 +72,11 @@ class FormBaseView(View):
 
 class FormBaseListView(FormBaseView):
     form = None
+    itens_per_page = 10
+
+    # @Override
+    def fill_form_kwargs(self, request=None, *args, **kwargs):
+        return {'data': request.GET, 'itens_per_page': self.itens_per_page}
 
     # @Override
     def after_process(self, request=None, *args, **kwargs):
@@ -86,7 +91,7 @@ class FormBaseListView(FormBaseView):
         self.process_return = self.form.process()
         self.after_process(request, *args, **kwargs)
         self.context.update({'form': self.form})
-        self.context.update({'page': self.form.cleaned_data['page'] +1})
+        self.context.update({'page': self.form.cleaned_data['page'] + 1})
 
         return self.__response_render__(request, *args, **kwargs)
 
@@ -126,7 +131,8 @@ class InstanceUpdateFormBaseView(InstanceSaveFormBaseView):
 
     # @Override
     def fill_form_kwargs(self, request=None, *args, **kwargs):
-        return {'user': request.user, 'instance': self.instance_to_update(request, *args, **kwargs), 'data': request.POST, }
+        return {'user': request.user, 'instance': self.instance_to_update(request, *args, **kwargs),
+                'data': request.POST}
 
     @method_decorator(login_required)
     def post(self, request=None, *args, **kwargs):
@@ -138,3 +144,19 @@ class InstanceUpdateFormBaseView(InstanceSaveFormBaseView):
             raise NotImplementedError("You must specify the form")
 
         return super(InstanceUpdateFormBaseView, self).do_process(request)
+
+
+class InstanceDeleteFormBaseView(FormBaseView):
+
+    def __response_json__(self, request, *args, **kwargs):
+        response_data = {}
+        is_valid = self.form.is_valid()
+        if is_valid:
+            response_data['status'] = self.process_return
+        else:
+            response_data['errors'] = self.form.errors
+
+        return JsonResponse(response_data,
+                            status=200 if is_valid else 400, *args,
+                            **kwargs)
+

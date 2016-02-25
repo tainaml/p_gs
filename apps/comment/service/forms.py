@@ -121,8 +121,8 @@ class ListCommentForm(IdeiaForm):
     content_type = forms.CharField(required=True)
     page = forms.IntegerField(min_value=1, required=False)
 
-    def __init__(self, itens_by_page=10, *args, **kwargs):
-        self.itens_by_page = itens_by_page
+    def __init__(self, itens_per_page=10, *args, **kwargs):
+        self.itens_per_page = itens_per_page
         super(ListCommentForm, self).__init__(*args, **kwargs)
 
     def clean(self):
@@ -147,7 +147,7 @@ class ListCommentForm(IdeiaForm):
         return Business.get_comments_by_content_type_and_id(
             self.cleaned_data['content_type'],
             self.cleaned_data['content_id'],
-            self.itens_by_page,
+            self.itens_per_page,
             self.cleaned_data['page']
         )
 
@@ -157,13 +157,12 @@ class CommentDeleteForm(IdeiaForm):
     comment = forms.ModelChoiceField(queryset=Comment.objects.all())
     author = None
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, author=None, *args, **kwargs):
+        self.author=author
+
         super(CommentDeleteForm, self).__init__(*args, **kwargs)
 
-    def set_author(self, author):
-        if author:
-            self.author = author
-    
+
     def is_valid(self):
         is_valid = super(CommentDeleteForm, self).is_valid()
 
