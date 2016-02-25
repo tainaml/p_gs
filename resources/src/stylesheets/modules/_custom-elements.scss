@@ -1,4 +1,7 @@
 .custom-select {
+    @media (max-width: $screen-lg-min) {
+        margin-top: 20px;
+    }
     position: relative;
     width: 100%;
     &-#{item} {
