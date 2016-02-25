@@ -10,6 +10,10 @@
 pyvenv.cfg
 
 
+### Local App Cofig
+*-environment.cfg
+
+
 ### Sass template
 .sass-cache
 *.css.map
