@@ -126,6 +126,9 @@
     border: 1px solid $color-border;
     color: $color-border;
     background: $link-white;
+    @media (max-width: $screen-lg-min) {
+        margin-top: 20px;
+    }
 
     > a {
         margin-right: 5px;
