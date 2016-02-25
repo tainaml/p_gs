@@ -114,6 +114,10 @@
 .squad-advertising {
     @extend %clearfix;
     margin-bottom: 15px;
+    text-align: center;
+    .img-responsive {
+        margin: auto;
+    }
 }
 
 .perfil-navegation {
