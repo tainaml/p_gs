@@ -29,6 +29,11 @@
             color: inherit;
             text-indent: -9999px;
             display: block;
+
+            @media (max-width: $screen-lg-min) {
+                width: 41px;
+                background-position: 0 0;
+            }
         }
     }
     .form-search {

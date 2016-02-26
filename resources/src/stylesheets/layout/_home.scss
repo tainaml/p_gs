@@ -37,6 +37,7 @@
     }
 }
 .banner {
+    overflow: hidden;
     padding: 21px;
     margin-bottom: 20px;
     background: #f7f7f7;
@@ -82,6 +83,10 @@
     border-bottom: none;
 
     > :first-child { padding-left: 0; }
+
+    .highlight-article-medium {
+        @media (max-width: $screen-lg-min) { width: 100%; }
+    }
 }
 
 .perfil-row {
