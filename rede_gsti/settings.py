@@ -12,20 +12,99 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+import ConfigParser
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+# Environment set
+PROJECT_NAME = 'rede_gsti'
+ENVIRONMENT_CONFIG_DIR = os.path.join(BASE_DIR, '%s/environment' % PROJECT_NAME)
+ENVIRONMENT = os.environ.get(key="PROJECT_ENVIRONMENT", failobj="develop")
+
+config = ConfigParser.RawConfigParser()
+config_path = os.path.join(ENVIRONMENT_CONFIG_DIR, '%s-environment.cfg' % ENVIRONMENT)
+
+
+try:
+    config.readfp(open(config_path))
+except IOError:
+    config.add_section("GENERAL")
+    config.set("GENERAL", "secret_key", '3u2oo))n_j*t#sjx*)=p*5j4mpb^7iruq4$v3%2nn!e2r2p$jj')
+    config.set("GENERAL", "site_url", 'http://localhost:8000')
+    config.set("GENERAL", "expiration_register_time", '48')
+    config.set("GENERAL", "expiration_password_recovery", '8')
+
+    config.add_section("STATIC")
+    config.set("STATIC", "path", '/var/www/staticfiles/')
+    config.set("STATIC", "path", '/var/www/staticfiles/')
+
+    config.add_section("DATABASE")
+    config.set("DATABASE", "name", "vagrant")
+    config.set("DATABASE", "user", "vagrant")
+    config.set("DATABASE", "password", "vagrant")
+    config.set("DATABASE", "host", "db.redegsti.dev")
+    config.set("DATABASE", "port", "5432")
+
+    config.add_section("EMAIL")
+    config.set("EMAIL", "tls", "true")
+    config.set("EMAIL", "host", 'smtp.mandrillapp.com')
+    config.set("EMAIL", "user", 'philliparente@gmail.com')
+    config.set("EMAIL", "password", 'gZ-tr-g2VKy6zQdRIVzmxg')
+    config.set("EMAIL", "port", '587')
+    config.set("EMAIL", "from", 'philliparente@gmail.com')
+
+    config.add_section("LOCALE")
+    config.set("LOCALE", "code", 'pt-br')
+    config.set("LOCALE", "timezone", 'America/Bahia')
+    config.set("LOCALE", "i18n", 'true')
+    config.set("LOCALE", "l10n", 'true')
+    config.set("LOCALE", "tz", 'true')
+
+    config.add_section("FACEBOOK")
+    config.set("FACEBOOK", "key", '1486240068359213')
+    config.set("FACEBOOK", "secret", 'd5be292ac55c13d465ae82bc19c84669')
+
+    config.add_section("GOOGLE")
+    config.set("GOOGLE", "key", '810336189711-1m8lr2mdi9ci971e96440vsdve3g2r45.apps.googleusercontent.com')
+    config.set("GOOGLE", "secret", 'N6meHsg8fUGF4Ti4PKd0oh5m')
+
+    config.add_section("THUMBOR")
+    config.set("THUMBOR", "server", 'http://thumbor.redegsti.dev:8888')
+    config.set("THUMBOR", "media_url", 'http://redegsti.dev:8000/media/uploads')
+    config.set("THUMBOR", "key", 'MY_SECURE_KEY')
+
+    config.add_section("CACHE")
+    config.set("CACHE", "host", '127.0.0.1')
+    config.set("CACHE", "port", '11211')
+
+    config.add_section("LOG_FILES")
+    config.set("LOG_FILES", "info", '/var/log/rede_gsti/info.log')
+    config.set("LOG_FILES", "error", '/var/log/rede_gsti/error.log')
+    config.set("LOG_FILES", "signals", '/var/log/rede_gsti/signals.log')
+
+    config.add_section("GOOGLE_RECAPTCHA")
+    config.set("GOOGLE_RECAPTCHA", "site_key", '6LccmgsTAAAAAGrsvn7r7aiIcnvbuIS7pyP0qv1K')
+    config.set("GOOGLE_RECAPTCHA", "secret_key", '6LccmgsTAAAAANyATh7UT3uL2G2iVnCCGfAXPE5f')
+
+    # with open(config_path, 'wb') as configfile:
+    #     config.write(configfile)
+    #     configfile.close()
+
+print config.get("DATABASE", "name")
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.8/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '3u2oo))n_j*t#sjx*)=p*5j4mpb^7iruq4$v3%2nn!e2r2p$jj'
+SECRET_KEY = config.get("GENERAL", "secret_key")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
 
-INTERNAL_IPS = ('127.0.0.1', '10.0.2.2', '10.100.100.20', '10.100.100.15', '10.100.100.10')
+# DEBUG = True
+
+
+# Vagrant Internal IP's
+# INTERNAL_IPS = ('127.0.0.1', '10.0.2.2', '10.100.100.20', '10.100.100.15', '10.100.100.10')
 
 
 # Google Recaptcha keys
@@ -45,7 +124,7 @@ INSTALLED_APPS = (
     'django.contrib.postgres',
 
     # NINICO APP
-    'apps.ninico',
+    # 'apps.ninico',
 
     # PLUGINS
     'apps.mailmanager',
@@ -87,6 +166,18 @@ INSTALLED_APPS = (
     'apps.custom_base'
 )
 
+### Setting Environment specific settings
+if ENVIRONMENT == "develop":
+    DEBUG = True
+    INSTALLED_APPS += ('debug_toolbar','apps.ninico',)
+elif ENVIRONMENT == "test":
+    DEBUG = False
+    ALLOWED_HOSTS = ['*']
+elif ENVIRONMENT == "production":
+    ALLOWED_HOSTS = ['*']
+    DEBUG = False
+
+
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -123,7 +214,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'rede_gsti.wsgi.application'
+WSGI_APPLICATION = '%s.wsgi.application' % PROJECT_NAME
 
 # Populate file
 FIXTURE_FILE = 'initial_data.json'
@@ -134,12 +225,12 @@ IMAGES_ALLOWED = ['image/jpeg','image/png']
 
 # EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_BACKEND = 'apps.mailmanager.backend.MailManagedBackend'
-EMAIL_USE_TLS = True
-EMAIL_HOST = 'smtp.mandrillapp.com'
-EMAIL_HOST_USER = 'philliparente@gmail.com'
-EMAIL_HOST_PASSWORD = 'gZ-tr-g2VKy6zQdRIVzmxg'
-EMAIL_PORT = '587'
-DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+EMAIL_USE_TLS = config.getboolean("EMAIL", "tls")
+EMAIL_HOST = config.get("EMAIL", "host")
+EMAIL_HOST_USER = config.get("EMAIL", "user")
+EMAIL_HOST_PASSWORD = config.get("EMAIL", "password")
+EMAIL_PORT = config.getint("EMAIL", "port")
+DEFAULT_FROM_EMAIL = config.get("EMAIL", "from")
 
 # Comment config
 ENTITY_TO_COMMENT = ['comment', 'article', 'answer']
@@ -304,11 +395,11 @@ DATABASES = {
     },
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'vagrant',
-        'USER': 'vagrant',
-        'PASSWORD': 'vagrant',
-        'HOST': 'db.redegsti.dev',
-        'PORT': '5432',
+        'NAME': config.get("DATABASE", "name"),
+        'USER': config.get("DATABASE", "user"),
+        'PASSWORD': config.get("DATABASE", "password"),
+        'HOST': config.get("DATABASE", "host"),
+        'PORT': config.getint("DATABASE", "port"),
     },
 }
 
@@ -316,11 +407,11 @@ DATABASES = {
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
 
-LANGUAGE_CODE = 'pt-br'
-TIME_ZONE = 'America/Bahia'
-USE_I18N = True
-USE_L10N = True
-USE_TZ = True
+LANGUAGE_CODE = config.get("LOCALE", "code")
+TIME_ZONE = config.get("LOCALE", "timezone")
+USE_I18N = config.getboolean("LOCALE", "i18n")
+USE_L10N = config.getboolean("LOCALE", "l10n")
+USE_TZ = config.getboolean("LOCALE", "tz")
 
 
 # Static files (CSS, JavaScript, Images)
@@ -332,7 +423,7 @@ STATICFILES_DIRS = (
 STATIC_URL = '/static/'
 
 # STATIC_ROOT = '/home/phillip/projects/python/django/rede_gsti/staticfiles/'
-STATIC_ROOT = '/var/www/staticfiles/'
+STATIC_ROOT = config.get("STATIC", "path")
 
 # Media Paths: User upload files
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media', 'uploads')
@@ -344,9 +435,9 @@ NASHVEGAS_MIGRATIONS_DIRECTORY = 'migrations/'
 
 
 # THUMBOR
-THUMBOR_SERVER = 'http://thumbor.redegsti.dev:8888'
-THUMBOR_MEDIA_URL = 'http://redegsti.dev:8000/media/uploads'
-THUMBOR_SECURITY_KEY = 'MY_SECURE_KEY'
+THUMBOR_SERVER = config.get("THUMBOR", "server")
+THUMBOR_MEDIA_URL = config.get("THUMBOR", "media_url")
+THUMBOR_SECURITY_KEY = config.get("THUMBOR", "key")
 THUMBOR_ARGUMENTS = {}
 
 
@@ -359,19 +450,19 @@ WIZARD_STEPS_TOTAL = 3
 
 
 # MailValidation Time
-TIME_REGISTER_ACCOUNT = 48
-TIME_RECOVERY_PASSWORD = 8
+TIME_REGISTER_ACCOUNT = config.getint("GENERAL", "expiration_register_time")
+TIME_RECOVERY_PASSWORD = config.getint("GENERAL", "expiration_password_recovery")
 
 # Site Urls
-SITE_URL = 'http://localhost:8000'
+SITE_URL = config.get("GENERAL", 'site_url')
 
-SOCIAL_AUTH_FACEBOOK_KEY = '1486240068359213'
-SOCIAL_AUTH_FACEBOOK_SECRET = 'd5be292ac55c13d465ae82bc19c84669'
+SOCIAL_AUTH_FACEBOOK_KEY = config.get("FACEBOOK", "key")
+SOCIAL_AUTH_FACEBOOK_SECRET = config.get("FACEBOOK", "secret")
 SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
 SOCIAL_AUTH_LOGIN_REDIRECT_URL = '../../account/'
 
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '810336189711-1m8lr2mdi9ci971e96440vsdve3g2r45.apps.googleusercontent.com'
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'N6meHsg8fUGF4Ti4PKd0oh5m'
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = config.get("GOOGLE", "key")
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = config.get("GOOGLE", "secret")
 SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = ['email']
 
 AUTHENTICATION_BACKENDS = (
@@ -409,7 +500,7 @@ SOCIAL_AUTH_PIPELINE = (
 CACHES = {
     'default': {
         'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
-        'LOCATION': '127.0.0.1:11211',
+        'LOCATION': '%s:%s' % (config.get("CACHE", "host"), config.get("CACHE", "port"),),
     }
 }
 
@@ -433,10 +524,7 @@ LOGGING = {
         },
     },
     'filters': {
-        # 'special': {
-        #     '()': 'project.logging.SpecialFilter',
-        #     'foo': 'bar',
-        # },
+
         'require_debug_true': {
             '()': 'django.utils.log.RequireDebugTrue',
         },
@@ -452,19 +540,19 @@ LOGGING = {
             'level': 'INFO',
             'class': 'logging.FileHandler',
             'formatter': 'verbose',
-            'filename': '/var/log/rede_gsti/info.log'
+            'filename': config.get("LOG_FILES", "info")
         },
         'error_file': {
             'level': 'ERROR',
             'class': 'logging.FileHandler',
             'formatter': 'verbose',
-            'filename': '/var/log/rede_gsti/error.log'
+            'filename': config.get("LOG_FILES", "error")
         },
         'signal_file': {
             'level': 'INFO',
             'class': 'logging.FileHandler',
             'formatter': 'verbose',
-            'filename': '/var/log/rede_gsti/signals.log'
+            'filename': config.get("LOG_FILES", "signals")
         },
         'mail_admins': {
             'level': 'ERROR',

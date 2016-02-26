@@ -1,6 +1,6 @@
 from django import forms
 
-from rede_gsti import settings
+from django.conf import settings
 
 
 class AbstractIdeiaForm(object):
