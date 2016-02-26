@@ -198,6 +198,16 @@
             font-weight: 600;
         }
     }
+    @media (max-width: $screen-lg-min) {
+        padding: 0;
+        overflow: hidden;
+        > li {
+            width: 33.3333%;
+            float: left;
+            border-bottom: none;
+            text-align: center;
+        }
+    }
     .counter {
         float: right;
         color: #e1e1e1;

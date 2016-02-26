@@ -1,4 +1,5 @@
 {% load profile_tags %}
+{% load user_agents %}
 
 {% if profile and profile.user %}
 <div class="widget widget-box">
@@ -8,6 +9,7 @@
 </div>
 {% endif %}
 {% if profile.user == request.user %}
+{% if request|is_pc %}
 <div class="widget widget-box">
     <div class="widget-content">
         <ul class="perfil-actions">
@@ -18,6 +20,7 @@
         </ul>
     </div>
 </div>
+{% endif %}
 <div class="widget widget-box">
     <div class="widget-content">
         <ul class="perfil-repositories">
