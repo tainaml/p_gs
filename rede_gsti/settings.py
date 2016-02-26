@@ -28,7 +28,7 @@ config_path = os.path.join(ENVIRONMENT_CONFIG_DIR, '%s-environment.cfg' % ENVIRO
 try:
     config.readfp(open(config_path))
 except IOError, e:
-    print "FILE NOT FOUND: %s" % str(e)
+
     config.add_section("GENERAL")
     config.set("GENERAL", "secret_key", '3u2oo))n_j*t#sjx*)=p*5j4mpb^7iruq4$v3%2nn!e2r2p$jj')
     config.set("GENERAL", "site_url", 'http://localhost:8000')
@@ -90,8 +90,6 @@ except IOError, e:
     # with open(config_path, 'wb') as configfile:
     #     config.write(configfile)
     #     configfile.close()
-
-print config.get("DATABASE", "name")
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.8/howto/deployment/checklist/
