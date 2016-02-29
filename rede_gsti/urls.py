@@ -17,7 +17,7 @@ from django.conf.urls import include, url
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.conf import settings
-
+from django.utils.translation import ugettext_lazy as _
 from apps.ninico.views import index as PROJECT_ROOT
 
 handler400 = "apps.core.views.errors.handler400"
@@ -31,8 +31,14 @@ url_media = static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 urlpatterns = [
     url(r'^$', PROJECT_ROOT, name='index'),
     url(r'^admin/', include(admin.site.urls)),
+
+    # Translators: URL root de conta
     url(r'^account/', include('apps.core.urls.account', namespace='account')),
+
+    # Translators: URL root de comentario
     url(r'^comment/', include('apps.comment.urls', namespace='comment')),
+
+    # Translators: URL root de pefil de usuario
     url(r'^profile/', include('apps.core.urls.user', namespace='profile')),
     url(r'^socialaccount/', include('apps.socialaccount.urls', namespace='socialaccount')),
     url(r'^socialactions/', include('apps.socialactions.urls', namespace='socialactions')),

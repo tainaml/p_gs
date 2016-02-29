@@ -138,7 +138,11 @@ class RegisterView(View):
         """
         form = self.form(request.POST)
         if form.process():
-            messages.add_message(request, messages.SUCCESS, _("Success"), 'account-register')
+
+            messages.add_message(request, messages.SUCCESS,
+                                 # Translators: This message appears on the home page only
+                                 _("Success")
+                                 , 'account-register')
             return redirect('/account/registered-successfully')
 
         return render(request, 'account/signup.html', {'form': form})

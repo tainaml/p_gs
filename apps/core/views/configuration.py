@@ -62,6 +62,7 @@ class CoreSettingsNotificationView(CoreSettingsBaseView):
 
         if form.process():
             context = {
+                # Translators:
                 "title": _("Configuration Notification"),
                 "message": _("Your settings have been successfully changed!")
             }
