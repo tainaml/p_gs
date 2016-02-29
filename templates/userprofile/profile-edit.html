@@ -144,7 +144,7 @@
 
                     <div class="row-form">
                         <div class="col-lg-12">
-                            <div class="form-group{% if form.responsibility.errors %}has-error{% endif %}">
+                            <div class="form-group {% if form.responsibility.errors %}has-error{% endif %}">
                                 <label for="responsibility">Área de atuação</label>
                                 <select name="responsibility" id="responsibility" class="form-control">
                                     <option value="" {% if not profile.current_occupation.responsibility.id %}selected{% endif %} disabled>Selecione uma área de atuação</option>
