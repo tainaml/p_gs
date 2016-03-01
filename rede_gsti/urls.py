@@ -84,7 +84,7 @@ urlpatterns = [
     # Translators: URL root de feed
     url(_(r'^feed/'), include('apps.core.urls.feed', namespace='feed')),
 
-    # Translators: URL de busca
+    # Translators: URL de buscai
     url(_(r'^'), include('apps.core.urls.search', namespace='search')),
 
     # Translators: URL core adicionais
