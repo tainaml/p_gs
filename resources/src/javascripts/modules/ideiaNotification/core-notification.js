@@ -11,12 +11,14 @@
         var $document = $( document );
         let page_title = $document.attr( 'title' );
 
+        var $element = $( element );
+
         var defaults = {
 
-            notificationType: null,
-
-            urlCount: '/notifications/poll/count/[notification_type]',
-            urlLoad : '/notifications/poll/load/[notification_type]',
+            // '/notifications/poll/count/[notification_type]'
+            urlCount: $element.data("url-count"),
+            // '/notifications/poll/load/[notification_type]'
+            urlLoad : $element.data("url-load"),
             method  : 'get',
             dataType: 'json',
             token   : null,
@@ -28,9 +30,6 @@
 
         var plugin = this;
         plugin.settings = {};
-
-        var $element = $( element );
-
         plugin.init = function() {
 
             plugin.settings = $.extend({}, defaults, options);
@@ -77,15 +76,6 @@
             var is_valid = true;
             var errors = [];
 
-            if ( !obj.settings.notificationType ) {
-                is_valid = false;
-                errors.push( 'Notification Type is not defined!' );
-            }
-
-            if ( $.inArray( obj.settings.notificationType, allowed_notifications ) === -1 ) {
-                is_valid = false;
-                errors.push( 'Notification Type is not allowed!' );
-            }
 
             if ( !obj.settings.token ) {
                 is_valid = false;
@@ -116,15 +106,6 @@
             var is_valid = true;
             var errors = [];
 
-            if ( !obj.settings.notificationType ) {
-                is_valid = false;
-                errors.push( 'Notification Type is not defined!' );
-            }
-
-            if ( $.inArray( obj.settings.notificationType, allowed_notifications ) === -1 ) {
-                is_valid = false;
-                errors.push( 'Notification Type is not allowed!' );
-            }
 
             if ( !obj.settings.token ) {
                 is_valid = false;
@@ -146,7 +127,7 @@
                         obj.settings.data['token'] = obj.settings.token;
 
                     $.ajax({
-                        url: obj.settings.urlCount.replace( '[notification_type]', obj.settings.notificationType ),
+                        url: obj.settings.urlCount,
                         method: obj.settings.method,
                         dataType: obj.settings.dataType,
                         data: obj.settings.data,
@@ -209,7 +190,7 @@
 
             if ( notifications.length > 0 ) {
                 $.ajax({
-                    url     : obj.settings.urlLoad.replace( '[notification_type]', obj.settings.notificationType ),
+                    url     : obj.settings.urlLoad,
                     method  : 'get',
                     dataType: 'json',
                     data    : obj.settings.data,
@@ -236,7 +217,7 @@
 
             if ( notifications.length > 0 ) {
                 $.ajax({
-                    url     : '/notifications/clear',
+                    url     : obj.settings.data['url-clear'],
                     method  : 'post',
                     dataType: 'json',
                     data    : obj.settings.data,

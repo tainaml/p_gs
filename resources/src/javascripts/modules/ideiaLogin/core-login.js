@@ -11,9 +11,11 @@
 
         // plugin's default options
         // this is private property and is  accessible only from inside the plugin
-        var defaults = {
 
-            urlCheckLogin : '/account/is-logged/',
+        var $element = $(element);
+        var defaults = {
+            //'/account/is-logged/'
+            urlCheckLogin : $element.data("url-login"),
             method  : 'post',
             dataType: 'json',
             modal   : '#modal-login',
@@ -93,8 +95,6 @@
         // where "element" is the element the plugin is attached to;
         plugin.settings = {};
 
-        var $element = $(element), // reference to the jQuery version of DOM element
-            element = element;    // reference to the actual DOM element
 
         // the "constructor" method that gets called when the object is created
         plugin.init = function() {

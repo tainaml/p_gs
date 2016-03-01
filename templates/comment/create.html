@@ -8,7 +8,7 @@
     </div>
 
     <div class="comment-group create-comment-body{% if form.content.errors %} has-error{% endif %}">
-         <textarea id="text_area_content" name="content" class="form-control" placeholder="Deixe seu comentário" data-trigger="login" data-token="{{ csrf_token }}"></textarea>
+         <textarea id="text_area_content" name="content" class="form-control" placeholder="Deixe seu comentário" data-url-login="{% url 'account:is_logged' %}" data-trigger="login" data-token="{{ csrf_token }}"></textarea>
 {#            {{ form_comment.content|safe}}#}
 {#         {{ form.content|safe }}#}
         <span class="help-block"></span>
@@ -19,7 +19,7 @@
 
     <div class="create-comment-footer">
         <input type="reset" data-toggle value="Cancelar" class="btn btn-default">
-        <input type="submit" value="Comentar" class="btn btn-primary" data-trigger="login" data-token="{{ csrf_token }}">
+        <input type="submit" value="Comentar" class="btn btn-primary" data-url-login="{% url 'account:is_logged' %}" data-trigger="login" data-token="{{ csrf_token }}">
     </div>
 
 </form>

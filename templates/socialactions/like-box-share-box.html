@@ -7,7 +7,7 @@
             data-target-unlike=".count-unlike-post-{{ object_to_link }}-{{ content }}"
             data-target-id="{{ object_to_link }}-{{ content }}"
             data-target-id-action="{{ object_to_link }}-{{ content }}-like"
-            data-trigger="login" data-token="{{ csrf_token }}"
+            data-url-login="{% url 'account:is_logged' %}" data-trigger="login" data-token="{{ csrf_token }}"
             >
             <span class="count-like-post-{{ object_to_link }}-{{ content }}" style="display: block">{{ likes }}</span>
             <i class="gsticon gsticon-caret-up"></i>
@@ -20,7 +20,7 @@
             data-target-unlike=".count-unlike-post-{{ object_to_link }}-{{ content }}"
             data-target-id="{{ object_to_link }}-{{ content }}"
             data-target-id-action="{{ object_to_link }}-{{ content }}-unlike"
-            data-trigger="login" data-token="{{ csrf_token }}"
+            data-url-login="{% url 'account:is_logged' %}" data-trigger="login" data-token="{{ csrf_token }}"
             >
             <i class="gsticon gsticon-caret-down" ></i>
             <span class="count-unlike-post-{{ object_to_link }}-{{ content }}" style="display: block">{{ unlikes }}</span>
@@ -28,12 +28,12 @@
     </div>
 {% else %}
     <div class="async-like-group">
-        <a href="javascript:void(0);" data-trigger="login" data-token="{{ csrf_token }}">
+        <a href="javascript:void(0);" data-url-login="{% url 'account:is_logged' %}" data-trigger="login" data-token="{{ csrf_token }}">
             <span class="count-like-post-{{ object_to_link }}" style="display: block">{{ likes }}</span>
             <i class="gsticon gsticon-caret-up"></i>
         </a>
         <hr>
-        <a href="javascript:void(0);" data-trigger="login" data-token="{{ csrf_token }}">
+        <a href="javascript:void(0);" data-url-login="{% url 'account:is_logged' %}" data-trigger="login" data-token="{{ csrf_token }}">
             <i class="gsticon gsticon-caret-down" ></i>
             <span class="count-unlike-post-{{ object_to_link }}" style="display: block">{{ unlikes }}</span>
         </a>
