@@ -58,19 +58,21 @@
         }
         &-#{link} {
             line-height: 3;
+            width: 50%;
             @media (min-width: $screen-lg-min) {
+                width: 63.5%;
                 line-height: 5.8;
             }
-            width: 63.5%;
             float: left;
             background-color: $white-ice;
-            border-right: 1px solid $color-border;
-            border-left: 1px solid $color-border;
             color: $gray;
             font-size: 1em;
             text-align: center;
             &:last-child {
-                width: 36.5%;
+                width: 50%;
+                @media (min-width: $screen-lg-min) {
+                    width: 36.5%;
+                }
                 border-left-width: 0;
             }
             &:hover {
@@ -78,20 +80,27 @@
             }
         }
     }
-    .dropdown-item-header { float: left; }
+    .dropdown-item-header {
+        float: left;
+        border-right: 1px solid $color-border;
+        @media (max-width: $screen-lg-min) {
+            width: 20%;
+            background-color: $white-ice;
+            text-align: center;
+        }
+    }
     .user-actions-logged {
         @include make-xs-column(12);
         @include make-lg-column(4);
         border-left: 1px solid $color-border;
-        @media (min-width: $screen-lg-min) {
-            padding-left: 0;
-            padding-right: 0;
-        }
+        padding-left: 0;
+        padding-right: 0;
+
         &-#{link--logged} {
             position: relative;
             padding: 16px 22px;
             float: left;
-            border-right: 1px solid $color-border;
+            // border-right: 1px solid $color-border;
             color: $background-button;
             font-size: 1.214em;
             line-height: 3;
@@ -99,14 +108,15 @@
             background-color: $white-ice;
             @media (max-width: $screen-sm-min) {
                 float: none;
-                border-right-width: 0;
+                border-width: 0;
             }
             &:nth-child(4) {
-                min-width: 47%;
+                width: 47%;
                 border-left-width: 1px;
                 @media (max-width: $screen-sm-min) {
-                    text-align: left;
-                    display: block;
+                    width: 40%;
+                    padding: 0;
+                    float: left;
                     border-left-width: 0;
                 }
             }
@@ -131,9 +141,6 @@
             &:hover {
                 background-color: #f2f2f2;
             }
-        }
-        & .user-actions-profile {
-            width: 190px;
         }
     }
 }
