@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-01 09:29-0300\n"
+"POT-Creation-Date: 2016-03-01 11:02-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -23,8 +23,6 @@ msgid "Bem vindo!"
 msgstr "Bem vindo!"
 
 #: apps/account/service/business.py:274
-#, fuzzy
-#| msgid "Password Confirm"
 msgid "Password Recovery"
 msgstr "Confirmação de senha"
 
@@ -56,18 +54,12 @@ msgid "Account is not active."
 msgstr "Conta não está ativa."
 
 #: apps/account/service/forms.py:74
-#, fuzzy, python-format
-#| msgid ""
-#| "If you have not received the confirmation email <a href="
-#| "\"%(url_resend_account_confirmation)s\">%(click_here)s</a> to resend. "
 msgid "If you have not received the confirmation email %s to resend."
 msgstr ""
 "Se você não recebeu o email de confirmação <a href="
 "\"%(url_resend_account_confirmation)s\">%(click_here)s</a> Para reenviá-lo. "
 
 #: apps/account/service/forms.py:108
-#, fuzzy
-#| msgid "Old password"
 msgid "Wrong old password."
 msgstr "Senha anterior incorreta."
 
@@ -85,18 +77,14 @@ msgid "Success"
 msgstr "Sucesso"
 
 #: apps/account/views.py:160
-#, fuzzy
-#| msgid "Question created successfully!"
 msgid "Registered Successfully"
-msgstr "Pergunta criada com sucesso!"
+msgstr "Registrado com sucesso!"
 
 #: apps/account/views.py:175
 msgid "Password successfully recovered"
 msgstr "Senha recuperada com sucesso"
 
 #: apps/account/views.py:191
-#, fuzzy
-#| msgid "Question is not exists!"
 msgid "Token not exist"
 msgstr "Token não existe"
 
@@ -105,28 +93,21 @@ msgid "Token exist - Account verified"
 msgstr "Token existe. Conta verificada."
 
 #: apps/account/views.py:230 apps/account/views.py:255
-#, fuzzy
-#| msgid "Question is not exists!"
 msgid "Token not exist!"
-msgstr "Dùvida não existe"
+msgstr "Token não existe"
 
 #: apps/account/views.py:261
-#, fuzzy
-#| msgid "Your settings have been successfully changed!"
+
 msgid "Password successfully changed!"
-msgstr "Suas configurações foi alteradas com sucesso!"
+msgstr "Senha alterada com sucesso!"
 
 #: apps/account/views.py:346
-#, fuzzy
-#| msgid "Resend account confirmation"
 msgid "A confirmation email was sent to you"
-msgstr "Reenviar confirmação de conta"
+msgstr "Um e-mail de confirmação foi enviado para você"
 
 #: apps/account/views.py:370 apps/core/views/account.py:52
-#, fuzzy
-#| msgid "Complaint created successfully!"
 msgid "E-mail re-sent successfully!"
-msgstr "Denúncia realizada com sucesso!"
+msgstr "E-mail reenviado com sucesso!"
 
 #: apps/account/views.py:385
 msgid "Username is available!"
@@ -212,9 +193,6 @@ msgstr "^listar-respostas/$"
 #. Translators: URL de pagina atualizacao de comentarios
 #. Translators: URL para atualizar pergunta
 #: apps/comment/urls.py:23 apps/core/urls/question.py:18
-#, fuzzy
-#| msgctxt "update article"
-#| msgid "Update"
 msgid "^update/$"
 msgstr "^atualizar/$"
 
@@ -225,8 +203,6 @@ msgstr "^listar/$"
 
 #. Translators: URL de pagina de delete de comentario
 #: apps/comment/urls.py:29
-#, fuzzy
-#| msgid "Delete"
 msgid "^delete$"
 msgstr "^delete$"
 
@@ -257,10 +233,8 @@ msgid "Configs Keys"
 msgstr "COnfigurar Chaves"
 
 #: apps/configuration/models.py:28
-#, fuzzy
-#| msgid "Configs Keys"
 msgid "Config Values"
-msgstr "COnfigurar Chaves"
+msgstr "Configurar Chaves"
 
 #: apps/contact/views.py:66
 msgid "Contact created!"
@@ -274,8 +248,6 @@ msgstr "^inscricao/$"
 #. Translators: URL de pagina de login
 #. Translators: URL de login de conta social
 #: apps/core/urls/account.py:15 apps/socialaccount/urls.py:16
-#, fuzzy
-#| msgid "Login"
 msgid "^login/$"
 msgstr "^login/$"
 
@@ -286,8 +258,6 @@ msgstr "^login/ajax/$"
 
 #. Translators: URL de pagina de logout
 #: apps/core/urls/account.py:21
-#, fuzzy
-#| msgid "Logout"
 msgid "^logout/"
 msgstr "^sair/"
 
@@ -298,22 +268,16 @@ msgstr "^esta-logado/"
 
 #. Translators: URL de pagina de mudanca de senha
 #: apps/core/urls/account.py:27
-#, fuzzy
-#| msgid "Change password"
 msgid "^change_password$"
 msgstr "^mudar-senha$"
 
 #. Translators: URL de pagina de esquecimento de senha
 #: apps/core/urls/account.py:30
-#, fuzzy
-#| msgid "Old password"
 msgid "^forgot_password$"
 msgstr "^esqueci-minha-senha$"
 
 #. Translators: URL de pagina de registro com sucesso
 #: apps/core/urls/account.py:33
-#, fuzzy
-#| msgid "Question created successfully!"
 msgid "^registered-successfully/$"
 msgstr "^registrado-com-sucesso/$"
 
@@ -325,8 +289,6 @@ msgstr "^validacao-de-email/(?P<activation_key>[0-9a-z]{40})/$"
 
 #. Translators: URL de pagina de recuperacao de senha com sucesso
 #: apps/core/urls/account.py:39
-#, fuzzy
-#| msgid "Your settings have been successfully changed!"
 msgid "^recovery-password/successfully/$"
 msgstr "^recuperacao-de-senha/sucesso/$"
 
@@ -344,8 +306,6 @@ msgstr "^validacao-de-recuperacao-de-senha/(?P<activation_key>[0-9a-z]{40})/$"
 
 #. Translators: URL de pagina de reenvio de confirmacao de conta
 #: apps/core/urls/account.py:48
-#, fuzzy
-#| msgid "Resend account confirmation"
 msgid "^resend_account_confirmation$"
 msgstr "^reenviar-confirmacao-de-conta$"
 
@@ -383,113 +343,72 @@ msgstr ""
 
 #. Translators: URL de criacao de artigo em uma comunidade
 #: apps/core/urls/article.py:23
-#, fuzzy
-#| msgid ""
-#| "^article/(?P<article_slug>[a-z0-9]+(?:-[a-z0-9]+)*)/(?P<article_id>\\d+)$"
 msgid "^article/create/(?P<community_slug>[a-z0-9]+(?:-[a-z0-9]+)*)$"
 msgstr "^publicacao/criar/(?P<community_slug>[a-z0-9]+(?:-[a-z0-9]+)*)$"
 
 #. Translators: URL de home de categoria
 #: apps/core/urls/category.py:8
-#, fuzzy
-#| msgid ""
-#| "^article/(?P<article_slug>[a-z0-9]+(?:-[a-z0-9]+)*)/(?P<article_id>\\d+)$"
 msgid "^(?P<category_slug>[a-z0-9]+(?:-[a-z0-9]+)*)/$"
 msgstr "^(?P<category_slug>[a-z0-9]+(?:-[a-z0-9]+)*)/$"
 
 #. Translators: URL de pagina principal de comunidade
 #: apps/core/urls/community.py:8
-#, fuzzy
-#| msgid ""
-#| "^article/(?P<article_slug>[a-z0-9]+(?:-[a-z0-9]+)*)/(?P<article_id>\\d+)$"
 msgid "^(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/$"
 msgstr "^(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/$"
 
 #. Translators: URL de sobre da comunidade
 #: apps/core/urls/community.py:11
-#, fuzzy
-#| msgid ""
-#| "^article/(?P<article_slug>[a-z0-9]+(?:-[a-z0-9]+)*)/(?P<article_id>\\d+)$"
 msgid "^(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/about/$"
 msgstr "^(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/sobre/$"
 
 #. Translators: URL de seguidores da comunidade
 #: apps/core/urls/community.py:14
-#, fuzzy
-#| msgid ""
-#| "^article/(?P<article_slug>[a-z0-9]+(?:-[a-z0-9]+)*)/(?P<article_id>\\d+)$"
 msgid "^(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/followers/$"
 msgstr "^(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/seguidores/$"
 
 #. Translators: URL de pagina de busca da comunidade
 #: apps/core/urls/community.py:17
-#, fuzzy
-#| msgid ""
-#| "^article/(?P<article_slug>[a-z0-9]+(?:-[a-z0-9]+)*)/(?P<article_id>\\d+)$"
+
 msgid "^(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/search/$"
 msgstr "^(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/buscar/$"
 
 #. Translators: URL de listagem da comunidade
 #: apps/core/urls/community.py:20
-#, fuzzy
-#| msgid ""
-#| "^article/(?P<article_slug>[a-z0-9]+(?:-[a-z0-9]+)*)/(?P<article_id>\\d+)$"
 msgid "^(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/list/$"
 msgstr "^(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/listagem/$"
 
 #. Translators: URL de perguntas da comunidade
 #: apps/core/urls/community.py:23
-#, fuzzy
-#| msgid ""
-#| "^article/(?P<article_slug>[a-z0-9]+(?:-[a-z0-9]+)*)/(?P<article_id>\\d+)$"
 msgid "^(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/questions/$"
 msgstr "^(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/perguntas/$"
 
 #. Translators: URL de pagina de pesquisa de perguntas na comunidade
 #: apps/core/urls/community.py:26
-#, fuzzy
-#| msgid ""
-#| "^article/(?P<article_slug>[a-z0-9]+(?:-[a-z0-9]+)*)/(?P<article_id>\\d+)$"
 msgid "^(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/questions/search/$"
 msgstr "^(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/perguntas/buscar/$"
 
 #. Translators: URL de pagina de listagem de perguntas da comunidade
 #: apps/core/urls/community.py:29
-#, fuzzy
-#| msgid ""
-#| "^article/(?P<article_slug>[a-z0-9]+(?:-[a-z0-9]+)*)/(?P<article_id>\\d+)$"
 msgid "^(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/questions/list/$"
 msgstr "^(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/perguntas/listagem/$"
 
 #. Translators: URL de pagina de videos da comunidade
 #: apps/core/urls/community.py:32
-#, fuzzy
-#| msgid ""
-#| "^article/(?P<article_slug>[a-z0-9]+(?:-[a-z0-9]+)*)/(?P<article_id>\\d+)$"
 msgid "^(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/videos/$"
 msgstr "^(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/videos/$"
 
 #. Translators: URL de pagina de procura de videos da comunidade
 #: apps/core/urls/community.py:35
-#, fuzzy
-#| msgid ""
-#| "^article/(?P<article_slug>[a-z0-9]+(?:-[a-z0-9]+)*)/(?P<article_id>\\d+)$"
 msgid "^(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/videos/search/$"
 msgstr "^(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/videos/buscar/$"
 
 #. Translators: URL de pagina de listagem de videos da comunidade
 #: apps/core/urls/community.py:38
-#, fuzzy
-#| msgid ""
-#| "^article/(?P<article_slug>[a-z0-9]+(?:-[a-z0-9]+)*)/(?P<article_id>\\d+)$"
 msgid "^(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/videos/list/$"
 msgstr "^(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/videos/listagem/$"
 
 #. Translators: URL de pagina de comunidades relacionadas
 #: apps/core/urls/community.py:41
-#, fuzzy
-#| msgid ""
-#| "^article/(?P<article_slug>[a-z0-9]+(?:-[a-z0-9]+)*)/(?P<article_id>\\d+)$"
 msgid "^(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/related/$"
 msgstr "^(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/relacionados/$"
 
@@ -520,8 +439,6 @@ msgstr "^conta$"
 
 #. Translators: URL de configuracao de notificacao
 #: apps/core/urls/configuration.py:11
-#, fuzzy
-#| msgid "Configuration Notification"
 msgid "^notification$"
 msgstr "^notificacao$"
 
@@ -588,8 +505,6 @@ msgstr "^poll/carregar/(?P<notification_type>[a-z]+)$"
 
 #. Translators: URL para criar pergunta
 #: apps/core/urls/question.py:9
-#, fuzzy
-#| msgid "^article/create$"
 msgid "^create/$"
 msgstr "^criar/$"
 
@@ -616,7 +531,8 @@ msgstr "^atualizar-resposta/$"
 #. Translators: URL de carregar perguntas relacionadas
 #: apps/core/urls/question.py:30
 msgid "^load/related/(?P<question_id>[0-9]+)/(?P<content_type>[a-z]+)/$"
-msgstr "^carregar/relacionados/(?P<question_id>[0-9]+)/(?P<content_type>[a-z]+)/$"
+msgstr ""
+"^carregar/relacionados/(?P<question_id>[0-9]+)/(?P<content_type>[a-z]+)/$"
 
 #. Translators: URL para marcar resposta correta
 #: apps/core/urls/question.py:33
@@ -630,9 +546,6 @@ msgstr "^remover-resposta$"
 
 #. Translators: URL visualizacao de pergunta
 #: apps/core/urls/question.py:39
-#, fuzzy
-#| msgid ""
-#| "^article/(?P<article_slug>[a-z0-9]+(?:-[a-z0-9]+)*)/(?P<article_id>\\d+)$"
 msgid ""
 "^(?P<question_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/(?P<question_id>[0-9]+)/$"
 msgstr ""
@@ -640,9 +553,6 @@ msgstr ""
 
 #. Translators: URL de criar pergunta
 #: apps/core/urls/question.py:43
-#, fuzzy
-#| msgid ""
-#| "^article/(?P<article_slug>[a-z0-9]+(?:-[a-z0-9]+)*)/(?P<article_id>\\d+)$"
 msgid "^create/(?P<community_slug>[a-z0-9]+(?:-[a-z0-9]+)*)$"
 msgstr "^criar/(?P<community_slug>[a-z0-9]+(?:-[a-z0-9]+)*)$"
 
@@ -732,15 +642,11 @@ msgstr "^recuperar-cidade/$"
 
 #. Translators: URL para exibir as ocupacoes do usuario
 #: apps/core/urls/user.py:42
-#, fuzzy
-#| msgid "Add occupation"
 msgid "^occupation/$"
 msgstr "^ocupacao/$"
 
 #. Translators: URL para adicionar ocupacoes
 #: apps/core/urls/user.py:45
-#, fuzzy
-#| msgid "Add occupation"
 msgid "^occupation/add/$"
 msgstr "^ocupacao/adicionar/$"
 
@@ -751,15 +657,11 @@ msgstr "^ocupacao/(?P<occupation_id>[0-9]+)/$"
 
 #. Translators: URL para edicao de ocupacao
 #: apps/core/urls/user.py:51
-#, fuzzy
-#| msgid "^article/edit/(?P<article_id>\\d+)$"
 msgid "^occupation/edit/(?P<occupation_id>[0-9]+)/$"
 msgstr "^ocupacao/editar/(?P<occupation_id>[0-9]+)/$"
 
 #. Translators: URL para deletar ocupacao
 #: apps/core/urls/user.py:54
-#, fuzzy
-#| msgid "^article/delete/(?P<article_id>\\d+)$"
 msgid "^occupation/delete/(?P<occupation_id>[0-9]+)/$"
 msgstr "^ocupacao/deletar/(?P<occupation_id>[0-9]+)/$"
 
@@ -775,9 +677,6 @@ msgstr "^listagem$"
 
 #. Translators: URL de listagem e publicacoes do usuario
 #: apps/core/urls/user.py:63
-#, fuzzy
-#| msgid ""
-#| "^article/(?P<article_slug>[a-z0-9]+(?:-[a-z0-9]+)*)/(?P<article_id>\\d+)$"
 msgid "^list_articles/(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/$"
 msgstr "^listagem-de-publicacoes/(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/$"
 
@@ -828,137 +727,87 @@ msgstr "^remover-sugestao/$"
 
 #. Translators: URL de listagem de acoes sociais
 #: apps/core/urls/user.py:93
-#, fuzzy
-#| msgid ""
-#| "^article/(?P<article_slug>[a-z0-9]+(?:-[a-z0-9]+)*)/(?P<article_id>\\d+)$"
 msgid "^items/list/(?P<action>[a-z]+(?:-[a-z]+)*)/$"
 msgstr "^itens/listagem/(?P<action>[a-z]+(?:-[a-z]+)*)/$"
 
 #. Translators: URL para mostrar usuario
 #: apps/core/urls/user.py:96
-#, fuzzy
-#| msgid ""
-#| "^article/(?P<article_slug>[a-z0-9]+(?:-[a-z0-9]+)*)/(?P<article_id>\\d+)$"
 msgid "^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/$"
 msgstr "^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/$"
 
 #. Translators: URL da listagem de perfil do usuario
 #: apps/core/urls/user.py:99
-#, fuzzy
-#| msgid ""
-#| "^article/(?P<article_slug>[a-z0-9]+(?:-[a-z0-9]+)*)/(?P<article_id>\\d+)$"
 msgid "^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/list$"
 msgstr "^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/listagem$"
 
 #. Translators: URL de busca de usuario
 #: apps/core/urls/user.py:102
-#, fuzzy
-#| msgid ""
-#| "^article/(?P<article_slug>[a-z0-9]+(?:-[a-z0-9]+)*)/(?P<article_id>\\d+)$"
 msgid "^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/search$"
 msgstr "^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/buscar$"
 
 #. Translators: URL de seguidores do usuario
 #: apps/core/urls/user.py:105
-#, fuzzy
-#| msgid ""
-#| "^article/(?P<article_slug>[a-z0-9]+(?:-[a-z0-9]+)*)/(?P<article_id>\\d+)$"
 msgid "^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/followings/$"
 msgstr "^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/seguindo/$"
 
 #. Translators: URL de procura de seguindo de usuario
 #: apps/core/urls/user.py:108
-#, fuzzy
-#| msgid ""
-#| "^article/(?P<article_slug>[a-z0-9]+(?:-[a-z0-9]+)*)/(?P<article_id>\\d+)$"
 msgid "^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/followings/search/$"
 msgstr "^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/seguindo/buscar/$"
 
 #. Translators: URL de listagem de procura de usuario
 #: apps/core/urls/user.py:111
-#, fuzzy
-#| msgid ""
-#| "^article/(?P<article_slug>[a-z0-9]+(?:-[a-z0-9]+)*)/(?P<article_id>\\d+)$"
 msgid "^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/followings/search/list/$"
 msgstr "^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/seguindo/buscar/listagem/$"
 
 #. Translators: URL de carregamento assincrono de seguindo
 #: apps/core/urls/user.py:114
-#, fuzzy
-#| msgid ""
-#| "^article/(?P<article_slug>[a-z0-9]+(?:-[a-z0-9]+)*)/(?P<article_id>\\d+)$"
 msgid "^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/followings/load/ajax/$"
 msgstr "^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/seguindo/carregar/ajax/$"
 
 #. Translators: URL root de seguidores
 #: apps/core/urls/user.py:117
-#, fuzzy
-#| msgid ""
-#| "^article/(?P<article_slug>[a-z0-9]+(?:-[a-z0-9]+)*)/(?P<article_id>\\d+)$"
 msgid "^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/followers/$"
 msgstr "^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/seguidores/$"
 
 #. Translators: URL de procura de seguidores
 #: apps/core/urls/user.py:120
-#, fuzzy
-#| msgid ""
-#| "^article/(?P<article_slug>[a-z0-9]+(?:-[a-z0-9]+)*)/(?P<article_id>\\d+)$"
 msgid "^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/followers/search/$"
 msgstr "^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/seguidores/buscar/$"
 
 #. Translators: URL de listagem de busca de seguidores
 #: apps/core/urls/user.py:123
-#, fuzzy
-#| msgid ""
-#| "^article/(?P<article_slug>[a-z0-9]+(?:-[a-z0-9]+)*)/(?P<article_id>\\d+)$"
 msgid "^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/followers/search/list/$"
-msgstr "^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/seguidores/buscar/listagem/$"
+msgstr ""
+"^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/seguidores/buscar/listagem/$"
 
 #. Translators: URL de comunidades do usuario
 #: apps/core/urls/user.py:126
-#, fuzzy
-#| msgid ""
-#| "^article/(?P<article_slug>[a-z0-9]+(?:-[a-z0-9]+)*)/(?P<article_id>\\d+)$"
 msgid "^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/communities/$"
-msgstr "^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/comunidade/$"
+msgstr "^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/comunidades/$"
 
 #. Translators: URL de listagem de comunidades do usuario
 #: apps/core/urls/user.py:129
-#, fuzzy
-#| msgid ""
-#| "^article/(?P<article_slug>[a-z0-9]+(?:-[a-z0-9]+)*)/(?P<article_id>\\d+)$"
 msgid "^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/communities/list/$"
 msgstr "^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/comunidade/listagem/$"
 
 #. Translators: URL de carregamento assincrono de comunidades do usuario
 #: apps/core/urls/user.py:132
-#, fuzzy
-#| msgid ""
-#| "^article/(?P<article_slug>[a-z0-9]+(?:-[a-z0-9]+)*)/(?P<article_id>\\d+)$"
 msgid "^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/communities/load/ajax/$"
 msgstr "^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/comunidade/carregar/ajax/$"
 
 #. Translators: URL de videos do usuario
 #: apps/core/urls/user.py:135
-#, fuzzy
-#| msgid ""
-#| "^article/(?P<article_slug>[a-z0-9]+(?:-[a-z0-9]+)*)/(?P<article_id>\\d+)$"
 msgid "^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/videos/$"
 msgstr "^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/videos/$"
 
 #. Translators: URL de procura de videos do usuario
 #: apps/core/urls/user.py:138
-#, fuzzy
-#| msgid ""
-#| "^article/(?P<article_slug>[a-z0-9]+(?:-[a-z0-9]+)*)/(?P<article_id>\\d+)$"
 msgid "^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/videos/search/$"
 msgstr "^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/videos/busca/$"
 
 #. Translators: URL de listagem de busca de videos do usuario
 #: apps/core/urls/user.py:141
-#, fuzzy
-#| msgid ""
-#| "^article/(?P<article_slug>[a-z0-9]+(?:-[a-z0-9]+)*)/(?P<article_id>\\d+)$"
 msgid "^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/videos/search/list/$"
 msgstr "^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/videos/search/listagem/$"
 
@@ -968,8 +817,6 @@ msgid "^ajax/user/communities/$"
 msgstr "^ajax/usuario/comunidade/$"
 
 #: apps/core/views/account.py:51
-#, fuzzy
-#| msgid "Resend account confirmation"
 msgid "Resend confirmation email"
 msgstr "Reenviar confirmação de conta"
 
@@ -1088,8 +935,6 @@ msgstr "^email-enviados/"
 
 #. Translators: URL de logout de conta social
 #: apps/socialaccount/urls.py:19
-#, fuzzy
-#| msgid "Logout"
 msgid "^logout/$"
 msgstr "Sair"
 
@@ -1105,8 +950,6 @@ msgstr "^autenticacao-ajax/(?P<backend>[^/]+)/$"
 
 #. Translators: URL de requisicao de email social
 #: apps/socialaccount/urls.py:28
-#, fuzzy
-#| msgid "Email"
 msgid "^email/$"
 msgstr "Email"
 
@@ -1143,8 +986,8 @@ msgid ""
 "^act/ajax/(?P<object_to_link>[0-9]+)/(?P<content>[a-zA-Z]+)/(?P<action>[a-zA-"
 "Z]+)"
 msgstr ""
-"^agir/ajax/(?P<object_to_link>[0-9]+)/(?P<content>[a-zA-Z]+)/(?P<action>[a-zA-"
-"Z]+)"
+"^agir/ajax/(?P<object_to_link>[0-9]+)/(?P<content>[a-zA-Z]+)/(?P<action>[a-"
+"zA-Z]+)"
 
 #. Translators: URL de sugerir
 #: apps/socialactions/urls.py:22
@@ -1238,12 +1081,10 @@ msgstr "^conta/"
 #. Translators: URL root de comentario
 #: rede_gsti/urls.py:39
 msgid "^comment/"
-msgstr ""
+msgstr "^comentario/"
 
 #. Translators: URL root de perfil de usuario
 #: rede_gsti/urls.py:42
-#, fuzzy
-#| msgid "Show profile"
 msgid "^profile/"
 msgstr "^perfil/"
 
@@ -1279,7 +1120,7 @@ msgstr "^"
 #. Translators: URL root de categoria
 #: rede_gsti/urls.py:66
 msgid "^category-feed/"
-msgstr "^feed-categoria/"
+msgstr "^categoria/"
 
 #. Translators: URL root de pergunta
 #: rede_gsti/urls.py:69
@@ -1288,8 +1129,6 @@ msgstr "^pergunta/"
 
 #. Translators: URL root de contato
 #: rede_gsti/urls.py:72
-#, fuzzy
-#| msgid "Contact"
 msgid "^contact/"
 msgstr "^contato/"
 
@@ -1509,22 +1348,6 @@ msgstr "Mensagem"
 #: templates/contact/contact.html:37
 msgid "submit"
 msgstr "Enviar"
-
-#: templates/home/partials/modals/modal-login.html:48
-#, fuzzy, python-format
-#| msgid ""
-#| "If you have not received the confirmation email <a href="
-#| "\"%(url_resend_account_confirmation)s\">%(click_here)s</a> to resend. "
-msgid ""
-"\n"
-"                                If you have not received the confirmation "
-"email <a href=\"%(url_resend_account_confirmation)s\" data-toggle=\"modal\" "
-"data-target=\"#modal-resend-email-confirmation\">%(click_here)s</a> to "
-"resend.\n"
-"                                "
-msgstr ""
-"Se você não recebeu o email de confirmação <a href="
-"\"%(url_resend_account_confirmation)s\">%(click_here)s</a> Para reenviá-lo. "
 
 #: templates/home/partials/user-actions.html:31
 msgid "Sair"
