@@ -214,10 +214,9 @@
             var notifications = $element.data( 'notifications' ) || [];
 
             obj.settings.data['notifications'] = notifications;
-
             if ( notifications.length > 0 ) {
                 $.ajax({
-                    url     : obj.settings.data['url-clear'],
+                    url     : obj.settings.urlClear,
                     method  : 'post',
                     dataType: 'json',
                     data    : obj.settings.data,
