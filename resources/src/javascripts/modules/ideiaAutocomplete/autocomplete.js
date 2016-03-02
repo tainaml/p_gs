@@ -113,7 +113,12 @@
     function triggerItem (e) {
         e.stopPropagation();
         var item = $('#dropdown-search').find('.active a');
-        location.href = item.attr('href');
+        if (item.length) {
+            location.href = item.attr('href');
+        } else {
+            console.log(e);
+            $('form[role="search"]').submit();
+        }
     }
 
     function AutocompleteReady() {
