@@ -3,6 +3,7 @@
 <li class="item-float-notification item-float-notification-link {% if not notification.read %}not-visualized{% endif %}"
     data-trigger="notification-as-read"
     data-csrf="{{ csrf_token }}"
+    data-url-mark-as-read="{% url 'notifications:mark-as-read-and-visualized' %}"
     data-next-url="{% url 'profile:show' notification.author.get_username %}"
     data-notification="{{ notification.id }}">
     <a href="{% url 'profile:show' notification.author.get_username %}" title="{{ notification.author.get_full_name }}">

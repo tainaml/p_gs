@@ -31,6 +31,7 @@
 <li class="item-float-notification item-float-notification-link {% if not notification.read %}not-visualized{% endif %}"
     data-trigger="notification-as-read"
     data-csrf="{{ csrf_token }}"
+    data-url-mark-as-read="{% url 'notifications:mark-as-read-and-visualized' %}"
     data-next-url="{{ url_next }}{% if show_anchor %}#{{ notification.target_content_type.model }}-{{ notification.target.id }}{% endif %}"
     data-notification="{{ notification.id }}">
     <a href="{{ url_next }}{% if show_anchor %}#{{ notification.target_content_type.model }}-{{ notification.target.id }}{% endif %}" title="{{ post_name }}">
