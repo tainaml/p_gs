@@ -214,8 +214,13 @@
 
                 var $selectInput = $('#tagger-suggest-users');
                 var $selectize = $selectInput[0].selectize;
+                $selectize.clear();
                 $selectize.clearCache();
-                $selectize.focus();
+                $selectize.clearOptions();
+
+                $modalSuggest.on('shown.bs.modal', function () {
+                    $selectize.focus();
+                });
             };
 
             $(function() {
