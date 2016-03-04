@@ -10,13 +10,7 @@
                 {% include 'home/partials/sidebar-perfil.html' %}
             </div>
             <div class="col-lg-9">
-                <nav class="perfil-navegation">
-                    {% if profile.user == request.user %}<a href="{% url 'ninico:feed' %}">Feed</a> •{% endif %}
-                    <a class="active" href="{% url 'profile:show' username=profile.user.username %}">Publicações</a> •
-                    <a href="{% url 'profile:communities' username=profile.user.username %}">Comunidades</a> •
-                    <a href="{% url 'profile:followers' username=profile.user.username %}">Relacionamentos</a> •
-                    <a href="{% url 'profile:videos' profile.user.username %}">Vídeos</a>
-                </nav>
+                {% include 'userprofile/partials/profile-navbar.html' with navbar_context='profile' %}
                 <div class="row">
                     <div class="col-lg-8">
                         <header class="area-title">
