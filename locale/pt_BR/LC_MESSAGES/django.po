@@ -675,6 +675,16 @@ msgstr "^feed/$"
 msgid "^list$"
 msgstr "^listagem$"
 
+#. Translators: URL de minhas perguntas
+#: apps/core/urls/user.py:63
+msgid "^my-questions/$"
+msgstr "^minhas-perguntas/$"
+
+#. Translators: URL de listagem de minhas perguntas
+#: apps/core/urls/user.py:66
+msgid "^my-questions/list/$"
+msgstr "^minhas-perguntas/listagem/$"
+
 #. Translators: URL de listagem e publicacoes do usuario
 #: apps/core/urls/user.py:63
 msgid "^list_articles/(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/$"
