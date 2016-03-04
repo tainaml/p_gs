@@ -1413,7 +1413,7 @@ msgstr ""
 
 #: templates/userprofile/partials/profile-navbar.html:6
 msgid "Apenas você pode visualizar a listagem com suas perguntas!"
-msgstr ""
+msgstr "Apenas você pode visualizar a listagem com suas perguntas."
 
 #: templates/userprofile/profile-edit.html:65
 #: templates/userprofile/show.html:13
