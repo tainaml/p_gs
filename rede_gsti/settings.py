@@ -421,6 +421,7 @@ STATICFILES_DIRS = (
 )
 STATIC_URL = '/static/'
 
+
 # STATIC_ROOT = '/home/phillip/projects/python/django/rede_gsti/staticfiles/'
 STATIC_ROOT = config.get("STATIC", "path")
 
