@@ -63,7 +63,7 @@ urlpatterns = [
     url(_(r'^my-questions/$'), core_user.CoreUserMyQuestions.as_view(), name='my-questions'),
 
     # Translators: URL de listagem de minhas perguntas
-    url(_(r'^my-questions/list$'), core_user.CoreUserMyQuestionsList.as_view(), name='my-questions-list'),
+    url(_(r'^my-questions/list/$'), core_user.CoreUserMyQuestionsList.as_view(), name='my-questions-list'),
 
     # Translators: URL de listagem e publicacoes do usuario
     url(_(r'^list_articles/(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/$'), core_user.CoreUserList.as_view(), name='list_articles'),
