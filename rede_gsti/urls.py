@@ -94,4 +94,5 @@ urlpatterns = [
     url(_(r'^ckeditor/'), include('ckeditor_uploader.urls')),
 
 
+
 ] + url_statics + url_media

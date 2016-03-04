@@ -96,3 +96,10 @@ class CoreRelatedPosts(CoreBaseView):
         }
 
         return self.return_success(request, context)
+
+class About(View):
+
+    def get(self, request):
+        return render(request, 'about.html')
+
+

@@ -122,9 +122,6 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.postgres',
 
-    # NINICO APP
-    # 'apps.ninico',
-
     # PLUGINS
     'apps.mailmanager',
     'nocaptcha_recaptcha',
