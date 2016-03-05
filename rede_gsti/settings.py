@@ -102,6 +102,7 @@ SECRET_KEY = config.get("GENERAL", "secret_key")
 # DEBUG = True
 
 
+
 # Vagrant Internal IP's
 # INTERNAL_IPS = ('127.0.0.1', '10.0.2.2', '10.100.100.20', '10.100.100.15', '10.100.100.10')
 
@@ -222,6 +223,9 @@ FIXTURE_FILE = 'initial_data.json'
 IMAGES_ALLOWED = ['image/jpeg','image/png']
 
 
+
+
+
 # EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_BACKEND = 'apps.mailmanager.backend.MailManagedBackend'
 EMAIL_USE_TLS = config.getboolean("EMAIL", "tls")
@@ -236,6 +240,21 @@ ENTITY_TO_COMMENT = ['comment', 'article', 'answer']
 MAX_LEVELS = 2
 
 ENTITY_TO_COMPLAINT = ['article', 'question']
+
+# Article config
+ARTICLE_TITLE_LIMIT = 100
+ARTICLE_TEXT_LIMIT = 100000
+
+# Question Config
+QUESTION_TITLE_LIMIT = 100
+QUESTION_TEXT_LIMIT = 25000
+
+#Answer Config
+ANSWER_TEXT_LIMIT = 50000
+
+#Comment Config
+COMMENT_TEXT_LIMIT = 25000
+
 
 # Complaint config
 COMPLAINT_COMMUNITY = 5

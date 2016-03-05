@@ -9,7 +9,7 @@ class Comment(models.Model):
 
     author = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='author')
     creation_date = models.DateTimeField(auto_now_add=timezone.now())
-    content = models.CharField(max_length=8192)
+    content = models.CharField(max_length=settings.COMMENT_TEXT_LIMIT if hasattr(settings, "COMMENT_TEXT_LIMIT") else 10000)
     content_type = models.ForeignKey(ContentType)
     object_id = models.PositiveIntegerField()
     content_object = GenericForeignKey('content_type', 'object_id')

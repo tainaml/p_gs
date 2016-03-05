@@ -3,14 +3,14 @@ from django.contrib.contenttypes.models import ContentType
 from django.db import models
 from django.contrib.auth.models import User
 from ckeditor.fields import RichTextField
-
+from django.conf import settings
 from apps.taxonomy.models import Taxonomy
 from apps.feed.models import FeedObject
 
 
 class Answer(models.Model):
 
-    description = RichTextField(max_length=2048, blank=False)
+    description = RichTextField(max_length=settings.ANSWER_TEXT_LIMIT if hasattr(settings, "ANSWER_TEXT_LIMIT") else 10000, blank=False)
     author = models.ForeignKey(User, blank=False)
     answer_date = models.DateTimeField(auto_now=False, auto_now_add=True, blank=False)
     question = models.ForeignKey("question.Question", related_name="question_owner", blank=False)
@@ -26,9 +26,9 @@ class Answer(models.Model):
 
 class Question(models.Model):
 
-    title = models.CharField(max_length=70, blank=False)
+    title = models.CharField(max_length=settings.QUESTION_TITLE_LIMIT if hasattr(settings, "QUESTION_TITLE_LIMIT") else 100, blank=False)
     slug = models.SlugField(default='', null=False, max_length=300)
-    description = RichTextField(max_length=2048, blank=False)
+    description = RichTextField(max_length=settings.QUESTION_TEXT_LIMIT if hasattr(settings, "QUESTION_TEXT_LIMIT") else 10000, blank=False)
     author = models.ForeignKey(User)
     question_date = models.DateTimeField(auto_now=False, auto_now_add=True)
     correct_answer = models.OneToOneField("question.Answer", related_name="correct_answer", blank=True, null=True)
