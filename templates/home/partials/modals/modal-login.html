@@ -44,9 +44,7 @@
                                 {% trans 'Account is not active.' %}
                                 <br>
                                 {% trans 'click here' as click_here %}
-                                {% blocktrans %}
-                                If you have not received the confirmation email <a href="{{ url_resend_account_confirmation }}" data-toggle="modal" data-target="#modal-resend-email-confirmation">{{ click_here }}</a> to resend.
-                                {% endblocktrans %}
+                                {% blocktrans %}If you have not received the confirmation email <a href="{{ url_resend_account_confirmation }}" data-toggle="modal" data-target="#modal-resend-email-confirmation">{{ click_here }}</a> to resend.{% endblocktrans %}
                             </span>
                         </div>
                         <button type="submit" class="btn-action btn-block">Entrar</button>
