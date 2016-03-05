@@ -12,15 +12,6 @@
             <header class="post-header">
                 <div class="post-info">
                     <time datetime="{{ instance.createdin }}" itemprop="datePublished">{{ instance.createdin }}</time>
-                    <a href="javascript:;" data-toggle="dropdown"><i class="gsticon gsticon-gear"></i></a>
-                    <div class="dropdown-menu">
-                        <ul class="perfil-actions">
-                            <li><a href="javascript:;"><i class="gsticon gsticon-trash remove-see-later"></i> Remover Sugestão</a></li>
-                            <li><a href="javascript:;"><i class="gsticon gsticon-star"></i> Favoritar</a></li>
-                            <li><a href="javascript:;"><i class="gsticon gsticon-paper-plane"></i> Sugerir</a></li>
-                            <li><a href="javascript:;"><i class="gsticon gsticon-exclamation-triangle"></i> Denunciar</a></li>
-                        </ul>
-                    </div>
                 </div>
                 <a class="post-creator" href="{% url 'profile:show' instance.author.username %}">
                     <img src="{% thumbor_url instance.author.profile.get_profile_picture.url width=20 height=20 smart=False fit_in=False %}" alt="foto de {{ instance.author.get_full_name }}">

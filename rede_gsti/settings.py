@@ -108,12 +108,12 @@ SECRET_KEY = config.get("GENERAL", "secret_key")
 
 # Google Recaptcha keys
 
-NORECAPTCHA_SITE_KEY = '6LccmgsTAAAAAGrsvn7r7aiIcnvbuIS7pyP0qv1K'
-NORECAPTCHA_SECRET_KEY = '6LccmgsTAAAAANyATh7UT3uL2G2iVnCCGfAXPE5f'
+NORECAPTCHA_SITE_KEY = config.get("GOOGLE_RECAPTCHA", "site_key")
+NORECAPTCHA_SECRET_KEY = config.get("GOOGLE_RECAPTCHA", "secret_key")
 
 # Application definition
 
-INSTALLED_APPS = (
+DJANGO_APPS = (
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -121,8 +121,10 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.postgres',
+)
 
-    # PLUGINS
+THIRD_PART_APPS = (
+
     'apps.mailmanager',
     'nocaptcha_recaptcha',
     'widget_tweaks',
@@ -135,14 +137,11 @@ INSTALLED_APPS = (
     'ckeditor',
     'ckeditor_uploader',
     'django_user_agents',
+)
 
-    # CORE
+INTERNAL_APPS = (
+
     'apps.core',
-
-    #Profiling
-    #'debug_toolbar',
-
-    # APPS
     'apps.account',
     'apps.geography',
     'apps.article',
@@ -161,6 +160,10 @@ INSTALLED_APPS = (
     'apps.configuration',
     'apps.custom_base'
 )
+
+# Set up for installed apps
+INSTALLED_APPS = DJANGO_APPS + THIRD_PART_APPS + INTERNAL_APPS
+
 
 ### Setting Environment specific settings
 if ENVIRONMENT == "develop":
