@@ -1,3 +1,4 @@
+# coding=utf-8
 """
 Django settings for rede_gsti project.
 
@@ -166,10 +167,10 @@ INTERNAL_APPS = (
 INSTALLED_APPS = DJANGO_APPS + THIRD_PART_APPS + INTERNAL_APPS
 
 
-### Setting Environment specific settings
+# Setting Environment specific settings
 if ENVIRONMENT == "develop":
     DEBUG = True
-    INSTALLED_APPS += ('debug_toolbar','apps.ninico',)
+    INSTALLED_APPS += ('debug_toolbar', 'apps.ninico',)
 elif ENVIRONMENT == "test":
     DEBUG = False
     ALLOWED_HOSTS = ['*']
@@ -473,6 +474,10 @@ LOGIN_URL = '/account/login'
 
 # Wizard Steps
 WIZARD_STEPS_TOTAL = 3
+
+
+# Contact Suggest Community
+CONTACT_SUGGEST = 3
 
 
 # MailValidation Time

@@ -161,13 +161,23 @@
             };
 
             var functionAjaxSuccessTriggerContactModal = function(e, data) {
+                var $this = $(this);
                 var $modalContact = $("#modal-contact");
+
                 $modalContact.find("form[data-ajaxform=true]").IdeiaAjaxForm();
                 {% if request.user.is_anonymous %}
                     grecaptcha.render('g-recaptcha', {
                         'sitekey': '6LccmgsTAAAAAGrsvn7r7aiIcnvbuIS7pyP0qv1K'
                     });
                 {% endif %}
+
+
+                if ($this.data('type') == {% contact_suggest_community_type %}) {
+                    $modalContact.find('select#subject').val($this.data('type'));
+                    $modalContact.find('textarea#contact_message').html($this.data('message'));
+
+                }
+
                 $modalContact.modal("show");
 
                 var functionAjaxSuccessContact = function(e, data) {
@@ -268,7 +278,7 @@
                 $(document).on("ajaxform.success", "#form-suggest", functionAjaxSuccessSuggest);
                 $(document).on("click", "[data-suggest-modal]", functionOpenSuggestModal);
                 $(document).on("async.click.success", '[data-report="true"]', functionAjaxSuccessTriggerReport);
-                $(document).on("async.click.success", "#link-contact", functionAjaxSuccessTriggerContactModal);
+                $(document).on("async.click.success", "[data-contact]", functionAjaxSuccessTriggerContactModal);
             });
 
 
