@@ -3,6 +3,7 @@
 {% load user_agents %}
 {% load var_tags %}
 {% load wizard_tags %}
+{% load thumbor_tags %}
 
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -39,30 +40,41 @@
         {% endblock %}
     </head>
     <body>
-        <div id="slideout-menu"></div>
-        <div id="wrapper">
+        <div class="slideout-menu" id="slideout-menu">
+            {% include 'home/partials/slideout-menu.html' %}
+        </div>
+        <div class="slideout-panel" id="wrapper">
             <header class="header">
                 <div class="container">
-                    <div class="menu-mobile" style="display: none;">
+                    <div class="menu-mobile hidden-lg">
                         <div class="mobile-search" id="mobile-search" style="display: none;">
                             {% include 'home/partials/search.html' %}
-                            <a href="javascript:;" class="btn-hide-item">
+                            <a href="javascript:;" class="btn-hide-item toggle-search">
                                 <i class="gsticon gsticon-close"></i>
                             </a>
                         </div>
                         <div class="row">
-                            <a class="btn-show-item" data-item="#slideout-menu" href="#">
+                            <a class="btn-show-item toggle-slideout" data-item="#slideout-menu" href="#">
+                                {% if request.user.is_authenticated %}
+                                    {% if request.user.profile.get_profile_picture %}
+                                        <img src="{% thumbor_url request.user.profile.get_profile_picture.url width=40 height=40 smart=False fit_in=False %}" alt="{{ profile.user.get_full_name }}" class="img-circle">
+                                    {% else %}
+                                        <img src="http://placehold.it/40?text= " alt="{{ profile.user.get_full_name }}" class="img-circle">
+                                    {% endif %}
+                                {% else %}
                                 <i class="gsticon gsticon-sign-in"></i>
+                                {% endif %}
+
                             </a>
                             <h1 class="gsti">
                                 <a class="gsti-link" href="{% url 'index' %}">Portal GSTI</a>
                             </h1>
-                            <a class="btn-show-item" data-item="#mobile-search" href="#">
+                            <a class="btn-show-item toggle-search" data-item="#mobile-search" href="#">
                                 <i class="gsticon gsticon-search"></i>
                             </a>
                         </div>
                     </div>
-                    <div class="row menu-desktop">
+                    <div class="row menu-desktop visible-lg-block">
                         <h1 class="gsti">
                             <a href="{% url 'index' %}" class="gsti-link">Portal GSTI</a>
                         </h1>

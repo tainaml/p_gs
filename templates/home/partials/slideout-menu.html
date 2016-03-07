@@ -1,0 +1,26 @@
+{% load i18n %}
+{% load thumbor_tags %}
+{% load notification_core_tags %}
+
+{% if request.user.is_authenticated %}
+<div class="slideout-menu--user" href="javascript:void(0);">
+    {% if request.user.profile.get_profile_picture %}
+        <img src="{% thumbor_url request.user.profile.get_profile_picture.url width=40 height=40 smart=False fit_in=False %}" alt="{{ profile.user.get_full_name }}" class="img-circle">
+    {% else %}
+        <img src="http://placehold.it/40?text= " alt="{{ profile.user.get_full_name }}" class="img-circle">
+    {% endif %}
+    {{ request.user.first_name|slice:":13" }}
+</div>
+<hr />
+<ul class="perfil-actions">
+    <li><a href="{% url 'profile:feed' %}"><i class="gsticon gsticon-feed"></i> Meu Feed</a></li>
+    <li><a href="{% url 'profile:show' request.user.username %}"><i class="gsticon gsticon-file-text"></i> Minhas Publicações</a></li>
+    <li><a href="{% url 'profile:my-questions' %}"><i class="gsticon gsticon-question"></i> Minhas Perguntas</a></li>
+    <li><a href="{% url 'profile:edit' %}"><i class="gsticon gsticon-pencil"></i> Editar Perfil</a></li>
+    <li><a href="{% url 'question:create' %}"><i class="gsticon gsticon-question-circle"></i> Perguntar</a></li>
+    <li><a href="{% url 'article:create' %}"><i class="gsticon gsticon-file-text-o"></i> Criar Publicação</a></li>
+    <li><a href="{% url 'profile:edit-posts' %}"><i class="gsticon gsticon-pencil-square-o"></i> Editar Publicações</a></li>
+    <li><a href="{% url 'configuration:account' %}"><i class="gsticon gsticon-gear"></i> Configurações</a></li>
+    <li><a href="{% url 'account:logout' %}?next={{ request.path }}"><i class="gsticon gsticon-close"></i> {% trans "Sair" %}</a></li>
+</ul>
+{% endif %}
