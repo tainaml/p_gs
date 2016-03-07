@@ -24,7 +24,7 @@ json_encode = LazyEncoder().encode
 
 class CreateCommentForm(IdeiaForm):
     content = forms.CharField(
-        max_length=8192,
+        max_length=settings.COMMENT_TEXT_LIMIT if hasattr(settings, "COMMENT_TEXT_LIMIT") else 10000,
         required=True,
         widget=forms.Textarea(attrs={'data-config': json_encode(getattr(settings, 'CKEDITOR_CONFIGS', None)['comment'])}))
 
@@ -79,7 +79,7 @@ class CreateCommentForm(IdeiaForm):
 
 class EditCommentForm(IdeiaForm):
 
-    content = forms.CharField(max_length=8192, required=True, widget=forms.Textarea(attrs={'data-config': json_encode(getattr(settings, 'CKEDITOR_CONFIGS', None)['comment'])}))
+    content = forms.CharField(max_length=settings.COMMENT_TEXT_LIMIT if hasattr(settings, "COMMENT_TEXT_LIMIT") else 10000, required=True, widget=forms.Textarea(attrs={'data-config': json_encode(getattr(settings, 'CKEDITOR_CONFIGS', None)['comment'])}))
     comment_id = forms.IntegerField(required=True)
 
     def __init__(self, user=None, instance=None, *args, **kargs):
