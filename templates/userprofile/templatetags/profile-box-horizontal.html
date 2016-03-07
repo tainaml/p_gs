@@ -2,6 +2,7 @@
 {% load article_tags %}
 {% load thumbor_tags %}
 {% load var_tags %}
+{% load avatar_tags %}
 
 {% set user_content_type = "user" %}
 {% followers_count profile.user as followers_count_value %}
@@ -10,7 +11,7 @@
     {% if request.user != profile.user %}
         {% follow_action profile.user request.path "pull-right text-center perfil-button" %}
     {% endif %}
-    <a href="{% url 'profile:show' profile.user.username %}"><img class="img-responsive" src="{% thumbor_url profile.get_profile_picture.url width=82 height=82 smart=False fit_in=False %}" alt="{{ profile.user.get_full_name }}"></a>
+    <a href="{% url 'profile:show' profile.user.username %}"><img class="img-responsive" src="{% get_avatar profile.user width=82 height=82 smart=False fit_in=False %}" alt="{{ profile.user.get_full_name }}"></a>
     <a class="perfil-name" title="{{ profile.user.get_full_name }}" href="{% url 'profile:show' profile.user.username %}">{{ profile.user.get_full_name }}</a>
     <span class="perfil-counter"
           data-counter="{{ followers_count_value }}"

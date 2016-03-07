@@ -1,4 +1,5 @@
 {% load social_tags %}
+{% load avatar_tags %}
 {% load thumbor_tags %}
 {% load taxonomy_tags %}
 
@@ -25,7 +26,7 @@
             </div>
         </div>
         <a class="post-creator" href="{% url 'profile:show' username=instance.author.username %}">
-            <img src="{% thumbor_url instance.author.profile.get_profile_picture.url width=20 height=20 smart=False fit_in=False %}" alt="foto de {{ instance.author.get_full_name }}">
+            <img src="{% get_avatar instance.author width=20 height=20 smart=False fit_in=False %}" alt="foto de {{ instance.author.get_full_name }}">
             {{instance.author.get_full_name}}
         </a>
     </header>

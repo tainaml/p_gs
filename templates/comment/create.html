@@ -1,10 +1,12 @@
 {% load thumbor_tags %}
+{% load avatar_tags %}
+
 {{ form.non_field_errors }}
 
 <form data-group-class=".comment-group" data-toggle="prepend" data-update="#container-comments" data-ajaxform="true" action="{% url 'comment:save' %}" class="create-comment" method="post">{% csrf_token %}
 
     <div class="create-comment-avatar">
-        <img src="{% thumbor_url request.user.profile.get_profile_picture.url width=81 height=81 smart=False fit_in=False %}" alt="User avatar">
+        <img src="{% get_avatar request.user width=81 height=81 smart=False fit_in=False %}" alt="User avatar">
     </div>
 
     <div class="comment-group create-comment-body{% if form.content.errors %} has-error{% endif %}">

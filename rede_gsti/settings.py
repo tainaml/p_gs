@@ -459,6 +459,13 @@ THUMBOR_MEDIA_URL = config.get("THUMBOR", "media_url")
 THUMBOR_SECURITY_KEY = config.get("THUMBOR", "key")
 THUMBOR_ARGUMENTS = {}
 
+# Avatar
+AVATAR_PREFIX = 'http://redegsti.dev:8000/'
+AVATAR = {
+    'M': AVATAR_PREFIX + 'static/images/avatar-masculino.png',
+    'F': AVATAR_PREFIX + 'static/images/avatar-feminino.png'
+}
+
 
 # Login Urls
 LOGIN_URL = '/account/login'

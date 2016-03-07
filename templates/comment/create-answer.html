@@ -1,4 +1,6 @@
 {% load thumbor_tags %}
+{% load avatar_tags %}
+
 {{ form.non_field_errors }}
 
 <form data-ajaxform="true" data-group-class=".comment-group" data-update="#data-list-{{ instance.id }}" data-toggle="prepend" class="create-comment"
@@ -7,7 +9,7 @@
 
     <div class="comment-group">
         <div class="create-comment-avatar">
-            <img src="{% thumbor_url request.user.profile.get_profile_picture.url width=63 height=63 smart=False fit_in=False %}" alt="User avatar">
+            <img src="{% get_avatar request.user width=63 height=63 smart=False fit_in=False %}" alt="User avatar">
         </div>
     </div>
 

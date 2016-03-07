@@ -1,6 +1,7 @@
 {% load social_tags %}
 {% load thumbor_tags %}
 {% load taxonomy_tags %}
+{% load avatar_tags %}
 
 <div class="col-lg-12">
     <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
@@ -24,7 +25,7 @@
                 </div>
             </div>
             <a class="post-creator" href="{% url 'profile:show' username=article.author.username %}">
-                <img src="{% thumbor_url article.author.profile.get_profile_picture.url width=20 height=20 smart=False fit_in=False %}" alt="foto de {{ article.author.get_full_name }}">
+                <img src="{% get_avatar article.author width=20 height=20 smart=False fit_in=False %}" alt="foto de {{ article.author.get_full_name }}">
                 {{article.author.get_full_name}}
             </a>
         </header>
