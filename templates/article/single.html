@@ -8,6 +8,8 @@
 {% load thumbor_tags %}
 {% load user_agents %}
 {% load staticfiles %}
+{% load avatar_tags %}
+
 {% block title %}{{ article.title }} - Portal GSTI{% endblock %}
 
 {% block content %}
@@ -57,7 +59,7 @@
                         </div>
                     </div>
                     <a class="post-creator" href="{% url 'profile:show' article.author.username %}">
-                        <img src="{% thumbor_url article.author.profile.get_profile_picture.url width=20 height=20 smart=False fit_in=False %}" alt="foto de {{ instance.author.get_full_name }}">
+                        <img src="{% get_avatar article.author width=20 height=20 smart=False fit_in=False %}" alt="foto de {{ instance.author.get_full_name }}">
                         {{ article.author.get_full_name }}
                     </a>
                     <h1 class="full-post-title">{{ article.title }}</h1>

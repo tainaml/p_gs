@@ -1,9 +1,10 @@
 {% load social_tags %}
 {% load thumbor_tags %}
+{% load avatar_tags %}
 
 <div id="comment-{{ instance.id }}">
     <div class="comment-user">
-        <img src="{% thumbor_url instance.author.profile.get_profile_picture.url width=63 height=63 smart=False fit_in=False %}" alt="User Avatar">
+        <img src="{% get_avatar instance.author width=63 height=63 smart=False fit_in=False %}" alt="User Avatar">
     </div>
     <div class="comment-body">
         <header class="post-header">

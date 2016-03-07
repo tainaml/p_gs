@@ -1,4 +1,5 @@
 {% load thumbor_tags %}
+{% load avatar_tags %}
 {% load social_tags %}
 
 <div class="float-notifcations">
@@ -10,12 +11,12 @@
             <a class="perfil" href="{% url 'profile:show' user.get_username %}">
                 <!-- <span> -->
                     {% if user.profile.get_profile_picture %}
-                    <img src="{% thumbor_url user.profile.get_profile_picture.url width=50 height=50 smart=False fit_in=False %}" width="50" height="50" alt="Foto de {{ user.get_full_name }}">
+                    <img src="{% get_avatar user width=50 height=50 smart=False fit_in=False %}" width="50" height="50" alt="Foto de {{ user.get_full_name }}">
                     {% else %}
                     <img src="http://placehold.it/50?text={{ user.first_name|slice:":1" }}{{ user.last_name|slice:":1" }}" width="50" height="50" alt="Foto de {{ user.get_full_name }}">
                     {% endif %}
                 <!-- </span> -->
-                <span>{{ user.get_full_name }}</spam>
+                <span>{{ user.get_full_name }}</span>
                 <span class="perfil-counter">{% followers_count user as followers_count_value %}{{ followers_count_value }} Seguidor{{ followers_count_value|pluralize:'es' }}</span>
             </a>
         </li>

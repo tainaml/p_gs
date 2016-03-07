@@ -4,6 +4,7 @@
 {% load var_tags %}
 {% load wizard_tags %}
 {% load thumbor_tags %}
+{% load avatar_tags %}
 
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -57,7 +58,7 @@
                             <a class="btn-show-item toggle-slideout" data-item="#slideout-menu" href="#">
                                 {% if request.user.is_authenticated %}
                                     {% if request.user.profile.get_profile_picture %}
-                                        <img src="{% thumbor_url request.user.profile.get_profile_picture.url width=40 height=40 smart=False fit_in=False %}" alt="{{ profile.user.get_full_name }}" class="img-circle">
+                                        <img src="{% get_avatar request.user width=40 height=40 smart=False fit_in=False %}" alt="{{ profile.user.get_full_name }}" class="img-circle">
                                     {% else %}
                                         <img src="http://placehold.it/40?text= " alt="{{ profile.user.get_full_name }}" class="img-circle">
                                     {% endif %}
