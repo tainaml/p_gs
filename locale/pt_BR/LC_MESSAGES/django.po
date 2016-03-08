@@ -46,7 +46,7 @@ msgstr "Nome de usuário ou senha incorretos"
 #: apps/account/service/forms.py:70 templates/account/login.html:2
 #: templates/home/partials/modals/modal-login.html:47
 msgid "click here"
-msgstr "Clique aqui"
+msgstr "clique aqui"
 
 #: apps/account/service/forms.py:72
 #: templates/home/partials/modals/modal-login.html:45
@@ -55,9 +55,7 @@ msgstr "Conta não está ativa."
 
 #: apps/account/service/forms.py:74
 msgid "If you have not received the confirmation email %s to resend."
-msgstr ""
-"Se você não recebeu o email de confirmação <a href="
-"\"%(url_resend_account_confirmation)s\">%(click_here)s</a> Para reenviá-lo. "
+msgstr "Se você não recebeu o email de confirmação %s para reenviá-lo."
 
 #: apps/account/service/forms.py:108
 msgid "Wrong old password."
@@ -1240,8 +1238,8 @@ msgid ""
 "If you have not received the confirmation email <a href="
 "\"%(url_resend_account_confirmation)s\">%(click_here)s</a> to resend. "
 msgstr ""
-"Se você não recebeu o email de confirmação <a href="
-"\"%(url_resend_account_confirmation)s\">%(click_here)s</a> Para reenviá-lo. "
+"Se você não recebeu o email de confirmação <a data-toggle=\"modal\" data-target=\"#modal-resend-email-confirmation\" href="
+"\"%(url_resend_account_confirmation)s\">%(click_here)s</a> para reenviá-lo. "
 
 #: templates/account/login.html:22 templates/account/mail_validation.html:8
 #: templates/account/password_forgot.html:13
@@ -1369,7 +1367,8 @@ msgid ""
 "\"#modal-resend-email-confirmation\">%(click_here)s</a> to resend."
 msgstr ""
 "Se você não recebeu o email de confirmação <a href="
-"\"%(url_resend_account_confirmation)s\">%(click_here)s</a> Para reenviá-lo. "
+"\"%(url_resend_account_confirmation)s\" data-toggle=\"modal\" data-target="
+"\"#modal-resend-email-confirmation\">%(click_here)s</a> para reenviá-lo."
 
 #: templates/home/partials/user-actions.html:32
 msgid "Sair"
