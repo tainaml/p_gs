@@ -14,7 +14,8 @@
 .slideout-panel {
   position: relative;
   z-index: 1;
-  border-left: 1px solid #000;
+  border-left: 1px solid #e1e1e1;
+  background-color: #fff;
   will-change: transform;
 }
 

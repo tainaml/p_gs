@@ -100,14 +100,8 @@
     .dropdown-item-header {
         float: left;
         border-right: 1px solid $color-border;
-        @media (max-width: $screen-lg-min) {
-            width: 20%;
-            background-color: $white-ice;
-            text-align: center;
-        }
     }
     .user-actions-logged {
-        @include make-xs-column(12);
         @include make-lg-column(4);
         border-left: 1px solid $color-border;
         padding-left: 0;
@@ -123,19 +117,9 @@
             line-height: 3;
             text-align: center;
             background-color: $white-ice;
-            @media (max-width: $screen-sm-min) {
-                float: none;
-                border-width: 0;
-            }
             &:nth-child(4) {
                 width: 47%;
                 border-left-width: 1px;
-                @media (max-width: $screen-sm-min) {
-                    width: 40%;
-                    padding: 0;
-                    float: left;
-                    border-left-width: 0;
-                }
             }
             .badge {
                 position: absolute;
@@ -151,7 +135,6 @@
                 line-height: 115%;
             }
             .img-circle {
-              padding: 3px;
               background: $link-white;
               @include box-shadow(0 0px 0px 1px $color-border);
             }
@@ -354,4 +337,17 @@
         }
     }
     .article-title { color: $color-infra; }
+}
+
+.slideout-menu {
+    > hr {
+        margin: 0;
+    }
+}
+.slideout-menu--user {
+    padding: 10px 20px;
+}
+.slideout-menu--link {
+    padding: 10px 20px;
+    display: block;
 }
