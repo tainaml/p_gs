@@ -223,10 +223,6 @@ FIXTURE_FILE = 'initial_data.json'
 
 IMAGES_ALLOWED = ['image/jpeg','image/png']
 
-
-
-
-
 # EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_BACKEND = 'apps.mailmanager.backend.MailManagedBackend'
 EMAIL_USE_TLS = config.getboolean("EMAIL", "tls")
@@ -461,10 +457,10 @@ THUMBOR_SECURITY_KEY = config.get("THUMBOR", "key")
 THUMBOR_ARGUMENTS = {}
 
 # Avatar
-AVATAR_PREFIX = 'http://redegsti.dev:8000/'
+
 AVATAR = {
-    'M': AVATAR_PREFIX + 'static/images/avatar-masculino.png',
-    'F': AVATAR_PREFIX + 'static/images/avatar-feminino.png'
+    'M': config.get("GENERAL", "site_url") + '/static/images/avatar-masculino.png',
+    'F': config.get("GENERAL", "site_url") + '/static/images/avatar-feminino.png'
 }
 
 
