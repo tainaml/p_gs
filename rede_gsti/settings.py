@@ -459,8 +459,8 @@ THUMBOR_ARGUMENTS = {}
 # Avatar
 
 AVATAR = {
-    'M': config.get("GENERAL", "site_url") + 'static/images/avatar-masculino.png',
-    'F': config.get("GENERAL", "site_url") + 'static/images/avatar-feminino.png'
+    'M': config.get("GENERAL", "site_url") + '/static/images/avatar-masculino.png',
+    'F': config.get("GENERAL", "site_url") + '/static/images/avatar-feminino.png'
 }
 
 
