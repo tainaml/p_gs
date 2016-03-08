@@ -84,8 +84,8 @@ class LoginView(View):
 
         url_next = '/account/'
 
-        if 'next' in request.GET and request.GET['next']:
-            url_next = request.GET['next']
+        if 'next' in request.GET and request.GET.get('next'):
+            url_next = request.GET.get('next')
 
         form = self.form_login(request, request.POST)
 

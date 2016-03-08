@@ -1,5 +1,7 @@
 {%extends 'home/layout/base.html' %}
 
+{% load i18n %}
+
 {% block title %}Portal GSTI - Configurações - Conta{% endblock %}
 
 {% block content %}
@@ -11,13 +13,7 @@
             </div>
             <!-- mudar para 9.5 -->
             <div class="col-lg-9">
-                <nav class="perfil-navegation">
-                    {% if profile.user == request.user %}<a href="{% url 'profile:feed' %}">Feed</a> • {% endif %}
-                    <a href="{% url 'profile:show' username=profile.user.username %}">Publicações</a> •
-                    <a href="{% url 'profile:communities' username=profile.user.username %}">Comunidades</a> •
-                    <a href="{% url 'profile:followers' username=profile.user.username %}">Relacionamentos</a> •
-                    <a href="{% url 'profile:videos' profile.user.username %}">Vídeos</a>
-                </nav>
+                {% include 'userprofile/partials/profile-navbar.html' %}
                 <div class="row">
                     <div class="col-lg-8">
                         <header class="area-title">
@@ -37,8 +33,13 @@
                                 <div class="form-group">
                                     <input type="password" name="new_password_confirmation" class="form-control" placeholder="Confirma senha">
                                 </div>
-                                <button type="submit" class="pull-right btn-default">Salvar</button>
+                                <div class="form-group text-right">
+                                    <button type="submit" class="btn-default btn-block">Salvar</button>
+                                </div>
                             </form>
+                        </section>
+                        <section class="area-content">
+                            <button onclick="window.location.href='{% url 'configuration:deactivate-account' %}';" class="btn btn-danger btn-block" title="{% trans 'Desativar Conta' %}">{% trans 'Desativar Conta' %}</button>
                         </section>
                     </div>
                     {% include "configuration/partials/configuration-sidebar-right.html" with local_context="account" %}

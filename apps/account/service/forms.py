@@ -71,8 +71,7 @@ class LoginForm(IdeiaForm):
 
                     error = _('Account is not active.')
                     error += '<br>'
-                    error += _('If you have not received the confirmation '
-                               'email %s to resend.') % btn
+                    error += _('If you have not received the confirmation email %s to resend.') % btn
 
                     # self.add_error(None, ValidationError(error, code='account_not_active'))
                     self.account_is_active = False
