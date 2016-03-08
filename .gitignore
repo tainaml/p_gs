@@ -167,3 +167,6 @@ staticfiles/
 .sublime-project/
 
 run-gunicorn.sh
+
+
+dump.json
