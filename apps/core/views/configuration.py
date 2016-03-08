@@ -1,9 +1,10 @@
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _
 from django.views.generic import View
+from apps.core.forms.account import CoreDeactivateAccountForm
 
 from apps.core.forms.configuration import ConfigNotificationsForm
 from ..business import configuration as BusinessConfig
@@ -72,3 +73,27 @@ class CoreSettingsNotificationView(CoreSettingsBaseView):
             }, status=200)
 
         return JsonResponse({'errors': form.errors}, status=400)
+
+
+class CoreDeactivateAccountView(CoreSettingsBaseView):
+
+    template_path = "configuration/configuration-deactivate-account.html"
+
+    @method_decorator(login_required)
+    def get(self, request):
+        context = {'profile': request.user.profile}
+        return self.return_success(request, context)
+
+    def post(self, request):
+        form = CoreDeactivateAccountForm(request, request.POST)
+
+        if form.process():
+            return redirect('/')
+
+        context = {
+            'profile': request.user.profile,
+            'form': form
+        }
+        return self.return_success(request, context)
+
+

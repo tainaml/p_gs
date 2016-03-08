@@ -142,6 +142,20 @@ def activate_account(token):
     return user
 
 
+def deactivate_account(request, user):
+
+    try:
+        user.is_active = False
+        user.save(update_fields=['is_active'])
+    except Exception, e:
+        return False
+
+    if not user.is_active:
+        logout_user(request)
+
+    return user
+
+
 def create_token(user):
 
     """

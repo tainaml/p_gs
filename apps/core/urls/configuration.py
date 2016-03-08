@@ -10,4 +10,7 @@ urlpatterns = [
     # Translators: URL de configuracao de notificacao
     url(_(r'^notification$'), CoreView.CoreSettingsNotificationView.as_view(), name='notification'),
 
+    # Translators: URL de configuracao de desativar conta
+    url(_(r'^deactivate-account$'), CoreView.CoreDeactivateAccountView.as_view(), name='deactivate-account'),
+
 ]

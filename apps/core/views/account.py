@@ -28,7 +28,6 @@ class CoreLoginView(views.LoginView):
         return JsonResponse(_response_context, status=400)
 
     def return_success(self, request, context=None):
-
         return JsonResponse(context, status=200)
 
 
