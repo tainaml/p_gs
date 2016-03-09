@@ -32,7 +32,7 @@ except IOError, e:
 
     config.add_section("GENERAL")
     config.set("GENERAL", "secret_key", '3u2oo))n_j*t#sjx*)=p*5j4mpb^7iruq4$v3%2nn!e2r2p$jj')
-    config.set("GENERAL", "site_url", 'http://localhost:8000')
+    config.set("GENERAL", "site_url", 'http://redegsti.dev:8000')
     config.set("GENERAL", "expiration_register_time", '48')
     config.set("GENERAL", "expiration_password_recovery", '8')
 
