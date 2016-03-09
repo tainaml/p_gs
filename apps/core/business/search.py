@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
-from django.contrib.auth.models import User
+from apps.account.models import User
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.db.models import Q
+from apps.account.models import User
 
 from apps.article.models import Article
 from apps.community.models import Community

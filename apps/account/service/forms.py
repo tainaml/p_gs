@@ -1,9 +1,10 @@
 # coding=utf-8
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
+from apps.account.models import User
 from django.core.exceptions import ValidationError
-from django.core.urlresolvers import reverse
 from nocaptcha_recaptcha import NoReCaptchaField
 from django.utils.translation import ugettext as _
+from apps.account.models import User
 
 import business as Business
 from apps.custom_base.service.custom import forms, IdeiaForm

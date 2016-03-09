@@ -2,15 +2,14 @@ import hashlib
 import random
 
 from django.contrib.auth.hashers import make_password
-from django.contrib.auth.models import User
 from django.conf import settings
-from django.contrib.auth import authenticate, login as auth_login, logout, update_session_auth_hash
+from django.contrib.auth import authenticate, login as auth_login, logout, update_session_auth_hash, get_user_model
 from django.db import transaction
 from django.utils import timezone
 from django.utils.translation import ugettext as _
 
 from ..models import TokenType
-from apps.account.models import MailValidation
+from apps.account.models import MailValidation, User
 from apps.mailmanager import send_email
 
 __author__ = 'phillip'

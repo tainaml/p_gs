@@ -1,11 +1,13 @@
 from datetime import timedelta
 
 from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth.models import AbstractUser
 from django.utils import timezone
 
 from django.conf import settings
 
+class User(AbstractUser):
+    pass
 
 class TokenType():
     REGISTER_ACCOUNT_CONFIRM = 1
@@ -63,3 +65,5 @@ class MailValidation(models.Model):
         """
 
         return self.active
+
+

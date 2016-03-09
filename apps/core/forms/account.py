@@ -1,8 +1,9 @@
-from django.contrib.auth.models import User
+from apps.account.models import User
 from django.core.exceptions import ValidationError
 from django.utils.translation import ugettext as _
 from django.db import transaction
 from django import forms
+from apps.account.models import User
 
 from apps.custom_base.service.custom import IdeiaForm
 from apps.account.service.forms import SignUpForm

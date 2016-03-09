@@ -18,7 +18,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('creation_date', models.DateTimeField(auto_now_add=True)),
-                ('content', models.CharField(max_length=512)),
+                ('content', models.CharField(max_length=25000)),
                 ('object_id', models.PositiveIntegerField()),
                 ('level', models.IntegerField(null=True, blank=True)),
                 ('author', models.ForeignKey(related_name='author', to=settings.AUTH_USER_MODEL)),

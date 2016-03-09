@@ -178,6 +178,8 @@ elif ENVIRONMENT == "production":
     ALLOWED_HOSTS = ['*']
     DEBUG = False
 
+AUTH_USER_MODEL = 'account.User'
+
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',

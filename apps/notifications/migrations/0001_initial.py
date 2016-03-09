@@ -20,6 +20,8 @@ class Migration(migrations.Migration):
                 ('target_object_id', models.PositiveIntegerField()),
                 ('notification_date', models.DateTimeField(auto_now=True)),
                 ('notification_action', models.PositiveIntegerField()),
+                ('read', models.BooleanField(default=False)),
+                ('visualized', models.BooleanField(default=False)),
                 ('author', models.ForeignKey(related_name='notifications_sent', to=settings.AUTH_USER_MODEL)),
                 ('target_content_type', models.ForeignKey(to='contenttypes.ContentType')),
                 ('to', models.ForeignKey(related_name='notifications_received', to=settings.AUTH_USER_MODEL)),
