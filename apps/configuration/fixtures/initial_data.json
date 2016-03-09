@@ -17,38 +17,68 @@
   },
   {
     "fields": {
+      "order": null,
       "group": 2,
       "description": "Notificar publica\u00e7\u00f5es",
-      "key": "notify_publications"
+      "key": "notify_publications",
+      "show": false
     },
     "model": "configuration.configkey",
     "pk": 1
   },
   {
     "fields": {
+      "order": 1,
       "group": 2,
       "description": "Notificar quando algu\u00e9m te seguir",
-      "key": "notify_follow"
+      "key": "notify_follow",
+      "show": true
     },
     "model": "configuration.configkey",
     "pk": 2
   },
   {
     "fields": {
+      "order": 2,
       "group": 2,
       "description": "Notificar quando algu\u00e9m comentar uma publica\u00e7\u00e3o sua",
-      "key": "notify_comment_article"
+      "key": "notify_comment_article",
+      "show": true
     },
     "model": "configuration.configkey",
     "pk": 3
   },
   {
     "fields": {
+      "order": 3,
       "group": 2,
       "description": "Notificar quando algu\u00e9m comentar uma pergunta sua",
-      "key": "notify_comment_question"
+      "key": "notify_comment_question",
+      "show": true
     },
     "model": "configuration.configkey",
     "pk": 4
+  },
+  {
+    "fields": {
+      "order": 4,
+      "group": 2,
+      "description": "Notificar quando algu\u00e9m comentar um coment\u00e1rio seu",
+      "key": "notify_comment_comment",
+      "show": true
+    },
+    "model": "configuration.configkey",
+    "pk": 5
+  },
+  {
+    "fields": {
+      "order": 5,
+      "group": 2,
+      "description": "Notificar quando algu\u00e9m comentar uma resposta sua",
+      "key": "notify_comment_answer",
+      "show": true
+    },
+    "model": "configuration.configkey",
+    "pk": 6
   }
 ]
