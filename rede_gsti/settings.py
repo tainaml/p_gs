@@ -88,9 +88,11 @@ except IOError, e:
     config.set("GOOGLE_RECAPTCHA", "site_key", '6LccmgsTAAAAAGrsvn7r7aiIcnvbuIS7pyP0qv1K')
     config.set("GOOGLE_RECAPTCHA", "secret_key", '6LccmgsTAAAAANyATh7UT3uL2G2iVnCCGfAXPE5f')
 
-    # with open(config_path, 'wb') as configfile:
-    #     config.write(configfile)
-    #     configfile.close()
+    if not os.path.exists(ENVIRONMENT_CONFIG_DIR):
+        os.makedirs(ENVIRONMENT_CONFIG_DIR)
+    with open(config_path, 'wb') as configfile:
+        config.write(configfile)
+        configfile.close()
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.8/howto/deployment/checklist/
