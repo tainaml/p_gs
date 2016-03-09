@@ -1,6 +1,5 @@
-from django.contrib.auth.models import User
 from django.db import models
-
+from django.conf import settings
 
 class ContactSubject(models.Model):
 
@@ -17,7 +16,7 @@ class Contact(models.Model):
     contact_email = models.CharField(max_length=100, blank=True, null=True)
 
     # case user are member of social network
-    author = models.ForeignKey(User, blank=True, null=True)
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, blank=True, null=True)
     subject = models.ForeignKey(ContactSubject, null=False)
     message = models.CharField(max_length=1024, blank=False)
     created = models.DateTimeField(auto_now=False, auto_now_add=True, blank=False)

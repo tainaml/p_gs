@@ -4,7 +4,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
 
-from rede_gsti import settings
+from django.conf import settings
 
 
 class TokenType():
@@ -18,7 +18,7 @@ class TokenType():
 
 
 class MailValidation(models.Model):
-    user = models.ForeignKey(User)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL)
     token = models.TextField(unique=True)
     link_date = models.DateTimeField()
     active = models.BooleanField(default=True)
