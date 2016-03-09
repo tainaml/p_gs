@@ -1,4 +1,3 @@
-from django.contrib.auth.models import User
 from django.contrib.contenttypes.fields import GenericRelation
 from django.db import models
 from django.utils import timezone
@@ -27,7 +26,7 @@ class Article(models.Model):
     slug = models.SlugField(default='', null=False, max_length=150)
     text = RichTextField(null=False, max_length=settings.ARTICLE_TEXT_LIMIT if hasattr(settings, "ARTICLE_TEXT_LIMIT") else 10000)
     image = models.ImageField(max_length=100, upload_to='article/%Y/%m/%d', blank=True, default='')
-    author = models.ForeignKey(User, null=False, related_name='articles', verbose_name=_('Author'))
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, null=False, related_name='articles', verbose_name=_('Author'))
 
     createdin = models.DateTimeField(null=False, auto_now_add=True)
     updatein = models.DateTimeField(null=False, auto_now=True)
