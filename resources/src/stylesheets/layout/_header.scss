@@ -49,9 +49,7 @@
         background-color: #fff;
 
         form { @include make-xs-column(10); }
-        .btn-hide-item {
-            line-height: 1;
-        }
+        .btn-hide-item { line-height: 1; }
     }
     .form-search {
         @include make-xs-column(10);
@@ -69,13 +67,15 @@
         @include make-xs-column(12);
         @include make-lg-column(2);
         padding: 0;
+        border-left: 1px solid #e1e1e1;
         @media (min-width: $screen-lg-min) {
             padding-left: 0;
             padding-right: 15px;
         }
         &-#{link} {
-            line-height: 3;
             width: 50%;
+            border-right: 1px solid #e1e1e1;
+            line-height: 3;
             @media (min-width: $screen-lg-min) {
                 width: 63.5%;
                 line-height: 5.8;
@@ -350,4 +350,15 @@
 .slideout-menu--link {
     padding: 10px 20px;
     display: block;
+}
+
+.slideout-menu--notification {
+    @include make-row();
+    padding: 0 20px;
+    margin: 20px 0;
+}
+.slideout-menu--notification-item {
+    width: 33.3333%;
+    float: left;
+    text-align: center;
 }
