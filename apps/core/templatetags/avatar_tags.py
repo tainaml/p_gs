@@ -19,6 +19,8 @@ def get_avatar(context, user, **kwargs):
             image_url = '%s/%s' % (settings.THUMBOR_MEDIA_URL, user.profile.profile_picture.name)
         else:
             image_url = get_avatar_path(user.profile.gender if user.profile.gender else 'M')
+    elif not user.is_active:
+        image_url = get_avatar_path(user.profile.gender if user.profile.gender else 'M')
     else:
         image_url = get_avatar_path('M')
 

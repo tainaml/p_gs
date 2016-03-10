@@ -143,7 +143,7 @@ class RegisterView(View):
                                  # Translators: This message appears on the home page only
                                  _("Success")
                                  , 'account-register')
-            return redirect('/account/registered-successfully')
+            return redirect(reverse('account:registered_successfully'))
 
         return render(request, 'account/signup.html', {'form': form})
 

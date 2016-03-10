@@ -2,12 +2,24 @@ from datetime import timedelta
 
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from django.core.urlresolvers import reverse
 from django.utils import timezone
+from django.utils.translation import ugettext as _
 
 from django.conf import settings
 
+
 class User(AbstractUser):
-    pass
+
+    def get_full_name(self):
+        return _('Anonymous') if not self.is_active else super(User, self).get_full_name()
+
+    def get_short_name(self):
+        return _('Anonymous') if not self.is_active else super(User, self).get_short_name()
+
+    def get_absolute_ur(self):
+        return 'javascript:void(0);' if not self.is_active else reverse('profile:show', args=[self.username])
+
 
 class TokenType():
     REGISTER_ACCOUNT_CONFIRM = 1

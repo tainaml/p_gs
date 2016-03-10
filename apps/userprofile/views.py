@@ -50,6 +50,9 @@ class ProfileBaseView(View):
             '''
             raise self.not_found
 
+        if not profile.user.is_active:
+            raise self.user_not_found
+
         return profile
 
     def get_context(self, request, profile_instance=None):
