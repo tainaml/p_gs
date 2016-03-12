@@ -1,4 +1,6 @@
 from django.contrib.auth.models import User
+from django.core.urlresolvers import reverse
+from django.http import HttpResponseRedirect
 from django.shortcuts import redirect
 from django.utils.text import slugify
 from requests import request, HTTPError, ConnectionError
@@ -70,4 +72,7 @@ def save_profile_picture(strategy, user, response, details, is_new=False, *args,
                                                                ContentFile(response.content))
                 profile.save()
 
+
+def redirect_to_profile(**kwargs):
+    return HttpResponseRedirect(reverse('profile:feed'))
 
