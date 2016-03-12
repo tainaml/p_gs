@@ -1,0 +1,76 @@
+{%extends 'home/layout/base.html' %}
+{% load staticfiles %}
+{% load i18n %}
+
+{% block title %}Portal GSTI - Perfil{% endblock %}
+
+{% block content %}
+    <main class="container main">
+        <div class="row">
+            <div class="col-lg-3">
+                {% include 'home/partials/sidebar-perfil.html' %}
+            </div>
+            <div class="col-lg-9">
+                {% include 'userprofile/partials/profile-navbar.html' with navbar_context='my-questions' %}
+                <div class="row">
+                    <div class="col-lg-8">
+                        <header class="area-title">
+                            <h2>Minhas perguntas</h2>
+                        </header>
+                        <!-- A "barra" de pesquisa não é exibida no feed, somente no -->
+                        <nav class="form-search">
+                            <form action="{% url 'profile:search' profile.user.username %}" method="GET" role="search">
+                                <div class="form-search-input">
+                                    <input type="text" name="criterio" placeholder="{{placehold|default:"Procure pessoas, comunidades, etc."}}">
+                                </div>
+                                <button type="submit" class="form-search-button">
+                                    <i class="gsticon gsticon-search"></i>
+                                </button>
+                            </form>
+                        </nav>
+                        <div class="alert alert-warning alert-dismissible" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <strong>{% trans 'Atenção!' %}</strong> {% trans 'Apenas você pode visualizar a listagem com suas perguntas!' %}
+                        </div>
+
+                        <section class="area-content">
+                            {% if feed_objects.object_list %}
+                                <div class="j-scroll j-scroll-container">
+                                    {% include 'userprofile/partials/profile-questions-list.html' %}
+                                </div>
+                            {% else %}
+                                <span>Não existem itens a serem exibidos</span>
+                            {% endif %}
+                        </section>
+                    </div>
+                    <!-- Right bar -->
+                    {% include 'userprofile/partials/profile-sidebar-right.html' %}
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock %}
+
+
+{% block javascripts %}
+    {{ block.super }}
+
+    <script>
+        $(function() {
+            $(".j-scroll").jscroll({
+                loadingHtml: '<div class="load-async-preload"></div>',
+                contentSelect: ".j-scroll-container",
+                nextSelector: "a[data-jscroll-next]",
+                callback: refreshAsyncLike
+            });
+
+            var $social_count = $("[data-social-count=\"true\"]");
+            $.each($social_count, function(key, value){
+                var $obj = $(value);
+                $.get($obj.data("url"), function(data){
+                    $obj.text(data.count);
+                });
+            });
+        });
+    </script>
+{% endblock %}

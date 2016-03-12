@@ -1,14 +1,16 @@
 {% load thumbor_tags %}
+{% load avatar_tags %}
+
 {{ form.non_field_errors }}
 
 <form data-group-class=".answer-group" data-toggle="prepend" data-update="#container-answers" data-ajaxform="true" action="{% url 'question:comment_reply' %}" class="create-comment" method="post">{% csrf_token %}
 
     <div class="create-comment-avatar">
-        <img src="{% thumbor_url request.user.profile.get_profile_picture.url width=81 height=81 smart=False fit_in=False %}" alt="User avatar">
+        <img src="{% get_avatar request.user width=81 height=81 smart=False fit_in=False %}" alt="User avatar">
     </div>
 
     <div class="answer-group create-comment-body{% if form.content.errors %} has-error{% endif %}">
-         <textarea name="description" class="form-control"  placeholder="Deixe sua resposta" data-trigger="login" data-token="{{ csrf_token }}"></textarea>
+         <textarea name="description" class="form-control"  placeholder="Deixe sua resposta" data-url-login="{% url 'account:is_logged' %}" data-trigger="login" data-token="{{ csrf_token }}"></textarea>
          <span class="help-block"></span>
     </div>
 
@@ -17,6 +19,6 @@
 
     <div class="create-comment-footer">
         <input type="reset" data-toggle value="Cancelar" class="btn btn-default">
-        <input type="submit" value="Responder" class="btn btn-primary" data-trigger="login" data-token="{{ csrf_token }}">
+        <input type="submit" value="Responder" class="btn btn-primary" data-url-login="{% url 'account:is_logged' %}" data-trigger="login" data-token="{{ csrf_token }}">
     </div>
 </form>

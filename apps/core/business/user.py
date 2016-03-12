@@ -1,8 +1,10 @@
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
+from apps.account.models import User
 from django.contrib.contenttypes.models import ContentType
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django_thumbor import generate_url
 from django.db.models import Q
+from apps.account.models import User
 
 from apps.community.models import Community
 from apps.article.models import Article
@@ -12,6 +14,8 @@ from apps.socialactions.models import UserAction
 from apps.socialactions.service import business as BusinessSocialActions
 from rede_gsti import settings
 
+
+User = get_user_model()
 
 def get_user_communities(author):
     user_communities = BusinessSocialActions.get_users_acted_by_author(
@@ -122,6 +126,44 @@ def get_articles_from_user(profile_instance=None, description=None, content_type
         Q(content_type=content_type) &
         Q(article__author=profile_instance.user) &
         Q(article__status=Article.STATUS_PUBLISH) & criteria
+    ).order_by(
+        "-date"
+    ).prefetch_related(
+        "content_object__author"
+    ).distinct(
+        "object_id",
+        "date"
+    )
+
+    items_per_page = items_per_page if items_per_page else 10
+    page = page if page else 1
+
+    feed_objects_paginated = Paginator(feed_objects, items_per_page)
+    try:
+        feed_objects_paginated = feed_objects_paginated.page(page)
+    except PageNotAnInteger:
+        feed_objects_paginated = feed_objects_paginated.page(1)
+    except EmptyPage:
+        feed_objects_paginated = []
+
+    return feed_objects_paginated
+
+
+def get_questions_from_user(profile_instance=None, description=None, content_type=None, items_per_page=None, page=None, user=None):
+    criteria = None
+    arr_description = description.split(' ')
+
+    for desc in arr_description:
+        query_criteria = (Q(question__title__unaccent__icontains=desc) |
+                          Q(question__description__unaccent__icontains=desc))
+        criteria = query_criteria if not criteria else criteria | query_criteria
+
+    if len(arr_description) == 0:
+        criteria = True
+
+    feed_objects = FeedObject.objects.filter(
+        Q(content_type=content_type) &
+        Q(question__author=profile_instance.user) & criteria
     ).order_by(
         "-date"
     ).prefetch_related(

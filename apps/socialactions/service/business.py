@@ -1,8 +1,9 @@
-from django.contrib.auth.models import User
+from apps.account.models import User
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.db.models import Q
 from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
+from apps.account.models import User
 
 from apps.article.models import Article
 from apps.taxonomy.service.business import get_related_list_top_down

@@ -3,6 +3,8 @@
 {% load user_agents %}
 {% load var_tags %}
 {% load wizard_tags %}
+{% load thumbor_tags %}
+{% load avatar_tags %}
 
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -10,6 +12,8 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+
         <title>{% block title %}Portal GSTI - Home {% endblock %}</title>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700">
         <link rel="stylesheet" href="{% static 'stylesheets/style.css' %}">
@@ -39,34 +43,67 @@
         {% endblock %}
     </head>
     <body>
-        <header class="header">
-            <div class="container">
-                <div class="row">
-                    <h1 class="gsti">
-                        <a href="{% url 'index' %}" class="gsti-link">Portal GSTI</a>
-                    </h1>
-                    <div class="form-search{% if request.user.is_authenticated %}--logged{% endif %}">
-                        {% include 'home/partials/search.html' %}
-                    </div>
-                    {% include 'home/partials/user-actions.html' %}
-                </div>
-            </div>
-        </header>
-        <section class="header-navegation {% if category_slug %}header-navegation-border {{ class_name }}{% endif %}">
-            <div class="container">
-                {% include "home/partials/mega-dropdown.html" with menu_context=category_slug|default:'' %}
-                <ul class="menu-social">
-                    <li><a class="gsticon gsticon-facebook-square" href="javascript:;"></a></li>
-                    <li><a class="gsticon gsticon-google-plus-square" href="javascript:;"></a></li>
-                    <li><a class="gsticon gsticon-linkedin-square" href="javascript:;"></a></li>
-                    <li><a class="gsticon gsticon-twitter-square" href="javascript:;"></a></li>
-                    <li><a class="gsticon gsticon-youtube-square" href="javascript:;"></a></li>
-                </ul>
-            </div>
-        </section>
-        {% block content %}{% endblock %}
+        <div class="slideout-menu" id="slideout-menu">
+            {% include 'home/partials/slideout-menu.html' %}
+        </div>
+        <div class="slideout-panel" id="wrapper">
+            <header class="header">
+                <div class="container">
+                    <div class="menu-mobile hidden-lg">
+                        <div class="mobile-search" id="mobile-search" style="display: none;">
+                            {% include 'home/partials/search.html' %}
+                            <a href="javascript:;" class="btn-hide-item toggle-search">
+                                <i class="gsticon gsticon-close"></i>
+                            </a>
+                        </div>
+                        <div class="row">
+                            <a class="btn-show-item toggle-slideout" data-item="#slideout-menu" href="#">
+                                {% if request.user.is_authenticated %}
+                                    {% if request.user.profile.get_profile_picture %}
+                                        <img src="{% get_avatar request.user width=40 height=40 smart=False fit_in=False %}" alt="{{ profile.user.get_full_name }}" class="img-circle">
+                                    {% else %}
+                                        <img src="http://placehold.it/40?text= " alt="{{ profile.user.get_full_name }}" class="img-circle">
+                                    {% endif %}
+                                {% else %}
+                                <i class="gsticon gsticon-sign-in"></i>
+                                {% endif %}
 
-        {% footer %}
+                            </a>
+                            <h1 class="gsti">
+                                <a class="gsti-link" href="{% url 'index' %}">Portal GSTI</a>
+                            </h1>
+                            <a class="btn-show-item toggle-search" data-item="#mobile-search" href="#">
+                                <i class="gsticon gsticon-search"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="row menu-desktop visible-lg-block">
+                        <h1 class="gsti">
+                            <a href="{% url 'index' %}" class="gsti-link">Portal GSTI</a>
+                        </h1>
+                        <div class="form-search{% if request.user.is_authenticated %}--logged{% endif %}">
+                            {% include 'home/partials/search.html' %}
+                        </div>
+                        {% include 'home/partials/user-actions.html' %}
+                    </div>
+                </div>
+            </header>
+            <section class="header-navegation {% if category_slug %}header-navegation-border {{ class_name }}{% endif %}">
+                <div class="container">
+                    {% include "home/partials/mega-dropdown.html" with menu_context=category_slug|default:'' %}
+                    <ul class="menu-social">
+                        <li><a class="gsticon gsticon-facebook-square" href="javascript:;"></a></li>
+                        <li><a class="gsticon gsticon-google-plus-square" href="javascript:;"></a></li>
+                        <li><a class="gsticon gsticon-linkedin-square" href="javascript:;"></a></li>
+                        <li><a class="gsticon gsticon-twitter-square" href="javascript:;"></a></li>
+                        <li><a class="gsticon gsticon-youtube-square" href="javascript:;"></a></li>
+                    </ul>
+                </div>
+            </section>
+            {% block content %}{% endblock %}
+            {% footer %}
+        </div>
+
 
         {% block modals %}
 
@@ -126,13 +163,23 @@
             };
 
             var functionAjaxSuccessTriggerContactModal = function(e, data) {
+                var $this = $(this);
                 var $modalContact = $("#modal-contact");
+
                 $modalContact.find("form[data-ajaxform=true]").IdeiaAjaxForm();
                 {% if request.user.is_anonymous %}
                     grecaptcha.render('g-recaptcha', {
                         'sitekey': '6LccmgsTAAAAAGrsvn7r7aiIcnvbuIS7pyP0qv1K'
                     });
                 {% endif %}
+
+
+                if ($this.data('type') == {% contact_suggest_community_type %}) {
+                    $modalContact.find('select#subject').val($this.data('type'));
+                    $modalContact.find('textarea#contact_message').html($this.data('message'));
+
+                }
+
                 $modalContact.modal("show");
 
                 var functionAjaxSuccessContact = function(e, data) {
@@ -214,8 +261,13 @@
 
                 var $selectInput = $('#tagger-suggest-users');
                 var $selectize = $selectInput[0].selectize;
+                $selectize.clear();
                 $selectize.clearCache();
-                $selectize.focus();
+                $selectize.clearOptions();
+
+                $modalSuggest.on('shown.bs.modal', function () {
+                    $selectize.focus();
+                });
             };
 
             $(function() {
@@ -228,7 +280,7 @@
                 $(document).on("ajaxform.success", "#form-suggest", functionAjaxSuccessSuggest);
                 $(document).on("click", "[data-suggest-modal]", functionOpenSuggestModal);
                 $(document).on("async.click.success", '[data-report="true"]', functionAjaxSuccessTriggerReport);
-                $(document).on("async.click.success", "#link-contact", functionAjaxSuccessTriggerContactModal);
+                $(document).on("async.click.success", "[data-contact]", functionAjaxSuccessTriggerContactModal);
             });
 
 

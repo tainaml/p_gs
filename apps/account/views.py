@@ -84,8 +84,8 @@ class LoginView(View):
 
         url_next = '/account/'
 
-        if 'next' in request.GET and request.GET['next']:
-            url_next = request.GET['next']
+        if 'next' in request.GET and request.GET.get('next'):
+            url_next = request.GET.get('next')
 
         form = self.form_login(request, request.POST)
 
@@ -138,8 +138,12 @@ class RegisterView(View):
         """
         form = self.form(request.POST)
         if form.process():
-            messages.add_message(request, messages.SUCCESS, _("Success"), 'account-register')
-            return redirect('/account/registered-successfully')
+
+            messages.add_message(request, messages.SUCCESS,
+                                 # Translators: This message appears on the home page only
+                                 _("Success")
+                                 , 'account-register')
+            return redirect(reverse('account:registered_successfully'))
 
         return render(request, 'account/signup.html', {'form': form})
 
@@ -186,25 +190,25 @@ class MailValidationView(View):
 
         message = _('Token not exist')
 
-        try:
-            user, token_verified = register_confirm(activation_key)
-            message = _('Token exist - Account verified')
+        # try:
+        user, token_verified = register_confirm(activation_key)
+        message = _('Token exist - Account verified')
 
-            if token_verified and user and user.is_active:
+        if token_verified and user and user.is_active:
 
-                try:
-                    log_in_user_no_credentials(request, user)
+            try:
+                log_in_user_no_credentials(request, user)
 
-                    if user.profile.wizard_step < settings.WIZARD_STEPS_TOTAL:
-                        return redirect(reverse('profile:feed'))
-                    else:
-                        return redirect('/')
+                if user.profile.wizard_step < settings.WIZARD_STEPS_TOTAL:
+                    return redirect(reverse('profile:feed'))
+                else:
+                    return redirect('/')
 
-                except Exception, e:
-                    pass
+            except Exception, e:
+                pass
 
-        except Exception as e:
-            message = e.message
+        # except Exception as e:
+        #     message = e.message
 
         return render(request, 'account/mail_validation.html', {'message': message})
 

@@ -51,7 +51,7 @@
     .row-form {
         @include make-row;
     }
-    .form-group { padding: 5px 0; }
+    .form-group { padding: 5px; }
     .form-group-inline {
         width: 50%;
         padding: 0 5px;

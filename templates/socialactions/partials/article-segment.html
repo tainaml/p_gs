@@ -1,4 +1,5 @@
 {% load thumbor_tags %}
+{% load avatar_tags %}
 
 <div id="{{ item.id }}" class="excerpt" >
     <div class="custom-check"><input class="chk" type="checkbox" name="items_to_remove" value="{{ item.id }}" data-object-type="{{ item.content_type }}" data-object-id="{{ instance.id }}"></div>
@@ -12,17 +13,14 @@
             <header class="post-header">
                 <div class="post-info">
                     <time datetime="{{ instance.createdin }}" itemprop="datePublished">{{ instance.createdin }}</time>
-                    <a href="javascript:;" data-toggle="dropdown"><i class="gsticon gsticon-gear"></i></a>
-                    <div class="dropdown-menu">
-                        {% include "socialactions/partials/dropdown-actions.html" %}
-                    </div>
                 </div>
                 <a class="post-creator" href="{% url 'profile:show' instance.author.username %}">
-                    <img src="{% thumbor_url instance.author.profile.get_profile_picture.url width=20 height=20 smart=False fit_in=False %}" alt="foto de {{ instance.author.get_full_name }}">
+                    <img src="{% get_avatar instance.author width=20 height=20 smart=False fit_in=False %}" alt="foto de {{ instance.author.get_full_name }}">
                     {{ instance.author.get_full_name }}
                 </a>
             </header>
             <a href="{% url 'article:view' instance.slug instance.id %}">{{ instance.title }}</a>
+
         </div>
     </div>
 </div>

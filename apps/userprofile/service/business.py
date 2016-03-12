@@ -1,5 +1,6 @@
-from django.contrib.auth.models import User
+from apps.account.models import User
 from django.db import transaction
+from apps.account.models import User
 
 from apps.taxonomy.models import Term, Taxonomy
 from apps.userprofile.models import UserProfile, Occupation, Responsibility

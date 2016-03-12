@@ -49,7 +49,7 @@
                         <p class="help-text">
                             <span>ATENÇÃO:</span> <br>
                             Antes de escrever uma publicação certifique-se que seu conteúdo não seja copia de outro e que não contenha erros de português. <br>
-                            Publicação que são submetidas a comunidades que não possuem relação vão ser penalizados. Leia as regras do Portal para saber mais.
+                            Publicação que são submetidas a comunidades que não possuem relação serão penalizados. Leia as regras do Portal para saber mais.
                         </p>
                         <div class="wrap-editor row">
                             <div class="col-lg-9">
@@ -69,31 +69,7 @@
                                 </div>
                             </div>
                             <div class="col-lg-3">
-                                {% comment %}
-                                {% if article_is_publish and not article_is_schedule or not article_is_publish %}
-                                <label class="form-group">
-                                    <span class="custom-radio">
-                                        <input
-                                                type="radio"
-                                                name="submit-schedule"
-                                                value="today"
-                                                checked="{% if not article_is_schedule %}checked{% endif %}">
-                                    </span>
-                                    <input class="form-control" style="display: inline; width: auto;" placeholder="Publicar agora" readonly type="text">
-                                </label>
-                                {% endif %}
 
-                                {% if 1 == 1 %}
-                                <label class="form-group">
-                                    <span class="custom-radio">
-                                        <input type="radio" name="submit-schedule" checked="{% if article_schedule %}checked{% endif %}">
-                                    </span>
-                                    {% render_field form_article.publishin placeholder="Agendar Publicaçao" class="form-control" type="text" style="display: inline; width: auto;"  %}
-                                    {% if form_article.publishin.errors %}  {{ form_article.publishin.errors }} {% endif %}
-                                </label>
-                                {% endif %}
-
-                                {% endcomment %}
 
                                 <div class="custom-file-upload custom-file-upload-larger" data-module="dropzoneUploader" data-original-image="{% if article.image %} {{ article.image.url }} {% endif %}">
                                     <div class="custom-file-content">

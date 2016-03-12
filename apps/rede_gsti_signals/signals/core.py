@@ -2,18 +2,22 @@ from django.conf import settings
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.core.cache import cache
-
 from apps.community.models import Community
 from apps.comment.models import Comment
 from apps.notifications.service import business as Business
 from apps.core.business import configuration
+import logging
 
+logger = logging.getLogger('signals')
 
 @receiver(post_save, sender=Community)
 def refresh_footer(sender, **kwargs):
-    footer = cache.get("footer")
+    logger.info("Checking Footer cache")
+    footer = cache.get("categories")
+
     if footer:
-        cache.delete("footer")
+        logger.info("Footer cache found, cleaning Footer cache.")
+        cache.delete("categories")
 
 
 @receiver(post_save, sender=Comment)

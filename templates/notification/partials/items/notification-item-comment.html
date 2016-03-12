@@ -1,5 +1,6 @@
 {% load thumbor_tags %}
 {% load var_tags %}
+{% load avatar_tags %}
 
 {% if notification.target_content_type.model == "article" %}
     {% set action_verb = "comentou" %}
@@ -31,12 +32,13 @@
 <div class="post {% if not notification.read %}not-visualized{% endif %}" data-notification-item="{{ notification.id }}"
      data-trigger="notification-as-read"
      data-csrf="{{ csrf_token }}"
+     data-url-mark-as-read="{% url 'notifications:mark-as-read-and-visualized' %}"
      data-next-url="{{ url_next }}{% if show_anchor %}#{{ notification.target_content_type.model }}-{{ notification.target.id }}{% endif %}"
      data-notification="{{ notification.id }}">
     <header class="post-header">
         <div class="post-info"><time style="display: block;" datetime="{{ notification.notification_date }}" itemprop="datePublished">{{ notification.notification_date|date:"d/m/Y à\s H:i" }}</time></div>
         <div class="post-creator">
-            <a href="{% url 'profile:show' notification.author.get_username %}"><img src="{% thumbor_url notification.author.profile.get_profile_picture.url width=20 height=20 smart=False fit_in=False %}" width="20" height="20" alt="{{ notification.author.get_full_name }}"></a>
+            <a href="{% url 'profile:show' notification.author.get_username %}"><img src="{% get_avatar notification.author width=20 height=20 smart=False fit_in=False %}" width="20" height="20" alt="{{ notification.author.get_full_name }}"></a>
             <a href="{% url 'profile:show' notification.author.get_username %}">{{ notification.author.get_full_name }}</a> {{ action_verb }} em <a href="{{ url_next }}{% if show_anchor %}#{{ notification.target_content_type.model }}-{{ notification.target.id }}{% endif %}" title="{{ post_name }}">{{ post_name }}</a>
         </div>
     </header>

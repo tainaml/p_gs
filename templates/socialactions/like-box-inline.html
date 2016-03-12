@@ -6,7 +6,7 @@
         data-target-unlike=".count-unlike-post-{{ object_to_link }}-{{ content }}"
         data-target-id="{{ object_to_link }}-{{ content }}"
         data-target-id-action="{{ object_to_link }}-{{ content }}-like"
-        data-trigger="login" data-token="{{ csrf_token }}">
+        data-url-login="{% url 'account:is_logged' %}" data-trigger="login" data-token="{{ csrf_token }}">
     	<span class="count-like-post-{{ object_to_link }}-{{ content }}">{{ likes }}</span> <i class="gsticon gsticon-caret-up"></i>
     </a>
     <a href="{% url 'socialactions:act' object_to_link content 'unlike' %}?url_next={{ url_next|urlencode }}" class="post-votes-down {% if i_unliked and i_unliked.author == request.user %}unliked{% endif %}"
@@ -16,11 +16,11 @@
         data-target-unlike=".count-unlike-post-{{ object_to_link }}-{{ content }}"
         data-target-id="{{ object_to_link }}-{{ content }}"
         data-target-id-action="{{ object_to_link }}-{{ content }}-unlike"
-        data-trigger="login" data-token="{{ csrf_token }}"
+        data-url-login="{% url 'account:is_logged' %}" data-trigger="login" data-token="{{ csrf_token }}"
         >
     	<i class="gsticon gsticon-caret-down"></i> <span class="count-unlike-post-{{ object_to_link }}-{{ content }}">{{ unlikes }}</span>
     </a>
 {% else %}
-    <a data-trigger="login" data-token="{{ csrf_token }}" href="javascript:void(0);" class="post-votes-up"><span>{{ likes }}</span> <i class="gsticon gsticon-caret-up"></i></a>
-    <a data-trigger="login" data-token="{{ csrf_token }}" href="javascript:void(0);" class="post-votes-down"><i class="gsticon gsticon-caret-down"></i> <span>{{ unlikes }}</span></a>
+    <a data-url-login="{% url 'account:is_logged' %}" data-trigger="login" data-token="{{ csrf_token }}" href="javascript:void(0);" class="post-votes-up"><span>{{ likes }}</span> <i class="gsticon gsticon-caret-up"></i></a>
+    <a data-url-login="{% url 'account:is_logged' %}" data-trigger="login" data-token="{{ csrf_token }}" href="javascript:void(0);" class="post-votes-down"><i class="gsticon gsticon-caret-down"></i> <span>{{ unlikes }}</span></a>
 {% endif %}

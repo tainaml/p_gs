@@ -13,7 +13,7 @@
 
     .gsti {
         overflow: hidden;
-        @include make-xs-column(2);
+        @include make-xs-column(8);
         @include make-lg-column(1.5);
         padding-top: 20px;
         padding-bottom: 20px;
@@ -21,6 +21,8 @@
         margin-bottom: 0;
         color: $color-governance;
         text-align: center;
+
+
         &-#{link} {
             width: 126px;
             height: 40px;
@@ -29,12 +31,25 @@
             color: inherit;
             text-indent: -9999px;
             display: block;
-
-            @media (max-width: $screen-lg-min) {
-                width: 41px;
-                background-position: 0 0;
-            }
         }
+    }
+    .btn-show-item,
+    .btn-hide-item {
+        @include make-xs-column(2);
+        text-align: center;
+        font-size: 40px;
+        line-height: 2;
+    }
+    .mobile-search {
+        position: absolute;
+        z-index: 2000;
+        top: 0; left: 0;
+        width: 100%;
+        padding: 19px;
+        background-color: #fff;
+
+        form { @include make-xs-column(10); }
+        .btn-hide-item { line-height: 1; }
     }
     .form-search {
         @include make-xs-column(10);
@@ -52,25 +67,29 @@
         @include make-xs-column(12);
         @include make-lg-column(2);
         padding: 0;
+        border-left: 1px solid #e1e1e1;
         @media (min-width: $screen-lg-min) {
             padding-left: 0;
             padding-right: 15px;
         }
         &-#{link} {
+            width: 50%;
+            border-right: 1px solid #e1e1e1;
             line-height: 3;
             @media (min-width: $screen-lg-min) {
+                width: 63.5%;
                 line-height: 5.8;
             }
-            width: 63.5%;
             float: left;
             background-color: $white-ice;
-            border-right: 1px solid $color-border;
-            border-left: 1px solid $color-border;
             color: $gray;
             font-size: 1em;
             text-align: center;
             &:last-child {
-                width: 36.5%;
+                width: 50%;
+                @media (min-width: $screen-lg-min) {
+                    width: 36.5%;
+                }
                 border-left-width: 0;
             }
             &:hover {
@@ -78,37 +97,29 @@
             }
         }
     }
-    .dropdown-item-header { float: left; }
+    .dropdown-item-header {
+        float: left;
+        border-right: 1px solid $color-border;
+    }
     .user-actions-logged {
-        @include make-xs-column(12);
         @include make-lg-column(4);
         border-left: 1px solid $color-border;
-        @media (min-width: $screen-lg-min) {
-            padding-left: 0;
-            padding-right: 0;
-        }
+        padding-left: 0;
+        padding-right: 0;
+
         &-#{link--logged} {
             position: relative;
             padding: 16px 22px;
             float: left;
-            border-right: 1px solid $color-border;
+            // border-right: 1px solid $color-border;
             color: $background-button;
             font-size: 1.214em;
             line-height: 3;
             text-align: center;
             background-color: $white-ice;
-            @media (max-width: $screen-sm-min) {
-                float: none;
-                border-right-width: 0;
-            }
             &:nth-child(4) {
-                min-width: 47%;
+                width: 47%;
                 border-left-width: 1px;
-                @media (max-width: $screen-sm-min) {
-                    text-align: left;
-                    display: block;
-                    border-left-width: 0;
-                }
             }
             .badge {
                 position: absolute;
@@ -124,16 +135,12 @@
                 line-height: 115%;
             }
             .img-circle {
-              padding: 3px;
               background: $link-white;
               @include box-shadow(0 0px 0px 1px $color-border);
             }
             &:hover {
                 background-color: #f2f2f2;
             }
-        }
-        & .user-actions-profile {
-            width: 190px;
         }
     }
 }
@@ -330,4 +337,28 @@
         }
     }
     .article-title { color: $color-infra; }
+}
+
+.slideout-menu {
+    > hr {
+        margin: 0;
+    }
+}
+.slideout-menu--user {
+    padding: 10px 20px;
+}
+.slideout-menu--link {
+    padding: 10px 20px;
+    display: block;
+}
+
+.slideout-menu--notification {
+    @include make-row();
+    padding: 0 20px;
+    margin: 20px 0;
+}
+.slideout-menu--notification-item {
+    width: 33.3333%;
+    float: left;
+    text-align: center;
 }

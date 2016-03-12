@@ -2,7 +2,7 @@ from datetime import date
 from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
-from django.contrib.auth.models import User
+from apps.account.models import User
 from django.utils.translation import ugettext as _
 from ckeditor.fields import RichTextField
 from apps.socialactions.models import Counter
@@ -49,7 +49,7 @@ class City(models.Model):
 
 
 class UserProfile(models.Model):
-    user = models.OneToOneField(User, related_name='profile')
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, related_name='profile')
     birth = models.DateField(null=True, blank=True)
     gender = models.CharField(max_length=1, null=True, blank=True)
     city = models.ForeignKey(City, null=True, blank=True, related_name='profiles_city')

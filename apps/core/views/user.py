@@ -8,7 +8,7 @@ from django.contrib.auth.decorators import login_required
 
 from apps.community.models import Community
 from apps.core.forms.user import CoreUserProfileForm, CoreUserProfileFullEditForm, CoreSearchFollowers, CoreSearchArticlesForm, CoreSearchVideosForm, \
-    CoreSearchCommunitiesForm, CoreRemoveSocialActionForm, CoreSearchSocialActionsForm
+    CoreSearchCommunitiesForm, CoreRemoveSocialActionForm, CoreSearchSocialActionsForm, CoreUserMyQuestionsForm
 from apps.core.forms.community import CoreCommunityFormSearch
 from apps.core.forms.user import CoreUserSearchForm, CoreUserProfileEditForm
 from apps.article.models import Article
@@ -942,3 +942,41 @@ class SocialActionListItems(CoreProfileSocialActionsBase):
         }
 
         return self.return_success(request, context)
+
+
+class CoreUserMyQuestions(CoreUserView):
+
+    template_path = 'userprofile/profile-questions.html'
+    form = CoreUserMyQuestionsForm
+
+    @method_decorator(login_required)
+    def get(self, request, **kwargs):
+        return super(CoreUserMyQuestions, self).get(request)
+
+    def get_context(self, request, profile_instance=None):
+        content_type = ContentType.objects.get(model='question')
+
+        itens_by_page = 5
+
+        form = self.form(
+            profile_instance,
+            content_type.id,
+            itens_by_page,
+            profile_instance.user,
+            request.GET
+        )
+
+        feed_objects = form.process()
+
+        return {
+            'feed_objects': feed_objects,
+            'form': form,
+            'page': form.cleaned_data.get('page', 0) + 1
+        }
+
+
+class CoreUserMyQuestionsList(CoreUserMyQuestions):
+
+    template_path = 'userprofile/partials/profile-questions-list.html'
+
+

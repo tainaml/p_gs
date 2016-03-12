@@ -19,7 +19,8 @@ class Migration(migrations.Migration):
                 ('slug', models.SlugField(max_length=150)),
                 ('description', models.TextField(max_length=2048)),
                 ('image', models.ImageField(default=b'', upload_to=b'community/%Y/%m/%d', blank=True)),
-                ('taxonomy', models.ForeignKey(to='taxonomy.Taxonomy')),
+                ('relevance', models.DecimalField(default=0, max_digits=4, decimal_places=2)),
+                ('taxonomy', models.OneToOneField(related_name='community_related', to='taxonomy.Taxonomy')),
             ],
         ),
     ]

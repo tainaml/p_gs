@@ -1,14 +1,16 @@
-from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
+from django.contrib.auth import get_user_model
 from django.shortcuts import redirect
 from django.utils.text import slugify
 from requests import request, HTTPError, ConnectionError
 from django.core.files.base import ContentFile
 from social.pipeline.partial import partial
+from apps.account.models import User
 
 from apps.userprofile.service.business import  get_profile as GetProfile
 
+User = get_user_model()
 
 @partial
 def require_email(strategy, details, user=None, is_new=False, *args, **kwargs):
