@@ -8,16 +8,16 @@
         <ul class="perfil-actions">
             {% if not request.user.is_authenticated %}
                 {# nao logado #}
-                <li><a data-trigger="login" data-token="{{csrf_token}}" href="{% url 'question:create-in-category' community.slug %}"><i class="gsticon gsticon-question-circle"></i> Perguntar</a></li>
-                <li><a data-trigger="login" data-token="{{csrf_token}}" href="{% url 'article:create-in-category' community.slug %}"><i class="gsticon gsticon-file-text"></i> Criar publicação</a></li>
+                <li><a data-url-login="{% url 'account:is_logged' %}" data-trigger="login" data-token="{{csrf_token}}" href="{% url 'question:create-in-category' community.slug %}"><i class="gsticon gsticon-question-circle"></i> Perguntar</a></li>
+                <li><a data-url-login="{% url 'account:is_logged' %}" data-trigger="login" data-token="{{csrf_token}}" href="{% url 'article:create-in-category' community.slug %}"><i class="gsticon gsticon-file-text"></i> Criar publicação</a></li>
             {% elif not user_follows_community %}
                 {# logado, mas nao segue a comunidade #}
-                <li><a data-restrict="community" data-community="{{ community.slug }}" data-type="question" data-token="{{csrf_token}}" href="{% url 'question:create-in-category' community.slug %}"><i class="gsticon gsticon-question-circle"></i> Perguntar</a></li>
-                <li><a data-restrict="community" data-community="{{ community.slug }}" data-type="post" data-token="{{csrf_token}}" href="{% url 'article:create-in-category' community.slug %}"><i class="gsticon gsticon-file-text"></i> Criar publicação</a></li>
+                <li><a data-restrict="community" data-community="{{ community.slug }}" data-url-check="{% url 'community:check-user-follows' %}" data-type="question" data-token="{{csrf_token}}" href="{% url 'question:create-in-category' community.slug %}"><i class="gsticon gsticon-question-circle"></i> Perguntar</a></li>
+                <li><a data-restrict="community" data-community="{{ community.slug }}" data-url-check="{% url 'community:check-user-follows' %}" data-type="post" data-token="{{csrf_token}}" href="{% url 'article:create-in-category' community.slug %}"><i class="gsticon gsticon-file-text"></i> Criar publicação</a></li>
             {% else %}
                 {# logado e segue a comunidade #}
-                <li><a data-restrict="community" data-community="{{ community.slug }}" data-type="question" data-token="{{csrf_token}}" href="{% url 'question:create-in-category' community.slug %}"><i class="gsticon gsticon-question-circle"></i> Perguntar</a></li>
-                <li><a data-restrict="community" data-community="{{ community.slug }}" data-type="post" data-token="{{csrf_token}}" href="{% url 'article:create-in-category' community.slug %}"><i class="gsticon gsticon-file-text"></i> Criar publicação</a></li>
+                <li><a data-community="{{ community.slug }}"  data-type="question" data-token="{{csrf_token}}" href="{% url 'question:create-in-category' community.slug %}"><i class="gsticon gsticon-question-circle"></i> Perguntar</a></li>
+                <li><a data-community="{{ community.slug }}"  data-type="post" data-token="{{csrf_token}}" href="{% url 'article:create-in-category' community.slug %}"><i class="gsticon gsticon-file-text"></i> Criar publicação</a></li>
             {% endif %}
         </ul>
     </div>

@@ -1,4 +1,5 @@
 {% load thumbor_tags %}
+{% load avatar_tags %}
 {% load social_tags %}
 {% load taxonomy_tags %}
 
@@ -15,16 +16,16 @@
                 <a href="javascript:;" data-toggle="dropdown"><i class="gsticon gsticon-gear"></i></a>
                 <div class="dropdown-menu">
                     <ul class="perfil-actions">
-                        {% if question.author == request.user %}<li><a data-trigger="login" data-token="{{ csrf_token }}" href="{% url "question:edit" question.id %}"><i class="gsticon gsticon-edit"></i> Editar publicação</a></li>{% endif %}
-                        <li><a data-trigger="login" data-token="{{ csrf_token }}" href="javascript:;" data-suggest-modal="true" data-content="question" data-object="{{ question.id }}" data-url="{% url 'socialactions:act-suggest' question.id 'question' %}"><i class="gsticon gsticon-paper-plane"></i> Sugerir</a></li>
-                        <li><a data-trigger="login" data-token="{{ csrf_token }}" data-action="see-later" data-action-type="text" data-action-text="Ver depois" data-action-text-alt="Marcar como visto" data-object="see-later-{{ question.id }}" data-url-check="{% url 'socialactions:acted' question.id 'question' 'see-later' %}" href="{% url 'socialactions:act-xhr' question.id 'question' 'see-later' %}?url_next={{ request.path|urlencode }}"><i class="gsticon gsticon-eye"></i> <span>Ver depois</span></a></li>
-                        <li><a data-trigger="login" data-token="{{ csrf_token }}" data-action="favourite" data-action-type="text" data-action-text="Favoritar" data-action-text-alt="Desfavoritar" data-object="favourite-{{ question.id }}" data-question="{{ question.id }}" data-url-check="{% url 'socialactions:acted' question.id 'question' 'favourite' %}" href="{% url 'socialactions:act-xhr' question.id 'question' 'favourite' %}?url_next={{ request.path|urlencode }}"><i class="gsticon gsticon-star"></i> <span>Favoritar</span></a></li>
-                        <li><a data-trigger="login" data-token="{{ csrf_token }}" href="{% url 'complaint:report' 'question' question.id %}" data-report="true" data-async-module="click" data-async-target="#modal-report" data-async-method="get"><i class="gsticon gsticon-exclamation-triangle"></i> Denunciar</a></li>
+                        {% if question.author == request.user %}<li><a data-url-login="{% url 'account:is_logged' %}" data-trigger="login" data-token="{{ csrf_token }}" href="{% url "question:edit" question.id %}"><i class="gsticon gsticon-edit"></i> Editar publicação</a></li>{% endif %}
+                        <li><a data-url-login="{% url 'account:is_logged' %}" data-trigger="login" data-token="{{ csrf_token }}" href="javascript:;" data-suggest-modal="true" data-content="question" data-object="{{ question.id }}" data-url="{% url 'socialactions:act-suggest' question.id 'question' %}"><i class="gsticon gsticon-paper-plane"></i> Sugerir</a></li>
+                        <li><a data-url-login="{% url 'account:is_logged' %}" data-trigger="login" data-token="{{ csrf_token }}" data-action="see-later" data-action-type="text" data-action-text="Ver depois" data-action-text-alt="Marcar como visto" data-object="see-later-{{ question.id }}" data-url-check="{% url 'socialactions:acted' question.id 'question' 'see-later' %}" href="{% url 'socialactions:act-xhr' question.id 'question' 'see-later' %}?url_next={{ request.path|urlencode }}"><i class="gsticon gsticon-eye"></i> <span>Ver depois</span></a></li>
+                        <li><a data-url-login="{% url 'account:is_logged' %}" data-trigger="login" data-token="{{ csrf_token }}" data-action="favourite" data-action-type="text" data-action-text="Favoritar" data-action-text-alt="Desfavoritar" data-object="favourite-{{ question.id }}" data-question="{{ question.id }}" data-url-check="{% url 'socialactions:acted' question.id 'question' 'favourite' %}" href="{% url 'socialactions:act-xhr' question.id 'question' 'favourite' %}?url_next={{ request.path|urlencode }}"><i class="gsticon gsticon-star"></i> <span>Favoritar</span></a></li>
+                        <li><a data-url-login="{% url 'account:is_logged' %}" data-trigger="login" data-token="{{ csrf_token }}" href="{% url 'complaint:report' 'question' question.id %}" data-report="true" data-async-module="click" data-async-target="#modal-report" data-async-method="get"><i class="gsticon gsticon-exclamation-triangle"></i> Denunciar</a></li>
                     </ul>
                 </div>
             </div>
             <a class="post-creator" href="{% url 'profile:show' username=question.author.username %}">
-                <img src="{% thumbor_url question.author.profile.get_profile_picture.url width=20 height=20 smart=False fit_in=False %}" alt="foto de {{ question.author.get_full_name }}">
+                <img src="{% get_avatar question.author width=20 height=20 smart=False fit_in=False %}" alt="foto de {{ question.author.get_full_name }}">
                 {{ question.author.get_full_name }}
             </a> <span class="label label-question">Pergunta</span>
         </header>

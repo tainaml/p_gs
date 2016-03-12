@@ -1,0 +1,978 @@
+[
+  {
+    "fields": {
+      "text": "",
+      "name": "Analista SEO"
+    },
+    "model": "userprofile.responsibility",
+    "pk": 1
+  },
+  {
+    "fields": {
+      "text": "",
+      "name": "Analista de Sistemas"
+    },
+    "model": "userprofile.responsibility",
+    "pk": 2
+  },
+  {
+    "fields": {
+      "text": "",
+      "name": "Desenvolvedor"
+    },
+    "model": "userprofile.responsibility",
+    "pk": 3
+  },
+  {
+    "fields": {
+      "text": "",
+      "name": "Gerente de Projetos"
+    },
+    "model": "userprofile.responsibility",
+    "pk": 4
+  },
+  {
+    "fields": {
+      "text": "",
+      "name": "CEO"
+    },
+    "model": "userprofile.responsibility",
+    "pk": 5
+  },
+  {
+    "fields": {
+      "text": "",
+      "name": "CIO"
+    },
+    "model": "userprofile.responsibility",
+    "pk": 6
+  },
+  {
+    "fields": {
+      "text": "",
+      "name": "Designer"
+    },
+    "model": "userprofile.responsibility",
+    "pk": 7
+  },
+  {
+    "fields": {
+      "text": "",
+      "name": "Programador"
+    },
+    "model": "userprofile.responsibility",
+    "pk": 8
+  },
+  {
+    "fields": {
+      "description": "Categoria",
+      "parent": null,
+      "slug": "categoria"
+    },
+    "model": "taxonomy.term",
+    "pk": 1
+  },
+  {
+    "fields": {
+      "description": "Comunidade",
+      "parent": null,
+      "slug": ""
+    },
+    "model": "taxonomy.term",
+    "pk": 2
+  },
+  {
+    "fields": {
+      "term": 1,
+      "description": "Desenvolvimento",
+      "parent": null,
+      "slug": "desenvolvimento"
+    },
+    "model": "taxonomy.taxonomy",
+    "pk": 1
+  },
+  {
+    "fields": {
+      "term": 2,
+      "description": "Python",
+      "parent": 1,
+      "slug": "python"
+    },
+    "model": "taxonomy.taxonomy",
+    "pk": 2
+  },
+  {
+    "fields": {
+      "term": 2,
+      "description": "Django",
+      "parent": 2,
+      "slug": "django"
+    },
+    "model": "taxonomy.taxonomy",
+    "pk": 3
+  },
+  {
+    "fields": {
+      "term": 2,
+      "description": "Java",
+      "parent": 1,
+      "slug": "java"
+    },
+    "model": "taxonomy.taxonomy",
+    "pk": 4
+  },
+  {
+    "fields": {
+      "term": 2,
+      "description": "Spring",
+      "parent": 4,
+      "slug": "spring"
+    },
+    "model": "taxonomy.taxonomy",
+    "pk": 5
+  },
+  {
+    "fields": {
+      "term": 2,
+      "description": "PHP",
+      "parent": 1,
+      "slug": "php"
+    },
+    "model": "taxonomy.taxonomy",
+    "pk": 6
+  },
+  {
+    "fields": {
+      "term": 2,
+      "description": "Zend",
+      "parent": 6,
+      "slug": "zend"
+    },
+    "model": "taxonomy.taxonomy",
+    "pk": 7
+  },
+  {
+    "fields": {
+      "term": 2,
+      "description": "Javascript",
+      "parent": 1,
+      "slug": "javascript"
+    },
+    "model": "taxonomy.taxonomy",
+    "pk": 8
+  },
+  {
+    "fields": {
+      "term": 2,
+      "description": "HTML",
+      "parent": 1,
+      "slug": "htm"
+    },
+    "model": "taxonomy.taxonomy",
+    "pk": 9
+  },
+  {
+    "fields": {
+      "term": 2,
+      "description": "CSS",
+      "parent": 11,
+      "slug": "css"
+    },
+    "model": "taxonomy.taxonomy",
+    "pk": 10
+  },
+  {
+    "fields": {
+      "term": 1,
+      "description": "Web Design",
+      "parent": null,
+      "slug": "web-design"
+    },
+    "model": "taxonomy.taxonomy",
+    "pk": 11
+  },
+  {
+    "fields": {
+      "term": 2,
+      "description": "Photoshop",
+      "parent": 11,
+      "slug": "photoshop"
+    },
+    "model": "taxonomy.taxonomy",
+    "pk": 12
+  },
+  {
+    "fields": {
+      "term": 2,
+      "description": "Fireworks",
+      "parent": 11,
+      "slug": "fireworks"
+    },
+    "model": "taxonomy.taxonomy",
+    "pk": 13
+  },
+  {
+    "fields": {
+      "term": 2,
+      "description": "DreamWeaver",
+      "parent": 11,
+      "slug": "dreamweaver"
+    },
+    "model": "taxonomy.taxonomy",
+    "pk": 14
+  },
+  {
+    "fields": {
+      "term": 2,
+      "description": "Inkscape",
+      "parent": 11,
+      "slug": "inkscape"
+    },
+    "model": "taxonomy.taxonomy",
+    "pk": 15
+  },
+  {
+    "fields": {
+      "term": 1,
+      "description": "Governan\u00e7a de TI",
+      "parent": null,
+      "slug": "governanca-de-ti"
+    },
+    "model": "taxonomy.taxonomy",
+    "pk": 16
+  },
+  {
+    "fields": {
+      "term": 2,
+      "description": "Cobit",
+      "parent": 16,
+      "slug": "cobit"
+    },
+    "model": "taxonomy.taxonomy",
+    "pk": 17
+  },
+  {
+    "fields": {
+      "term": 2,
+      "description": "ITIL",
+      "parent": 16,
+      "slug": "itil"
+    },
+    "model": "taxonomy.taxonomy",
+    "pk": 18
+  },
+  {
+    "fields": {
+      "term": 1,
+      "description": "Marketing Digital",
+      "parent": null,
+      "slug": "marketing-digital"
+    },
+    "model": "taxonomy.taxonomy",
+    "pk": 19
+  },
+  {
+    "fields": {
+      "term": 2,
+      "description": "SEO",
+      "parent": 19,
+      "slug": "seo"
+    },
+    "model": "taxonomy.taxonomy",
+    "pk": 20
+  },
+  {
+    "fields": {
+      "term": 2,
+      "description": "Adwords",
+      "parent": 19,
+      "slug": "adwords"
+    },
+    "model": "taxonomy.taxonomy",
+    "pk": 21
+  },
+  {
+    "fields": {
+      "term": 2,
+      "description": "Analytics",
+      "parent": 19,
+      "slug": "analytics"
+    },
+    "model": "taxonomy.taxonomy",
+    "pk": 22
+  },
+  {
+    "fields": {
+      "term": 2,
+      "description": "Adsense",
+      "parent": 19,
+      "slug": "adsense"
+    },
+    "model": "taxonomy.taxonomy",
+    "pk": 23
+  },
+  {
+    "fields": {
+      "term": 2,
+      "description": "FB Ads",
+      "parent": 19,
+      "slug": "facebook-ads"
+    },
+    "model": "taxonomy.taxonomy",
+    "pk": 24
+  },
+  {
+    "fields": {
+      "term": 1,
+      "description": "Infraestrutura",
+      "parent": null,
+      "slug": "infraestrutura"
+    },
+    "model": "taxonomy.taxonomy",
+    "pk": 25
+  },
+  {
+    "fields": {
+      "term": 2,
+      "description": "W Server",
+      "parent": 25,
+      "slug": "windows-server"
+    },
+    "model": "taxonomy.taxonomy",
+    "pk": 26
+  },
+  {
+    "fields": {
+      "term": 2,
+      "description": "Linux",
+      "parent": 25,
+      "slug": "linux"
+    },
+    "model": "taxonomy.taxonomy",
+    "pk": 27
+  },
+  {
+    "fields": {
+      "term": 2,
+      "description": "AWS",
+      "parent": 25,
+      "slug": "aws"
+    },
+    "model": "taxonomy.taxonomy",
+    "pk": 28
+  },
+  {
+    "fields": {
+      "term": 1,
+      "description": "Banco de Dados",
+      "parent": null,
+      "slug": "banco-de-dados"
+    },
+    "model": "taxonomy.taxonomy",
+    "pk": 29
+  },
+  {
+    "fields": {
+      "term": 2,
+      "description": "SQL Server",
+      "parent": 29,
+      "slug": "sql-server"
+    },
+    "model": "taxonomy.taxonomy",
+    "pk": 30
+  },
+  {
+    "fields": {
+      "term": 2,
+      "description": "Oracle",
+      "parent": 29,
+      "slug": "oracle"
+    },
+    "model": "taxonomy.taxonomy",
+    "pk": 31
+  },
+  {
+    "fields": {
+      "term": 2,
+      "description": "Postgre SQL",
+      "parent": 29,
+      "slug": "postgresql"
+    },
+    "model": "taxonomy.taxonomy",
+    "pk": 32
+  },
+  {
+    "fields": {
+      "term": 2,
+      "description": "MySQL",
+      "parent": 29,
+      "slug": "mysql"
+    },
+    "model": "taxonomy.taxonomy",
+    "pk": 33
+  },
+  {
+    "fields": {
+      "term": 2,
+      "description": "SQL lite",
+      "parent": 29,
+      "slug": "sql-lite"
+    },
+    "model": "taxonomy.taxonomy",
+    "pk": 34
+  },
+  {
+    "fields": {
+      "term": 2,
+      "description": "Django",
+      "parent": 2,
+      "slug": "django"
+    },
+    "model": "taxonomy.taxonomy",
+    "pk": 35
+  },
+  {
+    "fields": {
+      "term": 2,
+      "description": "PMBOOK",
+      "parent": 16,
+      "slug": "pmbook"
+    },
+    "model": "taxonomy.taxonomy",
+    "pk": 36
+  },
+  {
+    "fields": {
+      "title": "Sugest\u00e3o"
+    },
+    "model": "contact.contactsubject",
+    "pk": 1
+  },
+  {
+    "fields": {
+      "title": "Cr\u00edtica"
+    },
+    "model": "contact.contactsubject",
+    "pk": 2
+  },
+  {
+    "fields": {
+      "tag_name": "Video",
+      "tag_order": 0,
+      "tag_slug": "video"
+    },
+    "model": "core.tags",
+    "pk": 1
+  },
+  {
+    "fields": {
+      "tag_name": "Apostila",
+      "tag_order": 1,
+      "tag_slug": "apostila"
+    },
+    "model": "core.tags",
+    "pk": 2
+  },
+  {
+    "fields": {
+      "tag_name": "Ebook",
+      "tag_order": 0,
+      "tag_slug": "ebook"
+    },
+    "model": "core.tags",
+    "pk": 3
+  },
+  {
+    "fields": {
+      "tag_name": "Artigo",
+      "tag_order": 0,
+      "tag_slug": "artigo"
+    },
+    "model": "core.tags",
+    "pk": 4
+  },
+  {
+    "fields": {
+      "tag_name": "Slide",
+      "tag_order": 0,
+      "tag_slug": "slide"
+    },
+    "model": "core.tags",
+    "pk": 5
+  },
+  {
+    "fields": {
+      "tag_name": "Templates",
+      "tag_order": 0,
+      "tag_slug": "templates"
+    },
+    "model": "core.tags",
+    "pk": 6
+  },
+  {
+    "fields": {
+      "group": "ungroup",
+      "description": "Configura\u00e7\u00f5es sem grupo definido"
+    },
+    "model": "configuration.configgroup",
+    "pk": 1
+  },
+  {
+    "fields": {
+      "group": "notification",
+      "description": "Configura\u00e7\u00f5es de notifica\u00e7\u00e3o"
+    },
+    "model": "configuration.configgroup",
+    "pk": 2
+  },
+  {
+    "fields": {
+      "order": null,
+      "group": 2,
+      "description": "Notificar publica\u00e7\u00f5es",
+      "key": "notify_publications",
+      "show": false
+    },
+    "model": "configuration.configkey",
+    "pk": 1
+  },
+  {
+    "fields": {
+      "order": 1,
+      "group": 2,
+      "description": "Notificar quando algu\u00e9m te seguir",
+      "key": "notify_follow",
+      "show": true
+    },
+    "model": "configuration.configkey",
+    "pk": 2
+  },
+  {
+    "fields": {
+      "order": 2,
+      "group": 2,
+      "description": "Notificar quando algu\u00e9m comentar uma publica\u00e7\u00e3o sua",
+      "key": "notify_comment_article",
+      "show": true
+    },
+    "model": "configuration.configkey",
+    "pk": 3
+  },
+  {
+    "fields": {
+      "order": 3,
+      "group": 2,
+      "description": "Notificar quando algu\u00e9m comentar uma pergunta sua",
+      "key": "notify_comment_question",
+      "show": true
+    },
+    "model": "configuration.configkey",
+    "pk": 4
+  },
+  {
+    "fields": {
+      "order": 4,
+      "group": 2,
+      "description": "Notificar quando algu\u00e9m comentar um coment\u00e1rio seu",
+      "key": "notify_comment_comment",
+      "show": true
+    },
+    "model": "configuration.configkey",
+    "pk": 5
+  },
+  {
+    "fields": {
+      "order": 5,
+      "group": 2,
+      "description": "Notificar quando algu\u00e9m comentar uma resposta sua",
+      "key": "notify_comment_answer",
+      "show": true
+    },
+    "model": "configuration.configkey",
+    "pk": 6
+  },
+  {
+    "fields": {
+      "description": "Muitos erros ortogr\u00e1ficos",
+      "order": 1
+    },
+    "model": "complaint.complainttype",
+    "pk": 1
+  },
+  {
+    "fields": {
+      "description": "Ofensivo",
+      "order": 7
+    },
+    "model": "complaint.complainttype",
+    "pk": 2
+  },
+  {
+    "fields": {
+      "description": "Pornogr\u00e1fico",
+      "order": 2
+    },
+    "model": "complaint.complainttype",
+    "pk": 3
+  },
+  {
+    "fields": {
+      "description": "Sem rela\u00e7\u00e3o com TI",
+      "order": 3
+    },
+    "model": "complaint.complainttype",
+    "pk": 4
+  },
+  {
+    "fields": {
+      "description": "Sem rela\u00e7\u00e3o com a comunidade",
+      "order": 4
+    },
+    "model": "complaint.complainttype",
+    "pk": 5
+  },
+  {
+    "fields": {
+      "description": "SPAM",
+      "order": 0
+    },
+    "model": "complaint.complainttype",
+    "pk": 6
+  },
+  {
+    "fields": {
+      "description": "Cras mattis consectetur purus sit amet fermentum. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Aenean lacinia bibendum nulla sed consectetur. Etiam porta sem malesuada magna mollis euismod.",
+      "title": "Python",
+      "taxonomy": 2,
+      "image": "community/2015/11/16/logo_K6qgjmO.png",
+      "relevance": "0.00",
+      "slug": "python"
+    },
+    "model": "community.community",
+    "pk": 1
+  },
+  {
+    "fields": {
+      "description": "Vestibulum id ligula porta felis euismod semper. Maecenas sed diam eget risus varius blandit sit amet non magna. Nullam quis risus eget urna mollis ornare vel eu leo. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.\n\nVestibulum id ligula porta felis euismod semper. Etiam porta sem malesuada magna mollis euismod. Curabitur blandit tempus porttitor. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Sed posuere consectetur est at lobortis.",
+      "title": "Javascript",
+      "taxonomy": 8,
+      "image": "community/2015/11/16/javascript.jpg",
+      "relevance": "0.00",
+      "slug": "js"
+    },
+    "model": "community.community",
+    "pk": 2
+  },
+  {
+    "fields": {
+      "description": "Vestibulum id ligula porta felis euismod semper. Sed posuere consectetur est at lobortis. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.\n\nCras mattis consectetur purus sit amet fermentum. Integer posuere erat a ante venenatis dapibus posuere velit aliquet. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Donec id elit non mi porta gravida at eget metus. Lorem ipsum dolor sit amet, consectetur adipiscing elit.\n\nInteger posuere erat a ante venenatis dapibus posuere velit aliquet. Nullam quis risus eget urna mollis ornare vel eu leo. Cras mattis consectetur purus sit amet fermentum. Aenean lacinia bibendum nulla sed consectetur.\n\nPraesent commodo cursus magna, vel scelerisque nisl consectetur et. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.",
+      "title": "Java",
+      "taxonomy": 4,
+      "image": "community/2015/11/16/java.jpg",
+      "relevance": "0.00",
+      "slug": "java"
+    },
+    "model": "community.community",
+    "pk": 3
+  },
+  {
+    "fields": {
+      "description": "Nullam quis risus eget urna mollis ornare vel eu leo. Sed posuere consectetur est at lobortis. Vestibulum id ligula porta felis euismod semper. Maecenas sed diam eget risus varius blandit sit amet non magna. Donec sed odio dui. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Sed posuere consectetur est at lobortis.",
+      "title": "PHP",
+      "taxonomy": 6,
+      "image": "community/2015/11/16/php.png",
+      "relevance": "0.00",
+      "slug": "php"
+    },
+    "model": "community.community",
+    "pk": 4
+  },
+  {
+    "fields": {
+      "description": "Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Maecenas sed diam eget risus varius blandit sit amet non magna. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Nullam quis risus eget urna mollis ornare vel eu leo. Donec ullamcorper nulla non metus auctor fringilla. Maecenas sed diam eget risus varius blandit sit amet non magna.",
+      "title": "HTML",
+      "taxonomy": 9,
+      "image": "community/2015/11/16/html.png",
+      "relevance": "0.00",
+      "slug": "html"
+    },
+    "model": "community.community",
+    "pk": 5
+  },
+  {
+    "fields": {
+      "description": "Nullam quis risus eget urna mollis ornare vel eu leo. Nulla vitae elit libero, a pharetra augue. Curabitur blandit tempus porttitor. Nullam id dolor id nibh ultricies vehicula ut id elit. Nullam id dolor id nibh ultricies vehicula ut id elit. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.\n\nVivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Nulla vitae elit libero, a pharetra augue. Nullam quis risus eget urna mollis ornare vel eu leo. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nullam id dolor id nibh ultricies vehicula ut id elit. Sed posuere consectetur est at lobortis.",
+      "title": "CSS",
+      "taxonomy": 10,
+      "image": "community/2015/11/16/css.png",
+      "relevance": "0.00",
+      "slug": "css"
+    },
+    "model": "community.community",
+    "pk": 6
+  },
+  {
+    "fields": {
+      "description": "Lorem ipsum",
+      "title": "Zend",
+      "taxonomy": 7,
+      "image": "community/2015/11/16/zend.jpg",
+      "relevance": "0.00",
+      "slug": "zend-framework"
+    },
+    "model": "community.community",
+    "pk": 8
+  },
+  {
+    "fields": {
+      "description": "Lorem Ipsum",
+      "title": "Photoshop",
+      "taxonomy": 12,
+      "image": "community/2015/11/16/Photoshop-logo.png",
+      "relevance": "0.00",
+      "slug": "photoshop"
+    },
+    "model": "community.community",
+    "pk": 9
+  },
+  {
+    "fields": {
+      "description": "Lorem ipsun",
+      "title": "Fireworks",
+      "taxonomy": 13,
+      "image": "community/2015/11/16/fireworks.png",
+      "relevance": "0.00",
+      "slug": "fireworks"
+    },
+    "model": "community.community",
+    "pk": 10
+  },
+  {
+    "fields": {
+      "description": "lorem ipsun",
+      "title": "DreamWeaver",
+      "taxonomy": 14,
+      "image": "community/2015/11/16/dreamweaver.png",
+      "relevance": "0.00",
+      "slug": "dream-weaver"
+    },
+    "model": "community.community",
+    "pk": 11
+  },
+  {
+    "fields": {
+      "description": "Lorem ipsun",
+      "title": "Inkscape",
+      "taxonomy": 15,
+      "image": "community/2015/11/16/inkscape.png",
+      "relevance": "0.00",
+      "slug": "inkscape"
+    },
+    "model": "community.community",
+    "pk": 12
+  },
+  {
+    "fields": {
+      "description": "lorem Ipsun",
+      "title": "Cobit",
+      "taxonomy": 17,
+      "image": "community/2015/11/16/cobit.jpg",
+      "relevance": "0.00",
+      "slug": "cobit"
+    },
+    "model": "community.community",
+    "pk": 13
+  },
+  {
+    "fields": {
+      "description": "Lorem Ipsun",
+      "title": "ITIL",
+      "taxonomy": 18,
+      "image": "community/2015/11/16/itil.png",
+      "relevance": "0.00",
+      "slug": "itil"
+    },
+    "model": "community.community",
+    "pk": 14
+  },
+  {
+    "fields": {
+      "description": "Lorem Ipsun",
+      "title": "SEO",
+      "taxonomy": 20,
+      "image": "community/2015/11/16/SEO.jpg",
+      "relevance": "0.00",
+      "slug": "seo"
+    },
+    "model": "community.community",
+    "pk": 15
+  },
+  {
+    "fields": {
+      "description": "Lorem Ipsum",
+      "title": "Google Adwords",
+      "taxonomy": 21,
+      "image": "community/2015/11/16/adwords.png",
+      "relevance": "0.00",
+      "slug": "adwords"
+    },
+    "model": "community.community",
+    "pk": 16
+  },
+  {
+    "fields": {
+      "description": "Lorem Ipsunm",
+      "title": "Analytics",
+      "taxonomy": 22,
+      "image": "community/2015/11/16/anaytics.png",
+      "relevance": "0.00",
+      "slug": "analytics"
+    },
+    "model": "community.community",
+    "pk": 17
+  },
+  {
+    "fields": {
+      "description": "Lorem Ipsum",
+      "title": "Adsense",
+      "taxonomy": 23,
+      "image": "community/2015/11/16/adsense.jpg",
+      "relevance": "0.00",
+      "slug": "adsense"
+    },
+    "model": "community.community",
+    "pk": 18
+  },
+  {
+    "fields": {
+      "description": "Lorem Ipsum",
+      "title": "Facebook Ads",
+      "taxonomy": 24,
+      "image": "community/2015/11/16/facebook_ads.png",
+      "relevance": "0.00",
+      "slug": "facebook-ads"
+    },
+    "model": "community.community",
+    "pk": 19
+  },
+  {
+    "fields": {
+      "description": "Lorem Ipsum",
+      "title": "Windows",
+      "taxonomy": 26,
+      "image": "community/2015/11/16/windows_serverjpg",
+      "relevance": "0.00",
+      "slug": "windows"
+    },
+    "model": "community.community",
+    "pk": 20
+  },
+  {
+    "fields": {
+      "description": "Lorem Ipsum",
+      "title": "Linux",
+      "taxonomy": 27,
+      "image": "community/2015/11/16/linux.png",
+      "relevance": "0.00",
+      "slug": "linux"
+    },
+    "model": "community.community",
+    "pk": 21
+  },
+  {
+    "fields": {
+      "description": "Lorem Ipsum",
+      "title": "AWS",
+      "taxonomy": 28,
+      "image": "community/2015/11/16/AWS-large-2.png",
+      "relevance": "0.00",
+      "slug": "amazon-web-services"
+    },
+    "model": "community.community",
+    "pk": 22
+  },
+  {
+    "fields": {
+      "description": "Lorem Ipsum",
+      "title": "SQL Server",
+      "taxonomy": 30,
+      "image": "community/2015/11/16/sql-server.png",
+      "relevance": "0.00",
+      "slug": "sql-server"
+    },
+    "model": "community.community",
+    "pk": 23
+  },
+  {
+    "fields": {
+      "description": "Lorem Ipsum",
+      "title": "MySQL",
+      "taxonomy": 33,
+      "image": "community/2016/01/05/logo-mysql-170x115.png",
+      "relevance": "0.00",
+      "slug": "mysql"
+    },
+    "model": "community.community",
+    "pk": 24
+  },
+  {
+    "fields": {
+      "description": "Lorem Ipsum",
+      "title": "Oracle DB",
+      "taxonomy": 31,
+      "image": "community/2015/11/16/oracle.jpg",
+      "relevance": "0.00",
+      "slug": "oracle"
+    },
+    "model": "community.community",
+    "pk": 25
+  },
+  {
+    "fields": {
+      "description": "Lorem Ipsum",
+      "title": "Postgre SQL",
+      "taxonomy": 32,
+      "image": "community/2015/11/16/postgresql_logo-555px.png",
+      "relevance": "0.00",
+      "slug": "postgresql"
+    },
+    "model": "community.community",
+    "pk": 26
+  },
+  {
+    "fields": {
+      "description": "Lorem Ipsum",
+      "title": "SQL Lite",
+      "taxonomy": 34,
+      "image": "community/2015/11/16/sqllite.png",
+      "relevance": "0.00",
+      "slug": "sql-lite"
+    },
+    "model": "community.community",
+    "pk": 27
+  },
+  {
+    "fields": {
+      "description": "Requisitos do sistema\r\nO novo Tabela do Brasileir\u00e3o tem a inten\u00e7\u00e3o de ser uma rede social de futebol com espa\u00e7o para ser discutido assuntos relacionados aos campeonatos e aos times. Assim como no orkut pessoas poder\u00e3o criar grupos independentes para discutir assuntos relacionados aos seus times de cora\u00e7\u00e3o.\r\n\r\nA vers\u00e3o mais nova do Tabela do Brasileir\u00e3o ter\u00e1 uma \u00e1rea administrativa, acess\u00edvel apenas pelos membros da empresa, para cadastrar:\r\n\r\nTimes\r\nCampos: nome, distintivo (em svg), ano de funda\u00e7\u00e3o, est\u00e1dios (onde j\u00e1 jogou e o principal),",
+      "title": "Django",
+      "taxonomy": 3,
+      "image": "community/2016/01/07/django-logo-negative.png",
+      "relevance": "0.00",
+      "slug": "django"
+    },
+    "model": "community.community",
+    "pk": 28
+  },
+  {
+    "fields": {
+      "description": "Lorem ipsum awadawd",
+      "title": "PMBOK",
+      "taxonomy": 36,
+      "image": "community/2016/01/13/logo-PMBOK.png",
+      "relevance": "0.00",
+      "slug": "pmbok"
+    },
+    "model": "community.community",
+    "pk": 29
+  }
+]

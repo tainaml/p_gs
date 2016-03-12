@@ -1,10 +1,24 @@
 from datetime import timedelta
 
 from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth.models import AbstractUser
+from django.core.urlresolvers import reverse
 from django.utils import timezone
+from django.utils.translation import ugettext as _
 
-from rede_gsti import settings
+from django.conf import settings
+
+
+class User(AbstractUser):
+
+    def get_full_name(self):
+        return _('Anonymous') if not self.is_active else super(User, self).get_full_name()
+
+    def get_short_name(self):
+        return _('Anonymous') if not self.is_active else super(User, self).get_short_name()
+
+    def get_absolute_ur(self):
+        return 'javascript:void(0);' if not self.is_active else reverse('profile:show', args=[self.username])
 
 
 class TokenType():
@@ -18,7 +32,7 @@ class TokenType():
 
 
 class MailValidation(models.Model):
-    user = models.ForeignKey(User)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL)
     token = models.TextField(unique=True)
     link_date = models.DateTimeField()
     active = models.BooleanField(default=True)
@@ -63,3 +77,5 @@ class MailValidation(models.Model):
         """
 
         return self.active
+
+

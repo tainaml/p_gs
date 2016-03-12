@@ -11,7 +11,7 @@
         data-class-name="{% if btn_class == "btn-follow" %}btn-follow btn-follow-alt{% else %}perfil-button perfil-button-alt{% endif %}"
         data-hover="{% if content == "community" %}Sair{% else %}Não seguir{% endif %}"
         data-follow-content-type="{{ content }}"
-        data-trigger="login" data-token="{{ csrf_token }}"
+        data-url-login="{% url 'account:is_logged' %}" data-trigger="login" data-token="{{ csrf_token }}"
         href="{{ act_url }}?url_next={{ url_next|urlencode }}">
         <span>
         {% if content == "community" %}
@@ -31,7 +31,7 @@
         data-hover="{% if content == "community" %}Sair{% else %}Não seguir{% endif %}"
         data-follow-object="{{ object_to_link.id }}"
         data-follow-content_type="{{ content }}"
-        data-trigger="login" data-token="{{ csrf_token }}"
+        data-url-login="{% url 'account:is_logged' %}" data-trigger="login" data-token="{{ csrf_token }}"
         href="{{ act_url }}?url_next={{ url_next|urlencode }}">
         <span>
         {% if content == "community" %}

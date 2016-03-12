@@ -1,4 +1,5 @@
 {% load social_tags %}
+{% load avatar_tags %}
 {% load thumbor_tags %}
 {% load taxonomy_tags %}
 
@@ -15,17 +16,17 @@
             <div class="dropdown-menu dropdown-menu-right">
                 <ul class="perfil-actions">
                     {% if instance.author == request.user %}
-                        <li><a data-trigger="login" data-token="{{ csrf_token }}" href="{% url 'article:edit' instance.id %}"><i class="gsticon gsticon-edit"></i> Editar publicação</a></li>
+                        <li><a data-url-login="{% url 'account:is_logged' %}" data-trigger="login" data-token="{{ csrf_token }}" href="{% url 'article:edit' instance.id %}"><i class="gsticon gsticon-edit"></i> Editar publicação</a></li>
                     {% endif %}
-                    <li><a data-trigger="login" data-token="{{ csrf_token }}" href="javascript:;" data-suggest-modal="true" data-content="article" data-object="{{ instance.id }}" data-url="{% url 'socialactions:act-suggest' instance.id 'article' %}"><i class="gsticon gsticon-paper-plane"></i> Sugerir</a></li>
-                    <li><a data-trigger="login" data-token="{{ csrf_token }}" data-action="see-later" data-action-type="text" data-action-text="Ver depois" data-action-text-alt="Marcar como visto" data-object="see-later-{{ instance.id }}" data-url-check="{% url 'socialactions:acted' instance.id 'article' 'see-later' %}" href="{% url 'socialactions:act-xhr' instance.id 'article' 'see-later' %}?url_next={{ request.path|urlencode }}"><i class="gsticon gsticon-eye"></i> <span>Ver depois</span></a></li>
-                    <li><a data-trigger="login" data-token="{{ csrf_token }}" data-action="favourite" data-action-type="text" data-action-text="Favoritar" data-action-text-alt="Desfavoritar" data-object="favourite-{{ instance.id }}" data-article="{{ instance.id }}" data-url-check="{% url 'socialactions:acted' instance.id 'article' 'favourite' %}" href="{% url 'socialactions:act-xhr' instance.id 'article' 'favourite' %}?url_next={{ request.path|urlencode }}"><i class="gsticon gsticon-star"></i> <span>Favoritar</span></a></li>
-                    <li><a data-trigger="login" data-token="{{ csrf_token }}" href="{% url 'complaint:report' 'article' instance.id %}" data-report="true" data-async-module="click" data-async-target="#modal-report" data-async-method="get"><i class="gsticon gsticon-exclamation-triangle"></i> Denunciar</a></li>
+                    <li><a data-url-login="{% url 'account:is_logged' %}" data-trigger="login" data-token="{{ csrf_token }}" href="javascript:;" data-suggest-modal="true" data-content="article" data-object="{{ instance.id }}" data-url="{% url 'socialactions:act-suggest' instance.id 'article' %}"><i class="gsticon gsticon-paper-plane"></i> Sugerir</a></li>
+                    <li><a data-url-login="{% url 'account:is_logged' %}" data-trigger="login" data-token="{{ csrf_token }}" data-action="see-later" data-action-type="text" data-action-text="Ver depois" data-action-text-alt="Marcar como visto" data-object="see-later-{{ instance.id }}" data-url-check="{% url 'socialactions:acted' instance.id 'article' 'see-later' %}" href="{% url 'socialactions:act-xhr' instance.id 'article' 'see-later' %}?url_next={{ request.path|urlencode }}"><i class="gsticon gsticon-eye"></i> <span>Ver depois</span></a></li>
+                    <li><a data-url-login="{% url 'account:is_logged' %}" data-trigger="login" data-token="{{ csrf_token }}" data-action="favourite" data-action-type="text" data-action-text="Favoritar" data-action-text-alt="Desfavoritar" data-object="favourite-{{ instance.id }}" data-article="{{ instance.id }}" data-url-check="{% url 'socialactions:acted' instance.id 'article' 'favourite' %}" href="{% url 'socialactions:act-xhr' instance.id 'article' 'favourite' %}?url_next={{ request.path|urlencode }}"><i class="gsticon gsticon-star"></i> <span>Favoritar</span></a></li>
+                    <li><a data-url-login="{% url 'account:is_logged' %}" data-trigger="login" data-token="{{ csrf_token }}" href="{% url 'complaint:report' 'article' instance.id %}" data-report="true" data-async-module="click" data-async-target="#modal-report" data-async-method="get"><i class="gsticon gsticon-exclamation-triangle"></i> Denunciar</a></li>
                 </ul>
             </div>
         </div>
         <a class="post-creator" href="{% url 'profile:show' username=instance.author.username %}">
-            <img src="{% thumbor_url instance.author.profile.get_profile_picture.url width=20 height=20 smart=False fit_in=False %}" alt="foto de {{ instance.author.get_full_name }}">
+            <img src="{% get_avatar instance.author width=20 height=20 smart=False fit_in=False %}" alt="foto de {{ instance.author.get_full_name }}">
             {{instance.author.get_full_name}}
         </a>
     </header>

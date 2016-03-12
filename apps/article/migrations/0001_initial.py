@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 
 from django.db import models, migrations
 from django.conf import settings
+import ckeditor.fields
 
 
 class Migration(migrations.Migration):
@@ -18,13 +19,13 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('title', models.CharField(max_length=100)),
                 ('slug', models.SlugField(default=b'', max_length=150)),
-                ('text', models.TextField(max_length=2048)),
+                ('text', ckeditor.fields.RichTextField(max_length=100000)),
                 ('image', models.ImageField(default=b'', upload_to=b'article/%Y/%m/%d', blank=True)),
                 ('createdin', models.DateTimeField(auto_now_add=True)),
                 ('updatein', models.DateTimeField(auto_now=True)),
                 ('publishin', models.DateTimeField(null=True)),
-                ('status', models.IntegerField(choices=[(0, 'Draft'), (2, 'Trash'), (4, 'Publish')])),
-                ('author', models.ForeignKey(related_name='articles', verbose_name='Author', to=settings.AUTH_USER_MODEL)),
+                ('status', models.IntegerField(choices=[(3, 'Rascunho'), (2, 'Lixo'), (4, 'Publicar')])),
+                ('author', models.ForeignKey(related_name='articles', verbose_name='Autor', to=settings.AUTH_USER_MODEL)),
             ],
         ),
     ]

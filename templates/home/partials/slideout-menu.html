@@ -1,0 +1,39 @@
+{% load i18n %}
+{% load avatar_tags %}
+{% load thumbor_tags %}
+{% load notification_core_tags %}
+
+{% if request.user.is_authenticated %}
+<div class="slideout-menu--user" href="javascript:void(0);">
+    {% if request.user.profile.get_profile_picture %}
+        <img src="{% get_avatar request.user width=40 height=40 smart=False fit_in=False %}" alt="{{ profile.user.get_full_name }}" class="img-circle">
+    {% else %}
+        <img src="http://placehold.it/40?text= " alt="{{ profile.user.get_full_name }}" class="img-circle">
+    {% endif %}
+    {{ request.user.first_name|slice:":13" }}
+</div>
+<hr />
+    <div class="slideout-menu--notification">
+        <a class="slideout-menu--notification-item" href="javascript:;">
+            <i class="gsticon gsticon-group"></i>
+        </a>
+        <a class="slideout-menu--notification-item" href="javascript:;">
+            <i class="gsticon gsticon-comments"></i>
+        </a>
+        <a class="slideout-menu--notification-item" href="javascript:;">
+            <i class="gsticon gsticon-bell"></i>
+        </a>
+    </div>
+    <a class="slideout-menu--link" href="{% url 'profile:feed' %}"><i class="gsticon gsticon-feed"></i> Meu Feed</a>
+    <a class="slideout-menu--link" href="{% url 'profile:show' request.user.username %}"><i class="gsticon gsticon-file-text"></i> Minhas Publicações</a>
+    <a class="slideout-menu--link" href="{% url 'profile:my-questions' %}"><i class="gsticon gsticon-question"></i> Minhas Perguntas</a>
+    <a class="slideout-menu--link" href="{% url 'profile:edit' %}"><i class="gsticon gsticon-pencil"></i> Editar Perfil</a>
+    <a class="slideout-menu--link" href="{% url 'question:create' %}"><i class="gsticon gsticon-question-circle"></i> Perguntar</a>
+    <a class="slideout-menu--link" href="{% url 'article:create' %}"><i class="gsticon gsticon-file-text-o"></i> Criar Publicação</a>
+    <a class="slideout-menu--link" href="{% url 'profile:edit-posts' %}"><i class="gsticon gsticon-pencil-square-o"></i> Editar Publicações</a>
+    <a class="slideout-menu--link" href="{% url 'configuration:account' %}"><i class="gsticon gsticon-gear"></i> Configurações</a>
+    <a class="slideout-menu--link" href="{% url 'account:logout' %}?next={{ request.path }}"><i class="gsticon gsticon-close"></i> {% trans "Sair" %}</a>
+{% else %}
+    <a class="slideout-menu--link" href="{% url 'account:signup' %}">Cadastre-se</a>
+    <a class="slideout-menu--link" data-toggle="modal" data-target="#modal-login" href="javascript:void(0);">Login</a>
+{% endif %}

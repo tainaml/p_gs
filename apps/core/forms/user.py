@@ -61,6 +61,18 @@ class CoreUserProfileForm(CoreUserSearchForm):
         )
 
 
+class CoreUserMyQuestionsForm(CoreUserSearchForm):
+
+    def __process__(self):
+        return Business.get_questions_from_user(
+            profile_instance=self.profile_instance,
+            description=self.cleaned_data['criterio'],
+            content_type=self.content_types,
+            items_per_page=self.itens_by_page,
+            page=self.cleaned_data['page']
+        )
+
+
 class CoreUserProfileEditForm(EditProfileForm):
 
     responsibility = forms.ModelChoiceField(queryset=Responsibility.objects.all())

@@ -1,3 +1,4 @@
+# coding=utf-8
 """
 Django settings for rede_gsti project.
 
@@ -31,7 +32,7 @@ except IOError, e:
 
     config.add_section("GENERAL")
     config.set("GENERAL", "secret_key", '3u2oo))n_j*t#sjx*)=p*5j4mpb^7iruq4$v3%2nn!e2r2p$jj')
-    config.set("GENERAL", "site_url", 'http://localhost:8000')
+    config.set("GENERAL", "site_url", 'http://redegsti.dev:8000')
     config.set("GENERAL", "expiration_register_time", '48')
     config.set("GENERAL", "expiration_password_recovery", '8')
 
@@ -87,9 +88,11 @@ except IOError, e:
     config.set("GOOGLE_RECAPTCHA", "site_key", '6LccmgsTAAAAAGrsvn7r7aiIcnvbuIS7pyP0qv1K')
     config.set("GOOGLE_RECAPTCHA", "secret_key", '6LccmgsTAAAAANyATh7UT3uL2G2iVnCCGfAXPE5f')
 
-    # with open(config_path, 'wb') as configfile:
-    #     config.write(configfile)
-    #     configfile.close()
+    if not os.path.exists(ENVIRONMENT_CONFIG_DIR):
+        os.makedirs(ENVIRONMENT_CONFIG_DIR)
+    with open(config_path, 'wb') as configfile:
+        config.write(configfile)
+        configfile.close()
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.8/howto/deployment/checklist/
@@ -102,18 +105,19 @@ SECRET_KEY = config.get("GENERAL", "secret_key")
 # DEBUG = True
 
 
+
 # Vagrant Internal IP's
 # INTERNAL_IPS = ('127.0.0.1', '10.0.2.2', '10.100.100.20', '10.100.100.15', '10.100.100.10')
 
 
 # Google Recaptcha keys
 
-NORECAPTCHA_SITE_KEY = '6LccmgsTAAAAAGrsvn7r7aiIcnvbuIS7pyP0qv1K'
-NORECAPTCHA_SECRET_KEY = '6LccmgsTAAAAANyATh7UT3uL2G2iVnCCGfAXPE5f'
+NORECAPTCHA_SITE_KEY = config.get("GOOGLE_RECAPTCHA", "site_key")
+NORECAPTCHA_SECRET_KEY = config.get("GOOGLE_RECAPTCHA", "secret_key")
 
 # Application definition
 
-INSTALLED_APPS = (
+DJANGO_APPS = (
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -121,11 +125,10 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.postgres',
+)
 
-    # NINICO APP
-    # 'apps.ninico',
+THIRD_PART_APPS = (
 
-    # PLUGINS
     'apps.mailmanager',
     'nocaptcha_recaptcha',
     'widget_tweaks',
@@ -138,14 +141,11 @@ INSTALLED_APPS = (
     'ckeditor',
     'ckeditor_uploader',
     'django_user_agents',
+)
 
-    # CORE
+INTERNAL_APPS = (
+
     'apps.core',
-
-    #Profiling
-    #'debug_toolbar',
-
-    # APPS
     'apps.account',
     'apps.geography',
     'apps.article',
@@ -165,16 +165,22 @@ INSTALLED_APPS = (
     'apps.custom_base'
 )
 
-### Setting Environment specific settings
+# Set up for installed apps
+INSTALLED_APPS = DJANGO_APPS + THIRD_PART_APPS + INTERNAL_APPS
+
+
+# Setting Environment specific settings
 if ENVIRONMENT == "develop":
     DEBUG = True
-    INSTALLED_APPS += ('debug_toolbar','apps.ninico',)
+    INSTALLED_APPS += ('debug_toolbar', 'apps.ninico',)
 elif ENVIRONMENT == "test":
     DEBUG = False
     ALLOWED_HOSTS = ['*']
 elif ENVIRONMENT == "production":
     ALLOWED_HOSTS = ['*']
     DEBUG = False
+
+AUTH_USER_MODEL = 'account.User'
 
 
 MIDDLEWARE_CLASSES = (
@@ -221,7 +227,6 @@ FIXTURE_FILE = 'initial_data.json'
 
 IMAGES_ALLOWED = ['image/jpeg','image/png']
 
-
 # EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_BACKEND = 'apps.mailmanager.backend.MailManagedBackend'
 EMAIL_USE_TLS = config.getboolean("EMAIL", "tls")
@@ -236,6 +241,21 @@ ENTITY_TO_COMMENT = ['comment', 'article', 'answer']
 MAX_LEVELS = 2
 
 ENTITY_TO_COMPLAINT = ['article', 'question']
+
+# Article config
+ARTICLE_TITLE_LIMIT = 100
+ARTICLE_TEXT_LIMIT = 100000
+
+# Question Config
+QUESTION_TITLE_LIMIT = 100
+QUESTION_TEXT_LIMIT = 25000
+
+#Answer Config
+ANSWER_TEXT_LIMIT = 50000
+
+#Comment Config
+COMMENT_TEXT_LIMIT = 25000
+
 
 # Complaint config
 COMPLAINT_COMMUNITY = 5
@@ -421,6 +441,7 @@ STATICFILES_DIRS = (
 )
 STATIC_URL = '/static/'
 
+
 # STATIC_ROOT = '/home/phillip/projects/python/django/rede_gsti/staticfiles/'
 STATIC_ROOT = config.get("STATIC", "path")
 
@@ -439,6 +460,13 @@ THUMBOR_MEDIA_URL = config.get("THUMBOR", "media_url")
 THUMBOR_SECURITY_KEY = config.get("THUMBOR", "key")
 THUMBOR_ARGUMENTS = {}
 
+# Avatar
+
+AVATAR = {
+    'M': config.get("GENERAL", "site_url") + '/static/images/avatar-masculino.png',
+    'F': config.get("GENERAL", "site_url") + '/static/images/avatar-feminino.png'
+}
+
 
 # Login Urls
 LOGIN_URL = '/account/login'
@@ -446,6 +474,10 @@ LOGIN_URL = '/account/login'
 
 # Wizard Steps
 WIZARD_STEPS_TOTAL = 3
+
+
+# Contact Suggest Community
+CONTACT_SUGGEST = 3
 
 
 # MailValidation Time

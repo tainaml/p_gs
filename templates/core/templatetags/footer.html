@@ -1,4 +1,5 @@
 {% load user_agents %}
+{% load core_tags %}
 
 <footer class="footer">
     {% if request|is_pc %}
@@ -59,11 +60,11 @@
     <nav class="footer-nav">
         <div class="container">
             <div class="row">
-                <span class="copyright">Portal GSTI © Copyright 2015</span>
+                <span class="copyright">Portal GSTI © Copyright {% now "Y" %}</span>
                 <ul class="links-help">
-                    <li class="list-item"><a href="javascript:;">Sobre</a></li>
+                    <li class="list-item"><a href="{% url 'core:about' %}">Sobre</a></li>
                     <li class="list-item"><a href="javascript:;" data-toggle="modal" data-target="#modal-rules">Regras do portal</a></li>
-                    <li class="list-item"><a href="{% url 'contact:create' %}" id="link-contact" data-async-module="click" data-async-target="#modal-content-form-contact" data-async-method="get">Contato</a></li>
+                    <li class="list-item"><a href="{% url 'contact:create' %}" data-contact data-async-module="click" data-async-target="#modal-content-form-contact" data-async-method="get">Contato</a></li>
                 </ul>
             </div>
         </div>

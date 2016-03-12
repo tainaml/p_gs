@@ -55,7 +55,8 @@
             notification.push( $el.data( 'notification' ) );
 
             $.ajax({
-                url     : '/notifications/mark-as-read-visualized',
+                // /notifications/mark-as-read-visualized'
+                url     : $el.data("url-mark-as-read"),
                 method  : 'post',
                 dataType: 'json',
                 data    : {

@@ -1,9 +1,10 @@
 # coding=utf-8
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
+from apps.account.models import User
 from django.core.exceptions import ValidationError
-from django.core.urlresolvers import reverse
 from nocaptcha_recaptcha import NoReCaptchaField
 from django.utils.translation import ugettext as _
+from apps.account.models import User
 
 import business as Business
 from apps.custom_base.service.custom import forms, IdeiaForm
@@ -64,15 +65,14 @@ class LoginForm(IdeiaForm):
                 valid = False
             else:
                 if self.instance.is_active is False:
-                    url = reverse('account:resend_account_confirmation')
-                    btn = '<a href="%s" ' \
-                          'data-toggle="modal" ' \
-                          'data-target="#modal-resend-email-confirmation">%s</a>' % (url, _('click here'))
-
-                    error = _('Account is not active.')
-                    error += '<br>'
-                    error += _('If you have not received the confirmation '
-                               'email %s to resend.') % btn
+                    # url = reverse('account:resend_account_confirmation')
+                    # btn = '<a href="%s" ' \
+                    #       'data-toggle="modal" ' \
+                    #       'data-target="#modal-resend-email-confirmation">%s</a>' % (url, _('click here'))
+                    #
+                    # error = _('Account is not active.')
+                    # error += '<br>'
+                    # error += _('If you have not received the confirmation email %s to resend.') % btn
 
                     # self.add_error(None, ValidationError(error, code='account_not_active'))
                     self.account_is_active = False

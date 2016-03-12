@@ -13,6 +13,7 @@ import './modules/ideiaLogin/'
 import './modules/ideiaNotification/'
 import './modules/ideiaRestrict/'
 import './modules/ideiaValidationField/'
+import Slideout from 'slideout'
 
 $(() => {
     require('./modules')
@@ -28,4 +29,21 @@ $(() => {
 
     // Tooltips
     $('[data-toggle=tooltip]').tooltip();
+
+    // Slideout
+    var slideout = new Slideout({
+        'panel': document.getElementById('wrapper'),
+        'menu': document.getElementById('slideout-menu'),
+        'padding': 256,
+        'tolerance': 70
+    });
+    document.querySelector('.toggle-slideout').addEventListener('click', function() {
+        slideout.toggle();
+    });
+    var mobileSearch = $('#mobile-search');
+    $('.toggle-search').on('click', function(e) {
+        e.preventDefault();
+        mobileSearch.slideToggle();
+    });
+
 });

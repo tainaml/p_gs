@@ -17,7 +17,7 @@ from django.conf.urls import include, url
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.conf import settings
-
+from django.utils.translation import ugettext_lazy as _
 from apps.ninico.views import index as PROJECT_ROOT
 
 handler400 = "apps.core.views.errors.handler400"
@@ -30,29 +30,69 @@ url_media = static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 urlpatterns = [
     url(r'^$', PROJECT_ROOT, name='index'),
-    url(r'^admin/', include(admin.site.urls)),
-    url(r'^account/', include('apps.core.urls.account', namespace='account')),
-    url(r'^comment/', include('apps.comment.urls', namespace='comment')),
-    url(r'^profile/', include('apps.core.urls.user', namespace='profile')),
-    url(r'^socialaccount/', include('apps.socialaccount.urls', namespace='socialaccount')),
-    url(r'^socialactions/', include('apps.socialactions.urls', namespace='socialactions')),
-    url('', include('social.apps.django_app.urls', namespace='social')),
-    url(r'^community/', include('apps.core.urls.community', namespace='community')),
-    url(r'^notifications/', include('apps.core.urls.notifications', namespace='notifications')),
-    url(r'^', include('apps.core.urls.article', namespace='article')),
-    url(r'^', include('apps.core.urls.socialactions', namespace='core_socialactions')),
-    url(r'^category-feed/', include('apps.core.urls.category', namespace='category')),
-    url(r'^ninico/?', include('apps.ninico.urls', namespace='ninico')),
-    url(r'^question/', include('apps.core.urls.question', namespace='question')),
-    url(r'^contact/', include('apps.core.urls.contact', namespace='contact')),
-    url(r'^mailmanager/', include('apps.mailmanager.urls', namespace='mailmanager')),
-    url(r'^complaint/', include('apps.complaint.urls', namespace='complaint')),
-    url(r'^settings/', include('apps.core.urls.configuration', namespace='configuration')),
-    url(r'^feed/', include('apps.core.urls.feed', namespace='feed')),
-    url(r'^', include('apps.core.urls.search', namespace='search')),
-    url(r'^', include('apps.core.urls.core', namespace='core')),
+    url(_(r'^admin/'), include(admin.site.urls)),
 
-    url(r'^ckeditor/', include('ckeditor_uploader.urls')),
+    # Translators: URL root de conta
+    url(_(r'^account/'), include('apps.core.urls.account', namespace='account')),
+
+    # Translators: URL root de comentario
+    url(_(r'^comment/'), include('apps.comment.urls', namespace='comment')),
+
+    # Translators: URL root de perfil de usuario
+    url(_(r'^profile/'), include('apps.core.urls.user', namespace='profile')),
+
+    # Translators: URL de conta social
+    url(_(r'^socialaccount/'), include('apps.socialaccount.urls', namespace='socialaccount')),
+
+    # Translators: URL de acoes sociais
+    url(_(r'^socialactions/'), include('apps.socialactions.urls', namespace='socialactions')),
+
+    # Translators: URL root de redes sociais
+    url('', include('social.apps.django_app.urls', namespace='social')),
+
+    # Translators: URL root de comunidade
+    url(_(r'^community/'), include('apps.core.urls.community', namespace='community')),
+
+    # Translators: URL root de notificacoes
+    url(_(r'^notifications/'), include('apps.core.urls.notifications', namespace='notifications')),
+
+    # Translators: URL root de publicacao
+    url(_(r'^'), include('apps.core.urls.article', namespace='article')),
+
+    # Translators: URL root CORE de acoes sociais
+    url(_(r'^'), include('apps.core.urls.socialactions', namespace='core_socialactions')),
+
+    # Translators: URL root de categoria
+    url(_(r'^category-feed/'), include('apps.core.urls.category', namespace='category')),
+
+    # Translators: URL root de pergunta
+    url(_(r'^question/'), include('apps.core.urls.question', namespace='question')),
+
+    # Translators: URL root de contato
+    url(_(r'^contact/'), include('apps.core.urls.contact', namespace='contact')),
+
+    # Translators: URL root de contato
+    url(_(r'^mailmanager/'), include('apps.mailmanager.urls', namespace='mailmanager')),
+
+    # Translators: URL root de denuncia
+    url(_(r'^complaint/'), include('apps.complaint.urls', namespace='complaint')),
+
+    # Translators: URL root de configuracao
+    url(_(r'^settings/'), include('apps.core.urls.configuration', namespace='configuration')),
+
+
+    # Translators: URL root de feed
+    url(_(r'^feed/'), include('apps.core.urls.feed', namespace='feed')),
+
+    # Translators: URL de buscai
+    url(_(r'^'), include('apps.core.urls.search', namespace='search')),
+
+    # Translators: URL core adicionais
+    url(_(r'^'), include('apps.core.urls.core', namespace='core')),
+
+    # Translators: URL do ckeditor
+    url(_(r'^ckeditor/'), include('ckeditor_uploader.urls')),
+
 
 
 ] + url_statics + url_media

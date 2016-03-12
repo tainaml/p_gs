@@ -7,7 +7,9 @@
      data-trigger="notification"
      data-token="{% notification_token %}"
      data-csrf="{{ csrf_token }}"
-     data-notification-type="members"
+     data-url-count="{% url 'notifications:polling-count' 'members' %}"
+     data-url-load="{% url 'notifications:polling-load' 'members' %}"
+     data-url-clear="{% url 'notifications:clear' %}"
      data-notifications="{{ notifications_id }}">
 
       {% if count %}

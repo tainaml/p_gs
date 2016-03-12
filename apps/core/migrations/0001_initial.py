@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
-
 from django.db import models, migrations
 
 
@@ -19,6 +18,15 @@ class Migration(migrations.Migration):
                 ('embed_url', models.URLField()),
                 ('object_id', models.PositiveIntegerField()),
                 ('content_type', models.ForeignKey(to='contenttypes.ContentType')),
+            ],
+        ),
+        migrations.CreateModel(
+            name='Tags',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('tag_name', models.CharField(max_length=100)),
+                ('tag_slug', models.SlugField(max_length=150)),
+                ('tag_order', models.IntegerField(default=0)),
             ],
         ),
     ]
