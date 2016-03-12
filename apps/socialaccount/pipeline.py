@@ -74,8 +74,3 @@ def save_profile_picture(strategy, user, response, details, is_new=False, *args,
                 profile.profile_picture.save('{0}_social.jpg'.format(user.username),
                                                                ContentFile(response.content))
                 profile.save()
-
-
-def redirect_to_profile(**kwargs):
-    return HttpResponseRedirect(reverse('profile:feed'))
-
