@@ -9,7 +9,6 @@
 {% load user_agents %}
 {% load staticfiles %}
 {% load avatar_tags %}
-{% load absolute_url %}
 
 {% block title %}{{ article.title }} - Portal GSTI{% endblock %}
 
@@ -98,7 +97,6 @@
                     <h3>COMPARTILHE</h3>
                     <div class="addthis_sharing_toolbox"></div>
                 </div>
-            {{ "tesetset"|absolute }}
             </article>
             <div>
                 {% profile_box article.author "horizontal" %}
