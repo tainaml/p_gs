@@ -1,5 +1,4 @@
 from django.contrib.auth import get_user_model
-from apps.account.models import User
 from django.shortcuts import redirect
 from django.utils.text import slugify
 from requests import request, HTTPError, ConnectionError
@@ -72,5 +71,3 @@ def save_profile_picture(strategy, user, response, details, is_new=False, *args,
                 profile.profile_picture.save('{0}_social.jpg'.format(user.username),
                                                                ContentFile(response.content))
                 profile.save()
-
-

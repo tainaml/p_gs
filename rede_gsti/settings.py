@@ -490,7 +490,7 @@ SITE_URL = config.get("GENERAL", 'site_url')
 SOCIAL_AUTH_FACEBOOK_KEY = config.get("FACEBOOK", "key")
 SOCIAL_AUTH_FACEBOOK_SECRET = config.get("FACEBOOK", "secret")
 SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
-SOCIAL_AUTH_LOGIN_REDIRECT_URL = '../../account/'
+SOCIAL_AUTH_LOGIN_REDIRECT_URL = 'profile:feed'
 
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = config.get("GOOGLE", "key")
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = config.get("GOOGLE", "secret")
@@ -524,7 +524,9 @@ SOCIAL_AUTH_PIPELINE = (
     'social.pipeline.debug.debug',
     'social.pipeline.social_auth.load_extra_data',
     'social.pipeline.user.user_details',
-    'social.pipeline.debug.debug'
+    'social.pipeline.debug.debug',
+    'social.pipeline.debug.debug',
+
 )
 
 
