@@ -1,6 +1,7 @@
 {% extends "mailmanager/layout/mail-base.html" %}
 {% block title %}Welcome{% endblock %}
 {% block content %}
+{% load url_utils %}
 <h2>Olá, {{ user.first_name }} {{ user.last_name }}</h2>
 <h3>Bem vindo ao PORTAL GSTI</h3>
 <p>Agora você pode interagir na rede. <br>
@@ -8,7 +9,9 @@ Seu username é: {{ user.username }} <br>
 
 {% url 'account:mail_validation' token as token_url %}
 
-<p>Para ativar sua conta <a href="{{ base_url }}{{ token_url }}">clique aqui</a></p>
+<p>Para ativar sua conta <a href="{{ token_url|absolute}}">clique aqui</a></p>
 
-<p>A url é [{{ base_url }}{{ token_url }}]</p>
+<p>A url é [{{ token_url|absolute}}]</p>
+
+
 {% endblock %}

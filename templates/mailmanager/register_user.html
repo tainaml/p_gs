@@ -1,6 +1,7 @@
 {% extends "mailmanager/layout/mail-base.html" %}
 {% block title %}Welcome{% endblock %}
 {% block email_title %}EMAIL DE CONFIRMAÇÃO{% endblock email_title %}
+{% load url_utils %}
 {% block content %}
 <h2>Olá {{ user.first_name }}, </h2>
 
@@ -12,8 +13,9 @@
 Seu usuário é <strong>{{ user.username }}</strong> e para ativar sua conta basta clicar no link abaixo</p>
 
 
-<a style="color: #fff; background-color: #2c7906; border-color: #296f06; padding: 12px; text-decoration: none;font-size: 0.9em; font-weight: 600;" href="{{ request.get_host }}/{{ token_url }}">ENTRAR</a>
+<a style="margin-top: 15px;margin-bottom: 15px;color: #fff; background-color: #2c7906; border-color: #296f06; padding: 12px; text-decoration: none;font-size: 0.9em; font-weight: 600;" href="{{ token_url|absolute }}">ENTRAR</a>
 
 <p>Por segurança disponibilizamos a URL completa para o cadastro:</p>
-{{ request.get_host }}/{{ token_url }}
+
+{{ token_url|absolute }}
 {% endblock %}

@@ -1,4 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+{% load url_utils %}
 <html xmlns="http://www.w3.org/1999/xhtml">
   <body style="width: 100% !important; min-width: 100%; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; color: #6f6f6f; font-family: 'Open Sans', Helvetica, Arial, sans-serif; font-weight: normal; text-align: left; line-height: 19px; font-size: 16px; margin: 0; padding: 0;"><style type="text/css">
 a:hover { color: #9e9e9e !important; }
@@ -224,7 +225,8 @@ table.alert:hover td { background: #970b0e !important; }
                             <center style="width: 100%; min-width: 580px;">
                                 <table class="container" style="border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: inherit; width: 580px; font-weight: 600; margin: 0 auto; padding: 0;"><tr style="vertical-align: top; text-align: left; padding: 0;" align="left"><td class="wrapper last" style="word-break: break-word; -webkit-hyphens: none; -moz-hyphens: none; -ms-hyphens: none; hyphens: none; border-collapse: collapse !important; vertical-align: top; text-align: left; position: relative; color: #6f6f6f; font-family: 'Open Sans', Helvetica, Arial, sans-serif; font-weight: normal; line-height: 19px; font-size: 16px; margin: 0; padding: 10px 0px 0px;" align="left" valign="top">
                                             <table class="twelve columns" style="border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: left; width: 580px; margin: 0 auto; padding: 0;"><tr style="vertical-align: top; text-align: left; padding: 0;" align="left"><td style="word-break: break-word; -webkit-hyphens: none; -moz-hyphens: none; -ms-hyphens: none; hyphens: none; border-collapse: collapse !important; vertical-align: top; text-align: left; color: #6f6f6f; font-family: 'Open Sans', Helvetica, Arial, sans-serif; font-weight: normal; line-height: 19px; font-size: 16px; margin: 0; padding: 0px 0px 10px;" align="left" valign="top">
-                                                        <img class="center" src="{% static 'images/gsti.png' %}" style="outline: none; text-decoration: none; -ms-interpolation-mode: bicubic; width: auto; max-width: 100%; float: none; display: block; margin: 0 auto;" align="none" /></td>
+                                                {% static 'images/gsti.png' as gsti_url %}
+                                                <img class="center" src="{{ gsti_url|absolute }}" style="outline: none; text-decoration: none; -ms-interpolation-mode: bicubic; width: auto; max-width: 100%; float: none; display: block; margin: 0 auto;" align="none" /></td>
                                                     <td class="expander" style="word-break: break-word; -webkit-hyphens: none; -moz-hyphens: none; -ms-hyphens: none; hyphens: none; border-collapse: collapse !important; vertical-align: top; text-align: left; visibility: hidden; width: 0px; color: #6f6f6f; font-family: 'Open Sans', Helvetica, Arial, sans-serif; font-weight: normal; line-height: 19px; font-size: 16px; margin: 0; padding: 0;" align="left" valign="top"></td>
                                                 </tr></table></td>
                                     </tr></table></center>
@@ -237,7 +239,8 @@ table.alert:hover td { background: #970b0e !important; }
                                                     </td>
                                                     <td class="expander" style="word-break: break-word; -webkit-hyphens: none; -moz-hyphens: none; -ms-hyphens: none; hyphens: none; border-collapse: collapse !important; vertical-align: top; text-align: left; visibility: hidden; width: 0px; color: #6f6f6f; font-family: 'Open Sans', Helvetica, Arial, sans-serif; font-weight: normal; line-height: 19px; font-size: 16px; margin: 0; padding: 0;" align="left" valign="top"></td>
                                                 </tr></table></td>
-                                    </tr></table></center>
+                                    </tr></table>
+                            </center>
                         </td>
                     </tr></table><br /><table class="container" style="border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: inherit; width: 580px; font-weight: 600; margin: 0 auto; padding: 0;"><tr style="vertical-align: top; text-align: left; padding: 0;" align="left"><td style="word-break: break-word; -webkit-hyphens: none; -moz-hyphens: none; -ms-hyphens: none; hyphens: none; border-collapse: collapse !important; vertical-align: top; text-align: left; color: #6f6f6f; font-family: 'Open Sans', Helvetica, Arial, sans-serif; font-weight: normal; line-height: 19px; font-size: 16px; margin: 0; padding: 0;" align="left" valign="top">
                             <table class="row" style="border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: left; width: 100%; position: relative; display: block; padding: 0px;"><tr style="vertical-align: top; text-align: left; padding: 0;" align="left"><td class="wrapper last" style="word-break: break-word; -webkit-hyphens: none; -moz-hyphens: none; -ms-hyphens: none; hyphens: none; border-collapse: collapse !important; vertical-align: top; text-align: left; position: relative; color: #6f6f6f; font-family: 'Open Sans', Helvetica, Arial, sans-serif; font-weight: normal; line-height: 19px; font-size: 16px; margin: 0; padding: 10px 0px 0px;" align="left" valign="top">
@@ -250,16 +253,25 @@ table.alert:hover td { background: #970b0e !important; }
                                 <table class="twelve columns" style="border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: left; width: 580px; margin: 0 auto; padding: 0;"><tbody><tr style="vertical-align: top; text-align: left; padding: 0;" align="left"><td align="center" style="word-break: break-word; -webkit-hyphens: none; -moz-hyphens: none; -ms-hyphens: none; hyphens: none; border-collapse: collapse !important; vertical-align: top; text-align: left; color: #6f6f6f; font-family: 'Open Sans', Helvetica, Arial, sans-serif; font-weight: normal; line-height: 19px; font-size: 16px; margin: 0; padding: 0px 0px 10px;" valign="top"><center style="width: 100%; min-width: 580px;">
                                             <p style="text-align: center; color: #6f6f6f; font-family: 'Open Sans', Helvetica, Arial, sans-serif; font-weight: normal; line-height: 19px; font-size: 16px; margin: 0 0 10px; padding: 0;" align="center"><a href="#" style="color: #c0c0c0; text-decoration: none;">www.portalgsti.com.br</a></p>
                                             <p style="text-align: center; color: #6f6f6f; font-family: 'Open Sans', Helvetica, Arial, sans-serif; font-weight: normal; line-height: 19px; font-size: 16px; margin: 0 0 10px; padding: 0;" align="center">
-                                                <a href="https://www.facebook.com/PortalGSTIpage" style="color: #c0c0c0; text-decoration: none;"><img src="{% static 'images/mail/facebook.png' %}" alt="Facebook" style="outline: none; text-decoration: none; -ms-interpolation-mode: bicubic; width: auto; max-width: 100%; border: none;" /></a>
-                                                <a href="https://plus.google.com/b/113333419239001929124/+PortalgstiBr" style="color: #c0c0c0; text-decoration: none;"><img src="{% static 'images/mail/google+.png' %}" alt="Google+" style="outline: none; text-decoration: none; -ms-interpolation-mode: bicubic; width: auto; max-width: 100%; border: none;" /></a>
-                                                <a href="https://www.linkedin.com/grps/Portal-GSTI-wwwportalgsticombr-4602615" style="color: #c0c0c0; text-decoration: none;"><img src="{% static 'images/mail/linkedin.png' %}" alt="LinkedIn" style="outline: none; text-decoration: none; -ms-interpolation-mode: bicubic; width: auto; max-width: 100%; border: none;" /></a>
-                                                <a href="https://twitter.com/portal_gsti" style="color: #c0c0c0; text-decoration: none;"><img src="{% static 'images/mail/twitter.png' %}" alt="Twitter" style="outline: none; text-decoration: none; -ms-interpolation-mode: bicubic; width: auto; max-width: 100%; border: none;" /></a>
-                                                <a href="https://www.youtube.com/c/PortalgstiBr" style="color: #c0c0c0; text-decoration: none;"><img src="{% static 'images/mail/youtube.png' %}" alt="YouTube" style="outline: none; text-decoration: none; -ms-interpolation-mode: bicubic; width: auto; max-width: 100%; border: none;" /></a>
+                                                {% static 'images/mail/facebook.png' as facebook_url %}
+                                                <a href="https://www.facebook.com/PortalGSTIpage" style="color: #c0c0c0; text-decoration: none;"><img src="{{ facebook_url|absolute }}" alt="Facebook" style="outline: none; text-decoration: none; -ms-interpolation-mode: bicubic; width: auto; max-width: 100%; border: none;" /></a>
+                                                {% static 'images/mail/google+.png' as google_url %}
+                                                <a href="https://plus.google.com/b/113333419239001929124/+PortalgstiBr" style="color: #c0c0c0; text-decoration: none;"><img src="{{ google_url|absolute }}" alt="Google+" style="outline: none; text-decoration: none; -ms-interpolation-mode: bicubic; width: auto; max-width: 100%; border: none;" /></a>
+                                                {% static 'images/mail/linkedin.png' as linkedin_url %}
+                                                <a href="https://www.linkedin.com/grps/Portal-GSTI-wwwportalgsticombr-4602615" style="color: #c0c0c0; text-decoration: none;"><img src="{{ linkedin_url|absolute }}" alt="LinkedIn" style="outline: none; text-decoration: none; -ms-interpolation-mode: bicubic; width: auto; max-width: 100%; border: none;" /></a>
+                                                {% static 'images/mail/twitter.png' as twitter_url %}
+                                                <a href="https://twitter.com/portal_gsti" style="color: #c0c0c0; text-decoration: none;"><img src="{{ twitter_url|absolute }}" alt="Twitter" style="outline: none; text-decoration: none; -ms-interpolation-mode: bicubic; width: auto; max-width: 100%; border: none;" /></a>
+                                                {% static 'images/mail/youtube.png' as youtube_url %}
+                                                <a href="https://www.youtube.com/c/PortalgstiBr" style="color: #c0c0c0; text-decoration: none;"><img src="{{ youtube_url|absolute }}" alt="YouTube" style="outline: none; text-decoration: none; -ms-interpolation-mode: bicubic; width: auto; max-width: 100%; border: none;" /></a>
                                             </p>
-                                        </center></td>
+                                        </center>
+                                </td>
                                     <td class="expander" style="word-break: break-word; -webkit-hyphens: none; -moz-hyphens: none; -ms-hyphens: none; hyphens: none; border-collapse: collapse !important; vertical-align: top; text-align: left; visibility: hidden; width: 0px; color: #6f6f6f; font-family: 'Open Sans', Helvetica, Arial, sans-serif; font-weight: normal; line-height: 19px; font-size: 16px; margin: 0; padding: 0;" align="left" valign="top"></td>
                                     </tr></tbody></table></td>
-                        </tr></table></center>
+                        </tr></table>
+                    </center>
                 </td>
-            </tr></table></body>
+            </tr>
+  </table>
+  </body>
 </html>
