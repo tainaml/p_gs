@@ -54,9 +54,17 @@
                 </ul>
             </li>
             <li class="box-list-links">
-                <h3 class="h4 box-list-heading">Banco de Dados</h3>
+                <h3 class="h4 box-list-heading">Mobile</h3>
                 <ul class="list-links">
-                    {% for community in categories.banco_de_dados %}
+                    {% for community in categories.mobile %}
+                        <li><a href="{% url "community:show" community.slug %}">{{ community.title }}</a></li>
+                    {% endfor %}
+                </ul>
+            </li>
+            <li class="box-list-links">
+                <h3 class="h4 box-list-heading">Mais</h3>
+                <ul class="list-links">
+                    {% for community in categories.mais %}
                         <li><a href="{% url "community:show" community.slug %}">{{ community.title }}</a></li>
                     {% endfor %}
                 </ul>
