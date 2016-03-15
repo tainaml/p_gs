@@ -51,13 +51,13 @@
                 <div class="container">
                     <div class="menu-mobile hidden-lg">
                         <div class="mobile-search" id="mobile-search" style="display: none;">
-                            {% include 'home/partials/search.html' %}
+                            {% include 'home/partials/search-header.html' %}
                             <a href="javascript:;" class="btn-hide-item toggle-search">
                                 <i class="gsticon gsticon-close"></i>
                             </a>
                         </div>
                         <div class="row">
-                            <a class="btn-show-item toggle-slideout" data-item="#slideout-menu" href="#">
+                            <a class="btn-show-item toggle-slideout" data-item="#slideout-menu" href="javascript:;">
                                 {% if request.user.is_authenticated %}
                                     {% if request.user.profile.get_profile_picture %}
                                         <img src="{% get_avatar request.user width=40 height=40 smart=False fit_in=False %}" alt="" class="img-circle">
@@ -81,8 +81,8 @@
                         <h1 class="gsti">
                             <a href="{% url 'index' %}" class="gsti-link">Portal GSTI</a>
                         </h1>
-                        <div class="form-search{% if request.user.is_authenticated %}--logged{% endif %}">
-                            {% include 'home/partials/search.html' %}
+                        <div class="search-header-container">
+                            {% include 'home/partials/search-header.html' %}
                         </div>
                         {% include 'home/partials/user-actions.html' %}
                     </div>

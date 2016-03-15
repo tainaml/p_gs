@@ -9,9 +9,7 @@ $color-counter-notification: #b2b2b2 !default;
     width: 100%;
     padding-top: 20px;
 
-    .post.not-visualized {
-        background: #f7f7f7;
-    }
+    .post.not-visualized { background: #f7f7f7; }
 
     .post-header {
         margin-bottom: 0;
@@ -29,14 +27,10 @@ $color-counter-notification: #b2b2b2 !default;
     float: left;
     color: #486075;
     font-size: 15px;
-     > i {
-        margin-right: 5px;
-     }
+     > i { margin-right: 5px; }
 }
 
-.member-notifications {
-    @extend %notification-container;
-}
+.member-notifications { @extend %notification-container; }
 
 .questions-and-answers-notifications {
     @extend %notification-container;
@@ -49,16 +43,13 @@ $color-counter-notification: #b2b2b2 !default;
         font-weight: 600;
     }
 }
-.notification-aside {
-    margin: 0 0 20px;
-}
+.notification-aside { margin: 0 0 20px; }
 .color-warning { color: #ff8017; }
 .color-punishment { color: #d4393e; }
 
 .dropdown-search {
-    top: 72% !important;
-    left: 2.4%;
-    width: 80%;
+    bottom: 0; left: 0;
+    width: 100%;
     background: #fff;
 }
 
@@ -104,9 +95,7 @@ $color-counter-notification: #b2b2b2 !default;
     font-weight: 600;
     font-size: 13px;
 
-    > i {
-        margin: 0 5px;
-    }
+    > i { margin: 0 5px; }
     > .perfil {
         border: none;
         border-bottom: 1px solid #e1e1e1;
@@ -124,9 +113,7 @@ $color-counter-notification: #b2b2b2 !default;
         span { color: #337ab7; }
     }
 }
-.not-visualized {
-    background-color: #fcfcfc;
-}
+.not-visualized { background-color: #fcfcfc; }
 
 #dropdown-search .item-float-notification.active,
 #dropdown-search .item-float-notification:hover,
@@ -147,10 +134,6 @@ $color-counter-notification: #b2b2b2 !default;
         border: 1px solid transparent;
         border-radius: $alert-border-radius;
     }
-    .success {
-        @include alert-variant($alert-success-bg, $alert-success-border, $alert-success-text);
-    }
-    .error {
-        @include alert-variant($alert-danger-bg, $alert-danger-border, $alert-danger-text);
-    }
+    .success { @include alert-variant($alert-success-bg, $alert-success-border, $alert-success-text); }
+    .error { @include alert-variant($alert-danger-bg, $alert-danger-border, $alert-danger-text); }
 }

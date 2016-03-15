@@ -14,42 +14,32 @@
     .gsti {
         overflow: hidden;
         @include make-xs-column(8);
-        @include make-lg-column(1.5);
-        padding-top: 20px;
-        padding-bottom: 20px;
+        @include make-lg-column(1.6);
+        padding-top: 10px;
+        padding-bottom: 10px;
         margin-top: 0;
         margin-bottom: 0;
         color: $color-governance;
         text-align: center;
 
-
         &-#{link} {
             width: 126px;
             height: 40px;
-            margin: 0 auto;
             background: url('../images/gsti.png') no-repeat center;
             color: inherit;
             text-indent: -9999px;
             display: block;
+
+            @media (max-width: $screen-md-min) {
+                margin: 0 auto;
+            }
         }
     }
-    .btn-show-item,
-    .btn-hide-item {
+    .btn-show-item {
         @include make-xs-column(2);
         text-align: center;
-        font-size: 40px;
-        line-height: 2;
-    }
-    .mobile-search {
-        position: absolute;
-        z-index: 2000;
-        top: 0; left: 0;
-        width: 100%;
-        padding: 19px;
-        background-color: #fff;
-
-        form { @include make-xs-column(10); }
-        .btn-hide-item { line-height: 1; }
+        font-size: 26px;
+        line-height: 2.33;
     }
     .form-search {
         @include make-xs-column(10);
@@ -92,9 +82,7 @@
                 }
                 border-left-width: 0;
             }
-            &:hover {
-                background-color: #f2f2f2;
-            }
+            &:hover { background-color: #f2f2f2; }
         }
     }
     .dropdown-item-header {
@@ -109,16 +97,15 @@
 
         &-#{link--logged} {
             position: relative;
-            padding: 16px 22px;
+            padding: 5px 22px;
             float: left;
-            // border-right: 1px solid $color-border;
             color: $background-button;
             font-size: 1.214em;
             line-height: 3;
-            text-align: center;
             background-color: $white-ice;
             &:nth-child(4) {
-                width: 47%;
+                width: 51%;
+                border-right: 1px solid $color-border;
                 border-left-width: 1px;
             }
             .badge {
@@ -138,9 +125,7 @@
               background: $link-white;
               @include box-shadow(0 0px 0px 1px $color-border);
             }
-            &:hover {
-                background-color: #f2f2f2;
-            }
+            &:hover { background-color: #f2f2f2; }
         }
     }
 }
@@ -172,7 +157,6 @@
         margin-bottom: 0;
         @media (max-width: $screen-sm-min) { display: none; }
         color: $color-border;
-        // line-height: 49px;
         > li {
             display: inline-block;
             padding: 10px 0;
@@ -217,9 +201,6 @@
             color: $background-button;
             font-size: 1.3em;
             width: 20%;
-            // &:hover {
-            //     color: $background-button-hover;
-            // }
         }
         li > .gsticon-facebook-square:hover { color: #3b5998; }
         li > .gsticon-google-plus-square:hover { color: #dd4b39; }
@@ -247,7 +228,6 @@
     @include make-row();
     border-top: 2px solid;
     display: none;
-    // line-height: 100%;
 }
 .category-posts {
     padding: 30px 0;
@@ -275,8 +255,7 @@
 #sub-governance {
     border-top-color: $color-governance;
     .list-group-item {
-        &:hover,
-        &.active {
+        &:hover, &.active {
             border-left-color: $color-governance;
             color: $color-governance;
         }
@@ -286,8 +265,7 @@
 #sub-development {
     border-top-color: $color-development;
     .list-group-item {
-        &:hover,
-        &.active {
+        &:hover, &.active {
             border-left-color: $color-development;
             color: $color-development;
         }
@@ -297,8 +275,7 @@
 #sub-web-design {
     border-top-color: $color-web-design;
     .list-group-item {
-        &:hover,
-        &.active {
+        &:hover, &.active {
             border-left-color: $color-web-design;
             color: $color-web-design;
         }
@@ -308,8 +285,7 @@
 #sub-marketing {
     border-top-color: $color-marketing;
     .list-group-item {
-        &:hover,
-        &.active {
+        &:hover, &.active {
             border-left-color: $color-marketing;
             color: $color-marketing;
         }
@@ -330,8 +306,7 @@
 #sub-infra {
     border-top-color: $color-infra;
     .list-group-item {
-        &:hover,
-        &.active {
+        &:hover, &.active {
             border-left-color: $color-infra;
             color: $color-infra;
         }
@@ -339,14 +314,8 @@
     .article-title { color: $color-infra; }
 }
 
-.slideout-menu {
-    > hr {
-        margin: 0;
-    }
-}
-.slideout-menu--user {
-    padding: 10px 20px;
-}
+.slideout-menu > hr { margin: 0; }
+.slideout-menu--user { padding: 10px 20px; }
 .slideout-menu--link {
     padding: 10px 20px;
     display: block;
@@ -361,4 +330,39 @@
     width: 33.3333%;
     float: left;
     text-align: center;
+}
+
+// Search do header
+// ==========================================================================
+.search-header-container {
+    @include make-xs-column(12);
+    @include make-lg-column(6.4);
+    border-left: 1px solid #e1e1e1;
+}
+.search-header-form {
+    @include make-row;
+    position: relative;
+}
+.search-header-input {
+    @include make-xs-column(12);
+    border: none;
+    color: #555;
+    font-size: 14px;
+    line-height: 4.15;
+    outline: none;
+}
+// .menu-mobile { @include make-row; }
+.mobile-search {
+    position: absolute;
+    z-index: 2000;
+    top: 0; left: 0;
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    background-color: #fff;
+}
+.btn-hide-item {
+    position: absolute;
+    top: 15px; right: 20px;
+    font-size: 20px;
 }
