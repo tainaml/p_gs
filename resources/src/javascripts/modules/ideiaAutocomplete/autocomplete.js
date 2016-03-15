@@ -8,7 +8,7 @@
             var EVENT_AJAX_ERROR   = 'autocomplete.error';
 
             var $self = $(this),
-                target = $self.data("autocompleteTarget"),
+                target = $self.next($self.data("autocompleteTarget")),
                 $target = $(target),
                 timeout = $self.data("autocompleteTimeout") || 1e3, // 1 second default timeout
                 method = $self.data("autocompleteMethod") || "get",
@@ -70,17 +70,17 @@
                 });
                 $(document).on('keydown', function (e) {
                     var eventKey = e.keyCode;
-                    if ($el.is(':focus') && $('#dropdown-search').is(':visible')) {
+                    if ($el.is(':focus') && $target.is(':visible')) {
                         switch (eventKey) {
                             case 13:
-                                triggerItem(e);
+                                triggerItem(e, $target);
                                 return false;
                                 break;
                             case 38:
-                                activeSearchItem('up');
+                                activeSearchItem('up', $target);
                                 break;
                             case 40:
-                                activeSearchItem('down');
+                                activeSearchItem('down', $target);
                                 break;
                         }
                     }
@@ -91,8 +91,9 @@
 
     // Número negativo porque o index de elementos do DOM começa em 0 (zero).
     var itemActive = -1;
-    function activeSearchItem (direction, incrementer) {
-        var searchItems = $('#dropdown-search').find('li');
+    function activeSearchItem (direction, target) {
+        console.log(target);
+        var searchItems = target.find('li');
         var itemsLength = searchItems.length - 1;
         var firstPosition = 0;
         searchItems.removeClass('active');
@@ -110,9 +111,9 @@
         }
     }
 
-    function triggerItem (e) {
+    function triggerItem (e, target) {
         e.stopPropagation();
-        var item = $('#dropdown-search').find('.active a');
+        var item = target.find('.active a');
         if (item.length) {
             location.href = item.attr('href');
         } else {
@@ -122,7 +123,9 @@
     }
 
     function AutocompleteReady() {
-        $("[data-autocomplete=true]").autocomplete();
+        $("[data-autocomplete=true]").each(function () {
+            $(this).autocomplete();
+        });
     }
 
     $(document).ready(AutocompleteReady);
