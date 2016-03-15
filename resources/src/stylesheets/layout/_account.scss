@@ -1,15 +1,18 @@
 .account {}
 .blue-flag {
-    position: relative;
+    // position: relative;
     width: 100%;
-    height: 180px;
+    min-height: 180px;
     padding-top: 30px;
     background: #0160b0;
 }
 .form-signup {
     padding: 10px;
+    margin-top: 20px;
     border: 10px solid #005398;
     background: #fff;
+
+    @media (min-width: $screen-lg-min) { margin-top: -165px; }
 }
 .form-group-half {
     width: 49%;
@@ -25,14 +28,12 @@
         line-height: 1;
     }
 }
-.account-description {
-    font-weight: 900;
-}
-.fb-account-box {
-    margin-top: 25px;
-}
+.account-description { font-weight: 900; }
+.embed-responsive.embed-responsive-4by3 { margin-top: 40px; }
+.fb-account-box { margin-top: 25px; }
 .menu-social-signup {
-    @include make-lg-column(10.5);
+    @include make-xs-column(12);
+    @include make-lg-column(10.4);
     text-align: right;
 
     .gsticon {
