@@ -16,8 +16,7 @@
                 <article class="article-home-large" id="article__{{ article.id }}">
                     <a href="{{ article_link }}">
                         {% if article.image %}
-                            <img
-                                    class="img-responsive"
+                            <img class="img-responsive"
                                     src="{% thumbor_url article.image.url width=270 height=203 smart=False fit_in=False %}"
                                     alt="{{ article.title }}">
                         {% else %}
