@@ -6,7 +6,7 @@
     <div class="container">
         <ul class="list-unstyled box-list">
             <li class="box-list-links">
-                <h3 class="h4 box-list-heading">Governança de TI</h3>
+                <h3 class="h4 box-list-heading">Governança e Gestão</h3>
                 <ul class="list-links">
                     {% for community in categories.governanca_de_ti %}
                         <li><a href="{% url "community:show" community.slug %}">{{ community.title }}</a></li>
@@ -22,9 +22,9 @@
                 </ul>
             </li>
             <li class="box-list-links">
-                <h3 class="h4 box-list-heading">Web Design</h3>
+                <h3 class="h4 box-list-heading">Design</h3>
                 <ul class="list-links">
-                    {% for community in categories.web_design %}
+                    {% for community in categories.design %}
                         <li><a href="{% url "community:show" community.slug %}">{{ community.title }}</a></li>
                     {% endfor %}
                 </ul>
@@ -41,6 +41,14 @@
                 <h3 class="h4 box-list-heading">Infraestrutura</h3>
                 <ul class="list-links">
                     {% for community in categories.infraestrutura %}
+                        <li><a href="{% url "community:show" community.slug %}">{{ community.title }}</a></li>
+                    {% endfor %}
+                </ul>
+            </li>
+            <li class="box-list-links">
+                <h3 class="h4 box-list-heading">Banco de Dados</h3>
+                <ul class="list-links">
+                    {% for community in categories.banco_de_dados %}
                         <li><a href="{% url "community:show" community.slug %}">{{ community.title }}</a></li>
                     {% endfor %}
                 </ul>
