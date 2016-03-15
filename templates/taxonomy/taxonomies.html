@@ -1,7 +1,7 @@
 <nav class="post-communities">
 
     {% for community in communities|slice:":3" %}
-        <a href="{% url 'community:show' community.slug %}" class="link-to-community">{{ community.taxonomy }}</a>{% if not forloop.last or communities|length > 3 %} • {% endif %}
+        <a href="{% url 'community:show' community.slug %}" class="link-to-community">{{ community.taxonomy.description }}</a>{% if not forloop.last or communities|length > 3 %} • {% endif %}
     {% endfor %}
 
     {% if communities|length > 3 %}
@@ -10,7 +10,7 @@
             <ul class="perfil-actions">
 
                 {% for community in communities|slice:"3:" %}
-                    <li><a href="{% url 'community:show' community.slug %}" class="link-to-community">{{ community.taxonomy }}</a></li>
+                    <li><a href="{% url 'community:show' community.slug %}" class="link-to-community">{{ community.taxonomy.description }}</a></li>
                 {% endfor %}
 
             </ul>
