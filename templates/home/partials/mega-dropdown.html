@@ -1,6 +1,6 @@
 <ul class="menu-categories">
     <li {% if menu_context == "governanca-de-ti" %}class="active"{% endif %}>
-        <a class="governance" href="{% url 'category:show' 'governanca-de-ti' %}" data-sub="#sub-governance">Governança de TI</a>
+        <a class="governance" href="{% url 'category:show' 'governanca-de-ti' %}" data-sub="#sub-governance">Governança e Gestão</a>
         {% comment %}
         <div class="submenu-categories">
             <div class="container">
@@ -80,7 +80,7 @@
     </li>
     <li><i class="gsticon gsticon-circle"></i></li>
     <li {% if menu_context == "web-design" %}class="active"{% endif %}>
-        <a class="web-design" href="{% url 'category:show' 'web-design' %}" data-sub="#sub-web-design">Web Design</a>
+        <a class="design" href="{% url 'category:show' 'web-design' %}" data-sub="#sub-design">Design</a>
         {% comment %}
         <div class="submenu-categories" data-toggle="mega-dropdown">
             <div class="container">
@@ -159,6 +159,46 @@
         {% endcomment %}
     </li>
     <li><i class="gsticon gsticon-circle"></i></li>
+    <li {% if menu_context == "banco-de-dados" %}class="active"{% endif %}>
+        <a class="databases" href="{% url 'category:show' 'banco-de-dados' %}" data-sub="#sub-databases">Banco de Dados</a>
+        {% comment %}
+        <div class="submenu-categories" data-toggle="mega-dropdown">
+            <div class="container">
+                <div class="menu-area" id="sub-databases">
+                    <ul class="category-area list-group col-lg-3">
+                        <li class="list-group-item active">itil</li>
+                        <li class="list-group-item">cobit</li>
+                        <li class="list-group-item">cloud computing</li>
+                        <li class="list-group-item">pmbook</li>
+                        <li class="list-group-item">itil</li>
+                        <li class="list-group-item">cobit</li>
+                        <li class="list-group-item">cloud computing</li>
+                        <li class="list-group-item">pmbook</li>
+                    </ul>
+                    <ul class="category-posts list-unstyled col-lg-9">
+                        <li class="article">
+                            <a href="javascript:;"><img class="article-img" src="http://placehold.it/200" alt=""></a>
+                            <a class="article-title" href="javascript:;">Intel e Google desenvolvem smartphone com câmera 3D</a>
+                        </li>
+                        <li class="article">
+                            <a href="javascript:;"><img class="article-img" src="http://placehold.it/200" alt=""></a>
+                            <a class="article-title" href="javascript:;">Projeto do google quer mapear telhados para produzir energia solar</a>
+                        </li>
+                        <li class="article">
+                            <a href="javascript:;"><img class="article-img" src="http://placehold.it/200" alt=""></a>
+                            <a class="article-title" href="javascript:;">Intel e Google desenvolvem smartphone com câmera 3D</a>
+                        </li>
+                        <li class="article">
+                            <a href="javascript:;"><img class="article-img" src="http://placehold.it/200" alt=""></a>
+                            <a class="article-title" href="javascript:;">Intel e Google desenvolvem smartphone com câmera 3D</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        {% endcomment %}
+    </li>
+    <li><i class="gsticon gsticon-circle"></i></li>
     <li {% if menu_context == "infraestrutura" %}class="active"{% endif %}>
         <a class="infra" href="{% url 'category:show' 'infraestrutura' %}" data-sub="#sub-infra">Infraestrutura</a>
         {% comment %}
@@ -198,13 +238,54 @@
         </div>
         {% endcomment %}
     </li>
+
     <li><i class="gsticon gsticon-circle"></i></li>
-    <li {% if menu_context == "banco-de-dados" %}class="active"{% endif %}>
-        <a class="databases" href="{% url 'category:show' 'banco-de-dados' %}" data-sub="#sub-databases">Banco de Dados</a>
+    <li {% if menu_context == "mobile" %}class="active"{% endif %}>
+        <a class="mobile" href="{% url 'category:show' 'mobile' %}" data-sub="#sub-mobile">Mobile</a>
         {% comment %}
         <div class="submenu-categories" data-toggle="mega-dropdown">
             <div class="container">
-                <div class="menu-area" id="sub-databases">
+                <div class="menu-area" id="sub-mobile">
+                    <ul class="category-area list-group col-lg-3">
+                        <li class="list-group-item active">itil</li>
+                        <li class="list-group-item">cobit</li>
+                        <li class="list-group-item">cloud computing</li>
+                        <li class="list-group-item">pmbook</li>
+                        <li class="list-group-item">itil</li>
+                        <li class="list-group-item">cobit</li>
+                        <li class="list-group-item">cloud computing</li>
+                        <li class="list-group-item">pmbook</li>
+                    </ul>
+                    <ul class="category-posts list-unstyled col-lg-9">
+                        <li class="article">
+                            <a href="javascript:;"><img class="article-img" src="http://placehold.it/200" alt=""></a>
+                            <a class="article-title" href="javascript:;">Intel e Google desenvolvem smartphone com câmera 3D</a>
+                        </li>
+                        <li class="article">
+                            <a href="javascript:;"><img class="article-img" src="http://placehold.it/200" alt=""></a>
+                            <a class="article-title" href="javascript:;">Projeto do google quer mapear telhados para produzir energia solar</a>
+                        </li>
+                        <li class="article">
+                            <a href="javascript:;"><img class="article-img" src="http://placehold.it/200" alt=""></a>
+                            <a class="article-title" href="javascript:;">Intel e Google desenvolvem smartphone com câmera 3D</a>
+                        </li>
+                        <li class="article">
+                            <a href="javascript:;"><img class="article-img" src="http://placehold.it/200" alt=""></a>
+                            <a class="article-title" href="javascript:;">Intel e Google desenvolvem smartphone com câmera 3D</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        {% endcomment %}
+    </li>
+    <li><i class="gsticon gsticon-circle"></i></li>
+    <li {% if menu_context == "more" %}class="active"{% endif %}>
+        <a class="more" href="{% url 'category:show' 'mais' %}" data-sub="#sub-more">Mais</a>
+        {% comment %}
+        <div class="submenu-categories" data-toggle="mega-dropdown">
+            <div class="container">
+                <div class="menu-area" id="sub-more">
                     <ul class="category-area list-group col-lg-3">
                         <li class="list-group-item active">itil</li>
                         <li class="list-group-item">cobit</li>

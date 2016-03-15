@@ -6,10 +6,12 @@
 // ==========================================================================
 $color-governance:                #0160b0 !default;
 $color-development:               #3ea909 !default;
-$color-web-design:                #813889 !default;
+$color-design:                    #813889 !default;
 $color-marketing:                 #f46b1b !default;
 $color-infra:                     #1e5d4c !default;
 $color-databases:                 #c30007 !default;
+$color-mobile:                    #de1899 !default;
+$color-more:                      #000000 !default;
 $color-badge:                     #c30007 !default;
 $color-danger:                    #c30007 !default;
 $color-green:                     #738d00 !default;
@@ -37,5 +39,5 @@ $background-perfil-button-hover:  $background-button;
 
 
 $areas: (governance, $color-governance), (development, $color-development),
-(web-design, $color-web-design), (marketing, $color-marketing), (infra, $color-infra),
-(databases, $color-databases);
+(design, $color-design), (marketing, $color-marketing), (infra, $color-infra),
+(databases, $color-databases), (mobile, $color-mobile), (more, $color-more);
