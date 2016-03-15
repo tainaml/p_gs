@@ -63,23 +63,16 @@
             padding-right: 15px;
         }
         &-#{link} {
-            width: 50%;
+            width: 63.5%;
             border-right: 1px solid #e1e1e1;
-            line-height: 3;
-            @media (min-width: $screen-lg-min) {
-                width: 63.5%;
-                line-height: 5.8;
-            }
+            line-height: 4.3;
             float: left;
             background-color: $white-ice;
             color: $gray;
             font-size: 1em;
             text-align: center;
             &:last-child {
-                width: 50%;
-                @media (min-width: $screen-lg-min) {
-                    width: 36.5%;
-                }
+                width: 36.5%;
                 border-left-width: 0;
             }
             &:hover { background-color: #f2f2f2; }
@@ -361,8 +354,12 @@
 // ==========================================================================
 .search-header-container {
     @include make-xs-column(12);
-    @include make-lg-column(6.4);
+    @include make-xs-column(8.4);
     border-left: 1px solid #e1e1e1;
+}
+.search-header-container--logged {
+    @include make-xs-column(12);
+    @include make-lg-column(6.4);
 }
 .search-header-form {
     @include make-row;
@@ -388,6 +385,11 @@
 }
 .btn-hide-item {
     position: absolute;
-    top: 15px; right: 20px;
+    top: 15px; right: 14px;
+    min-width: 30px;
+    border: 1px solid #e1e1e1;
+    background-color: #fff;
+    border-radius: 50%;
     font-size: 20px;
+    text-align: center;
 }
