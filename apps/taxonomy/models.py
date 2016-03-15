@@ -18,5 +18,8 @@ class Taxonomy(models.Model):
     parent = models.ForeignKey("self", null=True, blank=True, related_name='taxonomies_children')
     term = models.ForeignKey(Term, related_name='taxonomies')
 
+    class Meta:
+        ordering = ('description',)
+
     def __unicode__(self):
         return "%s - [%s]" % (self.description, self.term,)

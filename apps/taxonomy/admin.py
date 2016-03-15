@@ -7,7 +7,7 @@ class TaxonomyInLine(admin.TabularInline):
 
 class TaxonomyAdmin(admin.ModelAdmin):
     list_display = ('description', 'slug','parent','term',)
-    list_filter = ('term','parent',)
+    list_filter = ('term', 'parent',)
 
     inlines = [
         TaxonomyInLine,
