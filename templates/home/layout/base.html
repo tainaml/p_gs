@@ -81,7 +81,7 @@
                         <h1 class="gsti">
                             <a href="{% url 'index' %}" class="gsti-link">Portal GSTI</a>
                         </h1>
-                        <div class="search-header-container">
+                        <div class="search-header-container{% if request.user.is_authenticated %}--logged{% endif %}">
                             {% include 'home/partials/search-header.html' %}
                         </div>
                         {% include 'home/partials/user-actions.html' %}
