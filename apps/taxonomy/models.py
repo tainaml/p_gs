@@ -19,4 +19,4 @@ class Taxonomy(models.Model):
     term = models.ForeignKey(Term, related_name='taxonomies')
 
     def __unicode__(self):
-        return self.description
+        return "%s - [%s]" % (self.description, self.term,)
