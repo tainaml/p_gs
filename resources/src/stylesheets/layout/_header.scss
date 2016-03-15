@@ -144,11 +144,13 @@
         border-bottom: 2px solid;
         &.governance {border-bottom-color: $color-governance;}
         &.development {border-bottom-color: $color-development;}
-        &.web-design {border-bottom-color: $color-web-design;}
+        &.design {border-bottom-color: $color-design;}
         &.marketing {border-bottom-color: $color-marketing;}
         &.infra {border-bottom-color: $color-infra;}
         &.databases {border-bottom-color: $color-databases;}
         &.governance {border-bottom-color: $color-governance;}
+        &.mobile {border-bottom-color: $color-mobile;}
+        &.more {border-bottom-color: $color-more;}
     }
 
     // TODO: refatorar para classes
@@ -272,15 +274,16 @@
     }
     .article-title { color: $color-development; }
 }
-#sub-web-design {
-    border-top-color: $color-web-design;
+#sub-design {
+    border-top-color: $color-design;
     .list-group-item {
-        &:hover, &.active {
-            border-left-color: $color-web-design;
-            color: $color-web-design;
+        &:hover,
+        &.active {
+            border-left-color: $color-design;
+            color: $color-design;
         }
     }
-    .article-title { color: $color-web-design; }
+    .article-title { color: $color-design; }
 }
 #sub-marketing {
     border-top-color: $color-marketing;
@@ -302,6 +305,28 @@
         }
     }
     .article-title { color: $color-databases; }
+}
+#sub-mobile{
+    border-top-color: $color-mobile;
+    .list-group-item {
+        &:hover,
+        &.active {
+            border-left-color: $color-mobile;
+            color: $color-mobile;
+        }
+    }
+    .article-title { color: $color-mobile; }
+}
+#sub-more{
+    border-top-color: $color-more;
+    .list-group-item {
+        &:hover,
+        &.active {
+            border-left-color: $color-more;
+            color: $color-more;
+        }
+    }
+    .article-title { color: $color-more; }
 }
 #sub-infra {
     border-top-color: $color-infra;
