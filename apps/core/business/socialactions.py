@@ -178,7 +178,7 @@ def get_content_by_action(description, action_type, items_per_page=None, page=No
 
     content_type = ContentType.objects.filter(model__in=['article', 'question'])
 
-    criteria = Q(action_type=action_type,) & Q(content_type=content_type)
+    criteria = Q(action_type=action_type,) & Q(content_type__in=content_type)
 
     if author:
         criteria &= Q(author=author)

@@ -58,7 +58,7 @@ class AbstractHomeBlock(object):
 
     def get_category(self, category_slug):
         try:
-            category = Taxonomy.objects.get(slug=category_slug)
+            category = Taxonomy.objects.get(slug=category_slug, term__description='Categoria')
             return category
         except Taxonomy.DoesNotExist, notExistTaxonomy:
             return None
