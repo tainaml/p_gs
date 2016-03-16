@@ -360,6 +360,7 @@
 .search-header-container--logged {
     @include make-xs-column(12);
     @include make-lg-column(6.4);
+    border-left: 1px solid #e1e1e1;
 }
 .search-header-form {
     @include make-row;
