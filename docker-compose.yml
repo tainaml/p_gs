@@ -1,0 +1,32 @@
+version: '2'
+services:
+  thumbor:
+    build:
+      context: .
+      dockerfile: Dockerfile_thumbor
+    ports: 
+      - "8888:8880"
+    domainname: thumbor.redegsti.dev
+    hostname: thumbor
+  db:
+    build:
+      context: .
+      dockerfile: Dockerfile_database
+    ports:
+      - "5432:5432"
+    volumes:
+      - /srv/docker/postgresql:/var/lib/postgresql
+    domainname: db.redegsti.dev
+    hostname: database
+  web:
+    build: .
+    volumes:
+      - ./:/var/www
+    ports:
+      - "8000:8000"
+      - "2202:22"
+    links:
+      - db:db
+      - thumbor:thumbor
+    domainname: redegsti.dev
+    hostname: redegsti
