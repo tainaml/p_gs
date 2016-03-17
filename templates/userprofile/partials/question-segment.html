@@ -33,7 +33,11 @@
     </header>
     <a class="post-content" href="{% url 'question:show' instance.slug instance.id %}" itemprop="articleBody">
         <div class="post-text">
-            <h3 class="post-title" itemprop="headline">{{ instance.title }}</h3>
+            <h3 class="post-title" itemprop="headline">{% if instance.title|length > 67 %}
+                {{ instance.title|slice:":67" }}...
+            {% else %}
+                {{ instance.title }}
+            {% endif %}</h3>
             <p class="color-green">{{ instance.description|safe|slice:":250" }}{% if instance.description|safe|length > 250%}...{% endif %}</p>
         </div>
     </a>

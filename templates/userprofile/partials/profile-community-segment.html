@@ -6,7 +6,9 @@
 
 <div class="perfil">
     <a href="{% url 'community:show' community_obj.slug %}"><img src="{% thumbor_url community_obj.get_picture.url width=82 height=82 smart=False fit_in=False %}" alt="{{ community_obj.title }}"></a>
-    <a class="perfil-name" title="{{ community_obj.title }}" href="{% url 'community:show' community_obj.slug %}">{{ community_obj.title }}</a>
+    <a class="perfil-name" title="{{ community_obj.title }}" href="{% url 'community:show' community_obj.slug %}">
+        {{ community_obj.title }}
+    </a>
     <span class="perfil-counter"
           data-counter="{{ community_obj.followers }}"
           data-refresh-counter="follow-{{ counter_content_type }}-{{ community_obj.id }}">

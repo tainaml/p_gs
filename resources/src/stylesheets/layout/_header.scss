@@ -115,9 +115,11 @@
                 line-height: 115%;
             }
             .img-circle {
-              background: $link-white;
-              @include box-shadow(0 0px 0px 1px $color-border);
+                margin-right: 10px;
+                background: $link-white;
+                @include box-shadow(0 0px 0px 1px $color-border);
             }
+            .gsticon-caret-down { margin-top: 20px; }
             &:hover { background-color: #f2f2f2; }
         }
     }
@@ -333,7 +335,11 @@
 }
 
 .slideout-menu > hr { margin: 0; }
-.slideout-menu--user { padding: 10px 20px; }
+.slideout-menu--user {
+    padding: 10px 20px;
+    color: #4d6479;
+    font-size: 1.214em;
+}
 .slideout-menu--link {
     padding: 10px 20px;
     display: block;

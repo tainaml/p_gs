@@ -18,14 +18,14 @@
                         {% if article.image %}
                             <img class="img-responsive"
                                     src="{% thumbor_url article.image.url width=270 height=203 smart=False fit_in=False %}"
-                                    alt="{{ article.title }}">
+                                    alt="{% if article.title|length > 67 %}{{ article.title|slice:":67" }}...{% else %}{{ article.title }}{% endif %}">
                         {% else %}
                             <img class="img-responsive" src="http://placehold.it/270x203" alt="Placeholder">
                         {% endif %}
                     </a>
                     <div>
                         {% home_article_community category article %}
-                        <a class="article-content" href="{{ article_link }}">{{ article.title }}</a>
+                        <a class="article-content" href="{{ article_link }}">{% if article.title|length > 67 %}{{ article.title|slice:":67" }}...{% else %}{{ article.title }}{% endif %}</a>
                     </div>
                 </article>
 
