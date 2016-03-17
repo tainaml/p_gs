@@ -1,8 +1,12 @@
+import logging
+
 from django.db.models import Q
 
 from ..models import Taxonomy
 
 __author__ = 'phillip'
+
+logger = logging.getLogger('general')
 
 
 def __get_related_list__(taxonomy=None, taxonomy_list=None):
@@ -56,7 +60,7 @@ def __get_related_list_top_down__(taxonomy=None, taxonomy_list=None):
 
                 __get_related_list_top_down__(child_taxonomy, taxonomy_list)
     except Exception, e:
-        print e.message
+        logger.error(e.message)
 
     return taxonomy_list
 

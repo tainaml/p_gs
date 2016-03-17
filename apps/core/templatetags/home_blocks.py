@@ -24,7 +24,6 @@ home_block_excludes = []
 
 
 class AbstractHomeBlock(object):
-
     __metaclass__ = ABCMeta
 
     template_file = ''
@@ -34,7 +33,8 @@ class AbstractHomeBlock(object):
 
     __context = {}
 
-    def __init__(self, category, quantity=3, cache_time=0, offset=0, show_comunities=4, class_name="without-class", template=None):
+    def __init__(self, category, quantity=3, cache_time=0, offset=0, show_comunities=4, class_name="without-class",
+                 template=None):
 
         if not self.block_name:
             self.block_name = self.__class__.__name__
@@ -54,7 +54,6 @@ class AbstractHomeBlock(object):
             category = self.get_category(category)
 
         self.category = category
-
 
     def get_category(self, category_slug):
         try:
@@ -112,7 +111,7 @@ class AbstractHomeBlock(object):
         articles = Article.objects.filter(
             self.custom_filters
         ).exclude(
-            pk__in=sorted(set(home_block_excludes)) # POG: pensar numa forma melhor de evitar duplicatas na home
+            pk__in=sorted(set(home_block_excludes))  # POG: pensar numa forma melhor de evitar duplicatas na home
         ).order_by(
             self.custom_order
         ).prefetch_related(
@@ -146,7 +145,6 @@ class AbstractHomeBlock(object):
         except Community.DoesNotExist, e:
             communities = False
 
-
         return communities
 
     def get_context(self):
@@ -159,13 +157,12 @@ class AbstractHomeBlock(object):
         # ))
         # workaround
         if not self.category:
-            print self.category
             return ''
 
         cache_key = self.block_name + "-" + self.category.slug.lower()
         template = cache.get(cache_key)
 
-        template = False # Uncomment to run without cache
+        template = False  # Uncomment to run without cache
 
         if not template:
             self.filter_articles()
@@ -174,18 +171,16 @@ class AbstractHomeBlock(object):
 
         return template
 
-class ArticleCommunityPartial(AbstractHomeBlock):
 
+class ArticleCommunityPartial(AbstractHomeBlock):
     template_file = 'home/blocks/partials/article_community.html'
 
     def __init__(self, article, category, template=None):
-
         self.article = article
 
         super(ArticleCommunityPartial, self).__init__(category, show_comunities=True, template=template)
 
     def render(self):
-
         taxs = self.get_taxonomies()
 
         communities = Community.objects.filter(
@@ -214,38 +209,48 @@ class BlockHalfThree(AbstractHomeBlock):
     template_file = 'home/blocks/block-half-three.html'
     block_name = 'home_block_half_three'
 
+
 class BlockThird(AbstractHomeBlock):
     template_file = 'home/blocks/block-third.html'
     block_name = 'home_block_third'
+
 
 class BlockHighlight(AbstractHomeBlock):
     template_file = 'home/blocks/highlight-simple.html'
     block_name = 'home_block_highlight'
 
+
 class BlockHighlightLarge(AbstractHomeBlock):
     template_file = 'home/blocks/block-article-home-large.html'
     block_name = 'home_block_article_home'
 
+
 @register.simple_tag()
-def home_block(block_class, category_slug, quantity=None, cache_time=None, show_comunities=None, offset=0, class_name="without-class", template=None):
+def home_block(block_class, category_slug, quantity=None, cache_time=None, show_comunities=None, offset=0,
+               class_name="without-class", template=None):
     block = block_class(category_slug, quantity, cache_time, offset, show_comunities, class_name, template)
     return block.render()
+
 
 @register.simple_tag()
 def home_block_full_width(*args, **kwargs):
     return home_block(BlockFullWidth, *args, **kwargs)
 
+
 @register.simple_tag()
 def home_block_half_two(*args, **kwargs):
     return home_block(BlockHalfTwo, *args, **kwargs)
+
 
 @register.simple_tag()
 def home_block_half_three(*args, **kwargs):
     return home_block(BlockHalfThree, *args, **kwargs)
 
+
 @register.simple_tag()
 def home_block_third(*args, **kwargs):
     return home_block(BlockThird, *args, **kwargs)
+
 
 @register.simple_tag()
 def home_block_highlight_simple(*args, **kwargs):
@@ -254,6 +259,7 @@ def home_block_highlight_simple(*args, **kwargs):
     kwargs.update(show_comunities=False)
     return home_block(BlockHighlight, *args, **kwargs)
 
+
 @register.simple_tag()
 def home_block_highlight_with_image(*args, **kwargs):
     template = kwargs.get('template', 'home/blocks/block-highlight-with-image.html')
@@ -261,9 +267,11 @@ def home_block_highlight_with_image(*args, **kwargs):
     kwargs.update(show_comunities=False)
     return home_block(BlockHighlight, *args, **kwargs)
 
+
 @register.simple_tag()
 def home_block_article_home(*args, **kwargs):
     return home_block(BlockHighlightLarge, *args, **kwargs)
+
 
 @register.simple_tag(name="home_article_community")
 def home_article_community(article, category):

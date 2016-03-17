@@ -40,7 +40,6 @@ def get_related(question_id, record_type=None, items_per_page=None, page=None):
         )
 
     except Exception, e:
-        print e
         return False
 
     if items_per_page and page:

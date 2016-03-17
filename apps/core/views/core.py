@@ -87,7 +87,6 @@ class CoreRelatedPosts(CoreBaseView):
             )[:count]
 
         except Exception, e:
-            print e
             return self.return_error(request, None)
 
         context = {

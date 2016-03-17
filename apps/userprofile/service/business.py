@@ -1,3 +1,5 @@
+import logging
+
 from apps.account.models import User
 from django.db import transaction
 from apps.account.models import User
@@ -6,6 +8,8 @@ from apps.taxonomy.models import Term, Taxonomy
 from apps.userprofile.models import UserProfile, Occupation, Responsibility
 from apps.geography.models import Country, State, City
 from rede_gsti import settings
+
+logger = logging.getLogger('general')
 
 
 def check_user_exists(username_or_email=None):
@@ -158,7 +162,7 @@ def update_or_create_occupation(profile=None, user=None, data=None):
         occupation.save()
     except Exception, e:
         if settings.DEBUG:
-            print e.message
+            logger.error(e.message)
         return False
 
     return occupation

@@ -41,7 +41,6 @@ class Search(SearchBase):
             articles = form_article.process()
             questions = form_question.process()
         except Exception, e:
-            print e
             return self.return_error(request, {})
 
         context = {
@@ -87,7 +86,6 @@ class SearchAutocomplete(SearchBase):
             communities_filtered = form_community.process()
             users_filtered = form_user.process()
         except Exception, e:
-            print e
             return self.return_error(request, {})
 
         context = {
@@ -155,7 +153,6 @@ class SearchList(SearchBase):
                 raise Exception("Content Type is not found.")
 
         except Exception, e:
-            print e
             return self.return_error(request, {})
 
         context.update({
