@@ -39,8 +39,7 @@ def get_configs(entity, config_group=None):
         if config_group:
             group = ConfigGroup.objects.get(group=config_group)
             key = ConfigKey.objects.filter(group=group)
-
-            criteria &= Q(key=key)
+            criteria &= Q(key__in=key)
 
         configs = ConfigValues.objects.filter(criteria)
 
