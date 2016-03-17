@@ -1,9 +1,13 @@
+import logging
+
 from django.contrib.contenttypes.models import ContentType
 from django.db import transaction
 from django.db.models import Q
 
 from apps.configuration.models import ConfigKey, ConfigValues, ConfigGroup
 from rede_gsti import settings
+
+logger = logging.getLogger('general')
 
 
 def get_system_configs(config_group=None, show=True):
@@ -20,7 +24,7 @@ def get_system_configs(config_group=None, show=True):
         config_keys = ConfigKey.objects.filter(criteria).order_by('order')
     except Exception, e:
         if settings.DEBUG:
-            print e.message
+            logger.error(e.message)
         config_keys = []
 
     return config_keys
@@ -42,7 +46,7 @@ def get_configs(entity, config_group=None):
 
     except Exception, e:
         if settings.DEBUG:
-            print e.message
+            logger.error(e.message)
         configs = None
 
     return configs
@@ -75,7 +79,7 @@ def save_configs(entity, data):
 
     except Exception, e:
         if settings.DEBUG:
-            print e.message
+            logger.error(e.message)
         return False
 
     return configs_created, configs_updated
@@ -107,7 +111,7 @@ def check_config_to_notify(to_user, action, target_object=None):
         )
     except Exception, e:
         if settings.DEBUG:
-            print e.message
+            logger.error(e.message)
         return False
 
     if config.value == "True":

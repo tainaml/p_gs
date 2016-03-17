@@ -41,7 +41,6 @@ class FormBaseView(View):
                                                        self.context).content
                 else:
                     response_data['errors'] = self.form.errors
-                    print response_data['errors']
 
                 return JsonResponse(response_data,
                                     status=200 if is_valid else 400, *args,
@@ -95,7 +94,6 @@ class AnswerList(ListBaseView):
         instance_list = form.process()
 
         if not form.is_valid():
-            print form.errors
             raise Http404()
 
         self.context.update({
@@ -194,7 +192,6 @@ class UpdateQuestionView(View):
     @method_decorator(login_required)
     def post(self, request):
         question = business.get_question(request.POST['question_id'])
-        print question
         if question:
             form = self.form(data=request.POST, instance=question, user=request.user)
             if form.process():

@@ -3,7 +3,6 @@ from django.template import RequestContext
 
 
 def handler400(request):
-    print request
     response = render_to_response('400.html', {},
                                   context_instance=RequestContext(request))
     response.status_code = 400
@@ -11,7 +10,6 @@ def handler400(request):
 
 
 def handler403(request):
-    print request
     response = render_to_response('404.html', {},
                                   context_instance=RequestContext(request))
     response.status_code = 404
@@ -19,7 +17,6 @@ def handler403(request):
 
 
 def handler404(request):
-    print request
     response = render_to_response('404.html', {},
                                   context_instance=RequestContext(request))
     response.status_code = 404
@@ -27,7 +24,6 @@ def handler404(request):
 
 
 def handler500(request):
-    print request
     response = render_to_response('500.html', {},
                                   context_instance=RequestContext(request))
     response.status_code = 500

@@ -24,15 +24,12 @@ class Command(BaseCommand):
         community = Community.objects.filter(slug='cobit')
         listing = list(community)
 
-        print community
-
         for feed in feeds:
             article = feed.article.first()
             if not article:
                 continue
 
             feed.communities.add(*listing)
-            print feed.communities.all()
             feed.date = timezone.now()
 
             save_taxonomies(feed)
@@ -41,4 +38,3 @@ class Command(BaseCommand):
             article.publishin = timezone.now()
             article.status = Article.STATUS_PUBLISH
             article_saved = article.save()
-            print '[%d] - %s: %s' % (article.id, article.slug, article_saved)
