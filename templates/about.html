@@ -1,13 +1,51 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title></title>
-</head>
-<body>
-{# TODO #}
-<h1>Sobre </h1>
-Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto eligendi, sapiente? A accusantium adipisci animi labore quasi quos rem similique suscipit. Dolorem ea harum itaque, nam neque quibusdam repellendus. Sapiente.
-{# TODO #}
-</body>
-</html>
+{% extends 'home/layout/base.html' %}
+
+
+{% block content %}
+
+<main class="container main">
+    <div class="col-lg-8">
+        <blockquote>
+            <p><em>"O Portal GSTI é hoje uma verdadeira plataforma digital para o desenvolvimento das competências dos profissionais de TI, demonstrando que os principais factores para o sucesso são a ambição e a vontade de aprender" Bruno Horta, presidente da ISACA Portugal.</em></p>
+        </blockquote>
+
+        <header class="area-title">
+            <h2>Sobre</h2>
+        </header>
+
+        <p>O Portal GSTI (<strong>G</strong>estão de <strong>S</strong>erviços de <strong>T</strong>ecnologia de <strong>I</strong>nformação) é um espaço destinado ao compartilhamento de informações, experiências e conteúdo com foco em Tecnologia da Informação e Gestão.</p>
+
+        <p>
+            <strong>Os nossos dois maiores diferenciais são:</strong>
+            <br>
+            <br>
+            <strong>1- A missão de desenvolver competências dos profissionais de TI, funcionando como uma plataforma de ligação entre o conhecimento livre e o atuante ou estudante da profissão.</strong><br />
+            <strong>2- A elaboração de conteúdo voltado para Gestão de TI, formando o maior repositório da web de conhecimento em português sobre o tema.</strong><br />
+            <br>
+            O site foi iniciado em 2008, com foco em artigos relacionados a gestão de serviços e Governança de TI. Ampliou seus horizontes a partir de 2011, e hoje trabalha com <strong>conteúdo livre</strong> para <strong>profissionais de TI</strong> e <strong>gestores</strong>, incluindo <strong>cursos gratuitos</strong>, <strong>materiais</strong>, <strong><em>ebooks </em></strong>e <strong>centenas de artigos</strong>. Desta forma, pretendemos promover o desenvolvimento da profissão para nossos visitantes.</p>
+
+        <p><strong>O site conta hoje com mais de 450 mil visualizações de página e cerca de 200 mil visitantes mensais. </strong>É um dos maiores sites brasileiros voltados para carreiras profissionais específicas. Graças aos leitores, colunistas e colaboradores, contamos com centenas de materiais, vídeo aulas, cursos e artigos. O <strong>conteúdo é 100% livre</strong>,<strong> </strong>com exceção da <strong><u><a href="http://portalgsti.virtual-course.com/" target="_blank">Loja Virtual</a></u></strong>, que é um website independente onde oferecemos produtos e serviços complementares, através de parceiros. </p>
+
+        <p>Se você busca conhecimentos relacionados a <strong>tecnologia da informação</strong>, tais como materiais de apoio para estudos, conteúdo sobre ITIL, BPM, COBIT, PMBOK, AGILE, redes de computadores, sistemas operacionais Linux e Windows, engenharia de software, banco de dados, linguagens de programação, gerenciamento de serviços e governança de TI, apostilas e artigos de administração de empresas, gestão, gestão de processos de negócio, novas tendências empresarias, novas tecnologia e afins; então, está no lugar certo! Navegue em nosso menu e encontre exatamente o que deseja: simulados, downloads, cursos, videos, artigos e muito mais.       </p>
+
+        <h3>Principais Motivações do Portal GSTI</h3>
+
+        <p>Veja o que tem motivado a equipe do site todos estes anos:</p>
+
+        <ul>
+            <li>Promover a capacitação gratuita do profissional e estudante de Tecnologia da Informação</li>
+            <li>Tornar-se uma referência para estudos e direcionamento de mercado.</li>
+            <li>Criar a maior base de artigos sobre Gestão e Governança de TI que pode ser encontrada na língua portuguesa.</li>
+            <li>Ampliar o escopo de conteúdo do Portal, agregando cada vez mais conhecimento </li>
+            <li>Disponibilizar na web um ponto de encontro entre os profissionais de TI.  </li>
+        </ul>
+    </div>
+
+    <div class="col-lg-4">
+        <div class="embed-responsive embed-responsive-4by3">
+            <iframe width="100%" height="480" class="embed-responsive-item" src="https://www.youtube.com/embed/sJ9HR-kcZHg" frameborder="0" allowfullscreen=""></iframe>
+        </div>
+    </div>
+</main>
+
+{% endblock %}
