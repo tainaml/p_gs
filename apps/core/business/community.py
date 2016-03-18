@@ -246,19 +246,8 @@ def get_followers(data=None, items_per_page=None, page=None, startswith=None):
 def get_related_communities(community_slug):
 
     try:
-
         community = Community.objects.get(slug=community_slug)
-
-        community_tax = Taxonomy.objects.get(id=community.taxonomy.id)
-        children = Taxonomy.objects.filter(parent_id=community_tax.id)
-        parent = Taxonomy.objects.filter(id=community_tax.parent_id)
-
-        communities = Community.objects.filter(
-            Q(taxonomy_id__in=children) |
-            Q(taxonomy_id__in=parent)
-        )
-
     except Community.DoesNotExist:
         return []
 
-    return communities
+    return community.related.all()

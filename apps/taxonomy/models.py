@@ -12,6 +12,7 @@ class Term(models.Model):
     def __unicode__(self):
         return self.description
 
+
 class Taxonomy(models.Model):
     description = models.CharField(max_length=100)
     slug = models.SlugField(unique=False, blank=True, default="")
