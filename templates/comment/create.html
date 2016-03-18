@@ -20,7 +20,6 @@
     <input name="content_type" value="{{ content_type }}" type="hidden"/>
 
     <div class="create-comment-footer">
-        <input type="reset" data-toggle value="Cancelar" class="btn btn-default">
         <input type="submit" value="Comentar" class="btn btn-primary" data-url-login="{% url 'account:is_logged' %}" data-trigger="login" data-token="{{ csrf_token }}">
     </div>
 

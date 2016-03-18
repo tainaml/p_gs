@@ -1,6 +1,3 @@
 <ul class="perfil-actions">
-    <li><a href="javascript:;"><i class="gsticon gsticon-trash remove-see-later"></i> Remover Sugestão</a></li>
-    <li><a href="javascript:;"><i class="gsticon gsticon-star"></i> Favoritar</a></li>
-    <li><a href="javascript:;" data-suggest-modal="true" data-content="{{ item.content_type }}" data-object="{{ instance.id }}" data-url="{% url 'socialactions:act-suggest' instance.id item.content_type %}"><i class="gsticon gsticon-paper-plane"></i> Sugerir</a></li>
     <li><a href="{% url 'complaint:report' item.content_type instance.id %}" data-report="true" data-async-module="click" data-async-target="#modal-report" data-async-method="get"><i class="gsticon gsticon-exclamation-triangle"></i> Denunciar</a></li>
 </ul>

@@ -114,7 +114,7 @@ msgstr "Lixo"
 
 #: apps/article/models.py:21
 msgid "Publish"
-msgstr "Publicar"
+msgstr "Publicado"
 
 #: apps/article/models.py:29 apps/job_vacancy/models.py:40
 msgid "Author"

@@ -8,7 +8,7 @@
                 <img class="publication-image img-responsive" src="{% thumbor_url post.get_image.url width=90 height=80 smart=False fit_in=False %}" alt="{{ post.title }}">
 {#                <img class="publication-image img-responsive" src="https://unsplash.it/95/70?random" alt="Technology application">#}
                 {% endif %}
-                <a class="publication-content" href="{% url 'article:view' post.slug post.id %}">
+                <a class="publication-content" href="{% url 'article:edit' post.id %}">
                     {% if post.status == 0 %}<small class="publication-type draft">Rascunho:</small>{% endif %}
                     {% if post.status == 2 %}<small class="publication-type trash text-danger">Item excluído</small>{% endif %}
                     <h3 class="publication-title">{{ post.title }}</h3>

@@ -12,7 +12,11 @@
         <div class="excerpt-title">
             <header class="post-header">
                 <div class="post-info">
-                    <time datetime="{{ instance.createdin }}" itemprop="datePublished">{{ instance.createdin }}</time>
+                    <time datetime="{{ instance.createdin }}" itemprop="datePublished">{{ instance.question_date|date:'d/m/Y' }} às {{ instance.question_date|date:'G:i' }}</time>
+                    <a href="javascript:;" data-toggle="dropdown"><i class="gsticon gsticon-gear"></i></a>
+                    <div class="dropdown-menu">
+                        {% include "socialactions/partials/dropdown-actions.html" %}
+                    </div>
                 </div>
                 <a class="post-creator" href="{% url 'profile:show' instance.author.username %}">
                     <img src="{% get_avatar instance.author width=20 height=20 smart=False fit_in=False %}" alt="foto de {{ instance.author.get_full_name }}">
