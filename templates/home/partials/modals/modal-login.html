@@ -21,13 +21,17 @@
                     </div>
                     {% endcomment %}
                     <div class="social-login">
-                        <a class="btn-login-facebook" href="/login/facebook">
+                        <a class="btn-login-facebook" href="{% url 'social:begin' backend='facebook' %}">
                             <i class="gsticon gsticon-facebook"></i>
                             Facebook
                         </a>
-                        <a class="btn-login-google" href="/login/google-oauth2">
+                        <a class="btn-login-google" href="{% url 'social:begin' backend='google-oauth2' %}">
                             <i class="gsticon gsticon-google-plus"></i>
                             Google+
+                        </a>
+                        <a class="" href="{% url 'social:begin' backend='linkedin-oauth2' %}">
+                            <i class="gsticon gsticon-linkedin"></i>
+                            LinkedIn
                         </a>
                     </div>
                     <div class="modal-divider"><span>ou</span></div>
