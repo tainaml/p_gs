@@ -131,8 +131,8 @@ def footer(context):
             slug = slugify(taxonomy.parent.description).replace("-", "_")
             if slug not in categories_cached.keys():
                 categories_cached[slug] = []
-
-            categories_cached[slug].append(taxonomy.community_related)
+            if hasattr(taxonomy, 'community_related'):
+                categories_cached[slug].append(taxonomy.community_related)
 
         cache.set("categories", categories_cached, None)
     return {
