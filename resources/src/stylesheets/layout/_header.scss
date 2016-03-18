@@ -88,6 +88,7 @@
 
         &-#{link--logged} {
             position: relative;
+            min-height: 53px;
             padding: 5px 22px;
             float: left;
             color: $background-button;
@@ -113,7 +114,7 @@
                 line-height: 115%;
             }
             .img-circle {
-                margin-right: 10px;
+                margin-right: 5px;
                 background: $link-white;
                 @include box-shadow(0 0px 0px 1px $color-border);
             }
@@ -375,7 +376,7 @@
     border: none;
     color: #555;
     font-size: 14px;
-    line-height: 3.7;
+    line-height: 3.65;
     outline: none;
 }
 // .menu-mobile { @include make-row; }
