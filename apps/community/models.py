@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.contrib.contenttypes.fields import GenericRelation
 from django.contrib.contenttypes.models import ContentType
+from django.utils.translation import ugettext as _
 from django.db import models
 
 from apps.socialactions.models import UserAction, Counter
@@ -15,7 +16,7 @@ class Community(models.Model):
     image = models.ImageField(max_length=100, upload_to='community/%Y/%m/%d', blank=True, default='')
     relevance = models.DecimalField(max_digits=4, decimal_places=2, null=False, default=0)
 
-    related = models.ManyToManyField("self", related_name="related")
+    related = models.ManyToManyField("self", related_name="related", verbose_name=_("Community Related"))
 
     taxonomy = models.OneToOneField(Taxonomy, related_name="community_related")
     user_action = GenericRelation(UserAction, related_query_name="community")
