@@ -28,15 +28,16 @@
                         <section class="area-content">
                             <div class="row">
                                 <div class="col-lg-6">
-                                    <button class="btn btn-default btn-block" onclick="history.back();">Cancelar</button>
-                                </div>
-                                <div class="col-lg-6">
                                     <form action="{% url 'configuration:deactivate-account' %}" method="post">
                                         {% csrf_token %}
                                         <input type="hidden" name="user" value="{{ request.user.id }}">
                                         <button type="submit" class="btn btn-danger btn-block">{% trans 'Confirmar' %}</button>
                                     </form>
                                 </div>
+                                <div class="col-lg-6">
+                                    <button class="btn btn-default btn-block" onclick="history.back();">Cancelar</button>
+                                </div>
+
                                 {% if form.errors %}
                                     <hr>
                                     <div class="col-lg-12">

@@ -39,7 +39,7 @@
                             </form>
                         </section>
                         <section class="area-content">
-                            <button onclick="window.location.href='{% url 'configuration:deactivate-account' %}';" class="btn btn-danger btn-block" title="{% trans 'Desativar Conta' %}">{% trans 'Desativar Conta' %}</button>
+                            <a class="btn text-danger btn-block" onclick="window.location.href='{% url 'configuration:deactivate-account' %}';" href="javascript:void(0);" title="{% trans 'Desativar Conta' %}">{% trans 'Desativar Conta' %}</a>
                         </section>
                     </div>
                     {% include "configuration/partials/configuration-sidebar-right.html" with local_context="account" %}
