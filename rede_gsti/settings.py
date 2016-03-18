@@ -162,7 +162,11 @@ INTERNAL_APPS = (
     'apps.rede_gsti_signals',
     'apps.feed',
     'apps.configuration',
-    'apps.custom_base'
+    'apps.custom_base',
+    'apps.company',
+    'apps.certification',
+    'apps.job_vacancy',
+
 )
 
 # Set up for installed apps

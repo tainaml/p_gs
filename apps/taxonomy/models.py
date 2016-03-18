@@ -22,4 +22,4 @@ class Taxonomy(models.Model):
         ordering = ('description',)
 
     def __unicode__(self):
-        return "%s - [%s]" % (self.description, self.term,)
+        return self.description

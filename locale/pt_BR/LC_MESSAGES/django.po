@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-04 15:55-0300\n"
+"POT-Creation-Date: 2016-03-18 13:54-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,44 +18,34 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: apps/account/service/business.py:90
+#: apps/account/models.py:15 apps/account/models.py:18
+msgid "Anonymous"
+msgstr "Anônimo"
+
+#: apps/account/service/business.py:89
 msgid "Bem vindo!"
 msgstr "Bem vindo!"
 
-#: apps/account/service/business.py:274
+#: apps/account/service/business.py:287
 msgid "Password Recovery"
 msgstr "Confirmação de senha"
 
-#: apps/account/service/forms.py:27 apps/account/service/forms.py:113
+#: apps/account/service/forms.py:28 apps/account/service/forms.py:113
 #: apps/account/service/forms.py:155
 msgid "Passwords are not the same."
 msgstr "Senhas não correspondem"
 
-#: apps/account/service/forms.py:31
+#: apps/account/service/forms.py:32
 msgid "Username is already in use."
 msgstr "Nome de usuário já está em uso"
 
-#: apps/account/service/forms.py:35
+#: apps/account/service/forms.py:36
 msgid "Email is already in use."
 msgstr "E-mail já está em uso"
 
-#: apps/account/service/forms.py:63
+#: apps/account/service/forms.py:64
 msgid "Wrong password or username."
 msgstr "Nome de usuário ou senha incorretos"
-
-#: apps/account/service/forms.py:70 templates/account/login.html:2
-#: templates/home/partials/modals/modal-login.html:47
-msgid "click here"
-msgstr "clique aqui"
-
-#: apps/account/service/forms.py:72
-#: templates/home/partials/modals/modal-login.html:45
-msgid "Account is not active."
-msgstr "Conta não está ativa."
-
-#: apps/account/service/forms.py:74
-msgid "If you have not received the confirmation email %s to resend."
-msgstr "Se você não recebeu o email de confirmação %s para reenviá-lo."
 
 #: apps/account/service/forms.py:108
 msgid "Wrong old password."
@@ -102,7 +92,7 @@ msgstr "Senha alterada com sucesso!"
 msgid "A confirmation email was sent to you"
 msgstr "Um e-mail de confirmação foi enviado para você"
 
-#: apps/account/views.py:370 apps/core/views/account.py:52
+#: apps/account/views.py:370 apps/core/views/account.py:51
 msgid "E-mail re-sent successfully!"
 msgstr "E-mail reenviado com sucesso!"
 
@@ -114,27 +104,27 @@ msgstr "Nome de usuário está disponível"
 msgid "Username is not available!"
 msgstr "Nome de usuário não está disponível"
 
-#: apps/article/models.py:20
+#: apps/article/models.py:19
 msgid "Draft"
 msgstr "Rascunho"
 
-#: apps/article/models.py:21
+#: apps/article/models.py:20
 msgid "Trash"
 msgstr "Lixo"
 
-#: apps/article/models.py:22
+#: apps/article/models.py:21
 msgid "Publish"
 msgstr "Publicar"
 
-#: apps/article/models.py:29
+#: apps/article/models.py:29 apps/job_vacancy/models.py:40
 msgid "Author"
 msgstr "Autor"
 
-#: apps/article/service/forms.py:56 apps/article/service/forms.py:58
+#: apps/article/service/forms.py:55 apps/article/service/forms.py:57
 msgid "Publish date has invalid"
 msgstr "Data de publicação inválida."
 
-#: apps/article/service/forms.py:88 apps/userprofile/service/forms.py:87
+#: apps/article/service/forms.py:87 apps/userprofile/service/forms.py:87
 msgid "Image format is not allowed."
 msgstr "Formato da imagem não é permitido"
 
@@ -153,6 +143,18 @@ msgstr "Publicação removida"
 #: apps/article/views.py:228
 msgid "Generic Error"
 msgstr "Erro"
+
+#: apps/certification/models.py:9 apps/job_vacancy/models.py:35
+msgid "Title"
+msgstr "Título"
+
+#: apps/certification/models.py:10 apps/job_vacancy/models.py:16
+#: apps/job_vacancy/models.py:22 apps/job_vacancy/models.py:28
+#: apps/job_vacancy/models.py:39 apps/job_vacancy/models.py:55
+#: apps/job_vacancy/models.py:68 apps/job_vacancy/models.py:80
+#: apps/job_vacancy/models.py:86 apps/job_vacancy/models.py:92
+msgid "Description"
+msgstr "Descrição"
 
 #: apps/comment/service/forms.py:171
 msgid "You do not have permission to perform this action."
@@ -212,6 +214,16 @@ msgstr "^contar/(?P<object_to_link>\\d+)/(?P<content_type>[a-z]+)$"
 msgid "Community not Found."
 msgstr "Comunidade não encontrada"
 
+#: apps/company/models.py:8 templates/contact/contact.html.py:10
+msgid "Name"
+msgstr "Nome"
+
+#: apps/company/models.py:9
+#, fuzzy
+#| msgid "Logout"
+msgid "Logo"
+msgstr "Sair"
+
 #. Translators: URL de denunciar objeto
 #: apps/complaint/urls.py:9
 msgid "^(?P<object_type>[a-z]+)/(?P<object_id>[0-9]+)$"
@@ -237,6 +249,14 @@ msgstr "Configurar Chaves"
 msgid "Contact created!"
 msgstr "Mensagem enviada!"
 
+#: apps/core/forms/account.py:37
+msgid "Ocorreu um erro ao desativar a conta"
+msgstr "Ocorreu um erro ao desativar a conta"
+
+#: apps/core/templatetags/core_tags.py:151
+msgid "Olá, gostaria de sugerir a comunidade: "
+msgstr "Olá, gostaria de sugerir a comunidade: "
+
 #. Translators: URL de pagina de inscricao
 #: apps/core/urls/account.py:12
 msgid "^inscricao/$"
@@ -244,7 +264,7 @@ msgstr "^inscricao/$"
 
 #. Translators: URL de pagina de login
 #. Translators: URL de login de conta social
-#: apps/core/urls/account.py:15 apps/socialaccount/urls.py:16
+#: apps/core/urls/account.py:15 apps/socialaccount/urls.py:17
 msgid "^login/$"
 msgstr "^login/$"
 
@@ -438,10 +458,17 @@ msgstr "^conta$"
 msgid "^notification$"
 msgstr "^notificacao$"
 
+#. Translators: URL de configuracao de desativar conta
+#: apps/core/urls/configuration.py:14
+#, fuzzy
+#| msgid "^socialaccount/"
+msgid "^deactivate-account$"
+msgstr "^conta-social/"
+
 #. Translators: URL de criacao de contato
 #. Translators: URL index de conta social
 #: apps/core/urls/contact.py:7 apps/core/urls/notifications.py:7
-#: apps/socialaccount/urls.py:7
+#: apps/socialaccount/urls.py:8
 msgid "^$"
 msgstr "^$"
 
@@ -827,15 +854,15 @@ msgstr "^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/videos/search/listagem/$"
 msgid "^ajax/user/communities/$"
 msgstr "^ajax/usuario/comunidade/$"
 
-#: apps/core/views/account.py:51
+#: apps/core/views/account.py:50
 msgid "Resend confirmation email"
 msgstr "Reenviar confirmação de conta"
 
-#: apps/core/views/account.py:100
+#: apps/core/views/account.py:99
 msgid "Change Password"
 msgstr "Mudar senha"
 
-#: apps/core/views/account.py:101
+#: apps/core/views/account.py:100
 #: templates/account/password_change_successfully.html:2
 msgid "Your password has been changed!"
 msgstr "Sua senha foi alterada!"
@@ -853,37 +880,126 @@ msgid "Category not found or not root category."
 msgstr "Categoria não encontrada ou não é uma categoria raiz"
 
 #. Translators:
-#: apps/core/views/configuration.py:66
+#: apps/core/views/configuration.py:67
 msgid "Configuration Notification"
 msgstr "Configuração de Notificação"
 
-#: apps/core/views/configuration.py:67
+#: apps/core/views/configuration.py:68
 msgid "Your settings have been successfully changed!"
 msgstr "Suas configurações foi alteradas com sucesso!"
 
-#: apps/geography/models.py:16
-msgid "Country"
-msgstr "País"
+#: apps/job_vacancy/models.py:36
+msgid "Slug"
+msgstr "Slug"
 
-#: apps/geography/models.py:17
-msgid "Countries"
-msgstr "Países"
+#: apps/job_vacancy/models.py:37
+msgid "Date"
+msgstr "Data"
 
-#: apps/geography/models.py:33
-msgid "State"
-msgstr "Estado"
+#: apps/job_vacancy/models.py:38 templates/userprofile/occupation_add.html:13
+#: templates/userprofile/occupation_edit.html:13
+msgid "Company"
+msgstr "Empresa"
 
-#: apps/geography/models.py:34
+#: apps/job_vacancy/models.py:41
+msgid "Responsibility Description"
+msgstr "Descriçao da resposabilidade"
+
+#: apps/job_vacancy/models.py:42
+msgid "Regime"
+msgstr "Regime"
+
+#: apps/job_vacancy/models.py:43
+msgid "Home Office"
+msgstr "Home Office"
+
+#: apps/job_vacancy/models.py:44
+msgid "Quantity"
+msgstr "Quantidade"
+
+#: apps/job_vacancy/models.py:45
+msgid "Work Load"
+msgstr "Carga horária"
+
+#: apps/job_vacancy/models.py:46
 msgid "States"
 msgstr "Estados"
 
-#: apps/geography/models.py:55
-msgid "City"
-msgstr "Cidade"
-
-#: apps/geography/models.py:56
+#: apps/job_vacancy/models.py:47
 msgid "Cities"
 msgstr "Cidades"
+
+#: apps/job_vacancy/models.py:48
+msgid "Benefits"
+msgstr "Benefícios"
+
+#: apps/job_vacancy/models.py:49
+#, fuzzy
+#| msgid "Email"
+msgid "E-mail"
+msgstr "Email"
+
+#: apps/job_vacancy/models.py:50
+msgid "Phone Number"
+msgstr "Número de Telefone"
+
+#: apps/job_vacancy/models.py:51
+msgid "Web Site"
+msgstr "Web Site"
+
+#: apps/job_vacancy/models.py:52 templates/contact/contact.html.py:3
+msgid "Contact"
+msgstr "Contato"
+
+#: apps/job_vacancy/models.py:61
+msgid "Fixed value"
+msgstr "Valor fixo"
+
+#: apps/job_vacancy/models.py:62
+msgid "Range from"
+msgstr "Intervalo de"
+
+#: apps/job_vacancy/models.py:63
+msgid "Range to"
+msgstr "Intervalo para"
+
+#: apps/job_vacancy/models.py:64
+msgid "Salary Type"
+msgstr "Tipo de salário"
+
+#: apps/job_vacancy/models.py:65 apps/job_vacancy/models.py:77
+#: apps/job_vacancy/models.py:99 apps/job_vacancy/models.py:107
+msgid "Job Vacancy"
+msgstr "Vaga de trabalho"
+
+#: apps/job_vacancy/models.py:75
+msgid "Responsibility"
+msgstr "Área de atuação"
+
+#: apps/job_vacancy/models.py:76
+msgid "Responsibility Type"
+msgstr "tipo da área de atuação"
+
+#: apps/job_vacancy/models.py:100
+msgid "Item"
+msgstr "Item"
+
+#: apps/job_vacancy/models.py:101
+msgid "Level"
+msgstr "Nível"
+
+#: apps/job_vacancy/models.py:102 apps/job_vacancy/models.py:109
+msgid "Exigency"
+msgstr ""
+
+#: apps/job_vacancy/models.py:103
+msgid "Experience"
+msgstr "Experiência"
+
+#: apps/job_vacancy/models.py:108
+#| msgid "^notification$"
+msgid "Certification"
+msgstr "Certificação"
 
 #: apps/notifications/views.py:23
 msgid "you must specify the template_list_path property"
@@ -935,32 +1051,32 @@ msgid "Answer not found"
 msgstr "Resposta não encontrada"
 
 #. Translators: URL de home de conta social
-#: apps/socialaccount/urls.py:10
+#: apps/socialaccount/urls.py:11
 msgid "^home/"
 msgstr "^home/"
 
 #. Translators: URL de email enviado de conta social
-#: apps/socialaccount/urls.py:13
+#: apps/socialaccount/urls.py:14
 msgid "^email-sent/"
 msgstr "^email-enviados/"
 
 #. Translators: URL de logout de conta social
-#: apps/socialaccount/urls.py:19
+#: apps/socialaccount/urls.py:20
 msgid "^logout/$"
 msgstr "Sair"
 
 #. Translators: URL de termino de processo de conta social
-#: apps/socialaccount/urls.py:22
+#: apps/socialaccount/urls.py:23
 msgid "^done/$"
 msgstr "^finalizado/$"
 
 #. Translators: URL de autenticacao social ajax
-#: apps/socialaccount/urls.py:25
+#: apps/socialaccount/urls.py:26
 msgid "^ajax-auth/(?P<backend>[^/]+)/$"
 msgstr "^autenticacao-ajax/(?P<backend>[^/]+)/$"
 
 #. Translators: URL de requisicao de email social
-#: apps/socialaccount/urls.py:28
+#: apps/socialaccount/urls.py:29
 msgid "^email/$"
 msgstr "Email"
 
@@ -1052,31 +1168,31 @@ msgstr "Perfil nao encontrado"
 msgid "User not Found."
 msgstr "Usuário não encontrado"
 
-#: apps/userprofile/views.py:119
+#: apps/userprofile/views.py:122
 msgid "Profile edited successfully!"
 msgstr "Perfil editado com sucesso!"
 
-#: apps/userprofile/views.py:145
+#: apps/userprofile/views.py:148
 msgid "Select a state"
 msgstr "Selecione um estado"
 
-#: apps/userprofile/views.py:160
+#: apps/userprofile/views.py:163
 msgid "Cidade"
 msgstr "Cidade"
 
-#: apps/userprofile/views.py:207
+#: apps/userprofile/views.py:210
 msgid "Occupation created successfully!"
 msgstr "Ocupação criada com sucesso!"
 
-#: apps/userprofile/views.py:271
+#: apps/userprofile/views.py:274
 msgid "Occupation updated successfully!"
 msgstr "Ocupação alterada com sucesso!"
 
-#: apps/userprofile/views.py:288
+#: apps/userprofile/views.py:291
 msgid "Error! Occupation was not deleted!"
 msgstr "Ocupação não foi deletada"
 
-#: apps/userprofile/views.py:292
+#: apps/userprofile/views.py:295
 msgid "Occupation deleted successfully!"
 msgstr "Ocupação deletada com sucesso"
 
@@ -1168,7 +1284,7 @@ msgstr "^feed/"
 msgid "^ckeditor/"
 msgstr "^ckeditor/"
 
-#: templates/400.html:8 templates/404.html:8
+#: templates/400.html:8 templates/404.html.py:8
 msgid "Houston, we have a problem!"
 msgstr "Houston, we have a problem!"
 
@@ -1178,13 +1294,13 @@ msgstr "Mostrar perfil"
 
 #: templates/account/index.html:5 templates/account/index.html.py:6
 #: templates/account/index.html:7 templates/account/index.html.py:8
-#: templates/account/index.html:9 templates/account/login.html:23
-#: templates/account/login.html.py:24 templates/account/mail_validation.html:8
+#: templates/account/index.html:9 templates/account/login.html.py:23
+#: templates/account/login.html:24 templates/account/mail_validation.html:8
 #: templates/account/password_recovery_successfully.html:4
 #: templates/account/password_sent_email_successfully.html:4
 #: templates/account/recovery_validation.html:4
 #: templates/account/resend_account_confirmation_successfully.html:5
-#: templates/account/signup.html:96
+#: templates/account/signup.html:137
 #: templates/userprofile/occupation_add.html:21
 #: templates/userprofile/occupation_edit.html:22
 #: templates/userprofile/occupation_manage.html:22
@@ -1223,12 +1339,17 @@ msgstr "Mudar senha"
 msgid "Logout"
 msgstr "Sair"
 
-#: templates/account/login.html:8 templates/account/signup.html:71
+#: templates/account/login.html:2
+#: templates/home/partials/modals/modal-login.html:49
+msgid "click here"
+msgstr "clique aqui"
+
+#: templates/account/login.html:8 templates/account/signup.html.py:112
 msgid "Username"
 msgstr "Nome de usuário"
 
 #: templates/account/login.html:12 templates/account/password_recovery.html:9
-#: templates/account/signup.html:79
+#: templates/account/signup.html:120
 msgid "Password"
 msgstr "Senha"
 
@@ -1238,7 +1359,8 @@ msgid ""
 "If you have not received the confirmation email <a href="
 "\"%(url_resend_account_confirmation)s\">%(click_here)s</a> to resend. "
 msgstr ""
-"Se você não recebeu o email de confirmação <a data-toggle=\"modal\" data-target=\"#modal-resend-email-confirmation\" href="
+"Se você não recebeu o email de confirmação <a data-toggle=\"modal\" data-"
+"target=\"#modal-resend-email-confirmation\" href="
 "\"%(url_resend_account_confirmation)s\">%(click_here)s</a> para reenviá-lo. "
 
 #: templates/account/login.html:22 templates/account/mail_validation.html:8
@@ -1248,7 +1370,7 @@ msgstr ""
 #: templates/account/recovery_validation.html:4
 #: templates/account/resend_account_confirmation.html:15
 #: templates/account/resend_account_confirmation_successfully.html:5
-#: templates/account/signup.html:96 templates/userprofile/show.html:34
+#: templates/account/signup.html:137 templates/userprofile/show.html.py:34
 msgid "Login"
 msgstr "Login"
 
@@ -1288,7 +1410,7 @@ msgstr "Confirmação de nova senha"
 #: templates/account/password_forgot.html:12
 #: templates/account/password_recovery.html:20
 #: templates/account/resend_account_confirmation.html:14
-#: templates/account/signup.html:95
+#: templates/account/signup.html:136
 #: templates/userprofile/occupation_add.html:20
 #: templates/userprofile/occupation_edit.html:21
 msgid "Submit"
@@ -1300,7 +1422,7 @@ msgstr "Ir para início!"
 
 #: templates/account/password_forgot.html:8
 #: templates/account/resend_account_confirmation.html:8
-#: templates/account/signup.html:66 templates/contact/contact.html:13
+#: templates/account/signup.html:107 templates/contact/contact.html.py:13
 msgid "Email"
 msgstr "Email"
 
@@ -1309,7 +1431,7 @@ msgid "Nova senha"
 msgstr "Nova senha"
 
 #: templates/account/password_recovery.html:13
-#: templates/account/signup.html:84
+#: templates/account/signup.html:125
 msgid "Password Confirm"
 msgstr "Confirmação de senha"
 
@@ -1317,11 +1439,11 @@ msgstr "Confirmação de senha"
 msgid "Resend account confirmation"
 msgstr "Reenviar confirmação de conta"
 
-#: templates/account/signup.html:54
+#: templates/account/signup.html:95
 msgid "First name"
 msgstr "Primeiro nome"
 
-#: templates/account/signup.html:60
+#: templates/account/signup.html:101
 msgid "Last Name"
 msgstr "Último nome"
 
@@ -1340,13 +1462,14 @@ msgctxt "publish article"
 msgid "Publish"
 msgstr "Publicar"
 
-#: templates/contact/contact.html:3
-msgid "Contact"
-msgstr "Contato"
+#: templates/configuration/configuration-account.html:42
+#: templates/configuration/configuration-deactivate-account.html:23
+msgid "Desativar Conta"
+msgstr "Desativar Conta"
 
-#: templates/contact/contact.html:10
-msgid "Name"
-msgstr "Nome"
+#: templates/configuration/configuration-deactivate-account.html:37
+msgid "Confirmar"
+msgstr "Confirmar"
 
 #: templates/contact/contact.html:19
 msgid "Select"
@@ -1360,7 +1483,12 @@ msgstr "Mensagem"
 msgid "submit"
 msgstr "Enviar"
 
-#: templates/home/partials/modals/modal-login.html:48                           "
+#: templates/home/partials/modals/modal-login.html:47
+msgid "Account is not active."
+msgstr "Conta não está ativa."
+
+#: templates/home/partials/modals/modal-login.html:50
+#, python-format
 msgid ""
 "If you have not received the confirmation email <a href="
 "\"%(url_resend_account_confirmation)s\" data-toggle=\"modal\" data-target="
@@ -1370,7 +1498,8 @@ msgstr ""
 "\"%(url_resend_account_confirmation)s\" data-toggle=\"modal\" data-target="
 "\"#modal-resend-email-confirmation\">%(click_here)s</a> para reenviá-lo."
 
-#: templates/home/partials/user-actions.html:32
+#: templates/home/partials/slideout-menu.html:35
+#: templates/home/partials/user-actions.html:29
 msgid "Sair"
 msgstr "Sair"
 
@@ -1380,14 +1509,9 @@ msgstr "Sair"
 msgid "Edit"
 msgstr "Editar"
 
-#: templates/question/edit_answer.html:8 templates/question/show.html:26
+#: templates/question/edit_answer.html:8 templates/question/show.html.py:26
 msgid "Comment here"
 msgstr "Comente aqui"
-
-#: templates/userprofile/occupation_add.html:13
-#: templates/userprofile/occupation_edit.html:13
-msgid "Company"
-msgstr "Empresa"
 
 #: templates/userprofile/occupation_add.html:21
 #: templates/userprofile/occupation_edit.html:22
@@ -1406,14 +1530,6 @@ msgstr "Mostrar"
 msgid "Delete"
 msgstr "Deletar"
 
-#: templates/userprofile/partials/profile-navbar.html:6
-msgid "Atenção!"
-msgstr ""
-
-#: templates/userprofile/partials/profile-navbar.html:6
-msgid "Apenas você pode visualizar a listagem com suas perguntas!"
-msgstr "Apenas você pode visualizar a listagem com suas perguntas."
-
 #: templates/userprofile/profile-edit.html:65
 #: templates/userprofile/show.html:13
 msgid "Birth date"
@@ -1429,6 +1545,14 @@ msgstr "Selecione um estado"
 msgid "Selecione uma cidade"
 msgstr "Selecione uma cidade"
 
+#: templates/userprofile/profile-questions.html:33
+msgid "Atenção!"
+msgstr "Atenção!"
+
+#: templates/userprofile/profile-questions.html:33
+msgid "Apenas você pode visualizar a listagem com suas perguntas!"
+msgstr "Apenas você pode visualizar a listagem com suas perguntas."
+
 #: templates/userprofile/show.html:12
 msgid "Gender"
 msgstr "Sexo"
@@ -1436,6 +1560,21 @@ msgstr "Sexo"
 #: templates/userprofile/show.html:14
 msgid "City / State / Country"
 msgstr "Cidade / Estado / País"
+
+#~ msgid "If you have not received the confirmation email %s to resend."
+#~ msgstr "Se você não recebeu o email de confirmação %s para reenviá-lo."
+
+#~ msgid "Country"
+#~ msgstr "País"
+
+#~ msgid "Countries"
+#~ msgstr "Países"
+
+#~ msgid "State"
+#~ msgstr "Estado"
+
+#~ msgid "City"
+#~ msgstr "Cidade"
 
 #~ msgid "Comment not Found."
 #~ msgstr "Comentário não encontrado"
