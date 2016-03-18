@@ -34,12 +34,10 @@
                                     <input type="password" name="new_password_confirmation" class="form-control" placeholder="Confirma senha">
                                 </div>
                                 <div class="form-group text-right">
-                                    <button type="submit" class="btn-default btn-block">Salvar</button>
+                                    <a class="btn text-danger pull-left" onclick="window.location.href='{% url 'configuration:deactivate-account' %}';" href="javascript:void(0);" title="{% trans 'Desativar Conta' %}">{% trans 'Desativar Conta' %}</a>
+                                    <button type="submit" class="btn-default pull-right">Salvar</button>
                                 </div>
                             </form>
-                        </section>
-                        <section class="area-content">
-                            <a class="btn text-danger btn-block" onclick="window.location.href='{% url 'configuration:deactivate-account' %}';" href="javascript:void(0);" title="{% trans 'Desativar Conta' %}">{% trans 'Desativar Conta' %}</a>
                         </section>
                     </div>
                     {% include "configuration/partials/configuration-sidebar-right.html" with local_context="account" %}
