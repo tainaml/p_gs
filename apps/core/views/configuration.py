@@ -41,16 +41,17 @@ class CoreSettingsNotificationView(CoreSettingsBaseView):
     def get(self, request):
 
         configurations = BusinessConfig.get_system_configs('notification')
-        configs_obj = BusinessConfig.get_configs(request.user, 'notification')
+        configurations_obj = BusinessConfig.get_configs(request.user, 'notification')
         configs = {}
-        for config in configs_obj:
+
+        for config in configurations_obj:
             configs[config.key.key] = config.value
 
         context = {
             'profile': request.user.profile,
             'configurations': configurations,
             'configs': configs,
-            'configs_obj': configs_obj
+            'configs_obj': configurations_obj
         }
 
         return self.return_success(request, context)

@@ -37,7 +37,11 @@
             {% endif %}
         </figure>
         <div class="post-text">
-            <h3 class="post-title" itemprop="headline">{{ instance.title }} </h3>
+            <h3 class="post-title" itemprop="headline">{% if instance.title|length > 67 %}
+                {{ instance.title|slice:":67" }}...
+            {% else %}
+                {{ instance.title }}
+            {% endif %}</h3>
             <p>
                 {% if instance.get_image %}
                     {{ instance.text|safe|striptags|slice:":90"}}...

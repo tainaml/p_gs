@@ -1,3 +1,5 @@
+import logging
+
 from django.contrib.contenttypes.models import ContentType
 from django.conf import settings
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -5,6 +7,8 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from ..models import Comment
 
 __author__ = 'phillip'
+
+logger = logging.getLogger('general')
 
 
 def create_comment(user=None, parameters=None):
@@ -50,7 +54,7 @@ def delete_comment(comment=None):
         comment.delete()
     except Exception, e:
         if settings.DEBUG:
-            print e
+            logger.error(e.message)
         return False
     return True
 

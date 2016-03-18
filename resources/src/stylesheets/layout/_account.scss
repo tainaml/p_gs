@@ -30,6 +30,11 @@
 }
 .account-description { font-weight: 900; }
 .embed-responsive.embed-responsive-4by3 { margin-top: 40px; }
+.embed-responsive.embed-responsive-4by3-mobile {
+    margin-top: 40px;
+
+    @media (min-width: $screen-lg-min) { margin-top: 0; }
+}
 .fb-account-box { margin-top: 25px; }
 .menu-social-signup {
     @include make-xs-column(12);

@@ -4,8 +4,6 @@ from ..models import Community
 def get_community_by_params(params={}, order_by=[], limit=None, offset=None):
     try:
         community = Community.objects.filter(**params).order_by(*order_by)[offset:limit]
-        print "-- community --"
-        print community
     except Community.DoesNotExist:
         return False
 
