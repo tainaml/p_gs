@@ -12,9 +12,9 @@
         {% notification_navbar "general" %}
 
         <a href="javascript:void(0);" class="user-actions-logged-link--logged user-actions-profile" data-toggle="dropdown" data-target="#dropdown-perfil-action">
-            <img src="{% get_avatar request.user width=40 height=40 smart=False fit_in=False %}" alt="{{ profile.user.get_full_name }}" class="img-circle">
-            {% if request.user.first_name|length >= 8 %}
-                {{ request.user.first_name|slice:":8" }}...
+            <img title="{{ profile.user.get_full_name }}" src="{% get_avatar request.user width=40 height=40 smart=False fit_in=False %}" alt="{{ profile.user.get_full_name }}" class="img-circle">
+            {% if request.user.first_name|length >= 10 %}
+                {{ request.user.first_name|slice:":10" }}...
             {% else %}
                 {{ request.user.first_name }}
             {% endif %}
