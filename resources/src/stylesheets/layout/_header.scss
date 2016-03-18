@@ -15,8 +15,8 @@
         overflow: hidden;
         @include make-xs-column(8);
         @include make-lg-column(1.6);
-        padding-top: 10px;
-        padding-bottom: 10px;
+        padding-top: 5px;
+        padding-bottom: 5px;
         margin-top: 0;
         margin-bottom: 0;
         color: $color-governance;
@@ -30,16 +30,14 @@
             text-indent: -9999px;
             display: block;
 
-            @media (max-width: $screen-md-min) {
-                margin: 0 auto;
-            }
+            @media (max-width: $screen-md-min) { margin: 0 auto; }
         }
     }
     .btn-show-item {
         @include make-xs-column(2);
         text-align: center;
         font-size: 26px;
-        line-height: 2.33;
+        line-height: 1.95;
     }
     .form-search {
         @include make-xs-column(10);
@@ -93,7 +91,7 @@
             padding: 5px 22px;
             float: left;
             color: $background-button;
-            font-size: 1.214em;
+            font-size: 1.014em;
             line-height: 3;
             background-color: $white-ice;
             &:nth-child(4) {
@@ -119,7 +117,7 @@
                 background: $link-white;
                 @include box-shadow(0 0px 0px 1px $color-border);
             }
-            .gsticon-caret-down { margin-top: 20px; }
+            .gsticon-caret-down { margin-top: 15px; }
             &:hover { background-color: #f2f2f2; }
         }
     }
@@ -377,7 +375,7 @@
     border: none;
     color: #555;
     font-size: 14px;
-    line-height: 4.15;
+    line-height: 3.7;
     outline: none;
 }
 // .menu-mobile { @include make-row; }

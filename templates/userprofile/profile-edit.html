@@ -3,7 +3,7 @@
 {% load thumbor_tags %}
 {% block content %}
 <main class="container main">
-<div class="perfil-row">
+<div>
     <!-- mudar para 2.5 -->
     <div class="col-lg-3">
         {% include 'home/partials/sidebar-perfil.html' with local_context="profile-edit" %}
@@ -183,27 +183,25 @@
             showTodayButton: true
         });
         function fillElement($obj){
-
-            $.ajax({
-                url: $obj.data("url"),
-                method: "POST",
-                dataType: "html",
-                data: {
-                    value_id: $obj.val(),
-                    csrfmiddlewaretoken: $("input:hidden[name='csrfmiddlewaretoken']").val()
-                },
-                success: function(response) {
-                    var $target = $($obj.data("target"));
-                    var $value = $obj.data("value");
-                    $target.html(response);
-                    if ($value) {
-                        $target.val($obj.data("value"));
-                        $obj.data("value", "");
-                    }
-
-
-                }
-            });
+            console.log($obj.data('url'));
+            // $.ajax({
+            //     url: $obj.data("url"),
+            //     method: "POST",
+            //     dataType: "html",
+            //     data: {
+            //         value_id: $obj.val(),
+            //         csrfmiddlewaretoken: $("input:hidden[name='csrfmiddlewaretoken']").val()
+            //     },
+            //     success: function(response) {
+            //         var $target = $($obj.data("target"));
+            //         var $value = $obj.data("value");
+            //         $target.html(response);
+            //         if ($value) {
+            //             $target.val($obj.data("value"));
+            //             $obj.data("value", "");
+            //         }
+            //     }
+            // });
         }
         var fillValues = function() {
             fillElement($(this));
@@ -212,7 +210,7 @@
         $(function() {
             var $elementsChange = $("[data-ajax-change='true']");
             $elementsChange.on("change", fillValues);
-            $.each($elementsChange, function(index, value){
+            $.each($elementsChange, function(index, value) {
                 fillElement($(value));
             });
 
