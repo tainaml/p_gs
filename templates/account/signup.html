@@ -84,12 +84,18 @@
                         <form class="form-signup" action="{% url 'account:signup' %}" method="post">
                             {% csrf_token %}
                             <div class="form-group">
-                                <a href="javascript:;" class="btn-login-facebook">
+                                <a class="btn-login-facebook" href="{% url 'social:begin' backend='facebook' %}">
                                     <i class="gsticon gsticon-facebook"></i>
-                                    Facebook</a>
-                                <a href="javascript:;" class="btn-login-google">
+                                    Facebook
+                                </a>
+                                <a class="btn-login-google" href="{% url 'social:begin' backend='google-oauth2' %}">
                                     <i class="gsticon gsticon-google-plus"></i>
-                                    Google+</a>
+                                    Google+
+                                </a>
+                                <a class="btn-login-linkedin" href="{% url 'social:begin' backend='linkedin-oauth2' %}">
+                                    <i class="gsticon gsticon-linkedin"></i>
+                                    LinkedIn
+                                </a>
                             </div>
                             <div class="form-group form-group-half {% if form.first_name.errors %}has-error{% endif %}">
                                 <input class="form-control" type="text" id="first_name" name="first_name" value="{{ form.cleaned_data.first_name|default_if_none:"" }}" placeholder="{% trans "First name" %}" maxlength="30"
