@@ -37,7 +37,7 @@ $(() => {
         'padding': 256,
         'tolerance': 70
     });
-    document.querySelector('.toggle-slideout').addEventListener('click', function() {
+    $(document).on('click', '.toggle-slideout', function() {
         slideout.toggle();
     });
     var mobileSearch = $('#mobile-search');

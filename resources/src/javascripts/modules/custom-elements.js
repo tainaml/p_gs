@@ -24,13 +24,16 @@ $(document).on('click', function () {
     }
 });
 
+var navigationHeader = $('.header');
+var navigationClone = navigationHeader.clone();
 $(window).on('scroll', function (event) {
     var top = $(document).scrollTop();
-    var navigationHeader = $('.header');
+    navigationClone.addClass('fixed');
     if (top > 0) {
-        navigationHeader.addClass('fixed');
+        navigationClone.insertBefore(navigationHeader);
+        console.log(navigationClone);
     } else {
-        navigationHeader.removeClass('fixed');
+        navigationClone.remove();
     }
 });
 
