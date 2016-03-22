@@ -46,6 +46,7 @@
                                 {% if form.non_field_erros %}<div class="col-lg-9">{{ form.non_field_errors }}</div>{% endif %}
 
                                 <div class="form-group">
+                                    {% include 'core/partials/messages-flash.html' with message_extra_tags="question" %}
                                     {% include 'core/partials/messages-flash.html' with message_extra_tags="question-edit" %}
                                 </div>
 

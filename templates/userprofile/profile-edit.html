@@ -88,7 +88,7 @@
                                 {% endif %}
                             </div>
                             <div class="form-group-inline {% if form.birth.errors %}has-error{% endif %}">
-                                            <label for="city_hometown">Cidade que nasceu</label>
+                                <label for="city_hometown">Cidade que nasceu</label>
                                 <select class="form-control" id="city_hometown" name="city_hometown">
                                     <option value="" {% if not form.data_model.city_hometown %}selected{% endif %} disabled>{% trans "Selecione uma cidade" %}</option>
                                     {% for city in form.data_model.city_hometown.state.cities.all %}
@@ -184,32 +184,29 @@
         });
         function fillElement($obj){
             console.log($obj.data('url'));
-            // $.ajax({
-            //     url: $obj.data("url"),
-            //     method: "POST",
-            //     dataType: "html",
-            //     data: {
-            //         value_id: $obj.val(),
-            //         csrfmiddlewaretoken: $("input:hidden[name='csrfmiddlewaretoken']").val()
-            //     },
-            //     success: function(response) {
-            //         var $target = $($obj.data("target"));
-            //         var $value = $obj.data("value");
-            //         $target.html(response);
-            //         if ($value) {
-            //             $target.val($obj.data("value"));
-            //             $obj.data("value", "");
-            //         }
-            //     }
-            // });
+            $.ajax({
+                url: $obj.data("url"),
+                method: "POST",
+                dataType: "html",
+                data: {
+                    value_id: $obj.val(),
+                    csrfmiddlewaretoken: $("input:hidden[name='csrfmiddlewaretoken']").val()
+                },
+                success: function(response) {
+                    var $target = $($obj.data("target"));
+                    var $value = $obj.data("value");
+                    $target.html(response);
+                    if ($value) {
+                        $target.val($obj.data("value"));
+                        $obj.data("value", "");
+                    }
+                }
+            });
         }
-        var fillValues = function() {
-            fillElement($(this));
-        };
 
         $(function() {
             var $elementsChange = $("[data-ajax-change='true']");
-            $elementsChange.on("change", fillValues);
+{#            $elementsChange.on("change", fillValues);#}
             $.each($elementsChange, function(index, value) {
                 fillElement($(value));
             });

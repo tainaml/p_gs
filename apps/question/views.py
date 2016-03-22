@@ -195,12 +195,8 @@ class UpdateQuestionView(View):
         if question:
             form = self.form(data=request.POST, instance=question, user=request.user)
             if form.process():
-                messages.add_message(
-                    request,
-                    messages.SUCCESS,
-                    _("Question updated successfully!"),
-                    'question-edit'
-                )
+                messages.add_message(request, messages.SUCCESS,
+                                     _("Question updated successfully!"), 'question-edit')
                 return redirect(reverse('question:edit', args=[question.id]))
             else:
                 messages.add_message(request, messages.ERROR, 'Erro ao carregar question', 'question-edit')
