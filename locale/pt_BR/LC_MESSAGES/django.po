@@ -1032,7 +1032,7 @@ msgstr "Dùvida não existe"
 
 #: apps/question/views.py:204
 msgid "Question updated successfully!"
-msgstr "Pergunta criada com sucesso"
+msgstr "Pergunta atualizada com sucesso"
 
 #: apps/question/views.py:245
 msgid "Question not found"
