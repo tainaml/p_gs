@@ -8,6 +8,10 @@ services:
       - "8888:8880"
     domainname: thumbor.redegsti.dev
     hostname: thumbor
+  memcached:
+    image: memcached
+    ports:
+      - "11211:11211"
   db:
     build:
       context: .
@@ -28,5 +32,6 @@ services:
     links:
       - db:db
       - thumbor:thumbor
+      - memcached:memcached
     domainname: redegsti.dev
     hostname: redegsti
