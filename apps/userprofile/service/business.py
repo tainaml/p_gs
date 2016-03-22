@@ -54,46 +54,44 @@ def create_profile(user, data=None):
 
 
 @transaction.atomic()
-def edit_profile(user, data_profile=None, data_formset=None):
+def edit_profile(user, data_profile=None):
 
     try:
-        profile = update_profile(user, data_profile)
-
-        if data_formset:
-            for data in data_formset:
-                create_occupation(user, data)
-    except:
+        update_profile(user, data_profile)
+    except Exception, e:
+        if settings.DEBUG:
+            logger.error(e.message)
         return False
 
-    return profile
+    return user.profile
 
 
 def update_profile(user=None, data=None):
 
-    profile = get_profile(user)
+    profile = user.profile if user and hasattr(user, 'profile') else get_profile(user)
 
-    if data:
-        try:
+    try:
+        if data.get('birth'):
+            profile.birth = data.get('birth')
 
-            if data.get('birth'):
-                profile.birth = data.get('birth')
+        if data.get('gender'):
+            profile.gender = data.get('gender')
 
-            if data.get('gender'):
-                profile.gender = data.get('gender')
+        if data.get('city'):
+            profile.city = data.get('city')
 
-            if data.get('city'):
-                profile.city = data.get('city')
+        if data.get('city_hometown'):
+            profile.city_hometown = data.get('city_hometown')
 
-            if data.get('city_hometown'):
-                profile.city_hometown = data.get('city_hometown')
+        if data.get('profile_picture') and profile.profile_picture != data.get('profile_picture'):
+            profile.profile_picture.delete()
+            profile.profile_picture = data.get('profile_picture')
 
-            if data.get('profile_picture') and profile.profile_picture != data.get('profile_picture'):
-                profile.profile_picture.delete()
-                profile.profile_picture = data.get('profile_picture')
-
-            profile.save()
-        except:
-            return False
+        profile.save()
+    except Exception, e:
+        if settings.DEBUG:
+            logger.error(e.message)
+        return False
 
     return profile
 
@@ -102,7 +100,9 @@ def update_user(user, data={}):
 
     try:
         user = User.objects.filter(id=user.id).update(**data)
-    except:
+    except Exception, e:
+        if settings.DEBUG:
+            logger.error(e.message)
         return False
 
     return user
@@ -113,7 +113,9 @@ def update_wizard_step(profile, step=0):
     try:
         profile.wizard_step = step
         profile.save()
-    except:
+    except Exception, e:
+        if settings.DEBUG:
+            logger.error(e.message)
         return None
 
     return profile
@@ -134,7 +136,9 @@ def create_occupation(profile=None, user=None, data=None):
     try:
         occupation = Occupation(**data)
         occupation.save()
-    except:
+    except Exception, e:
+        if settings.DEBUG:
+            logger.error(e.message)
         return False
 
     return occupation
@@ -189,12 +193,13 @@ def get_cities(state_id=None):
         return []
 
 
-
 def get_occupations(params={}, order_by=None):
 
     try:
         occupations = Occupation.objects.filter(**params).order_by(order_by)
-    except:
+    except Exception, e:
+        if settings.DEBUG:
+            logger.error(e.message)
         return False
 
     return occupations
@@ -204,7 +209,9 @@ def get_occupation(params={}):
 
     try:
         occupations = Occupation.objects.get(**params)
-    except:
+    except Exception, e:
+        if settings.DEBUG:
+            logger.error(e.message)
         return False
 
     return occupations
@@ -215,7 +222,9 @@ def delete_occupation(occupation_id):
     try:
         occupation = get_occupation({'id': occupation_id})
         occupation.delete()
-    except:
+    except Exception, e:
+        if settings.DEBUG:
+            logger.error(e.message)
         return False
     return True
 
@@ -225,7 +234,9 @@ def update_occupation(occupation, data):
         occupation.responsibility = data['responsibility']
         occupation.description = data['company']
         occupation.save()
-    except:
+    except Exception, e:
+        if settings.DEBUG:
+            logger.error(e.message)
         return False
 
     return occupation
