@@ -166,11 +166,11 @@ def suggest_post(author, object_to_link, content, to_user):
 
     suggested_to = []
 
-    article = Article.objects.get(id=object_to_link)
-    if not article:
-        raise Exception('Article is not exists!')
+    content_type = ContentType.objects.get(model=content)
 
-    content_type = ContentType.objects.get_for_model(article)
+    instance = content_type.get_object_for_this_type(id=object_to_link)
+    if not instance:
+        raise Exception('Article is not exists!')
 
     try:
 
@@ -181,7 +181,7 @@ def suggest_post(author, object_to_link, content, to_user):
                 user_action, created = UserAction.objects.get_or_create(
                     author=author,
                     content_type=content_type,
-                    object_id=article.id,
+                    object_id=instance.id,
                     action_type=settings.SOCIAL_SUGGEST,
                     target_user=user
                 )
@@ -198,18 +198,17 @@ def act_by_content_type_and_id(user=None, content_type=None, object_id=None, act
 
     inverse_action_list = settings.SOCIAL_INVERSE_ACTIONS[action_type_key] \
         if action_type_key in settings.SOCIAL_INVERSE_ACTIONS.keys() else []
+
     user_acted = user_acted_by_content_and_object_id(user, content_type, object_id, action_type)
 
     if user_acted and user_acted.action_type == action_type_key:
         user_acted.delete()
-
         return
-
 
     for inverse_action in inverse_action_list:
         if action_type_key != inverse_action:
-            inverse_action_user = user_acted_by_content_and_object_id_and_action_id(user, content_type, object_id,
-                                                                                    inverse_action)
+            inverse_action_user = user_acted_by_content_and_object_id_and_action_id(user, content_type,
+                                                                                    object_id, inverse_action)
             if inverse_action_user is not False:
                 inverse_action_user.delete()
 
