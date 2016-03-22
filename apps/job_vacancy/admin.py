@@ -1,3 +1,4 @@
+from django import forms
 from django.contrib import admin
 
 # Register your models here.
@@ -20,14 +21,22 @@ class SalaryInLine(admin.TabularInline):
 class JobVacancyResponsibilityInLine(admin.TabularInline):
     model = JobVacancyResponsibility
 
-class JobVacancyAdmin(admin.ModelAdmin):
 
+class JobVacancyForm(forms.ModelForm):
+
+    class Meta:
+        model = JobVacancy
+        exclude = ['cities']
+
+class JobVacancyAdmin(admin.ModelAdmin):
+    form = JobVacancyForm
     filter_horizontal = [
         'benefits',
         'cities',
         'states',
 
     ]
+
     inlines = [
         RequirementInLine,
         JobVacancyCertificationInLine,
