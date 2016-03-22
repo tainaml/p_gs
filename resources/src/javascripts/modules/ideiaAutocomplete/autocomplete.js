@@ -118,7 +118,7 @@
             location.href = item.attr('href');
         } else {
             console.log(e);
-            $('form[role="search"]').submit();
+            $('.search-header-form:visible').submit();
         }
     }
 

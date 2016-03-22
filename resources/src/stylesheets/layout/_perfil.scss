@@ -230,6 +230,44 @@
         font-weight: 600;
         letter-spacing: -0.05em;
     }
+
+    @media (max-width: 767px) {
+        margin-top: 20px;
+    }
+}
+
+.toggle-box {
+    margin-right: -20px;
+    display: none;
+    float: right;
+
+    @media (max-width: 767px) {
+        display: block;
+    }
+}
+.btn-toggle {
+    padding: 10px;
+    margin: 0 5px;
+    background-color: #f7f7f7;
+    color: #4d6479;
+
+    &:last-child { margin-right: 0; }
+}
+
+.filters-members {
+    @media (max-width: 767px) {
+        display: none;
+    }
+}
+.mobile-perfil-navegation {
+    margin-top: -20px;
+    display: none;
+    background-color: #f7f7f7;
+    a {
+        padding: 5px;
+        display: block;
+        font-size: 1.2em;
+    }
 }
 
 .box-perfil {
@@ -247,16 +285,12 @@
     color: $color-text-post;
     font-size: 1.071em;
 
-    > p {
-        font-size: 1em;
-    }
+    > p { font-size: 1em; }
 }
 
 .description-text {
     color: $color-link-counter;
-    > a {
-        color: $color-link-feed;
-    }
+    > a { color: $color-link-feed; }
 }
 .btn-perfil {
     width: 49%;

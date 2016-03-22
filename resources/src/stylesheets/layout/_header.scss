@@ -88,7 +88,7 @@
 
         &-#{link--logged} {
             position: relative;
-            min-height: 53px;
+            min-height: 50px;
             padding: 5px 22px;
             float: left;
             color: $background-button;
@@ -376,7 +376,7 @@
     border: none;
     color: #555;
     font-size: 14px;
-    line-height: 3.4;
+    line-height: 3.6;
     outline: none;
 }
 // .menu-mobile { @include make-row; }

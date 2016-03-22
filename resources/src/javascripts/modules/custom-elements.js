@@ -31,7 +31,6 @@ $(window).on('scroll', function (event) {
     navigationClone.addClass('fixed');
     if (top > 0) {
         navigationClone.insertBefore(navigationHeader);
-        console.log(navigationClone);
     } else {
         navigationClone.remove();
     }

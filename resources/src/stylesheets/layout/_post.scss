@@ -68,8 +68,9 @@
 }
 .box-share {
     @media (max-width: $screen-md-min) { display: none; }
-    @include make-lg-column(0.6);
+    // @include make-lg-column(0.6);
     position: absolute;
+    width: 70px;
     padding: 0;
     margin-left: 35px;
     border: 1px solid $color-border;
@@ -82,9 +83,7 @@
         border-bottom: 1px solid $color-border;
         color: #4d6479;
         font-weight: bold;
-        &:last-child {
-            border-bottom: none;
-        }
+        &:last-child { border-bottom: none; }
         > a,
         > div > a {
             color: #4d6479;

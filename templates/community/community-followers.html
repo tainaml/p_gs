@@ -14,7 +14,7 @@
             </div>
             <!-- mudar para 9.5 -->
             <div class="col-lg-9">
-                <nav class="perfil-navegation">
+                <nav class="perfil-navegation hidden-xs">
                     <a href="{% url 'community:show' community.slug %}">Feed</a> •
                     <a href="{% url 'community:questions' community.slug %}">Perguntas</a> •
                     <a class="active" href="{% url 'community:followers' community.slug %}">Membros</a> •
@@ -22,42 +22,54 @@
                     <a href="{% url 'community:videos' community.slug %}">Vídeos</a>
                 </nav>
                 <header class="area-title">
+                    <div class="toggle-box">
+                        <a class="btn-toggle" data-target="#form-search-followers" href="javascript:;">
+                            <i class="gsticon gsticon-filter"></i>
+                        </a>
+                        <a class="btn-toggle" data-target="#mobile-perfil-navegation" href="javascript:;">
+                            <i class="gsticon gsticon-bars"></i>
+                        </a>
+                    </div>
                     <h2>Membros</h2>
                 </header>
-                <div class="filter row">
-                    <form id="form-search-followers" name="filterMember" action="{% url 'community:search-followers' %}?next={{ request.path }}" method="GET" role="search" data-ajaxform="true" data-group-class=".form-group">
-                        <input type="hidden" name="community" value="{{ community.id }}">
-                        <div class="col-lg-7">
-                            <div class="form-search-input">
-                                <input type="text" id="filterName" name="criteria" placeholder="{{ placehold|default:"Procure por pessoas" }}" autocomplete="off">
-                            </div>
-                            <button type="submit" class="form-search-button">
-                                <i class="gsticon gsticon-search"></i>
-                            </button>
+                <hr class="visible-xs-block">
+                <nav class="mobile-perfil-navegation" id="mobile-perfil-navegation">
+                    <a href="{% url 'community:show' community.slug %}">Feed</a>
+                    <a href="{% url 'community:questions' community.slug %}">Perguntas</a>
+                    <a class="active" href="{% url 'community:followers' community.slug %}">Membros</a>
+                    <a href="{% url 'community:about' community.slug %}">Sobre</a>
+                    <a href="{% url 'community:videos' community.slug %}">Vídeos</a>
+                </nav>
+                <form class="filters-members row" id="form-search-followers" data-toggle="filters" name="filterMember" action="{% url 'community:search-followers' %}?next={{ request.path }}" method="GET" role="search" data-ajaxform="true" data-group-class=".form-group">
+                    <input type="hidden" name="community" value="{{ community.id }}">
+                    <div class="col-lg-7 col-xs-12">
+                        <div class="form-search-input">
+                            <input type="text" id="filterName" name="criteria" placeholder="{{ placehold|default:"Procure por pessoas" }}" autocomplete="off">
                         </div>
-                        <div class="col-lg-2 col-xs-12 text-right">
-                            <div class="custom-select">
-                                <select class="form-control" id="filterState" name="state" data-ajax-change="true" data-url="{% url 'profile:get_city' %}" data-target="#filterCity">
-                                    <option value="" selected>Estado</option>
-                                    {% for state in states %}
-                                        <option value="{{ state.id }}">{{ state.name }}</option>
-                                    {% endfor %}
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-xs-12 text-right">
-                            <div class="custom-select">
-                                <select class="form-control" id="filterCity" name="city">
-                                    <option value="">Cidade</option>
-                                </select>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-                <div class="row">
-                    <div class="col-lg-12">
-                        <hr>
+                        <button type="submit" class="form-search-button">
+                            <i class="gsticon gsticon-search"></i>
+                        </button>
                     </div>
+                    <div class="col-lg-2 col-xs-12 text-right">
+                        <div class="custom-select">
+                            <select class="form-control" id="filterState" name="state" data-ajax-change="true" data-url="{% url 'profile:get_city' %}" data-target="#filterCity">
+                                <option value="" selected>Estado</option>
+                                {% for state in states %}
+                                    <option value="{{ state.id }}">{{ state.name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-xs-12 text-right">
+                        <div class="custom-select">
+                            <select class="form-control" id="filterCity" name="city">
+                                <option value="">Cidade</option>
+                            </select>
+                        </div>
+                    </div>
+                </form>
+                <div class="row">
+                    <div class="col-lg-12"><hr class="hidden-xs"></div>
                     <div class="col-lg-12">
                         <div id="followers-container">
                             <div class="row j-scroll-followers j-scroll-followers-container">
