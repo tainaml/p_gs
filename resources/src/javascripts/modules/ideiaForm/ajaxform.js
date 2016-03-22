@@ -134,12 +134,14 @@ require('./validation.js');
                 'url': url,
                 'cache': false,
                 beforeSend: function(jqXHR) {
+                    $self.find('button[type=submit]').prop('disabled', true);
                     $self.trigger('ajaxform.before-send', jqXHR);
                 },
-                'success': function(data){
+                success: function(data){
                     $self.trigger('ajaxform.success', data);
+                    $self.find('button[type=submit]').prop('disabled', false);
                 },
-                'error': function(jqXHR){
+                error: function(jqXHR){
                     var data;
                     try{
                         data = $.parseJSON(jqXHR.responseText);
@@ -153,8 +155,8 @@ require('./validation.js');
                     }
 
                 },
-                'dataType': 'json',
-                'data': $self.serialize()
+                dataType: 'json',
+                data: $self.serialize()
             };
 
             if(withFiles){
