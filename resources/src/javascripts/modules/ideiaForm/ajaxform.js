@@ -139,6 +139,8 @@ require('./validation.js');
                 },
                 success: function(data){
                     $self.trigger('ajaxform.success', data);
+                },
+                complete: function() {
                     $self.find('button[type=submit]').prop('disabled', false);
                 },
                 error: function(jqXHR){

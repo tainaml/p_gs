@@ -3,11 +3,11 @@ from django.utils.decorators import method_decorator
 from django.views.generic import View
 from django_thumbor import generate_url
 from django.contrib.auth.decorators import login_required
+from django.conf import settings
 
 from apps.core.forms.user import CoreSearchFollowings
 from apps.socialactions.service.forms import UserCountForm
 from apps.userprofile.service.business import get_user
-from rede_gsti import settings
 
 
 class SocialActionFilterFollowings(View):
@@ -39,11 +39,13 @@ class SocialActionFilterFollowings(View):
             img_url = u.content_object.profile.profile_picture
             if img_url:
                 img_url = str(settings.THUMBOR_MEDIA_URL) + '/' + str(img_url)
-                thumbnail = generate_url(img_url, width=20, height=20, thumbor_server=settings.THUMBOR_SERVER)
+            elif u.content_object.profile and u.content_object.profile.gender:
+                img_url = settings.AVATAR[u.content_object.profile.gender]
             else:
-                initials = "%s%s" % (u.content_object.first_name[:0] if u.content_object.first_name else '',
-                                     u.content_object.last_name[:0] if u.content_object.first_name else '')
-                thumbnail = "http://placehold.it/20?text=%s" % initials
+                img_url = settings.AVATAR['M']
+
+            thumbnail = generate_url(img_url, width=20, height=20, thumbor_server=settings.THUMBOR_SERVER)
+
             user = {
                 'name': u.content_object.get_full_name(),
                 'img': thumbnail,
