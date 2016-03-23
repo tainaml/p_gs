@@ -554,14 +554,14 @@ SOCIAL_AUTH_PIPELINE = (
 
 )
 
+from django.core.cache.backends.memcached import PyLibMCCache
 
 CACHES = {
     'default': {
         'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
         'LOCATION': '%s:%s' % (config.get("CACHE", "host"), config.get("CACHE", "port"),),
-    }
+    },
 }
-
 
 # Name of cache backend to cache user agents. If it not specified default
 # cache alias will be used. Set to `None` to disable caching.

@@ -1,6 +1,4 @@
 from abc import ABCMeta
-from itertools import chain
-import hashlib
 from django import template
 from django.contrib.contenttypes.models import ContentType
 from django.core.cache import caches
@@ -9,7 +7,7 @@ from django.template.defaultfilters import slugify
 from django.template.loader import render_to_string
 from django.utils import timezone
 from django.utils.safestring import mark_safe
-
+from ..utils import generate_home_cache_key
 from apps.article.models import Article
 from apps.community.models import Community
 from apps.taxonomy.models import Taxonomy
@@ -23,7 +21,6 @@ cache = caches['default']
 home_block_counter = 0
 
 home_block_excludes = []
-
 
 class AbstractHomeBlock(object):
     __metaclass__ = ABCMeta
@@ -52,12 +49,16 @@ class AbstractHomeBlock(object):
         self.cache_home_page = 'default'
 
         if 'request' in context:
-            _slug_path = slugify(context.request.path)
-            self.cache_home_page = _slug_path if len(_slug_path) > 0 else 'home'
+            self.cache_home_page = generate_home_cache_key(context['request'])
 
-        global_excludes = cache.get_or_set('global_home_excludes', [], self.cache_time)
+        self.cache_home_page = 'home_excludes__%s' % self.cache_home_page
+
+        print self.cache_home_page
+
+        global_excludes = cache.get('global_home_excludes', [])
         global_excludes.append(self.cache_home_page)
-        cache.set('global_home_excludes', sorted(set(global_excludes)))
+
+        cache.set('global_home_excludes', sorted(set(global_excludes)), None)
 
         if template is not None:
             self.template_file = template
@@ -81,7 +82,7 @@ class AbstractHomeBlock(object):
             feed__content_type=article_type,
             publishin__lte=timezone.now(),
             feed__taxonomies__in=[self.category],
-            status__in=[Article.STATUS_PUBLISH, Article.STATUS_DRAFT]
+            status__in=[Article.STATUS_PUBLISH]
         )
 
     def get_taxonomies(self):
@@ -117,12 +118,11 @@ class AbstractHomeBlock(object):
 
         communities = Community.objects.filter(**communities_filters)
 
-        excludes_key = 'home_block_excludes::%s' % self.cache_home_page
-        excludes = cache.get(excludes_key, [])
+        excludes = cache.get(self.cache_home_page, [])
         excludes = sorted(set(excludes))
 
         articles = Article.objects.filter(
-            self.custom_filters
+            self.custom_filters,
         ).exclude(
             id__in=excludes
         ).order_by(
@@ -134,10 +134,7 @@ class AbstractHomeBlock(object):
         for article in articles:
             excludes.append(article.pk)
 
-        cache.set(excludes_key, excludes)
-
-        print 'EXCLUDES'
-        print excludes
+        cache.set(self.cache_home_page, excludes, None)
 
         context = {
             'class_name': self.class_name,
@@ -171,18 +168,20 @@ class AbstractHomeBlock(object):
         if not self.category:
             return ''
 
-        cache_key = '%s-%s-%s' % (
-            self.block_name,
-            self.cache_home_page,
-            self.category.slug.lower()
-        )
 
-        template = cache.get(cache_key)
+        # cache_key = '%s-%s-%s' % (
+        #     self.block_name,
+        #     self.cache_home_page,
+        #     self.category.slug.lower()
+        # )
+        #
+        # template = cache.get(cache_key)
+        template = False
 
         if not template:
             self.filter_articles()
             template = render_to_string(self.template_file, context=self.get_context())
-            cache.set(cache_key, template, self.cache_time)
+            #cache.set(cache_key, template, self.cache_time)
 
         return mark_safe(template)
 
@@ -235,6 +234,16 @@ class BlockHighlight(AbstractHomeBlock):
     block_name = 'home_block_highlight'
 
 
+class BlockHighlightSimple(AbstractHomeBlock):
+    template_file = 'home/blocks/block-highlight-simple.html'
+    block_name = 'home_block_highlight_simples'
+
+
+class BlockHighlightWithImage(AbstractHomeBlock):
+    template_file = 'home/blocks/block-highlight-with-image.html'
+    block_name = 'home_block_highlight_image'
+
+
 class BlockHighlightLarge(AbstractHomeBlock):
     template_file = 'home/blocks/block-article-home-large.html'
     block_name = 'home_block_article_home'
@@ -269,18 +278,14 @@ def home_block_third(context, *args, **kwargs):
 
 @register.simple_tag(takes_context=True)
 def home_block_highlight_simple(context, *args, **kwargs):
-    template = kwargs.get('template', 'home/blocks/block-highlight-simple.html')
-    kwargs.update(template=template)
     kwargs.update(show_comunities=False)
-    return home_block(BlockHighlight, context, *args, **kwargs)
+    return home_block(BlockHighlightSimple, context, *args, **kwargs)
 
 
 @register.simple_tag(takes_context=True)
 def home_block_highlight_with_image(context, *args, **kwargs):
-    template = kwargs.get('template', 'home/blocks/block-highlight-with-image.html')
-    kwargs.update(template=template)
     kwargs.update(show_comunities=False)
-    return home_block(BlockHighlight, context, *args, **kwargs)
+    return home_block(BlockHighlightWithImage, context, *args, **kwargs)
 
 
 @register.simple_tag(takes_context=True)

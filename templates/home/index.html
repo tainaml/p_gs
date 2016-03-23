@@ -1,94 +1,96 @@
 {% extends 'home/layout/base.html'%}
 
 {% load cache user_agents %}
-{% load ideiacache %}
+{% load home_cache %}
 {% load home_blocks %}
 
 {% block content %}
-<main class="container main home">
-    <div class="highlight-area">
-        <div class="highlight-left">
-            <div class="banner">
-                <img class="img-responsive" src="http://placehold.it/728x90" alt="Banner Example">
+    {% ideiahomecache None 'home_page_cache' 'home' %}
+        <main class="container main home">
+            <div class="highlight-area">
+                <div class="highlight-left">
+                    <div class="banner">
+                        <img class="img-responsive" src="http://placehold.it/728x90" alt="Banner Example">
+                    </div>
+                    <div class="post-list-container">
+
+                        {% home_block_article_home 'design' class_name='design' quantity=2 %}
+
+                        {% home_block_article_home 'desenvolvimento' class_name='development' quantity=2 %}
+
+                    </div>
+
+                    {% home_block_highlight_simple 'design' class_name='design' quantity=2 %}
+
+                </div>
+                <div class="highlight-right">
+
+                    {% home_block_highlight_simple 'banco-de-dados' class_name='databases' quantity=2 %}
+
+                    {% home_block_highlight_simple 'infraestrutura' class_name='infra' quantity=2 %}
+
+                    {% home_block_highlight_with_image 'marketing-digital' class_name='marketing' quantity=2 %}
+
+                </div>
             </div>
-            <div class="post-list-container">
+            <div class="container-posts">
 
-                {% home_block_article_home 'design' class_name='design' quantity=2 %}
-
-                {% home_block_article_home 'desenvolvimento' class_name='development' quantity=2 %}
+                {% home_block_full_width 'governanca-e-gestao' class_name='governance' quantity=4 show_comunities=4 %}
 
             </div>
+            <div class="container-posts">
 
-            {% home_block_highlight_simple 'design' class_name='design' quantity=2 %}
+                {% home_block_half_three 'desenvolvimento' class_name='development' quantity=5 show_comunities=4 %}
 
-        </div>
-        <div class="highlight-right">
+                {% home_block_half_three 'marketing-digital' class_name='marketing' quantity=5 show_comunities=4 %}
 
-            {% home_block_highlight_simple 'banco-de-dados' class_name='databases' quantity=2 %}
-
-            {% home_block_highlight_simple 'infraestrutura' class_name='infra' quantity=2 %}
-
-            {% home_block_highlight_with_image 'marketing-digital' class_name='marketing' quantity=2 %}
-
-        </div>
-    </div>
-    <div class="container-posts">
-
-        {% home_block_full_width 'governanca-e-gestao' class_name='governance' quantity=4 show_comunities=4 %}
-
-    </div>
-    <div class="container-posts">
-
-        {% home_block_half_three 'desenvolvimento' class_name='development' quantity=5 show_comunities=4 %}
-
-        {% home_block_half_three 'marketing-digital' class_name='marketing' quantity=5 show_comunities=4 %}
-
-    </div>
-    <div class="container-posts">
-        <div class="banner-content-wide">
-            <div class="banner">
-                <img class="img-responsive" src="http://placehold.it/970x90" alt="Banner Example">
             </div>
-        </div>
+            <div class="container-posts">
+                <div class="banner-content-wide">
+                    <div class="banner">
+                        <img class="img-responsive" src="http://placehold.it/970x90" alt="Banner Example">
+                    </div>
+                </div>
 
-        {% home_block_half_two 'design' class_name='design' quantity=4 show_comunities=4 %}
+                {% home_block_half_two 'design' class_name='design' quantity=4 show_comunities=4 %}
 
-        {% home_block_half_two 'infraestrutura' class_name='infra' quantity=4 show_comunities=4 %}
+                {% home_block_half_two 'infraestrutura' class_name='infra' quantity=4 show_comunities=4 %}
 
-        {% home_block_third 'infraestrutura' class_name='infra' quantity=3 show_comunities=4 %}
+                {% home_block_third 'infraestrutura' class_name='infra' quantity=3 show_comunities=4 %}
 
-        {% if request|is_pc %}
-        <section class="post-list--small">
-            <div class="post-list-header">
-                <h2 class="post-list-heading">Conecte-se</h2>
+                {% if request|is_pc %}
+                    <section class="post-list--small">
+                        <div class="post-list-header">
+                            <h2 class="post-list-heading">Conecte-se</h2>
+                        </div>
+                        <div class="fb-page" data-href="https://www.facebook.com/PortalGSTIpage" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="false" data-show-posts="false"><div class="fb-xfbml-parse-ignore"><blockquote cite="https://www.facebook.com/PortalGSTIpage"><a href="https://www.facebook.com/PortalGSTIpage">Portal GSTI</a></blockquote></div></div>
+                        <!-- Place this tag where you want the widget to render. -->
+                        <div id="google-badge">
+                            <div class="g-page" data-width="270" data-href="https://plus.google.com/113333419239001929124" data-layout="landscape" data-rel="publisher"></div>
+                        </div>
+                    </section>
+                {% endif %}
             </div>
-            <div class="fb-page" data-href="https://www.facebook.com/PortalGSTIpage" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="false" data-show-posts="false"><div class="fb-xfbml-parse-ignore"><blockquote cite="https://www.facebook.com/PortalGSTIpage"><a href="https://www.facebook.com/PortalGSTIpage">Portal GSTI</a></blockquote></div></div>
-             <!-- Place this tag where you want the widget to render. -->
-            <div id="google-badge">
-                <div class="g-page" data-width="270" data-href="https://plus.google.com/113333419239001929124" data-layout="landscape" data-rel="publisher"></div>
-            </div>
-        </section>
-        {% endif %}
-    </div>
-</main>
+        </main>
+    {% endideiahomecache %}
 {% endblock %}
 
 {% block javascripts %}
-<div id="fb-root"></div>
-        <!-- Place this tag after the last widget tag. -->
-        <script type="text/javascript">
+    <div id="fb-root"></div>
+    <!-- Place this tag after the last widget tag. -->
+    <script type="text/javascript">
         (function() {
             document.getElementsByClassName('g-page')[0].setAttribute('data-width', document.getElementById('google-badge').clientWidth);
-          var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
-          po.src = 'https://apis.google.com/js/platform.js';
-          var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+            var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+            po.src = 'https://apis.google.com/js/platform.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
         })();
 
         (function(d, s, id) {
-          var js, fjs = d.getElementsByTagName(s)[0];
-          if (d.getElementById(id)) return;
-          js = d.createElement(s); js.id = id;
-          js.src = "//connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v2.4&appId=625566967570537";
-          fjs.parentNode.insertBefore(js, fjs);
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = "//connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v2.4&appId=625566967570537";
+            fjs.parentNode.insertBefore(js, fjs);
         }(document, 'script', 'facebook-jssdk'));</script>
 {% endblock %}
