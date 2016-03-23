@@ -93,6 +93,6 @@ urlpatterns = [
     # Translators: URL do ckeditor
     url(_(r'^ckeditor/'), include('ckeditor_uploader.urls')),
 
-
+     url(r'^chaining/', include('smart_selects.urls')),
 
 ] + url_statics + url_media

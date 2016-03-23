@@ -14,6 +14,7 @@ from django.views.generic import View
 from .service import business as Business
 from .service.forms import ArticleForm
 
+from reversion import revisions as reversion
 
 class ArticleBaseView(View):
 

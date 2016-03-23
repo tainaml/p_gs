@@ -15,4 +15,6 @@ python-memcached
 pyyaml
 ua-parser
 user-agents
+django-smart-selects
 django-user-agents
+django-reversion-compare

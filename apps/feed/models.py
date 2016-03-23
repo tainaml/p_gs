@@ -25,6 +25,11 @@ class FeedObject(models.Model):
 
     official = models.BooleanField(null=False, blank=False, default=False)
 
+    def __init__(self, *args, **kwargs):
+        super(FeedObject, self).__init__(*args, **kwargs)
+
+        self.official__old_value = self.official
+
     def __unicode__(self):
         if self.content_object and self.content_object.id:
             if self.content_type.model=="article" or self.content_type.model=="question":

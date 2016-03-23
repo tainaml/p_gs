@@ -5,7 +5,8 @@ from django.contrib import admin
 from apps.certification.models import Certification
 from apps.company.models import Company
 from apps.job_vacancy.models import Requirement, JobVacancyCertification, Salary, JobVacancy, Benefit, \
-    JobRegime, Level, Exigency, Experience, SalaryType, JobVacancyResponsibility, WorkLoad, JobVacancyResponsibilityType
+    JobRegime, Level, Exigency, Experience, SalaryType, JobVacancyResponsibility, WorkLoad, JobVacancyResponsibilityType, \
+    JobVacancyLocation
 
 
 class RequirementInLine(admin.TabularInline):
@@ -15,6 +16,11 @@ class JobVacancyCertificationInLine(admin.TabularInline):
     model = JobVacancyCertification
 
 
+class JobVacancyLocationInLine(admin.TabularInline):
+    model = JobVacancyLocation
+
+
+
 class SalaryInLine(admin.TabularInline):
     model = Salary
 
@@ -22,22 +28,16 @@ class JobVacancyResponsibilityInLine(admin.TabularInline):
     model = JobVacancyResponsibility
 
 
-class JobVacancyForm(forms.ModelForm):
-
-    class Meta:
-        model = JobVacancy
-        exclude = ['cities']
 
 class JobVacancyAdmin(admin.ModelAdmin):
-    form = JobVacancyForm
     filter_horizontal = [
         'benefits',
-        'cities',
-        'states',
+
 
     ]
 
     inlines = [
+        JobVacancyLocationInLine,
         RequirementInLine,
         JobVacancyCertificationInLine,
         SalaryInLine,
@@ -49,6 +49,7 @@ admin.site.register(Benefit)
 admin.site.register(JobRegime)
 admin.site.register(Level)
 admin.site.register(Exigency)
+admin.site.register(JobVacancyLocation)
 admin.site.register(Certification)
 admin.site.register(Company)
 admin.site.register(Experience)

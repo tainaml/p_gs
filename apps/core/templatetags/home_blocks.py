@@ -1,13 +1,13 @@
 from abc import ABCMeta
-from itertools import chain
-
 from django import template
 from django.contrib.contenttypes.models import ContentType
 from django.core.cache import caches
 from django.db.models import Q, Prefetch
+from django.template.defaultfilters import slugify
 from django.template.loader import render_to_string
 from django.utils import timezone
-
+from django.utils.safestring import mark_safe
+from ..utils import generate_home_cache_key
 from apps.article.models import Article
 from apps.community.models import Community
 from apps.taxonomy.models import Taxonomy
@@ -22,7 +22,6 @@ home_block_counter = 0
 
 home_block_excludes = []
 
-
 class AbstractHomeBlock(object):
     __metaclass__ = ABCMeta
 
@@ -33,7 +32,7 @@ class AbstractHomeBlock(object):
 
     __context = {}
 
-    def __init__(self, category, quantity=3, cache_time=0, offset=0, show_comunities=4, class_name="without-class",
+    def __init__(self, context, category, quantity=3, cache_time=0, offset=0, show_comunities=4, class_name="without-class",
                  template=None):
 
         if not self.block_name:
@@ -46,6 +45,20 @@ class AbstractHomeBlock(object):
         self.show_comunities = show_comunities
         self.class_name = class_name
         self.cache_time = cache_time
+
+        self.cache_home_page = 'default'
+
+        if 'request' in context:
+            self.cache_home_page = generate_home_cache_key(context['request'])
+
+        self.cache_home_page = 'home_excludes__%s' % self.cache_home_page
+
+        print self.cache_home_page
+
+        global_excludes = cache.get('global_home_excludes', [])
+        global_excludes.append(self.cache_home_page)
+
+        cache.set('global_home_excludes', sorted(set(global_excludes)), None)
 
         if template is not None:
             self.template_file = template
@@ -65,10 +78,11 @@ class AbstractHomeBlock(object):
     @property
     def custom_filters(self):
         return Q(
+            feed__official=True,
             feed__content_type=article_type,
             publishin__lte=timezone.now(),
             feed__taxonomies__in=[self.category],
-            status__in=[Article.STATUS_PUBLISH, Article.STATUS_DRAFT]
+            status__in=[Article.STATUS_PUBLISH]
         )
 
     def get_taxonomies(self):
@@ -104,14 +118,13 @@ class AbstractHomeBlock(object):
 
         communities = Community.objects.filter(**communities_filters)
 
-        excludes_key = 'home_block_excludes_%s' % self.category.slug.lower()
-        excludes = cache.get(excludes_key, [])
+        excludes = cache.get(self.cache_home_page, [])
         excludes = sorted(set(excludes))
 
         articles = Article.objects.filter(
-            self.custom_filters
+            self.custom_filters,
         ).exclude(
-            pk__in=sorted(set(home_block_excludes))  # POG: pensar numa forma melhor de evitar duplicatas na home
+            id__in=excludes
         ).order_by(
             self.custom_order
         ).prefetch_related(
@@ -121,7 +134,7 @@ class AbstractHomeBlock(object):
         for article in articles:
             excludes.append(article.pk)
 
-        cache.set(excludes_key, excludes)
+        cache.set(self.cache_home_page, excludes, None)
 
         context = {
             'class_name': self.class_name,
@@ -152,33 +165,34 @@ class AbstractHomeBlock(object):
 
     def render(self):
 
-        # cache_key = make_template_fragment_key(self.block_name, (
-        #     self.category.slug.lower(),
-        # ))
-        # workaround
         if not self.category:
             return ''
 
-        cache_key = self.block_name + "-" + self.category.slug.lower()
-        template = cache.get(cache_key)
 
-        template = False  # Uncomment to run without cache
+        # cache_key = '%s-%s-%s' % (
+        #     self.block_name,
+        #     self.cache_home_page,
+        #     self.category.slug.lower()
+        # )
+        #
+        # template = cache.get(cache_key)
+        template = False
 
         if not template:
             self.filter_articles()
             template = render_to_string(self.template_file, context=self.get_context())
-            cache.set(cache_key, template, self.cache_time)
+            #cache.set(cache_key, template, self.cache_time)
 
-        return template
+        return mark_safe(template)
 
 
 class ArticleCommunityPartial(AbstractHomeBlock):
     template_file = 'home/blocks/partials/article_community.html'
 
-    def __init__(self, article, category, template=None):
+    def __init__(self, context, article, category, template=None):
         self.article = article
 
-        super(ArticleCommunityPartial, self).__init__(category, show_comunities=True, template=template)
+        super(ArticleCommunityPartial, self).__init__(context, category, show_comunities=True, template=template)
 
     def render(self):
         taxs = self.get_taxonomies()
@@ -220,60 +234,66 @@ class BlockHighlight(AbstractHomeBlock):
     block_name = 'home_block_highlight'
 
 
+class BlockHighlightSimple(AbstractHomeBlock):
+    template_file = 'home/blocks/block-highlight-simple.html'
+    block_name = 'home_block_highlight_simples'
+
+
+class BlockHighlightWithImage(AbstractHomeBlock):
+    template_file = 'home/blocks/block-highlight-with-image.html'
+    block_name = 'home_block_highlight_image'
+
+
 class BlockHighlightLarge(AbstractHomeBlock):
     template_file = 'home/blocks/block-article-home-large.html'
     block_name = 'home_block_article_home'
 
 
-@register.simple_tag()
-def home_block(block_class, category_slug, quantity=None, cache_time=None, show_comunities=None, offset=0,
+@register.simple_tag(takes_context=True)
+def home_block(block_class, context, category_slug, quantity=None, cache_time=None, show_comunities=None, offset=0,
                class_name="without-class", template=None):
-    block = block_class(category_slug, quantity, cache_time, offset, show_comunities, class_name, template)
+    block = block_class(context, category_slug, quantity, cache_time, offset, show_comunities, class_name, template)
     return block.render()
 
 
-@register.simple_tag()
-def home_block_full_width(*args, **kwargs):
-    return home_block(BlockFullWidth, *args, **kwargs)
+@register.simple_tag(takes_context=True)
+def home_block_full_width(context, *args, **kwargs):
+    return home_block(BlockFullWidth, context, *args, **kwargs)
 
 
-@register.simple_tag()
-def home_block_half_two(*args, **kwargs):
-    return home_block(BlockHalfTwo, *args, **kwargs)
+@register.simple_tag(takes_context=True)
+def home_block_half_two(context, *args, **kwargs):
+    return home_block(BlockHalfTwo, context, *args, **kwargs)
 
 
-@register.simple_tag()
-def home_block_half_three(*args, **kwargs):
-    return home_block(BlockHalfThree, *args, **kwargs)
+@register.simple_tag(takes_context=True)
+def home_block_half_three(context, *args, **kwargs):
+    return home_block(BlockHalfThree, context, *args, **kwargs)
 
 
-@register.simple_tag()
-def home_block_third(*args, **kwargs):
-    return home_block(BlockThird, *args, **kwargs)
+@register.simple_tag(takes_context=True)
+def home_block_third(context, *args, **kwargs):
+    return home_block(BlockThird, context, *args, **kwargs)
 
 
-@register.simple_tag()
-def home_block_highlight_simple(*args, **kwargs):
-    template = kwargs.get('template', 'home/blocks/block-highlight-simple.html')
-    kwargs.update(template=template)
+@register.simple_tag(takes_context=True)
+def home_block_highlight_simple(context, *args, **kwargs):
     kwargs.update(show_comunities=False)
-    return home_block(BlockHighlight, *args, **kwargs)
+    return home_block(BlockHighlightSimple, context, *args, **kwargs)
 
 
-@register.simple_tag()
-def home_block_highlight_with_image(*args, **kwargs):
-    template = kwargs.get('template', 'home/blocks/block-highlight-with-image.html')
-    kwargs.update(template=template)
+@register.simple_tag(takes_context=True)
+def home_block_highlight_with_image(context, *args, **kwargs):
     kwargs.update(show_comunities=False)
-    return home_block(BlockHighlight, *args, **kwargs)
+    return home_block(BlockHighlightWithImage, context, *args, **kwargs)
 
 
-@register.simple_tag()
-def home_block_article_home(*args, **kwargs):
-    return home_block(BlockHighlightLarge, *args, **kwargs)
+@register.simple_tag(takes_context=True)
+def home_block_article_home(context, *args, **kwargs):
+    return home_block(BlockHighlightLarge, context, *args, **kwargs)
 
 
-@register.simple_tag(name="home_article_community")
-def home_article_community(article, category):
-    bloco = ArticleCommunityPartial(category, article)
+@register.simple_tag(takes_context=True, name="home_article_community")
+def home_article_community(context, article, category):
+    bloco = ArticleCommunityPartial(context, category, article)
     return bloco.render()

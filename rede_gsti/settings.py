@@ -106,6 +106,7 @@ SECRET_KEY = config.get("GENERAL", "secret_key")
 
 
 
+
 # Vagrant Internal IP's
 # INTERNAL_IPS = ('127.0.0.1', '10.0.2.2', '10.100.100.20', '10.100.100.15', '10.100.100.10')
 
@@ -141,6 +142,9 @@ THIRD_PART_APPS = (
     'ckeditor',
     'ckeditor_uploader',
     'django_user_agents',
+    'smart_selects',
+    'reversion',
+    'reversion_compare',
 )
 
 INTERNAL_APPS = (
@@ -171,7 +175,7 @@ INTERNAL_APPS = (
 
 # Set up for installed apps
 INSTALLED_APPS = DJANGO_APPS + THIRD_PART_APPS + INTERNAL_APPS
-
+ADD_REVERSION_ADMIN=True
 
 # Setting Environment specific settings
 if ENVIRONMENT == "develop":
@@ -554,14 +558,14 @@ SOCIAL_AUTH_PIPELINE = (
 
 )
 
+from django.core.cache.backends.memcached import PyLibMCCache
 
 CACHES = {
     'default': {
         'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
         'LOCATION': '%s:%s' % (config.get("CACHE", "host"), config.get("CACHE", "port"),),
-    }
+    },
 }
-
 
 # Name of cache backend to cache user agents. If it not specified default
 # cache alias will be used. Set to `None` to disable caching.
