@@ -1,21 +1,22 @@
 from django.contrib.auth import get_user_model
-from apps.account.models import User
 from django.contrib.contenttypes.models import ContentType
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django_thumbor import generate_url
 from django.db.models import Q
-from apps.account.models import User
+from django.conf import settings
 
+from apps.account.models import User
 from apps.community.models import Community
 from apps.article.models import Article
 from apps.core.models.embed import EmbedItem
 from apps.feed.models import FeedObject
+from apps.question.models import Question
 from apps.socialactions.models import UserAction
 from apps.socialactions.service import business as BusinessSocialActions
-from rede_gsti import settings
 
 
 User = get_user_model()
+
 
 def get_user_communities(author):
     user_communities = BusinessSocialActions.get_users_acted_by_author(
@@ -223,7 +224,6 @@ def get_active_articles_from_user(profile_instance=None, description=None, conte
 
 def get_articles(author, description=None, status=None, items_per_page=None, page=None):
 
-
     condition = Q(author=author) & (Q(title__icontains=description) | Q(text__icontains=description))
     if status:
         condition &= Q(status=status)
@@ -270,6 +270,32 @@ def get_articles_with_videos(author, description=None, items_per_page=None, page
             posts = []
 
     return posts
+
+
+def get_questions(author, description=None, deleted=None, items_per_page=None, page=None):
+
+    condition = Q(author=author) & (Q(title__unaccent__icontains=description) |
+                                    Q(description__unaccent__icontains=description))
+
+    if deleted is not None:
+        condition &= Q(deleted=deleted)
+
+    questions = Question.objects.filter(condition).prefetch_related("author").order_by('-question_date')
+
+    items_per_page = items_per_page if items_per_page else 10
+    page = page if page else 1
+
+    if items_per_page and page:
+        questions = Paginator(questions, items_per_page)
+
+        try:
+            questions = questions.page(page)
+        except PageNotAnInteger:
+            questions = questions.page(1)
+        except EmptyPage:
+            questions = []
+
+    return questions
 
 
 def get_followings(author, description=None, items_per_page=None, page=None):

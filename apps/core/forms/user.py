@@ -1,5 +1,7 @@
 # coding=utf-8
 from django.db import transaction
+from django.utils.translation import ugettext as _
+from apps.question.models import Question
 
 from apps.socialactions.models import UserAction
 from apps.article.models import Article
@@ -198,6 +200,36 @@ class CoreSearchArticlesForm(IdeiaForm):
             self.author,
             self.cleaned_data.get('criteria'),
             self.cleaned_data.get('status'),
+            self.items_per_page,
+            self.cleaned_data.get('page', 1)
+        )
+
+
+class CoreSearchQuestionsForm(IdeiaForm):
+
+    criteria = forms.CharField(required=False)
+    deleted = forms.NullBooleanField(required=False)
+    page = forms.IntegerField(required=False)
+
+    def __init__(self, author=None, items_per_page=10, *args, **kwargs):
+        self.items_per_page = items_per_page
+        self.author = author
+
+        super(CoreSearchQuestionsForm, self).__init__(*args, **kwargs)
+
+    def clean(self):
+        cleaned_data = super(CoreSearchQuestionsForm, self).clean()
+
+        cleaned_data['page'] = cleaned_data['page'] \
+            if 'page' in cleaned_data and cleaned_data['page'] else 1
+
+        return cleaned_data
+
+    def __process__(self):
+        return Business.get_questions(
+            self.author,
+            self.cleaned_data.get('criteria'),
+            self.cleaned_data.get('deleted'),
             self.items_per_page,
             self.cleaned_data.get('page', 1)
         )

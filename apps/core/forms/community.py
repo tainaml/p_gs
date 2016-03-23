@@ -48,7 +48,6 @@ class CoreCommunityFeedFormSearch(IdeiaForm):
 
         super(CoreCommunityFeedFormSearch, self).__init__(*args, **kwargs)
 
-
     def clean(self):
         cleaned_data = super(CoreCommunityFeedFormSearch, self).clean()
 

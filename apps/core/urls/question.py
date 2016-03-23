@@ -14,6 +14,10 @@ urlpatterns = [
     # Translators: URL para editar pergunta
     url(_(r'^edit/(?P<question_id>[0-9]+)$'), CoreViews.CoreEditQuestionView.as_view(), name='edit'),
 
+    # Translators: URL para deletar pergunta
+    url(_(r'^delete/(?P<question_id>[0-9]+)$'), CoreViews.CoreDeleteQuestionView.as_view(), name='delete'),
+    url(_(r'^delete/async/(?P<question_id>\d+)$'), CoreViews.CoreDeleteQuestionView.as_view(), name='delete-async'),
+
     # Translators: URL para atualizar pergunta
     url(_(r'^update/$'), CoreViews.CoreUpdateQuestionView.as_view(), name='update'),
 

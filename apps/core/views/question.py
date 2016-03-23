@@ -1,12 +1,14 @@
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
+from django.core.urlresolvers import reverse
 from django.http import JsonResponse, Http404
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.utils.decorators import method_decorator
 from django.utils.translation import gettext as _
 
 from apps.community.models import Community
 from apps.question import views
+from apps.question.service import business as Business
 from ..forms import question as QuestionForms
 from ..business import question as BusinessQuestion
 from ..business import feed as BusinessFeed
@@ -109,3 +111,79 @@ class CoreQuestionView(views.ShowQuestionView):
         return {
             'feed': feed_object
         }
+
+
+class CoreDeleteQuestionView(views.View):
+
+    msg_not_found = _('Question not Found.')
+
+    def return_error(self, request, context=None):
+        if not request.is_ajax():
+            return redirect(reverse('profile:edit-questions'))
+
+        response_context = context
+        return JsonResponse(response_context, status=401)
+
+    def return_success(self, request, context=None):
+        if not request.is_ajax():
+            return redirect(reverse('profile:edit-questions'))
+
+        response_context = {'status': 200}
+
+        if hasattr(context, 'article'):
+            article = context.get('article')
+            response_context.update({
+                'item_id': article.id,
+                'deleted': True if article.status == 2 else False
+            })
+
+        return JsonResponse(response_context, status=200)
+
+    @method_decorator(login_required)
+    def post(self, request, question_id):
+
+        if question_id != request.POST.get('item-id'):
+            context = {
+                'status': 401,
+                'errors': {
+                    '__all__': [_('Question not Found.')]
+                }
+            }
+            return self.return_error(request, context)
+
+        question = Business.get_question(question_id)
+
+        # Fail if is not owner
+        if not question.check_is_owner(request.user):
+            context = {
+                'status': 403,
+                'errors': {
+                    '__all__': [self.msg_not_found]
+                }
+            }
+            return self.return_error(request, context)
+
+        if not question.id:
+            context = {
+                'status': 401,
+                'errors': {
+                    '__all__': [self.msg_not_found]
+                }
+            }
+            return self.return_error(request, context)
+
+        if question.deleted:
+            context = {
+                'status': 400,
+                'errors': {
+                    '__all__': [_("This question has been deleted")]
+                }
+            }
+            return self.return_error(request, context)
+
+        if Business.delete_question(question):
+            return self.return_error(request, {'status': 400})
+
+        context = {'question': question}
+
+        return self.return_success(request, context)

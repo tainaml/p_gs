@@ -20,6 +20,15 @@ urlpatterns = [
     # Translators: URL de listagem e procura de posts
     url(_(r'^edit-posts/search/list/$'), core_user.CoreProfileSearchEditPostsList.as_view(), name='edit-posts-list'),
 
+    # Translators: URL de edicao de questions
+    url(_(r'^edit-questions/$'), core_user.CoreProfileSearchEditQuestions.as_view(), name='edit-questions'),
+
+    # Translators: URL de procura de questions
+    url(_(r'^edit-questions/search/$'), core_user.CoreProfileSearchEditQuestionsAjax.as_view(), name='edit-questions-search-ajax'),
+
+    # Translators: URL de listagem e procura de questions
+    url(_(r'^edit-questions/search/list/$'), core_user.CoreProfileSearchEditQuestionsList.as_view(), name='edit-questions-list'),
+
     # Translators: URL de passo 1 do wizard
     url(_(r'^wizard/step/personal-info$'), core_user.CoreProfileWizardStepOneAjax.as_view(), name='wizard-step-personal-info-ajax'),
 

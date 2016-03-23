@@ -24,6 +24,11 @@ def update_question(params=None, question=None):
     return False if question.save() is False else question
 
 
+def delete_question(question):
+    question.deleted = True
+    return question.save(update_fields=['deleted'])
+
+
 def comment_reply(params=None, logged_user=None, question_id=None):
 
     answer = Answer()
@@ -53,12 +58,11 @@ def get_answers_by_question(question=None, items_per_page=None, page=None):
 
     return answers_paginated
 
+
 def get_all_answers_by_question(question=None):
     return Answer.objects.filter(
         question_id=question.id
     ).order_by("-answer_date")
-
-
 
 
 def update_reply(params=None, answer=None):
@@ -133,8 +137,6 @@ def get_own_answer(user=None, **kwargs):
         return Answer.objects.get(author=user, **kwargs)
     except Answer.DoesNotExist:
         return False
-
-
 
 
 def get_questions_by_user(author):

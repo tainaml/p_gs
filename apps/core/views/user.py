@@ -8,7 +8,8 @@ from django.contrib.auth.decorators import login_required
 
 from apps.community.models import Community
 from apps.core.forms.user import CoreUserProfileForm, CoreUserProfileFullEditForm, CoreSearchFollowers, CoreSearchArticlesForm, CoreSearchVideosForm, \
-    CoreSearchCommunitiesForm, CoreRemoveSocialActionForm, CoreSearchSocialActionsForm, CoreUserMyQuestionsForm
+    CoreSearchCommunitiesForm, CoreRemoveSocialActionForm, CoreSearchSocialActionsForm, CoreUserMyQuestionsForm, \
+    CoreSearchQuestionsForm
 from apps.core.forms.community import CoreCommunityFormSearch
 from apps.core.forms.user import CoreUserSearchForm, CoreUserProfileEditForm
 from apps.article.models import Article
@@ -544,7 +545,6 @@ class CoreProfileSearchEditPosts(views.ProfileBaseView):
         return render(request, self.template_path, context)
 
     def get(self, request):
-
         profile = self.filter(request, request.user)
 
         context = {'profile': profile}
@@ -552,9 +552,7 @@ class CoreProfileSearchEditPosts(views.ProfileBaseView):
 
         return self.return_success(request, context)
 
-
     def get_context(self, request, profile_instance=None):
-
         form = self.form(request.user, 10, request.GET)
 
         posts = form.process()
@@ -577,7 +575,6 @@ class CoreProfileSearchEditPostsAjax(CoreProfileSearchEditPosts):
     template_path = "userprofile/partials/profile-edit-posts-segment.html"
 
     def return_success(self, request, context=None):
-
         response_context = {
             'status': 200,
             'have_posts': context.get('have_posts'),
@@ -588,8 +585,58 @@ class CoreProfileSearchEditPostsAjax(CoreProfileSearchEditPosts):
 
 
 class CoreProfileSearchEditPostsList(CoreProfileSearchEditPosts):
-
     template_path = "userprofile/partials/profile-edit-posts-segment.html"
+
+
+class CoreProfileSearchEditQuestions(views.ProfileBaseView):
+
+    template_path = "userprofile/profile-edit-questions.html"
+    form = CoreSearchQuestionsForm
+
+    def return_success(self, request, context=None):
+        return render(request, self.template_path, context)
+
+    def get(self, request):
+        profile = self.filter(request, request.user)
+
+        context = {'profile': profile}
+        context.update(self.get_context(request, profile))
+
+        return self.return_success(request, context)
+
+    def get_context(self, request, profile_instance=None):
+        form = self.form(request.user, 10, request.GET)
+
+        posts = form.process()
+        status = Article.STATUS_CHOICES
+
+        have_posts = True if hasattr(posts, 'object_list') and posts.object_list else False
+
+        return {
+            'posts': posts,
+            'have_posts': have_posts,
+            'form': form,
+            'status_list': status,
+            'status': int(form.cleaned_data.get('status')) if form.cleaned_data.get('status') else None,
+            'page': form.cleaned_data.get('page', 1) + 1
+        }
+
+
+class CoreProfileSearchEditQuestionsAjax(CoreProfileSearchEditQuestions):
+    template_path = "userprofile/partials/profile-edit-questions-segment.html"
+
+    def return_success(self, request, context=None):
+        response_context = {
+            'status': 200,
+            'have_posts': context.get('have_posts'),
+            'template': render(request, self.template_path, context).content
+        }
+
+        return JsonResponse(response_context, status=200)
+
+
+class CoreProfileSearchEditQuestionsList(CoreProfileSearchEditQuestions):
+    template_path = "userprofile/partials/profile-edit-questions-segment.html"
 
 
 class CoreProfileVideosSearch(views.ProfileBaseView):
