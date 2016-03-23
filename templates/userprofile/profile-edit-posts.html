@@ -20,7 +20,7 @@
                     <div class="row">
                         <form id="search-form" action="{% url 'profile:edit-posts-search-ajax' %}" method="GET" data-ajaxform="true" data-group-class=".form-search-input">
                             {% csrf_token %}
-                            <div class="col-sm-8">
+                            <div class="col-sm-5">
                                 <nav class="form-search">
                                     <div class="form-search-input">
                                         <input type="text" id="criteria" name="criteria" placeholder="{{placehold|default:"Procure uma publicação"}}" value="{{ form.cleaned_data.criteria|default:"" }}"/>
@@ -66,7 +66,7 @@
                                     </button>
                                 </nav>
                             </div>
-                            <div class="col-sm-4">
+                            <div class="col-sm-3">
                                 <div class="custom-select">
                                     <select class="form-control" id="status" name="status">
                                         <option value="">Todos</option>
@@ -76,6 +76,7 @@
                                     </select>
                                 </div>
                             </div>
+                            {% include "userprofile/partials/profile-edit-item-menu.html" with item_context="posts" %}
                         </form>
                     </div>
                     <section class="area-content">

@@ -16,8 +16,8 @@
             <li><a href="{% url 'question:create' %}"><i class="gsticon gsticon-question-circle"></i> Perguntar</a></li>
             <li><a href="{% url 'article:create' %}"><i class="gsticon gsticon-file-text"></i> Criar publicação</a></li>
             <li {% if local_context == "profile-edit" %}class="active"{% endif %}><a href="{% url 'profile:edit' %}"><i class="gsticon gsticon-pencil"></i> Editar perfil</a></li>
-            <li {% if local_context == "posts-edit" %}class="active"{% endif %}><a href="{% url 'profile:edit-posts' %}"><i class="gsticon gsticon-pencil-square-o"></i> Editar Publicações</a></li>
-            <li {% if local_context == "questions-edit" %}class="active"{% endif %}><a href="{% url 'profile:edit-questions' %}"><i class="gsticon gsticon-pencil-square-o"></i> Editar Perguntas</a></li>
+            <li {% if local_context == "posts-edit" %}class="active"{% endif %}><a href="{% url 'profile:edit-posts' %}"><i class="gsticon gsticon-pencil-square-o"></i> Editar Conteúdo</a></li>
+{#            <li {% if local_context == "questions-edit" %}class="active"{% endif %}><a href="{% url 'profile:edit-questions' %}"><i class="gsticon gsticon-pencil-square-o"></i> Editar Perguntas</a></li>#}
         </ul>
     </div>
 </div>
