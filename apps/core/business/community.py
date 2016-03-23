@@ -12,6 +12,7 @@ from apps.taxonomy.models import Taxonomy
 
 __author__ = 'phillip'
 
+
 def get_feed_objects(community_instance=None, description=None, content_types_list=None, items_per_page=None, page=None, official=None):
 
     if not content_types_list:
@@ -23,15 +24,10 @@ def get_feed_objects(community_instance=None, description=None, content_types_li
         Q(content_type__in=content_types) &
         Q(communities=community_instance) &
         (
-            (
-                Q(article__status=Article.STATUS_PUBLISH) &
-                (
-                    Q(article__title__icontains=description) |
-                    Q(article__text__icontains=description)
-                )
-            ) |
-            Q(question__title__icontains=description)|
-            Q(question__description__icontains=description)
+            (Q(article__status=Article.STATUS_PUBLISH) & (Q(article__title__icontains=description) |
+                                                          Q(article__text__icontains=description))) |
+            (Q(question__deleted=False) & (Q(question__title__icontains=description) |
+                                           Q(question__description__icontains=description)))
         )
     ).order_by(
         "-date"
@@ -73,6 +69,7 @@ def get_feed_questions(community_instance=None, description=None, content_types_
                 Q(question__title__icontains=description) |
                 Q(question__description__icontains=description)
             ) &
+            Q(question__deleted=False) &
             Q(question__question_owner__isnull=False)
         )
     elif replies == 'non-reply':
@@ -83,6 +80,7 @@ def get_feed_questions(community_instance=None, description=None, content_types_
                 Q(question__title__icontains=description) |
                 Q(question__description__icontains=description)
             ) &
+            Q(question__deleted=False) &
             Q(question__question_owner__isnull=True)
         )
     else:
@@ -92,7 +90,8 @@ def get_feed_questions(community_instance=None, description=None, content_types_
             (
                 Q(question__title__icontains=description) |
                 Q(question__description__icontains=description)
-            )
+            ) &
+            Q(question__deleted=False)
         )
 
     feed_objects = FeedObject.objects.filter(criteria).order_by("-date").prefetch_related(
@@ -242,7 +241,6 @@ def get_followers(data=None, items_per_page=None, page=None, startswith=None):
     return followers
 
 
-# @TODO refactor
 def get_related_communities(community_slug):
 
     try:

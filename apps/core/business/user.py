@@ -78,11 +78,15 @@ def get_feed_objects(profile_instance=None, description=None, content_types_list
         community_list.append(community.content_object)
 
     feed_objects = FeedObject.objects.filter(
-        Q(content_type__in=content_types) & (
-            Q(communities__in=community_list) | (
-                Q(article__status=Article.STATUS_PUBLISH) &
-                Q(article__author__in=followers_id)
-            ) | Q(question__author__in=followers_id)
+        Q(content_type__in=content_types) &
+        (
+            Q(article__status=Article.STATUS_PUBLISH) |
+            Q(question__deleted=False)
+        ) &
+        (
+            Q(communities__in=community_list) |
+            Q(article__author__in=followers_id) |
+            Q(question__author__in=followers_id)
         )
     ).order_by(
         "-date"
@@ -164,7 +168,8 @@ def get_questions_from_user(profile_instance=None, description=None, content_typ
 
     feed_objects = FeedObject.objects.filter(
         Q(content_type=content_type) &
-        Q(question__author=profile_instance.user) & criteria
+        Q(question__author=profile_instance.user) &
+        Q(question__deleted=False) & criteria
     ).order_by(
         "-date"
     ).prefetch_related(

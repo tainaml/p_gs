@@ -83,7 +83,6 @@ class CoreCommunityQuestionFeedFormSearch(CoreCommunityFeedFormSearch):
 
         return cleaned_data
 
-
     def __process__(self):
 
         return Business.get_feed_questions(
