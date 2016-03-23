@@ -6,3 +6,13 @@ def save_feed_item(article, data=None):
     feed_object.date = article.publishin if article.is_published() else None
     feed_object.save()
     return feed_object
+
+
+class HomeCache(object):
+
+    def __init__(self):
+        pass
+
+
+class PegadorDeArtigo(object):
+    pass
