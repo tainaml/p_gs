@@ -17,7 +17,7 @@
                 <nav class="publication-footer-menu">
                     <a class="publication-footer-menu-item" href="{% url 'question:edit' post.id %}">Editar</a>
                     <a class="publication-footer-menu-item" href="{% url 'question:show' post.slug post.id %}" target="_blank">Visualizar</a>
-                    {% if not post.delete %}
+                    {% if not post.deleted %}
                     <a class="publication-footer-menu-item text-danger" href="{% url 'question:delete' post.id %}" data-delete-item="true" data-type="question" data-url="{% url 'question:delete-async' post.id %}" data-item="{{ post.id }}" data-title="{{ post.title }}"  data-modal="#modal-confirmation">Excluir</a>
                     {% endif %}
                 </nav>
