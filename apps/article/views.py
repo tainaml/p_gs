@@ -32,7 +32,7 @@ class ArticleBaseView(View):
         return article
 
     def check_is_owner(self, request, article):
-        if article.id and not article.author.id == request.user.id :
+        if article.id and not article.author.id == request.user.id:
             '''
             Only the article author has permission to edit article
             '''
