@@ -97,7 +97,6 @@
                     obj.settings.data['token'] = obj.settings.token;
             }
 
-
             return false
         };
 
@@ -105,7 +104,6 @@
 
             var is_valid = true;
             var errors = [];
-
 
             if ( !obj.settings.token ) {
                 is_valid = false;
@@ -148,26 +146,27 @@
 
             var $badge = $element.find( 'span.badge' );
 
-            if ( data.count > 0 ) {
-                $document.attr( 'title', page_title + ' | Novas notificações');
-            }
+            var $badgeContainers = $( '[data-notification-receives-badge="' + obj.settings.type + '"]' );
+            var $badgeAux = $badgeContainers.find( 'span.badge' );
+
+            var $thumbnailBadgeContainer = $('[data-notification-group-badge]');
+            var $thumbnailBadge = $thumbnailBadgeContainer.find('span.badge');
 
             $element.data( 'notifications', data.notifications );
 
             if ( !$badge.length ) {
 
                 if ( data.count > 0 ) {
-
                     var $newBadge = $( '<span/>' );
                     $newBadge
                         .addClass( 'badge' )
                         .text( data.count );
 
                     $element.prepend( $newBadge );
+                    $badge = $newBadge;
                 }
 
             } else {
-
                 $badge.text( data.count );
 
                 if ( data.count == 0 )
@@ -175,7 +174,37 @@
                 else
                     if ( $badge.is( ':hidden' ))
                         $badge.show();
+            }
 
+            if ( !$badgeAux.length ) {
+                if ( data.count > 0 ) {
+                    $badgeContainers.prepend($badge);
+                }
+            } else {
+                $badgeAux.text( data.count );
+                if ( data.count == 0 )
+                    $badgeAux.text('0').hide();
+                else
+                    if ( $badgeAux.is( ':hidden' ))
+                        $badgeAux.show();
+            }
+
+
+            if ( data.count > 0 ) {
+                $document.attr( 'title', page_title + ' | Novas notificações' );
+
+                if ( !$thumbnailBadge.length ) {
+                    if ( data.count > 0 ) {
+                        $thumbnailBadge = $( '<span/>' );
+                        $thumbnailBadge
+                            .addClass( 'badge' )
+                            .html('<i class="gsticon gsticon-exclamation"></i>');
+                        $thumbnailBadgeContainer.prepend($thumbnailBadge);
+                    }
+                } else {
+                    if ( $thumbnailBadge.is( ':hidden' ))
+                        $thumbnailBadge.show();
+                }
             }
         };
 

@@ -7,7 +7,6 @@
         var defaults = {
             target  : null,
             data    : {}
-
         };
 
         var plugin = this;

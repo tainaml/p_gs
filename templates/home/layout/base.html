@@ -57,13 +57,12 @@
                             </a>
                         </div>
                         <div class="row">
-                            <a class="btn-show-item toggle-slideout" data-item="#slideout-menu" href="javascript:;">
+                            <a class="btn-show-item toggle-slideout" data-item="#slideout-menu" href="javascript:;" {% if request.user.is_authenticated %}data-notification-group-badge{% endif %} >
                                 {% if request.user.is_authenticated %}
                                     <img src="{% get_avatar request.user width=40 height=40 smart=False fit_in=False %}" alt="{{ profile.user.get_full_name }}" class="img-circle">
                                 {% else %}
                                 <i class="gsticon gsticon-sign-in"></i>
                                 {% endif %}
-
                             </a>
                             <h1 class="gsti">
                                 <a class="gsti-link" href="{% url 'index' %}">Portal GSTI</a>

@@ -10,13 +10,13 @@
 </div>
 <hr />
     <div class="slideout-menu--notification">
-        <a class="slideout-menu--notification-item" href="{% url 'notifications:members' %}">
+        <a class="slideout-menu--notification-item" data-notification-receives-badge="members" href="{% url 'notifications:members' %}">
             <i class="gsticon gsticon-group"></i>
         </a>
-        <a class="slideout-menu--notification-item" href="{% url 'notifications:posts' %}">
+        <a class="slideout-menu--notification-item" data-notification-receives-badge="posts" href="{% url 'notifications:posts' %}">
             <i class="gsticon gsticon-comments"></i>
         </a>
-        <a class="slideout-menu--notification-item" href="{% url 'notifications:general' %}">
+        <a class="slideout-menu--notification-item" data-notification-receives-badge="general" href="{% url 'notifications:general' %}">
             <i class="gsticon gsticon-bell"></i>
         </a>
     </div>
