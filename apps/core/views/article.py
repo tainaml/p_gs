@@ -1,6 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
 from django.http import Http404
+from django.shortcuts import redirect, render
 from django.utils.translation import gettext as _
 from django.utils.decorators import method_decorator
 
@@ -10,7 +11,7 @@ from apps.community.models import Community
 from ..forms.article import CoreArticleForm
 from ..business import feed as BusinessFeed
 from apps.core.business import user as UserBusiness
-
+from apps.core.business import article as core_article_business
 
 class CoreArticleEditView(views.ArticleEditView):
 
@@ -28,6 +29,33 @@ class CoreArticleEditView(views.ArticleEditView):
 class CoreArticleView(views.ArticleView):
 
     form_comment = CreateCommentForm
+
+    # @Override
+    def filter_article(self, request=None, slug=None, article_id=None):
+        article_dict = core_article_business.get_article(article_id, slug)
+
+        if not article_dict['article']:
+            '''
+            Only works when article exists
+            '''
+            raise self.article_not_found
+
+        return article_dict
+
+    def get(self, request, article_slug, article_id):
+        article_dict = self.filter_article(request, article_slug, article_id)
+        article = article_dict['article']
+
+        if article:
+            if article_dict['redirect']:
+                return redirect('article:view', article.id, article.slug, permanent=True)
+
+        context = {'article': article}
+        context.update(self.get_context(request, article))
+
+        return render(request, self.template_name, context)
+
+
     def get_context(self, request, article_instance=None):
         feed_object = BusinessFeed.BusinessFeed.get_feed(article_instance)
 

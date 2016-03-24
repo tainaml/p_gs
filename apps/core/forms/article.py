@@ -1,6 +1,6 @@
 from django.db import transaction
 from django.forms import CheckboxSelectMultiple
-
+from reversion import revisions as reversion
 from apps.article.service.forms import ArticleForm
 from apps.feed.service import business as FeedBusiness
 from apps.core.models.tags import Tags
@@ -35,8 +35,11 @@ class CoreArticleForm(ArticleForm, CoreTaxonomiesMixin):
         self.filter_comunities(author)
 
     @transaction.atomic()
+    @reversion.create_revision()
     def __process__(self):
         process_article = super(CoreArticleForm, self).__process__()
+        if process_article:
+            reversion.set_user(process_article.author)
         process_feed = Business.save_feed_item(self.instance, self.cleaned_data)
         process_taxonomies = self.save_taxonomies(process_feed, self.cleaned_data)
         process_tags = BusinessTags.save_feed_tags(process_feed, self.cleaned_data)

@@ -6,22 +6,19 @@ from django.core.urlresolvers import reverse
 from django.http import Http404, HttpResponse, JsonResponse
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import render, redirect
-from django.utils import timezone
 from django.utils.decorators import method_decorator
 from django.utils.translation import gettext as _
 from django.views.generic import View
-
 from .service import business as Business
 from .service.forms import ArticleForm
 
-from reversion import revisions as reversion
 
 class ArticleBaseView(View):
 
     msg_article_not_found = _('Article not Found.')
     article_not_found = Http404(_('Article not Found.'))
 
-    def filter_article(self, request, article_id=None):
+    def filter_article(self, request=None, slug=None, article_id=None):
         article = Business.get_article(article_id)
 
         if not article:
@@ -47,13 +44,13 @@ class ArticleView(ArticleBaseView):
     # def dispatch(self, request, *args, **kwargs):
     #     return super(ArticleView, self).dispatch(*args, **kwargs)
 
+
+
     def get_context(self, request, article_instance=None):
         return {}
 
     def get(self, request, article_slug, article_id):
-        article = self.filter_article(request, article_id)
-        if not str(article.slug) == str(article_slug):
-            raise self.article_not_found
+        article = self.filter_article(request, article_slug, article_id)
 
         context = {'article': article}
         context.update(self.get_context(request, article))
@@ -76,7 +73,7 @@ class ArticleDeleteView(ArticleBaseView):
 
     @method_decorator(login_required)
     def get(self, request, article_id):
-        article = self.filter_article(request, article_id)
+        article = self.filter_article(request=request, article_id=article_id)
 
         # Fail if is not owner
         self.check_is_owner(request, article)
@@ -127,7 +124,7 @@ class ArticleDeleteAjax(ArticleDeleteView):
             }
             return self.return_error(request, context)
 
-        article = self.filter_article(request, article_id)
+        article = self.filter_article(request=request, article_id=article_id)
 
         # Fail if is not owner
         self.check_is_owner(request, article)
@@ -176,7 +173,7 @@ class ArticleEditView(ArticleBaseView):
     @method_decorator(login_required)
     def get(self, request, article_id=None, *args, **kwargs):
 
-        article = self.filter_article(request, article_id)
+        article = self.filter_article(request=request, article_id=article_id)
 
         # Fail if is not owner
         self.check_is_owner(request, article)
@@ -209,7 +206,7 @@ class ArticleEditView(ArticleBaseView):
             article = self.get_temp_article(request.user)
             article_id = article.id
         else:
-            article = self.filter_article(request, article_id)
+            article = self.filter_article(request=request, article_id=article_id)
 
         # Fail if is not owner
         self.check_is_owner(request, article)

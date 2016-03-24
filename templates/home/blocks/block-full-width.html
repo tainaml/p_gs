@@ -11,7 +11,7 @@
 
             {% for article in articles %}
 
-                {% url 'article:view' article.slug article.id as article_link %}
+                {% url 'article:view'  article.id article.slug as article_link %}
 
                 <article class="article-home-large" id="article__{{ article.id }}">
                     <a href="{{ article_link }}">

@@ -3,7 +3,7 @@
 {% for article in articles %}
     <article class="article-home-large area-{{ class_name }}">
 
-        {% url 'article:view' article.slug article.id as article_link %}
+        {% url 'article:view'  article.id article.slug as article_link %}
 
         <a href="{{ article_link }}">
             {% if article.image %}

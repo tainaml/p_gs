@@ -30,7 +30,7 @@
             {{instance.author.get_full_name}}
         </a>
     </header>
-    <a class="post-content" href="{% url 'article:view' instance.slug instance.id %}" itemprop="articleBody">
+    <a class="post-content" href="{% url 'article:view' instance.id instance.slug %}" itemprop="articleBody">
         <figure>
             {% if instance.get_image %}
                 <img src="{% thumbor_url instance.get_image.url width=170 height=130 smart=False fit_in=False %}" alt="{{ instance.title }}">

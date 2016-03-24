@@ -2,7 +2,7 @@
 
     {% for article in articles|slice:":2" %}
 
-        {% url 'article:view' article.slug article.id as article_link %}
+        {% url 'article:view'  article.id article.slug as article_link %}
         <a class="highlight-article-medium" href="{{ article_link }}">{% if article.title|length > 67 %}{{ article.title|slice:":67" }}...{% else %}{{ article.title }}{% endif %}</a>
 
     {% endfor %}

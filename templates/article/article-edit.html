@@ -40,7 +40,7 @@
                             <input class="btn-green" type="submit" value="{% trans "Publish" context "publish article" %}" name="submit-publish" />
                         {% endif %}
                         {% if article.slug and article.id %}
-                            <a href="{% url 'article:view' article.slug article.id %}" class="btn-default" target="_blank">Visualizar</a>
+                            <a href="{% url 'article:view' article.id article.slug %}" class="btn-default" target="_blank">Visualizar</a>
                         {% endif %}
                     </div>
                 </div>

@@ -62,7 +62,7 @@ class Article(models.Model):
 
     def get_absolute_url(self):
         from django.core.urlresolvers import reverse
-        return reverse('article:view', args=[str(self.slug), str(self.id)])
+        return reverse('article:view', args=[str(self.id), str(self.slug)])
 
     def __unicode__(self):
         return self.title or "no title"
