@@ -5,7 +5,7 @@
     <div class="custom-check"><input type="checkbox" data-object-id="{{ article.id }}"></div>
     <div class="excerpt-content">
         {% if instance.get_image %}
-            <a class="excerpt-image" href="{% url 'article:view' instance.slug instance.id %}">
+            <a class="excerpt-image" href="{% url 'article:view' instance.id instance.slug %}">
                 <img src="{% thumbor_url instance.get_image.url width=80 height=80 smart=False fit_in=False %}" alt="{{ instance.title }}">
             </a>
         {% endif %}
@@ -19,7 +19,7 @@
                     {{ instance.author.get_full_name }}
                 </a>
             </header>
-            <a href="{% url 'article:view' instance.slug instance.id %}">{{ instance.title }}</a>
+            <a href="{% url 'article:view' instance.id instance.slug  %}">{{ instance.title }}</a>
         </div>
     </div>
 </div>

@@ -9,7 +9,7 @@
     <div class="post-list-container">
         {% for article in articles|slice:":3" %}
 
-            {% url 'article:view' article.slug article.id as article_link %}
+            {% url 'article:view'  article.id article.slug as article_link %}
 
             <article class="article-home-small" id="article__{{ article.id }}">
                 <a href="{{ article_link }}">
@@ -32,7 +32,7 @@
     <div class="highlight-articles--large">
         {% for article in articles|slice:"3:5" %}
 
-            {% url 'article:view' article.slug article.id as article_link %}
+            {% url 'article:view'  article.id article.slug as article_link %}
 
             <article class="article-home-medium">
                 {% home_article_community category article %}

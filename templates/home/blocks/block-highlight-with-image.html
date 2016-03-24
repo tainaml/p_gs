@@ -4,7 +4,7 @@
 
     <div class="highlight-articles--no-border area-{{ class_name }}">
 
-        {% url 'article:view' article.slug article.id as article_link %}
+        {% url 'article:view'  article.id article.slug as article_link %}
 
         <a class="highlight-article-medium" href="{{ article_link }}">
             {% if article.image %}

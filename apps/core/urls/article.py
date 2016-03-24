@@ -17,7 +17,7 @@ urlpatterns = [
     # Translators: URL de delecao assincrona de artigo
     url(_(r'^article/delete/async/(?P<article_id>\d+)$'), views.ArticleDeleteAjax.as_view(), name='delete-async'),
     # Translators: URL de criacao de artigo
-    url(_(r'^article/(?P<article_slug>[a-z0-9]+(?:-[a-z0-9]+)*)/(?P<article_id>\d+)$'), CoreArticleView.as_view(), name='view'),
+    url(_(r'^article/(?P<article_id>\d+)/(?P<article_slug>[a-z0-9]+(?:-[a-z0-9]+)*)$'), CoreArticleView.as_view(), name='view'),
 
     # Translators: URL de criacao de artigo em uma comunidade
     url(_(r'^article/create/(?P<community_slug>[a-z0-9]+(?:-[a-z0-9]+)*)$'), _article_create_in_community, name='create-in-category'),

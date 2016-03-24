@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-18 13:54-0300\n"
+"POT-Creation-Date: 2016-03-24 14:07-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -60,7 +60,7 @@ msgid "Token is no longer valid."
 msgstr "Token expirou"
 
 #. Translators: This message appears on the home page only
-#: apps/account/views.py:144 apps/article/views.py:224
+#: apps/account/views.py:144 apps/article/views.py:222
 msgid "Success"
 msgstr "Sucesso"
 
@@ -116,7 +116,7 @@ msgstr "Lixo"
 msgid "Publish"
 msgstr "Publicado"
 
-#: apps/article/models.py:29 apps/job_vacancy/models.py:40
+#: apps/article/models.py:29 apps/job_vacancy/models.py:44
 msgid "Author"
 msgstr "Autor"
 
@@ -128,31 +128,31 @@ msgstr "Data de publicação inválida."
 msgid "Image format is not allowed."
 msgstr "Formato da imagem não é permitido"
 
-#: apps/article/views.py:20 apps/article/views.py:21
+#: apps/article/views.py:18 apps/article/views.py:19
 msgid "Article not Found."
 msgstr "Publicação não encontrada"
 
-#: apps/article/views.py:39
+#: apps/article/views.py:37
 msgid "Operation not permitted"
 msgstr "Operação não permitida"
 
-#: apps/article/views.py:147
+#: apps/article/views.py:145
 msgid "This article has been deleted"
 msgstr "Publicação removida"
 
-#: apps/article/views.py:228
+#: apps/article/views.py:226
 msgid "Generic Error"
 msgstr "Erro"
 
-#: apps/certification/models.py:9 apps/job_vacancy/models.py:35
+#: apps/certification/models.py:9 apps/job_vacancy/models.py:39
 msgid "Title"
 msgstr "Título"
 
-#: apps/certification/models.py:10 apps/job_vacancy/models.py:16
-#: apps/job_vacancy/models.py:22 apps/job_vacancy/models.py:28
-#: apps/job_vacancy/models.py:39 apps/job_vacancy/models.py:55
-#: apps/job_vacancy/models.py:68 apps/job_vacancy/models.py:80
-#: apps/job_vacancy/models.py:86 apps/job_vacancy/models.py:92
+#: apps/certification/models.py:10 apps/job_vacancy/models.py:18
+#: apps/job_vacancy/models.py:24 apps/job_vacancy/models.py:30
+#: apps/job_vacancy/models.py:43 apps/job_vacancy/models.py:67
+#: apps/job_vacancy/models.py:80 apps/job_vacancy/models.py:92
+#: apps/job_vacancy/models.py:98 apps/job_vacancy/models.py:104
 msgid "Description"
 msgstr "Descrição"
 
@@ -210,6 +210,11 @@ msgstr "^delete$"
 msgid "^count/(?P<object_to_link>\\d+)/(?P<content_type>[a-z]+)$"
 msgstr "^contar/(?P<object_to_link>\\d+)/(?P<content_type>[a-z]+)$"
 
+#: apps/community/models.py:23
+#| msgid "Community not Found"
+msgid "Community Related"
+msgstr "Comunidade relacionada"
+
 #: apps/community/views.py:15
 msgid "Community not Found."
 msgstr "Comunidade não encontrada"
@@ -219,10 +224,9 @@ msgid "Name"
 msgstr "Nome"
 
 #: apps/company/models.py:9
-#, fuzzy
 #| msgid "Logout"
 msgid "Logo"
-msgstr "Sair"
+msgstr "Logo"
 
 #. Translators: URL de denunciar objeto
 #: apps/complaint/urls.py:9
@@ -354,9 +358,9 @@ msgstr "^publicacao/delete/async/(?P<article_id>\\d+)$"
 #. Translators: URL de criacao de artigo
 #: apps/core/urls/article.py:20
 msgid ""
-"^article/(?P<article_slug>[a-z0-9]+(?:-[a-z0-9]+)*)/(?P<article_id>\\d+)$"
+"^article/(?P<article_id>\\d+)/(?P<article_slug>[a-z0-9]+(?:-[a-z0-9]+)*)$"
 msgstr ""
-"^publicacao/(?P<article_slug>[a-z0-9]+(?:-[a-z0-9]+)*)/(?P<article_id>\\d+)$"
+"^publicacao/(?P<article_id>\\d+)/(?P<article_slug>[a-z0-9]+(?:-[a-z0-9]+)*)$"
 
 #. Translators: URL de criacao de artigo em uma comunidade
 #: apps/core/urls/article.py:23
@@ -460,10 +464,9 @@ msgstr "^notificacao$"
 
 #. Translators: URL de configuracao de desativar conta
 #: apps/core/urls/configuration.py:14
-#, fuzzy
 #| msgid "^socialaccount/"
 msgid "^deactivate-account$"
-msgstr "^conta-social/"
+msgstr "^desativar-conta$"
 
 #. Translators: URL de criacao de contato
 #. Translators: URL index de conta social
@@ -867,11 +870,11 @@ msgstr "Mudar senha"
 msgid "Your password has been changed!"
 msgstr "Sua senha foi alterada!"
 
-#: apps/core/views/article.py:50 apps/core/views/question.py:56
+#: apps/core/views/article.py:78 apps/core/views/question.py:56
 msgid "Community not Found"
 msgstr "Comunidade não encontrada"
 
-#: apps/core/views/article.py:56 apps/core/views/question.py:62
+#: apps/core/views/article.py:84 apps/core/views/question.py:62
 msgid "User need follow this community"
 msgstr "É necessário seguir esta comunidade"
 
@@ -880,124 +883,127 @@ msgid "Category not found or not root category."
 msgstr "Categoria não encontrada ou não é uma categoria raiz"
 
 #. Translators:
-#: apps/core/views/configuration.py:67
+#: apps/core/views/configuration.py:68
 msgid "Configuration Notification"
 msgstr "Configuração de Notificação"
 
-#: apps/core/views/configuration.py:68
+#: apps/core/views/configuration.py:69
 msgid "Your settings have been successfully changed!"
 msgstr "Suas configurações foi alteradas com sucesso!"
 
-#: apps/job_vacancy/models.py:36
+#: apps/job_vacancy/models.py:40
 msgid "Slug"
 msgstr "Slug"
 
-#: apps/job_vacancy/models.py:37
+#: apps/job_vacancy/models.py:41
 msgid "Date"
 msgstr "Data"
 
-#: apps/job_vacancy/models.py:38 templates/userprofile/occupation_add.html:13
+#: apps/job_vacancy/models.py:42 templates/userprofile/occupation_add.html:13
 #: templates/userprofile/occupation_edit.html:13
 msgid "Company"
 msgstr "Empresa"
 
-#: apps/job_vacancy/models.py:41
+#: apps/job_vacancy/models.py:45
 msgid "Responsibility Description"
 msgstr "Descriçao da resposabilidade"
 
-#: apps/job_vacancy/models.py:42
+#: apps/job_vacancy/models.py:46
 msgid "Regime"
 msgstr "Regime"
 
-#: apps/job_vacancy/models.py:43
+#: apps/job_vacancy/models.py:47
 msgid "Home Office"
 msgstr "Home Office"
 
-#: apps/job_vacancy/models.py:44
+#: apps/job_vacancy/models.py:48
 msgid "Quantity"
 msgstr "Quantidade"
 
-#: apps/job_vacancy/models.py:45
+#: apps/job_vacancy/models.py:49
 msgid "Work Load"
 msgstr "Carga horária"
 
-#: apps/job_vacancy/models.py:46
-msgid "States"
-msgstr "Estados"
-
-#: apps/job_vacancy/models.py:47
-msgid "Cities"
-msgstr "Cidades"
-
-#: apps/job_vacancy/models.py:48
+#: apps/job_vacancy/models.py:50
 msgid "Benefits"
 msgstr "Benefícios"
 
-#: apps/job_vacancy/models.py:49
-#, fuzzy
+#: apps/job_vacancy/models.py:51
 #| msgid "Email"
 msgid "E-mail"
-msgstr "Email"
+msgstr "E-mail"
 
-#: apps/job_vacancy/models.py:50
+#: apps/job_vacancy/models.py:52
 msgid "Phone Number"
 msgstr "Número de Telefone"
 
-#: apps/job_vacancy/models.py:51
+#: apps/job_vacancy/models.py:53
 msgid "Web Site"
 msgstr "Web Site"
 
-#: apps/job_vacancy/models.py:52 templates/contact/contact.html.py:3
+#: apps/job_vacancy/models.py:54 templates/contact/contact.html.py:3
 msgid "Contact"
 msgstr "Contato"
 
-#: apps/job_vacancy/models.py:61
-msgid "Fixed value"
-msgstr "Valor fixo"
-
-#: apps/job_vacancy/models.py:62
-msgid "Range from"
-msgstr "Intervalo de"
-
-#: apps/job_vacancy/models.py:63
-msgid "Range to"
-msgstr "Intervalo para"
-
-#: apps/job_vacancy/models.py:64
-msgid "Salary Type"
-msgstr "Tipo de salário"
-
-#: apps/job_vacancy/models.py:65 apps/job_vacancy/models.py:77
-#: apps/job_vacancy/models.py:99 apps/job_vacancy/models.py:107
+#: apps/job_vacancy/models.py:60 apps/job_vacancy/models.py:77
+#: apps/job_vacancy/models.py:89 apps/job_vacancy/models.py:111
+#: apps/job_vacancy/models.py:119
 msgid "Job Vacancy"
 msgstr "Vaga de trabalho"
 
+#: apps/job_vacancy/models.py:61
+msgid "Country"
+msgstr "País"
+
+#: apps/job_vacancy/models.py:62
+msgid "States"
+msgstr "Estados"
+
+#: apps/job_vacancy/models.py:63
+msgid "Cities"
+msgstr "Cidades"
+
+#: apps/job_vacancy/models.py:73
+msgid "Fixed value"
+msgstr "Valor fixo"
+
+#: apps/job_vacancy/models.py:74
+msgid "Range from"
+msgstr "Intervalo de"
+
 #: apps/job_vacancy/models.py:75
+msgid "Range to"
+msgstr "Intervalo para"
+
+#: apps/job_vacancy/models.py:76
+msgid "Salary Type"
+msgstr "Tipo de salário"
+
+#: apps/job_vacancy/models.py:87
 msgid "Responsibility"
 msgstr "Área de atuação"
 
-#: apps/job_vacancy/models.py:76
+#: apps/job_vacancy/models.py:88
 msgid "Responsibility Type"
 msgstr "tipo da área de atuação"
 
-#: apps/job_vacancy/models.py:100
+#: apps/job_vacancy/models.py:112
 msgid "Item"
 msgstr "Item"
 
-#: apps/job_vacancy/models.py:101
+#: apps/job_vacancy/models.py:113
 msgid "Level"
 msgstr "Nível"
 
-#: apps/job_vacancy/models.py:102 apps/job_vacancy/models.py:109
+#: apps/job_vacancy/models.py:114 apps/job_vacancy/models.py:121
 msgid "Exigency"
 msgstr ""
 
-#: apps/job_vacancy/models.py:103
+#: apps/job_vacancy/models.py:115
 msgid "Experience"
 msgstr "Experiência"
 
-#: apps/job_vacancy/models.py:108
-#| msgid "^notification$"
+#: apps/job_vacancy/models.py:120
 msgid "Certification"
 msgstr "Certificação"
 
@@ -1017,36 +1023,36 @@ msgstr "Sua resposta não pode estar em branco."
 msgid "Question not Found."
 msgstr "Pergunta não encontrada"
 
-#: apps/question/views.py:141 apps/question/views.py:163
+#: apps/question/views.py:139 apps/question/views.py:161
 msgid "Question not created!"
 msgstr "Dùvida não encontrada"
 
-#: apps/question/views.py:143 apps/question/views.py:165
+#: apps/question/views.py:141 apps/question/views.py:163
 msgid "Question created successfully!"
 msgstr "Pergunta criada com sucesso!"
 
-#: apps/question/views.py:187 apps/question/views.py:217
-#: apps/question/views.py:229 apps/question/views.py:275
+#: apps/question/views.py:185 apps/question/views.py:210
+#: apps/question/views.py:222 apps/question/views.py:268
 msgid "Question is not exists!"
 msgstr "Dùvida não existe"
 
-#: apps/question/views.py:204
+#: apps/question/views.py:199
 msgid "Question updated successfully!"
 msgstr "Pergunta atualizada com sucesso"
 
-#: apps/question/views.py:245
+#: apps/question/views.py:238
 msgid "Question not found"
 msgstr "Pergunta não encontrada"
 
-#: apps/question/views.py:277
+#: apps/question/views.py:270
 msgid "Answer is not exists!"
 msgstr "Resposta não existe"
 
-#: apps/question/views.py:291
+#: apps/question/views.py:284
 msgid "Answer not found!"
 msgstr "Resposta não encontrada"
 
-#: apps/question/views.py:293
+#: apps/question/views.py:286
 msgid "Answer not found"
 msgstr "Resposta não encontrada"
 
@@ -1300,7 +1306,7 @@ msgstr "Mostrar perfil"
 #: templates/account/password_sent_email_successfully.html:4
 #: templates/account/recovery_validation.html:4
 #: templates/account/resend_account_confirmation_successfully.html:5
-#: templates/account/signup.html:137
+#: templates/account/signup.html:143
 #: templates/userprofile/occupation_add.html:21
 #: templates/userprofile/occupation_edit.html:22
 #: templates/userprofile/occupation_manage.html:22
@@ -1340,16 +1346,16 @@ msgid "Logout"
 msgstr "Sair"
 
 #: templates/account/login.html:2
-#: templates/home/partials/modals/modal-login.html:49
+#: templates/home/partials/modals/modal-login.html:53
 msgid "click here"
 msgstr "clique aqui"
 
-#: templates/account/login.html:8 templates/account/signup.html.py:112
+#: templates/account/login.html:8 templates/account/signup.html.py:118
 msgid "Username"
 msgstr "Nome de usuário"
 
 #: templates/account/login.html:12 templates/account/password_recovery.html:9
-#: templates/account/signup.html:120
+#: templates/account/signup.html:126
 msgid "Password"
 msgstr "Senha"
 
@@ -1370,7 +1376,7 @@ msgstr ""
 #: templates/account/recovery_validation.html:4
 #: templates/account/resend_account_confirmation.html:15
 #: templates/account/resend_account_confirmation_successfully.html:5
-#: templates/account/signup.html:137 templates/userprofile/show.html.py:34
+#: templates/account/signup.html:143 templates/userprofile/show.html.py:34
 msgid "Login"
 msgstr "Login"
 
@@ -1410,7 +1416,7 @@ msgstr "Confirmação de nova senha"
 #: templates/account/password_forgot.html:12
 #: templates/account/password_recovery.html:20
 #: templates/account/resend_account_confirmation.html:14
-#: templates/account/signup.html:136
+#: templates/account/signup.html:142
 #: templates/userprofile/occupation_add.html:20
 #: templates/userprofile/occupation_edit.html:21
 msgid "Submit"
@@ -1422,7 +1428,7 @@ msgstr "Ir para início!"
 
 #: templates/account/password_forgot.html:8
 #: templates/account/resend_account_confirmation.html:8
-#: templates/account/signup.html:107 templates/contact/contact.html.py:13
+#: templates/account/signup.html:113 templates/contact/contact.html.py:13
 msgid "Email"
 msgstr "Email"
 
@@ -1431,7 +1437,7 @@ msgid "Nova senha"
 msgstr "Nova senha"
 
 #: templates/account/password_recovery.html:13
-#: templates/account/signup.html:125
+#: templates/account/signup.html:131
 msgid "Password Confirm"
 msgstr "Confirmação de senha"
 
@@ -1439,11 +1445,11 @@ msgstr "Confirmação de senha"
 msgid "Resend account confirmation"
 msgstr "Reenviar confirmação de conta"
 
-#: templates/account/signup.html:95
+#: templates/account/signup.html:101
 msgid "First name"
 msgstr "Primeiro nome"
 
-#: templates/account/signup.html:101
+#: templates/account/signup.html:107
 msgid "Last Name"
 msgstr "Último nome"
 
@@ -1462,12 +1468,12 @@ msgctxt "publish article"
 msgid "Publish"
 msgstr "Publicar"
 
-#: templates/configuration/configuration-account.html:42
+#: templates/configuration/configuration-account.html:37
 #: templates/configuration/configuration-deactivate-account.html:23
 msgid "Desativar Conta"
 msgstr "Desativar Conta"
 
-#: templates/configuration/configuration-deactivate-account.html:37
+#: templates/configuration/configuration-deactivate-account.html:34
 msgid "Confirmar"
 msgstr "Confirmar"
 
@@ -1483,11 +1489,11 @@ msgstr "Mensagem"
 msgid "submit"
 msgstr "Enviar"
 
-#: templates/home/partials/modals/modal-login.html:47
+#: templates/home/partials/modals/modal-login.html:51
 msgid "Account is not active."
 msgstr "Conta não está ativa."
 
-#: templates/home/partials/modals/modal-login.html:50
+#: templates/home/partials/modals/modal-login.html:54
 #, python-format
 msgid ""
 "If you have not received the confirmation email <a href="
@@ -1498,8 +1504,8 @@ msgstr ""
 "\"%(url_resend_account_confirmation)s\" data-toggle=\"modal\" data-target="
 "\"#modal-resend-email-confirmation\">%(click_here)s</a> para reenviá-lo."
 
-#: templates/home/partials/slideout-menu.html:35
-#: templates/home/partials/user-actions.html:29
+#: templates/home/partials/slideout-menu.html:31
+#: templates/home/partials/user-actions.html:34
 msgid "Sair"
 msgstr "Sair"
 
@@ -1561,11 +1567,14 @@ msgstr "Sexo"
 msgid "City / State / Country"
 msgstr "Cidade / Estado / País"
 
+#~ msgid ""
+#~ "^article/(?P<article_slug>[a-z0-9]+(?:-[a-z0-9]+)*)/(?P<article_id>\\d+)$"
+#~ msgstr ""
+#~ "^publicacao/(?P<article_slug>[a-z0-9]+(?:-[a-z0-9]+)*)/(?P<article_id>\\d"
+#~ "+)$"
+
 #~ msgid "If you have not received the confirmation email %s to resend."
 #~ msgstr "Se você não recebeu o email de confirmação %s para reenviá-lo."
-
-#~ msgid "Country"
-#~ msgstr "País"
 
 #~ msgid "Countries"
 #~ msgstr "Países"

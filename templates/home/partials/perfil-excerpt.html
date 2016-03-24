@@ -3,7 +3,7 @@
     <div class="excerpt">
         <div class="custom-check"><input type="checkbox" data-object-id="{{ article.id }}"></div>
         <div class="excerpt-content">
-            <a class="excerpt-image" href="{% url 'article:view' article.content_object.slug article.content_object.id %}">
+            <a class="excerpt-image" href="{% url 'article:view' article.content_object.id article.content_object.slug %}">
                 <img src="{{ article.content_object.get_image.url }}" alt="{{ article.content_object.title }}">
             </a>
             <div class="excerpt-title">
@@ -24,7 +24,7 @@
                         <img src="{{ article.content_object.author.profile.get_picture }}" alt="{{ article.content_object.author.get_full_name }}">
                         {{ article.content_object.author.get_full_name }}</a>
                 </header>
-                <a href="{% url 'article:view' article.content_object.slug article.content_object.id %}">{{ article.content_object.title }}</a>
+                <a href="{% url 'article:view' article.content_object.id article.content_object.slug %}">{{ article.content_object.title }}</a>
             </div>
         </div>
     </div>
