@@ -1,0 +1,4 @@
+<div class="col-lg-4 text-right">
+    <a class="btn btn-perfil {% if item_context == "posts" %}active{% endif %}" href="{% url 'profile:edit-posts' %}">Publicações</a>
+    <a class="btn btn-perfil {% if item_context == "questions" %}active{% endif %}" href="{% url 'profile:edit-questions' %}">Perguntas</a>
+</div>

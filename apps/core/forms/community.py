@@ -48,7 +48,6 @@ class CoreCommunityFeedFormSearch(IdeiaForm):
 
         super(CoreCommunityFeedFormSearch, self).__init__(*args, **kwargs)
 
-
     def clean(self):
         cleaned_data = super(CoreCommunityFeedFormSearch, self).clean()
 
@@ -83,7 +82,6 @@ class CoreCommunityQuestionFeedFormSearch(CoreCommunityFeedFormSearch):
             if 'replies' in cleaned_data and cleaned_data['replies'] else None
 
         return cleaned_data
-
 
     def __process__(self):
 

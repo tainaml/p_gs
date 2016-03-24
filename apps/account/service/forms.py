@@ -1,14 +1,15 @@
 # coding=utf-8
-from django.contrib.auth import get_user_model
-from apps.account.models import User
+from django.contrib.auth.password_validation import validate_password
 from django.core.exceptions import ValidationError
-from nocaptcha_recaptcha import NoReCaptchaField
 from django.utils.translation import ugettext as _
-from apps.account.models import User
+from django.conf import settings
+
+from nocaptcha_recaptcha import NoReCaptchaField
 
 import business as Business
+
+from apps.account.models import User
 from apps.custom_base.service.custom import forms, IdeiaForm
-from rede_gsti import settings
 
 
 class SignUpForm(IdeiaForm):
@@ -19,6 +20,9 @@ class SignUpForm(IdeiaForm):
     password = forms.CharField(max_length=50, required=True)
     password_confirmation = forms.CharField(max_length=50, required=True)
     captcha = NoReCaptchaField(required=True)
+
+    def clean_password(self):
+        validate_password(self.cleaned_data.get('password'))
 
     def is_valid(self):
         valid = super(SignUpForm, self).is_valid()
@@ -65,16 +69,6 @@ class LoginForm(IdeiaForm):
                 valid = False
             else:
                 if self.instance.is_active is False:
-                    # url = reverse('account:resend_account_confirmation')
-                    # btn = '<a href="%s" ' \
-                    #       'data-toggle="modal" ' \
-                    #       'data-target="#modal-resend-email-confirmation">%s</a>' % (url, _('click here'))
-                    #
-                    # error = _('Account is not active.')
-                    # error += '<br>'
-                    # error += _('If you have not received the confirmation email %s to resend.') % btn
-
-                    # self.add_error(None, ValidationError(error, code='account_not_active'))
                     self.account_is_active = False
                     valid = False
                 else:

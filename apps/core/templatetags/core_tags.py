@@ -56,7 +56,8 @@ def last_questions(context, content_object, content_type, count=4, template_path
         records = FeedObject.objects.filter(
             taxonomies=content_object.taxonomy,
             content_type=record_type,
-            question__question_date__lte=timezone.now()
+            question__question_date__lte=timezone.now(),
+            question__deleted=False
         ).order_by(
             '-relevance',
             '-question__question_date'

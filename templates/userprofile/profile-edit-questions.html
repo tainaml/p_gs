@@ -1,6 +1,6 @@
 {%extends 'home/layout/base.html' %}
 
-{% block title %}Portal GSTI - Perfil, Editar Publicações{% endblock %}
+{% block title %}Portal GSTI - Perfil, Editar Perguntas{% endblock %}
 
 {% block content %}
 <main class="container main">
@@ -15,52 +15,17 @@
             <div class="row">
                 <div class="col-sm-12">
                     <header class="area-title">
-                        <h2>Editar Publicações</h2>
+                        <h2>Editar Perguntas</h2>
                     </header>
                     <div class="row">
-                        <form id="search-form" action="{% url 'profile:edit-posts-search-ajax' %}" method="GET" data-ajaxform="true" data-group-class=".form-search-input">
+                        <form id="search-form" action="{% url 'profile:edit-questions-search-ajax' %}" method="GET" data-ajaxform="true" data-group-class=".form-search-input">
                             {% csrf_token %}
                             <div class="col-sm-5">
                                 <nav class="form-search">
                                     <div class="form-search-input">
-                                        <input type="text" id="criteria" name="criteria" placeholder="{{placehold|default:"Procure uma publicação"}}" value="{{ form.cleaned_data.criteria|default:"" }}"/>
+                                        <input type="text" id="criteria" name="criteria" placeholder="{{placehold|default:"Procure uma pergunta"}}" value="{{ form.cleaned_data.criteria|default:"" }}"/>
                                     </div>
-                                    <div class="dropdown-menu dropdown-search">
-                                        <div class="float-notifcations">
-                                            <div class="header-float-notifications">Pessoas</div>
-                                            <ul class="content-float-notifications">
-                                                <li class="item-float-notification">
-                                                    <a href="javascript:;"><img src="http://placehold.it/20" alt="Creator Post Avatar"></a>
-                                                    <a href="javascript:;">Iury Silva</a>
-                                                </li>
-                                                <li class="item-float-notification">
-                                                    <a href="javascript:;"><img src="http://placehold.it/20" alt="Creator Post Avatar"></a>
-                                                    <a href="javascript:;">Iury Silva</a>
-                                                </li>
-                                                <li class="item-float-notification">
-                                                    <a href="javascript:;"><img src="http://placehold.it/20" alt="Creator Post Avatar"></a>
-                                                    <a href="javascript:;">Iury Silva</a>
-                                                </li>
-                                                <li class="item-float-notification-separator"></li>
-                                            </ul>
-                                            <div class="header-float-notifications">Comunidades</div>
-                                            <ul class="content-float-notifications">
-                                                <li class="item-float-notification">
-                                                    <a href="javascript:;"><img src="http://placehold.it/20" alt="Creator Post Avatar"></a>
-                                                    <a href="javascript:;">Iury Silva</a>
-                                                </li>
-                                                <li class="item-float-notification">
-                                                    <a href="javascript:;"><img src="http://placehold.it/20" alt="Creator Post Avatar"></a>
-                                                    <a href="javascript:;">Iury Silva</a>
-                                                </li>
-                                                <li class="item-float-notification">
-                                                    <a href="javascript:;"><img src="http://placehold.it/20" alt="Creator Post Avatar"></a>
-                                                    <a href="javascript:;">Iury Silva</a>
-                                                </li>
-                                                <li class="item-float-notification-separator"></li>
-                                            </ul>
-                                        </div>
-                                    </div>
+                                    {% comment %}{% include "userprofile/partials/profile-dropdown-results.html" %}{% endcomment %}
                                     <button type="submit" class="form-search-button">
                                         <i class="gsticon gsticon-search"></i>
                                     </button>
@@ -68,21 +33,20 @@
                             </div>
                             <div class="col-sm-3">
                                 <div class="custom-select">
-                                    <select class="form-control" id="status" name="status">
-                                        <option value="">Todos</option>
-                                        {% for key, value in status_list %}
-                                            <option value="{{ key }}" {% if status == key %}selected{% endif %}>{{ value }}</option>
-                                        {% endfor %}
+                                    <select class="form-control" id="status" name="deleted">
+                                        <option value="1">Todos</option>
+                                        <option value="2" {% if status == "2" %}selected{% endif %}>Deletadas</option>
+                                        <option value="3" {% if status == "3" %}selected{% endif %}>Publicadas</option>
                                     </select>
                                 </div>
                             </div>
-                            {% include "userprofile/partials/profile-edit-item-menu.html" with item_context="posts" %}
+                            {% include "userprofile/partials/profile-edit-item-menu.html" with item_context="questions" %}
                         </form>
                     </div>
                     <section class="area-content">
                         <div id="posts-container">
                             <div class="j-scroll-posts j-scroll-posts-container">
-                                {% include "userprofile/partials/profile-edit-posts-segment.html" %}
+                                {% include "userprofile/partials/profile-edit-questions-segment.html" %}
                             </div>
                         </div>
                     </section>
@@ -134,6 +98,7 @@
 
             $modal.find("form").attr("action", $btn.data("url"));
             $modal.find("#item-id").val($btn.data("item"));
+            $modal.find("#item-type").val($btn.data("type"));
             $modal.find("#title-item-to-remove").html($btn.data("title"));
             $modal.find(".loading-container").html("");
             $modal.find(".alert-container").html("");
@@ -150,16 +115,17 @@
             $modal.modal("hide");
             $modal.find("form").attr("action", "");
             $modal.find("#item-id").val("");
+            $modal.find("#item-type").val("");
             $modal.find("#title-item-to-remove").html("");
             $modal.find(".loading-container").html("");
             $modal.find(".alert-container").html("");
 
-            $("#pub-" + itemId).fadeOut("slow");
+            $("#question-" + itemId).fadeOut("slow");
         };
 
         $(function() {
             var timeout = null;
-            $(document).on('input', "#criteria" , function(event) {
+            $(document).on('keyup', "#criteria" , function(event) {
                 var $this = $(event.currentTarget);
 
                 if (timeout) clearTimeout(timeout);
@@ -183,6 +149,7 @@
                 contentSelect: ".j-scroll-posts-container",
                 nextSelector: "a[data-jscroll-next]"
             });
+
             var $social_count = $("[data-social-count=\"true\"]");
             $.each($social_count, function(key, value){
                var $obj = $(value);

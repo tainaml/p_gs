@@ -119,7 +119,9 @@ def get_questions(description=None, items_per_page=None, page=None):
     if len(arr_description) == 0:
         criteria = True
 
-    questions = Question.objects.filter(criteria).order_by('-question_date').distinct('id', 'question_date')
+    questions = Question.objects.filter(
+        Q(deleted=False) & criteria
+    ).order_by('-question_date').distinct('id', 'question_date')
 
     questions = Paginator(questions, items_per_page)
     try:
