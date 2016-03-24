@@ -24,10 +24,16 @@ def notification_navbar(context, notification_type, count=5):
         page=1
     )
 
-    notifications_not_visualized, paginator_not_read = Business.get_notifications(
+    notifications_not_visualized, paginator_not_visualized = Business.get_notifications(
         user=request.user,
         notification_actions=notification_group,
         visualized=False
+    )
+
+    notifications_not_read, paginator_not_read = Business.get_notifications(
+        user=request.user,
+        notification_actions=notification_group,
+        read=False
     )
 
     count = notifications_not_visualized.count()
@@ -35,7 +41,7 @@ def notification_navbar(context, notification_type, count=5):
 
     response_data = {
         'request': request,
-        'total': paginator.count,
+        'total': notifications_not_read.count,
         'count': count,
         'notifications': notifications,
         'notifications_label': NOTIFICATION_ACTIONS,
