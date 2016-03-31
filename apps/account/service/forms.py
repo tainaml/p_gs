@@ -22,7 +22,11 @@ class SignUpForm(IdeiaForm):
     captcha = NoReCaptchaField(required=True)
 
     def clean_password(self):
-        validate_password(self.cleaned_data.get('password'))
+
+        _pass = self.cleaned_data.get('password')
+
+        validate_password(_pass)
+        return _pass
 
     def is_valid(self):
         valid = super(SignUpForm, self).is_valid()
