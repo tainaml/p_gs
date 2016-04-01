@@ -7,8 +7,7 @@ from apps.account import views
 
 
 class CoreRegisterView(views.RegisterView):
-
-    form = CoreSignUpForm
+    pass
 
 
 class CoreLoginView(views.LoginView):

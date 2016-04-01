@@ -1,10 +1,13 @@
 from datetime import date
+
 from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
-from apps.account.models import User
 from django.utils.translation import ugettext as _
+
 from ckeditor.fields import RichTextField
+
+from apps.account.models import User
 from apps.socialactions.models import Counter
 from apps.geography.models import State, City, Country
 
@@ -20,32 +23,6 @@ class GenderType:
         MALE: _("MALE"),
         FEMALE: _("FEMALE")
     }
-
-
-"""class Country(models.Model):
-    name = models.CharField(max_length=60, blank=False)
-    abbreviation = models.CharField(max_length=3, blank=False)
-
-    def __unicode__(self):
-        return self.name
-
-
-class State(models.Model):
-    name = models.CharField(max_length=60, blank=False)
-    abbreviation = models.CharField(max_length=3, blank=False)
-    country = models.ForeignKey(Country, related_name='states')
-
-    def __unicode__(self):
-        return self.name
-
-
-class City(models.Model):
-    name = models.CharField(max_length=60, blank=False)
-    state = models.ForeignKey(State, related_name='cities')
-
-    def __unicode__(self):
-        return self.name
-"""
 
 
 class UserProfile(models.Model):

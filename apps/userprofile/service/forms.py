@@ -1,6 +1,7 @@
 # coding=utf-8
 import pickle
 
+from django.conf import settings
 from django.db import models
 from django.core.validators import RegexValidator
 from django.core.exceptions import ValidationError
@@ -9,8 +10,8 @@ from django.utils.translation import ugettext as _
 
 from apps.custom_base.service.custom import forms, IdeiaForm
 from apps.userprofile.models import City, Responsibility
+
 import business as Business
-from rede_gsti import settings
 
 
 class MultiWidgetBasic(forms.widgets.MultiWidget):
