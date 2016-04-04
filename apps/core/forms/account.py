@@ -1,24 +1,10 @@
-from apps.account.models import User
+from django import forms
 from django.core.exceptions import ValidationError
 from django.utils.translation import ugettext as _
-from django.db import transaction
-from django import forms
+
 from apps.account.models import User
-
 from apps.custom_base.service.custom import IdeiaForm
-from apps.account.service.forms import SignUpForm
 from apps.account.service.business import deactivate_account
-from ..business import account as Business
-
-
-class CoreSignUpForm(SignUpForm):
-
-    @transaction.atomic()
-    def __process__(self):
-        process_user = super(CoreSignUpForm, self).__process__()
-        process_profile = Business.save_profile(process_user)
-
-        return process_user if (process_user and process_profile) else False
 
 
 class CoreDeactivateAccountForm(IdeiaForm):
