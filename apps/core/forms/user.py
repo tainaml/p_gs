@@ -90,6 +90,17 @@ class CoreUserProfileEditForm(EditProfileForm):
         return process_profile if (process_profile and process_occupation) else False
 
 
+class CoreUserProfileEditStepOne(CoreUserProfileEditForm):
+
+    @transaction.atomic()
+    def __process__(self):
+        process_profile = super(CoreUserProfileEditStepOne, self).__process__()
+        if process_profile:
+            BusinessUserProfile.update_wizard_step(process_profile, 1)
+
+        return process_profile if process_profile else False
+
+
 class CoreUserProfileFullEditForm(EditProfileForm):
 
     first_name = forms.CharField(max_length=100)

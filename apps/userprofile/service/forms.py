@@ -72,7 +72,7 @@ class EditProfileForm(IdeiaForm):
         image = self.cleaned_data.get('profile_picture', False)
         birth = self.cleaned_data.get('birth', None)
 
-        if birth.year > timezone.now().year:
+        if birth and birth.year > timezone.now().year:
             is_valid = False
             self.add_error('birth', ValidationError(_('Birth invalid.'), code='birth'))
 
