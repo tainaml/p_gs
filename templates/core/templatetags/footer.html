@@ -8,7 +8,7 @@
             <li class="box-list-links">
                 <h3 class="h4 box-list-heading">Governança e Gestão</h3>
                 <ul class="list-links">
-                    {% for community in categories.governanca_de_ti %}
+                    {% for community in categories.governanca_e_gestao %}
                         <li><a href="{% url "community:show" community.slug %}">{{ community.title }}</a></li>
                     {% endfor %}
                 </ul>
