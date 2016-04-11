@@ -57,6 +57,7 @@
 // ==========================================================================
 .suggestion {
     @include make-lg-column(4);
+    padding-top: 1px;
     margin-bottom: 20px;
 }
 

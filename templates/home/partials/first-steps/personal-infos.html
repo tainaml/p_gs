@@ -35,57 +35,54 @@
                             </div>
                             <div class="col-lg-8">
                                 <div class="row">
-                                    <div data-form-group class="col-lg-12 item-form">
-                                        <div class="custom-select">
+                                    <div class="clearfix">
+                                        <div data-form-group class="col-lg-12 item-form">
                                             <select name="responsibility" id="responsibility" class="form-control">
                                                 <option value="0" {% if not wizard_profile.current_occupation.responsibility.id %}selected{% endif %} disabled>Área de atuação</option>
                                                 {% for responsibility in responsibilities %}
                                                     <option value="{{ responsibility.id }}" {% if responsibility.id == wizard_profile.current_occupation.responsibility.id %}selected{% endif %}>{{ responsibility.name }}</option>
                                                 {% endfor %}
                                             </select>
+                                            <span class="help-block"></span>
                                         </div>
-                                        <span class="help-block"></span>
                                     </div>
-                                     <div data-form-group class="col-lg-6 item-form">
-                                        <div class="custom-calendar">
-                                            <input type="text" class="datetime-picker" name="birth" id="birth" placeholder="Aniversário" value="{{ wizard_profile.birth|date:"d/m/Y" }}" autocomplete="off">
-                                            <i class="gsticon gsticon-calendar"></i>
+                                    <div class="clearfix">
+                                        <div data-form-group class="col-lg-6 item-form">
+                                            <div class="custom-calendar">
+                                                <input type="text" class="datetime-picker" name="birth" id="birth" placeholder="Aniversário" value="{{ wizard_profile.birth|date:"d/m/Y" }}" autocomplete="off">
+                                                <i class="gsticon gsticon-calendar"></i>
+                                            </div>
+                                            <span class="help-block"></span>
                                         </div>
-                                        <span class="help-block"></span>
-                                    </div>
-                                    <div data-form-group class="col-lg-6 item-form">
-                                        <div class="custom-select">
+                                        <div data-form-group class="col-lg-6 item-form">
                                             <select name="gender" id="gender" class="form-control">
                                                 <option value="" {% if not wizard_profile.gender %}selected{% endif %} disabled>Sexo</option>
                                                 <option value="M">Masculino</option>
                                                 <option value="F">Feminino</option>
                                             </select>
+                                            <span class="help-block"></span>
                                         </div>
-                                        <span class="help-block"></span>
                                     </div>
-                                    <div data-form-group class="col-lg-6 item-form">
-                                        <div class="custom-select">
+                                    <div class="clearfix">
+                                        <div data-form-group class="col-lg-6 item-form">
                                             <select name="state" id="state" class="form-control" data-ajax-change="true" data-url="{% url 'profile:get_city' %}" data-target="#city">
                                                 <option value="0" {% if not wizard_profile.city.state.id %}selected{% endif %} disabled>Estado</option>
                                                 {% for state in states %}
-                                                <option value="{{ state.id }}" {% if wizard_profile.city.state.id == state.id %}selected{% endif %}>{{ state.name }}</option>
+                                                    <option value="{{ state.id }}" {% if wizard_profile.city.state.id == state.id %}selected{% endif %}>{{ state.name }}</option>
                                                 {% endfor %}
                                             </select>
+                                            <span class="help-block"></span>
                                         </div>
-                                        <span class="help-block"></span>
-                                    </div>
-                                    <div data-form-group class="col-lg-6 item-form">
-                                        <div class="custom-select">
+                                        <div data-form-group class="col-lg-6 item-form">
                                             <select name="city" id="city" class="form-control">
                                                 <option value="0" {% if not wizard_profile.city.id %}selected{% endif %} disabled>Cidade</option>
                                                 {% for city in cities %}
                                                     <option value="{{ city.id }}" {% if wizard_profile.city.id == city.id %}selected{% endif %}>{{ city.name }}</option>
                                                 {% endfor %}
                                             </select>
+                                            <span class="help-block"></span>
                                         </div>
-                                        <span class="help-block"></span>
                                     </div>
-
                                 </div>
                             </div>
                         </div>
