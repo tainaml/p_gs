@@ -6,8 +6,8 @@ from apps.account.models import User
 
 
 class UserAdmin(admin.ModelAdmin):
-    list_display = ('username', 'email', 'first_name', 'last_name', 'last_login', 'is_staff', 'is_active')
-    list_filter = ('username', 'first_name', )
+    list_display = ('username', 'email', 'first_name', 'last_name', 'is_staff', 'is_active')
+    list_filter = ('is_staff', 'is_active', 'profile__contributor')
 
     search_fields = [
         'first_name',

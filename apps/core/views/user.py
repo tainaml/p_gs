@@ -9,7 +9,7 @@ from django.contrib.auth.decorators import login_required
 from apps.community.models import Community
 from apps.core.forms.user import CoreUserProfileForm, CoreUserProfileFullEditForm, CoreSearchFollowers, CoreSearchArticlesForm, CoreSearchVideosForm, \
     CoreSearchCommunitiesForm, CoreRemoveSocialActionForm, CoreSearchSocialActionsForm, CoreUserMyQuestionsForm, \
-    CoreSearchQuestionsForm
+    CoreSearchQuestionsForm, CoreUserProfileEditStepOne
 from apps.core.forms.community import CoreCommunityFormSearch
 from apps.core.forms.user import CoreUserSearchForm, CoreUserProfileEditForm
 from apps.article.models import Article
@@ -203,10 +203,10 @@ class CoreProfileEditAjax(views.ProfileEditView):
 class CoreProfileWizardStepOneAjax(CoreProfileEditAjax):
 
     MESSAGE_EXTRA_TAGS = 'profile-edit-first-setp'
+    form_profile = CoreUserProfileEditStepOne
 
     def get_context(self, request, profile_instance=None):
-        profile = BusinessUserProfile.update_wizard_step(profile_instance, 1)
-        return {'step': profile.wizard_step}
+        return {'step': profile_instance.wizard_step}
 
 
 class CoreProfileWizardStepTwoAjax(views.ProfileBaseView):
