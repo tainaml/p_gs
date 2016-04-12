@@ -17,12 +17,12 @@
                     {% for type in type_complaint %}
                         {% if content_type.model == "comment" and type.id != community_complaint or content_type.model != "comment" %}
                         <div class="form-group">
-                            <div class="custom-input">
+                            <label for="{{ type.id }}" class="custom-input">
+                                <span class="custom-radio">
                                     <input type="radio" name="complaint_type" id="{{ type.id }}" class="complaint_type" value="{{ type.id }}" />
-                                <label for="{{ type.id }}" class="custom-radio">
+                                </span>
                                 {{ type.description }}
-                                </label>
-                            </div>
+                            </label>
                         </div>
                         {% endif %}
                     {% endfor %}
@@ -43,7 +43,7 @@
                     {% endif %}
 
                 </div>
-                <button type="submit" class="btn-error btn-block" aria-label="Close">Denunciar</button>
+                <button type="submit" class="btn-error btn-block">Denunciar</button>
             </div>
         </form>
     </div>
