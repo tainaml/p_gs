@@ -16,7 +16,7 @@ import './modules/ideiaValidationField/'
 import Slideout from 'slideout'
 
 $(() => {
-    require('./modules')
+    require('./modules');
     require('perfect-scrollbar/jquery')($);
 
     $('[data-toggle="custom-scroll"] > .float-notifcations').perfectScrollbar();
@@ -45,5 +45,4 @@ $(() => {
         e.preventDefault();
         mobileSearch.slideToggle();
     });
-
 });

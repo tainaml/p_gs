@@ -23,9 +23,9 @@
         @include make-sm-column(6);
         @include make-md-column(4);
         @include make-lg-column(2);
+        min-height: 280px;
     }
     &-heading {
-        // padding-bottom: 0.5em;
         border-bottom: 1px solid $link-white;
         color: $link-white;
         font-size: 1em;
