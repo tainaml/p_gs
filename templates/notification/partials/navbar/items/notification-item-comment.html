@@ -1,44 +1,14 @@
 {% load thumbor_tags %}
-{% load var_tags %}
 {% load avatar_tags %}
-
-{% if notification.target_content_type.model == "article" %}
-    {% set action_verb = "comentou" %}
-    {% set post_name = notification.target.title %}
-    {% set url_next = notification.target.get_absolute_url %}
-    {% set show_anchor = False %}
-
-{% elif notification.target_content_type.model == "question" %}
-    {% set action_verb = "respondeu" %}
-    {% set post_name = notification.target.title %}
-    {% set url_next = notification.target.get_absolute_url %}
-    {% set show_anchor = False %}
-
-{% elif notification.target_content_type.model == "comment" %}
-    {% set action_verb = "comentou seu comentário" %}
-    {% set post_name = notification.target.content_object.title %}
-    {% set url_next = notification.target.content_object.get_absolute_url %}
-    {% set show_anchor = True %}
-
-{% elif notification.target_content_type.model == "answer" %}
-    {% set action_verb = "comentou sua resposta" %}
-    {% set post_name = notification.target.question.title %}
-    {% set url_next = notification.target.question.get_absolute_url %}
-    {% set show_anchor = True %}
-
-{% endif %}
-
 
 <li class="item-float-notification item-float-notification-link {% if not notification.read %}not-visualized{% endif %}"
     data-trigger="notification-as-read"
     data-csrf="{{ csrf_token }}"
     data-url-mark-as-read="{% url 'notifications:mark-as-read-and-visualized' %}"
-    data-next-url="{{ url_next }}{% if show_anchor %}#{{ notification.target_content_type.model }}-{{ notification.target.id }}{% endif %}"
+    data-next-url="{% url 'profile:show' notification.author.get_username %}"
     data-notification="{{ notification.id }}">
-    <a href="{{ url_next }}{% if show_anchor %}#{{ notification.target_content_type.model }}-{{ notification.target.id }}{% endif %}" title="{{ post_name }}">
+    <a href="{% url 'profile:show' notification.author.get_username %}" title="{{ notification.author.get_full_name }}">
         <img src="{% get_avatar notification.author width=20 height=20 smart=False fit_in=False %}" width="20" height="20" alt="{{ notification.author.get_full_name }}">
-        <span>{{ notification.author.get_full_name }}</span> {{ action_verb }} em <span>{{ post_name }}</span>
+        <span>{{ notification.author.get_full_name }}</span> passou a te <span>seguir</span>
     </a>
-{#    <!-- <a href="{% url 'profile:show' notification.author.get_username %}" title="{{ notification.author.get_full_name }}"></a> -->#}
-{#    <!-- <a href="{% url 'profile:show' notification.author.get_username %}" title="{{ notification.author.get_full_name }}">{{ notification.author.get_full_name }}</a> comentou na sua <a href="{{ notification.target.get_absolute_url }}" title="{{ notification.target.title }}">publicação</a> -->#}
 </li>

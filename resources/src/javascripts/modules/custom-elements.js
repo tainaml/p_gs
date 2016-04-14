@@ -33,6 +33,7 @@ $(window).on('scroll', function (event) {
         navigationClone.insertBefore(navigationHeader);
     } else {
         navigationClone.remove();
+        navigationClone = $('.header');
     }
 });
 
