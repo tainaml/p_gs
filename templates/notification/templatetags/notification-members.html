@@ -11,7 +11,8 @@
      data-url-count="{% url 'notifications:polling-count' 'members' %}"
      data-url-load="{% url 'notifications:polling-load' 'members' %}"
      data-url-clear="{% url 'notifications:clear' %}"
-     data-notifications="{{ notifications_id }}">
+     data-notifications="{{ notifications_id }}"
+     data-notification-receives-badge="members">
 
       {% if count %}
           <span class="badge">{{ count }}</span>

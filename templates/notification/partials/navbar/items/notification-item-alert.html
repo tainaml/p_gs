@@ -1,0 +1,13 @@
+{% load thumbor_tags %}
+{% load avatar_tags %}
+
+<li class="item-float-notification item-float-notification-link {% if not notification.read %}not-visualized{% endif %}"
+    data-trigger="notification-as-read"
+    data-csrf="{{ csrf_token }}"
+    data-url-mark-as-read="{% url 'notifications:mark-as-read-and-visualized' %}"
+    data-next-url="{% url 'notifications:general' %}#notification-general-{{ notification.id }}"
+    data-notification="{{ notification.id }}">
+    <a href="javascript:;" title="Notificação do Portal GSTI">
+        Você recebeu uma <span>mensagem</span> do <span>Portal GSTI</span> com titulo de <span>{{ notification.target.title }}</span>
+    </a>
+</li>
