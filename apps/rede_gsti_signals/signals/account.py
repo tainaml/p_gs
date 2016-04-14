@@ -6,6 +6,7 @@ from apps.core.business.account import save_profile
 
 from functools import wraps
 
+
 def disable_for_loaddata(signal_handler):
     """
     Decorator that turns off signal handlers when loading fixture data.

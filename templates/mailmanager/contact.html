@@ -1,0 +1,18 @@
+{% extends "mailmanager/layout/mail-base.html" %}
+
+{% block title %}Welcome{% endblock %}
+{% block email_title %}{{ contact.subject }}{% endblock email_title %}
+{% load url_utils %}
+
+{% block content %}
+
+    <h2></h2>
+
+    <p>
+        Contato de <b>{% if contact.author %}{{ contact.author.get_full_name }}{% else %}{{ contact.contact_name }}{% endif %} </b> ({% if contact.author %}{{ contact.author.email }}{% else %}{{ contact.contact_email }}{% endif %})
+    </p>
+
+    <p><b>Mensage:</b></p>
+    <p>{{ contact.message }}</p>
+
+{% endblock %}

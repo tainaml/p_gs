@@ -55,6 +55,9 @@ except IOError, e:
     config.set("EMAIL", "port", '587')
     config.set("EMAIL", "from", 'philliparente@gmail.com')
 
+    config.add_section("CONTACT")
+    config.set("CONTACT", "to", "raphaelfruneaux@ideiaseo.com")
+
     config.add_section("LOCALE")
     config.set("LOCALE", "code", 'pt-br')
     config.set("LOCALE", "timezone", 'America/Bahia')
@@ -263,6 +266,10 @@ EMAIL_HOST_USER = config.get("EMAIL", "user")
 EMAIL_HOST_PASSWORD = config.get("EMAIL", "password")
 EMAIL_PORT = config.getint("EMAIL", "port")
 DEFAULT_FROM_EMAIL = config.get("EMAIL", "from")
+
+
+# CONTACT
+CONTACT_SEND_TO_EMAIL = config.get("CONTACT", "to")
 
 # Comment config
 ENTITY_TO_COMMENT = ['comment', 'article', 'answer']
