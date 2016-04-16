@@ -3,6 +3,7 @@
 {% load home_blocks %}
 {% load home_cache %}
 {% load category_tags %}
+{% load cache %}
 
 {% with class_name=class_name|default_if_none:"default" %}
 
@@ -60,7 +61,10 @@
                         </div>
 
                         <!-- communities_related -->
-                        {% communities_related category %}
+                        {% cache 3600 'category_communities_related' category_slug %}
+                            {% communities_related category %}
+                        {% endcache %}
+
 
 {#                        <div class="widget widget-feed-category">#}
 {#                            <div class="widget-content">#}
