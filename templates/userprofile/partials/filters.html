@@ -1,0 +1,48 @@
+{% load user_agents %}
+{% if request|is_mobile %}
+        <header class="area-title">
+        <div class="toggle-box">
+            {% if has_filter %}
+                <a class="btn-toggle" data-target="#form-search" href="javascript:;">
+                    <i class="gsticon gsticon-filter"></i>
+                </a>
+            {% endif %}
+
+            <a class="btn-toggle" data-target="#mobile-perfil-navegation" href="javascript:;">
+                <i class="gsticon gsticon-bars"></i>
+            </a>
+        </div>
+        <h2>{{ title }}</h2>
+    </header>
+    {% else %}
+
+        <nav class="perfil-navegation hidden-xs">
+            {% if profile.user == request.user %}<a {% if active == "feed" %}class="active"{% endif %} href="{% url 'profile:feed' %}">Feed</a> •{% endif %}
+            <a {% if active == "profile" %}class="active"{% endif %} href="{% url 'profile:show' username=profile.user.username %}">Publicações</a> •
+            {% if profile.user == request.user %}<a {% if active == "my-questions" %}class="active"{% endif %} href="{% url 'profile:my-questions' %}">Minhas Perguntas</a> •{% endif %}
+
+            <a {% if active == "community" %}class="active"{% endif %} href="{% url 'profile:communities' username=profile.user.username %}">Comunidades</a> •
+            <a {% if active == "relationship" %}class="active"{% endif %} href="{% url 'profile:followers' username=profile.user.username %}">Relacionamentos</a> •
+            <a {% if active == "videos" %}class="active"{% endif %} href="{% url 'profile:videos' profile.user.username %}">Vídeos</a>
+        </nav>
+
+    <header class="area-title">
+            <h2>{{ title }}</h2>
+        </header>
+{% endif %}
+
+<hr class="visible-xs-block">
+<nav class="mobile-perfil-navegation" id="mobile-perfil-navegation">
+    {% if profile.user == request.user %}<a {% if active == "feed" %}class="active"{% endif %} href="{% url 'profile:feed' %}">Feed</a> •{% endif %}
+            <a {% if active == "profile" %}class="active"{% endif %} href="{% url 'profile:show' username=profile.user.username %}">Publicações</a> •
+            {% if profile.user == request.user %}<a {% if active == "my-questions" %}class="active"{% endif %} href="{% url 'profile:my-questions' %}">Minhas Perguntas</a> •{% endif %}
+
+            <a {% if active == "community" %}class="active"{% endif %} href="{% url 'profile:communities' username=profile.user.username %}">Comunidades</a> •
+            <a {% if active == "relationship" %}class="active"{% endif %} href="{% url 'profile:followers' username=profile.user.username %}">Relacionamentos</a> •
+            <a {% if active == "videos" %}class="active"{% endif %} href="{% url 'profile:videos' profile.user.username %}">Vídeos</a>
+</nav>
+
+{% if has_filter %}
+
+    {% block filters %}{% endblock filters %}
+{% endif %}

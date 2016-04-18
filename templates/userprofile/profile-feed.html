@@ -11,13 +11,10 @@
                 {% include 'home/partials/sidebar-perfil.html' %}
             </div>
             <div class="col-lg-9">
-                {% include 'userprofile/partials/profile-navbar.html' with navbar_context='feed' %}
+                  {% include 'userprofile/partials/filters.html' with title="Feed" active="feed" has_filter=False %}
                 <div class="row">
                     <div class="col-lg-8">
                         {% if profile.user == request.user %}
-                        <header class="area-title">
-                            <h2>Feed</h2>
-                        </header>
                         <section class="area-content" data-target="content">
                             {% if feed_objects.object_list %}
                                 <div class="j-scroll j-scroll-container">
@@ -36,7 +33,6 @@
         </div>
     </main>
 {% endblock %}
-
 
 {% block javascripts %}
     {{ block.super }}

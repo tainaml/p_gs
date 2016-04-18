@@ -10,14 +10,12 @@
                 {% include 'home/partials/sidebar-perfil.html' %}
             </div>
             <div class="col-lg-9">
-                {% include 'userprofile/partials/profile-navbar.html' with navbar_context='profile' %}
+{#                {% include 'userprofile/partials/profile-navbar.html' with navbar_context='profile' %}#}
+                {% include 'userprofile/partials/filters.html' with title="Publicações de "|add:profile.user.first_name  active="profile" has_filter=True %}
                 <div class="row">
                     <div class="col-lg-8">
-                        <header class="area-title">
-                            <h2>Publicações de {{ profile.user.first_name }}</h2>
-                        </header>
-                            <!-- A "barra" de pesquisa não é exibida no feed, somente no -->
-                            <nav class="form-search">
+                        {% block filters %}
+                            <nav id="form-search" class="form-search filters-members" data-toggle="filters">
                                 <form action="{% url 'profile:search' profile.user.username %}" method="GET" role="search">
                                     <div class="form-search-input">
                                         <input type="text" name="criterio" placeholder="{{placehold|default:"Procure pessoas, comunidades, etc."}}">
@@ -27,6 +25,9 @@
                                     </button>
                                 </form>
                             </nav>
+                        {% endblock filters %}
+                            <!-- A "barra" de pesquisa não é exibida no feed, somente no -->
+
                         <section class="area-content">
                             {% if feed_objects.object_list %}
                             <div class="j-scroll j-scroll-container">
