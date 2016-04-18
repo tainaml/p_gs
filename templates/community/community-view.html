@@ -13,14 +13,23 @@
             </div>
             <!-- mudar para 9.5 -->
             <div class="col-lg-9">
-                <nav class="perfil-navegation">
-                    <a class="active" href="{% url 'community:show' community.slug %}">Feed</a>•<a href="{% url 'community:questions' community.slug %}">Perguntas</a>•<a href="{% url 'community:followers' community.slug %}">Membros</a>•<a href="{% url 'community:about' community.slug %}">Sobre</a>•<a href="{% url 'community:videos' community.slug %}">Vídeos</a>
-                </nav>
+                {% include 'community/partials/filters.html' with title="Feed" active="feed" has_filter=True %}
+
                 <div class="row">
                     <div class="col-lg-8">
-                        <header class="area-title">
+                    {% block filter %}
+                        <nav id="form-search" class="form-search filters-members" data-toggle="filters">
+                            <form action="{% url 'community:search' community.slug %}" method="GET" role="search">
+                                <div class="form-search-input">
+                                    <input type="text" name="criterio" placeholder="Pesquise publicações ou perguntas..." value="{{ form.cleaned_data.criterio }}">
+                                    <input type="hidden" name="official" value="{{ form.cleaned_data.official|default_if_none:False }}">
+                                </div>
+
+                                <button type="submit" class="form-search-button">
+                                    <i class="gsticon gsticon-search"></i>
+                                </button>
+                            <div class="form-search-input">
                             <div class="order-by">
-                                <p>Classificado por</p>
                                 <div class="dropdown">
                                     <button class="btn btn-default dropdown-toggle" type="button" id="dropdown-filter-posts" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                                         <span>
@@ -37,55 +46,14 @@
                                     </ul>
                                 </div>
                             </div>
-                            <h2>Feed</h2>
-                        </header>
-                        <nav class="form-search">
-                            <form action="{% url 'community:search' community.slug %}" method="GET" role="search">
-                                <div class="form-search-input">
-                                    <input type="text" name="criterio" placeholder="Pesquise publicações ou perguntas..." value="{{ form.cleaned_data.criterio }}">
-                                    <input type="hidden" name="official" value="{{ form.cleaned_data.official|default_if_none:False }}">
-                                </div>
-                                <div class="dropdown-menu dropdown-search">
-                                    <div class="float-notifcations">
-                                        <div class="header-float-notifications">Pessoas</div>
-                                        <ul class="content-float-notifications">
-                                            <li class="item-float-notification">
-                                                <a href="javascript:;"><img src="http://placehold.it/20" alt="Creator Post Avatar"></a>
-                                                <a href="javascript:;">Iury Silva</a>
-                                            </li>
-                                            <li class="item-float-notification">
-                                                <a href="javascript:;"><img src="http://placehold.it/20" alt="Creator Post Avatar"></a>
-                                                <a href="javascript:;">Iury Silva</a>
-                                            </li>
-                                            <li class="item-float-notification">
-                                                <a href="javascript:;"><img src="http://placehold.it/20" alt="Creator Post Avatar"></a>
-                                                <a href="javascript:;">Iury Silva</a>
-                                            </li>
-                                            <li class="item-float-notification-separator"></li>
-                                        </ul>
-                                        <div class="header-float-notifications">Comunidades</div>
-                                        <ul class="content-float-notifications">
-                                            <li class="item-float-notification">
-                                                <a href="javascript:;"><img src="http://placehold.it/20" alt="Creator Post Avatar"></a>
-                                                <a href="javascript:;">Iury Silva</a>
-                                            </li>
-                                            <li class="item-float-notification">
-                                                <a href="javascript:;"><img src="http://placehold.it/20" alt="Creator Post Avatar"></a>
-                                                <a href="javascript:;">Iury Silva</a>
-                                            </li>
-                                            <li class="item-float-notification">
-                                                <a href="javascript:;"><img src="http://placehold.it/20" alt="Creator Post Avatar"></a>
-                                                <a href="javascript:;">Iury Silva</a>
-                                            </li>
-                                            <li class="item-float-notification-separator"></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <button type="submit" class="form-search-button">
-                                    <i class="gsticon gsticon-search"></i>
-                                </button>
+
+                            </div>
+
                             </form>
                         </nav>
+                    {% endblock filter %}
+
+
                         <section class="area-content j-scroll j-scroll-container" id="community-list">
                             {% if form.cleaned_data.criterio %}
                                 {% include 'community/partials/community-list.html' %}

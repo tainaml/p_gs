@@ -1,0 +1,44 @@
+{% load user_agents %}
+
+{% if request|is_mobile %}
+        <header class="area-title">
+        <div class="toggle-box">
+            {% if has_filter %}
+                <a class="btn-toggle" data-target="#form-search" href="javascript:;">
+                    <i class="gsticon gsticon-filter"></i>
+                </a>
+            {% endif %}
+
+            <a class="btn-toggle" data-target="#mobile-perfil-navegation" href="javascript:;">
+                <i class="gsticon gsticon-bars"></i>
+            </a>
+        </div>
+        <h2>{{ title }}</h2>
+    </header>
+    {% else %}
+
+        <nav class="perfil-navegation hidden-xs">
+        <a {% if active == "feed" %}class="active"{% endif %} href="{% url 'community:show' community.slug %}">Feed</a>
+        <a {% if active == "perguntas" %}class="active"{% endif %} href="{% url 'community:questions' community.slug %}">Perguntas</a>
+        <a {% if active == "membros" %}class="active"{% endif %} href="{% url 'community:followers' community.slug %}">Membros</a>
+        <a {% if active == "sobre" %}class="active"{% endif %} href="{% url 'community:about' community.slug %}">Sobre</a>
+        <a {% if active == "videos" %}class="active"{% endif %} href="{% url 'community:videos' community.slug %}">Vídeos</a>
+
+    </nav>
+    <header class="area-title">
+            <h2>{{ title }}</h2>
+        </header>
+{% endif %}
+
+<hr class="visible-xs-block">
+<nav class="mobile-perfil-navegation" id="mobile-perfil-navegation">
+    <a {% if active == "feed" %}class="active"{% endif %} href="{% url 'community:show' community.slug %}">Feed</a>
+    <a {% if active == "perguntas" %}class="active"{% endif %} href="{% url 'community:questions' community.slug %}">Perguntas</a>
+    <a {% if active == "membros" %}class="active"{% endif %} href="{% url 'community:followers' community.slug %}">Membros</a>
+    <a {% if active == "sobre" %}class="active"{% endif %} href="{% url 'community:about' community.slug %}">Sobre</a>
+    <a {% if active == "videos" %}class="active"{% endif %} href="{% url 'community:videos' community.slug %}">Vídeos</a>
+</nav>
+{% if has_filter %}
+
+    {% block filters %}{% endblock filters %}
+{% endif %}

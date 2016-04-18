@@ -14,14 +14,13 @@
             </div>
             <!-- mudar para 9.5 -->
             <div class="col-lg-9">
-                <nav class="perfil-navegation">
-                    <a href="{% url 'community:show' community.slug %}">Feed</a>•<a class="active" href="{% url 'community:questions' community.slug %}">Perguntas</a>•<a href="{% url 'community:followers' community.slug %}">Membros</a>•<a href="{% url 'community:about' community.slug %}">Sobre</a>•<a href="{% url 'community:videos' community.slug %}">Vídeos</a>
-                </nav>
+                {% include 'community/partials/filters.html' with title="Perguntas" active="perguntas" has_filter=True %}
                 <div class="row">
                     <div class="col-lg-8">
-                        <header class="area-title">
-                            <div class="order-by">
-                                <p>Classificadas por</p>
+                    {% block filter %}
+                        <nav id="form-search" class="form-search filters-members" data-toggle="filters">
+                            {% include 'community/partials/community-question-form-search.html' with placehold='Pesquise perguntas' %}
+                             <div class="order-by">
                                 <div class="dropdown">
                                     <button class="btn btn-default dropdown-toggle" type="button" id="dropdown-filter-posts" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                                         <span>
@@ -41,11 +40,9 @@
                                     </ul>
                                 </div>
                             </div>
-                            <h2>Perguntas</h2>
-                        </header>
-                        <nav class="form-search">
-                            {% include 'community/partials/community-question-form-search.html' with placehold='Pesquise perguntas' %}
                         </nav>
+                    {% endblock filter %}
+
                         <section class="area-content">
                             <!-- <div class="text-right">
                                 <a href="{% url "community:questions-search" community.slug %}?criterio={{ form.cleaned_data.criterio|urlencode }}&replies=reply&next={{ url_next|urlencode }}" class="btn btn-default">Respondidas</a>
