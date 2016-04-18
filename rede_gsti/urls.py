@@ -32,6 +32,9 @@ urlpatterns = [
     url(r'^$', PROJECT_ROOT, name='index'),
     url(_(r'^admin/'), include(admin.site.urls)),
 
+    # Job vacancy
+    url(_(r'^jobs/'), include('apps.job_vacancy.urls', namespace='jobs')),
+
     # Translators: URL root de conta
     url(_(r'^account/'), include('apps.core.urls.account', namespace='account')),
 

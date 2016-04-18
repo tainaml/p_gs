@@ -1,0 +1,107 @@
+// ==========================================================================
+// Área de empregos
+// ==========================================================================
+
+// Formulário de busca
+// ==========================================================================
+.jobs-search {
+  padding: 20px;
+  margin-top: -1px;
+  border: 1px solid #e1e1e1;
+  background: #fff;
+}
+.jobs-search_field {
+  position: relative;
+  margin-bottom: 10px;
+  display: block;
+
+  .gsticon {
+    position: absolute;
+    left: 0;
+    min-width: 25px;
+    color: #bbb;
+    line-height: 2.9;
+    text-align: center;
+  }
+  .form-control { padding-left: 20px; }
+}
+.jobs-search_submit {
+  width: 100%;
+  padding: 8px 12px;
+  display: block;
+  border: none;
+  background-color: #738d00;
+  color: #fff;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 1.42857;
+  text-align: center;
+}
+
+//
+// ==========================================================================
+.jobs-list {
+  padding-top: 20px;
+  margin-bottom: 20px;
+  border-top: 1px solid #e1e1e1;
+  color: #486075;
+}
+.jobs-list_query-result { margin-bottom: 15px; }
+.jobs-list_container {}
+
+
+// Job box
+// ==========================================================================
+.job-box {
+  @include clearfix();
+  position: relative;
+  width: 100%;
+  margin-bottom: 20px;
+  display: table;
+  border: 1px solid #e1e1e1;
+}
+.job-box_cell {
+  width: 1%;
+  padding: 20px;
+  display: table-cell;
+  vertical-align: middle;
+  &.timestamp {
+    border-left: 1px solid #e1e1e1;
+    .gsticon { display: block; }
+    @media (max-width: $screen-desktop) { display: none; }
+  }
+}
+.job-box_employ { padding-right: 10px; }
+.job-box_employ-img {
+  @include img-responsive();
+  min-width: 80px;
+  float: left;
+}
+.job-box_info {
+  width: 100%;
+  padding-left: 0;
+}
+.job-box_title {
+  overflow: hidden;
+  display: block;
+  color: $color-link-feed;
+  font-weight: 600;
+  font-size: 1.22em;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.job-box_employ {
+  color: #486075;
+  font-weight: 600;
+}
+.job-box_location { color: #486075; }
+.job-box_publication {
+  color: #c7c7c7;
+
+  &.wide {
+    @media (min-width: $screen-sm-min) {
+      min-width: 80px;
+      text-align: center;
+    }
+  }
+}
