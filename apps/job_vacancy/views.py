@@ -1,5 +1,6 @@
 from django.shortcuts import render
 
+
 # Create your views here.
-def list(request):
-    return render(request, 'job_vacation/list.html')
+def do_list(request):
+    return render(request, 'job_vacation/index.html')
