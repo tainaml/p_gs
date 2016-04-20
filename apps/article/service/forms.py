@@ -99,6 +99,10 @@ class ArticleForm(IdeiaModelForm):
             Save action
             '''
             self.instance.action = self.ACTION_SAVE
+
+            if self.instance.status == Business.Article.STATUS_TEMP:
+                self.instance.status = Business.Article.STATUS_DRAFT
+
             self.instance.do_save()
 
         return valid
