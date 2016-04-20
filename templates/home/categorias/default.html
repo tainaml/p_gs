@@ -2,6 +2,8 @@
 
 {% load home_blocks %}
 {% load home_cache %}
+{% load category_tags %}
+{% load cache %}
 
 {% with class_name=class_name|default_if_none:"default" %}
 
@@ -57,42 +59,49 @@
                         <div class="post-list-header">
                             <h2 class="post-list-heading">Comunidades</h2>
                         </div>
-                        <div class="widget widget-feed-category">
-                            <div class="widget-content">
-                                <div class="perfil">
-                                    <img src="http://placehold.it/82" alt="">
-                                    <a href="javascript:;" class="perfil-name">Java</a>
-                        <span class="perfil-counter">
-                            <span class="counter-number">50.000</span> Seguidores
-                        </span>
-                                    <a href="javascript:;" class="btn btn-sm perfil-button">Seguir</a>
-                                </div>
-                                <div class="perfil">
-                                    <img src="http://placehold.it/82" alt="">
-                                    <a href="javascript:;" class="perfil-name">Java</a>
-                        <span class="perfil-counter">
-                            <span class="counter-number">50.000</span> Seguidores
-                        </span>
-                                    <a href="javascript:;" class="btn btn-sm perfil-button">Seguir</a>
-                                </div>
-                                <div class="perfil">
-                                    <img src="http://placehold.it/82" alt="">
-                                    <a href="javascript:;" class="perfil-name">Java</a>
-                        <span class="perfil-counter">
-                            <span class="counter-number">50.000</span> Seguidores
-                        </span>
-                                    <a href="javascript:;" class="btn btn-sm perfil-button">Seguir</a>
-                                </div>
-                                <div class="perfil">
-                                    <img src="http://placehold.it/82" alt="">
-                                    <a href="javascript:;" class="perfil-name">Java</a>
-                        <span class="perfil-counter">
-                            <span class="counter-number">50.000</span> Seguidores
-                        </span>
-                                    <a href="javascript:;" class="btn btn-sm perfil-button">Seguir</a>
-                                </div>
-                            </div>
-                        </div>
+
+                        <!-- communities_related -->
+                        {% cache 3600 'category_communities_related' category_slug %}
+                            {% communities_related category %}
+                        {% endcache %}
+
+
+{#                        <div class="widget widget-feed-category">#}
+{#                            <div class="widget-content">#}
+{#                                <div class="perfil">#}
+{#                                    <img src="http://placehold.it/82" alt="">#}
+{#                                    <a href="javascript:;" class="perfil-name">Java</a>#}
+{#                                    <span class="perfil-counter">#}
+{#                                        <span class="counter-number">50.000</span> Seguidores#}
+{#                                    </span>#}
+{#                                    <a href="javascript:;" class="btn btn-sm perfil-button">Seguir</a>#}
+{#                                </div>#}
+{#                                <div class="perfil">#}
+{#                                    <img src="http://placehold.it/82" alt="">#}
+{#                                    <a href="javascript:;" class="perfil-name">Java</a>#}
+{#                                    <span class="perfil-counter">#}
+{#                                        <span class="counter-number">50.000</span> Seguidores#}
+{#                                    </span>#}
+{#                                    <a href="javascript:;" class="btn btn-sm perfil-button">Seguir</a>#}
+{#                                </div>#}
+{#                                <div class="perfil">#}
+{#                                    <img src="http://placehold.it/82" alt="">#}
+{#                                    <a href="javascript:;" class="perfil-name">Java</a>#}
+{#                                    <span class="perfil-counter">#}
+{#                                        <span class="counter-number">50.000</span> Seguidores#}
+{#                                    </span>#}
+{#                                    <a href="javascript:;" class="btn btn-sm perfil-button">Seguir</a>#}
+{#                                </div>#}
+{#                                <div class="perfil">#}
+{#                                    <img src="http://placehold.it/82" alt="">#}
+{#                                    <a href="javascript:;" class="perfil-name">Java</a>#}
+{#                                    <span class="perfil-counter">#}
+{#                                        <span class="counter-number">50.000</span> Seguidores#}
+{#                                    </span>#}
+{#                                    <a href="javascript:;" class="btn btn-sm perfil-button">Seguir</a>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                        </div>#}
                         <div class="post-list-header">
                             <h2 class="post-list-heading">Conecte-se</h2>
                         </div>

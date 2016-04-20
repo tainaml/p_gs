@@ -1,0 +1,33 @@
+{%extends 'home/layout/base.html' %}
+
+{% block title %}Portal GSTI - Jobs{% endblock %}
+
+{% block content %}
+<main class="container main">
+<div class="row">
+    <div class="col-lg-3">
+        {% include 'job_vacation/partials/sidebar.html' %}
+    </div>
+    <div class="col-lg-6">
+        <header class="area-title">
+            <h2>vagas em destaque</h2>
+        </header>
+        <div class="jobs-list">
+            <p class="jobs-list_query-result">
+                <strong>168</strong> Resultados de<strong>"Diretor de arte"</strong> em <strong>"São Paulo"</strong>
+            </p>
+            <div class="jobs-list_container">
+                {% include 'job_vacation/partials/box.html' %}
+                {% include 'job_vacation/partials/box.html' %}
+            </div>
+            <a href="javascript:;" class="btn-default btn-block">Carregar mais resultados</a>
+        </div>
+    </div>
+    <div class="col-lg-3">
+        <div class="squad-advertising">
+            <img class="img-responsive" src="http://placehold.it/270x225" alt="Propaganda aqui">
+        </div>
+    </div>
+</div>
+</main>
+{% endblock %}
