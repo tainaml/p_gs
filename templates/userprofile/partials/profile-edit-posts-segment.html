@@ -1,4 +1,5 @@
 {% load thumbor_tags %}
+{% load humanize %}
 
 {% if posts %}
     {% for post in posts %}
@@ -15,7 +16,7 @@
                 </a>
             </div>
             <footer class="publication-footer clearfix">
-                <time class="publication-footer-date" datetime="{{ post.publishin|date:"d/m/Y" }}">{{ post.publishin|date:"d/m/Y à\s H:i" }}</time>
+                <time class="publication-footer-date" datetime="{{ post.publishin|date:"d/m/Y" }}">{{ post.publishin|naturaltime }}</time>
                 <nav class="publication-footer-menu">
                     <a class="publication-footer-menu-item" href="{% url 'article:edit' post.id %}">Editar</a>
                     <a class="publication-footer-menu-item" href="{% url 'article:view' post.id post.slug %}" target="_blank">Visualizar</a>
