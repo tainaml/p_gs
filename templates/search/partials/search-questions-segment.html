@@ -2,6 +2,7 @@
 {% load avatar_tags %}
 {% load social_tags %}
 {% load taxonomy_tags %}
+{% load humanize %}
 
 <div class="col-lg-12">
     <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
@@ -12,7 +13,9 @@
         {% endif %}
         <header class="post-header">
             <div class="post-info">
-                <time datetime="{{ question.question_date }}" itemprop="datePublished">{{ question.question_date|date:'d/m/Y' }} às {{ question.question_date|date:'G:i' }}</time>
+                <time datetime="{{ question.question_date }}" itemprop="datePublished">
+                    {{ question.question_date|naturaltime }}
+                </time>
                 <a href="javascript:;" data-toggle="dropdown"><i class="gsticon gsticon-gear"></i></a>
                 <div class="dropdown-menu">
                     <ul class="perfil-actions">
