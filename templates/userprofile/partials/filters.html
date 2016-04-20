@@ -31,7 +31,6 @@
         </header>
 {% endif %}
 
-<hr class="visible-xs-block">
 <nav class="mobile-perfil-navegation" id="mobile-perfil-navegation">
     {% if profile.user == request.user %}<a {% if active == "feed" %}class="active"{% endif %} href="{% url 'profile:feed' %}">Feed</a> •{% endif %}
             <a {% if active == "profile" %}class="active"{% endif %} href="{% url 'profile:show' username=profile.user.username %}">Publicações</a> •

@@ -13,14 +13,11 @@
             </div>
             <!-- mudar para 9.5 -->
             <div class="col-lg-9">
-                {% include 'userprofile/partials/profile-navbar.html' with navbar_context='videos' %}
+                {% include 'userprofile/partials/filters.html' with title="Videos" active="videos" has_filter=True %}
                 <div class="row">
                     <div class="col-lg-8">
-                        <header class="area-title">
-                            <h2>Vídeos</h2>
-                        </header>
-                        <!-- A "barra" de pesquisa não é exibida no feed, somente no -->
-                        <nav class="form-search">
+                        {% block filters %}
+                            <nav id="form-search" class="form-search filters-members" data-toggle="filters">
                             <form action="{% url 'profile:videos-search' profile.user.username %}" method="GET" role="search">
                                 <div class="form-search-input">
                                     <input type="text" name="criteria" placeholder="{{placehold|default:"Procure vídeos"}}" value="{{ form.cleaned_data.criteria|default:"" }}">
@@ -30,6 +27,8 @@
                                 </button>
                             </form>
                         </nav>
+                        {% endblock filters %}
+
                         <section class="area-content">
                             {% if feed_objects.object_list %}
                                 <div class="j-scroll j-scroll-container">

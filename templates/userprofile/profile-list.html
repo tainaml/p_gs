@@ -10,7 +10,7 @@
                 {% include 'home/partials/sidebar-perfil.html' %}
             </div>
             <div class="col-lg-9">
-{#                {% include 'userprofile/partials/profile-navbar.html' with navbar_context='profile' %}#}
+
                 {% include 'userprofile/partials/filters.html' with title="Publicações de "|add:profile.user.first_name  active="profile" has_filter=True %}
                 <div class="row">
                     <div class="col-lg-8">
