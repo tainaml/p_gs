@@ -5,6 +5,7 @@
 {% load social_tags %}
 {% load taxonomy_tags %}
 {% load avatar_tags %}
+{% load humanize %}
 
 {% block title %}{{ question.title }} - Portal GSTI{% endblock %}
 
@@ -28,7 +29,9 @@
                     {% endif%}
                     <header class="post-header">
                         <div class="post-info">
-                            <time datetime="{{ question.question_date|date:"m-d-Y" }}" itemprop="datePublished">{{ question.question_date|date:"d/m/Y à\s H:i" }}</time>
+                            <time datetime="{{ question.question_date|date:"m-d-Y" }}" itemprop="datePublished">
+                                {{ question.question_date|naturaltime }}
+                            </time>
                             <a href="javascript:;" data-toggle="dropdown"><i class="gsticon gsticon-gear"></i></a>
                             <div class="dropdown-menu">
                                 <ul class="perfil-actions">
