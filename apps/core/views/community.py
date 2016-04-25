@@ -5,7 +5,7 @@ from apps.community import views
 from apps.community.models import Community
 from apps.community.service import business as Business
 from apps.core.forms.community import CoreCommunityFeedFormSearch, CoreCommunityQuestionFeedFormSearch, \
-    CoreCommunitySearchVideosForm, CoreCommunityFollowersForm
+    CoreCommunitySearchVideosForm, CoreCommunityFollowersForm, CoreCommunitySearchMaterialsForm
 from apps.custom_base.views import FormBaseListView
 from apps.socialactions.service.business import get_users_acted_by_model
 from rede_gsti import settings
@@ -288,3 +288,42 @@ class CommunityCheckUserFollows(views.View):
         follows = True if follows_community else False
 
         return JsonResponse({'follows': follows}, status=200)
+
+
+# Materials
+
+class CoreCommunityMaterialsSearch(views.CommunityView):
+
+    template_path = "community/community-materials.html"
+
+    form_materials = CoreCommunitySearchMaterialsForm
+
+    def return_error(self, request, context=None):
+        pass
+
+    def return_success(self, request, context=None):
+        return render(request, self.template_path, context)
+
+    def get_context(self, request, community_instance=None):
+
+        form = self.form_materials(community_instance, 10, request.GET)
+
+        posts = form.process()
+
+        have_posts = True if hasattr(posts, 'object_list') and posts.object_list else False
+
+        return {
+            'feed_objects': posts,
+            'have_posts': have_posts,
+            'form': form,
+            'page': form.cleaned_data.get('page', 1) + 1
+        }
+
+
+class CoreCommunityMaterialsView(CoreCommunityMaterialsSearch):
+    pass
+
+
+class CoreCommunityMaterialsList(CoreCommunityMaterialsSearch):
+
+    template_path = "community/partials/community-materials-list.html"

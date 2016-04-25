@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.db.models import Q
@@ -5,9 +6,10 @@ from django.db.models import Q
 from apps.article.models import Article
 from apps.community.models import Community
 from apps.core.models.embed import EmbedItem
+from apps.core.models.tags import Tags
 from apps.feed.models import FeedObject
 from apps.socialactions.models import UserAction
-from rede_gsti import settings
+
 from apps.taxonomy.models import Taxonomy
 
 __author__ = 'phillip'
@@ -165,6 +167,39 @@ def get_articles_with_videos(community, description=None, items_per_page=None, p
     posts = feed_objects.filter(
         Q(content_type=content_type) &
         Q(object_id__in=posts_videos)
+    )
+
+    items_per_page = items_per_page if items_per_page else 10
+    page = page if page else 1
+
+    if items_per_page and page:
+        posts = Paginator(posts, items_per_page)
+        try:
+            posts = posts.page(page)
+        except PageNotAnInteger:
+            posts = posts.page(1)
+        except EmptyPage:
+            posts = []
+
+    return posts
+
+
+def get_articles_with_tags(community, description=None, items_per_page=None, page=None, tag=None):
+    content_type = ContentType.objects.filter(model="article")
+
+    tags = Tags.objects.all().exclude(tag_slug="videos")
+
+    if tag is not None:
+        tags = tags.filter(id=tag.id)
+
+    posts = FeedObject.objects.filter(
+        Q(content_type=content_type) &
+        Q(taxonomies=community.taxonomy) &
+        Q(tags__in=tags) &
+        (
+            Q(article__title__icontains=description) |
+            Q(article__text__icontains=description)
+        )
     )
 
     items_per_page = items_per_page if items_per_page else 10
