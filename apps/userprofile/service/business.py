@@ -180,7 +180,7 @@ def update_or_create_occupation(profile=None, user=None, responsibilities=None):
             logger.error(e.message)
         return False
 
-        return True
+    return True
 
 
 def get_countries(country_id=None):
