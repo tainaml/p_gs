@@ -28,27 +28,25 @@
                                 <button type="submit" class="form-search-button">
                                     <i class="gsticon gsticon-search"></i>
                                 </button>
-                            <div class="form-search-input">
-                            <div class="order-by">
-                                <div class="dropdown">
-                                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdown-filter-posts" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                        <span>
-                                            {% if form.cleaned_data.official %}
-                                                Posts oficiais
-                                            {% else %}
-                                                Todos
-                                            {% endif %}
-                                        </span> <i class="gsticon gsticon-caret-down"></i>
-                                    </button>
-                                    <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown-filter-posts">
-                                        <li {% if form.cleaned_data.official %}class="active"{% endif %} ><a href="{% url 'community:search' community.slug %}?criterio={{ form.cleaned_data.criterio|urlencode }}&official=True&next={{ url_next|urlencode }}" data-target=".area-content">Posts oficiais</a></li>
-                                        <li {% if not form.cleaned_data.official %}class="active"{% endif %}><a href="{% url 'community:search' community.slug %}?criterio={{ form.cleaned_data.criterio|urlencode }}&official=False&next={{ url_next|urlencode }}" data-target=".area-content">Todos</a></li>
-                                    </ul>
+                                <div class="form-search-input">
+                                    <div class="order-by">
+                                        <div class="dropdown">
+                                            <button class="btn btn-default dropdown-toggle" type="button" id="dropdown-filter-posts" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                                <span>
+                                                    {% if form.cleaned_data.official %}
+                                                        Posts oficiais
+                                                    {% else %}
+                                                        Todos
+                                                    {% endif %}
+                                                </span> <i class="gsticon gsticon-caret-down"></i>
+                                            </button>
+                                            <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown-filter-posts">
+                                                <li {% if form.cleaned_data.official %}class="active"{% endif %} ><a href="{% url 'community:search' community.slug %}?criterio={{ form.cleaned_data.criterio|urlencode }}&official=True&next={{ url_next|urlencode }}" data-target=".area-content">Posts oficiais</a></li>
+                                                <li {% if not form.cleaned_data.official %}class="active"{% endif %}><a href="{% url 'community:search' community.slug %}?criterio={{ form.cleaned_data.criterio|urlencode }}&official=False&next={{ url_next|urlencode }}" data-target=".area-content">Todos</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-
-                            </div>
-
                             </form>
                         </nav>
                     {% endblock filter %}

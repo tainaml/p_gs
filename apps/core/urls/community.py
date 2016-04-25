@@ -52,4 +52,13 @@ urlpatterns = [
     # Translators: URL de pagina de listagem de seguidores da comunidade
     url(_(r'^search/followers/list$'), CoreViews.CoreCommunityFollowersSearchList.as_view(), name='search-followers-list'),
 
+    # Translators: URL de pagina de materials da comunidade
+    url(_(r'^(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/materials/$'), CoreViews.CoreCommunityMaterialsView.as_view(), name='materials'),
+
+    # Translators: URL de pagina de procura de videos da comunidade
+    url(_(r'^(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/materials/search/$'), CoreViews.CoreCommunityMaterialsSearch.as_view(), name='materials-search'),
+
+    # Translators: URL de pagina de listagem de videos da comunidade
+    url(_(r'^(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/materials/list/$'), CoreViews.CoreCommunityMaterialsList.as_view(), name='materials-list'),
+
 ]

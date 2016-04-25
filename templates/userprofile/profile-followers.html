@@ -60,9 +60,15 @@
 
     <script>
         $(function() {
+
+            var callbackFunction = function() {
+                refreshAsyncLike();
+            };
+
             $(".j-scroll-followers").jscroll({
                 contentSelect: ".j-scroll-follower-container",
-                nextSelector: "a[data-jscroll-next]"
+                nextSelector: "a[data-jscroll-next]",
+                callback: callbackFunction
             });
 
             var $social_count = $("[data-social-count=\"true\"]");

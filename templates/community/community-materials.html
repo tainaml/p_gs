@@ -1,0 +1,92 @@
+{%extends 'home/layout/base.html' %}
+
+{% load core_tags %}
+{% load staticfiles %}
+{% block title %}Portal GSTI - Comunidade{% endblock %}
+
+{% block content %}
+    <main class="container main">
+        <div class="row">
+            <!-- mudar para 2.5 -->
+            <div class="col-lg-3">
+                {% include 'community/partials/community-sidebar-left.html' %}
+            </div>
+            <!-- mudar para 9.5 -->
+            <div class="col-lg-9">
+                {% include 'community/partials/filters.html' with title="Materiais" active="materials" has_filter=True %}
+
+                <div class="row">
+                    <div class="col-lg-8">
+                        {% block filters %}
+                            <nav id="form-search" class="form-search filters-members" data-toggle="filters">
+                                <form action="{% url 'community:materials-search' community.slug %}" method="GET" role="search">
+                                    <div class="form-search-input">
+                                        <input type="text" name="criteria" placeholder="Procure vídeos" value="{{ form.cleaned_data.criteria }}">
+                                        <input type="hidden" name="tags" value="{{ form.cleaned_data.tags.id }}">
+                                    </div>
+                                    <button type="submit" class="form-search-button">
+                                        <i class="gsticon gsticon-search"></i>
+                                    </button>
+                                    <div class="form-search-input">
+                                        <div class="order-by">
+                                            <div class="dropdown">
+                                                <button class="btn btn-default dropdown-toggle" type="button" id="dropdown-filter-posts" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                                    <span>
+                                                        {% if form.cleaned_data.tags %}
+                                                            {{ form.cleaned_data.tags }}
+                                                        {% else %}
+                                                            Todos
+                                                        {% endif %}
+                                                    </span> <i class="gsticon gsticon-caret-down"></i>
+                                                </button>
+                                                <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown-filter-posts">
+                                                    {% for choice_id, choice_name in form.fields.tags.choices %}
+                                                        <li {% if form.cleaned_data.tags.id == choice_id %}class="active"{% endif %}><a href="{% url 'community:materials-search' community.slug %}?criteria={{ form.cleaned_data.criteria|urlencode }}&tags={{ choice_id }}&next={{ url_next|urlencode }}">{{ choice_name }}</a></li>
+                                                    {% endfor %}
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+
+                            </nav>
+                        {% endblock filters %}
+
+                        <section class="area-content j-scroll j-scroll-container" id="community-list">
+                            {% if feed_objects.object_list %}
+                                {% include 'community/partials/community-materials-list.html' %}
+                            {% else %}
+                                <p>Nenhum item foi encontrado</p>
+                                <hr>
+                            {% endif %}
+                        </section>
+                    </div>
+                    <div class="col-lg-4">
+                        {% include 'community/partials/community-sidebar-right.html' %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock %}
+
+
+<div class="modal">
+    modal here
+</div>
+
+
+{% block javascripts %}
+    {{ block.super }}
+
+    <script>
+        $(function() {
+            $(".j-scroll").jscroll({
+                loadingHtml: '<div class="load-async-preload"></div>',
+                contentSelect: ".j-scroll-container",
+                nextSelector: "a[data-jscroll-next]",
+                callback: refreshAsyncLike()
+            });
+        });
+    </script>
+{% endblock %}
