@@ -661,6 +661,11 @@ LOGGING = {
             'level': 'ERROR',
             'propagate': False,
         },
+        'error': {
+            'handlers': ['mail_admins', 'error_file'],
+            'level': 'ERROR',
+            'propagate': False,
+        },
         'general': {
             'handlers': ['console', 'info_file'],
             'level': 'INFO'

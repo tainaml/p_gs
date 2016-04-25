@@ -1,7 +1,9 @@
 from django import forms
+import logging
 
 from django.conf import settings
 
+logger = logging.getLogger('error')
 
 class AbstractIdeiaForm(object):
     def process(self):
@@ -13,6 +15,7 @@ class AbstractIdeiaForm(object):
             if settings.DEBUG:
                 raise e
             else:
+                logger.error(e)
                 self.add_error(None, "General error!")
                 return False
 
