@@ -105,7 +105,7 @@ class CoreUserProfileFullEditForm(EditProfileForm):
 
     first_name = forms.CharField(max_length=100)
     last_name = forms.CharField(max_length=100)
-    responsibility = forms.ModelChoiceField(queryset=Responsibility.objects.all())
+    responsibility = forms.ModelMultipleChoiceField(queryset=Responsibility.objects.all())
     state = forms.ModelChoiceField(queryset=State.objects.filter(country=1))
     state_hometown = forms.ModelChoiceField(queryset=State.objects.filter(country=1))
     city_hometown = forms.ModelChoiceField(queryset='')
@@ -127,9 +127,7 @@ class CoreUserProfileFullEditForm(EditProfileForm):
             'first_name': self.cleaned_data['first_name'],
             'last_name': self.cleaned_data['last_name']
         })
-        process_occupation = BusinessUserProfile.update_or_create_occupation(process_profile, data={
-            'responsibility': self.cleaned_data['responsibility']
-        })
+        process_occupation = BusinessUserProfile.update_or_create_occupation(profile=process_profile, responsibilities=self.cleaned_data['responsibility'])
 
         return process_profile if (process_profile and process_occupation and process_user) else False
 

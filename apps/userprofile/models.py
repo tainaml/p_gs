@@ -91,14 +91,10 @@ class UserProfile(models.Model):
 
     @property
     def occupations(self):
-        if hasattr(self, "property_occupations") and self.property_occupations:
-            return self.property_occupations
-
         if self.occupation.count():
-            self.property_occupations = self.occupation.order_by('-id')
-            return self.property_occupations
+            return self.occupation.order_by('-id')
 
-        return False
+        return []
 
     def get_profile_picture(self):
         return self.profile_picture if self.profile_picture else None
