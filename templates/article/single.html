@@ -9,6 +9,7 @@
 {% load user_agents %}
 {% load staticfiles %}
 {% load avatar_tags %}
+{% load humanize %}
 
 {% block title %}{{ article.title }} - Portal GSTI{% endblock %}
 
@@ -43,7 +44,7 @@
                         {% endif %}
 
                         <time datetime="{{ article.publishin|date:'m-d-Y' }}" itemprop="datePublished">
-                            {{ article.publishin|date:'d/m/Y' }} às {{ article.publishin|date:'G:i' }}
+                            {{ article.publishin|naturaltime }}
                         </time>
                         <a href="javascript:;" data-toggle="dropdown"><i class="gsticon gsticon-gear"></i></a>
                         <div class="dropdown-menu dropdown-menu-right">

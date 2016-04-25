@@ -1,3 +1,4 @@
+{% load humanize %}
 {% load social_tags %}
 {% load avatar_tags %}
 {% load thumbor_tags %}
@@ -11,7 +12,8 @@
     {% endif%}
     <header class="post-header">
         <div class="post-info">
-            <time datetime="{{ instance.publishin|date:"d/m/Y G:i" }}" itemprop="datePublished">{{ instance.publishin|date:'d/m/Y' }} às {{ instance.publishin|date:'G:i' }}</time>
+{#            <time datetime="{{ instance.publishin|date:"d/m/Y G:i" }}" itemprop="datePublished">{{ instance.publishin|date:'d/m/Y' }} às {{ instance.publishin|date:'G:i' }}</time>#}
+            <time datetime="{{ instance.publishin|date:"d/m/Y G:i" }}" itemprop="datePublished">{{ instance.publishin|naturaltime }}</time>
             <a href="javascript:;" data-toggle="dropdown"><i class="gsticon gsticon-gear"></i></a>
             <div class="dropdown-menu dropdown-menu-right">
                 <ul class="perfil-actions">
