@@ -144,9 +144,10 @@ def create_occupation(profile=None, user=None, data=None):
     return occupation
 
 
-def update_or_create_occupation(profile=None, user=None, data=None):
+@transaction.atomic()
+def update_or_create_occupation(profile=None, user=None, responsibilities=None):
 
-    if not data:
+    if not responsibilities:
         raise ValueError
 
     if profile:
@@ -154,22 +155,32 @@ def update_or_create_occupation(profile=None, user=None, data=None):
     elif user:
         profile = get_profile(user)
 
-    data.update({'profile': profile})
-
     try:
-        occupation = Occupation.objects.filter(profile=profile).last()
+        occupations = Occupation.objects.filter(profile=profile)
 
-        if occupation and occupation.responsibility == data.get('responsibility'):
-            return occupation
+        responsibilities_already = [occupation.responsibility for occupation in occupations]
+        responsibilities_to_delete = list(set(responsibilities_already) - set(responsibilities))
 
-        occupation = Occupation(**data)
-        occupation.save()
+        for responsibility in responsibilities:
+            if responsibility in responsibilities_already:
+                continue
+
+            occupation = Occupation(
+                responsibility=responsibility,
+                profile=profile
+            )
+            occupation.save()
+
+        for responsibility in responsibilities_to_delete:
+            if responsibility not in responsibilities:
+                responsibility.occupation.get().delete()
+
     except Exception, e:
         if settings.DEBUG:
             logger.error(e.message)
         return False
 
-    return occupation
+    return True
 
 
 def get_countries(country_id=None):

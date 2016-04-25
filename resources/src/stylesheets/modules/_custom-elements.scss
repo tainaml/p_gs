@@ -200,3 +200,19 @@
         }
     }
 }
+
+
+.select-group {
+    @include clearfix;
+    margin-bottom: 5px;
+
+    .btn {
+        float: left;
+        padding: 10px 15px;
+    }
+
+    select.form-control {
+        width: calc(100% - 42px);
+        float: left;
+    }
+}

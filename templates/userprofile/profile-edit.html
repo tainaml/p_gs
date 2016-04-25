@@ -139,13 +139,41 @@
                     <div class="row-form">
                         <div class="col-lg-12">
                             <div class="form-group {% if form.responsibility.errors %}has-error{% endif %}">
-                                <label for="responsibility">Área de atuação</label>
-                                <select name="responsibility" id="responsibility" class="form-control">
-                                    <option value="" {% if not profile.current_occupation.responsibility.id %}selected{% endif %} disabled>Selecione uma área de atuação</option>
-                                    {% for responsibility in responsibilities %}
-                                        <option value="{{ responsibility.id }}" {% if responsibility.id == profile.current_occupation.responsibility.id %}selected{% endif %}>{{ responsibility.name }}</option>
+                                <label>Área de atuação</label>
+                                <script id="select-responsibility-template" type="text/template">
+                                    <div class="select-group" data-select-item>
+                                        <button type="button" class="btn btn-default" data-trigger="remove-select">
+                                            <i class="gsticon gsticon-trash"></i>
+                                        </button>
+                                        <select name="responsibility" id="" class="form-control">
+                                            <option value="" selected disabled>Selecione uma área de atuação</option>
+                                            {% for responsibility in responsibilities %}
+                                                <option value="{{ responsibility.id }}">{{ responsibility.name }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </script>
+                                <div id="selects-container">
+                                    {% for occupation in profile.occupations %}
+                                        <div class="select-group" data-select-item data-item="{{ occupation.id }}">
+                                            <button type="button" class="btn btn-default" data-trigger="remove-select">
+                                                <i class="gsticon gsticon-trash"></i>
+                                            </button>
+                                            <select name="responsibility" class="form-control">
+                                                <option value="" {% if not profile.current_occupation.responsibility.id %}selected{% endif %} disabled>Selecione uma área de atuação</option>
+                                                {% for responsibility in responsibilities %}
+                                                    <option value="{{ responsibility.id }}" {% if responsibility.id == occupation.responsibility.id %}selected{% endif %}>{{ responsibility.name }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
                                     {% endfor %}
-                                </select>
+                                </div>
+                                <button type="button" class="btn btn-default btn-xs"
+                                        data-trigger="add-select-responsibility"
+                                        data-template="#select-responsibility-template"
+                                        data-target="#selects-container">
+                                    <i class="gsticon gsticon-plus"></i> Adicionar área de atuação
+                                </button>
                                 {% if form.responsibility.errors %}
                                     {% for error in form.responsibility.errors %}
                                         <span class="help-block">{{ error|escape }}</span>
@@ -177,13 +205,13 @@
                 up: 'gsticon gsticon-chevron-up',
                 down: 'gsticon gsticon-chevron-down',
                 previous: 'gsticon gsticon-chevron-left',
-                next: 'gsticon gsticon-chevron-right',
+                next: 'gsticon gsticon-chevron-right'
             },
             viewMode: 'years',
             showTodayButton: true
         });
+
         function fillElement($obj){
-            console.log($obj.data('url'));
             $.ajax({
                 url: $obj.data("url"),
                 method: "POST",
@@ -204,9 +232,31 @@
             });
         }
 
+        function addSelect () {
+            var button = this,
+                target = $(button.dataset.target);
+
+            var template = $($(button.dataset.template).html());
+            template.css({
+                'display': 'none'
+            });
+
+            target.append(template);
+            template.slideDown();
+        }
+
+        function removeSelect () {
+            var button = $(this),
+                selectItem = $(button.closest("[data-select-item]"));
+
+            selectItem.slideUp("slow", function () {
+                $(this).remove();
+            });
+        }
+
         $(function() {
             var $elementsChange = $("[data-ajax-change='true']");
-{#            $elementsChange.on("change", fillValues);#}
+
             $.each($elementsChange, function(index, value) {
                 fillElement($(value));
             });
@@ -218,6 +268,10 @@
                    $obj.text(data.count);
                 });
             });
+
+
+            $(document).on("click", "[data-trigger=add-select-responsibility]", addSelect);
+            $(document).on("click", "[data-trigger=remove-select]", removeSelect);
         });
     </script>
 {% endblock %}
