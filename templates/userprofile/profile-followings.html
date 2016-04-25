@@ -14,19 +14,19 @@
             </div>
             <!-- mudar para 9.5 -->
             <div class="col-lg-9">
-                {% include 'userprofile/partials/profile-navbar.html' with navbar_context='relationship' %}
-                <header class="area-title">
-                    <h2>Relacionamentos</h2>
-                </header>
-                <div class="filter row">
-                    <div class="col-lg-8">
-                        {% include 'userprofile/partials/search-followings.html' with placeholder="Procure por pessoas" %}
+                {% include 'userprofile/partials/filters.html' with title="Relacionamentos" active="relationship" has_filter=True %}
+                {% block filters %}
+                     <div id="form-search" class="filter row form-search filters-members" data-toggle="filters">
+                        <div class="col-lg-8">
+                            {% include 'userprofile/partials/search-followings.html' with placeholder="Procure por pessoas" %}
+                        </div>
+                        <div class="col-lg-4 text-right">
+                            <a class="btn btn-perfil" href="{% url 'profile:followers' username=profile.user.username %}">Seguidores</a>
+                            <a class="btn btn-perfil active" href="{% url 'profile:followings' username=profile.user.username %}">Seguindo</a>
+                        </div>
                     </div>
-                    <div class="col-lg-4 text-right">
-                        <a class="btn btn-perfil" href="{% url 'profile:followers' username=profile.user.username %}">Seguidores</a>
-                        <a class="btn btn-perfil active" href="{% url 'profile:followings' username=profile.user.username %}">Seguindo</a>
-                    </div>
-                </div>
+                {% endblock filters %}
+
                 <div class="row ">
                     <div class="col-lg-12">
                         <hr>
