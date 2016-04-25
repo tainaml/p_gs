@@ -173,14 +173,14 @@ def update_or_create_occupation(profile=None, user=None, responsibilities=None):
 
         for responsibility in responsibilities_to_delete:
             if responsibility not in responsibilities:
-                responsibility.occupation.delete()
+                responsibility.occupation.get().delete()
 
     except Exception, e:
         if settings.DEBUG:
             logger.error(e.message)
         return False
 
-    return True
+        return True
 
 
 def get_countries(country_id=None):
