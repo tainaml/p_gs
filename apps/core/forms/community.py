@@ -1,4 +1,7 @@
+from django.utils.translation import ugettext as _
+
 from apps.community.models import Community
+from apps.core.models.tags import Tags
 from apps.taxonomy.models import Taxonomy
 from apps.geography.models import State, City
 from apps.custom_base.service.custom import IdeiaForm, forms
@@ -57,7 +60,6 @@ class CoreCommunityFeedFormSearch(IdeiaForm):
         cleaned_data['official'] = cleaned_data.get('official', False)
 
         return cleaned_data
-
 
     def __process__(self):
 
@@ -120,6 +122,37 @@ class CoreCommunitySearchVideosForm(IdeiaForm):
             self.cleaned_data.get('criteria'),
             self.items_per_page,
             self.cleaned_data.get('page', 1)
+        )
+
+
+class CoreCommunitySearchMaterialsForm(IdeiaForm):
+
+    criteria = forms.CharField(required=False)
+    page = forms.IntegerField(required=False)
+    tags = forms.ModelChoiceField(queryset=Tags.objects.all().exclude(tag_slug="videos"), required=False,
+                                  empty_label=_("All"))
+
+    def __init__(self, community=None, items_per_page=10, *args, **kwargs):
+        self.community = community
+        self.items_per_page = items_per_page
+
+        super(CoreCommunitySearchMaterialsForm, self).__init__(*args, **kwargs)
+
+    def clean(self):
+        cleaned_data = super(CoreCommunitySearchMaterialsForm, self).clean()
+
+        cleaned_data['page'] = cleaned_data['page'] \
+            if 'page' in cleaned_data and cleaned_data['page'] else 1
+
+        return cleaned_data
+
+    def __process__(self):
+        return Business.get_articles_with_tags(
+            self.community,
+            self.cleaned_data.get('criteria'),
+            self.items_per_page,
+            self.cleaned_data.get('page', 1),
+            self.cleaned_data.get('tags')
         )
 
 
