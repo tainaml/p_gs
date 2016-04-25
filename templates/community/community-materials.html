@@ -21,14 +21,12 @@
                             <nav id="form-search" class="form-search filters-members" data-toggle="filters">
                                 <form action="{% url 'community:materials-search' community.slug %}" method="GET" role="search">
                                     <div class="form-search-input">
-                                        <div class="form-search-input">
-                                            <input type="text" name="criteria" placeholder="Procure vídeos" value="{{ form.cleaned_data.criteria }}">
-                                            <input type="hidden" name="tags" value="{{ form.cleaned_data.tags.id }}">
-                                        </div>
-                                        <button type="submit" class="form-search-button">
-                                            <i class="gsticon gsticon-search"></i>
-                                        </button>
+                                        <input type="text" name="criteria" placeholder="Procure vídeos" value="{{ form.cleaned_data.criteria }}">
+                                        <input type="hidden" name="tags" value="{{ form.cleaned_data.tags.id }}">
                                     </div>
+                                    <button type="submit" class="form-search-button">
+                                        <i class="gsticon gsticon-search"></i>
+                                    </button>
                                     <div class="form-search-input">
                                         <div class="order-by">
                                             <div class="dropdown">
