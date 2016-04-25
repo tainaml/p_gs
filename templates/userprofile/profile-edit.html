@@ -143,7 +143,7 @@
                                 <script id="select-responsibility-template" type="text/template">
                                     <div class="select-group" data-select-item>
                                         <button type="button" class="btn btn-default" data-trigger="remove-select">
-                                            <i class="gsticon gsticon-minus"></i>
+                                            <i class="gsticon gsticon-trash"></i>
                                         </button>
                                         <select name="responsibility" id="" class="form-control">
                                             <option value="" selected disabled>Selecione uma área de atuação</option>
@@ -157,7 +157,7 @@
                                     {% for occupation in profile.occupations %}
                                         <div class="select-group" data-select-item data-item="{{ occupation.id }}">
                                             <button type="button" class="btn btn-default" data-trigger="remove-select">
-                                                <i class="gsticon gsticon-minus"></i>
+                                                <i class="gsticon gsticon-trash"></i>
                                             </button>
                                             <select name="responsibility" class="form-control">
                                                 <option value="" {% if not profile.current_occupation.responsibility.id %}selected{% endif %} disabled>Selecione uma área de atuação</option>

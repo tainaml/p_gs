@@ -173,7 +173,7 @@ def update_or_create_occupation(profile=None, user=None, responsibilities=None):
 
         for responsibility in responsibilities_to_delete:
             if responsibility not in responsibilities:
-                responsibility.delete()
+                responsibility.occupation.delete()
 
     except Exception, e:
         if settings.DEBUG:

@@ -113,7 +113,7 @@ class Responsibility(models.Model):
 
 class Occupation(models.Model):
     profile = models.ForeignKey(UserProfile, related_name="occupation")
-    responsibility = models.ForeignKey(Responsibility)
+    responsibility = models.ForeignKey(Responsibility, related_name="occupation")
     company = models.CharField(max_length=60, blank=False)
     date_begin = models.DateField(blank=True, null=True)
     date_end = models.DateField(blank=True, null=True)
