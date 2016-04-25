@@ -1,3 +1,4 @@
+# coding=utf-8
 import copy
 
 from django.contrib.auth.decorators import login_required
@@ -219,7 +220,7 @@ class ArticleEditView(ArticleBaseView):
         article_saved = form_article.process()
 
         if article_saved is not False:
-            messages.add_message(request, messages.SUCCESS, _('Success'), 'article')
+            messages.add_message(request, messages.SUCCESS, _('Publicação salva com sucesso'), 'article')
             article_id = form_article.instance.id
             return redirect(reverse('article:edit', args=(article_id,)))
         else:
