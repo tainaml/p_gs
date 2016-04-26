@@ -51,14 +51,22 @@
         @include make-md-column(9);
         @include make-lg-column(9);
         color: $link-white;
+
+        @media (max-width: $screen-xs-max) {
+            width: 100%;
+            display: block;
+            text-align: center;
+        }
     }
     .links-help {
         @include list-unstyled();
-        @include make-sm-column(5);
-        @include make-md-column(3);
-        @include make-lg-column(3);
+        //@include make-sm-column(5);
+        //@include make-md-column(3);
+        //@include make-lg-column(3);
         @extend .list-inline;
         text-align: right;
+
+        @media (max-width: $screen-xs-max) { text-align: center; }
     }
 }
 
