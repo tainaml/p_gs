@@ -20,5 +20,5 @@ urlpatterns = [
     url(_(r'^article/(?P<article_id>\d+)/(?P<article_slug>[a-z0-9]+(?:-[a-z0-9]+)*)$'), CoreArticleView.as_view(), name='view'),
 
     # Translators: URL de criacao de artigo em uma comunidade
-    url(_(r'^article/create/(?P<community_slug>[a-z0-9]+(?:-[a-z0-9]+)*)$'), _article_create_in_community, name='create-in-category'),
+    url(_(r'^article/create/(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)$'), _article_create_in_community, name='create-in-category'),
 ]

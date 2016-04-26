@@ -44,6 +44,6 @@ urlpatterns = [
 
     # Create question in community
     # Translators: URL de criar pergunta
-    url(_(r'^create/(?P<community_slug>[a-z0-9]+(?:-[a-z0-9]+)*)$'), CoreViews.CoreQuestionInCommunityView.as_view(), name='create-in-category'),
+    url(_(r'^create/(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)$'), CoreViews.CoreQuestionInCommunityView.as_view(), name='create-in-category'),
 
 ]
