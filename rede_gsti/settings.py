@@ -129,7 +129,7 @@ DJANGO_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.postgres',
-    'django.contrib.humanize'
+    # 'django.contrib.humanize',
 )
 
 THIRD_PART_APPS = (
@@ -138,7 +138,7 @@ THIRD_PART_APPS = (
     'nocaptcha_recaptcha',
     'widget_tweaks',
     'django_thumbor',
-    'autofixture',
+    # 'autofixture',
     'django_migration_fixture',
     'celery',
     'djcelery',
@@ -179,6 +179,7 @@ INTERNAL_APPS = (
 
 # Set up for installed apps
 INSTALLED_APPS = DJANGO_APPS + THIRD_PART_APPS + INTERNAL_APPS
+
 ADD_REVERSION_ADMIN=True
 
 # Setting Environment specific settings
