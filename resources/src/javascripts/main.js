@@ -41,8 +41,10 @@ $(() => {
         slideout.toggle();
     });
     var mobileSearch = $('#mobile-search');
+    var inputSearch = $('#search-criteria')
     $('.toggle-search').on('click', function(e) {
         e.preventDefault();
         mobileSearch.slideToggle();
+        inputSearch.focus();
     });
 });

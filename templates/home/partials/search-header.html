@@ -1,6 +1,8 @@
+{% load user_agents %}
+
 <form class="search-header-form" action="{% url 'search:search' %}" method="GET" role="search">
     {% comment %}<div class="form-search-input"></div>{% endcomment %}
-    <input class="search-header-input" type="text" id="search-criteria" name="q" placeholder="{{placehold|default:"Procure profissionais de tecnologia, comunidades e conteúdo"}}" autocomplete="off" {% if query_search %}value="{{ query_search }}"{% endif %}
+    <input class="search-header-input" type="text" id="search-criteria" name="q" placeholder="{% if request|is_mobile %}Procurar{% else %}{{placehold|default:"Procure profissionais de tecnologia, comunidades e conteúdo"}}{% endif %}" autocomplete="off" {% if query_search %}value="{{ query_search }}"{% endif %}
     data-autocomplete="true" data-autocomplete-timeout="500"
     data-autocomplete-target="#dropdown-search" data-autocomplete-url="{% url 'search:autocomplete' %}" />
     <div id="dropdown-search" class="dropdown-menu dropdown-search" data-toggle="custom-scroll"></div>

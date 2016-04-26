@@ -377,7 +377,7 @@
     border: none;
     color: #555;
     font-size: 14px;
-    line-height: 3.4;
+    line-height: 3.5;
     outline: none;
 }
 // .menu-mobile { @include make-row; }
@@ -389,14 +389,19 @@
     padding-right: 15px;
     padding-left: 15px;
     background-color: #fff;
+    border-bottom: 1px solid $color-border;
 }
 .btn-hide-item {
     position: absolute;
-    top: 15px; right: 14px;
+    top: 10px; right: 15px;
     min-width: 30px;
     border: 1px solid #e1e1e1;
     background-color: #fff;
     border-radius: 50%;
     font-size: 20px;
     text-align: center;
+
+    i {
+
+    }
 }
