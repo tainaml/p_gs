@@ -16,6 +16,7 @@
         var defaults = {
             //'/account/is-logged/'
             urlCheckLogin : $element.data("url-login"),
+            urlNext: $element.data("url-next"),
             method  : 'post',
             dataType: 'json',
             modal   : '#modal-login',
@@ -70,6 +71,10 @@
                 console.log( 'onSuccessIsNotLogged' );
 
                 var $modal = $(obj.settings.modal);
+
+                if (obj.settings.urlNext) {
+                    $modal.find("form").attr("action", obj.settings.urlNext);
+                }
 
                 if ( $modal.is( ':hidden' ) )
                     $modal.modal('show');

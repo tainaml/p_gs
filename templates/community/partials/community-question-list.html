@@ -13,6 +13,6 @@
     <a data-jscroll-next href="{% url 'community:questions-list' community.slug %}?criterio={{ form.cleaned_data.criterio|urlencode }}&replies={{ form.cleaned_data.replies }}&page={{ page|default_if_none:form.cleaned_data.page }}&next={{ url_next|urlencode }}">next</a>
 {% else %}
     <p class="text-center text-italic">
-        Não existem perguntas para esta comunidade, <a href="{% url "question:create-in-category" community.slug %}">seja o primeiro a perguntar</a>.
+        Não existem perguntas para esta comunidade, <a href="{% url "question:create-in-category" community.slug %}" data-url-login="{% url 'account:is_logged' %}" data-trigger="login" data-token="{{ csrf_token }}" data-url-next="{% url 'account:login-ajax' %}?next={% url "question:create-in-category" community.slug %}">seja o primeiro a perguntar</a>.
     </p>
 {% endif %}
