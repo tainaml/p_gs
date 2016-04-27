@@ -1,6 +1,12 @@
 from django.shortcuts import render
+from django.views.generic import View
 
 
-# Create your views here.
 def do_list(request):
     return render(request, 'job_vacation/index.html')
+
+
+class JobListSearch(View):
+
+    def get(self, request):
+        pass
