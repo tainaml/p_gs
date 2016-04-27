@@ -45,6 +45,11 @@ $(() => {
     $('.toggle-search').on('click', function(e) {
         e.preventDefault();
         mobileSearch.slideToggle();
-        inputSearch.focus();
+
+        if (mobileSearch.is(':visible')) {
+            inputSearch.focus();
+        } else {
+            inputSearch.blur();
+        }
     });
 });
