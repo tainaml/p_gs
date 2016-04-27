@@ -83,9 +83,9 @@ class CoreUserProfileEditForm(EditProfileForm):
     @transaction.atomic()
     def __process__(self):
         process_profile = super(CoreUserProfileEditForm, self).__process__()
-        process_occupation = BusinessUserProfile.update_or_create_occupation(process_profile, data={
-            'responsibility': self.cleaned_data['responsibility']
-        })
+        process_occupation = BusinessUserProfile.update_or_create_occupation(
+            process_profile,
+            responsibilities=[self.cleaned_data['responsibility']])
 
         return process_profile if (process_profile and process_occupation) else False
 
