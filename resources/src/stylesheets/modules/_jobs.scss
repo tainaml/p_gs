@@ -7,13 +7,21 @@
 .jobs-search {
   padding: 20px;
   margin-top: -1px;
+  margin-bottom: 30px;
   border: 1px solid #e1e1e1;
   background: #fff;
 }
 .jobs-search_field {
   position: relative;
-  margin-bottom: 10px;
+  width: 100%;
   display: block;
+
+  @media (min-width: $screen-sm-min) {
+    width: calc(41.66667% - 10px);
+    padding-right: 20px;
+    display: inline-block;
+  }
+  .form-control { width: 100%; }
 
   .gsticon {
     position: absolute;
@@ -27,8 +35,7 @@
 }
 .jobs-search_submit {
   width: 100%;
-  padding: 8px 12px;
-  display: block;
+  padding: 10px 12px;
   border: none;
   background-color: #738d00;
   color: #fff;
@@ -36,9 +43,11 @@
   font-size: 14px;
   line-height: 1.42857;
   text-align: center;
+
+  @media (min-width: $screen-sm-min) { width: 18%; }
 }
 
-//
+// Listegem dos trabalhos
 // ==========================================================================
 .jobs-list {
   padding-top: 20px;
@@ -105,3 +114,6 @@
     }
   }
 }
+
+// Job description
+// ==========================================================================
