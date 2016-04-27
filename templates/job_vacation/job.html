@@ -1,10 +1,75 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{%extends 'home/layout/base.html' %}
 
-</body>
-</html>
+{% block title %}Job description - Portal GSTI{% endblock %}
+
+{% block content %}
+<main class="container main">
+<div class="row">
+    <div class="col-lg-9">
+        {% include 'job_vacation/partials/form.html' %}
+        <div class="job-box">
+            <div class="job-box_table">
+                <div class="job-box_cell job-box_employ">
+                    <img src="http://placehold.it/80" alt="Logo Employ" class="job-box_employ-img">
+                </div>
+                <div class="job-box_cell job-box_info">
+                    <div class="job-box_title">Diretor de Arte Pleno</div>
+                    <strong class="job-box_employ-name">Agência Ginga</strong>
+                    <div class="job-box_location">São Paulo - SP</div>
+                    <div class="job-box_publication hidden-lg">
+                        <i class="gsticon gsticon-clock-o"></i> Há 2 horas
+                    </div>
+                </div>
+                <div class="job-box_cell timestamp">
+                    <div class="job-box_publication wide">
+                        <i class="gsticon gsticon-calendar"></i> Há 2 horas
+                    </div>
+                </div>
+            </div>
+            <ul class="job-box_hiring">
+               <li><strong>Salário:</strong> R$ 2.808,39</li>
+               <li><strong>Contratação:</strong> CLT</li>
+               <li><strong>Vagas:</strong> 1</li>
+            </ul>
+            <ul class="job-box_vacancy">
+                <li><strong class="job-box_vacancy-title">Descriçao</strong>
+                    <div class="job-box_vacancy-text">
+                        Buscamos candidatos para a vaga de Diretor(a) de Arte Pleno em nosso time de criação,
+                        com oportunidade de trabalhar em contas dos segmentos bancário, automotivo e de consumo.
+
+                        Principais atividades:
+                        <ul>
+                            <li>Criação e produção de landing pages, hotsites, apps, banners, newsletters, posts, vídeos, etc.
+                            </li>
+                            <li>tratamento de imagens e direcionamento criativo em produção de fotos.</li>
+                            <li>Suporte ao time de criação</li>
+                        </ul>
+                    </div>
+                </li>
+                <li>
+                    <strong class="job-box_vacancy-title">Requisitos</strong>
+                    <div class="job-box_vacancy-text">
+                        <ul>
+                            <li>Experiência notável em agencias online</li>
+                            <li>Principais ferramentas: Photoshop, Illustrator, Flash</li>
+                            <li>Tratamento de imagem primoroso</li>
+                            <li>Olho clínico para detalhes</li>
+                            <li>Conhecimento em UX e UI</li>
+                            <li>Noçao de grid e site responsivo</li>
+                            <li>Bom gosto, estética, saber buscar referencias</li>
+                            <li>Uso avançado de computadores Apple</li>
+                            <li>Ingles fluente</li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="col-lg-3">
+        <div class="squad-advertising">
+            <img class="img-responsive" src="http://placehold.it/270x225" alt="Propaganda aqui">
+        </div>
+    </div>
+</div>
+</main>
+{% endblock %}
