@@ -58,25 +58,81 @@
                         {% endcomment %}
                     </div>
                 </li>
+                {% if job.job_vacancy_responsibility or job.requirements.all %}
                 <li>
                     <strong class="job-box_vacancy-title">Requisitos</strong>
                     <div class="job-box_vacancy-text">
                         {{ job.job_vacancy_responsibility }}
-                        {% comment %}
-                        <ul>
-                            <li>Experiência notável em agencias online</li>
-                            <li>Principais ferramentas: Photoshop, Illustrator, Flash</li>
-                            <li>Tratamento de imagem primoroso</li>
-                            <li>Olho clínico para detalhes</li>
-                            <li>Conhecimento em UX e UI</li>
-                            <li>Noçao de grid e site responsivo</li>
-                            <li>Bom gosto, estética, saber buscar referencias</li>
-                            <li>Uso avançado de computadores Apple</li>
-                            <li>Ingles fluente</li>
-                        </ul>
-                        {% endcomment %}
+                        {% if job.requirements.all %}
+                            <br>
+                            <br>
+                            <ul>
+                                {% for requirement in job.requirements.all %}
+                                    <li>{{ requirement.item.description }} - {{ requirement.level.description }} - {{ requirement.exigency.description }} - {{ requirement.experience.description }}</li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
                     </div>
                 </li>
+                {% endif %}
+                {% if job.workload %}
+                    <li>
+                        <strong class="job-box_vacancy-title">Carga horária</strong>
+                        <div class="job-box_vacancy-text">
+                            {{ job.workload.description }}
+                        </div>
+                    </li>
+                {% endif %}
+                {% if job.certifications.all %}
+                    <li>
+                        <strong class="job-box_vacancy-title">Certificações</strong>
+                        <div class="job-box_vacancy-text">
+                            <ul>
+                                {% for item in job.certifications.all %}
+                                    <li>{{ item.certification.title }} - {{ item.exigency.description }}</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </li>
+                {% endif %}
+                {% if job.benefits.all %}
+                    <li>
+                        <strong class="job-box_vacancy-title">Benefícios</strong>
+                        <div class="job-box_vacancy-text">
+                            <ul>
+                                {% for benefit in job.benefits.all %}
+                                    <li>{{ benefit.description }}</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </li>
+                {% endif %}
+                {% if job.resposibility %}
+                    <li>
+                        <strong class="job-box_vacancy-title">Área de Atuação</strong>
+                        <div class="job-box_vacancy-text">
+                            <ul>
+                                <li>{{ job.resposibility.responsibility.name }} - {{ job.resposibility.responsibility_type.description }}</li>
+                            </ul>
+                        </div>
+                    </li>
+                {% endif %}
+                {% if job.email or job.phone_number or job.site %}
+                    <li>
+                        <strong class="job-box_vacancy-title">Contato</strong>
+                        <div class="job-box_vacancy-text">
+                            {% if job.phone_number %}<p>{{ job.phone_number }}</p>{% endif %}
+                            {% if job.email %}<p><a href="mailto:{{ job.email }}">{{ job.email }}</a></p>{% endif %}
+                            {% if job.site %}<p><a href="{{ job.site }}" target="_blank">{{ job.site }}</a></p>{% endif %}
+                        </div>
+                    </li>
+                {% endif %}
+                {% if job.contact %}
+                    <li>
+                        <strong class="job-box_vacancy-title">Mais informações</strong>
+                        <div class="job-box_vacancy-text">{{ job.contact }}</div>
+                    </li>
+                {% endif %}
             </ul>
         </div>
     </div>
