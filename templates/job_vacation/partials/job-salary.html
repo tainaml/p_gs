@@ -1,0 +1,19 @@
+{% load humanize %}
+
+
+{% if job.salary.regime.description == "Valor fixo" %}
+    R$ {{ job.salary.fixed_value|intcomma }}
+
+{% elif job.salary.regime.description == "Intervalo" %}
+    R$ {{ job.salary.range_value_from|intcomma }} - R$ {{ job.salary.range_value_to|intcomma }}
+
+{% elif job.salary.regime.description == "A combinar" %}
+    {{ job.salary.regime.description }}
+
+{% elif job.salary.regime.description == "Enviar pretensão salarial" %}
+    {{ job.salary.regime.description }}
+
+{% else %}
+    Não informado
+
+{% endif %}

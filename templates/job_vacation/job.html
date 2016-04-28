@@ -1,0 +1,90 @@
+{%extends 'home/layout/base.html' %}
+
+{% load humanize %}
+
+{% block title %}{{ job.title }} - Portal GSTI{% endblock %}
+
+{% block content %}
+<main class="container main">
+<div class="row">
+    <div class="col-lg-9">
+        {% include 'job_vacation/partials/form.html' %}
+        <div class="job-box">
+            <div class="job-box_table">
+                <div class="job-box_cell job-box_employ">
+                    <img src="http://placehold.it/80" alt="Logo Employ" class="job-box_employ-img">
+                </div>
+                <div class="job-box_cell job-box_info">
+                    <div class="job-box_title">{{ job.title }}</div>
+                    <strong class="job-box_employ-name">{{ job.company.name }}</strong>
+                    <div class="job-box_location">
+                        {% for location in job.locations.all %}
+                            {% for city in location.cities.all %}
+                                <span class="location-item">{{ city.name }} - {{ location.state.acronym }}</span>
+                            {% endfor %}
+                        {% endfor %}
+                    </div>
+                    <div class="job-box_publication hidden-lg">
+                        <i class="gsticon gsticon-clock-o"></i> {{ job.job_vacancy_date|naturalday }}
+                    </div>
+                </div>
+                <div class="job-box_cell timestamp">
+                    <div class="job-box_publication wide">
+                        <i class="gsticon gsticon-calendar"></i> {{ job.job_vacancy_date|naturalday }}
+                    </div>
+                </div>
+            </div>
+            <ul class="job-box_hiring">
+               <li><strong>Salário:</strong> {% include "job_vacation/partials/job-salary.html" %}</li>
+               <li><strong>Contratação:</strong> {{ job.regime.description|default:"Não informado" }}</li>
+               {% if job.quantity %}<li><strong>Vagas:</strong> {{ job.quantity }}</li>{% endif %}
+            </ul>
+            <ul class="job-box_vacancy">
+                <li>
+                    <strong class="job-box_vacancy-title">Descriçao</strong>
+                    <div class="job-box_vacancy-text">
+                        {{ job.description }}
+                        {% comment %}
+                        Buscamos candidatos para a vaga de Diretor(a) de Arte Pleno em nosso time de criação,
+                        com oportunidade de trabalhar em contas dos segmentos bancário, automotivo e de consumo.
+
+                        Principais atividades:
+                        <ul>
+                            <li>Criação e produção de landing pages, hotsites, apps, banners, newsletters, posts, vídeos, etc.
+                            </li>
+                            <li>tratamento de imagens e direcionamento criativo em produção de fotos.</li>
+                            <li>Suporte ao time de criação</li>
+                        </ul>
+                        {% endcomment %}
+                    </div>
+                </li>
+                <li>
+                    <strong class="job-box_vacancy-title">Requisitos</strong>
+                    <div class="job-box_vacancy-text">
+                        {{ job.job_vacancy_responsibility }}
+                        {% comment %}
+                        <ul>
+                            <li>Experiência notável em agencias online</li>
+                            <li>Principais ferramentas: Photoshop, Illustrator, Flash</li>
+                            <li>Tratamento de imagem primoroso</li>
+                            <li>Olho clínico para detalhes</li>
+                            <li>Conhecimento em UX e UI</li>
+                            <li>Noçao de grid e site responsivo</li>
+                            <li>Bom gosto, estética, saber buscar referencias</li>
+                            <li>Uso avançado de computadores Apple</li>
+                            <li>Ingles fluente</li>
+                        </ul>
+                        {% endcomment %}
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="col-lg-3">
+        <div class="squad-advertising">
+            <img class="img-responsive" src="http://placehold.it/270x225" alt="Propaganda aqui">
+        </div>
+    </div>
+</div>
+</main>
+{% endblock %}
