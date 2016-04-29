@@ -1,9 +1,9 @@
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.db.models import Q
-from ..models import JobVacancy
+from ..models import JobVacancy, JobVacancyLocation
 
 
-def get_jobs(keyowrs=None, locale=None, items_per_page=None, page=None):
+def get_jobs(keywords=None, locale=None, items_per_page=None, page=None):
 
     jobs = JobVacancy.objects.all().order_by('-job_vacancy_date')
 

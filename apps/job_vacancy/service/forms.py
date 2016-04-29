@@ -25,7 +25,7 @@ class JobSearchForm(IdeiaForm):
 
     def __process__(self):
         return Business.get_jobs(
-            keyowrs=self.cleaned_data.get('keywords'),
+            keywords=self.cleaned_data.get('keywords'),
             locale=self.cleaned_data.get('locale'),
             items_per_page=self.items_per_page,
             page=self.cleaned_data.get('page')
