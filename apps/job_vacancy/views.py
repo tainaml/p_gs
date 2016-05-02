@@ -37,7 +37,7 @@ class JobView(BaseJobView):
     def get(self, request):
 
         form = self.form(request.GET)
-        form.set_items_per_page(2)
+        form.set_items_per_page(10)
 
         jobs = form.process()
 

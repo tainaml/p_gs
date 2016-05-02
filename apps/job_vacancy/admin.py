@@ -1,3 +1,4 @@
+# coding=utf-8
 from django import forms
 from django.contrib import admin
 
@@ -12,6 +13,7 @@ from apps.job_vacancy.models import Requirement, JobVacancyCertification, Salary
 class RequirementInLine(admin.TabularInline):
     model = Requirement
 
+
 class JobVacancyCertificationInLine(admin.TabularInline):
     model = JobVacancyCertification
 
@@ -20,21 +22,20 @@ class JobVacancyLocationInLine(admin.TabularInline):
     model = JobVacancyLocation
 
 
-
 class SalaryInLine(admin.TabularInline):
     model = Salary
+
 
 class JobVacancyResponsibilityInLine(admin.TabularInline):
     model = JobVacancyResponsibility
 
 
-
 class JobVacancyAdmin(admin.ModelAdmin):
     filter_horizontal = [
         'benefits',
-
-
     ]
+
+    list_display = ('title', 'company', 'regime', 'home_office', 'quantity', 'workload', 'show_cargo')
 
     inlines = [
         JobVacancyLocationInLine,
@@ -42,8 +43,13 @@ class JobVacancyAdmin(admin.ModelAdmin):
         JobVacancyCertificationInLine,
         SalaryInLine,
         JobVacancyResponsibilityInLine,
-
     ]
+
+    def show_cargo(self, obj):
+        return "%s - %s" % (obj.resposibility.responsibility.name,
+                            obj.resposibility.responsibility_type.description)
+
+    show_cargo.short_description = "Cargo"
 
 admin.site.register(Benefit)
 admin.site.register(JobRegime)
