@@ -11,16 +11,25 @@ def get_jobs(keywords=None, locale=None, items_per_page=None, page=None):
     criteria_location = None
 
     for keyword in list_keywords:
-        query_criteria = (
-            Q(title__unaccent__icontains=keyword) |
-            Q(company__name__unaccent__icontains=keyword) |
-            Q(regime__description__unaccent__icontains=keyword) |
-            Q(benefits__description__unaccent__icontains=keyword) |
-            Q(resposibility__responsibility__name__unaccent__icontains=keyword) |
-            Q(resposibility__responsibility_type__description__unaccent__icontains=keyword) |
-            Q(requirements__item__description__unaccent__icontains=keyword) |
-            Q(requirements__level__description__unaccent__icontains=keyword)
-        )
+        if keyword.isnumeric():
+            value = float(keyword)
+            query_criteria = (
+                Q(salary__fixed_value=value) | (
+                    Q(salary__range_value_from__gte=value) &
+                    Q(salary__range_value_to__lte=value)
+                )
+            )
+        else:
+            query_criteria = (
+                Q(title__unaccent__icontains=keyword) |
+                Q(company__name__unaccent__icontains=keyword) |
+                Q(regime__description__unaccent__icontains=keyword) |
+                Q(benefits__description__unaccent__icontains=keyword) |
+                Q(resposibility__responsibility__name__unaccent__icontains=keyword) |
+                Q(resposibility__responsibility_type__description__unaccent__icontains=keyword) |
+                Q(requirements__item__description__unaccent__icontains=keyword) |
+                Q(requirements__level__description__unaccent__icontains=keyword)
+            )
         criteria = query_criteria if not criteria else criteria & query_criteria
 
     for location in list_locales:

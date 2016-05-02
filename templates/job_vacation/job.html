@@ -12,7 +12,11 @@
         <div class="job-box">
             <div class="job-box_table">
                 <div class="job-box_cell job-box_employ">
-                    <img src="http://placehold.it/80" alt="Logo Employ" class="job-box_employ-img">
+                    {% if job.company.get_logo %}
+                        <img class="job-box_employ-img" src="{% thumbor_url job.company.get_logo width=80 height=80 smart=False fit_in=False %}" alt="Logo {{ job.company.name }}" />
+                    {% else %}
+                        <img class="job-box_employ-img" src="http://placehold.it/80" alt="Logo Agência Ginga" />
+                    {% endif %}
                 </div>
                 <div class="job-box_cell job-box_info">
                     <div class="job-box_title">{{ job.title }}</div>

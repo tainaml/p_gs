@@ -35,7 +35,7 @@ class JobVacancyAdmin(admin.ModelAdmin):
         'benefits',
     ]
 
-    list_display = ('title', 'company', 'regime', 'home_office', 'quantity', 'workload', 'show_cargo')
+    list_display = ('title', 'show_salary', 'show_cargo', 'company', 'regime', 'workload', 'quantity', 'home_office')
 
     inlines = [
         JobVacancyLocationInLine,
@@ -45,9 +45,20 @@ class JobVacancyAdmin(admin.ModelAdmin):
         JobVacancyResponsibilityInLine,
     ]
 
+    def show_salary(self, obj):
+        if obj.salary.regime.description == "Valor fixo":
+            return "R$ %.2f" % obj.salary.fixed_value
+        elif obj.salary.regime.description == "Intervalo":
+            return "R$ %.2f - R$ %.2f" % (obj.salary.range_value_from,
+                                          obj.salary.range_value_to)
+        else:
+            return obj.salary.regime.description
+
+    show_salary.short_description = "Salário"
+
     def show_cargo(self, obj):
-        return "%s - %s" % (obj.resposibility.responsibility.name,
-                            obj.resposibility.responsibility_type.description)
+        return "%s - %s" % (obj.resposibility.responsibility_type.description,
+                            obj.resposibility.responsibility.name)
 
     show_cargo.short_description = "Cargo"
 
