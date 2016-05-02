@@ -15,8 +15,8 @@ def get_jobs(keywords=None, locale=None, items_per_page=None, page=None):
             value = float(keyword)
             query_criteria = (
                 Q(salary__fixed_value=value) | (
-                    Q(salary__range_value_from__gte=value) &
-                    Q(salary__range_value_to__lte=value)
+                    Q(salary__range_value_from__lte=value) &
+                    Q(salary__range_value_to__gte=value)
                 )
             )
         else:
