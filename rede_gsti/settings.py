@@ -140,8 +140,6 @@ THIRD_PART_APPS = (
     'django_thumbor',
     # 'autofixture',
     'django_migration_fixture',
-    'celery',
-    'djcelery',
     'social.apps.django_app.default',
     'ckeditor',
     'ckeditor_uploader',

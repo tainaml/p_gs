@@ -29,6 +29,7 @@ var navigationClone = navigationHeader.clone();
 $(window).on('scroll', function (event) {
     var top = $(document).scrollTop();
     navigationClone.addClass('fixed');
+    navigationClone.find('[data-autocomplete]').autocomplete();
     if (top > 0) {
         navigationClone.insertBefore(navigationHeader);
     } else {

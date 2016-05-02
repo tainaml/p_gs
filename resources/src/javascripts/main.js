@@ -15,7 +15,7 @@ import './modules/ideiaRestrict/'
 import './modules/ideiaValidationField/'
 import Slideout from 'slideout'
 
-$(() => {
+$(function () {
     require('./modules');
     require('perfect-scrollbar/jquery')($);
 
@@ -41,7 +41,7 @@ $(() => {
         slideout.toggle();
     });
     var mobileSearch = $('#mobile-search');
-    var inputSearch = $('#search-criteria')
+    var inputSearch = $('#search-criteria');
     $('.toggle-search').on('click', function(e) {
         e.preventDefault();
         mobileSearch.slideToggle();
