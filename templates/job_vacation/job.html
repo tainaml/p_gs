@@ -1,6 +1,8 @@
 {%extends 'home/layout/base.html' %}
 
-{% block title %}Job description - Portal GSTI{% endblock %}
+{% load humanize %}
+
+{% block title %}{{ job.title }} - Portal GSTI{% endblock %}
 
 {% block content %}
 <main class="container main">
@@ -10,30 +12,43 @@
         <div class="job-box">
             <div class="job-box_table">
                 <div class="job-box_cell job-box_employ">
-                    <img src="http://placehold.it/80" alt="Logo Employ" class="job-box_employ-img">
+                    {% if job.company.get_logo %}
+                        <img class="job-box_employ-img" src="{% thumbor_url job.company.get_logo width=80 height=80 smart=False fit_in=False %}" alt="Logo {{ job.company.name }}" />
+                    {% else %}
+                        <img class="job-box_employ-img" src="http://placehold.it/80" alt="Logo Agência Ginga" />
+                    {% endif %}
                 </div>
                 <div class="job-box_cell job-box_info">
-                    <div class="job-box_title">Diretor de Arte Pleno</div>
-                    <strong class="job-box_employ-name">Agência Ginga</strong>
-                    <div class="job-box_location">São Paulo - SP</div>
+                    <div class="job-box_title">{{ job.title }}</div>
+                    <strong class="job-box_employ-name">{{ job.company.name }}</strong>
+                    <div class="job-box_location">
+                        {% for location in job.locations.all %}
+                            {% for city in location.cities.all %}
+                                <span class="location-item">{{ city.name }} - {{ location.state.acronym }}</span>
+                            {% endfor %}
+                        {% endfor %}
+                    </div>
                     <div class="job-box_publication hidden-lg">
-                        <i class="gsticon gsticon-clock-o"></i> Há 2 horas
+                        <i class="gsticon gsticon-clock-o"></i> {{ job.job_vacancy_date|naturalday }}
                     </div>
                 </div>
                 <div class="job-box_cell timestamp">
                     <div class="job-box_publication wide">
-                        <i class="gsticon gsticon-calendar"></i> Há 2 horas
+                        <i class="gsticon gsticon-calendar"></i> {{ job.job_vacancy_date|naturalday }}
                     </div>
                 </div>
             </div>
             <ul class="job-box_hiring">
-               <li><strong>Salário:</strong> R$ 2.808,39</li>
-               <li><strong>Contratação:</strong> CLT</li>
-               <li><strong>Vagas:</strong> 1</li>
+               <li><strong>Salário:</strong> {% include "job_vacation/partials/job-salary.html" %}</li>
+               <li><strong>Contratação:</strong> {{ job.regime.description|default:"Não informado" }}</li>
+               {% if job.quantity %}<li><strong>Vagas:</strong> {{ job.quantity }}</li>{% endif %}
             </ul>
             <ul class="job-box_vacancy">
-                <li><strong class="job-box_vacancy-title">Descriçao</strong>
+                <li>
+                    <strong class="job-box_vacancy-title">Descriçao</strong>
                     <div class="job-box_vacancy-text">
+                        {{ job.description }}
+                        {% comment %}
                         Buscamos candidatos para a vaga de Diretor(a) de Arte Pleno em nosso time de criação,
                         com oportunidade de trabalhar em contas dos segmentos bancário, automotivo e de consumo.
 
@@ -44,24 +59,84 @@
                             <li>tratamento de imagens e direcionamento criativo em produção de fotos.</li>
                             <li>Suporte ao time de criação</li>
                         </ul>
+                        {% endcomment %}
                     </div>
                 </li>
+                {% if job.job_vacancy_responsibility or job.requirements.all %}
                 <li>
                     <strong class="job-box_vacancy-title">Requisitos</strong>
                     <div class="job-box_vacancy-text">
-                        <ul>
-                            <li>Experiência notável em agencias online</li>
-                            <li>Principais ferramentas: Photoshop, Illustrator, Flash</li>
-                            <li>Tratamento de imagem primoroso</li>
-                            <li>Olho clínico para detalhes</li>
-                            <li>Conhecimento em UX e UI</li>
-                            <li>Noçao de grid e site responsivo</li>
-                            <li>Bom gosto, estética, saber buscar referencias</li>
-                            <li>Uso avançado de computadores Apple</li>
-                            <li>Ingles fluente</li>
-                        </ul>
+                        {{ job.job_vacancy_responsibility }}
+                        {% if job.requirements.all %}
+                            <br>
+                            <br>
+                            <ul>
+                                {% for requirement in job.requirements.all %}
+                                    <li>{{ requirement.item.description }} - {{ requirement.level.description }} - {{ requirement.exigency.description }} - {{ requirement.experience.description }}</li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
                     </div>
                 </li>
+                {% endif %}
+                {% if job.workload %}
+                    <li>
+                        <strong class="job-box_vacancy-title">Carga horária</strong>
+                        <div class="job-box_vacancy-text">
+                            {{ job.workload.description }}
+                        </div>
+                    </li>
+                {% endif %}
+                {% if job.certifications.all %}
+                    <li>
+                        <strong class="job-box_vacancy-title">Certificações</strong>
+                        <div class="job-box_vacancy-text">
+                            <ul>
+                                {% for item in job.certifications.all %}
+                                    <li>{{ item.certification.title }} - {{ item.exigency.description }}</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </li>
+                {% endif %}
+                {% if job.benefits.all %}
+                    <li>
+                        <strong class="job-box_vacancy-title">Benefícios</strong>
+                        <div class="job-box_vacancy-text">
+                            <ul>
+                                {% for benefit in job.benefits.all %}
+                                    <li>{{ benefit.description }}</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </li>
+                {% endif %}
+                {% if job.resposibility %}
+                    <li>
+                        <strong class="job-box_vacancy-title">Área de Atuação</strong>
+                        <div class="job-box_vacancy-text">
+                            <ul>
+                                <li>{{ job.resposibility.responsibility.name }} - {{ job.resposibility.responsibility_type.description }}</li>
+                            </ul>
+                        </div>
+                    </li>
+                {% endif %}
+                {% if job.email or job.phone_number or job.site %}
+                    <li>
+                        <strong class="job-box_vacancy-title">Contato</strong>
+                        <div class="job-box_vacancy-text">
+                            {% if job.phone_number %}<p>{{ job.phone_number }}</p>{% endif %}
+                            {% if job.email %}<p><a href="mailto:{{ job.email }}">{{ job.email }}</a></p>{% endif %}
+                            {% if job.site %}<p><a href="{{ job.site }}" target="_blank">{{ job.site }}</a></p>{% endif %}
+                        </div>
+                    </li>
+                {% endif %}
+                {% if job.contact %}
+                    <li>
+                        <strong class="job-box_vacancy-title">Mais informações</strong>
+                        <div class="job-box_vacancy-text">{{ job.contact }}</div>
+                    </li>
+                {% endif %}
             </ul>
         </div>
     </div>

@@ -2,7 +2,6 @@ from __future__ import unicode_literals
 from django.utils.translation import ugettext as _
 from django.db import models
 
-# Create your models here.
 
 class Company(models.Model):
     name = models.CharField(blank=False, null=False, max_length=255, verbose_name=_('Name'))
@@ -10,3 +9,6 @@ class Company(models.Model):
 
     def __unicode__(self):
         return self.name
+
+    def get_logo(self):
+        return self.logo if self.logo else None

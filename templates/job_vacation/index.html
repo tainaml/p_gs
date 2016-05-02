@@ -4,28 +4,45 @@
 
 {% block content %}
 <main class="container main">
-<div class="row">
-    <div class="col-lg-9">
-        {% include 'job_vacation/partials/form.html' %}
-        <header class="area-title">
-            <h2>vagas em destaque</h2>
-        </header>
-        <div class="jobs-list">
-            <p class="jobs-list_query-result">
-                <strong>168</strong> Resultados de<strong>"Diretor de arte"</strong> em <strong>"São Paulo"</strong>
-            </p>
-            <div class="jobs-list_container">
-                {% include 'job_vacation/partials/box.html' %}
-                {% include 'job_vacation/partials/box.html' %}
+    <div class="row">
+        <div class="col-lg-9">
+            {% include 'job_vacation/partials/form.html' %}
+            <header class="area-title">
+                <h2>Vagas em destaque</h2>
+            </header>
+            <div class="jobs-list j-scroll-jobs">
+                <p class="jobs-list_query-result">
+                    <strong>{{ jobs.paginator.count }}</strong> Resultados {% if form.cleaned_data.keywords %}de <strong>"{{ form.cleaned_data.keywords }}"</strong>{% endif %} {% if form.cleaned_data.locale %}em <strong>"{{ form.cleaned_data.locale }}"</strong>{% endif %}
+                </p>
+                {% include "job_vacation/partials/results.html" %}
             </div>
-            <a href="javascript:;" class="btn-default btn-block">Carregar mais resultados</a>
+        </div>
+        <div class="col-lg-3">
+            <div class="squad-advertising">
+                <img class="img-responsive" src="http://placehold.it/270x225" alt="Propaganda aqui">
+            </div>
         </div>
     </div>
-    <div class="col-lg-3">
-        <div class="squad-advertising">
-            <img class="img-responsive" src="http://placehold.it/270x225" alt="Propaganda aqui">
-        </div>
-    </div>
-</div>
 </main>
+{% endblock %}
+
+
+{% block javascripts %}
+    {{ block.super }}
+
+    <script>
+        var loaderHtml = '<div class="load-async-preload"></div>';
+        var callbackFunction = function() {
+            refreshAsyncLike();
+        };
+
+        $(function() {
+            $(".j-scroll-jobs").jscroll({
+                loadingHtml: loaderHtml,
+                contentSelect: ".j-scroll-container-jobs",
+                nextSelector: "a[data-jscroll-next-jobs]",
+                callback: callbackFunction
+            });
+        });
+    </script>
 {% endblock %}

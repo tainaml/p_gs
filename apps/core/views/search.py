@@ -26,7 +26,7 @@ class SearchBase(View):
 
 class Search(SearchBase):
 
-    template_path = "search/search-result.html"
+    template_path = "search/search-results.html"
 
     def get(self, request):
 
@@ -168,7 +168,7 @@ class SearchList(SearchBase):
 
 class SearchContent(SearchList):
 
-    template_path = "search/search-result.html"
+    template_path = "search/search-results.html"
 
     def change_template(self, template_path):
         return self.template_path
