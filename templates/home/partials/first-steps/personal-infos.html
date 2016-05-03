@@ -66,18 +66,18 @@
                                     <div class="clearfix">
                                         <div data-form-group class="col-lg-6 item-form">
                                             <select name="state" id="state" class="form-control" data-ajax-change="true" data-url="{% url 'profile:get_city' %}" data-target="#city">
-                                                <option value="0" {% if not wizard_profile.city.state.id %}selected{% endif %} disabled>Estado</option>
+                                                <option value="0" {% if not wizard_profile.city_hometown.state %}selected{% endif %} disabled>Estado</option>
                                                 {% for state in states %}
-                                                    <option value="{{ state.id }}" {% if wizard_profile.city.state.id == state.id %}selected{% endif %}>{{ state.name }}</option>
+                                                    <option value="{{ state.id }}" {% if wizard_profile.city_hometown.state.id == state.id %}selected{% endif %}>{{ state.name }}</option>
                                                 {% endfor %}
                                             </select>
                                             <span class="help-block"></span>
                                         </div>
                                         <div data-form-group class="col-lg-6 item-form">
-                                            <select name="city" id="city" class="form-control">
-                                                <option value="0" {% if not wizard_profile.city.id %}selected{% endif %} disabled>Cidade</option>
+                                            <select name="city_hometown" id="city" class="form-control">
+                                                <option value="0" {% if not wizard_profile.city_hometown.id %}selected{% endif %} disabled>Cidade</option>
                                                 {% for city in cities %}
-                                                    <option value="{{ city.id }}" {% if wizard_profile.city.id == city.id %}selected{% endif %}>{{ city.name }}</option>
+                                                    <option value="{{ city.id }}" {% if wizard_profile.city_hometown.id == city.id %}selected{% endif %}>{{ city.name }}</option>
                                                 {% endfor %}
                                             </select>
                                             <span class="help-block"></span>

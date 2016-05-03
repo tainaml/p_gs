@@ -21,7 +21,9 @@
     <span class="perfil-counter">
         <span class="counter-number">{% articles_count profile.user as articles_count_value %}{{ articles_count_value }}</span> Publicaç{{ articles_count_value|pluralize:'ão,ões' }}
     </span>
-    {% if profile.current_occupation %}
-        <a href="javascript:;">{{ profile.current_occupation.responsibility.name }}</a>
+    {% if profile.occupation.all %}
+        {% for occupation in profile.occupation.all %}
+            <a href="javascript:;">{{ occupation.responsibility.name }}</a>{% if not forloop.last %},{% endif %}
+        {% endfor %}
     {% endif %}
 </div>

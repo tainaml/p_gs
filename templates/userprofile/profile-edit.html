@@ -109,7 +109,7 @@
                                 <label for="residency_state">Estado que mora</label>
                                 <select id="residency_state" name="state" class="form-control" data-ajax-change="true" data-url="{% url 'profile:get_city' %}" data-target="#residency_city" data-value="{% if  form.cleaned_data.city %}{{ form.cleaned_data.city.id }}{% elif form.data_model.city %}{{ form.data_model.city.id }}{% endif %}">
                                     <option value="" {% if not form.data_model.city %}selected{% endif %} disabled>{% trans "Selecione um estado" %}</option>
-                                    {% for state in form.data_model.city.state.country.states.all %}
+                                    {% for state in states %}
                                         <option value="{{ state.id }}" {% if form.data_model.city.state.id == state.id %}selected{% endif %}>{{ state.name }}</option>
                                     {% endfor %}
                                 </select>

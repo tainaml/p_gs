@@ -30,10 +30,12 @@
         </li>
         {% endif %}
 
-        {% if profile.current_occupation %}
+        {% if profile.occupation.all %}
         <li>
             <i class="gsticon gsticon-briefcase"></i>
-            <a href="javascript:;">{{ profile.current_occupation.responsibility.name }}</a>
+            {% for occupation in profile.occupation.all %}
+                <a href="javascript:;">{{ occupation.responsibility.name }}</a>{% if not forloop.last %},{% endif %}
+            {% endfor %}
         </li>
         {% endif %}
 
