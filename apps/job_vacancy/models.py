@@ -43,7 +43,7 @@ class JobVacancy(models.Model):
     description = models.TextField(null=False, max_length=10000, verbose_name=_('Description'))
     author = models.ForeignKey(settings.AUTH_USER_MODEL, null=False, related_name='job_vacancys',
                                verbose_name=_('Author'))
-    job_vacancy_responsibility = models.TextField(null=True, max_length=10000,
+    job_vacancy_responsibility = models.TextField(null=True, blank=True, max_length=10000,
                                                   verbose_name=_('Responsibility Description'))
     regime = models.ForeignKey(JobRegime, blank=True, null=True, verbose_name=_('Regime'))
     home_office = models.BooleanField(verbose_name=_('Home Office'))
@@ -93,7 +93,7 @@ class JobVacancyResponsibilityType(models.Model):
 
 class JobVacancyResponsibility(models.Model):
     responsibility = models.ForeignKey(Responsibility, null=True, verbose_name=_('Responsibility'))
-    responsibility_type = models.ForeignKey(JobVacancyResponsibilityType, null=True,
+    responsibility_type = models.ForeignKey(JobVacancyResponsibilityType, null=True, blank=True,
                                             verbose_name=_('Responsibility Type'))
     job_vacancy = models.OneToOneField(JobVacancy, on_delete=models.CASCADE, related_name='resposibility',
                                        primary_key=True, verbose_name=_('Job Vacancy'))
@@ -123,10 +123,10 @@ class Experience(models.Model):
 class Requirement(models.Model):
     job_vacancy = models.ForeignKey(JobVacancy, on_delete=models.CASCADE, related_name='requirements', null=False,
                                     verbose_name=_('Job Vacancy'))
-    item = models.ForeignKey(Taxonomy, null=False, verbose_name=_('Item'))
-    level = models.ForeignKey(Level, null=True, verbose_name=_('Level'))
-    exigency = models.ForeignKey(Exigency, null=True, verbose_name=_('Exigency'))
-    experience = models.ForeignKey(Experience, null=True, verbose_name=_('Experience'))
+    item = models.ForeignKey(Taxonomy, null=False, blank=False, verbose_name=_('Item'))
+    level = models.ForeignKey(Level, null=True, blank=True, verbose_name=_('Level'))
+    exigency = models.ForeignKey(Exigency, null=True, blank=True,  verbose_name=_('Exigency'))
+    experience = models.ForeignKey(Experience, null=True, blank=True,  verbose_name=_('Experience'))
 
 
 class JobVacancyCertification(models.Model):

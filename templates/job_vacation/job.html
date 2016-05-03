@@ -11,10 +11,10 @@
         <div class="job-box">
             <div class="job-box_table">
                 <div class="job-box_cell job-box_employ">
-                    {% if job.get_logo %}
-                        <img class="job-box_employ-img" src="{% thumbor_url job.company.logo.url width=80 height=80 smart=False fit_in=False %}" alt="Logo {{ job.company.name }}" />
+                    {% if job.company.get_logo %}
+                        <img class="job-box_employ-img" src="{% thumbor_url job.company.get_logo.url width=80 height=80 smart=False fit_in=False %}" alt="Logo {{ job.company.name }}" />
                     {% else %}
-                        <img class="job-box_employ-img" src="http://placehold.it/80" alt="Logo Agência Ginga" />
+                        <img class="job-box_employ-img" src="http://placehold.it/80" alt="{{ job.company.name }}" />
                     {% endif %}
                 </div>
                 <div class="job-box_cell job-box_info">
@@ -44,38 +44,27 @@
                {% if job.quantity %}<li><strong>Vagas:</strong> {{ job.quantity }}</li>{% endif %}
             </ul>
             <ul class="job-box_vacancy">
+                {% if job.description or job.job_vacancy_responsibility %}
                 <li>
                     <strong class="job-box_vacancy-title">Descriçao</strong>
                     <div class="job-box_vacancy-text">
-                        {{ job.description }}
-                        {% comment %}
-                        Buscamos candidatos para a vaga de Diretor(a) de Arte Pleno em nosso time de criação,
-                        com oportunidade de trabalhar em contas dos segmentos bancário, automotivo e de consumo.
-
-                        Principais atividades:
-                        <ul>
-                            <li>Criação e produção de landing pages, hotsites, apps, banners, newsletters, posts, vídeos, etc.
-                            </li>
-                            <li>tratamento de imagens e direcionamento criativo em produção de fotos.</li>
-                            <li>Suporte ao time de criação</li>
-                        </ul>
-                        {% endcomment %}
+                        {% if job.description %}<p>{{ job.description }}</p>{% endif %}
+                        {% if job.job_vacancy_responsibility %}
+                            <p><strong>Principais atribuições</strong></p>
+                            <p>{{ job.job_vacancy_responsibility }}</p>
+                        {% endif %}
                     </div>
                 </li>
-                {% if job.job_vacancy_responsibility or job.requirements.all %}
+                {% endif %}
+                {% if job.requirements.all %}
                 <li>
                     <strong class="job-box_vacancy-title">Requisitos</strong>
                     <div class="job-box_vacancy-text">
-                        {{ job.job_vacancy_responsibility }}
-                        {% if job.requirements.all %}
-                            <br>
-                            <br>
-                            <ul>
-                                {% for requirement in job.requirements.all %}
-                                    <li>{{ requirement.item.description }} - {{ requirement.level.description }} - {{ requirement.exigency.description }} - {{ requirement.experience.description }}</li>
-                                {% endfor %}
-                            </ul>
-                        {% endif %}
+                        <ul>
+                            {% for requirement in job.requirements.all %}
+                                <li>{{ requirement.item.description }}{% if requirement.level %} - {{ requirement.level.description }}{% endif %}{% if requirement.exigency %} - {{ requirement.exigency.description }}{% endif %}{% if requirement.experience %} - {{ requirement.experience.description }}{% endif %}</li>
+                            {% endfor %}
+                        </ul>
                     </div>
                 </li>
                 {% endif %}
@@ -115,9 +104,7 @@
                     <li>
                         <strong class="job-box_vacancy-title">Área de Atuação</strong>
                         <div class="job-box_vacancy-text">
-                            <ul>
-                                <li>{{ job.resposibility.responsibility.name }} - {{ job.resposibility.responsibility_type.description }}</li>
-                            </ul>
+                            {{ job.resposibility.responsibility.name }}{% if job.resposibility.responsibility_type %} - {{ job.resposibility.responsibility_type.description }}{% endif %}
                         </div>
                     </li>
                 {% endif %}
