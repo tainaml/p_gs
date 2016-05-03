@@ -40,6 +40,7 @@
             <ul class="job-box_hiring">
                <li><strong>Salário:</strong> {% include "job_vacation/partials/job-salary.html" %}</li>
                <li><strong>Contratação:</strong> {{ job.regime.description|default:"Não informado" }}</li>
+               {% if job.home_office %}<li><strong>Home-office</strong></li>{% endif %}
                {% if job.quantity %}<li><strong>Vagas:</strong> {{ job.quantity }}</li>{% endif %}
             </ul>
             <ul class="job-box_vacancy">
