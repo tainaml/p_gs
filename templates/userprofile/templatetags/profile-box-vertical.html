@@ -8,7 +8,7 @@
 {% followers_count profile.user as followers_count_value %}
 
 <div class="perfil">
-    <a href="{% url 'profile:show' profile.user.username %}"><img class="img-responsive" src="{% get_avatar profile.user width=82 height=82 smart=False fit_in=False %}" alt="{{ profile.user.get_full_name }}"></a>
+    <a href="{% url 'profile:show' profile.user.username %}"><img class="img-responsive" src="{% get_avatar profile.user width=90 height=90 smart=False fit_in=False %}" alt="{{ profile.user.get_full_name }}"></a>
     <a class="perfil-name" title="{{ profile.user.get_full_name }}" href="{% url 'profile:show' profile.user.username %}">{{ profile.user.get_full_name }}</a>
     <span class="perfil-counter"
           data-counter="{{ followers_count_value }}"
