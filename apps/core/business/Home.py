@@ -1,4 +1,3 @@
-from abc import ABCMeta, abstractproperty
 from django.contrib.contenttypes.models import ContentType
 from django.core.cache import caches
 from django.db.models import Q, Prefetch
@@ -12,10 +11,7 @@ article_type = ContentType.objects.get(model="article")
 class HomePageAbstract(object):
 
     cache_prefix = 'home_cache_%s'
-
-    @property
-    def cache_key(self):
-        return 'default'
+    cache_key = 'default'
 
     def __init__(self, *args, **kwargs):
         self.register_cache()
@@ -29,7 +25,7 @@ class HomePageAbstract(object):
         try:
             category = Taxonomy.objects.get(slug=category_slug, term__description='Categoria')
             return category
-        except Taxonomy.DoesNotExist, notExistTaxonomy:
+        except Taxonomy.DoesNotExist:
             return None
 
     def get_excludes(self):
@@ -77,8 +73,7 @@ class HomePageAbstract(object):
 
         _map = self.get_articles_map()
         for category, quantity in _map:
-            print category,
-            print quantity
+
             _articles = self.get_articles_by_category(category, quantity)
             articles.update({
                 'category': _articles

@@ -51,14 +51,14 @@ class AbstractHomeBlock(object):
         if 'request' in context:
             self.cache_home_page = generate_home_cache_key(context['request'])
 
-        self.cache_home_page = 'home_excludes__%s' % self.cache_home_page
+      #  self.cache_home_page = 'home_excludes__%s' % self.cache_home_page
 
         print self.cache_home_page
 
-        global_excludes = cache.get('global_home_excludes', [])
-        global_excludes.append(self.cache_home_page)
+#        global_excludes = cache.get('global_home_excludes', [])
+#        global_excludes.append(self.cache_home_page)
 
-        cache.set('global_home_excludes', sorted(set(global_excludes)), None)
+#        cache.set('global_home_excludes', sorted(set(global_excludes)), None)
 
         if template is not None:
             self.template_file = template
@@ -77,6 +77,7 @@ class AbstractHomeBlock(object):
 
     @property
     def custom_filters(self):
+
         return Q(
             feed__official=True,
             feed__content_type=article_type,
@@ -169,19 +170,19 @@ class AbstractHomeBlock(object):
             return ''
 
 
-        # cache_key = '%s-%s-%s' % (
-        #     self.block_name,
-        #     self.cache_home_page,
-        #     self.category.slug.lower()
-        # )
-        #
-        # template = cache.get(cache_key)
+        cache_key = '%s-%s-%s' % (
+             self.block_name,
+             self.cache_home_page,
+             self.category.slug.lower()
+         )
+
+        template = cache.get(cache_key)
         template = False
 
         if not template:
             self.filter_articles()
             template = render_to_string(self.template_file, context=self.get_context())
-            #cache.set(cache_key, template, self.cache_time)
+            cache.set(cache_key, template, self.cache_time)
 
         return mark_safe(template)
 

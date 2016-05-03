@@ -1,9 +1,8 @@
 {%extends 'home/layout/base.html' %}
-
 {% load humanize %}
 
 {% block title %}{{ job.title }} - Portal GSTI{% endblock %}
-
+{% load thumbor_tags %}
 {% block content %}
 <main class="container main">
 <div class="row">
@@ -12,8 +11,8 @@
         <div class="job-box">
             <div class="job-box_table">
                 <div class="job-box_cell job-box_employ">
-                    {% if job.company.get_logo %}
-                        <img class="job-box_employ-img" src="{% thumbor_url job.company.get_logo width=80 height=80 smart=False fit_in=False %}" alt="Logo {{ job.company.name }}" />
+                    {% if job.get_logo %}
+                        <img class="job-box_employ-img" src="{% thumbor_url job.company.logo.url width=80 height=80 smart=False fit_in=False %}" alt="Logo {{ job.company.name }}" />
                     {% else %}
                         <img class="job-box_employ-img" src="http://placehold.it/80" alt="Logo Agência Ginga" />
                     {% endif %}
