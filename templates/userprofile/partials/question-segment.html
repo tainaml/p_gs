@@ -51,7 +51,10 @@
             <div class="post-count">
                 {% like_box instance request.path "inline" %}
             </div>
-            <div class="post-count-comments"><strong>{{ instance.counter_answer }}</strong> Resposta(s)</div>
+            <div class="post-count-comments">
+              <strong>{{ instance.counter_answer }}</strong> <span class="hidden-xs visible-lg-inline">Resposta(s)</span>
+              <span class="hidden-lg"><i class="gsticon gsticon-comment"></i></span>
+            </div>
         </div>
     </footer>
 </article>
