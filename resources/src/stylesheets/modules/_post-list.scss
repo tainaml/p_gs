@@ -77,7 +77,7 @@
 
     &-header {
         @extend %clearfix;
-        padding: 20px 0;
+        padding: 7px 0;
         margin-bottom: 20px;
         border: 1px solid #eee;
         border-left-width: 5px;
@@ -86,25 +86,24 @@
     }
     &-heading {
         @include make-xs-column(12);
-        @include make-sm-column(4);
-        @include make-lg-column(4);
+        @include make-sm-column(12);
+        @include make-lg-column(12);
         margin: 0;
         color: inherit;
         letter-spacing: -0.0999em;
         font: 700 1.286em $font-family-sans-serif;
     }
     &-nav {
-        @media (max-width: $screen-sm-min) { display: none; }
-        @include make-sm-column(8);
-        @include make-lg-column(8);
+        // @media (max-width: $screen-sm-min) { display: none; }
+        @include make-sm-column(12);
+        @include make-lg-column(12);
         line-height: 1.7;
-        text-align: right;
         color: $color-border;
         > .subs {
-            padding: 0 10px;
+            padding: 0 5px;
             margin-left: -4px;
             color: $background-button;
-            font-size: 0.929em;
+            font-size: 0.8em;
             &:last-child {
                 padding-right: 0;
             }

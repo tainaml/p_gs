@@ -102,16 +102,16 @@
             }
             .badge {
                 position: absolute;
-                top: 15%;
-                right: 20%;
+                top: 15%; right: 20%;
                 min-width: 15px;
                 padding: 3px;
                 background-color: $color-badge;
-                border-radius: 50%;
                 color: white;
                 font-weight: 600;
                 font-size: 0.643em;
                 line-height: 115%;
+                text-align: center;
+                border-radius: 50%;
             }
             .img-circle {
                 margin-right: 5px;
@@ -190,6 +190,4 @@
     border-radius: 50%;
     font-size: 20px;
     text-align: center;
-
-    i {}
 }

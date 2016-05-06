@@ -1,5 +1,12 @@
-<section class="header-navegation {% if category_slug %}header-navegation-border {{ class_name }}{% endif %}">
+<div class="header-navegation {% if category_slug %}header-navegation-border {{ class_name }}{% endif %}">
   <div class="container">
+    <a class="toggle_menu-categories" href="javascript:;">
+      Categorias
+      <span class="toggle_menu-categories-icons">
+        <i class="gsticon gsticon-bars"></i>
+        <i class="gsticon gsticon-close"></i>
+      </span>
+    </a>
     <ul class="menu-categories">
       <li class="item governance">
         <a class="menu-item" href="{% url 'category:show' 'governanca-e-gestao' %}">Governança e Gestão</a>
@@ -131,4 +138,4 @@
         <li><a class="gsticon gsticon-youtube-square" href="https://www.youtube.com/c/PortalgstiBr"></a></li>
     </ul>
   </div>
-</section>
+</div>
