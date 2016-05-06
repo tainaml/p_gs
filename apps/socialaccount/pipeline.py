@@ -50,6 +50,7 @@ def save_profile_picture(strategy, user, response, details, is_new=False, *args,
         if strategy.request.backend.name == 'google-oauth2':
             if response.get('image') and response['image'].get('url'):
                url = response['image'].get('url')
+               url = url.split("=")[0]+"=200"
                try:
                    response = request('GET', url)
                    response.raise_for_status()
