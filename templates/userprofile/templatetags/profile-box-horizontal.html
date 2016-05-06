@@ -11,7 +11,7 @@
     {% if request.user != profile.user %}
         {% follow_action profile.user request.path "pull-right text-center perfil-button" %}
     {% endif %}
-    <a href="{% url 'profile:show' profile.user.username %}"><img class="img-responsive" src="{% get_avatar profile.user width=82 height=82 smart=False fit_in=False %}" alt="{{ profile.user.get_full_name }}"></a>
+    <a href="{% url 'profile:show' profile.user.username %}"><img class="img-responsive" src="{% get_avatar profile.user width=90 height=90 smart=False fit_in=False %}" alt="{{ profile.user.get_full_name }}"></a>
     <a class="perfil-name" title="{{ profile.user.get_full_name }}" href="{% url 'profile:show' profile.user.username %}">{{ profile.user.get_full_name }}</a>
     <span class="perfil-counter"
           data-counter="{{ followers_count_value }}"
@@ -21,7 +21,9 @@
     <span class="perfil-counter">
         <span class="counter-number">{% articles_count profile.user as articles_count_value %}{{ articles_count_value }}</span> Publicaç{{ articles_count_value|pluralize:'ão,ões' }}
     </span>
-    {% if profile.current_occupation %}
-        <a href="javascript:;">{{ profile.current_occupation.responsibility.name }}</a>
+    {% if profile.occupation.all %}
+        {% for occupation in profile.occupation.all %}
+            <a href="javascript:;">{{ occupation.responsibility.name }}</a>{% if not forloop.last %},{% endif %}
+        {% endfor %}
     {% endif %}
 </div>

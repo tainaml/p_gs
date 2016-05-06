@@ -40,6 +40,13 @@ class CoreArticleView(views.ArticleView):
             '''
             raise self.article_not_found
 
+        if article_dict['article'].status == core_article_business.Article.STATUS_DRAFT \
+                and article_dict['article'].author != request.user:
+            '''
+            If the item is Draft status only the author can view
+            '''
+            raise self.article_not_found
+
         return article_dict
 
     def get(self, request, article_slug, article_id):
