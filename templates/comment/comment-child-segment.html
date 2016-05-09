@@ -5,7 +5,11 @@
 <div id="comment-{{ instance.id }}">
     <header class="post-header">
         <div class="post-info" >
-            <time datetime="{{instance.creation_date}}" itemprop="datePublished">{{ instance.creation_date|date:'d/m/Y' }} às {{ instance.creation_date|date:'G:i' }}</time>
+            <time datetime="{{ instance.creation_date|date:'d-m-Y' }}" itemprop="datePublished"
+                data-toggle="tooltip" data-placement="auto top" data-original-title="{{ instance.creation_date|date:'d/m/Y' }} às {{ instance.creation_date|date:'G:i' }}">
+                    <span class="hidden-xs visible-lg-inline">{{ instance.creation_date|date:'d/m/Y' }} às {{ instance.creation_date|date:'G:i' }}</span>
+                    <i class="gsticon gsticon-clock-o hidden-lg"></i>
+                </time>
             <a href="javascript:;" data-toggle="dropdown" data-selector="#setting-comment-{{ instance.id }}"><i class="gsticon gsticon-gear"></i></a>
             <div class="dropdown-menu" id="setting-comment-{{ instance.id }}">
                 <ul class="perfil-actions">

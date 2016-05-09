@@ -43,8 +43,10 @@
                             {% endif %}
                         {% endif %}
 
-                        <time datetime="{{ article.publishin|date:'m-d-Y' }}" itemprop="datePublished">
-                            {{ article.publishin|naturaltime }}
+                        <time datetime="{{ article.publishin|date:'m-d-Y' }}" itemprop="datePublished"
+                        data-toggle="tooltip" data-placement="auto top" data-original-title="{{ article.publishin|naturaltime }}">
+                            <span class="hidden-xs visible-lg-inline">{{ article.publishin|naturaltime }}</span>
+                            <i class="gsticon gsticon-clock-o hidden-lg"></i>
                         </time>
                         <a href="javascript:;" data-toggle="dropdown"><i class="gsticon gsticon-gear"></i></a>
                         <div class="dropdown-menu dropdown-menu-right">

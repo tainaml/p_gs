@@ -9,7 +9,11 @@
     <div class="comment-body">
         <header class="post-header">
             <div class="post-info">
-                <time datetime="06-17-2015" itemprop="datePublished">{{ instance.creation_date|date:'d/m/Y' }} às {{ instance.creation_date|date:'G:i' }}</time>
+                <time datetime="{{ instance.creation_date|date:'d-m-Y' }}" itemprop="datePublished"
+                data-toggle="tooltip" data-placement="auto top" data-original-title="{{ instance.creation_date|date:'d/m/Y' }} às {{ instance.creation_date|date:'G:i' }}">
+                    <span class="hidden-xs visible-lg-inline">{{ instance.creation_date|date:'d/m/Y' }} às {{ instance.creation_date|date:'G:i' }}</span>
+                    <i class="gsticon gsticon-clock-o hidden-lg"></i>
+                </time>
                 <a href="javascript:;" data-toggle="dropdown"><i class="gsticon gsticon-gear"></i></a>
                 <div class="dropdown-menu">
                     <ul class="perfil-actions">

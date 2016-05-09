@@ -114,9 +114,12 @@
                 border-radius: 50%;
             }
             .img-circle {
-                margin-right: 5px;
-                background: $link-white;
-                @include box-shadow(0 0px 0px 1px $color-border);
+              max-height: 40px;
+              max-width: 40px;
+              overflow: hidden;
+              margin-right: 5px;
+              background: $link-white;
+              @include box-shadow(0 0px 0px 1px $color-border);
             }
             .gsticon-caret-down { margin-top: 15px; }
             &:hover { background-color: #f2f2f2; }
