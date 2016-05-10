@@ -12,3 +12,16 @@ class Company(models.Model):
 
     def get_logo(self):
         return self.logo if self.logo else None
+
+
+class CompanyContactType(models.Model):
+    description = models.CharField(blank=False, null=False, max_length=255, verbose_name=_('Description'))
+
+    def __unicode__(self):
+        return self.description
+
+
+class CompanyContact(models.Model):
+    description = models.CharField(blank=False, null=False, max_length=255, verbose_name=_('Description'))
+    type = models.ForeignKey(to=CompanyContactType, blank=False, null=False, verbose_name=_('Type'))
+    company = models.ForeignKey(to=Company, blank=False, null=False, verbose_name=_('Company'))

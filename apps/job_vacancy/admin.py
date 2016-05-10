@@ -1,10 +1,10 @@
 # coding=utf-8
-from django import forms
 from django.contrib import admin
-
+from django.core.urlresolvers import reverse
 # Register your models here.
+
+from django import forms
 from apps.certification.models import Certification
-from apps.company.models import Company
 from apps.job_vacancy.models import Requirement, JobVacancyCertification, Salary, JobVacancy, Benefit, \
     JobRegime, Level, Exigency, Experience, SalaryType, JobVacancyResponsibility, WorkLoad, JobVacancyResponsibilityType, \
     JobVacancyLocation
@@ -30,12 +30,23 @@ class JobVacancyResponsibilityInLine(admin.TabularInline):
     model = JobVacancyResponsibility
 
 
+class JobVacancyAdminForm(forms.ModelForm):
+
+    class Meta:
+        model = JobVacancy
+        fields = '__all__'
+
 class JobVacancyAdmin(admin.ModelAdmin):
+    form = JobVacancyAdminForm
     filter_horizontal = [
         'benefits',
     ]
 
     list_display = ('title', 'show_salary', 'show_cargo', 'company', 'regime', 'workload', 'quantity', 'home_office')
+
+    def view_on_site(self, obj):
+
+        return reverse('jobs:detail', args=[obj.slug, obj.id])
 
     inlines = [
         JobVacancyLocationInLine,
@@ -68,7 +79,6 @@ admin.site.register(Level)
 admin.site.register(Exigency)
 admin.site.register(JobVacancyLocation)
 admin.site.register(Certification)
-admin.site.register(Company)
 admin.site.register(Experience)
 admin.site.register(SalaryType)
 admin.site.register(WorkLoad)
