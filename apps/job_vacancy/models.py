@@ -40,7 +40,6 @@ class JobVacancy(models.Model):
     slug = models.SlugField(default='', null=False, max_length=150, verbose_name=_('Slug'))
     job_vacancy_date = models.DateField(default=timezone.now, null=False, verbose_name=_('Date'))
     company = models.ForeignKey(Company, null=False, related_name='job_vacancys', verbose_name=_('Company'))
-    description = models.TextField(null=False, max_length=10000, verbose_name=_('Description'))
     author = models.ForeignKey(settings.AUTH_USER_MODEL, null=False, related_name='job_vacancys',
                                verbose_name=_('Author'))
     job_vacancy_responsibility = models.TextField(null=True, blank=True, max_length=10000,
