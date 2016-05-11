@@ -4,6 +4,7 @@ from django.core.urlresolvers import reverse
 # Register your models here.
 
 from django import forms
+
 from apps.certification.models import Certification
 from apps.job_vacancy.models import Requirement, JobVacancyCertification, Salary, JobVacancy, Benefit, \
     JobRegime, Level, Exigency, Experience, SalaryType, JobVacancyResponsibility, WorkLoad, JobVacancyResponsibilityType, \
@@ -36,11 +37,19 @@ class JobVacancyAdminForm(forms.ModelForm):
         model = JobVacancy
         fields = '__all__'
 
+        widgets = {
+            'company': forms.Select(attrs={'data-chain-selector': ''})
+        }
+
+
+
 class JobVacancyAdmin(admin.ModelAdmin):
     form = JobVacancyAdminForm
     filter_horizontal = [
         'benefits',
     ]
+
+    save_as = True
 
     list_display = ('title', 'show_salary', 'show_cargo', 'company', 'regime', 'workload', 'quantity', 'home_office')
 
