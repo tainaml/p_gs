@@ -1,12 +1,11 @@
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.db.models import Q
-from ..models import JobVacancy, JobVacancyLocation
+from ..models import JobVacancy
 
 
 def get_jobs(keywords=None, locale=None, items_per_page=None, page=None):
     list_keywords = keywords.split(' ')
     list_locales = locale.split(' ')
-
     criteria = None
     criteria_location = None
 
