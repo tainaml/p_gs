@@ -7,7 +7,7 @@ class Company(models.Model):
     name = models.CharField(blank=False, null=False, max_length=255, verbose_name=_('Name'))
     logo = models.ImageField(max_length=100, upload_to='company/%Y/%m/%d', blank=True, default='', verbose_name=_('Logo'))
 
-    description = models.CharField(blank=False, null=False, max_length=255, verbose_name=_('Description'))
+    description = models.TextField(blank=False, null=False, verbose_name=_('Description'))
 
     def __unicode__(self):
         return self.name
