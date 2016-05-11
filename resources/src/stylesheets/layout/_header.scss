@@ -2,14 +2,12 @@
 // Layout/Header
 // ==========================================================================
 .header {
+    position: fixed;
+    top: 0; left: 0;
+    z-index: 1000;
+    width: 100%;
+    border-bottom: 1px solid $color-border;
     background: $link-white;
-    &.fixed {
-        position: fixed;
-        top: 0; left: 0;
-        z-index: 1000;
-        width: 100%;
-        border-bottom: 1px solid $color-border;
-    }
 
     .gsti {
         overflow: hidden;
@@ -25,12 +23,11 @@
         &-#{link} {
             width: 126px;
             height: 40px;
+            margin: 0 auto;
             background: url('../images/gsti.png') no-repeat center;
             color: inherit;
             text-indent: -9999px;
             display: block;
-
-            @media (max-width: $screen-md-min) { margin: 0 auto; }
         }
     }
     .btn-show-item {
@@ -182,7 +179,6 @@
     padding-right: 15px;
     padding-left: 15px;
     background-color: #fff;
-    border-bottom: 1px solid $color-border;
 }
 .btn-hide-item {
     position: absolute;

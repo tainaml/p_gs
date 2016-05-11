@@ -92,7 +92,6 @@
     // Número negativo porque o index de elementos do DOM começa em 0 (zero).
     var itemActive = -1;
     function activeSearchItem (direction, target) {
-        console.log(target);
         var searchItems = target.find('li');
         var itemsLength = searchItems.length - 1;
         var firstPosition = 0;

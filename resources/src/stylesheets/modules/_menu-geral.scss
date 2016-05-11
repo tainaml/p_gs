@@ -2,10 +2,8 @@
 // ==========================================================================
 .header-navegation {
     position: relative;
-    border-top: 1px solid $color-border;
     border-bottom: 1px solid $color-border;
     background: $link-white;
-    // @media (max-width: $screen-sm-min) { border-bottom-width: 0;}
 
     &.header-navegation-border {
         border-bottom: 2px solid;
