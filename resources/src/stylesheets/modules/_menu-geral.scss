@@ -22,9 +22,7 @@
         padding-bottom: 5px;
         border-right: 1px solid $color-border;
         font-size: 10px;
-        &:hover {
-          background-color: $color-border;
-        }
+        &:hover { background-color: $color-border; }
       }
     }
   }
