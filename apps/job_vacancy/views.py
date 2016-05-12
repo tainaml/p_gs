@@ -54,6 +54,7 @@ class JobListView(JobView):
     template = "job_vacation/partials/results.html"
 
     def do_return_ajax(self, request, response_data):
+
         return render(request, self.template, response_data)
 
 

@@ -46,9 +46,9 @@
             <ul class="job-box_vacancy">
                 {% if job.description or job.job_vacancy_responsibility %}
                 <li>
-                    <strong class="job-box_vacancy-title">Descriçao</strong>
+                    <strong class="job-box_vacancy-title">Descrição</strong>
                     <div class="job-box_vacancy-text">
-                        {% if job.description %}<p>{{ job.description }}</p>{% endif %}
+                        {% if job.company.description %}<p>{{ job.company.description }}</p>{% endif %}
                         {% if job.job_vacancy_responsibility %}
                             <p><strong>Principais atribuições</strong></p>
                             <p>{{ job.job_vacancy_responsibility }}</p>

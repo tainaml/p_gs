@@ -1,7 +1,7 @@
 {% load profile_tags %}
 {% load user_agents %}
 
-{% if profile and profile.user and request|is_pc and request.user == profile.user %}
+{% if profile and profile.user and request|is_pc and request.user != profile.user %}
 {% comment %}{% if profile and profile.user and request|is_pc or not request|is_pc and request.user != profile.user %}{% endcomment %}
 <div class="widget widget-box">
     <div class="widget-content">
