@@ -13,6 +13,7 @@ def profile_box(context, user, axis="vertical"):
 
     try:
         profile = Business.get_profile(user)
+
     except ValueError:
         raise Http404()
 
@@ -26,3 +27,4 @@ def profile_box(context, user, axis="vertical"):
         'request': context['request'],
         'partial_template': partial_template
     }
+
