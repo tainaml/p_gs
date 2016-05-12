@@ -1,13 +1,22 @@
 {% load profile_tags %}
 {% load user_agents %}
 
-{% if profile and profile.user and request|is_pc and request.user != profile.user %}
-{% comment %}{% if profile and profile.user and request|is_pc or not request|is_pc and request.user != profile.user %}{% endcomment %}
-<div class="widget widget-box">
-    <div class="widget-content">
-        {% profile_box profile.user %}
-    </div>
-</div>
+{% comment  %} Ugly, TODO refactor with template tag because django's if built in filters does not support parenthesis {% endcomment %}
+{% if profile and profile.user %}
+    {% if request|is_pc %}
+        <div class="widget widget-box">
+            <div class="widget-content">
+                {% profile_box profile.user %}
+            </div>
+        </div>
+    {% elif request.user != profile.user %}
+        <div class="widget widget-box">
+            <div class="widget-content">
+                {% profile_box profile.user %}
+            </div>
+        </div>
+    {% endif %}
+
 {% endif %}
 
 {% if profile.user == request.user %}
