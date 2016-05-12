@@ -6,6 +6,7 @@
     top: 0; left: 0;
     z-index: 1000;
     width: 100%;
+    min-height: 51px;
     border-bottom: 1px solid $color-border;
     background: $link-white;
 
@@ -128,6 +129,7 @@
 .slideout-menu--user {
     padding: 10px 20px;
     color: #4d6479;
+    cursor: pointer;
     font-size: 1.214em;
 }
 .slideout-menu--link {
@@ -168,7 +170,7 @@
     border: none;
     color: #555;
     font-size: 14px;
-    line-height: 3.5;
+    line-height: 3.45;
     outline: none;
 }
 .mobile-search {

@@ -13,21 +13,23 @@
 
                 {% url 'article:view'  article.id article.slug as article_link %}
 
-                <article class="article-home-large" id="article__{{ article.id }}">
+                <figure class="article-home-large" id="article__{{ article.id }}">
                     <a href="{{ article_link }}">
                         {% if article.image %}
                             <img class="img-responsive"
-                                    src="{% thumbor_url article.image.url width=270 height=203 smart=False fit_in=False %}"
-                                    alt="{% if article.title|length > 67 %}{{ article.title|slice:":67" }}...{% else %}{{ article.title }}{% endif %}">
+                                src="{% thumbor_url article.image.url width=270 height=203 smart=False fit_in=False %}"
+                                alt="{{ article.title }}">
                         {% else %}
                             <img class="img-responsive" src="http://placehold.it/270x203" alt="Placeholder">
                         {% endif %}
                     </a>
-                    <div>
+                    <figcaption>
                         {% home_article_community category article %}
-                        <a class="article-content" href="{{ article_link }}">{% if article.title|length > 67 %}{{ article.title|slice:":67" }}...{% else %}{{ article.title }}{% endif %}</a>
-                    </div>
-                </article>
+                        <a class="article-content" href="{{ article_link }}" title="{{ article.title }}">
+                            {% if article.title|length > 67 %}{{ article.title|slice:":67" }}...{% else %}{{ article.title }}{% endif %}
+                        </a>
+                    </figcaption>
+                </figure>
 
             {% endfor %}
 

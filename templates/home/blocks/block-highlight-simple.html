@@ -1,10 +1,10 @@
 <div class="highlight-articles--large area-{{ class_name }}">
+{% for article in articles|slice:":2" %}
+{% url 'article:view'  article.id article.slug as article_link %}
 
-    {% for article in articles|slice:":2" %}
+    <a class="highlight-article-medium" href="{{ article_link }}" title="{{ article.title }}">
+        {% if article.title|length > 67 %}{{ article.title|slice:":67" }}...{% else %}{{ article.title }}{% endif %}
+    </a>
 
-        {% url 'article:view'  article.id article.slug as article_link %}
-        <a class="highlight-article-medium" href="{{ article_link }}">{% if article.title|length > 67 %}{{ article.title|slice:":67" }}...{% else %}{{ article.title }}{% endif %}</a>
-
-    {% endfor %}
-
+{% endfor %}
 </div>

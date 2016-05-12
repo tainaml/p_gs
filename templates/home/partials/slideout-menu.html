@@ -4,32 +4,33 @@
 {% load notification_core_tags %}
 
 {% if request.user.is_authenticated %}
-<div class="slideout-menu--user" href="javascript:void(0);">
+<div class="slideout-menu--user">
     <img src="{% get_avatar request.user width=40 height=40 smart=False fit_in=False %}" alt="{{ profile.user.get_full_name }}" class="img-circle">
     {{ request.user.first_name }}
 </div>
 <hr />
-    <div class="slideout-menu--notification">
-        <a class="slideout-menu--notification-item" data-notification-receives-badge="members" href="{% url 'notifications:members' %}">
-            <i class="gsticon gsticon-group"></i>
-        </a>
-        <a class="slideout-menu--notification-item" data-notification-receives-badge="posts" href="{% url 'notifications:posts' %}">
-            <i class="gsticon gsticon-comments"></i>
-        </a>
-        <a class="slideout-menu--notification-item" data-notification-receives-badge="general" href="{% url 'notifications:general' %}">
-            <i class="gsticon gsticon-bell"></i>
-        </a>
-    </div>
-    <a class="slideout-menu--link" href="{% url 'profile:feed' %}"><i class="gsticon gsticon-feed"></i> Meu Feed</a>
-    <a class="slideout-menu--link" href="{% url 'profile:show' request.user.username %}"><i class="gsticon gsticon-file-text"></i> Minhas Publicações</a>
-    <a class="slideout-menu--link" href="{% url 'profile:my-questions' %}"><i class="gsticon gsticon-question"></i> Minhas Perguntas</a>
-    <a class="slideout-menu--link" href="{% url 'profile:edit' %}"><i class="gsticon gsticon-pencil"></i> Editar Perfil</a>
-    <a class="slideout-menu--link" href="{% url 'question:create' %}"><i class="gsticon gsticon-question-circle"></i> Perguntar</a>
-    <a class="slideout-menu--link" href="{% url 'article:create' %}"><i class="gsticon gsticon-file-text-o"></i> Criar Publicação</a>
-    <a class="slideout-menu--link" href="{% url 'profile:edit-posts' %}"><i class="gsticon gsticon-pencil-square-o"></i> Editar Conteúdo</a>
-    <a class="slideout-menu--link" href="{% url 'configuration:account' %}"><i class="gsticon gsticon-gear"></i> Configurações</a>
-    <a class="slideout-menu--link" href="{% url 'account:logout' %}?next={{ request.path }}"><i class="gsticon gsticon-close"></i> {% trans "Sair" %}</a>
+<div class="slideout-menu--notification">
+    <a class="slideout-menu--notification-item" data-notification-receives-badge="members" href="{% url 'notifications:members' %}">
+        <i class="gsticon gsticon-group"></i>
+    </a>
+    <a class="slideout-menu--notification-item" data-notification-receives-badge="posts" href="{% url 'notifications:posts' %}">
+        <i class="gsticon gsticon-comments"></i>
+    </a>
+    <a class="slideout-menu--notification-item" data-notification-receives-badge="general" href="{% url 'notifications:general' %}">
+        <i class="gsticon gsticon-bell"></i>
+    </a>
+</div>
+<a class="slideout-menu--link" href="{% url 'profile:feed' %}"><i class="gsticon gsticon-feed"></i> Meu Feed</a>
+<a class="slideout-menu--link" href="{% url 'profile:show' request.user.username %}"><i class="gsticon gsticon-file-text"></i> Minhas Publicações</a>
+<a class="slideout-menu--link" href="{% url 'profile:my-questions' %}"><i class="gsticon gsticon-question"></i> Minhas Perguntas</a>
+<a class="slideout-menu--link" href="{% url 'profile:edit' %}"><i class="gsticon gsticon-pencil"></i> Editar Perfil</a>
+<a class="slideout-menu--link" href="{% url 'question:create' %}"><i class="gsticon gsticon-question-circle"></i> Perguntar</a>
+<a class="slideout-menu--link" href="{% url 'article:create' %}"><i class="gsticon gsticon-file-text-o"></i> Criar Publicação</a>
+<a class="slideout-menu--link" href="{% url 'profile:edit-posts' %}"><i class="gsticon gsticon-pencil-square-o"></i> Editar Conteúdo</a>
+<a class="slideout-menu--link" href="{% url 'configuration:account' %}"><i class="gsticon gsticon-gear"></i> Configurações</a>
+<a class="slideout-menu--link" href="{% url 'account:logout' %}?next={{ request.path }}"><i class="gsticon gsticon-close"></i> {% trans "Sair" %}</a>
 {% else %}
-    <a class="slideout-menu--link" href="{% url 'account:signup' %}">Cadastre-se</a>
-    <a class="slideout-menu--link" data-toggle="modal" data-target="#modal-login" href="javascript:void(0);">Login</a>
+{{ request }}
+<a class="slideout-menu--link" href="{% url 'account:signup' %}">Cadastre-se</a>
+<a class="slideout-menu--link" data-toggle="modal" data-target="#modal-login" href="javascript:;">Login</a>
 {% endif %}
