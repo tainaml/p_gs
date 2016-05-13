@@ -23,6 +23,7 @@
             <li data-toggle="tooltip" data-placement="auto right" data-original-title="Favoritar"><a data-trigger="login" data-url-login="{% url 'account:is_logged' %}" data-token="{{ csrf_token }}" data-action="favourite" data-action-type="icon" data-object="favourite-{{ article.id }}" data-url-check="{% url 'socialactions:acted' article.id 'article' 'favourite' %}" href="{% url 'socialactions:act-xhr' article.id 'article' 'favourite' %}?url_next={{ request.path|urlencode }}"><i class="gsticon gsticon-star"></i></a></li>
             <li data-toggle="tooltip" data-placement="auto right" data-original-title="Ver depois"><a data-url-login="{% url 'account:is_logged' %}" data-trigger="login" data-token="{{ csrf_token }}" data-action="see-later" data-action-type="icon" data-url-check="{% url 'socialactions:acted' article.id 'article' 'see-later' %}" data-object="see-later-{{ article.id }}" href="{% url 'socialactions:act-xhr' article.id 'article' 'see-later' %}?url_next={{ request.path|urlencode }}"><i class="gsticon gsticon-eye"></i></a></li>
             <li data-toggle="tooltip" data-placement="auto right" data-original-title="Sugerir leitura"><a data-url-login="{% url 'account:is_logged' %}" data-trigger="login" data-token="{{ csrf_token }}" href="javascript:;" data-suggest-modal="true" data-content="article" data-object="{{ article.id }}" data-url="{% url 'socialactions:act-suggest' article.id 'article' %}"><i class="gsticon gsticon-paper-plane"></i></a></li>
+
         </ul>
         <div class="post-container">
             <article class="full-post">
@@ -34,14 +35,6 @@
                 {% endif%}
                 <header class="post-header">
                     <div class="post-info">
-
-                        {% if request.user.profile.isContributor %}
-                            {% if feed.official %}
-                                <a data-url-login="{% url 'account:is_logged' %}" data-trigger="login" data-token="{{ csrf_token }}" href="{% url 'feed:set-content-official' 'article' article.id %}?next={{ request.path|urlencode }}">Marcar como não oficial</a>
-                            {% else %}
-                                <a data-url-login="{% url 'account:is_logged' %}" data-trigger="login" data-token="{{ csrf_token }}" href="{% url 'feed:set-content-official' 'article' article.id %}?next={{ request.path|urlencode }}">Marcar como Oficial</a>
-                            {% endif %}
-                        {% endif %}
 
                         <time datetime="{{ article.publishin|date:'m-d-Y' }}" itemprop="datePublished"
                         data-toggle="tooltip" data-placement="auto top" data-original-title="{{ article.publishin|naturaltime }}">
@@ -58,6 +51,13 @@
                                 <li><a data-url-login="{% url 'account:is_logged' %}" data-trigger="login" data-token="{{ csrf_token }}" data-action="see-later" data-action-type="text" data-action-text="Ver depois" data-action-text-alt="Marcar como visto" data-object="see-later-{{ article.id }}" data-url-check="{% url 'socialactions:acted' article.id 'article' 'see-later' %}" href="{% url 'socialactions:act-xhr' article.id 'article' 'see-later' %}?url_next={{ request.path|urlencode }}"><i class="gsticon gsticon-eye"></i> <span>Ver depois</span></a></li>
                                 <li><a data-url-login="{% url 'account:is_logged' %}" data-trigger="login" data-token="{{ csrf_token }}" data-action="favourite" data-action-type="text" data-action-text="Favoritar" data-action-text-alt="Desfavoritar" data-object="favourite-{{ article.id }}" data-article="{{ article.id }}" data-url-check="{% url 'socialactions:acted' article.id 'article' 'favourite' %}" href="{% url 'socialactions:act-xhr' article.id 'article' 'favourite' %}?url_next={{ request.path|urlencode }}"><i class="gsticon gsticon-star"></i> <span>Favoritar</span></a></li>
                                 <li><a data-url-login="{% url 'account:is_logged' %}" data-trigger="login" data-token="{{ csrf_token }}" href="{% url 'complaint:report' 'article' article.id %}" data-report="true" data-async-module="click" data-async-target="#modal-report" data-async-method="get"><i class="gsticon gsticon-exclamation-triangle"></i> Denunciar</a></li>
+                                {% if request.user.profile.isContributor %}
+                                {% if feed.official %}
+                                    <li data-toggle="tooltip" data-placement="auto right" data-original-title="Não Oficial"><a data-url-login="{% url 'account:is_logged' %}" data-trigger="login" data-token="{{ csrf_token }}" href="{% url 'feed:set-content-official' 'article' article.id %}?next={{ request.path|urlencode }}">Não oficial<i class="fa fa-bookmark"></i></a></li>
+                                {% else %}
+                                    <li data-toggle="tooltip" data-placement="auto right" data-original-title="Oficial"><a data-url-login="{% url 'account:is_logged' %}" data-trigger="login" data-token="{{ csrf_token }}" href="{% url 'feed:set-content-official' 'article' article.id %}?next={{ request.path|urlencode }}">Oficial<i class="fa fa-bookmark"></i></a></li>
+                                {% endif %}
+                            {% endif %}
                             </ul>
                         </div>
                     </div>
