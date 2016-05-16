@@ -8,10 +8,8 @@
     "npm": "2.11.3"
   },
   "scripts": {
-    "build": "gulp build:production",
-    "deploy": "gulp deploy",
-    "start": "gulp build:production && gulp server",
-    "test": "gulp build:production && karma start --single-run",
+    "javascript": "gulp webpack:development",
+    "sass": "gulp sass",
     "watch": "gulp"
   },
   "dependencies": {

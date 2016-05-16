@@ -11,6 +11,11 @@
 .modal-open {
   overflow: hidden;
 }
+.modal-open {
+  .header {
+    padding-right: 15px;
+  }
+}
 
 // Container that the modal scrolls within
 .modal {

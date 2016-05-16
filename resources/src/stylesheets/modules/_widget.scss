@@ -76,14 +76,13 @@
     right: 0;
     content: " ";
     width: 20px;
-    height: 28px;
+    height: 39px;
     background: #0160b0 url('../images/gsti-collaborator.png');
     background-size: 10.5px 15px;
     background-position: center;
     background-repeat: no-repeat;
-    &.label-tall {
-        height: 59px;
-    }
+
+    &.label-tall {height: 59px }
 }
 .article-excerpt {
     @extend %clearfix;
@@ -95,12 +94,8 @@
     font-size: 15px;
     line-height: 119%;
     //letter-spacing: -0.05em;
-    &:first-child {
-        padding-top: 0;
-    }
-    &:last-child {
-        border-bottom: none;
-    }
+    &:first-child { padding-top: 0 }
+    &:last-child { border-bottom: none }
     > img {
         margin-right: 20px;
         float: left;
@@ -138,6 +133,7 @@
             color: $color-time;
         }
     }
+    &-#{creator} { font-weight: 600 }
     &-#{info} {
         position: relative;
         float: right;
@@ -184,7 +180,7 @@
         padding: 10px;
         color: $color-text-post;
         font-size: 0.857em;
-        word-break: break-all;
+        // word-break: break-all;
 
         p {
             margin-bottom: 0;
@@ -234,9 +230,7 @@
         display: inline-block;
         color: $color-border;
 
-        > a {
-            // margin: 0 10px;
-        }
+        // > a {}
     }
 }
 .question {
@@ -244,6 +238,7 @@
 }
 
 .area-content {
+    @include clearfix();
     padding-top: 20px;
     border-top: 1px solid $color-border;
 }
