@@ -18,7 +18,7 @@
                     {% endif %}
                 </div>
                 <div class="job-box_cell job-box_info">
-                    <div class="job-box_title">{{ job.title }}</div>
+                    <div class="job-box_title">{{ job.title }} {% if job.home_office %}<span class="label label-home-office">home-office</span>{% endif %}</div>
                     <strong class="job-box_employ-name">{{ job.company.name }}</strong>
                     <div class="job-box_location">
                         {% for location in job.locations.all %}

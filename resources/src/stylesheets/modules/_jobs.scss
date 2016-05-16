@@ -79,8 +79,17 @@
     .gsticon { display: block; }
     @media (max-width: $screen-desktop) { display: none; }
   }
+  @media (max-width: $screen-sm-min) {
+    display: block;
+    float: left;
+  }
+
 }
-.job-box_employ { padding-right: 10px; }
+.job-box_employ {
+  padding-right: 10px;
+
+  @media (max-width: $screen-sm-min) { width: 30% }
+}
 .job-box_employ-img {
   @include img-responsive();
   min-width: 80px;
@@ -91,15 +100,17 @@
 .job-box_info {
   width: 100%;
   padding-left: 0;
+
+  @media (max-width: $screen-sm-min) { width: 70% }
 }
 .job-box_title {
-  overflow: hidden;
+  // overflow: hidden;
   display: block;
   color: $color-link-feed;
   font-weight: 600;
   font-size: 1.22em;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  // text-overflow: ellipsis;
+  // white-space: nowrap;
 }
 .job-box_employ {
   color: #486075;
