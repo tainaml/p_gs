@@ -133,6 +133,7 @@
             color: $color-time;
         }
     }
+    &-#{creator} { font-weight: 600 }
     &-#{info} {
         position: relative;
         float: right;
@@ -229,9 +230,7 @@
         display: inline-block;
         color: $color-border;
 
-        > a {
-            // margin: 0 10px;
-        }
+        // > a {}
     }
 }
 .question {
@@ -239,6 +238,7 @@
 }
 
 .area-content {
+    @include clearfix();
     padding-top: 20px;
     border-top: 1px solid $color-border;
 }

@@ -8,7 +8,7 @@
     "npm": "2.11.3"
   },
   "scripts": {
-    "scripts": "gulp webpack:development",
+    "javascript": "gulp webpack:development",
     "sass": "gulp sass",
     "watch": "gulp"
   },
