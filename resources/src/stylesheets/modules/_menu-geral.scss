@@ -27,21 +27,21 @@
     }
   }
 
-  .menu-social {
-    @media (min-width: $screen-lg-min) { padding-right: 0; }
-    li > .gsticon-facebook-square:hover { color: #3b5998; }
-    li > .gsticon-google-plus-square:hover { color: #dd4b39; }
-    li > .gsticon-linkedin-square:hover { color: #007bb5; }
-    li > .gsticon-twitter-square:hover { color: #55acee; }
-    li > .gsticon-youtube-square:hover { color: #bb0000; }
-  }
+}
+.menu-social {
+  @media (min-width: $screen-lg-min) { padding-right: 0; }
+  li > .gsticon-facebook-square:hover { color: #3b5998; }
+  li > .gsticon-google-plus-square:hover { color: #dd4b39; }
+  li > .gsticon-linkedin-square:hover { color: #007bb5; }
+  li > .gsticon-twitter-square:hover { color: #55acee; }
+  li > .gsticon-youtube-square:hover { color: #bb0000; }
 }
 
 
 // Comportamento do menu no hover
 .toggle_menu-categories {
   padding: 10px;
-  margin: 15px 0 0;
+  margin: 15px 0;
   display: block;
   background-color: #556c80;
   color: #fff;
@@ -74,7 +74,9 @@
   margin-bottom: 0;
   display: none;
 
-  @media (min-width: $screen-sm-min) {}
+  @media (min-width: $screen-sm-min) {
+    margin-bottom: 15px;
+  }
   @media (min-width: $screen-md-min) {
     display: block;
   }
@@ -182,7 +184,8 @@
   margin-bottom: 0;
   text-align: center;
 
-  @media (min-width: $screen-lg-min) { text-align: right; }
+  @media (min-width: $screen-lg-min) { text-align: right }
+  @media (max-width: $screen-sm-min) { display: none }
 }
 .menu-social li {
   width: 20%;
@@ -194,12 +197,18 @@
   color: $background-button;
   font-size: 1.3em;
 }
+.menu-social__footer {
+  @media (max-width: $screen-sm-min) { display: block }
+  @media (min-width: $screen-sm-min) { display: none }
+    li a { color: #fff }
+  }
 
 
 .header-navegation.is-oppened {
   .menu-categories { display: table; }
 
   .toggle_menu-categories {
+    margin-bottom: 0;
     color: darken(#fff, 10%);
     background-color: darken(#556c80, 10%);
 
