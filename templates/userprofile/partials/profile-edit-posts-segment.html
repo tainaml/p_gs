@@ -16,7 +16,11 @@
                 </a>
             </div>
             <footer class="publication-footer clearfix">
+            {% if article.publishin != None  %}
                 <time class="publication-footer-date" datetime="{{ post.publishin|date:"d/m/Y" }}">{{ post.publishin|naturaltime }}</time>
+            {% else %}
+                <span class="hidden-xs visible-lg-inline">Não publicado</span>
+            {% endif %}
                 <nav class="publication-footer-menu">
                     <a class="publication-footer-menu-item" href="{% url 'article:edit' post.id %}">Editar</a>
                     <a class="publication-footer-menu-item" href="{% url 'article:view' post.id post.slug %}" target="_blank">Visualizar</a>
