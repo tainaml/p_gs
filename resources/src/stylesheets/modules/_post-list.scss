@@ -191,7 +191,8 @@
     letter-spacing: -0.05em;
 
     &.question { color: #004ca5; }
-    &.draft { color: #c7141a; }
+    &.draft { color: #777; }
+    &.trash { color: #c7141a; }
 }
 .publication-title {
     margin: 0;

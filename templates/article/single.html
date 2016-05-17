@@ -37,12 +37,12 @@
                     <div class="post-info">
                         {% if article.publishin != None  %}
                         <time datetime="{{ article.publishin|date:'m-d-Y' }}" itemprop="datePublished"
-                        data-toggle="tooltip" data-placement="auto top" data-original-title="{{ article.publishin|naturaltime }}">
+                        data-toggle="tooltip" data-placement="auto top" data-original-title="{{ article.publishin|naturaltime }}" class="time">
                             <span class="hidden-xs visible-lg-inline">{{ article.publishin|naturaltime }}</span>
                             <i class="gsticon gsticon-clock-o hidden-lg"></i>
                         </time>
                         {% else %}
-                            <span class="hidden-xs visible-lg-inline">Não publicado</span>
+                            <span class="list_post hidden-xs visible-lg-inline">Não publicado</span>
                         {% endif %}
                         <a href="javascript:;" data-toggle="dropdown"><i class="gsticon gsticon-gear"></i></a>
                         <div class="dropdown-menu dropdown-menu-right">

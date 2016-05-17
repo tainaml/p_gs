@@ -85,3 +85,12 @@ a.label {
   border: 1px solid #e1e1e1;
   color: #fff;
 }
+.label-deleted {
+  @include label-variant($label-danger-bg);
+  color: #fff;
+}
+.label-draft {
+  background: #777;
+  border: 1px solid #e1e1e1;
+  color: #fff;
+}

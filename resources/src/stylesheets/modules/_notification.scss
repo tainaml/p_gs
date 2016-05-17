@@ -15,12 +15,6 @@ $color-counter-notification: #b2b2b2 !default;
         margin-bottom: 0;
         color: #486075;
         font-weight: 600;
-
-        time {
-            padding-right: 0;
-            display: block;
-            border-right: none;
-        }
     }
 }
 .notfication-area {
@@ -136,4 +130,12 @@ $color-counter-notification: #b2b2b2 !default;
     }
     .success { @include alert-variant($alert-success-bg, $alert-success-border, $alert-success-text); }
     .error { @include alert-variant($alert-danger-bg, $alert-danger-border, $alert-danger-text); }
+}
+
+
+.list_post, time {
+    padding-right: 10px;
+    margin-right: -3px;
+    border-right: 1px solid #D3D3D3;
+    color: #D3D3D3;
 }

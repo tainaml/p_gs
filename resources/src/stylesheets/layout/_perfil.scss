@@ -216,6 +216,30 @@
     }
 }
 
+.header-container {
+    @include make-xs-column(12);
+    text-align: center;
+
+    > h1, h2, h3, h4, h5 {
+        font-weight: 600;
+        letter-spacing: -0.05em;
+        text-transform: uppercase;
+
+        &.title {
+            margin: 0 0 10px;
+            color: #0160b0;
+            font-size: 1.571em;
+        }
+        &.subtitle {
+            margin: 0 0 20px;
+            color: #4d6479;
+            font-size: 1.429em;
+        }
+    }
+
+
+}
+
 .area-title {
     padding: 10px 20px;
     //margin-top: 20px;

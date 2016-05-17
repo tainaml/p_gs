@@ -13,7 +13,10 @@
             <div class="excerpt-title">
                 <header class="post-header">
                     <div class="post-info">
-                        <time datetime="{{ article.content_object.createdin }}" itemprop="datePublished">{{ article.content_object.publishin|date:'d/m/Y' }} às {{ article.content_object.publishin|date:'G:i' }}</time>
+                        <time datetime="{{ article.content_object.publishin }}" data-toggle="tooltip" data-placement="auto top" data-original-title="{{ article.content_object.publishin|date:'d/m/Y' }} às {{ article.content_object.createdin|date:'G:i' }}" itemprop="datePublished">
+                            <span class="hidden-xs visible-lg-inline">{{ article.content_object.publishin|date:'d/m/Y' }} às {{ article.content_object.publishin|date:'G:i' }}</span>
+                            <i class="gsticon gsticon-clock-o hidden-lg"></i>
+                        </time>
 
                     </div>
                     <a class="post-creator" href="{% url 'profile:show' article.author.username %}">
