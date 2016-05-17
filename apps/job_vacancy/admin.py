@@ -8,7 +8,7 @@ from django import forms
 from apps.certification.models import Certification
 from apps.job_vacancy.models import Requirement, JobVacancyCertification, Salary, JobVacancy, Benefit, \
     JobRegime, Level, Exigency, Experience, SalaryType, JobVacancyResponsibility, WorkLoad, JobVacancyResponsibilityType, \
-    JobVacancyLocation
+    JobVacancyLocation, JobVacancyAdditionalRequirement
 
 
 class RequirementInLine(admin.TabularInline):
@@ -21,6 +21,9 @@ class JobVacancyCertificationInLine(admin.TabularInline):
 
 class JobVacancyLocationInLine(admin.TabularInline):
     model = JobVacancyLocation
+
+class JobVacancyAdditionalRequirementInLine(admin.TabularInline):
+    model = JobVacancyAdditionalRequirement
 
 
 class SalaryInLine(admin.TabularInline):
@@ -60,6 +63,7 @@ class JobVacancyAdmin(admin.ModelAdmin):
     inlines = [
         JobVacancyLocationInLine,
         RequirementInLine,
+        JobVacancyAdditionalRequirementInLine,
         JobVacancyCertificationInLine,
         SalaryInLine,
         JobVacancyResponsibilityInLine,
