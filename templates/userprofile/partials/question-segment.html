@@ -13,7 +13,10 @@
     <header class="post-header">
         <div class="post-info">
 {#            <time datetime="06-17-2015" itemprop="datePublished">{{ instance.question_date|date:'d/m/Y' }} às {{ instance.question_date|date:'G:i' }}</time>#}
-            <time datetime="06-17-2015" itemprop="datePublished">{{ instance.question_date|naturaltime }}</time>
+            <time datetime="06-17-2015" itemprop="datePublished">
+                <span class="hidden-xs visible-lg-inline">{{ instance.question_date|naturaltime }}</span>
+                <i class="gsticon gsticon-clock-o hidden-lg"></i>
+            </time>
             <a href="javascript:;" data-toggle="dropdown"><i class="gsticon gsticon-gear"></i></a>
             <div class="dropdown-menu dropdown-menu-right">
                 <ul class="perfil-actions">
