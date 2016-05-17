@@ -1,14 +1,9 @@
 <nav class="post-communities">
-    {% if communities|length > 3 %}
-        <a href="javascript:;" class="link-to-community" data-toggle="dropdown">Comunidades <i class="gsticon gsticon-angle-down"></i></a>
-        <div class="dropdown-menu">
-            <ul class="perfil-actions">{% for community in communities %}
-                <li><a href="{% url 'community:show' community.slug %}" class="link-to-community">{{ community.taxonomy.description }}</a></li>
-            {% endfor %}</ul>
-        </div>
-    {% else %}
-        {% for community in communities %}
-            <a href="{% url 'community:show' community.slug %}" class="link-to-community">{{ community.taxonomy.description }}</a>{% if not forloop.last or communities|length > 3 %} • {% endif %}
-        {% endfor %}
-    {% endif %}
+    {{request}}
+    <a href="javascript:;" class="link-to-community" data-toggle="dropdown">Comunidades <i class="gsticon gsticon-angle-down"></i></a>
+    <div class="dropdown-menu">
+        <ul class="perfil-actions">{% for community in communities %}
+            <li><a href="{% url 'community:show' community.slug %}" class="link-to-community">{{ community.taxonomy.description }}</a></li>
+        {% endfor %}</ul>
+    </div>
 </nav>
