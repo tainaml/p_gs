@@ -226,5 +226,6 @@ class ArticleEditView(ArticleBaseView):
         else:
             messages.add_message(request, messages.ERROR, _('Generic Error'), 'article')
 
+        temp_form.is_valid()
         _context = {'form_article': temp_form, 'article': temp_article}
         return render(request, self.template_name, self.prepare_context(request, _context))
