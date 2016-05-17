@@ -9,7 +9,7 @@
                 <img class="publication-image img-responsive" src="{% thumbor_url post.get_image.url width=90 height=80 smart=False fit_in=False %}" alt="{{ post.title }}">
                 {% endif %}
                 <a class="publication-content" href="{% url 'question:edit' post.id %}">
-                    {% if post.deleted %}<small class="publication-type trash text-danger">Item excluído</small>{% endif %}
+                    {% if post.deleted %}<small class="publication-type trash">Item excluído</small>{% endif %}
                     <h3 class="publication-title">{{ post.title }}</h3>
                 </a>
             </div>
