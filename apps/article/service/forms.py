@@ -84,7 +84,13 @@ class ArticleForm(IdeiaModelForm):
         if image and 'image' in self.changed_data:
             if image.content_type not in settings.IMAGES_ALLOWED:
                 self.add_error('image',
-                               ValidationError(_('Image format is not allowed.'), code='image'))
+                               ValidationError(_('Image format is not allowed.'), code='image_format_incorrect'))
+                valid = False
+
+        if image and 'image' in self.changed_data:
+            if image.size > 2621440:
+                self.add_error('image',
+                               ValidationError(_('Image size is too long.'), code='image_size_soo_long'))
                 valid = False
 
         if 'submit-publish' in self.data:
