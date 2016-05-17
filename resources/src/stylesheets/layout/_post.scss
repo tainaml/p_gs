@@ -30,14 +30,12 @@
         font-size: 17px;
         line-height: 30px;
         letter-spacing: -0.05em;
-        > p {
-            margin-bottom: 25px;
-        }
-        > p:first-of-type {
-            margin-top: 15px;
-        }
-        > p:last-of-type {
-            margin-bottom: 0;
+        > p { margin-bottom: 25px }
+        > p:first-of-type { margin-top: 15px }
+        > p:last-of-type { margin-bottom: 0 }
+        img {
+            max-width: 100%;
+            height: auto !important;
         }
     }
     .post-advertising {

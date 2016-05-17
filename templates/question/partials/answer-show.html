@@ -10,7 +10,10 @@
         <div class="comment-body">
             <header class="post-header">
                 <div class="post-info">
-                    <time datetime="{{ instance.answer_date|date:"m-d-Y" }}" itemprop="datePublished">{{ instance.answer_date|date:'d/m/Y' }} às {{ instance.answer_date|date:'G:i' }}</time>
+                    <time datetime="{{ instance.answer_date|date:'m-d-Y' }}" data-toggle="tooltip" data-placement="auto top" data-original-title="{{ instance.answer_date|date:'d/m/Y' }} às {{ instance.answer_date|date:'G:i' }}" itemprop="datePublished">
+                        <span class="hidden-xs visible-lg-inline">{{ instance.answer_date|date:'d/m/Y' }} às {{ instance.answer_date|date:'G:i' }}</span>
+                        <i class="gsticon gsticon-clock-o hidden-lg"></i>
+                    </time>
                     <a href="javascript:;" data-toggle="dropdown"><i class="gsticon gsticon-gear"></i></a>
                     <div class="dropdown-menu">
                         <ul class="perfil-actions">

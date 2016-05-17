@@ -12,8 +12,12 @@
     {% endif%}
     <header class="post-header">
         <div class="post-info">
-{#            <time datetime="{{ instance.publishin|date:"d/m/Y G:i" }}" itemprop="datePublished">{{ instance.publishin|date:'d/m/Y' }} às {{ instance.publishin|date:'G:i' }}</time>#}
-            <time datetime="{{ instance.publishin|date:"d/m/Y G:i" }}" itemprop="datePublished">{{ instance.publishin|naturaltime }}</time>
+{#            <time datetime="{{ instance.publishin|date:'d/m/Y G:i' }}" itemprop="datePublished">{{ instance.publishin|date:'d/m/Y' }} às {{ instance.publishin|date:'G:i' }}</time>#}
+
+            <time datetime="{{ instance.publishin|date:'d/m/Y G:i' }}" data-toggle="tooltip" data-placement="auto top" data-original-title="{{ instance.publishin|date:'d/m/Y' }} às {{ instance.publishin|date:'G:i' }}" itemprop="datePublished">
+                <span class="hidden-xs visible-lg-inline">{{ instance.publishin|naturaltime }}</span>
+                <i class="gsticon gsticon-clock-o hidden-lg"></i>
+            </time>
             <a href="javascript:;" data-toggle="dropdown"><i class="gsticon gsticon-gear"></i></a>
             <div class="dropdown-menu dropdown-menu-right">
                 <ul class="perfil-actions">

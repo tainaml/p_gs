@@ -9,7 +9,10 @@
             <div class="excerpt-title">
                 <header class="post-header">
                     <div class="post-info">
-                        <time datetime="{{ article.content_object.createdin }}" itemprop="datePublished">{{ article.publishin|date:'d/m/Y' }} às {{ article.publishin|date:'G:i' }}</time>
+                        <time datetime="{{ article.content_object.createdin }}" data-toggle="tooltip" data-placement="auto top" data-original-title="{{ article.content_object.createdin|date:'d/m/Y' }} às {{ article.content_object.createdin|date:'G:i' }}" itemprop="datePublished">
+                            <span class="hidden-xs visible-lg-inline">{{ article.publishin|date:'d/m/Y' }} às {{ article.publishin|date:'G:i' }}</span>
+                            <i class="gsticon gsticon-clock-o hidden-lg"></i>
+                        </time>
                         <a href="javascript:;" data-toggle="dropdown"><i class="gsticon gsticon-gear"></i></a>
                         <div class="dropdown-menu">
                             <ul class="perfil-actions">

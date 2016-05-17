@@ -10,16 +10,20 @@
 {#                <img class="publication-image img-responsive" src="https://unsplash.it/95/70?random" alt="Technology application">#}
                 {% endif %}
                 <a class="publication-content" href="{% url 'article:edit' post.id %}">
-                    {% if post.status == 0 %}<small class="publication-type draft">Rascunho:</small>{% endif %}
-                    {% if post.status == 2 %}<small class="publication-type trash text-danger">Item excluído</small>{% endif %}
-                    <h3 class="publication-title">{{ post.title }}</h3>
+                    {% if post.status == 0 %}<small class="publication-type draft">Rascunho</small>{% endif %}
+                    {% if post.status == 2 %}<small class="publication-type trash">Item excluído</small>{% endif %}
+                    <h3 class="publication-title">
+                        {{ post.title }}
+                        {% if post.status == 0 %}<span class="label label-draft">Rascunho</span>{% endif %}
+                        {% if post.status == 2 %}<span class="label label-trash">Item excluído</span>{% endif %}
+                    </h3>
                 </a>
             </div>
             <footer class="publication-footer clearfix">
             {% if article.publishin != None  %}
                 <time class="publication-footer-date" datetime="{{ post.publishin|date:"d/m/Y" }}">{{ post.publishin|naturaltime }}</time>
             {% else %}
-                <span class="hidden-xs visible-lg-inline">Não publicado</span>
+                {#<span class="hidden-xs visible-lg-inline">Não publicado</span>#}
             {% endif %}
                 <nav class="publication-footer-menu">
                     <a class="publication-footer-menu-item" href="{% url 'article:edit' post.id %}">Editar</a>

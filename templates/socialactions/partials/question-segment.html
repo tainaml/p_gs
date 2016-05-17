@@ -12,7 +12,10 @@
         <div class="excerpt-title">
             <header class="post-header">
                 <div class="post-info">
-                    <time datetime="{{ instance.createdin }}" itemprop="datePublished">{{ instance.question_date|date:'d/m/Y' }} às {{ instance.question_date|date:'G:i' }}</time>
+                    <time datetime="{{ instance.createdin }}" data-toggle="tooltip" data-placement="auto top" data-original-title="{{ instance.createdin|date:'d/m/Y' }} às {{ instance.createdin|date:'G:i' }}" itemprop="datePublished">
+                        <span class="hidden-xs visible-lg-inline">{{ instance.question_date|date:'d/m/Y' }} às {{ instance.question_date|date:'G:i' }}</span>
+                        <i class="gsticon gsticon-clock-o hidden-lg"></i>
+                    </time>
                     <a href="javascript:;" data-toggle="dropdown"><i class="gsticon gsticon-gear"></i></a>
                     <div class="dropdown-menu">
                         {% include "socialactions/partials/dropdown-actions.html" %}
