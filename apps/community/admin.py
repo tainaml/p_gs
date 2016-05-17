@@ -2,9 +2,19 @@ from django.contrib import admin
 from django_thumbor import generate_url
 from .models import Community
 from django.conf import settings
+from ckeditor.widgets import CKEditorWidget
+from django import forms
+
+class ComunnityAdminForm(forms.ModelForm):
+    class Meta:
+        widgets = {'description': CKEditorWidget(config_name='article') }
+        excludes = ()
 
 
 class CommunityAdmin(admin.ModelAdmin):
+
+    form = ComunnityAdminForm
+
     list_display = ('resized_image', 'title', 'slug', 'category')
     filter_horizontal = ['related']
     ordering = ['title']

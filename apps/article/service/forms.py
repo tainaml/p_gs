@@ -88,7 +88,7 @@ class ArticleForm(IdeiaModelForm):
                 valid = False
 
         if image and 'image' in self.changed_data:
-            if image.size > 2621440:
+            if image.size > 2621440: #2,5 MB
                 self.add_error('image',
                                ValidationError(_('Image size is too long.'), code='image_size_soo_long'))
                 valid = False
