@@ -58,6 +58,12 @@ class JobVacancy(models.Model):
         return self.title
 
 
+class JobVacancyAdditionalRequirement(models.Model):
+    job_vacancy = models.ForeignKey(JobVacancy, null=False, related_name='additional_requirements', on_delete=models.CASCADE,
+                                    blank=False, verbose_name=_('Job Vacancy'))
+
+    description = models.CharField(blank=False, null=False, max_length=512, verbose_name=_('Aditional Requirement'))
+
 class JobVacancyLocation(models.Model):
     job_vacancy = models.ForeignKey(JobVacancy, null=False, related_name='locations', on_delete=models.CASCADE,
                                     blank=False, verbose_name=_('Job Vacancy'))

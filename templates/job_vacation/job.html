@@ -64,6 +64,9 @@
                             {% for requirement in job.requirements.all %}
                                 <li>{{ requirement.item.description }}{% if requirement.level %} - {{ requirement.level.description }}{% endif %}{% if requirement.exigency %} - {{ requirement.exigency.description }}{% endif %}{% if requirement.experience %} - {{ requirement.experience.description }}{% endif %}</li>
                             {% endfor %}
+                            {% for requirement in job.additional_requirements.all %}
+                                <li>{{ requirement.description }}</li>
+                            {% endfor %}
                         </ul>
                     </div>
                 </li>
