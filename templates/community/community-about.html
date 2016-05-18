@@ -13,7 +13,7 @@
             <div class="col-lg-9">
                 {% include 'community/partials/filters.html' with title="Sobre" active="sobre" has_filter=False %}
                 <div class="about-text">
-                    <p>{{ community.description }}</p>
+                    <p>{{ community.description|safe }}</p>
                 </div>
             </div>
         </div>

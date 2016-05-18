@@ -21,6 +21,10 @@
     &-#{content} {
         @extend %clearfix;
     }
+
+    &#result-filter {
+        @media (max-width: $screen-md-min) { display: none; }
+    }
 }
 
 .widget-feed {

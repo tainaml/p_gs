@@ -86,12 +86,14 @@ a.label {
   color: #fff;
   font-size: 60%;
 }
-.label-deleted {
+.label-trash {
   @include label-variant($label-danger-bg);
   color: #fff;
+  font-size: 60%;
 }
 .label-draft {
   background: #777;
   border: 1px solid #e1e1e1;
   color: #fff;
+  font-size: 60%;
 }
