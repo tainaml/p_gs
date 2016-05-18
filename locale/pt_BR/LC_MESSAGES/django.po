@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-24 14:07-0300\n"
+"POT-Creation-Date: 2016-05-18 10:48-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -30,37 +30,37 @@ msgstr "Bem vindo!"
 msgid "Password Recovery"
 msgstr "Confirmação de senha"
 
-#: apps/account/service/forms.py:28 apps/account/service/forms.py:113
-#: apps/account/service/forms.py:155
+#: apps/account/service/forms.py:36 apps/account/service/forms.py:111
+#: apps/account/service/forms.py:153
 msgid "Passwords are not the same."
 msgstr "Senhas não correspondem"
 
-#: apps/account/service/forms.py:32
+#: apps/account/service/forms.py:40
 msgid "Username is already in use."
 msgstr "Nome de usuário já está em uso"
 
-#: apps/account/service/forms.py:36
+#: apps/account/service/forms.py:44
 msgid "Email is already in use."
 msgstr "E-mail já está em uso"
 
-#: apps/account/service/forms.py:64
+#: apps/account/service/forms.py:72
 msgid "Wrong password or username."
 msgstr "Nome de usuário ou senha incorretos"
 
-#: apps/account/service/forms.py:108
+#: apps/account/service/forms.py:106
 msgid "Wrong old password."
 msgstr "Senha anterior incorreta."
 
-#: apps/account/service/forms.py:133
+#: apps/account/service/forms.py:131
 msgid "Does not exist account with this email."
 msgstr "Não foi encontrada uma conta com este e-mail"
 
-#: apps/account/service/forms.py:160
+#: apps/account/service/forms.py:158
 msgid "Token is no longer valid."
 msgstr "Token expirou"
 
 #. Translators: This message appears on the home page only
-#: apps/account/views.py:144 apps/article/views.py:222
+#: apps/account/views.py:144 apps/notifications/models.py:41
 msgid "Success"
 msgstr "Sucesso"
 
@@ -92,7 +92,7 @@ msgstr "Senha alterada com sucesso!"
 msgid "A confirmation email was sent to you"
 msgstr "Um e-mail de confirmação foi enviado para você"
 
-#: apps/account/views.py:370 apps/core/views/account.py:51
+#: apps/account/views.py:370 apps/core/views/account.py:49
 msgid "E-mail re-sent successfully!"
 msgstr "E-mail reenviado com sucesso!"
 
@@ -116,7 +116,7 @@ msgstr "Lixo"
 msgid "Publish"
 msgstr "Publicado"
 
-#: apps/article/models.py:29 apps/job_vacancy/models.py:44
+#: apps/article/models.py:29 apps/job_vacancy/models.py:45
 msgid "Author"
 msgstr "Autor"
 
@@ -124,35 +124,46 @@ msgstr "Autor"
 msgid "Publish date has invalid"
 msgstr "Data de publicação inválida."
 
-#: apps/article/service/forms.py:87 apps/userprofile/service/forms.py:87
+#: apps/article/service/forms.py:87 apps/userprofile/service/forms.py:88
 msgid "Image format is not allowed."
 msgstr "Formato da imagem não é permitido"
 
-#: apps/article/views.py:18 apps/article/views.py:19
+#: apps/article/service/forms.py:93
+#, fuzzy
+#| msgid "Image size more than 1mb."
+msgid "Image size is too long."
+msgstr "Tamanho da imagem é muito grande"
+
+#: apps/article/views.py:19 apps/article/views.py:20
 msgid "Article not Found."
 msgstr "Publicação não encontrada"
 
-#: apps/article/views.py:37
+#: apps/article/views.py:38
 msgid "Operation not permitted"
 msgstr "Operação não permitida"
 
-#: apps/article/views.py:145
+#: apps/article/views.py:146
 msgid "This article has been deleted"
 msgstr "Publicação removida"
 
-#: apps/article/views.py:226
+#: apps/article/views.py:223
+msgid "Publicação salva com sucesso"
+msgstr "Publicação salva com sucesso"
+
+#: apps/article/views.py:227
 msgid "Generic Error"
 msgstr "Erro"
 
-#: apps/certification/models.py:9 apps/job_vacancy/models.py:39
+#: apps/certification/models.py:8 apps/job_vacancy/models.py:39
 msgid "Title"
 msgstr "Título"
 
-#: apps/certification/models.py:10 apps/job_vacancy/models.py:18
-#: apps/job_vacancy/models.py:24 apps/job_vacancy/models.py:30
-#: apps/job_vacancy/models.py:43 apps/job_vacancy/models.py:67
-#: apps/job_vacancy/models.py:80 apps/job_vacancy/models.py:92
-#: apps/job_vacancy/models.py:98 apps/job_vacancy/models.py:104
+#: apps/certification/models.py:9 apps/company/models.py:10
+#: apps/company/models.py:20 apps/company/models.py:27
+#: apps/job_vacancy/models.py:18 apps/job_vacancy/models.py:25
+#: apps/job_vacancy/models.py:32 apps/job_vacancy/models.py:78
+#: apps/job_vacancy/models.py:94 apps/job_vacancy/models.py:109
+#: apps/job_vacancy/models.py:116 apps/job_vacancy/models.py:123
 msgid "Description"
 msgstr "Descrição"
 
@@ -191,7 +202,7 @@ msgstr "^listar-respostas/$"
 
 #. Translators: URL de pagina atualizacao de comentarios
 #. Translators: URL para atualizar pergunta
-#: apps/comment/urls.py:23 apps/core/urls/question.py:18
+#: apps/comment/urls.py:23 apps/core/urls/question.py:22
 msgid "^update/$"
 msgstr "^atualizar/$"
 
@@ -211,7 +222,6 @@ msgid "^count/(?P<object_to_link>\\d+)/(?P<content_type>[a-z]+)$"
 msgstr "^contar/(?P<object_to_link>\\d+)/(?P<content_type>[a-z]+)$"
 
 #: apps/community/models.py:23
-#| msgid "Community not Found"
 msgid "Community Related"
 msgstr "Comunidade relacionada"
 
@@ -219,14 +229,23 @@ msgstr "Comunidade relacionada"
 msgid "Community not Found."
 msgstr "Comunidade não encontrada"
 
-#: apps/company/models.py:8 templates/contact/contact.html.py:10
+#: apps/company/models.py:7 templates/contact/contact.html.py:10
 msgid "Name"
 msgstr "Nome"
 
-#: apps/company/models.py:9
-#| msgid "Logout"
+#: apps/company/models.py:8
 msgid "Logo"
 msgstr "Logo"
+
+#: apps/company/models.py:28
+msgid "Type"
+msgstr "Tipo"
+
+#: apps/company/models.py:29 apps/job_vacancy/models.py:43
+#: templates/userprofile/occupation_add.html:13
+#: templates/userprofile/occupation_edit.html:13
+msgid "Company"
+msgstr "Empresa"
 
 #. Translators: URL de denunciar objeto
 #: apps/complaint/urls.py:9
@@ -243,7 +262,7 @@ msgstr "Denúncia realizada com sucesso!"
 
 #: apps/configuration/models.py:19
 msgid "Configs Keys"
-msgstr "COnfigurar Chaves"
+msgstr "COnfigurar chaves"
 
 #: apps/configuration/models.py:28
 msgid "Config Values"
@@ -253,11 +272,27 @@ msgstr "Configurar Chaves"
 msgid "Contact created!"
 msgstr "Mensagem enviada!"
 
-#: apps/core/forms/account.py:37
+#: apps/core/admin.py:26
+msgid "Profile"
+msgstr "Perfil"
+
+#: apps/core/admin.py:27
+msgid "Profiles"
+msgstr "Perfis"
+
+#: apps/core/admin.py:41
+msgid "Contributor"
+msgstr "Contribuidor"
+
+#: apps/core/forms/account.py:23
 msgid "Ocorreu um erro ao desativar a conta"
 msgstr "Ocorreu um erro ao desativar a conta"
 
-#: apps/core/templatetags/core_tags.py:151
+#: apps/core/forms/community.py:133
+msgid "All"
+msgstr "Todos"
+
+#: apps/core/templatetags/core_tags.py:152
 msgid "Olá, gostaria de sugerir a comunidade: "
 msgstr "Olá, gostaria de sugerir a comunidade: "
 
@@ -333,7 +368,7 @@ msgstr "^reenviar-confirmacao-de-conta$"
 #. Translators: URL de pagina de check de username
 #: apps/core/urls/account.py:51
 msgid "^check-username$"
-msgstr "^checkar-nome-de-usuario$"
+msgstr "^check-nome-de-usuario$"
 
 #. Translators: URL de criacao de artigo
 #: apps/core/urls/article.py:12
@@ -358,14 +393,14 @@ msgstr "^publicacao/delete/async/(?P<article_id>\\d+)$"
 #. Translators: URL de criacao de artigo
 #: apps/core/urls/article.py:20
 msgid ""
-"^article/(?P<article_id>\\d+)/(?P<article_slug>[a-z0-9]+(?:-[a-z0-9]+)*)$"
+"^article/(?P<article_id>\\d+)/(?P<article_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)$"
 msgstr ""
-"^publicacao/(?P<article_id>\\d+)/(?P<article_slug>[a-z0-9]+(?:-[a-z0-9]+)*)$"
+"^publicacao/(?P<article_id>\\d+)/(?P<article_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)$"
 
 #. Translators: URL de criacao de artigo em uma comunidade
 #: apps/core/urls/article.py:23
-msgid "^article/create/(?P<community_slug>[a-z0-9]+(?:-[a-z0-9]+)*)$"
-msgstr "^publicacao/criar/(?P<community_slug>[a-z0-9]+(?:-[a-z0-9]+)*)$"
+msgid "^article/create/(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)$"
+msgstr "^publicacao/criar/(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)$"
 
 #. Translators: URL de home de categoria
 #: apps/core/urls/category.py:8
@@ -452,6 +487,21 @@ msgstr "^buscar/seguidores$"
 msgid "^search/followers/list$"
 msgstr "^buscar/seguidores/listagem$"
 
+#. Translators: URL de pagina de materials da comunidade
+#: apps/core/urls/community.py:56
+msgid "^(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/materials/$"
+msgstr "^(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/materiais/$"
+
+#. Translators: URL de pagina de procura de videos da comunidade
+#: apps/core/urls/community.py:59
+msgid "^(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/materials/search/$"
+msgstr "^(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/materiais/buscar/$"
+
+#. Translators: URL de pagina de listagem de videos da comunidade
+#: apps/core/urls/community.py:62
+msgid "^(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/materials/list/$"
+msgstr "^(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/materiais/listagem/$"
+
 #. Translators: URL de configuracao  de conta
 #: apps/core/urls/configuration.py:8
 msgid "^account$"
@@ -464,7 +514,6 @@ msgstr "^notificacao$"
 
 #. Translators: URL de configuracao de desativar conta
 #: apps/core/urls/configuration.py:14
-#| msgid "^socialaccount/"
 msgid "^deactivate-account$"
 msgstr "^desativar-conta$"
 
@@ -544,48 +593,56 @@ msgstr "^criar/$"
 msgid "^edit/(?P<question_id>[0-9]+)$"
 msgstr "^editar/(?P<question_id>[0-9]+)$"
 
+#. Translators: URL para deletar pergunta
+#: apps/core/urls/question.py:18
+msgid "^delete/(?P<question_id>[0-9]+)$"
+msgstr "^deletar/(?P<question_id>[0-9]+)$"
+
+#: apps/core/urls/question.py:19
+msgid "^delete/async/(?P<question_id>\\d+)$"
+msgstr "^deletar/async/(?P<question_id>\\d+)$"
+
 #. Translators: URL para comentar resposta
-#: apps/core/urls/question.py:21
+#: apps/core/urls/question.py:25
 msgid "^comment-reply/$"
 msgstr "^comentar-resposta/$"
 
 #. Translators: URL para listagem de resposta
-#: apps/core/urls/question.py:24
+#: apps/core/urls/question.py:28
 msgid "^answer-list/$"
 msgstr "^listagem-de-respostas/$"
 
 #. Translators: URL de atualizar respota
-#: apps/core/urls/question.py:27
+#: apps/core/urls/question.py:31
 msgid "^update_reply/$"
 msgstr "^atualizar-resposta/$"
 
 #. Translators: URL de carregar perguntas relacionadas
-#: apps/core/urls/question.py:30
+#: apps/core/urls/question.py:34
 msgid "^load/related/(?P<question_id>[0-9]+)/(?P<content_type>[a-z]+)/$"
-msgstr ""
-"^carregar/relacionados/(?P<question_id>[0-9]+)/(?P<content_type>[a-z]+)/$"
+msgstr "^carregar/relacionadas/(?P<question_id>[0-9]+)/(?P<content_type>[a-z]+)/$"
 
 #. Translators: URL para marcar resposta correta
-#: apps/core/urls/question.py:33
+#: apps/core/urls/question.py:37
 msgid "^correct-answer/(?P<answer_id>[0-9]+)$"
 msgstr "^resposta-correta/(?P<answer_id>[0-9]+)$"
 
 #. Translators: URL remover resposta
-#: apps/core/urls/question.py:36
+#: apps/core/urls/question.py:40
 msgid "^remove-answer$"
 msgstr "^remover-resposta$"
 
 #. Translators: URL visualizacao de pergunta
-#: apps/core/urls/question.py:39
+#: apps/core/urls/question.py:43
 msgid ""
 "^(?P<question_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/(?P<question_id>[0-9]+)/$"
 msgstr ""
 "^(?P<question_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/(?P<question_id>[0-9]+)/$"
 
 #. Translators: URL de criar pergunta
-#: apps/core/urls/question.py:43
-msgid "^create/(?P<community_slug>[a-z0-9]+(?:-[a-z0-9]+)*)$"
-msgstr "^criar/(?P<community_slug>[a-z0-9]+(?:-[a-z0-9]+)*)$"
+#: apps/core/urls/question.py:47
+msgid "^create/(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)$"
+msgstr "^criar/(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)$"
 
 #. Translators: URL de busca geral
 #: apps/core/urls/search.py:8
@@ -641,246 +698,260 @@ msgstr "^editar-postagens/busca/$"
 msgid "^edit-posts/search/list/$"
 msgstr "^editar-postagens/busca/listagem/$"
 
-#. Translators: URL de passo 1 do wizard
+#. Translators: URL de edicao de questions
 #: apps/core/urls/user.py:24
+msgid "^edit-questions/$"
+msgstr "^minhas-perguntas/$"
+
+#. Translators: URL de procura de questions
+#: apps/core/urls/user.py:27
+msgid "^edit-questions/search/$"
+msgstr "^editar-postagens/busca/$"
+
+#. Translators: URL de listagem e procura de questions
+#: apps/core/urls/user.py:30
+msgid "^edit-questions/search/list/$"
+msgstr "^editar-postagens/busca/listagem/$"
+
+#. Translators: URL de passo 1 do wizard
+#: apps/core/urls/user.py:33
 msgid "^wizard/step/personal-info$"
 msgstr "^wizard/passo/configuracoes-pessoais$"
 
 #. Translators: URL de passo 2 do wizard
-#: apps/core/urls/user.py:27
+#: apps/core/urls/user.py:36
 msgid "^wizard/step/filter-categories$"
 msgstr "^wizard/passo/filtrar-categorias$"
 
 #. Translators: URL de passo 3 do wizard
-#: apps/core/urls/user.py:30
+#: apps/core/urls/user.py:39
 msgid "^wizard/step/filter-categories/list$"
 msgstr "^wizard/passo/filtrar-categorias/listagem$"
 
 #. Translators: URL de sugestoes do usuario
-#: apps/core/urls/user.py:33
+#: apps/core/urls/user.py:42
 msgid "^wizard/step/suggestions$"
 msgstr "^wizard/passo/sugestoes$"
 
 #. Translators: URL para retornar o estado
-#: apps/core/urls/user.py:36
+#: apps/core/urls/user.py:45
 msgid "^get_state/$"
 msgstr "^recuperar-estado/$"
 
 #. Translators: URL para retornar a cidade
-#: apps/core/urls/user.py:39
+#: apps/core/urls/user.py:48
 msgid "^get_city/$"
 msgstr "^recuperar-cidade/$"
 
 #. Translators: URL para exibir as ocupacoes do usuario
-#: apps/core/urls/user.py:42
+#: apps/core/urls/user.py:51
 msgid "^occupation/$"
 msgstr "^ocupacao/$"
 
 #. Translators: URL para adicionar ocupacoes
-#: apps/core/urls/user.py:45
+#: apps/core/urls/user.py:54
 msgid "^occupation/add/$"
 msgstr "^ocupacao/adicionar/$"
 
 #. Translators: URL para retornar uma ocupacao
-#: apps/core/urls/user.py:48
+#: apps/core/urls/user.py:57
 msgid "^occupation/(?P<occupation_id>[0-9]+)/$"
 msgstr "^ocupacao/(?P<occupation_id>[0-9]+)/$"
 
 #. Translators: URL para edicao de ocupacao
-#: apps/core/urls/user.py:51
+#: apps/core/urls/user.py:60
 msgid "^occupation/edit/(?P<occupation_id>[0-9]+)/$"
 msgstr "^ocupacao/editar/(?P<occupation_id>[0-9]+)/$"
 
 #. Translators: URL para deletar ocupacao
-#: apps/core/urls/user.py:54
+#: apps/core/urls/user.py:63
 msgid "^occupation/delete/(?P<occupation_id>[0-9]+)/$"
 msgstr "^ocupacao/deletar/(?P<occupation_id>[0-9]+)/$"
 
 #. Translators: URL de feed
-#: apps/core/urls/user.py:57
+#: apps/core/urls/user.py:66
 msgid "^feed/$"
 msgstr "^feed/$"
 
 #. Translators: URL de listagem de feed
-#: apps/core/urls/user.py:60
+#: apps/core/urls/user.py:69
 msgid "^list$"
 msgstr "^listagem$"
 
 #. Translators: URL de minhas perguntas
-#: apps/core/urls/user.py:63
+#: apps/core/urls/user.py:72
 msgid "^my-questions/$"
 msgstr "^minhas-perguntas/$"
 
 #. Translators: URL de listagem de minhas perguntas
-#: apps/core/urls/user.py:66
+#: apps/core/urls/user.py:75
 msgid "^my-questions/list/$"
 msgstr "^minhas-perguntas/listagem/$"
 
 #. Translators: URL de listagem e publicacoes do usuario
-#: apps/core/urls/user.py:69
+#: apps/core/urls/user.py:78
 msgid "^list_articles/(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/$"
-msgstr "^listagem-de-publicacoes/(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/$"
+msgstr "^listar-publicacoes/(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/$"
 
 #. Translators: URL de ver depois do usuario
-#: apps/core/urls/user.py:72
+#: apps/core/urls/user.py:81
 msgid "^ver-depois$"
 msgstr "^ver-depois$"
 
 #. Translators: URL de listagem de ver depois
-#: apps/core/urls/user.py:75
+#: apps/core/urls/user.py:84
 msgid "^ver-depois/list$"
 msgstr "^ver-depois/list$"
 
 #. Translators: URL de remover ver depois
-#: apps/core/urls/user.py:78
+#: apps/core/urls/user.py:87
 msgid "^remover-ver-depois$"
 msgstr "^remover-ver-depois$"
 
 #. Translators: URL de favoritos
-#: apps/core/urls/user.py:81
+#: apps/core/urls/user.py:90
 msgid "^favoritos$"
 msgstr "^favoritos$"
 
 #. Translators: URL de listagem de favoritos
-#: apps/core/urls/user.py:84
+#: apps/core/urls/user.py:93
 msgid "^favoritos/list$"
 msgstr "^favoritos/listagem$"
 
 #. Translators: URL de desfavoritar
-#: apps/core/urls/user.py:87
+#: apps/core/urls/user.py:96
 msgid "^desfavoritar$"
 msgstr "^desfavoritar$"
 
 #. Translators: URL de sugestoes
-#: apps/core/urls/user.py:90
+#: apps/core/urls/user.py:99
 msgid "^sugestoes$"
 msgstr "^sugestoes$"
 
 #. Translators: URL de listagem de sugestoes
-#: apps/core/urls/user.py:93
+#: apps/core/urls/user.py:102
 msgid "^sugestoes/list/$"
 msgstr "^sugestoes/listagem/$"
 
 #. Translators: URL de remover sugestao
-#: apps/core/urls/user.py:96
+#: apps/core/urls/user.py:105
 msgid "^remover-sugestao/$"
 msgstr "^remover-sugestao/$"
 
 #. Translators: URL de listagem de acoes sociais
-#: apps/core/urls/user.py:99
+#: apps/core/urls/user.py:108
 msgid "^items/list/(?P<action>[a-z]+(?:-[a-z]+)*)/$"
 msgstr "^itens/listagem/(?P<action>[a-z]+(?:-[a-z]+)*)/$"
 
 #. Translators: URL para mostrar usuario
-#: apps/core/urls/user.py:102
+#: apps/core/urls/user.py:111
 msgid "^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/$"
 msgstr "^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/$"
 
 #. Translators: URL da listagem de perfil do usuario
-#: apps/core/urls/user.py:105
+#: apps/core/urls/user.py:114
 msgid "^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/list$"
 msgstr "^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/listagem$"
 
 #. Translators: URL de busca de usuario
-#: apps/core/urls/user.py:108
+#: apps/core/urls/user.py:117
 msgid "^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/search$"
 msgstr "^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/buscar$"
 
 #. Translators: URL de seguidores do usuario
-#: apps/core/urls/user.py:111
+#: apps/core/urls/user.py:120
 msgid "^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/followings/$"
 msgstr "^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/seguindo/$"
 
 #. Translators: URL de procura de seguindo de usuario
-#: apps/core/urls/user.py:114
+#: apps/core/urls/user.py:123
 msgid "^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/followings/search/$"
 msgstr "^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/seguindo/buscar/$"
 
 #. Translators: URL de listagem de procura de usuario
-#: apps/core/urls/user.py:117
+#: apps/core/urls/user.py:126
 msgid "^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/followings/search/list/$"
 msgstr "^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/seguindo/buscar/listagem/$"
 
 #. Translators: URL de carregamento assincrono de seguindo
-#: apps/core/urls/user.py:120
+#: apps/core/urls/user.py:129
 msgid "^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/followings/load/ajax/$"
 msgstr "^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/seguindo/carregar/ajax/$"
 
 #. Translators: URL root de seguidores
-#: apps/core/urls/user.py:123
+#: apps/core/urls/user.py:132
 msgid "^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/followers/$"
 msgstr "^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/seguidores/$"
 
 #. Translators: URL de procura de seguidores
-#: apps/core/urls/user.py:126
+#: apps/core/urls/user.py:135
 msgid "^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/followers/search/$"
 msgstr "^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/seguidores/buscar/$"
 
 #. Translators: URL de listagem de busca de seguidores
-#: apps/core/urls/user.py:129
+#: apps/core/urls/user.py:138
 msgid "^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/followers/search/list/$"
-msgstr ""
-"^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/seguidores/buscar/listagem/$"
+msgstr "^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/seguidores/buscar/listagem/$"
 
 #. Translators: URL de comunidades do usuario
-#: apps/core/urls/user.py:132
+#: apps/core/urls/user.py:141
 msgid "^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/communities/$"
 msgstr "^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/comunidades/$"
 
 #. Translators: URL de listagem de comunidades do usuario
-#: apps/core/urls/user.py:135
+#: apps/core/urls/user.py:144
 msgid "^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/communities/list/$"
 msgstr "^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/comunidade/listagem/$"
 
 #. Translators: URL de carregamento assincrono de comunidades do usuario
-#: apps/core/urls/user.py:138
+#: apps/core/urls/user.py:147
 msgid "^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/communities/load/ajax/$"
 msgstr "^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/comunidade/carregar/ajax/$"
 
 #. Translators: URL de videos do usuario
-#: apps/core/urls/user.py:141
+#: apps/core/urls/user.py:150
 msgid "^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/videos/$"
 msgstr "^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/videos/$"
 
 #. Translators: URL de procura de videos do usuario
-#: apps/core/urls/user.py:144
+#: apps/core/urls/user.py:153
 msgid "^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/videos/search/$"
 msgstr "^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/videos/busca/$"
 
 #. Translators: URL de listagem de busca de videos do usuario
-#: apps/core/urls/user.py:147
+#: apps/core/urls/user.py:156
 msgid "^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/videos/search/list/$"
-msgstr "^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/videos/search/listagem/$"
+msgstr "^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/videos/buscar/listagem/$"
 
 #. Translators: URL de carregamento assincrono de comunidades do usuario
-#: apps/core/urls/user.py:150
+#: apps/core/urls/user.py:159
 msgid "^ajax/user/communities/$"
 msgstr "^ajax/usuario/comunidade/$"
 
-#: apps/core/views/account.py:50
+#: apps/core/views/account.py:48
 msgid "Resend confirmation email"
 msgstr "Reenviar confirmação de conta"
 
-#: apps/core/views/account.py:99
+#: apps/core/views/account.py:97
 msgid "Change Password"
 msgstr "Mudar senha"
 
-#: apps/core/views/account.py:100
+#: apps/core/views/account.py:98
 #: templates/account/password_change_successfully.html:2
 msgid "Your password has been changed!"
 msgstr "Sua senha foi alterada!"
 
-#: apps/core/views/article.py:78 apps/core/views/question.py:56
+#: apps/core/views/article.py:85 apps/core/views/question.py:58
 msgid "Community not Found"
 msgstr "Comunidade não encontrada"
 
-#: apps/core/views/article.py:84 apps/core/views/question.py:62
+#: apps/core/views/article.py:91 apps/core/views/question.py:64
 msgid "User need follow this community"
 msgstr "É necessário seguir esta comunidade"
 
 #: apps/core/views/category.py:40
 msgid "Category not found or not root category."
-msgstr "Categoria não encontrada ou não é uma categoria raiz"
+msgstr "Categoria não encontrada ou não é uma categoria raiz."
 
 #. Translators:
 #: apps/core/views/configuration.py:68
@@ -891,121 +962,158 @@ msgstr "Configuração de Notificação"
 msgid "Your settings have been successfully changed!"
 msgstr "Suas configurações foi alteradas com sucesso!"
 
+#: apps/core/views/question.py:118 apps/core/views/question.py:149
+#: apps/question/views.py:18
+msgid "Question not Found."
+msgstr "Pergunta não encontrada"
+
+#: apps/core/views/question.py:179
+#, fuzzy
+#| msgid "This article has been deleted"
+msgid "This question has been deleted"
+msgstr "Publicação removida"
+
 #: apps/job_vacancy/models.py:40
 msgid "Slug"
 msgstr "Slug"
 
 #: apps/job_vacancy/models.py:41
+msgid "Is active"
+msgstr "Está ativo"
+
+#: apps/job_vacancy/models.py:42
 msgid "Date"
 msgstr "Data"
 
-#: apps/job_vacancy/models.py:42 templates/userprofile/occupation_add.html:13
-#: templates/userprofile/occupation_edit.html:13
-msgid "Company"
-msgstr "Empresa"
-
-#: apps/job_vacancy/models.py:45
+#: apps/job_vacancy/models.py:47
 msgid "Responsibility Description"
 msgstr "Descriçao da resposabilidade"
 
-#: apps/job_vacancy/models.py:46
+#: apps/job_vacancy/models.py:48
 msgid "Regime"
 msgstr "Regime"
 
-#: apps/job_vacancy/models.py:47
+#: apps/job_vacancy/models.py:49
 msgid "Home Office"
 msgstr "Home Office"
 
-#: apps/job_vacancy/models.py:48
+#: apps/job_vacancy/models.py:50
 msgid "Quantity"
 msgstr "Quantidade"
 
-#: apps/job_vacancy/models.py:49
+#: apps/job_vacancy/models.py:51
 msgid "Work Load"
 msgstr "Carga horária"
 
-#: apps/job_vacancy/models.py:50
+#: apps/job_vacancy/models.py:52
 msgid "Benefits"
 msgstr "Benefícios"
 
-#: apps/job_vacancy/models.py:51
-#| msgid "Email"
+#: apps/job_vacancy/models.py:53
 msgid "E-mail"
 msgstr "E-mail"
 
-#: apps/job_vacancy/models.py:52
+#: apps/job_vacancy/models.py:54
 msgid "Phone Number"
 msgstr "Número de Telefone"
 
-#: apps/job_vacancy/models.py:53
+#: apps/job_vacancy/models.py:55
 msgid "Web Site"
 msgstr "Web Site"
 
-#: apps/job_vacancy/models.py:54 templates/contact/contact.html.py:3
+#: apps/job_vacancy/models.py:56 templates/contact/contact.html.py:3
 msgid "Contact"
 msgstr "Contato"
 
-#: apps/job_vacancy/models.py:60 apps/job_vacancy/models.py:77
-#: apps/job_vacancy/models.py:89 apps/job_vacancy/models.py:111
-#: apps/job_vacancy/models.py:119
+#: apps/job_vacancy/models.py:64 apps/job_vacancy/models.py:70
+#: apps/job_vacancy/models.py:90 apps/job_vacancy/models.py:105
+#: apps/job_vacancy/models.py:131 apps/job_vacancy/models.py:140
 msgid "Job Vacancy"
 msgstr "Vaga de trabalho"
 
-#: apps/job_vacancy/models.py:61
+#: apps/job_vacancy/models.py:66
+msgid "Aditional Requirement"
+msgstr "Requisito adicional"
+
+#: apps/job_vacancy/models.py:71
 msgid "Country"
 msgstr "País"
 
-#: apps/job_vacancy/models.py:62
+#: apps/job_vacancy/models.py:73
 msgid "States"
 msgstr "Estados"
 
-#: apps/job_vacancy/models.py:63
+#: apps/job_vacancy/models.py:74
 msgid "Cities"
 msgstr "Cidades"
 
-#: apps/job_vacancy/models.py:73
+#: apps/job_vacancy/models.py:85
 msgid "Fixed value"
 msgstr "Valor fixo"
 
-#: apps/job_vacancy/models.py:74
+#: apps/job_vacancy/models.py:86
 msgid "Range from"
 msgstr "Intervalo de"
 
-#: apps/job_vacancy/models.py:75
+#: apps/job_vacancy/models.py:87
 msgid "Range to"
 msgstr "Intervalo para"
 
-#: apps/job_vacancy/models.py:76
+#: apps/job_vacancy/models.py:88
 msgid "Salary Type"
 msgstr "Tipo de salário"
 
-#: apps/job_vacancy/models.py:87
+#: apps/job_vacancy/models.py:101
 msgid "Responsibility"
 msgstr "Área de atuação"
 
-#: apps/job_vacancy/models.py:88
+#: apps/job_vacancy/models.py:103
 msgid "Responsibility Type"
 msgstr "tipo da área de atuação"
 
-#: apps/job_vacancy/models.py:112
+#: apps/job_vacancy/models.py:132
 msgid "Item"
 msgstr "Item"
 
-#: apps/job_vacancy/models.py:113
+#: apps/job_vacancy/models.py:133
 msgid "Level"
 msgstr "Nível"
 
-#: apps/job_vacancy/models.py:114 apps/job_vacancy/models.py:121
+#: apps/job_vacancy/models.py:134 apps/job_vacancy/models.py:142
 msgid "Exigency"
-msgstr ""
+msgstr "Exigência"
 
-#: apps/job_vacancy/models.py:115
+#: apps/job_vacancy/models.py:135
 msgid "Experience"
 msgstr "Experiência"
 
-#: apps/job_vacancy/models.py:120
+#: apps/job_vacancy/models.py:141
 msgid "Certification"
 msgstr "Certificação"
+
+#: apps/job_vacancy/views.py:70
+msgid "Job not found!"
+msgstr "Vaga não encontrada"
+
+#: apps/notifications/models.py:38
+msgid "Info"
+msgstr "Info"
+
+#: apps/notifications/models.py:39
+msgid "Danger"
+msgstr "Perigo"
+
+#: apps/notifications/models.py:40
+msgid "Warning"
+msgstr "Aviso"
+
+#: apps/notifications/models.py:49
+msgid "Updated In"
+msgstr "Atualizado em"
+
+#: apps/notifications/models.py:50
+msgid "Created In"
+msgstr "Criado em"
 
 #: apps/notifications/views.py:23
 msgid "you must specify the template_list_path property"
@@ -1019,13 +1127,9 @@ msgstr "Notificação não encontrada"
 msgid "Your answer can not be blank"
 msgstr "Sua resposta não pode estar em branco."
 
-#: apps/question/views.py:18
-msgid "Question not Found."
-msgstr "Pergunta não encontrada"
-
 #: apps/question/views.py:139 apps/question/views.py:161
 msgid "Question not created!"
-msgstr "Dùvida não encontrada"
+msgstr "Pergunta não criada"
 
 #: apps/question/views.py:141 apps/question/views.py:163
 msgid "Question created successfully!"
@@ -1034,7 +1138,7 @@ msgstr "Pergunta criada com sucesso!"
 #: apps/question/views.py:185 apps/question/views.py:210
 #: apps/question/views.py:222 apps/question/views.py:268
 msgid "Question is not exists!"
-msgstr "Dùvida não existe"
+msgstr "Pergunta não existe"
 
 #: apps/question/views.py:199
 msgid "Question updated successfully!"
@@ -1146,23 +1250,23 @@ msgstr "Ação social não encontrada"
 msgid "No user was selected."
 msgstr "Nenhum usuário foi selecionado"
 
-#: apps/userprofile/models.py:20
+#: apps/userprofile/models.py:23
 msgid "MALE"
 msgstr "MASCULINO"
 
-#: apps/userprofile/models.py:21
+#: apps/userprofile/models.py:24
 msgid "FEMALE"
 msgstr "FEMININO"
 
-#: apps/userprofile/service/forms.py:76
+#: apps/userprofile/service/forms.py:77
 msgid "Birth invalid."
 msgstr "Nascimento inválido"
 
-#: apps/userprofile/service/forms.py:82
+#: apps/userprofile/service/forms.py:83
 msgid "Gênero não permitido."
 msgstr "Gênero não permitido."
 
-#: apps/userprofile/service/forms.py:92
+#: apps/userprofile/service/forms.py:93
 msgid "Image size more than 1mb."
 msgstr "Tamanho da imagem excede 1mb"
 
@@ -1206,38 +1310,42 @@ msgstr "Ocupação deletada com sucesso"
 msgid "^admin/"
 msgstr "^admin-portal/"
 
-#. Translators: URL root de conta
 #: rede_gsti/urls.py:36
+msgid "^jobs/"
+msgstr "^vagas/"
+
+#. Translators: URL root de conta
+#: rede_gsti/urls.py:39
 msgid "^account/"
 msgstr "^conta/"
 
 #. Translators: URL root de comentario
-#: rede_gsti/urls.py:39
+#: rede_gsti/urls.py:42
 msgid "^comment/"
 msgstr "^comentario/"
 
 #. Translators: URL root de perfil de usuario
-#: rede_gsti/urls.py:42
+#: rede_gsti/urls.py:45
 msgid "^profile/"
 msgstr "^perfil/"
 
 #. Translators: URL de conta social
-#: rede_gsti/urls.py:45
+#: rede_gsti/urls.py:48
 msgid "^socialaccount/"
 msgstr "^conta-social/"
 
 #. Translators: URL de acoes sociais
-#: rede_gsti/urls.py:48
+#: rede_gsti/urls.py:51
 msgid "^socialactions/"
 msgstr "^acoes-sociais/"
 
 #. Translators: URL root de comunidade
-#: rede_gsti/urls.py:54
+#: rede_gsti/urls.py:57
 msgid "^community/"
 msgstr "^comunidade/"
 
 #. Translators: URL root de notificacoes
-#: rede_gsti/urls.py:57
+#: rede_gsti/urls.py:60
 msgid "^notifications/"
 msgstr "^notificacoes/"
 
@@ -1245,48 +1353,48 @@ msgstr "^notificacoes/"
 #. Translators: URL root CORE de acoes sociais
 #. Translators: URL de buscai
 #. Translators: URL core adicionais
-#: rede_gsti/urls.py:60 rede_gsti/urls.py:63 rede_gsti/urls.py:88
-#: rede_gsti/urls.py:91
+#: rede_gsti/urls.py:63 rede_gsti/urls.py:66 rede_gsti/urls.py:91
+#: rede_gsti/urls.py:94
 msgid "^"
 msgstr "^"
 
 #. Translators: URL root de categoria
-#: rede_gsti/urls.py:66
+#: rede_gsti/urls.py:69
 msgid "^category-feed/"
 msgstr "^categoria/"
 
 #. Translators: URL root de pergunta
-#: rede_gsti/urls.py:69
+#: rede_gsti/urls.py:72
 msgid "^question/"
 msgstr "^pergunta/"
 
 #. Translators: URL root de contato
-#: rede_gsti/urls.py:72
+#: rede_gsti/urls.py:75
 msgid "^contact/"
 msgstr "^contato/"
 
 #. Translators: URL root de contato
-#: rede_gsti/urls.py:75
+#: rede_gsti/urls.py:78
 msgid "^mailmanager/"
 msgstr "^gerenciador-de-email/"
 
 #. Translators: URL root de denuncia
-#: rede_gsti/urls.py:78
+#: rede_gsti/urls.py:81
 msgid "^complaint/"
 msgstr "^denuncia/"
 
 #. Translators: URL root de configuracao
-#: rede_gsti/urls.py:81
+#: rede_gsti/urls.py:84
 msgid "^settings/"
 msgstr "^configuracoes/"
 
 #. Translators: URL root de feed
-#: rede_gsti/urls.py:85
+#: rede_gsti/urls.py:88
 msgid "^feed/"
 msgstr "^feed/"
 
 #. Translators: URL do ckeditor
-#: rede_gsti/urls.py:94
+#: rede_gsti/urls.py:97
 msgid "^ckeditor/"
 msgstr "^ckeditor/"
 
@@ -1551,11 +1659,11 @@ msgstr "Selecione um estado"
 msgid "Selecione uma cidade"
 msgstr "Selecione uma cidade"
 
-#: templates/userprofile/profile-questions.html:33
+#: templates/userprofile/profile-questions.html:32
 msgid "Atenção!"
 msgstr "Atenção!"
 
-#: templates/userprofile/profile-questions.html:33
+#: templates/userprofile/profile-questions.html:32
 msgid "Apenas você pode visualizar a listagem com suas perguntas!"
 msgstr "Apenas você pode visualizar a listagem com suas perguntas."
 
@@ -1575,9 +1683,6 @@ msgstr "Cidade / Estado / País"
 
 #~ msgid "If you have not received the confirmation email %s to resend."
 #~ msgstr "Se você não recebeu o email de confirmação %s para reenviá-lo."
-
-#~ msgid "Countries"
-#~ msgstr "Países"
 
 #~ msgid "State"
 #~ msgstr "Estado"
