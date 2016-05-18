@@ -22,6 +22,9 @@ class Command(BaseCommand):
             #UserPRofile
             'userprofile.Responsibility',
 
+            #ContentTypes
+            'contenttypes.ContentType',
+
             #JobVacancy
             'job_vacancy.WorkLoad',
             'job_vacancy.SalaryType',
