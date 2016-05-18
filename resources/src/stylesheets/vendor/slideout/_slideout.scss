@@ -8,6 +8,7 @@
   overflow-y: auto;
   width: 255px;
   display: none;
+  border-right: 1px solid #e1e1e1;
   -webkit-overflow-scrolling: touch;
 }
 
@@ -15,7 +16,6 @@
   position: relative;
   z-index: 1;
   padding-top: 51px;
-  border-left: 1px solid #e1e1e1;
   background-color: #fff;
   // will-change: transform;
 }
