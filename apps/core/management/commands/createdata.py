@@ -15,6 +15,9 @@ class Command(BaseCommand):
             #Community
             'community.Community',
 
+            #Company
+            'company.CompanyContactType',
+
             #UserPRofile
             'userprofile.Responsibility',
 
