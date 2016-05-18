@@ -15,8 +15,15 @@ class Command(BaseCommand):
             #Community
             'community.Community',
 
+            #Company
+            'company.CompanyContactType',
+            'company.Company',
+
             #UserPRofile
             'userprofile.Responsibility',
+
+            #ContentTypes
+            'contenttypes.ContentType',
 
             #JobVacancy
             'job_vacancy.WorkLoad',
