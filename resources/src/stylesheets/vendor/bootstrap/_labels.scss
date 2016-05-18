@@ -89,6 +89,7 @@ a.label {
 .label-trash {
   @include label-variant($label-danger-bg);
   color: #fff;
+  font-size: 60%;
 }
 .label-draft {
   background: #777;
