@@ -84,6 +84,7 @@ a.label {
   background: #813889;
   border: 1px solid #e1e1e1;
   color: #fff;
+  font-size: 60%;
 }
 .label-deleted {
   @include label-variant($label-danger-bg);
