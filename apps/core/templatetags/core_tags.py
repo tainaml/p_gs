@@ -118,8 +118,8 @@ def related_posts_box(context, instance, post_type=None, count=4, template_path=
     }
 
 
-@register.inclusion_tag("core/templatetags/footer.html", takes_context=True)
-def footer(context):
+def __categories_in_cache__(context):
+
     categories_cached = cache.get("categories")
 
     if not categories_cached:
@@ -141,6 +141,13 @@ def footer(context):
         'request': context.get('request')
     }
 
+@register.inclusion_tag("core/templatetags/footer.html", takes_context=True)
+def footer(context):
+    return __categories_in_cache__(context)
+
+@register.inclusion_tag("core/templatetags/communities_cached.html", takes_context=True)
+def communities_cached(context):
+    return __categories_in_cache__(context)
 
 @register.simple_tag()
 def contact_suggest_community_type():
