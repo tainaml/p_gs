@@ -139,3 +139,14 @@ $color-counter-notification: #b2b2b2 !default;
     border-right: 1px solid #D3D3D3;
     color: #D3D3D3;
 }
+
+.form-mark-as-read {
+    @media (max-width: $screen-xs-min) {
+        width: 100%;
+        .btn-default.pull-right {
+            width: 100%;
+            float: none !important;
+        }
+    }
+
+}

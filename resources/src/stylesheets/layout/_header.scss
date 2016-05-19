@@ -33,9 +33,21 @@
     }
     .btn-show-item {
         @include make-xs-column(2);
-        text-align: center;
+        position: relative;
         font-size: 26px;
         line-height: 1.95;
+        text-align: center;
+
+        .img-circle {
+            overflow: hidden;
+            max-width: 40px;
+            max-height: 40px;
+        }
+        .badge {
+            position: absolute;
+            top: 5px; right: 0;
+            line-height: 100%;
+        }
     }
     .form-search {
         @include make-xs-column(10);
