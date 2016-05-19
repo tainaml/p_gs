@@ -45,7 +45,7 @@
             </ul>
             <ul class="job-box_vacancy">
                 {% if job.description or job.job_vacancy_responsibility %}
-                <li>
+                <li><i class="gsticon gsticon-file-text-o"></i>
                     <strong class="job-box_vacancy-title">Descrição</strong>
                     <div class="job-box_vacancy-text">
                         {% if job.company.description %}<p>{{ job.company.description }}</p>{% endif %}
@@ -57,7 +57,7 @@
                 </li>
                 {% endif %}
                 {% if job.requirements.all %}
-                <li>
+                <li><i class="gsticon gsticon-check"></i>
                     <strong class="job-box_vacancy-title">Requisitos</strong>
                     <div class="job-box_vacancy-text">
                         <ul>
@@ -72,7 +72,7 @@
                 </li>
                 {% endif %}
                 {% if job.workload %}
-                    <li>
+                    <li><i class="gsticon gsticon-clock-o"></i>
                         <strong class="job-box_vacancy-title">Carga horária</strong>
                         <div class="job-box_vacancy-text">
                             {{ job.workload.description }}
@@ -80,7 +80,7 @@
                     </li>
                 {% endif %}
                 {% if job.certifications.all %}
-                    <li>
+                    <li><i class="gsticon gsticon-certificate"></i>
                         <strong class="job-box_vacancy-title">Certificações</strong>
                         <div class="job-box_vacancy-text">
                             <ul>
@@ -92,7 +92,7 @@
                     </li>
                 {% endif %}
                 {% if job.benefits.all %}
-                    <li>
+                    <li><i class="gsticon gsticon-coffee"></i>
                         <strong class="job-box_vacancy-title">Benefícios</strong>
                         <div class="job-box_vacancy-text">
                             <ul>
@@ -104,7 +104,7 @@
                     </li>
                 {% endif %}
                 {% if job.resposibility %}
-                    <li>
+                    <li><i class="gsticon gsticon-code"></i>
                         <strong class="job-box_vacancy-title">Área de Atuação</strong>
                         <div class="job-box_vacancy-text">
                             {{ job.resposibility.responsibility.name }}{% if job.resposibility.responsibility_type %} - {{ job.resposibility.responsibility_type.description }}{% endif %}
@@ -112,7 +112,7 @@
                     </li>
                 {% endif %}
                 {% if job.email or job.phone_number or job.site %}
-                    <li>
+                    <li><i class="gsticon gsticon-envelope-o"></i>
                         <strong class="job-box_vacancy-title">Contato</strong>
                         <div class="job-box_vacancy-text">
                             {% if job.phone_number %}<p>{{ job.phone_number }}</p>{% endif %}
@@ -122,7 +122,7 @@
                     </li>
                 {% endif %}
                 {% if job.contact %}
-                    <li>
+                    <li><i class="gsticon gsticon-info"></i>
                         <strong class="job-box_vacancy-title">Mais informações</strong>
                         <div class="job-box_vacancy-text">{{ job.contact }}</div>
                     </li>
