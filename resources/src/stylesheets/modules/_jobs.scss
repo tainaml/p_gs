@@ -146,9 +146,7 @@
     @media (min-width: $screen-sm-min) {
       display: inline-block;
       border-top: none;
-      &:not(:last-child) {
-        border-right: 1px solid #e1e1e1;
-      }
+      &:not(:last-child) { border-right: 1px solid #e1e1e1 }
     }
   }
 }
@@ -164,10 +162,13 @@
   ul {
     padding-left: 0;
     list-style: none;
-    li:before { content: '- '; }
+    li:before { content: '- ' }
   }
 }
-.job-box_vacancy-title { color: #486075; }
+.job-box_vacancy-title {
+  color: #486075;
+  font-size: 18px;
+}
 .job-box_vacancy-text {
   padding-bottom: 15px;
   margin-top: 10px;
