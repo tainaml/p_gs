@@ -139,7 +139,11 @@
     }
     &-#{creator} {
         font-weight: 600;
-        img { max-height: 20px }
+        img {
+            overflow: hidden;
+            max-height: 20px;
+            max-width: 20px;
+        }
     }
     &-#{info} {
         position: relative;

@@ -43,7 +43,7 @@
             {% else %}
                 {{ instance.title }}
             {% endif %}</h3>
-            <p class="color-green">{{ instance.description|safe|slice:":250" }}{% if instance.description|safe|length > 250%}...{% endif %}</p>
+            <p class="color-green">{{ instance.description|safe|striptags|slice:":250" }}{% if instance.description|safe|length > 250 %}...{% endif %}</p>
         </div>
     </a>
     <footer class="post-footer">
