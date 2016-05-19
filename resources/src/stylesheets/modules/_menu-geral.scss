@@ -155,10 +155,7 @@
 .commmunities .community {
   float: left;
 
-  @media (min-width: $screen-md-min) {
-    width: 25%;
-    text-align: center;
-  }
+  @media (min-width: $screen-md-min) { width: 25% }
 }
 .commmunities .community > a {
   overflow: hidden;

@@ -137,7 +137,10 @@
             color: $color-time;
         }
     }
-    &-#{creator} { font-weight: 600 }
+    &-#{creator} {
+        font-weight: 600;
+        img { max-height: 20px }
+    }
     &-#{info} {
         position: relative;
         float: right;
