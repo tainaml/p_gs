@@ -11,7 +11,7 @@ class TaxonomyInLine(admin.TabularInline):
 class TaxonomyAdmin(CompareVersionAdmin):
     list_display = ('description', 'slug','parent','term',)
     list_filter = ('term', 'parent',)
-
+    search_fields = ['description', 'slug']
     inlines = [
         TaxonomyInLine,
     ]
