@@ -37,42 +37,6 @@
                                     {% endfor %}
 
                                 </div>
-                                {% comment %}
-                                <div class="form-group">
-                                    <span class="custom-check pull-left" style="margin-right: 10px; padding-bottom: 4px;">
-                                        <input type="checkbox" id="notify_follow" name="notify_follow" value="true" {% if configs and configs.notify_follow == "True" %}checked="checked"{% endif %}>
-                                    </span>
-                                    <label class="form-control" for="notify_follow">
-                                        Notificar quando alguém te seguir
-                                    </label>
-                                </div>
-                                <div class="form-group">
-                                    <span class="custom-check pull-left" style="margin-right: 10px; padding-bottom: 4px;">
-                                        <input type="checkbox" id="notify_comment_question" name="notify_comment_question" value="true" {% if configs and configs.notify_comment_question == "True" %}checked="checked"{% endif %}>
-                                    </span>
-                                    <label class="form-control" for="notify_comment_question">
-                                        Notificar quando alguém comentar uma pergunta sua
-                                    </label>
-                                </div>
-                                <div class="form-group">
-                                    <span class="custom-check pull-left" style="margin-right: 10px; padding-bottom: 4px;">
-                                        <input type="checkbox" id="notify_comment_article" name="notify_comment_article" value="true" {% if configs and configs.notify_comment_article == "True" %}checked="checked"{% endif %}>
-                                    </span>
-                                    <label class="form-control" for="notify_comment_article">
-                                        Notificar quando alguém comentar uma publicação sua
-                                    </label>
-                                </div>
-                                {% endcomment %}
-
-
-                                <div class="form-group">
-                                    <label class="custom-input" for="notify_publications_3">
-                                        <span class="custom-radio">
-                                            <input type="radio" id="notify_publications_3" name="notify_publications" value="questions" {% if configs and configs.notify_comment_article and configs.notify_publications == "questions" %}checked="checked"{% endif %}>
-                                        </span>
-                                        Receber apenas perguntas
-                                    </label>
-                                </div>
                                 <button type="submit" class="pull-right btn-default">Salvar</button>
                             </form>
                         </section>
