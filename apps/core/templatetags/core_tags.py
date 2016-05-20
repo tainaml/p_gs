@@ -126,7 +126,7 @@ def __categories_in_cache__(context):
 
         categories_cached = {}
         categories = Taxonomy.objects.filter(term__description="Categoria")
-        taxonomies = Taxonomy.objects.filter(parent__in=categories).order_by("description")
+        taxonomies = Taxonomy.objects.filter(parent__in=categories, term__description="Comunidade").order_by("description")
 
         for taxonomy in taxonomies:
             slug = slugify(taxonomy.parent.description).replace("-", "_")
