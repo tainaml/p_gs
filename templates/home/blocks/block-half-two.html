@@ -34,10 +34,10 @@
     <div class="highlight-articles--large">
         {% for article in articles|slice:"2:4" %}
             {% url 'article:view'  article.id article.slug as article_link %}
-            <div class="article-home-medium">
+            <article class="article-home-medium">
                 {% home_article_community category article %}
                 <a class="article-content" href="{{ article_link }}">{% if article.title|length > 67 %}{{ article.title|slice:":67" }}...{% else %}{{ article.title }}{% endif %}</a>
-            </div>
+            </article>
         {% endfor %}
     </div>
 </section>

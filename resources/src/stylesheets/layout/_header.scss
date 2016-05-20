@@ -139,10 +139,18 @@
 
 .slideout-menu > hr { margin: 0; }
 .slideout-menu--user {
+    @include clearfix();
     padding: 13px 20px;
     color: #4d6479;
     cursor: pointer;
     font-size: 1.214em;
+    line-height: 2.5;
+}
+.slideout-menu--user-image {
+    overflow: hidden;
+    max-width: 42px;
+    max-height: 42px;
+    float: left;
 }
 .slideout-menu--link {
     padding: 10px 20px;
