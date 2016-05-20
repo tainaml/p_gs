@@ -701,17 +701,17 @@ msgstr "^editar-postagens/busca/listagem/$"
 #. Translators: URL de edicao de questions
 #: apps/core/urls/user.py:24
 msgid "^edit-questions/$"
-msgstr "^minhas-perguntas/$"
+msgstr "^editar-perguntas/$"
 
 #. Translators: URL de procura de questions
 #: apps/core/urls/user.py:27
 msgid "^edit-questions/search/$"
-msgstr "^editar-postagens/busca/$"
+msgstr "^editar-perguntas/busca/$"
 
 #. Translators: URL de listagem e procura de questions
 #: apps/core/urls/user.py:30
 msgid "^edit-questions/search/list/$"
-msgstr "^editar-postagens/busca/listagem/$"
+msgstr "^editar-perguntas/busca/listagem/$"
 
 #. Translators: URL de passo 1 do wizard
 #: apps/core/urls/user.py:33
