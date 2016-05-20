@@ -17,12 +17,12 @@
     {% else %}
 
         <nav class="perfil-navegation hidden-xs">
-            {% if profile.user == request.user %}<a {% if active == "feed" %}class="active"{% endif %} href="{% url 'profile:feed' %}">Feed</a> •{% endif %}
-            <a {% if active == "profile" %}class="active"{% endif %} href="{% url 'profile:show' username=profile.user.username %}">Publicações</a> •
-            {% if profile.user == request.user %}<a {% if active == "my-questions" %}class="active"{% endif %} href="{% url 'profile:my-questions' %}">Minhas Perguntas</a> •{% endif %}
+            {% if profile.user == request.user %}<a {% if active == "feed" %}class="active"{% endif %} href="{% url 'profile:feed' %}">Feed</a> <span>•</span>{% endif %}
+            <a {% if active == "profile" %}class="active"{% endif %} href="{% url 'profile:show' username=profile.user.username %}">Publicações</a> <span>•</span>
+            {% if profile.user == request.user %}<a {% if active == "my-questions" %}class="active"{% endif %} href="{% url 'profile:my-questions' %}">Minhas Perguntas</a> <span>•</span>{% endif %}
 
-            <a {% if active == "community" %}class="active"{% endif %} href="{% url 'profile:communities' username=profile.user.username %}">Comunidades</a> •
-            <a {% if active == "relationship" %}class="active"{% endif %} href="{% url 'profile:followers' username=profile.user.username %}">Relacionamentos</a> •
+            <a {% if active == "community" %}class="active"{% endif %} href="{% url 'profile:communities' username=profile.user.username %}">Comunidades</a> <span>•</span>
+            <a {% if active == "relationship" %}class="active"{% endif %} href="{% url 'profile:followers' username=profile.user.username %}">Relacionamentos</a> <span>•</span>
             <a {% if active == "videos" %}class="active"{% endif %} href="{% url 'profile:videos' profile.user.username %}">Vídeos</a>
         </nav>
 
@@ -32,13 +32,13 @@
 {% endif %}
 
 <nav class="mobile-perfil-navegation" id="mobile-perfil-navegation">
-    {% if profile.user == request.user %}<a {% if active == "feed" %}class="active"{% endif %} href="{% url 'profile:feed' %}">Feed</a> •{% endif %}
-            <a {% if active == "profile" %}class="active"{% endif %} href="{% url 'profile:show' username=profile.user.username %}">Publicações</a> •
-            {% if profile.user == request.user %}<a {% if active == "my-questions" %}class="active"{% endif %} href="{% url 'profile:my-questions' %}">Minhas Perguntas</a> •{% endif %}
+    {% if profile.user == request.user %}<a {% if active == "feed" %}class="active"{% endif %} href="{% url 'profile:feed' %}">Feed</a> <span>•</span>{% endif %}
+    <a {% if active == "profile" %}class="active"{% endif %} href="{% url 'profile:show' username=profile.user.username %}">Publicações</a> <span>•</span>
+    {% if profile.user == request.user %}<a {% if active == "my-questions" %}class="active"{% endif %} href="{% url 'profile:my-questions' %}">Minhas Perguntas</a> <span>•</span>{% endif %}
 
-            <a {% if active == "community" %}class="active"{% endif %} href="{% url 'profile:communities' username=profile.user.username %}">Comunidades</a> •
-            <a {% if active == "relationship" %}class="active"{% endif %} href="{% url 'profile:followers' username=profile.user.username %}">Relacionamentos</a> •
-            <a {% if active == "videos" %}class="active"{% endif %} href="{% url 'profile:videos' profile.user.username %}">Vídeos</a>
+    <a {% if active == "community" %}class="active"{% endif %} href="{% url 'profile:communities' username=profile.user.username %}">Comunidades</a> <span>•</span>
+    <a {% if active == "relationship" %}class="active"{% endif %} href="{% url 'profile:followers' username=profile.user.username %}">Relacionamentos</a> <span>•</span>
+    <a {% if active == "videos" %}class="active"{% endif %} href="{% url 'profile:videos' profile.user.username %}">Vídeos</a>
 </nav>
 
 {% if has_filter %}
