@@ -155,6 +155,11 @@
   margin-bottom: 0;
   color: #e1e1e1;
   list-style: none;
+  .gsticon {
+    margin-right: 5px;
+    font-size: 18px;
+    font-weight: bold;
+  }
   li:last-child .job-box_vacancy-text {
     padding-bottom: 0;
     border-bottom: none;
