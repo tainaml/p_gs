@@ -13,14 +13,13 @@
 
             <figure class="article-home-small" id="article__{{ article.id }}">
                 <a href="{{ article_link }}">
-                    {% if article.image %}
-                        <img
-                                class="img-responsive"
-                                src="{% thumbor_url article.image.url width=170 height=128 smart=False fit_in=False %}"
-                                alt="{% if article.title|length > 67 %}{{ article.title|slice:":67" }}...{% else %}{{ article.title }}{% endif %}">
-                    {% else %}
-                        <img class="img-responsive" src="http://placehold.it/170x128" alt="Placeholder">
-                    {% endif %}
+                {% if article.image %}
+                    <img class="img-responsive"
+                        src="{% thumbor_url article.image.url width=170 height=128 smart=False fit_in=False %}"
+                        alt="{% if article.title|length > 67 %}{{ article.title|slice:":67" }}...{% else %}{{ article.title }}{% endif %}">
+                {% else %}
+                    <img class="img-responsive" src="http://placehold.it/170x128" alt="Placeholder">
+                {% endif %}
                 </a>
                 <figcaption>
                     {% home_article_community category article %}
