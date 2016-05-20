@@ -24,14 +24,14 @@
 <a class="slideout-menu--link" href="{% url 'profile:feed' %}"><i class="gsticon gsticon-feed"></i> Meu Feed</a>
 <a class="slideout-menu--link" href="{% url 'profile:show' request.user.username %}"><i class="gsticon gsticon-file-text"></i> Minhas Publicações</a>
 <a class="slideout-menu--link" href="{% url 'profile:my-questions' %}"><i class="gsticon gsticon-question"></i> Minhas Perguntas</a>
-<a class="slideout-menu--link" href="{% url 'profile:edit' %}"><i class="gsticon gsticon-pencil"></i> Editar Perfil</a>
-<a class="slideout-menu--link" href="{% url 'question:create' %}"><i class="gsticon gsticon-question-circle"></i> Perguntar</a>
-<a class="slideout-menu--link" href="{% url 'article:create' %}"><i class="gsticon gsticon-file-text-o"></i> Criar Publicação</a>
-<a class="slideout-menu--link" href="{% url 'profile:edit-posts' %}"><i class="gsticon gsticon-pencil-square-o"></i> Editar Conteúdo</a>
-<a class="slideout-menu--link" href="{% url 'profile:favourite' %}"><i class="gsticon gsticon-star"></i> Favoritos</a>
-<a class="slideout-menu--link" href="{% url 'profile:see-later' %}"><i class="gsticon gsticon-eye"></i> Ver depois</a>
-<a class="slideout-menu--link" href="{% url 'profile:suggest' %}"><i class="gsticon gsticon-paper-plane"></i> Sugeridos</a>
-<a class="slideout-menu--link" href="{% url 'configuration:account' %}"><i class="gsticon gsticon-gear"></i> Configurações</a>
+    <a class="slideout-menu--link" href="{% url 'article:create' %}"><i class="gsticon gsticon-file-text-o"></i> Criar Publicação</a>
+    <a class="slideout-menu--link" href="{% url 'question:create' %}"><i class="gsticon gsticon-question-circle"></i> Perguntar</a>
+    <a class="slideout-menu--link" href="{% url 'profile:favourite' %}"><i class="gsticon gsticon-star"></i> Favoritos</a>
+    <a class="slideout-menu--link" href="{% url 'profile:see-later' %}"><i class="gsticon gsticon-eye"></i> Ver depois</a>
+    <a class="slideout-menu--link" href="{% url 'profile:suggest' %}"><i class="gsticon gsticon-paper-plane"></i> Sugeridos</a>
+    <a class="slideout-menu--link" href="{% url 'profile:edit-posts' %}"><i class="gsticon gsticon-pencil-square-o"></i> Editar Conteúdo</a>
+    <a class="slideout-menu--link" href="{% url 'profile:edit' %}"><i class="gsticon gsticon-pencil"></i> Editar Perfil</a>
+    <a class="slideout-menu--link" href="{% url 'configuration:account' %}"><i class="gsticon gsticon-gear"></i> Configurações</a>
 <a class="slideout-menu--link" href="{% url 'account:logout' %}?next={{ request.path }}"><i class="gsticon gsticon-close"></i> {% trans "Sair" %}</a>
 {% else %}
 <div class="slideout-menu--user">
