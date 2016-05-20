@@ -180,7 +180,7 @@ class CoreCommunityLoad(views.View):
     def get_context(self, request, *args, **kwargs):
         return {}
 
-    def post(self, request, object_id, content_type):
+    def get(self, request, object_id, content_type):
 
         url_next = request.POST.get('url-next')
 
