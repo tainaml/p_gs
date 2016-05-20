@@ -16,7 +16,7 @@
             //'/account/is-logged/'
             urlCheckLogin : $element.data("url-login"),
             urlNext: $element.data("url-next"),
-            method  : 'post',
+            method  : 'get',
             dataType: 'json',
             modal   : '#modal-login',
             token   : null,
@@ -36,7 +36,7 @@
                 //
                 //if ( 'csrfmiddlewaretoken' in obj.settings.data && obj.settings.token)
                 //   obj.settings.data['csrfmiddlewaretoken'] = obj.settings.token;
-                console.log(obj.settings.urlCheckLogin);
+
                 $.ajax({
                     url: obj.settings.urlCheckLogin,
                     method: obj.settings.method,
