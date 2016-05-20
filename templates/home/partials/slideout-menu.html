@@ -28,6 +28,9 @@
 <a class="slideout-menu--link" href="{% url 'question:create' %}"><i class="gsticon gsticon-question-circle"></i> Perguntar</a>
 <a class="slideout-menu--link" href="{% url 'article:create' %}"><i class="gsticon gsticon-file-text-o"></i> Criar Publicação</a>
 <a class="slideout-menu--link" href="{% url 'profile:edit-posts' %}"><i class="gsticon gsticon-pencil-square-o"></i> Editar Conteúdo</a>
+<a class="slideout-menu--link" href="{% url 'profile:favourite' %}"><i class="gsticon gsticon-star"></i> Favoritos</a>
+<a class="slideout-menu--link" href="{% url 'profile:see-later' %}"><i class="gsticon gsticon-eye"></i> Ver depois</a>
+<a class="slideout-menu--link" href="{% url 'profile:suggest' %}"><i class="gsticon gsticon-paper-plane"></i> Sugeridos</a>
 <a class="slideout-menu--link" href="{% url 'configuration:account' %}"><i class="gsticon gsticon-gear"></i> Configurações</a>
 <a class="slideout-menu--link" href="{% url 'account:logout' %}?next={{ request.path }}"><i class="gsticon gsticon-close"></i> {% trans "Sair" %}</a>
 {% else %}

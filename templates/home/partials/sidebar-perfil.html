@@ -1,6 +1,5 @@
 {% load profile_tags %}
 {% load user_agents %}
-
 {% comment  %} Ugly, TODO refactor with template tag because django's if built in filters does not support parenthesis {% endcomment %}
 {% if profile and profile.user %}
     {% if request|is_pc %}
@@ -33,7 +32,8 @@
     </div>
     {% endif %}
 
-    <div class="widget widget-box">
+    {% if request|is_pc %}
+        <div class="widget widget-box">
         <div class="widget-content">
             <ul class="perfil-repositories">
                 <li {% if local_context == "favourite" %}class="active"{% endif %}>
@@ -51,4 +51,8 @@
             </ul>
         </div>
     </div>
+
+    {% endif %}
+
+
 {% endif %}
