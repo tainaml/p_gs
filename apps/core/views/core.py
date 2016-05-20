@@ -52,7 +52,7 @@ class CoreRelatedPosts(CoreBaseView):
             }
             return JsonResponse(_context, status=200)
 
-    def post(self, request, instance_id, instance_type, post_type=None, count=None):
+    def get(self, request, instance_id, instance_type, post_type=None, count=None):
 
 
         count = count if count and count < 10 else 4
