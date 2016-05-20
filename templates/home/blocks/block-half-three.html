@@ -11,7 +11,7 @@
 
             {% url 'article:view'  article.id article.slug as article_link %}
 
-            <article class="article-home-small" id="article__{{ article.id }}">
+            <figure class="article-home-small" id="article__{{ article.id }}">
                 <a href="{{ article_link }}">
                     {% if article.image %}
                         <img
@@ -22,11 +22,11 @@
                         <img class="img-responsive" src="http://placehold.it/170x128" alt="Placeholder">
                     {% endif %}
                 </a>
-                <div>
+                <figcaption>
                     {% home_article_community category article %}
                     <a class="article-content" href="{{ article_link }}">{% if article.title|length > 67 %}{{ article.title|slice:":67" }}...{% else %}{{ article.title }}{% endif %}</a>
-                </div>
-            </article>
+                </figcaption>
+            </figure>
         {% endfor %}
     </div>
     <div class="highlight-articles--large">
