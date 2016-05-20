@@ -11,7 +11,6 @@
 
         // plugin's default options
         // this is private property and is  accessible only from inside the plugin
-
         var $element = $(element);
         var defaults = {
             //'/account/is-logged/'
@@ -32,12 +31,12 @@
                 if ( obj.settings.method == "post" && !obj.settings.token )
                     console.error( 'Token is not defined' );
 
-                if ( !('csrfmiddlewaretoken' in obj.settings.data) )
-                    obj.settings.data['csrfmiddlewaretoken'] = null;
-
-                if ( 'csrfmiddlewaretoken' in obj.settings.data && obj.settings.token )
-                    obj.settings.data['csrfmiddlewaretoken'] = obj.settings.token;
-
+                //if ( !('csrfmiddlewaretoken' in obj.settings.data))
+                //    obj.settings.data['csrfmiddlewaretoken'] = null
+                //
+                //if ( 'csrfmiddlewaretoken' in obj.settings.data && obj.settings.token)
+                //   obj.settings.data['csrfmiddlewaretoken'] = obj.settings.token;
+                console.log(obj.settings.urlCheckLogin);
                 $.ajax({
                     url: obj.settings.urlCheckLogin,
                     method: obj.settings.method,
@@ -45,6 +44,7 @@
                     data: obj.settings.data,
                     success: function(data) {
                         obj.settings.check( obj, event, data );
+                        console.log(obj.settings.urlCheckLoginl);
                     },
                     error: function(status) {
                         obj.settings.onFailure( obj, event, status );
