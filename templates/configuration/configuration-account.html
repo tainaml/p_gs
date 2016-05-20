@@ -13,7 +13,6 @@
             </div>
             <!-- mudar para 9.5 -->
             <div class="col-lg-9">
-                {% include 'userprofile/partials/profile-navbar.html' %}
                 <div class="row">
                     <div class="col-lg-8">
                         <header class="area-title">
@@ -34,8 +33,8 @@
                                     <input type="password" name="new_password_confirmation" class="form-control" placeholder="Confirma senha">
                                 </div>
                                 <div class="form-group text-right">
-                                    <a class="btn btn-danger" onclick="window.location.href='{% url 'configuration:deactivate-account' %}';" href="javascript:void(0);" title="{% trans 'Desativar Conta' %}">{% trans 'Desativar Conta' %}</a>
-                                    <button type="submit" class="btn btn-primary">Salvar</button>
+                                    <a class="btn text-danger pull-left" onclick="window.location.href='{% url 'configuration:deactivate-account' %}';" href="javascript:void(0);" title="{% trans 'Desativar Conta' %}">{% trans 'Desativar Conta' %}</a>
+                                    <button type="submit" class="btn-default pull-right">Salvar</button>
                                 </div>
                             </form>
                         </section>
