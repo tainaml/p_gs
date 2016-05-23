@@ -5,19 +5,15 @@
 {% block content %}
 <main class="container main">
     <div class="row">
-        <!-- mudar para 2.5 -->
         <div class="col-lg-3">
             {% include 'home/partials/sidebar-perfil.html' with local_context="posts-edit" %}
         </div>
-        <!-- mudar para 9.5 -->
         <div class="col-lg-9">
             <div class="row">
                 <div class="col-sm-12">
-                    <header class="area-title">
-                        <h2>Editar Publicações</h2>
-                    </header>
+                    {% include 'userprofile/partials/filters.html' with title="Minhas Perguntas" active="my-questions" has_filter=True has_navigation=False %}
                     <div class="row">
-                        <form id="search-form" action="{% url 'profile:edit-posts-search-ajax' %}" method="GET" data-ajaxform="true" data-group-class=".form-search-input">
+                        {% block filters %}<form id="form-search" class="form-search filters-members" action="{% url 'profile:edit-posts-search-ajax' %}" method="GET" data-ajaxform="true" data-group-class=".form-search-input">
                             {% csrf_token %}
                             <div class="col-sm-5">
                                 <nav class="form-search">
@@ -76,7 +72,7 @@
                                 </div>
                             </div>
                             {% include "userprofile/partials/profile-edit-item-menu.html" with item_context="posts" %}
-                        </form>
+                        </form>{% endblock %}
                     </div>
                     <section class="area-content">
                         <div id="posts-container">

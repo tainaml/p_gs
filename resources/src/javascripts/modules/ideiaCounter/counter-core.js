@@ -288,8 +288,8 @@ if ( typeof Object.create !== 'function' ) {
                 message: '<p class="article-counter">Número de caracteres: {counter}</p>'
             },
             limit: {
-                remains: 'Restam {counter} caracteres.',
-                remain: 'Resta {counter} carctere.',
+                remains: 'Restam {counter} caracteres',
+                remain: 'Resta {counter} carctere',
                 nochar: 'Não há mais caracteres disponíveis.'
             }
         },
