@@ -86,12 +86,11 @@
                                 <div class="cloud-tags">
                                     <h3 class="cloud-tags-title">Conteúdo Oficial</h3>
                                     <div class="article-tags row">
-                                        <div class="col-xs-12 tag">
-                                            <label class="custom-input">
-                                                <span class="custom-check">
-                                                    <input type="checkbox" name="official" {% if form_article.initial.official %}checked="checked"{% endif %} />
-                                                </span> Oficial
-                                            </label>
+                                        <div class="col-xs-12 tag custom-input">
+                                            <span class="custom-check">
+                                                <input type="checkbox" name="official" {% if form_article.initial.official %}checked="checked"{% endif %} />
+                                            </span>
+                                            <label class="custom-label" class="">Oficial</label>
                                         </div>
                                     </div>
                                 </div>
@@ -102,13 +101,11 @@
                                     <div class="article-tags row">
 
                                         {% for tag in form_article.fields.tags.queryset %}
-                                            <div class="col-xs-6 tag">
-                                                <label class="custom-input">
-                                                    <div class="custom-check">
-                                                        <input type="checkbox" name="tags" value="{{ tag.id }}" {% if tag in form_article.initial.tags %}checked{% endif %} />
-                                                    </div>
-                                                    {{ tag.tag_name }}
-                                                </label>
+                                            <div class="col-xs-6 tag custom-input">
+                                                <div class="custom-check">
+                                                    <input type="checkbox" name="tags" value="{{ tag.id }}" id="{{ tag.id }}" {% if tag in form_article.initial.tags %}checked{% endif %} />
+                                                </div>
+                                                <label class="custom-label" for="{{ tag.id }}">{{ tag.tag_name }}</label>
                                             </div>
                                         {% endfor %}
 
