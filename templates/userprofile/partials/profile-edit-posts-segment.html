@@ -27,7 +27,7 @@
             {% endif %}
                 <nav class="publication-footer-menu">
                     <a class="publication-footer-menu-item" href="{% url 'article:edit' post.id %}">Editar</a>
-                    <a class="publication-footer-menu-item" href="{% url 'article:view' post.id post.slug %}" target="_blank">Visualizar</a>
+                    <a class="publication-footer-menu-item" href="{% url 'article:view' post.year post.month post.slug %}" target="_blank">Visualizar</a>
                     {% if post.status != 2 %}
                     <a class="publication-footer-menu-item text-danger" href="{% url 'article:delete' post.id %}" data-delete-item="true" data-url="{% url 'article:delete-async' post.id %}" data-item="{{ post.id }}" data-title="{{ post.title }}"  data-modal="#modal-confirmation">Excluir</a>
                     {% endif %}

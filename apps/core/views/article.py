@@ -31,8 +31,8 @@ class CoreArticleView(views.ArticleView):
     form_comment = CreateCommentForm
 
     # @Override
-    def filter_article(self, request=None, slug=None, article_id=None):
-        article_dict = core_article_business.get_article(article_id, slug)
+    def filter_article(self, request=None, year=None, month=None, slug=None):
+        article_dict = core_article_business.get_article(year, month, slug)
 
         if not article_dict['article']:
             '''
