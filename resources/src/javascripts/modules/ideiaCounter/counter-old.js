@@ -218,8 +218,8 @@ if ( typeof Object.create !== 'function' ) {
 
     $.fn.ideiaCounter.messages = {
         'pt-br': {
-            remains: 'Restam {countChar} caracteres.',
-            remain: 'Resta {countChar} carctere.',
+            remains: 'Restam {countChar} caracteres',
+            remain: 'Resta {countChar} carctere',
             nochar: 'Não há mais caracteres disponíveis.'
 
         },
