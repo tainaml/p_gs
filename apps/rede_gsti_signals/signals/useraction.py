@@ -56,13 +56,6 @@ def count_user_actions(sender, **kwargs):
         counter_user_instance.save()
 
 
-@receiver(post_save, sender=Community)
-def refresh_footer(sender, **kwargs):
-    footer = cache.get("footer")
-    if footer:
-        cache.delete("footer")
-
-
 @receiver(post_save, sender=UserAction)
 def social_action(sender, **kwargs):
     action = kwargs['instance']
