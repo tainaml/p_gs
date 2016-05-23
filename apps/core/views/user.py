@@ -463,7 +463,7 @@ class CoreProfileCommunitiesLoad(views.ProfileShowView):
             'url_next': url_next
         }
 
-    def post(self, request, username):
+    def get(self, request, username):
 
         profile = self.filter(request, username)
 
