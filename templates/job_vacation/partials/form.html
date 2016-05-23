@@ -8,11 +8,11 @@
         <form action="{% url "jobs:search" %}" class="jobs-search form-inline" method="get">
             <label class="jobs-search_field" for="job_title">
                 <i class="gsticon gsticon-search"></i>
-                <input name="keywords" class="form-control" id="job_title" type="text" placeholder="Diretor de Arte" value="{% if form.cleaned_data.keywords %}{{ form.cleaned_data.keywords }}{% endif %}">
+                <input name="keywords" class="form-control" id="job_title" type="text" data-toggle="selectize" data-module="job" placeholder="Diretor de Arte" value="{% if form.cleaned_data.keywords %}{{ form.cleaned_data.keywords }}{% endif %}">
             </label>
             <label class="jobs-search_field" for="job_location">
                 <i class="gsticon gsticon-map-marker"></i>
-                <input name="locale" class="form-control" id="job_location" type="text" placeholder="São Paulo" value="{% if form.cleaned_data.locale %}{{ form.cleaned_data.locale }}{% endif %}">
+                <input name="locale" class="form-control" id="job_location" type="text" data-toggle="selectize" data-module="job" placeholder="São Paulo" value="{% if form.cleaned_data.locale %}{{ form.cleaned_data.locale }}{% endif %}">
             </label>
             <button type="submit" class="jobs-search_submit">Procurar vaga</button>
         </form>
