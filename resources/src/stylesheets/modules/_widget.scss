@@ -210,19 +210,18 @@
             margin: 0 3px;
             border: 1px solid rgba(193, 193, 193, 0.3);
             color: $background-button;
+            &.post-votes-up .gsticon { margin-left: 5px }
+            &.post-votes-down .gsticon { margin-right: 5px }
+
             &.post-votes-up.liked {
                 background: green;
                 color: white;
-                &:hover {
-                    background: lighten(green, 10%);
-                }
+                &:hover { background: lighten(green, 10%) }
             }
             &.post-votes-down.unliked {
                 background: red;
                 color: white;
-                &:hover {
-                    background: lighten(red, 10%);
-                }
+                &:hover { background: lighten(red, 10%) }
             }
         }
 
