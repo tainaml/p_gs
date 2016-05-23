@@ -11,7 +11,7 @@
             </div>
             <div class="col-lg-9">
 
-                {% include 'userprofile/partials/filters.html' with title="Publicações de "|add:profile.user.first_name  active="profile" has_filter=True %}
+                {% include 'userprofile/partials/filters.html' with title="Publicações de "|add:profile.user.first_name  active="profile" has_filter=True has_navigation=True %}
                 <div class="row">
                     <div class="col-lg-8">
                         {% block filters %}
@@ -26,7 +26,6 @@
                                 </form>
                             </nav>
                         {% endblock filters %}
-                            <!-- A "barra" de pesquisa não é exibida no feed, somente no -->
 
                         <section class="area-content">
                             {% if feed_objects.object_list %}
@@ -38,7 +37,6 @@
                             {% endif %}
                         </section>
                     </div>
-                    <!-- Right bar -->
                     {% include 'userprofile/partials/profile-sidebar-right.html' %}
                 </div>
             </div>
