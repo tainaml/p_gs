@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-23 18:34-0300\n"
+"POT-Creation-Date: 2016-05-24 14:20-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -129,8 +129,6 @@ msgid "Image format is not allowed."
 msgstr "Formato da imagem não é permitido"
 
 #: apps/article/service/forms.py:93
-#, fuzzy
-#| msgid "Image size more than 1mb."
 msgid "Image size is too long."
 msgstr "Tamanho da imagem é muito grande"
 
@@ -393,11 +391,11 @@ msgstr "^publicacao/delete/async/(?P<article_id>\\d+)$"
 #. Translators: URL de criacao de artigo
 #: apps/core/urls/article.py:20
 msgid ""
-"^(?P<year>\\d\\d\\d\\d+)/(?P<month>(0[1-9]|[1-2][0-9]|3[0-1]))/(?P<slug>[aA-"
-"zZ0-9-_]+).html$"
+"^(?P<year>\\d\\d\\d\\d+)/(?P<month>0[1-9]|1[0-2])/(?P<slug>[aA-zZ0-9-_]+)."
+"html$"
 msgstr ""
-"^(?P<year>\\d\\d\\d\\d+)/(?P<month>(0[1-9]|[1-2][0-9]|3[0-1]))/(?P<slug>[aA-"
-"zZ0-9-_]+).html$"
+"^(?P<year>\\d\\d\\d\\d+)/(?P<month>0[1-9]|1[0-2])/(?P<slug>[aA-zZ0-9-_]+)."
+"html$"
 
 #. Translators: URL de criacao de artigo em uma comunidade
 #: apps/core/urls/article.py:23
@@ -972,8 +970,6 @@ msgid "Question not Found."
 msgstr "Pergunta não encontrada"
 
 #: apps/core/views/question.py:179
-#, fuzzy
-#| msgid "This article has been deleted"
 msgid "This question has been deleted"
 msgstr "Publicação removida"
 

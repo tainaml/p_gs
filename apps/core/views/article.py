@@ -49,13 +49,13 @@ class CoreArticleView(views.ArticleView):
 
         return article_dict
 
-    def get(self, request, article_slug, article_id):
-        article_dict = self.filter_article(request, article_slug, article_id)
+    def get(self, request, year, month, slug):
+        article_dict = self.filter_article(request, year, month, slug)
         article = article_dict['article']
 
         if article:
             if article_dict['redirect']:
-                return redirect('article:view', article.id, article.slug, permanent=True)
+                return redirect('article:view', article.year, article.month, article.slug, permanent=True)
 
         context = {'article': article}
         context.update(self.get_context(request, article))

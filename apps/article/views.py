@@ -19,8 +19,8 @@ class ArticleBaseView(View):
     msg_article_not_found = _('Article not Found.')
     article_not_found = Http404(_('Article not Found.'))
 
-    def filter_article(self, request=None, slug=None, article_id=None):
-        article = Business.get_article(article_id)
+    def filter_article(self, request=None, year=None, month=None, slug=None):
+        article = Business.get_article()
 
         if not article:
             '''
@@ -50,8 +50,8 @@ class ArticleView(ArticleBaseView):
     def get_context(self, request, article_instance=None):
         return {}
 
-    def get(self, request, article_slug, article_id):
-        article = self.filter_article(request, article_slug, article_id)
+    def get(self, request, year, month, slug):
+        article = self.filter_article(request, slug)
 
         context = {'article': article}
         context.update(self.get_context(request, article))
