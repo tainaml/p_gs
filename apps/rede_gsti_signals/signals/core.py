@@ -1,5 +1,5 @@
 from django.conf import settings
-from django.db.models.signals import post_save
+from django.db.models.signals import post_save, post_delete
 from django.dispatch import receiver
 from django.core.cache import cache
 from apps.community.models import Community
@@ -10,14 +10,24 @@ import logging
 
 logger = logging.getLogger('signals')
 
-@receiver(post_save, sender=Community)
-def refresh_footer(sender, **kwargs):
+
+def __invalidate_footer_cache__():
     logger.info("Checking Footer cache")
     footer = cache.get("categories")
 
     if footer:
         logger.info("Footer cache found, cleaning Footer cache.")
         cache.delete("categories")
+
+
+@receiver(post_save, sender=Community)
+def refresh_footer(sender, **kwargs):
+    __invalidate_footer_cache__()
+
+
+@receiver(post_delete, sender=Community)
+def refresh_delete(sender, **kwargs):
+    __invalidate_footer_cache__()
 
 
 @receiver(post_save, sender=Comment)

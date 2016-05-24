@@ -97,14 +97,23 @@
 }
 .custom-input {
     width: 100%;
-    float: left;
+    display: table;
     border: 1px solid $color-border;
     font-weight: normal;
     .custom-check,
     .custom-radio {
-        border-width: 0 1px 0 0;
+        width: 35px;
         margin-right: 10px;
-        display: inline-block;
+        display: table-cell;
+        vertical-align: middle;
+        border-width: 0 1px 0 0;
+    }
+
+    .custom-label {
+        padding: 5px 10px;
+        margin-bottom: 0;
+        display: table-cell;
+        vertical-align: middle;
     }
 }
 .custom-check {

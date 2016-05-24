@@ -23,20 +23,16 @@
                             <form id="form-config-notifications" action="{% url 'configuration:notification' %}" method="post" data-ajaxform="true">
                                 {% csrf_token %}
 
-                                <div class="clearfix">
+                                <div class="clearfix">{% for configuration in configurations %}
 
-                                    {% for configuration in configurations %}
-                                        <div class="form-group">
-                                            <label class="custom-input" for="{{ configuration.key }}">
-                                                <div class="custom-check">
-                                                    <input type="checkbox" id="{{ configuration.key }}" name="{{ configuration.key }}" value="true" {% if configs and configs|get_at_index:configuration.key == "True" %}checked="checked"{% endif %}>
-                                                </div>
-                                                {{ configuration.description }}
-                                            </label>
+                                    <div class="form-group custom-input">
+                                        <div class="custom-check">
+                                            <input type="checkbox" id="{{ configuration.key }}" name="{{ configuration.key }}" value="true" {% if configs and configs|get_at_index:configuration.key == "True" %}checked="checked"{% endif %}>
                                         </div>
-                                    {% endfor %}
+                                        <label class="custom-label" for="{{ configuration.key }}">{{ configuration.description }}</label>
+                                    </div>
 
-                                </div>
+                                {% endfor %}</div>
                                 <button type="submit" class="pull-right btn-default">Salvar</button>
                             </form>
                         </section>

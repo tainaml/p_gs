@@ -36,8 +36,8 @@
             color: $color;
             font-size: 1.143em;
         }
-        &:hover .aticle-content,
-        &:focus .aticle-content {
+        &:hover .article-content:hover,
+        &:focus .article-content:focus {
             color: darken($color, 10%);
         }
     } }
@@ -207,6 +207,8 @@
 }
 .publication-footer-date {
     float: right;
+    padding-right: 0;
+    border-right: 0;
     color: #d3d3d3;
 }
 .publication-footer-menu {}

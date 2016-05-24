@@ -9,7 +9,10 @@
      data-next-url="{% url 'notifications:general' %}#notification-general-{{ notification.id }}"
      data-notification="{{ notification.id }}">
     <header class="post-header">
-        <div class="post-info"><time style="display: block;" datetime="{{ notification.notification_date }}" itemprop="datePublished">{{ notification.notification_date|date:"d/m/Y à\s H:i" }}</time></div>
+        <div class="post-info"><time style="display: block;" datetime="{{ notification.notification_date }}" itemprop="datePublished"
+            data-toggle="tooltip" data-placement="auto top" data-original-title="{{ notification.notification_date|date:'d/m/Y à\s H:i' }}" class="time">
+                <i class="gsticon gsticon-clock-o hidden-lg"></i>
+            </time></div>
         <div class="post-creator">
             Você recebeu uma <a href="javascript:;">mensagem</a> do <a href="javascript:;">Portal GSTI</a> com titulo de <a href="javascript:;">{{ notification.target.title }}</a>
         </div>
