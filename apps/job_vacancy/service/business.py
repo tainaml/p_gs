@@ -4,8 +4,9 @@ from ..models import JobVacancy
 
 
 def get_jobs(keywords=None, locale=None, items_per_page=None, page=None):
-    list_keywords = keywords.split(' ')
-    list_locales = locale.split(' ')
+    char_to_split = ","
+    list_keywords = keywords.split(char_to_split)
+    list_locales = locale.split(char_to_split)
     criteria = None
     criteria_location = None
 
