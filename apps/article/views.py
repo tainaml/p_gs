@@ -10,6 +10,7 @@ from django.shortcuts import render, redirect
 from django.utils.decorators import method_decorator
 from django.utils.translation import gettext as _
 from django.views.generic import View
+from apps.article.service.business import get_article
 from .service import business as Business
 from .service.forms import ArticleForm
 
@@ -174,7 +175,7 @@ class ArticleEditView(ArticleBaseView):
     @method_decorator(login_required)
     def get(self, request, article_id=None, *args, **kwargs):
 
-        article = self.filter_article(request=request, article_id=article_id)
+        article = get_article(article_id)
 
         # Fail if is not owner
         self.check_is_owner(request, article)
@@ -207,7 +208,7 @@ class ArticleEditView(ArticleBaseView):
             article = self.get_temp_article(request.user)
             article_id = article.id
         else:
-            article = self.filter_article(request=request, article_id=article_id)
+            article = article = get_article(article_id)
 
         # Fail if is not owner
         self.check_is_owner(request, article)
