@@ -41,6 +41,8 @@ def username_slugify(**kwargs):
 
 def create_profile(strategy, user, response, details, is_new=False,*args,**kwargs):
 
+    user.is_active = True
+    user.save()
     profile = GetProfile(user)
 
 
