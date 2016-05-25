@@ -203,6 +203,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
+    'apps.core.middleware.MinifyHTMLMiddleware',
     'django_user_agents.middleware.UserAgentMiddleware',
 )
 
