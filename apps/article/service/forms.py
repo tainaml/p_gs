@@ -1,6 +1,6 @@
 from ckeditor_uploader.widgets import CKEditorUploadingWidget
 from django.core.exceptions import ValidationError
-from django.template.defaultfilters import slugify
+
 from django.utils import timezone
 from django.utils.translation import ugettext as _
 
@@ -66,7 +66,8 @@ class ArticleForm(IdeiaModelForm):
     def clean_slug(self):
         _slug = self.cleaned_data.get('slug', '')
         _title = self.cleaned_data.get('title')
-        _slug = _slug if _slug else slugify(_title)
+        _slug = _slug if _slug else Business.get_valid_slug(self.instance, _title)
+
         return _slug
 
     def clean_author(self):

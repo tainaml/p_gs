@@ -37,6 +37,19 @@ class Article(models.Model):
     feed = GenericRelation(FeedObject, related_query_name="article")
     embed = GenericRelation(EmbedItem, related_query_name="article")
 
+    @property
+    def year(self):
+        if self.publishin:
+            return str(self.publishin.year)
+
+    @property
+    def month(self):
+        if self.publishin:
+            if self.publishin.month > 9:
+                return str(self.publishin.month)
+            else:
+                return "0" + str(self.publishin.month)
+
     def is_published(self):
         return self.status == self.STATUS_PUBLISH
 

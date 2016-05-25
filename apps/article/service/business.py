@@ -1,4 +1,16 @@
 from ..models import Article
+from django.template.defaultfilters import slugify
+
+def get_valid_slug(instance, pre_slug):
+    slug = slugify(pre_slug)
+
+    # TODO criteria with month and year
+    article_with_this_slug = Article.objects.filter(slug=slug)
+    if article_with_this_slug:
+        slug+="-" + str(instance.id or 1)
+        return get_valid_slug(instance, slug)
+
+    return slug
 
 
 def get_article(article_id=None):

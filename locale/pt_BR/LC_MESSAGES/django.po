@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-18 10:48-0300\n"
+"POT-Creation-Date: 2016-05-24 14:20-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -129,8 +129,6 @@ msgid "Image format is not allowed."
 msgstr "Formato da imagem não é permitido"
 
 #: apps/article/service/forms.py:93
-#, fuzzy
-#| msgid "Image size more than 1mb."
 msgid "Image size is too long."
 msgstr "Tamanho da imagem é muito grande"
 
@@ -292,7 +290,7 @@ msgstr "Ocorreu um erro ao desativar a conta"
 msgid "All"
 msgstr "Todos"
 
-#: apps/core/templatetags/core_tags.py:152
+#: apps/core/templatetags/core_tags.py:159
 msgid "Olá, gostaria de sugerir a comunidade: "
 msgstr "Olá, gostaria de sugerir a comunidade: "
 
@@ -393,9 +391,11 @@ msgstr "^publicacao/delete/async/(?P<article_id>\\d+)$"
 #. Translators: URL de criacao de artigo
 #: apps/core/urls/article.py:20
 msgid ""
-"^article/(?P<article_id>\\d+)/(?P<article_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)$"
+"^(?P<year>\\d\\d\\d\\d+)/(?P<month>0[1-9]|1[0-2])/(?P<slug>[aA-zZ0-9-_]+)."
+"html$"
 msgstr ""
-"^publicacao/(?P<article_id>\\d+)/(?P<article_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)$"
+"^(?P<year>\\d\\d\\d\\d+)/(?P<month>0[1-9]|1[0-2])/(?P<slug>[aA-zZ0-9-_]+)."
+"html$"
 
 #. Translators: URL de criacao de artigo em uma comunidade
 #: apps/core/urls/article.py:23
@@ -620,7 +620,8 @@ msgstr "^atualizar-resposta/$"
 #. Translators: URL de carregar perguntas relacionadas
 #: apps/core/urls/question.py:34
 msgid "^load/related/(?P<question_id>[0-9]+)/(?P<content_type>[a-z]+)/$"
-msgstr "^carregar/relacionadas/(?P<question_id>[0-9]+)/(?P<content_type>[a-z]+)/$"
+msgstr ""
+"^carregar/relacionadas/(?P<question_id>[0-9]+)/(?P<content_type>[a-z]+)/$"
 
 #. Translators: URL para marcar resposta correta
 #: apps/core/urls/question.py:37
@@ -891,7 +892,8 @@ msgstr "^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/seguidores/buscar/$"
 #. Translators: URL de listagem de busca de seguidores
 #: apps/core/urls/user.py:138
 msgid "^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/followers/search/list/$"
-msgstr "^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/seguidores/buscar/listagem/$"
+msgstr ""
+"^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/seguidores/buscar/listagem/$"
 
 #. Translators: URL de comunidades do usuario
 #: apps/core/urls/user.py:141
@@ -968,8 +970,6 @@ msgid "Question not Found."
 msgstr "Pergunta não encontrada"
 
 #: apps/core/views/question.py:179
-#, fuzzy
-#| msgid "This article has been deleted"
 msgid "This question has been deleted"
 msgstr "Publicação removida"
 
@@ -1576,12 +1576,12 @@ msgctxt "publish article"
 msgid "Publish"
 msgstr "Publicar"
 
-#: templates/configuration/configuration-account.html:37
-#: templates/configuration/configuration-deactivate-account.html:23
+#: templates/configuration/configuration-account.html:36
+#: templates/configuration/configuration-deactivate-account.html:22
 msgid "Desativar Conta"
 msgstr "Desativar Conta"
 
-#: templates/configuration/configuration-deactivate-account.html:34
+#: templates/configuration/configuration-deactivate-account.html:33
 msgid "Confirmar"
 msgstr "Confirmar"
 
@@ -1612,7 +1612,7 @@ msgstr ""
 "\"%(url_resend_account_confirmation)s\" data-toggle=\"modal\" data-target="
 "\"#modal-resend-email-confirmation\">%(click_here)s</a> para reenviá-lo."
 
-#: templates/home/partials/slideout-menu.html:31
+#: templates/home/partials/slideout-menu.html:35
 #: templates/home/partials/user-actions.html:34
 msgid "Sair"
 msgstr "Sair"
@@ -1644,18 +1644,18 @@ msgstr "Mostrar"
 msgid "Delete"
 msgstr "Deletar"
 
-#: templates/userprofile/profile-edit.html:65
+#: templates/userprofile/profile-edit.html:64
 #: templates/userprofile/show.html:13
 msgid "Birth date"
 msgstr "Data de nascimento"
 
-#: templates/userprofile/profile-edit.html:79
-#: templates/userprofile/profile-edit.html:111
+#: templates/userprofile/profile-edit.html:78
+#: templates/userprofile/profile-edit.html:110
 msgid "Selecione um estado"
 msgstr "Selecione um estado"
 
-#: templates/userprofile/profile-edit.html:93
-#: templates/userprofile/profile-edit.html:125
+#: templates/userprofile/profile-edit.html:92
+#: templates/userprofile/profile-edit.html:124
 msgid "Selecione uma cidade"
 msgstr "Selecione uma cidade"
 
@@ -1674,6 +1674,13 @@ msgstr "Sexo"
 #: templates/userprofile/show.html:14
 msgid "City / State / Country"
 msgstr "Cidade / Estado / País"
+
+#~ msgid ""
+#~ "^article/(?P<article_id>\\d+)/(?P<article_slug>[a-z0-9]+(?:(-|_)[a-"
+#~ "z0-9]+)*)$"
+#~ msgstr ""
+#~ "^publicacao/(?P<article_id>\\d+)/(?P<article_slug>[a-z0-9]+(?:(-|_)[a-"
+#~ "z0-9]+)*)$"
 
 #~ msgid ""
 #~ "^article/(?P<article_slug>[a-z0-9]+(?:-[a-z0-9]+)*)/(?P<article_id>\\d+)$"

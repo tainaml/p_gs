@@ -33,7 +33,7 @@
                 {{article.author.get_full_name}}
             </a>
         </header>
-        <a class="post-content" href="{% url 'article:view' article.id article.slug %}" itemprop="articleBody">
+        <a class="post-content" href="{% url 'article:view' article.year article.month article.slug %}" itemprop="articleBody">
             <figure>
                 {% if article.get_image %}
                     <img src="{% thumbor_url article.get_image.url width=170 height=128 smart=False fit_in=False %}" alt="{{ article.title }}">

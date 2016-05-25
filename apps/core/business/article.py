@@ -2,7 +2,7 @@ from apps.feed.service import business as BusinessFeed
 from apps.article.models import Article
 from reversion import revisions as reversion
 
-def get_article(article_id=None, slug=None):
+def get_article(year=None, month=None, slug=None):
     """
     This method search for article id and slug.
     If a previous slug found, return the last version of the article with the redirect parameter
@@ -14,16 +14,17 @@ def get_article(article_id=None, slug=None):
     redirect = False
 
     try:
-        article = Article.objects.get(pk=article_id, slug=slug)
+        article = Article.objects.get(publishin__year=year, publishin__month=month, slug=slug)
 
     except Article.DoesNotExist:
         try:
-            temp_article = Article.objects.get(pk=article_id)
-            version_list = reversion.get_for_object(temp_article).get_unique()
-            slug_list = [version.field_dict['slug'] for version in version_list]
-            if slug in slug_list:
-                article = temp_article
-                redirect = True
+            temp_articles = Article.objects.filter(publishin__year=year, publishin__month=month)
+            for temp_article in temp_articles:
+                version_list = reversion.get_for_object(temp_article).get_unique()
+                slug_list = [version.field_dict['slug'] for version in version_list]
+                if slug in slug_list:
+                    article = temp_article
+                    redirect = True
 
         except Article.DoesNotExist:
             pass

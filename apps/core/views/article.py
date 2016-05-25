@@ -31,8 +31,8 @@ class CoreArticleView(views.ArticleView):
     form_comment = CreateCommentForm
 
     # @Override
-    def filter_article(self, request=None, slug=None, article_id=None):
-        article_dict = core_article_business.get_article(article_id, slug)
+    def filter_article(self, request=None, year=None, month=None, slug=None):
+        article_dict = core_article_business.get_article(year, month, slug)
 
         if not article_dict['article']:
             '''
@@ -49,13 +49,13 @@ class CoreArticleView(views.ArticleView):
 
         return article_dict
 
-    def get(self, request, article_slug, article_id):
-        article_dict = self.filter_article(request, article_slug, article_id)
+    def get(self, request, year, month, slug):
+        article_dict = self.filter_article(request, year, month, slug)
         article = article_dict['article']
 
         if article:
             if article_dict['redirect']:
-                return redirect('article:view', article.id, article.slug, permanent=True)
+                return redirect('article:view', article.year, article.month, article.slug, permanent=True)
 
         context = {'article': article}
         context.update(self.get_context(request, article))
