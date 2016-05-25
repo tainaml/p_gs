@@ -341,7 +341,7 @@ TOOLBAR_CUSTOM = [
     ['Link', 'Unlink', 'Anchor'],
     ['Find'],
     ['HorizontalRule'],
-    ['Image'],
+    ['Image', 'Table'],
     ['CodeSnippet'],
     ['Embed'],
     ['Maximize', 'ShowBlocks'],
@@ -360,8 +360,7 @@ CKEDITOR_CONFIGS = {
         'format_tags': 'h2;h3',
         'extraPlugins': ','.join([
             'autolink', 'autoembed', 'embedsemantic', 'widget',
-            'dialog', 'embed', 'uploadimage',
-            'codesnippet',
+            'dialog', 'embed', 'uploadimage', 'codesnippet',
         ]),
     },
     'comment': {
@@ -396,8 +395,7 @@ CKEDITOR_CONFIGS = {
         'filebrowserBrowseUrl': None,
         'extraPlugins': ','.join([
             'autolink', 'autoembed', 'embedsemantic', 'widget',
-            'dialog', 'embed', 'uploadimage',
-            'codesnippet',
+            'dialog', 'embed', 'uploadimage', 'codesnippet',
         ]),
     }
 }
