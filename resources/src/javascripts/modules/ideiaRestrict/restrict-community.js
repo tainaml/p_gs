@@ -2,8 +2,10 @@
 
     $._ideiaRestrictCommunity = function(element, options) {
 
+        var $this = $(element);
+
         var defaultsPrivate = {
-            urlCheckLogin   : '/community/check/user-follows/',
+            urlCheckLogin   : $this.data("url-check-login"),
             method          : 'post',
             dataType        : 'json',
             modalPosts      : '#modal-alert-community-posts',

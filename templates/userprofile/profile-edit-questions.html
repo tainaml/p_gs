@@ -13,11 +13,10 @@
         <div class="col-lg-9">
             <div class="row">
                 <div class="col-sm-12">
-                    <header class="area-title">
-                        <h2>Editar Perguntas</h2>
-                    </header>
+                   {% include 'userprofile/partials/filters.html' with title="Editar Perguntas" has_filter=True has_navigation=False %}
                     <div class="row">
-                        <form id="search-form" action="{% url 'profile:edit-questions-search-ajax' %}" method="GET" data-ajaxform="true" data-group-class=".form-search-input">
+                    {% block filters %}
+                        <form id="form-search" class="form-search filters-members" action="{% url 'profile:edit-questions-search-ajax' %}" method="GET" data-ajaxform="true" data-group-class=".form-search-input">
                             {% csrf_token %}
                             <div class="col-sm-5">
                                 <nav class="form-search">
@@ -40,7 +39,7 @@
                                 </div>
                             </div>
                             {% include "userprofile/partials/profile-edit-item-menu.html" with item_context="questions" %}
-                        </form>
+                        </form>{% endblock filters %}
                     </div>
                     <section class="area-content">
                         <div id="posts-container">

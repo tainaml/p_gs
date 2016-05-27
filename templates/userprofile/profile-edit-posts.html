@@ -11,7 +11,7 @@
         <div class="col-lg-9">
             <div class="row">
                 <div class="col-sm-12">
-                    {% include 'userprofile/partials/filters.html' with title="Minhas Perguntas" active="my-questions" has_filter=True has_navigation=False %}
+                    {% include 'userprofile/partials/filters.html' with title="Editar Publicações" has_filter=True has_navigation=False %}
                     <div class="row">
                         {% block filters %}<form id="form-search" class="form-search filters-members" action="{% url 'profile:edit-posts-search-ajax' %}" method="GET" data-ajaxform="true" data-group-class=".form-search-input">
                             {% csrf_token %}
