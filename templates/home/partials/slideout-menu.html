@@ -11,13 +11,28 @@
 </div>
 <hr />
 <div class="slideout-menu--notification">
-    <a class="slideout-menu--notification-item" data-notification-receives-badge="members" href="{% url 'notifications:members' %}">
+    <a href="{% url 'notifications:members' %}" class="slideout-menu--notification-item"
+    data-trigger="notification" data-token="{% notification_token %}" data-type="members"
+    data-csrf="{{ csrf_token }}" data-url-count="{% url 'notifications:polling-count' 'members' %}"
+    data-url-load="{% url 'notifications:polling-load' 'members' %}" data-url-clear="{% url 'notifications:clear' %}"
+    data-notifications="{{ notifications_id }}" data-notification-receives-badge="members">
+        {% if count %}<span class="badge">{{ count }}</span>{% endif %}
         <i class="gsticon gsticon-group"></i>
     </a>
-    <a class="slideout-menu--notification-item" data-notification-receives-badge="posts" href="{% url 'notifications:posts' %}">
+    <a href="{% url 'notifications:posts' %}" class="slideout-menu--notification-item"
+    data-trigger="notification" data-token="{% notification_token %}" data-type="posts"
+    data-csrf="{{ csrf_token }}" data-url-count="{% url 'notifications:polling-count' 'posts' %}"
+    data-url-load="{% url 'notifications:polling-load' 'posts' %}" data-url-clear="{% url 'notifications:clear' %}"
+    data-notifications="{{ notifications_id }}" data-notification-receives-badge="posts">
+        {% if count %}<span class="badge">{{ count }}</span>{% endif %}
         <i class="gsticon gsticon-comments"></i>
     </a>
-    <a class="slideout-menu--notification-item" data-notification-receives-badge="general" href="{% url 'notifications:general' %}">
+    <a href="{% url 'notifications:general' %}" class="slideout-menu--notification-item"
+    data-trigger="notification" data-token="{% notification_token %}" data-type="general"
+    data-csrf="{{ csrf_token }}" data-url-count="{% url 'notifications:polling-count' 'general' %}"
+    data-url-load="{% url 'notifications:polling-load' 'general' %}" data-url-clear="{% url 'notifications:clear' %}"
+    data-notifications="{{ notifications_id }}" data-notification-receives-badge="general">
+        {% if count %}<span class="badge">{{ count }}</span>{% endif %}
         <i class="gsticon gsticon-bell"></i>
     </a>
 </div>

@@ -167,14 +167,35 @@
 }
 
 .slideout-menu--notification {
-    @include make-row();
-    padding: 0 20px;
-    margin: 20px 0;
+    @include clearfix();
+    border-bottom: 1px solid #eee;
 }
 .slideout-menu--notification-item {
+    position: relative;
     width: 33.3333%;
+    padding: 10px 20px;
+    border-right: 1px solid #eee;
     float: left;
+    font-size: 1.4em;
     text-align: center;
+
+    .badge {
+        position: absolute;
+        top: 10%; right: 15%;
+        min-width: 15px;
+        padding: 3px;
+        background-color: #c30007;
+        color: #fff;
+        font-weight: 600;
+        font-size: 10px;
+        line-height: 115%;
+        text-align: center;
+        border-radius: 50%;
+    }
+
+    &:last-child {
+        border-right: none;
+    }
 }
 
 // Search do header
