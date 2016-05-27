@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-24 14:20-0300\n"
+"POT-Creation-Date: 2016-05-27 08:56-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -124,31 +124,31 @@ msgstr "Autor"
 msgid "Publish date has invalid"
 msgstr "Data de publicação inválida."
 
-#: apps/article/service/forms.py:87 apps/userprofile/service/forms.py:88
+#: apps/article/service/forms.py:88 apps/userprofile/service/forms.py:88
 msgid "Image format is not allowed."
 msgstr "Formato da imagem não é permitido"
 
-#: apps/article/service/forms.py:93
+#: apps/article/service/forms.py:94
 msgid "Image size is too long."
 msgstr "Tamanho da imagem é muito grande"
 
-#: apps/article/views.py:19 apps/article/views.py:20
+#: apps/article/views.py:20 apps/article/views.py:21
 msgid "Article not Found."
 msgstr "Publicação não encontrada"
 
-#: apps/article/views.py:38
+#: apps/article/views.py:39
 msgid "Operation not permitted"
 msgstr "Operação não permitida"
 
-#: apps/article/views.py:146
+#: apps/article/views.py:147
 msgid "This article has been deleted"
 msgstr "Publicação removida"
 
-#: apps/article/views.py:223
+#: apps/article/views.py:224
 msgid "Publicação salva com sucesso"
 msgstr "Publicação salva com sucesso"
 
-#: apps/article/views.py:227
+#: apps/article/views.py:228
 msgid "Generic Error"
 msgstr "Erro"
 
@@ -1339,13 +1339,8 @@ msgstr "^conta-social/"
 msgid "^socialactions/"
 msgstr "^acoes-sociais/"
 
-#. Translators: URL root de comunidade
-#: rede_gsti/urls.py:57
-msgid "^community/"
-msgstr "^comunidade/"
-
 #. Translators: URL root de notificacoes
-#: rede_gsti/urls.py:60
+#: rede_gsti/urls.py:59
 msgid "^notifications/"
 msgstr "^notificacoes/"
 
@@ -1353,48 +1348,49 @@ msgstr "^notificacoes/"
 #. Translators: URL root CORE de acoes sociais
 #. Translators: URL de buscai
 #. Translators: URL core adicionais
-#: rede_gsti/urls.py:63 rede_gsti/urls.py:66 rede_gsti/urls.py:91
-#: rede_gsti/urls.py:94
+#. Translators: URL root de comunidade
+#: rede_gsti/urls.py:62 rede_gsti/urls.py:65 rede_gsti/urls.py:90
+#: rede_gsti/urls.py:93 rede_gsti/urls.py:101
 msgid "^"
 msgstr "^"
 
 #. Translators: URL root de categoria
-#: rede_gsti/urls.py:69
+#: rede_gsti/urls.py:68
 msgid "^category-feed/"
 msgstr "^categoria/"
 
 #. Translators: URL root de pergunta
-#: rede_gsti/urls.py:72
+#: rede_gsti/urls.py:71
 msgid "^question/"
 msgstr "^pergunta/"
 
 #. Translators: URL root de contato
-#: rede_gsti/urls.py:75
+#: rede_gsti/urls.py:74
 msgid "^contact/"
 msgstr "^contato/"
 
 #. Translators: URL root de contato
-#: rede_gsti/urls.py:78
+#: rede_gsti/urls.py:77
 msgid "^mailmanager/"
 msgstr "^gerenciador-de-email/"
 
 #. Translators: URL root de denuncia
-#: rede_gsti/urls.py:81
+#: rede_gsti/urls.py:80
 msgid "^complaint/"
 msgstr "^denuncia/"
 
 #. Translators: URL root de configuracao
-#: rede_gsti/urls.py:84
+#: rede_gsti/urls.py:83
 msgid "^settings/"
 msgstr "^configuracoes/"
 
 #. Translators: URL root de feed
-#: rede_gsti/urls.py:88
+#: rede_gsti/urls.py:87
 msgid "^feed/"
 msgstr "^feed/"
 
 #. Translators: URL do ckeditor
-#: rede_gsti/urls.py:97
+#: rede_gsti/urls.py:96
 msgid "^ckeditor/"
 msgstr "^ckeditor/"
 
@@ -1617,6 +1613,26 @@ msgstr ""
 msgid "Sair"
 msgstr "Sair"
 
+#: templates/notification/notification-posts.html:16
+msgid "Notificações"
+msgstr ""
+
+#: templates/notification/notification-posts.html:20
+msgid "Comentários e repostas"
+msgstr ""
+
+#: templates/notification/partials/navbar/notification-posts.html:7
+msgid "Comentários e respostas"
+msgstr ""
+
+#: templates/notification/partials/navbar/notification-posts.html:22
+msgid "Nenhuma notificação"
+msgstr ""
+
+#: templates/notification/partials/navbar/notification-posts.html:75
+msgid "Ver todos"
+msgstr ""
+
 #: templates/question/comments.html:10
 #: templates/userprofile/occupation_manage.html:34
 #: templates/userprofile/occupation_show.html:15
@@ -1674,6 +1690,12 @@ msgstr "Sexo"
 #: templates/userprofile/show.html:14
 msgid "City / State / Country"
 msgstr "Cidade / Estado / País"
+
+#~ msgid "^/"
+#~ msgstr "^/"
+
+#~ msgid "^community/"
+#~ msgstr "^comunidade/"
 
 #~ msgid ""
 #~ "^article/(?P<article_id>\\d+)/(?P<article_slug>[a-z0-9]+(?:(-|_)[a-"

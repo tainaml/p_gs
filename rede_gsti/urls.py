@@ -53,8 +53,7 @@ urlpatterns = [
     # Translators: URL root de redes sociais
     url('', include('social.apps.django_app.urls', namespace='social')),
 
-    # Translators: URL root de comunidade
-    url(_(r'^community/'), include('apps.core.urls.community', namespace='community')),
+
 
     # Translators: URL root de notificacoes
     url(_(r'^notifications/'), include('apps.core.urls.notifications', namespace='notifications')),
@@ -97,5 +96,8 @@ urlpatterns = [
     url(_(r'^ckeditor/'), include('ckeditor_uploader.urls')),
 
      url(r'^chaining/', include('smart_selects.urls')),
+
+    # Translators: URL root de comunidade
+    url(_(r'^'), include('apps.core.urls.community', namespace='community')),
 
 ] + url_statics + url_media
