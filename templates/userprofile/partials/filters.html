@@ -13,7 +13,7 @@
     <h2>{{ title }}</h2>
 </header>
 {% else %}
-
+{% if has_navigation %}
 <nav class="perfil-navegation hidden-xs">
     {% if profile.user == request.user %}<a {% if active == "feed" %}class="active"{% endif %} href="{% url 'profile:feed' %}">Feed</a> <span>•</span>{% endif %}
     <a {% if active == "profile" %}class="active"{% endif %} href="{% url 'profile:show' username=profile.user.username %}">Publicações</a> <span>•</span>
@@ -23,7 +23,7 @@
     <a {% if active == "relationship" %}class="active"{% endif %} href="{% url 'profile:followers' username=profile.user.username %}">Relacionamentos</a> <span>•</span>
     <a {% if active == "videos" %}class="active"{% endif %} href="{% url 'profile:videos' profile.user.username %}">Vídeos</a>
 </nav>
-
+{% endif %}
 <header class="area-title">
     <h2>{{ title }}</h2>
 </header>
