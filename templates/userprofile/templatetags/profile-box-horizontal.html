@@ -11,8 +11,8 @@
     {% if request.user != profile.user %}
         {% follow_action profile.user request.path "pull-right text-center perfil-button" %}
     {% endif %}
-    <a href="{% url 'profile:show' profile.user.username %}"><img class="img-responsive" src="{% get_avatar profile.user width=90 height=90 smart=False fit_in=False %}" alt="{{ profile.user.get_full_name }}"></a>
-    <a class="perfil-name" title="{{ profile.user.get_full_name }}" href="{% url 'profile:show' profile.user.username %}">{{ profile.user.get_full_name }}</a>
+    <a href="{% if  profile.user.is_active %}{% url 'profile:show' profile.user.get_username %}{% else %}javascript:;{% endif %}"><img class="img-responsive" src="{% get_avatar profile.user width=90 height=90 smart=False fit_in=False %}" alt="{{ profile.user.get_full_name }}"></a>
+    <a class="perfil-name" title="{{ profile.user.get_full_name }}" href="{% if  profile.user.is_active %}{% url 'profile:show' profile.user.get_username %}{% else %}javascript:;{% endif %}">{{ profile.user.get_full_name }}</a>
     <span class="perfil-counter"
           data-counter="{{ followers_count_value }}"
           data-refresh-counter="follow-{{ user_content_type }}-{{ profile.user.id }}">

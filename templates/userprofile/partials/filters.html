@@ -16,7 +16,7 @@
 {% if has_navigation %}
 <nav class="perfil-navegation hidden-xs">
     {% if profile.user == request.user %}<a {% if active == "feed" %}class="active"{% endif %} href="{% url 'profile:feed' %}">Feed</a> <span>•</span>{% endif %}
-    <a {% if active == "profile" %}class="active"{% endif %} href="{% url 'profile:show' username=profile.user.username %}">Publicações</a> <span>•</span>
+    <a {% if active == "profile" %}class="active"{% endif %} href="{% if  profile.user.is_active %}{% url 'profile:show' profile.user.get_username %}{% else %}javascript:;{% endif %}">Publicações</a> <span>•</span>
     {% if profile.user == request.user %}<a {% if active == "my-questions" %}class="active"{% endif %} href="{% url 'profile:my-questions' %}">Minhas Perguntas</a> <span>•</span>{% endif %}
 
     <a {% if active == "community" %}class="active"{% endif %} href="{% url 'profile:communities' username=profile.user.username %}">Comunidades</a> <span>•</span>

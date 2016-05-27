@@ -45,7 +45,7 @@
                                 </ul>
                             </div>
                         </div>
-                        <a class="post-creator" href="{% url 'profile:show' question.author.username %}">
+                        <a class="post-creator" href="{% if  question.author.is_active %}{% url 'profile:show' question.author.username %}{% else %}javascript:;{% endif %}">
                             <img src="{% get_avatar question.author width=20 height=20 smart=False fit_in=False %}" alt="{{ question.author.get_full_name }}">
                             {{ question.author.get_full_name }}
                         </a>

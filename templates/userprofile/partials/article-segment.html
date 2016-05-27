@@ -31,7 +31,7 @@
                 </ul>
             </div>
         </div>
-        <a class="post-creator" href="{% url 'profile:show' username=instance.author.username %}">
+        <a class="post-creator" href="{% if  instance.author.is_active %}{% url 'profile:show' instance.author.get_username %}{% else %}javascript:;{% endif %}">
             <img src="{% get_avatar instance.author width=20 height=20 smart=False fit_in=False %}" alt="foto de {{ instance.author.get_full_name }}">
             {{instance.author.get_full_name}}
         </a>

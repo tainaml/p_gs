@@ -12,7 +12,7 @@
         <div class="box-perfil">
             <div class="perfil">
                 <a href="{% url 'profile:show' follower.author.username %}"><img class="img-responsive" src="{% get_avatar follower.author width=82 height=82 smart=False fit_in=False %}" alt="{{ follower.author.get_full_name }}"></a>
-                <a class="perfil-name" title="{{ follower.author.get_full_name }}" href="{% url 'profile:show' follower.author.username %}">{{ follower.author.get_full_name }}</a>
+                <a class="perfil-name" title="{{ follower.author.get_full_name }}" href="{% if  follower.author.is_active %}{% url 'profile:show' follower.author.get_username %}{% else %}javascript:;{% endif %}">{{ follower.author.get_full_name }}</a>
                 <span class="perfil-counter"
                       data-counter="{{ followers_count_value }}"
                       data-refresh-counter="follow-{{ counter_content_type }}-{{ follower.author.id }}">
