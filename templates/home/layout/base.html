@@ -190,7 +190,7 @@
                 });
 
                 var functionAjaxReportSuccess = function(e, data) {
-                    var $modalMessage = $('#modal-message')
+                    var $modalMessage = $('#modal-message');
                         $modalMessage.html(data.template);
                     $('#modal-report').modal('hide');
                     $modalMessage.modal('show');
