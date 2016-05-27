@@ -77,10 +77,10 @@
             var errors = [];
 
 
-            if ( !obj.settings.token ) {
-                is_valid = false;
-                errors.push( 'Token is not defined!' );
-            }
+            // if ( !obj.settings.token ) {
+            //     is_valid = false;
+            //     errors.push( 'Token is not defined!' );
+            // }
 
             if ( obj.settings.method == "post" && !obj.settings.csrf ) {
                 is_valid = false;
@@ -105,10 +105,10 @@
             var is_valid = true;
             var errors = [];
 
-            if ( !obj.settings.token ) {
-                is_valid = false;
-                errors.push( 'Token is not defined!' );
-            }
+            // if ( !obj.settings.token ) {
+            //     is_valid = false;
+            //     errors.push( 'Token is not defined!' );
+            // }
 
             if ( !is_valid ) console.error( errors );
 
