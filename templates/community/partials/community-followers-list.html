@@ -2,6 +2,7 @@
 {% load avatar_tags %}
 {% load thumbor_tags %}
 {% load var_tags %}
+{% load i18n %}
 
 {% set counter_content_type = "user" %}
 
@@ -23,10 +24,13 @@
     {% endfor %}
     <a data-jscroll-next href="{% url 'community:search-followers' %}?community={{ community }}&page={{ page|default:2 }}&criteria={{ form.cleaned_data.criteria|default:'' }}&state={{ form.cleaned_data.state.id|default:'' }}&city={{ form.cleaned_data.city.id|default:'' }}&next={{ url_next|urlencode }}">next</a>
 {% else %}
-    {% if followers.number == 1 %}
-        <div class="col-lg-12">
-            <p>Nenhum resultado para sua busca.</p>
-            <hr>
-        </div>
-    {% endif %}
+{#    {% if followers.number == 1 %}#}
+{#        <div class="col-lg-12">#}
+{#            <p>Nenhum resultado para sua busca.</p>#}
+{#            <hr>#}
+{#        </div>#}
+
+        <span>{% trans 'Não existem itens a serem exibidos' %}</span>
+        <hr>
+
 {% endif %}

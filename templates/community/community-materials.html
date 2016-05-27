@@ -2,6 +2,7 @@
 
 {% load core_tags %}
 {% load staticfiles %}
+{% load i18n %}
 {% block title %}Portal GSTI - Comunidade{% endblock %}
 
 {% block content %}
@@ -56,7 +57,7 @@
                             {% if feed_objects.object_list %}
                                 {% include 'community/partials/community-materials-list.html' %}
                             {% else %}
-                                <p>Nenhum item foi encontrado</p>
+                                <p class="text-center text-italic">{% trans 'Não existem itens a serem exibidos' %}</p>
                                 <hr>
                             {% endif %}
                         </section>

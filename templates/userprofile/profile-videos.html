@@ -1,6 +1,7 @@
 {%extends 'home/layout/base.html' %}
 
 {% load staticfiles %}
+{% load i18n %}
 
 {% block title %}Portal GSTI - Vídeos{% endblock %}
 
@@ -35,7 +36,7 @@
                                     {% include 'userprofile/partials/profile-videos-list.html' %}
                                 </div>
                             {% else %}
-                                <p>Não existem itens a serem exibidos</p>
+                                <span>{% trans 'Não existem itens a serem exibidos' %}</span>
                                 <hr>
                             {% endif %}
                         </section>
