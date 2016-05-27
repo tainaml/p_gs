@@ -43,9 +43,9 @@
                 <h3 class="post-title" itemprop="headline">{{ article.title }}</h3>
                 <p>
                     {% if article.get_image %}
-                        {{ article.text|striptags|safe|escape|slice:":150"}}...
+                        {{ article.text|striptags|safe|escape|slice:":90"}}...
                     {% else %}
-                        {{ article.text|striptags|safe|escape|slice:":250"}}{% if article.text|striptags|safe|escape|length > 250 %}...{% endif %}
+                        {{ article.text|striptags|safe|escape|slice:":90"}}{% if article.text|striptags|safe|escape|length > 90 %}...{% endif %}
                     {% endif %}
                 </p>
             </div>

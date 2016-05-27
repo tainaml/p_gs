@@ -36,7 +36,7 @@
         <a class="post-content" href="{% url 'question:show' question.slug question.id %}" itemprop="articleBody">
             <div class="post-text">
                 <h3 class="post-title" itemprop="headline">{{ question.title }}</h3>
-                <p>{{ question.description|safe|slice:":250"}}... </p>
+                <p>{{ question.description|safe|slice:":90"}}... </p>
             </div>
         </a>
         <footer class="post-footer">
