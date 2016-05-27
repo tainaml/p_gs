@@ -2,6 +2,7 @@
 
 {% load staticfiles %}
 {% load social_tags %}
+{% load i18n %}
 
 {% block title %}Portal GSTI - Perfil{% endblock %}
 
@@ -43,8 +44,7 @@
                             {% include 'userprofile/partials/followers-segment.html' %}
                         </div>
                         {% else %}
-                            <hr>
-                            <p>Nenhum item foi encontrado!</p>
+                            <span>{% trans 'Não existem itens a serem exibidos' %}</span>
                             <hr>
                         {% endif %}
 
