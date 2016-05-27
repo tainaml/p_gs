@@ -2,6 +2,7 @@
 {% load avatar_tags %}
 {% load thumbor_tags %}
 {% load var_tags %}
+{% load i18n %}
 
 {% set counter_content_type = "user" %}
 
@@ -22,4 +23,7 @@
         </div>
     {% endfor %}
     <a data-jscroll-next href="{% url 'socialactions:get_followings' content_type_id=content_type.id object_filter_id=object.id %}?p={{ page }}&next={{ url_next|urlencode }}">next</a>
+{% else %}
+    <p class="text-center text-italic">{% trans 'Não existem itens a serem exibidos' %}</p>
+    <hr>
 {% endif %}

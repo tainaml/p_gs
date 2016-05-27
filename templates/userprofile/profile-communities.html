@@ -3,7 +3,7 @@
 {% load staticfiles %}
 {% load social_tags %}
 {% load thumbor_tags %}
-
+{% load i18n %}
 {% block title %}Portal GSTI - Perfil{% endblock %}
 
 {% block content %}
@@ -53,6 +53,9 @@
                                     {% include "userprofile/partials/profile-communities.html" %}
 
                                 </div>
+                            {% else %}
+                                <p class="text-center text-italic">{% trans 'Não existem itens a serem exibidos' %}</p>
+                                <hr>
                             {% endif %}
                         </div>
                     </div>
