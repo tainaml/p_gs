@@ -313,7 +313,10 @@
     border: 1px solid $color-border;
     color: $color-text-post;
     font-size: 1.071em;
-
+    img {
+        max-width: 100%;
+        height: auto!important;
+    }
     > p { font-size: 1em; }
 }
 
