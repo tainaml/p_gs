@@ -6,17 +6,23 @@
     </div>
     <div class="widget-content">
         <form action="{% url "jobs:search" %}" class="jobs-search form-inline" method="get">
-            <label class="jobs-search_field" for="job_title">
-                <i class="gsticon gsticon-search"></i>
-                <input name="keywords" class="form-control" id="job_title" type="text" data-toggle="selectize" data-module="job" placeholder="Ex: Analista, php, home-office" value="{% if form.cleaned_data.keywords %}{{ form.cleaned_data.keywords }}{% endif %}">
+            <div class="jobs-search_field">
+                <label for="job_title">
+                    <i class="gsticon gsticon-search"></i>
+                    <input name="keywords" class="form-control" id="job_title" type="text" data-toggle="selectize" data-module="job" placeholder="Ex: Analista, php, home-office" value="{% if form.cleaned_data.keywords %}{{ form.cleaned_data.keywords }}{% endif %}">
+                </label>
                 <p class="help-block">Palavras-chave separadas por vírgula</p>
-            </label>
-            <label class="jobs-search_field" for="job_location">
-                <i class="gsticon gsticon-map-marker"></i>
-                <input name="locale" class="form-control" id="job_location" type="text" data-toggle="selectize" data-module="job" placeholder="Bahia, São Paulo, Paraná" value="{% if form.cleaned_data.locale %}{{ form.cleaned_data.locale }}{% endif %}">
+            </div>
+            <div class="jobs-search_field">
+                <label for="job_location">
+                    <i class="gsticon gsticon-map-marker"></i>
+                    <input name="locale" class="form-control" id="job_location" type="text" data-toggle="selectize" data-module="job" placeholder="Bahia, São Paulo, Paraná" value="{% if form.cleaned_data.locale %}{{ form.cleaned_data.locale }}{% endif %}">
+                </label>
                 <p class="help-block">Localizações separadas por virgula</p>
-            </label>
-            <button type="submit" class="jobs-search_submit">Procurar vaga</button>
+            </div>
+            <div class="jobs-search_field">
+                <button type="submit" class="jobs-search_submit">Procurar vaga</button>
+            </div>
         </form>
     </div>
 </div>

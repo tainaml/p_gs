@@ -5,7 +5,9 @@
 // Formulário de busca
 // ==========================================================================
 .jobs-search {
-  padding: 20px;
+  @include clearfix();
+
+  padding: 20px 10px;
   margin-top: -1px;
   margin-bottom: 30px;
   border: 1px solid #e1e1e1;
@@ -14,16 +16,18 @@
 .jobs-search_field {
   position: relative;
   width: 100%;
+  padding: 0 10px;
   display: block;
 
   @media (min-width: $screen-sm-min) {
-    width: calc(41.66667% - 10px);
-    padding-right: 20px;
-    display: inline-block;
+    width: calc(33.333333333% - 10px);
+    float: left;
   }
-  .form-control {
+
+  label {
     width: 100%;
   }
+  .form-control { width: 100% }
   .selectize-input {
     padding: 0;
     border: none;
@@ -37,7 +41,7 @@
 
   .gsticon {
     position: absolute;
-    top: 30%; left: 0;
+    top: 18%; left: 10px;
     z-index: 333;
     min-width: 25px;
     color: #bbb;
@@ -59,8 +63,6 @@
   font-size: 14px;
   line-height: 1.42857;
   text-align: center;
-
-  @media (min-width: $screen-sm-min) { width: 18%; }
 }
 
 // Listegem dos trabalhos
@@ -120,13 +122,10 @@
   @media (max-width: $screen-sm-min) { width: 70% }
 }
 .job-box_title {
-  // overflow: hidden;
   display: block;
   color: $color-link-feed;
   font-weight: 600;
   font-size: 1.22em;
-  // text-overflow: ellipsis;
-  // white-space: nowrap;
 }
 .job-box_employ {
   color: #486075;
