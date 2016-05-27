@@ -4,7 +4,7 @@
 
 <div id="answer-{{ instance.id }}">
     <div class="comment">
-        <a class="comment-user" href="{% url 'profile:show' instance.author.username %}">
+        <a class="comment-user" href="{% if  instance.author.is_active %}{% url 'profile:show' instance.author.username %}{% else %}javascript:;{% endif %}">
             <img src="{% get_avatar instance.author width=63 height=63 smart=False fit_in=False %}" alt="User Avatar">
         </a>
         <div class="comment-body">
@@ -36,7 +36,7 @@
                         </ul>
                     </div>
                 </div>
-                <a class="post-creator" href="{% url 'profile:show' instance.author.username %}">{{instance.author.get_full_name}}</a>
+                <a class="post-creator" href="{% if  instance.author.is_active %}{% url 'profile:show' instance.author.username %}{% else %}javascript:;{% endif %}">{{instance.author.get_full_name}}</a>
                 {% if instance.question.correct_answer == instance %}
                     <span class="label label-primary"><i class="gsticon gsticon-trophy"></i> Melhor resposta</span>
                 {% endif %}

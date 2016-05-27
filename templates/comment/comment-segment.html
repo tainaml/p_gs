@@ -36,7 +36,7 @@
                     </ul>
                 </div>
             </div>
-            <a class="post-creator" href="{% url 'profile:show' instance.author.username %}">{{instance.author.get_full_name}}</a>
+            <a class="post-creator" href="{% if  instance.author.is_active %}{% url 'profile:show' instance.author.username %}{% else %}javascript:;{% endif %}">{{instance.author.get_full_name}}</a>
         </header>
         <div class="comment-text">
             {{instance.content|safe}}

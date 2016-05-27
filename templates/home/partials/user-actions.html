@@ -12,7 +12,7 @@
         {% notification_navbar "general" %}
 
         <a href="javascript:void(0);" class="user-actions-logged-link--logged user-actions-profile" data-toggle="dropdown" data-target="#dropdown-perfil-action">
-            <img title="{{ profile.user.get_full_name }}" src="{% get_avatar request.user width=40 height=40 smart=False fit_in=False %}" alt="{{ profile.user.get_full_name }}" class="img-circle">
+            <img title="{{ request.user.get_full_name }}" src="{% get_avatar request.user width=40 height=40 smart=False fit_in=False %}" alt="{{ request.user.get_full_name }}" class="img-circle">
             {% if request.user.first_name|length >= 10 %}
                 {{ request.user.first_name|slice:":10" }}...
             {% else %}
@@ -24,7 +24,7 @@
         <div id="dropdown-perfil-action" class="header-dropdown-menu dropdown-menu-right">
             <ul class="perfil-actions">
                 <li><a href="{% url 'profile:feed' %}"><i class="gsticon gsticon-feed"></i> Meu Feed</a></li>
-                <li><a href="{% url 'profile:show' request.user.username %}"><i class="gsticon gsticon-file-text"></i> Minhas Publicações</a></li>
+                <li><a href="{% if  request.user.is_active %}{% url 'profile:show' request.user.username %}{% else %}javascript:;{% endif %}"><i class="gsticon gsticon-file-text"></i> Minhas Publicações</a></li>
                 <li><a href="{% url 'profile:my-questions' %}"><i class="gsticon gsticon-question"></i> Minhas Perguntas</a></li>
                 <li><a href="{% url 'article:create' %}"><i class="gsticon gsticon-file-text-o"></i> Criar Publicação</a></li>
                 <li><a href="{% url 'question:create' %}"><i class="gsticon gsticon-question-circle"></i> Perguntar</a></li>

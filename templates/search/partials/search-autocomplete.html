@@ -8,7 +8,7 @@
     <ul class="content-float-notifications">
         {% for user in users %}
         <li class="item-float-notification item-float-notification-link">
-            <a class="perfil" href="{% url 'profile:show' user.get_username %}">
+            <a class="perfil" href="{% if  user.is_active %}{% url 'profile:show' user.get_username %}{% else %}javascript:;{% endif %}">
                 <!-- <span> -->
                 <img src="{% get_avatar user width=50 height=50 smart=False fit_in=False %}" width="50" height="50" alt="Foto de {{ user.get_full_name }}">
                 <!-- </span> -->

@@ -23,7 +23,7 @@
                             </ul>
                         </div>
                     </div>
-                    <a class="post-creator" href="{% url 'profile:show' article.author.username %}">
+                    <a class="post-creator" href="{% if  article.author.is_active %}{% url 'profile:show' article.author.username %}{% else %}javascript:;{% endif %}">
                         <img src="{{ article.content_object.author.profile.get_picture }}" alt="{{ article.content_object.author.get_full_name }}">
                         {{ article.content_object.author.get_full_name }}</a>
                 </header>

@@ -2,7 +2,8 @@
 
 <h1 style="text-align: center; padding-top: 50px;">Account / index</h1>
 <p style="text-align: center">
-    <a href="{% url 'profile:show' request.user.username %}">{% trans "Show profile" %}</a> {% trans "or" %}
+
+    <a href="{% if  request.user.is_active %}{% url 'profile:show' request.user.username %}{% else %}javascript:;{% endif %}">{% trans "Show profile" %}</a> {% trans "or" %}
     <a href="{% url 'profile:edit' %}">{% trans "Edit profile" %}</a> {% trans "or" %}
     <a href="{% url 'profile:occupation_add' %}">{% trans "Add occupation" %}</a> {% trans "or" %}
     <a href="{% url 'profile:occupation_manage' %}">{% trans "Manage occupation" %}</a> {% trans "or" %}
