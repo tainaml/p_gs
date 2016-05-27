@@ -2,7 +2,6 @@
 
 {% load staticfiles %}
 {% load social_tags %}
-{% load i18n %}
 
 {% block title %}Portal GSTI - Perfil{% endblock %}
 
@@ -43,11 +42,7 @@
                         <div class="row j-scroll-followers j-scroll-followers-container">
                             {% include 'userprofile/partials/followers-segment.html' %}
                         </div>
-                        {% else %}
-                            <span>{% trans 'Não existem itens a serem exibidos' %}</span>
-                            <hr>
                         {% endif %}
-
                     </div>
                 </div>
             </div>
