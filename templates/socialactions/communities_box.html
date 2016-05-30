@@ -14,5 +14,7 @@
             </div>
         </div>
     {% endfor %}
+    {% if items|length > 3%}
     <a data-jscroll-next href="{% url 'socialactions:get_followings' content_type_id=content_type.id object_filter_id=object.id %}?p={{ page }}&next={{ url_next|urlencode }}">next</a>
+    {% endif %}
 {% endif %}
