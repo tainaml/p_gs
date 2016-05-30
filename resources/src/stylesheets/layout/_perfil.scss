@@ -408,8 +408,27 @@
 }
 
 .creator {
-    @media (min-width: $screen-md-min) {
-        padding-bottom: 100px;
+    @media (min-width: $screen-md-min) { padding-bottom: 100px }
+}
+.question-actions {
+    @include make-lg-column(5);
+    padding-right: 0;
+    padding-left: 0;
+    text-align: right;
+
+    .btn-default {
+        margin-right: 5px;
+        font-size: 14px;
+    }
+
+    @media (max-width: $screen-xs-max) {
+        margin-bottom: 10px;
+        text-align: left;
+
+        .btn-default,
+        .btn-green {
+            width: 49%;
+        }
     }
 }
 .editor {

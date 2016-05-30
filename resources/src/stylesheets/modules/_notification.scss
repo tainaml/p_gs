@@ -104,7 +104,11 @@ $color-counter-notification: #b2b2b2 !default;
         color: #486075;
 
         &:hover { background-color: #f7f7f7; }
+
+        > img {margin-right: 5px }
+
         span { color: #337ab7; }
+        .perfil-counter { color: #7b787d }
     }
 }
 .not-visualized { background-color: #fcfcfc; }
