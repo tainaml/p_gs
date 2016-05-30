@@ -279,7 +279,7 @@ MAX_LEVELS = 2
 ENTITY_TO_COMPLAINT = ['article', 'question']
 
 # Article config
-ARTICLE_TITLE_LIMIT = 100
+ARTICLE_TITLE_LIMIT = 255
 ARTICLE_TEXT_LIMIT = 100000
 
 # Question Config
