@@ -1,11 +1,11 @@
 {% load core_tags %}
 
-<a class="toggle_menu-categories" href="javascript:;">Categorias
-  <span class="toggle_menu-categories-icons">
-    <i class="gsticon gsticon-bars"></i> <i class="gsticon gsticon-close"></i>
-  </span>
-</a>
 <div class="header-navegation js-navigation {% if category_slug %}header-navegation-border {{ class_name }}{% endif %}">
+  <a class="toggle_menu-categories" href="javascript:;">Categorias
+    <span class="toggle_menu-categories-icons">
+      <i class="gsticon gsticon-bars"></i> <i class="gsticon gsticon-close"></i>
+    </span>
+  </a>
   <nav class="container">
     {% communities_cached %}
     <ul class="menu-social">
