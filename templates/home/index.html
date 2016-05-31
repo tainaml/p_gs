@@ -7,20 +7,21 @@
 {% block content %}
     {% ideiahomecache None 'home_page_cache' 'home' %}
         <main class="container main home">
+            <div class="banner">
+                <img class="img-responsive" src="http://placehold.it/728x90" alt="Banner Example">
+            </div>
             <div class="highlight-area">
                 <div class="highlight-left">
-                    <div class="banner">
-                        <img class="img-responsive" src="http://placehold.it/728x90" alt="Banner Example">
-                    </div>
                     <div class="post-list-container">
 
                         {% home_block_article_home 'design' class_name='design' quantity=2 %}
 
                         {% home_block_article_home 'desenvolvimento' class_name='development' quantity=2 %}
-
                     </div>
 
                     {% home_block_highlight_simple 'design' class_name='design' quantity=2 %}
+                    {% home_block_highlight_simple 'mobile' class_name='mobile' quantity=2 %}
+                    {% home_block_highlight_simple 'mais' class_name='more' quantity=2 %}
 
                 </div>
                 <div class="highlight-right">

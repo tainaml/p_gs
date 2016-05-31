@@ -67,13 +67,17 @@
     font-weight: 600;
 }
 .highlight-article-medium {
+    @extend %highlight-article;
+
     width: 50%;
+    padding-top: 20px;
+    padding-right: 0;
+    padding-left: 0;
+    font-weight: 600;
+
     @media (max-width: $screen-lg-min) {
         padding-left: 0;
     }
-    @extend %highlight-article;
-    padding-top: 20px;
-    font-weight: 600;
 }
 .highlight-articles--no-border {
     @extend %highlights-article;
@@ -90,13 +94,7 @@
 
 
     .highlight-article-medium {
-        @media (max-width: $screen-md-max) {
-            width: 100%;
-            padding-right: 0;
-            padding-left: 0;
-        }
-
-        @media (max-width: $screen-sm-max) { padding-left: 0 }
+        @media (max-width: $screen-md-max) { width: 100% }
     }
 }
 
