@@ -89,11 +89,6 @@
                     nextSelector: "a[data-jscroll-next]",
                     callback: function () {
                         refreshAsyncLike();
-                        $('[data-action]').ajaxSocialAction();
-                        $( '[data-trigger=login]' ).each( function () {
-                            var $e = $( this );
-                            $e.ideiaLogin( $e.data() );
-                        });
                     }
                 });
 
@@ -105,10 +100,11 @@
                         loadingHtml: '<div class="load-async-preload"></div>',
                         contentSelect: ".j-scroll-container",
                         nextSelector: "a[data-jscroll-next]",
-                        callback: refreshAsyncLike()
+                        callback: function() {
+                            refreshAsyncLike();
+                        }
                     });
                     refreshAsyncLike();
-                    $('[data-action]').ajaxSocialAction();
                 });
 
             {% endif %}

@@ -119,6 +119,7 @@
     };
 
     function AsyncLikeOnReady(){
+        console.log("teste");
         var asyncLike = $("[data-async-like=true]");
         var asyncData = asyncLike.IdeiaAsyncLike();
     }
