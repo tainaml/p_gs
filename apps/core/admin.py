@@ -13,17 +13,7 @@ admin.site.register(Tags)
 admin.site.unregister(User)
 from django import forms
 
-class AdminArticleForm(forms.ModelForm):
 
-    class Meta:
-        widgets = {'text': CKEditorUploadingWidget(config_name='article')}
-        excludes = ()
-
-class ArticlelAdmin(CompareVersionAdmin):
-    form = AdminArticleForm
-    list_display = ('id', 'title',)
-    search_fields = ['id', 'title']
-    list_display_links = ('id', 'title',)
 
 
 class QuestionAdmin(CompareVersionAdmin):
@@ -56,6 +46,20 @@ class CoreUserAdmin(UserAdmin):
                 continue
             yield inline.get_formset(request, obj), inline
 
+
+class ArticleAdminForm(forms.ModelForm):
+    class Meta:
+        widgets = {'text': CKEditorUploadingWidget(config_name='article')}
+
+class ArticlelAdmin(CompareVersionAdmin):
+
+
+
+    list_display = ('id', 'title',)
+    search_fields = ['id', 'title']
+    list_display_links = ('id', 'title',)
+
+    form = ArticleAdminForm
 
 admin.site.register(Article, ArticlelAdmin)
 admin.site.register(Question, QuestionAdmin)

@@ -24,7 +24,7 @@ class Article(models.Model):
     title = models.CharField(blank=False, null=False,
                              max_length=settings.ARTICLE_TITLE_LIMIT if hasattr(settings, "ARTICLE_TITLE_LIMIT") else 100)
     slug = models.SlugField(default='', null=False, max_length=255, db_index=True)
-    text = RichTextField(null=False, max_length=settings.ARTICLE_TEXT_LIMIT if hasattr(settings, "ARTICLE_TEXT_LIMIT") else 10000)
+    text = RichTextField(null=False, config_name='article', max_length=settings.ARTICLE_TEXT_LIMIT if hasattr(settings, "ARTICLE_TEXT_LIMIT") else 10000)
     image = models.ImageField(max_length=100, upload_to='article/%Y/%m/%d', blank=True, default='')
     author = models.ForeignKey(settings.AUTH_USER_MODEL, null=False, related_name='articles', verbose_name=_('Author'))
 
