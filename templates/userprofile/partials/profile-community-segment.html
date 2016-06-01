@@ -9,9 +9,8 @@
     <a class="perfil-name" title="{{ community_obj.title }}" href="{% url 'community:show' community_obj.slug %}">
         {{ community_obj.title }}
     </a>
-    <span class="perfil-counter"
-          data-counter="{{ community_obj.followers }}"
-          data-refresh-counter="follow-{{ counter_content_type }}-{{ community_obj.id }}">
+    <span class="perfil-counter" data-counter="{{ community_obj.followers }}"
+    data-refresh-counter="follow-{{ counter_content_type }}-{{ community_obj.id }}">
         <span class="counter-number">{{ community_obj.followers }}</span> Seguidor{{ community_obj.followers|pluralize:'es' }}
     </span>
     {% follow_action community_obj url_next %}

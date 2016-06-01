@@ -8,13 +8,12 @@ from apps.core.models.tags import Tags
 from apps.question.models import Question
 from apps.account.admin import UserAdmin, User
 from apps.userprofile.models import UserProfile
-
+from ckeditor_uploader.widgets import CKEditorUploadingWidget
 admin.site.register(Tags)
 admin.site.unregister(User)
+from django import forms
 
 
-class ArticlelAdmin(CompareVersionAdmin):
-    pass
 
 
 class QuestionAdmin(CompareVersionAdmin):
@@ -47,6 +46,20 @@ class CoreUserAdmin(UserAdmin):
                 continue
             yield inline.get_formset(request, obj), inline
 
+
+class ArticleAdminForm(forms.ModelForm):
+    class Meta:
+        widgets = {'text': CKEditorUploadingWidget(config_name='article')}
+
+class ArticlelAdmin(CompareVersionAdmin):
+
+
+
+    list_display = ('id', 'title',)
+    search_fields = ['id', 'title']
+    list_display_links = ('id', 'title',)
+
+    form = ArticleAdminForm
 
 admin.site.register(Article, ArticlelAdmin)
 admin.site.register(Question, QuestionAdmin)

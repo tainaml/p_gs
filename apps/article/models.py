@@ -24,7 +24,7 @@ class Article(models.Model):
     title = models.CharField(blank=False, null=False,
                              max_length=settings.ARTICLE_TITLE_LIMIT if hasattr(settings, "ARTICLE_TITLE_LIMIT") else 100)
     slug = models.SlugField(default='', null=False, max_length=255, db_index=True)
-    text = RichTextField(null=False, max_length=settings.ARTICLE_TEXT_LIMIT if hasattr(settings, "ARTICLE_TEXT_LIMIT") else 10000)
+    text = RichTextField(null=False, config_name='article', max_length=settings.ARTICLE_TEXT_LIMIT if hasattr(settings, "ARTICLE_TEXT_LIMIT") else 10000)
     image = models.ImageField(max_length=100, upload_to='article/%Y/%m/%d', blank=True, default='')
     author = models.ForeignKey(settings.AUTH_USER_MODEL, null=False, related_name='articles', verbose_name=_('Author'))
 
@@ -75,7 +75,7 @@ class Article(models.Model):
 
     def get_absolute_url(self):
         from django.core.urlresolvers import reverse
-        return reverse('article:view', args=[str(self.id), str(self.slug)])
+        return reverse('article:view', args=[self.year, self.month, self.slug])
 
     def __unicode__(self):
         return self.title or "no title"

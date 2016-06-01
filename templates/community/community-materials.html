@@ -3,6 +3,7 @@
 {% load core_tags %}
 {% load staticfiles %}
 {% load i18n %}
+{% load user_agents %}
 {% block title %}Portal GSTI - Comunidade{% endblock %}
 
 {% block content %}
@@ -15,9 +16,38 @@
             <!-- mudar para 9.5 -->
             <div class="col-lg-9">
                 {% include 'community/partials/filters.html' with title="Materiais" active="materials" has_filter=True %}
-
+                <nav class="perfil-navegation hidden-xs">
+                    <a href="{% url 'community:show' community.slug %}">Feed</a> •
+                    <a href="{% url 'community:questions' community.slug %}">Perguntas</a> •
+                    <a href="{% url 'community:followers' community.slug %}">Membros</a> •
+                    <a href="{% url 'community:about' community.slug %}">Sobre</a> •
+                    <a href="{% url 'community:videos' community.slug %}">Vídeos</a> •
+                    <a class="active" href="{% url 'community:materials' community.slug %}">Materiais</a>
+                </nav>
                 <div class="row">
                     <div class="col-lg-8">
+                        {% if request|is_pc %}
+                        <header class="area-title">
+                            <div class="order-by">
+                                <div class="dropdown">
+                                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdown-filter-posts" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                        <span>
+                                            {% if form.cleaned_data.official %}
+                                                Posts oficiais
+                                            {% else %}
+                                                Todos
+                                            {% endif %}
+                                        </span> <i class="gsticon gsticon-caret-down"></i>
+                                    </button>
+                                    <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown-filter-posts">
+                                        <li {% if form.cleaned_data.official %}class="active"{% endif %} ><a href="{% url 'community:search' community.slug %}?criterio={{ form.cleaned_data.criterio|urlencode }}&official=True&next={{ url_next|urlencode }}" data-target=".area-content">Posts oficiais</a></li>
+                                        <li {% if not form.cleaned_data.official %}class="active"{% endif %}><a href="{% url 'community:search' community.slug %}?criterio={{ form.cleaned_data.criterio|urlencode }}&official=False&next={{ url_next|urlencode }}" data-target=".area-content">Todos</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <h2>Materiais</h2>
+                        </header>
+                        {% endif %}
                         {% block filters %}
                             <nav id="form-search" class="form-search filters-members" data-toggle="filters">
                                 <form action="{% url 'community:materials-search' community.slug %}" method="GET" role="search">
@@ -28,26 +58,21 @@
                                     <button type="submit" class="form-search-button">
                                         <i class="gsticon gsticon-search"></i>
                                     </button>
-                                    <div class="form-search-input">
-                                        <div class="order-by">
-                                            <div class="dropdown">
-                                                <button class="btn btn-default dropdown-toggle" type="button" id="dropdown-filter-posts" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                                    <span>
-                                                        {% if form.cleaned_data.tags %}
-                                                            {{ form.cleaned_data.tags }}
-                                                        {% else %}
-                                                            Todos
-                                                        {% endif %}
-                                                    </span> <i class="gsticon gsticon-caret-down"></i>
-                                                </button>
-                                                <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown-filter-posts">
-                                                    {% for choice_id, choice_name in form.fields.tags.choices %}
-                                                        <li {% if form.cleaned_data.tags.id == choice_id %}class="active"{% endif %}><a href="{% url 'community:materials-search' community.slug %}?criteria={{ form.cleaned_data.criteria|urlencode }}&tags={{ choice_id }}&next={{ url_next|urlencode }}">{{ choice_name }}</a></li>
-                                                    {% endfor %}
-                                                </ul>
-                                            </div>
-                                        </div>
+                                    {% if request|is_mobile %}
+                                    <div class="dropdown">
+                                        <button class="btn btn-block btn-default dropdown-toggle" type="button" id="dropdown-filter-posts" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                            <span>
+                                                {% if form.cleaned_data.official %}
+                                                Posts oficiais
+                                                {% else %} Todos {% endif %}
+                                            </span> <i class="gsticon gsticon-caret-down"></i>
+                                        </button>
+                                        <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown-filter-posts">
+                                            <li {% if form.cleaned_data.official %}class="active"{% endif %} ><a href="{% url 'community:search' community.slug %}?criterio={{ form.cleaned_data.criterio|urlencode }}&official=True&next={{ url_next|urlencode }}" data-target=".area-content">Posts oficiais</a></li>
+                                            <li {% if not form.cleaned_data.official %}class="active"{% endif %}><a href="{% url 'community:search' community.slug %}?criterio={{ form.cleaned_data.criterio|urlencode }}&official=False&next={{ url_next|urlencode }}" data-target=".area-content">Todos</a></li>
+                                        </ul>
                                     </div>
+                                    {% endif %}
                                 </form>
 
                             </nav>

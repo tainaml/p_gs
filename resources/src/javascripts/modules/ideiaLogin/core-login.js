@@ -44,7 +44,7 @@
                     data: obj.settings.data,
                     success: function(data) {
                         obj.settings.check( obj, event, data );
-                        console.log(obj.settings.urlCheckLogin);
+                        // console.log(obj.settings.urlCheckLogin);
                     },
                     error: function(status) {
                         obj.settings.onFailure( obj, event, status );
