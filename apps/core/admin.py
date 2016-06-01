@@ -8,14 +8,16 @@ from apps.core.models.tags import Tags
 from apps.question.models import Question
 from apps.account.admin import UserAdmin, User
 from apps.userprofile.models import UserProfile
-
+from ckeditor_uploader.widgets import CKEditorUploadingWidget
 admin.site.register(Tags)
 admin.site.unregister(User)
 
 
 class ArticlelAdmin(CompareVersionAdmin):
-    pass
-
+    list_display = ('id', 'title',)
+    search_fields = ['id', 'title']
+    class Meta:
+        widgets = {'text': CKEditorUploadingWidget(config_name='article')}
 
 class QuestionAdmin(CompareVersionAdmin):
     pass
