@@ -20,7 +20,7 @@
   display: block;
 
   @media (min-width: $screen-sm-min) {
-    width: calc(33.333333333% - 10px);
+    width: calc(40% - 10px);
     float: left;
   }
 
@@ -61,6 +61,11 @@
   font-size: 14px;
   line-height: 1.42857;
   text-align: center;
+
+  @media (min-width: $screen-sm-min) {
+    width: 20%;
+    margin: 0 10px;
+  }
 }
 
 // Listegem dos trabalhos
