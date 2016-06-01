@@ -16,6 +16,7 @@ admin.site.unregister(User)
 class ArticlelAdmin(CompareVersionAdmin):
     list_display = ('id', 'title',)
     search_fields = ['id', 'title']
+    list_display_links = ('id', 'title',)
     class Meta:
         widgets = {'text': CKEditorUploadingWidget(config_name='article')}
         excludes = ()
