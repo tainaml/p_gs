@@ -90,18 +90,18 @@ require('./when-event.js');
             $.ajax(ajaxParams);
         }
 
-        function setup(){
+        function setup () {
             var $self = $(this);
             $self.on('click', ascynLikeCancel);
         }
 
-        $(this).each(function(){
+        $(this).each(function () {
             setup.call(this);
         });
 
     };
 
-    function ideiaAsyncLikeOnReady(){
+    function ideiaAsyncLikeOnReady () {
         var asyncLike = $('[data-async-like]');
         asyncLike.IdeiaAsyncLike();
     }

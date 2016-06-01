@@ -32,16 +32,16 @@
         var $element = $(element),
             element = element;
 
-        plugin.init = function() {
+        plugin.init = function () {
 
             plugin.settings = $.extend({}, defaults, options);
 
-            $element.on("click", function(e){
+            $element.on("click", function (e) {
                 e.preventDefault();
 
                 var $self = $(this);
 
-                $self.one(EVENT_AJAX_SUCCESS, function(event, data){
+                $self.one(EVENT_AJAX_SUCCESS, function (event, data) {
                     plugin.refresh_counters.call(this, data);
                 });
 
@@ -59,10 +59,10 @@
                 'type': method.toUpperCase(),
                 'url': url,
                 'cache': false,
-                success: function(data){
+                success: function (data) {
                     $self.trigger(EVENT_AJAX_SUCCESS, data);
                 },
-                error: function(jqXHR){
+                error: function (jqXHR) {
                     var data = $.parseJSON(jqXHR.responseText);
                     $self.trigger(EVENT_AJAX_ERROR, [data]);
                 },
@@ -95,12 +95,12 @@
             var tempElemLike = $($self.data('target-like'));
             var tempElemUnLike = $($self.data('target-unlike'));
 
-            $.each(tempElemLike, function(){
+            $.each(tempElemLike, function () {
                 var $el = $(this);
                 $el.html(data.likes);
             });
 
-            $.each(tempElemUnLike, function(){
+            $.each(tempElemUnLike, function () {
                 var $el = $(this);
                 $el.html(data.unlikes);
             });
@@ -109,8 +109,8 @@
         plugin.init();
     };
 
-    $.fn.IdeiaAsyncLike = function(options) {
-        return this.each(function() {
+    $.fn.IdeiaAsyncLike = function (options) {
+        return this.each(function () {
             if (undefined == $(this).data('IdeiaAsyncLike')) {
                 var plugin = new $.AsyncLike(this, options);
                 $(this).data('IdeiaAsyncLike', plugin);
@@ -118,8 +118,7 @@
         });
     };
 
-    function AsyncLikeOnReady(){
-        console.log("teste");
+    function AsyncLikeOnReady() {
         var asyncLike = $("[data-async-like=true]");
         var asyncData = asyncLike.IdeiaAsyncLike();
     }
