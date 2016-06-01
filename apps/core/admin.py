@@ -19,6 +19,7 @@ class AdminArticleForm(forms.ModelForm):
         excludes = ()
 
 class ArticlelAdmin(CompareVersionAdmin):
+    form = AdminArticleForm
     list_display = ('id', 'title',)
     search_fields = ['id', 'title']
     list_display_links = ('id', 'title',)
