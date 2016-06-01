@@ -11,15 +11,18 @@ from apps.userprofile.models import UserProfile
 from ckeditor_uploader.widgets import CKEditorUploadingWidget
 admin.site.register(Tags)
 admin.site.unregister(User)
+from django import forms
 
+class AdminArticleForm(forms.ModelForm):
+    class Meta:
+        widgets = {'text': CKEditorUploadingWidget(config_name='article')}
+        excludes = ()
 
 class ArticlelAdmin(CompareVersionAdmin):
     list_display = ('id', 'title',)
     search_fields = ['id', 'title']
     list_display_links = ('id', 'title',)
-    class Meta:
-        widgets = {'text': CKEditorUploadingWidget(config_name='article')}
-        excludes = ()
+
 
 class QuestionAdmin(CompareVersionAdmin):
     pass
