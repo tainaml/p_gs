@@ -80,5 +80,27 @@
     },
     "model": "configuration.configkey",
     "pk": 6
+  },
+  {
+    "fields": {
+      "order": 6,
+      "group": 2,
+      "description": "Notificar quando algu\u00e9m  sugerir um artigo",
+      "key": "notify_suggest_article",
+      "show": true
+    },
+    "model": "configuration.configkey",
+    "pk": 7
+  },
+  {
+    "fields": {
+      "order": 7,
+      "group": 2,
+      "description": "Notificar quando algu\u00e9m  sugerir uma pergunta",
+      "key": "notify_suggest_question",
+      "show": true
+    },
+    "model": "configuration.configkey",
+    "pk": 8
   }
 ]

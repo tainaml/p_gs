@@ -62,7 +62,7 @@ def social_action(sender, **kwargs):
 
     if action:
         author = action.author
-        to = None
+        to = action.target_user
 
         allowed_content_type = [
             'comment',
@@ -75,14 +75,14 @@ def social_action(sender, **kwargs):
             'community'
         ]
 
-        if action.content_type.model in allowed_content_type and action.content_object:
-            to = action.content_object.author
-
-        elif action.content_type.model in ['user']:
-            to = action.content_object
+        # if action.content_type.model in allowed_content_type and action.content_object:
+        #     to = action.content_object.author
+        #
+        # elif action.content_type.model in ['user']:
+        #     to = action.content_object
 
         if action.content_type.model not in not_allowed_content_type and to != author:
-            if configuration.check_config_to_notify(to, action.action_type, None):
+            if configuration.check_config_to_notify(to, action.action_type):
                 Business.send_notification(
                     author=action.author,
                     to=to,

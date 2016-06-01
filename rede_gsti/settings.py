@@ -25,7 +25,6 @@ ENVIRONMENT = os.environ.get(key="PROJECT_ENVIRONMENT", failobj="develop")
 config = ConfigParser.RawConfigParser()
 config_path = os.path.join(ENVIRONMENT_CONFIG_DIR, '%s-environment.cfg' % ENVIRONMENT)
 
-
 try:
     config.readfp(open(config_path))
 except IOError, e:
@@ -230,7 +229,6 @@ TEMPLATES = [
         },
     },
 ]
-
 
 AUTH_PASSWORD_VALIDATORS = [
     {
