@@ -14,6 +14,7 @@ admin.site.unregister(User)
 from django import forms
 
 class AdminArticleForm(forms.ModelForm):
+
     class Meta:
         widgets = {'text': CKEditorUploadingWidget(config_name='article')}
         excludes = ()
