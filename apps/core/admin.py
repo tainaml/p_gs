@@ -18,6 +18,7 @@ class ArticlelAdmin(CompareVersionAdmin):
     search_fields = ['id', 'title']
     class Meta:
         widgets = {'text': CKEditorUploadingWidget(config_name='article')}
+        excludes = ()
 
 class QuestionAdmin(CompareVersionAdmin):
     pass
