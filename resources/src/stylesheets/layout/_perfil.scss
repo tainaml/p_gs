@@ -276,8 +276,11 @@
 }
 
 .filters-members {
-    @media (max-width: 767px) {
-        display: none;
+    @media (max-width: 767px) { display: none }
+    .dropdown {
+        overflow: hidden;
+        width: 100%;
+        margin-top: 10px;
     }
 }
 .mobile-perfil-navegation {
