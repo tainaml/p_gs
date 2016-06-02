@@ -7,6 +7,7 @@ from django.template.defaultfilters import slugify
 from django.template.loader import render_to_string
 from django.utils import timezone
 from django.utils.safestring import mark_safe
+from apps.feed.models import FeedObject
 from ..utils import generate_home_cache_key
 from apps.article.models import Article
 from apps.community.models import Community
@@ -135,8 +136,9 @@ class AbstractHomeBlock(object):
         for article in articles:
             excludes.append(article.pk)
 
+            feed = FeedObject.objects.get(article=article)
             communities = Community.objects.filter(
-                feeds=article.feed.pk_val
+                feeds=feed
             ).prefetch_related("taxonomy")
 
             if not article.image:
