@@ -89,7 +89,8 @@ def check_config_to_notify(to_user, action, target_object=None):
     key_prefix = 'notify_'
 
     allowed_social_tags = [
-        settings.SOCIAL_COMMENT
+        settings.SOCIAL_COMMENT,
+        settings.NOTIFICATION_SUGGEST
     ]
 
     if action in allowed_social_tags and target_object:
@@ -104,9 +105,7 @@ def check_config_to_notify(to_user, action, target_object=None):
         config = ConfigValues.objects.get(
             Q(object_id=to_user.id) &
             Q(content_type=ContentType.objects.get_for_model(to_user)) &
-            Q(key=ConfigKey.objects.get(
-                key=key_slug
-            ))
+            Q(key=ConfigKey.objects.get(key=key_slug))
         )
     except Exception, e:
         if settings.DEBUG:
