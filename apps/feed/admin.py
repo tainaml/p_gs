@@ -13,7 +13,7 @@ class FeedObjectAdmin(admin.ModelAdmin):
     def view_on_site(self, obj):
 
         if obj.content_type.model == "article":
-            return reverse('article:view', args=[obj.content_object.id, obj.content_object.slug])
+            return reverse('article:view', args=[obj.content_object.year, obj.content_object.month, obj.content_object.slug])
         elif obj.content_type.model == "question":
             return reverse('question:show', args=[obj.content_object.slug, obj.content_object.id])
 
