@@ -4,6 +4,7 @@
 {% load home_cache %}
 {% load category_tags %}
 {% load cache %}
+{% block title %}{{ category.description }} - Portal GSTI{% endblock %}
 
 {% with class_name=class_name|default_if_none:"default" %}
 
@@ -37,6 +38,7 @@
 
                         <div class="perfil">
                             <a href="/html/">
+
                                 <img src="http://localhost:8888/NhuuczoRf0aBvv0dTfg6EpyYHbw=/82x82/localhost:8000/media/uploads/community/2016/04/25/html5_GAmACLf.jpg" alt="HTML">
                             </a>
                             <a href="/html/" class="perfil-name" title="HTML">HTML</a>

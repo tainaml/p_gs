@@ -184,14 +184,38 @@ ADD_REVERSION_ADMIN=True
 if ENVIRONMENT == "develop":
     DEBUG = True
     INSTALLED_APPS += ('debug_toolbar', 'apps.ninico',)
+    CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
+    }
+}
 elif ENVIRONMENT == "test":
     DEBUG = False
     ALLOWED_HOSTS = ['*']
+    from django.core.cache.backends.memcached import PyLibMCCache
+
+    CACHES = {
+        'default': {
+            'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+            'LOCATION': '%s:%s' % (config.get("CACHE", "host"), config.get("CACHE", "port"),),
+        },
+    }
 elif ENVIRONMENT == "production":
     ALLOWED_HOSTS = ['*']
     DEBUG = False
+    CACHES = {
+        'default': {
+            'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+            'LOCATION': '%s:%s' % (config.get("CACHE", "host"), config.get("CACHE", "port"),),
+        },
+    }
 
 AUTH_USER_MODEL = 'account.User'
+
+
+
+
+
 
 
 MIDDLEWARE_CLASSES = (
@@ -586,14 +610,6 @@ SOCIAL_AUTH_PIPELINE = (
 
 )
 
-from django.core.cache.backends.memcached import PyLibMCCache
-
-CACHES = {
-    'default': {
-        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
-        'LOCATION': '%s:%s' % (config.get("CACHE", "host"), config.get("CACHE", "port"),),
-    },
-}
 
 # Name of cache backend to cache user agents. If it not specified default
 # cache alias will be used. Set to `None` to disable caching.
