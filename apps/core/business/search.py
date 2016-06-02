@@ -21,7 +21,11 @@ def get_communities(description=None, items_per_page=None, page=None, startswith
         arr_description = description.split(' ')
 
         for desc in arr_description:
-            query_criteria = Q(title__unaccent__icontains=desc)
+            if desc != u'None':
+                query_criteria = Q(title__unaccent__icontains=desc)
+            else:
+                query_criteria = Q()
+
             criteria = query_criteria if not criteria else criteria | query_criteria
 
         if len(arr_description) == 0:
@@ -33,6 +37,7 @@ def get_communities(description=None, items_per_page=None, page=None, startswith
     try:
         communities = communities.page(page)
     except PageNotAnInteger:
+
         communities = communities.page(1)
     except EmptyPage:
         communities = []
