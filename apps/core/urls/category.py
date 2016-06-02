@@ -6,4 +6,5 @@ urlpatterns = [
 
     # Translators: URL de home de categoria
     url(_(r'^(?P<category_slug>[a-z0-9]+(?:-[a-z0-9]+)*)/$'), CategoryView.CoreCategoryPageView.as_view(), name='show'),
+    url(_(r'^list-communities-articles$'), CategoryView.ArticleCommunityList.as_view(), name='list-community_articles'),
 ]

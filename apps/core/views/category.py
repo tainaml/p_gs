@@ -2,6 +2,8 @@ from django.http import Http404
 from django.shortcuts import render
 from django.views.generic import View
 from django.utils.translation import gettext
+from apps.core.forms.category import ListArticleCommunityForm
+from apps.custom_base.views import FormBaseListView
 
 from apps.taxonomy.models import Taxonomy
 
@@ -34,6 +36,7 @@ class CoreCategoryPageView(View):
         return self.context
 
     def get(self, request, category_slug):
+
         try:
             self.category = Taxonomy.objects.get(slug=category_slug, term__slug='categoria')
         except Taxonomy.DoesNotExist:
@@ -45,3 +48,21 @@ class CoreCategoryPageView(View):
         })
 
         return render(request, self.get_template(), self.get_context())
+
+
+class ArticleCommunityList(FormBaseListView):
+    success_template_path = 'home/categorias/community-list.html'
+    form = ListArticleCommunityForm
+    itens_per_page = 10
+    category = None
+
+    # @Override
+    def after_process(self, request=None, *args, **kwargs):
+        print request
+        self.context.update({'communities': self.process_return, 'category_id': request.GET['category_id']})
+
+
+
+
+
+
