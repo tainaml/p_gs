@@ -9,6 +9,16 @@ def get_jobs(keywords=None, locale=None, items_per_page=None, page=None):
     list_locales = locale.split(char_to_split)
     criteria = None
     criteria_location = None
+    home_office_aliases = [
+                    "homeoffice",
+                    "home office",
+                    "home-office",
+                    "trabalho de casa",
+                    "trabalho remoto",
+                    "trabalho-de-casa",
+                    "trabalho-remoto",
+                    "remoto"
+    ]
 
     for keyword in list_keywords:
         if keyword.isnumeric():
@@ -20,16 +30,31 @@ def get_jobs(keywords=None, locale=None, items_per_page=None, page=None):
                 )
             )
         else:
-            query_criteria = (
-                Q(title__unaccent__icontains=keyword) |
-                Q(company__name__unaccent__icontains=keyword) |
-                Q(regime__description__unaccent__icontains=keyword) |
-                Q(benefits__description__unaccent__icontains=keyword) |
-                Q(resposibility__responsibility__name__unaccent__icontains=keyword) |
-                Q(resposibility__responsibility_type__description__unaccent__icontains=keyword) |
-                Q(requirements__item__description__unaccent__icontains=keyword) |
-                Q(requirements__level__description__unaccent__icontains=keyword)
-            )
+            if keyword in home_office_aliases:
+                query_criteria = (
+                        Q(title__unaccent__icontains=keyword) |
+                        Q(company__name__unaccent__icontains=keyword) |
+                        Q(regime__description__unaccent__icontains=keyword) |
+                        Q(benefits__description__unaccent__icontains=keyword) |
+                        Q(resposibility__responsibility__name__unaccent__icontains=keyword) |
+                        Q(resposibility__responsibility_type__description__unaccent__icontains=keyword) |
+                        Q(requirements__item__description__unaccent__icontains=keyword) |
+                        Q(requirements__level__description__unaccent__icontains=keyword) |
+                        Q(additional_requirements__description__unaccent__icontains=keyword)|
+                        Q(home_office=True)
+                )
+            else:
+                query_criteria = (
+                    Q(title__unaccent__icontains=keyword) |
+                    Q(company__name__unaccent__icontains=keyword) |
+                    Q(regime__description__unaccent__icontains=keyword) |
+                    Q(benefits__description__unaccent__icontains=keyword) |
+                    Q(resposibility__responsibility__name__unaccent__icontains=keyword) |
+                    Q(resposibility__responsibility_type__description__unaccent__icontains=keyword) |
+                    Q(requirements__item__description__unaccent__icontains=keyword) |
+                    Q(requirements__level__description__unaccent__icontains=keyword) |
+                    Q(additional_requirements__description__unaccent__icontains=keyword)
+                )
         criteria = query_criteria if not criteria else criteria & query_criteria
 
     for location in list_locales:
