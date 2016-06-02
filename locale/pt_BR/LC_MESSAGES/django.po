@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-27 08:56-0300\n"
+"POT-Creation-Date: 2016-06-02 16:02-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -270,15 +270,15 @@ msgstr "Configurar Chaves"
 msgid "Contact created!"
 msgstr "Mensagem enviada!"
 
-#: apps/core/admin.py:26
+#: apps/core/admin.py:25
 msgid "Profile"
 msgstr "Perfil"
 
-#: apps/core/admin.py:27
+#: apps/core/admin.py:26
 msgid "Profiles"
 msgstr "Perfis"
 
-#: apps/core/admin.py:41
+#: apps/core/admin.py:40
 msgid "Contributor"
 msgstr "Contribuidor"
 
@@ -406,6 +406,10 @@ msgstr "^publicacao/criar/(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)$"
 #: apps/core/urls/category.py:8
 msgid "^(?P<category_slug>[a-z0-9]+(?:-[a-z0-9]+)*)/$"
 msgstr "^(?P<category_slug>[a-z0-9]+(?:-[a-z0-9]+)*)/$"
+
+#: apps/core/urls/category.py:9
+msgid "^list-communities-articles$"
+msgstr "^listar-publicacoes-comunidades$"
 
 #. Translators: URL de pagina principal de comunidade
 #: apps/core/urls/community.py:8
@@ -951,7 +955,7 @@ msgstr "Comunidade não encontrada"
 msgid "User need follow this community"
 msgstr "É necessário seguir esta comunidade"
 
-#: apps/core/views/category.py:40
+#: apps/core/views/category.py:43
 msgid "Category not found or not root category."
 msgstr "Categoria não encontrada ou não é uma categoria raiz."
 
@@ -1398,13 +1402,13 @@ msgstr "^ckeditor/"
 msgid "Houston, we have a problem!"
 msgstr "Houston, we have a problem!"
 
-#: templates/account/index.html:5
+#: templates/account/index.html:6
 msgid "Show profile"
 msgstr "Mostrar perfil"
 
-#: templates/account/index.html:5 templates/account/index.html.py:6
-#: templates/account/index.html:7 templates/account/index.html.py:8
-#: templates/account/index.html:9 templates/account/login.html.py:23
+#: templates/account/index.html:6 templates/account/index.html.py:7
+#: templates/account/index.html:8 templates/account/index.html.py:9
+#: templates/account/index.html:10 templates/account/login.html.py:23
 #: templates/account/login.html:24 templates/account/mail_validation.html:8
 #: templates/account/password_recovery_successfully.html:4
 #: templates/account/password_sent_email_successfully.html:4
@@ -1422,27 +1426,27 @@ msgstr "Mostrar perfil"
 msgid "or"
 msgstr "ou"
 
-#: templates/account/index.html:6
+#: templates/account/index.html:7
 #: templates/userprofile/occupation_manage.html:22
 #: templates/userprofile/occupation_show.html:6
 #: templates/userprofile/show.html:30
 msgid "Edit profile"
 msgstr "Editar perfil"
 
-#: templates/account/index.html:7
+#: templates/account/index.html:8
 #: templates/userprofile/occupation_manage.html:23
 msgid "Add occupation"
 msgstr "Adicionar ocupação"
 
-#: templates/account/index.html:8
+#: templates/account/index.html:9
 msgid "Manage occupation"
 msgstr "Gerenciar ocupação"
 
-#: templates/account/index.html:9
+#: templates/account/index.html:10 templates/admin/base.html.py:49
 msgid "Change password"
 msgstr "Mudar senha"
 
-#: templates/account/index.html:10
+#: templates/account/index.html:11
 #: templates/userprofile/occupation_manage.html:25
 #: templates/userprofile/occupation_show.html:8
 #: templates/userprofile/show.html:32
@@ -1557,6 +1561,32 @@ msgstr "Primeiro nome"
 msgid "Last Name"
 msgstr "Último nome"
 
+#: templates/admin/base.html:35
+msgid "Welcome,"
+msgstr ""
+
+#: templates/admin/base.html:40
+msgid "View site"
+msgstr ""
+
+#: templates/admin/base.html:45
+#, fuzzy
+#| msgid "^occupation/$"
+msgid "Documentation"
+msgstr "^ocupacao/$"
+
+#: templates/admin/base.html:51
+msgid "Log out"
+msgstr ""
+
+#: templates/admin/base.html:61
+msgid "Home"
+msgstr ""
+
+#: templates/admin/base_site.html:4
+msgid "Django site admin"
+msgstr ""
+
 #: templates/article/article-edit.html:36
 msgctxt "update article"
 msgid "Update"
@@ -1571,6 +1601,21 @@ msgstr "Salvar como rascuho"
 msgctxt "publish article"
 msgid "Publish"
 msgstr "Publicar"
+
+#: templates/community/community-materials.html:85
+#: templates/community/community-videos.html:38
+#: templates/community/partials/community-followers-list.html:33
+#: templates/community/partials/community-list.html:17
+#: templates/socialactions/followers_box.html:29
+#: templates/socialactions/followings_box.html:29
+#: templates/userprofile/profile-communities.html:57
+#: templates/userprofile/profile-feed.html:25
+#: templates/userprofile/profile-list.html:37
+#: templates/userprofile/profile-questions.html:41
+#: templates/userprofile/profile-search.html:35
+#: templates/userprofile/profile-videos.html:39
+msgid "Não existem itens a serem exibidos"
+msgstr ""
 
 #: templates/configuration/configuration-account.html:36
 #: templates/configuration/configuration-deactivate-account.html:22
@@ -1608,7 +1653,7 @@ msgstr ""
 "\"%(url_resend_account_confirmation)s\" data-toggle=\"modal\" data-target="
 "\"#modal-resend-email-confirmation\">%(click_here)s</a> para reenviá-lo."
 
-#: templates/home/partials/slideout-menu.html:35
+#: templates/home/partials/slideout-menu.html:50
 #: templates/home/partials/user-actions.html:34
 msgid "Sair"
 msgstr "Sair"
@@ -1690,6 +1735,9 @@ msgstr "Sexo"
 #: templates/userprofile/show.html:14
 msgid "City / State / Country"
 msgstr "Cidade / Estado / País"
+
+#~ msgid "^(?P<category_id>\\d+)/list-communities$"
+#~ msgstr "^(?P<category_id>\\d+)/listar-comunidades$"
 
 #~ msgid "^/"
 #~ msgstr "^/"

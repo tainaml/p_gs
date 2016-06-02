@@ -4,9 +4,7 @@ from django.shortcuts import render
 from django.utils.decorators import method_decorator
 from django.views.generic import View
 
-
 # Create your views here.
-
 
 class FormBaseView(View):
     context = {}
@@ -98,6 +96,7 @@ class FormBaseListView(FormBaseView):
     def get(self, request=None, *args, **kwargs):
         if not self.form:
             raise NotImplementedError("You must specify the form")
+
         if request.GET.get("page"):
             return self.do_process(request, *args, **kwargs)
         else:
