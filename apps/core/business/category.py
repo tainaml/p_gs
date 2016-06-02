@@ -13,8 +13,12 @@ def get_articles_communities_by_category(category_id=None, items_per_page=None, 
 
     feed_objects = FeedObject.objects.filter(
         Q(article__status=Article.STATUS_PUBLISH)
-        # & Q(communities__in=communities)
+        & Q(communities__in=communities)
 
+    ).distinct(
+        "object_id",
+        "content_type",
+        "date"
     )
 
     items_per_page = items_per_page if items_per_page else 10
