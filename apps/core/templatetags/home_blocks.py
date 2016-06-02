@@ -53,7 +53,7 @@ class AbstractHomeBlock(object):
 
       #  self.cache_home_page = 'home_excludes__%s' % self.cache_home_page
 
-        print self.cache_home_page
+        # print self.cache_home_page
 
 #        global_excludes = cache.get('global_home_excludes', [])
 #        global_excludes.append(self.cache_home_page)
@@ -134,6 +134,13 @@ class AbstractHomeBlock(object):
 
         for article in articles:
             excludes.append(article.pk)
+
+            communities = Community.objects.filter(
+                feeds=article.feed.pk_val
+            ).prefetch_related("taxonomy")
+
+            if not article.image:
+                article.image = communities[0].image
 
         cache.set(self.cache_home_page, excludes, None)
 
