@@ -180,6 +180,7 @@ INSTALLED_APPS = DJANGO_APPS + THIRD_PART_APPS + INTERNAL_APPS
 
 ADD_REVERSION_ADMIN=True
 
+
 # Setting Environment specific settings
 if ENVIRONMENT == "develop":
     DEBUG = True
