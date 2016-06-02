@@ -28,7 +28,8 @@ def get_jobs(keywords=None, locale=None, items_per_page=None, page=None):
                 Q(resposibility__responsibility__name__unaccent__icontains=keyword) |
                 Q(resposibility__responsibility_type__description__unaccent__icontains=keyword) |
                 Q(requirements__item__description__unaccent__icontains=keyword) |
-                Q(requirements__level__description__unaccent__icontains=keyword)
+                Q(requirements__level__description__unaccent__icontains=keyword) |
+                Q(additional_requirements__description__unaccent__icontains=keyword)
             )
         criteria = query_criteria if not criteria else criteria & query_criteria
 
