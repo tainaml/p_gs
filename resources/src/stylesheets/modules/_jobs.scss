@@ -27,13 +27,17 @@
   label { width: 100% }
   .form-control { width: 100% }
   .selectize-input {
+    min-height: 29px;
     padding: 0;
     border: none;
     box-shadow: none !important;
     &.has-items { padding: 0 !important }
+    > div {
+      margin: 0 2px 2px 0 !important;
+    }
     > input {
       font-size: 14px;
-      line-height: 23px !important;
+      line-height: 28px !important;
       }
   }
 
