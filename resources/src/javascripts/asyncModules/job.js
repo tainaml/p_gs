@@ -15,7 +15,6 @@ var defaultSettings = {
   create: true,
   render: {
     option_create: function (item) {
-      console.log(item);
       return `<div class="create">${item.input}</div>`;
     }
   }
