@@ -9,7 +9,7 @@ from ..business import feed as CoreFeedBusiness
 class CoreTaxonomiesMixin(IdeiaModelForm):
 
     taxonomies = forms.ModelMultipleChoiceField(required=False, queryset=Taxonomy.objects.all(),)
-    communities = forms.ModelMultipleChoiceField(required=True, queryset=Community.objects.all(),)
+    communities = forms.ModelMultipleChoiceField(required=False, queryset=Community.objects.all(),)
 
     def __init__(self, *args, **kwargs):
         kwargs['initial'] = kwargs.get('initial', {})

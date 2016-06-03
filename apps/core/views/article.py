@@ -4,7 +4,6 @@ from django.http import Http404
 from django.shortcuts import redirect, render
 from django.utils.translation import gettext as _
 from django.utils.decorators import method_decorator
-
 from apps.article import views
 from apps.comment.service.forms import CreateCommentForm
 from apps.community.models import Community

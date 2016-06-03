@@ -19,9 +19,9 @@ class FeedObject(models.Model):
     object_id = models.PositiveIntegerField()
     content_object = GenericForeignKey('content_type', 'object_id')
 
-    taxonomies = models.ManyToManyField(Taxonomy, related_name='feeds')
-    communities = models.ManyToManyField(Community, related_name='feeds')
-    tags = models.ManyToManyField(Tags, related_name='feeds')
+    taxonomies = models.ManyToManyField(Taxonomy, related_name='feeds', null=True, blank=True)
+    communities = models.ManyToManyField(Community, related_name='feeds', null=True, blank=True)
+    tags = models.ManyToManyField(Tags, related_name='feeds', null=True, blank=True)
 
     official = models.BooleanField(null=False, blank=False, default=False)
 
