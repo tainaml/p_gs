@@ -36,16 +36,17 @@
                     </div>
                    {% with community=category.community_related %}
                     <div class="highlight-right">
-                        <div class="perfil">
-                            <a href="{% url 'community:show' community.slug %}">
-                                <img title="{{ community.title }}" class="img-responsive" src="{% thumbor_url community.get_picture.url width=82 height=82 smart=False fit_in=False %}" alt="{{ community.title }}">
-                               </a>
-                             <a class="perfil-name" title="{{ community.title }}" href="{% url 'community:show' community.slug %}">{{ community.title }}</a>
-                            <span class="perfil-counter" data-counter="0" data-refresh-counter="follow-community-{{ community.id }}">
-                                <span class="counter-number">{{ community.followers }}</span> Seguidor{{ community.followers|pluralize:'es' }}
-                            </span>
-                            {% follow_action community request.path %}
-                        </div>
+                    {% include "userprofile/partials/profile-community-segment.html" with community_obj=community %}
+{#                        <div class="perfil">#}
+{#                            <a href="{% url 'community:show' community.slug %}">#}
+{#                                <img title="{{ community.title }}" class="img-responsive" src="{% thumbor_url community.get_picture.url width=82 height=82 smart=False fit_in=False %}" alt="{{ community.title }}">#}
+{#                               </a>#}
+{#                             <a class="perfil-name" title="{{ community.title }}" href="{% url 'community:show' community.slug %}">{{ community.title }}</a>#}
+{#                            <span class="perfil-counter" data-counter="0" data-refresh-counter="follow-community-{{ community.id }}">#}
+{#                                <span class="counter-number">{{ community.followers }}</span> Seguidor{{ community.followers|pluralize:'es' }}#}
+{#                            </span>#}
+{#                            {% follow_action community request.path %}#}
+{#                        </div>#}
 
                         {% home_block_highlight_simple category_slug class_name=class_name quantity=2 offset=6 %}
 
