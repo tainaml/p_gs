@@ -9,7 +9,7 @@
 
         <title>{% block title %}Portal GSTI - Home {% endblock %}</title>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700">
-        <link rel="stylesheet" href="{% static 'stylesheets/style.css' %}">
+
 
         <link rel="apple-touch-icon-precomposed" sizes="57x57" href="{% static 'images/apple-touch-icon-57x57.png' %}" />
         <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{% static 'images/apple-touch-icon-114x114.png' %}" />
@@ -31,7 +31,7 @@
         <meta name="msapplication-square150x150logo" content="{% static 'images/mstile-150x150.png' %}" />
         <meta name="msapplication-wide310x150logo" content="{% static 'images/mstile-310x150.png' %}" />
         <meta name="msapplication-square310x310logo" content="{% static 'images/mstile-310x310.png' %}" />
-        <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+
         {% block editorfiles %}
         {% endblock %}
     </head>
@@ -100,7 +100,7 @@
 
         {% if request and request.user %}{% wizard %}{% endif %}
 
-
+        <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
         <script src="{% static 'javascripts/shared.js'%}"></script>
         <script src="{% static 'javascripts/main.js'%}"></script>
 
@@ -265,5 +265,6 @@
 
         {% block javascripts %}
         {% endblock %}
+        <link rel="stylesheet" href="{% static 'stylesheets/style.css' %}">
     </body>
 </html>
