@@ -41,7 +41,7 @@
                                 <img title="{{ community.title }}" class="img-responsive" src="{% thumbor_url community.get_picture.url width=82 height=82 smart=False fit_in=False %}" alt="{{ community.title }}">
                                </a>
                              <a class="perfil-name" title="{{ community.title }}" href="{% url 'community:show' community.slug %}">{{ community.title }}</a>
-                            <span class="perfil-counter" data-counter="0" data-refresh-counter="follow-community-39">
+                            <span class="perfil-counter" data-counter="0" data-refresh-counter="follow-community-{{ community.id }}">
                                 <span class="counter-number">{{ community.followers }}</span> Seguidor{{ community.followers|pluralize:'es' }}
                             </span>
                             {% follow_action community request.path %}
@@ -124,7 +124,7 @@
                     nextSelector: "a[data-jscroll-next]",
                     callback: function (data) {
 
-                        console.log(data);
+                        refreshAsyncLike();
                     }
                 });
                 var $social_count = $("[data-social-count=\"true\"]");

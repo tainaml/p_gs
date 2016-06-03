@@ -9,7 +9,7 @@ __author__ = 'phillip'
 # TODO Move this repetition to custom_base for reuse
 def get_articles_communities_by_category(category_id=None, items_per_page=None, page=None):
 
-    communities = Community.objects.filter(taxonomy__parent__id=category_id)
+    communities = Community.objects.filter(Q(taxonomy__parent__id=category_id) | Q(taxonomy__id=category_id))
 
     feed_objects = FeedObject.objects.filter(
         Q(article__status=Article.STATUS_PUBLISH)
@@ -18,8 +18,8 @@ def get_articles_communities_by_category(category_id=None, items_per_page=None, 
     ).distinct(
         "object_id",
         "content_type",
-        "date"
-    )
+        "article__publishin"
+    ).order_by("-article__publishin")
 
     items_per_page = items_per_page if items_per_page else 10
 
