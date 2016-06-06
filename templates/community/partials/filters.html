@@ -16,12 +16,14 @@
 </header>
 {% endif %}
 
-<nav class="mobile-perfil-navegation" id="mobile-perfil-navegation">
-    <a {% if active == "feed" %}class="active"{% endif %} href="{% url 'community:show' community.slug %}">Feed</a>
-    <a {% if active == "perguntas" %}class="active"{% endif %} href="{% url 'community:questions' community.slug %}">Perguntas</a>
-    <a {% if active == "membros" %}class="active"{% endif %} href="{% url 'community:followers' community.slug %}">Membros</a>
-    <a {% if active == "sobre" %}class="active"{% endif %} href="{% url 'community:about' community.slug %}">Sobre</a>
-    <a {% if active == "videos" %}class="active"{% endif %} href="{% url 'community:videos' community.slug %}">Vídeos</a>
+
+<nav class="{% if request|is_pc %}perfil-navegation{% else %}mobile-perfil-navegation{% endif %}" id="mobile-perfil-navegation">
+{% comment %}TODO find a new way{% endcomment %}
+    <a {% if active == "feed" %}class="active"{% endif %} href="{% url 'community:show' community.slug %}">Feed</a>{% if request|is_pc %}<span>•</span>{% endif %}
+    <a {% if active == "perguntas" %}class="active"{% endif %} href="{% url 'community:questions' community.slug %}">Perguntas</a>{% if request|is_pc %}<span>•</span>{% endif %}
+    <a {% if active == "membros" %}class="active"{% endif %} href="{% url 'community:followers' community.slug %}">Membros</a>{% if request|is_pc %}<span>•</span>{% endif %}
+    <a {% if active == "sobre" %}class="active"{% endif %} href="{% url 'community:about' community.slug %}">Sobre</a>{% if request|is_pc %}<span>•</span>{% endif %}
+    <a {% if active == "videos" %}class="active"{% endif %} href="{% url 'community:videos' community.slug %}">Vídeos</a>{% if request|is_pc %}<span>•</span>{% endif %}
     <a {% if active == "materials" %}class="active"{% endif %} href="{% url 'community:materials' community.slug %}">Materiais</a>
 </nav>
 {% if has_filter %}
