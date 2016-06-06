@@ -41,9 +41,14 @@ class CoreArticleForm(ArticleForm, CoreTaxonomiesMixin):
         if process_article:
             reversion.set_user(process_article.author)
         process_feed = Business.save_feed_item(self.instance, self.cleaned_data)
-        #process_taxonomies = self.save_taxonomies(process_feed, self.cleaned_data)
+        if self.cleaned_data['taxonomies']:
+            process_taxonomies = self.save_taxonomies(process_feed, self.cleaned_data)
+        else:
+            process_taxonomies = self.delete_taxonomies(process_feed, self.cleaned_data)
         process_tags = BusinessTags.save_feed_tags(process_feed, self.cleaned_data)
         process_official = BusinessCoreFeed.save_feed_official(process_feed, self.cleaned_data)
 
-        #return process_article if (process_article and process_taxonomies and process_tags and process_official) else False
-        return process_article if (process_article and process_tags and process_official) else False
+        if self.cleaned_data['taxonomies']:
+            return process_article if (process_article and process_taxonomies and process_tags and process_official) else False
+        else:
+            return process_article if (process_article and process_tags and process_official) else False

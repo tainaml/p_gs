@@ -22,6 +22,13 @@ def save_communities(feed_instance=None, data=None):
     return feed_instance
 
 
+def delete_communities(feed_instance=None, data=None):
+    communities = data.get('communities', [])
+    for community in communities:
+        FeedObject.objects.exclude(feed= feed_instance, object=community)
+    return feed_instance
+
+
 def save_feed_question(question, data=None):
     feed_object = BusinessFeed.feed_get_or_create(question)
     feed_object.save()

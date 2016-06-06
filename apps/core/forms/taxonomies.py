@@ -40,3 +40,8 @@ class CoreTaxonomiesMixin(IdeiaModelForm):
         process_communities = CoreFeedBusiness.save_communities(target_object, self.cleaned_data)
         process_core = CoreFeedBusiness.save_taxonomies(target_object, self.cleaned_data)
         return (process_communities and process_core)
+
+
+    def delete_taxonomies(self, target_object, form_data):
+        process_core = CoreFeedBusiness.delete_communities(target_object, self.cleaned_data)
+        return (process_core)
