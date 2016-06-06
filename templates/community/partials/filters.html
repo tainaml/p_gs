@@ -16,7 +16,8 @@
 </header>
 {% endif %}
 
-<nav class="mobile-perfil-navegation" id="mobile-perfil-navegation">
+
+<nav class="{% if request|is_pc %}perfil-navegation{% else %}mobile-perfil-navegation{% endif %}" id="mobile-perfil-navegation">
     <a {% if active == "feed" %}class="active"{% endif %} href="{% url 'community:show' community.slug %}">Feed</a>
     <a {% if active == "perguntas" %}class="active"{% endif %} href="{% url 'community:questions' community.slug %}">Perguntas</a>
     <a {% if active == "membros" %}class="active"{% endif %} href="{% url 'community:followers' community.slug %}">Membros</a>
