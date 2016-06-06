@@ -12,9 +12,10 @@
 
     {% block content %}
 
-        {% ideiahomecache None 'home_page_cache' category_slug %}
+
 
             <main class="container main">
+                {% ideiahomecache None 'home_page_cache' category_slug %}
                 <div class="row">
                     <div class="post-list--large post-list--{{ class_name }}">
                         <div class="post-list-header">
@@ -22,7 +23,9 @@
                         </div>
                     </div>
                 </div>
+                {% endideiahomecache %}
                 <div class="highlight-area-category">
+                    {% cache 0 'home_page_cache'  %}
                     <div class="highlight-left">
                         <div class="banner">
                             <img class="img-responsive" src="http://placehold.it/728x90" alt="Banner Example">
@@ -34,25 +37,27 @@
                         {% home_block_highlight_simple category_slug class_name=class_name quantity=2 offset=4 %}
 
                     </div>
+                    {% endcache %}
                    {% with community=category.community_related %}
                     <div class="highlight-right">
-                        <div class="perfil">
-                            <a href="{% url 'community:show' community.slug %}">
-                                <img title="{{ community.title }}" class="img-responsive" src="{% thumbor_url community.get_picture.url width=82 height=82 smart=False fit_in=False %}" alt="{{ community.title }}">
-                               </a>
-                             <a class="perfil-name" title="{{ community.title }}" href="{% url 'community:show' community.slug %}">{{ community.title }}</a>
-                            <span class="perfil-counter" data-counter="0" data-refresh-counter="follow-community-39">
-                                <span class="counter-number">{{ community.followers }}</span> Seguidor{{ community.followers|pluralize:'es' }}
-                            </span>
-                            {% follow_action community request.path %}
-                        </div>
+                    {% include "userprofile/partials/profile-community-segment.html" with community_obj=community %}
+{#                        <div class="perfil">#}
+{#                            <a href="{% url 'community:show' community.slug %}">#}
+{#                                <img title="{{ community.title }}" class="img-responsive" src="{% thumbor_url community.get_picture.url width=82 height=82 smart=False fit_in=False %}" alt="{{ community.title }}">#}
+{#                               </a>#}
+{#                             <a class="perfil-name" title="{{ community.title }}" href="{% url 'community:show' community.slug %}">{{ community.title }}</a>#}
+{#                            <span class="perfil-counter" data-counter="0" data-refresh-counter="follow-community-{{ community.id }}">#}
+{#                                <span class="counter-number">{{ community.followers }}</span> Seguidor{{ community.followers|pluralize:'es' }}#}
+{#                            </span>#}
+{#                            {% follow_action community request.path %}#}
+{#                        </div>#}
+                        {% cache 0 'home_page_cache' %}
+                            {% home_block_highlight_simple category_slug class_name=class_name quantity=2 offset=6 %}
 
-                        {% home_block_highlight_simple category_slug class_name=class_name quantity=2 offset=6 %}
+                            {% home_block_highlight_simple category_slug class_name=class_name quantity=2 offset=8 %}
 
-                        {% home_block_highlight_simple category_slug class_name=class_name quantity=2 offset=8 %}
-
-                        {% home_block_highlight_with_image category_slug class_name=class_name quantity=2 offset=10 %}
-
+                            {% home_block_highlight_with_image category_slug class_name=class_name quantity=2 offset=10 %}
+                        {% endcache %}
                     </div>
                     {% endwith %}
                 </div>
@@ -75,7 +80,7 @@
                         <div class="post-list-header">
                             <h2 class="post-list-heading">Últimas</h2>
                         </div>
-                    {% endideiahomecache %}
+
                         <div class="post-list-container">
                             <div class="col-lg-12 j-scroll-communities j-scroll-communities-container">
 
@@ -124,7 +129,7 @@
                     nextSelector: "a[data-jscroll-next]",
                     callback: function (data) {
 
-                        console.log(data);
+                        refreshAsyncLike();
                     }
                 });
                 var $social_count = $("[data-social-count=\"true\"]");

@@ -5,25 +5,26 @@ require('selectize');
 import $ from 'jquery';
 
 var job,
-    elementData,
-    $element;
+  elementData,
+  $element;
 
 var defaultSettings = {
-    delimiter: ',',
-    persist: false,
-    create: function(input) {
-        return {
-            value: input,
-            text: input
-        }
+  plugins: ['remove_button'],
+  delimiter: ',',
+  persist: false,
+  create: true,
+  render: {
+    option_create: function (item) {
+      return `<div class="create">${item.input}</div>`;
     }
+  }
 };
 
 job = (element) => {
-    $element = $(element);
-    elementData = $element.data();
-    var selectizeSettings = $.extend({}, defaultSettings, elementData);
-    $(element).selectize(selectizeSettings);
+  $element = $(element);
+  elementData = $element.data();
+  // var selectizeSettings = $.extend({}, defaultSettings, elementData);
+  $(element).selectize(defaultSettings);
 };
 
-export default job
+export default job;
