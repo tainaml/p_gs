@@ -44,7 +44,7 @@ class CoreArticleForm(ArticleForm, CoreTaxonomiesMixin):
         if self.cleaned_data['taxonomies']:
             process_taxonomies = self.save_taxonomies(process_feed, self.cleaned_data)
         else:
-            process_taxonomies = self.delete_taxonomies(process_feed, self.cleaned_data)
+            self.delete_taxonomies(process_feed, self.cleaned_data)
         process_tags = BusinessTags.save_feed_tags(process_feed, self.cleaned_data)
         process_official = BusinessCoreFeed.save_feed_official(process_feed, self.cleaned_data)
 

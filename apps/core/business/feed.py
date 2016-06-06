@@ -23,10 +23,15 @@ def save_communities(feed_instance=None, data=None):
 
 
 def delete_communities(feed_instance=None, data=None):
-    communities = data.get('communities', [])
+    communities = feed_instance.communities.all()
     for community in communities:
-        FeedObject.objects.exclude(feed= feed_instance, object=community)
-    return feed_instance
+        feed_instance.communities.remove(community)
+
+
+def delete_taxonomies(feed_instance=None, data=None):
+    taxonomies = feed_instance.taxonomies.all()
+    for taxonomy in taxonomies:
+        feed_instance.taxonomies.remove(taxonomy)
 
 
 def save_feed_question(question, data=None):
