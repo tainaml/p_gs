@@ -1,6 +1,7 @@
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
 from django.views.generic import View
+from apps.userprofile.service import business as BusinessUserProfile
 
 from ..forms import search as Forms
 
@@ -52,7 +53,7 @@ class Search(SearchBase):
             'form_user': form_user,
             'form_article': form_article,
             'form_question': form_question,
-            'query_search': request.GET.get('q')
+            'query_search': request.GET.get('q'),
         }
         context.update(self.get_context(request))
 
@@ -120,9 +121,12 @@ class SearchList(SearchBase):
             if content_type == "communities":
                 form = self.form_community(6, False, request.GET)
                 communities = form.process()
+
+                categories = BusinessUserProfile.get_categories()
                 context.update({
                     'communities': communities,
                     'form_community': form,
+                    'categories':categories,
                 })
 
             elif content_type == "users":
