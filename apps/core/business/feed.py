@@ -22,6 +22,18 @@ def save_communities(feed_instance=None, data=None):
     return feed_instance
 
 
+def delete_communities(feed_instance=None, data=None):
+    communities = feed_instance.communities.all()
+    for community in communities:
+        feed_instance.communities.remove(community)
+
+
+def delete_taxonomies(feed_instance=None, data=None):
+    taxonomies = feed_instance.taxonomies.all()
+    for taxonomy in taxonomies:
+        feed_instance.taxonomies.remove(taxonomy)
+
+
 def save_feed_question(question, data=None):
     feed_object = BusinessFeed.feed_get_or_create(question)
     feed_object.save()
