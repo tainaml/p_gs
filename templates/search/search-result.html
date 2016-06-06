@@ -29,6 +29,7 @@
                         <header class="area-title">
                             <h2>Comunidades</h2>
                         </header>
+
                         <div class="area-content">
                             {% block filters %}
                             <div id="form-search" class="filter row form-search filters-members" data-toggle="filters">
@@ -152,6 +153,64 @@
                 contentSelect: ".j-scroll-container-questions",
                 nextSelector: "a[data-jscroll-next-questions]",
                 callback: callbackFunction
+            });
+        });
+
+        var jScrollElemment = null,
+            timeoutReference= null;
+        var functionAjaxSuccessFilterCommunities = function(e, data) {
+
+            var $divCommunities = $("#communities-container");
+            var $divJScroll = $('<div />');
+                $divJScroll.addClass("row j-scroll-wizard-communities j-scroll-wizard-communities-container");
+
+            $divJScroll.html(data.template);
+            $divCommunities.html($divJScroll);
+            jScrollElemment = $divJScroll.jscroll({
+                autoTrigger: true,
+                loadingHtml: '<div class="load-async-preload"></div>',
+                contentSelect: '.j-scroll-communities-container',
+                nextSelector: "a[data-jscroll-next]",
+                refresh: true,
+                callback: function () {
+                    $('[data-action]').ajaxSocialAction();
+                }
+            });
+        };
+
+        $(function() {
+            $(document).on('input', "#fcommunity", function (e) {
+                var $this = $(e.currentTarget);
+
+                if (e.type=='keyup' && e.keyCode!=8) return;
+                if (timeoutReference) clearTimeout(timeoutReference);
+                timeoutReference = setTimeout(function(){
+                    $this.closest('form').submit();
+                }, 500);
+            });
+
+            $(document).on('change', "#cfilter" , function(event) {
+                var $this = $(event.currentTarget);
+                    $this.closest('form').submit();
+            });
+
+            $("#search-form").on("ajaxform.success", functionAjaxSuccessFilterCommunities);
+
+            $(".j-scroll-communities").jscroll({
+                contentSelect: ".j-scroll-communities-container",
+                loadingHtml: '<div class="load-async-preload"></div>',
+                nextSelector: "a[data-jscroll-next]",
+                callback: function () {
+                    $('[data-action]').ajaxSocialAction();
+                }
+            });
+
+            var $social_count = $("[data-social-count=\"true\"]");
+            $.each($social_count, function(key, value){
+               var $obj = $(value);
+                $.get($obj.data("url"), function(data){
+                   $obj.text(data.count);
+                });
             });
         });
     </script>
