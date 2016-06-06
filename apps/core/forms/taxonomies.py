@@ -42,9 +42,5 @@ class CoreTaxonomiesMixin(IdeiaModelForm):
         return process_communities and process_core
 
     def delete_taxonomies(self, target_object, form_data):
-        print target_object
-        print self.cleaned_data
-        # apagar taxonomia
         CoreFeedBusiness.delete_taxonomies(target_object, self.cleaned_data)
-        # apagar comunidade
         CoreFeedBusiness.delete_communities(target_object, self.cleaned_data)
