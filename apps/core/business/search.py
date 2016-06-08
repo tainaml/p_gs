@@ -64,7 +64,10 @@ def get_users(description=None, items_per_page=None, page=None, startswith=False
         if len(arr_description) == 0:
             criteria = True
 
-    users = User.objects.filter(Q(is_active=True) & Q(profile__isnull=False) & criteria).distinct('id')
+    # TODO remove empty register
+    exclude_empty_register = ~Q(username__exact='')
+
+    users = User.objects.filter(Q(is_active=True) & Q(profile__isnull=False) & exclude_empty_register & criteria).distinct('id')
 
     users = Paginator(users, items_per_page)
     try:
