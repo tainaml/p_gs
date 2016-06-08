@@ -126,17 +126,18 @@ class SearchList(SearchBase):
                 context.update({
                     'communities': communities,
                     'form_community': form,
-                    'categories':categories,
+                    'categories': categories,
                 })
 
                 if request.is_ajax():
                     self.template_path = 'userprofile/partials/profile-communities.html'
-                    _context = {
+                    context.update = ({
                         'category': request.GET.get('category'),
                         'criteria': request.GET.get('criteria'),
-                        'template': render(request, self.template_path, context).content
-                    }
-                    return JsonResponse(_context, status=200)
+                        'template': render(request, self.template_path, context).content,
+                        'profile': request.user.profile
+                    })
+                    return JsonResponse(context, status=200)
 
             elif content_type == "users":
                 form = self.form_user(6, False, request.GET)
