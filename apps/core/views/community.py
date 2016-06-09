@@ -90,7 +90,7 @@ class CoreCommunityList(CoreCommunitySearch):
         return context
 
 
-class CoreCommunityFeedView(CoreCommunitySearch):
+class CoreCommunityFeedView(CoreCommunityView):
 
     template_path = 'community/community-view.html'
 
