@@ -8,6 +8,7 @@
     {% for community in items %}
        <div class="box-perfil">
            <div class="perfil">
+               {% if community.content_object %}
                <a href="{% url 'community:show' community.content_object.slug %}"><img title="{{ community.content_object.title }}" class="img-responsive" src="{% thumbor_url community.content_object.get_picture.url width=82 height=82 smart=False fit_in=False %}" alt="{{ community.content_object.title }}"></a>
 
                <a class="perfil-name" title="{{ community.content_object.title }}" href="{% url 'community:show' community.content_object.slug %}">{{ community.content_object.title }}</a>
@@ -17,6 +18,17 @@
                    <span class="counter-number">{{ community.content_object.followers }}</span> Seguidor{{ community.content_object.followers|pluralize:'es' }}
                </span>
                {% follow_action community.content_object request.path %}
+               {% else %}
+               <a href="{% url 'community:show' community.slug %}"><img title="{{ community.title }}" class="img-responsive" src="{% thumbor_url community.get_picture.url width=82 height=82 smart=False fit_in=False %}" alt="{{ community.title }}"></a>
+
+               <a class="perfil-name" title="{{ community.title }}" href="{% url 'community:show' community.slug %}">{{ community.title }}</a>
+               <span class="perfil-counter"
+                     data-counter="{{ community.followers }}"
+                     data-refresh-counter="follow-{{ counter_content_type }}-{{ community.id }}">
+                   <span class="counter-number">{{ community.followers }}</span> Seguidor{{ community.followers|pluralize:'es' }}
+               </span>
+               {% follow_action community request.path %}
+               {% endif %}
            </div>
        </div>
     {% endfor %}
