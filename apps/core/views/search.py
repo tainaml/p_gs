@@ -128,18 +128,12 @@ class SearchList(SearchBase):
                     'communities': communities,
                     'form_community': form,
                     'categories': categories,
-                    'items': paginated_communities,
+                    'items': paginated_communities.object_list,
                     'profile': request.user.profile
                 })
 
                 if request.is_ajax():
-                    self.template_path = 'userprofile/partials/profile-communities.html'
-                    context = {
-                        'category': request.GET.get('category'),
-                        'criteria': request.GET.get('criteria'),
-                        'template': render(request, self.template_path, context).content,
-                    }
-                    return JsonResponse(context, status=200)
+                    return self.responseJSON(request, context)
 
             elif content_type == "users":
                 form = self.form_user(6, False, request.GET)
@@ -183,6 +177,16 @@ class SearchList(SearchBase):
 
     def create_pagination(self, communities):
         return Paginator(communities, 6)
+
+    def responseJSON(self, request, context):
+        self.template_path = 'userprofile/partials/profile-communities.html'
+        context = {
+            'category': request.GET.get('category'),
+            'criteria': request.GET.get('criteria'),
+            'template': render(request, self.template_path, context).content,
+        }
+        return JsonResponse(context, status=200)
+
 
 class SearchContent(SearchList):
 
