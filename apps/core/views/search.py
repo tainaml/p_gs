@@ -1,3 +1,4 @@
+from django.core.paginator import Paginator
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
 from django.views.generic import View
@@ -121,22 +122,23 @@ class SearchList(SearchBase):
             if content_type == "communities":
                 form = self.form_community(6, False, request.GET)
                 communities = form.process()
-
+                paginated_communities = self.create_pagination(communities)
                 categories = BusinessUserProfile.get_categories()
                 context.update({
                     'communities': communities,
                     'form_community': form,
                     'categories': categories,
+                    'items': paginated_communities,
+                    'profile': request.user.profile
                 })
 
                 if request.is_ajax():
                     self.template_path = 'userprofile/partials/profile-communities.html'
-                    context.update = ({
+                    context = {
                         'category': request.GET.get('category'),
                         'criteria': request.GET.get('criteria'),
                         'template': render(request, self.template_path, context).content,
-                        'profile': request.user.profile
-                    })
+                    }
                     return JsonResponse(context, status=200)
 
             elif content_type == "users":
@@ -179,6 +181,8 @@ class SearchList(SearchBase):
 
         return self.return_success(request, context)
 
+    def create_pagination(self, communities):
+        return Paginator(communities, 6)
 
 class SearchContent(SearchList):
 

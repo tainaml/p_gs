@@ -33,7 +33,7 @@
                         <div class="area-content">
                             {% block filters %}
                             <div id="form-search" class="filter row form-search filters-members" data-toggle="filters">
-                            <form id="search-form" action="{% url 'community:general-search' %}" method="GET" data-ajaxform="true" data-group-class=".form-search-input">
+                            <form id="search-form" action="{% url 'search:list' "communities" %}" method="GET" data-ajaxform="true" data-group-class=".form-search-input">
                                 <div class="col-lg-8 clearfix">
                                     <div class="form-search-input">
                                         <input type="text" id="fcommunity" name="criteria" placeholder="{{placehold|default:"Procure comunidades"}}" autocomplete="off" />
