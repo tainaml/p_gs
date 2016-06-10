@@ -33,7 +33,7 @@
                         <div class="area-content">
                             {% block filters %}
                             <div id="form-search" class="filter row form-search filters-members" data-toggle="filters">
-                            <form id="search-form" action="{% url 'search:list' "communities" %}" method="GET" data-ajaxform="true" data-group-class=".form-search-input">
+                            <form id="search-form" action="{% url 'search:list' "communities" %}" method="GET" data-type="html" data-ajaxform="true" data-group-class=".form-search-input">
                                 <div class="col-lg-8 clearfix">
                                     <div class="form-search-input">
                                         <input type="text" id="fcommunity" name="criteria" placeholder="{{placehold|default:"Procure comunidades"}}" autocomplete="off" />
@@ -55,7 +55,7 @@
                             </form>
                         </div>
                         {% endblock %}
-                            <div class="row j-scroll-communities j-scroll-container-communities">
+                            <div class="row j-scroll-communities j-scroll-container-communities" id="communities-container">
                                 {% include "search/partials/search-communities.html" %}
                             </div>
                         </div>
@@ -156,25 +156,21 @@
             });
         });
 
-        var jScrollElemment = null,
-            timeoutReference= null;
+        var timeoutReference= null;
         var functionAjaxSuccessFilterCommunities = function(e, data) {
 
             var $divCommunities = $("#communities-container");
             var $divJScroll = $('<div />');
-                $divJScroll.addClass("row j-scroll-wizard-communities j-scroll-wizard-communities-container");
+            $divJScroll.addClass('j-scroll-communities-container');
 
-            $divJScroll.html(data.template);
+            $divJScroll.html(data);
             $divCommunities.html($divJScroll);
-            jScrollElemment = $divJScroll.jscroll({
-                autoTrigger: true,
+            $divJScroll.jscroll({
+                autoTrigger: false,
+                contentSelect: ".j-scroll-communities-container",
                 loadingHtml: '<div class="load-async-preload"></div>',
-                contentSelect: '.j-scroll-communities-container',
-                nextSelector: "a[data-jscroll-next]",
-                refresh: true,
-                callback: function () {
-                    $('[data-action]').ajaxSocialAction();
-                }
+                nextSelector: "a[data-jscroll-next-communities]",
+                callback: callbackFunction
             });
         };
 
@@ -195,15 +191,6 @@
             });
 
             $("#search-form").on("ajaxform.success", functionAjaxSuccessFilterCommunities);
-
-            $(".j-scroll-communities").jscroll({
-                contentSelect: ".j-scroll-communities-container",
-                loadingHtml: '<div class="load-async-preload"></div>',
-                nextSelector: "a[data-jscroll-next]",
-                callback: function () {
-                    $('[data-action]').ajaxSocialAction();
-                }
-            });
 
             var $social_count = $("[data-social-count=\"true\"]");
             $.each($social_count, function(key, value){

@@ -132,8 +132,8 @@ class SearchList(SearchBase):
                     'profile': request.user.profile
                 })
 
-                if request.is_ajax():
-                    return self.responseJSON(request, context)
+                # if request.is_ajax():
+                    # return self.responseJSON(request, context)
 
             elif content_type == "users":
                 form = self.form_user(6, False, request.GET)

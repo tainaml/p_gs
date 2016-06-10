@@ -125,6 +125,7 @@ require('./validation.js');
         function doSubmit(){
 
             var $self = $(this);
+            var dataType = $self.attr('data-type') || 'json';
             var url = $self.attr('action') || location.href;
             var withFiles = ($self.attr('enctype') === 'multipart/form-data');
             var method = $self.attr('method') || 'post';
@@ -157,7 +158,7 @@ require('./validation.js');
                     }
 
                 },
-                dataType: 'json',
+                dataType: dataType,
                 data: $self.serialize()
             };
 
