@@ -132,9 +132,6 @@ class SearchList(SearchBase):
                     'profile': request.user.profile
                 })
 
-                # if request.is_ajax():
-                    # return self.responseJSON(request, context)
-
             elif content_type == "users":
                 form = self.form_user(6, False, request.GET)
                 users = form.process()
@@ -175,18 +172,6 @@ class SearchList(SearchBase):
 
         return self.return_success(request, context)
 
-    def create_pagination(self, communities):
-        return Paginator(communities, 6)
-
-    def responseJSON(self, request, context):
-        self.template_path = 'userprofile/partials/profile-communities.html'
-        context = {
-            'category': request.GET.get('category'),
-            'criteria': request.GET.get('criteria'),
-            'template': render(request, self.template_path, context).content,
-        }
-        return JsonResponse(context, status=200)
-
 
 class SearchContent(SearchList):
 
@@ -194,3 +179,43 @@ class SearchContent(SearchList):
 
     def change_template(self, template_path):
         return self.template_path
+
+
+class SearchCommunitiesList(SearchBase):
+
+    form_community = Forms.SearchCommunityForm
+
+    def change_template(self, template_path):
+        self.template_path = template_path
+
+    def create_pagination(self, communities):
+        return Paginator(communities, 6)
+
+    def get(self, request):
+        context = {}
+
+        try:
+            form = self.form_community(6, False, request.GET)
+            communities = form.process()
+            paginated_communities = self.create_pagination(communities)
+            categories = BusinessUserProfile.get_categories()
+            context.update({
+                'communities': communities,
+                'form_community': form,
+                'categories': categories,
+                'items': paginated_communities.object_list,
+                'profile': request.user.profile
+            })
+
+        except Exception, e:
+            return self.return_error(request, {})
+
+        context.update({
+            'page': form.cleaned_data.get('page', 1) + 1,
+            'query_search': request.GET.get('q')
+        })
+        context.update(self.get_context(request))
+
+        self.change_template("search/partials/search-communities.html")
+
+        return self.return_success(request, context)
