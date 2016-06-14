@@ -68,19 +68,19 @@ class CoreCommunitySearch(CoreCommunityView):
 
         return context
 
-    def get(self, request):
+    # def get(self, request):
+    #
+    #     community = Community.objects.filter(title=request)
+    #     if not community:
+    #         return self.community_not_found
+    #
+    #     context = {'community': community}
+    #     context.update(self.get_context(request, community))
+    #
+    #     return render(request, self.template_path, context)
 
-        community = Community.objects.filter(title=request)
-        if not community:
-            return self.community_not_found
 
-        context = {'community': community}
-        context.update(self.get_context(request, community))
-
-        return render(request, self.template_path, context)
-
-
-class CoreCommunityList(CoreCommunityView):
+class CoreCommunityList(CoreCommunitySearch):
 
     template_path = 'community/partials/community-list.html'
 
