@@ -553,7 +553,7 @@ class CoreProfileSearchEditPosts(views.ProfileBaseView):
         return self.return_success(request, context)
 
     def get_context(self, request, profile_instance=None):
-        form = self.form(request.user, 10, request.GET)
+        form = self.form(request.user, 10, True, request.GET)
 
         posts = form.process()
         status = Article.STATUS_CHOICES
