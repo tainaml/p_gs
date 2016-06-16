@@ -369,6 +369,7 @@ TOOLBAR_CUSTOM = [
     ['CodeSnippet'],
     ['Embed'],
     ['Maximize', 'ShowBlocks'],
+    ['Scayt'],
     # ['Source']
 ]
 
@@ -419,7 +420,7 @@ CKEDITOR_CONFIGS = {
         'filebrowserBrowseUrl': None,
         'extraPlugins': ','.join([
             'autolink', 'autoembed', 'embedsemantic', 'widget',
-            'dialog', 'embed', 'uploadimage', 'codesnippet',
+            'dialog', 'embed', 'uploadimage', 'codesnippet', 'scayt'
         ]),
     }
 }
