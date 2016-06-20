@@ -1,7 +1,7 @@
 <form class="create-comment" data-group-class=".comment-group" data-ajaxform="true" data-toggle="replace"  class="create-comment" data-update="#{{ to_update }}" action="{% url 'comment:edit' %}" method="post">{% csrf_token %}
     <div class="comment-group create-comment-body{% if form.content.errors %} has-error{% endif %}">
-         <textarea name="content" class="form-control"  placeholder="Deixe seu comentário">{{ instance.content }}</textarea>
-         <span class="help-block"></span>
+        <textarea name="content" class="form-control"  placeholder="Deixe seu comentário">{{ instance.content }}</textarea>
+        <span class="help-block"></span>
     </div>
     <input name="comment_id" value="{{ instance.id }}" type="hidden"/>
     <div class="create-comment-footer">
