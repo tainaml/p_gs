@@ -122,13 +122,13 @@ class SearchList(SearchBase):
             if content_type == "communities":
                 form = self.form_community(6, False, request.GET)
                 communities = form.process()
-                paginated_communities = self.create_pagination(communities)
+                # paginated_communities = self.create_pagination(communities)
                 categories = BusinessUserProfile.get_categories()
                 context.update({
                     'communities': communities,
                     'form_community': form,
                     'categories': categories,
-                    'items': paginated_communities.object_list,
+                    # 'items': paginated_communities.object_list,
                     'profile': request.user.profile
                 })
 
