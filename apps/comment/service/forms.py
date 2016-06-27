@@ -81,7 +81,7 @@ class EditCommentForm(IdeiaForm):
     content = forms.CharField(
         max_length=settings.COMMENT_TEXT_LIMIT if hasattr(settings, "COMMENT_TEXT_LIMIT") else 10000,
         required=True,
-        widget=CKEditorWidget(config_name='question')
+        widget=CKEditorWidget(config_name='comment')
     )
     comment_id = forms.IntegerField(required=True)
 
