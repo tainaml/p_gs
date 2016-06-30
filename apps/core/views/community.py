@@ -80,7 +80,7 @@ class CoreCommunitySearch(CoreCommunityView):
     #     return render(request, self.template_path, context)
 
 
-class CoreCommunityList(CoreCommunitySearch):
+class CoreCommunityList(CoreCommunityView):
 
     template_path = 'community/partials/community-list.html'
 
