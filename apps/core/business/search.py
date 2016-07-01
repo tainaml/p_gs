@@ -9,7 +9,7 @@ from apps.community.models import Community
 from apps.question.models import Question
 
 
-def get_communities(description=None, items_per_page=None, page=None, startswith=False):
+def get_communities(description=None, items_per_page=None, page=None, startswith=False, category=None):
 
     items_per_page = items_per_page if items_per_page else 6
     page = page if page else 1
@@ -24,12 +24,16 @@ def get_communities(description=None, items_per_page=None, page=None, startswith
             if desc != u'None':
                 query_criteria = Q(title__unaccent__icontains=desc)
             else:
-                query_criteria = Q()
+                query_criteria = Q(1==1)
 
-            criteria = query_criteria if not criteria else criteria | query_criteria
+            criteria = query_criteria if criteria is None else criteria | query_criteria
 
         if len(arr_description) == 0:
             criteria = True
+
+    if category:
+        category_cryteria = Q(taxonomy__parent=category)
+        criteria = category_cryteria if not criteria else criteria & category_cryteria
 
     communities = Community.objects.filter(criteria).distinct('id')
     communities = Paginator(communities, items_per_page)
