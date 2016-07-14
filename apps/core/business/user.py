@@ -234,7 +234,7 @@ def get_articles(author, description=None, status=None, items_per_page=None, pag
         condition &= Q(status=status)
 
     if order:
-        posts = Article.objects.filter(condition).prefetch_related("author").exclude(status=Article.STATUS_TEMP).order_by('-updatein')
+        posts = Article.objects.filter(condition).prefetch_related("author").exclude(status=Article.STATUS_TEMP).order_by('-publishin')
     else:
         posts = Article.objects.filter(condition).prefetch_related("author").exclude(status=Article.STATUS_TEMP)
 
