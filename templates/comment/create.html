@@ -1,5 +1,6 @@
 {% load thumbor_tags %}
 {% load avatar_tags %}
+{% load widget_tweaks %}
 
 {{ form.non_field_errors }}
 
@@ -10,6 +11,8 @@
     </div>
 
     <div class="comment-group create-comment-body{% if form.content.errors %} has-error{% endif %}">
+     {% render_field form.text placeholder="Conteúdo da publicação" class="form-control" rows="10" cols="30" %}
+
          <textarea id="text_area_content" name="content" class="form-control" placeholder="Deixe seu comentário" data-url-login="{% url 'account:is_logged' %}" data-trigger="login" data-token="{{ csrf_token }}"></textarea>
 {#            {{ form_comment.content|safe}}#}
 {#         {{ form.content|safe }}#}

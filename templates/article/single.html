@@ -11,6 +11,11 @@
 {% load avatar_tags %}
 {% load humanize %}
 
+{% block editorfiles %}
+<script type="text/javascript" src="{% static "ckeditor/ckeditor/ckeditor.js" %}"></script>
+<script type="text/javascript" src="{% static "ckeditor/ckeditor-init.js" %}"></script>
+{% endblock %}
+
 {% block title %}{{ article.title }} - Portal GSTI{% endblock %}
 
 {% block content %}
@@ -194,8 +199,7 @@
         });
     };
 
-    var form_submit = function(event, data){
-        var $form = $(this);
+    function setData($form, data){
 
         var action = $form.data("toggle");
         var $div_to_update = $($form.data("update"));
@@ -205,6 +209,7 @@
             $form[0].reset();
         }else if (action=="prepend"){
             $div_to_update.prepend(data.template);
+
             var $form_to_hide = $form.parent(".dropdown-content");
             if ($form_to_hide){
                 $form_to_hide.removeClass("open");
@@ -213,6 +218,15 @@
         }else if (action=="replace"){
             $div_to_update.html(data.template);
         }
+    }
+
+    var form_submit = function(event, data){
+        var $form = $(this);
+
+        setData($form, data);
+
+        var $div_to_update = $($form.data("update"));
+
         var $subforms = $div_to_update.find("form[data-ajaxform=\"true\"]");
         $subforms.IdeiaAjaxForm();
         $subforms.on("ajaxform.success", form_submit);
@@ -302,9 +316,6 @@
         $comment_form.on("ajaxform.success", form_submit);
         $comment_form.on("ajaxform.validation", function(event, addError) {
 {#            updateEditors();#}
-
-            $("form[data-ajaxform=\"true\"]").on("ajaxform.success", form_submit);
-
 
         });
         $("#confirmation-form").on("ajaxform.success", functionAjaxSuccessDeleteItem);
