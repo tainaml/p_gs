@@ -1,6 +1,7 @@
 {%extends 'home/layout/base.html' %}
 {% load staticfiles %}
 {% load i18n %}
+{% load user_agents %}
 
 {% block title %}Portal GSTI - Perfil{% endblock %}
 
@@ -11,7 +12,14 @@
                 {% include 'home/partials/sidebar-perfil.html' %}
             </div>
             <div class="col-lg-9">
-                {% include 'userprofile/partials/filters.html' with title="Publicações de "|add:profile.user.first_name  active="profile" has_filter=True has_navigation=True %}
+
+                {# TODO REFACTOR TO A BETTER APROACH #}
+                {% if request|is_pc %}
+                    {% include 'userprofile/partials/filters.html' with title="Publicações de "|add:profile.user.first_name  active="profile" has_filter=True has_navigation=True %}
+                {% else %}
+                    {% include 'userprofile/partials/filters.html' with title="Publicações"  active="profile" has_filter=True has_navigation=True %}
+                {% endif %}
+
                 <div class="row">
                     <div class="col-lg-8">
                         {% block filters %}
