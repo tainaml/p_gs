@@ -1,7 +1,7 @@
 {% load social_tags %}
 {% load thumbor_tags %}
 {% load var_tags %}
-
+{% load i18n %}
 {% set counter_content_type = "community" %}
 
 {% if items %}
@@ -34,4 +34,7 @@
     {% endfor %}
 
     <a data-jscroll-next href="{% url 'profile:communities-list' profile.user.get_username %}?page={{ page }}&next={{ url_next|urlencode }}&criteria={{ form.cleaned_data.criteria|default:"" }}&category={{ form.cleaned_data.category.id|default:"" }}"></a>
+{% elif page <= 2 %}
+<p class="text-center text-italic">{% trans 'Não existem itens a serem exibidos' %}</p>
+<hr>
 {% endif %}
