@@ -19,6 +19,7 @@ def communities_related(context, category, count=5):
 
     response_data = {
         'communities': communities,
+        'category': category,
         'request': context.get('request')
     }
 
