@@ -4,7 +4,7 @@
 
 <div id="comment-{{ instance.id }}">
     <div class="comment-user">
-        <img src="{% get_avatar instance.author width=63 height=63 smart=False fit_in=False %}" alt="User Avatar">
+        <img src="{% get_avatar instance.author width=63 height=63 smart=False fit_in=False %}" alt="Foto de {{ instance.author.full_name }}">
     </div>
     <div class="comment-body">
         <header class="post-header">
