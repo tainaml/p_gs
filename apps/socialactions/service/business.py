@@ -1,3 +1,4 @@
+from django.db import transaction
 from apps.account.models import User
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.db.models import Q
@@ -372,3 +373,21 @@ def count_actions_by_user_and_action(user=None, action=None, **filters):
         count = 0
 
     return count
+
+
+
+@transaction.atomic
+def follow_by_user_and_models(user=None, models=None):
+    if not models:
+        models = []
+    for model in models:
+        act_by_content_type_and_id(user, get_content_by_object(model).model, model.id, 'follow')
+
+@transaction.atomic
+def set_follow_by_user_and_models(user=None, models=None):
+    if not models:
+        models = []
+    actions = UserAction.objects.filter(author=user, object_id__in=models, action_type=get_by_label('follow'))
+    actions.delete()
+
+    follow_by_user_and_models(user, models)

@@ -19,8 +19,8 @@ from apps.taxonomy.service import business as BusinessTaxonomy
 from apps.socialactions.service import business as BusinessSocialActions
 from apps.core.forms.user import CoreSearchFollowings
 from rede_gsti import settings
-
-
+from apps.community.service import business as BusinessCommunity
+from apps.socialactions.service import business as BusinnesSocialAction
 class CoreUserView(views.ProfileShowView):
 
     template_path = 'userprofile/profile.html'
@@ -247,6 +247,7 @@ class CoreProfileWizardStepTwoAjax(views.ProfileBaseView):
             context.update({'status': 400})
             return self.return_error(request, context)
 
+
         form = CoreCommunityFormSearch(6, request.GET)
         communities = form.process()
         taxonomies = [taxonomy.id for taxonomy in form.cleaned_data['taxonomies']]
@@ -272,6 +273,12 @@ class CoreProfileWizardStepTwoAjax(views.ProfileBaseView):
             taxonomy_categories_obj = BusinessTaxonomy.get_categories(request.POST.getlist('taxonomies'))
             taxonomy_communities = BusinessTaxonomy.get_related_list_top_down(taxonomy_categories_obj)
             taxonomies = [tax.id for tax in taxonomy_communities]
+
+
+
+            communities = BusinessCommunity.get_category_communities(taxonomies)
+
+            BusinnesSocialAction.set_follow_by_user_and_models(request.user, communities)
 
             form = CoreCommunityFormSearch(6, {"taxonomies": taxonomies})
             communities = form.process()

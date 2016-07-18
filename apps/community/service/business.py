@@ -10,15 +10,6 @@ def get_community_by_params(params={}, order_by=[], limit=None, offset=None):
     return community
 
 
-def get_communities(taxonomies_id=None):
-    try:
-        communities = Community.objects.filter(taxonomy__in=taxonomies_id)
-    except Community.DoesNotExist:
-        return None
-
-    return communities
-
-
 def get_community(slug=None):
     try:
         community = Community.objects.get(slug=slug)
@@ -26,3 +17,12 @@ def get_community(slug=None):
         return None
 
     return community
+
+
+def get_category_communities(taxonomies_id=None):
+    try:
+        communities = Community.objects.filter(taxonomy__in=taxonomies_id, taxonomy__term__slug='categoria')
+    except Community.DoesNotExist:
+        return None
+
+    return communities
