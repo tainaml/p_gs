@@ -5,7 +5,7 @@ from ..business import search as Business
 
 class SearchBaseForm(IdeiaForm):
 
-    category = forms.ModelChoiceField(queryset=Taxonomy.objects.filter(term__slug="categoria"), required=False)
+    category = forms.CharField(required=False)
     q = forms.CharField(required=False)
     page = forms.IntegerField(required=False)
 

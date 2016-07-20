@@ -46,7 +46,7 @@
                                         <select id="cfilter" class="form-control" name="category">
                                             <option class="custom-select-option" value="">Selecione</option>
                                             {% for category in categories %}
-                                                <option class="custom-select-option" value="{{ category.id }}">{{ category.description }}</option>
+                                                <option class="custom-select-option" value="{{ category.slug }}">{{ category.description }}</option>
                                             {% endfor %}
                                         </select>
                                     </div>
