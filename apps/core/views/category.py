@@ -41,7 +41,7 @@ class CoreCategoryPageView(View):
         try:
 
             self.category = Taxonomy.objects.get(slug=category_slug, term__slug='categoria')
-            self.category.community_related = Community.objects.get(slug=category_slug, taxonomy__term__slug='comunidade')
+            self.category.community_related = Community.objects.get(slug=category_slug, taxonomy__term__slug='categoria')
         except Taxonomy.DoesNotExist:
             raise Http404(gettext('Category not found or not root category.'))
 
