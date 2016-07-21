@@ -2,6 +2,7 @@ from django.http import Http404
 from django.shortcuts import render
 from django.views.generic import View
 from django.utils.translation import gettext
+from apps.community.models import Community
 from apps.core.forms.category import ListArticleCommunityForm
 from apps.custom_base.views import FormBaseListView
 
@@ -38,7 +39,9 @@ class CoreCategoryPageView(View):
     def get(self, request, category_slug):
 
         try:
+
             self.category = Taxonomy.objects.get(slug=category_slug, term__slug='categoria')
+            self.category.community_related = Community.objects.get(slug=category_slug, taxonomy__term__slug='comunidade')
         except Taxonomy.DoesNotExist:
             raise Http404(gettext('Category not found or not root category.'))
 
