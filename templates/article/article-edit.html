@@ -77,9 +77,9 @@
                                     </div>
                                     <input type="file" accept="image/*" name="{{ form_article.image.name }}" class="hidden-file-input">
                                     <div class="custom-file-upload-result" data-content="file"></div>
-                                    <div class="form-group">
-                                        {% if form_article.image.errors %}  {{ form_article.image.errors }} {% endif %}
-                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    {% if form_article.image.errors %}  {{ form_article.image.errors }} {% endif %}
                                 </div>
 
                                 {% if request.user.profile.isContributor %}
