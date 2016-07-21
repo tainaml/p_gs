@@ -32,7 +32,7 @@ def get_communities(description=None, items_per_page=None, page=None, startswith
             criteria = True
 
     if category:
-        category_cryteria = Q(taxonomy__parent=category)
+        category_cryteria = Q(taxonomy__slug=category)
         criteria = category_cryteria if not criteria else criteria & category_cryteria
 
     communities = Community.objects.filter(criteria).distinct('id')
