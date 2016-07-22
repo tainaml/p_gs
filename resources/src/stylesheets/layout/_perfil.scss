@@ -279,7 +279,7 @@
 .filters-members {
     @media (max-width: 767px) { display: none }
     .dropdown {
-        overflow: hidden;
+        float: left;
         width: 100%;
         margin-top: 10px;
     }

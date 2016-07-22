@@ -370,7 +370,7 @@ TOOLBAR_CUSTOM = [
     ['Embed'],
     ['Maximize', 'ShowBlocks'],
     ['Scayt'],
-    # ['Source']
+    ['Source']
 ]
 
 # CKEDITOR

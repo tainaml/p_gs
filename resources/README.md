@@ -11,3 +11,8 @@ gerar os assets e fazer o hash dos mesmos
 Geralmente esse problema é ocasionado pela alteração na referência do script,
 adicionar o `/static/` antes do `javascripts/` dentro do "shared-[hash].js"
 em static/javascripts.
+
+
+## instalando o npm par ao usuário
+
+sudo chown -R $(whoami) $(npm config get prefix)/{lib/node_modules,bin,share}

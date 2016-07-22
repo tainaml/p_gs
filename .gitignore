@@ -172,3 +172,5 @@ run-gunicorn.sh
 
 dump.json
 dumpconfiguration.json
+
+update.py
