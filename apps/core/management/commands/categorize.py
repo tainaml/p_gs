@@ -25,7 +25,7 @@ class Command(BaseCommand):
                     feed.taxonomies.add(community.taxonomy)
                     feed.communities.add(community)
                     feed.save()
-                    print "Done article %s" % article.title
+                    print "Done article %s" % str(article.id)
 
 
 
