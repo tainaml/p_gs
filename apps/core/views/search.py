@@ -2,6 +2,7 @@ from django.core.paginator import Paginator
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
 from django.views.generic import View
+from apps.taxonomy.models import Taxonomy, Term
 from apps.userprofile.service import business as BusinessUserProfile
 
 from ..forms import search as Forms
@@ -118,7 +119,9 @@ class SearchList(SearchBase):
         context = {}
 
         if 'category' in request.GET:
-            context.update({"category":request.GET['category']})
+            term = Term.objects.get(slug="categoria")
+            category = Taxonomy.objects.get(slug=request.GET['category'], term=term)
+            context.update({"category":category.slug})
 
         try:
 

@@ -46,7 +46,7 @@
                                         <select data-url="{% url 'search:search-content' "communities" %}" id="cfilter" class="form-control" name="category">
                                             <option class="custom-select-option" value="">Selecione</option>
                                             {% for category in categories %}
-                                                <option {% if request.GET.category == category.id|stringformat:"i" %}selected="selected"{% endif %} class="custom-select-option" value="{{ category.id }}">{{ category.description }}</option>
+                                                <option {% if request.GET.category == category.slug %}selected="selected"{% endif %} class="custom-select-option" value="{{ category.slug }}">{{ category.description }}</option>
                                             {% endfor %}
                                         </select>
                                     </div>

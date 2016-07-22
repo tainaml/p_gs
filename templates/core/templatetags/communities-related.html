@@ -19,7 +19,7 @@
                 {% follow_action community request.path %}
             </div>
         {% endfor %}
-        <a class="widget-footer" href="{% url 'search:search-content' "communities" %}?category={{ category.id }}">
+        <a class="widget-footer" href="{% url 'search:search-content' "communities" %}?category={{ category.slug }}">
             <i class="gsticon gsticon-plus"></i>
             Ver todos
         </a>
