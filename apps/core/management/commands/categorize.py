@@ -9,7 +9,7 @@ from apps.feed.models import FeedObject
 class Command(BaseCommand):
 
     def handle(self, *args, **options):
-        communities = Community.objects.all()
+        communities = Community.objects.filter(taxonomy__term__slug='comunidade')
 
 
         for community in communities:
