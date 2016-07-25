@@ -196,8 +196,8 @@ elif ENVIRONMENT == "test":
 
     CACHES = {
         'default': {
-            'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
-            'LOCATION': '%s:%s' % (config.get("CACHE", "host"), config.get("CACHE", "port"),),
+           'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+            'LOCATION': 'unique-snowflake',
         },
     }
 elif ENVIRONMENT == "production":
