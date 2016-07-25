@@ -17,7 +17,7 @@ class Command(BaseCommand):
             if community.title.lower() in ['mais', 'desenvolvimento', 'infraestrutura', 'design', 'mobile', 'ios', 'cores', 'branding', 'processo criativo']:
                 print community.title
             else:
-                criteria = Q(title__unaccent__icontains=community.title+" ") | Q(text__unaccent__icontains=" " + community.title)
+                criteria = Q(title__unaccent__icontains=community.title+" ") | Q(title__unaccent__icontains=" " + community.title)
 
                 articles  = Article.objects.filter(criteria)
                 for article in articles:
