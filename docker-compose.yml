@@ -2,6 +2,8 @@ version: '2'
 services:
   thumbor:
     image: "apsl/thumbor"
+    environment:
+      SECURITY_KEY: 'MY_SECURE_KEY'
     ports: 
       - "8880:8000"
     domainname: thumbor.redegsti.dev
