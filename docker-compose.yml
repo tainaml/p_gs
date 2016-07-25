@@ -1,11 +1,9 @@
 version: '2'
 services:
   thumbor:
-    build:
-      context: .
-      dockerfile: Dockerfile_thumbor
+    image: "apsl/thumbor"
     ports: 
-      - "8888:8880"
+      - "8880:8000"
     domainname: thumbor.redegsti.dev
     hostname: thumbor
   memcached:
@@ -13,15 +11,19 @@ services:
     ports:
       - "11211:11211"
   db:
-    build:
-      context: .
-      dockerfile: Dockerfile_database
+    image: "postgres:9.3"
+    environment:
+      LANG: en_US.utf8
+      POSTGRES_PASSWORD: vagrant
+      POSTGRES_USER: vagrant
+      POSTGRES_DB: vagrant
+      DB_UNACCENT: 'True'
+    domainname: db.redegsti.dev
+    hostname: database
     ports:
       - "5432:5432"
     volumes:
-      - /srv/docker/postgresql:/var/lib/postgresql
-    domainname: db.redegsti.dev
-    hostname: database
+      - /srv/docker/postgres:/var/lib/postgresql
   web:
     build: .
     volumes:
