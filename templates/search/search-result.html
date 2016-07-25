@@ -23,7 +23,6 @@
                     </div>
                 {% endif %}
 
-
                 {% if communities.object_list %}
                     <div class="result-container">
                         <header class="area-title">
@@ -33,10 +32,10 @@
                         <div class="area-content">
                             {% block filters %}
                             <div id="form-search" class="filter row form-search filters-members" data-toggle="filters">
-                            <form id="search-form" action="{% url 'search:search-filter' %}" method="GET" data-type="html" data-ajaxform="true" data-group-class=".form-search-input">
+                            <form id="search-form" action="{% url 'search:list' "communities" %}" method="GET" data-type="html" data-ajaxform="true" data-group-class=".form-search-input">
                                 <div class="col-lg-8 clearfix">
                                     <div class="form-search-input">
-                                        <input type="text" id="fcommunity" name="criteria" placeholder="{{placehold|default:"Procure comunidades"}}" autocomplete="off" />
+                                        <input type="text" id="fcommunity" name="q" placeholder="{{placehold|default:"Procure comunidades"}}" autocomplete="off" />
                                     </div>
                                     <button type="submit" id="search" class="form-search-button">
                                         <i class="gsticon gsticon-search"></i>
@@ -44,10 +43,10 @@
                                 </div>
                                 <div class="col-lg-4 text-right">
                                     <div class="custom-select">
-                                        <select id="cfilter" class="form-control" name="category">
+                                        <select data-url="{% url 'search:search-content' "communities" %}" id="cfilter" class="form-control" name="category">
                                             <option class="custom-select-option" value="">Selecione</option>
                                             {% for category in categories %}
-                                                <option class="custom-select-option" value="{{ category.id }}">{{ category.description }}</option>
+                                                <option {% if request.GET.category == category.slug %}selected="selected"{% endif %} class="custom-select-option" value="{{ category.slug }}">{{ category.description }}</option>
                                             {% endfor %}
                                         </select>
                                     </div>
@@ -62,7 +61,6 @@
                     </div>
                 {% endif %}
 
-
                 {% if users.object_list %}
                     <div class="result-container">
                         <header class="area-title">
@@ -75,7 +73,6 @@
                         </div>
                     </div>
                 {% endif %}
-
 
                 {% if questions.object_list %}
                     <div class="result-container">
@@ -186,8 +183,12 @@
             });
 
             $(document).on('change', "#cfilter" , function(event) {
+
                 var $this = $(event.currentTarget);
-                    $this.closest('form').submit();
+                var $form = $this.closest('form');
+                var url = $this.data("url");
+                url = url + "?" +$form.serialize();
+                window.location.replace(url);
             });
 
             $("#search-form").on("ajaxform.success", functionAjaxSuccessFilterCommunities);

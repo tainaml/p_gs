@@ -2,6 +2,7 @@ from django.core.paginator import Paginator
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
 from django.views.generic import View
+from apps.taxonomy.models import Taxonomy, Term
 from apps.userprofile.service import business as BusinessUserProfile
 
 from ..forms import search as Forms
@@ -117,18 +118,21 @@ class SearchList(SearchBase):
 
         context = {}
 
+        if 'category' in request.GET:
+            term = Term.objects.get(slug="categoria")
+            category = Taxonomy.objects.get(slug=request.GET['category'], term=term)
+            context.update({"category":category.slug})
+
         try:
 
             if content_type == "communities":
                 form = self.form_community(6, False, request.GET)
                 communities = form.process()
-                paginated_communities = self.create_pagination(communities)
                 categories = BusinessUserProfile.get_categories()
                 context.update({
                     'communities': communities,
                     'form_community': form,
                     'categories': categories,
-                    'items': paginated_communities.object_list,
                     'profile': request.user.profile
                 })
 

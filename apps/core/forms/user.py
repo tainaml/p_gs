@@ -190,9 +190,10 @@ class CoreSearchArticlesForm(IdeiaForm):
     status = forms.ChoiceField(required=False, choices=Article.STATUS_CHOICES)
     page = forms.IntegerField(required=False)
 
-    def __init__(self, author=None, items_per_page=10, *args, **kwargs):
+    def __init__(self, author=None, items_per_page=10, order=None, *args, **kwargs):
         self.items_per_page = items_per_page
         self.author = author
+        self.order = order
 
         super(CoreSearchArticlesForm, self).__init__(*args, **kwargs)
 
@@ -210,7 +211,8 @@ class CoreSearchArticlesForm(IdeiaForm):
             self.cleaned_data.get('criteria'),
             self.cleaned_data.get('status'),
             self.items_per_page,
-            self.cleaned_data.get('page', 1)
+            self.cleaned_data.get('page', 1),
+            self.order
         )
 
 

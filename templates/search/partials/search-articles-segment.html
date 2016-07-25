@@ -28,7 +28,6 @@
                     </ul>
                 </div>
             </div>
-        {{ article.author.username }}
             <a class="post-creator" href="{% if  article.author.is_active %}{% url 'profile:show' article.author.username %}{% else %}javascript:;{% endif %}">
                 <img src="{% get_avatar article.author width=20 height=20 smart=False fit_in=False %}" alt="foto de {{ article.author.get_full_name }}">
                 {{article.author.get_full_name}}
@@ -37,7 +36,7 @@
         <a class="post-content" href="{% url 'article:view' article.year article.month article.slug %}" itemprop="articleBody">
             <figure>
                 {% if article.get_image %}
-                    <img src="{% thumbor_url article.get_image.url width=170 height=128 smart=False fit_in=False %}" alt="{{ article.title }}">
+                    <img src="{% thumbor_url article.get_image.url width=120 height=92 smart=False fit_in=False %}" alt="{{ article.title }}">
                 {% endif %}
             </figure>
             <div class="post-text">

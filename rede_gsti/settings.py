@@ -369,7 +369,8 @@ TOOLBAR_CUSTOM = [
     ['CodeSnippet'],
     ['Embed'],
     ['Maximize', 'ShowBlocks'],
-    # ['Source']
+    ['Scayt'],
+    ['Source']
 ]
 
 # CKEDITOR
@@ -419,7 +420,7 @@ CKEDITOR_CONFIGS = {
         'filebrowserBrowseUrl': None,
         'extraPlugins': ','.join([
             'autolink', 'autoembed', 'embedsemantic', 'widget',
-            'dialog', 'embed', 'uploadimage', 'codesnippet',
+            'dialog', 'embed', 'uploadimage', 'codesnippet', 'scayt'
         ]),
     }
 }
@@ -429,6 +430,9 @@ CKEDITOR_RESTRICT_BY_USER = True
 CKEDITOR_UPLOAD_PATH = 'editor-uploads/'
 CKEDITOR_BROWSE_SHOW_DIRS = False
 
+
+#HOME community characters limit
+HOME_CHARACTERS_LIMIT= 48
 
 # NOTIFICATION
 NOTIFICATION_LIKE = 1

@@ -2,7 +2,7 @@
 {% load avatar_tags %}
 {% load thumbor_tags %}
 {% load var_tags %}
-
+{% load i18n %}
 {% set counter_content_type = "user" %}
 
 {% if items.object_list %}
@@ -22,4 +22,7 @@
         </div>
     {% endfor %}
     <a data-jscroll-next href="{% url 'profile:followings-search-list' object.username %}?criteria={{ form.cleaned_data.criteria|urlencode }}&page={{ page }}&next={{ url_next|urlencode }}">next</a>
+{% elif page <= 2 %}
+    <p class="text-center text-italic">{% trans 'Não existem itens a serem exibidos' %}</p>
+    <hr>
 {% endif %}

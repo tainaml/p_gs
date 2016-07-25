@@ -691,17 +691,17 @@ msgstr "^editar/ajax/$"
 #. Translators: URL de edicao de posts
 #: apps/core/urls/user.py:15
 msgid "^edit-posts/$"
-msgstr "^editar-postagens/$"
+msgstr "^editar-publicacoes/$"
 
 #. Translators: URL de procura de posts
 #: apps/core/urls/user.py:18
 msgid "^edit-posts/search/$"
-msgstr "^editar-postagens/busca/$"
+msgstr "^editar-publicacoes/busca/$"
 
 #. Translators: URL de listagem e procura de posts
 #: apps/core/urls/user.py:21
 msgid "^edit-posts/search/list/$"
-msgstr "^editar-postagens/busca/listagem/$"
+msgstr "^editar-publicacoes/busca/listagem/$"
 
 #. Translators: URL de edicao de questions
 #: apps/core/urls/user.py:24

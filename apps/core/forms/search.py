@@ -1,9 +1,11 @@
 from apps.custom_base.service.custom import IdeiaForm, forms
+from apps.taxonomy.models import Taxonomy, Term
 from ..business import search as Business
 
 
 class SearchBaseForm(IdeiaForm):
 
+    category = forms.CharField(required=False)
     q = forms.CharField(required=False)
     page = forms.IntegerField(required=False)
 
@@ -21,12 +23,21 @@ class SearchBaseForm(IdeiaForm):
 
 class SearchCommunityForm(SearchBaseForm):
     def __process__(self):
-        return Business.get_communities(
-            self.cleaned_data['q'],
-            self.items_per_page,
-            self.cleaned_data['page'],
-            self.startswith
-        )
+        if 'category' in self.cleaned_data and self.cleaned_data['category'] is not None:
+            return Business.get_communities(
+                self.cleaned_data['q'],
+                self.items_per_page,
+                self.cleaned_data['page'],
+                self.startswith,
+                self.cleaned_data['category']
+            )
+        else:
+            return Business.get_communities(
+                self.cleaned_data['q'],
+                self.items_per_page,
+                self.cleaned_data['page'],
+                self.startswith
+            )
 
 
 class SearchUserForm(SearchBaseForm):

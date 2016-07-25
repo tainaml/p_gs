@@ -227,13 +227,16 @@ def get_active_articles_from_user(profile_instance=None, description=None, conte
     return feed_objects_paginated
 
 
-def get_articles(author, description=None, status=None, items_per_page=None, page=None):
+def get_articles(author, description=None, status=None, items_per_page=None, page=None, order=None):
 
     condition = Q(author=author) & (Q(title__icontains=description) | Q(text__icontains=description))
     if status:
         condition &= Q(status=status)
 
-    posts = Article.objects.filter(condition).prefetch_related("author").exclude(status=Article.STATUS_TEMP)
+    if order:
+        posts = Article.objects.filter(condition).prefetch_related("author").exclude(status=Article.STATUS_TEMP).order_by('-publishin')
+    else:
+        posts = Article.objects.filter(condition).prefetch_related("author").exclude(status=Article.STATUS_TEMP)
 
     items_per_page = items_per_page if items_per_page else 10
     page = page if page else 1

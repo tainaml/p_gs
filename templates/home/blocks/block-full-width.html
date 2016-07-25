@@ -5,7 +5,8 @@
     <section class="post-list--large post-list--{{ class_name }}">
         <div class="post-list-header">
             <h2 class="post-list-heading">{{ category.description }}</h2>
-            {% include 'home/blocks/partials/communities.html' %}
+{#            {% include 'home/blocks/partials/communities.html' %}#}
+            {% communities communities %}
         </div>
         <div class="post-list-container">
 

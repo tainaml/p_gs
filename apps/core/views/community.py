@@ -68,17 +68,6 @@ class CoreCommunitySearch(CoreCommunityView):
 
         return context
 
-    def get(self, request):
-
-        community = Community.objects.filter(title=request)
-        if not community:
-            return self.community_not_found
-
-        context = {'community': community}
-        context.update(self.get_context(request, community))
-
-        return render(request, self.template_path, context)
-
 
 class CoreCommunityList(CoreCommunitySearch):
 
@@ -90,7 +79,7 @@ class CoreCommunityList(CoreCommunitySearch):
         return context
 
 
-class CoreCommunityFeedView(CoreCommunityView):
+class CoreCommunityFeedView(CoreCommunitySearch):
 
     template_path = 'community/community-view.html'
 
