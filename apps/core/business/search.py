@@ -7,6 +7,7 @@ from apps.account.models import User
 from apps.article.models import Article
 from apps.community.models import Community
 from apps.question.models import Question
+from apps.userprofile.models import UserProfile
 
 
 def get_communities(description=None, items_per_page=None, page=None, startswith=False, category=None):
@@ -49,29 +50,38 @@ def get_communities(description=None, items_per_page=None, page=None, startswith
     return communities
 
 
-def get_users(description=None, items_per_page=None, page=None, startswith=False):
+def get_users(description=None, items_per_page=None, page=None, startswith=False, state=None):
 
     items_per_page = items_per_page if items_per_page else 6
     page = page if page else 1
 
     if startswith:
-        criteria = (Q(first_name__unaccent__istartswith=description))
+        criteria = (Q(user__first_name__unaccent__istartswith=description))
     else:
         criteria = None
         arr_description = description.split(' ')
 
         for desc in arr_description:
-            query_criteria = (Q(first_name__unaccent__icontains=desc) |
-                              Q(last_name__unaccent__icontains=desc))
+            query_criteria = (Q(user__first_name__unaccent__icontains=desc) |
+                              Q(user__last_name__unaccent__icontains=desc))
             criteria = query_criteria if not criteria else criteria | query_criteria
 
         if len(arr_description) == 0:
             criteria = True
 
-    # TODO remove empty register
-    exclude_empty_register = ~Q(username__exact='')
+    if state:
+        state_criteria = Q(user__city__state=state)
+        criteria = state_criteria if not criteria else criteria & state_criteria
 
-    users = User.objects.filter(Q(is_active=True) & Q(profile__isnull=False) & exclude_empty_register & criteria).distinct('id')
+    # TODO remove empty register
+    exclude_empty_register = ~Q(user__username__exact='')
+
+    userprofiles = UserProfile.objects.filter(Q(user__is_active=True) & exclude_empty_register & criteria).distinct('id')
+
+    users = []
+
+    for profile in userprofiles:
+        users.append(profile.user)
 
     users = Paginator(users, items_per_page)
     try:

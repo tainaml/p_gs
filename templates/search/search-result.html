@@ -68,7 +68,7 @@
                         </header>
                         {% block filter_users %}
                             <div id="form-search" class="filters-members" data-toggle="filters">
-                                <form class=" row" id="form-search-followers"  name="filterMember" action="{% url 'community:search-followers' %}?next={{ request.path }}" method="GET" role="search" data-ajaxform="true" data-group-class=".form-group">
+                                <form class=" row" id="form-search-followers"  name="filterMember" action="{% url 'search:search-content' 'users' %}?next={{ request.path }}" method="GET" role="search" data-ajaxform="true" data-group-class=".form-group">
                             <input type="hidden" name="community" value="{{ community.id }}">
                             <div class="col-lg-7 col-xs-12">
                                 <div class="form-search-input">

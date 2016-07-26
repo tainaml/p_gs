@@ -41,12 +41,23 @@ class SearchCommunityForm(SearchBaseForm):
 
 
 class SearchUserForm(SearchBaseForm):
+
+    state = forms.IntegerField(required=False)
+    #city = forms.IntegerField(required=False)
+
+    def __init__(self, items_per_page=None, startswith=False, *args, **kwargs):
+        self.state = int(args[0]['state']) if "state" in kwargs else None
+        self.items_per_page = items_per_page
+        self.startswith = startswith
+        super(SearchBaseForm, self).__init__(*args, **kwargs)
+
     def __process__(self):
         return Business.get_users(
             self.cleaned_data['q'],
             self.items_per_page,
             self.cleaned_data['page'],
-            self.startswith
+            self.startswith,
+            self.state,
         )
 
 
