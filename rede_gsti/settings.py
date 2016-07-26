@@ -179,16 +179,24 @@ INSTALLED_APPS = DJANGO_APPS + THIRD_PART_APPS + INTERNAL_APPS
 
 ADD_REVERSION_ADMIN=True
 
+def show_toolbar(request):
+    return not request.is_ajax()
 
 # Setting Environment specific settings
 if ENVIRONMENT == "develop":
     DEBUG = True
     INSTALLED_APPS += ('debug_toolbar', 'apps.ninico',)
     CACHES = {
-    'default': {
-        'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
+        'default': {
+            'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
+            # 'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+            # 'LOCATION': 'unique-snowflake',
+        }
     }
-}
+    DEBUG_TOOLBAR_CONFIG = {
+        'SHOW_TOOLBAR_CALLBACK': show_toolbar,
+    }
+
 elif ENVIRONMENT == "test":
     DEBUG = False
     ALLOWED_HOSTS = ['*']

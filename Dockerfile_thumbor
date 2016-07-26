@@ -1,22 +1,27 @@
-FROM python:2.7
-ENV PYTHONUNBUFFERED 1
+FROM phusion/baseimage:0.9.19
 ENV HOME /root
 
-RUN apt-get update && apt-get install -y build-essential python-dev curl\
-	python-pycurl python-pip python-numpy python-opencv\
-	webp libpng-dev libtiff-dev libjasper-dev libjpeg-dev\
-	libdc1394-22-dev libdc1394-22 libdc1394-utils
-	gifsicle libgif-dev \
 
-	&& rm -rf /var/lib/apt/lists/*
+# Use baseimage-docker's init system.
+CMD ["/sbin/my_init"]
 
-RUN pip install opencv-engine
-RUN pip install thumbor
+RUN rm -f /etc/service/sshd/down
+RUN /etc/my_init.d/00_regen_ssh_host_keys.sh
+RUN /usr/sbin/enable_insecure_key
 
 ADD provision/data/thumbor.conf /root/thumbor.conf
 
-EXPOSE 8880
+#RUN apt-get update -yq &&\
+# 	apt-get install -yq\
+# 	build-essential python-dev python-pycurl python-pip\
+# 	libopencv-dev python-numpy python-opencv webp libpng-dev libtiff-dev libjasper-dev libjpeg-dev
 
-ENTRYPOINT ["/usr/local/bin/thumbor"]
+#RUN pip install thumbor
+#RUN pip install colour
+#RUN pip install opencv-engine
 
-CMD ["--port=8880", "-c", "/root/thumbor.conf"]
+# Clean up APT when done.
+RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+
+EXPOSE 22

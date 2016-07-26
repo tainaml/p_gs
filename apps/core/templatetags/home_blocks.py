@@ -79,13 +79,20 @@ class AbstractHomeBlock(object):
     @property
     def custom_filters(self):
 
-        return Q(
+        communities = Community.objects.filter(
+            Q(taxonomy__parent__id=self.category.id) |\
+            Q(taxonomy__id=self.category.id)
+        )
+
+        q = Q(
             feed__official=True,
+            feed__communities__in=communities,
+            status__in=[Article.STATUS_PUBLISH],
             feed__content_type=article_type,
             publishin__lte=timezone.now(),
-            feed__taxonomies__in=[self.category],
-            status__in=[Article.STATUS_PUBLISH]
         )
+
+        return q
 
     def get_taxonomies(self):
 
@@ -114,17 +121,16 @@ class AbstractHomeBlock(object):
         if self.category is None:
             return False
 
-        communities_filters = dict(
-            taxonomy=self.category
-        )
+        communities_filters = Q(taxonomy__parent__id=self.category.id) |\
+            Q(taxonomy__id=self.category.id)
 
-        communities = Community.objects.filter(**communities_filters)
+        communities = Community.objects.filter(communities_filters)
 
         excludes = cache.get(self.cache_home_page, [])
         excludes = sorted(set(excludes))
 
         articles = Article.objects.filter(
-            self.custom_filters,
+            self.custom_filters
         ).exclude(
             id__in=excludes
         ).order_by(
