@@ -66,6 +66,39 @@
                         <header class="area-title">
                             <h2>Pessoas</h2>
                         </header>
+                        {% block filter_users %}
+                            <div id="form-search" class="filters-members" data-toggle="filters">
+                                <form class=" row" id="form-search-followers"  name="filterMember" action="{% url 'community:search-followers' %}?next={{ request.path }}" method="GET" role="search" data-ajaxform="true" data-group-class=".form-group">
+                            <input type="hidden" name="community" value="{{ community.id }}">
+                            <div class="col-lg-7 col-xs-12">
+                                <div class="form-search-input">
+                                    <input type="text" id="filterName" name="criteria" placeholder="{{ placehold|default:"Procure por pessoas" }}" autocomplete="off">
+                                </div>
+                                <button type="submit" class="form-search-button">
+                                    <i class="gsticon gsticon-search"></i>
+                                </button>
+                            </div>
+                            <div class="col-lg-2 col-xs-12 text-right">
+                                <div class="custom-select">
+                                    <select class="form-control" id="filterState" name="state" data-ajax-change="true" data-url="{% url 'profile:get_city' %}" data-target="#filterCity">
+                                        <option value="" selected>Estado</option>
+                                        {% for state in states %}
+                                            <option value="{{ state.id }}">{{ state.name }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-xs-12 text-right">
+                                <div class="custom-select">
+                                    <select class="form-control" id="filterCity" name="city">
+                                        <option value="">Cidade</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </form>
+                            </div>
+
+                        {% endblock filter_users %}
                         <div class="area-content">
                             <div class="row j-scroll-users j-scroll-container-users">
                                 {% include "search/partials/search-users.html" %}
@@ -199,6 +232,77 @@
                 $.get($obj.data("url"), function(data){
                    $obj.text(data.count);
                 });
+            });
+        });
+
+
+
+
+
+            var jScrollElemment = null,
+            timeoutReference= null;
+        var functionAjaxSuccessSearchFollowers = function (e, data) {
+
+            var $divFollowers = $("#followers-container");
+            var $divJScroll = $('<div class="row j-scroll-followers j-scroll-followers-container"></div>');
+
+            $divJScroll.html(data.template);
+
+            $divFollowers.html($divJScroll);
+            refreshAsyncLike();
+
+            jScrollElemment = $divJScroll.jscroll({
+                autoTrigger: true,
+                loadingHtml: '<div class="load-async-preload"></div>',
+                contentSelect: '.j-scroll-followers-container',
+                nextSelector: "a[data-jscroll-next]",
+                callback: refreshAsyncLike()
+
+            });
+        };
+
+        var fillValues = function() {
+            var $this = $(this);
+            $.ajax({
+                url: $this.data("url"),
+                method: "POST",
+                dataType: "html",
+                data: {
+                    value_id: $this.val(),
+                    csrfmiddlewaretoken: $("input:hidden[name='csrfmiddlewaretoken']").val()
+                },
+                success: function(response) {
+                    $($this.data("target")).html(response);
+                }
+            });
+        };
+
+        $(function () {
+            var $form_search = $("#form-search-followers");
+            $form_search.submit();
+            $form_search.on("ajaxform.success", functionAjaxSuccessSearchFollowers);
+            $(document).on('input', "#filterName", function (e) {
+                var $this = $(e.currentTarget);
+
+                if (e.type=='keyup' && e.keyCode!=8) return;
+                if (timeoutReference) clearTimeout(timeoutReference);
+                timeoutReference = setTimeout(function(){
+                    $this.closest('form').submit();
+                }, 500);
+            });
+
+            $(document).on("change", "[data-ajax-change=true]", fillValues);
+            $(document).on('change', "#filterState, #filterCity", function (event) {
+                var $this = $(event.currentTarget);
+                $this.closest('form').submit();
+            });
+
+            $(".j-scroll-followers").jscroll({
+
+                loadingHtml: '<div class="col-lg-12"><div class="load-async-preload"></div></div>',
+                contentSelect: ".j-scroll-followers-container",
+                nextSelector: "a[data-jscroll-next]",
+                callback: refreshAsyncLike()
             });
         });
     </script>

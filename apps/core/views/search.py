@@ -43,6 +43,7 @@ class Search(SearchBase):
             users = form_user.process()
             articles = form_article.process()
             questions = form_question.process()
+            states = BusinessUserProfile.get_states(1)
         except Exception, e:
             return self.return_error(request, {})
 
@@ -56,6 +57,7 @@ class Search(SearchBase):
             'form_article': form_article,
             'form_question': form_question,
             'query_search': request.GET.get('q'),
+            'states': states
         }
         context.update(self.get_context(request))
 
@@ -138,10 +140,12 @@ class SearchList(SearchBase):
 
             elif content_type == "users":
                 form = self.form_user(6, False, request.GET)
+                states = BusinessUserProfile.get_states(1)
                 users = form.process()
                 context.update({
                     'users': users,
                     'form_user': form,
+                    'states': states,
                 })
 
             elif content_type == "articles":

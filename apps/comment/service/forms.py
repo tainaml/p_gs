@@ -10,6 +10,7 @@ from django.utils.translation import ugettext as _
 from apps.custom_base.service.custom import forms, IdeiaForm
 import business as Business
 
+
 class LazyEncoder(DjangoJSONEncoder):
 
     def default(self, obj):
@@ -21,13 +22,12 @@ class LazyEncoder(DjangoJSONEncoder):
 json_encode = LazyEncoder().encode
 
 
-
 class CreateCommentForm(IdeiaForm):
     content = forms.CharField(
         max_length=settings.COMMENT_TEXT_LIMIT if hasattr(settings, "COMMENT_TEXT_LIMIT") else 10000,
         required=True,
-        widget=forms.Textarea(attrs={'data-config': json_encode(getattr(settings, 'CKEDITOR_CONFIGS', None)['comment'])}))
-
+        widget=CKEditorWidget(config_name='comment')
+    )
     content_type = forms.CharField(max_length=20, required=True)
     content_object_id = forms.IntegerField(required=True)
 
@@ -42,7 +42,6 @@ class CreateCommentForm(IdeiaForm):
         self.cleaned_data = super(CreateCommentForm, self).clean()
         if 'content' in self.cleaned_data:
             self.cleaned_data['content'] = self.cleaned_data['content'].strip()
-
 
         return self.cleaned_data
 
@@ -79,7 +78,11 @@ class CreateCommentForm(IdeiaForm):
 
 class EditCommentForm(IdeiaForm):
 
-    content = forms.CharField(max_length=settings.COMMENT_TEXT_LIMIT if hasattr(settings, "COMMENT_TEXT_LIMIT") else 10000, required=True, widget=forms.Textarea(attrs={'data-config': json_encode(getattr(settings, 'CKEDITOR_CONFIGS', None)['comment'])}))
+    content = forms.CharField(
+        max_length=settings.COMMENT_TEXT_LIMIT if hasattr(settings, "COMMENT_TEXT_LIMIT") else 10000,
+        required=True,
+        widget=CKEditorWidget(config_name='comment')
+    )
     comment_id = forms.IntegerField(required=True)
 
     def __init__(self, user=None, instance=None, *args, **kargs):
@@ -161,7 +164,6 @@ class CommentDeleteForm(IdeiaForm):
         self.author=author
 
         super(CommentDeleteForm, self).__init__(*args, **kwargs)
-
 
     def is_valid(self):
         is_valid = super(CommentDeleteForm, self).is_valid()

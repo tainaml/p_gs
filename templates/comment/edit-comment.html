@@ -1,3 +1,7 @@
+{% load thumbor_tags %}
+{{ form.non_field_errors }}
+
+
 <form class="create-comment" data-group-class=".comment-group" data-ajaxform="true" data-toggle="replace"  class="create-comment" data-update="#{{ to_update }}" action="{% url 'comment:edit' %}" method="post">{% csrf_token %}
     <div class="comment-group create-comment-body{% if form.content.errors %} has-error{% endif %}">
          <textarea name="content" class="form-control"  placeholder="Deixe seu comentário">{{ instance.content }}</textarea>
@@ -5,6 +9,7 @@
     </div>
     <input name="comment_id" value="{{ instance.id }}" type="hidden"/>
     <div class="create-comment-footer">
+        <input type="reset" data-toggle="dropdown" data-selector="#comment-edit-{{ instance.id }}"  value="Cancelar" class="btn btn-default">
         <input type="submit" value="Editar" class="btn btn-primary">
     </div>
 </form>
