@@ -46,7 +46,7 @@ class SearchUserForm(SearchBaseForm):
     #city = forms.IntegerField(required=False)
 
     def __init__(self, items_per_page=None, startswith=False, *args, **kwargs):
-        self.state = int(args[0]['state']) if "state" in kwargs else None
+        self.state = int(args[0]['state']) if "state" in args[0] else None
         self.items_per_page = items_per_page
         self.startswith = startswith
         super(SearchBaseForm, self).__init__(*args, **kwargs)
