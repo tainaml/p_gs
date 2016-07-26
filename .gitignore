@@ -158,6 +158,7 @@ resources/node_modules
 media/
 /media/uploads
 media/cc/
+apps/geography
 mediaceleryd.pid
 nohup.out
 celerybeat-schedule
