@@ -50,7 +50,7 @@ def get_communities(description=None, items_per_page=None, page=None, startswith
     return communities
 
 
-def get_users(description=None, items_per_page=None, page=None, startswith=False, state=None):
+def get_users(description=None, items_per_page=None, page=None, startswith=False, state=None, city=None):
 
     items_per_page = items_per_page if items_per_page else 6
     page = page if page else 1
@@ -70,8 +70,12 @@ def get_users(description=None, items_per_page=None, page=None, startswith=False
             criteria = True
 
     if state:
-        state_criteria = Q(user__city__state=state)
+        state_criteria = Q(user__profile__city__state=state)
         criteria = state_criteria if not criteria else criteria & state_criteria
+
+    if state:
+        city_criteria = Q(user__profile__city=city)
+        criteria = city_criteria if not criteria else criteria & city_criteria
 
     # TODO remove empty register
     exclude_empty_register = ~Q(user__username__exact='')
