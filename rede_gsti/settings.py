@@ -375,7 +375,7 @@ TOOLBAR_CUSTOM = [
     ['Link', 'Unlink'],
     # ['Find'],
     # ['HorizontalRule'],
-    ['Image', 'Table'],
+    ['Table', 'Image'],
     ['CodeSnippet'],
     ['Embed'],
     # ['Maximize', 'ShowBlocks'],
@@ -431,7 +431,7 @@ CKEDITOR_CONFIGS = {
         'filebrowserBrowseUrl': None,
         'extraPlugins': ','.join([
             'autolink', 'autoembed', 'embedsemantic', 'widget',
-            'dialog', 'embed', 'uploadimage', 'codesnippet'
+            'dialog', 'embed', 'uploadimage', 'codesnippet', 'image2'
         ]),
     }
 }

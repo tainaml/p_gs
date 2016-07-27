@@ -19,6 +19,8 @@ from django.contrib import admin
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 from apps.ninico.views import index as PROJECT_ROOT
+from django.contrib.admin.views.decorators import staff_member_required
+from django.views.decorators.cache import never_cache
 
 handler400 = "apps.core.views.errors.handler400"
 handler403 = "apps.core.views.errors.handler403"
@@ -27,6 +29,7 @@ handler500 = "apps.core.views.errors.handler500"
 
 url_statics = static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 url_media = static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+from apps.core.views import editor as EDITOR_VIEW
 
 urlpatterns = [
     url(r'^$', PROJECT_ROOT, name='index'),
@@ -93,7 +96,8 @@ urlpatterns = [
     url(_(r'^'), include('apps.core.urls.core', namespace='core')),
 
     # Translators: URL do ckeditor
-    url(_(r'^ckeditor/'), include('ckeditor_uploader.urls')),
+    url(r'^/editor/upload/', staff_member_required(EDITOR_VIEW.upload), name='ckeditor_upload'),
+    # url(r'^/editor/browse/', never_cache(staff_member_required(views.browse)), name='ckeditor_browse'),
 
      url(r'^chaining/', include('smart_selects.urls')),
 
