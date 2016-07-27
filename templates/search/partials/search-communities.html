@@ -9,5 +9,9 @@
         <a data-jscroll-next-communities href="{% url 'search:list' "communities" %}?q={{ query_search|urlencode|default:"" }}&page={{ page|default:2 }}&category={{ category }}" class="btn-default btn-block">Carregar mais resultados</a>
     </div>
     {% endif %}
+{% else %}
+    <hr>
+        <p class="text-center">Nenhum resultado foi encontrado para a busca!</p>
+    <hr>
 
 {% endif %}

@@ -73,7 +73,7 @@ def get_users(description=None, items_per_page=None, page=None, startswith=False
         state_criteria = Q(user__profile__city__state=state)
         criteria = state_criteria if not criteria else criteria & state_criteria
 
-    if state:
+    if city:
         city_criteria = Q(user__profile__city=city)
         criteria = city_criteria if not criteria else criteria & city_criteria
 
