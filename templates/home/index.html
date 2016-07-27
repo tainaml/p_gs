@@ -81,29 +81,29 @@
                 {% endif %}
             </div>
 
-            </div>
+            {#            </div>#}
         </main>
 {#    {% endideiahomecache %}#}
 {% endblock %}
 
 {% block javascripts %}
-{% if request|is_pc %}
-    <div id="fb-root"></div>
-    <script>
-        (function() {
-            document.getElementsByClassName('g-page')[0].setAttribute('data-width', document.getElementById('google-badge').clientWidth);
-            var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
-            po.src = 'https://apis.google.com/js/platform.js';
-            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
-        })();
+    {% if request|is_pc %}
+        <div id="fb-root"></div>
+        <script>
+            (function() {
+                document.getElementsByClassName('g-page')[0].setAttribute('data-width', document.getElementById('google-badge').clientWidth);
+                var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+                po.src = 'https://apis.google.com/js/platform.js';
+                var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+            })();
 
-        (function(d, s, id) {
-            var js, fjs = d.getElementsByTagName(s)[0];
-            if (d.getElementById(id)) return;
-            js = d.createElement(s); js.id = id; js.async = true;
-            js.src = "//connect.facebook.net/pt_BR/sdk.js#xfbml=1&version=v2.4&appId=625566967570537";
-            fjs.parentNode.insertBefore(js, fjs);
-        }(document, 'script', 'facebook-jssdk'));
-    </script>
-{% endif %}
+            (function(d, s, id) {
+                var js, fjs = d.getElementsByTagName(s)[0];
+                if (d.getElementById(id)) return;
+                js = d.createElement(s); js.id = id; js.async = true;
+                js.src = "//connect.facebook.net/pt_BR/sdk.js#xfbml=1&version=v2.4&appId=625566967570537";
+                fjs.parentNode.insertBefore(js, fjs);
+            }(document, 'script', 'facebook-jssdk'));
+        </script>
+    {% endif %}
 {% endblock %}

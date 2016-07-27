@@ -189,10 +189,11 @@ if ENVIRONMENT == "develop":
     CACHES = {
         'default': {
             # 'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
-            'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
-            # 'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
-            # 'LOCATION': 'memcached:11211'
-            'LOCATION': 'unique-snowflake',
+            # 'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+            # 'LOCATION': 'unique-snowflake',
+            'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+            'LOCATION': 'memcached:11211'
+
         }
     }
     DEBUG_TOOLBAR_CONFIG = {
@@ -221,10 +222,6 @@ elif ENVIRONMENT == "production":
     }
 
 AUTH_USER_MODEL = 'account.User'
-
-
-
-
 
 
 
@@ -259,7 +256,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'django.core.context_processors.request'
+                'django.template.context_processors.request'
             ],
         },
     },
