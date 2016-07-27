@@ -49,6 +49,8 @@ class AbstractHomeBlock(object):
 
         self.cache_home_page = 'default'
 
+        self.cache = caches['default']
+
         if 'request' in context:
             self.cache_home_page = generate_home_cache_key(context['request'])
 
@@ -79,13 +81,20 @@ class AbstractHomeBlock(object):
     @property
     def custom_filters(self):
 
-        return Q(
+        communities = Community.objects.filter(
+            Q(taxonomy__parent__id=self.category.id) |\
+            Q(taxonomy__id=self.category.id)
+        )
+
+        q = Q(
             feed__official=True,
+            feed__communities__in=communities,
+            status__in=[Article.STATUS_PUBLISH],
             feed__content_type=article_type,
             publishin__lte=timezone.now(),
-            feed__taxonomies__in=[self.category],
-            status__in=[Article.STATUS_PUBLISH]
         )
+
+        return q
 
     def get_taxonomies(self):
 
@@ -114,17 +123,16 @@ class AbstractHomeBlock(object):
         if self.category is None:
             return False
 
-        communities_filters = dict(
-            taxonomy=self.category
-        )
+        communities_filters = Q(taxonomy__parent__id=self.category.id) |\
+            Q(taxonomy__id=self.category.id)
 
-        communities = Community.objects.filter(**communities_filters)
+        communities = Community.objects.filter(communities_filters)
 
-        excludes = cache.get(self.cache_home_page, [])
+        excludes = self.cache.get(self.cache_home_page, [])
         excludes = sorted(set(excludes))
 
         articles = Article.objects.filter(
-            self.custom_filters,
+            self.custom_filters
         ).exclude(
             id__in=excludes
         ).order_by(
@@ -144,7 +152,7 @@ class AbstractHomeBlock(object):
             if not article.image:
                 article.image = communities[0].image
 
-        cache.set(self.cache_home_page, excludes, None)
+        self.cache.set(self.cache_home_page, excludes, None)
 
         context = {
             'class_name': self.class_name,
@@ -185,13 +193,12 @@ class AbstractHomeBlock(object):
              self.category.slug.lower()
          )
 
-        template = cache.get(cache_key)
-        template = False
+        template = self.cache.get(cache_key)
 
         if not template:
             self.filter_articles()
             template = render_to_string(self.template_file, context=self.get_context())
-            cache.set(cache_key, template, self.cache_time)
+            self.cache.set(cache_key, template, self.cache_time)
 
         return mark_safe(template)
 

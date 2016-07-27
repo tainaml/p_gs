@@ -120,10 +120,15 @@ class SearchList(SearchBase):
 
         context = {}
 
-        if 'category' in request.GET and request.GET['category'] is not u'':
-            term = Term.objects.get(slug="categoria")
-            category = Taxonomy.objects.get(slug=request.GET['category'], term=term)
-            context.update({"category":category.slug})
+        __category = request.GET.get('category', None)
+
+        if __category:
+            try:
+                term = Term.objects.get(slug="categoria")
+                category = Taxonomy.objects.get(slug=__category, term=term)
+                context.update({"category":category.slug})
+            except Exception, e:
+                print e.message
 
         try:
 
@@ -172,7 +177,7 @@ class SearchList(SearchBase):
 
         context.update({
             'page': form.cleaned_data.get('page', 1) + 1,
-            'query_search': request.GET.get('q')
+            'query_search': request.GET.get('q', None)
         })
         context.update(self.get_context(request))
 

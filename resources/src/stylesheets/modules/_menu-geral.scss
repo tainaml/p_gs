@@ -109,6 +109,12 @@
   padding: 10px;
   display: block;
   font-weight: 600;
+  @media (max-width: $screen-sm-min) {
+    border-bottom: 1px solid;
+    // &:last-child {
+    //   border-bottom: none;
+    // }
+  }
 
   // @media (min-width: $screen-sm-min) { display: none; }
   // @media (min-width: $screen-md-min) { display: block; }
@@ -134,7 +140,6 @@
     width: 100%;
     border-top: 2px solid;
   }
-  @media (min-width: $screen-lg-min) {}
 
   @each $name, $color in $areas {
     &.sub-#{$name} {
@@ -144,9 +149,7 @@
   }
 }
 .menu-categories .item:hover .submenu-categories {
-  @media (min-width: $screen-sm-min) {}
   @media (min-width: $screen-md-min) { display: block; }
-  @media (min-width: $screen-lg-min) {}
 }
 
 .commmunities {
@@ -202,8 +205,10 @@
 
 
 .header-navegation.is-oppened {
+  border-bottom: none;
   .menu-categories {
     display: table;
+    border-bottom: none;
   }
 
   .toggle_menu-categories {
@@ -215,5 +220,20 @@
       &.gsticon-bars { display: none; }
       &.gsticon-close { display: block; }
     }
+  }
+
+  .header-navegation.jobs-navigation {
+    border-top: none;
+    .menu-categories .item a {
+      padding-top: 10px;
+      padding-bottom: 10px;
+      color: #337ab7;
+      font-size: 1em;
+    }
+  }
+  .menu-categories,
+  .container {
+    padding-left: 0;
+    padding-right: 0;
   }
 }

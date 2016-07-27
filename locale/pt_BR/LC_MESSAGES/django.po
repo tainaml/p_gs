@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-06-02 16:02-0300\n"
+"POT-Creation-Date: 2016-07-27 10:14-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -411,98 +411,112 @@ msgstr "^(?P<category_slug>[a-z0-9]+(?:-[a-z0-9]+)*)/$"
 msgid "^list-communities-articles$"
 msgstr "^listar-publicacoes-comunidades$"
 
+#. Translators: URL de pagina de busca da comunidade
+#: apps/core/urls/community.py:9
+#, fuzzy
+#| msgid "^search$"
+msgid "^search/$"
+msgstr "^buscar$"
+
+#. Translators: URL de pagina de filtros de comunidades
+#: apps/core/urls/community.py:12
+#, fuzzy
+#| msgid "^ajax/user/communities/$"
+msgid "^search/community/list/$"
+msgstr "^ajax/usuario/comunidade/$"
+
 #. Translators: URL de pagina principal de comunidade
-#: apps/core/urls/community.py:8
+#: apps/core/urls/community.py:15
 msgid "^(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/$"
 msgstr "^(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/$"
 
 #. Translators: URL de sobre da comunidade
-#: apps/core/urls/community.py:11
+#: apps/core/urls/community.py:18
 msgid "^(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/about/$"
 msgstr "^(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/sobre/$"
 
 #. Translators: URL de seguidores da comunidade
-#: apps/core/urls/community.py:14
+#: apps/core/urls/community.py:21
 msgid "^(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/followers/$"
 msgstr "^(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/seguidores/$"
 
 #. Translators: URL de pagina de busca da comunidade
-#: apps/core/urls/community.py:17
+#: apps/core/urls/community.py:24
 msgid "^(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/search/$"
 msgstr "^(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/buscar/$"
 
 #. Translators: URL de listagem da comunidade
-#: apps/core/urls/community.py:20
+#: apps/core/urls/community.py:27
 msgid "^(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/list/$"
 msgstr "^(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/listagem/$"
 
 #. Translators: URL de perguntas da comunidade
-#: apps/core/urls/community.py:23
+#: apps/core/urls/community.py:30
 msgid "^(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/questions/$"
 msgstr "^(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/perguntas/$"
 
 #. Translators: URL de pagina de pesquisa de perguntas na comunidade
-#: apps/core/urls/community.py:26
+#: apps/core/urls/community.py:33
 msgid "^(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/questions/search/$"
 msgstr "^(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/perguntas/buscar/$"
 
 #. Translators: URL de pagina de listagem de perguntas da comunidade
-#: apps/core/urls/community.py:29
+#: apps/core/urls/community.py:36
 msgid "^(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/questions/list/$"
 msgstr "^(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/perguntas/listagem/$"
 
 #. Translators: URL de pagina de videos da comunidade
-#: apps/core/urls/community.py:32
+#: apps/core/urls/community.py:39
 msgid "^(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/videos/$"
 msgstr "^(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/videos/$"
 
 #. Translators: URL de pagina de procura de videos da comunidade
-#: apps/core/urls/community.py:35
+#: apps/core/urls/community.py:42
 msgid "^(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/videos/search/$"
 msgstr "^(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/videos/buscar/$"
 
 #. Translators: URL de pagina de listagem de videos da comunidade
-#: apps/core/urls/community.py:38
+#: apps/core/urls/community.py:45
 msgid "^(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/videos/list/$"
 msgstr "^(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/videos/listagem/$"
 
 #. Translators: URL de pagina de comunidades relacionadas
-#: apps/core/urls/community.py:41
+#: apps/core/urls/community.py:48
 msgid "^(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/related/$"
 msgstr "^(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/relacionados/$"
 
 #. Translators: URL de pagina checagem de seguidores da comunidade
-#: apps/core/urls/community.py:44
+#: apps/core/urls/community.py:51
 msgid "^check/user-follows/$"
 msgstr "^checar/usuario-segue/$"
 
 #. Translators: URL de pagina de carregamento assincrono
-#: apps/core/urls/community.py:47
+#: apps/core/urls/community.py:54
 msgid "^load/async/(?P<object_id>[0-9]+)/(?P<content_type>[a-z]+)/$"
 msgstr "^carregar/async/(?P<object_id>[0-9]+)/(?P<content_type>[a-z]+)/$"
 
 #. Translators: URL de pagina de procura de seguidores da comunidade
-#: apps/core/urls/community.py:50
+#: apps/core/urls/community.py:57
 msgid "^search/followers$"
 msgstr "^buscar/seguidores$"
 
 #. Translators: URL de pagina de listagem de seguidores da comunidade
-#: apps/core/urls/community.py:53
+#: apps/core/urls/community.py:60
 msgid "^search/followers/list$"
 msgstr "^buscar/seguidores/listagem$"
 
 #. Translators: URL de pagina de materials da comunidade
-#: apps/core/urls/community.py:56
+#: apps/core/urls/community.py:63
 msgid "^(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/materials/$"
 msgstr "^(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/materiais/$"
 
 #. Translators: URL de pagina de procura de videos da comunidade
-#: apps/core/urls/community.py:59
+#: apps/core/urls/community.py:66
 msgid "^(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/materials/search/$"
 msgstr "^(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/materiais/buscar/$"
 
 #. Translators: URL de pagina de listagem de videos da comunidade
-#: apps/core/urls/community.py:62
+#: apps/core/urls/community.py:69
 msgid "^(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/materials/list/$"
 msgstr "^(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/materiais/listagem/$"
 
@@ -947,15 +961,15 @@ msgstr "Mudar senha"
 msgid "Your password has been changed!"
 msgstr "Sua senha foi alterada!"
 
-#: apps/core/views/article.py:85 apps/core/views/question.py:58
+#: apps/core/views/article.py:84 apps/core/views/question.py:58
 msgid "Community not Found"
 msgstr "Comunidade não encontrada"
 
-#: apps/core/views/article.py:91 apps/core/views/question.py:64
+#: apps/core/views/article.py:90 apps/core/views/question.py:64
 msgid "User need follow this community"
 msgstr "É necessário seguir esta comunidade"
 
-#: apps/core/views/category.py:43
+#: apps/core/views/category.py:46
 msgid "Category not found or not root category."
 msgstr "Categoria não encontrada ou não é uma categoria raiz."
 
@@ -1602,17 +1616,20 @@ msgctxt "publish article"
 msgid "Publish"
 msgstr "Publicar"
 
-#: templates/community/community-materials.html:85
+#: templates/community/community-materials.html:77
 #: templates/community/community-videos.html:38
 #: templates/community/partials/community-followers-list.html:33
 #: templates/community/partials/community-list.html:17
 #: templates/socialactions/followers_box.html:29
 #: templates/socialactions/followings_box.html:29
+#: templates/userprofile/partials/followers-segment.html:25
+#: templates/userprofile/partials/followings-segment.html:26
+#: templates/userprofile/partials/profile-communities.html:38
 #: templates/userprofile/profile-communities.html:57
 #: templates/userprofile/profile-feed.html:25
-#: templates/userprofile/profile-list.html:37
+#: templates/userprofile/profile-list.html:42
 #: templates/userprofile/profile-questions.html:41
-#: templates/userprofile/profile-search.html:35
+#: templates/userprofile/profile-search.html:43
 #: templates/userprofile/profile-videos.html:39
 msgid "Não existem itens a serem exibidos"
 msgstr ""

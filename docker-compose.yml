@@ -1,17 +1,42 @@
 version: '2'
 services:
+#  thumbor:
+#    build:
+#      context: .
+#      dockerfile: Dockerfile_thumbor
+#    ports:
+#      - "8880:8880"
+#      - "2204:22"
+#    domainname: thumbor.redegsti.dev
+#    hostname: thumbor
+#    networks:
+#      - my-net
   thumbor:
-    image: "apsl/thumbor"
-    environment:
-      SECURITY_KEY: 'MY_SECURE_KEY'
-    ports: 
-      - "8880:8000"
-    domainname: thumbor.redegsti.dev
+    image: apsl/thumbor
+    domainname: redegsti.dev
     hostname: thumbor
+    environment:
+      AUTO_WEBP: "False"
+      USE_GIFSICLE_ENGINE: "True"
+      MAX_AGE: 5000
+      MAX_AGE_TEMP_IMAGE: 240
+      MAX_SOURCE_SIZE: 500
+      QUALITY: 100
+      DETECTORS: "['thumbor.detectors.face_detector','thumbor.detectors.feature_detector']"
+      LOADER: 'thumbor.loaders.http_loader'
+      FACE_DETECTOR_CASCADE_FILE: 'haarcascade_frontalface_alt.xml'
+      USE_GIFSICLE_ENGINE: "True"
+      SECURITY_KEY: "MY_SECURE_KEY"
+    ports:
+      - "8888:8000"
+    networks:
+      - my-net
   memcached:
     image: memcached
     ports:
       - "11211:11211"
+    networks:
+      - my-net
   db:
     image: "postgres:9.3"
     environment:
@@ -22,6 +47,8 @@ services:
       DB_UNACCENT: 'True'
     domainname: db.redegsti.dev
     hostname: database
+    networks:
+      - my-net
     ports:
       - "5432:5432"
     volumes:
@@ -33,9 +60,15 @@ services:
     ports:
       - "8000:8000"
       - "2202:22"
+    networks:
+      - my-net
     links:
       - db:db
       - thumbor:thumbor
       - memcached:memcached
     domainname: redegsti.dev
     hostname: redegsti
+
+networks:
+  my-net:
+    driver: bridge

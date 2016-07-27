@@ -179,16 +179,26 @@ INSTALLED_APPS = DJANGO_APPS + THIRD_PART_APPS + INTERNAL_APPS
 
 ADD_REVERSION_ADMIN=True
 
+def show_toolbar(request):
+    return not request.is_ajax()
 
 # Setting Environment specific settings
 if ENVIRONMENT == "develop":
     DEBUG = True
     INSTALLED_APPS += ('debug_toolbar', 'apps.ninico',)
     CACHES = {
-    'default': {
-        'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
+        'default': {
+            # 'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
+            'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+            # 'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+            # 'LOCATION': 'memcached:11211'
+            'LOCATION': 'unique-snowflake',
+        }
     }
-}
+    DEBUG_TOOLBAR_CONFIG = {
+        'SHOW_TOOLBAR_CALLBACK': show_toolbar,
+    }
+
 elif ENVIRONMENT == "test":
     DEBUG = False
     ALLOWED_HOSTS = ['*']
@@ -362,14 +372,14 @@ TOOLBAR_CUSTOM = [
     ['Bold', 'Italic', 'Underline', 'Strike', '-', 'RemoveFormat'],
     ['JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
     ['NumberedList', 'BulletedList', '-', 'Blockquote'],
-    ['Link', 'Unlink', 'Anchor'],
-    ['Find'],
-    ['HorizontalRule'],
+    ['Link', 'Unlink'],
+    # ['Find'],
+    # ['HorizontalRule'],
     ['Image', 'Table'],
     ['CodeSnippet'],
     ['Embed'],
-    ['Maximize', 'ShowBlocks'],
-    ['Scayt'],
+    # ['Maximize', 'ShowBlocks'],
+    # ['Scayt'],
     ['Source']
 ]
 
@@ -415,13 +425,14 @@ CKEDITOR_CONFIGS = {
     },
     'article': {
         'toolbar': 'Custom',
+        'skin': 'bootstrapck',
         'toolbar_Custom': TOOLBAR_CUSTOM,
         'entities': False,
         'format_tags': 'h2;h3',
         'filebrowserBrowseUrl': None,
         'extraPlugins': ','.join([
             'autolink', 'autoembed', 'embedsemantic', 'widget',
-            'dialog', 'embed', 'uploadimage', 'codesnippet', 'scayt'
+            'dialog', 'embed', 'uploadimage', 'codesnippet'
         ]),
     }
 }
