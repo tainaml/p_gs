@@ -188,9 +188,11 @@ if ENVIRONMENT == "develop":
     INSTALLED_APPS += ('debug_toolbar', 'apps.ninico',)
     CACHES = {
         'default': {
-            'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
-            # 'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
-            # 'LOCATION': 'unique-snowflake',
+            # 'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
+            'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+            # 'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+            # 'LOCATION': 'memcached:11211'
+            'LOCATION': 'unique-snowflake',
         }
     }
     DEBUG_TOOLBAR_CONFIG = {
