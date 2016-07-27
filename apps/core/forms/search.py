@@ -23,7 +23,7 @@ class SearchBaseForm(IdeiaForm):
 
 class SearchCommunityForm(SearchBaseForm):
     def __process__(self):
-        if 'category' in self.cleaned_data and self.cleaned_data['category'] is not None:
+        if 'category' in self.cleaned_data and self.cleaned_data['category'] is not None and self.cleaned_data['category'] is not u'':
             return Business.get_communities(
                 self.cleaned_data['q'],
                 self.items_per_page,

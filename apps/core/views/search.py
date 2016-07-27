@@ -120,7 +120,7 @@ class SearchList(SearchBase):
 
         context = {}
 
-        if 'category' in request.GET:
+        if 'category' in request.GET and request.GET['category'] is not u'':
             term = Term.objects.get(slug="categoria")
             category = Taxonomy.objects.get(slug=request.GET['category'], term=term)
             context.update({"category":category.slug})
