@@ -176,7 +176,7 @@ class SearchList(SearchBase):
         })
         context.update(self.get_context(request))
 
-        self.change_template("search/partials/search-%s.html" % content_type)
+        self.template_path = ("search/partials/search-%s.html" % content_type)
 
         return self.return_success(request, context)
 
