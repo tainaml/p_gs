@@ -403,6 +403,7 @@ CKEDITOR_CONFIGS = {
         'toolbar_Custom': [
             ['Bold', 'Italic'],
             ['CodeSnippet'],
+            ['NumberedList', 'BulletedList', '-', 'Blockquote'],
         ],
         'entities': False,
         'extraPlugins': ','.join([

@@ -5,6 +5,7 @@ from django.shortcuts import redirect, render
 from django.utils.translation import gettext as _
 from django.utils.decorators import method_decorator
 from apps.article import views
+from apps.comment.models import Comment
 from apps.comment.service.forms import CreateCommentForm
 from apps.community.models import Community
 from ..forms.article import CoreArticleForm
@@ -61,11 +62,12 @@ class CoreArticleView(views.ArticleView):
 
         return render(request, self.template_name, context)
 
-
     def get_context(self, request, article_instance=None):
-        feed_object = BusinessFeed.BusinessFeed.get_feed(article_instance)
 
+        feed_object = BusinessFeed.BusinessFeed.get_feed(article_instance)
+        comments = Comment.objects.filter(object_id=article_instance.id)
         return {
+            'comments': comments,
             'feed': feed_object,
             'form_comment': self.form_comment()
         }

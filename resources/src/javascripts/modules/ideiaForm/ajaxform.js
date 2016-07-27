@@ -147,13 +147,17 @@ require('./validation.js');
                 error: function(jqXHR){
                     var data;
                     try{
+                      if (typeof jqXHR.responseText == 'string') {
+                        data = jqXHR.responseText;
+                      } else {
                         data = $.parseJSON(jqXHR.responseText);
-                    }catch(e){
+                      }
+                    } catch (e) {
                         console.error("Can't parse to JSON. Check the response data and contentType");
                     }
-                    try{
+                    try {
                         $self.trigger('ajaxform.error', [data]);
-                    }catch(e){
+                    } catch (e) {
                         console.error("Can't add error with data=", data);
                     }
 
