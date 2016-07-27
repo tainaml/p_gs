@@ -66,41 +66,39 @@
                         <header class="area-title">
                             <h2>Pessoas</h2>
                         </header>
-                        {% block filter_users %}
-                            <div id="form-search" class="filters-members" data-toggle="filters">
-                                <form class=" row" id="form-search-followers"  name="filterMember" action="{% url 'search:search-content' 'users' %}?next={{ request.path }}" method="GET" role="search" data-ajaxform="true" data-group-class=".form-group">
-                            <input type="hidden" name="community" value="{{ community.id }}">
-                            <div class="col-lg-7 col-xs-12">
+                        <div class="area-content">
+                          {% block filter_users %}
+                          <div id="filters-members" class="form-search" data-toggle="filters">
+                            <form class="row" id="form-search-followers"  name="filterMember" action="{% url 'search:list' 'users' %}?next={{ request.path }}" method="GET" role="search" data-type="html" data-ajaxform="true" data-group-class=".form-group">
+                              <div class="col-lg-7 col-xs-12">
                                 <div class="form-search-input">
-                                    <input type="text" id="filterName" name="q" placeholder="{{ placehold|default:"Procure por pessoas" }}" autocomplete="off">
+                                  <input type="text" id="filterName" name="q" placeholder="{{ placehold|default:"Procure por pessoas" }}" autocomplete="off">
                                 </div>
                                 <button type="submit" class="form-search-button">
-                                    <i class="gsticon gsticon-search"></i>
+                                  <i class="gsticon gsticon-search"></i>
                                 </button>
-                            </div>
-                            <div class="col-lg-2 col-xs-12 text-right">
+                              </div>
+                              <div class="col-lg-2 col-xs-12 text-right">
                                 <div class="custom-select">
-                                    <select class="form-control" id="filterState" name="state" data-ajax-change="true" data-url="{% url 'profile:get_city' %}" data-target="#filterCity">
-                                        <option value="" selected>Estado</option>
-                                        {% for state in states %}
-                                            <option value="{{ state.id }}">{{ state.name }}</option>
-                                        {% endfor %}
-                                    </select>
+                                  <select class="form-control" id="filterState" name="state" data-ajax-change="true" data-url="{% url 'profile:get_city' %}" data-target="#filterCity">
+                                    <option value="" selected>Estado</option>
+                                    {% for state in states %}
+                                    <option value="{{ state.id }}">{{ state.name }}</option>
+                                    {% endfor %}
+                                  </select>
                                 </div>
-                            </div>
-                            <div class="col-lg-3 col-xs-12 text-right">
+                              </div>
+                              <div class="col-lg-3 col-xs-12 text-right">
                                 <div class="custom-select">
-                                    <select class="form-control" id="filterCity" name="city">
-                                        <option value="">Cidade</option>
-                                    </select>
+                                  <select class="form-control" id="filterCity" name="city">
+                                    <option value="">Cidade</option>
+                                  </select>
                                 </div>
-                            </div>
-                        </form>
-                            </div>
-
-                        {% endblock filter_users %}
-                        <div class="area-content">
-                            <div class="row j-scroll-users j-scroll-container-users">
+                              </div>
+                            </form>
+                          </div>
+                          {% endblock filter_users %}
+                            <div class="row j-scroll-users j-scroll-container-users" id="followers-container">
                                 {% include "search/partials/search-users.html" %}
                             </div>
                         </div>
@@ -188,7 +186,6 @@
 
         var timeoutReference= null;
         var functionAjaxSuccessFilterCommunities = function(e, data) {
-
             var $divCommunities = $("#communities-container");
             var $divJScroll = $('<div />');
             $divJScroll.addClass('j-scroll-communities-container');
@@ -221,7 +218,11 @@
                 var $form = $this.closest('form');
                 var url = $this.data("url");
                 url = url + "?" +$form.serialize();
-                window.location.replace(url);
+                if (!$this.val()) {
+                  return;
+                }
+                /*window.location.replace(url);*/
+                $this.closest('form').submit();
             });
 
             $("#search-form").on("ajaxform.success", functionAjaxSuccessFilterCommunities);
@@ -242,11 +243,10 @@
             var jScrollElemment = null,
             timeoutReference= null;
         var functionAjaxSuccessSearchFollowers = function (e, data) {
-
             var $divFollowers = $("#followers-container");
             var $divJScroll = $('<div class="row j-scroll-followers j-scroll-followers-container"></div>');
 
-            $divJScroll.html(data.template);
+            $divJScroll.html(data);
 
             $divFollowers.html($divJScroll);
             refreshAsyncLike();
@@ -279,7 +279,7 @@
 
         $(function () {
             var $form_search = $("#form-search-followers");
-            $form_search.submit();
+            /*$form_search.submit();*/
             $form_search.on("ajaxform.success", functionAjaxSuccessSearchFollowers);
             $(document).on('input', "#filterName", function (e) {
                 var $this = $(e.currentTarget);
