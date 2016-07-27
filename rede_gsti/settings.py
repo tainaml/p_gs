@@ -370,14 +370,14 @@ TOOLBAR_CUSTOM = [
     ['Bold', 'Italic', 'Underline', 'Strike', '-', 'RemoveFormat'],
     ['JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
     ['NumberedList', 'BulletedList', '-', 'Blockquote'],
-    ['Link', 'Unlink', 'Anchor'],
-    ['Find'],
-    ['HorizontalRule'],
+    ['Link', 'Unlink'],
+    # ['Find'],
+    # ['HorizontalRule'],
     ['Image', 'Table'],
     ['CodeSnippet'],
     ['Embed'],
-    ['Maximize', 'ShowBlocks'],
-    ['Scayt'],
+    # ['Maximize', 'ShowBlocks'],
+    # ['Scayt'],
     ['Source']
 ]
 
@@ -422,13 +422,14 @@ CKEDITOR_CONFIGS = {
     },
     'article': {
         'toolbar': 'Custom',
+        'skin': 'bootstrapck',
         'toolbar_Custom': TOOLBAR_CUSTOM,
         'entities': False,
         'format_tags': 'h2;h3',
         'filebrowserBrowseUrl': None,
         'extraPlugins': ','.join([
             'autolink', 'autoembed', 'embedsemantic', 'widget',
-            'dialog', 'embed', 'uploadimage', 'codesnippet', 'scayt'
+            'dialog', 'embed', 'uploadimage', 'codesnippet'
         ]),
     }
 }
