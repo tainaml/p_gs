@@ -49,6 +49,8 @@ class AbstractHomeBlock(object):
 
         self.cache_home_page = 'default'
 
+        self.cache = caches['default']
+
         if 'request' in context:
             self.cache_home_page = generate_home_cache_key(context['request'])
 
@@ -126,7 +128,7 @@ class AbstractHomeBlock(object):
 
         communities = Community.objects.filter(communities_filters)
 
-        excludes = cache.get(self.cache_home_page, [])
+        excludes = self.cache.get(self.cache_home_page, [])
         excludes = sorted(set(excludes))
 
         articles = Article.objects.filter(
@@ -150,7 +152,7 @@ class AbstractHomeBlock(object):
             if not article.image:
                 article.image = communities[0].image
 
-        cache.set(self.cache_home_page, excludes, None)
+        self.cache.set(self.cache_home_page, excludes, None)
 
         context = {
             'class_name': self.class_name,
@@ -191,13 +193,12 @@ class AbstractHomeBlock(object):
              self.category.slug.lower()
          )
 
-        template = cache.get(cache_key)
-        template = False
+        template = self.cache.get(cache_key)
 
         if not template:
             self.filter_articles()
             template = render_to_string(self.template_file, context=self.get_context())
-            cache.set(cache_key, template, self.cache_time)
+            self.cache.set(cache_key, template, self.cache_time)
 
         return mark_safe(template)
 
