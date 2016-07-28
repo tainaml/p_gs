@@ -101,7 +101,7 @@
                         <img class="full-post-image" src="{% thumbor_url article.image.url width=500 smart=True fit_in=True %}" />
                     {% endif %}
                     {% endcomment %}
-                    {{ article.text|safe }}
+                    {{ article.text_formatted|safe }}
                     <div class="post-advertising text-center">
                         <img class="img-responsive" src="http://placehold.it/728x90" alt="Propaganda">
                     </div>
