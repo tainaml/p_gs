@@ -382,7 +382,7 @@ TOOLBAR_CUSTOM = [
     ['NumberedList', 'BulletedList', '-', 'Blockquote'],
     ['Link', 'Unlink'],
     # ['Find'],
-    # ['HorizontalRule'],
+    ['HorizontalRule'],
     ['Table', 'Image'],
     ['CodeSnippet'],
     ['Embed'],
