@@ -87,7 +87,8 @@ def path(value):
     return URI(settings.SITE_URL+value).path
 
 
-regex_pattern = re.compile(u'"(?P<url>/media/uploads/editor-uploads/.*?)".*?height:(?P<height>\d+)px.*?width:(?P<width>\d+)px"')
+regex_pattern_with_style = re.compile(u'src="(?P<url>/media/uploads/editor-uploads/.*?)".*?height:(?P<height>\d+)px.*?width:(?P<width>\d+)px"')
+regex_pattern_with_attribute = re.compile(u'height="(?P<height>\d+)" src="(?P<url>/media/uploads/editor-uploads/.*?)".*?width="(?P<width>\d+)"')
 
 
 def reduce_dimension(bigger, bigger_to, pair):
@@ -120,25 +121,27 @@ def reduce_proportionally(width, height, is_mobile):
         return {'width': width, 'height': height}
 
 def generate_url_with_dimensions(url, dimensions):
-    return generate_url(url, height=dimensions['height'], width=dimensions['width'])
+    return "src=\"%s\"" % generate_url(url, height=dimensions['height'], width=dimensions['width'])
 
 def replace_pc(m):
 
-    url = m.group(1)
+    url = m.group("url")
 
-    height = m.group(2)
-    width = m.group(3)
+    height = m.group("height")
+    width = m.group("width")
 
-    return generate_url_with_dimensions(url, reduce_proportionally(width, height, False))
+    return generate_url_with_dimensions(url, reduce_proportionally(int(width), int(height), False))
 
 def replace_mobile(m):
 
-    url = m.group(1)
+    url = m.group("url")
 
-    height = m.group(2)
-    width = m.group(3)
+    height = m.group("height")
+    width = m.group("width")
 
-    return generate_url_with_dimensions(url, reduce_proportionally(width, height, True))
+
+
+    return generate_url_with_dimensions(url, reduce_proportionally(int(width), int(height), True))
 
 
 
@@ -147,4 +150,7 @@ def thumbor_replace(context, text):
 
     user_agent = get_user_agent(context['request'])
 
-    return mark_safe(regex_pattern.sub(replace_mobile if user_agent.is_mobile else replace_pc, text))
+    regex = regex_pattern_with_style if regex_pattern_with_style.match(text) else regex_pattern_with_attribute
+
+
+    return mark_safe(regex.sub(replace_mobile if user_agent.is_mobile else replace_pc, text))
