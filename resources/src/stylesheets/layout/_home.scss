@@ -10,6 +10,7 @@
 
 .highlight-area {
     @include make-row();
+    margin-top: 30px;
 }
 .highlight-area-category { @include make-row(); }
 
@@ -20,7 +21,7 @@
 .article-content {
     overflow: hidden;
     text-overflow: ellipsis;
-    height: 70px;
+    // height: 75px;
     margin-top: 10px;
     display: block;
     font-weight: 600;
@@ -71,12 +72,18 @@
 
     width: 50%;
     padding-top: 20px;
+    padding-left: 15px;
     padding-right: 0;
-    padding-left: 0;
     font-weight: 600;
+
+    &:nth-child(odd) {
+      padding-left: 0;
+      padding-right: 15px;
+    }
 
     @media (max-width: $screen-lg-min) {
         padding-left: 0;
+        padding-right: 0;
     }
 }
 .highlight-articles--no-border {

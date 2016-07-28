@@ -7,9 +7,13 @@
 {% block content %}
 {#    {% ideiahomecache None 'home_page_cache' 'home' %}#}
         <main class="container main home">
-            <div class="banner">
+          <div class="container-posts">
+            <div class="banner-content-wide">
+              <div class="banner">
                 <img class="img-responsive" src="http://placehold.it/728x90" alt="Banner Example">
+              </div>
             </div>
+          </div>
             <div class="highlight-area">
                 <div class="highlight-left">
                     <div class="post-list-container">
@@ -53,9 +57,9 @@
                     </div>
                 </div>
 
-                {% home_block_half_two 'design' class_name='design' quantity=4 show_comunities=4 %}
+                {% home_block_half_three 'design' class_name='design' quantity=5 show_comunities=4 %}
 
-                {% home_block_half_two 'infraestrutura' class_name='infra' quantity=4 show_comunities=4 %}
+                {% home_block_half_three 'infraestrutura' class_name='infra' quantity=5 show_comunities=4 %}
             </div>
 
             <div class="container-posts">
