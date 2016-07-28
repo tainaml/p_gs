@@ -10,6 +10,7 @@
 {% load staticfiles %}
 {% load avatar_tags %}
 {% load humanize %}
+{% load url_utils %}
 
 {% block editorfiles %}
 <script type="text/javascript" src="{% static "ckeditor/ckeditor/ckeditor.js" %}"></script>
@@ -101,7 +102,9 @@
                         <img class="full-post-image" src="{% thumbor_url article.image.url width=500 smart=True fit_in=True %}" />
                     {% endif %}
                     {% endcomment %}
-                    {{ article.text_formatted|safe }}
+
+                        {% thumbor_replace article.text %}
+
                     <div class="post-advertising text-center">
                         <img class="img-responsive" src="http://placehold.it/728x90" alt="Propaganda">
                     </div>

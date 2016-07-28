@@ -6,14 +6,7 @@ from ckeditor.fields import RichTextField
 from django.conf import settings
 from apps.core.models.embed import EmbedItem
 from apps.feed.models import FeedObject
-import re
-from django_thumbor import generate_url
 
-regex_pattern = re.compile(u'"(?P<url>/media/uploads/editor-uploads/.*?)".*?height:(?P<height>\d+)px.*?width:(?P<width>\d+)px"')
-
-def repl(m):
-    
-    return generate_url(m.group(1), height=m.group(2),width=m.group(3))
 
 class Article(models.Model):
 
@@ -43,10 +36,6 @@ class Article(models.Model):
 
     feed = GenericRelation(FeedObject, related_query_name="article")
     embed = GenericRelation(EmbedItem, related_query_name="article")
-
-    @property
-    def text_formatted(self):
-        return regex_pattern.sub(repl, self.text)
 
     @property
     def year(self):
