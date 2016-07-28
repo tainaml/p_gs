@@ -9,7 +9,7 @@ from apps.feed.models import FeedObject
 import re
 from django_thumbor import generate_url
 
-regex_pattern = re.compile(u'<img.*?src="(?P<url>/media/uploads/editor-uploads/.*?)".*?height:(?P<height>\d+)px.*?width:(?P<width>\d+)px')
+regex_pattern = re.compile(u'"(?P<url>/media/uploads/editor-uploads/.*?)".*?height:(?P<height>\d+)px.*?width:(?P<width>\d+)pxx')
 
 def repl(m):
     
