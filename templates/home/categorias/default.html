@@ -56,15 +56,7 @@
                     </div>
                 {% endwith %}
             </div>
-{#            {% comment %}#}
-{#                <div class="container-posts">#}
-{#                    {% home_block_full_width category_slug class_name=class_name quantity=4 offset=12 %}#}
-{#                </div>#}
-{#                {% endcomment %}#}
-            <div class="container-posts">
-{#                {% home_block_full_width category_slug class_name=class_name quantity=4 offset=12 %}#}
-                {% article_block 'full' category_slug class_name=class_name quantity=4 %}
-            </div>
+
             <div class="container-posts">
                 <div class="banner-content-wide">
                     <div class="banner">
@@ -72,9 +64,7 @@
                     </div>
                 </div>
 
-                {% comment %}
-                    {% home_block_third category_slug class_name=class_name quantity=9 offset=16 %}
-                    {% endcomment %}
+
                 <section class="post-list--third post-list--{{ class_name }}">
                     <div class="post-list-header">
                         <h2 class="post-list-heading">Últimas</h2>
