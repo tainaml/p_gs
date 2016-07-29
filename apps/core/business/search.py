@@ -161,7 +161,7 @@ def get_articles(description=None, items_per_page=None, page=None):
 
     articles_general = get_articles_general(arr_description)
 
-    articles = list(chain(articles_by_title, articles_by_description, articles_general))
+    articles = list(set(chain(articles_by_title, articles_by_description, articles_general)))
 
     articles = Paginator(articles, items_per_page)
     try:
@@ -239,7 +239,7 @@ def get_questions(description=None, items_per_page=None, page=None):
 
     questions_general = get_questions_general(arr_description)
 
-    questions = list(chain(questions_by_title, questions_by_description, questions_general))
+    questions = list(set(chain(questions_by_title, questions_by_description, questions_general)))
 
     questions = Paginator(questions, items_per_page)
     try:
