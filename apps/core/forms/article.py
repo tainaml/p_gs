@@ -7,6 +7,8 @@ from apps.core.models.tags import Tags
 from ..business import article as Business, tags as BusinessTags, feed as BusinessCoreFeed
 from ..forms.taxonomies import CoreTaxonomiesMixin
 from apps.custom_base.service.custom import forms
+from apps.rede_gsti_signals.signals.home import clear_article_cache
+
 
 
 class CoreArticleForm(ArticleForm, CoreTaxonomiesMixin):
@@ -41,12 +43,18 @@ class CoreArticleForm(ArticleForm, CoreTaxonomiesMixin):
         if process_article:
             reversion.set_user(process_article.author)
         process_feed = Business.save_feed_item(self.instance, self.cleaned_data)
+
+        process_taxonomies = None
+
         if self.cleaned_data['communities']:
             process_taxonomies = self.save_taxonomies(process_feed, self.cleaned_data)
         else:
             self.delete_taxonomies(process_feed, self.cleaned_data)
         process_tags = BusinessTags.save_feed_tags(process_feed, self.cleaned_data)
         process_official = BusinessCoreFeed.save_feed_official(process_feed, self.cleaned_data)
+
+        if process_feed:
+            clear_article_cache.send(sender=process_feed.__class__, instance=process_feed)
 
         if self.cleaned_data['communities']:
             return process_article if (process_article and process_taxonomies and process_tags and process_official) else False
