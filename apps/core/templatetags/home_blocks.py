@@ -266,6 +266,7 @@ class ArticleCommunityPartial(AbstractHomeBlock):
 
     def __init__(self, context, article, category, template=None):
         self.article = article
+        self.__category = category
 
         super(ArticleCommunityPartial, self).__init__(context, category, show_comunities=True, template=template)
 
@@ -275,7 +276,9 @@ class ArticleCommunityPartial(AbstractHomeBlock):
         the_community = communities.first() if communities.count() > 0 else None
 
         try:
-            the_community = self.article.feed.all().first().communities.all().first()
+            the_communities = self.article.feed.all()
+            the_communities = the_communities.filter(taxonomy=self.__category)
+            the_community = the_communities.first()
         except Exception, e:
             print e.message
 
