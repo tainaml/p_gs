@@ -42,6 +42,7 @@ class CacheItemMixin(object):
         self.cache.delete(self.get_cache_key())
 
     def recreate_cache(self):
+        print('Recriando cache para %s' % self.get_cache_key())
         self.set_to_cache()
 
 
@@ -55,11 +56,14 @@ class CacheControl(object):
 
     def add_to_group(self, group, item):
         cache_groups = self.cache.get(self.CACHE_GROUPS, {})
-        groups = cache_groups.get(group, [])
-        groups.append(item)
-        groups = list(set(groups))
+        groups = cache_groups.get(group, {})
+
+        groups.update({
+            '%s' % item.get_cache_key(): item
+        })
+
         cache_groups.update({
-            group: groups
+            '%s' % group: groups
         })
         self.cache.set(self.CACHE_GROUPS, cache_groups, None)
 
@@ -72,7 +76,16 @@ class CacheControl(object):
 
     def get_group(self, group):
         cache_groups = self.cache.get('CACHE_GROUPS', {})
-        return cache_groups.get(group, [])
+        return cache_groups.get(group, {})
+
+    def set_group(self, group):
+        pass
+        # cache_groups = self.cache.get(self.CACHE_GROUPS, {})
+        # cache_groups.update({
+        #     group: {}
+        # })
+        #
+        # self.cache.set(self.CACHE_GROUPS, cache_groups, None)
 
     def __broadcast_clear_item(self, item):
         for group in self._groups.itervalues():
@@ -81,7 +94,10 @@ class CacheControl(object):
 
     def clear_group(self, group, broadcast_item_clear=True):
         groups = self.get_group(group)
-        for item in groups:
+
+        self.set_group(group)
+
+        for item in groups.values()[::-1]:
             item.recreate_cache()
             if broadcast_item_clear:
                 self.__broadcast_clear_item(item)

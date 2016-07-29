@@ -1,0 +1,37 @@
+{% load thumbor_tags %}
+{% load home_blocks %}
+
+
+<section class="post-list--third post-list--{{ class_name }}">
+
+    <div class="post-list-header">
+        <h2 class="post-list-heading">{{ category.description }}</h2>
+{#        {% include 'home/blocks/partials/communities.html' %}#}
+        {% communities communities %}
+    </div>
+
+    <div class="post-list-container">
+    {% for article in articles %}
+        {% url 'article:view'  article.year article.month article.slug as article_link %}
+
+        <figure class="article-home-small">
+            <a href="{{ article_link }}" title="{{ article.title }}">
+            {% if article.image %}
+                <img class="img-responsive"
+                    src="{% thumbor_url article.image.url width=270 height=203 smart=False fit_in=False %}"
+                    alt="{{ article.title}}">
+            {% else %}
+                <img class="img-responsive" src="http://placehold.it/270x203" alt="Placeholder">
+            {% endif %}
+            </a>
+            <figcaption>
+                {% home_article_community category article %}
+                <a class="article-content" href="{{ article_link }}" title="{{ article.title }}">
+                    {% if article.title|length > 67 %}{{ article.title|slice:":67" }}...{% else %}{{ article.title }}{% endif %}
+                </a>
+            </figcaption>
+        </figure>
+
+    {% endfor %}
+    </div>
+</section>

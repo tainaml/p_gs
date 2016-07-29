@@ -185,7 +185,8 @@ def show_toolbar(request):
 # Setting Environment specific settings
 if ENVIRONMENT == "develop":
     DEBUG = True
-    INSTALLED_APPS += ('debug_toolbar', 'apps.ninico',)
+    #INSTALLED_APPS += ('debug_toolbar', 'apps.ninico',)
+    INSTALLED_APPS += ('apps.ninico',)
     CACHES = {
         'default': {
             # 'BACKEND': 'django.core.cache.backends.dummy.DummyCache',

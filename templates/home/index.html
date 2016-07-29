@@ -1,6 +1,6 @@
 {% extends 'home/layout/base.html'%}
 
-{% load cache user_agents %}
+{% load cache article_blocks user_agents %}
 {% load home_cache %}
 {% load home_blocks %}
 
@@ -14,36 +14,51 @@
                 <div class="highlight-left">
                     <div class="post-list-container">
 
-                        {% home_block_article_home 'governanca-e-gestao' class_name='governance' quantity=2 %}
+{#                        {% home_block_article_home 'governanca-e-gestao' class_name='governance' quantity=2 %}#}
+{#                        {% home_block_article_home 'desenvolvimento' class_name='development' quantity=2 %}#}
 
-                        {% home_block_article_home 'desenvolvimento' class_name='development' quantity=2 %}
+                        {% article_block 'large' 'governanca-e-gestao' class_name='governance' quantity=2 %}
+                        {% article_block 'large' 'desenvolvimento' class_name='development' quantity=2 %}
+
                     </div>
 
-                    {% home_block_highlight_simple 'design' class_name='design' quantity=2 %}
-                    {% home_block_highlight_simple 'mobile' class_name='mobile' quantity=2 %}
-                    {% home_block_highlight_simple 'mais' class_name='more' quantity=2 %}
+{#                    {% home_block_highlight_simple 'design' class_name='design' quantity=2 %}#}
+{#                    {% home_block_highlight_simple 'mobile' class_name='mobile' quantity=2 %}#}
+{#                    {% home_block_highlight_simple 'mais' class_name='more' quantity=2 %}#}
+
+                    {% article_block 'simple' 'design' class_name='design' quantity=2 %}
+                    {% article_block 'simple' 'mobile' class_name='mobile' quantity=2 %}
+                    {% article_block 'simple' 'mais' class_name='more' quantity=2 %}
 
                 </div>
                 <div class="highlight-right">
 
-                    {% home_block_highlight_simple 'banco-de-dados' class_name='databases' quantity=2 %}
+{#                    {% home_block_highlight_simple 'banco-de-dados' class_name='databases' quantity=2 %}#}
+{#                    {% home_block_highlight_simple 'infraestrutura' class_name='infra' quantity=2 %}#}
+{#                    {% home_block_highlight_with_image 'marketing-digital' class_name='marketing' quantity=2 %}#}
 
-                    {% home_block_highlight_simple 'infraestrutura' class_name='infra' quantity=2 %}
 
-                    {% home_block_highlight_with_image 'marketing-digital' class_name='marketing' quantity=2 %}
+                    {% article_block 'simple' 'banco-de-dados' class_name='databases' quantity=2 %}
+                    {% article_block 'simple' 'infraestrutura' class_name='infra' quantity=2 %}
+                    {% article_block 'simple-image' 'marketing-digital' class_name='marketing' quantity=2 %}
+
 
                 </div>
             </div>
             <div class="container-posts">
 
-                {% home_block_full_width 'governanca-e-gestao' class_name='governance' quantity=4 show_comunities=4 %}
+{#                {% home_block_full_width 'governanca-e-gestao' class_name='governance' quantity=4 show_comunities=4 %}#}
+
+                {% article_block 'full' 'governanca-e-gestao' class_name='governance' quantity=4 %}
 
             </div>
             <div class="container-posts">
 
-                {% home_block_half_three 'desenvolvimento' class_name='development' quantity=5 show_comunities=4 %}
+{#                {% home_block_half_three 'desenvolvimento' class_name='development' quantity=5 show_comunities=4 %}#}
+{#                {% home_block_half_three 'marketing-digital' class_name='marketing' quantity=5 show_comunities=4 %}#}
 
-                {% home_block_half_three 'marketing-digital' class_name='marketing' quantity=5 show_comunities=4 %}
+                {% article_block 'half3' 'desenvolvimento' class_name='development' quantity=5 show_communities=4 %}
+                {% article_block 'half3' 'marketing-digital' class_name='marketing' quantity=5 show_communities=4 %}
 
             </div>
             <div class="container-posts">
@@ -53,19 +68,25 @@
                     </div>
                 </div>
 
-                {% home_block_half_two 'design' class_name='design' quantity=4 show_comunities=4 %}
+{#                {% home_block_half_two 'design' class_name='design' quantity=4 show_comunities=4 %}#}
+{#                {% home_block_half_two 'infraestrutura' class_name='infra' quantity=4 show_comunities=4 %}#}
 
-                {% home_block_half_two 'infraestrutura' class_name='infra' quantity=4 show_comunities=4 %}
+                {% article_block 'half2' 'design' class_name='design' quantity=4 show_communities=4 %}
+                {% article_block 'half2' 'infraestrutura' class_name='infra' quantity=4 show_communities=4 %}
+
             </div>
 
             <div class="container-posts">
-                {% home_block_half_three 'banco-de-dados' class_name='databases' quantity=5 show_comunities=4 %}
+{#                {% home_block_half_three 'banco-de-dados' class_name='databases' quantity=5 show_comunities=4 %}#}
+{#                {% home_block_half_three 'mobile' class_name='mobile' quantity=5 show_comunities=4 %}#}
 
-                {% home_block_half_three 'mobile' class_name='mobile' quantity=5 show_comunities=4 %}
+                {% article_block 'half3' 'banco-de-dados' class_name='databases' quantity=5 show_communities=4 %}
+                {% article_block 'half3' 'mobile' class_name='mobile' quantity=5 show_communities=4 %}
             </div>
 
             <div class="container-posts">
-                {% home_block_third 'mais' class_name='more' quantity=3 show_comunities=4 %}
+{#                {% home_block_third 'mais' class_name='more' quantity=3 show_comunities=4 %}#}
+                {% article_block 'third' 'mais' class_name='more' quantity=3 show_communities=4 %}
 
                 {% if request|is_pc %}
                     <section class="post-list--small">

@@ -83,10 +83,10 @@ class AbstractHomeBlock(CacheItemMixin):
         self.category = category
 
         # self.cache_home_page = 'default'
-        self.cache_home_page = 'default'
+        self.cache_home_page = 'home'
 
-        if 'request' in context:
-            self.cache_home_page = generate_home_cache_key(context['request'])
+        if 'request' in context and context['request'].path != u'/':
+            self.cache_home_page = self.category_slug
 
         self.cache_home_page = 'homehome_excludes__%s' % self.cache_home_page
 
@@ -175,8 +175,8 @@ class AbstractHomeBlock(CacheItemMixin):
 
         communities = Community.objects.filter(communities_filters)
 
-        # excludes = self.cache.get(self.cache_home_page, [])
-        # excludes = sorted(set(excludes))
+        excludes = self.cache.get(self.cache_home_page, [])
+        excludes = sorted(set(excludes))
 
         excludes_cache = ExcludesHomeItems(self.cache_home_page)
         excludes = excludes_cache.get_from_cache_or_create()
@@ -191,7 +191,8 @@ class AbstractHomeBlock(CacheItemMixin):
             Prefetch('feed__communities', queryset=communities),
         ).distinct()[self.offset:self.quantity + self.offset]
 
-        excludes = []
+        #excludes = []
+
         for article in articles:
             excludes.append(article.pk)
             if not article.image:
@@ -201,8 +202,8 @@ class AbstractHomeBlock(CacheItemMixin):
                 ).prefetch_related("taxonomy")
                 article.image = communities[0].image
 
-        excludes_cache.add_excludes(excludes)
-        cachecontrol.add_to_group('os_excludes', excludes_cache)
+        # excludes_cache.add_excludes(excludes)
+        # cachecontrol.add_to_group('os_excludes', excludes_cache)
 
         self.cache.set(self.cache_home_page, excludes, None)
 
@@ -329,8 +330,9 @@ class BlockHighlightLarge(AbstractHomeBlock):
 @register.simple_tag(takes_context=True)
 def home_block(block_class, context, category_slug, quantity=None, cache_time=None, show_comunities=None, offset=0,
                class_name="without-class", template=None):
-    block = block_class(context, category_slug, quantity, cache_time, offset, show_comunities, class_name, template)
-    return block.render()
+    #block = block_class(context, category_slug, quantity, cache_time, offset, show_comunities, class_name, template)
+    #return block.render()
+    return ''
 
 
 @register.simple_tag(takes_context=True)
