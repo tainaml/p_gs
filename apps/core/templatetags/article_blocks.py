@@ -100,6 +100,11 @@ class ArticleBlock(CacheItemMixin):
         communities = Community.objects.filter(communities_filters)
         return communities
 
+    def get_show_communities(self):
+        communities = self.get_communities().order_by('?')[0:self.show_communities]
+        print communities
+        return communities
+
     def filter_articles(self):
 
         communities = self.get_communities()
@@ -133,7 +138,7 @@ class ArticleBlock(CacheItemMixin):
             'class_name': self.class_name,
             'articles': articles,
             'category': self.category,
-            'communities': communities
+            'communities': self.get_show_communities()
         }
 
         self.get_context().update(context)
