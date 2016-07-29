@@ -7,6 +7,7 @@ from django.utils import timezone
 from django.utils.safestring import mark_safe
 from apps.article.models import Article
 from apps.community.models import Community
+from apps.feed.models import FeedObject
 from apps.taxonomy.models import Taxonomy
 from ..cachecontrol import cachecontrol, CacheItemMixin
 
@@ -115,14 +116,24 @@ class ArticleBlock(CacheItemMixin):
             Prefetch('feed__communities', queryset=communities),
         ).distinct()[self.offset:self.quantity + self.offset]
 
-        [excludes.append(article.id) for article in articles]
+        # [excludes.append(article.id) for article in articles]
+
+        for article in articles:
+            excludes.append(article.id)
+            if not article.image:
+                feed = FeedObject.objects.get(article=article)
+                communities = Community.objects.filter(
+                    feeds=feed
+                ).prefetch_related("taxonomy")
+                article.image = communities[0].image
 
         ArticleCacheExcludes.append(self.cache_excludes, excludes)
 
         context = {
             'class_name': self.class_name,
             'articles': articles,
-            'category': self.category
+            'category': self.category,
+            'communities': communities
         }
 
         self.get_context().update(context)
