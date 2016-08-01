@@ -153,13 +153,16 @@ require('./validation.js');
                         data = $.parseJSON(jqXHR.responseText);
                       }
                     } catch (e) {
-                        console.error("Can't parse to JSON. Check the response data and contentType");
+                        console.log("Can't parse to JSON. Check the response data and contentType");
+                        return;
                     }
                     try {
                         $self.trigger('ajaxform.error', [data]);
                     } catch (e) {
-                        console.error("Can't add error with data=", data);
-                        console.dir(e);
+                        console.log("Can't add error with data=", data);
+                        return false;
+                        //console.error("Can't add error with data=", data);
+                        //console.dir(e);
                     }
 
                 },
