@@ -111,11 +111,15 @@
         });
     };
 
-    $( document ).on( 'ready', function() {
+    function __makeObject(){
         $( '[data-restrict=community]' ).each( function () {
             var $e = $( this );
             $e.ideiaRestrictCommunity( $e.data() );
         });
-    });
+    }
+
+    $( document ).on( 'ready', __makeObject);
+
+    $( document ).ajaxComplete(__makeObject);
 
 })(jQuery);

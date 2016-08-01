@@ -175,6 +175,9 @@
         $( '[data-trigger=login]' ).each( function () {
             var $e = $( this );
             $e.ideiaLogin( $e.data() );
+            $e.on('click', function(e){
+                e.preventDefault();
+            });
         });
 
     });
@@ -184,6 +187,9 @@
         $( '[data-trigger=login]' ).each( function () {
             var $e = $( this );
             $e.ideiaLogin( $e.data() );
+            $e.on('click', function(e){
+                e.preventDefault();
+            });
         });
     });
 
