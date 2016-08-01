@@ -5,7 +5,9 @@
 <div id="answer-{{ instance.id }}">
     <div class="comment">
         <a class="comment-user" href="{% if  instance.author.is_active %}{% url 'profile:show' instance.author.username %}{% else %}javascript:;{% endif %}">
+          <figure>
             <img src="{% get_avatar instance.author width=63 height=63 smart=False fit_in=False %}" alt="User Avatar">
+          </figure>
         </a>
         <div class="comment-body">
             <header class="post-header">

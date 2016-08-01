@@ -5,12 +5,14 @@
     {% for community in items %}
         <div class="box-perfil">
             <div class="perfil">
-                <img class="img-responsive" src="{% thumbor_url community.content_object.get_picture.url width=82 height=82 smart=False fit_in=False %}" alt="{{ community.content_object.title }}">
-                <a class="perfil-name" title="{{ community.content_object.title }}" href="{% url 'community:show' community.content_object.slug %}">{{ community.content_object.title }}</a>
-                <a class="perfil-counter" href="{% url 'community:followers' community_slug=community.content_object.slug %}">
-                    <span class="counter-number">{% followers_count community.content_object as followers_count_value %}{{ followers_count_value }}</span> Seguidor{{ followers_count_value|pluralize:'es' }}
-                </a>
-                {% follow_action community.content_object url_next %}
+              <figure class="img-responsive">
+                <img src="{% thumbor_url community.content_object.get_picture.url width=82 height=82 smart=False fit_in=False %}" alt="{{ community.content_object.title }}">
+              </figure>
+              <a class="perfil-name" title="{{ community.content_object.title }}" href="{% url 'community:show' community.content_object.slug %}">{{ community.content_object.title }}</a>
+              <a class="perfil-counter" href="{% url 'community:followers' community_slug=community.content_object.slug %}">
+                  <span class="counter-number">{% followers_count community.content_object as followers_count_value %}{{ followers_count_value }}</span> Seguidor{{ followers_count_value|pluralize:'es' }}
+              </a>
+              {% follow_action community.content_object url_next %}
             </div>
         </div>
     {% endfor %}

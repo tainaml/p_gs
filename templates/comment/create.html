@@ -6,9 +6,9 @@
 
 <form data-group-class=".comment-group" data-toggle="prepend" data-update="#container-comments" data-ajaxform="true" action="{% url 'comment:save' %}" class="create-comment" method="post">{% csrf_token %}
 
-    <div class="create-comment-avatar">
+    <figure class="create-comment-avatar">
         <img src="{% get_avatar request.user width=81 height=81 smart=False fit_in=False %}" alt="Foto de {{ request.user.full_name }}">
-    </div>
+    </figure>
 
 
     <div class="comment-group create-comment-body{% if form.content.errors %} has-error{% endif %}">

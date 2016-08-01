@@ -6,7 +6,9 @@
         <article id="pub-{{ post.id }}" class="publication">
             <div class="publication-container clearfix">
                 {% if post.get_image %}
-                <img class="publication-image img-responsive" src="{% thumbor_url post.get_image.url width=90 height=80 smart=False fit_in=False %}" alt="{{ post.title }}">
+                <figure>
+                  <img class="publication-image img-responsive" src="{% thumbor_url post.get_image.url width=90 height=80 smart=False fit_in=False %}" alt="{{ post.title }}">
+                </figure>
 {#                <img class="publication-image img-responsive" src="https://unsplash.it/95/70?random" alt="Technology application">#}
                 {% endif %}
                 <a class="publication-content" href="{% url 'article:edit' post.id %}">

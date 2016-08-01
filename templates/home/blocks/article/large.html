@@ -4,13 +4,12 @@
 {% url 'article:view'  article.year article.month article.slug as article_link %}
 <figure class="article-home-large area-{{ class_name }}">
     <a href="{{ article_link }}" title="{{ article.title }}">
-    {% if article.image %}
-        <img class="img-responsive"
-            src="{% thumbor_url article.image.url width=170 height=128 smart=False fit_in=False %}"
-            alt="{{ article.title }}">
-    {% else %}
+      {% if article.image %}
+        <img class="img-responsive" alt="{{ article.title }}"
+          src="{% thumbor_url article.image.url width=170 height=128 smart=False fit_in=False %}">
+      {% else %}
         <img class="img-responsive" src="http://placehold.it/170x128" alt="Placeholder">
-    {% endif %}
+      {% endif %}
     </a>
     <figcaption>
         <a class="article-content" href="{{ article_link }}" title="{{ article.title }}">

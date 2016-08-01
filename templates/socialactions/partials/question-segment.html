@@ -6,7 +6,9 @@
     <div class="excerpt-content">
         {% if instance.get_image %}
             <a class="excerpt-image" href="{% url 'article:view' instance.year instance.month instance.slug %}">
+              <figure>
                 <img src="{% thumbor_url instance.get_image.url width=80 height=60 smart=False fit_in=False %}" alt="{{ instance.title }}">
+              </figure>
             </a>
         {% endif %}
         <div class="excerpt-title">
@@ -22,8 +24,10 @@
                     </div>
                 </div>
                 <a class="post-creator" href="{% if  instance.author.is_active %}{% url 'profile:show' instance.author.get_username %}{% else %}javascript:;{% endif %}">
+                  <figure>
                     <img src="{% get_avatar instance.author width=20 height=20 smart=False fit_in=False %}" alt="foto de {{ instance.author.get_full_name }}">
-                    {{ instance.author.get_full_name }}
+                    <figcaption>{{ instance.author.get_full_name }}</figcaption>
+                  </figure>
                 </a>
                 {# TODO: alterar o texto para string de tradução #}
                 <span class="label label-question">pergunta</span>

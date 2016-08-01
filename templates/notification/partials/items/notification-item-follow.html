@@ -13,7 +13,11 @@
                 <i class="gsticon gsticon-clock-o hidden-lg"></i>
             </time></div>
         <div class="post-creator">
-            <a href="{% url 'profile:show' notification.author.get_username %}"><img src="{% get_avatar notification.author width=20 height=20 smart=False fit_in=False %}" width="20" height="20" alt="{{ notification.author.get_full_name }}"></a>
+            <a href="{% url 'profile:show' notification.author.get_username %}">
+              <figure>
+                <img src="{% get_avatar notification.author width=20 height=20 smart=False fit_in=False %}" width="20" height="20" alt="{{ notification.author.get_full_name }}">
+              </figure>
+            </a>
             <a href="{% url 'profile:show' notification.author.get_username %}">{{ notification.author.get_full_name }}</a> passou a te <a href="javascript:;">seguir</a>
         </div>
     </header>

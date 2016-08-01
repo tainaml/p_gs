@@ -71,8 +71,12 @@
                         </div>
                     </div>
                     <a class="post-creator" href="{% if  article.author.is_active %}{% url 'profile:show' article.author.username %}{% else %}javascript:;{% endif %}">
+                      <figure>
                         <img src="{% get_avatar article.author width=20 height=20 smart=False fit_in=False %}" alt="foto de {{ instance.author.get_full_name }}">
-                        {{ article.author.get_full_name }}
+                        <figcaption>
+                          {{ article.author.get_full_name }}
+                        </figcaption>
+                      </figure>
                     </a>
                     <h1 class="full-post-title">{{ article.title }}</h1>
                 </header>
@@ -99,7 +103,9 @@
                 <div class="full-post-content">
                     {% comment %}
                     {% if article.image %}
+                      <figure>
                         <img class="full-post-image" src="{% thumbor_url article.image.url width=500 smart=True fit_in=True %}" />
+                      </figure>
                     {% endif %}
                     {% endcomment %}
 

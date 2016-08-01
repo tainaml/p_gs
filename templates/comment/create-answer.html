@@ -9,9 +9,9 @@
       method="post">{% csrf_token %}
 
     <div class="comment-group">
-        <div class="create-comment-avatar">
+        <figure class="create-comment-avatar">
             <img src="{% get_avatar request.user width=63 height=63 smart=False fit_in=False %}" alt="Foto de {{ request.user.full_name }}">
-        </div>
+        </figure>
     </div>
 
     <div class="comment-group">

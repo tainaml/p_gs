@@ -15,7 +15,11 @@
         <div class="widget-content">
             {% for community in communities %}
                 <div class="perfil">
-                    <a href="{% url 'community:show' community.slug %}"><img class="img-responsive" src="{% thumbor_url community.get_picture.url width=82 height=82 smart=False fit_in=False %}" alt="{{ community.title }}"></a>
+                    <a href="{% url 'community:show' community.slug %}">
+                      <figure>
+                        <img class="img-responsive" src="{% thumbor_url community.get_picture.url width=82 height=82 smart=False fit_in=False %}" alt="{{ community.title }}">
+                      </figure>
+                    </a>
                     <a class="perfil-name" title="{{ community.title }}" href="{% url 'community:show' community.slug %}">{{ community.title }}</a>
                     <span class="perfil-counter"
                           data-counter="{{ community.followers }}"

@@ -8,7 +8,11 @@
     data-next-url="{% if  notification.author.is_active %}{% url 'profile:show' notification.author.username %}{% else %}javascript:;{% endif %}"
     data-notification="{{ notification.id }}">
     <a href="{% if  notification.author.is_active %}{% url 'profile:show' notification.author.username %}{% else %}javascript:;{% endif %}" title="{{ notification.author.get_full_name }}">
+      <figure>
         <img src="{% get_avatar notification.author width=20 height=20 smart=False fit_in=False %}" width="20" height="20" alt="{{ notification.author.get_full_name }}">
-        <span>{{ notification.author.get_full_name }}</span> passou a te <span>seguir</span>
+        <figcaption>
+          <span>{{ notification.author.get_full_name }}</span> passou a te <span>seguir</span>
+        </figcaption>
+      </figure>
     </a>
 </li>

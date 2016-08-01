@@ -1,6 +1,6 @@
 <a class="article-excerpt" href="{% url 'question:show' question.slug question.id %}">
     {% if question.get_picture %}
-        <img src="http://placehold.it/70x53" alt="Imagem 1">
+    <figure><img src="http://placehold.it/70x53" alt="Imagem 1"></figure>
     {% endif %}
     <span class="color-green">{{ question.title }}</span>
 </a>

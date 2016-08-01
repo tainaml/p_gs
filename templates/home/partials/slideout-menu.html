@@ -5,10 +5,10 @@
 {% load notification_core_tags %}
 
 {% if request.user.is_authenticated %}
-<div class="slideout-menu--user">
+<figure class="slideout-menu--user">
     <img src="{% get_avatar request.user width=40 height=40 smart=False fit_in=False %}" alt="{{ profile.user.get_full_name }}" class="img-circle">
-    {{ request.user.first_name }}
-</div>
+    <figcaption>{{ request.user.first_name }}</figcaption>
+</figure>
 <hr />
 <div class="slideout-menu--notification">
     <a href="{% url 'notifications:members' %}" class="slideout-menu--notification-item"
@@ -51,9 +51,9 @@
 {% else %}
 <div class="slideout-menu--user">
     Portal GSTI
-    <div class="slideout-menu--user-image">
+    <figure class="slideout-menu--user-image">
         <img src="{% static 'images/gsti.png' %}" alt="Portal GSTI">
-    </div>
+    </figure>
 </div>
 <hr />
 <a class="slideout-menu--link" href="{% url 'account:signup' %}">Cadastre-se</a>

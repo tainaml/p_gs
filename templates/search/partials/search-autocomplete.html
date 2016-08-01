@@ -9,9 +9,9 @@
         {% for user in users %}
         <li class="item-float-notification item-float-notification-link">
             <a class="perfil" href="{% if  user.is_active %}{% url 'profile:show' user.get_username %}{% else %}javascript:;{% endif %}">
-                <!-- <span> -->
-                <img src="{% get_avatar user width=50 height=50 smart=False fit_in=False %}" width="50" height="50" alt="Foto de {{ user.get_full_name }}">
-                <!-- </span> -->
+                <figure>
+                  <img src="{% get_avatar user width=50 height=50 smart=False fit_in=False %}" width="50" height="50" alt="Foto de {{ user.get_full_name }}">
+                </figure>
                 <span>{{ user.get_full_name }}</span>
                 <span class="perfil-counter">{% followers_count user as followers_count_value %}{{ followers_count_value }} Seguidor{{ followers_count_value|pluralize:'es' }}</span>
             </a>
@@ -26,13 +26,15 @@
         {% for community in communities %}
             <li class="item-float-notification item-float-notification-link">
                 <a class="perfil" href="{% url 'community:show' community.slug %}">
-                        {% if community.get_picture %}
-                            <img src="{% thumbor_url community.get_picture.url width=50 height=50 smart=False fit_in=False %}" width="50" height="50" alt="Foto de {{ community.title }}">
-                        {% else %}
-                            <img src="http://placehold.it/50?text={{ community.title|slice:":1" }}" width="50" height="50" alt="Foto de {{ community.title }}">
-                        {% endif %}
-                    <span>{{ community.title }}</span>
-                    <span class="perfil-counter">{% followers_count community as followers_count_value %}{{ followers_count_value }} Seguidor{{ followers_count_value|pluralize:'es' }}</span>
+                  <figure>
+                  {% if community.get_picture %}
+                    <img src="{% thumbor_url community.get_picture.url width=50 height=50 smart=False fit_in=False %}" width="50" height="50" alt="Foto de {{ community.title }}">
+                  {% else %}
+                    <img src="http://placehold.it/50?text={{ community.title|slice:":1" }}" width="50" height="50" alt="Foto de {{ community.title }}">
+                  {% endif %}
+                  </figure>
+                  <span>{{ community.title }}</span>
+                  <span class="perfil-counter">{% followers_count community as followers_count_value %}{{ followers_count_value }} Seguidor{{ followers_count_value|pluralize:'es' }}</span>
                 </a>
             </li>
         {% endfor %}

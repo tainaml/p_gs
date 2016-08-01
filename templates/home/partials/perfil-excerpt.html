@@ -4,7 +4,9 @@
         <div class="custom-check"><input type="checkbox" data-object-id="{{ article.id }}"></div>
         <div class="excerpt-content">
             <a class="excerpt-image" href="{% url 'article:view' article.content_object.year article.content_object.month article.content_object.slug %}">
+              <figure>
                 <img src="{{ article.content_object.get_image.url }}" alt="{{ article.content_object.title }}">
+              </figure>
             </a>
             <div class="excerpt-title">
                 <header class="post-header">
@@ -24,8 +26,11 @@
                         </div>
                     </div>
                     <a class="post-creator" href="{% if  article.author.is_active %}{% url 'profile:show' article.author.username %}{% else %}javascript:;{% endif %}">
+                      <figure>
                         <img src="{{ article.content_object.author.profile.get_picture }}" alt="{{ article.content_object.author.get_full_name }}">
-                        {{ article.content_object.author.get_full_name }}</a>
+                        <figcaption>{{ article.content_object.author.get_full_name }}</figcaption>
+                      </figure>
+                      </a>
                 </header>
                 <a href="{% url 'article:view' article.content_object.year article.content_object.month article.content_object.slug %}">{{ article.content_object.title }}</a>
             </div>

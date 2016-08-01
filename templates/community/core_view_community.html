@@ -6,7 +6,9 @@
 {% follow_action community request.path %}
 <br/>
 <br/>
-<img src="{{ community.get_picture.url }}" alt="{{ community.description }}" width="150"/>
+<figure>
+  <img src="{{ community.get_picture.url }}" alt="{{ community.description }}" width="150"/>
+</figure>
 <p>{{ community.description }}</p>
 
 <hr/>
