@@ -30,7 +30,7 @@
                     <header class="area-title col-lg-7">
                         <h2>{% if not article %}Nova{% else %}Editar{% endif %} Publicação</h2>
                     </header>
-                    <div class="col-lg-5 text-right">
+                    <div class="question-actions">
                         <a href="javascript:;" onclick="history.back();" class="btn-default">Voltar</a>
                         {% if article.is_published %}
                             <input class="btn-green" type="submit" value="{% trans "Update" context "update article" %}" name="submit-save" />

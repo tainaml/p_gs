@@ -31,9 +31,7 @@
     @include make-xs-column(12);
     > .banner {
         margin-bottom: 0;
-        > img {
-            margin: 0 auto;
-        }
+        > img { margin: 0 auto; }
     }
 }
 .banner {
