@@ -1,12 +1,16 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 from django.core.paginator import Paginator
+from django.core.urlresolvers import reverse
 from django.http import HttpResponse, JsonResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic import View
 from apps.taxonomy.models import Taxonomy, Term
 from apps.userprofile.service import business as BusinessUserProfile
 
 from ..forms import search as Forms
-
+import urllib
 
 class SearchBase(View):
 
@@ -232,3 +236,18 @@ class SearchCommunitiesList(SearchBase):
         self.change_template("search/partials/search-communities.html")
 
         return self.return_success(request, context)
+
+def encoded_dict(in_dict):
+    out_dict = {}
+    for k, v in in_dict.iteritems():
+        if isinstance(v, unicode):
+            v = v.encode('utf8')
+        elif isinstance(v, str):
+            v.decode('utf8')
+        out_dict[k] = v
+    return out_dict
+
+class SearchAll(View):
+    def get(self, request, params):
+        querystring = {'q': params}
+        return redirect(reverse("search:search")+"?%s" % urllib.urlencode(encoded_dict(querystring)))

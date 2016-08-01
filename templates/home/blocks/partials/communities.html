@@ -1,6 +1,6 @@
 {% if communities %}
     <nav class="post-list-nav">
-        {% for community in communities %}
+        {% for community in communities|dictsort:"title" %}
             <a class="subs" href="{% url "community:show" community.slug %}">{{ community.title }}</a>
         {% endfor %}
     </nav>

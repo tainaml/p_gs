@@ -2,40 +2,49 @@ import logging
 from django.contrib.contenttypes.models import ContentType
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-from django.core.cache import caches
-
 from apps.article.models import Article
+from apps.core.cachecontrol import cachecontrol
+from apps.core.templatetags.article_blocks import ArticleCacheExcludes
 from apps.feed.models import FeedObject
+import django.dispatch
+from django.core.cache import cache
 
 logger = logging.getLogger('signals')
 
-cache = caches['default']
+clear_article_cache = django.dispatch.Signal(providing_args=["instance"])
 
-@receiver(post_save, sender=FeedObject)
+
+@receiver(clear_article_cache, sender=FeedObject)
 def refresh_home_block(sender, **kwargs):
+
+    feed_object = kwargs.get('instance', None)
+
     logger.info("Refreshing home block...")
 
-    feed_object = kwargs['instance']
+    print 'is_official %s' % feed_object.official
+    print 'is old official %s' % feed_object.official__old_value
 
-    if not feed_object.official or not feed_object.official__old_value:
+    if feed_object.official == False and feed_object.official__old_value == False:
         return
 
     article_type = ContentType.objects.get_for_model(Article)
     if feed_object and feed_object.content_object and feed_object.content_type == article_type:
 
-        home_caches = cache.get('home_page_caches')
-        if home_caches:
-            for home_cache in home_caches:
-                cache.delete(home_cache)
+        try:
 
-        logger.info("Iterating taonomies...")
-        for tax in feed_object.taxonomies.all():
-            logger.info("    >" + str(tax))
+            ArticleCacheExcludes.clear('home')
+            cache.delete('HOME_EXCLUDES|||home')
+            cachecontrol.clear_group('global_home::home')
+
+            print "QTDE %d" % feed_object.communities.all().count()
+
+            for f in feed_object.communities.all():
+                _slug = f.taxonomy.slug
+                print _slug
+                ArticleCacheExcludes.clear(_slug)
+                cache.delete('HOME_EXCLUDES|||%s' % _slug)
+                cachecontrol.clear_group('global_home::%s' % _slug)
 
 
-        home_excludes = cache.get('global_home_excludes')
-        if home_excludes:
-            for home_exclude in home_excludes:
-                cache.delete(home_exclude)
-
-        cache.delete('global_home_excludes')
+        except Exception, e:
+            print 'GERAL_ERROR: %s' % e.message

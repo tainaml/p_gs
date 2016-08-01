@@ -1,6 +1,7 @@
 {% extends 'home/layout/base.html'%}
 {% load social_tags %}
 {% load home_blocks %}
+{% load article_blocks %}
 {% load home_cache %}
 {% load category_tags %}
 {% load cache %}
@@ -12,10 +13,8 @@
 
     {% block content %}
 
-
-
-            <main class="container main">
-                {% ideiahomecache None 'home_page_cache' category_slug %}
+        <main class="container main">
+{#            {% ideiahomecache None 'home_page_cache' category_slug %}#}
                 <div class="row">
                     <div class="post-list--large post-list--{{ class_name }}">
                         <div class="post-list-header">
@@ -23,83 +22,83 @@
                         </div>
                     </div>
                 </div>
-                {% endideiahomecache %}
-                <div class="highlight-area-category">
-                    {% cache 0 'home_page_cache'  %}
+{#            {% endideiahomecache %}#}
+            <div class="highlight-area-category">
+{#                {% cache 0 'home_page_cache'  %}#}
                     <div class="highlight-left">
                         <div class="banner">
                             <img class="img-responsive" src="http://placehold.it/728x90" alt="Banner Example">
                         </div>
                         <div class="post-list-container">
-                            {% home_block_article_home category_slug class_name=class_name quantity=4 offset=0 %}
+{#                            {% home_block_article_home category_slug class_name=class_name quantity=4 offset=0 %}#}
+                            {% article_block 'large' category_slug class_name=class_name quantity=4 offset=0 %}
                         </div>
 
-                        {% home_block_highlight_simple category_slug class_name=class_name quantity=2 offset=4 %}
+{#                        {% home_block_highlight_simple category_slug class_name=class_name quantity=2 offset=4 %}#}
+                            {% article_block 'simple' category_slug class_name=class_name quantity=2 differ="primeira" %}
 
                     </div>
-                    {% endcache %}
-                   {% with community=category.community_related %}
+{#                {% endcache %}#}
+                {% with community=category.community_related %}
                     <div class="highlight-right">
-                    {% include "userprofile/partials/profile-community-segment.html" with community_obj=community %}
-                        {% cache 0 'home_page_cache' %}
-                            {% home_block_highlight_simple category_slug class_name=class_name quantity=2 offset=6 %}
+                        {% include "userprofile/partials/profile-community-segment.html" with community_obj=community %}
+{#                        {% cache 0 'home_page_cache' %}#}
+{#                            {% home_block_highlight_simple category_slug class_name=class_name quantity=2 offset=6 %}#}
+                            {% article_block 'simple' category_slug class_name=class_name quantity=2 differ="lateral-1" %}
 
-                            {% home_block_highlight_simple category_slug class_name=class_name quantity=2 offset=8 %}
+{#                            {% home_block_highlight_simple category_slug class_name=class_name quantity=2 offset=8 %}#}
+{#                            {% home_block_highlight_with_image category_slug class_name=class_name quantity=2 offset=10 %}#}
 
-                            {% home_block_highlight_with_image category_slug class_name=class_name quantity=2 offset=10 %}
-                        {% endcache %}
+                            {% article_block 'simple' category_slug class_name=class_name quantity=2 differ="lateral-2" %}
+                            {% article_block 'simple-image' category_slug class_name=class_name quantity=2 offset=10 %}
+
+{#                        {% endcache %}#}
                     </div>
-                    {% endwith %}
+                {% endwith %}
+            </div>
+
+            <div class="container-posts">
+                <div class="banner-content-wide">
+                    <div class="banner">
+                        <img class="img-responsive" src="http://placehold.it/970x90" alt="Banner Example">
+                    </div>
                 </div>
-                {% comment %}
-                <div class="container-posts">
-                    {% home_block_full_width category_slug class_name=class_name quantity=4 offset=12 %}
-                </div>
-                {% endcomment %}
-                <div class="container-posts">
-                    <div class="banner-content-wide">
-                        <div class="banner">
-                            <img class="img-responsive" src="http://placehold.it/970x90" alt="Banner Example">
-                        </div>
+
+
+                <section class="post-list--third post-list--{{ class_name }}">
+                    <div class="post-list-header">
+                        <h2 class="post-list-heading">Últimas</h2>
                     </div>
 
-                    {% comment %}
-                    {% home_block_third category_slug class_name=class_name quantity=9 offset=16 %}
-                    {% endcomment %}
-                    <section class="post-list--third post-list--{{ class_name }}">
-                        <div class="post-list-header">
-                            <h2 class="post-list-heading">Últimas</h2>
-                        </div>
+                    <div class="post-list-container">
+                        <div class="col-lg-12 j-scroll-communities j-scroll-communities-container">
 
-                        <div class="post-list-container">
-                            <div class="col-lg-12 j-scroll-communities j-scroll-communities-container">
-
-                                <a data-jscroll-next href="{% url 'category:list-community_articles' %}?category_id={{  category.id }}&page=1"></a>
-                            </div>
+                            <a data-jscroll-next href="{% url 'category:list-community_articles' %}?category_id={{  category.id }}&page=1"></a>
                         </div>
-                    </section>
+                    </div>
+                </section>
 
-                    <section class="post-list--small">
-                        <div class="post-list-header">
-                            <h2 class="post-list-heading">Comunidades</h2>
-                        </div>
+                <section class="post-list--small">
+                    <div class="post-list-header">
+                        <h2 class="post-list-heading">Comunidades</h2>
+                    </div>
 
-                        <!-- communities_related -->
-                        {% cache 3600 'category_communities_related' category_slug %}
-                            {% communities_related category %}
-                        {% endcache %}
+                    <!-- communities_related -->
+                    {% cache 3600 'category_communities_related' category_slug %}
+                        {% communities_related category %}
+                    {% endcache %}
 
-                        <div class="post-list-header">
-                            <h2 class="post-list-heading">Conecte-se</h2>
-                        </div>
-                        <div class="fb-page" data-href="https://www.facebook.com/PortalGSTIpage" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="false" data-show-posts="false"><div class="fb-xfbml-parse-ignore"><blockquote cite="https://www.facebook.com/PortalGSTIpage"><a href="https://www.facebook.com/PortalGSTIpage">FB Portal GSTI</a></blockquote></div></div>
-                        <!-- Place this tag where you want the widget to render. -->
-                        <div id="google-badge">
-                            <div class="g-page" data-width="270" data-href="https://plus.google.com/113333419239001929124" data-layout="landscape" data-rel="publisher"></div>
-                        </div>
-                    </section>
-                </div>
-            </main>
+                    <div class="post-list-header">
+                        <h2 class="post-list-heading">Conecte-se</h2>
+                    </div>
+                    <div class="fb-page" data-href="https://www.facebook.com/PortalGSTIpage" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="false" data-show-posts="false"><div class="fb-xfbml-parse-ignore"><blockquote cite="https://www.facebook.com/PortalGSTIpage"><a href="https://www.facebook.com/PortalGSTIpage">FB Portal GSTI</a></blockquote></div></div>
+                    <!-- Place this tag where you want the widget to render. -->
+                    <div id="google-badge">
+                        <div class="g-page" data-width="270" data-href="https://plus.google.com/113333419239001929124" data-layout="landscape" data-rel="publisher"></div>
+                    </div>
+                </section>
+            </div>
+        </main>
 
     {% endblock %}
 
@@ -123,12 +122,12 @@
                     }
                 });
                 var $social_count = $("[data-social-count=\"true\"]");
-            $.each($social_count, function(key, value){
-               var $obj = $(value);
-                $.get($obj.data("url"), function(data){
-                   $obj.text(data.count);
+                $.each($social_count, function(key, value){
+                    var $obj = $(value);
+                    $.get($obj.data("url"), function(data){
+                        $obj.text(data.count);
+                    });
                 });
-            });
             })();
 
             (function(d, s, id) {

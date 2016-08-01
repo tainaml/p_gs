@@ -30,8 +30,12 @@ handler500 = "apps.core.views.errors.handler500"
 url_statics = static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 url_media = static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 from apps.core.views import editor as EDITOR_VIEW
+from apps.core.views import search as CoreSearch
 
 urlpatterns = [
+
+
+
     url(r'^$', PROJECT_ROOT, name='index'),
     url(_(r'^admin/'), include(admin.site.urls)),
 
@@ -103,5 +107,7 @@ urlpatterns = [
 
     # Translators: URL root de comunidade
     url(_(r'^'), include('apps.core.urls.community', namespace='community')),
+
+    url(r'(?P<params>.*)$', CoreSearch.SearchAll.as_view(), name='search_all'),
 
 ] + url_statics + url_media

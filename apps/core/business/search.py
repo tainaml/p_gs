@@ -1,13 +1,12 @@
 # -*- coding: utf-8 -*-
-from apps.account.models import User
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.db.models import Q
-from apps.account.models import User
-
 from apps.article.models import Article
 from apps.community.models import Community
 from apps.question.models import Question
 from apps.userprofile.models import UserProfile
+from itertools import chain
+from collections import OrderedDict
 
 
 def get_communities(description=None, items_per_page=None, page=None, startswith=False, category=None):
@@ -98,13 +97,42 @@ def get_users(description=None, items_per_page=None, page=None, startswith=False
     return users
 
 
-def get_articles(description=None, items_per_page=None, page=None):
-
-    items_per_page = items_per_page if items_per_page else 6
-    page = page if page else 1
-
+def get_articles_by_title(arr_description):
     criteria = None
-    arr_description = description.split(' ')
+
+    for desc in arr_description:
+        title_criteria = Q(title__unaccent__icontains=desc)
+        criteria = title_criteria if not criteria else criteria & title_criteria
+
+    if len(arr_description) == 0:
+        criteria = True
+
+    articles = Article.objects.filter(
+        Q(status=Article.STATUS_PUBLISH) & criteria
+    ).order_by('-publishin').distinct('id', 'publishin')
+
+    return articles
+
+
+def get_articles_by_description(arr_description):
+    criteria = None
+
+    for desc in arr_description:
+        title_criteria = Q(text__unaccent__icontains=desc)
+        criteria = title_criteria if not criteria else criteria & title_criteria
+
+    if len(arr_description) == 0:
+        criteria = True
+
+    articles = Article.objects.filter(
+        Q(status=Article.STATUS_PUBLISH) & criteria
+    ).order_by('-publishin').distinct('id', 'publishin')
+
+    return articles
+
+
+def get_articles_general(arr_description):
+    criteria = None
 
     for desc in arr_description:
         query_criteria = (Q(title__unaccent__icontains=desc) |
@@ -118,6 +146,24 @@ def get_articles(description=None, items_per_page=None, page=None):
         Q(status=Article.STATUS_PUBLISH) & criteria
     ).order_by('-publishin').distinct('id', 'publishin')
 
+    return articles
+
+
+def get_articles(description=None, items_per_page=None, page=None):
+
+    items_per_page = items_per_page if items_per_page else 6
+    page = page if page else 1
+
+    arr_description = description.split(' ')
+
+    articles_by_title = get_articles_by_title(arr_description)
+
+    articles_by_description = get_articles_by_description(arr_description)
+
+    articles_general = get_articles_general(arr_description)
+
+    articles = list(OrderedDict.fromkeys(chain(articles_by_title, articles_by_description, articles_general)))
+
     articles = Paginator(articles, items_per_page)
     try:
         articles = articles.page(page)
@@ -129,13 +175,42 @@ def get_articles(description=None, items_per_page=None, page=None):
     return articles
 
 
-def get_questions(description=None, items_per_page=None, page=None):
-
-    items_per_page = items_per_page if items_per_page else 6
-    page = page if page else 1
-
+def get_questions_by_title(arr_description):
     criteria = None
-    arr_description = description.split(' ')
+
+    for desc in arr_description:
+        query_criteria = Q(title__unaccent__icontains=desc)
+        criteria = query_criteria if not criteria else criteria & query_criteria
+
+    if len(arr_description) == 0:
+        criteria = True
+
+    questions = Question.objects.filter(
+        Q(deleted=False) & criteria
+    ).order_by('-question_date').distinct('id', 'question_date')
+
+    return questions
+
+
+def get_questions_by_description(arr_description):
+    criteria = None
+
+    for desc in arr_description:
+        query_criteria = Q(description__unaccent__icontains=desc)
+        criteria = query_criteria if not criteria else criteria & query_criteria
+
+    if len(arr_description) == 0:
+        criteria = True
+
+    questions = Question.objects.filter(
+        Q(deleted=False) & criteria
+    ).order_by('-question_date').distinct('id', 'question_date')
+
+    return questions
+
+
+def get_questions_general(arr_description):
+    criteria = None
 
     for desc in arr_description:
         query_criteria = (Q(title__unaccent__icontains=desc) |
@@ -148,6 +223,24 @@ def get_questions(description=None, items_per_page=None, page=None):
     questions = Question.objects.filter(
         Q(deleted=False) & criteria
     ).order_by('-question_date').distinct('id', 'question_date')
+
+    return questions
+
+
+def get_questions(description=None, items_per_page=None, page=None):
+
+    items_per_page = items_per_page if items_per_page else 6
+    page = page if page else 1
+
+    arr_description = description.split(' ')
+
+    questions_by_title = get_questions_by_title(arr_description)
+
+    questions_by_description = get_questions_by_description(arr_description)
+
+    questions_general = get_questions_general(arr_description)
+
+    questions = list(OrderedDict.fromkeys(chain(questions_by_title, questions_by_description, questions_general)))
 
     questions = Paginator(questions, items_per_page)
     try:
