@@ -1,5 +1,5 @@
 {% load thumbor_tags %}
-{% load home_blocks %}
+{% load article_blocks %}
 
 <section class="post-list--half post-list--{{ class_name }}">
     <div class="post-list-header">
@@ -23,7 +23,7 @@
                 {% endif %}
                 </a>
                 <figcaption>
-                    {% home_article_community category article %}
+                    {% article_community_block category article %}
                     <a class="article-content" href="{{ article_link }}">{% if article.title|length > 67 %}{{ article.title|slice:":67" }}...{% else %}{{ article.title }}{% endif %}</a>
                 </figcaption>
             </figure>
@@ -35,7 +35,7 @@
             {% url 'article:view'  article.year article.month article.slug as article_link %}
 
             <article class="article-home-medium">
-                {% home_article_community category article %}
+                {% article_community_block category article %}
                 <a class="article-content" href="{{ article_link }}">{% if article.title|length > 67 %}{{ article.title|slice:":67" }}...{% else %}{{ article.title }}{% endif %}</a>
             </article>
         {% endfor %}

@@ -1,5 +1,5 @@
 {% load thumbor_tags %}
-{% load home_blocks %}
+{% load article_blocks %}
 
 
 <section class="post-list--third post-list--{{ class_name }}">
@@ -25,7 +25,7 @@
             {% endif %}
             </a>
             <figcaption>
-                {% home_article_community category article %}
+                {% article_community_block category article %}
                 <a class="article-content" href="{{ article_link }}" title="{{ article.title }}">
                     {% if article.title|length > 67 %}{{ article.title|slice:":67" }}...{% else %}{{ article.title }}{% endif %}
                 </a>

@@ -1,7 +1,8 @@
 from django import template
+from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
 from django.core.cache import caches
-from django.db.models import Q, Prefetch
+from django.db.models import Q, Prefetch, QuerySet
 from django.template.loader import render_to_string
 from django.utils import timezone
 from django.utils.safestring import mark_safe
@@ -28,7 +29,6 @@ class ArticleCacheExcludes(object):
 
     @classmethod
     def get(cls, home):
-        print cls.prefix % home
         excludes = cls.cache.get(cls.prefix % home, [])
         return excludes
 
@@ -46,8 +46,17 @@ class ArticleCacheExcludes(object):
 
     @classmethod
     def clear(cls, home):
-        print cls.prefix % home
         cls.cache.delete(cls.prefix % home)
+
+
+def get_article_community_by_category(article, category):
+
+    try:
+        the_community = article.feed.all().first().communities.all().filter(Q(taxonomy_id=category.id) | Q(taxonomy__parent_id=category.id)).first()
+    except Exception, e:
+        the_community = None
+
+    return the_community
 
 
 class ArticleBlock(CacheItemMixin):
@@ -72,8 +81,6 @@ class ArticleBlock(CacheItemMixin):
 
         if 'request' in context and context['request'].path != u'/':
             self.cache_excludes = self.category_slug
-
-        print self.cache_excludes
 
         super(ArticleBlock, self).__init__()
 
@@ -102,7 +109,6 @@ class ArticleBlock(CacheItemMixin):
 
     def get_show_communities(self):
         communities = self.get_communities().order_by('?')[0:self.show_communities]
-        print communities
         return communities
 
     def filter_articles(self):
@@ -121,16 +127,11 @@ class ArticleBlock(CacheItemMixin):
             Prefetch('feed__communities', queryset=communities),
         ).distinct()[self.offset:self.quantity + self.offset]
 
-        # [excludes.append(article.id) for article in articles]
-
         for article in articles:
             excludes.append(article.id)
             if not article.image:
-                feed = FeedObject.objects.get(article=article)
-                communities = Community.objects.filter(
-                    feeds=feed
-                ).prefetch_related("taxonomy")
-                article.image = communities[0].image
+                _community = get_article_community_by_category(article, self.category)
+                article.image = _community.image if _community else None
 
         ArticleCacheExcludes.append(self.cache_excludes, excludes)
 
@@ -192,3 +193,38 @@ def article_block(context, type, category_slug, **kwargs):
     block_item = block_class(context, type, category_slug, **kwargs)
 
     return block_item.render()
+
+
+@register.simple_tag(takes_context=True)
+def article_community_block(context, category, article, **kwargs):
+
+    the_community = get_article_community_by_category(article, category)
+
+    __context = {
+        'article': article,
+        'community': the_community
+    }
+
+    template_file = kwargs.get('template', 'home/blocks/partials/article_community.html')
+
+    return render_to_string(template_file, __context)
+
+
+@register.inclusion_tag('home/blocks/partials/communities.html', takes_context=True)
+def communities(context, communities):
+
+    space_between = communities.count() if isinstance(communities, (QuerySet)) else len(communities)
+    MAXIMUM = getattr(settings, 'HOME_CHARACTERS_LIMIT', 0) - space_between
+    communities_to_show = []
+    character_counting = 0
+
+    for community in communities:
+        char_quantity = len(community.title)
+        character_counting += char_quantity
+        if character_counting > MAXIMUM:
+            break
+        communities_to_show.append(community)
+
+    return {
+        'communities': communities_to_show
+    }

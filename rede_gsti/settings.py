@@ -190,10 +190,10 @@ if ENVIRONMENT == "develop":
     CACHES = {
         'default': {
             # 'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
-            # 'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
-            # 'LOCATION': 'unique-snowflake',
-            'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
-            'LOCATION': 'memcached:11211'
+            'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+            'LOCATION': 'unique-snowflake',
+            # 'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+            # 'LOCATION': 'memcached:11211'
 
         }
     }

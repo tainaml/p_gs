@@ -379,22 +379,3 @@ def home_block_article_home(context, *args, **kwargs):
 def home_article_community(context, article, category):
     bloco = ArticleCommunityPartial(context, category, article)
     return bloco.render()
-
-@register.inclusion_tag('home/blocks/partials/communities.html', takes_context=True)
-def communities(context, communities):
-
-    space_between = communities.count() if isinstance(communities, (QuerySet)) else len(communities)
-    MAXIMUM = settings.HOME_CHARACTERS_LIMIT - space_between
-    communities_to_show = []
-    character_counting = 0
-
-    for community in communities:
-        char_quantity = len(community.title)
-        character_counting+=char_quantity
-        if character_counting > MAXIMUM:
-            break
-        communities_to_show.append(community)
-
-    return {
-        'communities': communities_to_show
-    }

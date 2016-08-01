@@ -1,7 +1,5 @@
 {% url 'article:view'  article.year article.month article.slug as article_link %}
 
-<a
-        class="article-category"
-        href="{% url "community:show" community.slug %}">
+<a class="article-category" href="{% url "community:show" community.slug %}">
     {{ community.title }}
 </a>
