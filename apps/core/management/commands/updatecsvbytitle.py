@@ -50,4 +50,6 @@ class Command(BaseCommand):
                         article.save()
                     except Article.DoesNotExist:
                         pass
+                    except Article.MultipleObjectsReturned:
+                        print article_slug
 
