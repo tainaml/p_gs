@@ -60,7 +60,11 @@
                             <div class="post-count">
                                 {% like_box question request.path "inline" %}
                             </div>
-                            <a class="post-count-comments" href="#comments"><strong>{{ question.counter_answer }}</strong> Respostas</a>
+                            <a class="post-count-comments" href="#comments">
+                              <strong>{{ question.counter_answer }}</strong>
+                              <span class="hidden-xs visible-lg-inline">Resposta(s)</span>
+                              <span class="hidden-lg"><i class="gsticon gsticon-comment"></i></span>
+                            </a>
                         </div>
                     </aside>
                     <div class="full-post-content">

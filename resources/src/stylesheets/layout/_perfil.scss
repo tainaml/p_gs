@@ -422,8 +422,8 @@
     text-align: right;
 
     .btn-default {
-        margin-right: 5px;
-        font-size: 14px;
+      margin-right: 5px;
+      font-size: 14px;
     }
 
     @media (max-width: $screen-xs-max) {
@@ -432,7 +432,7 @@
 
         .btn-default,
         .btn-green {
-            width: 49%;
+            margin-bottom: 5px;
         }
     }
 }

@@ -74,80 +74,82 @@
                     </div>
                 </div>
                 <div class="container">
+                  <div class="row">
+                    <div class="col-md-4 pull-right">
+                      {% load i18n %}
+                      <form class="form-signup" action="{% url 'account:signup' %}" method="post">
+                        {% csrf_token %}
+                        <div class="form-group">
+                          <a class="btn-login-facebook" href="{% url 'social:begin' backend='facebook' %}">
+                            <i class="gsticon gsticon-facebook"></i>
+                            Facebook
+                          </a>
+                          <a class="btn-login-google" href="{% url 'social:begin' backend='google-oauth2' %}">
+                            <i class="gsticon gsticon-google-plus"></i>
+                            Google+
+                          </a>
+                          <a class="btn-login-linkedin" href="{% url 'social:begin' backend='linkedin-oauth2' %}">
+                            <i class="gsticon gsticon-linkedin"></i>
+                            LinkedIn
+                          </a>
+                        </div>
+                        <div class="form-group form-group-half {% if form.first_name.errors %}has-error{% endif %}">
+                          <input class="form-control" type="text" id="first_name" name="first_name" value="{{ form.cleaned_data.first_name|default_if_none:"" }}" placeholder="{% trans "First name" %}" maxlength="30"
+                          data-toggle="validation"
+                          data-regex="^[a-zA-ZÁáàãâÂÃÀéÉèêÊÈëËẽẼíÍìÌĩĨîÎóÓòÒõÕüÜúÚùÙũŨûÛçÇ-ýÝỲỳ]+$">
+                          {% if form.first_name.errors %}  {{ form.first_name.errors }} {% endif %}
+                        </div>
+                        <div class="form-group form-group-half {% if form.last_name.errors %}has-error{% endif %}">
+                          <input class="form-control" type="text" id="last_name" name="last_name" value="{{ form.cleaned_data.last_name|default_if_none:"" }}" placeholder="{% trans "Last Name" %}" maxlength="150"
+                          data-toggle="validation"
+                          data-regex="^[a-zA-ZÁáàãâÂÃÀéÉèêÊÈëËẽẼíÍìÌĩĨîÎóÓòÒõÕüÜúÚùÙũŨûÛçÇ-ýÝỲỳ ]+$">
+                          {% if form.last_name.errors %}  {{ form.last_name.errors }} {% endif %}
+                        </div>
+                        <div class="form-group {% if form.email.errors %}has-error{% endif %}">
+                          <input class="form-control" type="email" name="email" value="{{ form.cleaned_data.email|default_if_none:"" }}" placeholder="{% trans "Email" %}" maxlength="150">
+                          {% if form.email.errors %}  {{ form.email.errors }} {% endif %}
+                        </div>
+
+                        <div class="form-group {% if form.username.errors %}has-error{% endif %}">
+                          <input class="form-control" type="text" id="username" name="username" value="{{ form.cleaned_data.username|default_if_none:"" }}" placeholder="{% trans "Username" %}" maxlength="30" autocomplete="off"
+                          data-toggle="validation"
+                          data-async=true
+                          data-url-check-validation="{% url 'account:check-username' %}">
+                          {% if form.username.errors %}  {{ form.username.errors }} {% endif %}
+                        </div>
+
+                        <div class="form-group {% if form.password.errors %}has-error{% endif %}">
+                          <input class="form-control" type="password" name="password" placeholder="{% trans "Password" %}">
+                          {% if form.password.errors %}  {{ form.password.errors }} {% endif %}
+                        </div>
+
+                        <div class="form-group {% if form.password_confirmation.errors %}has-error{% endif%}">
+                          <input class="form-control" type="password" name="password_confirmation" placeholder="{% trans "Password Confirm" %}">
+                          {% if form.password_confirmation.errors %}  {{ form.password_confirmation.errors }} {% endif %}
+                        </div>
+
+                        <div class="form-group {% if form.captcha.errors %}has-error{% endif %}">
+                          <div class="g-recaptcha" data-sitekey="6LccmgsTAAAAAGrsvn7r7aiIcnvbuIS7pyP0qv1K"></div>
+                          {% if form.captcha.errors %} {{ form.captcha.errors }} {% endif %}
+                        </div>
+
+                        {% if form.non_field_errors %} {{ form.non_field_errors }} {% endif %}
+
+                        <input class="btn-action btn-block" type="submit" value="{% trans "Submit" %}" name="submit">
+                        <!-- {% trans 'or' %} <a href="{% url 'account:login' %}">{% trans 'Login' %}</a> -->
+                      </form>
+                      <div class="fb-account-box">
+                        <div class="fb-page" data-href="https://www.facebook.com/PortalGSTIpage" data-small-header="true" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true" data-show-posts="false"><div class="fb-xfbml-parse-ignore"><blockquote cite="https://www.facebook.com/PortalGSTIpage"><a href="https://www.facebook.com/PortalGSTIpage">Facebook</a></blockquote></div></div>
+                      </div>
+                    </div>
                     <div class="col-md-8">
-                        <div class="embed-responsive embed-responsive-4by3">
-                            <iframe width="100%" height="480" src="https://www.youtube.com/embed/G1xIlZ35mZo" frameborder="0" allowfullscreen></iframe>
-                        </div>
+                      <div class="embed-responsive embed-responsive-4by3">
+                        <iframe width="100%" height="480" src="https://www.youtube.com/embed/G1xIlZ35mZo" frameborder="0" allowfullscreen></iframe>
+                      </div>
                     </div>
-                    <div class="col-md-4">
-                        {% load i18n %}
-                        <form class="form-signup" action="{% url 'account:signup' %}" method="post">
-                            {% csrf_token %}
-                            <div class="form-group">
-                                <a class="btn-login-facebook" href="{% url 'social:begin' backend='facebook' %}">
-                                    <i class="gsticon gsticon-facebook"></i>
-                                    Facebook
-                                </a>
-                                <a class="btn-login-google" href="{% url 'social:begin' backend='google-oauth2' %}">
-                                    <i class="gsticon gsticon-google-plus"></i>
-                                    Google+
-                                </a>
-                                <a class="btn-login-linkedin" href="{% url 'social:begin' backend='linkedin-oauth2' %}">
-                                    <i class="gsticon gsticon-linkedin"></i>
-                                    LinkedIn
-                                </a>
-                            </div>
-                            <div class="form-group form-group-half {% if form.first_name.errors %}has-error{% endif %}">
-                                <input class="form-control" type="text" id="first_name" name="first_name" value="{{ form.cleaned_data.first_name|default_if_none:"" }}" placeholder="{% trans "First name" %}" maxlength="30"
-                                       data-toggle="validation"
-                                       data-regex="^[a-zA-ZÁáàãâÂÃÀéÉèêÊÈëËẽẼíÍìÌĩĨîÎóÓòÒõÕüÜúÚùÙũŨûÛçÇ-ýÝỲỳ]+$">
-                                {% if form.first_name.errors %}  {{ form.first_name.errors }} {% endif %}
-                            </div>
-                            <div class="form-group form-group-half {% if form.last_name.errors %}has-error{% endif %}">
-                                <input class="form-control" type="text" id="last_name" name="last_name" value="{{ form.cleaned_data.last_name|default_if_none:"" }}" placeholder="{% trans "Last Name" %}" maxlength="150"
-                                       data-toggle="validation"
-                                       data-regex="^[a-zA-ZÁáàãâÂÃÀéÉèêÊÈëËẽẼíÍìÌĩĨîÎóÓòÒõÕüÜúÚùÙũŨûÛçÇ-ýÝỲỳ ]+$">
-                                {% if form.last_name.errors %}  {{ form.last_name.errors }} {% endif %}
-                            </div>
-                            <div class="form-group {% if form.email.errors %}has-error{% endif %}">
-                                <input class="form-control" type="email" name="email" value="{{ form.cleaned_data.email|default_if_none:"" }}" placeholder="{% trans "Email" %}" maxlength="150">
-                                {% if form.email.errors %}  {{ form.email.errors }} {% endif %}
-                            </div>
-
-                            <div class="form-group {% if form.username.errors %}has-error{% endif %}">
-                                <input class="form-control" type="text" id="username" name="username" value="{{ form.cleaned_data.username|default_if_none:"" }}" placeholder="{% trans "Username" %}" maxlength="30" autocomplete="off"
-                                       data-toggle="validation"
-                                       data-async=true
-                                       data-url-check-validation="{% url 'account:check-username' %}">
-                                {% if form.username.errors %}  {{ form.username.errors }} {% endif %}
-                            </div>
-
-                            <div class="form-group {% if form.password.errors %}has-error{% endif %}">
-                                <input class="form-control" type="password" name="password" placeholder="{% trans "Password" %}">
-                                {% if form.password.errors %}  {{ form.password.errors }} {% endif %}
-                            </div>
-
-                            <div class="form-group {% if form.password_confirmation.errors %}has-error{% endif%}">
-                                <input class="form-control" type="password" name="password_confirmation" placeholder="{% trans "Password Confirm" %}">
-                                {% if form.password_confirmation.errors %}  {{ form.password_confirmation.errors }} {% endif %}
-                            </div>
-
-                            <div class="form-group {% if form.captcha.errors %}has-error{% endif %}">
-                                <div class="g-recaptcha" data-sitekey="6LccmgsTAAAAAGrsvn7r7aiIcnvbuIS7pyP0qv1K"></div>
-                                {% if form.captcha.errors %} {{ form.captcha.errors }} {% endif %}
-                            </div>
-
-                            {% if form.non_field_errors %} {{ form.non_field_errors }} {% endif %}
-
-                            <input class="btn-action btn-block" type="submit" value="{% trans "Submit" %}" name="submit">
-                            <!-- {% trans 'or' %} <a href="{% url 'account:login' %}">{% trans 'Login' %}</a> -->
-                        </form>
-                        <div class="fb-account-box">
-                            <div class="fb-page" data-href="https://www.facebook.com/PortalGSTIpage" data-small-header="true" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true" data-show-posts="false"><div class="fb-xfbml-parse-ignore"><blockquote cite="https://www.facebook.com/PortalGSTIpage"><a href="https://www.facebook.com/PortalGSTIpage">Facebook</a></blockquote></div></div>
-                        </div>
-                    </div>
+                  </div>
                 </div>
-                <div class="clearfix"></div>
+                <!-- <div class="clearfix"></div> -->
             </main>
             <footer class="footer">
                 <nav class="footer-nav">
