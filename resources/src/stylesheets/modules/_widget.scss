@@ -229,6 +229,8 @@
         position: relative;
         display: inline-block;
         color: $color-border;
+        
+        &.open .dropdown-menu { min-width: 200px }
     }
 }
 .question { border: 1px solid $color-green }
