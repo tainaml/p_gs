@@ -12,8 +12,23 @@
 
     <a data-jscroll-next href="{% url 'community:questions-list' community.slug %}?criterio={{ form.cleaned_data.criterio|urlencode }}&replies={{ form.cleaned_data.replies }}&page={{ page|default_if_none:form.cleaned_data.page }}&next={{ url_next|urlencode }}">next</a>
 {% else %}
+
     <p class="text-center text-italic">
         {%  comment %} TODO 'localize this message' {% endcomment %}
-        Não existem perguntas para esta comunidade, <a href="{% url "question:create-in-category" community.slug %}" data-url-login="{% url 'account:is_logged' %}" data-trigger="login" data-token="{{ csrf_token }}" data-url-next="{% url 'account:login-ajax' %}?next={% url "question:create-in-category" community.slug %}">seja o primeiro a perguntar</a>.
+        Não existem perguntas para esta comunidade,
+
+        {% if not request.user.is_authenticated %}
+            {# nao logado #}
+            <a data-url-login="{% url 'account:is_logged' %}" data-trigger="login" data-token="{{csrf_token}}" href="{% url 'question:create-in-category' community.slug %}">seja o primeiro a perguntar</a>.
+        {% elif not user_follows_community %}
+            {# logado, mas nao segue a comunidade #}
+            <a data-restrict="community" data-url-check-login="{% url 'community:check-user-follows' %}" data-community="{{ community.slug }}" data-url-check="{% url 'community:check-user-follows' %}" data-type="question" data-token="{{csrf_token}}" href="{% url 'question:create-in-category' community.slug %}">seja o primeiro a perguntar</a>.
+        {% else %}
+            {# logado e segue a comunidade #}
+            <a data-community="{{ community.slug }}"  data-type="question" data-token="{{csrf_token}}" href="{% url 'question:create-in-category' community.slug %}">seja o primeiro a perguntar</a>.
+        {% endif %}
+
+{#        <a href="{% url "question:create-in-category" community.slug %}" data-url-login="{% url 'account:is_logged' %}" data-trigger="login" data-token="{{ csrf_token }}" data-url-next="{% url 'account:login-ajax' %}?next={% url "question:create-in-category" community.slug %}">seja o primeiro a perguntar</a>.#}
+
     </p>
 {% endif %}
