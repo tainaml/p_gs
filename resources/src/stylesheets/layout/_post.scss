@@ -16,6 +16,7 @@
     background: $background-white;
     @media (max-width: $screen-sm-min) {
       margin-left: -15px;
+      margin-bottom: 1px;
       margin-right: -15px;
       border: none;
     }
