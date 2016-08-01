@@ -18,6 +18,9 @@
     width: 49%;
     display: inline-block;
     vertical-align: top;
+    + .form-group-half {
+      margin-left: 6px;
+    }
 }
 
 .account-info {
