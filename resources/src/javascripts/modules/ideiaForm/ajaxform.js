@@ -159,6 +159,7 @@ require('./validation.js');
                         $self.trigger('ajaxform.error', [data]);
                     } catch (e) {
                         console.error("Can't add error with data=", data);
+                        console.dir(e);
                     }
 
                 },
