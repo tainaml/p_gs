@@ -2,6 +2,7 @@ from django.core.management import BaseCommand
 import csv
 import re
 import sys
+from reversion import revisions as reversion
 from apps.article.models import Article
 
 csv.field_size_limit(sys.maxsize)
@@ -16,7 +17,7 @@ class Command(BaseCommand):
         parser.add_argument('path', nargs='+', type=str)
 
 
-
+    @reversion.create_revision()
     def handle(self, *args, **options):
         path =  options['path'][0]
 
@@ -45,6 +46,7 @@ class Command(BaseCommand):
                         article = Article.objects.get(title=article_title, publishin__month=article_month, publishin__year=article_year)
                         article.text=row[3]
                         article.slug=article_slug
+                        reversion.set_user(article.author)
                         article.save()
                     except Article.DoesNotExist:
                         pass
