@@ -383,7 +383,8 @@ TOOLBAR_CUSTOM = [
     ['HorizontalRule'],
     ['Table', 'Image'],
     ['CodeSnippet'],
-    ['Embed'],
+    ['Iframe'],
+    # ['Embed'],
     # ['Maximize', 'ShowBlocks'],
     # ['Scayt'],
     ['Source']
@@ -393,6 +394,10 @@ TOOLBAR_CUSTOM = [
 CKEDITOR_CONFIGS = {
     'default': {
         'toolbar': 'Basic',
+        'extraPlugins': ','.join([
+            'autolink', 'autoembed', 'embedsemantic', 'widget',  'iframe', 'iframedialog',
+            'dialog', 'embed', 'uploadimage', 'codesnippet', 'image2'
+        ]),
     },
     'question': {
         'toolbar': 'Custom',
@@ -437,7 +442,7 @@ CKEDITOR_CONFIGS = {
         'format_tags': 'h2;h3',
         'filebrowserBrowseUrl': None,
         'extraPlugins': ','.join([
-            'autolink', 'autoembed', 'embedsemantic', 'widget',
+            'autolink', 'autoembed', 'embedsemantic', 'widget',  'iframe', 'iframedialog',
             'dialog', 'embed', 'uploadimage', 'codesnippet', 'image2'
         ]),
     }
