@@ -162,6 +162,7 @@ class ArticleEditView(ArticleBaseView):
 
     template_name = 'article/article-edit.html'
     form_article = ArticleForm
+    the_article = None
 
     def prepare_context(self, request, context):
         return context
@@ -176,6 +177,8 @@ class ArticleEditView(ArticleBaseView):
     def get(self, request, article_id=None, *args, **kwargs):
 
         article = get_article(article_id)
+
+        self.the_article = article
 
         # Fail if is not owner
         self.check_is_owner(request, article)
@@ -209,6 +212,8 @@ class ArticleEditView(ArticleBaseView):
             article_id = article.id
         else:
             article = article = get_article(article_id)
+
+        self.the_article = article
 
         # Fail if is not owner
         self.check_is_owner(request, article)
