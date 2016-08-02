@@ -133,6 +133,7 @@
     }
     &-#{creator} {
         font-weight: 600;
+        figure { display: inline-block; }
         img {
             overflow: hidden;
             max-height: 20px;
@@ -229,7 +230,7 @@
         position: relative;
         display: inline-block;
         color: $color-border;
-        
+
         &.open .dropdown-menu { min-width: 200px }
     }
 }
