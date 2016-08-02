@@ -8,7 +8,7 @@ from ..business import article as Business, tags as BusinessTags, feed as Busine
 from ..forms.taxonomies import CoreTaxonomiesMixin
 from apps.custom_base.service.custom import forms
 from apps.rede_gsti_signals.signals.home import clear_article_cache
-
+from apps.core.business import user as UserBusiness
 
 
 class CoreArticleForm(ArticleForm, CoreTaxonomiesMixin):
@@ -19,6 +19,8 @@ class CoreArticleForm(ArticleForm, CoreTaxonomiesMixin):
     def __init__(self, *args, **kwargs):
         kwargs['initial'] = kwargs.get('initial', {})
         instance = kwargs.get('instance', None)
+
+        self.instance = instance
 
         if instance:
             feed_item = FeedBusiness.feed_get_or_create(instance)
@@ -34,7 +36,17 @@ class CoreArticleForm(ArticleForm, CoreTaxonomiesMixin):
 
     def set_author(self, author):
         super(CoreArticleForm, self).set_author(author)
-        self.filter_comunities(author)
+
+        extra = None
+
+        try:
+            extra = self.instance.feed.all().first().communities.all()
+        except Exception, e:
+            print e.message
+            pass
+
+
+        self.filter_comunities(author, extra=extra)
 
     @transaction.atomic()
     @reversion.create_revision()
