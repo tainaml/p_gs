@@ -78,6 +78,7 @@ except IOError, e:
     config.set("THUMBOR", "key", 'MY_SECURE_KEY')
 
     config.add_section("CACHE")
+    config.set("CACHE", "active", 'true')
     config.set("CACHE", "host", '127.0.0.1')
     config.set("CACHE", "port", '11211')
 
@@ -181,7 +182,7 @@ ADD_REVERSION_ADMIN=True
 def show_toolbar(request):
     return not request.is_ajax()
 
-USE_CACHE = True
+USE_CACHE = config.getboolean("CACHE", "active")
 
 # Setting Environment specific settings
 if ENVIRONMENT == "develop":
