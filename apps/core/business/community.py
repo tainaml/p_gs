@@ -156,7 +156,8 @@ def get_articles_with_videos(community, description=None, items_per_page=None, p
     )
 
     posts_videos = Article.objects.filter(
-        Q(embed__embed_type=EmbedItem.TYPE_VIDEO) &
+        # Q(embed__embed_type=EmbedItem.TYPE_VIDEO) &
+        Q(feed__tags__tag_slug__in=['video']) &
         Q(status=Article.STATUS_PUBLISH) &
         (
             Q(title__icontains=description) |
