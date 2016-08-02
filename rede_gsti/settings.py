@@ -78,6 +78,7 @@ except IOError, e:
     config.set("THUMBOR", "key", 'MY_SECURE_KEY')
 
     config.add_section("CACHE")
+    config.set("CACHE", "active", 'true')
     config.set("CACHE", "host", '127.0.0.1')
     config.set("CACHE", "port", '11211')
 
@@ -181,21 +182,31 @@ ADD_REVERSION_ADMIN=True
 def show_toolbar(request):
     return not request.is_ajax()
 
+USE_CACHE = config.getboolean("CACHE", "active")
+
 # Setting Environment specific settings
 if ENVIRONMENT == "develop":
     DEBUG = True
     #INSTALLED_APPS += ('debug_toolbar', 'apps.ninico',)
     INSTALLED_APPS += ('apps.ninico',)
-    CACHES = {
-        'default': {
-            # 'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
-            'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
-            'LOCATION': 'unique-snowflake',
-            # 'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
-            # 'LOCATION': 'memcached:11211'
+    if USE_CACHE:
+        CACHES = {
+            'default': {
+                # 'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
+                'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+                'LOCATION': 'unique-snowflake',
+                # 'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+                # 'LOCATION': 'memcached:11211'
 
+            }
         }
-    }
+    else:
+        CACHES = {
+            'default': {
+                'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
+            }
+        }
+
     DEBUG_TOOLBAR_CONFIG = {
         'SHOW_TOOLBAR_CALLBACK': show_toolbar,
     }
@@ -204,22 +215,45 @@ elif ENVIRONMENT == "test":
     DEBUG = False
     ALLOWED_HOSTS = ['*']
     from django.core.cache.backends.memcached import PyLibMCCache
+    if USE_CACHE:
 
-    CACHES = {
-        'default': {
-            'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
-            'LOCATION': '%s:%s' % (config.get("CACHE", "host"), config.get("CACHE", "port"),),
-        },
-    }
+        CACHES = {
+            'default': {
+                'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+                'LOCATION': '%s:%s' % (config.get("CACHE", "host"), config.get("CACHE", "port"),),
+            },
+        }
+    else:
+        CACHES = {
+            'default': {
+                'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
+            }
+        }
+
 elif ENVIRONMENT == "production":
     ALLOWED_HOSTS = ['*']
     DEBUG = False
+    from django.core.cache.backends.memcached import PyLibMCCache
     CACHES = {
         'default': {
             'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
             'LOCATION': '%s:%s' % (config.get("CACHE", "host"), config.get("CACHE", "port"),),
         },
     }
+    if USE_CACHE:
+
+        CACHES = {
+            'default': {
+                'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+                'LOCATION': '%s:%s' % (config.get("CACHE", "host"), config.get("CACHE", "port"),),
+            },
+        }
+    else:
+        CACHES = {
+            'default': {
+                'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
+            }
+        }
 
 AUTH_USER_MODEL = 'account.User'
 
