@@ -80,7 +80,12 @@
     background-position: center;
     background-repeat: no-repeat;
 
-    &.label-tall {height: 62px }
+    &.label-tall {
+      height: 62px;
+      @media (max-width: $screen-md-min) {
+        right: 20px;
+      }
+    }
 }
 .article-excerpt {
     @extend %clearfix;

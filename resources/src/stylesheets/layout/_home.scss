@@ -101,6 +101,13 @@
     .highlight-article-medium {
         @media (max-width: $screen-md-max) { width: 100% }
     }
+    .article-home-medium {
+      padding-left: 0;
+      &:last-child {
+        padding-left: 15px;
+        padding-right: 0;
+      }
+    }
 }
 
 .perfil-row {

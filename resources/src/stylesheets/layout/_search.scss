@@ -4,7 +4,10 @@
 .result-container {
     margin: 20px 0;
     .perfil {
-        margin-bottom: 20px;
+      margin-bottom: 20px;
+      figure {
+        display: inline-block;
+      }
     }
 }
 
