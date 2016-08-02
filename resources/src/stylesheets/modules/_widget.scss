@@ -134,6 +134,7 @@
     &-#{creator} {
         font-weight: 600;
         figure { display: inline-block; }
+        figcaption { display: inline; }
         img {
             overflow: hidden;
             max-height: 20px;
