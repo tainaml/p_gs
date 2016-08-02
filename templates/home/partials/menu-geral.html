@@ -1,33 +1,34 @@
 {% load core_tags %}
 
 <div class="header-navegation js-navigation {% if category_slug %}header-navegation-border {{ class_name }}{% endif %}">
-  <a class="toggle_menu-categories" href="javascript:;">Menu
+    <a class="toggle_menu-categories" href="javascript:;">Menu
     <span class="toggle_menu-categories-icons">
       <i class="gsticon gsticon-bars"></i> <i class="gsticon gsticon-close"></i>
     </span>
-  </a>
-  <nav class="container">
-    {% communities_cached %}
-    <ul class="menu-social">
-      <li><a class="gsticon gsticon-facebook-square" href="https://www.facebook.com/PortalGSTIpage/" target="_blank"></a></li>
-      <li><a class="gsticon gsticon-google-plus-square" href="https://plus.google.com/b/109232763237126205281/+PortalgstiBr" target="_blank"></a></li>
-      <li><a class="gsticon gsticon-linkedin-square" href="https://www.linkedin.com/groups/4602615" target="_blank"></a></li>
-      <li><a class="gsticon gsticon-twitter-square" href="https://twitter.com/portal_gsti" target="_blank"></a></li>
-      <li><a class="gsticon gsticon-youtube-square" href="https://www.youtube.com/c/PortalgstiBr" target="_blank"></a></li>
-    </ul>
-  </nav>
-
-  <div class="header-navegation jobs-navigation">
+    </a>
     <nav class="container">
-      <ul class="menu-categories menu-jobs">
-        <li class="item"><a href="{% url 'jobs:index' %}">Vagas de trabalho</a></li>
-        <li class="item"><a href="{% url 'community:show' 'carreiras' %}">Carreiras</a></li>
-        <li class="item"><a href="{% url 'search:search-content' 'communities' %}">Comunidades</a></li>
-{#        <li class="item"><a href="#">Simuladores</a></li>#}
-{#        <li class="item"><a href="#">Concursos</a></li>#}
-{#        <li class="item"><a href="#">Certificações</a></li>#}
-{#        <li class="item"><a href="#">Loja Virtual</a></li>#}
-      </ul>
+        {% communities_cached %}
+        <ul class="menu-social">
+            <li><a class="gsticon gsticon-facebook-square" href="https://www.facebook.com/PortalGSTIpage/" target="_blank"></a></li>
+            <li><a class="gsticon gsticon-google-plus-square" href="https://plus.google.com/b/109232763237126205281/+PortalgstiBr" target="_blank"></a></li>
+            <li><a class="gsticon gsticon-linkedin-square" href="https://www.linkedin.com/groups/4602615" target="_blank"></a></li>
+            <li><a class="gsticon gsticon-twitter-square" href="https://twitter.com/portal_gsti" target="_blank"></a></li>
+            <li><a class="gsticon gsticon-youtube-square" href="https://www.youtube.com/c/PortalgstiBr" target="_blank"></a></li>
+        </ul>
     </nav>
-  </div>
+
+    <div class="header-navegation jobs-navigation">
+        <nav class="container">
+            <ul class="menu-categories menu-jobs">
+                <li class="item"><a href="{% url 'jobs:index' %}">Vagas de trabalho</a></li>
+                <li class="item"><a href="{% url 'community:show' 'cursos-gratuitos' %}">Cursos Gratuitos</a></li>
+                <li class="item"><a href="{% url 'community:show' 'carreiras' %}">Carreiras</a></li>
+                <li class="item"><a href="{% url 'search:search-content' 'communities' %}">Comunidades</a></li>
+                {#        <li class="item"><a href="#">Simuladores</a></li>#}
+                {#        <li class="item"><a href="#">Concursos</a></li>#}
+                {#        <li class="item"><a href="#">Certificações</a></li>#}
+                {#        <li class="item"><a href="#">Loja Virtual</a></li>#}
+            </ul>
+        </nav>
+    </div>
 </div>
