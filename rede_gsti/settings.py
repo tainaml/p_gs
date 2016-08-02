@@ -170,7 +170,6 @@ INTERNAL_APPS = (
     'apps.custom_base',
     'apps.company',
     'apps.certification',
-    'apps.job_vacancy',
 
 )
 
