@@ -5,14 +5,14 @@ from apps.core.views import search as CoreSearch
 urlpatterns = [
 
     # Translators: URL de busca geral
-    url(_(r'^search$'), CoreSearch.Search.as_view(), name='search'),
+    url(_(r'^searching$'), CoreSearch.Search.as_view(), name='search'),
 
     # Translators: URL de autocomplete de busca geral
-    url(_(r'^search/autocomplete$'), CoreSearch.SearchAutocomplete.as_view(), name='autocomplete'),
+    url(_(r'^searching/autocomplete$'), CoreSearch.SearchAutocomplete.as_view(), name='autocomplete'),
 
     # Translators: URL de listagem de busca geral
-    url(_(r'^search/list/(?P<content_type>[a-z]+)$'), CoreSearch.SearchList.as_view(), name='list'),
+    url(_(r'^searching/list/(?P<content_type>[a-z]+)$'), CoreSearch.SearchList.as_view(), name='list'),
 
     # Translators: URL de procurar conteudo
-    url(_(r'^search/(?P<content_type>[a-z]+)$'), CoreSearch.SearchContent.as_view(), name='search-content'),
+    url(_(r'^searching/(?P<content_type>[a-z]+)$'), CoreSearch.SearchContent.as_view(), name='search-content'),
 ]

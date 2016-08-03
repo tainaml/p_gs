@@ -72,8 +72,8 @@ require('./validation.js');
         }
 
         function doValidation(event, addError){
-           // addError.call(event, 'fieldname', 'error message', bol_only_this_error)
-           // addError.call(event, 'birthday', 'error message', false);
+            // addError.call(event, 'fieldname', 'error message', bol_only_this_error)
+            // addError.call(event, 'birthday', 'error message', false);
         }
 
         function afterValidation(){
@@ -95,29 +95,39 @@ require('./validation.js');
             var formFields = $(this).data('formFields');
             var $field, $group;
 
+            if(!errors){
+                errors = [];
+            }
+
             $.each(errors, function(key, values){
 
-                if(!(key in formFields)){
+                try{
 
-                    $.each(values, function addErrorToOtherErrors(){
-                        otherErrors.push(this);
-                    });
+                    if(!(key in formFields)){
 
-                }else{
-                    $field = formFields[key]['object'];
-                    $group = formFields[key]['group'];
+                        $.each(values, function addErrorToOtherErrors(){
+                            otherErrors.push(this);
+                        });
 
-                    $group.addClass('has-error');
-                    var $errorContainer = $group.find('.form-group-errors');
-                    if(!$errorContainer.length){
-                        $errorContainer = $('<ul class="form-group-errors"></ul>').appendTo($group);
+                    }else{
+                        $field = formFields[key]['object'];
+                        $group = formFields[key]['group'];
+
+                        $group.addClass('has-error');
+                        var $errorContainer = $group.find('.form-group-errors');
+                        if(!$errorContainer.length){
+                            $errorContainer = $('<ul class="form-group-errors"></ul>').appendTo($group);
+                        }
+
+                        $errorContainer.empty();
+
+                        for(var i in values){
+                            $errorContainer.append($('<li>' + values[i] + '</li>'));
+                        }
                     }
 
-                    $errorContainer.empty();
-
-                    for(var i in values){
-                        $errorContainer.append($('<li>' + values[i] + '</li>'));
-                    }
+                }catch(err){
+                    console.dir(err);
                 }
             });
         }
@@ -147,11 +157,11 @@ require('./validation.js');
                 error: function(jqXHR){
                     var data;
                     try{
-                      if (typeof jqXHR.responseText == 'string') {
-                        data = jqXHR.responseText;
-                      } else {
-                        data = $.parseJSON(jqXHR.responseText);
-                      }
+                        if (typeof jqXHR.responseText == 'string') {
+                            data = jqXHR.responseText;
+                        } else {
+                            data = $.parseJSON(jqXHR.responseText);
+                        }
                     } catch (e) {
                         console.log("Can't parse to JSON. Check the response data and contentType");
                         return;
@@ -159,7 +169,9 @@ require('./validation.js');
                     try {
                         $self.trigger('ajaxform.error', [data]);
                     } catch (e) {
-                        console.log("Can't add error with data=", data);
+                        console.log("Can't add error");
+                        console.dir(data);
+                        console.dir(e);
                         return false;
                         //console.error("Can't add error with data=", data);
                         //console.dir(e);

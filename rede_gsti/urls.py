@@ -93,9 +93,6 @@ urlpatterns = [
     # Translators: URL root de feed
     url(_(r'^feed/'), include('apps.core.urls.feed', namespace='feed')),
 
-    # Translators: URL de buscai
-    url(_(r'^'), include('apps.core.urls.search', namespace='search')),
-
     # Translators: URL core adicionais
     url(_(r'^'), include('apps.core.urls.core', namespace='core')),
 
@@ -107,6 +104,9 @@ urlpatterns = [
 
     # Translators: URL root de comunidade
     url(_(r'^'), include('apps.core.urls.community', namespace='community')),
+
+    # Translators: URL de buscai
+    url(_(r'^'), include('apps.core.urls.search', namespace='search')),
 
     url(r'(?P<params>.*)$', CoreSearch.SearchAll.as_view(), name='search_all'),
 
