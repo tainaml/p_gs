@@ -104,7 +104,7 @@
     .article-home-medium {
       padding-left: 0;
       &:last-child {
-        padding-left: 15px;
+        @media (min-width: $screen-md-max) { padding-left: 15px; }
         padding-right: 0;
       }
     }
