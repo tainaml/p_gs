@@ -6,7 +6,7 @@
 
 {% if request.user.is_authenticated %}
 <figure class="slideout-menu--user">
-    <img src="{% get_avatar request.user width=40 height=40 smart=False fit_in=False %}" alt="{{ profile.user.get_full_name }}" class="img-circle">
+    <img src="{% get_avatar request.user width=40 height=40 smart=False fit_in=False %}" alt="{{ profile.user.get_full_name }}" class="slideout-menu--user-image img-circle">
     <figcaption>{{ request.user.first_name }}</figcaption>
 </figure>
 <hr />
@@ -50,10 +50,10 @@
 <a class="slideout-menu--link" href="{% url 'account:logout' %}?next={{ request.path }}"><i class="gsticon gsticon-close"></i> {% trans "Sair" %}</a>
 {% else %}
 <div class="slideout-menu--user">
-    Portal GSTI
-    <figure class="slideout-menu--user-image">
-        <img src="{% static 'images/gsti.png' %}" alt="Portal GSTI">
-    </figure>
+  <figure class="slideout-menu--user-image">
+    <img src="{% static 'images/gsti.png' %}" alt="Portal GSTI">
+  </figure>
+  Portal GSTI
 </div>
 <hr />
 <a class="slideout-menu--link" href="{% url 'account:signup' %}">Cadastre-se</a>
