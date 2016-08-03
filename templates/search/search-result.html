@@ -37,7 +37,7 @@
                                         <form id="search-form" action="{% url 'search:list' "communities" %}" method="GET" data-type="html" data-ajaxform="true" data-group-class=".form-search-input">
                                             <div class="col-lg-8 clearfix">
                                                 <div class="form-search-input">
-                                                    <input type="text" id="fcommunity" name="q" placeholder="{{placehold|default:"Procure comunidades"}}" autocomplete="off" />
+                                                    <input type="text" value="{{ request.GET.q }}" id="fcommunity" name="q" placeholder="{{placehold|default:"Procure comunidades"}}" autocomplete="off" />
                                                 </div>
                                                 <button type="submit" id="search" class="form-search-button">
                                                     <i class="gsticon gsticon-search"></i>
