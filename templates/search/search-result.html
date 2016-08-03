@@ -208,11 +208,11 @@
                 var $form = $this.closest('form');
                 var url = $this.data("url");
                 url = url + "?" +$form.serialize();
-                if (!$this.val()) {
-                  return;
-                }
+{#                if (!$this.val()) {#}
+{#                  return;#}
+{#                }#}
                 /*window.location.replace(url);*/
-                $this.closest('form').submit();
+                $this.closest('form').trigger('submit');
             });
 
             $("#search-form").on("ajaxform.success", functionAjaxSuccessFilterCommunities);

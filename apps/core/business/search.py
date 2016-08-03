@@ -35,7 +35,7 @@ def get_communities(description=None, items_per_page=None, page=None, startswith
         category_cryteria = Q(taxonomy__parent__slug=category)
         criteria = category_cryteria if not criteria else criteria & category_cryteria
 
-    communities = Community.objects.filter(criteria).distinct('id')
+    communities = Community.objects.filter(criteria).order_by('title').distinct('title')
     communities = Paginator(communities, items_per_page)
 
     try:
