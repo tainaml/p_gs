@@ -1,4 +1,11 @@
-.account {}
+.account {
+  .col-md-4 {
+    float: right;
+    @media (max-width: $screen-sm-min) {
+      float: none;
+    }
+  }
+}
 .blue-flag {
     // position: relative;
     width: 100%;
