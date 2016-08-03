@@ -1,8 +1,9 @@
 {%extends 'home/layout/base.html' %}
 
-{% block title %}Portal GSTI - Resultado da busca por Python{% endblock %}
+{% block title %}Portal GSTI - Resultado da busca{% if request.GET.q|length > 0 %} por "{{ request.GET.q }}"{% endif %}{% endblock %}
 
 {% block content %}
+
     <main class="container main">
         <div class="row">
 
@@ -23,7 +24,7 @@
                     </div>
                 {% endif %}
 
-                {% if communities.object_list %}
+                {% if communities.object_list and content_type == 'communities' %}
                     <div class="result-container">
                         <header class="area-title">
                             <h2>Comunidades</h2>
@@ -61,7 +62,7 @@
                     </div>
                 {% endif %}
 
-                {% if users.object_list %}
+                {% if users.object_list and content_type == 'users' %}
                     <div class="result-container">
                         <header class="area-title">
                             <h2>Pessoas</h2>
