@@ -4,9 +4,6 @@ from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
 from django.utils.translation import ugettext as _
-
-from ckeditor.fields import RichTextField
-
 from apps.account.models import User
 from apps.socialactions.models import Counter
 from apps.geography.models import State, City, Country
@@ -105,7 +102,7 @@ class UserProfile(models.Model):
 
 class Responsibility(models.Model):
     name = models.CharField(max_length=60, null=False, blank=False)
-    text = RichTextField(null=True, blank=True)
+    text = models.TextField(null=True, blank=True)
 
     def __unicode__(self):
         return self.name

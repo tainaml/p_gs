@@ -2,13 +2,11 @@ from django.contrib import admin
 from django_thumbor import generate_url
 from .models import Community
 from django.conf import settings
-from ckeditor_uploader.widgets import CKEditorUploadingWidget
 from django import forms
 
 
 class ComunnityAdminForm(forms.ModelForm):
     class Meta:
-        widgets = {'description': CKEditorUploadingWidget(config_name='article') }
         excludes = ()
 
 

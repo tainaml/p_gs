@@ -29,7 +29,6 @@ handler500 = "apps.core.views.errors.handler500"
 
 url_statics = static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 url_media = static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-from apps.core.views import editor as EDITOR_VIEW
 from apps.core.views import search as CoreSearch
 
 urlpatterns = [
@@ -98,10 +97,6 @@ urlpatterns = [
 
     # Translators: URL core adicionais
     url(_(r'^'), include('apps.core.urls.core', namespace='core')),
-
-    # Translators: URL do ckeditor
-    url(r'^/editor/upload/', staff_member_required(EDITOR_VIEW.upload), name='ckeditor_upload'),
-    # url(r'^/editor/browse/', never_cache(staff_member_required(views.browse)), name='ckeditor_browse'),
 
      url(r'^chaining/', include('smart_selects.urls')),
 

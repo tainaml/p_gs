@@ -1,4 +1,3 @@
-from ckeditor.widgets import CKEditorWidget
 from django.core.exceptions import ValidationError
 from django.db import transaction
 from django.utils.text import slugify
@@ -15,7 +14,7 @@ class CreateQuestionForm(IdeiaModelForm):
 
     title = forms.CharField(max_length=settings.QUESTION_TITLE_LIMIT if hasattr(settings, "QUESTION_TITLE_LIMIT") else 100, required=True)
     slug = forms.SlugField(max_length=300, required=False)
-    description = forms.CharField(max_length=settings.QUESTION_TEXT_LIMIT if hasattr(settings, "QUESTION_TEXT_LIMIT") else 10000, required=True, widget=CKEditorWidget(config_name='question'))
+    description = forms.CharField(max_length=settings.QUESTION_TEXT_LIMIT if hasattr(settings, "QUESTION_TEXT_LIMIT") else 10000, required=True)
 
     user = None
 
@@ -80,7 +79,7 @@ class EditQuestionForm(CreateQuestionForm):
 
 
 class CommentReplyForm(IdeiaForm):
-    description = forms.CharField(max_length=settings.ANSWER_TEXT_LIMIT if hasattr(settings, "ANSWER_TEXT_LIMIT") else 10000, required=True, widget=CKEditorWidget(config_name='question'))
+    description = forms.CharField(max_length=settings.ANSWER_TEXT_LIMIT if hasattr(settings, "ANSWER_TEXT_LIMIT") else 10000, required=True)
 
     def __init__(self, instance=None, user=None, *args, **kargs):
         super(CommentReplyForm, self).__init__(instance, *args, **kargs)
@@ -135,7 +134,7 @@ class ListAnswerForm(IdeiaForm):
 
 
 class EditAnswerForm(IdeiaForm):
-    description = forms.CharField(max_length=settings.ANSWER_TEXT_LIMIT if hasattr(settings, "ANSWER_TEXT_LIMIT") else 10000, required=True, widget=CKEditorWidget(config_name='question'))
+    description = forms.CharField(max_length=settings.ANSWER_TEXT_LIMIT if hasattr(settings, "ANSWER_TEXT_LIMIT") else 10000, required=True)
 
     user = None
 

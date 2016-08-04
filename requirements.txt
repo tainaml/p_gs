@@ -8,7 +8,6 @@ python-social-auth==0.2.14
 django-debug-toolbar==1.5
 django-autofixture==0.11.0
 django-migration-fixture==0.5.1
-django-ckeditor==5.0.2
 python-memcached==1.57
 PyYAML==3.10
 ua-parser==0.6.1
@@ -17,5 +16,5 @@ django-smart-selects==1.2.2
 django-user-agents==0.3.0
 django-reversion==1.10
 django-reversion-compare==0.6.1
-django-summernote
+
 
