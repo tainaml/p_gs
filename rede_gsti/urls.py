@@ -108,6 +108,8 @@ urlpatterns = [
     # Translators: URL root de comunidade
     url(_(r'^'), include('apps.core.urls.community', namespace='community')),
 
+    url(r'^summernote/', include('django_summernote.urls')),
+
     url(r'(?P<params>.*)$', CoreSearch.SearchAll.as_view(), name='search_all'),
 
 ] + url_statics + url_media

@@ -147,6 +147,7 @@ THIRD_PART_APPS = (
     'smart_selects',
     'reversion',
     'reversion_compare',
+    'django_summernote',
 )
 
 INTERNAL_APPS = (
@@ -268,7 +269,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
-    'apps.core.middleware.MinifyHTMLMiddleware',
+    # 'apps.core.middleware.MinifyHTMLMiddleware',
     'django_user_agents.middleware.UserAgentMiddleware',
 )
 
@@ -422,6 +423,8 @@ TOOLBAR_CUSTOM = [
     # ['Scayt'],
     ['Source']
 ]
+
+
 
 # CKEDITOR
 CKEDITOR_CONFIGS = {
@@ -749,4 +752,84 @@ LOGGING = {
             'level': 'INFO'
         }
     }
+}
+print  os.path.join(STATIC_URL, 'src-noconflict/ace.js')
+#SUMMERNOTE
+SUMMERNOTE_CONFIG = {
+    # Using SummernoteWidget - iframe mode
+    'iframe': True,  # or set False to use SummernoteInplaceWidget - no iframe mode
+
+    # Using Summernote Air-mode
+    'airMode': False,
+
+    # Use native HTML tags (`<b>`, `<i>`, ...) instead of style attributes
+    # (Firefox, Chrome only)
+    'styleWithTags': True,
+
+    # Set text direction : 'left to right' is default.
+    'direction': 'ltr',
+
+    # Change editor size
+    'width': '100%',
+    'height': '480',
+
+
+    # Or, set editor language/locale forcely
+    # 'lang': 'ko-KR',
+
+    # Customize toolbar buttons
+    # 'toolbar': [
+    #     ['style', ['style']]
+    #     # ['style', ['bold', 'italic', 'underline', 'clear']],
+    #     # ['para', ['ul', 'ol', 'height']],
+    #     # ['insert', ['link']],
+    # ],
+
+    # Need authentication while uploading attachments.
+    'attachment_require_authentication': True,
+
+
+    # Set common css/js media files
+    'external_css': (
+        '//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css',
+    ),
+    'external_js': (
+        '//code.jquery.com/jquery-1.9.1.min.js',
+        '//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js',
+    ),
+    'internal_css': (
+        os.path.join(STATIC_URL, 'django_summernote/summernote.css'),
+    ),
+    'internal_js': (
+        os.path.join(STATIC_URL, 'django_summernote/jquery.ui.widget.js'),
+        os.path.join(STATIC_URL, 'django_summernote/jquery.iframe-transport.js'),
+        os.path.join(STATIC_URL, 'django_summernote/jquery.fileupload.js'),
+        os.path.join(STATIC_URL, 'django_summernote/summernote.min.js'),
+        os.path.join(STATIC_URL, 'src-noconflict/ace.js'),
+    ),
+
+    # You can add custom css/js for SummernoteWidget.
+    'css': (
+    ),
+    'js': (
+        os.path.join(STATIC_URL, 'src-noconflict/ace.js'),
+    ),
+
+    # And also for SummernoteInplaceWidget.
+    # !!! Be sure to put {{ form.media }} in template before initiate summernote.
+    'css_for_inplace': (
+    ),
+    'js_for_inplace': (
+        os.path.join(STATIC_URL, 'src-noconflict/ace.js'),
+    ),
+
+    # You can disable file upload feature.
+    'disable_upload': False,
+
+    # Codemirror as codeview
+    'codemirror': {
+            # Please visit http://summernote.org/examples/#codemirror-as-codeview
+            'theme': 'monokai',
+    },
+
 }
