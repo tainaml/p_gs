@@ -32,7 +32,7 @@ url_media = static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 from apps.core.views import editor as EDITOR_VIEW
 from apps.core.views import search as CoreSearch
 
-urlpatterns = [
+urlpatterns = url_statics + url_media + [
 
 
 
@@ -110,4 +110,4 @@ urlpatterns = [
 
     url(r'(?P<params>.*)$', CoreSearch.SearchAll.as_view(), name='search_all'),
 
-] + url_statics + url_media
+]
