@@ -14,7 +14,13 @@ from ..cachecontrol import cachecontrol, CacheItemMixin
 
 
 register = template.Library()
-article_type = ContentType.objects.get(model="article")
+
+article_type = None
+
+try:
+    article_type = ContentType.objects.get(model="article")
+except:
+    pass
 
 cache_excludes_prefix = 'HOME_EXCLUDES|||%s'
 
