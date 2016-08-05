@@ -2,6 +2,12 @@
 
 {% block title %}Portal GSTI - Resultado da busca{% if request.GET.q|length > 0 %} por "{{ request.GET.q }}"{% endif %}{% endblock %}
 
+{% if not articles.object_list and not communities.object_list and not users.object_list and not questions.object_list %}
+    {% block extra_meta %}
+        <meta name="robots" content="noindex">
+    {% endblock %}
+{% endif %}
+
 {% block content %}
 
     <main class="container main">
