@@ -24,7 +24,7 @@ def get_by_label(str_label=None):
     else:
         NotFoundSocialSettings("not_found_setting_exception", "SOCIAL_LABELS must be declared")
 
-    raise NotFoundSocialSettings("not_found_setting_exception", "SOCIAL_LABELS - {s%}" % str_label)
+    raise NotFoundSocialSettings("not_found_setting_exception", "SOCIAL_LABELS - {%s}" % str_label)
 
 
 def get_content_by_object(content_object=None):

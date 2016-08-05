@@ -1,10 +1,7 @@
-from distutils.command.register import register
 from django import template
-
+from django.conf import settings
 from apps.account.service.business import create_token
 from apps.notifications.service import business as Business
-
-from rede_gsti.settings import NOTIFICATION_GROUP, NOTIFICATION_ACTIONS
 
 register = template.Library()
 
@@ -13,6 +10,10 @@ register = template.Library()
 def notification_navbar(context, notification_type, count=5):
 
     request = context['request']
+
+    NOTIFICATION_GROUP = getattr(settings, 'NOTIFICATION_GROUP', {})
+    NOTIFICATION_ACTIONS = getattr(settings, 'NOTIFICATION_ACTIONS', {})
+
 
     notification_group = NOTIFICATION_GROUP[notification_type] if notification_type in NOTIFICATION_GROUP.keys() else []
 

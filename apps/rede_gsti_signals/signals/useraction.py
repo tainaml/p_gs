@@ -1,4 +1,5 @@
 from django.conf import settings
+from django.db.models import Model
 from django.db.models.signals import post_save, post_delete
 from django.dispatch import receiver
 from django.core.cache import cache
@@ -55,10 +56,12 @@ def count_user_actions(sender, **kwargs):
         counter_user_instance.count = count_user
         counter_user_instance.save()
 
-
+6
 @receiver(post_save, sender=UserAction)
 def social_action(sender, **kwargs):
     action = kwargs['instance']
+
+    _action_type = None
 
     if action:
         author = action.author
@@ -75,14 +78,18 @@ def social_action(sender, **kwargs):
             'community'
         ]
 
-        # if action.content_type.model in allowed_content_type and action.content_object:
-        #     to = action.content_object.author
-        #
-        # elif action.content_type.model in ['user']:
-        #     to = action.content_object
+        if action.content_type.model in allowed_content_type and action.content_object and not to:
+            to = action.content_object.author
+
+        elif action.content_type.model in ['user'] and not to:
+            to = action.content_object
+
+        _action_type = action.action_type
+        if not isinstance(_action_type, Model) and isinstance(action.content_object, Model):
+            _action_type = action.content_object
 
         if action.content_type.model not in not_allowed_content_type and to != author:
-            if configuration.check_config_to_notify(to, action.action_type):
+            if configuration.check_config_to_notify(to, action.action_type, action.content_object):
                 Business.send_notification(
                     author=action.author,
                     to=to,
