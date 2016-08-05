@@ -7,6 +7,13 @@ from django import forms
 
 
 class ComunnityAdminForm(forms.ModelForm):
+
+
+    def clean_slug(self):
+        slug = self.cleaned_data.get('slug', None)
+        slug = unicode(slug).lower() if slug else None
+        return slug
+
     class Meta:
         widgets = {'description': CKEditorUploadingWidget(config_name='article') }
         excludes = ()
