@@ -117,7 +117,9 @@
                 </div>
                 <div class="full-post-share">
                     <h3>COMPARTILHE</h3>
-                    <div class="addthis_sharing_toolbox"></div>
+{#                    <div class="addthis_sharing_toolbox"></div>#}
+                    {% include '_partials/share.html' %}
+
                 </div>
             </article>
             <div>
@@ -156,7 +158,26 @@
 
 {% block javascripts %}
     {{ block.super }}
-    <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-55e70ed11db7fa4e" async></script>
+{#    <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-55e70ed11db7fa4e" async></script>#}
+
+    <script>
+        (function($){
+            if($('.addthis_native_toolbox').length == 0){
+                return false;
+            }
+
+            var addthis_config = addthis_config || {};
+            addthis_config.lang = 'pt-br';
+
+            var $script = $('<script/>');
+            $script.attr('id', 'ADD_THIS_SCRIPT')
+                    .attr('src', '//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-57a4f6000c045c2b');
+            $script.appendTo($('body'));
+
+        })(jQuery);
+
+    </script>
+
 
     {% comment %}
     Script para highlight nos códigos.
