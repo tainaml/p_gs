@@ -147,6 +147,7 @@ THIRD_PART_APPS = (
     'smart_selects',
     'reversion',
     'reversion_compare',
+    'micawber.contrib.mcdjango',
 )
 
 INTERNAL_APPS = (

@@ -4,7 +4,7 @@ from django.http import JsonResponse
 from django.shortcuts import render
 from django.utils import timezone
 from django.views.generic import View
-
+import micawber
 from apps.article.models import Article
 from apps.feed.models import FeedObject
 
@@ -102,3 +102,19 @@ class About(View):
         return render(request, 'about.html')
 
 
+class OEmbed(View):
+
+    def get(self, request):
+        url = request.GET.get('url', None)
+        if not url:
+            return JsonResponse({'success': False})
+
+        try:
+            providers = micawber.bootstrap_basic()
+            return JsonResponse({
+                'success': True,
+                'response': providers.request(url)
+            })
+
+        except Exception, e:
+            return JsonResponse({'success': False, 'message': e.message})
