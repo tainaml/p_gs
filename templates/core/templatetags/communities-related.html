@@ -11,7 +11,7 @@
             <div class="perfil">
                 <a href="{% url 'community:show' community.slug %}">
                   <figure>
-                    <img src="{% thumbor_url community.get_picture.url width=82 height=82 smart=False fit_in=False %}" alt="{{ community.title }}">
+                    <img src="{% thumbor_url community.get_picture.url width=82 height=82 smart=False fit_in=False %}" alt="{{ community.title }}" title="{{ community.title }}">
                   </figure>
                 </a>
                 <a href="{% url 'community:show' community.slug %}" class="perfil-name" title="{{ community.title }}">{{ community.title }}</a>
