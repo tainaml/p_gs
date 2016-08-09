@@ -48,8 +48,13 @@
                 isInactive = ( true );
             });
 
-            $element.on( 'click', function( event ) {
-                event.preventDefault();
+            $element.on( 'click', function onNotificationClick( event ) {
+
+                var $self = $(this);
+
+                if(!$self.data('isMobile') || $self.data('isMobile') != "True"){
+                    event.preventDefault();
+                }
 
                 let $target = $( event.currentTarget );
                 let $badge = $target.find('.badge');

@@ -26,7 +26,7 @@
             </div>
         </div>
     {% endfor %}
-    {% if followers|length > 3 %}
+    {% if followers|length > 3 and page <= followers.paginator.num_pages %}
     <a data-jscroll-next href="{% url 'socialactions:get_followers' content_type_id=content_type.id object_filter_id=object.id %}?p={{ page }}&next={{ url_next|urlencode }}">next</a>
     {% endif %}
 {% else %}
