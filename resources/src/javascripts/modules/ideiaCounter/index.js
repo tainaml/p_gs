@@ -1,2 +1,2 @@
 
-require('./counter-core.js');
+// require('./counter-core.js');
