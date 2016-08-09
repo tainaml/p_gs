@@ -57,7 +57,7 @@
                                     {% if form_article.title.errors %}  {{ form_article.title.errors }} {% endif %}
                                 </div>
                                 <div class="form-group">
-                                    {% render_field form_article.text placeholder="Conteúdo da publicação" class="form-control" rows="10" cols="30" %}
+                                    {% render_field form_article.text placeholder="Conteúdo da publicação" class="form-control" data-toggle="editor" rows="10" cols="30" %}
                                     {% if form_article.text.errors %}  {{ form_article.text.errors }} {% endif %}
                                 </div>
                                 <div class="form-group">
@@ -68,7 +68,7 @@
                             </div>
                             <div class="col-lg-3">
 
-                                <div class="custom-file-upload custom-file-upload-larger" data-module="dropzoneUploader" data-original-image="{% if article.image %} {{ article.image.url }} {% endif %}">
+                                <div class="custom-file-upload custom-file-upload-larger" data-module="dropzoneUploader" data-original-image="{% if article.image %}{{ article.image.url }}{% endif %}">
                                     <div class="custom-file-content">
                                         <i class="gsticon gsticon-cloud-upload"></i>
                                         <h5><strong>Foto de perfil</strong></h5>
@@ -85,11 +85,13 @@
                                 <div class="cloud-tags">
                                     <h3 class="cloud-tags-title">Conteúdo Oficial</h3>
                                     <div class="article-tags row">
-                                        <div class="col-xs-12 tag custom-input">
+                                        <div class="col-xs-12">
+                                          <label class="tag custom-input">
                                             <span class="custom-check">
-                                                <input type="checkbox" name="official" {% if form_article.initial.official %}checked="checked"{% endif %} />
+                                              <input type="checkbox" name="official" {% if form_article.initial.official %}checked="checked"{% endif %} />
                                             </span>
-                                            <label class="custom-label" class="">Oficial</label>
+                                            <span class="custom-label">Oficial</span>
+                                          </label>
                                         </div>
                                     </div>
                                 </div>
@@ -100,11 +102,13 @@
                                     <div class="article-tags row">
 
                                         {% for tag in form_article.fields.tags.queryset %}
-                                            <div class="col-xs-6 tag custom-input">
-                                                <div class="custom-check">
-                                                    <input type="checkbox" name="tags" value="{{ tag.id }}" id="{{ tag.id }}" {% if tag in form_article.initial.tags %}checked{% endif %} />
-                                                </div>
-                                                <label class="custom-label" for="{{ tag.id }}">{{ tag.tag_name }}</label>
+                                            <div class="col-xs-6">
+                                               <div class="tag custom-input">
+                                                 <div class="custom-check">
+                                                   <input type="checkbox" name="tags" value="{{ tag.id }}" id="{{ tag.id }}" {% if tag in form_article.initial.tags %}checked{% endif %} />
+                                                 </div>
+                                                 <label class="custom-label" for="{{ tag.id }}">{{ tag.tag_name }}</label>
+                                               </div>
                                             </div>
                                         {% endfor %}
 

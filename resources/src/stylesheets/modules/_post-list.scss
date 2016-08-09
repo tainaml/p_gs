@@ -21,6 +21,10 @@
 }
 .post-list {
     margin: 30px 0 20px;
+    @media (max-width: $screen-md-min) {
+      margin-top: 20px;
+      margin-bottom: 0;
+    }
     @each $name, $color in $areas {
     &--#{$name} {
         color: $color;
@@ -145,7 +149,6 @@
     @include make-lg-column(6);
     margin-bottom: 20px;
     cursor: pointer;
-
     // &:hover .article-category { color: $background-button-hover; }
 
     .img-responsive {

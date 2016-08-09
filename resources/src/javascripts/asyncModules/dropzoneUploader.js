@@ -64,7 +64,7 @@ var module = (element) => {
 }
 
 var fakeLoad = function(name, src){
-  var image = $('<img/>')
+  var $image = $('<img/>')
       .load(function() {
           createPreview(name, getCanvasImage(this))
       })

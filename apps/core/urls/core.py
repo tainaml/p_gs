@@ -10,4 +10,6 @@ urlpatterns = [
     # Translators: URL de sobre
     url(_(r'^about/'), CoreView.About.as_view(), name='about'),
 
+    url(_(r'^oembed/'), CoreView.OEmbed.as_view(), name='oembed'),
+
 ]

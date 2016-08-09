@@ -126,6 +126,8 @@ class SearchList(SearchBase):
 
         __category = request.GET.get('category', None)
 
+        context.update({'content_type': content_type})
+
         if __category:
             try:
                 term = Term.objects.get(slug="categoria")

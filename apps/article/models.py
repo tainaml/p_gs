@@ -7,6 +7,19 @@ from apps.core.models.embed import EmbedItem
 from apps.feed.models import FeedObject
 
 
+def article_image_upload(instance, filename):
+
+    owner = instance.author.id
+    today_str = datetime.today().strftime('%Y/%m/%d')
+    path = 'article/{0}/{1}'.format(owner, today_str)
+
+
+    ext = filename.split('.')[-1]
+    name = slugify(".".join(filename.split('.')[0:-1]))
+    return os.path.join(path, "{0}.{1}".format(name, ext))
+
+
+
 class Article(models.Model):
 
     STATUS_TEMP = 1
@@ -23,8 +36,8 @@ class Article(models.Model):
     title = models.CharField(blank=False, null=False,
                              max_length=settings.ARTICLE_TITLE_LIMIT if hasattr(settings, "ARTICLE_TITLE_LIMIT") else 100)
     slug = models.SlugField(default='', null=False, max_length=255, db_index=True)
-    text = models.TextField(null=False, max_length=settings.ARTICLE_TEXT_LIMIT if hasattr(settings, "ARTICLE_TEXT_LIMIT") else 10000)
-    image = models.ImageField(max_length=100, upload_to='article/%Y/%m/%d', blank=True, default='')
+    text = RichTextField(null=False, config_name='article', max_length=settings.ARTICLE_TEXT_LIMIT if hasattr(settings, "ARTICLE_TEXT_LIMIT") else 10000)
+    image = models.ImageField(max_length=100, upload_to=article_image_upload, blank=True, default='')
     author = models.ForeignKey(settings.AUTH_USER_MODEL, null=False, related_name='articles', verbose_name=_('Author'))
 
     createdin = models.DateTimeField(null=False, auto_now_add=True)

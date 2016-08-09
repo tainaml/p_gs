@@ -1,0 +1,38 @@
+<div class="social-share">
+
+    {% if show_all or show_facebook %}
+
+        {# Facebook: https://developers.facebook.com/docs/plugins/like-button #}
+        <div class="share-item share-item-facebook">
+            <iframe src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&width=173&layout=button_count&action=like&size=small&show_faces=false&share=true&height=46&appId=1716855088541343" width="173" height="46" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"></iframe>
+        </div>
+        {# EndFacebook #}
+
+        {# Linkedin: https://developer.linkedin.com/plugins/share#! #}
+        <div class="share-item share-item-linkedin">
+            <script src="//platform.linkedin.com/in.js" type="text/javascript"> lang: pt_BR</script>
+            <script type="IN/Share" data-counter="right"></script>
+        </div>
+        {# EndLinkedin #}
+
+        {# GooglePlus: https://developers.google.com/+/web/+1button/ #}
+        <div class="share-item share-item-googleplus">
+            <!-- Posicione esta tag onde você deseja que o botão +1 apareça. -->
+            <div class="g-plusone" data-size="medium"></div>
+
+            <!-- Posicione esta tag depois da última tag do botão +1. -->
+            <script type="text/javascript">
+                window.___gcfg = {lang: 'pt-BR'};
+
+                (function() {
+                    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+                    po.src = 'https://apis.google.com/js/platform.js';
+                    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+                })();
+            </script>
+        </div>
+        {# EndGooglePlus #}
+
+    {% endif %}
+
+</div>

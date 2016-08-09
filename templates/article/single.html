@@ -60,11 +60,11 @@
                                 <li><a data-url-login="{% url 'account:is_logged' %}" data-trigger="login" data-token="{{ csrf_token }}" href="{% url 'complaint:report' 'article' article.id %}" data-report="true" data-async-module="click" data-async-target="#modal-report" data-async-method="get"><i class="gsticon gsticon-exclamation-triangle"></i> Denunciar</a></li>
                                 {% if request.user.profile.isContributor %}
                                 {% if feed.official %}
-                                    <li><a data-url-login="{% url 'account:is_logged' %}" data-trigger="login" data-token="{{ csrf_token }}" href="{% url 'feed:set-content-official' 'article' article.id %}?next={{ request.path|urlencode }}"><i class="gsticon gsticon-bookmark"></i> Não oficial</a></li>
+                                    <li><a href="{% url 'feed:set-content-official' 'article' article.id %}?next={{ request.path|urlencode }}"><i class="gsticon gsticon-bookmark"></i> Não oficial</a></li>
                                 {% else %}
-                                    <li><a data-url-login="{% url 'account:is_logged' %}" data-trigger="login" data-token="{{ csrf_token }}" href="{% url 'feed:set-content-official' 'article' article.id %}?next={{ request.path|urlencode }}"><i class="gsticon gsticon-bookmark"></i> Oficial</a></li>
+                                    <li><a href="{% url 'feed:set-content-official' 'article' article.id %}?next={{ request.path|urlencode }}"><i class="gsticon gsticon-bookmark"></i> Oficial</a></li>
                                 {% endif %}
-                            {% endif %}
+                                {% endif %}
                             </ul>
                         </div>
                     </div>
@@ -115,7 +115,9 @@
                 </div>
                 <div class="full-post-share">
                     <h3>COMPARTILHE</h3>
-                    <div class="addthis_sharing_toolbox"></div>
+{#                    <div class="addthis_sharing_toolbox"></div>#}
+                    {% include '_partials/share.html' with show_all=True %}
+
                 </div>
             </article>
             <div>
@@ -154,7 +156,8 @@
 
 {% block javascripts %}
     {{ block.super }}
-    <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-55e70ed11db7fa4e" async></script>
+{#    <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-55e70ed11db7fa4e" async></script>#}
+
 
     {% comment %}
     Script para highlight nos códigos.

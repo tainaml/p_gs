@@ -16,5 +16,6 @@ django-smart-selects==1.2.2
 django-user-agents==0.3.0
 django-reversion==1.10
 django-reversion-compare==0.6.1
+micawber==0.3.3
 
 

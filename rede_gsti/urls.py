@@ -93,9 +93,6 @@ urlpatterns = [
     # Translators: URL root de feed
     url(_(r'^feed/'), include('apps.core.urls.feed', namespace='feed')),
 
-    # Translators: URL de buscai
-    url(_(r'^'), include('apps.core.urls.search', namespace='search')),
-
     # Translators: URL core adicionais
     url(_(r'^'), include('apps.core.urls.core', namespace='core')),
 
@@ -106,6 +103,7 @@ urlpatterns = [
 
     url(r'^ideia-summernote/', include('ideia_summernote.urls', namespace='ideia-summernote')),
 
-
+    # Translators: URL de buscai
+    url(_(r'^'), include('apps.core.urls.search', namespace='search')),
 
 ] + url_statics + url_media + url_search_all

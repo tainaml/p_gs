@@ -105,7 +105,10 @@ $color-counter-notification: #b2b2b2 !default;
 
         &:hover { background-color: #f7f7f7; }
 
-        > img {margin-right: 5px }
+        > figure {
+          margin-right: 5px;
+          float: left;
+        }
 
         span { color: #337ab7; }
         .perfil-counter { color: #7b787d }

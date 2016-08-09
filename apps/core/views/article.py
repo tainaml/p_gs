@@ -19,7 +19,18 @@ class CoreArticleEditView(views.ArticleEditView):
 
     def prepare_context(self, request, context):
         context = super(CoreArticleEditView, self).prepare_context(request, context)
+
         communities = UserBusiness.get_user_communities_list(request.user)
+
+        try:
+            feed_communities = UserBusiness.get_user_communities_list_from_queryset(
+                self.the_article.feed.all().first().communities.all(),
+                request.user
+            )
+            communities = communities + feed_communities
+        except Exception, e:
+            # print e
+            pass
 
         context.update(communities=communities)
 

@@ -146,6 +146,7 @@ THIRD_PART_APPS = (
     'reversion',
     'reversion_compare',
     'ideia_summernote'
+    'micawber.contrib.mcdjango',
 )
 
 INTERNAL_APPS = (
@@ -267,7 +268,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
-    # 'apps.core.middleware.MinifyHTMLMiddleware',
+    'apps.core.middleware.MinifyHTMLMiddleware',
     'django_user_agents.middleware.UserAgentMiddleware',
 )
 

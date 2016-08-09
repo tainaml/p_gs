@@ -35,12 +35,10 @@ def get_user_communities(author):
     return communities
 
 
-def get_user_communities_list(author, width=20, height=20):
-
-    communities_queryset = get_user_communities(author)
+def get_user_communities_list_from_queryset(queryset, author, width=20, height=20):
     communities = []
 
-    for community in communities_queryset:
+    for community in queryset:
         img_url = str(settings.THUMBOR_MEDIA_URL) + '/' + str(community.image)
 
         c = dict()
@@ -51,6 +49,12 @@ def get_user_communities_list(author, width=20, height=20):
         communities.append(c)
 
     return communities
+
+
+def get_user_communities_list(author, width=20, height=20):
+
+    communities_queryset = get_user_communities(author)
+    return get_user_communities_list_from_queryset(communities_queryset, author, width, height)
 
 
 def get_feed_objects(profile_instance=None, description=None, content_types_list=None, items_per_page=None, page=None, user=None):
