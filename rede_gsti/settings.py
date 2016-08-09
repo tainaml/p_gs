@@ -145,7 +145,7 @@ THIRD_PART_APPS = (
     'smart_selects',
     'reversion',
     'reversion_compare',
-    'ideia_summernote'
+    'ideia_summernote',
     'micawber.contrib.mcdjango',
 )
 
