@@ -77,6 +77,7 @@
             var $divFollowers = $("#followers-container");
             var $divJScroll = $('<div class="row j-scroll-followers j-scroll-followers-container"></div>');
 
+            console.dir(data);
             $divJScroll.html(data.template);
 
             $divFollowers.html($divJScroll);
@@ -129,7 +130,7 @@
             });
 
             $(".j-scroll-followers").jscroll({
-
+                autoTrigger: false,
                 loadingHtml: '<div class="col-lg-12"><div class="load-async-preload"></div></div>',
                 contentSelect: ".j-scroll-followers-container",
                 nextSelector: "a[data-jscroll-next]",
