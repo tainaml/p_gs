@@ -3,6 +3,7 @@
 {% load avatar_tags %}
 {% load thumbor_tags %}
 {% load notification_core_tags %}
+{% load user_agents %}
 
 {% if request.user.is_authenticated %}
 <figure class="slideout-menu--user">
@@ -12,6 +13,8 @@
 <hr />
 <div class="slideout-menu--notification">
     <a href="{% url 'notifications:members' %}" class="slideout-menu--notification-item"
+
+       data-is-mobile="{{ request|is_mobile }}"
     data-trigger="notification" data-token="{% notification_token %}" data-type="members"
     data-csrf="{{ csrf_token }}" data-url-count="{% url 'notifications:polling-count' 'members' %}"
     data-url-load="{% url 'notifications:polling-load' 'members' %}" data-url-clear="{% url 'notifications:clear' %}"
@@ -20,6 +23,7 @@
         <i class="gsticon gsticon-group"></i>
     </a>
     <a href="{% url 'notifications:posts' %}" class="slideout-menu--notification-item"
+       data-is-mobile="{{ request|is_mobile }}"
     data-trigger="notification" data-token="{% notification_token %}" data-type="posts"
     data-csrf="{{ csrf_token }}" data-url-count="{% url 'notifications:polling-count' 'posts' %}"
     data-url-load="{% url 'notifications:polling-load' 'posts' %}" data-url-clear="{% url 'notifications:clear' %}"
@@ -28,6 +32,7 @@
         <i class="gsticon gsticon-comments"></i>
     </a>
     <a href="{% url 'notifications:general' %}" class="slideout-menu--notification-item"
+       data-is-mobile="{{ request|is_mobile }}"
     data-trigger="notification" data-token="{% notification_token %}" data-type="general"
     data-csrf="{{ csrf_token }}" data-url-count="{% url 'notifications:polling-count' 'general' %}"
     data-url-load="{% url 'notifications:polling-load' 'general' %}" data-url-clear="{% url 'notifications:clear' %}"
