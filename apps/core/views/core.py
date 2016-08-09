@@ -109,7 +109,7 @@ class OEmbed(View):
     def get(self, request):
         url = request.GET.get('url', None)
         if not url:
-            return JsonResponse({'success': False})
+            return JsonResponse({'success': False, 'message': 'Invalid url.'})
 
         try:
             providers = micawber.bootstrap_basic()
@@ -124,10 +124,7 @@ class OEmbed(View):
                 'html': html
             })
 
-            return JsonResponse({
-                'success': True,
-                'response': response
-            })
+            return JsonResponse(response)
 
         except Exception, e:
             return JsonResponse({'success': False, 'message': e.message})
