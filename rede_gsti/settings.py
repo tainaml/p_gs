@@ -730,15 +730,13 @@ SUMMERNOTE_CONFIG = {
                 ]
             }
         },
-        'another': {
-            'airMode': True,
+        'comment': {
+            'airMode': False,
+            'minHeight': 100,
             'toolbar': [
-                ['style', ['bold', 'italic', 'underline', 'clear']],
+                ['style', ['bold', 'italic', 'underline']],
                 ['font', ['strikethrough', 'superscript', 'subscript']],
-                ['fontsize', ['fontsize']],
-                ['color', ['color']],
-                ['para', ['ul', 'ol', 'paragraph']],
-                ['height', ['height']]
+
             ],
             'popover': {
                 'air':[
