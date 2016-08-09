@@ -698,7 +698,9 @@ SUMMERNOTE_CONFIG = {
         'js': (
             # 'https://code.jquery.com/jquery-2.2.4.min.js',
             # 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js',
-            'https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.1/summernote.min.js', ),
+            'https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.1/summernote.min.js',
+            'https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.2/lang/summernote-pt-BR.js'
+        ,),
 
         'css': {
             'all': (
@@ -711,11 +713,12 @@ SUMMERNOTE_CONFIG = {
     'editors': {
         'default': {
             'airMode': False,
+            'lang': 'pt-BR',
+            'minHeight': 250,
             'toolbar': [
                 ['style', ['bold', 'italic', 'underline', 'clear']],
                 ['font', ['strikethrough', 'superscript', 'subscript']],
                 ['fontsize', ['fontsize']],
-                ['color', ['color']],
                 ['para', ['ul', 'ol', 'paragraph']],
                 ['height', ['height']],
                 ['picture', ['picture']]
@@ -728,7 +731,7 @@ SUMMERNOTE_CONFIG = {
             }
         },
         'another': {
-            'airMode': False,
+            'airMode': True,
             'toolbar': [
                 ['style', ['bold', 'italic', 'underline', 'clear']],
                 ['font', ['strikethrough', 'superscript', 'subscript']],
@@ -742,7 +745,6 @@ SUMMERNOTE_CONFIG = {
                     ['style', ['bold', 'italic', 'underline', 'clear']],
                 ['font', ['strikethrough', 'superscript', 'subscript']],
                 ['fontsize', ['fontsize']],
-                ['color', ['color']],
                 ['para', ['ul', 'ol', 'paragraph']],
                 ['height', ['height']]
                 ]
