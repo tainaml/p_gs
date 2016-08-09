@@ -20,6 +20,8 @@ def create_default_settings(sender, **kwargs):
         'notify_comment_question': True,
         'notify_comment_comment': True,
         'notify_comment_answer': True,
+        'notify_suggest_article': True,
+        'notify_suggest_question': True,
         'notify_publications': 'all'
     })
     form.set_entity(instance.user)

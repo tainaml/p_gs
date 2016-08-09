@@ -32,6 +32,8 @@
         <meta name="msapplication-wide310x150logo" content="{% static 'images/mstile-310x150.png' %}" />
         <meta name="msapplication-square310x310logo" content="{% static 'images/mstile-310x310.png' %}" />
         <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+        {% block extra_meta %}
+        {% endblock %}
         {% block editorfiles %}
         {% endblock %}
     </head>
