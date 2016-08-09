@@ -12,7 +12,11 @@
         {% endwith %}
     {% endfor %}
 
-    <a data-jscroll-next href="{% url 'community:list' community.slug %}?criterio={{ form.cleaned_data.criterio|urlencode }}&official={{ form.cleaned_data.official|default_if_none:False }}&page={{ page|default_if_none:form.cleaned_data.page }}&next={{ url_next|urlencode }}">next</a>
+    {% with apage=page|default_if_none:form.cleaned_data.page %}
+    {% if apage <= feed_objects.paginator.num_pages %}
+        <a data-jscroll-next href="{% url 'community:list' community.slug %}?criterio={{ form.cleaned_data.criterio|urlencode }}&official={{ form.cleaned_data.official|default_if_none:False }}&page={{ apage }}&next={{ url_next|urlencode }}">next</a>
+    {% endif %}
+    {% endwith %}
 {% else %}
     <p class="text-center text-italic">{% trans 'Não existem itens a serem exibidos' %}</p>
     <hr>
