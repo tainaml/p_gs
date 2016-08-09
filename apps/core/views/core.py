@@ -2,7 +2,9 @@ from django.contrib.contenttypes.models import ContentType
 from django.db.models import Q
 from django.http import JsonResponse
 from django.shortcuts import render
+from django.template.loader import render_to_string
 from django.utils import timezone
+from django.utils.safestring import mark_safe
 from django.views.generic import View
 import micawber
 from apps.article.models import Article
@@ -111,9 +113,20 @@ class OEmbed(View):
 
         try:
             providers = micawber.bootstrap_basic()
+
+            response = providers.request(url)
+            html = response.get('html', '')
+            html = html.replace('height="%d"' % response.get('height'), '')
+            html = html.replace('width="%d"' % response.get('width'), 'style="width:100%; height:100%; position: absolute"')
+            html = mark_safe(render_to_string('core/partials/responsive_embed.html', {'html': html}))
+            
+            response.update({
+                'html': html
+            })
+
             return JsonResponse({
                 'success': True,
-                'response': providers.request(url)
+                'response': response
             })
 
         except Exception, e:
