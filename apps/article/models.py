@@ -54,17 +54,16 @@ class Article(models.Model):
     embed = GenericRelation(EmbedItem, related_query_name="article")
 
     @property
+    def modified_date(self):
+        return self.publishin if self.publishin and self.is_published() else self.updatein
+
+    @property
     def year(self):
-        if self.publishin:
-            return str(self.publishin.year)
+        return self.modified_date.year
 
     @property
     def month(self):
-        if self.publishin:
-            if self.publishin.month > 9:
-                return str(self.publishin.month)
-            else:
-                return "0" + str(self.publishin.month)
+        return '{0:02d}'.format(self.modified_date.month)
 
     def is_published(self):
         return self.status == self.STATUS_PUBLISH
