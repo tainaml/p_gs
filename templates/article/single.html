@@ -13,8 +13,6 @@
 {% load url_utils %}
 
 {% block editorfiles %}
-<script type="text/javascript" src="{% static "ckeditor/ckeditor/ckeditor.js" %}"></script>
-<script type="text/javascript" src="{% static "ckeditor/ckeditor-init.js" %}"></script>
 {% endblock %}
 
 {% block title %}{{ article.title }} - Portal GSTI{% endblock %}
@@ -167,12 +165,6 @@
 
 <script>
 
-{#    function updateEditors(){#}
-{#        for ( instance in CKEDITOR.instances ){#}
-{#            var ckeditorInstance = CKEDITOR.instances[instance];#}
-{#            ckeditorInstance.updateElement();#}
-{#        }#}
-{#    }#}
 
     var functionOpenModalToDelete = function(e) {
         e.preventDefault();
@@ -296,9 +288,7 @@
                     $.each($subforms, function(i, form){
                         var $editor = $(form).find("[name='content']");
 
-                        if ($editor.length){
-                            CKEDITOR.replace($editor.get(0));
-                        }
+
                     });
 
 

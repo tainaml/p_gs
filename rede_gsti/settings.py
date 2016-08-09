@@ -141,13 +141,11 @@ THIRD_PART_APPS = (
     # 'autofixture',
     'django_migration_fixture',
     'social.apps.django_app.default',
-    'ckeditor',
-    'ckeditor_uploader',
     'django_user_agents',
     'smart_selects',
     'reversion',
     'reversion_compare',
-    'django_summernote',
+    'ideia_summernote'
 )
 
 INTERNAL_APPS = (
@@ -426,70 +424,6 @@ TOOLBAR_CUSTOM = [
 
 
 
-# CKEDITOR
-CKEDITOR_CONFIGS = {
-    'default': {
-        'toolbar': 'Basic',
-        'extraPlugins': ','.join([
-            'autolink', 'autoembed', 'embedsemantic', 'widget',  'iframe', 'iframedialog',
-            'dialog', 'embed', 'uploadimage', 'codesnippet', 'image2'
-        ]),
-    },
-    'question': {
-        'toolbar': 'Custom',
-        'toolbar_Custom': TOOLBAR_CUSTOM,
-        'entities': False,
-        'format_tags': 'h2;h3',
-        'extraPlugins': ','.join([
-            'autolink', 'autoembed', 'embedsemantic', 'widget',
-            'dialog', 'embed', 'uploadimage', 'codesnippet',
-        ]),
-    },
-    'comment': {
-        'toolbar': 'Custom',
-        'toolbar_Custom': [
-            ['Bold', 'Italic'],
-            ['CodeSnippet'],
-            ['NumberedList', 'BulletedList', '-', 'Blockquote'],
-        ],
-        'entities': False,
-        'extraPlugins': ','.join([
-            'autolink', 'dialog',
-            'codesnippet','autogrow','placeholder',
-        ]),
-    },
-    'answer': {
-        'toolbar': 'Custom',
-        'toolbar_Custom': [
-            ['Bold', 'Italic'],
-            ['CodeSnippet'],
-        ],
-        'entities': False,
-        'extraPlugins': ','.join([
-            'autolink', 'widget', 'dialog',
-            'codesnippet',
-        ]),
-    },
-    'article': {
-        'toolbar': 'Custom',
-        'skin': 'bootstrapck',
-        'toolbar_Custom': TOOLBAR_CUSTOM,
-        'entities': False,
-        'format_tags': 'h2;h3',
-        'filebrowserBrowseUrl': None,
-        'extraPlugins': ','.join([
-            'autolink', 'autoembed', 'embedsemantic', 'widget',  'iframe', 'iframedialog',
-            'dialog', 'embed', 'uploadimage', 'codesnippet', 'image2'
-        ]),
-    }
-}
-
-CKEDITORALLOW_NONIMAGE_FILES = False
-CKEDITOR_RESTRICT_BY_USER = True
-CKEDITOR_UPLOAD_PATH = 'editor-uploads/'
-CKEDITOR_BROWSE_SHOW_DIRS = False
-
-
 #HOME community characters limit
 HOME_CHARACTERS_LIMIT= 48
 
@@ -753,83 +687,67 @@ LOGGING = {
         }
     }
 }
-print  os.path.join(STATIC_URL, 'src-noconflict/ace.js')
-#SUMMERNOTE
 SUMMERNOTE_CONFIG = {
-    # Using SummernoteWidget - iframe mode
-    'iframe': True,  # or set False to use SummernoteInplaceWidget - no iframe mode
 
-    # Using Summernote Air-mode
-    'airMode': False,
+    'restrict_to_user': True,
+    'use_path_user': True,
+    'upload_only_image_files': False,
 
-    # Use native HTML tags (`<b>`, `<i>`, ...) instead of style attributes
-    # (Firefox, Chrome only)
-    'styleWithTags': True,
+    'assets': {
+        'js': (
+            # 'https://code.jquery.com/jquery-2.2.4.min.js',
+            # 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js',
+            'https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.1/summernote.min.js', ),
 
-    # Set text direction : 'left to right' is default.
-    'direction': 'ltr',
-
-    # Change editor size
-    'width': '100%',
-    'height': '480',
-
-
-    # Or, set editor language/locale forcely
-    # 'lang': 'ko-KR',
-
-    # Customize toolbar buttons
-    # 'toolbar': [
-    #     ['style', ['style']]
-    #     # ['style', ['bold', 'italic', 'underline', 'clear']],
-    #     # ['para', ['ul', 'ol', 'height']],
-    #     # ['insert', ['link']],
-    # ],
-
-    # Need authentication while uploading attachments.
-    'attachment_require_authentication': True,
-
-
-    # Set common css/js media files
-    'external_css': (
-        '//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css',
-    ),
-    'external_js': (
-        '//code.jquery.com/jquery-1.9.1.min.js',
-        '//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js',
-    ),
-    'internal_css': (
-        os.path.join(STATIC_URL, 'django_summernote/summernote.css'),
-    ),
-    'internal_js': (
-        os.path.join(STATIC_URL, 'django_summernote/jquery.ui.widget.js'),
-        os.path.join(STATIC_URL, 'django_summernote/jquery.iframe-transport.js'),
-        os.path.join(STATIC_URL, 'django_summernote/jquery.fileupload.js'),
-        os.path.join(STATIC_URL, 'django_summernote/summernote.min.js'),
-        os.path.join(STATIC_URL, 'src-noconflict/ace.js'),
-    ),
-
-    # You can add custom css/js for SummernoteWidget.
-    'css': (
-    ),
-    'js': (
-        os.path.join(STATIC_URL, 'src-noconflict/ace.js'),
-    ),
-
-    # And also for SummernoteInplaceWidget.
-    # !!! Be sure to put {{ form.media }} in template before initiate summernote.
-    'css_for_inplace': (
-    ),
-    'js_for_inplace': (
-        os.path.join(STATIC_URL, 'src-noconflict/ace.js'),
-    ),
-
-    # You can disable file upload feature.
-    'disable_upload': False,
-
-    # Codemirror as codeview
-    'codemirror': {
-            # Please visit http://summernote.org/examples/#codemirror-as-codeview
-            'theme': 'monokai',
+        'css': {
+            'all': (
+                # 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css',
+                'https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.1/summernote.css',
+            )
+        }
     },
 
+    'editors': {
+        'default': {
+            'airMode': False,
+            'toolbar': [
+                ['style', ['bold', 'italic', 'underline', 'clear']],
+                ['font', ['strikethrough', 'superscript', 'subscript']],
+                ['fontsize', ['fontsize']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['height', ['height']],
+                ['picture', ['picture']]
+
+            ],
+            'popover': {
+                'air':[
+                    ['para', ['ul', 'ol', 'paragraph']],
+                ]
+            }
+        },
+        'another': {
+            'airMode': False,
+            'toolbar': [
+                ['style', ['bold', 'italic', 'underline', 'clear']],
+                ['font', ['strikethrough', 'superscript', 'subscript']],
+                ['fontsize', ['fontsize']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['height', ['height']]
+            ],
+            'popover': {
+                'air':[
+                    ['style', ['bold', 'italic', 'underline', 'clear']],
+                ['font', ['strikethrough', 'superscript', 'subscript']],
+                ['fontsize', ['fontsize']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['height', ['height']]
+                ]
+            }
+        },
+
+    }
 }
+

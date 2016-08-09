@@ -19,8 +19,8 @@ from django.contrib import admin
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 from apps.ninico.views import index as PROJECT_ROOT
-from django.contrib.admin.views.decorators import staff_member_required
-from django.views.decorators.cache import never_cache
+from apps.core.views import search as CoreSearch
+
 
 handler400 = "apps.core.views.errors.handler400"
 handler403 = "apps.core.views.errors.handler403"
@@ -29,7 +29,8 @@ handler500 = "apps.core.views.errors.handler500"
 
 url_statics = static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 url_media = static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-from apps.core.views import search as CoreSearch
+url_search_all = [url(r'(?P<params>.*)$', CoreSearch.SearchAll.as_view(), name='search_all')]
+
 
 urlpatterns = [
 
@@ -103,8 +104,8 @@ urlpatterns = [
     # Translators: URL root de comunidade
     url(_(r'^'), include('apps.core.urls.community', namespace='community')),
 
-    url(r'^summernote/', include('django_summernote.urls')),
+    url(r'^ideia-summernote/', include('ideia_summernote.urls', namespace='ideia-summernote')),
 
-    url(r'(?P<params>.*)$', CoreSearch.SearchAll.as_view(), name='search_all'),
 
-] + url_statics + url_media
+
+] + url_statics + url_media + url_search_all
