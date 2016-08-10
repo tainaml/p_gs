@@ -719,12 +719,14 @@ SUMMERNOTE_CONFIG = {
             'oEmbed': {
                 'service': '/oembed/'
             },
+            'styleTags':  ['blockquote', 'pre', 'h2', 'h3', 'h4'],
             'toolbar': [
+                ['style', ['style']],
+                ['hr', ['hr']],
                 ['style', ['bold', 'italic', 'underline', 'clear']],
                 ['font', ['strikethrough', 'superscript', 'subscript']],
-                ['fontsize', ['fontsize']],
+                ['table', ['table']],
                 ['para', ['ul', 'ol', 'paragraph']],
-                ['height', ['height']],
                 ['picture', ['picture', 'oembed']]
 
             ],
@@ -744,7 +746,7 @@ SUMMERNOTE_CONFIG = {
             ],
             'popover': {
                 'air':[
-                    ['style', ['bold', 'italic', 'underline', 'clear']],
+                ['style', ['bold', 'italic', 'underline', 'clear']],
                 ['font', ['strikethrough', 'superscript', 'subscript']],
                 ['fontsize', ['fontsize']],
                 ['para', ['ul', 'ol', 'paragraph']],
