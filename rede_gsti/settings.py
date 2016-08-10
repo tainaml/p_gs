@@ -699,8 +699,9 @@ SUMMERNOTE_CONFIG = {
             # 'https://code.jquery.com/jquery-2.2.4.min.js',
             # 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js',
             'https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.1/summernote.min.js',
-            'https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.2/lang/summernote-pt-BR.js'
-        ,),
+            'https://gitcdn.xyz/repo/annielmenezes/summernote-oembed-plugin/master/summernote-oembed-plugin.js',
+            'https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.2/lang/summernote-pt-BR.js',
+        ),
 
         'css': {
             'all': (
@@ -715,14 +716,18 @@ SUMMERNOTE_CONFIG = {
             'airMode': False,
             'lang': 'pt-BR',
             'minHeight': 250,
+            'oEmbed': {
+                'service': '/oembed/'
+            },
+            'styleTags':  ['blockquote', 'pre', 'h2', 'h3', 'h4'],
             'toolbar': [
+                ['style', ['style']],
+                ['hr', ['hr']],
                 ['style', ['bold', 'italic', 'underline', 'clear']],
                 ['font', ['strikethrough', 'superscript', 'subscript']],
-                ['fontsize', ['fontsize']],
                 ['table', ['table']],
                 ['para', ['ul', 'ol', 'paragraph']],
-                ['height', ['height']],
-                ['picture', ['picture']]
+                ['picture', ['picture', 'oembed']]
 
             ],
             'popover': {
@@ -741,7 +746,7 @@ SUMMERNOTE_CONFIG = {
             ],
             'popover': {
                 'air':[
-                    ['style', ['bold', 'italic', 'underline', 'clear']],
+                ['style', ['bold', 'italic', 'underline', 'clear']],
                 ['font', ['strikethrough', 'superscript', 'subscript']],
                 ['fontsize', ['fontsize']],
                 ['para', ['ul', 'ol', 'paragraph']],
@@ -752,4 +757,3 @@ SUMMERNOTE_CONFIG = {
 
     }
 }
-
