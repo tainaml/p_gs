@@ -112,7 +112,7 @@ class OEmbed(View):
             return JsonResponse({'success': False, 'message': 'Invalid url.'})
 
         try:
-            providers = micawber.bootstrap_basic()
+            providers = micawber.bootstrap_noembed()
 
             response = providers.request(url)
             html = response.get('html', '')
