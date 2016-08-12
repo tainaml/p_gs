@@ -37,7 +37,6 @@ except IOError, e:
 
     config.add_section("STATIC")
     config.set("STATIC", "path", '/var/www/staticfiles/')
-    config.set("STATIC", "path", '/var/www/staticfiles/')
 
     config.add_section("DATABASE")
     config.set("DATABASE", "name", "vagrant")
