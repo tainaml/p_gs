@@ -3,6 +3,7 @@
 {% load widget_tweaks %}
 
 {{ form.non_field_errors }}
+{% url 'account:is_logged' as data_url_login %}
 
 <form data-group-class=".comment-group" data-toggle="prepend" data-update="#container-comments" data-ajaxform="true" action="{% url 'comment:save' %}" class="create-comment" method="post">{% csrf_token %}
 
@@ -12,10 +13,11 @@
 
 
     <div class="comment-group create-comment-body{% if form.content.errors %} has-error{% endif %}">
-{#         <textarea id="text_area_content" name="content" class="form-control" placeholder="Deixe seu comentário" data-url-login="{% url 'account:is_logged' %}" data-trigger="login" data-token="{{ csrf_token }}"></textarea>#}
+{#         <textarea id="text_area_content" name="content" class="form-control" placeholder="Deixe seu comentário" data-url-login="{% url 'account:is_logged' %}"  data-token="{{ csrf_token }}"></textarea>#}
 
-{#          {{ form.content}}#}
-        {% render_field form.content class+="form-control" placeholder="Deixe seu comentário" data-url-login="" data-trigger="" data-token="" %}
+
+
+        {% render_field form.content class+="form-control" data-trigger="login" id="text_area_content" placeholder="Deixe seu comentário" data-token=csrf_token data-url-login=data_url_login %}
 {#         {{ form.content|safe }}#}
         <span class="help-block"></span>
 {#    {% render_field form.content placeholder="Conteúdo da publicação" class="form-control" rows="10" cols="30" name="content" id="content" %}#}
@@ -25,7 +27,7 @@
     <input name="content_type" value="{{ content_type }}" type="hidden"/>
 
     <div class="create-comment-footer">
-        <input type="submit" value="Comentar" class="btn btn-primary" data-url-login="{% url 'account:is_logged' %}" data-trigger="login" data-token="{{ csrf_token }}">
+        <input type="submit" value="Comentar" class="btn btn-primary" data-url-login="{{ data_url_login }}" data-trigger="login" data-token="{{ csrf_token }}">
     </div>
 
 </form>

@@ -1,6 +1,6 @@
 {{ form.non_field_errors }}
 <form action="{% url 'comment:update' %}" method="post"> {% csrf_token %}
-    <textarea name="content" id="content" placeholder="Comment here" cols="30" rows="10">{{ instance.content }}</textarea>
+    {{ form.content }}
     {% if form.content.errors %}<span class="help-block">{{ form.content.errors }}</span> {% endif %}
 
     <br/>

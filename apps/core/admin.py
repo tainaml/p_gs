@@ -10,7 +10,6 @@ from apps.account.admin import UserAdmin, User
 from apps.userprofile.models import UserProfile
 admin.site.register(Tags)
 admin.site.unregister(User)
-from django import forms
 
 
 
