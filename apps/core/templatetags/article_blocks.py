@@ -67,8 +67,9 @@ def get_article_community_by_category(article, category):
 
 class ArticleBlock(CacheItemMixin):
 
-    def __init__(self, context, type, category_slug, quantity=0, cache_time=None,
-                  show_communities=None, offset=0, class_name="without-class", differ="a", template=None):
+    def __init__(self, context, type, category_slug, quantity=0,
+                 cache_time=None, show_communities=None, offset=0,
+                 class_name="without-class", excludes=None, differ="a", template=None):
 
         self.type = type
         self.category_slug = category_slug
@@ -82,6 +83,9 @@ class ArticleBlock(CacheItemMixin):
         self.differ = differ
 
         self.__context = {}
+
+        self.excludes = context.get('excludes', [])
+        self.clear_cache = context.get('clear_cache', False)
 
         self.cache_excludes = 'home'
 
@@ -121,12 +125,10 @@ class ArticleBlock(CacheItemMixin):
 
         communities = self.get_communities()
 
-        excludes = ArticleCacheExcludes.get(self.cache_excludes)
-
         articles = Article.objects.filter(
             self.custom_filters
         ).exclude(
-            id__in=excludes
+            id__in=self.excludes
         ).order_by(
             self.custom_order
         ).prefetch_related(
@@ -134,12 +136,15 @@ class ArticleBlock(CacheItemMixin):
         ).distinct()[self.offset:self.quantity + self.offset]
 
         for article in articles:
-            excludes.append(article.id)
+            # context_excludes.append(article.id)
+            self.excludes.append(article.id)
+
             if not article.image:
                 _community = get_article_community_by_category(article, self.category)
                 article.image = _community.image if _community else None
 
-        ArticleCacheExcludes.append(self.cache_excludes, excludes)
+        # ArticleCacheExcludes.append(self.cache_excludes, excludes)
+        # self.base_context.update({'excludes': context_excludes})
 
         context = {
             'class_name': self.class_name,
@@ -177,8 +182,11 @@ class ArticleBlock(CacheItemMixin):
         return template
 
     def render(self):
-        cachecontrol.add_to_group('global_home::%s' % self.cache_excludes, self)
-        return mark_safe(self.get_from_cache_or_create())
+
+        return mark_safe(self.__render())
+        #if self.clear_cache:
+        # self.invalidate_cache()
+        # return mark_safe(self.get_from_cache_or_create())
 
 
 MAPPER_CLASS = {

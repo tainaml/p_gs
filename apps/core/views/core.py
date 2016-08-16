@@ -98,6 +98,13 @@ class CoreRelatedPosts(CoreBaseView):
 
         return self.return_success(request, context)
 
+class Home(View):
+
+    def get(self, request):
+
+        return render(request, 'home/index.html')
+
+
 class About(View):
 
     def get(self, request):
