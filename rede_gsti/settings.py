@@ -697,20 +697,20 @@ SUMMERNOTE_CONFIG = {
         'js': (
             # 'https://code.jquery.com/jquery-2.2.4.min.js',
             # 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js',
-            'https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.1/summernote.min.js',
-            'https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.2/lang/summernote-pt-BR.js',
-            os.path.join(STATIC_URL, 'javascripts', 'summernote-oembed-plugin.js'),
+            # 'https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.1/summernote.min.js',
+            # 'https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.2/lang/summernote-pt-BR.js',
+            # os.path.join(STATIC_URL, 'javascripts', 'summernote-oembed-plugin.js'),
 
             'https://rawgit.com/google/code-prettify/master/src/prettify.js',
-            'https://rawgit.com/epiksel/summernote-highlight/master/dist/summernote-ext-highlight.min.js'
+            # 'https://rawgit.com/annielmenezes/summernote-prettyprint-plugin/master/src/summernote-prettyprint-plugin.js'
         ),
 
         'css': {
             'all': (
                 # 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css',
-                'https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css',
+                # 'https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css',
                 'https://rawgit.com/google/code-prettify/master/src/prettify.css',
-                'https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.1/summernote.css',
+                # 'https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.1/summernote.css',
 
             )
         }
@@ -726,7 +726,7 @@ SUMMERNOTE_CONFIG = {
                 'spinner': '<div class=\"text-center\"><img src=\"/static/images/preload.gif\" /></div>',
 
             },
-            'styleTags':  ['blockquote', 'pre', 'h2', 'h3', 'h4'],
+            'styleTags':  ['p', 'blockquote', 'pre', 'h2', 'h3', 'h4'],
             'toolbar': [
                 ['style', ['style']],
                 ['hr', ['hr']],
@@ -734,7 +734,7 @@ SUMMERNOTE_CONFIG = {
                 ['font', ['strikethrough', 'superscript', 'subscript']],
                 ['table', ['table']],
                 ['para', ['ul', 'ol', 'paragraph']],
-                ['picture', ['picture', 'oembed', 'highlight']]
+                ['picture', ['picture', 'oembed', 'prettyprint']]
 
             ],
             'popover': {
@@ -749,7 +749,7 @@ SUMMERNOTE_CONFIG = {
             'toolbar': [
                 ['style', ['bold', 'italic', 'underline']],
                 ['font', ['strikethrough', 'superscript', 'subscript']],
-                ['highlight', ['highlight']]
+                ['highlight', ['prettyprint']]
             ],
             'popover': {
                 'air':[

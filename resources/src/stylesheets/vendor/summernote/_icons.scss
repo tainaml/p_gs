@@ -1,0 +1,184 @@
+@font-face {
+  font-family: 'FontAwesome';
+  src: url('#{$fa-font-path}/fontawesome-webfont.eot?v=#{$fa-version}');
+  src: url('#{$fa-font-path}/fontawesome-webfont.eot?#iefix&v=#{$fa-version}') format('embedded-opentype'),
+    url('#{$fa-font-path}/fontawesome-webfont.woff2?v=#{$fa-version}') format('woff2'),
+    url('#{$fa-font-path}/fontawesome-webfont.woff?v=#{$fa-version}') format('woff'),
+    url('#{$fa-font-path}/fontawesome-webfont.ttf?v=#{$fa-version}') format('truetype'),
+    url('#{$fa-font-path}/fontawesome-webfont.svg?v=#{$fa-version}#fontawesomeregular') format('svg');
+//  src: url('#{$fa-font-path}/FontAwesome.otf') format('opentype'); // used when developing fonts
+  font-weight: normal;
+  font-style: normal;
+}
+
+[class^="note-icon-"]:before,[class*=" note-icon-"]:before {
+    display: inline-block;
+    font: normal normal normal 14px FontAwesome;
+    font-size: inherit;
+    -webkit-font-smoothing: antialiased;
+    text-decoration: inherit;
+    text-rendering: auto;
+    text-transform: none;
+    vertical-align: middle;
+    speak: none;
+    -moz-osx-font-smoothing: grayscale
+}
+.note-icon-align-center:before {
+    content: $fa-var-align-center
+}
+
+.note-icon-align-indent:before {
+    content: $fa-var-indent
+}
+
+.note-icon-align-justify:before {
+    content: $fa-var-align-justify
+}
+
+.note-icon-align-left:before {
+    content: $fa-var-align-left
+}
+
+.note-icon-align-outdent:before {
+    content: $fa-var-outdent
+}
+
+.note-icon-align-right:before {
+    content: $fa-var-align-right
+}
+
+.note-icon-align:before {
+    content: "\f107"
+}
+
+.note-icon-arrows-alt:before {
+    content: "\f108"
+}
+
+.note-icon-bold:before {
+    content: $fa-var-bold
+}
+
+.note-icon-caret:before {
+    content: $fa-var-caret-down
+}
+
+.note-icon-chain-broken:before {
+    content: $fa-var-chain-broken
+}
+
+.note-icon-circle:before {
+    content: $fa-var-circle
+}
+
+.note-icon-close:before {
+    content: $fa-var-close
+}
+
+.note-icon-code:before {
+    content: $fa-var-code
+}
+
+.note-icon-eraser:before {
+    content: $fa-var-eraser
+}
+
+.note-icon-font:before {
+    content: $fa-var-font
+}
+
+.note-icon-frame:before {
+    content: $fa-var-laptop
+}
+
+.note-icon-italic:before {
+    content: $fa-var-italic
+}
+
+.note-icon-link:before {
+    content: $fa-var-link
+}
+
+.note-icon-magic:before {
+    content: $fa-var-magic
+}
+
+.note-icon-menu-check:before {
+    content: "\f115"
+}
+
+.note-icon-minus:before {
+    content: $fa-var-minus
+}
+
+.note-icon-orderedlist:before {
+    content: $fa-var-list-ol
+}
+
+.note-icon-pencil:before {
+    content: $fa-var-pencil
+}
+
+.note-icon-picture:before {
+    content: $fa-var-picture-o
+}
+
+.note-icon-question:before {
+    content: $fa-var-question
+}
+
+.note-icon-redo:before {
+    content: $fa-var-repeat
+}
+
+.note-icon-special-character:before {
+    content: $fa-var-paragraph
+}
+
+.note-icon-square:before {
+    content: $fa-var-square
+}
+
+.note-icon-strikethrough:before {
+    content: $fa-var-strikethrough
+}
+
+.note-icon-subscript:before {
+    content: $fa-var-subscript
+}
+
+.note-icon-summernote:before {
+    content: "\f120"
+}
+
+.note-icon-superscript:before {
+    content: $fa-var-superscript
+}
+
+.note-icon-table:before {
+    content: $fa-var-table
+}
+
+.note-icon-text-height:before {
+    content: $fa-var-text-height
+}
+
+.note-icon-trash:before {
+    content: $fa-var-trash
+}
+
+.note-icon-underline:before {
+    content: $fa-var-underline
+}
+
+.note-icon-undo:before {
+    content: $fa-var-undo
+}
+
+.note-icon-unorderedlist:before {
+    content: $fa-var-list-ul
+}
+
+.note-icon-video:before {
+    content: $fa-var-video-camera
+}

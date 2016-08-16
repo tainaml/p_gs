@@ -12,9 +12,6 @@
 {% load humanize %}
 {% load url_utils %}
 
-{% block editorfiles %}
-{% endblock %}
-
 {% block title %}{{ article.title }} - Portal GSTI{% endblock %}
 
 {% block content %}
@@ -99,23 +96,13 @@
                     </div>
                 </aside>
                 <div class="full-post-content">
-                    {% comment %}
-                    {% if article.image %}
-                      <figure>
-                        <img class="full-post-image" src="{% thumbor_url article.image.url width=500 smart=True fit_in=True %}" />
-                      </figure>
-                    {% endif %}
-                    {% endcomment %}
-
-                        {% thumbor_replace article.text %}
-
-                    <div class="post-advertising text-center">
-                        <img class="img-responsive" src="http://placehold.it/728x90" alt="Propaganda">
-                    </div>
+                  {% thumbor_replace article.text %}
+                  <div class="post-advertising text-center">
+                      <img class="img-responsive" src="http://placehold.it/728x90" alt="Propaganda">
+                  </div>
                 </div>
                 <div class="full-post-share">
                     <h3>COMPARTILHE</h3>
-{#                    <div class="addthis_sharing_toolbox"></div>#}
                     {% include '_partials/share.html' with show_all=True %}
 
                 </div>
@@ -153,28 +140,21 @@
 
 {% endblock %}
 
-
+{% block editorfiles %}
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.js"></script>
+  <script src="{% static 'javascripts/vendor.js' %}"></script>
+{% endblock editorfiles %}
 {% block javascripts %}
     {{ block.super }}
-    {{ form_comment.media }}
+    {# { form_comment.media } #}
 {#    <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-55e70ed11db7fa4e" async></script>#}
 
-
-    {% comment %}
-    Script para highlight nos códigos.
-    {% endcomment %}
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/styles/default.min.css">
-    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/highlight.min.js"></script>
-    <script>hljs.initHighlightingOnLoad();</script>
-
 <script>
-
-
     var functionOpenModalToDelete = function(e) {
         e.preventDefault();
 
         var $btn = $(e.currentTarget),
-                $modal = $($btn.data("modal"));
+        $modal = $($btn.data("modal"));
 
         $modal.find("form").attr("action", $btn.data("url"));
         $modal.find("#item-id").val($btn.data("item"));
@@ -184,12 +164,12 @@
         $modal.find(".alert-container").html("");
         $modal.modal("show");
     };
-
+//
     var functionAjaxSuccessDeleteItem = function(e, data) {
         var $this = $(this),
-            $modal = $($this.closest(".modal.fade")),
-            itemId = $modal.find("#item-id").val(),
-            itemType = $modal.find("#item-type").val();
+        $modal = $($this.closest(".modal.fade")),
+        itemId = $modal.find("#item-id").val(),
+        itemType = $modal.find("#item-type").val();
 
         $modal.modal("hide");
         $modal.find("form").attr("action", "");
@@ -203,16 +183,16 @@
             $(this).remove();
         });
     };
-
+//
     function setData($form, data){
 
         var action = $form.data("toggle");
         var $div_to_update = $($form.data("update"));
 
-        if (action=="append"){
+        if (action == "append"){
             $div_to_update.append(data.template);
             $form[0].reset();
-        }else if (action=="prepend"){
+        }else if (action == "prepend"){
             $div_to_update.prepend(data.template);
 
             var $form_to_hide = $form.parent(".dropdown-content");
@@ -220,11 +200,11 @@
                 $form_to_hide.removeClass("open");
             }
             $form[0].reset();
-        }else if (action=="replace"){
+        }else if (action == "replace"){
             $div_to_update.html(data.template);
         }
     }
-
+//
     var form_submit = function(event, data){
         var $form = $(this);
 
@@ -241,7 +221,7 @@
         refreshAsyncLike();
 
     };
-
+//
     $.fn.renderList = function(){
 
         return $.each(this, function(){
@@ -278,10 +258,7 @@
                             var $jscroll_subforms = $div_jscroll.find("form[data-ajaxform=\"true\"]");
                             $jscroll_subforms.IdeiaAjaxForm();
                             $jscroll_subforms.on("ajaxform.success", form_submit);
-                            $jscroll_subforms.on("ajaxform.validation", function(event, addError){
-{#                                updateEditors(); #}
-
-                            });
+                            $jscroll_subforms.on("ajaxform.validation", function(event, addError){});
 
                             $div_jscroll.removeClass("jscroll-added");
                         }
@@ -291,10 +268,7 @@
                     $subforms.IdeiaAjaxForm();
                     $.each($subforms, function(i, form){
                         var $editor = $(form).find("[name='content']");
-
-
                     });
-
 
                     var async_like = $self.find('[data-async-like]');
                     async_like.IdeiaAsyncLike();
@@ -310,17 +284,13 @@
             refreshAsyncLike();
         });
     };
-
+//
     $(function(){
-{#        updateEditors();#}
         var xhr_contents = $("div[data-xhr]");
         xhr_contents.renderList();
         var $comment_form = $("form[data-ajaxform=\"true\"]");
         $comment_form.on("ajaxform.success", form_submit);
-        $comment_form.on("ajaxform.validation", function(event, addError) {
-{#            updateEditors();#}
-
-        });
+        $comment_form.on("ajaxform.validation", function(event, addError) {});
         $("#confirmation-form").on("ajaxform.success", functionAjaxSuccessDeleteItem);
         $(document).on("click", "[data-delete-item=true]", functionOpenModalToDelete);
     });
