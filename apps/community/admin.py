@@ -1,13 +1,12 @@
 from django.contrib import admin
 from django_thumbor import generate_url
+from ideia_summernote.widget import SummernoteWidget
 from .models import Community
 from django.conf import settings
-from ckeditor_uploader.widgets import CKEditorUploadingWidget
 from django import forms
 
 
 class ComunnityAdminForm(forms.ModelForm):
-
 
     def clean_slug(self):
         slug = self.cleaned_data.get('slug', None)
@@ -15,8 +14,11 @@ class ComunnityAdminForm(forms.ModelForm):
         return slug
 
     class Meta:
-        widgets = {'description': CKEditorUploadingWidget(config_name='article') }
         excludes = ()
+        widgets = {
+          'description': SummernoteWidget(editor_conf='default')
+        }
+
 
 
 class CommunityAdmin(admin.ModelAdmin):

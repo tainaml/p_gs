@@ -8,10 +8,8 @@
 {% block title %}Portal GSTI - Editar Publicação{% endblock %}
 
 {% block editorfiles %}
-<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.1/summernote.css" rel="stylesheet">
-<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.1/summernote.js"></script>
-{% endblock editorfiles %}
-
+    {{ form_article.media }}
+{% endblock %}
 {% block content %}
     <main class="container main">
 
@@ -55,7 +53,7 @@
                         <div class="wrap-editor row">
                             <div class="col-lg-9">
                                 <div class="form-group">
-                                    {% render_field form_article.title placeholder="Título da publicação" class="form-control" data-toggle="counter" data-counter-type="max" data-counter-limit=form_article.fields.title.max_length %}
+                                    {% render_field form_article.title placeholder="Título da publicação" class="form-control" %}
                                     {% if form_article.title.errors %}  {{ form_article.title.errors }} {% endif %}
                                 </div>
                                 <div class="form-group">

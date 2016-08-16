@@ -141,12 +141,11 @@ THIRD_PART_APPS = (
     # 'autofixture',
     'django_migration_fixture',
     'social.apps.django_app.default',
-    'ckeditor',
-    'ckeditor_uploader',
     'django_user_agents',
     'smart_selects',
     'reversion',
     'reversion_compare',
+    'ideia_summernote',
     'micawber.contrib.mcdjango',
 )
 
@@ -424,68 +423,6 @@ TOOLBAR_CUSTOM = [
     ['Source']
 ]
 
-# CKEDITOR
-CKEDITOR_CONFIGS = {
-    'default': {
-        'toolbar': 'Basic',
-        'extraPlugins': ','.join([
-            'autolink', 'autoembed', 'embedsemantic', 'widget',  'iframe', 'iframedialog',
-            'dialog', 'embed', 'uploadimage', 'codesnippet', 'image2'
-        ]),
-    },
-    'question': {
-        'toolbar': 'Custom',
-        'toolbar_Custom': TOOLBAR_CUSTOM,
-        'entities': False,
-        'format_tags': 'h2;h3',
-        'extraPlugins': ','.join([
-            'autolink', 'autoembed', 'embedsemantic', 'widget',
-            'dialog', 'embed', 'uploadimage', 'codesnippet',
-        ]),
-    },
-    'comment': {
-        'toolbar': 'Custom',
-        'toolbar_Custom': [
-            ['Bold', 'Italic'],
-            ['CodeSnippet'],
-            ['NumberedList', 'BulletedList', '-', 'Blockquote'],
-        ],
-        'entities': False,
-        'extraPlugins': ','.join([
-            'autolink', 'dialog',
-            'codesnippet','autogrow','placeholder',
-        ]),
-    },
-    'answer': {
-        'toolbar': 'Custom',
-        'toolbar_Custom': [
-            ['Bold', 'Italic'],
-            ['CodeSnippet'],
-        ],
-        'entities': False,
-        'extraPlugins': ','.join([
-            'autolink', 'widget', 'dialog',
-            'codesnippet',
-        ]),
-    },
-    'article': {
-        'toolbar': 'Custom',
-        'skin': 'bootstrapck',
-        'toolbar_Custom': TOOLBAR_CUSTOM,
-        'entities': False,
-        'format_tags': 'h2;h3',
-        'filebrowserBrowseUrl': None,
-        'extraPlugins': ','.join([
-            'autolink', 'autoembed', 'embedsemantic', 'widget',  'iframe', 'iframedialog',
-            'dialog', 'embed', 'uploadimage', 'codesnippet', 'image2'
-        ]),
-    }
-}
-
-CKEDITORALLOW_NONIMAGE_FILES = False
-CKEDITOR_RESTRICT_BY_USER = True
-CKEDITOR_UPLOAD_PATH = 'editor-uploads/'
-CKEDITOR_BROWSE_SHOW_DIRS = False
 
 
 #HOME community characters limit
@@ -749,5 +686,83 @@ LOGGING = {
             'handlers': ['console', 'signal_file'],
             'level': 'INFO'
         }
+    }
+}
+SUMMERNOTE_CONFIG = {
+
+    'restrict_to_user': True,
+    'use_path_user': True,
+    'upload_only_image_files': False,
+
+    'assets': {
+        'js': (
+            # 'https://code.jquery.com/jquery-2.2.4.min.js',
+            # 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js',
+            'https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.1/summernote.min.js',
+            'https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.2/lang/summernote-pt-BR.js',
+            os.path.join(STATIC_URL, 'javascripts', 'summernote-oembed-plugin.js'),
+
+            'https://rawgit.com/google/code-prettify/master/src/prettify.js',
+            'https://rawgit.com/epiksel/summernote-highlight/master/dist/summernote-ext-highlight.min.js'
+        ),
+
+        'css': {
+            'all': (
+                # 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css',
+                'https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css',
+                'https://rawgit.com/google/code-prettify/master/src/prettify.css',
+                'https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.1/summernote.css',
+
+            )
+        }
+    },
+
+    'editors': {
+        'default': {
+            'airMode': False,
+            'lang': 'pt-BR',
+            'minHeight': 250,
+            'oEmbed': {
+                'service': '/oembed/',
+                'spinner': '<div class=\"text-center\"><img src=\"/static/images/preload.gif\" /></div>',
+
+            },
+            'styleTags':  ['blockquote', 'pre', 'h2', 'h3', 'h4'],
+            'toolbar': [
+                ['style', ['style']],
+                ['hr', ['hr']],
+                ['link', ['link']],
+                ['style', ['bold', 'italic', 'underline', 'clear']],
+                ['font', ['strikethrough', 'superscript', 'subscript']],
+                ['table', ['table']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['picture', ['picture', 'oembed', 'highlight']]
+
+            ],
+            'popover': {
+                'air':[
+                    ['para', ['ul', 'ol', 'paragraph']],
+                ]
+            }
+        },
+        'comment': {
+            'airMode': False,
+            'minHeight': 100,
+            'toolbar': [
+                ['style', ['bold', 'italic', 'underline']],
+                ['font', ['strikethrough', 'superscript', 'subscript']],
+                ['highlight', ['highlight']]
+            ],
+            'popover': {
+                'air':[
+                ['style', ['bold', 'italic', 'underline', 'clear']],
+                ['font', ['strikethrough', 'superscript', 'subscript']],
+                ['fontsize', ['fontsize']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['height', ['height']]
+                ]
+            }
+        },
+
     }
 }

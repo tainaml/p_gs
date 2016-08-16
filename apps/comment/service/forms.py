@@ -1,9 +1,9 @@
-from ckeditor.widgets import CKEditorWidget
 from django.core.exceptions import ValidationError
 from django.conf import settings
 from django.core.serializers.json import DjangoJSONEncoder
 from django.utils.encoding import force_text
 from django.utils.functional import Promise
+from ideia_summernote.widget import SummernoteWidget
 from apps.comment.models import Comment
 from django.utils.translation import ugettext as _
 
@@ -26,7 +26,7 @@ class CreateCommentForm(IdeiaForm):
     content = forms.CharField(
         max_length=settings.COMMENT_TEXT_LIMIT if hasattr(settings, "COMMENT_TEXT_LIMIT") else 10000,
         required=True,
-        widget=CKEditorWidget(config_name='comment')
+        widget=SummernoteWidget(editor_conf='comment')
     )
     content_type = forms.CharField(max_length=20, required=True)
     content_object_id = forms.IntegerField(required=True)
@@ -81,7 +81,7 @@ class EditCommentForm(IdeiaForm):
     content = forms.CharField(
         max_length=settings.COMMENT_TEXT_LIMIT if hasattr(settings, "COMMENT_TEXT_LIMIT") else 10000,
         required=True,
-        widget=CKEditorWidget(config_name='comment')
+        widget=SummernoteWidget(editor_conf='comment')
     )
     comment_id = forms.IntegerField(required=True)
 

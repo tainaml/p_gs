@@ -12,11 +12,13 @@
 
 
     <div class="comment-group create-comment-body{% if form.content.errors %} has-error{% endif %}">
-         <textarea id="text_area_content" name="content" class="form-control" placeholder="Deixe seu comentário" data-url-login="{% url 'account:is_logged' %}" data-trigger="login" data-token="{{ csrf_token }}"></textarea>
-{#            {{ form_comment.content|safe}}#}
+{#         <textarea id="text_area_content" name="content" class="form-control" placeholder="Deixe seu comentário" data-url-login="{% url 'account:is_logged' %}" data-trigger="login" data-token="{{ csrf_token }}"></textarea>#}
+
+{#          {{ form.content}}#}
+        {% render_field form.content class+="form-control" placeholder="Deixe seu comentário" data-url-login="" data-trigger="" data-token="" %}
 {#         {{ form.content|safe }}#}
         <span class="help-block"></span>
-    {% render_field form.content placeholder="Conteúdo da publicação" class="form-control" rows="10" cols="30" name="content" id="content" %}
+{#    {% render_field form.content placeholder="Conteúdo da publicação" class="form-control" rows="10" cols="30" name="content" id="content" %}#}
     </div>
 
     <input name="content_object_id" value="{{ content_object_id }}" type="hidden"/>

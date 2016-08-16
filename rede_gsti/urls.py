@@ -22,6 +22,7 @@ from apps.ninico.views import index as PROJECT_ROOT
 from apps.core.views.core import Home
 from django.contrib.admin.views.decorators import staff_member_required
 from django.views.decorators.cache import never_cache
+from apps.core.views import search as CoreSearch
 
 handler400 = "apps.core.views.errors.handler400"
 handler403 = "apps.core.views.errors.handler403"
@@ -30,12 +31,10 @@ handler500 = "apps.core.views.errors.handler500"
 
 url_statics = static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 url_media = static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-from apps.core.views import editor as EDITOR_VIEW
-from apps.core.views import search as CoreSearch
-
-urlpatterns = url_statics + url_media + [
+url_search_all = [url(r'(?P<params>.*)$', CoreSearch.SearchAll.as_view(), name='search_all')]
 
 
+urlpatterns = [
 
     url(r'^$', Home.as_view(), name='index'),
     url(_(r'^admin/'), include(admin.site.urls)),
@@ -97,18 +96,14 @@ urlpatterns = url_statics + url_media + [
     # Translators: URL core adicionais
     url(_(r'^'), include('apps.core.urls.core', namespace='core')),
 
-    # Translators: URL do ckeditor
-    url(r'^/editor/upload/', staff_member_required(EDITOR_VIEW.upload), name='ckeditor_upload'),
-    # url(r'^/editor/browse/', never_cache(staff_member_required(views.browse)), name='ckeditor_browse'),
-
      url(r'^chaining/', include('smart_selects.urls')),
 
     # Translators: URL root de comunidade
     url(_(r'^'), include('apps.core.urls.community', namespace='community')),
 
+    url(r'^ideia-summernote/', include('ideia_summernote.urls', namespace='ideia-summernote')),
+
     # Translators: URL de buscai
     url(_(r'^'), include('apps.core.urls.search', namespace='search')),
 
-    url(r'(?P<params>.*)$', CoreSearch.SearchAll.as_view(), name='search_all'),
-
-]
+] + url_statics + url_media + url_search_all

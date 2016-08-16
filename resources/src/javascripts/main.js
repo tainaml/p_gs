@@ -7,13 +7,11 @@ import './modules/ideiaForm/'
 import './modules/ideiaAsyncSocialAction/'
 import './modules/ideiaAutocomplete/'
 import './modules/ideiaLoadAsync/'
-// import './modules/ideiaCounter/'
 import './modules/ideiaFilter/'
 import './modules/ideiaLogin/'
 import './modules/ideiaNotification/'
 import './modules/ideiaRestrict/'
 import './modules/ideiaValidationField/'
-import './modules/ideiaEditor/'
 import Slideout from 'slideout'
 
 $(function () {
