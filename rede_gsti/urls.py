@@ -101,7 +101,7 @@ urlpatterns = [
     # Translators: URL root de comunidade
     url(_(r'^'), include('apps.core.urls.community', namespace='community')),
 
-    url(r'^ideia-summernote/', include('ideia_summernote.urls', namespace='ideia-summernote')),
+    url(r'^ideia-summernote/', include('apps.ideia_summernote.urls', namespace='ideia-summernote')),
 
     # Translators: URL de buscai
     url(_(r'^'), include('apps.core.urls.search', namespace='search')),

@@ -279,7 +279,6 @@
                             $jscroll_subforms.IdeiaAjaxForm();
                             $jscroll_subforms.on("ajaxform.success", form_submit);
                             $jscroll_subforms.on("ajaxform.validation", function(event, addError){
-{#                                updateEditors(); #}
 
                             });
 
@@ -289,11 +288,7 @@
                     var $subforms = $element.find("form[data-ajaxform=\"true\"]");
 
                     $subforms.IdeiaAjaxForm();
-                    $.each($subforms, function(i, form){
-                        var $editor = $(form).find("[name='content']");
-
-
-                    });
+                    refreshEditors();
 
 
                     var async_like = $self.find('[data-async-like]');

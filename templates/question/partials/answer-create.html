@@ -1,6 +1,6 @@
 {% load thumbor_tags %}
 {% load avatar_tags %}
-
+{% load widget_tweaks %}
 {{ form.non_field_errors }}
 
 <form data-group-class=".answer-group" data-toggle="prepend" data-update="#container-answers" data-ajaxform="true" action="{% url 'question:comment_reply' %}" class="create-comment" method="post">{% csrf_token %}
@@ -10,8 +10,10 @@
     </div>
 
     <div class="answer-group create-comment-body{% if form.content.errors %} has-error{% endif %}">
-         <textarea name="description" class="form-control"  placeholder="Deixe sua resposta" data-url-login="{% url 'account:is_logged' %}" data-trigger="login" data-token="{{ csrf_token }}"></textarea>
-         <span class="help-block"></span>
+{#         <textarea name="description" class="form-control"  placeholder="Deixe sua resposta" data-url-login="{% url 'account:is_logged' %}" data-trigger="login" data-token="{{ csrf_token }}"></textarea>#}
+        {% url 'account:is_logged' as is_logged %}
+        {% render_field form_answer.description class="form-control"  placeholder="Deixe sua resposta" data-url-login=is_logged data-trigger="login" data-token=csrf_token %}
+        <span class="help-block"></span>
     </div>
 
     <input name="question_id" value="{{ content_object_id }}" type="hidden"/>

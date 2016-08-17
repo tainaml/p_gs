@@ -144,7 +144,6 @@ THIRD_PART_APPS = (
     'smart_selects',
     'reversion',
     'reversion_compare',
-    'ideia_summernote',
     'micawber.contrib.mcdjango',
 )
 
@@ -170,6 +169,7 @@ INTERNAL_APPS = (
     'apps.custom_base',
     'apps.company',
     'apps.certification',
+    'apps.ideia_summernote'
 
 )
 
@@ -717,7 +717,7 @@ SUMMERNOTE_CONFIG = {
     },
 
     'editors': {
-        'default': {
+        'article': {
             'airMode': False,
             'lang': 'pt-BR',
             'minHeight': 250,
@@ -731,10 +731,36 @@ SUMMERNOTE_CONFIG = {
                 ['style', ['style']],
                 ['hr', ['hr']],
                 ['style', ['bold', 'italic', 'underline', 'clear']],
-                ['font', ['strikethrough', 'superscript', 'subscript']],
+                ['font', ['strikethrough']],
                 ['table', ['table']],
                 ['para', ['ul', 'ol', 'paragraph']],
-                ['picture', ['picture', 'oembed', 'highlight']]
+                ['picture', ['picture', 'oembed', 'prettyprint']]
+
+            ],
+            'popover': {
+                'air':[
+                    ['para', ['ul', 'ol', 'paragraph']],
+                ]
+            }
+        },
+        'question': {
+            'airMode': False,
+            'lang': 'pt-BR',
+            'minHeight': 250,
+            'oEmbed': {
+                'service': '/oembed/',
+                'spinner': '<div class=\"text-center\"><img src=\"/static/images/preload.gif\" /></div>',
+
+            },
+            'styleTags':  ['blockquote', 'pre', 'h2', 'h3', 'h4'],
+            'toolbar': [
+                ['style', ['style']],
+                ['hr', ['hr']],
+                ['style', ['bold', 'italic', 'underline', 'clear']],
+                ['font', ['strikethrough']],
+                ['table', ['table']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['picture', ['picture', 'oembed', 'prettyprint']]
 
             ],
             'popover': {
@@ -748,13 +774,31 @@ SUMMERNOTE_CONFIG = {
             'minHeight': 100,
             'toolbar': [
                 ['style', ['bold', 'italic', 'underline']],
-                ['font', ['strikethrough', 'superscript', 'subscript']],
-                ['highlight', ['highlight']]
+                ['font', ['strikethrough']],
+                ['highlight', ['prettyprint']]
             ],
             'popover': {
                 'air':[
                 ['style', ['bold', 'italic', 'underline', 'clear']],
-                ['font', ['strikethrough', 'superscript', 'subscript']],
+                ['font', ['strikethrough']],
+                ['fontsize', ['fontsize']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['prettyprint', ['prettyprint']]
+                ]
+            }
+        },
+        'reply': {
+            'airMode': False,
+            'minHeight': 100,
+            'toolbar': [
+                ['style', ['bold', 'italic', 'underline']],
+                ['font', ['strikethrough']],
+                ['highlight', ['prettyprint']]
+            ],
+            'popover': {
+                'air':[
+                ['style', ['bold', 'italic', 'underline', 'clear']],
+                ['font', ['strikethrough']],
                 ['fontsize', ['fontsize']],
                 ['para', ['ul', 'ol', 'paragraph']],
                 ['height', ['height']]

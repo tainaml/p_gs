@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 from django.http import JsonResponse
 from django.shortcuts import render
 
@@ -155,6 +158,18 @@ class CoreCommunityVideosView(CoreCommunityVideosSearch):
 class CoreCommunityVideosList(CoreCommunityVideosSearch):
 
     template_path = "community/partials/community-videos-list.html"
+
+
+
+class CoreGetCommunities(views.View):
+
+    def get(self, request):
+
+        communities = Business.get_all_communities()
+
+        return JsonResponse({'communities': communities})
+
+
 
 
 class CoreCommunityLoad(views.View):

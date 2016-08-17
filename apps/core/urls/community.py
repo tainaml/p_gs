@@ -2,8 +2,9 @@ from django.conf.urls import url
 from django.utils.translation import ugettext_lazy as _
 from ..views import community as CoreViews
 from ..views import search
-
 urlpatterns = [
+
+    url(r'community/list-all/$', CoreViews.CoreGetCommunities.as_view(), name='list-all'),
 
     # Translators: URL de pagina de busca da comunidade
     url(_(r'^search/$'), CoreViews.CoreCommunitySearch.as_view(), name='general-search'),
@@ -67,5 +68,7 @@ urlpatterns = [
 
     # Translators: URL de pagina de listagem de videos da comunidade
     url(_(r'^(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/materials/list/$'), CoreViews.CoreCommunityMaterialsList.as_view(), name='materials-list'),
+
+
 
 ]

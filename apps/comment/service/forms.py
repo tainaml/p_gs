@@ -3,7 +3,7 @@ from django.conf import settings
 from django.core.serializers.json import DjangoJSONEncoder
 from django.utils.encoding import force_text
 from django.utils.functional import Promise
-from ideia_summernote.widget import SummernoteWidget
+from apps.ideia_summernote.widget import SummernoteWidget
 from apps.comment.models import Comment
 from django.utils.translation import ugettext as _
 
@@ -146,13 +146,18 @@ class ListCommentForm(IdeiaForm):
         return valid
 
     def __process__(self):
-
-        return Business.get_comments_by_content_type_and_id(
+        comment_list = Business.get_comments_by_content_type_and_id(
             self.cleaned_data['content_type'],
             self.cleaned_data['content_id'],
             self.itens_per_page,
             self.cleaned_data['page']
         )
+
+        result = {}
+        for comment in comment_list:
+            result[comment] = EditCommentForm(None, comment, data={'content': comment.content})
+
+        return result
 
 
 class CommentDeleteForm(IdeiaForm):

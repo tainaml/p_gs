@@ -3,6 +3,7 @@ from django.db import transaction
 from django.utils.text import slugify
 from django.utils.translation import ugettext as _
 from django.conf import settings
+from apps.ideia_summernote.widget import SummernoteWidget
 from apps.question.models import Answer
 from apps.custom_base.service.custom import forms, IdeiaForm, IdeiaModelForm
 
@@ -14,7 +15,7 @@ class CreateQuestionForm(IdeiaModelForm):
 
     title = forms.CharField(max_length=settings.QUESTION_TITLE_LIMIT if hasattr(settings, "QUESTION_TITLE_LIMIT") else 100, required=True)
     slug = forms.SlugField(max_length=300, required=False)
-    description = forms.CharField(max_length=settings.QUESTION_TEXT_LIMIT if hasattr(settings, "QUESTION_TEXT_LIMIT") else 10000, required=True)
+    description = forms.CharField(max_length=settings.QUESTION_TEXT_LIMIT if hasattr(settings, "QUESTION_TEXT_LIMIT") else 10000, widget=SummernoteWidget(editor_conf='question'), required=True)
 
     user = None
 
@@ -79,7 +80,7 @@ class EditQuestionForm(CreateQuestionForm):
 
 
 class CommentReplyForm(IdeiaForm):
-    description = forms.CharField(max_length=settings.ANSWER_TEXT_LIMIT if hasattr(settings, "ANSWER_TEXT_LIMIT") else 10000, required=True)
+    description = forms.CharField(widget=SummernoteWidget(editor_conf='reply'), max_length=settings.ANSWER_TEXT_LIMIT if hasattr(settings, "ANSWER_TEXT_LIMIT") else 10000, required=True)
 
     def __init__(self, instance=None, user=None, *args, **kargs):
         super(CommentReplyForm, self).__init__(instance, *args, **kargs)
@@ -134,7 +135,7 @@ class ListAnswerForm(IdeiaForm):
 
 
 class EditAnswerForm(IdeiaForm):
-    description = forms.CharField(max_length=settings.ANSWER_TEXT_LIMIT if hasattr(settings, "ANSWER_TEXT_LIMIT") else 10000, required=True)
+    description = forms.CharField(widget=SummernoteWidget(editor_conf='reply'), max_length=settings.ANSWER_TEXT_LIMIT if hasattr(settings, "ANSWER_TEXT_LIMIT") else 10000, required=True)
 
     user = None
 
