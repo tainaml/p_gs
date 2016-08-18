@@ -312,10 +312,16 @@ class CoreCommunityMaterialsSearch(views.CommunityView):
 
         have_posts = True if hasattr(posts, 'object_list') and posts.object_list else False
 
+        current_tag = form.cleaned_data.get('tags', None)
+        if not current_tag:
+            current_tag = request.GET.get('tags', None)
+
         return {
             'feed_objects': posts,
             'have_posts': have_posts,
+            'tags': form.get_avaiable_tags(),
             'form': form,
+            'current_tag': current_tag,
             'page': form.cleaned_data.get('page', 1) + 1
         }
 

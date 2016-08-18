@@ -185,10 +185,17 @@ def get_articles_with_videos(community, description=None, items_per_page=None, p
     return posts
 
 
+
+def get_avaiable_tags():
+    #TODO: Set in settings the video tags to exclude here
+    tags = Tags.objects.exclude(tag_slug__in=["videos", 'video'])
+    return tags
+
+
 def get_articles_with_tags(community, description=None, items_per_page=None, page=None, tag=None):
     content_type = ContentType.objects.filter(model="article")
 
-    tags = Tags.objects.all().exclude(tag_slug="videos")
+    tags = get_avaiable_tags()
 
     if tag is not None:
         tags = tags.filter(id=tag.id)
@@ -201,7 +208,7 @@ def get_articles_with_tags(community, description=None, items_per_page=None, pag
             Q(article__title__icontains=description) |
             Q(article__text__icontains=description)
         )
-    )
+    ).distinct()
 
     items_per_page = items_per_page if items_per_page else 10
     page = page if page else 1
