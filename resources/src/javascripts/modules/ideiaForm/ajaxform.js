@@ -37,8 +37,12 @@ require('./validation.js');
             var $self = $(this);
 
             $self.one(EVENT_AJAX_VALIDATION, doValidation);
-            $self.on('ajaxform.error', function(event, data){
-                doShowErrors.call(this, data.errors);
+            $self.on('ajaxform.error', function doAjaxFormErrosShow(event, data){
+                if('errors' in data){
+                    doShowErrors.call(this, data.errors);
+                }else{
+                    console.error(data);
+                }
             });
 
             $self.whenEvent(EVENT_AJAX_VALIDATION).done(afterValidation);
@@ -149,6 +153,7 @@ require('./validation.js');
                     $self.trigger('ajaxform.before-send', jqXHR);
                 },
                 success: function(data){
+                    console.dir(data);
                     $self.trigger('ajaxform.success', data);
                 },
                 complete: function() {
@@ -157,10 +162,15 @@ require('./validation.js');
                 error: function(jqXHR){
                     var data;
                     try{
-                        if (typeof jqXHR.responseText == 'string') {
-                            data = jqXHR.responseText;
-                        } else {
+
+                        try{
                             data = $.parseJSON(jqXHR.responseText);
+                        }catch(e){
+                            if (typeof jqXHR.responseText == 'string') {
+                                data = {
+                                    'errormessage': jqXHR.responseText
+                                };
+                            }
                         }
                     } catch (e) {
                         console.log("Can't parse to JSON. Check the response data and contentType");
