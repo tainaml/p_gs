@@ -51,7 +51,7 @@ require('./validation.js');
             $self.find('.form-group-errors').empty();
 
             var formFields = $self.data('formFields');
-            $.each(formFields, function(key){
+            $.each(formFields, function __eachFieldInFormFields(key){
                 var $field = formFields[key]['object'];
                 var $group = formFields[key]['group'];
 
@@ -103,7 +103,7 @@ require('./validation.js');
                 errors = [];
             }
 
-            $.each(errors, function(key, values){
+            $.each(errors, function __eachErrorInErrors(key, values){
 
                 try{
 
@@ -217,7 +217,7 @@ require('./validation.js');
 
             $self.off();
             $self.attr('target', targetId);
-            $iframe.on('load', function(){
+            $iframe.on('load', function __fakeAjaxOnLoadIFrame(){
                 var data = false;
                 $self.IdeiaAjaxForm();
 
@@ -279,7 +279,7 @@ require('./validation.js');
             $self.data('formFields', fields);
         }
 
-        $(this).each(function(){
+        $(this).each(function __eachAjaxFormInPage(){
             setup.call(this);
         });
 
