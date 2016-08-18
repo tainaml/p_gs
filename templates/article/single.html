@@ -11,7 +11,7 @@
 {% load avatar_tags %}
 {% load humanize %}
 {% load url_utils %}
-
+{%  load comment_tags %}
 {% block editorfiles %}
 {% endblock %}
 
@@ -132,12 +132,8 @@
                 {% csrf_token %}
             </div>
             {% endif %}
-            <header class="area-title">
-                <h2>Comentários</h2>
-            </header>
-            <div class="container-comments" id="comments">
-                {% include 'comment/create.html' with content_type='article' content_object_id=article.id form=form_comment content_type=article.feed.content_type %}
-            </div>
+            {% comment_box article %}
+
             <div data-xhr-url="{% url "comment:list" %}?page=1&content_type=article&content_id={{ article.id }}" data-xhr id="container-comments" class="container-comments j-scroll"></div>
         </div>
         {% include "article/partials/article-sidebar-right.html" %}
@@ -204,16 +200,18 @@
         });
     };
 
-    function setData($form, data){
+    var commentDropDown = function(event){
+        event.stopPropagation();
+    };
+
+    function setData($form, data, $divToUpdate){
 
         var action = $form.data("toggle");
-        var $div_to_update = $($form.data("update"));
-
         if (action=="append"){
-            $div_to_update.append(data.template);
+            $divToUpdate.append(data.template);
             $form[0].reset();
         }else if (action=="prepend"){
-            $div_to_update.prepend(data.template);
+            $divToUpdate.prepend(data.template);
 
             var $form_to_hide = $form.parent(".dropdown-content");
             if ($form_to_hide){
@@ -221,23 +219,32 @@
             }
             $form[0].reset();
         }else if (action=="replace"){
-            $div_to_update.html(data.template);
+            var $element = $(data.template);
+            $divToUpdate.replaceWith($element);
+            var $newForm = $element.find("form[data-ajaxform=\"true\"]");
+
+            $newForm.IdeiaAjaxForm();
+            $newForm.on("ajaxform.success", form_submit);
+
         }
+        refreshEditors();
     }
 
     var form_submit = function(event, data){
         var $form = $(this);
+        var $divToUpdate = $($form.data("update"));
+        setData($form, data, $divToUpdate);
 
-        setData($form, data);
+        var $subforms = $divToUpdate.find("form[data-ajaxform=\"true\"]");
 
-        var $div_to_update = $($form.data("update"));
 
-        var $subforms = $div_to_update.find("form[data-ajaxform=\"true\"]");
+
         $subforms.IdeiaAjaxForm();
         $subforms.on("ajaxform.success", form_submit);
 
-        var $data_list = $div_to_update.find("div[data-xhr]");
-        $data_list.renderList();
+        var $dataList = $divToUpdate.find("div[data-xhr]");
+{#        $dataList.renderList();#}
+
         refreshAsyncLike();
 
     };
@@ -248,55 +255,58 @@
 
             var $self = $(this);
             var url = $self.data('xhr-url');
-
             var $childs;
 
             var request = $.ajax({
                 url: url,
                 success: function(data){
 
-                    var $element = $(data);
-                    $element.appendTo($self);
+                    if(data.template){
+                        var $element = $(data.template);
 
-                    var regex = /^data-list-([0-9]+)$/;
-                    if (regex.test($self.attr('id'))) {
-                        var $parentSelf = $self.parent('.comments-children');
-                        if ($self.children().length > 0)
-                            $parentSelf.removeClass('no-children');
-                        else
-                            $parentSelf.addClass('no-children');
+                        $self.append($element);
+
+
+                        var regex = /^data-list-([0-9]+)$/;
+                        if (regex.test($self.attr('id'))) {
+                            var $parentSelf = $self.parent('.comments-children');
+                            if ($self.children().length > 0)
+                                $parentSelf.removeClass('no-children');
+                            else
+                                $parentSelf.addClass('no-children');
+                        }
+
+                        $childs = $element.find('div[data-xhr-url]');
+                        $self.jscroll({
+                            loadingHtml: '<div class="load-async-preload"></div>',
+                            contentSelect: "#" + $self.attr("id"),
+                            nextSelector: "a[data-jscroll-next]",
+                            autoTrigger: false,
+                            callback: function(data){
+                                var $div_jscroll = $(".jscroll-added");
+                                var $jscroll_subforms = $div_jscroll.find("form[data-ajaxform=\"true\"]");
+                                $jscroll_subforms.IdeiaAjaxForm();
+                                $jscroll_subforms.on("ajaxform.success", form_submit);
+                                $jscroll_subforms.on("ajaxform.validation", function(event, addError){
+
+                                });
+
+                                $div_jscroll.removeClass("jscroll-added");
+                            }
+                        });
+                        var $subforms = $element.find("form[data-ajaxform=\"true\"]");
+                        $subforms.on("ajaxform.success", form_submit);
+                        $subforms.IdeiaAjaxForm();
+                        refreshEditors();
+
+                        var async_like = $self.find('[data-async-like]');
+                        async_like.IdeiaAsyncLike();
+                        async_like.removeData("async-like");
                     }
 
-                    $childs = $element.find('div[data-xhr-url]');
-                    $self.jscroll({
-                        loadingHtml: '<div class="load-async-preload"></div>',
-                        contentSelect: "#" + $self.attr("id"),
-                        nextSelector: "a[data-jscroll-next]",
-                        autoTrigger: false,
-                        callback: function(data){
-                            var $div_jscroll = $(".jscroll-added");
-                            var $jscroll_subforms = $div_jscroll.find("form[data-ajaxform=\"true\"]");
-                            $jscroll_subforms.IdeiaAjaxForm();
-                            $jscroll_subforms.on("ajaxform.success", form_submit);
-                            $jscroll_subforms.on("ajaxform.validation", function(event, addError){
-
-                            });
-
-                            $div_jscroll.removeClass("jscroll-added");
-                        }
-                    });
-                    var $subforms = $element.find("form[data-ajaxform=\"true\"]");
-
-                    $subforms.IdeiaAjaxForm();
-                    refreshEditors();
-
-
-                    var async_like = $self.find('[data-async-like]');
-                    async_like.IdeiaAsyncLike();
-                    async_like.removeData("async-like");
                 },
                 complete: function(){
-                    if($childs.length){
+                    if($childs && $childs.length){
                         $childs.renderList();
                     }
                 }
@@ -307,17 +317,16 @@
     };
 
     $(function(){
-{#        updateEditors();#}
         var xhr_contents = $("div[data-xhr]");
         xhr_contents.renderList();
         var $comment_form = $("form[data-ajaxform=\"true\"]");
         $comment_form.on("ajaxform.success", form_submit);
         $comment_form.on("ajaxform.validation", function(event, addError) {
-{#            updateEditors();#}
 
         });
         $("#confirmation-form").on("ajaxform.success", functionAjaxSuccessDeleteItem);
         $(document).on("click", "[data-delete-item=true]", functionOpenModalToDelete);
+        $(document).on("click", ".comment-dropdown", commentDropDown);
     });
 </script>
 

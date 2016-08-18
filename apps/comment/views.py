@@ -25,10 +25,6 @@ class CommentListBaseView(View):
 
     def do_process(self, request=None):
 
-        # self.response_data['template'] = render(request,
-        #                                    self.template_list_path,
-        #                                    self.context).content
-
         return render(request, self.template_list_path, self.context)
 
 
@@ -48,8 +44,8 @@ class CommentAnswerList(CommentList):
 
 
 class CommentSaveView(InstanceSaveFormBaseView):
-    fail_validation_template_path = 'comment/create.html'
-    success_template_path = 'comment/comment.html'
+    fail_validation_template_path = 'comment/create-comment.html'
+    success_template_path = 'comment/show-comment.html'
     form = CreateCommentForm
 
 
@@ -62,7 +58,7 @@ class CommentSaveAnswer(InstanceSaveFormBaseView):
 class CommentUpdateView(InstanceUpdateFormBaseView):
 
     fail_validation_template_path = 'comment/edit-comment.html'
-    success_template_path = 'comment/comment-segment.html'
+    success_template_path = 'comment/show-comment.html'
     form = EditCommentForm
 
     def instance_to_update(self, request, *args, **kwargs):

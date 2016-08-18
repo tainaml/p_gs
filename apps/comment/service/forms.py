@@ -1,25 +1,12 @@
 from django.core.exceptions import ValidationError
 from django.conf import settings
-from django.core.serializers.json import DjangoJSONEncoder
-from django.utils.encoding import force_text
-from django.utils.functional import Promise
+from django.utils.html import strip_tags
 from apps.ideia_summernote.widget import SummernoteWidget
 from apps.comment.models import Comment
 from django.utils.translation import ugettext as _
-
 from apps.custom_base.service.custom import forms, IdeiaForm
 import business as Business
 
-
-class LazyEncoder(DjangoJSONEncoder):
-
-    def default(self, obj):
-        if isinstance(obj, Promise):
-            return force_text(obj)
-        return super(LazyEncoder, self).default(obj)
-
-
-json_encode = LazyEncoder().encode
 
 
 class CreateCommentForm(IdeiaForm):
@@ -73,6 +60,7 @@ class CreateCommentForm(IdeiaForm):
                                            code='content_is_not_specified'))
             valid = False
 
+
         return valid
 
 
@@ -83,7 +71,6 @@ class EditCommentForm(IdeiaForm):
         required=True,
         widget=SummernoteWidget(editor_conf='comment')
     )
-    comment_id = forms.IntegerField(required=True)
 
     def __init__(self, user=None, instance=None, *args, **kargs):
         self.user = user
@@ -95,16 +82,15 @@ class EditCommentForm(IdeiaForm):
 
         valid = super(EditCommentForm, self).is_valid()
 
-        if not self.user or not self.user.is_authenticated:
-            self.add_error(None,
-                           ValidationError(('User must be authenticated.'),
-                                           code='is_not_authenticated'))
 
-        if not self.instance:
-            self.add_error(None,
-                           ValidationError(('Comment doesn\'t exist.'),
-                                           code='is_not_authenticated'))
-            valid = False
+        if 'content' in self.cleaned_data:
+            content = strip_tags(self.cleaned_data['content'])
+            if content == '':
+
+                self.add_error('content',
+                               ValidationError(('Is not possible to comment only with white spaces.'),
+                                               code='white_spaces'))
+                valid = False
 
         if self.user and self.instance.author and self.instance.author != self.user:
             self.add_error(None,

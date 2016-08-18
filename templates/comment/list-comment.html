@@ -1,0 +1,3 @@
+{% for comment in comments %}
+    {% include 'comment/show-comment.html' with instance=comment %}
+{% endfor %}
