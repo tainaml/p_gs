@@ -1,6 +1,6 @@
 'use strict';
 
-import 'jscroll'
+import $ from 'jquery'
 import './asyncModules'
 import './vendor/bootstrap/'
 import './modules/ideiaForm/'
@@ -17,6 +17,7 @@ import Slideout from 'slideout'
 $(function () {
     require('./modules');
     require('perfect-scrollbar/jquery')($);
+    require('imports?$=jquery!jscroll');
 
     $('[data-toggle="custom-scroll"] > .float-notifcations').perfectScrollbar();
 

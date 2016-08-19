@@ -10,12 +10,16 @@ module.exports = function(env) {
 
   var webpackConfig = {
     context: jsSrc,
+    externals: {
+      'jquery': 'jQuery'
+    },
 
     plugins: [
       new webpack.optimize.UglifyJsPlugin(),
       new webpack.ProvidePlugin({
         $: 'jquery',
-        'jQuery': 'jquery'
+        'jQuery': 'jquery',
+        'windows.jQuery': 'jquery'
       }),
       new webpack.DefinePlugin({
         'require.specified': 'require.resolve'

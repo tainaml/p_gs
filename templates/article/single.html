@@ -153,18 +153,17 @@
 {% block javascripts %}
     {{ block.super }}
     {{ form_comment.media }}
-{#    <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-55e70ed11db7fa4e" async></script>#}
-
 
     {% comment %}
     Script para highlight nos códigos.
     {% endcomment %}
+    <script src="{% static 'javascripts/vendor.js'%}"></script>
+    <!--
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/styles/default.min.css">
     <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/highlight.min.js"></script>
-    <script>hljs.initHighlightingOnLoad();</script>
+    <script>hljs.initHighlightingOnLoad();</script> -->
 
-<script>
-
+<script type="text/javascript">
 
     var functionOpenModalToDelete = function(e) {
         e.preventDefault();
@@ -329,5 +328,4 @@
         $(document).on("click", ".comment-dropdown", commentDropDown);
     });
 </script>
-
 {% endblock %}
