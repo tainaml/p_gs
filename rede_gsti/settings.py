@@ -696,9 +696,9 @@ SUMMERNOTE_CONFIG = {
     'assets': {
         'js': (
             # 'https://code.jquery.com/jquery-2.2.4.min.js',
-            # 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js',
-            # 'https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.1/summernote.min.js',
-            # 'https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.2/lang/summernote-pt-BR.js',
+            'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js',
+            'https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.1/summernote.min.js',
+            'https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.2/lang/summernote-pt-BR.js',
             # os.path.join(STATIC_URL, 'javascripts', 'summernote-oembed-plugin.js'),
 
             'https://rawgit.com/google/code-prettify/master/src/prettify.js',

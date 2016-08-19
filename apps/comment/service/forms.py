@@ -1,7 +1,7 @@
 from django.core.exceptions import ValidationError
 from django.conf import settings
 from django.utils.html import strip_tags
-from apps.ideia_summernote.widget import SummernoteWidget
+from ideia_summernote.widget import SummernoteWidget
 from apps.comment.models import Comment
 from django.utils.translation import ugettext as _
 from apps.custom_base.service.custom import forms, IdeiaForm

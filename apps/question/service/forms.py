@@ -3,7 +3,7 @@ from django.db import transaction
 from django.utils.text import slugify
 from django.utils.translation import ugettext as _
 from django.conf import settings
-from apps.ideia_summernote.widget import SummernoteWidget
+from ideia_summernote.widget import SummernoteWidget
 from apps.question.models import Answer
 from apps.custom_base.service.custom import forms, IdeiaForm, IdeiaModelForm
 

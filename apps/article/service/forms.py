@@ -2,7 +2,7 @@ from django.core.exceptions import ValidationError
 
 from django.utils import timezone
 from django.utils.translation import ugettext as _
-from apps.ideia_summernote.widget import SummernoteWidget
+from ideia_summernote.widget import SummernoteWidget
 
 from apps.custom_base.service.custom import forms, IdeiaModelForm
 from django.conf import settings
