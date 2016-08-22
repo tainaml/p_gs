@@ -180,9 +180,9 @@
       },
       'summernote.change': function (we, contents) {
         if (window.PR) {
-          PR.prettyPrint(contents);
+          PR.prettyPrintOne(contents);
         } else {
-          prettyPrint(contents);
+          prettyPrintOne(contents);
         }
       }
     };
