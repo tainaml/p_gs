@@ -179,7 +179,11 @@
         self.init();
       },
       'summernote.change': function (we, contents) {
-        prettyPrint(contents);
+        if (window.PR) {
+          PR.prettyPrint(contents);
+        } else {
+          prettyPrint(contents);
+        }
       }
     };
   };
