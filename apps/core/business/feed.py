@@ -62,3 +62,5 @@ def toggle_feed_official(content_type, object_id):
 
     return feed
 
+def user_can_make_as_official(user):
+    pass
