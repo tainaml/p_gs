@@ -152,7 +152,7 @@
 
 {% block javascripts %}
     {{ block.super }}
-    {{ form_comment.media }}
+{#    {{ form_comment.media }}#}
 
     {% comment %}
     Script para highlight nos códigos.
@@ -224,9 +224,10 @@
 
             $newForm.IdeiaAjaxForm();
             $newForm.on("ajaxform.success", form_submit);
+            $newForm.refreshEditors();
 
         }
-        refreshEditors();
+        $divToUpdate.refreshEditors();
     }
 
     var form_submit = function(event, data){
@@ -242,7 +243,7 @@
         $subforms.on("ajaxform.success", form_submit);
 
         var $dataList = $divToUpdate.find("div[data-xhr]");
-{#        $dataList.renderList();#}
+        $dataList.renderList();
 
         refreshAsyncLike();
 
@@ -296,7 +297,7 @@
                         var $subforms = $element.find("form[data-ajaxform=\"true\"]");
                         $subforms.on("ajaxform.success", form_submit);
                         $subforms.IdeiaAjaxForm();
-                        refreshEditors();
+                        $subforms.refreshEditors();
 
                         var async_like = $self.find('[data-async-like]');
                         async_like.IdeiaAsyncLike();
@@ -319,6 +320,7 @@
         var xhr_contents = $("div[data-xhr]");
         xhr_contents.renderList();
         var $comment_form = $("form[data-ajaxform=\"true\"]");
+        $comment_form.refreshEditors();
         $comment_form.on("ajaxform.success", form_submit);
         $comment_form.on("ajaxform.validation", function(event, addError) {
 
