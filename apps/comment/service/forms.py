@@ -132,18 +132,15 @@ class ListCommentForm(IdeiaForm):
         return valid
 
     def __process__(self):
-        comment_list = Business.get_comments_by_content_type_and_id(
+        return  Business.get_comments_by_content_type_and_id(
             self.cleaned_data['content_type'],
             self.cleaned_data['content_id'],
             self.itens_per_page,
             self.cleaned_data['page']
         )
 
-        result = {}
-        for comment in comment_list:
-            result[comment] = EditCommentForm(None, comment, data={'content': comment.content})
 
-        return result
+
 
 
 class CommentDeleteForm(IdeiaForm):

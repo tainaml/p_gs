@@ -2,13 +2,14 @@
 {% load avatar_tags %}
 {% load thumbor_tags %}
 {% load comment_tags %}
+{% load humanize %}
 
     <div id="comment-{{ instance.id }}" class="comment">
     <header class="post-header">
         <div class="post-info" >
             <time datetime="{{ instance.creation_date|date:'d-m-Y' }}" itemprop="datePublished"
                 data-toggle="tooltip" data-placement="auto top" data-original-title="{{ instance.creation_date|date:'d/m/Y' }} às {{ instance.creation_date|date:'G:i' }}">
-                    <span class="hidden-xs visible-lg-inline">{{ instance.creation_date|date:'d/m/Y' }} às {{ instance.creation_date|date:'G:i' }}</span>
+                    <span class="hidden-xs visible-lg-inline">{{ instance.creation_date|naturaltime }}</span>
                     <i class="gsticon gsticon-clock-o hidden-lg"></i>
                 </time>
             <a href="javascript:;" data-toggle="dropdown" data-selector="#setting-comment-{{ instance.id }}"><i class="gsticon gsticon-gear"></i></a>
@@ -45,19 +46,30 @@
     <div class="comment-text comment-dropdown">
         <p>{{ instance.content|safe }}</p>
     </div>
-     {% if instance.author == request.user %}
-            <div data-list id="comment-edit-{{ instance.id }}" class="dropdown-content comment-dropdown">
-                {% comment_edit  instance %}
+     {% if instance.content_type.model != "comment" %}
+        <footer class="post-footer col-lg-12">
+            <div class="post-toolbar pull-right">
+                <div class="post-count">
+                    {% like_box instance request.path "inline" %}
+                </div>
+                <div class="post-count-comments">
+                    <a data-object-id="{{ instance.id }}" data-toggle="dropdown" data-target="#data-answer-{{ instance.id }}" href="javascript:;" data-token="{{ csrf_token }}">Responder</a>
+                </div>
             </div>
+            <div id="data-answer-{{ instance.id }}" class="dropdown-content comment-dropdown">
+                {% with instance_id=instance.id|stringformat:"s" %}
+                    {% with to_update="#list-"|add:instance.get_content_type|stringformat:"s"|add:"-"|add:instance_id %}
+                        {% comment_create instance to_update %}
+                    {% endwith %}
+                {% endwith %}
+            </div>
+        </footer>
     {% endif %}
-
-    {% with instance_id=instance.id|stringformat:"s" %}
-        {% with to_update="list-"|add:instance.get_content_type|stringformat:"s"|add:"-"|add:instance_id %}
-            {% comment_create instance to_update %}
-        {% endwith %}
-    {% endwith %}
-
-
+    {% if instance.author == request.user %}
+        <div data-list id="comment-edit-{{ instance.id }}" class="dropdown-content comment-dropdown">
+            {% comment_edit  instance %}
+        </div>
+    {% endif %}
     {% comment_list instance %}
 </div>
 

@@ -226,8 +226,10 @@
             $newForm.on("ajaxform.success", form_submit);
             $newForm.refreshEditors();
 
+
         }
         $divToUpdate.refreshEditors();
+        PR.prettyPrint();
     }
 
     var form_submit = function(event, data){
@@ -287,9 +289,7 @@
                                 var $jscroll_subforms = $div_jscroll.find("form[data-ajaxform=\"true\"]");
                                 $jscroll_subforms.IdeiaAjaxForm();
                                 $jscroll_subforms.on("ajaxform.success", form_submit);
-                                $jscroll_subforms.on("ajaxform.validation", function(event, addError){
 
-                                });
 
                                 $div_jscroll.removeClass("jscroll-added");
                             }
@@ -322,9 +322,7 @@
         var $comment_form = $("form[data-ajaxform=\"true\"]");
         $comment_form.refreshEditors();
         $comment_form.on("ajaxform.success", form_submit);
-        $comment_form.on("ajaxform.validation", function(event, addError) {
 
-        });
         $("#confirmation-form").on("ajaxform.success", functionAjaxSuccessDeleteItem);
         $(document).on("click", "[data-delete-item=true]", functionOpenModalToDelete);
         $(document).on("click", ".comment-dropdown", commentDropDown);

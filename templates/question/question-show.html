@@ -1,5 +1,5 @@
 {%extends 'home/layout/base.html' %}
-
+{% load staticfiles %}
 {% load thumbor_tags %}
 {% load profile_tags %}
 {% load social_tags %}
@@ -112,6 +112,7 @@
 
 {% block javascripts %}
     <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-55e70ed11db7fa4e" async></script>
+    <script src="{% static 'javascripts/vendor.js'%}"></script>
     <script>
 
         var functionOpenModalToDelete = function(e) {
@@ -237,9 +238,11 @@
 
         $(function(){
             var xhr_contents = $("div[data-xhr]");
-            xhr_contents.renderList();
+{#            xhr_contents.renderList();#}
 
-            $("form[data-ajaxform=\"true\"]").on("ajaxform.success", form_submit);
+            var $forms = $("form[data-ajaxform=\"true\"]");
+            $forms.on("ajaxform.success", form_submit);
+            $forms.refreshEditors();
 
 
             $("#confirmation-form").on("ajaxform.success", functionAjaxSuccessDeleteItem);

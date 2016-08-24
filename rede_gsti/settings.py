@@ -788,6 +788,24 @@ SUMMERNOTE_CONFIG = {
                 ['height', ['height']]
                 ]
             }
+        },'reply': {
+            'airMode': False,
+            'minHeight': 100,
+            'toolbar': [
+                ['style', ['bold', 'italic', 'underline']],
+                ['font', ['strikethrough']],
+                ['prettyprint', ['prettyprint']],
+                ['pre', ['pre']]
+            ],
+            'popover': {
+                'air':[
+                ['style', ['bold', 'italic', 'underline', 'clear']],
+                ['font', ['strikethrough', 'superscript', 'subscript']],
+                ['fontsize', ['fontsize']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['height', ['height']]
+                ]
+            }
         },
 
     }

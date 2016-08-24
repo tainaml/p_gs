@@ -40,7 +40,7 @@ class CommentList(FormBaseListView):
 
 class CommentAnswerList(CommentList):
     success_template_path = 'comment/list-answer.html'
-    itens_per_page = 4
+    itens_per_page = 10
 
 
 class CommentSaveView(InstanceSaveFormBaseView):
