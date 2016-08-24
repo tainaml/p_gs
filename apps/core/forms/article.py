@@ -11,10 +11,9 @@ from apps.rede_gsti_signals.signals.home import clear_article_cache
 from apps.core.business import user as UserBusiness
 
 
-class CoreArticleForm(ArticleForm, CoreTaxonomiesMixin):
+class CoreArticleBaseForm(ArticleForm, CoreTaxonomiesMixin):
 
     tags = forms.ModelMultipleChoiceField(queryset=Tags.objects.all().order_by('tag_order'), required=False, widget=CheckboxSelectMultiple)
-    official = forms.BooleanField(required=False)
 
     def __init__(self, *args, **kwargs):
         kwargs['initial'] = kwargs.get('initial', {})
@@ -23,19 +22,21 @@ class CoreArticleForm(ArticleForm, CoreTaxonomiesMixin):
         self.instance = instance
 
         if instance:
-            feed_item = FeedBusiness.feed_get_or_create(instance)
+            kwargs['initial'].update(self.get_feed_initial(instance))
 
-            initial = {
-                'tags': feed_item.tags.all(),
-                'official': feed_item.official
-            }
+        super(CoreArticleBaseForm, self).__init__(*args, **kwargs)
 
-            kwargs['initial'].update(initial)
+    def get_feed_initial(self, instance):
+        feed_item = FeedBusiness.feed_get_or_create(instance)
 
-        super(CoreArticleForm, self).__init__(*args, **kwargs)
+        initial = {
+            'tags': feed_item.tags.all(),
+        }
+
+        return initial
 
     def set_author(self, author):
-        super(CoreArticleForm, self).set_author(author)
+        super(CoreArticleBaseForm, self).set_author(author)
 
         extra = None
 
@@ -51,7 +52,7 @@ class CoreArticleForm(ArticleForm, CoreTaxonomiesMixin):
     @transaction.atomic()
     @reversion.create_revision()
     def __process__(self):
-        process_article = super(CoreArticleForm, self).__process__()
+        process_article = super(CoreArticleBaseForm, self).__process__()
         if process_article:
             reversion.set_user(process_article.author)
         process_feed = Business.save_feed_item(self.instance, self.cleaned_data)
@@ -63,12 +64,39 @@ class CoreArticleForm(ArticleForm, CoreTaxonomiesMixin):
         else:
             self.delete_taxonomies(process_feed, self.cleaned_data)
         process_tags = BusinessTags.save_feed_tags(process_feed, self.cleaned_data)
-        process_official = BusinessCoreFeed.save_feed_official(process_feed, self.cleaned_data)
+
+        #process_official = BusinessCoreFeed.save_feed_official(process_feed, self.cleaned_data)
 
         if process_feed:
             clear_article_cache.send(sender=process_feed.__class__, instance=process_feed)
 
         if self.cleaned_data['communities']:
-            return process_article if (process_article and process_taxonomies and process_tags and process_official) else False
+            return process_article if (process_article and process_taxonomies and process_tags) else False
         else:
-            return process_article if (process_article and process_tags and process_official) else False
+            return process_article if (process_article and process_tags) else False
+
+
+class CoreArticleContributorForm(CoreArticleBaseForm):
+
+    tags = forms.ModelMultipleChoiceField(queryset=Tags.objects.all().order_by('tag_order'), required=False, widget=CheckboxSelectMultiple)
+    official = forms.BooleanField(required=False)
+
+    def get_feed_initial(self, instance):
+        initial = super(CoreArticleContributorForm, self).get_feed_initial(instance)
+        feed_item = FeedBusiness.feed_get_or_create(instance)
+        initial.update({
+            'official': feed_item.official
+        })
+        return initial
+
+    @transaction.atomic()
+    @reversion.create_revision()
+    def __process__(self):
+        process_article = super(CoreArticleContributorForm, self).__process__()
+        if not process_article:
+            return False
+
+        process_feed = process_article.feed.first()
+        process_official = BusinessCoreFeed.save_feed_official(process_feed, self.cleaned_data)
+
+        return process_article if process_official else False

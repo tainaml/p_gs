@@ -162,6 +162,11 @@
                     $modalContactSuccessfully.html(data.template);
                     $modalContact.modal("hide");
                     $modalContactSuccessfully.modal("show");
+                    $modalContactSuccessfully.on("hidden.bs.modal", function () {
+                      $('body').css({
+                        paddingRight: ''
+                      });
+                    });
                 };
 
                 var $formContactModal = $("#form-contact-modal");

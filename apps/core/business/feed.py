@@ -1,6 +1,7 @@
 from django.contrib.contenttypes.models import ContentType
 
 from apps.feed.models import FeedObject
+from apps.rede_gsti_signals.signals.home import clear_article_cache
 from apps.taxonomy.service import business as BusinessTaxonomy
 from apps.feed.service import business as BusinessFeed
 
@@ -57,5 +58,9 @@ def toggle_feed_official(content_type, object_id):
     feed.official = not feed.official
     feed.save()
 
+    clear_article_cache.send(sender=feed.__class__, instance=feed, force=True)
+
     return feed
 
+def user_can_make_as_official(user):
+    pass

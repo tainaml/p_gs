@@ -19,12 +19,16 @@ def refresh_home_block(sender, **kwargs):
 
     feed_object = kwargs.get('instance', None)
 
+    force_update = kwargs.get('force', False)
+
     logger.info("Refreshing home block...")
+
+    __key = 'gsti__excludes__cache__%s'
 
     print 'is_official %s' % feed_object.official
     print 'is old official %s' % feed_object.official__old_value
 
-    if feed_object.official == False and feed_object.official__old_value == False:
+    if force_update == False and feed_object.official == False and feed_object.official__old_value == False:
         return
 
     article_type = ContentType.objects.get_for_model(Article)
@@ -32,19 +36,31 @@ def refresh_home_block(sender, **kwargs):
 
         try:
 
-            ArticleCacheExcludes.clear('home')
-            cache.delete('HOME_EXCLUDES|||home')
-            cachecontrol.clear_group('global_home::home')
-
-            print "QTDE %d" % feed_object.communities.all().count()
+            cache.delete('HOME::GROUP::%s' % 'home')
+            cache.delete('gsti|excludes|%s' % 'home')
 
             for f in feed_object.communities.all():
-                _slug = f.taxonomy.slug
-                print _slug
-                ArticleCacheExcludes.clear(_slug)
-                cache.delete('HOME_EXCLUDES|||%s' % _slug)
-                cachecontrol.clear_group('global_home::%s' % _slug)
+                _slug = f.taxonomy.parent.slug
+                cache.delete('HOME::GROUP::%s' % _slug)
+                cache.delete('gsti|excludes|%s' % _slug)
 
+            # ArticleCacheExcludes.clear('home')
+            # cache.delete('HOME_EXCLUDES|||home')
+            # cachecontrol.clear_group('global_home::home')
+            #
+            # cache.delete('gsti__excludes__cache__home')
+            #
+            # print('Deleting %s' % 'gsti__excludes__cache__home')
+            #
+            # print "QTDE %d" % feed_object.communities.all().count()
+            #
+            # for f in feed_object.communities.all():
+            #     _slug = f.taxonomy.slug
+            #     print _slug
+            #     ArticleCacheExcludes.clear(_slug)
+            #     cache.delete(__key % _slug)
+            #     cache.delete('HOME_EXCLUDES|||%s' % _slug)
+            #     # cachecontrol.clear_group('global_home::%s' % _slug)
 
         except Exception, e:
             print 'GERAL_ERROR: %s' % e.message

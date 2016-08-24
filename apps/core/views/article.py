@@ -8,14 +8,14 @@ from apps.article import views
 from apps.comment.models import Comment
 from apps.comment.service.forms import CreateCommentForm
 from apps.community.models import Community
-from ..forms.article import CoreArticleForm
+from ..forms.article import CoreArticleBaseForm, CoreArticleContributorForm
 from ..business import feed as BusinessFeed
 from apps.core.business import user as UserBusiness
 from apps.core.business import article as core_article_business
 
 class CoreArticleEditView(views.ArticleEditView):
 
-    form_article = CoreArticleForm
+    form_article = CoreArticleBaseForm
 
     def prepare_context(self, request, context):
         context = super(CoreArticleEditView, self).prepare_context(request, context)
@@ -35,6 +35,21 @@ class CoreArticleEditView(views.ArticleEditView):
         context.update(communities=communities)
 
         return context
+
+    @method_decorator(login_required)
+    def get(self, request, article_id=None, *args, **kwargs):
+
+        is_contributor = False
+
+        try:
+            is_contributor = request.user.profile.contributor
+        except Exception, e:
+            pass
+
+        if is_contributor:
+            self.form_article = CoreArticleContributorForm
+
+        return super(CoreArticleEditView, self).get(request, article_id, *args, **kwargs)
 
 
 class CoreArticleView(views.ArticleView):

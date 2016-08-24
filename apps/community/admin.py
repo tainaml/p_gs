@@ -1,5 +1,6 @@
 from django.contrib import admin
 from django_thumbor import generate_url
+from ideia_summernote.widget import SummernoteWidget
 from .models import Community
 from django.conf import settings
 from django import forms
@@ -7,14 +8,30 @@ from django import forms
 
 class ComunnityAdminForm(forms.ModelForm):
 
-
     def clean_slug(self):
         slug = self.cleaned_data.get('slug', None)
         slug = unicode(slug).lower() if slug else None
         return slug
 
+    class Media:
+        js = (
+            # 'https://code.jquery.com/jquery-2.2.4.min.js',
+            'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js',
+            'https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.1/summernote.min.js', )
+
+        css= {
+            'all': (
+                'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css',
+                'https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.1/summernote.css',
+            )
+        }
+
     class Meta:
         excludes = ()
+        widgets = {
+          'description': SummernoteWidget(editor_conf='default')
+        }
+
 
 
 class CommunityAdmin(admin.ModelAdmin):

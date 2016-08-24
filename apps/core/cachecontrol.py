@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.core.cache import caches, cache
 from abc import ABCMeta, abstractmethod
+from django.utils.safestring import mark_safe
 
 
 class CacheItemMixin(object):
@@ -35,7 +36,7 @@ class CacheItemMixin(object):
         from_cache = self.cache.get(self.get_cache_key(), False)
         if not from_cache:
             from_cache = self.generate_new_cache()
-            self.set_to_cache(from_cache)
+            self.set_to_cache(unicode(mark_safe(from_cache)))
         return from_cache
 
     def invalidate_cache(self):

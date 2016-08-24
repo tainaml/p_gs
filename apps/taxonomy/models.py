@@ -23,4 +23,7 @@ class Taxonomy(models.Model):
         ordering = ('description',)
 
     def __unicode__(self):
-        return self.description
+        return self.slug
+
+    def __repr__(self):
+        return self.slug if self.slug else '-'

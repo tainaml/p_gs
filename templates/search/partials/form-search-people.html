@@ -1,0 +1,57 @@
+{#  <div id="form-search" class="filter row form-search filters-members" data-toggle="filters">#}
+{#    <div class="col-lg-8 clearfix">#}
+{#        <form action="#" method="GET" role="search">#}
+{#        <div class="form-search-input">#}
+{#            <input type="text" name="criteria" placeholder="{{placeholder|default:"Procure pessoas, comunidades, etc."}}" value="{{ form.cleaned_data.criteria|default:"" }}">#}
+{#        </div>#}
+{#           <button type="submit" class="form-search-button">#}
+{#            <i class="gsticon gsticon-search"></i>#}
+{#        </button>#}
+{#    </form>#}
+{#    </div>#}
+{#    <div class="col-lg-4 text-right">#}
+{#        <a class="btn btn-perfil active" href="{% url 'profile:followers' username=request.user.username %}">Seguidores</a>#}
+{#        <a class="btn btn-perfil" href="{% url 'profile:followings' username=request.user.username %}">Seguindo</a>#}
+{#    </div>#}
+{#</div>#}
+{##}
+
+
+<div id="form-search" class="filter row form-search filters-members" data-toggle="filters">
+    <div class="col-lg-12 clearfix">
+        <form class="row clearfix" id="form-search-followers" name="filterMember"
+              action="{% url 'community:search-followers' %}?next={{ request.path }}" method="GET" role="search"
+              data-ajaxform="true" data-group-class=".form-group">
+            <input type="hidden" name="community" value="{{ community.id }}">
+
+            <div class="col-lg-8 col-xs-12">
+                <div class="form-search-input">
+                    <input type="text" id="filterName" name="name" data-ajax-change="true"
+                           placeholder="{{ placehold|default:"Procure por pessoas" }}" autocomplete="off">
+                </div>
+                <button type="submit" class="form-search-button">
+                    <i class="gsticon gsticon-search"></i>
+                </button>
+            </div>
+            <div class="col-lg-2 col-xs-12 text-right">
+                <div class="custom-select">
+                    <select class="form-control" id="filterState" name="state" data-ajax-change="true"
+                            data-url="{% url 'profile:get_city' %}" data-target="#filterCity">
+                        <option value="" selected>Estado</option>
+                        {% for state in states %}
+                            <option value="{{ state.id }}">{{ state.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <div class="col-lg-2 col-xs-12 text-right">
+                <div class="custom-select">
+                    <select class="form-control" id="filterCity" name="city">
+                        <option value="">Cidade</option>
+                    </select>
+                </div>
+            </div>
+        </form>
+    </div>
+
+</div>

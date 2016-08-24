@@ -19,8 +19,10 @@ from django.contrib import admin
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 from apps.ninico.views import index as PROJECT_ROOT
+from apps.core.views.core import Home
+from django.contrib.admin.views.decorators import staff_member_required
+from django.views.decorators.cache import never_cache
 from apps.core.views import search as CoreSearch
-
 
 handler400 = "apps.core.views.errors.handler400"
 handler403 = "apps.core.views.errors.handler403"
@@ -34,9 +36,7 @@ url_search_all = [url(r'(?P<params>.*)$', CoreSearch.SearchAll.as_view(), name='
 
 urlpatterns = [
 
-
-
-    url(r'^$', PROJECT_ROOT, name='index'),
+    url(r'^$', Home.as_view(), name='index'),
     url(_(r'^admin/'), include(admin.site.urls)),
 
     # Job vacancy

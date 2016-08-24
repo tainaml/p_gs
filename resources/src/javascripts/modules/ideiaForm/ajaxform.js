@@ -37,8 +37,12 @@ require('./validation.js');
             var $self = $(this);
 
             $self.one(EVENT_AJAX_VALIDATION, doValidation);
-            $self.on('ajaxform.error', function(event, data){
-                doShowErrors.call(this, data.errors);
+            $self.on('ajaxform.error', function doAjaxFormErrosShow(event, data){
+                if('errors' in data){
+                    doShowErrors.call(this, data.errors);
+                }else{
+                    console.error(data);
+                }
             });
 
             $self.whenEvent(EVENT_AJAX_VALIDATION).done(afterValidation);
@@ -47,7 +51,7 @@ require('./validation.js');
             $self.find('.form-group-errors').empty();
 
             var formFields = $self.data('formFields');
-            $.each(formFields, function(key){
+            $.each(formFields, function __eachFieldInFormFields(key){
                 var $field = formFields[key]['object'];
                 var $group = formFields[key]['group'];
 
@@ -99,7 +103,7 @@ require('./validation.js');
                 errors = [];
             }
 
-            $.each(errors, function(key, values){
+            $.each(errors, function __eachErrorInErrors(key, values){
 
                 try{
 
@@ -149,6 +153,7 @@ require('./validation.js');
                     $self.trigger('ajaxform.before-send', jqXHR);
                 },
                 success: function(data){
+                    console.dir(data);
                     $self.trigger('ajaxform.success', data);
                 },
                 complete: function() {
@@ -157,10 +162,15 @@ require('./validation.js');
                 error: function(jqXHR){
                     var data;
                     try{
-                        if (typeof jqXHR.responseText == 'string') {
-                            data = jqXHR.responseText;
-                        } else {
+
+                        try{
                             data = $.parseJSON(jqXHR.responseText);
+                        }catch(e){
+                            if (typeof jqXHR.responseText == 'string') {
+                                data = {
+                                    'errormessage': jqXHR.responseText
+                                };
+                            }
                         }
                     } catch (e) {
                         console.log("Can't parse to JSON. Check the response data and contentType");
@@ -207,7 +217,7 @@ require('./validation.js');
 
             $self.off();
             $self.attr('target', targetId);
-            $iframe.on('load', function(){
+            $iframe.on('load', function __fakeAjaxOnLoadIFrame(){
                 var data = false;
                 $self.IdeiaAjaxForm();
 
@@ -269,7 +279,7 @@ require('./validation.js');
             $self.data('formFields', fields);
         }
 
-        $(this).each(function(){
+        $(this).each(function __eachAjaxFormInPage(){
             setup.call(this);
         });
 

@@ -129,7 +129,7 @@ class CoreCommunitySearchMaterialsForm(IdeiaForm):
 
     criteria = forms.CharField(required=False)
     page = forms.IntegerField(required=False)
-    tags = forms.ModelChoiceField(queryset=Tags.objects.all().exclude(tag_slug="videos"), required=False,
+    tags = forms.ModelChoiceField(queryset=Business.get_avaiable_tags(), required=False,
                                   empty_label=_("All"))
 
     def __init__(self, community=None, items_per_page=10, *args, **kwargs):
@@ -137,6 +137,9 @@ class CoreCommunitySearchMaterialsForm(IdeiaForm):
         self.items_per_page = items_per_page
 
         super(CoreCommunitySearchMaterialsForm, self).__init__(*args, **kwargs)
+
+    def get_avaiable_tags(self):
+        return Business.get_avaiable_tags()
 
     def clean(self):
         cleaned_data = super(CoreCommunitySearchMaterialsForm, self).clean()

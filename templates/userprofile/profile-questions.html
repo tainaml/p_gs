@@ -16,7 +16,7 @@
                     <div class="col-lg-8">
                         {% block filters %}
                             <nav id="form-search" class="form-search filters-members" data-toggle="filters">
-                            <form action="{% url 'profile:search' profile.user.username %}" method="GET" role="search">
+                            <form action="{% url 'profile:my-questions' %}" method="GET" role="search">
                                 <div class="form-search-input">
                                     <input type="text" name="criterio" placeholder="{{placehold|default:"Procure pessoas, comunidades, etc."}}">
                                 </div>
