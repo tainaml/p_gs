@@ -6,3 +6,4 @@ import core
 import home
 import useraction
 import contact
+import useralerts

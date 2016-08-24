@@ -93,6 +93,10 @@ urlpatterns = [
     # Translators: URL root de feed
     url(_(r'^feed/'), include('apps.core.urls.feed', namespace='feed')),
 
+
+    # Translators: URL root of user alerts
+    url(_(r'^useralerts/'), include('apps.useralerts.urls', namespace='useralerts')),
+
     # Translators: URL core adicionais
     url(_(r'^'), include('apps.core.urls.core', namespace='core')),
 

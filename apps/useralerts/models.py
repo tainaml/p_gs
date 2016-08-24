@@ -22,3 +22,7 @@ class UserAlert(models.Model):
 
     def is_published(self):
         return bool(self.status == self.STATUS_PUBLISH)
+
+    def get_absolute_url(self):
+        from django.core.urlresolvers import reverse
+        return reverse('useralerts:show', args=[self.id])
