@@ -1,0 +1,16 @@
+{% load thumbor_tags %}
+{% load avatar_tags %}
+
+{% url 'useralerts:show' notification.target.id as notification_url %}
+
+<div id="notification-general-{{ notification.id }}" class="post {% if not notification.read %}not-visualized{% endif %}">
+    <header class="post-header">
+        <div class="post-info"><time style="display: block;" datetime="{{ notification.notification_date }}" itemprop="datePublished"
+            data-toggle="tooltip" data-placement="auto top" data-original-title="{{ notification.notification_date|date:'d/m/Y à\s H:i' }}" class="time">
+                <i class="gsticon gsticon-clock-o hidden-lg"></i>
+            </time></div>
+        <div class="post-creator">
+            Você recebeu um <a href="{{ notification_url }}">alerta</a> do Portal GSTI com titulo de <a href="{{ notification_url }}">{{ notification.target.title }}</a>
+        </div>
+    </header>
+</div>
