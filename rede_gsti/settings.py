@@ -180,6 +180,8 @@ INSTALLED_APPS = DJANGO_APPS + THIRD_PART_APPS + INTERNAL_APPS
 
 ADD_REVERSION_ADMIN=True
 
+APPEND_SLASH = True
+
 def show_toolbar(request):
     return not request.is_ajax()
 
