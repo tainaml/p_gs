@@ -81,9 +81,7 @@
                 <aside class="post-footer">
                     {% taxonomies article %}
                     <div class="post-toolbar pull-right">
-                        <div class="post-count">
-                            {% like_box article request.path "inline" %}
-                        </div>
+                        <div class="post-count">{% like_box article request.path "inline" %}</div>
                         <a href="#comments" class="post-count-comments">
                             <span id="load-count-comment-article"
                                   data-load-async="true"
@@ -107,7 +105,7 @@
                     {% endif %}
                     {% endcomment %}
 
-                        {% thumbor_replace article.text %}
+                    {% thumbor_replace article.text %}
 
                     <div class="post-advertising text-center">
                         <img class="img-responsive" src="http://placehold.it/728x90" alt="Propaganda">
@@ -115,16 +113,11 @@
                 </div>
                 <div class="full-post-share">
                     <h3>COMPARTILHE</h3>
-{#                    <div class="addthis_sharing_toolbox"></div>#}
                     {% include '_partials/share.html' with show_all=True %}
-
                 </div>
             </article>
-            <div>
-                {% profile_box article.author "horizontal" %}
-            </div>
+            <div>{% profile_box article.author "horizontal" %}</div>
             {% if request|is_mobile %}
-            <!-- Publicações Relacionadas -->
             <div id="load-related-posts" data-load-async="true" data-load-async-url="{% url 'core:related-posts' article.id "article" "article" 4 %}" data-load-async-url-next="{{ request.path }}" data-load-async-method="get" data-load-async-response-type="json" data-load-async-timeout="1">
                 <div class="load-async load-async-content">
                     <div class="load-async-preload"></div>
@@ -133,7 +126,6 @@
             </div>
             {% endif %}
             {% comment_box article %}
-
         </div>
         {% include "article/partials/article-sidebar-right.html" %}
     </div>
@@ -152,15 +144,7 @@
 {% block javascripts %}
     {{ block.super }}
 {#    {{ form_comment.media }}#}
-
-    {% comment %}
-    Script para highlight nos códigos.
-    {% endcomment %}
     <script src="{% static 'javascripts/vendor.js'%}"></script>
-    <!--
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/styles/default.min.css">
-    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/highlight.min.js"></script>
-    <script>hljs.initHighlightingOnLoad();</script> -->
 
 <script type="text/javascript">
 
@@ -265,10 +249,11 @@
                         var regex = /^data-list-([0-9]+)$/;
                         if (regex.test($self.attr('id'))) {
                             var $parentSelf = $self.parent('.comments-children');
-                            if ($self.children().length > 0)
-                                $parentSelf.removeClass('no-children');
-                            else
-                                $parentSelf.addClass('no-children');
+                            if ($self.children().length > 0) {
+                              $parentSelf.removeClass('no-children');
+                            } else {
+                              $parentSelf.addClass('no-children');
+                            }
                         }
 
                         $childs = $element.find('div[data-xhr-url]');
@@ -291,7 +276,6 @@
                         $subforms.on("ajaxform.success", form_submit);
                         $subforms.IdeiaAjaxForm();
                         $subforms.refreshEditors();
-
 
                         var async_like = $self.find('[data-async-like]');
                         async_like.IdeiaAsyncLike();
@@ -320,7 +304,6 @@
         $("#confirmation-form").on("ajaxform.success", functionAjaxSuccessDeleteItem);
         $(document).on("click", "[data-delete-item=true]", functionOpenModalToDelete);
         $(document).on("click", ".comment-dropdown", commentDropDown);
-
     });
 </script>
 {% endblock %}

@@ -18,7 +18,7 @@ module.exports = function(env) {
       new webpack.optimize.UglifyJsPlugin(),
       new webpack.ProvidePlugin({
         $: 'jquery',
-        'jQuery': 'jquery',
+        jQuery: 'jquery',
         'windows.jQuery': 'jquery'
       }),
       new webpack.DefinePlugin({
@@ -42,6 +42,7 @@ module.exports = function(env) {
   };
 
   if(env !== 'test') {
+    
     // Karma doesn't need entry points or output settings
     webpackConfig.entry= {
       main: [ './main.js' ],

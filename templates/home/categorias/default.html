@@ -14,7 +14,7 @@
 
     {% block content %}
 
-        <main class="container main">
+        <main class="container main home">
 
 
                 {#            {% ideiahomecache None 'home_page_cache' category_slug %}#}
@@ -111,7 +111,7 @@
         <div id="fb-root"></div>
         <!-- Place this tag after the last widget tag. -->
         <script type="text/javascript">
-            (function() {
+            $(function() {
                 document.getElementsByClassName('g-page')[0].setAttribute('data-width', document.getElementById('google-badge').clientWidth);
                 var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
                 po.src = 'https://apis.google.com/js/platform.js';
@@ -122,7 +122,6 @@
                     loadingHtml: '<div class="load-async-preload"></div>',
                     nextSelector: "a[data-jscroll-next]",
                     callback: function (data) {
-
                         refreshAsyncLike();
                     }
                 });
@@ -133,7 +132,7 @@
                         $obj.text(data.count);
                     });
                 });
-            })();
+            });
 
             (function(d, s, id) {
                 var js, fjs = d.getElementsByTagName(s)[0];
