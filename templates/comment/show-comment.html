@@ -65,12 +65,19 @@
             </div>
         </footer>
     {% endif %}
+
     {% if instance.author == request.user %}
         <div data-list id="comment-edit-{{ instance.id }}" class="dropdown-content comment-dropdown">
             {% comment_edit  instance %}
         </div>
     {% endif %}
+
+
     {% comment_list instance %}
+
+
+
+
 </div>
 
 

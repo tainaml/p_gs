@@ -35,6 +35,7 @@ class CommentList(FormBaseListView):
 
     # @Override
     def after_process(self, request=None, *args, **kwargs):
+        super(CommentList, self).after_process(*args, **kwargs)
         self.context.update({'comments': self.process_return})
 
 

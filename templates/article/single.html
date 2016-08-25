@@ -134,7 +134,6 @@
             {% endif %}
             {% comment_box article %}
 
-            <div data-xhr-url="{% url "comment:list" %}?page=1&content_type=article&content_id={{ article.id }}" data-xhr id="container-comments" class="container-comments j-scroll"></div>
         </div>
         {% include "article/partials/article-sidebar-right.html" %}
     </div>
@@ -221,32 +220,28 @@
             var $element = $(data.template);
             $divToUpdate.replaceWith($element);
             var $newForm = $element.find("form[data-ajaxform=\"true\"]");
-
-            $newForm.IdeiaAjaxForm();
-            $newForm.on("ajaxform.success", form_submit);
-            $newForm.refreshEditors();
+            $divToUpdate = $element;
 
 
         }
         $divToUpdate.refreshEditors();
         PR.prettyPrint();
+
+        return $divToUpdate
     }
 
     var form_submit = function(event, data){
         var $form = $(this);
         var $divToUpdate = $($form.data("update"));
-        setData($form, data, $divToUpdate);
+        $divToUpdate = setData($form, data, $divToUpdate);
 
         var $subforms = $divToUpdate.find("form[data-ajaxform=\"true\"]");
-
-
 
         $subforms.IdeiaAjaxForm();
         $subforms.on("ajaxform.success", form_submit);
 
         var $dataList = $divToUpdate.find("div[data-xhr]");
         $dataList.renderList();
-
         refreshAsyncLike();
 
     };
@@ -267,8 +262,6 @@
                         var $element = $(data.template);
 
                         $self.append($element);
-
-
                         var regex = /^data-list-([0-9]+)$/;
                         if (regex.test($self.attr('id'))) {
                             var $parentSelf = $self.parent('.comments-children');
@@ -290,14 +283,15 @@
                                 $jscroll_subforms.IdeiaAjaxForm();
                                 $jscroll_subforms.on("ajaxform.success", form_submit);
 
-
                                 $div_jscroll.removeClass("jscroll-added");
                             }
                         });
+
                         var $subforms = $element.find("form[data-ajaxform=\"true\"]");
                         $subforms.on("ajaxform.success", form_submit);
                         $subforms.IdeiaAjaxForm();
                         $subforms.refreshEditors();
+
 
                         var async_like = $self.find('[data-async-like]');
                         async_like.IdeiaAsyncLike();
@@ -326,6 +320,7 @@
         $("#confirmation-form").on("ajaxform.success", functionAjaxSuccessDeleteItem);
         $(document).on("click", "[data-delete-item=true]", functionOpenModalToDelete);
         $(document).on("click", ".comment-dropdown", commentDropDown);
+
     });
 </script>
 {% endblock %}
