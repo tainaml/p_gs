@@ -3,8 +3,11 @@
 {% load staticfiles %}
 {% load core_tags %}
 {% load user_agents %}
+{% load thumbor_tags %}
 
-{% block title %}Portal GSTI - Comunidade{% endblock %}
+{% block seo-og-title %}{% block seo_title %}Dúvidas sobre {{ community.title }} | Comunidade{{ block.super }}{% endblock %}{% endblock %}
+{% block seo-og-description %}{% block seo-description %}Comunidade destinada a discutir assunto de {{ community.title }}. É possível encontrar material de qualidade sobre {{ community.title }} (textos, slides, vídeos) e ainda ser um colaborador. Entre e participe!{% endblock %}{% endblock %}
+{% block seo-og-image %}{% thumbor_url commmunity.get_picture.url width=82 height=82 smart=False fit_in=False %}{% endblock %}
 
 {% block content %}
     <main class="container main">
