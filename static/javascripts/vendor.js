@@ -1,4 +1,4 @@
-webpackJsonp([2],{0:function(e,t,n){e.exports=n(76)},76:function(e,t,n){"use strict";n(77),n(78),n(81),n(82),n(83),PR.prettyPrint()},77:function(e,t){/**
+webpackJsonp([2],{0:function(e,t,n){e.exports=n(76)},76:function(e,t,n){(function(e){"use strict";n(77),n(78),n(81),n(82),n(83),n(45),PR.prettyPrint(),e('[data-target="container-editor"]').refreshEditors()}).call(t,n(2))},77:function(e,t){/**
 	 * @license
 	 * Copyright (C) 2006 Google Inc.
 	 *
