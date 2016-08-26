@@ -240,8 +240,9 @@
         });
     };
         var commentDropDown = function(event){
-        event.stopPropagation();
-    };
+          event.stopPropagation();
+        };
+        
         $(function(){
             var xhr_contents = $("div[data-xhr]");
             xhr_contents.renderList();
@@ -249,7 +250,6 @@
             var $forms = $("form[data-ajaxform=\"true\"]");
             $forms.on("ajaxform.success", form_submit);
             $forms.refreshEditors();
-
 
             $("#confirmation-form").on("ajaxform.success", functionAjaxSuccessDeleteItem);
             $(document).on("click", "[data-delete-item=true]", functionOpenModalToDelete);

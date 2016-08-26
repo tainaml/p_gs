@@ -48,7 +48,7 @@
                 <p>{{instance.description|safe}}</p>
             </div>
         </div>
-        <footer class="post-footer col-lg-12">
+        <footer class="post-footer clearfix">
             <div class="post-toolbar pull-right">
                 <div class="post-count">
                     {% like_box instance request.path "inline" %}
@@ -56,24 +56,21 @@
                 <div class="post-count-comments">
                     {% if instance.question.author == request.user %}
                     <a href="{% url 'question:correct-answer' instance.id %}">
-                        {% if instance.question.correct_answer == instance %}
-                            <span class="label label-primary">Melhor resposta</span>
-                        {% else %}
-                            <span class="label label-link">Melhor resposta</span>
-                        {% endif %}
+                    {% if instance.question.correct_answer == instance %}
+                      <span class="label label-primary">Melhor resposta</span>
+                    {% else %}
+                      <span class="label label-link">Melhor resposta</span>
+                    {% endif %}
                     </a>
                     {% endif %}
-                {% with instance_id=instance.id|stringformat:"s" %}
-                    {% with to_update="#answer-comments-"|add:instance_id %}
-                        {% comment_box_inner instance to_update %}
-                    {% endwith %}
-                {% endwith %}
-
-
-
                 </div>
             </div>
         </footer>
+        {% with instance_id=instance.id|stringformat:"s" %}
+        {% with to_update="#answer-comments-"|add:instance_id %}
+        {% comment_box_inner instance to_update %}
+        {% endwith %}
+        {% endwith %}
         <aside id="answer-comments-{{ instance.id }}" class="comments-container-child comments-children no-children">
             {% comment_list instance %}
         </aside>
