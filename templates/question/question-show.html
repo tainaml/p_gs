@@ -157,6 +157,7 @@
                 $div_to_update.append(data.template);
                 $form[0].reset();
             }else if (action=="prepend"){
+
                 $div_to_update.prepend(data.template);
                 var $form_to_hide = $form.parent(".dropdown-content");
                 if ($form_to_hide){
@@ -168,6 +169,7 @@
             }
             var $subforms = $div_to_update.find("form[data-ajaxform=\"true\"]");
             $subforms.IdeiaAjaxForm();
+
             $subforms.on("ajaxform.success", form_submit);
             $div_to_update.refreshEditors();
             var $data_list = $div_to_update.find("div[data-xhr]");
@@ -211,7 +213,7 @@
                             callback: function(data){
                                 var $div_jscroll = $(".jscroll-added");
                                 var $jscroll_subforms = $div_jscroll.find("form[data-ajaxform=\"true\"]");
-                                $jscroll_subforms.IdeiaAjaxForm();
+{#                                $jscroll_subforms.IdeiaAjaxForm();#}
                                 $jscroll_subforms.on("ajaxform.success", form_submit);
                                 $jscroll_subforms.refreshEditors();
                                 $div_jscroll.removeClass("jscroll-added");

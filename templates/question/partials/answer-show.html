@@ -43,6 +43,7 @@
                 {% if instance.question.correct_answer == instance %}
                     <span class="label label-primary"><i class="gsticon gsticon-trophy"></i> Melhor resposta</span>
                 {% endif %}
+
             </header>
             <div class="comment-text">
                 <p>{{instance.description|safe}}</p>
@@ -53,6 +54,7 @@
                 <div class="post-count">
                     {% like_box instance request.path "inline" %}
                 </div>
+
                 <div class="post-count-comments">
                     {% if instance.question.author == request.user %}
                     <a href="{% url 'question:correct-answer' instance.id %}">
@@ -63,14 +65,20 @@
                     {% endif %}
                     </a>
                     {% endif %}
+                 <a class="post-count-comments" data-object-id="{{ instance.id }}" data-toggle="dropdown" data-target="#data-answer-{{ instance.id }}" href="javascript:;" data-token="{{ csrf_token }}">Comentar</a>
                 </div>
+
             </div>
         </footer>
-        {% with instance_id=instance.id|stringformat:"s" %}
-        {% with to_update="#answer-comments-"|add:instance_id %}
-        {% comment_box_inner instance to_update %}
-        {% endwith %}
-        {% endwith %}
+
+        <div id="data-answer-{{ instance.id }}" class="dropdown-content comment-dropdown">
+            {% with instance_id=instance.id|stringformat:"s" %}
+                {% with to_update="#list-answer-"|add:instance_id %}
+                    {% comment_box_inner instance to_update %}
+                {% endwith %}
+            {% endwith %}
+        </div>
+
         <aside id="answer-comments-{{ instance.id }}" class="comments-container-child comments-children no-children">
             {% comment_list instance %}
         </aside>
