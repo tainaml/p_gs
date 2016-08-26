@@ -1,6 +1,7 @@
 {% load social_tags %}
 {% load thumbor_tags %}
 {% load avatar_tags %}
+{% load comment_tags %}
 
 <div id="answer-{{ instance.id }}">
     <div class="comment">
@@ -53,8 +54,6 @@
                     {% like_box instance request.path "inline" %}
                 </div>
                 <div class="post-count-comments">
-                    <a data-url-login="{% url 'account:is_logged' %}" data-trigger="login" data-token="{{ csrf_token }}" data-object-id="{{ instance.id }}" data-toggle="dropdown" data-target="#data-answer-{{ instance.id }}" href="javascript:;">Comentar</a>
-
                     {% if instance.question.author == request.user %}
                     <a href="{% url 'question:correct-answer' instance.id %}">
                         {% if instance.question.correct_answer == instance %}
@@ -64,26 +63,19 @@
                         {% endif %}
                     </a>
                     {% endif %}
+                {% with instance_id=instance.id|stringformat:"s" %}
+                    {% with to_update="#answer-comments-"|add:instance_id %}
+                        {% comment_box_inner instance to_update %}
+                    {% endwith %}
+                {% endwith %}
+
+
+
                 </div>
             </div>
         </footer>
-        <aside class="comments-container-child comments-children no-children">
-
-            {% with answer_id=instance.id|stringformat:"s" %}
-
-                {% if instance.author == request.user %}
-                    <div data-list id="comment-edit-{{ instance.id }}" class="dropdown-content">
-                        {% include 'comment/edit-answer.html' with content_object=instance to_update="answer-"|add:answer_id content_type='comment'  %}
-                    </div>
-                {% endif %}
-
-                <div id="data-answer-{{ instance.id }}" class="dropdown-content">
-                    {% include 'question/partials/create-answer-comment.html' with content_object=instance to_update="data-list-"|add:answer_id content_type='answer' %}
-                </div>
-
-            {% endwith %}
-
-            <div id="data-list-{{ instance.id }}"  data-xhr data-xhr-url="{% url "comment:list-answer" %}?content_type=answer&content_id={{ instance.id }}"></div>
+        <aside id="answer-comments-{{ instance.id }}" class="comments-container-child comments-children no-children">
+            {% comment_list instance %}
         </aside>
     </div>
 </div>

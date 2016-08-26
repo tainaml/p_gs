@@ -267,7 +267,7 @@
                                 var $jscroll_subforms = $div_jscroll.find("form[data-ajaxform=\"true\"]");
                                 $jscroll_subforms.IdeiaAjaxForm();
                                 $jscroll_subforms.on("ajaxform.success", form_submit);
-
+                                $jscroll_subforms.refreshEditors();
                                 $div_jscroll.removeClass("jscroll-added");
                             }
                         });

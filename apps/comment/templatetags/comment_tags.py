@@ -13,9 +13,22 @@ def comment_box(context, content_object, **kwargs):
     content_type = ContentType.objects.get_for_model(content_object)
 
     return {
-        'form': form    ,
+        'form': form,
         'content_object': content_object,
         'content_type': content_type
+    }
+
+@register.inclusion_tag('comment/create-comment.html', takes_context=True)
+def comment_box_inner(context, content_object, to_update, **kwargs):
+    request = context['request']
+    form = CreateCommentForm(user=request.user)
+    content_type = ContentType.objects.get_for_model(content_object)
+
+    return {
+        'form': form    ,
+        'content_object': content_object,
+        'content_type': content_type,
+        'to_update': to_update
     }
 
 @register.inclusion_tag('comment/list-container.html', takes_context=True)

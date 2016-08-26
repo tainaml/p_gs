@@ -108,8 +108,6 @@
 
 {% endblock %}
 
-
-
 {% block javascripts %}
     <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-55e70ed11db7fa4e" async></script>
     <script src="{% static 'javascripts/vendor.js'%}"></script>
@@ -171,7 +169,7 @@
             var $subforms = $div_to_update.find("form[data-ajaxform=\"true\"]");
             $subforms.IdeiaAjaxForm();
             $subforms.on("ajaxform.success", form_submit);
-
+            $div_to_update.refreshEditors();
             var $data_list = $div_to_update.find("div[data-xhr]");
             $data_list.renderList();
             refreshAsyncLike();
@@ -180,27 +178,28 @@
 
         $.fn.renderList = function(){
 
-            return $.each(this, function(){
+        return $.each(this, function(){
 
-                var $self = $(this);
-                var url = $self.data('xhr-url');
+            var $self = $(this);
+            var url = $self.data('xhr-url');
+            var $childs;
 
-                var $childs;
+            var request = $.ajax({
+                url: url,
+                success: function(data){
 
-                var request = $.ajax({
-                    url: url,
-                    success: function(data){
+                    if(data.template){
+                        var $element = $(data.template);
 
-                        var $element = $(data);
-                        $element.appendTo($self);
-
+                        $self.append($element);
                         var regex = /^data-list-([0-9]+)$/;
                         if (regex.test($self.attr('id'))) {
                             var $parentSelf = $self.parent('.comments-children');
-                            if ($self.children().length > 0)
-                                $parentSelf.removeClass('no-children');
-                            else
-                                $parentSelf.addClass('no-children');
+                            if ($self.children().length > 0) {
+                              $parentSelf.removeClass('no-children');
+                            } else {
+                              $parentSelf.addClass('no-children');
+                            }
                         }
 
                         $childs = $element.find('div[data-xhr-url]');
@@ -214,31 +213,38 @@
                                 var $jscroll_subforms = $div_jscroll.find("form[data-ajaxform=\"true\"]");
                                 $jscroll_subforms.IdeiaAjaxForm();
                                 $jscroll_subforms.on("ajaxform.success", form_submit);
+                                $jscroll_subforms.refreshEditors();
                                 $div_jscroll.removeClass("jscroll-added");
                             }
                         });
+
                         var $subforms = $element.find("form[data-ajaxform=\"true\"]");
-                        $subforms.IdeiaAjaxForm();
                         $subforms.on("ajaxform.success", form_submit);
+                        $subforms.IdeiaAjaxForm();
+                        $subforms.refreshEditors();
 
                         var async_like = $self.find('[data-async-like]');
                         async_like.IdeiaAsyncLike();
                         async_like.removeData("async-like");
-                    },
-                    complete: function(){
-                        if($childs.length){
-                            $childs.renderList();
-                        }
                     }
-                });
 
-                refreshAsyncLike();
+                },
+                complete: function(){
+                    if($childs && $childs.length){
+                        $childs.renderList();
+                    }
+                }
             });
-        };
 
+            refreshAsyncLike();
+        });
+    };
+        var commentDropDown = function(event){
+        event.stopPropagation();
+    };
         $(function(){
             var xhr_contents = $("div[data-xhr]");
-{#            xhr_contents.renderList();#}
+            xhr_contents.renderList();
 
             var $forms = $("form[data-ajaxform=\"true\"]");
             $forms.on("ajaxform.success", form_submit);
@@ -247,6 +253,7 @@
 
             $("#confirmation-form").on("ajaxform.success", functionAjaxSuccessDeleteItem);
             $(document).on("click", "[data-delete-item=true]", functionOpenModalToDelete);
+            $(document).on("click", ".comment-dropdown", commentDropDown);
 
         });
 </script>

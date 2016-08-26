@@ -78,7 +78,6 @@ class FormBaseListView(FormBaseView):
 
     # @Override
     def after_process(self, request=None, *args, **kwargs):
-        print "desgraca"
         self.context.update({'instance_list': self.process_return})
         self.context.update({'form': self.form})
         cleaned_data = self.form.cleaned_data if hasattr(self.form, "cleaned_data") else {'page': 1}
