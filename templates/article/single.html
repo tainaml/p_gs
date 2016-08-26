@@ -125,6 +125,10 @@
                 {% csrf_token %}
             </div>
             {% endif %}
+
+            <header class="area-title">
+            <h2>Comentários</h2>
+            </header>
             {% comment_box article %}
         </div>
         {% include "article/partials/article-sidebar-right.html" %}

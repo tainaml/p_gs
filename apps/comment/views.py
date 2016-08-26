@@ -73,8 +73,7 @@ class CommentDeleteView(View):
     @method_decorator(login_required)
     def post(self, request):
 
-        form = CommentDeleteForm({'comment': request.POST.get('item-id')})
-        form.set_author(request.user)
+        form = CommentDeleteForm(author=request.user, data={'comment': request.POST.get('item-id')})
         if form.process():
             response_data = {'status': 'ok'}
             return JsonResponse(response_data, status=200)
