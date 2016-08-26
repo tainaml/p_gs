@@ -1,6 +1,8 @@
 {% load thumbor_tags %}
 {% load avatar_tags %}
 
+{% firstof notification.target.getabsoluteurl 'javascript:;' as notification_url %}
+
 <div id="notification-general-{{ notification.id }}" class="post {% if not notification.read %}not-visualized{% endif %}"
      data-notification-item="{{ notification.id }}"
      data-trigger="notification-as-read"
@@ -14,7 +16,7 @@
                 <i class="gsticon gsticon-clock-o hidden-lg"></i>
             </time></div>
         <div class="post-creator">
-            Você recebeu uma <a href="javascript:;">mensagem</a> do <a href="javascript:;">Portal GSTI</a> com titulo de <a href="javascript:;">{{ notification.target.title }}</a>
+            Você recebeu uma <a href="{{ notification_url }}">mensagem</a> do <a href="{{ notification_url }}">Portal GSTI</a> com titulo de <a href="{{ notification_url }}">{{ notification.target.title }}</a>
         </div>
     </header>
 </div>
