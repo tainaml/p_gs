@@ -779,6 +779,7 @@ SUMMERNOTE_CONFIG = {
         'comment': {
             'airMode': False,
             'minHeight': 100,
+            'lang': 'pt-BR',
             'toolbar': [
                 ['style', ['bold', 'italic', 'underline']],
                 ['font', ['strikethrough']],
@@ -797,6 +798,7 @@ SUMMERNOTE_CONFIG = {
         },'reply': {
             'airMode': False,
             'minHeight': 100,
+            'lang': 'pt-BR',
             'toolbar': [
                 ['style', ['bold', 'italic', 'underline']],
                 ['font', ['strikethrough']],
