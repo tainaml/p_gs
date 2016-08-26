@@ -758,7 +758,7 @@ SUMMERNOTE_CONFIG = {
                 'spinner': '<div class=\"text-center\"><img src=\"/static/images/preload.gif\" /></div>',
 
             },
-            'styleTags':  ['blockquote', 'pre', 'h2', 'h3', 'h4'],
+            'styleTags':  ['p', 'blockquote', 'pre', 'h2', 'h3', 'h4'],
             'toolbar': [
                 ['style', ['style']],
                 ['hr', ['hr']],
