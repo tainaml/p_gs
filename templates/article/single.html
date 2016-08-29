@@ -192,6 +192,8 @@
 
     function setData($form, data, $divToUpdate){
 
+
+        console.log("HEehheh");
         var action = $form.data("toggle");
         if (action=="append"){
             $divToUpdate.append(data.template);
@@ -237,63 +239,70 @@
 
         return $.each(this, function(){
 
+
             var $self = $(this);
-            var url = $self.data('xhr-url');
-            var $childs;
 
-            var request = $.ajax({
-                url: url,
-                success: function(data){
+            if(!$self.data("rendered")){
 
-                    if(data.template){
-                        var $element = $(data.template);
+               $self.data("rendered", "rendered");
+               var url = $self.data('xhr-url');
+                var $childs;
 
-                        $self.append($element);
-                        var regex = /^data-list-([0-9]+)$/;
-                        if (regex.test($self.attr('id'))) {
-                            var $parentSelf = $self.parent('.comments-children');
-                            if ($self.children().length > 0) {
-                              $parentSelf.removeClass('no-children');
-                            } else {
-                              $parentSelf.addClass('no-children');
+                var request = $.ajax({
+                    url: url,
+                    success: function(data){
+
+                        if(data.template){
+                            var $element = $(data.template);
+
+                            $self.append($element);
+                            var regex = /^data-list-([0-9]+)$/;
+                            if (regex.test($self.attr('id'))) {
+                                var $parentSelf = $self.parent('.comments-children');
+                                if ($self.children().length > 0) {
+                                  $parentSelf.removeClass('no-children');
+                                } else {
+                                  $parentSelf.addClass('no-children');
+                                }
                             }
+
+                            $childs = $element.find('div[data-xhr-url]');
+                            $self.jscroll({
+                                loadingHtml: '<div class="load-async-preload"></div>',
+                                contentSelect: "#" + $self.attr("id"),
+                                nextSelector: "a[data-jscroll-next]",
+                                autoTrigger: false,
+                                callback: function(data){
+                                    var $div_jscroll = $(".jscroll-added");
+                                    var $jscroll_subforms = $div_jscroll.find("form[data-ajaxform=\"true\"]");
+                                    $jscroll_subforms.IdeiaAjaxForm();
+                                    $jscroll_subforms.on("ajaxform.success", form_submit);
+                                    $jscroll_subforms.refreshEditors();
+                                    $div_jscroll.removeClass("jscroll-added");
+                                }
+                            });
+
+                            var $subforms = $element.find("form[data-ajaxform=\"true\"]");
+                            $subforms.on("ajaxform.success", form_submit);
+                            $subforms.IdeiaAjaxForm();
+                            $subforms.refreshEditors();
+
+                            var async_like = $self.find('[data-async-like]');
+                            async_like.IdeiaAsyncLike();
+                            async_like.removeData("async-like");
                         }
 
-                        $childs = $element.find('div[data-xhr-url]');
-                        $self.jscroll({
-                            loadingHtml: '<div class="load-async-preload"></div>',
-                            contentSelect: "#" + $self.attr("id"),
-                            nextSelector: "a[data-jscroll-next]",
-                            autoTrigger: false,
-                            callback: function(data){
-                                var $div_jscroll = $(".jscroll-added");
-                                var $jscroll_subforms = $div_jscroll.find("form[data-ajaxform=\"true\"]");
-                                $jscroll_subforms.IdeiaAjaxForm();
-                                $jscroll_subforms.on("ajaxform.success", form_submit);
-                                $jscroll_subforms.refreshEditors();
-                                $div_jscroll.removeClass("jscroll-added");
-                            }
-                        });
-
-                        var $subforms = $element.find("form[data-ajaxform=\"true\"]");
-                        $subforms.on("ajaxform.success", form_submit);
-                        $subforms.IdeiaAjaxForm();
-                        $subforms.refreshEditors();
-
-                        var async_like = $self.find('[data-async-like]');
-                        async_like.IdeiaAsyncLike();
-                        async_like.removeData("async-like");
+                    },
+                    complete: function(){
+                        if($childs && $childs.length){
+                            $childs.renderList();
+                        }
                     }
+                });
 
-                },
-                complete: function(){
-                    if($childs && $childs.length){
-                        $childs.renderList();
-                    }
-                }
-            });
+                refreshAsyncLike();
+            }
 
-            refreshAsyncLike();
         });
     };
 
