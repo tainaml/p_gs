@@ -18,18 +18,18 @@
 
             <div class="col-lg-9 result-wrapper">
 
-                {% if articles.object_list %}
-                    <div class="result-container">
-                        <header class="area-title">
-                            <h2>Publicações</h2>
-                        </header>
+                <div class="result-container">
+                    <header class="area-title">
+                        <h2>Publicações</h2>
+                    </header>
+                    {% if articles.object_list %}
                         <div class="area-content">
                             <div class="row j-scroll-articles j-scroll-container-articles">
                                 {% include "search/partials/search-articles.html" %}
                             </div>
                         </div>
-                    </div>
-                {% endif %}
+                    {% endif %}
+                </div>
 
                 {% if communities.object_list %}
                     <div class="result-container">
@@ -79,35 +79,35 @@
                         <div class="area-content">
                             {% block filter_users %}
                                 {% if content_type == 'users' %}
-                                <div id="filters-members" class="form-search" data-toggle="filters">
-                                    <form class="row" id="form-search-followers"  name="filterMember" action="{% url 'search:list' 'users' %}?next={{ request.path }}" method="GET" role="search" data-type="html" data-ajaxform="true" data-group-class=".form-group">
-                                        <div class="col-lg-7 col-xs-12">
-                                            <div class="form-search-input">
-                                                <input type="text" id="filterName" value="{{ request.GET.q }}" name="q" placeholder="{{ placehold|default:"Procure por pessoas" }}" autocomplete="off">
+                                    <div id="filters-members" class="form-search" data-toggle="filters">
+                                        <form class="row" id="form-search-followers"  name="filterMember" action="{% url 'search:list' 'users' %}?next={{ request.path }}" method="GET" role="search" data-type="html" data-ajaxform="true" data-group-class=".form-group">
+                                            <div class="col-lg-7 col-xs-12">
+                                                <div class="form-search-input">
+                                                    <input type="text" id="filterName" value="{{ request.GET.q }}" name="q" placeholder="{{ placehold|default:"Procure por pessoas" }}" autocomplete="off">
+                                                </div>
+                                                <button type="submit" class="form-search-button">
+                                                    <i class="gsticon gsticon-search"></i>
+                                                </button>
                                             </div>
-                                            <button type="submit" class="form-search-button">
-                                                <i class="gsticon gsticon-search"></i>
-                                            </button>
-                                        </div>
-                                        <div class="col-lg-2 col-xs-12 text-right">
-                                            <div class="custom-select">
-                                                <select class="form-control" id="filterState" name="state" data-ajax-change="true" data-url="{% url 'profile:get_city' %}" data-target="#filterCity">
-                                                    <option value="" selected>Estado</option>
-                                                    {% for state in states %}
-                                                        <option value="{{ state.id }}">{{ state.name }}</option>
-                                                    {% endfor %}
-                                                </select>
+                                            <div class="col-lg-2 col-xs-12 text-right">
+                                                <div class="custom-select">
+                                                    <select class="form-control" id="filterState" name="state" data-ajax-change="true" data-url="{% url 'profile:get_city' %}" data-target="#filterCity">
+                                                        <option value="" selected>Estado</option>
+                                                        {% for state in states %}
+                                                            <option value="{{ state.id }}">{{ state.name }}</option>
+                                                        {% endfor %}
+                                                    </select>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="col-lg-3 col-xs-12 text-right">
-                                            <div class="custom-select">
-                                                <select class="form-control" id="filterCity" name="city">
-                                                    <option value="">Cidade</option>
-                                                </select>
+                                            <div class="col-lg-3 col-xs-12 text-right">
+                                                <div class="custom-select">
+                                                    <select class="form-control" id="filterCity" name="city">
+                                                        <option value="">Cidade</option>
+                                                    </select>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </form>
-                                </div>
+                                        </form>
+                                    </div>
                                 {% endif %}
                             {% endblock filter_users %}
                             <div class="row j-scroll-users j-scroll-container-users" id="followers-container">
