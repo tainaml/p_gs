@@ -1,11 +1,21 @@
+{% firstof url request.build_absolute_uri as the_url %}
 <div class="social-share clearfix">
 
     {% if show_all or show_facebook %}
 
         {# Facebook: https://developers.facebook.com/docs/plugins/like-button #}
         <div class="share-item share-item-facebook">
-            <iframe src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&width=173&layout=button_count&action=like&size=small&show_faces=false&share=true&height=46&appId=1716855088541343" width="173" height="20" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"></iframe>
+            <div class="fb-like" data-href="{{ the_url }}" data-layout="button_count" data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>
         </div>
+
+        <script>(function(d, s, id) {
+          var js, fjs = d.getElementsByTagName(s)[0];
+          if (d.getElementById(id)) return;
+          js = d.createElement(s); js.id = id;
+          js.src = "//connect.facebook.net/pt_BR/sdk.js#xfbml=1&version=v2.7&appId=1716855088541343";
+          fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));</script>
+
         {# EndFacebook #}
 
         {# Linkedin: https://developer.linkedin.com/plugins/share#! #}
