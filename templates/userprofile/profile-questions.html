@@ -18,7 +18,7 @@
                             <nav id="form-search" class="form-search filters-members" data-toggle="filters">
                             <form action="{% url 'profile:my-questions' %}" method="GET" role="search">
                                 <div class="form-search-input">
-                                    <input type="text" name="criterio" placeholder="{{placehold|default:"Procure pessoas, comunidades, etc."}}">
+                                    <input type="text" value="{{ request.GET.criterio }}" name="criterio" placeholder="{{placehold|default:"Procure pessoas, comunidades, etc."}}">
                                 </div>
                                 <button type="submit" class="form-search-button">
                                     <i class="gsticon gsticon-search"></i>
