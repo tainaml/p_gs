@@ -735,9 +735,10 @@ SUMMERNOTE_CONFIG = {
             'styleTags':  ['p', 'blockquote', 'pre', 'h2', 'h3', 'h4'],
             'toolbar': [
                 ['style', ['style']],
+                ['font', ['strikethrough']],
                 ['hr', ['hr']],
                 ['link', ['link']],
-                ['style', ['bold', 'italic', 'underline']],
+                ['style', ['bold', 'italic', 'clear']],
                 ['table', ['table']],
                 ['para', ['ul', 'ol']],
                 ['picture', ['picture', 'oembed', 'prettyprint']]
@@ -754,7 +755,47 @@ SUMMERNOTE_CONFIG = {
               ],
               'air': [
                 ['color', ['color']],
-                ['font', ['bold', 'underline', 'clear']],
+                ['font', ['bold', 'clear']],
+                ['para', ['ul', 'paragraph']],
+                ['table', ['table']],
+                ['insert', ['link', 'picture']]
+              ]
+            }
+
+        },
+        'community': {
+            'airMode': False,
+            'lang': 'pt-BR',
+            'minHeight': 340,
+            'oEmbed': {
+                'service': '/oembed/',
+                'spinner': '<div class=\"text-center\"><img src=\"/static/images/preload.gif\" /></div>',
+
+            },
+            'styleTags':  ['p', 'blockquote', 'pre', 'h2', 'h3', 'h4'],
+            'toolbar': [
+                ['style', ['style']],
+                ['font', ['strikethrough']],
+                ['hr', ['hr']],
+                ['link', ['link']],
+                ['style', ['bold', 'italic', 'clear']],
+                ['table', ['table']],
+                ['para', ['ul', 'ol']],
+                ['picture', ['picture', 'oembed', 'prettyprint']]
+
+            ],
+            'popover': {
+              'image': [
+                ['imagesize', ['imageSize100', 'imageSize50', 'imageSize25']],
+                ['float', ['floatLeft', 'floatRight', 'floatNone']],
+                ['remove', ['removeMedia']]
+              ],
+              'link': [
+                ['link', ['linkDialogShow', 'unlink']]
+              ],
+              'air': [
+                ['color', ['color']],
+                ['font', ['bold', 'clear']],
                 ['para', ['ul', 'paragraph']],
                 ['table', ['table']],
                 ['insert', ['link', 'picture']]
@@ -776,7 +817,7 @@ SUMMERNOTE_CONFIG = {
                 ['style', ['style']],
                 ['hr', ['hr']],
                 ['link', ['link']],
-                ['style', ['bold', 'italic', 'underline', 'clear']],
+                ['style', ['bold', 'italic']],
                 ['font', ['strikethrough']],
                 ['table', ['table']],
                 ['para', ['ul', 'ol', 'paragraph']],
@@ -794,7 +835,8 @@ SUMMERNOTE_CONFIG = {
             'minHeight': 100,
             'lang': 'pt-BR',
             'toolbar': [
-                ['style', ['bold', 'italic', 'underline']],
+                ['style', ['bold', 'italic']],
+                ['font', ['strikethrough']],
                 ['prettyprint', ['prettyprint']],
                 ['pre', ['pre']]
             ],
