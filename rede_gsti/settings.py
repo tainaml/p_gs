@@ -725,7 +725,7 @@ SUMMERNOTE_CONFIG = {
         'article': {
             'airMode': False,
             'lang': 'pt-BR',
-            'minHeight': 350,
+            'minHeight': 340,
             'oEmbed': {
                 'service': '/oembed/',
                 'spinner': '<div class=\"text-center\"><img src=\"/static/images/preload.gif\" /></div>',
