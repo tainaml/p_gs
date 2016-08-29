@@ -1,275 +1,288 @@
 {% load staticfiles %}{% load core_tags %}{% load user_agents %}{% load var_tags %}{% load wizard_tags %}{% load thumbor_tags %}{% load avatar_tags %}
 <!DOCTYPE html>
 <html lang="pt-br">
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-        <meta name="apple-mobile-web-app-capable" content="yes">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
 
-        <title>{% block title %}Portal GSTI - Home {% endblock %}</title>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700">
-        <link rel="stylesheet" href="{% static 'stylesheets/style.css' %}">
-
-        <link rel="apple-touch-icon-precomposed" sizes="57x57" href="{% static 'images/apple-touch-icon-57x57.png' %}" />
-        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{% static 'images/apple-touch-icon-114x114.png' %}" />
-        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{% static 'images/apple-touch-icon-72x72.png' %}" />
-        <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{% static 'images/apple-touch-icon-144x144.png' %}" />
-        <link rel="apple-touch-icon-precomposed" sizes="60x60" href="{% static 'images/apple-touch-icon-60x60.png' %}" />
-        <link rel="apple-touch-icon-precomposed" sizes="120x120" href="{% static 'images/apple-touch-icon-120x120.png' %}" />
-        <link rel="apple-touch-icon-precomposed" sizes="76x76" href="{% static 'images/apple-touch-icon-76x76.png' %}" />
-        <link rel="apple-touch-icon-precomposed" sizes="152x152" href="{% static 'images/apple-touch-icon-152x152.png' %}" />
-        <link rel="icon" type="image/png" href="{% static 'images/favicon-196x196.png' %}" sizes="196x196" />
-        <link rel="icon" type="image/png" href="{% static 'images/favicon-96x96.png' %}" sizes="96x96" />
-        <link rel="icon" type="image/png" href="{% static 'images/favicon-32x32.png' %}" sizes="32x32" />
-        <link rel="icon" type="image/png" href="{% static 'images/favicon-16x16.png' %}" sizes="16x16" />
-        <link rel="icon" type="image/png" href="{% static 'images/favicon-128.png' %}" sizes="128x128" />
-        <meta name="application-name" content="&nbsp;"/>
-        <meta name="msapplication-TileColor" content="#FFFFFF" />
-        <meta name="msapplication-TileImage" content="{% static 'images/mstile-144x144.png' %}" />
-        <meta name="msapplication-square70x70logo" content="{% static 'images/mstile-70x70.png' %}" />
-        <meta name="msapplication-square150x150logo" content="{% static 'images/mstile-150x150.png' %}" />
-        <meta name="msapplication-wide310x150logo" content="{% static 'images/mstile-310x150.png' %}" />
-        <meta name="msapplication-square310x310logo" content="{% static 'images/mstile-310x310.png' %}" />
-
-
-        <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
-        {% block extra_meta %}
+    {% block seo-metas %}
+        <title>{% block seo_title %}{% block title %}{% endblock %}{% block title-end %} - Portal GSTI{% endblock %}{% endblock %}</title>
+        <meta property="og:description" content="{% block seo-description %}O seu portal definitivo de TI. Conteúdo, área para tirar dúvidas, informações sobre vagas de trabalho, concursos e certificações. Conheça nossas comunidades!{% endblock %}">
+        <meta property="og:title" content="{% block seo-og-title %}{{ title }}{{ ends }}{% endblock %}">
+        <meta property="og:description" content="{% block seo-og-description %}O seu portal definitivo de TI. Conteúdo, área para tirar dúvidas, informações sobre vagas de trabalho, concursos e certificações. Conheça nossas comunidades!{% endblock %}">
+        <meta property="og:url" content="{% block seo-og-url %}{{ request.build_absolute_uri }}{% endblock %}">
+        <meta property="og:site_name" content="{% block seo-og-site_name %}Portal GSTI{% endblock %}">
+        <meta property="og:image" content="{% block seo-og-image %}{% static "images/gsti-default-og-image.png" %}{% endblock %}" />
+        <meta property="og:type" content="{% block seo-og-type %}website{% endblock %}">
+        <link rel="canonical" href="{% block seo-canonical %}{{ request.build_absolute_uri }}{% endblock %}"/>
+        {% block seo-metas-extra %}
         {% endblock %}
-    </head>
-    <body>
-        <div class="slideout-menu" id="slideout-menu">
-            {% include 'home/partials/slideout-menu.html' %}
-        </div>
-        <div class="slideout-panel" id="wrapper">
-            <header class="header">
-                <div class="container">
-                    <div class="menu-mobile hidden-lg">
-                        <div class="mobile-search" id="mobile-search" style="display: none;">
-                            {% include 'home/partials/search-header.html' with placehold="Procurar" %}
-                            <a href="javascript:;" class="btn-hide-item toggle-search">
-                                <i class="gsticon gsticon-close"></i>
-                            </a>
-                        </div>
-                        <div class="row">
-                            <a class="btn-show-item toggle-slideout" data-item="#slideout-menu" href="javascript:;" {% if request.user.is_authenticated %}data-notification-group-badge{% endif %}>
-                                {% if request.user.is_authenticated %}
-                                <figure>
-                                  <img src="{% get_avatar request.user width=40 height=40 smart=False fit_in=False %}" alt="{{ profile.user.get_full_name }}" class="img-circle">
-                                </figure>
-                                {% else %}
-                                <i class="gsticon gsticon-sign-in"></i>
-                                {% endif %}
-                            </a>
-                            <h1 class="gsti">
-                                <a class="gsti-link" href="{% url 'index' %}">Portal GSTI</a>
-                            </h1>
-                            <a class="btn-show-item toggle-search" data-item="#mobile-search" href="#">
-                                <i class="gsticon gsticon-search"></i>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="row menu-desktop visible-lg-block">
-                        <h1 class="gsti">
-                            <a href="{% url 'index' %}" class="gsti-link">Portal GSTI</a>
-                        </h1>
-                        <div class="search-header-container{% if request.user.is_authenticated %}--logged{% endif %}">
-                            {% include 'home/partials/search-header.html' %}
-                        </div>
-                        {% include 'home/partials/user-actions.html' %}
-                    </div>
+    {% endblock %}
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700">
+    <link rel="stylesheet" href="{% static 'stylesheets/style.css' %}">
+
+    <link rel="apple-touch-icon-precomposed" sizes="57x57" href="{% static 'images/apple-touch-icon-57x57.png' %}" />
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{% static 'images/apple-touch-icon-114x114.png' %}" />
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{% static 'images/apple-touch-icon-72x72.png' %}" />
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{% static 'images/apple-touch-icon-144x144.png' %}" />
+    <link rel="apple-touch-icon-precomposed" sizes="60x60" href="{% static 'images/apple-touch-icon-60x60.png' %}" />
+    <link rel="apple-touch-icon-precomposed" sizes="120x120" href="{% static 'images/apple-touch-icon-120x120.png' %}" />
+    <link rel="apple-touch-icon-precomposed" sizes="76x76" href="{% static 'images/apple-touch-icon-76x76.png' %}" />
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="{% static 'images/apple-touch-icon-152x152.png' %}" />
+    <link rel="icon" type="image/png" href="{% static 'images/favicon-196x196.png' %}" sizes="196x196" />
+    <link rel="icon" type="image/png" href="{% static 'images/favicon-96x96.png' %}" sizes="96x96" />
+    <link rel="icon" type="image/png" href="{% static 'images/favicon-32x32.png' %}" sizes="32x32" />
+    <link rel="icon" type="image/png" href="{% static 'images/favicon-16x16.png' %}" sizes="16x16" />
+    <link rel="icon" type="image/png" href="{% static 'images/favicon-128.png' %}" sizes="128x128" />
+    <meta name="application-name" content="&nbsp;"/>
+    <meta name="msapplication-TileColor" content="#FFFFFF" />
+    <meta name="msapplication-TileImage" content="{% static 'images/mstile-144x144.png' %}" />
+    <meta name="msapplication-square70x70logo" content="{% static 'images/mstile-70x70.png' %}" />
+    <meta name="msapplication-square150x150logo" content="{% static 'images/mstile-150x150.png' %}" />
+    <meta name="msapplication-wide310x150logo" content="{% static 'images/mstile-310x150.png' %}" />
+    <meta name="msapplication-square310x310logo" content="{% static 'images/mstile-310x310.png' %}" />
+
+
+    <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+    {% block extra_meta %}
+    {% endblock %}
+</head>
+<body>
+<div class="slideout-menu" id="slideout-menu">
+    {% include 'home/partials/slideout-menu.html' %}
+</div>
+<div class="slideout-panel" id="wrapper">
+    <header class="header">
+        <div class="container">
+            <div class="menu-mobile hidden-lg">
+                <div class="mobile-search" id="mobile-search" style="display: none;">
+                    {% include 'home/partials/search-header.html' with placehold="Procurar" %}
+                    <a href="javascript:;" class="btn-hide-item toggle-search">
+                        <i class="gsticon gsticon-close"></i>
+                    </a>
                 </div>
-            </header>
-            {% include "home/partials/menu-geral.html" with menu_context=category_slug|default:'' class_name=class_name %}
-            {% block content %}{% endblock %}
-            {% footer %}
+                <div class="row">
+                    <a class="btn-show-item toggle-slideout" data-item="#slideout-menu" href="javascript:;" {% if request.user.is_authenticated %}data-notification-group-badge{% endif %}>
+                        {% if request.user.is_authenticated %}
+                            <figure>
+                                <img src="{% get_avatar request.user width=40 height=40 smart=False fit_in=False %}" alt="{{ profile.user.get_full_name }}" class="img-circle">
+                            </figure>
+                        {% else %}
+                            <i class="gsticon gsticon-sign-in"></i>
+                        {% endif %}
+                    </a>
+                    <h1 class="gsti">
+                        <a class="gsti-link" href="{% url 'index' %}">Portal GSTI</a>
+                    </h1>
+                    <a class="btn-show-item toggle-search" data-item="#mobile-search" href="#">
+                        <i class="gsticon gsticon-search"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="row menu-desktop visible-lg-block">
+                <h1 class="gsti">
+                    <a href="{% url 'index' %}" class="gsti-link">Portal GSTI</a>
+                </h1>
+                <div class="search-header-container{% if request.user.is_authenticated %}--logged{% endif %}">
+                    {% include 'home/partials/search-header.html' %}
+                </div>
+                {% include 'home/partials/user-actions.html' %}
+            </div>
         </div>
+    </header>
+    {% include "home/partials/menu-geral.html" with menu_context=category_slug|default:'' class_name=class_name %}
+    {% block content %}{% endblock %}
+    {% footer %}
+</div>
 
 
-        {% block modals %}
+{% block modals %}
 
-            {% include 'home/partials/modals/modal-login.html' %}
-            {% include 'home/partials/modals/modal-esqueci-senha.html' %}
-            {% include 'home/partials/modals/modal-resend-email-confirmation.html' %}
-            {% include 'home/partials/modals/modal-sugerir.html' %}
-            {% include 'home/partials/modals/modal-denunciar.html' %}
-            {% include 'home/partials/modals/modal-rules.html' %}
-            {% include 'home/partials/modals/modal-contato.html' %}
-            {% include 'home/partials/modals/modal-message.html' %}
-            {% include 'home/partials/modals/modal-alert-community-posts.html' %}
-            {% include 'home/partials/modals/modal-alert-community-questions.html' %}
-        {% endblock %}
+    {% include 'home/partials/modals/modal-login.html' %}
+    {% include 'home/partials/modals/modal-esqueci-senha.html' %}
+    {% include 'home/partials/modals/modal-resend-email-confirmation.html' %}
+    {% include 'home/partials/modals/modal-sugerir.html' %}
+    {% include 'home/partials/modals/modal-denunciar.html' %}
+    {% include 'home/partials/modals/modal-rules.html' %}
+    {% include 'home/partials/modals/modal-contato.html' %}
+    {% include 'home/partials/modals/modal-message.html' %}
+    {% include 'home/partials/modals/modal-alert-community-posts.html' %}
+    {% include 'home/partials/modals/modal-alert-community-questions.html' %}
+{% endblock %}
 
-        <script src="{% static 'javascripts/shared.js'%}"></script>
-        <script src="{% static 'javascripts/main.js'%}"></script>
+<script src="{% static 'javascripts/shared.js'%}"></script>
+<script src="{% static 'javascripts/main.js'%}"></script>
 
-        {% if request and request.user %}{% wizard %}{% endif %}
+{% if request and request.user %}{% wizard %}{% endif %}
 
+{% if request.user.is_anonymous %}
+    <script src="https://www.google.com/recaptcha/api.js?hl=pt-BR" async defer></script>
+{% endif %}
+
+<script type="text/javascript">
+    var functionAjaxBeforeSendLogin = function() {
+        $('#account-not-active-error').hide();
+    };
+
+    var functionAjaxSuccessLogin = function(e, data) {
+        window.location.href = data.url_next;
+    };
+
+    var functionAjaxErrorLogin = function(e, data) {
+        if (data.is_active == false) {
+            $('#account-not-active-error').show().addClass('has-error');
+        }
+    };
+
+    var functionAjaxSuccessResendConfirmation = function(e, data) {
+        $('.modal.fade.in').modal('hide');
+        var $modalMessage = $('#modal-message');
+        $modalMessage.html(data.template).modal('show');
+    };
+
+    var functionAjaxSuccessForgotPassword = function(e, data) {
+        var $modalForgotPassword = $("#modal-forgot-password");
+        var $modalForgotPasswordSuccessfully = $("#modal-forgot-password-successfully");
+        $modalForgotPasswordSuccessfully.html(data.template);
+        $modalForgotPassword.modal("hide");
+        $modalForgotPasswordSuccessfully.modal("show");
+    };
+
+    var functionAjaxSuccessTriggerContactModal = function(e, data) {
+        var $this = $(this);
+        var $modalContact = $("#modal-contact");
+
+        $modalContact.find("form[data-ajaxform=true]").IdeiaAjaxForm();
         {% if request.user.is_anonymous %}
-            <script src="https://www.google.com/recaptcha/api.js?hl=pt-BR" async defer></script>
+            grecaptcha.render('g-recaptcha', {
+                'sitekey': '6LccmgsTAAAAAGrsvn7r7aiIcnvbuIS7pyP0qv1K'
+            });
         {% endif %}
 
-        <script type="text/javascript">
-            var functionAjaxBeforeSendLogin = function() {
-                $('#account-not-active-error').hide();
-            };
 
-            var functionAjaxSuccessLogin = function(e, data) {
-                window.location.href = data.url_next;
-            };
+        if ($this.data('type') == {% contact_suggest_community_type %}) {
+            $modalContact.find('select#subject').val($this.data('type'));
+            $modalContact.find('textarea#contact_message').html($this.data('message'));
 
-            var functionAjaxErrorLogin = function(e, data) {
-                if (data.is_active == false) {
-                    $('#account-not-active-error').show().addClass('has-error');
-                }
-            };
+        }
 
-            var functionAjaxSuccessResendConfirmation = function(e, data) {
-                $('.modal.fade.in').modal('hide');
-                var $modalMessage = $('#modal-message');
-                    $modalMessage.html(data.template).modal('show');
-            };
+        $modalContact.modal("show");
 
-            var functionAjaxSuccessForgotPassword = function(e, data) {
-                var $modalForgotPassword = $("#modal-forgot-password");
-                var $modalForgotPasswordSuccessfully = $("#modal-forgot-password-successfully");
-                $modalForgotPasswordSuccessfully.html(data.template);
-                $modalForgotPassword.modal("hide");
-                $modalForgotPasswordSuccessfully.modal("show");
-            };
-
-            var functionAjaxSuccessTriggerContactModal = function(e, data) {
-                var $this = $(this);
-                var $modalContact = $("#modal-contact");
-
-                $modalContact.find("form[data-ajaxform=true]").IdeiaAjaxForm();
-                {% if request.user.is_anonymous %}
-                    grecaptcha.render('g-recaptcha', {
-                        'sitekey': '6LccmgsTAAAAAGrsvn7r7aiIcnvbuIS7pyP0qv1K'
-                    });
-                {% endif %}
-
-
-                if ($this.data('type') == {% contact_suggest_community_type %}) {
-                    $modalContact.find('select#subject').val($this.data('type'));
-                    $modalContact.find('textarea#contact_message').html($this.data('message'));
-
-                }
-
-                $modalContact.modal("show");
-
-                var functionAjaxSuccessContact = function(e, data) {
-                    var $modalContact = $("#modal-contact");
-                    var $modalContactSuccessfully = $("#modal-contact-successfully");
-                    $modalContactSuccessfully.html(data.template);
-                    $modalContact.modal("hide");
-                    $modalContactSuccessfully.modal("show");
-                    $modalContactSuccessfully.on("hidden.bs.modal", function () {
-                      $('body').css({
-                        paddingRight: ''
-                      });
-                    });
-                };
-
-                var $formContactModal = $("#form-contact-modal");
-                $formContactModal.on("ajaxform.success", functionAjaxSuccessContact);
-            };
-
-            var functionAjaxSuccessTriggerReport = function(e, data) {
-                var $modalReport = $("#modal-report");
-                $modalReport.find("form[data-ajaxform=true]").IdeiaAjaxForm();
-                $modalReport.modal("show");
-
-                var $formReport = $("#form-report");
-
-                $('input[type=radio][name=complaint_type]').change(function() {
-                    if($('input[type=radio][name=complaint_type]:checked').val() == $formReport.data('community-complaint')) {
-                        $("#communities").slideDown();
-                    } else {
-                        $("#communities").slideUp();
-                        $(".community_complaint:checked").each(function() {
-                            $(".community_complaint").prop("checked", false);
-                        });
-                    }
+        var functionAjaxSuccessContact = function(e, data) {
+            var $modalContact = $("#modal-contact");
+            var $modalContactSuccessfully = $("#modal-contact-successfully");
+            $modalContactSuccessfully.html(data.template);
+            $modalContact.modal("hide");
+            $modalContactSuccessfully.modal("show");
+            $modalContactSuccessfully.on("hidden.bs.modal", function () {
+                $('body').css({
+                    paddingRight: ''
                 });
-
-                var functionAjaxReportSuccess = function(e, data) {
-                    var $modalMessage = $('#modal-message');
-                        $modalMessage.html(data.template);
-                    $('#modal-report').modal('hide');
-                    $modalMessage.modal('show');
-                };
-
-                $formReport.on("ajaxform.success", functionAjaxReportSuccess);
-            };
-
-            var functionAjaxSuccessSuggest = function(e, data) {
-                var $self = $(this),
-                    $modalSuggest = $("#modal-suggest"),
-                    $modalSuggestMessage = $("#modal-suggest-successfully");
-
-                if (data.status == 200 && $modalSuggest.is(':visible')) {
-                    var $taggerSuggest = $(e.currentTarget).find("#tagger-suggest-users")[0].selectize;
-                    $taggerSuggest.blur();
-                    $taggerSuggest.clear();
-                    $modalSuggest.modal('hide');
-                    $modalSuggestMessage.modal("show");
-                }
-            };
-
-            var refreshAsyncLike = function() {
-                var asyncLike = $("[data-async-like=true]");
-                var asyncLikeData = asyncLike.IdeiaAsyncLike();
-
-                var asyncClick = $("[data-async-module=click]");
-                var asyncClickData = asyncClick.IdeiaAsyncClick();
-
-                $("[data-load-async=true]").loadAsync();
-                $("[data-action]").ajaxSocialAction();
-                $("[data-toggle=tooltip]").tooltip();
-            };
-
-            var functionOpenSuggestModal = function(e) {
-                e.preventDefault();
-                var $self = $(this),
-                    $modalSuggest = $("#modal-suggest"),
-                    $formSuggest = $modalSuggest.find("form#form-suggest");
-
-                $formSuggest.attr("action", $self.data('url'));
-                $formSuggest.find("#form-suggest-object").val($self.data('object'));
-                $formSuggest.find("#form-suggest-content").val($self.data('content'));
-                $modalSuggest.modal("show");
-
-                var $selectInput = $('#tagger-suggest-users');
-                var $selectize = $selectInput[0].selectize;
-                $selectize.clear();
-                $selectize.clearCache();
-                $selectize.clearOptions();
-
-                $modalSuggest.on('shown.bs.modal', function () {
-                    $selectize.focus();
-                });
-            };
-
-            $(function() {
-
-                $(document).on("ajaxform.before-send", "#form-login", functionAjaxBeforeSendLogin);
-                $(document).on("ajaxform.success", "#form-login", functionAjaxSuccessLogin);
-                $(document).on("ajaxform.error", "#form-login", functionAjaxErrorLogin);
-                $(document).on("ajaxform.success", "#form-resend-email-confirmation", functionAjaxSuccessResendConfirmation);
-                $(document).on("ajaxform.success", "#form-forgot-password", functionAjaxSuccessForgotPassword);
-                $(document).on("ajaxform.success", "#form-suggest", functionAjaxSuccessSuggest);
-                $(document).on("click", "[data-suggest-modal]", functionOpenSuggestModal);
-                $(document).on("async.click.success", '[data-report="true"]', functionAjaxSuccessTriggerReport);
-                $(document).on("async.click.success", "[data-contact]", functionAjaxSuccessTriggerContactModal);
             });
+        };
+
+        var $formContactModal = $("#form-contact-modal");
+        $formContactModal.on("ajaxform.success", functionAjaxSuccessContact);
+    };
+
+    var functionAjaxSuccessTriggerReport = function(e, data) {
+        var $modalReport = $("#modal-report");
+        $modalReport.find("form[data-ajaxform=true]").IdeiaAjaxForm();
+        $modalReport.modal("show");
+
+        var $formReport = $("#form-report");
+
+        $('input[type=radio][name=complaint_type]').change(function() {
+            if($('input[type=radio][name=complaint_type]:checked').val() == $formReport.data('community-complaint')) {
+                $("#communities").slideDown();
+            } else {
+                $("#communities").slideUp();
+                $(".community_complaint:checked").each(function() {
+                    $(".community_complaint").prop("checked", false);
+                });
+            }
+        });
+
+        var functionAjaxReportSuccess = function(e, data) {
+            var $modalMessage = $('#modal-message');
+            $modalMessage.html(data.template);
+            $('#modal-report').modal('hide');
+            $modalMessage.modal('show');
+        };
+
+        $formReport.on("ajaxform.success", functionAjaxReportSuccess);
+    };
+
+    var functionAjaxSuccessSuggest = function(e, data) {
+        var $self = $(this),
+                $modalSuggest = $("#modal-suggest"),
+                $modalSuggestMessage = $("#modal-suggest-successfully");
+
+        if (data.status == 200 && $modalSuggest.is(':visible')) {
+            var $taggerSuggest = $(e.currentTarget).find("#tagger-suggest-users")[0].selectize;
+            $taggerSuggest.blur();
+            $taggerSuggest.clear();
+            $modalSuggest.modal('hide');
+            $modalSuggestMessage.modal("show");
+        }
+    };
+
+    var refreshAsyncLike = function() {
+        var asyncLike = $("[data-async-like=true]");
+        var asyncLikeData = asyncLike.IdeiaAsyncLike();
+
+        var asyncClick = $("[data-async-module=click]");
+        var asyncClickData = asyncClick.IdeiaAsyncClick();
+
+        $("[data-load-async=true]").loadAsync();
+        $("[data-action]").ajaxSocialAction();
+        $("[data-toggle=tooltip]").tooltip();
+    };
+
+    var functionOpenSuggestModal = function(e) {
+        e.preventDefault();
+        var $self = $(this),
+                $modalSuggest = $("#modal-suggest"),
+                $formSuggest = $modalSuggest.find("form#form-suggest");
+
+        $formSuggest.attr("action", $self.data('url'));
+        $formSuggest.find("#form-suggest-object").val($self.data('object'));
+        $formSuggest.find("#form-suggest-content").val($self.data('content'));
+        $modalSuggest.modal("show");
+
+        var $selectInput = $('#tagger-suggest-users');
+        var $selectize = $selectInput[0].selectize;
+        $selectize.clear();
+        $selectize.clearCache();
+        $selectize.clearOptions();
+
+        $modalSuggest.on('shown.bs.modal', function () {
+            $selectize.focus();
+        });
+    };
+
+    $(function() {
+
+        $(document).on("ajaxform.before-send", "#form-login", functionAjaxBeforeSendLogin);
+        $(document).on("ajaxform.success", "#form-login", functionAjaxSuccessLogin);
+        $(document).on("ajaxform.error", "#form-login", functionAjaxErrorLogin);
+        $(document).on("ajaxform.success", "#form-resend-email-confirmation", functionAjaxSuccessResendConfirmation);
+        $(document).on("ajaxform.success", "#form-forgot-password", functionAjaxSuccessForgotPassword);
+        $(document).on("ajaxform.success", "#form-suggest", functionAjaxSuccessSuggest);
+        $(document).on("click", "[data-suggest-modal]", functionOpenSuggestModal);
+        $(document).on("async.click.success", '[data-report="true"]', functionAjaxSuccessTriggerReport);
+        $(document).on("async.click.success", "[data-contact]", functionAjaxSuccessTriggerContactModal);
+    });
 
 
-        </script>
+</script>
 
-        {% block javascripts %}
-        {% endblock %}
-        {% block editorfiles %}
-        {% endblock %}
-    </body>
+{% block javascripts %}
+{% endblock %}
+{% block editorfiles %}
+{% endblock %}
+</body>
 </html>

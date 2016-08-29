@@ -161,6 +161,7 @@ class ArticleDeleteAjax(ArticleDeleteView):
 class ArticleEditView(ArticleBaseView):
 
     template_name = 'article/article-edit.html'
+    template_for_create = 'article/article-create.html'
     form_article = ArticleForm
     the_article = None
 
@@ -190,6 +191,7 @@ class ArticleEditView(ArticleBaseView):
             #article = self.get_temp_article(request.user)
             #return redirect(reverse('article:edit', args=(article.id,)))
             #return render
+            self.template_name = self.template_for_create
 
         initial_data = self.prepare_initial_data(initial_data)
 

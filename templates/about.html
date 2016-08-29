@@ -1,6 +1,12 @@
 {% extends 'home/layout/base.html' %}
 
 
+{% load avatar_tags %}
+{% load thumbor_tags %}
+
+{% block seo-og-title %}{% block seo_title %}Sobre{{ block.super }}{% endblock %}{% endblock %}
+{% block seo-og-description %}{% block seo-description %}Saiba mais sobre a ideia que originou o Portal GSTI e o que ele se tornou. Conheça e participe de nossa história.{% endblock %}{% endblock %}
+
 {% block content %}
 
 <main class="container main">
