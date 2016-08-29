@@ -209,9 +209,8 @@
             $divToUpdate.replaceWith($element);
             var $newForm = $element.find("form[data-ajaxform=\"true\"]");
             $divToUpdate = $element;
-
-
         }
+        $('[data-toggle="editor"]').summernote('reset');
         $divToUpdate.refreshEditors();
         PR.prettyPrint();
 

@@ -3,10 +3,6 @@
   "version": "0.1.1",
   "description": "Projects that's uses Django as Back-end at IdeiaSEO",
   "private": true,
-  "engines": {
-    "node": "0.12.7",
-    "npm": "2.11.3"
-  },
   "scripts": {
     "javascript": "gulp webpack:development",
     "sass": "gulp sass",
