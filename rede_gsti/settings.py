@@ -736,18 +736,30 @@ SUMMERNOTE_CONFIG = {
                 ['style', ['style']],
                 ['hr', ['hr']],
                 ['link', ['link']],
-                ['style', ['bold', 'italic', 'underline', 'clear']],
-                ['font', ['strikethrough']],
+                ['style', ['bold', 'italic', 'underline']],
                 ['table', ['table']],
-                ['para', ['ul', 'ol', 'paragraph']],
+                ['para', ['ul', 'ol']],
                 ['picture', ['picture', 'oembed', 'prettyprint']]
 
             ],
             'popover': {
-                'air':[
-                    ['para', ['ul', 'ol', 'paragraph']],
-                ]
+              'image': [
+                ['imagesize', ['imageSize100', 'imageSize50', 'imageSize25']],
+                ['float', ['floatLeft', 'floatRight', 'floatNone']],
+                ['remove', ['removeMedia']]
+              ],
+              'link': [
+                ['link', ['linkDialogShow', 'unlink']]
+              ],
+              'air': [
+                ['color', ['color']],
+                ['font', ['bold', 'underline', 'clear']],
+                ['para', ['ul', 'paragraph']],
+                ['table', ['table']],
+                ['insert', ['link', 'picture']]
+              ]
             }
+
         },
         'question': {
             'airMode': False,
