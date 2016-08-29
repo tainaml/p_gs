@@ -725,7 +725,7 @@ SUMMERNOTE_CONFIG = {
         'article': {
             'airMode': False,
             'lang': 'pt-BR',
-            'minHeight': 250,
+            'minHeight': 400,
             'oEmbed': {
                 'service': '/oembed/',
                 'spinner': '<div class=\"text-center\"><img src=\"/static/images/preload.gif\" /></div>',
@@ -752,7 +752,7 @@ SUMMERNOTE_CONFIG = {
         'question': {
             'airMode': False,
             'lang': 'pt-BR',
-            'minHeight': 250,
+            'minHeight': 400,
             'oEmbed': {
                 'service': '/oembed/',
                 'spinner': '<div class=\"text-center\"><img src=\"/static/images/preload.gif\" /></div>',
@@ -782,7 +782,6 @@ SUMMERNOTE_CONFIG = {
             'lang': 'pt-BR',
             'toolbar': [
                 ['style', ['bold', 'italic', 'underline']],
-                ['font', ['strikethrough']],
                 ['prettyprint', ['prettyprint']],
                 ['pre', ['pre']]
             ],
