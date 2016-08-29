@@ -1,13 +1,11 @@
 var gulp         = require('gulp');
 var config       = require('../../config/iconFont');
-var render       = require('gulp-nunjucks-render');
 var rename       = require('gulp-rename');
 var handleErrors = require('../../libraries/handleErrors');
 var gutil        = require("gulp-util");
 
 module.exports = function(glyphs, options) {
   gutil.log(gutil.colors.blue('Generating ' + config.sassDest + '/' + config.sassOutputName));
-  render.nunjucks.configure(config.nunjucks, {watch: false });
 
   return gulp.src(config.template)
     .pipe(render({
