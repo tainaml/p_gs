@@ -20,7 +20,8 @@
 
 {% block seo-og-title %}{% block seo_title %}{{ article.title }}{{ block.super }}{% endblock %}{% endblock %}
 {% block seo-og-description %}{% block seo-description %}{{ article.text|striptags|truncatechars:"160" }}{% endblock %}{% endblock %}
-{% block seo-og-image %}{% thumbor_url article.image.url width=270 height=203 smart=False fit_in=False %}{% endblock %}
+
+{% block seo-og-image %}{% if article.image and article.image.url  %}{% thumbor_url article.image.url width=270 height=203 smart=False fit_in=False %}{% else %}{{ block.super }}{% endif %}{% endblock %}
 
 {% block content %}
 <main class="container main">
@@ -197,8 +198,6 @@
 
     function setData($form, data, $divToUpdate){
 
-
-        console.log("HEehheh");
         var action = $form.data("toggle");
         if (action=="append"){
             $divToUpdate.append(data.template);
@@ -230,10 +229,16 @@
         $divToUpdate = setData($form, data, $divToUpdate);
 
         var $subforms = $divToUpdate.find("form[data-ajaxform=\"true\"]");
+        $.each($subforms, function(i, value){
+            var $subform = $(value);
+            if(!$subform.data("plugin")){
+                $subform.data("plugin", "true");
+                $subform.IdeiaAjaxForm();
+                $subform.on("ajaxform.success", form_submit);
+            }
 
-        $subforms.IdeiaAjaxForm();
-        $subforms.on("ajaxform.success", form_submit);
 
+        });
         var $dataList = $divToUpdate.find("div[data-xhr]");
         $dataList.renderList();
         refreshAsyncLike();
@@ -248,7 +253,6 @@
             var $self = $(this);
 
             if(!$self.data("rendered")){
-
                $self.data("rendered", "rendered");
                var url = $self.data('xhr-url');
                 var $childs;
@@ -315,6 +319,7 @@
         var xhr_contents = $("div[data-xhr]");
         xhr_contents.renderList();
         var $comment_form = $("form[data-ajaxform=\"true\"]");
+
         $comment_form.refreshEditors();
         $comment_form.on("ajaxform.success", form_submit);
 
