@@ -2,7 +2,16 @@
 
 {% load staticfiles %}
 
-{% block title %}Portal GSTI - Sugeridos{% endblock %}
+{% load avatar_tags %}
+{% load thumbor_tags %}
+
+{% block seo-og-title %}{% block seo_title %}Sugeridos | {{ profile.user.get_full_name }}{{ block.super }}{% endblock %}{% endblock %}
+{% block seo-og-description %}{% block seo-description %}Lista das publicações e/ou perguntas que foram sugeridas por outros membros para que você leia.{% endblock %}{% endblock %}
+{% block seo-og-image %}{% get_avatar profile.user width=90 height=90 smart=False fit_in=False %}{% endblock %}
+
+{% block seo-metas-extra %}
+    <meta name="robots" content="noindex, nofollow">
+{% endblock %}
 
 {% block content %}
 

@@ -500,7 +500,7 @@ USE_TZ = config.getboolean("LOCALE", "tz")
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "static"),
 )
-STATIC_URL = '/static/'
+
 
 
 # STATIC_ROOT = '/home/phillip/projects/python/django/rede_gsti/staticfiles/'
@@ -508,7 +508,7 @@ STATIC_ROOT = config.get("STATIC", "path")
 
 # Media Paths: User upload files
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media', 'uploads')
-MEDIA_URL = '/media/uploads/'
+
 
 
 # extramigrations
@@ -547,7 +547,8 @@ TIME_RECOVERY_PASSWORD = config.getint("GENERAL", "expiration_password_recovery"
 
 # Site Urls
 SITE_URL = config.get("GENERAL", 'site_url')
-
+STATIC_URL = '/static/'
+MEDIA_URL = '/media/uploads/'
 
 # Python Social auth backend configuration
 

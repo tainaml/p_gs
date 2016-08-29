@@ -1,0 +1,122 @@
+{%extends 'home/layout/base.html' %}
+
+{% load staticfiles %}
+{% load i18n %}
+{% load json_filter %}
+{% load widget_tweaks %}
+
+{% block editorfiles %}
+  <script src="{% static 'javascripts/vendor.js'%}"></script>
+{% endblock %}
+{% block content %}
+    <main class="container main">
+
+        <div class="row creator">
+
+            <form action="" method="post" enctype="multipart/form-data">
+
+                {% csrf_token %}
+
+                <div class="col-lg-12">
+                    {% include 'core/partials/messages-flash.html' with message_extra_tags="article" %}
+                </div>
+
+                {{ form_article.non_field_errors }}
+
+                <div class="col-lg-12">
+                    <header class="area-title col-lg-7">
+                        <h2>{% if not article %}Nova{% else %}Editar{% endif %} Publicação</h2>
+                    </header>
+                    <div class="question-actions">
+                        <a href="javascript:;" onclick="history.back();" class="btn-default">Voltar</a>
+                        {% if article.is_published %}
+                            <input class="btn-green" type="submit" value="{% trans "Update" context "update article" %}" name="submit-save" />
+                        {% endif %}
+                        {% if not article.is_published %}
+                            <input type="submit" class="btn-default" value="{% trans "Save as draft" context "save article" %}" name="submit-save" />
+                            <input class="btn-green" type="submit" value="{% trans "Publish" context "publish article" %}" name="submit-publish" />
+                        {% endif %}
+                        {% if article.slug and article.id %}
+                            <a href="{% url 'article:view' article.year article.month article.slug %}" class="btn-default" target="_blank">Visualizar</a>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="col-lg-12">
+                    <div class="editor">
+                        <p class="help-text">
+                            <span>ATENÇÃO:</span> <br>
+                            Antes de escrever uma publicação certifique-se que seu conteúdo não seja copia de outro e que não contenha erros de português. <br>
+                            Publicação que são submetidas a comunidades que não possuem relação serão penalizados. Leia as regras do Portal para saber mais.
+                        </p>
+                        <div class="wrap-editor row">
+                            <div class="col-lg-9">
+                                <div class="form-group">
+                                    {% render_field form_article.title placeholder="Título da publicação" class="form-control" %}
+                                    {% if form_article.title.errors %}  {{ form_article.title.errors }} {% endif %}
+                                </div>
+                                <div class="form-group" data-target="container-editor">
+                                    {% render_field form_article.text placeholder="Conteúdo da publicação" class="form-control" data-toggle="editor" rows="10" cols="30" %}
+                                    {% if form_article.text.errors %}  {{ form_article.text.errors }} {% endif %}
+                                </div>
+                                <div class="form-group">
+                                    {% url 'profile:user-communities-ajax' as user_ajax_url %}
+                                    {% render_field form_article.communities data-toggle="selectize" data-module="taxonomy" data-placeholder="Comunidades relacionadas" data-label-field="name" data-value-field="id" data-options=communities|jsonify %}
+                                    {% if form_article.communities.errors %}  {{ form_article.communities.errors }} {% endif %}
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+
+                                <div class="custom-file-upload custom-file-upload-larger" data-module="dropzoneUploader" data-original-image="{% if article.image %}{{ article.image.url }}{% endif %}">
+                                    <div class="custom-file-content">
+                                        <i class="gsticon gsticon-cloud-upload"></i>
+                                        <h5><strong>Imagem de Destaque</strong></h5>
+                                        <p>Arraste a imagem para este campo ou <a href="javascript:;" data-trigger="file">clique aqui</a></p>
+                                    </div>
+                                    <input type="file" accept="image/*" name="{{ form_article.image.name }}" class="hidden-file-input">
+                                    <div class="custom-file-upload-result" data-content="file"></div>
+                                </div>
+                                <div class="form-group">
+                                    {% if form_article.image.errors %}  {{ form_article.image.errors }} {% endif %}
+                                </div>
+
+                                {% if request.user.profile.isContributor %}
+                                <div class="cloud-tags">
+                                    <h3 class="cloud-tags-title">Conteúdo Oficial</h3>
+                                    <div class="article-tags row">
+                                        <div class="col-xs-12">
+                                          <label class="tag custom-input">
+                                            <span class="custom-check">
+                                              <input type="checkbox" name="official" {% if form_article.initial.official %}checked="checked"{% endif %} />
+                                            </span>
+                                            <span class="custom-label">Oficial</span>
+                                          </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endif %}
+
+                                <div class="cloud-tags">
+                                    <h3 class="cloud-tags-title">Tipos de publicação</h3>
+                                    <div class="article-tags row">
+
+                                        {% for tag in form_article.fields.tags.queryset %}
+                                            <div class="col-xs-12">
+                                               <div class="tag custom-input">
+                                                 <div class="custom-check">
+                                                   <input type="checkbox" name="tags" value="{{ tag.id }}" id="{{ tag.id }}" {% if tag in form_article.initial.tags %}checked{% endif %} />
+                                                 </div>
+                                                 <label class="custom-label" for="{{ tag.id }}">{{ tag.tag_name }}</label>
+                                               </div>
+                                            </div>
+                                        {% endfor %}
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </main>
+{% endblock %}

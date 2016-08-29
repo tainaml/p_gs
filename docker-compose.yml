@@ -1,16 +1,5 @@
 version: '2'
 services:
-#  thumbor:
-#    build:
-#      context: .
-#      dockerfile: Dockerfile_thumbor
-#    ports:
-#      - "8880:8880"
-#      - "2204:22"
-#    domainname: thumbor.redegsti.dev
-#    hostname: thumbor
-#    networks:
-#      - my-net
   thumbor:
     image: apsl/thumbor
     domainname: redegsti.dev

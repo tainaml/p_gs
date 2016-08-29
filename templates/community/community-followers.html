@@ -3,7 +3,15 @@
 {% load staticfiles %}
 {% load social_tags %}
 
-{% block title %}Portal GSTI - Comunidade{% endblock %}
+{% load thumbor_tags %}
+
+{% block seo-og-title %}{% block seo_title %}Membros de {{ community.title }} | Comunidade{{ block.super }}{% endblock %}{% endblock %}
+{% block seo-og-description %}{% block seo-description %}Lista dos membros que participam de {{ community.title }} {% endblock %}{% endblock %}
+{% block seo-og-image %}{% thumbor_url commmunity.get_picture.url width=82 height=82 smart=False fit_in=False %}{% endblock %}
+
+{% block seo-metas-extra %}
+    <meta name="robots" content="noindex,nofollow" />
+{% endblock %}
 
 {% block content %}
     <main class="container main">

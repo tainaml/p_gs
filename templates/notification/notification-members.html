@@ -4,7 +4,16 @@
 {% load staticfiles %}
 
 
-{% block title %} Portal GSTI - Notificações de membros{% endblock %}
+{% load avatar_tags %}
+{% load thumbor_tags %}
+
+{% block seo-og-title %}{% block seo_title %}Notificações -> Membros | {{ request.user.get_full_name }}{{ block.super }}{% endblock %}{% endblock %}
+{% block seo-og-description %}{% block seo-description %}Área para gerenciar as notificações de mebros da sua conta no Portal GSTI.{% endblock %}{% endblock %}
+{% block seo-og-image %}{% get_avatar request.user width=90 height=90 smart=False fit_in=False %}{% endblock %}
+
+{% block seo-metas-extra %}
+    <meta name="robots" content="noindex, nofollow">
+{% endblock %}
 
 
 {% block content %}

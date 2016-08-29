@@ -5,7 +5,18 @@
 {% load json_filter %}
 {% load widget_tweaks %}
 
-{% block title %}Portal GSTI - Criar Pergunta{% endblock %}
+
+{% load avatar_tags %}
+{% load thumbor_tags %}
+
+{% block seo-og-title %}{% block seo_title %}Criar Pergunta{{ block.super }}{% endblock %}{% endblock %}
+{% block seo-og-description %}{% block seo-description %}Área para criar uma pergunta sobre algum tema relacionado a tecnologia. Aqui é o lugar para tirar suas dúvidas. Fique a vontade{% endblock %}{% endblock %}
+
+{% block seo-metas-extra %}
+    <meta name="robots" content="noindex, nofollow">
+{% endblock %}
+
+
 {% block editorfiles %}
   <script src="{% static 'javascripts/vendor.js'%}"></script>
 {% endblock %}
