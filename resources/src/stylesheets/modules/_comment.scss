@@ -1,15 +1,8 @@
 .container-comments { margin-top: 20px; }
-.comments-container-child {
-    width: 100%;
-    padding-bottom: 20px;
-    padding-left: 80px;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    float: left;
-    border-bottom: 1px solid $color-border;
-    &.no-children {
-        border-bottom: none;
-    }
+.comment > .container-comments {
+  width: 100%;
+  padding-left: 30px;
+  float: left;
 }
 .comment {
     @extend %clearfix;

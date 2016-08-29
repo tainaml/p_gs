@@ -5,9 +5,20 @@
 {% load json_filter %}
 {% load widget_tweaks %}
 
-{% block title %}Portal GSTI - Criar Pergunta{% endblock %}
-{% block editorfiles %}
 
+{% load avatar_tags %}
+{% load thumbor_tags %}
+
+{% block seo-og-title %}{% block seo_title %}Criar Pergunta{{ block.super }}{% endblock %}{% endblock %}
+{% block seo-og-description %}{% block seo-description %}Área para criar uma pergunta sobre algum tema relacionado a tecnologia. Aqui é o lugar para tirar suas dúvidas. Fique a vontade{% endblock %}{% endblock %}
+
+{% block seo-metas-extra %}
+    <meta name="robots" content="noindex, nofollow">
+{% endblock %}
+
+
+{% block editorfiles %}
+  <script src="{% static 'javascripts/vendor.js'%}"></script>
 {% endblock %}
 {% block content %}
     <main class="container main">
@@ -43,7 +54,7 @@
                                     {% render_field form.title placeholder="Digite aqui sua pergunta" class="form-control" maxlength="256" id="title" data-toggle="counter" data-counter-type="max" data-counter-limit=form.fields.title.max_length %}
                                     {% if form.title.errors %}<span class="help-block">{{ form.title.errors }}</span>{% endif %}
                                 </div>
-                                <div class="form-group">
+                                <div class="form-group" data-target="container-editor">
                                     {% render_field form.description placeholder="Descrição detalhada da pergunta" maxlength="2048" class="form-control" rows="10" cols="30" %}
                                     {% if form.description.errors %}<span class="help-block">{{ form.description.errors }}</span>{% endif %}
                                 </div>

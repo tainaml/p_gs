@@ -1,11 +1,17 @@
-from django.http import JsonResponse
-from django.shortcuts import render
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+import urllib
+from django.core.urlresolvers import reverse
+
+from django.http import JsonResponse, Http404
+from django.shortcuts import render, redirect
 
 from apps.community import views
 from apps.community.models import Community
 from apps.community.service import business as Business
 from apps.core.forms.community import CoreCommunityFeedFormSearch, CoreCommunityQuestionFeedFormSearch, \
     CoreCommunitySearchVideosForm, CoreCommunityFollowersForm, CoreCommunitySearchMaterialsForm
+from apps.core.views.search import encoded_dict
 from apps.custom_base.views import FormBaseListView
 from apps.socialactions.service.business import get_users_acted_by_model
 from rede_gsti import settings
@@ -83,6 +89,15 @@ class CoreCommunityFeedView(CoreCommunitySearch):
 
     template_path = 'community/community-view.html'
 
+    def get(self, request, community_slug):
+
+        community = Business.get_community(slug=community_slug)
+        if not community:
+            querystring = {'q': community_slug}
+            return redirect(reverse("search:search")+"?%s" % urllib.urlencode(encoded_dict(querystring)))
+
+        return super(CoreCommunityFeedView, self).get(request, community_slug)
+
 
 class CoreCommunityQuestionSearch(CoreCommunityView):
 
@@ -155,6 +170,18 @@ class CoreCommunityVideosView(CoreCommunityVideosSearch):
 class CoreCommunityVideosList(CoreCommunityVideosSearch):
 
     template_path = "community/partials/community-videos-list.html"
+
+
+
+class CoreGetCommunities(views.View):
+
+    def get(self, request):
+
+        communities = Business.get_all_communities()
+
+        return JsonResponse({'communities': communities})
+
+
 
 
 class CoreCommunityLoad(views.View):

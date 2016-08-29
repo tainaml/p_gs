@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 from ..models import Community
 
 
@@ -26,3 +29,7 @@ def get_category_communities(taxonomies_id=None):
         return None
 
     return communities
+
+def get_all_communities():
+    queryset = Community.objects.all().only("slug", "title")
+    return [{'slug': community.slug, 'title': community.title} for community in queryset]

@@ -11,11 +11,16 @@
 {% load avatar_tags %}
 {% load humanize %}
 {% load url_utils %}
-
+{%  load comment_tags %}
 {% block editorfiles %}
 {% endblock %}
 
-{% block title %}{{ article.title }} - Portal GSTI{% endblock %}
+{% load avatar_tags %}
+{% load thumbor_tags %}
+
+{% block seo-og-title %}{% block seo_title %}{{ article.title }}{{ block.super }}{% endblock %}{% endblock %}
+{% block seo-og-description %}{% block seo-description %}{{ article.text|striptags|truncatechars:"160" }}{% endblock %}{% endblock %}
+{% block seo-og-image %}{% thumbor_url article.image.url width=270 height=203 smart=False fit_in=False %}{% endblock %}
 
 {% block content %}
 <main class="container main">
@@ -81,9 +86,7 @@
                 <aside class="post-footer">
                     {% taxonomies article %}
                     <div class="post-toolbar pull-right">
-                        <div class="post-count">
-                            {% like_box article request.path "inline" %}
-                        </div>
+                        <div class="post-count">{% like_box article request.path "inline" %}</div>
                         <a href="#comments" class="post-count-comments">
                             <span id="load-count-comment-article"
                                   data-load-async="true"
@@ -107,7 +110,7 @@
                     {% endif %}
                     {% endcomment %}
 
-                        {% thumbor_replace article.text %}
+                    {% thumbor_replace article.text %}
 
                     <div class="post-advertising text-center">
                         <img class="img-responsive" src="http://placehold.it/728x90" alt="Propaganda">
@@ -115,16 +118,11 @@
                 </div>
                 <div class="full-post-share">
                     <h3>COMPARTILHE</h3>
-{#                    <div class="addthis_sharing_toolbox"></div>#}
                     {% include '_partials/share.html' with show_all=True %}
-
                 </div>
             </article>
-            <div>
-                {% profile_box article.author "horizontal" %}
-            </div>
+            <div>{% profile_box article.author "horizontal" %}</div>
             {% if request|is_mobile %}
-            <!-- Publicações Relacionadas -->
             <div id="load-related-posts" data-load-async="true" data-load-async-url="{% url 'core:related-posts' article.id "article" "article" 4 %}" data-load-async-url-next="{{ request.path }}" data-load-async-method="get" data-load-async-response-type="json" data-load-async-timeout="1">
                 <div class="load-async load-async-content">
                     <div class="load-async-preload"></div>
@@ -132,13 +130,11 @@
                 {% csrf_token %}
             </div>
             {% endif %}
+
             <header class="area-title">
-                <h2>Comentários</h2>
+            <h2>Comentários</h2>
             </header>
-            <div class="container-comments" id="comments">
-                {% include 'comment/create.html' with content_type='article' content_object_id=article.id form=form_comment content_type=article.feed.content_type %}
-            </div>
-            <div data-xhr-url="{% url "comment:list" %}?page=1&content_type=article&content_id={{ article.id }}" data-xhr id="container-comments" class="container-comments j-scroll"></div>
+            {% comment_box article %}
         </div>
         {% include "article/partials/article-sidebar-right.html" %}
     </div>
@@ -156,19 +152,10 @@
 
 {% block javascripts %}
     {{ block.super }}
-    {{ form_comment.media }}
-{#    <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-55e70ed11db7fa4e" async></script>#}
+{#    {{ form_comment.media }}#}
+    <script src="{% static 'javascripts/vendor.js'%}"></script>
 
-
-    {% comment %}
-    Script para highlight nos códigos.
-    {% endcomment %}
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/styles/default.min.css">
-    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/highlight.min.js"></script>
-    <script>hljs.initHighlightingOnLoad();</script>
-
-<script>
-
+<script type="text/javascript">
 
     var functionOpenModalToDelete = function(e) {
         e.preventDefault();
@@ -204,16 +191,18 @@
         });
     };
 
-    function setData($form, data){
+    var commentDropDown = function(event){
+        event.stopPropagation();
+    };
+
+    function setData($form, data, $divToUpdate){
 
         var action = $form.data("toggle");
-        var $div_to_update = $($form.data("update"));
-
         if (action=="append"){
-            $div_to_update.append(data.template);
+            $divToUpdate.append(data.template);
             $form[0].reset();
         }else if (action=="prepend"){
-            $div_to_update.prepend(data.template);
+            $divToUpdate.prepend(data.template);
 
             var $form_to_hide = $form.parent(".dropdown-content");
             if ($form_to_hide){
@@ -221,23 +210,31 @@
             }
             $form[0].reset();
         }else if (action=="replace"){
-            $div_to_update.html(data.template);
+            var $element = $(data.template);
+            $divToUpdate.replaceWith($element);
+            var $newForm = $element.find("form[data-ajaxform=\"true\"]");
+            $divToUpdate = $element;
+
+
         }
+        $divToUpdate.refreshEditors();
+        PR.prettyPrint();
+
+        return $divToUpdate
     }
 
     var form_submit = function(event, data){
         var $form = $(this);
+        var $divToUpdate = $($form.data("update"));
+        $divToUpdate = setData($form, data, $divToUpdate);
 
-        setData($form, data);
+        var $subforms = $divToUpdate.find("form[data-ajaxform=\"true\"]");
 
-        var $div_to_update = $($form.data("update"));
-
-        var $subforms = $div_to_update.find("form[data-ajaxform=\"true\"]");
         $subforms.IdeiaAjaxForm();
         $subforms.on("ajaxform.success", form_submit);
 
-        var $data_list = $div_to_update.find("div[data-xhr]");
-        $data_list.renderList();
+        var $dataList = $divToUpdate.find("div[data-xhr]");
+        $dataList.renderList();
         refreshAsyncLike();
 
     };
@@ -248,60 +245,55 @@
 
             var $self = $(this);
             var url = $self.data('xhr-url');
-
             var $childs;
 
             var request = $.ajax({
                 url: url,
                 success: function(data){
 
-                    var $element = $(data);
-                    $element.appendTo($self);
+                    if(data.template){
+                        var $element = $(data.template);
 
-                    var regex = /^data-list-([0-9]+)$/;
-                    if (regex.test($self.attr('id'))) {
-                        var $parentSelf = $self.parent('.comments-children');
-                        if ($self.children().length > 0)
-                            $parentSelf.removeClass('no-children');
-                        else
-                            $parentSelf.addClass('no-children');
+                        $self.append($element);
+                        var regex = /^data-list-([0-9]+)$/;
+                        if (regex.test($self.attr('id'))) {
+                            var $parentSelf = $self.parent('.comments-children');
+                            if ($self.children().length > 0) {
+                              $parentSelf.removeClass('no-children');
+                            } else {
+                              $parentSelf.addClass('no-children');
+                            }
+                        }
+
+                        $childs = $element.find('div[data-xhr-url]');
+                        $self.jscroll({
+                            loadingHtml: '<div class="load-async-preload"></div>',
+                            contentSelect: "#" + $self.attr("id"),
+                            nextSelector: "a[data-jscroll-next]",
+                            autoTrigger: false,
+                            callback: function(data){
+                                var $div_jscroll = $(".jscroll-added");
+                                var $jscroll_subforms = $div_jscroll.find("form[data-ajaxform=\"true\"]");
+                                $jscroll_subforms.IdeiaAjaxForm();
+                                $jscroll_subforms.on("ajaxform.success", form_submit);
+                                $jscroll_subforms.refreshEditors();
+                                $div_jscroll.removeClass("jscroll-added");
+                            }
+                        });
+
+                        var $subforms = $element.find("form[data-ajaxform=\"true\"]");
+                        $subforms.on("ajaxform.success", form_submit);
+                        $subforms.IdeiaAjaxForm();
+                        $subforms.refreshEditors();
+
+                        var async_like = $self.find('[data-async-like]');
+                        async_like.IdeiaAsyncLike();
+                        async_like.removeData("async-like");
                     }
 
-                    $childs = $element.find('div[data-xhr-url]');
-                    $self.jscroll({
-                        loadingHtml: '<div class="load-async-preload"></div>',
-                        contentSelect: "#" + $self.attr("id"),
-                        nextSelector: "a[data-jscroll-next]",
-                        autoTrigger: false,
-                        callback: function(data){
-                            var $div_jscroll = $(".jscroll-added");
-                            var $jscroll_subforms = $div_jscroll.find("form[data-ajaxform=\"true\"]");
-                            $jscroll_subforms.IdeiaAjaxForm();
-                            $jscroll_subforms.on("ajaxform.success", form_submit);
-                            $jscroll_subforms.on("ajaxform.validation", function(event, addError){
-{#                                updateEditors(); #}
-
-                            });
-
-                            $div_jscroll.removeClass("jscroll-added");
-                        }
-                    });
-                    var $subforms = $element.find("form[data-ajaxform=\"true\"]");
-
-                    $subforms.IdeiaAjaxForm();
-                    $.each($subforms, function(i, form){
-                        var $editor = $(form).find("[name='content']");
-
-
-                    });
-
-
-                    var async_like = $self.find('[data-async-like]');
-                    async_like.IdeiaAsyncLike();
-                    async_like.removeData("async-like");
                 },
                 complete: function(){
-                    if($childs.length){
+                    if($childs && $childs.length){
                         $childs.renderList();
                     }
                 }
@@ -312,18 +304,15 @@
     };
 
     $(function(){
-{#        updateEditors();#}
         var xhr_contents = $("div[data-xhr]");
         xhr_contents.renderList();
         var $comment_form = $("form[data-ajaxform=\"true\"]");
+        $comment_form.refreshEditors();
         $comment_form.on("ajaxform.success", form_submit);
-        $comment_form.on("ajaxform.validation", function(event, addError) {
-{#            updateEditors();#}
 
-        });
         $("#confirmation-form").on("ajaxform.success", functionAjaxSuccessDeleteItem);
         $(document).on("click", "[data-delete-item=true]", functionOpenModalToDelete);
+        $(document).on("click", ".comment-dropdown", commentDropDown);
     });
 </script>
-
 {% endblock %}

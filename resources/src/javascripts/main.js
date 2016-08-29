@@ -1,6 +1,6 @@
 'use strict';
 
-import 'jscroll'
+import $ from 'jquery'
 import './asyncModules'
 import './vendor/bootstrap/'
 import './modules/ideiaForm/'
@@ -12,11 +12,38 @@ import './modules/ideiaLogin/'
 import './modules/ideiaNotification/'
 import './modules/ideiaRestrict/'
 import './modules/ideiaValidationField/'
+import './modules/ideiaEditor/'
 import Slideout from 'slideout'
 
+
 $(function () {
+
+    window.csrfSafeMethod = function csrfSafeMethod (method) {
+      return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+    };
+
+    window.getCookie = function getCookie (name) {
+      var cookieValue = null;
+
+      if (document.cookie && document.cookie !== '') {
+        var cookies = document.cookie.split(';');
+
+        for (var i = 0; i < cookies.length; i++) {
+          var cookie = $.trim(cookies[i]);
+
+          if (cookie.substring(0, name.length + 1) === (name + '=')) {
+            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+            break;
+          }
+        }
+      }
+
+      return cookieValue;
+    };
+
     require('./modules');
     require('perfect-scrollbar/jquery')($);
+    require('imports?$=jquery!jscroll');
 
     $('[data-toggle="custom-scroll"] > .float-notifcations').perfectScrollbar();
 

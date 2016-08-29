@@ -7,7 +7,7 @@
 {% load thumbor_tags %}
 
 {% block seo-og-title %}{% block seo_title %}Feed | {{ profile.user.get_full_name }}{{ block.super }}{% endblock %}{% endblock %}
-{% block seo-og-description %}{% block seo-description %}{% endblock %}{% endblock %}
+{% block seo-og-description %}{% block seo-description %}Feed de notícias que são do seu interesse. Lista de publicações e perguntas de comunidades e membros que você está seguindo. {% endblock %}{% endblock %}
 {% block seo-og-image %}{% get_avatar profile.user width=90 height=90 smart=False fit_in=False %}{% endblock %}
 
 {% block seo-metas-extra %}
@@ -47,7 +47,7 @@
 
 {% block javascripts %}
     {{ block.super }}
-    <script>
+    <script type="text/javascript">
         $(function() {
             $(".j-scroll").jscroll({
                 loadingHtml: '<div class="load-async-preload"></div>',

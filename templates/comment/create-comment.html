@@ -1,0 +1,12 @@
+<form data-group-class=".comment-group" action="{% url 'comment:save' %}" data-ajaxform="true" data-toggle="prepend" data-update="{{ to_update }}" method="post">
+    <div class="comment-group">
+        {{ form.content }}
+        <span class="help-block"></span>
+    </div>
+    <input type="hidden" name="content_type" value="{{ content_type }}">
+    <input type="hidden" name="content_object_id" value="{{ content_object.id }}">
+     <div class="create-comment-footer">
+        <input type="submit" value="Enviar" class="btn btn-primary">
+    </div>
+    {% csrf_token %}
+</form>

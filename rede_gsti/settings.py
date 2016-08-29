@@ -37,7 +37,6 @@ except IOError, e:
 
     config.add_section("STATIC")
     config.set("STATIC", "path", '/var/www/staticfiles/')
-    config.set("STATIC", "path", '/var/www/staticfiles/')
 
     config.add_section("DATABASE")
     config.set("DATABASE", "name", "vagrant")
@@ -179,6 +178,8 @@ INTERNAL_APPS = (
 INSTALLED_APPS = DJANGO_APPS + THIRD_PART_APPS + INTERNAL_APPS
 
 ADD_REVERSION_ADMIN=True
+
+APPEND_SLASH = True
 
 def show_toolbar(request):
     return not request.is_ajax()
@@ -499,7 +500,7 @@ USE_TZ = config.getboolean("LOCALE", "tz")
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "static"),
 )
-STATIC_URL = '/static/'
+
 
 
 # STATIC_ROOT = '/home/phillip/projects/python/django/rede_gsti/staticfiles/'
@@ -507,7 +508,7 @@ STATIC_ROOT = config.get("STATIC", "path")
 
 # Media Paths: User upload files
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media', 'uploads')
-MEDIA_URL = '/media/uploads/'
+
 
 
 # extramigrations
@@ -546,7 +547,8 @@ TIME_RECOVERY_PASSWORD = config.getint("GENERAL", "expiration_password_recovery"
 
 # Site Urls
 SITE_URL = config.get("GENERAL", 'site_url')
-
+STATIC_URL = '/static/'
+MEDIA_URL = '/media/uploads/'
 
 # Python Social auth backend configuration
 
@@ -700,46 +702,85 @@ SUMMERNOTE_CONFIG = {
     'assets': {
         'js': (
             # 'https://code.jquery.com/jquery-2.2.4.min.js',
-            # 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js',
+            'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js',
             'https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.1/summernote.min.js',
             'https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.2/lang/summernote-pt-BR.js',
-            os.path.join(STATIC_URL, 'javascripts', 'summernote-oembed-plugin.js'),
+            # os.path.join(STATIC_URL, 'javascripts', 'summernote-oembed-plugin.js'),
 
             'https://rawgit.com/google/code-prettify/master/src/prettify.js',
-            'https://rawgit.com/epiksel/summernote-highlight/master/dist/summernote-ext-highlight.min.js'
+            # 'https://rawgit.com/annielmenezes/summernote-prettyprint-plugin/master/src/summernote-prettyprint-plugin.js'
         ),
 
         'css': {
             'all': (
                 # 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css',
-                'https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css',
+                # 'https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css',
                 'https://rawgit.com/google/code-prettify/master/src/prettify.css',
-                'https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.1/summernote.css',
+                # 'https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.1/summernote.css',
 
             )
         }
     },
 
     'editors': {
-        'default': {
+        'article': {
             'airMode': False,
             'lang': 'pt-BR',
-            'minHeight': 250,
+            'minHeight': 340,
             'oEmbed': {
                 'service': '/oembed/',
                 'spinner': '<div class=\"text-center\"><img src=\"/static/images/preload.gif\" /></div>',
 
             },
-            'styleTags':  ['blockquote', 'pre', 'h2', 'h3', 'h4'],
+            'styleTags':  ['p', 'blockquote', 'pre', 'h2', 'h3', 'h4'],
+            'toolbar': [
+                ['style', ['style']],
+                ['hr', ['hr']],
+                ['link', ['link']],
+                ['style', ['bold', 'italic', 'underline']],
+                ['table', ['table']],
+                ['para', ['ul', 'ol']],
+                ['picture', ['picture', 'oembed', 'prettyprint']]
+
+            ],
+            'popover': {
+              'image': [
+                ['imagesize', ['imageSize100', 'imageSize50', 'imageSize25']],
+                ['float', ['floatLeft', 'floatRight', 'floatNone']],
+                ['remove', ['removeMedia']]
+              ],
+              'link': [
+                ['link', ['linkDialogShow', 'unlink']]
+              ],
+              'air': [
+                ['color', ['color']],
+                ['font', ['bold', 'underline', 'clear']],
+                ['para', ['ul', 'paragraph']],
+                ['table', ['table']],
+                ['insert', ['link', 'picture']]
+              ]
+            }
+
+        },
+        'question': {
+            'airMode': False,
+            'lang': 'pt-BR',
+            'minHeight': 400,
+            'oEmbed': {
+                'service': '/oembed/',
+                'spinner': '<div class=\"text-center\"><img src=\"/static/images/preload.gif\" /></div>',
+
+            },
+            'styleTags':  ['p', 'blockquote', 'pre', 'h2', 'h3', 'h4'],
             'toolbar': [
                 ['style', ['style']],
                 ['hr', ['hr']],
                 ['link', ['link']],
                 ['style', ['bold', 'italic', 'underline', 'clear']],
-                ['font', ['strikethrough', 'superscript', 'subscript']],
+                ['font', ['strikethrough']],
                 ['table', ['table']],
                 ['para', ['ul', 'ol', 'paragraph']],
-                ['picture', ['picture', 'oembed', 'highlight']]
+                ['picture', ['picture', 'oembed', 'prettyprint']]
 
             ],
             'popover': {
@@ -751,10 +792,30 @@ SUMMERNOTE_CONFIG = {
         'comment': {
             'airMode': False,
             'minHeight': 100,
+            'lang': 'pt-BR',
             'toolbar': [
                 ['style', ['bold', 'italic', 'underline']],
+                ['prettyprint', ['prettyprint']],
+                ['pre', ['pre']]
+            ],
+            'popover': {
+                'air':[
+                ['style', ['bold', 'italic', 'underline', 'clear']],
                 ['font', ['strikethrough', 'superscript', 'subscript']],
-                ['highlight', ['highlight']]
+                ['fontsize', ['fontsize']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['height', ['height']]
+                ]
+            }
+        },'reply': {
+            'airMode': False,
+            'minHeight': 100,
+            'lang': 'pt-BR',
+            'toolbar': [
+                ['style', ['bold', 'italic', 'underline']],
+                ['font', ['strikethrough']],
+                ['prettyprint', ['prettyprint']],
+                ['pre', ['pre']]
             ],
             'popover': {
                 'air':[

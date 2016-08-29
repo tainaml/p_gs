@@ -5,11 +5,18 @@
 {% load json_filter %}
 {% load widget_tweaks %}
 
-{% block title %}Portal GSTI - Editar Pergunta{% endblock %}
-{% block editorfiles %}
-<script type="text/javascript" src="{% static "ckeditor/ckeditor/ckeditor.js" %}"></script>
-<script type="text/javascript" src="{% static "ckeditor/ckeditor-init.js" %}"></script>
+{% load avatar_tags %}
+{% load thumbor_tags %}
+
+{% block seo-og-title %}{% block seo_title %}Editar Conteúdo -> Perguntas | {{ request.user.get_full_name }}{{ block.super }}{% endblock %}{% endblock %}
+{% block seo-og-description %}{% block seo-description %}Área para editar as perguntas que foram feitas da sua conta no Portal GSTI.{% endblock %}{% endblock %}
+{% block seo-og-image %}{% get_avatar request.user width=90 height=90 smart=False fit_in=False %}{% endblock %}
+
+{% block seo-metas-extra %}
+    <meta name="robots" content="noindex, nofollow">
 {% endblock %}
+
+{% block editorfiles %}{% endblock %}
 
 {% block content %}
     <main class="container main">

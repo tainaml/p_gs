@@ -25,10 +25,6 @@ class CommentListBaseView(View):
 
     def do_process(self, request=None):
 
-        # self.response_data['template'] = render(request,
-        #                                    self.template_list_path,
-        #                                    self.context).content
-
         return render(request, self.template_list_path, self.context)
 
 
@@ -39,17 +35,18 @@ class CommentList(FormBaseListView):
 
     # @Override
     def after_process(self, request=None, *args, **kwargs):
+        super(CommentList, self).after_process(*args, **kwargs)
         self.context.update({'comments': self.process_return})
 
 
 class CommentAnswerList(CommentList):
     success_template_path = 'comment/list-answer.html'
-    itens_per_page = 4
+    itens_per_page = 10
 
 
 class CommentSaveView(InstanceSaveFormBaseView):
-    fail_validation_template_path = 'comment/create.html'
-    success_template_path = 'comment/comment.html'
+    fail_validation_template_path = 'comment/create-comment.html'
+    success_template_path = 'comment/show-comment.html'
     form = CreateCommentForm
 
 
@@ -62,7 +59,7 @@ class CommentSaveAnswer(InstanceSaveFormBaseView):
 class CommentUpdateView(InstanceUpdateFormBaseView):
 
     fail_validation_template_path = 'comment/edit-comment.html'
-    success_template_path = 'comment/comment-segment.html'
+    success_template_path = 'comment/show-comment.html'
     form = EditCommentForm
 
     def instance_to_update(self, request, *args, **kwargs):
@@ -76,8 +73,7 @@ class CommentDeleteView(View):
     @method_decorator(login_required)
     def post(self, request):
 
-        form = CommentDeleteForm({'comment': request.POST.get('item-id')})
-        form.set_author(request.user)
+        form = CommentDeleteForm(author=request.user, data={'comment': request.POST.get('item-id')})
         if form.process():
             response_data = {'status': 'ok'}
             return JsonResponse(response_data, status=200)

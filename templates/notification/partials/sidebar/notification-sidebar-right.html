@@ -3,7 +3,7 @@
         <div class="widget-content">
             <ul class="perfil-repositories notification-aside">
                 <li {% if local_context == "members" %}class="active"{% endif %}><a href="{% url 'notifications:members' %}"><i class="gsticon gsticon-users"></i> Membros</a></li>
-                <li {% if local_context == "posts" %}class="active"{% endif %}><a href="{% url 'notifications:posts' %}"><i class="gsticon gsticon-comments"></i> Publicações e Perguntas</a></li>
+                <li {% if local_context == "posts" %}class="active"{% endif %}><a href="{% url 'notifications:posts' %}"><i class="gsticon gsticon-comments"></i> Conteúdo</a></li>
                 <li {% if local_context == "general" %}class="active"{% endif %}><a href="{% url 'notifications:general' %}"><i class="gsticon gsticon-bell"></i> Geral</a></li>
             </ul>
         </div>

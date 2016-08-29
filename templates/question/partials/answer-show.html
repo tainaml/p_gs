@@ -1,6 +1,7 @@
 {% load social_tags %}
 {% load thumbor_tags %}
 {% load avatar_tags %}
+{% load comment_tags %}
 
 <div id="answer-{{ instance.id }}">
     <div class="comment">
@@ -42,48 +43,44 @@
                 {% if instance.question.correct_answer == instance %}
                     <span class="label label-primary"><i class="gsticon gsticon-trophy"></i> Melhor resposta</span>
                 {% endif %}
+
             </header>
             <div class="comment-text">
-                <p>{{instance.description}}</p>
+                <p>{{instance.description|safe}}</p>
             </div>
         </div>
-        <footer class="post-footer col-lg-12">
+        <footer class="post-footer clearfix">
             <div class="post-toolbar pull-right">
                 <div class="post-count">
                     {% like_box instance request.path "inline" %}
                 </div>
-                <div class="post-count-comments">
-                    <a data-url-login="{% url 'account:is_logged' %}" data-trigger="login" data-token="{{ csrf_token }}" data-object-id="{{ instance.id }}" data-toggle="dropdown" data-target="#data-answer-{{ instance.id }}" href="javascript:;">Comentar</a>
 
+                <div class="post-count-comments">
                     {% if instance.question.author == request.user %}
                     <a href="{% url 'question:correct-answer' instance.id %}">
-                        {% if instance.question.correct_answer == instance %}
-                            <span class="label label-primary">Melhor resposta</span>
-                        {% else %}
-                            <span class="label label-link">Melhor resposta</span>
-                        {% endif %}
+                    {% if instance.question.correct_answer == instance %}
+                      <span class="label label-primary">Melhor resposta</span>
+                    {% else %}
+                      <span class="label label-link">Melhor resposta</span>
+                    {% endif %}
                     </a>
                     {% endif %}
+                 <a class="post-count-comments" data-object-id="{{ instance.id }}" data-toggle="dropdown" data-target="#data-answer-{{ instance.id }}" href="javascript:;" data-token="{{ csrf_token }}">Comentar</a>
                 </div>
+
             </div>
         </footer>
-        <aside class="comments-container-child comments-children no-children">
 
-            {% with answer_id=instance.id|stringformat:"s" %}
-
-                {% if instance.author == request.user %}
-                    <div data-list id="comment-edit-{{ instance.id }}" class="dropdown-content">
-                        {% include 'comment/edit-answer.html' with content_object=instance to_update="answer-"|add:answer_id content_type='comment'  %}
-                    </div>
-                {% endif %}
-
-                <div id="data-answer-{{ instance.id }}" class="dropdown-content">
-                    {% include 'question/partials/create-answer-comment.html' with content_object=instance to_update="data-list-"|add:answer_id content_type='answer' %}
-                </div>
-
+        <div id="data-answer-{{ instance.id }}" class="dropdown-content comment-dropdown">
+            {% with instance_id=instance.id|stringformat:"s" %}
+                {% with to_update="#list-answer-"|add:instance_id %}
+                    {% comment_box_inner instance to_update %}
+                {% endwith %}
             {% endwith %}
+        </div>
 
-            <div id="data-list-{{ instance.id }}"  data-xhr data-xhr-url="{% url "comment:list-answer" %}?content_type=answer&content_id={{ instance.id }}"></div>
-        </aside>
+{#        <aside id="answer-comments-{{ instance.id }}" class="container-comments">#}
+            {% comment_list instance %}
+{#        </aside>#}
     </div>
 </div>

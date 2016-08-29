@@ -79,6 +79,10 @@ class FormBaseListView(FormBaseView):
     # @Override
     def after_process(self, request=None, *args, **kwargs):
         self.context.update({'instance_list': self.process_return})
+        self.context.update({'form': self.form})
+        cleaned_data = self.form.cleaned_data if hasattr(self.form, "cleaned_data") else {'page': 1}
+        cleaned_data['page']+=1
+        self.context.update(cleaned_data)
 
     # @Override
     def do_process(self, request=None, *args, **kwargs):
@@ -88,19 +92,18 @@ class FormBaseListView(FormBaseView):
         self.form = self.form(**self.fill_form_kwargs(request))
         self.process_return = self.form.process()
         self.after_process(request, *args, **kwargs)
-        self.context.update({'form': self.form})
-        self.context.update({'page': self.form.cleaned_data['page'] + 1})
 
-        return self.__response_render__(request, *args, **kwargs)
+        if request.GET.get("page"):
+            return self.__response_render__(request, *args, **kwargs)
+        else:
+            return self.__response_json__(request, *args, **kwargs)
 
     def get(self, request=None, *args, **kwargs):
         if not self.form:
             raise NotImplementedError("You must specify the form")
 
-        if request.GET.get("page"):
-            return self.do_process(request, *args, **kwargs)
-        else:
-            return super(FormBaseListView, self).do_process(request, *args, **kwargs)
+
+        return self.do_process(request, *args, **kwargs)
 
 
 class InstanceSaveFormBaseView(FormBaseView):

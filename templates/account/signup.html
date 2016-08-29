@@ -5,7 +5,20 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>{% block title %}Portal GSTI - Home {% endblock %}</title>
+        {% block seo-metas %}
+        <title>{% block seo_title %}{% block title %}Cadastre-se{% endblock %}{% block title-end %} - Portal GSTI{% endblock %}{% endblock %}</title>
+        <meta property="description" content="{% block seo-description %}Inscreva-se na maior rede de tecnologia do Brasil. É um portal de informações, é uma rede social e é um fórum para tirar dúvidas. Participe!{% endblock %}">
+        <meta property="og:title" content="{% block seo-og-title %}{{ title }}{{ ends }}{% endblock %}">
+        <meta property="og:description" content="{% block seo-og-description %}Inscreva-se na maior rede de tecnologia do Brasil. É um portal de informações, é uma rede social e é um fórum para tirar dúvidas. Participe!{% endblock %}">
+        <meta property="og:url" content="{% block seo-og-url %}{{ request.build_absolute_uri }}{% endblock %}">
+        <meta property="og:site_name" content="{% block seo-og-site_name %}Portal GSTI{% endblock %}">
+        <meta property="og:image" content="{% block seo-og-image %}{% static "images/gsti-default-og-image.png" %}{% endblock %}" />
+        <meta property="og:type" content="{% block seo-og-type %}website{% endblock %}">
+        <link rel="canonical" href="{% block seo-canonical %}{{ request.build_absolute_uri }}{% endblock %}"/>
+        {% block seo-metas-extra %}
+        {% endblock %}
+        {% endblock %}
+
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700">
         <link rel="stylesheet" href="{% static 'stylesheets/style.css' %}">
 
@@ -52,11 +65,11 @@
                             <a href="{% url 'index' %}" class="gsti-link">Portal GSTI</a>
                         </h1>
                         <nav class="menu-social-signup">
-                            <a class="gsticon gsticon-facebook-square" href="https://www.facebook.com/PortalGSTIpage"></a>
-                            <a class="gsticon gsticon-google-plus-square" href="https://plus.google.com/b/109232763237126205281/+PortalgstiBr"></a>
-                            <a class="gsticon gsticon-linkedin-square" href="https://www.linkedin.com/groups/4602615"></a>
-                            <a class="gsticon gsticon-twitter-square" href="https://twitter.com/portal_gsti"></a>
-                            <a class="gsticon gsticon-youtube-square" href="https://www.youtube.com/c/PortalgstiBr"></a>
+                            <a class="gsticon gsticon-facebook-square" href="https://www.facebook.com/PortalGSTIpage" target="_blank"></a>
+                            <a class="gsticon gsticon-google-plus-square" href="https://plus.google.com/b/109232763237126205281/+PortalgstiBr" target="_blank"></a>
+                            <a class="gsticon gsticon-linkedin-square" href="https://www.linkedin.com/groups/4602615" target="_blank"></a>
+                            <a class="gsticon gsticon-twitter-square" href="https://twitter.com/portal_gsti" target="_blank"></a>
+                            <a class="gsticon gsticon-youtube-square" href="https://www.youtube.com/c/PortalgstiBr" target="_blank"></a>
                             <a class="btn-login" href="javascript:;" data-toggle="modal" data-target="#modal-login">Login</a>
                         </nav>
                     </div>

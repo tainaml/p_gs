@@ -222,7 +222,10 @@ class ShowQuestionView(View):
             raise Http404(_("Question is not exists!"))
 
         answers = business.get_all_answers_by_question(question)
-        context = {'question': question, 'answers': answers}
+
+        form_answer = EditAnswerForm()
+
+        context = {'question': question, 'answers': answers, 'form_answer': form_answer}
         context.update(self.get_context(request, question))
         return render(request, 'question/question-show.html', context)
 

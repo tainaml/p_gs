@@ -1,5 +1,6 @@
 {% load i18n %}
 {% load comment_reply %}
+{% load widget_tweaks %}
 
 {% if messages %}
     <ul class="messages">
@@ -23,17 +24,12 @@
     {{ form.non_field_errors }}
     {% csrf_token %}
     <input type="hidden" name="question_id" value="{{ question.id }}" />
-    <textarea name="description" id="description" placeholder="{% trans  'Comment here' %}" cols="30" rows="10"></textarea>
+{#    <textarea name="description" id="description" placeholder="{% trans  'Comment here' %}" cols="30" rows="10"></textarea>#}
+    {% render_field form_answer  %}
     {% if form.description.errors %}<span class="help-block">{{ form.description.errors }}</span> {% endif %}
     <input type="submit" value="Submit"/>
 </form>
 
 {% block javascripts %}
     {{ block.super }}
-    {% comment %}
-    Script para highlight nos códigos.
-    {% endcomment %}
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/styles/default.min.css">
-    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/highlight.min.js"></script>
-    <script>hljs.initHighlightingOnLoad();</script>
 {% endblock %}

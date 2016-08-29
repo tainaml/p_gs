@@ -100,14 +100,14 @@ urlpatterns = [
     # Translators: URL core adicionais
     url(_(r'^'), include('apps.core.urls.core', namespace='core')),
 
-     url(r'^chaining/', include('smart_selects.urls')),
+    url(r'^chaining/', include('smart_selects.urls')),
+
+    # Translators: URL de buscai
+    url(_(r'^'), include('apps.core.urls.search', namespace='search')),
 
     # Translators: URL root de comunidade
     url(_(r'^'), include('apps.core.urls.community', namespace='community')),
 
     url(r'^ideia-summernote/', include('ideia_summernote.urls', namespace='ideia-summernote')),
-
-    # Translators: URL de buscai
-    url(_(r'^'), include('apps.core.urls.search', namespace='search')),
 
 ] + url_statics + url_media + url_search_all
