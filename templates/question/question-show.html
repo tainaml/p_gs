@@ -147,36 +147,54 @@
             });
         };
 
-        var form_submit = function(event, data){
-            var $form = $(this);
+        function setData($form, data, $divToUpdate){
 
-            var action = $form.data("toggle");
-            var $div_to_update = $($form.data("update"));
+        var action = $form.data("toggle");
+        if (action=="append"){
+            $divToUpdate.append(data.template);
+            $form[0].reset();
+        }else if (action=="prepend"){
+            $divToUpdate.prepend(data.template);
 
-            if (action=="append"){
-                $div_to_update.append(data.template);
-                $form[0].reset();
-            }else if (action=="prepend"){
-
-                $div_to_update.prepend(data.template);
-                var $form_to_hide = $form.parent(".dropdown-content");
-                if ($form_to_hide){
-                    $form_to_hide.removeClass("open");
-                }
-                $form[0].reset();
-            }else if (action=="replace"){
-                $div_to_update.html(data.template);
+            var $form_to_hide = $form.parent(".dropdown-content");
+            if ($form_to_hide){
+                $form_to_hide.removeClass("open");
             }
-            var $subforms = $div_to_update.find("form[data-ajaxform=\"true\"]");
-            $subforms.IdeiaAjaxForm();
+            $form[0].reset();
+        }else if (action=="replace"){
+            var $element = $(data.template);
+            $divToUpdate.replaceWith($element);
+            var $newForm = $element.find("form[data-ajaxform=\"true\"]");
+            $divToUpdate = $element;
+        }
+        $form.find('[data-toggle="editor"]').summernote('reset');
+        $divToUpdate.refreshEditors();
+        PR.prettyPrint();
 
-            $subforms.on("ajaxform.success", form_submit);
-            $div_to_update.refreshEditors();
-            var $data_list = $div_to_update.find("div[data-xhr]");
-            $data_list.renderList();
-            refreshAsyncLike();
+        return $divToUpdate
+    }
 
-        };
+         var form_submit = function(event, data){
+        var $form = $(this);
+        var $divToUpdate = $($form.data("update"));
+        $divToUpdate = setData($form, data, $divToUpdate);
+
+        var $subforms = $divToUpdate.find("form[data-ajaxform=\"true\"]");
+        $.each($subforms, function(i, value){
+            var $subform = $(value);
+            if(!$subform.data("plugin")){
+                $subform.data("plugin", "true");
+                $subform.IdeiaAjaxForm();
+                $subform.on("ajaxform.success", form_submit);
+            }
+
+
+        });
+        var $dataList = $divToUpdate.find("div[data-xhr]");
+        $dataList.renderList();
+        refreshAsyncLike();
+
+    };
 
         $.fn.renderList = function(){
 
@@ -217,7 +235,7 @@
                                 callback: function(data){
                                     var $div_jscroll = $(".jscroll-added");
                                     var $jscroll_subforms = $div_jscroll.find("form[data-ajaxform=\"true\"]");
-    {#                                $jscroll_subforms.IdeiaAjaxForm();#}
+                                    $jscroll_subforms.IdeiaAjaxForm();
                                     $jscroll_subforms.on("ajaxform.success", form_submit);
                                     $jscroll_subforms.refreshEditors();
                                     $div_jscroll.removeClass("jscroll-added");

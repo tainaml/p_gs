@@ -239,9 +239,6 @@
 
 
         });
-
-
-
         var $dataList = $divToUpdate.find("div[data-xhr]");
         $dataList.renderList();
         refreshAsyncLike();
@@ -287,7 +284,7 @@
                                 callback: function(data){
                                     var $div_jscroll = $(".jscroll-added");
                                     var $jscroll_subforms = $div_jscroll.find("form[data-ajaxform=\"true\"]");
-{#                                    $jscroll_subforms.IdeiaAjaxForm();#}
+                                    $jscroll_subforms.IdeiaAjaxForm();
                                     $jscroll_subforms.on("ajaxform.success", form_submit);
                                     $jscroll_subforms.refreshEditors();
                                     $div_jscroll.removeClass("jscroll-added");
@@ -296,7 +293,7 @@
 
                             var $subforms = $element.find("form[data-ajaxform=\"true\"]");
                             $subforms.on("ajaxform.success", form_submit);
-{#                            $subforms.IdeiaAjaxForm();#}
+                            $subforms.IdeiaAjaxForm();
                             $subforms.refreshEditors();
 
                             var async_like = $self.find('[data-async-like]');
