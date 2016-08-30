@@ -24,7 +24,7 @@ def relevance_box(context, content_object, count=4, template_path='core/partials
         record_type = ContentType.objects.get(model="article")
 
         records = FeedObject.objects.filter(
-            taxonomies=content_object.taxonomy,
+            communities__in=[content_object],
             content_type=record_type,
             article__status=Article.STATUS_PUBLISH,
             article__publishin__lte=timezone.now()
