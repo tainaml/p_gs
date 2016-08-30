@@ -22,6 +22,7 @@
 {% block seo-og-description %}{% block seo-description %}{{ article.text|striptags|truncatechars:"160" }}{% endblock %}{% endblock %}
 
 {% block seo-og-image %}{% if article.image and article.image.url  %}{% thumbor_url article.image.url width=270 height=203 smart=False fit_in=False %}{% else %}{{ block.super }}{% endif %}{% endblock %}
+{% block seo-og-type %}article{% endblock %}
 
 {% block content %}
 <main class="container main">

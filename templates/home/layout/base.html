@@ -9,7 +9,7 @@
 
     {% block seo-metas %}
         <title>{% block seo_title %}{% block title %}{% endblock %}{% block title-end %} - Portal GSTI{% endblock %}{% endblock %}</title>
-        <meta property="og:description" content="{% block seo-description %}O seu portal definitivo de TI. Conteúdo, área para tirar dúvidas, informações sobre vagas de trabalho, concursos e certificações. Conheça nossas comunidades!{% endblock %}">
+        <meta name="description" content="{% block seo-description %}O seu portal definitivo de TI. Conteúdo, área para tirar dúvidas, informações sobre vagas de trabalho, concursos e certificações. Conheça nossas comunidades!{% endblock %}">
         <meta property="og:title" content="{% block seo-og-title %}{{ title }}{{ ends }}{% endblock %}">
         <meta property="og:description" content="{% block seo-og-description %}O seu portal definitivo de TI. Conteúdo, área para tirar dúvidas, informações sobre vagas de trabalho, concursos e certificações. Conheça nossas comunidades!{% endblock %}">
         <meta property="og:url" content="{% block seo-og-url %}{{ request.build_absolute_uri }}{% endblock %}">

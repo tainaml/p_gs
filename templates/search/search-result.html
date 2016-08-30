@@ -1,11 +1,58 @@
 {%extends 'home/layout/base.html' %}
 
-{% block title %}Portal GSTI - Resultado da busca{% if request.GET.q|length > 0 %} por "{{ request.GET.q }}"{% endif %}{% endblock %}
+{% load thumbor_tags %}
+{% load var_tags %}
+
+{% block seo-og-title %}{% block seo_title %}{% spaceless %}
+
+    {%  with local_context=request.path|cut:'/buscar'|cut:'/'|default:'all' %}
+
+        {% if local_context == 'searchingarticles' %}
+             Publicações
+        {% elif local_context == 'searchingcommunities' %}
+             Comunidades
+        {% elif local_context == 'searchingusers' %}
+             Membros encontrados pela pesquisa
+        {% elif local_context == 'searchingquestions' %}
+             Perguntas
+        {% else %}
+            Tudo
+        {% endif %}
+
+        sobre "{{ request.GET.q }}"
+
+    {% endwith %}
+
+    {{ block.super }}
+{% endspaceless %}{% endblock %}{% endblock %}
+
+
+{% block seo-og-description %}{% block seo-description %}{% spaceless %}
+
+    {%  with local_context=request.path|cut:'/buscar'|cut:'/'|default:'all' %}
+
+        {% if local_context == 'searchingarticles' %}
+             Todas as publicações encontradas pela pesquisa
+        {% elif local_context == 'searchingcommunities' %}
+             Todas as comunidades encontradas pela pesquisa
+        {% elif local_context == 'searchingusers' %}
+             Todos os membros encontrados pela pesquisa
+        {% elif local_context == 'searchingquestions' %}
+             Todas as perguntas feitas sobre
+        {% else %}
+             Todas as publicações, perguntas, comunidades e pessoas que tem relação com a pesquisa
+        {% endif %}
+
+        "{{ request.GET.q }}" no Portal GSTI.
+
+    {% endwith %}
+
+{% endspaceless %}{% endblock %}{% endblock %}
 
 {% block extra_meta %}
     {{ block.super }}
-    {% if articles.object_list|length == 0 and communities.object_list|length == 0 and users.object_list|length == 0 and questions.object_list|length == 0 %}
-        <meta name="robots" content="noindex">
+    {% if content_type or articles.object_list|length == 0 and communities.object_list|length == 0 and users.object_list|length == 0 and questions.object_list|length == 0 %}
+        <meta name="robots" content="noindex,nofollow">
     {% endif %}
 {% endblock %}
 
