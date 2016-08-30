@@ -99,6 +99,7 @@ $color-counter-notification: #b2b2b2 !default;
 .item-float-notification-link {
     padding: 0;
     a {
+        @include clearfix;
         display: block;
         padding: 10px 20px;
         color: #486075;
@@ -106,8 +107,13 @@ $color-counter-notification: #b2b2b2 !default;
         &:hover { background-color: #f7f7f7; }
 
         > figure {
-          margin-right: 5px;
-          float: left;
+          display: inline-block;
+
+          > img {
+            margin-right: 5px;
+            float: left;
+          }
+          > figcaption { display: inline; }
         }
 
         span { color: #337ab7; }
