@@ -7,14 +7,15 @@
 {% load avatar_tags %}
 {% load humanize %}
 
-{% block title %}{{ question.title }} - Portal GSTI{% endblock %}
+{% block title %}{{ question.title }} | Pergunta{% endblock %}
 
 {% block content %}
+
     <main class="container main">
         <div>
             <ul class="box-share">
                 <li class="comment-vote">
-                    {% like_box question request.path "share-box" %}
+                    {% like_box question question_url "share-box" %}
                 </li>
                 <li data-toggle="tooltip" data-placement="auto right" data-original-title="Favoritar"><a data-url-login="{% url 'account:is_logged' %}" data-trigger="login" data-token="{{ csrf_token }}" data-action="favourite" data-action-type="icon" data-object="favourite-{{ question.id }}" data-url-check="{% url 'socialactions:acted' question.id 'question' 'favourite' %}" href="{% url 'socialactions:act-xhr' question.id 'question' 'favourite' %}?url_next={{ request.path|urlencode }}"><i class="gsticon gsticon-star"></i></a></li>
                 <li data-toggle="tooltip" data-placement="auto right" data-original-title="Ver depois"><a data-url-login="{% url 'account:is_logged' %}" data-trigger="login" data-token="{{ csrf_token }}" data-action="see-later" data-action-type="icon" data-url-check="{% url 'socialactions:acted' question.id 'question' 'see-later' %}" data-object="see-later-{{ question.id }}" href="{% url 'socialactions:act-xhr' question.id 'question' 'see-later' %}?url_next={{ request.path|urlencode }}"><i class="gsticon gsticon-eye"></i></a></li>
@@ -77,7 +78,7 @@
                     </div>
                     <div class="full-post-share">
                         <h3>COMPARTILHE</h3>
-                        <div class="addthis_sharing_toolbox"></div>
+                        {% include '_partials/share.html' with show_all=True %}
                     </div>
                 </article>
 

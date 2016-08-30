@@ -1,5 +1,6 @@
 from django.contrib.contenttypes.fields import GenericRelation
 from django.contrib.contenttypes.models import ContentType
+from django.core.urlresolvers import reverse
 from django.db import models
 from django.conf import settings
 
@@ -43,7 +44,6 @@ class Question(models.Model):
         return self.question_owner.count()
 
     def get_absolute_url(self):
-        from django.core.urlresolvers import reverse
         return reverse('question:show', args=[str(self.slug), str(self.id)])
 
     def __unicode__(self):
