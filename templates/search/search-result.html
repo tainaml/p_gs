@@ -1,11 +1,58 @@
 {%extends 'home/layout/base.html' %}
 
-{% block title %}Portal GSTI - Resultado da busca{% if request.GET.q|length > 0 %} por "{{ request.GET.q }}"{% endif %}{% endblock %}
+{% load thumbor_tags %}
+{% load var_tags %}
+
+{% block seo-og-title %}{% block seo_title %}{% spaceless %}
+
+    {%  with local_context=request.path|cut:'/buscar'|cut:'/'|default:'all' %}
+
+        {% if local_context == 'searchingarticles' %}
+             Publicações
+        {% elif local_context == 'searchingcommunities' %}
+             Comunidades
+        {% elif local_context == 'searchingusers' %}
+             Membros encontrados pela pesquisa
+        {% elif local_context == 'searchingquestions' %}
+             Perguntas
+        {% else %}
+            Tudo
+        {% endif %}
+
+        sobre "{{ request.GET.q }}"
+
+    {% endwith %}
+
+    {{ block.super }}
+{% endspaceless %}{% endblock %}{% endblock %}
+
+
+{% block seo-og-description %}{% block seo-description %}{% spaceless %}
+
+    {%  with local_context=request.path|cut:'/buscar'|cut:'/'|default:'all' %}
+
+        {% if local_context == 'searchingarticles' %}
+             Todas as publicações encontradas pela pesquisa
+        {% elif local_context == 'searchingcommunities' %}
+             Todas as comunidades encontradas pela pesquisa
+        {% elif local_context == 'searchingusers' %}
+             Todos os membros encontrados pela pesquisa
+        {% elif local_context == 'searchingquestions' %}
+             Todas as perguntas feitas sobre
+        {% else %}
+             Todas as publicações, perguntas, comunidades e pessoas que tem relação com a pesquisa
+        {% endif %}
+
+        "{{ request.GET.q }}" no Portal GSTI.
+
+    {% endwith %}
+
+{% endspaceless %}{% endblock %}{% endblock %}
 
 {% block extra_meta %}
     {{ block.super }}
-    {% if articles.object_list|length == 0 and communities.object_list|length == 0 and users.object_list|length == 0 and questions.object_list|length == 0 %}
-        <meta name="robots" content="noindex">
+    {% if content_type or articles.object_list|length == 0 and communities.object_list|length == 0 and users.object_list|length == 0 and questions.object_list|length == 0 %}
+        <meta name="robots" content="noindex,nofollow">
     {% endif %}
 {% endblock %}
 
@@ -244,6 +291,7 @@
         var jScrollElemment = null,
                 timeoutReference= null;
         var functionAjaxSuccessSearchFollowers = function (e, data) {
+          console.log(data);
             var $divFollowers = $("#followers-container");
             var $divJScroll = $('<div class="row j-scroll-followers j-scroll-followers-container"></div>');
 
@@ -252,19 +300,19 @@
             $divFollowers.html($divJScroll);
             refreshAsyncLike();
 
-            jScrollElemment = $divJScroll.jscroll({
-                autoTrigger: true,
+            $divJScroll.jscroll({
+                autoTrigger: false,
                 loadingHtml: '<div class="load-async-preload"></div>',
                 contentSelect: '.j-scroll-followers-container',
-                nextSelector: "a[data-jscroll-next]",
+                nextSelector: "a[data-jscroll-next-users]",
                 callback: refreshAsyncLike()
 
             });
         };
 
-        var fillValues = function() {
-            var $this = $(this);
-            $.ajax({
+        var fillValuesFrom = function (element) {
+            var $this = element;
+            var jqXHR = $.ajax({
                 url: $this.data("url"),
                 method: "POST",
                 dataType: "html",
@@ -276,11 +324,13 @@
                     $($this.data("target")).html(response);
                 }
             });
+
+            return jqXHR;
         };
 
         $(function () {
             var $form_search = $("#form-search-followers");
-            /*$form_search.submit();*/
+            
             $form_search.on("ajaxform.success", functionAjaxSuccessSearchFollowers);
             $(document).on('input', "#filterName", function (e) {
                 var $this = $(e.currentTarget);
@@ -292,18 +342,15 @@
                 }, 500);
             });
 
-            $(document).on("change", "[data-ajax-change=true]", fillValues);
             $(document).on('change', "#filterState, #filterCity", function (event) {
                 var $this = $(event.currentTarget);
+                if(event.currentTarget.id == 'filterState') {
+                  fillValuesFrom($this).done(function (data) {
+                    $this.closest('form').submit();
+                    return false;
+                  });
+                }
                 $this.closest('form').submit();
-            });
-
-            $(".j-scroll-followers").jscroll({
-
-                loadingHtml: '<div class="col-lg-12"><div class="load-async-preload"></div></div>',
-                contentSelect: ".j-scroll-followers-container",
-                nextSelector: "a[data-jscroll-next]",
-                callback: refreshAsyncLike()
             });
         });
     </script>

@@ -9,7 +9,7 @@
 
     {% block seo-metas %}
         <title>{% block seo_title %}{% block title %}{% endblock %}{% block title-end %} - Portal GSTI{% endblock %}{% endblock %}</title>
-        <meta property="og:description" content="{% block seo-description %}O seu portal definitivo de TI. Conteúdo, área para tirar dúvidas, informações sobre vagas de trabalho, concursos e certificações. Conheça nossas comunidades!{% endblock %}">
+        <meta name="description" content="{% block seo-description %}O seu portal definitivo de TI. Conteúdo, área para tirar dúvidas, informações sobre vagas de trabalho, concursos e certificações. Conheça nossas comunidades!{% endblock %}">
         <meta property="og:title" content="{% block seo-og-title %}{{ title }}{{ ends }}{% endblock %}">
         <meta property="og:description" content="{% block seo-og-description %}O seu portal definitivo de TI. Conteúdo, área para tirar dúvidas, informações sobre vagas de trabalho, concursos e certificações. Conheça nossas comunidades!{% endblock %}">
         <meta property="og:url" content="{% block seo-og-url %}{{ request.build_absolute_uri }}{% endblock %}">
@@ -68,7 +68,7 @@
                     <a class="btn-show-item toggle-slideout" data-item="#slideout-menu" href="javascript:;" {% if request.user.is_authenticated %}data-notification-group-badge{% endif %}>
                         {% if request.user.is_authenticated %}
                             <figure>
-                                <img src="{% get_avatar request.user width=40 height=40 smart=False fit_in=False %}" alt="{{ profile.user.get_full_name }}" class="img-circle">
+                                <img src="{% get_avatar request.user width=40 height=40 smart=False fit_in=False %}" alt="{{ request.user.get_full_name }}" class="img-circle">
                             </figure>
                         {% else %}
                             <i class="gsticon gsticon-sign-in"></i>
