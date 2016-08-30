@@ -79,6 +79,21 @@
       padding-right: 15px;
     }
 
+    &.area-more,
+    &.area-mobile {
+      a {
+        width: 50%;
+        padding-left: 15px;
+        padding-right: 0;
+        float: left;
+      }
+      a:nth-child(odd) {
+        padding-left: 0;
+        padding-right: 15px;
+      }
+
+    }
+
     @media (max-width: $screen-lg-min) {
         padding-left: 0;
         padding-right: 0;

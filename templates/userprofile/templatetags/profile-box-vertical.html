@@ -36,7 +36,7 @@
         <li>
             <i class="gsticon gsticon-briefcase"></i>
             {% for occupation in profile.occupation.all %}
-                <a href="javascript:;">{{ occupation.responsibility.name }}</a>{% if not forloop.last %},{% endif %}
+                {{ occupation.responsibility.name }}{% if not forloop.last %},{% endif %}
             {% endfor %}
         </li>
         {% endif %}

@@ -3,7 +3,7 @@
 
 <section class="post-list--half post-list--{{ class_name }}">
     <div class="post-list-header">
-        <h2 class="post-list-heading">{{ category.description }}</h2>
+      <a class="post-list-heading" href="{% url "category:show" category.slug %}">{{ category.description }}</a>
 {#        {% include 'home/blocks/partials/communities.html' %}#}
         {% communities communities %}
     </div>
