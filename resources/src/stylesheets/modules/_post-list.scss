@@ -44,6 +44,9 @@
         &:focus .article-content:focus {
             color: darken($color, 10%);
         }
+        .post-list-heading:hover {
+          color: darken($color, 10%);
+        }
     } }
 
     &--large {
@@ -114,9 +117,10 @@
             margin-left: -4px;
             color: $background-button;
             font-size: 0.8em;
-            &:last-child {
-                padding-right: 0;
+            &:hover {
+              color: darken($background-button, 20%);
             }
+            &:last-child { padding-right: 0; }
         }
     }
     &-container {
