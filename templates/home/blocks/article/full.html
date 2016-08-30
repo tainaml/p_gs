@@ -4,7 +4,7 @@
 {% if articles|length %}
     <section class="post-list--large post-list--{{ class_name }}">
         <div class="post-list-header">
-            <h2 class="post-list-heading">{{ category.description }}</h2>
+          <h2 class="post-list-heading" href="{% url "category:show" category.slug %}">{{ category.description }}</h2>
 {#            {% include 'home/blocks/partials/communities.html' %}#}
             {% communities communities %}
         </div>
