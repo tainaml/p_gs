@@ -740,7 +740,7 @@ SUMMERNOTE_CONFIG = {
                 ['link', ['link']],
                 ['style', ['bold', 'italic', 'clear']],
                 ['table', ['table']],
-                ['para', ['ul', 'ol']],
+                ['para', ['ul', 'ol', 'paragraph']],
                 ['picture', ['picture', 'oembed', 'prettyprint']]
 
             ],
@@ -780,7 +780,7 @@ SUMMERNOTE_CONFIG = {
                 ['link', ['link']],
                 ['style', ['bold', 'italic', 'clear']],
                 ['table', ['table']],
-                ['para', ['ul', 'ol']],
+                ['para', ['ul', 'ol', 'paragraph']],
                 ['picture', ['picture', 'oembed', 'prettyprint']]
 
             ],
