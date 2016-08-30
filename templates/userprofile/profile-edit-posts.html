@@ -78,6 +78,10 @@
 
         var jScrollElemment = null;
         var functionAjaxSuccessFilterCommunities = function(e, data) {
+
+            console.log('the_data');
+            console.dir(data);
+
             var $divCommunities = $("#posts-container");
             var $divJScroll = $('<div class="j-scroll-posts j-scroll-posts-container"></div>');
 
@@ -143,7 +147,7 @@
                 $this.closest('form').submit();
             });
 
-            $("#search-form").on("ajaxform.success", functionAjaxSuccessFilterCommunities);
+            $("#form-search").on("ajaxform.success", functionAjaxSuccessFilterCommunities);
             $("#confirmation-form").on("ajaxform.success", functionAjaxSuccessDeleteItem);
 
             $(document).on("click", "[data-delete-item='true']", functionOpenModalToDelete);
