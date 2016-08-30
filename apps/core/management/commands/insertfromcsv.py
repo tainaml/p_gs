@@ -2,6 +2,7 @@ from django.core.management import BaseCommand
 import csv
 import re
 import sys
+from django.db import transaction
 from apps.account.models import User
 from apps.article.models import Article
 from apps.core.business.article import save_feed_item
@@ -18,7 +19,7 @@ class Command(BaseCommand):
         parser.add_argument('path', nargs='+', type=str)
 
 
-
+    @transaction.atomic
     def handle(self, *args, **options):
         path =  options['path'][0]
 
@@ -40,21 +41,21 @@ class Command(BaseCommand):
                 date_month = int(date_result.group("month"))
                 date_day = date_result.group("day")
 
-                if not (article_month==date_month and article_year==date_year):
-                    list_wrong_date.append(row[2] + " > " + row[0])
-                else:
-                    article_date = str(article_year) + "-" +str(article_month) + "-" + "01 21:00:00.000000"
-                    article = Article(
-                        author=author,
-                        createdin=article_date,
-                        updatein=article_date,
-                        publishin=article_date,
-                        title=row[1],
-                        slug=article_slug,
-                        text=row[3],
-                        status=4
-                    )
-                    article.save()
-                    save_feed_item(article)
+
+                article_date = str(article_year) + "-" + (str(article_month) if  + article_month > 9 else "0" + str(article_month)) + "-" + "01 21:00:00.000000"
+                article = Article(
+                    author=author,
+                    createdin=article_date,
+                    updatein=article_date,
+                    publishin=article_date,
+                    title=row[1],
+                    slug=article_slug,
+                    text=row[3],
+                    status=4
+                )
+
+                article.save()
+                save_feed_item(article, {})
 
 
+            print list_wrong_date

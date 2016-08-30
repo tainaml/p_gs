@@ -4,6 +4,7 @@ import re
 import sys
 from apps.article.models import Article
 from apps.core.business.article import get_article
+from apps.temp_comment.models import TempComment
 
 csv.field_size_limit(sys.maxsize)
 
@@ -24,9 +25,9 @@ class Command(BaseCommand):
         list_multiple= []
         list_doesnt_exist= []
         count= []
+
         with open(path, 'r') as csvfile:
             spamreader = csv.reader(csvfile, delimiter='	')
-            list_wrong_date = []
 
             for row in spamreader:
                 regex_result = url_pattern.match(row[0])
@@ -34,22 +35,39 @@ class Command(BaseCommand):
                 article_month = int(regex_result.group("month"))
                 article_slug = regex_result.group("slug")
 
-
                 article = get_article(article_year, article_month, article_slug)
+                article= article['article']
 
-                if not article['article']:
-                    if row[0] not in count:
-                        count.append(row[0])
+                if article:
+
+                    comment_id = row[1]
+                    answer_id = row[2]
+                    author = row[4]
+                    date = row[3]
+                    text = row[5]
+
+                    if answer_id:
+                        temp_comment =TempComment(
+                            author=author,
+                            google_id=comment_id,
+                            parent_google_id=answer_id,
+                            creation_date=date,
+                            text=text
+                        )
+
+                    else:
+                        temp_comment =TempComment(
+                            author=author,
+                            google_id=comment_id,
+                            parent_google_id=answer_id,
+                            creation_date=date,
+                            text=text,
+                            article=article
+                        )
+
+                    temp_comment.save()
 
 
-                # print article['article'] if article['article'] else "Nao encontrado: %s" % row[0]
 
-                # date_result = date_pattern.match(row[2])
-                # date_year = int(date_result.group("year"))
-                # date_month = int(date_result.group("month"))
-                # date_day = date_result.group("day")
-                #
-                #
-                #
-                # print article_slug
-        print count
+
+
