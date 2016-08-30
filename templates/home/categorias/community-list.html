@@ -1,16 +1,19 @@
 {% if communities %}
-{% for feed in communities %}
+    {% for feed in communities %}
 
 
-{% with template_name=feed.content_type|stringformat:"s"|add:"-segment.html" %}
-    {% with instance=feed.content_object %}
-        {% if instance %}
-            {% include 'userprofile/partials/'|add:template_name %}
-        {% endif %}
-    {% endwith %}
-{% endwith %}
-{% endfor %}
-<a data-jscroll-next href="{% url 'category:list-community_articles' %}?category_id={{  category_id }}&page={{ page }}"></a>
+        {% with template_name=feed.content_type|stringformat:"s"|add:"-segment.html" %}
+            {% with instance=feed.content_object %}
+                {% if instance %}
+                    {% include 'userprofile/partials/'|add:template_name %}
+                {% endif %}
+            {% endwith %}
+        {% endwith %}
+    {% endfor %}
+
+    {% if communities.has_next %}
+        <a data-jscroll-next href="{% url 'category:list-community_articles' %}?category_id={{  category_id }}&page={{ page }}"></a>
+    {% endif %}
 
 {% else %}
     <hr/>
