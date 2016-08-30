@@ -244,6 +244,7 @@
         var jScrollElemment = null,
                 timeoutReference= null;
         var functionAjaxSuccessSearchFollowers = function (e, data) {
+          console.log(data);
             var $divFollowers = $("#followers-container");
             var $divJScroll = $('<div class="row j-scroll-followers j-scroll-followers-container"></div>');
 
@@ -252,19 +253,19 @@
             $divFollowers.html($divJScroll);
             refreshAsyncLike();
 
-            jScrollElemment = $divJScroll.jscroll({
-                autoTrigger: true,
+            $divJScroll.jscroll({
+                autoTrigger: false,
                 loadingHtml: '<div class="load-async-preload"></div>',
                 contentSelect: '.j-scroll-followers-container',
-                nextSelector: "a[data-jscroll-next]",
+                nextSelector: "a[data-jscroll-next-users]",
                 callback: refreshAsyncLike()
 
             });
         };
 
-        var fillValues = function() {
-            var $this = $(this);
-            $.ajax({
+        var fillValuesFrom = function (element) {
+            var $this = element;
+            var jqXHR = $.ajax({
                 url: $this.data("url"),
                 method: "POST",
                 dataType: "html",
@@ -276,11 +277,13 @@
                     $($this.data("target")).html(response);
                 }
             });
+
+            return jqXHR;
         };
 
         $(function () {
             var $form_search = $("#form-search-followers");
-            /*$form_search.submit();*/
+            
             $form_search.on("ajaxform.success", functionAjaxSuccessSearchFollowers);
             $(document).on('input', "#filterName", function (e) {
                 var $this = $(e.currentTarget);
@@ -292,18 +295,15 @@
                 }, 500);
             });
 
-            $(document).on("change", "[data-ajax-change=true]", fillValues);
             $(document).on('change', "#filterState, #filterCity", function (event) {
                 var $this = $(event.currentTarget);
+                if(event.currentTarget.id == 'filterState') {
+                  fillValuesFrom($this).done(function (data) {
+                    $this.closest('form').submit();
+                    return false;
+                  });
+                }
                 $this.closest('form').submit();
-            });
-
-            $(".j-scroll-followers").jscroll({
-
-                loadingHtml: '<div class="col-lg-12"><div class="load-async-preload"></div></div>',
-                contentSelect: ".j-scroll-followers-container",
-                nextSelector: "a[data-jscroll-next]",
-                callback: refreshAsyncLike()
             });
         });
     </script>
