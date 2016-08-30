@@ -171,6 +171,7 @@ INTERNAL_APPS = (
     'apps.company',
     'apps.certification',
     'apps.useralerts',
+    'apps.temp_comment',
 
 )
 
