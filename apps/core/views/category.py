@@ -62,6 +62,7 @@ class ArticleCommunityList(FormBaseListView):
     # @Override
     def after_process(self, request=None, *args, **kwargs):
         # print request
+        super(ArticleCommunityList, self).after_process(request, *args, **kwargs)
         self.context.update({'communities': self.process_return, 'category_id': request.GET['category_id']})
 
 

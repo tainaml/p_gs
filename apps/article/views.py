@@ -75,7 +75,8 @@ class ArticleDeleteView(ArticleBaseView):
 
     @method_decorator(login_required)
     def get(self, request, article_id):
-        article = self.filter_article(request=request, article_id=article_id)
+        # article = self.filter_article(request=request, article_id=article_id)
+        article = Business.get_article(article_id)
 
         # Fail if is not owner
         self.check_is_owner(request, article)
@@ -126,7 +127,8 @@ class ArticleDeleteAjax(ArticleDeleteView):
             }
             return self.return_error(request, context)
 
-        article = self.filter_article(request=request, article_id=article_id)
+        # article = self.filter_article(request=request, article_id=article_id)
+        article = Business.get_article(article_id)
 
         # Fail if is not owner
         self.check_is_owner(request, article)
