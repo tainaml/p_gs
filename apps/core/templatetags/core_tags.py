@@ -14,6 +14,7 @@ from django.utils.translation import ugettext as _
 from apps.article.models import Article
 from apps.feed.models import FeedObject
 from apps.taxonomy.models import Taxonomy
+from apps.temp_comment.models import TempComment
 
 register = template.Library()
 
@@ -157,3 +158,15 @@ def contact_suggest_community_type():
 @register.simple_tag()
 def contact_suggest_community_message():
     return _(u'Olá, gostaria de sugerir a comunidade: ')
+
+@register.inclusion_tag("core/templatetags/old-comments.html", takes_context=True)
+def old_comments(context, article):
+    comments = TempComment.objects.filter(article=article)
+
+    return {'comments': comments}
+
+@register.inclusion_tag("core/templatetags/old-answers.html", takes_context=True)
+def old_answers(context, comment):
+    comments = TempComment.objects.filter(parent_google_id=comment.google_id)
+
+    return {'comments': comments}
