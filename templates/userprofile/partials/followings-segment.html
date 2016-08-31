@@ -26,7 +26,7 @@
         </div>
     {% endfor %}
     <a data-jscroll-next href="{% url 'profile:followings-search-list' object.username %}?criteria={{ form.cleaned_data.criteria|urlencode }}&page={{ page }}&next={{ url_next|urlencode }}">next</a>
-{% elif page <= 2 %}
+{% else %}
     <p class="text-center text-italic">{% trans 'Não existem itens a serem exibidos' %}</p>
     <hr>
 {% endif %}

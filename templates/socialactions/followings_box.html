@@ -27,8 +27,9 @@
         </div>
     {% endfor %}
     {% if items|length > 3 and page <= items.paginator.num_pages %}
-    <a data-jscroll-nexta href="{% url 'socialactions:get_followings' content_type_id=content_type.id object_filter_id=object.id %}?p={{ page }}&next={{ url_next|urlencode }}">next</a>
+    <a data-jscroll-next href="{% url 'socialactions:get_followings' content_type_id=content_type.id object_filter_id=object.id %}?p={{ page }}&next={{ url_next|urlencode }}">next</a>
     {% endif %}
+
 {% else %}
     <p class="text-center text-italic">{% trans 'Não existem itens a serem exibidos' %}</p>
     <hr>
