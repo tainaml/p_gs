@@ -21,7 +21,7 @@
               <a href="javascript:;" data-delete-item="true" data-modal="#modal-confirmation"
                 data-url="{% url 'comment:delete' %}" data-item="{{ instance.id }}"
                 data-type="{{ instance.get_content_type }}"
-                data-title="de {{ instance.author.first_name }} ({{ instance.content|safe|striptags|escape|slice:":50"}}...)">
+                data-title=" ({{ instance.content|safe|striptags|escape|slice:":50"}}...)">
                 <i class="gsticon gsticon-trash"></i> Remover comentário
               </a>
             </li>
