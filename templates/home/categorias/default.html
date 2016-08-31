@@ -7,6 +7,7 @@
 {% load cache %}
 {% load thumbor_tags %}
 {% load bighomecache %}
+{% load user_agents %}
 
 
 {% block seo-og-title %}{% block seo_title %}{{ category.description }} | Categoria{{ block.super }}{% endblock %}{% endblock %}
@@ -93,14 +94,16 @@
                             {% communities_related category %}
                         {% endcache %}
 
-                        <div class="post-list-header">
+                            <div class="post-list-header">
                             <h2 class="post-list-heading">Conecte-se</h2>
-                        </div>
-                        <div class="fb-page" data-href="https://www.facebook.com/PortalGSTIpage" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="false" data-show-posts="false"><div class="fb-xfbml-parse-ignore"><blockquote cite="https://www.facebook.com/PortalGSTIpage"><a href="https://www.facebook.com/PortalGSTIpage">FB Portal GSTI</a></blockquote></div></div>
-                        <!-- Place this tag where you want the widget to render. -->
-                        <div id="google-badge">
-                            <div class="g-page" data-width="270" data-href="https://plus.google.com/113333419239001929124" data-layout="landscape" data-rel="publisher"></div>
-                        </div>
+                            </div>
+                            <div class="fb-page" data-href="https://www.facebook.com/PortalGSTIpage" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="false" data-show-posts="false"><div class="fb-xfbml-parse-ignore"><blockquote cite="https://www.facebook.com/PortalGSTIpage"><a href="https://www.facebook.com/PortalGSTIpage">FB Portal GSTI</a></blockquote></div></div>
+                            <!-- Place this tag where you want the widget to render. -->
+                            <div id="google-badge">
+                                <div class="g-page" data-width="270" data-href="https://plus.google.com/113333419239001929124" data-layout="landscape" data-rel="publisher"></div>
+                            </div>
+
+
                     </section>
                 </div>
 
