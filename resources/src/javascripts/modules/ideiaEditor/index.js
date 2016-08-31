@@ -42,7 +42,7 @@ $.fn.refreshEditors = function (){
 
     var $editor = $(value);
     var editorConfig = $editor.data('config') || {};
-
+    var $modalLogin = $("#modal-login");
     Object.assign(editorConfig, {
       callbacks: {
         onImageUpload: function(files) {
@@ -56,6 +56,12 @@ $.fn.refreshEditors = function (){
             setTimeout(function () {
                 document.execCommand('insertText', false, bufferText);
             }, 10);
+        },
+        onFocus: function(e){
+          var $parentForm = $editor.closest("form");
+          if($parentForm.data("logged") && $parentForm.data("logged").toLowerCase() == "false"){
+                $modalLogin.modal("show");
+          }
         }
       }
     });

@@ -15,7 +15,8 @@ def comment_box(context, content_object, **kwargs):
     return {
         'form': form,
         'content_object': content_object,
-        'content_type': content_type
+        'content_type': content_type,
+        'request': request
     }
 
 @register.inclusion_tag('comment/create-comment.html', takes_context=True)
@@ -28,7 +29,8 @@ def comment_box_inner(context, content_object, to_update, **kwargs):
         'form': form    ,
         'content_object': content_object,
         'content_type': content_type,
-        'to_update': to_update
+        'to_update': to_update,
+        'request': request
     }
 
 @register.inclusion_tag('comment/list-container.html', takes_context=True)
@@ -49,7 +51,8 @@ def comment_edit(context, content_object, **kwargs):
     return {
         'content_object': content_object,
         'content_type': content_type,
-        'form': form
+        'form': form,
+        'request': request
     }
 
 @register.inclusion_tag('comment/create-comment.html', takes_context=True)
@@ -62,5 +65,6 @@ def comment_create(context, content_object, to_update, **kwargs):
         'content_object': content_object,
         'content_type': content_type,
         'form': form,
-        'to_update': to_update
+        'to_update': to_update,
+        'request': context['request']
     }

@@ -1,4 +1,4 @@
-<form data-group-class=".comment-group" action="{% url 'comment:update' %}" data-ajaxform="true" data-toggle="replace" data-update="#comment-{{ content_object.id }}" method="post">
+<form data-group-class=".comment-group" data-logged="{{ request.user.is_authenticated }}" action="{% url 'comment:update' %}" data-ajaxform="true" data-toggle="replace" data-update="#comment-{{ content_object.id }}" method="post">
     <div class="comment-group">
         {{ form.content }}
         <span class="help-block"></span>
