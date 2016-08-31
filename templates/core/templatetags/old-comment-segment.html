@@ -1,0 +1,24 @@
+{% load humanize %}
+{% load core_tags %}
+
+<div id="comment-{{ comment.id }}" class="comment">
+  <header class="post-header">
+    <div class="post-info" >
+      <time datetime="{{ comment.creation_date|date:'d-m-Y' }}" itemprop="datePublished"
+        data-toggle="tooltip" data-placement="auto top" data-original-title="{{ comment.creation_date|date:'d/m/Y' }} às {{ comment.creation_date|date:'G:i' }}">
+        <span class="hidden-xs visible-lg-inline">{{ comment.creation_date|naturaltime }}</span>
+        <i class="gsticon gsticon-clock-o hidden-lg"></i>
+      </time>
+    </div>
+    <a class="post-creator" href="javascript:" title="{{comment.author}}">
+      <figure>
+        <figcaption>{{ comment.author}}</figcaption>
+      </figure>
+    </a>
+  </header>
+  <div class="comment-text">
+      <p>{{ comment.text|safe }}</p>
+  </div>
+
+    {% old_answers comment %}
+</div>
