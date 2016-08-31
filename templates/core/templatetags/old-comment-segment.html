@@ -10,11 +10,7 @@
         <i class="gsticon gsticon-clock-o hidden-lg"></i>
       </time>
     </div>
-    <a class="post-creator" href="javascript:" title="{{comment.author}}">
-      <figure>
-        <figcaption>{{ comment.author}}</figcaption>
-      </figure>
-    </a>
+    <span class="post-creator">{{ comment.author}}</span>
   </header>
   <div class="comment-text">
       <p>{{ comment.text|safe }}</p>
