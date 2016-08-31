@@ -1,10 +1,12 @@
 from django.contrib import admin
+from django.contrib.contenttypes.admin import GenericTabularInline
 from django.utils.translation import ugettext as _
 
 # Register your models here.
 from reversion_compare.admin import CompareVersionAdmin
 from apps.article.models import Article
 from apps.core.models.tags import Tags
+from apps.feed.models import FeedObject
 from apps.question.models import Question
 from apps.account.admin import UserAdmin, User
 from apps.userprofile.models import UserProfile
@@ -45,14 +47,27 @@ class CoreUserAdmin(UserAdmin):
             yield inline.get_formset(request, obj), inline
 
 
+class FeedInline(GenericTabularInline):
+
+    model = FeedObject
+    extra = 0
+    min_num = 1
+    max_num = 1
+
 
 class ArticlelAdmin(CompareVersionAdmin):
 
+    list_display = ('id', 'title', 'slug', 'status', 'publishin', 'show_author_name')
+    search_fields = ('id', 'title', 'slug')
+    list_display_links = ('id', 'title', 'slug')
 
+    list_filter = ['status']
 
-    list_display = ('id', 'title',)
-    search_fields = ['id', 'title']
-    list_display_links = ('id', 'title',)
+    inlines = [FeedInline]
+
+    def show_author_name(self, obj):
+        return obj.author.get_full_name()
+    show_author_name.short_description = 'Author'
 
 
 admin.site.register(Article, ArticlelAdmin)

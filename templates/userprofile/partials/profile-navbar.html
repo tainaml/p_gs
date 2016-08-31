@@ -10,7 +10,7 @@
     {% if profile.user == request.user %}<a {% if navbar_context == "my-questions" %}class="active"{% endif %} href="{% url 'profile:my-questions' %}">Minhas Perguntas</a> •{% endif %}
     <a {% if navbar_context == "community" %}class="active"{% endif %} href="{% url 'profile:communities' username=profile.user.username %}">Comunidades</a> •
     <a {% if navbar_context == "relationship" %}class="active"{% endif %} href="{% url 'profile:followers' username=profile.user.username %}">Relacionamentos</a> •
-    <a {% if navbar_context == "videos" %}class="active"{% endif %} href="{% url 'profile:videos' profile.user.username %}">Vídeos</a>
+{#    <a {% if navbar_context == "videos" %}class="active"{% endif %} href="{% url 'profile:videos' profile.user.username %}">Vídeos</a>#}
 </nav>
 
 

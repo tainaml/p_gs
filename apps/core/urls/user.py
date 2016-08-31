@@ -147,13 +147,13 @@ urlpatterns = [
     url(_(r'^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/communities/load/ajax/$'), core_user.CoreProfileCommunitiesLoadAjax.as_view(), name='communities-load-ajax'),
 
     # Translators: URL de videos do usuario
-    url(_(r'^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/videos/$'), core_user.CoreProfileVideosView.as_view(), name='videos'),
+    # url(_(r'^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/videos/$'), core_user.CoreProfileVideosView.as_view(), name='videos'),
 
     # Translators: URL de procura de videos do usuario
-    url(_(r'^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/videos/search/$'), core_user.CoreProfileVideosSearch.as_view(), name='videos-search'),
+    # url(_(r'^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/videos/search/$'), core_user.CoreProfileVideosSearch.as_view(), name='videos-search'),
 
     # Translators: URL de listagem de busca de videos do usuario
-    url(_(r'^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/videos/search/list/$'), core_user.CoreProfileVideosList.as_view(), name='videos-search-list'),
+    # url(_(r'^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/videos/search/list/$'), core_user.CoreProfileVideosList.as_view(), name='videos-search-list'),
 
     # Translators: URL de carregamento assincrono de comunidades do usuario
     url(_(r'^ajax/user/communities/$'), core_user.CoreUserCommunitiesListAjax.as_view(), name='user-communities-ajax'),
