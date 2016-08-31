@@ -15,9 +15,7 @@
     <main class="container main">
         <div>
             <ul class="box-share">
-                <li class="comment-vote">
-                    {% like_box question question_url "share-box" %}
-                </li>
+                <li class="comment-vote">{% like_box question question_url "share-box" %}</li>
                 <li data-toggle="tooltip" data-placement="auto right" data-original-title="Favoritar"><a data-url-login="{% url 'account:is_logged' %}" data-trigger="login" data-token="{{ csrf_token }}" data-action="favourite" data-action-type="icon" data-object="favourite-{{ question.id }}" data-url-check="{% url 'socialactions:acted' question.id 'question' 'favourite' %}" href="{% url 'socialactions:act-xhr' question.id 'question' 'favourite' %}?url_next={{ request.path|urlencode }}"><i class="gsticon gsticon-star"></i></a></li>
                 <li data-toggle="tooltip" data-placement="auto right" data-original-title="Ver depois"><a data-url-login="{% url 'account:is_logged' %}" data-trigger="login" data-token="{{ csrf_token }}" data-action="see-later" data-action-type="icon" data-url-check="{% url 'socialactions:acted' question.id 'question' 'see-later' %}" data-object="see-later-{{ question.id }}" href="{% url 'socialactions:act-xhr' question.id 'question' 'see-later' %}?url_next={{ request.path|urlencode }}"><i class="gsticon gsticon-eye"></i></a></li>
                 <li data-toggle="tooltip" data-placement="auto right" data-original-title="Sugerir leitura"><a data-url-login="{% url 'account:is_logged' %}" data-trigger="login" data-token="{{ csrf_token }}" href="javascript:;" data-suggest-modal="true" data-content="question" data-object="{{ question.id }}" data-url="{% url 'socialactions:act-suggest' question.id 'question' %}"><i class="gsticon gsticon-paper-plane"></i></a></li>
