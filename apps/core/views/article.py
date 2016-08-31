@@ -36,20 +36,30 @@ class CoreArticleEditView(views.ArticleEditView):
 
         return context
 
-    @method_decorator(login_required)
-    def get(self, request, article_id=None, *args, **kwargs):
-
+    def check_user_is_contributor(self, request):
         is_contributor = False
 
         try:
             is_contributor = request.user.profile.contributor
         except Exception, e:
             pass
+        return is_contributor
 
-        if is_contributor:
+    @method_decorator(login_required)
+    def get(self, request, article_id=None, *args, **kwargs):
+
+        if self.check_user_is_contributor(request):
             self.form_article = CoreArticleContributorForm
 
         return super(CoreArticleEditView, self).get(request, article_id, *args, **kwargs)
+
+    @method_decorator(login_required)
+    def post(self, request, article_id=None, *args, **kwargs):
+
+        if self.check_user_is_contributor(request):
+            self.form_article = CoreArticleContributorForm
+
+        return super(CoreArticleEditView, self).post(request, article_id, *args, **kwargs)
 
 
 class CoreArticleView(views.ArticleView):
