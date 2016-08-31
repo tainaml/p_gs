@@ -24,7 +24,7 @@
                     <a class="active" href="{% if  profile.user.is_active %}{% url 'profile:show' profile.user.get_username %}{% else %}javascript:;{% endif %}">Publicações</a> •
                     <a href="{% url 'profile:communities' username=profile.user.username %}">Comunidades</a> •
                     <a href="{% url 'profile:followers' username=profile.user.username %}">Relacionamentos</a> •
-                    <a href="{% url 'profile:videos' profile.user.username %}">Vídeos</a>
+{#                    <a href="{% url 'profile:videos' profile.user.username %}">Vídeos</a>#}
                 </nav>
                 <div class="row">
                     <div class="col-lg-8">
