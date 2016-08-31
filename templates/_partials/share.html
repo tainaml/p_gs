@@ -1,7 +1,4 @@
-{% load user_agents %}
-
 {% firstof url request.build_absolute_uri as the_url %}
-{% if not request|is_mobile %}
 <div class="social-share clearfix">
 
     {% if show_all or show_facebook %}
@@ -49,4 +46,3 @@
     {% endif %}
 
 </div>
-{% endif %}
