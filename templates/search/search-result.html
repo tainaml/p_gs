@@ -8,13 +8,13 @@
     {%  with local_context=request.path|cut:'/buscar'|cut:'/'|default:'all' %}
 
         {% if local_context == 'searchingarticles' %}
-             Publicações
+            Publicações
         {% elif local_context == 'searchingcommunities' %}
-             Comunidades
+            Comunidades
         {% elif local_context == 'searchingusers' %}
-             Membros encontrados pela pesquisa
+            Membros encontrados pela pesquisa
         {% elif local_context == 'searchingquestions' %}
-             Perguntas
+            Perguntas
         {% else %}
             Tudo
         {% endif %}
@@ -32,15 +32,15 @@
     {%  with local_context=request.path|cut:'/buscar'|cut:'/'|default:'all' %}
 
         {% if local_context == 'searchingarticles' %}
-             Todas as publicações encontradas pela pesquisa
+            Todas as publicações encontradas pela pesquisa
         {% elif local_context == 'searchingcommunities' %}
-             Todas as comunidades encontradas pela pesquisa
+            Todas as comunidades encontradas pela pesquisa
         {% elif local_context == 'searchingusers' %}
-             Todos os membros encontrados pela pesquisa
+            Todos os membros encontrados pela pesquisa
         {% elif local_context == 'searchingquestions' %}
-             Todas as perguntas feitas sobre
+            Todas as perguntas feitas sobre
         {% else %}
-             Todas as publicações, perguntas, comunidades e pessoas que tem relação com a pesquisa
+            Todas as publicações, perguntas, comunidades e pessoas que tem relação com a pesquisa
         {% endif %}
 
         "{{ request.GET.q }}" no Portal GSTI.
@@ -66,9 +66,13 @@
             <div class="col-lg-9 result-wrapper">
 
                 <div class="result-container">
+
+                    {% if content_type|default:"" == "" or content_type == 'articles' or articles.object_list %}
                     <header class="area-title">
                         <h2>Publicações</h2>
                     </header>
+                    {% endif %}
+
                     {% if articles.object_list %}
                         <div class="area-content">
                             <div class="row j-scroll-articles j-scroll-container-articles">
@@ -78,12 +82,17 @@
                     {% endif %}
                 </div>
 
-                {% if communities.object_list %}
-                    <div class="result-container">
-                        <header class="area-title">
-                            <h2>Comunidades</h2>
-                        </header>
 
+
+                <div class="result-container">
+
+                    {% if content_type == 'communities' or communities.object_list %}
+                    <header class="area-title">
+                        <h2>Comunidades</h2>
+                    </header>
+                    {% endif %}
+
+                    {% if communities.object_list %}
                         <div class="area-content">
                             {% block filters %}
                                 {% if content_type == 'communities' %}
@@ -115,14 +124,20 @@
                                 {% include "search/partials/search-communities.html" %}
                             </div>
                         </div>
-                    </div>
-                {% endif %}
+                    {% endif %}
+                </div>
 
-                {% if users.object_list %}
-                    <div class="result-container">
-                        <header class="area-title">
-                            <h2>Pessoas</h2>
-                        </header>
+
+
+                <div class="result-container">
+
+                    {% if content_type == 'users' or users.object_list %}
+                    <header class="area-title">
+                        <h2>Pessoas</h2>
+                    </header>
+                    {% endif %}
+
+                    {% if users.object_list %}
                         <div class="area-content">
                             {% block filter_users %}
                                 {% if content_type == 'users' %}
@@ -161,21 +176,28 @@
                                 {% include "search/partials/search-users.html" %}
                             </div>
                         </div>
-                    </div>
-                {% endif %}
+                    {% endif %}
+                </div>
 
-                {% if questions.object_list %}
-                    <div class="result-container">
-                        <header class="area-title">
-                            <h2>Perguntas</h2>
-                        </header>
+
+
+                <div class="result-container">
+
+                    {% if content_type == 'questions' or questions.object_list %}
+                    <header class="area-title">
+                        <h2>Perguntas</h2>
+                    </header>
+                    {% endif %}
+
+                    {% if questions.object_list %}
                         <div class="area-content">
                             <div class="row j-scroll-questions j-scroll-container-questions">
                                 {% include "search/partials/search-questions.html" %}
                             </div>
                         </div>
-                    </div>
-                {% endif %}
+                    {% endif %}
+                </div>
+
 
                 {% if not articles.object_list and not communities.object_list and not users.object_list and not questions.object_list %}
                     <hr>
@@ -291,7 +313,7 @@
         var jScrollElemment = null,
                 timeoutReference= null;
         var functionAjaxSuccessSearchFollowers = function (e, data) {
-          console.log(data);
+            console.log(data);
             var $divFollowers = $("#followers-container");
             var $divJScroll = $('<div class="row j-scroll-followers j-scroll-followers-container"></div>');
 
@@ -330,7 +352,7 @@
 
         $(function () {
             var $form_search = $("#form-search-followers");
-            
+
             $form_search.on("ajaxform.success", functionAjaxSuccessSearchFollowers);
             $(document).on('input', "#filterName", function (e) {
                 var $this = $(e.currentTarget);
@@ -345,10 +367,10 @@
             $(document).on('change', "#filterState, #filterCity", function (event) {
                 var $this = $(event.currentTarget);
                 if(event.currentTarget.id == 'filterState') {
-                  fillValuesFrom($this).done(function (data) {
-                    $this.closest('form').submit();
-                    return false;
-                  });
+                    fillValuesFrom($this).done(function (data) {
+                        $this.closest('form').submit();
+                        return false;
+                    });
                 }
                 $this.closest('form').submit();
             });
