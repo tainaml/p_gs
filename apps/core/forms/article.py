@@ -78,7 +78,6 @@ class CoreArticleBaseForm(ArticleForm, CoreTaxonomiesMixin):
 
 class CoreArticleContributorForm(CoreArticleBaseForm):
 
-    tags = forms.ModelMultipleChoiceField(queryset=Tags.objects.all().order_by('tag_order'), required=False, widget=CheckboxSelectMultiple)
     official = forms.BooleanField(required=False)
 
     def get_feed_initial(self, instance):
