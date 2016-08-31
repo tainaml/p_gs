@@ -6,6 +6,7 @@
 {% load taxonomy_tags %}
 {% load avatar_tags %}
 {% load humanize %}
+{% load user_agents %}
 
 {% block title %}{{ question.title }} | Pergunta{% endblock %}
 
@@ -76,10 +77,12 @@
                             <img class="img-responsive" src="http://placehold.it/728x90" alt="Propaganda">
                         </div>
                     </div>
+                    {% if not request|is_mobile %}
                     <div class="full-post-share">
                         <h3>COMPARTILHE</h3>
                         {% include '_partials/share.html' with show_all=True %}
                     </div>
+                    {% endif %}
                 </article>
 
                 <div id="comments">{% profile_box question.author "horizontal" %}</div>
@@ -269,7 +272,7 @@
         var commentDropDown = function(event){
           event.stopPropagation();
         };
-        
+
         $(function(){
             var xhr_contents = $("div[data-xhr]");
             xhr_contents.renderList();

@@ -115,12 +115,14 @@
                         <img class="img-responsive" src="http://placehold.it/728x90" alt="Propaganda">
                     </div>
                 </div>
+                {% if not request|is_mobile %}
                 <div class="full-post-share">
                     <h3>COMPARTILHE</h3>
                     {% include '_partials/share.html' with show_all=True %}
                 </div>
+                {% endif %}
             </article>
-            <div>{% profile_box article.author "horizontal" %}</div>
+            <div id="comments">{% profile_box article.author "horizontal" %}</div>
             {% if request|is_mobile %}
             <div id="load-related-posts" data-load-async="true" data-load-async-url="{% url 'core:related-posts' article.id "article" "article" 4 %}" data-load-async-url-next="{{ request.path }}" data-load-async-method="get" data-load-async-response-type="json" data-load-async-timeout="1">
                 <div class="load-async load-async-content">
@@ -142,7 +144,7 @@
               </div>
               <h2>Comentários</h2>
             </header>
-            
+
             {% if request.GET.old_comment_style %}
                 {% old_comments article %}
             {% else %}
