@@ -2,6 +2,7 @@
 
 {% load staticfiles %}
 {% load social_tags %}
+{% load user_agents %}
 
 {% load thumbor_tags %}
 
@@ -24,6 +25,13 @@
             <div class="col-lg-9">
 
                 {% include 'community/partials/filters.html' with title="Membros" active="membros" has_filter=True %}
+
+                {% if request|is_pc %}
+                    <header class="area-title">
+                        <h2>Membros</h2>
+                    </header>
+                {% endif %}
+
                 {% block filters %}
                     <div id="form-search" class="filters-members" data-toggle="filters">
                         <form class=" row" id="form-search-followers"  name="filterMember" action="{% url 'community:search-followers' %}?next={{ request.path }}" method="GET" role="search" data-ajaxform="true" data-group-class=".form-group">

@@ -2,6 +2,7 @@
 
 {% load core_tags %}
 {% load staticfiles %}
+{% load user_agents %}
 {% load i18n %}
 
 {% load thumbor_tags %}
@@ -23,6 +24,13 @@
 
                 <div class="row">
                     <div class="col-lg-8">
+
+                        {% if request|is_pc %}
+                            <header class="area-title">
+                                <h2>Vídeos</h2>
+                            </header>
+                        {% endif %}
+
                         {% block filters %}
                             <nav id="form-search" class="form-search filters-members" data-toggle="filters">
                             <form action="{% url 'community:search' community.slug %}" method="GET" role="search">
