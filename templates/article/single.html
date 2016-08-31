@@ -131,19 +131,18 @@
             {% endif %}
 
             <header class="area-title" id="comments">
-            <h2>Comentários</h2>
-               <div class="order-by">
-                   <div class="dropdown">
-                      <button class="btn btn-default dropdown-toggle" type="button" id="dropdown-filter-posts" data-toggle="dropdown" aria-haspopup="true"><span> {% if request.GET.old_comment_style %}Mais antigos{% else %}Mais recentes{% endif %} </span><i class="gsticon gsticon-caret-down"></i></button>
-                      <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown-filter-posts">
-                         <li {% if not request.GET.old_comment_style %}class="active"{% endif %}><a href="{% url 'article:view' article.year article.month article.slug %}" data-target=".area-content">Mais recentes</a></li>
-                         <li {% if request.GET.old_comment_style %}class="active"{% endif %}><a href="{% url 'article:view' article.year article.month article.slug %}?old_comment_style=true#comments" data-target=".area-content">Mais antigos</a></li>
-                      </ul>
-                   </div>
+              <div class="order-by">
+                <div class="dropdown">
+                  <button class="btn btn-default dropdown-toggle" type="button" id="dropdown-filter-posts" data-toggle="dropdown" aria-haspopup="true"><span> {% if request.GET.old_comment_style %}Mais antigos{% else %}Mais recentes{% endif %} </span><i class="gsticon gsticon-caret-down"></i></button>
+                  <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown-filter-posts">
+                    <li {% if not request.GET.old_comment_style %}class="active"{% endif %}><a href="{% url 'article:view' article.year article.month article.slug %}" data-target=".area-content">Mais recentes</a></li>
+                    <li {% if request.GET.old_comment_style %}class="active"{% endif %}><a href="{% url 'article:view' article.year article.month article.slug %}?old_comment_style=true#comments" data-target=".area-content">Mais antigos</a></li>
+                  </ul>
                 </div>
-
-
+              </div>
+              <h2>Comentários</h2>
             </header>
+            
             {% if request.GET.old_comment_style %}
                 {% old_comments article %}
             {% else %}
