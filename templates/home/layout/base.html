@@ -76,7 +76,7 @@
                     </a>
                     {% block logo %}
                     <div class="gsti">
-                        <a class="gsti-link" href="{% url 'index' %}">Portal GSTI</a>
+                        <a class="gsti-link" href="{% url 'index' %}" title="Portal GSTI">Portal GSTI</a>
                     </div>
                     {% endblock logo %}
                     <a class="btn-show-item toggle-search" data-item="#mobile-search" href="#">
@@ -87,7 +87,7 @@
             <div class="row menu-desktop visible-lg-block">
               {% block logo_mobile %}
               <div class="gsti">
-                  <a class="gsti-link" href="{% url 'index' %}">Portal GSTI</a>
+                  <a class="gsti-link" href="{% url 'index' %}" title="Portal GSTI">Portal GSTI</a>
               </div>
               {% endblock logo_mobile %}
                 <div class="search-header-container{% if request.user.is_authenticated %}--logged{% endif %}">
