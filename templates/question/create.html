@@ -63,10 +63,7 @@
                                     {% if form.communities.errors %}<span class="help-block">{{ form.communities.errors }}</span>{% endif %}
                                 </div>
                             <div class="form-group">
-                                <div class="alert alert-info alert-dismissible" role="alert">
-                                Você só poderá enviar <strong>publicações</strong> ou <strong>perguntas</strong> para comunidades que esteja <strong>participando</strong>.
- Caso não encontre a <strong>comunidade</strong> que deseja vincular a publicação ou pergunta, você pode <strong><a href="{% url 'contact:create' %}" data-contact data-type="{% contact_suggest_community_type %}" data-message="{% contact_suggest_community_message %}" id="link-contact" data-async-module="click" data-async-target="#modal-content-form-contact" data-async-method="get">Sugerir uma comunidade</a></strong>. Enquanto avaliamos sua sugestão, publique seu conteúdo nas <strong>comunidades globais: </strong>( {% category_communities_links %} )
-                                </div>
+                               {% include 'core/partials/communities-message.html' %}
                             </div>
                             </div>
                             <div class="col-lg-3">
