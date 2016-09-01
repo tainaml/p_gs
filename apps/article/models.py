@@ -39,6 +39,9 @@ class Article(models.Model):
     title = models.CharField(blank=False, null=False,
                              max_length=settings.ARTICLE_TITLE_LIMIT if hasattr(settings, "ARTICLE_TITLE_LIMIT") else 100)
     slug = models.SlugField(default='', null=False, max_length=255, db_index=True)
+
+    first_slug = models.SlugField(default='', max_length=255, db_index=True)
+
     text = models.TextField(null=False, max_length=settings.ARTICLE_TEXT_LIMIT if hasattr(settings, "ARTICLE_TEXT_LIMIT") else 10000)
     image = models.ImageField(max_length=100, upload_to=article_image_upload, blank=True, default='')
     author = models.ForeignKey(settings.AUTH_USER_MODEL, null=False, related_name='articles', verbose_name=_('Author'))
@@ -51,6 +54,11 @@ class Article(models.Model):
 
     feed = GenericRelation(FeedObject, related_query_name="article")
     embed = GenericRelation(EmbedItem, related_query_name="article")
+
+
+    def get_first_slug(self):
+        return self.first_slug if self.first_slug else self.slug
+
 
     @property
     def modified_date(self):

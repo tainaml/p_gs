@@ -88,12 +88,14 @@ class CoreArticleView(views.ArticleView):
     def get(self, request, year, month, slug):
         article_dict = self.filter_article(request, year, month, slug)
         article = article_dict['article']
-
+        has_old_comments = False
         if article:
+            has_old_comments = core_article_business.has_old_comments(article)
             if article_dict['redirect']:
                 return redirect('article:view', article.year, article.month, article.slug, permanent=True)
 
-        context = {'article': article}
+
+        context = {'article': article, 'has_old_comments': has_old_comments}
         context.update(self.get_context(request, article))
 
         return render(request, self.template_name, context)
