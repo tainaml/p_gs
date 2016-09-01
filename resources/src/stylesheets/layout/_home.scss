@@ -106,11 +106,15 @@
     border-bottom: none;
 }
 .highlight-articles--no-border.area-more,
-.highlight-articles--no-border.area-mobile,
-.highlight-articles--no-border.area-marketing {
+.highlight-articles--no-border.area-mobile {
   padding-left: 15px;
   padding-right: 15px;
 
+  .highlight-article-medium {
+      @media (max-width: $screen-md-max) { width: 100% }
+  }
+}
+.highlight-articles--no-border.area-marketing {
   .highlight-article-medium {
       @media (max-width: $screen-md-max) { width: 50% }
   }
