@@ -98,6 +98,7 @@
                                 {% if content_type == 'communities' %}
                                     <div id="form-search" class="filter row form-search filters-members" data-toggle="filters">
                                         <form id="search-form" action="{% url 'search:list' "communities" %}" method="GET" data-type="html" data-ajaxform="true" data-group-class=".form-search-input">
+
                                             <div class="col-lg-8 clearfix">
                                                 <div class="form-search-input">
                                                     <input type="text" value="{{ request.GET.q }}" id="fcommunity" name="q" placeholder="{{placehold|default:"Procure comunidades"}}" autocomplete="off" />
@@ -117,7 +118,9 @@
                                                 </div>
                                             </div>
                                         </form>
+
                                     </div>
+                                    <hr>
                                 {% endif %}
                             {% endblock %}
                             <div class="row j-scroll-communities j-scroll-container-communities" id="communities-container">
@@ -170,6 +173,7 @@
                                             </div>
                                         </form>
                                     </div>
+                                     <hr>
                                 {% endif %}
                             {% endblock filter_users %}
                             <div class="row j-scroll-users j-scroll-container-users" id="followers-container">
