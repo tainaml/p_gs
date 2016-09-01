@@ -7,6 +7,12 @@
     filter:progid:DXImageTransform.Microsoft.Alpha(Opacity=90);
     -ms-filter:'progid:DXImageTransform.Microsoft.Alpha(Opacity=90)';
 }
+.home h3.article-content {
+  font-size: 1.143em;
+}
+.home h3.highlight-article-medium {
+  margin: 0;
+}
 
 .highlight-area {
     @include make-row();

@@ -8,6 +8,17 @@
 {% block seo-og-title %}{% block seo_title %}Portal GSTI - Um mundo de informações para TI{% endblock %}{% endblock %}
 {% block seo-og-description %}{% block seo-description %}O seu portal definitivo de TI. Conteúdo, área para tirar dúvidas, informações sobre vagas de trabalho, concursos e certificações. Conheça nossas comunidades!{% endblock %}{% endblock %}
 
+{% block logo %}
+<h1 class="gsti">
+    <a class="gsti-link" href="{% url 'index' %}" title="Portal GSTI">Portal GSTI</a>
+</h1>
+{% endblock logo %}
+{% block logo_mobile %}
+<div class="gsti">
+    <a class="gsti-link" href="{% url 'index' %}" title="Portal GSTI">Portal GSTI</a>
+</div>
+{% endblock logo_mobile %}
+
 {% block content %}
     {% bighomecache home %}
         <main class="container main home">

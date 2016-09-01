@@ -20,12 +20,10 @@
 
         <main class="container main home">
 
-
-                {#            {% ideiahomecache None 'home_page_cache' category_slug %}#}
                 <div class="row">
                     <div class="post-list--large post-list--{{ class_name }}">
                         <div class="post-list-header">
-                            <a class="post-list-heading">{{ category.description }}</a>
+                            <h1 class="post-list-heading">{{ category.description }}</h1>
                         </div>
                     </div>
                 </div>
@@ -36,29 +34,19 @@
                             <img class="img-responsive" src="http://placehold.it/728x90" alt="Banner Example">
                         </div>
                         <div class="post-list-container">
-                            {#                            {% home_block_article_home category_slug class_name=class_name quantity=4 offset=0 %}#}
                             {% article_block 'large' category_slug class_name=class_name quantity=4 offset=0 %}
                         </div>
 
-                        {#                        {% home_block_highlight_simple category_slug class_name=class_name quantity=2 offset=4 %}#}
                         {% article_block 'simple' category_slug class_name=class_name quantity=2 differ="primeira" %}
 
                     </div>
-                    {#                {% endcache %}#}
                     {% with community=category.community_related %}
                         <div class="highlight-right">
                             {% include "userprofile/partials/profile-community-segment.html" with community_obj=community %}
-                            {#                        {% cache 0 'home_page_cache' %}#}
-                            {#                            {% home_block_highlight_simple category_slug class_name=class_name quantity=2 offset=6 %}#}
                             {% article_block 'simple' category_slug class_name=class_name quantity=2 differ="lateral-1" %}
-
-                            {#                            {% home_block_highlight_simple category_slug class_name=class_name quantity=2 offset=8 %}#}
-                            {#                            {% home_block_highlight_with_image category_slug class_name=class_name quantity=2 offset=10 %}#}
 
                             {% article_block 'simple' category_slug class_name=class_name quantity=2 differ="lateral-2" %}
                             {% article_block 'simple-image' category_slug class_name=class_name quantity=2 offset=10 %}
-
-                            {#                        {% endcache %}#}
                         </div>
                     {% endwith %}
                 </div>
@@ -78,7 +66,6 @@
 
                         <div class="post-list-container">
                             <div class="col-lg-12 j-scroll-communities j-scroll-communities-container">
-
                                 <a data-jscroll-next href="{% url 'category:list-community_articles' %}?category_id={{  category.id }}&page=1"></a>
                             </div>
                         </div>
@@ -89,21 +76,18 @@
                             <h2 class="post-list-heading">Comunidades</h2>
                         </div>
 
-                        <!-- communities_related -->
                         {% cache 3600 'category_communities_related' category_slug %}
                             {% communities_related category %}
                         {% endcache %}
 
-                            <div class="post-list-header">
-                            <h2 class="post-list-heading">Conecte-se</h2>
-                            </div>
-                            <div class="fb-page" data-href="https://www.facebook.com/PortalGSTIpage" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="false" data-show-posts="false"><div class="fb-xfbml-parse-ignore"><blockquote cite="https://www.facebook.com/PortalGSTIpage"><a href="https://www.facebook.com/PortalGSTIpage">FB Portal GSTI</a></blockquote></div></div>
-                            <!-- Place this tag where you want the widget to render. -->
-                            <div id="google-badge">
-                                <div class="g-page" data-width="270" data-href="https://plus.google.com/113333419239001929124" data-layout="landscape" data-rel="publisher"></div>
-                            </div>
-
-
+                        <div class="post-list-header">
+                          <h2 class="post-list-heading">Conecte-se</h2>
+                        </div>
+                        <div class="fb-page" data-href="https://www.facebook.com/PortalGSTIpage" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="false" data-show-posts="false"><div class="fb-xfbml-parse-ignore"><blockquote cite="https://www.facebook.com/PortalGSTIpage"><a href="https://www.facebook.com/PortalGSTIpage">FB Portal GSTI</a></blockquote></div></div>
+                        <!-- Place this tag where you want the widget to render. -->
+                        <div id="google-badge">
+                            <div class="g-page" data-width="270" data-href="https://plus.google.com/113333419239001929124" data-layout="landscape" data-rel="publisher"></div>
+                        </div>
                     </section>
                 </div>
 
@@ -115,7 +99,6 @@
 
     {% block javascripts %}
         <div id="fb-root"></div>
-        <!-- Place this tag after the last widget tag. -->
         <script type="text/javascript">
             $(function() {
                 document.getElementsByClassName('g-page')[0].setAttribute('data-width', document.getElementById('google-badge').clientWidth);
@@ -127,9 +110,7 @@
                     contentSelect: ".j-scroll-communities-container",
                     loadingHtml: '<div class="load-async-preload"></div>',
                     nextSelector: "a[data-jscroll-next]",
-                    callback: function (data) {
-{#                        refreshAsyncLike();#}
-                    }
+                    callback: function (data) {}
                 });
                 var $social_count = $("[data-social-count=\"true\"]");
                 $.each($social_count, function(key, value){

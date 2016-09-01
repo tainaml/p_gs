@@ -12,7 +12,9 @@
                 <img class="img-responsive" src="{% thumbor_url community.get_picture.url width=90 height=90 smart=False fit_in=False %}" title="{{ community.title }}" alt="{{ community.title }}">
               </figure>
             </a>
-            <a class="perfil-name" title="{{ community.title }}" href="{% url 'community:show' community.slug %}">{{ community.title }}</a>
+            <h1 class="perfil-name">
+              <a title="{{ community.title }}" href="{% url 'community:show' community.slug %}">{{ community.title }}</a>
+            </h1>
             <span class="perfil-counter"
                   data-counter="{{ community.followers }}"
                   data-refresh-counter="follow-{{ counter_content_type }}-{{ community.id }}">
