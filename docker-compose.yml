@@ -41,7 +41,7 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - /srv/docker/postgres:/var/lib/postgresql
+      - ../postgres_database:/var/lib/postgresql
   web:
     build: .
     volumes:
