@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+from django.contrib.auth.models import AnonymousUser
 
 from django.core.paginator import Paginator
 from django.core.urlresolvers import reverse
@@ -146,7 +147,7 @@ class SearchList(SearchBase):
                     'communities': communities,
                     'form_community': form,
                     'categories': categories,
-                    'profile': request.user.profile
+                    'profile': request.user.profile if not isinstance(request.user, AnonymousUser) else None
                 })
 
             elif content_type == "users":
