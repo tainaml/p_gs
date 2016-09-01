@@ -29,7 +29,7 @@ class ComunnityAdminForm(forms.ModelForm):
     class Meta:
         excludes = ()
         widgets = {
-          'description': SummernoteWidget(editor_conf='community')
+          'description': SummernoteWidget(editor_conf='default')
         }
 
 
