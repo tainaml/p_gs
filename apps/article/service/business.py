@@ -38,6 +38,8 @@ def create_temp_article(author):
 
 
 def save_article(article, data):
+    if not article.first_slug:
+        article.first_slug=article.slug
     saved = article.save()
     return False if saved is False else article
 

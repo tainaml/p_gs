@@ -1,5 +1,3 @@
-
-
 {% if profile.user == request.user %}
 
 {% endif %}
@@ -9,17 +7,5 @@
     <a {% if navbar_context == "profile" %}class="active"{% endif %} href="{% if  profile.user.is_active %}{% url 'profile:show' profile.user.get_username %}{% else %}javascript:;{% endif %}">Publicações</a> •
     {% if profile.user == request.user %}<a {% if navbar_context == "my-questions" %}class="active"{% endif %} href="{% url 'profile:my-questions' %}">Minhas Perguntas</a> •{% endif %}
     <a {% if navbar_context == "community" %}class="active"{% endif %} href="{% url 'profile:communities' username=profile.user.username %}">Comunidades</a> •
-    <a {% if navbar_context == "relationship" %}class="active"{% endif %} href="{% url 'profile:followers' username=profile.user.username %}">Relacionamentos</a> •
-{#    <a {% if navbar_context == "videos" %}class="active"{% endif %} href="{% url 'profile:videos' profile.user.username %}">Vídeos</a>#}
+    <a {% if navbar_context == "relationship" %}class="active"{% endif %} href="{% url 'profile:followers' username=profile.user.username %}">Relacionamentos</a>
 </nav>
-
-
-{% comment %}
-<nav class="perfil-navegation">
-    {% if profile.user == request.user %}<a href="{% url 'profile:feed' %}">Feed</a> •{% endif %}
-    <a class="active" href="{% url 'profile:show' username=profile.user.username %}">Publicações</a> •
-    <a href="{% url 'profile:communities' username=profile.user.username %}">Comunidades</a> •
-    <a href="{% url 'profile:followers' username=profile.user.username %}">Relacionamentos</a> •
-    <a href="{% url 'profile:videos' profile.user.username %}">Vídeos</a>
-</nav>
-{% endcomment %}

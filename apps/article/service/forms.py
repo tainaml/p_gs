@@ -31,7 +31,7 @@ class ArticleForm(IdeiaModelForm):
 
     class Meta:
         model = Business.Article
-        exclude = []
+        exclude = ['first_slug']
 
     def __init__(self, data=None, files=None, author=False, *args, **kwargs):
 
@@ -100,6 +100,7 @@ class ArticleForm(IdeiaModelForm):
             '''
             self.action = self.ACTION_PUBLISH
             self.instance.do_publish()
+
 
         elif 'submit-save' in self.data:
             '''

@@ -1,6 +1,8 @@
 from apps.feed.service import business as BusinessFeed
 from apps.article.models import Article
 from reversion import revisions as reversion
+from apps.temp_comment.models import TempComment
+
 
 def get_article(year=None, month=None, slug=None):
     """
@@ -19,12 +21,14 @@ def get_article(year=None, month=None, slug=None):
     except Article.DoesNotExist:
         try:
             temp_articles = Article.objects.filter(publishin__year=year, publishin__month=month)
+            #TODO make a better criteria to avoid multiqueries
             for temp_article in temp_articles:
                 version_list = reversion.get_for_object(temp_article).get_unique()
                 slug_list = [version.field_dict['slug'] for version in version_list]
                 if slug in slug_list:
                     article = temp_article
                     redirect = True
+                    break
 
         except Article.DoesNotExist:
             pass
@@ -52,3 +56,12 @@ class HomeCache(object):
 
 class PegadorDeArtigo(object):
     pass
+
+
+def has_old_comments(article):
+    try:
+        return TempComment.objects.filter(article=article).exists()
+    except TempComment.DoesNotExist:
+        return False
+
+

@@ -55,10 +55,10 @@ class URI():
 
 
 @register.filter
-@stringfilter
 def absolute(value):
     if not hasattr(settings, "SITE_URL"):
         raise SiteUrlNotFound("SITE_URL setting in settings.py is not definied!")
+    url = URI(settings.SITE_URL+value)
     return URI(settings.SITE_URL+value).absolute_uri
 
 
@@ -86,6 +86,13 @@ def path(value):
         raise SiteUrlNotFound("SITE_URL setting in settings.py is not definied!")
     return URI(settings.SITE_URL+value).path
 
+@register.filter
+@stringfilter
+def root(value):
+    if not hasattr(settings, "SITE_URL"):
+        raise SiteUrlNotFound("SITE_URL setting in settings.py is not definied!")
+
+    return URI(settings.SITE_URL).absolute_uri
 
 regex_pattern_with_style = re.compile(u'src="(?P<url>/media/uploads/editor-uploads/.*?)".*?height:(?P<height>\d+)px.*?width:(?P<width>\d+)px"')
 regex_pattern_with_attribute = re.compile(u'height="(?P<height>\d+)" src="(?P<url>/media/uploads/editor-uploads/.*?)".*?width="(?P<width>\d+)"')
