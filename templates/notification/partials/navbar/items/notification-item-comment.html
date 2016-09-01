@@ -15,7 +15,7 @@
     {% set show_anchor = False %}
 
 {% elif notification.target_content_type.model == "comment" %}
-    {% set action_verb = "comentou seu comentário" %}
+    {% set action_verb = "respondeu seu comentário" %}
     {% set post_name = notification.target.content_object.title %}
     {% set url_next = notification.target.content_object.get_absolute_url %}
     {% set show_anchor = True %}
