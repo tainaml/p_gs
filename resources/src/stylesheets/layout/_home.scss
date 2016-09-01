@@ -105,13 +105,14 @@
     padding-bottom: 0;
     border-bottom: none;
 }
-.col-lg-6.highlight-articles--no-border.area-more,
-  .col-lg-6.highlight-articles--no-border.area-mobile {
+.highlight-articles--no-border.area-more,
+.highlight-articles--no-border.area-mobile,
+.highlight-articles--no-border.area-marketing {
   padding-left: 15px;
   padding-right: 15px;
 
   .highlight-article-medium {
-      @media (max-width: $screen-md-max) { width: 100% }
+      @media (max-width: $screen-md-max) { width: 50% }
   }
 }
 
