@@ -784,7 +784,8 @@ SUMMERNOTE_CONFIG = {
                 ['style', ['bold', 'italic', 'clear']],
                 ['table', ['table']],
                 ['para', ['ul', 'ol', 'paragraph']],
-                ['picture', ['picture', 'oembed', 'prettyprint']]
+                ['picture', ['picture', 'oembed', 'prettyprint']],
+                ['codeview', ['codeview']]
 
             ],
             'popover': {
