@@ -4,9 +4,10 @@
 {% if articles|length %}
     <section class="post-list--large post-list--{{ class_name }}">
         <div class="post-list-header">
-          <a class="post-list-heading" href="{% url "category:show" category.slug %}">{{ category.description }}</a>
-{#            {% include 'home/blocks/partials/communities.html' %}#}
-            {% communities communities %}
+          <h2 class="post-list-heading">
+            <a href="{% url "category:show" category.slug %}" title="{{ category.description }}">{{ category.description }}</a>
+          </h2>
+          {% communities communities %}
         </div>
         <div class="post-list-container">
 
@@ -25,9 +26,11 @@
                     </a>
                     <figcaption>
                         {% article_community_block category article %}
-                        <a class="article-content" href="{{ article_link }}" title="{{ article.title }}">
+                        <h3 class="article-content">
+                          <a href="{{ article_link }}" title="{{ article.title }}">
                             {% if article.title|length > 67 %}{{ article.title|slice:":67" }}...{% else %}{{ article.title }}{% endif %}
-                        </a>
+                          </a>
+                        </h3>
                     </figcaption>
                 </figure>
 

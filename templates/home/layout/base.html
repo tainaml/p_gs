@@ -74,18 +74,22 @@
                             <i class="gsticon gsticon-sign-in"></i>
                         {% endif %}
                     </a>
-                    <h1 class="gsti">
+                    {% block logo %}
+                    <div class="gsti">
                         <a class="gsti-link" href="{% url 'index' %}">Portal GSTI</a>
-                    </h1>
+                    </div>
+                    {% endblock logo %}
                     <a class="btn-show-item toggle-search" data-item="#mobile-search" href="#">
                         <i class="gsticon gsticon-search"></i>
                     </a>
                 </div>
             </div>
             <div class="row menu-desktop visible-lg-block">
-                <h1 class="gsti">
-                    <a href="{% url 'index' %}" class="gsti-link">Portal GSTI</a>
-                </h1>
+              {% block logo_mobile %}
+              <div class="gsti">
+                  <a class="gsti-link" href="{% url 'index' %}">Portal GSTI</a>
+              </div>
+              {% endblock logo_mobile %}
                 <div class="search-header-container{% if request.user.is_authenticated %}--logged{% endif %}">
                     {% include 'home/partials/search-header.html' %}
                 </div>

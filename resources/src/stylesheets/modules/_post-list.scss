@@ -39,6 +39,7 @@
         .article-content {
             color: $color;
             font-size: 1.143em;
+            a { color: $color; }
         }
         &:hover .article-content:hover,
         &:focus .article-content:focus {
@@ -106,8 +107,8 @@
         letter-spacing: -0.0999em;
         font: 700 1.286em $font-family-sans-serif;
     }
+    &-heading a { color: inherit; }
     &-nav {
-        // @media (max-width: $screen-sm-min) { display: none; }
         @include make-sm-column(12);
         @include make-lg-column(12);
         line-height: 1.7;

@@ -14,10 +14,12 @@
                 <img class="img-responsive" src="http://placehold.it/170x88" alt="Placeholder">
             {% endif %}
             </a>
-            <figcaption class="highlight-article-medium">
+            <figcaption>
+              <h3 class="highlight-article-medium">
                 <a href="{{ article_link }}" title="{{ article.title }}">
-                    {% if article.title|length > 67 %}{{ article.title|slice:":67" }}...{% else %}{{ article.title }}{% endif %}
+                  {% if article.title|length > 67 %}{{ article.title|slice:":67" }}...{% else %}{{ article.title }}{% endif %}
                 </a>
+              </h3>
             </figcaption>
         </figure>
 
