@@ -12,6 +12,7 @@ from django.utils.text import slugify
 from django.utils.translation import ugettext as _
 
 from apps.article.models import Article
+from apps.community.models import Community
 from apps.feed.models import FeedObject
 from apps.taxonomy.models import Taxonomy
 from apps.temp_comment.models import TempComment
@@ -170,3 +171,11 @@ def old_answers(context, comment):
     comments = TempComment.objects.filter(parent_google_id=comment.google_id)
 
     return {'comments': comments}
+
+@register.inclusion_tag("core/templatetags/category-communities-links.html")
+def category_communities_links():
+    category_communities = Community.objects.filter(taxonomy__term__slug='categoria')
+
+    return {
+        'category_communities': category_communities
+    }

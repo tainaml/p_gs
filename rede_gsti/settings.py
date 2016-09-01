@@ -539,7 +539,7 @@ WIZARD_STEPS_TOTAL = 3
 
 
 # Contact Suggest Community
-CONTACT_SUGGEST = 3
+CONTACT_SUGGEST = 2
 
 
 # MailValidation Time

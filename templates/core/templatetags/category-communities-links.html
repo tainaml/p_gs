@@ -1,0 +1,5 @@
+{% load var_tags %}
+{% set comma = "" %}
+{% for community in category_communities %}
+    {{ comma }}<a href="{% url "community:show" community.slug %}" target="_blank">{{ community.title }}</a> {% set comma = ", " %}
+{% endfor %}
