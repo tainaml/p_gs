@@ -31,7 +31,18 @@
                 <div class="highlight-area-category">
                     <div class="highlight-left">
                         <div class="banner">
-                            <img class="img-responsive" src="http://placehold.it/728x90" alt="Banner Example">
+                            {% block category_top %}
+                                <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                        <!-- gsti-categoria-topo -->
+                        <ins class="adsbygoogle"
+                             style="display:block"
+                             data-ad-client="ca-pub-2686766225121981"
+                             data-ad-slot="6181333620"
+                             data-ad-format="auto"></ins>
+                        <script>
+                        (adsbygoogle = window.adsbygoogle || []).push({});
+                        </script>
+                        {% endblock category_top %}
                         </div>
                         <div class="post-list-container">
                             {% article_block 'large' category_slug class_name=class_name quantity=4 offset=0 %}
@@ -46,15 +57,25 @@
                             {% article_block 'simple' category_slug class_name=class_name quantity=2 differ="lateral-1" %}
 
                             {% article_block 'simple' category_slug class_name=class_name quantity=2 differ="lateral-2" %}
-                            {% article_block 'simple-image' category_slug class_name=class_name quantity=2 offset=10 %}
+                            {% article_block 'simple-image' category_slug class_name=class_name quantity=1 offset=10 %}
                         </div>
                     {% endwith %}
                 </div>
-
                 <div class="container-posts">
                     <div class="banner-content-wide">
                         <div class="banner">
-                            <img class="img-responsive" src="http://placehold.it/970x90" alt="Banner Example">
+                            {% block category_middle %}
+                                <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                                <!-- gsti-categoria-meio -->
+                                <ins class="adsbygoogle"
+                                     style="display:block"
+                                     data-ad-client="ca-pub-2686766225121981"
+                                     data-ad-slot="9134800026"
+                                     data-ad-format="auto"></ins>
+                                <script>
+                                (adsbygoogle = window.adsbygoogle || []).push({});
+                                </script>
+                            {% endblock category_middle %}
                         </div>
                     </div>
 

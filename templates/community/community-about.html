@@ -17,6 +17,20 @@
             <!-- mudar para 9.5 -->
             <div class="col-lg-9">
                 {% include 'community/partials/filters.html' with title="Sobre" active="sobre" has_filter=False %}
+                 <div class="banner">
+                            {% block community_about %}
+                              <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                                <!-- gsti-com-sobre-topo -->
+                                <ins class="adsbygoogle"
+                                     style="display:block"
+                                     data-ad-client="ca-pub-2686766225121981"
+                                     data-ad-slot="1332331621"
+                                     data-ad-format="auto"></ins>
+                                <script>
+                                (adsbygoogle = window.adsbygoogle || []).push({});
+                                </script>
+                        {% endblock community_about %}
+                        </div>
                 <div class="about-text">
                     <p>{{ community.description|safe }}</p>
                 </div>

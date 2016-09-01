@@ -2,7 +2,18 @@
 
 <div class="col-lg-3">
     <div class="squad-advertising">
-        <img class="img-responsive" src="http://placehold.it/270x225" alt="Propaganda aqui">
+        {% block question_right %}
+            <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+            <!-- gsti-pergunta-lateral -->
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-2686766225121981"
+                 data-ad-slot="1354181229"
+                 data-ad-format="auto"></ins>
+            <script>
+            (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        {% endblock question_right %}
     </div>
 
     {% if request|is_pc %}
