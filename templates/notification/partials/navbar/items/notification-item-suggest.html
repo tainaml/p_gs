@@ -14,11 +14,11 @@
     <a href="javascript:;" title="Notificação do Portal GSTI">
     <figure>
         <img src="{% get_avatar notification.author width=20 height=20 smart=False fit_in=False %}" width="20" height="20" alt="{{ notification.author.get_full_name }}">
-        <span> {% if notification.target_content_type|stringformat:"s" == "article" %}
-            {{ notification.author.get_full_name }} recomendou a leitura da publicação {{ notification.target.title }}
+         {% if notification.target_content_type|stringformat:"s" == "article" %}
+            <span>{{ notification.author.get_full_name }}</span> recomendou a leitura de <span>{{ notification.target.title }}</span>
         {% elif notification.target_content_type|stringformat:"s" == "question"  %}
-            {{ notification.author.get_full_name }} te recomendou a leitura da pergunta {{ notification.target.title }}
-        {% endif %}</span>
+            <span>{{ notification.author.get_full_name }}</span> te recomendou a leitura de <span>{{ notification.target.title }}</span>
+        {% endif %}
       </figure>
 
     </a>
