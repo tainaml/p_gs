@@ -1,4 +1,5 @@
 {% load staticfiles %}
+{% load utils %}
 <!DOCTYPE html>
 <html lang="pt-br">
     <head>
@@ -246,5 +247,6 @@
                 $linkModal.on("async.click.success", functionAjaxSuccessTriggerContactModal);
             });
         </script>
+    {% tag_manager %}
     </body>
 </html>

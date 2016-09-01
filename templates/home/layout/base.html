@@ -1,4 +1,4 @@
-{% load staticfiles %}{% load core_tags %}{% load user_agents %}{% load var_tags %}{% load wizard_tags %}{% load thumbor_tags %}{% load avatar_tags %}
+{% load staticfiles %}{% load utils %}{% load core_tags %}{% load user_agents %}{% load var_tags %}{% load wizard_tags %}{% load thumbor_tags %}{% load avatar_tags %}
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -284,5 +284,8 @@
 {% endblock %}
 {% block editorfiles %}
 {% endblock %}
+
+{% tag_manager %}
+
 </body>
 </html>

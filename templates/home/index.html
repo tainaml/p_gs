@@ -104,7 +104,6 @@
 {% endblock %}
 
 {% block javascripts %}
-    {% if request|is_pc %}
         <div id="fb-root"></div>
         <script>
             (function() {
@@ -122,5 +121,4 @@
                 fjs.parentNode.insertBefore(js, fjs);
             }(document, 'script', 'facebook-jssdk'));
         </script>
-    {% endif %}
 {% endblock %}

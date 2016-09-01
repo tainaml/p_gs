@@ -1,6 +1,4 @@
 # coding=utf-8
-from distutils.command.register import register
-
 from django import template
 from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
