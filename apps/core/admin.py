@@ -9,6 +9,7 @@ from apps.core.models.tags import Tags
 from apps.feed.models import FeedObject
 from apps.question.models import Question
 from apps.account.admin import UserAdmin, User
+from apps.socialactions.models import UserAction
 from apps.userprofile.models import UserProfile
 admin.site.register(Tags)
 admin.site.unregister(User)
@@ -70,6 +71,7 @@ class ArticlelAdmin(CompareVersionAdmin):
     show_author_name.short_description = 'Author'
 
 
+admin.site.register(UserAction)
 admin.site.register(Article, ArticlelAdmin)
 admin.site.register(Question, QuestionAdmin)
 admin.site.register(User, CoreUserAdmin)
