@@ -21,14 +21,14 @@
         {# Linkedin: https://developer.linkedin.com/plugins/share#! #}
         <div class="share-item share-item-linkedin">
             <script src="//platform.linkedin.com/in.js" type="text/javascript"> lang: pt_BR</script>
-            <script type="IN/Share" data-counter="right"></script>
+            <script type="IN/Share" data-counter="right" data-url="{{ the_url }}"></script>
         </div>
         {# EndLinkedin #}
 
         {# GooglePlus: https://developers.google.com/+/web/+1button/ #}
         <div class="share-item share-item-googleplus">
             <!-- Posicione esta tag onde você deseja que o botão +1 apareça. -->
-            <div class="g-plusone" data-size="medium"></div>
+            <div class="g-plusone" data-size="medium" data-href="{{ the_url }}"></div>
 
             <!-- Posicione esta tag depois da última tag do botão +1. -->
             <script type="text/javascript">

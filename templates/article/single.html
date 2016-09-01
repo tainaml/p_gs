@@ -122,7 +122,10 @@
                 {% if not request|is_mobile %}
                 <div class="full-post-share">
                     <h3>COMPARTILHE</h3>
-                    {% include '_partials/share.html' with show_all=True %}
+                {# TODO: Remover esta pog. É temporário #}
+                    {% with article_full_url="http://www.portalgsti.com.br"|add:article.get_absolute_url %}
+                        {% include '_partials/share.html' with show_all=True url=article_full_url %}
+                    {% endwith %}
                 </div>
                 {% endif %}
             </article>

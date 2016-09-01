@@ -539,7 +539,7 @@ WIZARD_STEPS_TOTAL = 3
 
 
 # Contact Suggest Community
-CONTACT_SUGGEST = 3
+CONTACT_SUGGEST = 2
 
 
 # MailValidation Time
@@ -728,6 +728,7 @@ SUMMERNOTE_CONFIG = {
             'airMode': False,
             'lang': 'pt-BR',
             'minHeight': 340,
+            'maxHeight': 340,
             'oEmbed': {
                 'service': '/oembed/',
                 'spinner': '<div class=\"text-center\"><img src=\"/static/images/preload.gif\" /></div>',
@@ -768,6 +769,7 @@ SUMMERNOTE_CONFIG = {
             'airMode': False,
             'lang': 'pt-BR',
             'minHeight': 340,
+            'maxHeight': 340,
             'oEmbed': {
                 'service': '/oembed/',
                 'spinner': '<div class=\"text-center\"><img src=\"/static/images/preload.gif\" /></div>',
@@ -808,6 +810,7 @@ SUMMERNOTE_CONFIG = {
             'airMode': False,
             'lang': 'pt-BR',
             'minHeight': 400,
+            'maxHeight': 400,
             'oEmbed': {
                 'service': '/oembed/',
                 'spinner': '<div class=\"text-center\"><img src=\"/static/images/preload.gif\" /></div>',
