@@ -7,11 +7,11 @@
                 </div>
                 <div class="steps">
                     <ul class="step-items list-inline text-center">
-                            <li class="step active">1</li>
-                            <li class="step active">2</li>
-                            <li class="step active">3</li>
-                        </ul>
-                    <hr>
+                        <li class="step active">1</li>
+                        <li class="step active">2</li>
+                        <li class="step active">3</li>
+                    </ul>
+                    <hr />
                     <form id="form-filter-communities" action="{% url 'profile:wizard-step-filter-categories-ajax' %}?page=1" method="GET" data-group-class=".form-group" data-ajaxform="true">
                         <div class="form-group">
                             <input type="text" class="form-control" data-xhr-input="true" name="criteria" placeholder="Procure comunidades" >
@@ -20,12 +20,10 @@
                     </form>
                     <form id="form-suggestions" action="{% url 'profile:wizard-step-suggestion-ajax' %}" method="post" enctype="multipart/form-data" data-ajaxform="true" data-group-class=".item-form">
                         {% csrf_token %}
-
                         <hr>
                         <div class="steps-container row">
                             <div class="col-lg-12" data-toggle="custom-scroll">
-                                <div id="wizard-container-communities" class="row">
-                                </div>
+                                <div id="wizard-container-communities" class="row"></div>
                                 <div class="item-form"></div>
                             </div>
                             <div class="col-lg-12">
