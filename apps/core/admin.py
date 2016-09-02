@@ -12,6 +12,9 @@ from apps.question.models import Question
 from apps.account.admin import UserAdmin, User
 from apps.socialactions.models import UserAction
 from apps.userprofile.models import UserProfile
+from django import forms
+from ideia_summernote.widget import SummernoteWidget
+
 admin.site.register(Tags)
 admin.site.unregister(User)
 
@@ -59,7 +62,33 @@ class FeedInline(GenericTabularInline):
     max_num = 1
 
 
+class ArticleAdminForm(forms.ModelForm):
+
+
+
+    class Media:
+        js = (
+            # 'https://code.jquery.com/jquery-2.2.4.min.js',
+            'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js',
+            'https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.1/summernote.min.js', )
+
+        css= {
+            'all': (
+                'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css',
+                'https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.1/summernote.css',
+            )
+        }
+
+    class Meta:
+        excludes = ()
+        widgets = {
+          'text': SummernoteWidget(editor_conf='article_admin')
+        }
+
+
 class ArticlelAdmin(CompareVersionAdmin):
+
+    form = ArticleAdminForm
 
     list_display = ('id', 'title', 'slug', 'status', 'publishin', 'show_author_name')
     search_fields = ('id', 'title', 'slug')

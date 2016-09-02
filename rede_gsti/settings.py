@@ -809,6 +809,49 @@ SUMMERNOTE_CONFIG = {
               ]
             }
 
+        }
+        ,'article_admin': {
+            'airMode': False,
+            'lang': 'pt-BR',
+            'minHeight': 340,
+            'maxHeight': 340,
+            'hasHint': True,
+            'oEmbed': {
+                'service': '/oembed/',
+                'spinner': '<div class=\"text-center\"><img src=\"/static/images/preload.gif\" /></div>',
+
+            },
+            'styleTags':  ['p', 'blockquote', 'pre', 'h2', 'h3', 'h4'],
+            'toolbar': [
+                ['style', ['style']],
+                ['font', ['strikethrough']],
+                ['hr', ['hr']],
+                ['link', ['link']],
+                ['style', ['bold', 'italic', 'clear']],
+                ['table', ['table']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['picture', ['picture', 'oembed', 'prettyprint']],
+                ['codeview', ['codeview']]
+
+            ],
+            'popover': {
+              'image': [
+                ['imagesize', ['imageSize100', 'imageSize50', 'imageSize25']],
+                ['float', ['floatLeft', 'floatRight', 'floatNone']],
+                ['remove', ['removeMedia']]
+              ],
+              'link': [
+                ['link', ['linkDialogShow', 'unlink']]
+              ],
+              'air': [
+                ['color', ['color']],
+                ['font', ['bold', 'clear']],
+                ['para', ['ul', 'paragraph']],
+                ['table', ['table']],
+                ['insert', ['link', 'picture']]
+              ]
+            }
+
         },
         'question': {
             'airMode': False,
