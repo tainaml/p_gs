@@ -729,6 +729,8 @@ SUMMERNOTE_CONFIG = {
             'lang': 'pt-BR',
             'minHeight': 340,
             'maxHeight': 340,
+            'hasHint': True,
+
             'oEmbed': {
                 'service': '/oembed/',
                 'spinner': '<div class=\"text-center\"><img src=\"/static/images/preload.gif\" /></div>',
@@ -770,6 +772,7 @@ SUMMERNOTE_CONFIG = {
             'lang': 'pt-BR',
             'minHeight': 340,
             'maxHeight': 340,
+            'hasHint': True,
             'oEmbed': {
                 'service': '/oembed/',
                 'spinner': '<div class=\"text-center\"><img src=\"/static/images/preload.gif\" /></div>',
@@ -812,6 +815,7 @@ SUMMERNOTE_CONFIG = {
             'lang': 'pt-BR',
             'minHeight': 400,
             'maxHeight': 400,
+            'hasHint': True,
             'oEmbed': {
                 'service': '/oembed/',
                 'spinner': '<div class=\"text-center\"><img src=\"/static/images/preload.gif\" /></div>',
@@ -857,6 +861,7 @@ SUMMERNOTE_CONFIG = {
         },'reply': {
             'airMode': False,
             'minHeight': 100,
+            'hasHint': True,
             'lang': 'pt-BR',
             'toolbar': [
                 ['style', ['bold', 'italic', 'underline']],
