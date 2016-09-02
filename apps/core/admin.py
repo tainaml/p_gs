@@ -5,6 +5,7 @@ from django.utils.translation import ugettext as _
 # Register your models here.
 from reversion_compare.admin import CompareVersionAdmin
 from apps.article.models import Article
+from apps.core.forms.user import CoreUserAdminForm
 from apps.core.models.tags import Tags
 from apps.feed.models import FeedObject
 from apps.question.models import Question
@@ -28,6 +29,8 @@ class CoreProfile(admin.StackedInline):
 
 
 class CoreUserAdmin(UserAdmin):
+
+    form = CoreUserAdminForm
 
     list_display = UserAdmin.list_display + ('show_contributor',)
 

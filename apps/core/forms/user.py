@@ -1,8 +1,8 @@
 # coding=utf-8
+from django.contrib.auth.forms import UserChangeForm
 from django.db import transaction
 from django.utils.translation import ugettext as _
 from apps.question.models import Question
-
 from apps.socialactions.models import UserAction
 from apps.article.models import Article
 from apps.userprofile.models import Responsibility
@@ -15,6 +15,10 @@ from apps.taxonomy.models import Taxonomy, Term
 from ..business import user as Business
 from apps.custom_base.service.custom import IdeiaForm, forms
 from rede_gsti import settings
+
+
+class CoreUserAdminForm(UserChangeForm):
+    pass
 
 
 class CoreUserSearchForm(IdeiaForm):
