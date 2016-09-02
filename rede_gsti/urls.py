@@ -18,10 +18,7 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
-from apps.ninico.views import index as PROJECT_ROOT
 from apps.core.views.core import Home
-from django.contrib.admin.views.decorators import staff_member_required
-from django.views.decorators.cache import never_cache
 from apps.core.views import search as CoreSearch
 
 handler400 = "apps.core.views.errors.handler400"
