@@ -54,6 +54,7 @@ class OccupationField(forms.fields.MultiValueField):
 class EditProfileForm(IdeiaForm):
     birth = forms.DateField(input_formats=['%d/%m/%Y'])
     gender = forms.CharField(max_length=1, required=True)
+    city = forms.ModelChoiceField(queryset='')
     city_hometown = forms.ModelChoiceField(queryset='')
     profile_picture = forms.ImageField(required=False)
 
@@ -63,8 +64,11 @@ class EditProfileForm(IdeiaForm):
 
         super(EditProfileForm, self).__init__(*args, **kwargs)
 
+        self.fields['city'].queryset = City.objects.all()
+
         if self.data and 'state' in self.data:
             self.fields['city_hometown'].queryset = City.objects.filter(state=self.data['state'])
+
 
     def is_valid(self):
 

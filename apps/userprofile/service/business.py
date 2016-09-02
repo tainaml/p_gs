@@ -58,7 +58,7 @@ def edit_profile(user, data_profile=None):
 
     try:
         update_profile(user, data_profile)
-    except Exception, e:
+    except Exception as e:
         if settings.DEBUG:
             logger.error(e.message)
         return False
@@ -88,7 +88,7 @@ def update_profile(user=None, data=None):
             profile.profile_picture = data.get('profile_picture')
 
         profile.save()
-    except Exception, e:
+    except Exception as e:
         if settings.DEBUG:
             logger.error(e.message)
         return False
