@@ -5,7 +5,7 @@
 {% load i18n %}
 {% load user_agents %}
 {% load thumbor_tags %}
-
+{% load ads %}
 {% block seo-og-title %}{% block seo_title %}Materiais sobre {{ community.title }} | Comunidade{{ block.super }}{% endblock %}{% endblock %}
 {% block seo-og-description %}{% block seo-description %}Lista de materiais sobre {{ community.title }}. É possível encontrar ebooks, modelos de documentos (template), apostilas e slides sobre {{ community.title }}.{% endblock %}{% endblock %}
 {% block seo-og-image %}{% thumbor_url community.get_picture.url width=82 height=82 smart=False fit_in=False %}{% endblock %}
@@ -94,18 +94,11 @@
     </main>
 {% endblock %}
 
- {% block community_right %}
-<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<!-- gsti-comunidade-materiais-lateral -->
-<ins class="adsbygoogle"
-     style="display:block"
-     data-ad-client="ca-pub-2686766225121981"
-     data-ad-slot="8715997622"
-     data-ad-format="auto"></ins>
-<script>
-(adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-{% endblock community_right %}
+
+{% block community_right_block %}
+    {% ads_only_production "community_materials_right" "all" %}
+{% endblock community_right_block %}
+
 
 <div class="modal">
     modal here

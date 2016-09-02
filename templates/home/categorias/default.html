@@ -8,7 +8,7 @@
 {% load thumbor_tags %}
 {% load bighomecache %}
 {% load user_agents %}
-
+{% load ads %}
 
 {% block seo-og-title %}{% block seo_title %}{{ category.description }} | Categoria{{ block.super }}{% endblock %}{% endblock %}
 {% block seo-og-description %}{% block seo-description %}Saiba tudo sobre {{ category.description }} através dessa categoria do site. Aqui está reunido o conteúdo criado por colaboradores do Portal sobre esse assunto.{% endblock %}{% endblock %}
@@ -31,18 +31,7 @@
                 <div class="highlight-area-category">
                     <div class="highlight-left">
                         <div class="banner">
-                            {% block category_top %}
-                                <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-                        <!-- gsti-categoria-topo -->
-                        <ins class="adsbygoogle"
-                             style="display:block"
-                             data-ad-client="ca-pub-2686766225121981"
-                             data-ad-slot="6181333620"
-                             data-ad-format="auto"></ins>
-                        <script>
-                        (adsbygoogle = window.adsbygoogle || []).push({});
-                        </script>
-                        {% endblock category_top %}
+                            {% ads_only_production "category_top" "all" %}
                         </div>
                         <div class="post-list-container">
                             {% article_block 'large' category_slug class_name=class_name quantity=4 offset=0 %}
@@ -64,18 +53,7 @@
                 <div class="container-posts">
                     <div class="banner-content-wide">
                         <div class="banner">
-                            {% block category_middle %}
-                                <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-                                <!-- gsti-categoria-meio -->
-                                <ins class="adsbygoogle"
-                                     style="display:block"
-                                     data-ad-client="ca-pub-2686766225121981"
-                                     data-ad-slot="9134800026"
-                                     data-ad-format="auto"></ins>
-                                <script>
-                                (adsbygoogle = window.adsbygoogle || []).push({});
-                                </script>
-                            {% endblock category_middle %}
+                            {% ads_only_production "category_middle" "all" %}
                         </div>
                     </div>
 

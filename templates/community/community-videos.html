@@ -4,7 +4,7 @@
 {% load staticfiles %}
 {% load user_agents %}
 {% load i18n %}
-
+{% load ads %}
 {% load thumbor_tags %}
 
 {% block seo-og-title %}{% block seo_title %}Vídeos sobre {{ community.title }} | Comunidade{{ block.super }}{% endblock %}{% endblock %}
@@ -62,19 +62,9 @@
     </main>
 {% endblock %}
 
- {% block community_right %}
-<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<!-- gsti-comunidade-videos-lateral -->
-<ins class="adsbygoogle"
-     style="display:block"
-     data-ad-client="ca-pub-2686766225121981"
-     data-ad-slot="5762531222"
-     data-ad-format="auto"></ins>
-<script>
-(adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-{% endblock community_right %}
-
+{% block community_right_block %}
+    {% ads_only_production "community_about_top" "all" %}
+{% endblock community_right_block %}
 <div class="modal">
     modal here
 </div>

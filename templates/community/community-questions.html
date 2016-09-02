@@ -4,7 +4,7 @@
 {% load core_tags %}
 {% load user_agents %}
 {% load thumbor_tags %}
-
+{% load ads %}
 {% block seo-og-title %}{% block seo_title %}Dúvidas sobre {{ community.title }} | Comunidade{{ block.super }}{% endblock %}{% endblock %}
 {% block seo-og-description %}{% block seo-description %}Faça perguntas e tire suas dúvidas sobre {{ community.title }}. Claro que antes veja se a sua dúvida já foi respondida por outros membros.{% endblock %}{% endblock %}
 {% block seo-og-image %}{% thumbor_url community.get_picture.url width=82 height=82 smart=False fit_in=False %}{% endblock %}
@@ -90,18 +90,9 @@
                     </div>
                     <div class="col-lg-4">
                         <div class="squad-advertising">
-                            {% block community_right %}
-                              <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-                            <!-- gsti-comunidade-perguntas-lateral -->
-                            <ins class="adsbygoogle"
-                                 style="display:block"
-                                 data-ad-client="ca-pub-2686766225121981"
-                                 data-ad-slot="4425398822"
-                                 data-ad-format="auto"></ins>
-                            <script>
-                            (adsbygoogle = window.adsbygoogle || []).push({});
-                            </script>
-                            {% endblock community_right %}
+                            {% block community_right_block %}
+                                {% ads_only_production "community_questions_right" "all" %}
+                            {% endblock community_right_block %}
                         </div>
                         <div class="widget widget-feed">
                             {% relevance_box community %}

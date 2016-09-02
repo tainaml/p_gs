@@ -1,4 +1,4 @@
-{% load staticfiles %}{% load utils %}{% load core_tags %}{% load user_agents %}{% load var_tags %}{% load wizard_tags %}{% load thumbor_tags %}{% load avatar_tags %}
+{% load staticfiles %}{% load ads %}{% load utils %}{% load core_tags %}{% load user_agents %}{% load var_tags %}{% load wizard_tags %}{% load thumbor_tags %}{% load avatar_tags %}
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -49,6 +49,7 @@
     <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
     {% block extra_meta %}
     {% endblock %}
+{% ads_only_production "page_level" "all" %}
 </head>
 <body>
 <div class="slideout-menu" id="slideout-menu">

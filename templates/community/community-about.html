@@ -1,7 +1,7 @@
 {%extends 'home/layout/base.html' %}
 
 {% load thumbor_tags %}
-
+{% load ads %}
 {% block seo-og-title %}{% block seo_title %}O que é {{ community.title }} | Comunidade{{ block.super }}{% endblock %}{% endblock %}
 {% block seo-og-description %}{% block seo-description %}Saiba o que é {{ community.title }} seus beneficios e aplicações. Aqui você pode ter noção de {{ community.title }} para depois se aprofundar mais no assunto{% endblock %}{% endblock %}
 {% block seo-og-image %}{% thumbor_url community.get_picture.url width=82 height=82 smart=False fit_in=False %}{% endblock %}
@@ -18,18 +18,10 @@
             <div class="col-lg-9">
                 {% include 'community/partials/filters.html' with title="Sobre" active="sobre" has_filter=False %}
                  <div class="banner">
-                            {% block community_about %}
-                              <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-                                <!-- gsti-com-sobre-topo -->
-                                <ins class="adsbygoogle"
-                                     style="display:block"
-                                     data-ad-client="ca-pub-2686766225121981"
-                                     data-ad-slot="1332331621"
-                                     data-ad-format="auto"></ins>
-                                <script>
-                                (adsbygoogle = window.adsbygoogle || []).push({});
-                                </script>
-                        {% endblock community_about %}
+                 {% block community_right_block %}
+                    {% ads_only_production "community_about_top" "all" %}
+                {% endblock community_right_block %}
+
                         </div>
                 <div class="about-text">
                     <p>{{ community.description|safe }}</p>
