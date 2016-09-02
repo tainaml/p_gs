@@ -1,3 +1,11 @@
+$.get('/community/list-all/').done(function (data) {
+  window.mentionsItems = data.communities;
+  window.mentionTitles = [];
+  data.communities.forEach(function (val, idx, array) {
+    window.mentionTitles.push(val.title);
+  });
+});
+
 $.fn.refreshEditors = function (){
 
   function sendFile(files, editor) {
@@ -42,6 +50,31 @@ $.fn.refreshEditors = function (){
 
     var $editor = $(value);
     var editorConfig = $editor.data('config') || {};
+
+    if (editorConfig.hasHint) {
+      editorConfig.hint = {
+        match: /#([\-+\w| ]+)$/,
+        search: function (keyword, callback) {
+          callback($.grep(mentionTitles, function (item) {
+            return item.toLowerCase().indexOf(keyword.toLowerCase() || keyword) == 0;
+          }));
+        },
+        content: function (item) {
+          var content = mentionsItems.filter(function (element, index, array) {
+            return element.title == item;
+          })[0];
+
+          if (content.slug && content.title) {
+            return $('<a />').attr({
+              href: '/'+content.slug+'/',
+              title: content.title
+            }).text('#'+content.title)[0];
+          }
+          return '';
+
+        }
+      }
+    }
     var $modalLogin = $("#modal-login");
     Object.assign(editorConfig, {
       callbacks: {
