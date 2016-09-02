@@ -89,12 +89,14 @@ class CoreUserProfileEditForm(EditProfileForm):
         process_profile = super(CoreUserProfileEditForm, self).__process__()
         process_occupation = BusinessUserProfile.update_or_create_occupation(
             process_profile,
-            responsibilities=[self.cleaned_data['responsibility']])
+            responsibilities=[self.cleaned_data.get('responsibility')])
 
         return process_profile if (process_profile and process_occupation) else False
 
 
 class CoreUserProfileEditStepOne(CoreUserProfileEditForm):
+
+
 
     @transaction.atomic()
     def __process__(self):
@@ -131,7 +133,7 @@ class CoreUserProfileFullEditForm(EditProfileForm):
             'first_name': self.cleaned_data['first_name'],
             'last_name': self.cleaned_data['last_name']
         })
-        process_occupation = BusinessUserProfile.update_or_create_occupation(profile=process_profile, responsibilities=self.cleaned_data['responsibility'])
+        process_occupation = BusinessUserProfile.update_or_create_occupation(profile=process_profile, responsibilities=self.cleaned_data.get('responsibility'))
 
         return process_profile if (process_profile and process_occupation and process_user) else False
 

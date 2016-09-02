@@ -202,7 +202,7 @@ class CoreProfileEditAjax(views.ProfileEditView):
 
 class CoreProfileWizardStepOneAjax(CoreProfileEditAjax):
 
-    MESSAGE_EXTRA_TAGS = 'profile-edit-first-setp'
+    MESSAGE_EXTRA_TAGS = 'profile-edit-first-step'
     form_profile = CoreUserProfileEditStepOne
 
     def get_context(self, request, profile_instance=None):
