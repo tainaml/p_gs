@@ -37,7 +37,7 @@
                                 <div class="row">
                                     <div class="clearfix">
                                         <div data-form-group class="col-lg-12 item-form">
-                                            <select name="responsibility" id="responsibility" class="form-control">
+                                            <select name="responsibility" id="responsibility" class="" data-toggle="selectize" data-module="profession" placeholder="Área de atuação">
                                                 <option value="0" {% if not wizard_profile.current_occupation.responsibility.id %}selected{% endif %} disabled>Área de atuação</option>
                                                 {% for responsibility in responsibilities %}
                                                     <option value="{{ responsibility.id }}" {% if responsibility.id == wizard_profile.current_occupation.responsibility.id %}selected{% endif %}>{{ responsibility.name }}</option>

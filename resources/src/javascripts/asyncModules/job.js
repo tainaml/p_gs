@@ -23,7 +23,6 @@ var defaultSettings = {
 job = (element) => {
   $element = $(element);
   elementData = $element.data();
-  // var selectizeSettings = $.extend({}, defaultSettings, elementData);
   $(element).selectize(defaultSettings);
 };
 
