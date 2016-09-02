@@ -843,6 +843,7 @@ SUMMERNOTE_CONFIG = {
             'airMode': False,
             'minHeight': 100,
             'lang': 'pt-BR',
+            'hasHint': True,
             'toolbar': [
                 ['style', ['bold', 'italic']],
                 ['font', ['strikethrough']],
