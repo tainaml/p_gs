@@ -56,7 +56,7 @@ $.fn.refreshEditors = function (){
         match: /#([\-+\w| ]+)$/,
         search: function (keyword, callback) {
           callback($.grep(mentionTitles, function (item) {
-            return item.indexOf(keyword) == 0;
+            return item.toLowerCase().indexOf(keyword.toLowerCase() || keyword) == 0;
           }));
         },
         content: function (item) {
@@ -66,7 +66,7 @@ $.fn.refreshEditors = function (){
 
           if (content.slug && content.title) {
             return $('<a />').attr({
-              href: '/'+content.slug,
+              href: '/'+content.slug+'/',
               title: content.title
             }).text('#'+content.title)[0];
           }
