@@ -1,3 +1,4 @@
+from captcha.fields import ReCaptchaField
 from nocaptcha_recaptcha import NoReCaptchaField
 
 from apps.custom_base.service.custom import IdeiaForm, forms
@@ -21,7 +22,7 @@ class ContactFormNoAuthenticated(ContactForm):
 
     name = forms.CharField(max_length=100, required=True)
     email = forms.EmailField(required=True)
-    captcha = NoReCaptchaField(required=True)
+    captcha = ReCaptchaField()
 
     def __process__(self):
         return super(ContactFormNoAuthenticated, self).__process__()

@@ -2,7 +2,7 @@ django==1.9.4
 psycopg2==2.6.1
 Pillow==3.0.0
 django-thumbor==0.5
-django-nocaptcha-recaptcha==0.0.18
+django-recaptcha
 django-widget-tweaks==1.4.1
 python-social-auth==0.2.14
 django-debug-toolbar==1.5

@@ -115,8 +115,9 @@ SECRET_KEY = config.get("GENERAL", "secret_key")
 
 # Google Recaptcha keys
 
-NORECAPTCHA_SITE_KEY = config.get("GOOGLE_RECAPTCHA", "site_key")
-NORECAPTCHA_SECRET_KEY = config.get("GOOGLE_RECAPTCHA", "secret_key")
+RECAPTCHA_PUBLIC_KEY = config.get("GOOGLE_RECAPTCHA", "site_key")
+RECAPTCHA_PRIVATE_KEY = config.get("GOOGLE_RECAPTCHA", "secret_key")
+NOCAPTCHA = True
 
 # Application definition
 
