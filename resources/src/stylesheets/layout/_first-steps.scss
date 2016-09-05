@@ -79,3 +79,11 @@
       max-height: 53vh;
     }
 }
+
+#modal-categories,
+#modal-personal-infos,
+#modal-suggestions {
+  .btn-green {
+    margin-left: 5px;
+  }
+}
