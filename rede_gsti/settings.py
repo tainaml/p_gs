@@ -27,7 +27,7 @@ config_path = os.path.join(ENVIRONMENT_CONFIG_DIR, '%s-environment.cfg' % ENVIRO
 
 try:
     config.readfp(open(config_path))
-except IOError, e:
+except IOError as e:
 
     config.add_section("GENERAL")
     config.set("GENERAL", "secret_key", '3u2oo))n_j*t#sjx*)=p*5j4mpb^7iruq4$v3%2nn!e2r2p$jj')
@@ -187,11 +187,19 @@ def show_toolbar(request):
 
 USE_CACHE = config.getboolean("CACHE", "active")
 
+# Site Urls
+SITE_URL = config.get("GENERAL", 'site_url')
+STATIC_URL = '%s/static/' % SITE_URL
+MEDIA_URL = '%s/media/uploads/' % SITE_URL
+
+
 # Setting Environment specific settings
 if ENVIRONMENT == "develop":
     DEBUG = True
     #INSTALLED_APPS += ('debug_toolbar', 'apps.ninico',)
     INSTALLED_APPS += ('apps.ninico',)
+    STATIC_URL = '/static/'
+    MEDIA_URL = '/media/uploads/'
     if USE_CACHE:
         CACHES = {
             'default': {
@@ -546,10 +554,6 @@ CONTACT_SUGGEST = 2
 TIME_REGISTER_ACCOUNT = config.getint("GENERAL", "expiration_register_time")
 TIME_RECOVERY_PASSWORD = config.getint("GENERAL", "expiration_password_recovery")
 
-# Site Urls
-SITE_URL = config.get("GENERAL", 'site_url')
-STATIC_URL = '/static/'
-MEDIA_URL = '/media/uploads/'
 
 # Python Social auth backend configuration
 
