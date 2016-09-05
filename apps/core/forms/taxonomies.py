@@ -33,15 +33,12 @@ class CoreTaxonomiesMixin(IdeiaModelForm):
         kwargs['initial'].update(initial)
 
     def filter_comunities(self, author, extra=None):
-        pass
-        # communities = self.fields.get('communities')
-        # if communities:
-        #     _user_communities = UserBusiness.get_user_communities(author)
-        #     communities.queryset = _user_communities
-        #     if extra is not None and isinstance(extra, (QuerySet)):
-        #         communities.queryset = communities.queryset | extra
-
-        # self.fields.set('communities')
+        communities = self.fields.get('communities')
+        if communities:
+            _user_communities = UserBusiness.get_user_communities(author)
+            communities.queryset = _user_communities
+            if extra is not None and isinstance(extra, (QuerySet)):
+                communities.queryset = communities.queryset | extra
 
     def save_taxonomies(self, target_object, form_data):
         process_communities = CoreFeedBusiness.save_communities(target_object, self.cleaned_data)
