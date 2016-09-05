@@ -59,8 +59,7 @@ class URI():
 def absolute(value):
     if not hasattr(settings, "SITE_URL"):
         raise SiteUrlNotFound("SITE_URL setting in settings.py is not definied!")
-    url = URI(settings.SITE_URL+value)
-    return URI(settings.SITE_URL+value).absolute_uri
+    return URI(value).absolute_uri
 
 
 @register.filter
