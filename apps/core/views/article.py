@@ -11,7 +11,7 @@ from apps.community.models import Community
 from ..forms.article import CoreArticleBaseForm, CoreArticleContributorForm
 from ..business import feed as BusinessFeed
 from apps.core.business import user as UserBusiness
-from apps.core.business import article as core_article_business
+from apps.core.business import article as core_article_business        #self.fields.set('communities')
 
 class CoreArticleEditView(views.ArticleEditView):
 
@@ -23,13 +23,16 @@ class CoreArticleEditView(views.ArticleEditView):
         communities = UserBusiness.get_user_communities_list(request.user)
 
         try:
-            feed_communities = UserBusiness.get_user_communities_list_from_queryset(
-                self.the_article.feed.all().first().communities.all(),
-                request.user
-            )
-            communities = communities + feed_communities
-        except Exception, e:
-            # print e
+
+            first_feed = self.the_article.feed.first()
+            if first_feed:
+                feed_communities = UserBusiness.get_user_communities_list_from_queryset(
+                    self.the_article.feed.all().first().communities.all(),
+                    request.user
+                )
+                communities = communities + feed_communities
+
+        except Exception as e:
             pass
 
         context.update(communities=communities)
@@ -41,7 +44,7 @@ class CoreArticleEditView(views.ArticleEditView):
 
         try:
             is_contributor = request.user.profile.contributor
-        except Exception, e:
+        except Exception as e:
             pass
         return is_contributor
 
