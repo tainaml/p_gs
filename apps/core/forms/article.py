@@ -42,8 +42,8 @@ class CoreArticleBaseForm(ArticleForm, CoreTaxonomiesMixin):
 
         try:
             extra = self.instance.feed.all().first().communities.all()
-        except Exception, e:
-            print e.message
+        except Exception as e:
+            print(e.message)
             pass
 
 
