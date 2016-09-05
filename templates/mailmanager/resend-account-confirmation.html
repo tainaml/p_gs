@@ -9,9 +9,9 @@ Seu username é: {{ user.username }} <br>
 
 {% url 'account:mail_validation' token as token_url %}
 
-<p>Para ativar sua conta <a href="{{ token_url|absolute}}">clique aqui</a></p>
+<p>Para ativar sua conta <a href="http://www.portalgsti.com.br{{ token_url}}">clique aqui</a></p>
 
-<p>A url é [{{ token_url|absolute}}]</p>
+<p>A url é [http://www.portalgsti.com.br{{ token_url}}]</p>
 
 
 {% endblock %}
