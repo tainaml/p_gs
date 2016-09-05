@@ -22,7 +22,7 @@ class ContactFormNoAuthenticated(ContactForm):
 
     name = forms.CharField(max_length=100, required=True)
     email = forms.EmailField(required=True)
-    captcha = ReCaptchaField()
+    captcha = NoReCaptchaField()
 
     def __process__(self):
         return super(ContactFormNoAuthenticated, self).__process__()

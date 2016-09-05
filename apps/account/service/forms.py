@@ -1,5 +1,4 @@
 # coding=utf-8
-from captcha.fields import ReCaptchaField
 from django.contrib.auth.password_validation import validate_password
 from django.core.exceptions import ValidationError
 from django.utils.translation import ugettext as _
@@ -20,7 +19,7 @@ class SignUpForm(IdeiaForm):
     email = forms.EmailField(max_length=150, required=True)
     password = forms.CharField(max_length=50, required=True)
     password_confirmation = forms.CharField(max_length=50, required=True)
-    captcha = ReCaptchaField()
+    captcha = NoReCaptchaField(required=True)
 
     def clean_password(self):
 
