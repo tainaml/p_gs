@@ -27,7 +27,7 @@ config_path = os.path.join(ENVIRONMENT_CONFIG_DIR, '%s-environment.cfg' % ENVIRO
 
 try:
     config.readfp(open(config_path))
-except IOError, e:
+except IOError as e:
 
     config.add_section("GENERAL")
     config.set("GENERAL", "secret_key", '3u2oo))n_j*t#sjx*)=p*5j4mpb^7iruq4$v3%2nn!e2r2p$jj')
@@ -548,8 +548,8 @@ TIME_RECOVERY_PASSWORD = config.getint("GENERAL", "expiration_password_recovery"
 
 # Site Urls
 SITE_URL = config.get("GENERAL", 'site_url')
-STATIC_URL = '/static/'
-MEDIA_URL = '/media/uploads/'
+STATIC_URL = '%s/static/' % SITE_URL
+MEDIA_URL = '%s/media/uploads/' % SITE_URL
 
 # Python Social auth backend configuration
 
