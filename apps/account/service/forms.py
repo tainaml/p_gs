@@ -19,7 +19,7 @@ class SignUpForm(IdeiaForm):
     email = forms.EmailField(max_length=150, required=True)
     password = forms.CharField(max_length=50, required=True)
     password_confirmation = forms.CharField(max_length=50, required=True)
-    # captcha = NoReCaptchaField(required=True)
+    captcha = NoReCaptchaField(required=True)
 
     def clean_password(self):
 

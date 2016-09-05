@@ -125,7 +125,7 @@ class RegisterView(View):
         :return: HTML
         """
         if request.user.is_authenticated():
-            return redirect('/')
+            return redirect(reverse('account:index'))
         else:
             return render(request, 'account/signup.html', {'form': self.form()})
 
