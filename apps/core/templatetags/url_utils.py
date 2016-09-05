@@ -23,12 +23,13 @@ class SiteUrlNotFound(Exception):
 class URI():
     uri_regex = re.compile(r'((?P<scheme>\w+)://)?(?P<domain>[\w.-]+)?(:(?P<port>\d+))?(?P<path>[/[\w-]*(.(?P<content_type>[\w-]+))*)$')
 
-    def __init__(self, uri=None):
+    def __init__(self, uriparam=None):
 
-        self.uri =  self.uri_regex.match(uri)
+
+        self.uri =  self.uri_regex.match(uriparam)
 
         if not self.uri:
-            raise NotValidURI("String is not a valid uri")
+            raise NotValidURI("String is not a valid uri %s" % uriparam)
 
         self.scheme = self.uri.group("scheme")
         self.domain = self.uri.group("domain")
