@@ -1,4 +1,4 @@
-{% load staticfiles %}{% load utils %}{% load core_tags %}{% load user_agents %}{% load var_tags %}{% load wizard_tags %}{% load thumbor_tags %}{% load avatar_tags %}
+{% load staticfiles %}{% load ads %}{% load utils %}{% load core_tags %}{% load user_agents %}{% load var_tags %}{% load wizard_tags %}{% load thumbor_tags %}{% load avatar_tags %}
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -49,6 +49,7 @@
     <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
     {% block extra_meta %}
     {% endblock %}
+{% ads_only_production "page_level" "all" %}
 </head>
 <body>
 <div class="slideout-menu" id="slideout-menu">
@@ -117,10 +118,10 @@
     {% include 'home/partials/modals/modal-alert-community-questions.html' %}
 {% endblock %}
 
+{% if request and request.user %}{% wizard %}{% endif %}
+
 <script src="{% static 'javascripts/shared.js'%}"></script>
 <script src="{% static 'javascripts/main.js'%}"></script>
-
-{% if request and request.user %}{% wizard %}{% endif %}
 
 {% if request.user.is_anonymous %}
     <script src="https://www.google.com/recaptcha/api.js?hl=pt-BR" async defer></script>

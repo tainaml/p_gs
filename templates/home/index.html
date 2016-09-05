@@ -4,7 +4,7 @@
 {% load home_cache %}
 {% load home_blocks %}
 {% load bighomecache %}
-
+{% load ads %}
 {% block seo-og-title %}{% block seo_title %}Portal GSTI - Um mundo de informações para TI{% endblock %}{% endblock %}
 {% block seo-og-description %}{% block seo-description %}O seu portal definitivo de TI. Conteúdo, área para tirar dúvidas, informações sobre vagas de trabalho, concursos e certificações. Conheça nossas comunidades!{% endblock %}{% endblock %}
 
@@ -25,18 +25,7 @@
             <div class="container-posts">
                 <div class="banner-content-wide">
                     <div class="banner">
-                        {% block home_top %}
-                            <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-                            <!-- gsti-home-topo -->
-                            <ins class="adsbygoogle"
-                                 style="display:block"
-                                 data-ad-client="ca-pub-2686766225121981"
-                                 data-ad-slot="1890734825"
-                                 data-ad-format="auto"></ins>
-                            <script>
-                            (adsbygoogle = window.adsbygoogle || []).push({});
-                            </script>
-                        {% endblock home_top %}
+                        {% ads_only_production "home_top" "all" %}
                     </div>
                 </div>
             </div>
@@ -92,18 +81,7 @@
             <div class="container-posts">
                 <div class="banner-content-wide">
                     <div class="banner">
-                        {% block home_middle %}
-                            <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-                                <!-- gsti-home-meio -->
-                                <ins class="adsbygoogle"
-                                     style="display:block"
-                                     data-ad-client="ca-pub-2686766225121981"
-                                     data-ad-slot="6320934425"
-                                     data-ad-format="auto"></ins>
-                                <script>
-                                (adsbygoogle = window.adsbygoogle || []).push({});
-                                </script>
-                        {% endblock home_middle %}
+                        {% ads_only_production "home_middle" "all" %}
                     </div>
                 </div>
 

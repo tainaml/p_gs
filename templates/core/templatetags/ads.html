@@ -1,0 +1,5 @@
+{% with prefix="ads/"|add:location %}
+    {% with template_name=prefix|stringformat:"s"|add:".html" %}
+           {% include template_name with must_be_rendered=must_be_rendered %}
+    {% endwith %}
+{% endwith %}
