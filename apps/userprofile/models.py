@@ -104,6 +104,9 @@ class Responsibility(models.Model):
     name = models.CharField(max_length=60, null=False, blank=False)
     text = models.TextField(null=True, blank=True)
 
+    class Meta:
+        ordering = ('name',)
+
     def __unicode__(self):
         return self.name
 
