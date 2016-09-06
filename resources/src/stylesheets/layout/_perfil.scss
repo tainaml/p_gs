@@ -354,6 +354,11 @@
         color: $link-white;
     }
 }
+.btn-perfil + .btn-perfil {
+    @media (min-width: $screen-lg-min) {
+        margin-left: 5px;
+    }
+}
 
 .excerpt {
     width: 100%;
