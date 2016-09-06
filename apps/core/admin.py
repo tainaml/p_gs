@@ -36,7 +36,7 @@ class CoreUserAdmin(UserAdmin):
 
     form = CoreUserAdminForm
 
-    list_display = ('id', 'username', 'first_name', 'last_name', 'show_staff', 'show_contributor', "date_joined", "show_login",)
+    list_display = ('id', 'username', 'first_name', 'last_name', 'show_staff', "is_active", 'show_contributor', "show_date_joined", "show_login",)
 
     inlines = [
         CoreProfile
@@ -54,6 +54,13 @@ class CoreUserAdmin(UserAdmin):
     show_staff.short_description = 'Membro'
     show_staff.boolean = True
 
+    def show_date_joined(self, obj):
+
+        return obj.date_joined
+
+    show_date_joined.admin_order_field = 'timefield'
+    show_date_joined.short_description = 'Criado em'
+
 
     def show_login(self, obj):
         return naturaltime(obj.last_login)
@@ -61,6 +68,8 @@ class CoreUserAdmin(UserAdmin):
     def show_joined(self, obj):
         return naturaltime(obj.last_login)
 
+    show_login.short_description = 'Login'
+    show_login.admin_order_field = 'timefield'
 
     show_contributor.boolean = True
 
