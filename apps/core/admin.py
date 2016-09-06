@@ -58,7 +58,7 @@ class CoreUserAdmin(UserAdmin):
 
         return obj.date_joined
 
-    show_date_joined.admin_order_field = 'timefield'
+    show_date_joined.admin_order_field = 'date_joined'
     show_date_joined.short_description = 'Criado em'
 
 
@@ -69,7 +69,7 @@ class CoreUserAdmin(UserAdmin):
         return naturaltime(obj.last_login)
 
     show_login.short_description = 'Login'
-    show_login.admin_order_field = 'timefield'
+    show_login.admin_order_field = 'last_login'
 
     show_contributor.boolean = True
 
