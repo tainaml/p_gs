@@ -192,6 +192,8 @@ SITE_URL = config.get("GENERAL", 'site_url')
 STATIC_URL = '%s/static/' % SITE_URL
 MEDIA_URL = '%s/media/uploads/' % SITE_URL
 
+SECURE_SSL_HOST = 'www.portalgsti.com.br'
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 PREPOSITIONS = [
     'de', 'dos', 'das', 'da', 'do'
@@ -206,6 +208,9 @@ if ENVIRONMENT == "develop":
     INSTALLED_APPS += ('apps.ninico',)
     STATIC_URL = '/static/'
     MEDIA_URL = '/media/uploads/'
+    SECURE_SSL_HOST = None
+    SECURE_PROXY_SSL_HEADER = None
+
     if USE_CACHE:
         CACHES = {
             'default': {
