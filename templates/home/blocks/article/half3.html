@@ -26,7 +26,7 @@
                 <figcaption>
                     {% article_community_block category article %}
                     <h3 class="article-content">
-                      <a href="{{ article_link }}" title="article.title">
+                      <a href="{{ article_link }}" title="{{ article.title }}">
                         {% if article.title|length > 67 %}{{ article.title|slice:":67" }}...{% else %}{{ article.title }}{% endif %}
                       </a>
                     </h3>
@@ -41,7 +41,7 @@
 
             <article class="article-home-medium">
                 {% article_community_block category article %}
-                <h3 class="article-content"><a href="{{ article_link }}" title="article.title">
+                <h3 class="article-content"><a href="{{ article_link }}" title="{{ article.title }}">
                     {% if article.title|length > 67 %}{{ article.title|slice:":67" }}...{% else %}{{ article.title }}{% endif %}
                 </a></h3>
             </article>
