@@ -245,7 +245,7 @@ def update_occupation(occupation, data):
         occupation.responsibility = data['responsibility']
         occupation.description = data['company']
         occupation.save()
-    except Exception, e:
+    except Exception as e:
         if settings.DEBUG:
             logger.error(e.message)
         return False
