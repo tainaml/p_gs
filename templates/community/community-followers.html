@@ -126,7 +126,6 @@
 
         $(function () {
             var $form_search = $("#form-search-followers");
-            /*$form_search.submit();*/
             $form_search.on("ajaxform.success", functionAjaxSuccessSearchFollowers);
             $(document).on('input', "#filterName", function (e) {
                 var $this = $(e.currentTarget);
@@ -145,7 +144,7 @@
             });
 
             $(".j-scroll-followers").jscroll({
-                autoTrigger: false,
+                autoTrigger: true,
                 loadingHtml: '<div class="col-lg-12"><div class="load-async-preload"></div></div>',
                 contentSelect: ".j-scroll-followers-container",
                 nextSelector: "a[data-jscroll-next]",
