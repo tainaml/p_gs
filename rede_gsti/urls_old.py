@@ -40,5 +40,6 @@ urls_old = [
     url(r'p/curso-itil-incompany.html', HOME_INDEX_REDIRECT),
     url(r'p/links.html', HOME_INDEX_REDIRECT),
     url(r'p/bruno-horta.html', RedirectView.as_view(pattern_name='profile:show'), {'username': "brunohsoares"}),
+    url(r'p/guia-completo-para-certificacao-iso.html', RedirectView.as_view(pattern_name='article:view'), {'slug': "guia-completo-para-certificacao-iso-27002-foundation", 'year': "2013", 'month': '06'}),
 
 ]
