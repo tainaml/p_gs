@@ -20,6 +20,7 @@ from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 from apps.core.views.core import Home
 from apps.core.views import search as CoreSearch
+from rede_gsti.urls_old import urls_old
 
 handler400 = "apps.core.views.errors.handler400"
 handler403 = "apps.core.views.errors.handler403"
@@ -56,8 +57,6 @@ urlpatterns = [
 
     # Translators: URL root de redes sociais
     url('', include('social.apps.django_app.urls', namespace='social')),
-
-
 
     # Translators: URL root de notificacoes
     url(_(r'^notifications/'), include('apps.core.urls.notifications', namespace='notifications')),
@@ -107,4 +106,4 @@ urlpatterns = [
 
     url(r'^ideia-summernote/', include('ideia_summernote.urls', namespace='ideia-summernote')),
 
-] + url_statics + url_media + url_search_all
+] + url_statics + url_media + urls_old + url_search_all
