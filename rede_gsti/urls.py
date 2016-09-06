@@ -57,8 +57,6 @@ urlpatterns = [
     # Translators: URL root de redes sociais
     url('', include('social.apps.django_app.urls', namespace='social')),
 
-
-
     # Translators: URL root de notificacoes
     url(_(r'^notifications/'), include('apps.core.urls.notifications', namespace='notifications')),
 
@@ -106,5 +104,7 @@ urlpatterns = [
     url(_(r'^'), include('apps.core.urls.community', namespace='community')),
 
     url(r'^ideia-summernote/', include('ideia_summernote.urls', namespace='ideia-summernote')),
+
+    url(r'^', include('apps.core.urls.blogspot', namespace='blogspot')),
 
 ] + url_statics + url_media + url_search_all
