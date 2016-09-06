@@ -194,6 +194,7 @@ MEDIA_URL = '%s/media/uploads/' % SITE_URL
 
 SECURE_SSL_HOST = 'www.portalgsti.com.br'
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+SITE_PROTOCOL = 'https'
 
 PREPOSITIONS = [
     'de', 'dos', 'das', 'da', 'do'
