@@ -36,9 +36,12 @@
                             <input type="submit" class="btn-default" value="{% trans "Save as draft" context "save article" %}" name="submit-save" />
                             <input class="btn-green" type="submit" value="{% trans "Publish" context "publish article" %}" name="submit-publish" />
                         {% endif %}
-                        {% if article.slug and article.id %}
+                        {% if article.is_published %}
                             <a href="{% url 'article:view' article.year article.month article.slug %}" class="btn-default" target="_blank">Visualizar</a>
+                        {% elif article.id %}
+                            <a href="{% url 'article:preview' article.id %}" class="btn-default" target="_blank">Pré-Visualizar</a>
                         {% endif %}
+
                     </div>
                 </div>
                 <div class="col-lg-12">
