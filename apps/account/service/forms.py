@@ -1,4 +1,5 @@
 # coding=utf-8
+from apps.core.utils import capitalize_this_name
 from django.contrib.auth.password_validation import validate_password
 from django.core.exceptions import ValidationError
 from django.utils.translation import ugettext as _
@@ -27,6 +28,20 @@ class SignUpForm(IdeiaForm):
 
         validate_password(_pass)
         return _pass
+
+    def clean_first_name(self):
+
+        first_name = self.cleaned_data.get('first_name')
+        if first_name:
+            first_name = capitalize_this_name(first_name)
+        return first_name
+
+    def clean_last_name(self):
+
+        last_name = self.cleaned_data.get('last_name')
+        if last_name:
+            last_name = capitalize_this_name(last_name)
+        return last_name
 
     def is_valid(self):
         valid = super(SignUpForm, self).is_valid()

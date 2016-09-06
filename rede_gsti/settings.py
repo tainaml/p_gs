@@ -193,6 +193,12 @@ STATIC_URL = '%s/static/' % SITE_URL
 MEDIA_URL = '%s/media/uploads/' % SITE_URL
 
 
+PREPOSITIONS = [
+    'de', 'dos', 'das', 'da', 'do'
+    'e'
+]
+
+
 # Setting Environment specific settings
 if ENVIRONMENT == "develop":
     DEBUG = True
