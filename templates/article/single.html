@@ -26,72 +26,82 @@
 {% block seo-og-url %}{{ request.path|root  }}{% url 'article:view' article.year article.month article.get_first_slug %}{% endblock %}
 
 {% block content %}
-<main class="container main">
-    <div class="row">
-        <ul class="box-share">
-            <li class="comment-vote">
-                {% like_box article request.path "share-box" %}
-            </li>
-            <li data-toggle="tooltip" data-placement="auto right" data-original-title="Favoritar"><a data-trigger="login" data-url-login="{% url 'account:is_logged' %}" data-token="{{ csrf_token }}" data-action="favourite" data-action-type="icon" data-object="favourite-{{ article.id }}" data-url-check="{% url 'socialactions:acted' article.id 'article' 'favourite' %}" href="{% url 'socialactions:act-xhr' article.id 'article' 'favourite' %}?url_next={{ request.path|urlencode }}"><i class="gsticon gsticon-star"></i></a></li>
-            <li data-toggle="tooltip" data-placement="auto right" data-original-title="Ver depois"><a data-url-login="{% url 'account:is_logged' %}" data-trigger="login" data-token="{{ csrf_token }}" data-action="see-later" data-action-type="icon" data-url-check="{% url 'socialactions:acted' article.id 'article' 'see-later' %}" data-object="see-later-{{ article.id }}" href="{% url 'socialactions:act-xhr' article.id 'article' 'see-later' %}?url_next={{ request.path|urlencode }}"><i class="gsticon gsticon-eye"></i></a></li>
-            <li data-toggle="tooltip" data-placement="auto right" data-original-title="Sugerir leitura"><a data-url-login="{% url 'account:is_logged' %}" data-trigger="login" data-token="{{ csrf_token }}" href="javascript:;" data-suggest-modal="true" data-content="article" data-object="{{ article.id }}" data-url="{% url 'socialactions:act-suggest' article.id 'article' %}"><i class="gsticon gsticon-paper-plane"></i></a></li>
+    <main class="container main">
+        <div class="row">
+            {% block article-box-share %}
+                <ul class="box-share">
+                    <li class="comment-vote">
+                        {% like_box article request.path "share-box" %}
+                    </li>
+                    <li data-toggle="tooltip" data-placement="auto right" data-original-title="Favoritar"><a data-trigger="login" data-url-login="{% url 'account:is_logged' %}" data-token="{{ csrf_token }}" data-action="favourite" data-action-type="icon" data-object="favourite-{{ article.id }}" data-url-check="{% url 'socialactions:acted' article.id 'article' 'favourite' %}" href="{% url 'socialactions:act-xhr' article.id 'article' 'favourite' %}?url_next={{ request.path|urlencode }}"><i class="gsticon gsticon-star"></i></a></li>
+                    <li data-toggle="tooltip" data-placement="auto right" data-original-title="Ver depois"><a data-url-login="{% url 'account:is_logged' %}" data-trigger="login" data-token="{{ csrf_token }}" data-action="see-later" data-action-type="icon" data-url-check="{% url 'socialactions:acted' article.id 'article' 'see-later' %}" data-object="see-later-{{ article.id }}" href="{% url 'socialactions:act-xhr' article.id 'article' 'see-later' %}?url_next={{ request.path|urlencode }}"><i class="gsticon gsticon-eye"></i></a></li>
+                    <li data-toggle="tooltip" data-placement="auto right" data-original-title="Sugerir leitura"><a data-url-login="{% url 'account:is_logged' %}" data-trigger="login" data-token="{{ csrf_token }}" href="javascript:;" data-suggest-modal="true" data-content="article" data-object="{{ article.id }}" data-url="{% url 'socialactions:act-suggest' article.id 'article' %}"><i class="gsticon gsticon-paper-plane"></i></a></li>
+                </ul>
+            {% endblock %}
 
-        </ul>
-        <div class="post-container">
-            <article class="full-post">
-                {% if feed and feed.official %}
-                    <div class="label-official-content label-tall"
-                         data-toggle="tooltip"
-                         data-placement="auto top"
-                         data-original-title="Conteúdo Oficial"></div>
-                {% endif %}
-                <header class="post-header">
-                    <div class="post-info">
-                        {% if article.publishin != None  %}
+            <div class="post-container">
+                <article class="full-post">
+                    {% if feed and feed.official %}
+                        <div class="label-official-content label-tall"
+                             data-toggle="tooltip"
+                             data-placement="auto top"
+                             data-original-title="Conteúdo Oficial"></div>
+                    {% endif %}
+                    <header class="post-header">
+                        <div class="post-info">
+                            {% if article.publishin != None  %}
 
-                            <time datetime="{{ article.publishin|date:'d/m/Y G:i' }}" data-toggle="tooltip" data-placement="auto top" data-original-title="{{ article.publishin|date:'d/m/Y' }} às {{ article.publishin|date:'G:i' }}" itemprop="datePublished">
-                                <span class="hidden-xs visible-lg-inline">{{ article.publishin|naturaltime }}</span>
-                                <i class="gsticon gsticon-clock-o hidden-lg"></i>
-                            </time>
+                                <time datetime="{{ article.publishin|date:'d/m/Y G:i' }}" data-toggle="tooltip" data-placement="auto top" data-original-title="{{ article.publishin|date:'d/m/Y' }} às {{ article.publishin|date:'G:i' }}" itemprop="datePublished">
+                                    <span class="hidden-xs visible-lg-inline">{{ article.publishin|naturaltime }}</span>
+                                    <i class="gsticon gsticon-clock-o hidden-lg"></i>
+                                </time>
 
-                        {% else %}
-                            <span class="list_post hidden-xs visible-lg-inline">Não publicado</span>
-                        {% endif %}
-                        <a href="javascript:;" data-toggle="dropdown"><i class="gsticon gsticon-gear"></i></a>
-                        <div class="dropdown-menu dropdown-menu-right">
-                            <ul class="perfil-actions">
-                                {% if article.author == request.user %}
-                                    <li><a href="{% url 'article:edit' article.id %}"><i class="gsticon gsticon-edit"></i> Editar publicação</a></li>
-                                {% endif %}
-                                <li><a data-url-login="{% url 'account:is_logged' %}" data-trigger="login" data-token="{{ csrf_token }}" href="javascript:;" data-suggest-modal="true" data-content="article" data-object="{{ article.id }}" data-url="{% url 'socialactions:act-suggest' article.id 'article' %}"><i class="gsticon gsticon-paper-plane"></i> Sugerir leitura</a></li>
-                                <li><a data-url-login="{% url 'account:is_logged' %}" data-trigger="login" data-token="{{ csrf_token }}" data-action="see-later" data-action-type="text" data-action-text="Ver depois" data-action-text-alt="Marcar como visto" data-object="see-later-{{ article.id }}" data-url-check="{% url 'socialactions:acted' article.id 'article' 'see-later' %}" href="{% url 'socialactions:act-xhr' article.id 'article' 'see-later' %}?url_next={{ request.path|urlencode }}"><i class="gsticon gsticon-eye"></i> <span>{{" Ver depois"}}</span></a></li>
-                                <li><a data-url-login="{% url 'account:is_logged' %}" data-trigger="login" data-token="{{ csrf_token }}" data-action="favourite" data-action-type="text" data-action-text="Favoritar" data-action-text-alt="Desfavoritar" data-object="favourite-{{ article.id }}" data-article="{{ article.id }}" data-url-check="{% url 'socialactions:acted' article.id 'article' 'favourite' %}" href="{% url 'socialactions:act-xhr' article.id 'article' 'favourite' %}?url_next={{ request.path|urlencode }}"><i class="gsticon gsticon-star"></i> <span>{{" Favoritar"}}</span></a></li>
-                                <li><a data-url-login="{% url 'account:is_logged' %}" data-trigger="login" data-token="{{ csrf_token }}" href="{% url 'complaint:report' 'article' article.id %}" data-report="true" data-async-module="click" data-async-target="#modal-report" data-async-method="get"><i class="gsticon gsticon-exclamation-triangle"></i> Denunciar</a></li>
-                                {% if request.user.profile.isContributor %}
-                                {% if feed.official %}
-                                    <li><a href="{% url 'feed:set-content-official' 'article' article.id %}?next={{ request.path|urlencode }}"><i class="gsticon gsticon-bookmark"></i> Não oficial</a></li>
-                                {% else %}
-                                    <li><a href="{% url 'feed:set-content-official' 'article' article.id %}?next={{ request.path|urlencode }}"><i class="gsticon gsticon-bookmark"></i> Oficial</a></li>
-                                {% endif %}
-                                {% endif %}
-                            </ul>
+                            {% else %}
+                                <span class="list_post hidden-xs visible-lg-inline">Não publicado</span>
+                            {% endif %}
+                            <a href="javascript:;" data-toggle="dropdown"><i class="gsticon gsticon-gear"></i></a>
+                            <div class="dropdown-menu dropdown-menu-right">
+                                {% block article-profile-actions %}
+                                    <ul class="perfil-actions">
+                                        {% if article.author == request.user %}
+                                            <li><a href="{% url 'article:edit' article.id %}"><i class="gsticon gsticon-edit"></i> Editar publicação</a></li>
+                                        {% endif %}
+
+                                        {% block article-profile-more-actions %}
+                                            <li><a data-url-login="{% url 'account:is_logged' %}" data-trigger="login" data-token="{{ csrf_token }}" href="javascript:;" data-suggest-modal="true" data-content="article" data-object="{{ article.id }}" data-url="{% url 'socialactions:act-suggest' article.id 'article' %}"><i class="gsticon gsticon-paper-plane"></i> Sugerir leitura</a></li>
+                                            <li><a data-url-login="{% url 'account:is_logged' %}" data-trigger="login" data-token="{{ csrf_token }}" data-action="see-later" data-action-type="text" data-action-text="Ver depois" data-action-text-alt="Marcar como visto" data-object="see-later-{{ article.id }}" data-url-check="{% url 'socialactions:acted' article.id 'article' 'see-later' %}" href="{% url 'socialactions:act-xhr' article.id 'article' 'see-later' %}?url_next={{ request.path|urlencode }}"><i class="gsticon gsticon-eye"></i> <span>{{" Ver depois"}}</span></a></li>
+                                            <li><a data-url-login="{% url 'account:is_logged' %}" data-trigger="login" data-token="{{ csrf_token }}" data-action="favourite" data-action-type="text" data-action-text="Favoritar" data-action-text-alt="Desfavoritar" data-object="favourite-{{ article.id }}" data-article="{{ article.id }}" data-url-check="{% url 'socialactions:acted' article.id 'article' 'favourite' %}" href="{% url 'socialactions:act-xhr' article.id 'article' 'favourite' %}?url_next={{ request.path|urlencode }}"><i class="gsticon gsticon-star"></i> <span>{{" Favoritar"}}</span></a></li>
+                                            <li><a data-url-login="{% url 'account:is_logged' %}" data-trigger="login" data-token="{{ csrf_token }}" href="{% url 'complaint:report' 'article' article.id %}" data-report="true" data-async-module="click" data-async-target="#modal-report" data-async-method="get"><i class="gsticon gsticon-exclamation-triangle"></i> Denunciar</a></li>
+                                            {% if request.user.profile.isContributor %}
+                                                {% if feed.official %}
+                                                    <li><a href="{% url 'feed:set-content-official' 'article' article.id %}?next={{ request.path|urlencode }}"><i class="gsticon gsticon-bookmark"></i> Não oficial</a></li>
+                                                {% else %}
+                                                    <li><a href="{% url 'feed:set-content-official' 'article' article.id %}?next={{ request.path|urlencode }}"><i class="gsticon gsticon-bookmark"></i> Oficial</a></li>
+                                                {% endif %}
+                                            {% endif %}
+                                        {% endblock %}
+                                    </ul>
+                                {% endblock %}
+                            </div>
                         </div>
-                    </div>
-                    <a class="post-creator" href="{% if  article.author.is_active %}{% url 'profile:show' article.author.username %}{% else %}javascript:;{% endif %}">
-                      <figure>
-                        <img src="{% get_avatar article.author width=20 height=20 smart=False fit_in=False %}" alt="foto de {{ instance.author.get_full_name }}">
-                        <figcaption>
-                          {{ article.author.get_full_name }}
-                        </figcaption>
-                      </figure>
-                    </a>
-                    <h1 class="full-post-title">{{ article.title }}</h1>
-                </header>
-                <aside class="post-footer">
-                    {% taxonomies article %}
-                    <div class="post-toolbar pull-right">
-                        <div class="post-count">{% like_box article request.path "inline" %}</div>
-                        <a href="#comments" class="post-count-comments">
+                        <a class="post-creator" href="{% if  article.author.is_active %}{% url 'profile:show' article.author.username %}{% else %}javascript:;{% endif %}">
+                            <figure>
+                                <img src="{% get_avatar article.author width=20 height=20 smart=False fit_in=False %}" alt="foto de {{ instance.author.get_full_name }}">
+                                <figcaption>
+                                    {{ article.author.get_full_name }}
+                                </figcaption>
+                            </figure>
+                        </a>
+                        <h1 class="full-post-title">{{ article.title }}</h1>
+                    </header>
+
+
+                    {% block article-post-footer %}
+                        <aside class="post-footer">
+                            {% taxonomies article %}
+                            <div class="post-toolbar pull-right">
+                                <div class="post-count">{% like_box article request.path "inline" %}</div>
+                                <a href="#comments" class="post-count-comments">
                             <span id="load-count-comment-article"
                                   data-load-async="true"
                                   data-load-async-url="{% url 'comment:count' article.id "article" %}"
@@ -100,13 +110,14 @@
                                 <strong class="load-async load-async-content">0</strong>
                                 {% csrf_token %}
                             </span>
-                            <span class="hidden-xs visible-lg-inline">Comentário(s)</span>
-                            <span class="hidden-lg"><i class="gsticon gsticon-comment"></i></span>
-                        </a>
-                    </div>
-                </aside>
-                <div class="full-post-content">
-                    {% comment %}
+                                    <span class="hidden-xs visible-lg-inline">Comentário(s)</span>
+                                    <span class="hidden-lg"><i class="gsticon gsticon-comment"></i></span>
+                                </a>
+                            </div>
+                        </aside>
+                    {% endblock %}
+                    <div class="full-post-content">
+                        {% comment %}
                     {% if article.image %}
                       <figure>
                         <img class="full-post-image" src="{% thumbor_url article.image.url width=500 smart=True fit_in=True %}" />
@@ -114,63 +125,70 @@
                     {% endif %}
                     {% endcomment %}
 
-                    {% thumbor_replace article.text %}
+                        {% thumbor_replace article.text %}
 
-                    <div class="post-advertising text-center">
-                        {% ads_only_production "article_bottom" "all"  %}
+                        <div class="post-advertising text-center">
+                            {% ads_only_production "article_bottom" "all"  %}
+                        </div>
                     </div>
-                </div>
-                {% if not request|is_mobile %}
-                <div class="full-post-share">
-                    <h3>COMPARTILHE</h3>
-                {# TODO: Remover esta pog. É temporário #}
-                    {% with article_full_url="http://www.portalgsti.com.br"|add:article.get_absolute_url %}
-                        {% include '_partials/share.html' with show_all=True url=article_full_url %}
-                    {% endwith %}
-                </div>
-                {% endif %}
-            </article>
-            <div id="comments">{% profile_box article.author "horizontal" %}</div>
-            {% if request|is_mobile %}
-            <div id="load-related-posts" data-load-async="true" data-load-async-url="{% url 'core:related-posts' article.id "article" "article" 4 %}" data-load-async-url-next="{{ request.path }}" data-load-async-method="get" data-load-async-response-type="json" data-load-async-timeout="1">
-                <div class="load-async load-async-content">
-                    <div class="load-async-preload"></div>
-                </div>
-                {% csrf_token %}
+
+                    {% block article-post-share %}
+                        {% if not request|is_mobile %}
+                            <div class="full-post-share">
+                                <h3>COMPARTILHE</h3>
+                                {# TODO: Remover esta pog. É temporário #}
+                                {% with article_full_url="http://www.portalgsti.com.br"|add:article.get_absolute_url %}
+                                    {% include '_partials/share.html' with show_all=True url=article_full_url %}
+                                {% endwith %}
+                            </div>
+                        {% endif %}
+                    {% endblock %}
+                </article>
+
+                {% block article-comments-area %}
+                    <div id="comments">{% profile_box article.author "horizontal" %}</div>
+                    {% if request|is_mobile %}
+                        <div id="load-related-posts" data-load-async="true" data-load-async-url="{% url 'core:related-posts' article.id "article" "article" 4 %}" data-load-async-url-next="{{ request.path }}" data-load-async-method="get" data-load-async-response-type="json" data-load-async-timeout="1">
+                            <div class="load-async load-async-content">
+                                <div class="load-async-preload"></div>
+                            </div>
+                            {% csrf_token %}
+                        </div>
+                    {% endif %}
+
+                    <header class="area-title" id="comments">
+                        {% if has_old_comments %}
+                            <div class="order-by">
+                                <div class="dropdown">
+                                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdown-filter-posts" data-toggle="dropdown" aria-haspopup="true"><span> {% if request.GET.old_comment_style %}Mais antigos{% else %}Mais recentes{% endif %} </span><i class="gsticon gsticon-caret-down"></i></button>
+                                    <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown-filter-posts">
+                                        <li {% if not request.GET.old_comment_style %}class="active"{% endif %}><a href="{% url 'article:view' article.year article.month article.slug %}#comments" data-target=".area-content">Mais recentes</a></li>
+                                        <li {% if request.GET.old_comment_style %}class="active"{% endif %}><a href="{% url 'article:view' article.year article.month article.slug %}?old_comment_style=true#comments" data-target=".area-content">Mais antigos</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        {% endif %}
+
+                        <h2>Comentários</h2>
+                    </header>
+
+                    {% if request.GET.old_comment_style %}
+                        {% if has_old_comments %}
+                            {% old_comments article %}
+
+                        {% endif %}
+
+                    {% else %}
+                        {% comment_box article %}
+                    {% endif %}
+
+                {% endblock %}
+
+
             </div>
-            {% endif %}
-
-            <header class="area-title" id="comments">
-            {% if has_old_comments %}
-                <div class="order-by">
-                <div class="dropdown">
-                  <button class="btn btn-default dropdown-toggle" type="button" id="dropdown-filter-posts" data-toggle="dropdown" aria-haspopup="true"><span> {% if request.GET.old_comment_style %}Mais antigos{% else %}Mais recentes{% endif %} </span><i class="gsticon gsticon-caret-down"></i></button>
-                  <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown-filter-posts">
-                    <li {% if not request.GET.old_comment_style %}class="active"{% endif %}><a href="{% url 'article:view' article.year article.month article.slug %}#comments" data-target=".area-content">Mais recentes</a></li>
-                    <li {% if request.GET.old_comment_style %}class="active"{% endif %}><a href="{% url 'article:view' article.year article.month article.slug %}?old_comment_style=true#comments" data-target=".area-content">Mais antigos</a></li>
-                  </ul>
-                </div>
-              </div>
-            {% endif %}
-
-              <h2>Comentários</h2>
-            </header>
-
-            {% if request.GET.old_comment_style %}
-                {% if has_old_comments %}
-                    {% old_comments article %}
-
-                {% endif %}
-
-            {% else %}
-                {% comment_box article %}
-            {% endif %}
-
-
+            {% include "article/partials/article-sidebar-right.html" %}
         </div>
-        {% include "article/partials/article-sidebar-right.html" %}
-    </div>
-</main>
+    </main>
 {% endblock %}
 
 
@@ -184,179 +202,179 @@
 
 {% block javascripts %}
     {{ block.super }}
-{#    {{ form_comment.media }}#}
+    {#    {{ form_comment.media }}#}
     <script src="{% static 'javascripts/vendor.js'%}"></script>
 
-<script type="text/javascript">
+    <script type="text/javascript">
 
-    var functionOpenModalToDelete = function(e) {
-        e.preventDefault();
+        var functionOpenModalToDelete = function(e) {
+            e.preventDefault();
 
-        var $btn = $(e.currentTarget),
-                $modal = $($btn.data("modal"));
+            var $btn = $(e.currentTarget),
+                    $modal = $($btn.data("modal"));
 
-        $modal.find("form").attr("action", $btn.data("url"));
-        $modal.find("#item-id").val($btn.data("item"));
-        $modal.find("#item-type").val($btn.data("type"));
-        $modal.find("#title-item-to-remove").html($btn.data("title"));
-        $modal.find(".loading-container").html("");
-        $modal.find(".alert-container").html("");
-        $modal.modal("show");
-    };
+            $modal.find("form").attr("action", $btn.data("url"));
+            $modal.find("#item-id").val($btn.data("item"));
+            $modal.find("#item-type").val($btn.data("type"));
+            $modal.find("#title-item-to-remove").html($btn.data("title"));
+            $modal.find(".loading-container").html("");
+            $modal.find(".alert-container").html("");
+            $modal.modal("show");
+        };
 
-    var functionAjaxSuccessDeleteItem = function(e, data) {
-        var $this = $(this),
-            $modal = $($this.closest(".modal.fade")),
-            itemId = $modal.find("#item-id").val(),
-            itemType = $modal.find("#item-type").val();
+        var functionAjaxSuccessDeleteItem = function(e, data) {
+            var $this = $(this),
+                    $modal = $($this.closest(".modal.fade")),
+                    itemId = $modal.find("#item-id").val(),
+                    itemType = $modal.find("#item-type").val();
 
-        $modal.modal("hide");
-        $modal.find("form").attr("action", "");
-        $modal.find("#item-id").val("");
-        $modal.find("#item-type").val("");
-        $modal.find("#title-item-to-remove").html("");
-        $modal.find(".loading-container").html("");
-        $modal.find(".alert-container").html("");
+            $modal.modal("hide");
+            $modal.find("form").attr("action", "");
+            $modal.find("#item-id").val("");
+            $modal.find("#item-type").val("");
+            $modal.find("#title-item-to-remove").html("");
+            $modal.find(".loading-container").html("");
+            $modal.find(".alert-container").html("");
 
-        $("#" + itemType + "-" + itemId).fadeOut("slow", function(){
-            $(this).remove();
-        });
-    };
+            $("#" + itemType + "-" + itemId).fadeOut("slow", function(){
+                $(this).remove();
+            });
+        };
 
-    var commentDropDown = function(event){
-        event.stopPropagation();
-    };
+        var commentDropDown = function(event){
+            event.stopPropagation();
+        };
 
-    function setData($form, data, $divToUpdate){
+        function setData($form, data, $divToUpdate){
 
-        var action = $form.data("toggle");
-        if (action=="append"){
-            $divToUpdate.append(data.template);
-            $form[0].reset();
-        }else if (action=="prepend"){
-            $divToUpdate.prepend(data.template);
+            var action = $form.data("toggle");
+            if (action=="append"){
+                $divToUpdate.append(data.template);
+                $form[0].reset();
+            }else if (action=="prepend"){
+                $divToUpdate.prepend(data.template);
 
-            var $form_to_hide = $form.parent(".dropdown-content");
-            if ($form_to_hide){
-                $form_to_hide.removeClass("open");
+                var $form_to_hide = $form.parent(".dropdown-content");
+                if ($form_to_hide){
+                    $form_to_hide.removeClass("open");
+                }
+                $form[0].reset();
+            }else if (action=="replace"){
+                var $element = $(data.template);
+                $divToUpdate.replaceWith($element);
+                var $newForm = $element.find("form[data-ajaxform=\"true\"]");
+                $divToUpdate = $element;
             }
-            $form[0].reset();
-        }else if (action=="replace"){
-            var $element = $(data.template);
-            $divToUpdate.replaceWith($element);
-            var $newForm = $element.find("form[data-ajaxform=\"true\"]");
-            $divToUpdate = $element;
+            $form.find('[data-toggle="editor"]').summernote('reset');
+            $divToUpdate.refreshEditors();
+            PR.prettyPrint();
+
+            return $divToUpdate
         }
-        $form.find('[data-toggle="editor"]').summernote('reset');
-        $divToUpdate.refreshEditors();
-        PR.prettyPrint();
 
-        return $divToUpdate
-    }
+        var form_submit = function(event, data){
+            var $form = $(this);
+            var $divToUpdate = $($form.data("update"));
+            $divToUpdate = setData($form, data, $divToUpdate);
 
-    var form_submit = function(event, data){
-        var $form = $(this);
-        var $divToUpdate = $($form.data("update"));
-        $divToUpdate = setData($form, data, $divToUpdate);
-
-        var $subforms = $divToUpdate.find("form[data-ajaxform=\"true\"]");
-        $.each($subforms, function(i, value){
-            var $subform = $(value);
-            if(!$subform.data("plugin")){
-                $subform.data("plugin", "true");
-                $subform.IdeiaAjaxForm();
-                $subform.on("ajaxform.success", form_submit);
-            }
+            var $subforms = $divToUpdate.find("form[data-ajaxform=\"true\"]");
+            $.each($subforms, function(i, value){
+                var $subform = $(value);
+                if(!$subform.data("plugin")){
+                    $subform.data("plugin", "true");
+                    $subform.IdeiaAjaxForm();
+                    $subform.on("ajaxform.success", form_submit);
+                }
 
 
-        });
-        var $dataList = $divToUpdate.find("div[data-xhr]");
-        $dataList.renderList();
-        refreshAsyncLike();
+            });
+            var $dataList = $divToUpdate.find("div[data-xhr]");
+            $dataList.renderList();
+            refreshAsyncLike();
 
-    };
+        };
 
-    $.fn.renderList = function(){
+        $.fn.renderList = function(){
 
-        return $.each(this, function(){
+            return $.each(this, function(){
 
 
-            var $self = $(this);
+                var $self = $(this);
 
-            if(!$self.data("rendered")){
-               $self.data("rendered", "rendered");
-               var url = $self.data('xhr-url');
-                var $childs;
+                if(!$self.data("rendered")){
+                    $self.data("rendered", "rendered");
+                    var url = $self.data('xhr-url');
+                    var $childs;
 
-                var request = $.ajax({
-                    url: url,
-                    success: function(data){
+                    var request = $.ajax({
+                        url: url,
+                        success: function(data){
 
-                        if(data.template){
-                            var $element = $(data.template);
+                            if(data.template){
+                                var $element = $(data.template);
 
-                            $self.append($element);
-                            var regex = /^data-list-([0-9]+)$/;
-                            if (regex.test($self.attr('id'))) {
-                                var $parentSelf = $self.parent('.comments-children');
-                                if ($self.children().length > 0) {
-                                  $parentSelf.removeClass('no-children');
-                                } else {
-                                  $parentSelf.addClass('no-children');
+                                $self.append($element);
+                                var regex = /^data-list-([0-9]+)$/;
+                                if (regex.test($self.attr('id'))) {
+                                    var $parentSelf = $self.parent('.comments-children');
+                                    if ($self.children().length > 0) {
+                                        $parentSelf.removeClass('no-children');
+                                    } else {
+                                        $parentSelf.addClass('no-children');
+                                    }
                                 }
+
+                                $childs = $element.find('div[data-xhr-url]');
+                                $self.jscroll({
+                                    loadingHtml: '<div class="load-async-preload"></div>',
+                                    contentSelect: "#" + $self.attr("id"),
+                                    nextSelector: "a[data-jscroll-next]",
+                                    autoTrigger: false,
+                                    callback: function(data){
+                                        var $div_jscroll = $(".jscroll-added");
+                                        var $jscroll_subforms = $div_jscroll.find("form[data-ajaxform=\"true\"]");
+                                        $jscroll_subforms.IdeiaAjaxForm();
+                                        $jscroll_subforms.on("ajaxform.success", form_submit);
+                                        $jscroll_subforms.refreshEditors();
+                                        $div_jscroll.removeClass("jscroll-added");
+                                    }
+                                });
+
+                                var $subforms = $element.find("form[data-ajaxform=\"true\"]");
+                                $subforms.on("ajaxform.success", form_submit);
+                                $subforms.IdeiaAjaxForm();
+                                $subforms.refreshEditors();
+
+                                var async_like = $self.find('[data-async-like]');
+                                async_like.IdeiaAsyncLike();
+                                async_like.removeData("async-like");
                             }
 
-                            $childs = $element.find('div[data-xhr-url]');
-                            $self.jscroll({
-                                loadingHtml: '<div class="load-async-preload"></div>',
-                                contentSelect: "#" + $self.attr("id"),
-                                nextSelector: "a[data-jscroll-next]",
-                                autoTrigger: false,
-                                callback: function(data){
-                                    var $div_jscroll = $(".jscroll-added");
-                                    var $jscroll_subforms = $div_jscroll.find("form[data-ajaxform=\"true\"]");
-                                    $jscroll_subforms.IdeiaAjaxForm();
-                                    $jscroll_subforms.on("ajaxform.success", form_submit);
-                                    $jscroll_subforms.refreshEditors();
-                                    $div_jscroll.removeClass("jscroll-added");
-                                }
-                            });
-
-                            var $subforms = $element.find("form[data-ajaxform=\"true\"]");
-                            $subforms.on("ajaxform.success", form_submit);
-                            $subforms.IdeiaAjaxForm();
-                            $subforms.refreshEditors();
-
-                            var async_like = $self.find('[data-async-like]');
-                            async_like.IdeiaAsyncLike();
-                            async_like.removeData("async-like");
+                        },
+                        complete: function(){
+                            if($childs && $childs.length){
+                                $childs.renderList();
+                            }
                         }
+                    });
 
-                    },
-                    complete: function(){
-                        if($childs && $childs.length){
-                            $childs.renderList();
-                        }
-                    }
-                });
+                    refreshAsyncLike();
+                }
 
-                refreshAsyncLike();
-            }
+            });
+        };
 
+        $(function(){
+            var xhr_contents = $("div[data-xhr]");
+            xhr_contents.renderList();
+            var $comment_form = $("form[data-ajaxform=\"true\"]");
+
+            $comment_form.refreshEditors();
+            $comment_form.on("ajaxform.success", form_submit);
+
+            $("#confirmation-form").on("ajaxform.success", functionAjaxSuccessDeleteItem);
+            $(document).on("click", "[data-delete-item=true]", functionOpenModalToDelete);
+            $(document).on("click", ".comment-dropdown", commentDropDown);
         });
-    };
-
-    $(function(){
-        var xhr_contents = $("div[data-xhr]");
-        xhr_contents.renderList();
-        var $comment_form = $("form[data-ajaxform=\"true\"]");
-
-        $comment_form.refreshEditors();
-        $comment_form.on("ajaxform.success", form_submit);
-
-        $("#confirmation-form").on("ajaxform.success", functionAjaxSuccessDeleteItem);
-        $(document).on("click", "[data-delete-item=true]", functionOpenModalToDelete);
-        $(document).on("click", ".comment-dropdown", commentDropDown);
-    });
-</script>
+    </script>
 {% endblock %}

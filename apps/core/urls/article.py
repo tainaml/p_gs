@@ -1,6 +1,9 @@
 from django.conf.urls import url
 from django.utils.translation import ugettext_lazy as _
-from ..views.article import views, CoreArticleEditView, CoreArticleView, CoreArticleInCommunityView
+from ..views.article import (
+    views, CoreArticleEditView, CoreArticleView,
+    CoreArticleInCommunityView, CoreArticlePreView
+)
 
 _article_show_view = views.ArticleView.as_view()
 _article_edit_view = CoreArticleEditView.as_view()
@@ -10,12 +13,17 @@ _article_create_in_community = CoreArticleInCommunityView.as_view()
 urlpatterns = [
     # Translators: URL de criacao de artigo
     url(_(r'^article/create$'), _article_edit_view, name='create'),
+
+    # Translators: URL de visualizacao
+    url(_(r'^article/preview/(?P<article_id>\d+)$'), CoreArticlePreView.as_view(), name='preview'),
+
     # Translators: URL de edicao de artigo
     url(_(r'^article/edit/(?P<article_id>\d+)$'), _article_edit_view, name='edit'),
     # Translators: URL de delecao de artigo
     url(_(r'^article/delete/(?P<article_id>\d+)$'), _article_delete_view, name='delete'),
     # Translators: URL de delecao assincrona de artigo
     url(_(r'^article/delete/async/(?P<article_id>\d+)$'), views.ArticleDeleteAjax.as_view(), name='delete-async'),
+
     # Translators: URL de criacao de artigo
     url(_(r'^(?P<year>\d\d\d\d+)/(?P<month>0[1-9]|1[0-2])/(?P<slug>[aA-zZ0-9-_]+).html$'), CoreArticleView.as_view(), name='view'),
 
