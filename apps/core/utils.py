@@ -33,6 +33,7 @@ def build_absolute_uri(path):
             path=path
         )
 
+
 def reverse_absolute(request, path):
     return build_absolute_uri(path)
 

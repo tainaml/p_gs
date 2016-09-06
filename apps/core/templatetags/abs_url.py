@@ -6,8 +6,14 @@ register = template.Library()
 
 @register.simple_tag(takes_context=True)
 def absolute_url(context, parser, *token):
-    path = reverse(parser, args=token)
+
     request_obj = context['request']
+
+    if not token or parser[1] == '/':
+        path = parser
+    else:
+        path = reverse(parser, args=token)
+
     return reverse_absolute(request_obj, path)
 
 
