@@ -65,6 +65,22 @@ class CoreArticleEditView(views.ArticleEditView):
         return super(CoreArticleEditView, self).post(request, article_id, *args, **kwargs)
 
 
+class CoreArticlePreView(CoreArticleEditView):
+
+    def prepare_context(self, request, context):
+
+        context.update({
+            'isPreview': True
+        })
+
+        return super(CoreArticlePreView, self).prepare_context(request, context)
+
+    @method_decorator(login_required)
+    def get(self, request, article_id=None, *args, **kwargs):
+        self.template_name = 'article/single-preview.html'
+        return super(CoreArticlePreView, self).get(request, article_id, *args, **kwargs)
+
+
 class CoreArticleView(views.ArticleView):
 
     form_comment = CreateCommentForm

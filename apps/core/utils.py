@@ -35,3 +35,21 @@ def build_absolute_uri(path):
 
 def reverse_absolute(request, path):
     return build_absolute_uri(path)
+
+
+def capitalize_this_name(name, separator=' '):
+
+    parts = str(name).split(separator)
+    newparts = []
+
+    prepositions = getattr(settings, 'PREPOSITIONS', [])
+
+    for part in parts:
+
+        text = part.lower()
+        if text not in prepositions:
+            text = text.title()
+
+        newparts.append(text)
+
+    return str(separator).join(newparts)

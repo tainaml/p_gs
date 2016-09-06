@@ -136,7 +136,7 @@ def create_occupation(profile=None, user=None, data=None):
     try:
         occupation = Occupation(**data)
         occupation.save()
-    except Exception, e:
+    except Exception as e:
         if settings.DEBUG:
             logger.error(e.message)
         return False
@@ -173,10 +173,10 @@ def update_or_create_occupation(profile=None, user=None, responsibilities=None):
 
         for responsibility in responsibilities_to_delete:
             if responsibility not in responsibilities:
-                responsibility.occupation.get().delete()
+                occupations.filter(responsibility=responsibility).delete()
 
-    except Exception, e:
-        if settings.DEBUG:
+    except Exception as e:
+        if getattr(settings, 'DEBUG'):
             logger.error(e.message)
         return False
 
@@ -245,7 +245,7 @@ def update_occupation(occupation, data):
         occupation.responsibility = data['responsibility']
         occupation.description = data['company']
         occupation.save()
-    except Exception, e:
+    except Exception as e:
         if settings.DEBUG:
             logger.error(e.message)
         return False
@@ -256,7 +256,7 @@ def update_occupation(occupation, data):
 def get_responsibilities():
 
     try:
-        responsibilities = Responsibility.objects.all()
+        responsibilities = Responsibility.objects.all().order_by('name')
     except Responsibility.DoesNotExist:
         return False
 

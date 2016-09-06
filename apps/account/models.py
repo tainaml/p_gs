@@ -1,15 +1,21 @@
+# -*- coding: utf-8 -*-
 from datetime import timedelta
-
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.core.urlresolvers import reverse
 from django.utils import timezone
+from django.utils.six import python_2_unicode_compatible
 from django.utils.translation import ugettext as _
 
 from django.conf import settings
 
 
 class User(AbstractUser):
+
+    class Meta(AbstractUser.Meta):
+        swappable = 'AUTH_USER_MODEL'
+        verbose_name = u'Usuário'
+        verbose_name_plural = u'Usuários'
 
     def get_full_name(self):
         return _('Anonymous') if not self.is_active else super(User, self).get_full_name()

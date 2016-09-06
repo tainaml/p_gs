@@ -106,4 +106,6 @@ urlpatterns = [
 
     url(r'^ideia-summernote/', include('ideia_summernote.urls', namespace='ideia-summernote')),
 
+    url(r'^', include('apps.core.urls.blogspot', namespace='blogspot')),
+
 ] + url_statics + url_media + urls_old + url_search_all
