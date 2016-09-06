@@ -8,7 +8,7 @@ urls_old = [
     url(r'p/fernando-palma.html', RedirectView.as_view(pattern_name='profile:show'), {'username': "fernandopalma"}),
     url(r'p/botao-provisorio-certificacao-itil.html', HOME_INDEX_REDIRECT),
     url(r'p/pague-com-pagseguro-e-rapido-gratis-e.html', HOME_INDEX_REDIRECT),
-    url(r'p/concursos-de-ti-em-aberto_1109.html', RedirectView.as_view(pattern_name='community:show-whithout-bar'), {'community_slug': "concursos"}),
+    url(r'p/concursos-de-ti-em-aberto_1109.html', RedirectView.as_view(pattern_name='community:show'), {'community_slug': "concursos"}),
     url(r'p/pagamento-certificacao-itil-foundation.html', HOME_INDEX_REDIRECT),
     url(r'p/pagamento-curso-itil-virtual-modulo.html', HOME_INDEX_REDIRECT),
     url(r'p/obrigado.html', HOME_INDEX_REDIRECT),
