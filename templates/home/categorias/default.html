@@ -109,7 +109,9 @@
                     contentSelect: ".j-scroll-communities-container",
                     loadingHtml: '<div class="load-async-preload"></div>',
                     nextSelector: "a[data-jscroll-next]",
-                    callback: function (data) {}
+                    callback: function (data) {
+                        refreshAsyncLike();
+                    }
                 });
                 var $social_count = $("[data-social-count=\"true\"]");
                 $.each($social_count, function(key, value){
