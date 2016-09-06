@@ -111,7 +111,7 @@ class CoreUserProfileFullEditForm(EditProfileForm):
 
     first_name = forms.CharField(max_length=100)
     last_name = forms.CharField(max_length=100)
-    responsibility = forms.ModelMultipleChoiceField(queryset=Responsibility.objects.all())
+    responsibility = forms.ModelMultipleChoiceField(queryset=Responsibility.objects.all().order_by('name'))
     state = forms.ModelChoiceField(queryset=State.objects.filter(country=1))
     state_hometown = forms.ModelChoiceField(queryset=State.objects.filter(country=1))
     city_hometown = forms.ModelChoiceField(queryset='')
