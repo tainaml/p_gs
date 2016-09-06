@@ -9,6 +9,8 @@ urls_old = [
     url(r'p/botao-provisorio-certificacao-itil.html', HOME_INDEX_REDIRECT),
     url(r'p/pague-com-pagseguro-e-rapido-gratis-e.html', HOME_INDEX_REDIRECT),
     url(r'p/concursos-de-ti-em-aberto_1109.html', RedirectView.as_view(pattern_name='community:show'), {'community_slug': "concursos"}),
+    url(r'p/cursos-gratuitos-online-no-portal-gsti_27.html', RedirectView.as_view(pattern_name='community:show'), {'community_slug': "cursos-gratuitos"}),
+    url(r'p/downloads-e-ebooks-gratuitos.html', RedirectView.as_view(pattern_name='community:show'), {'community_slug': "cursos-gratuitos"}),
     url(r'p/pagamento-certificacao-itil-foundation.html', HOME_INDEX_REDIRECT),
     url(r'p/pagamento-curso-itil-virtual-modulo.html', HOME_INDEX_REDIRECT),
     url(r'p/obrigado.html', HOME_INDEX_REDIRECT),
@@ -36,6 +38,7 @@ urls_old = [
     url(r'p/marcelo-gaspar.html', HOME_INDEX_REDIRECT),
     url(r'p/artigos.html', RedirectView.as_view(pattern_name='search:search-content'), {'content_type': "articles"}),
     url(r'p/curso-itil-incompany.html', HOME_INDEX_REDIRECT),
+    url(r'p/links.html', HOME_INDEX_REDIRECT),
     url(r'p/bruno-horta.html', RedirectView.as_view(pattern_name='profile:show'), {'username': "brunohsoares"}),
 
 ]
