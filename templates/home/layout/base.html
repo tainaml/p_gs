@@ -1,4 +1,4 @@
-{% load staticfiles %}{% load ads %}{% load utils %}{% load core_tags %}{% load user_agents %}{% load var_tags %}{% load wizard_tags %}{% load thumbor_tags %}{% load avatar_tags %}
+{% load staticfiles %}{% load ads %}{% load abs_url %}{% load utils %}{% load core_tags %}{% load user_agents %}{% load var_tags %}{% load wizard_tags %}{% load thumbor_tags %}{% load avatar_tags %}
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -18,7 +18,6 @@
         <meta property="og:type" content="{% block seo-og-type %}website{% endblock %}">
         <meta property="fb:app_id" content="{% block seo-fb-id %}1716855088541343{% endblock %}">
 
-        <link rel="canonical" href="{% block seo-canonical %}{{ request.build_absolute_uri }}{% endblock %}"/>
         <link rel="canonical" href="{% block seo-canonical %}{% absolute_url request.path %}{% endblock %}"/>
         {% block seo-metas-extra %}
         {% endblock %}
