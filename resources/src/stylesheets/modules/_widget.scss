@@ -41,6 +41,13 @@
         }
     }
 }
+
+.widget-box-user {
+    @media (max-width: $screen-sm-min) {
+        margin-bottom: 30px;
+    }
+}
+
 .follower-content {
     @extend %clearfix;
     width: 100%;
