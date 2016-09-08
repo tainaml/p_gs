@@ -906,6 +906,7 @@ SUMMERNOTE_CONFIG = {
             'toolbar': [
                 ['style', ['bold', 'italic']],
                 ['font', ['strikethrough']],
+                ['link', ['link']],
                 ['prettyprint', ['prettyprint']],
                 ['pre', ['pre']]
             ],
