@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from django.conf import settings
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.db.models import Q
 from apps.article.models import Article
@@ -77,7 +78,7 @@ def get_users(description=None, items_per_page=None, page=None, startswith=False
         criteria = city_criteria if not criteria else criteria & city_criteria
 
     # TODO remove empty register
-    exclude_empty_register = ~Q(user__username__exact='')
+    exclude_empty_register = ~Q(user__username__exact='') and Q(wizard_step__gte=getattr(settings, 'WIZARD_STEPS_TOTAL'))
 
     userprofiles = UserProfile.objects.filter(Q(user__is_active=True) & exclude_empty_register & criteria).distinct('id')
 

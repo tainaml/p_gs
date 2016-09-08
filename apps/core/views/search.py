@@ -134,8 +134,8 @@ class SearchList(SearchBase):
                 term = Term.objects.get(slug="categoria")
                 category = Taxonomy.objects.get(slug=__category, term=term)
                 context.update({"category":category.slug})
-            except Exception, e:
-                print e.message
+            except Exception as e:
+                print(e.message)
 
         try:
 
