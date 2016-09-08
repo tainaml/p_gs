@@ -46,7 +46,7 @@ class HomeCacheNode(CacheItemMixin, template.Node):
 
         __excludes = []
 
-        context.update({'excludes': __excludes, 'clear_cache': True})
+        context.update({'excludes': __excludes, 'clear_cache': False})
 
         for node in self.nodelist:
             content += force_unicode(node.render(context))
