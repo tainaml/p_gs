@@ -18,10 +18,9 @@
 {% load avatar_tags %}
 {% load thumbor_tags %}
 {% block seo-og-title %}{% block seo_title %}{{ article.title }}{{ block.super }}{% endblock %}{% endblock %}
-{% block seo-og-description %}{% block seo-description %}{{ article.text|striptags|truncatechars:"160" }}{% endblock %}{% endblock %}
+{% block seo-og-description %}{% block seo-description %}{{ article.text|seo_description }}{% endblock %}{% endblock %}
 {% block seo-og-image %}{% if article.image and article.image.url  %}{% thumbor_url article.image.url width=270 height=203 smart=False fit_in=False %}{% else %}{{ block.super }}{% endif %}{% endblock %}
 {% block seo-og-type %}article{% endblock %}
-
 
 {% block seo-og-url %}{{ request.path|root  }}{% url 'article:view' article.year article.month article.get_first_slug %}{% endblock %}
 

@@ -4,8 +4,10 @@ from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
 from django.db.models import Q
 from django.http import Http404
+from django.template.defaultfilters import stringfilter, truncatechars
 from django.utils import timezone
 from django.core.cache import cache
+from django.utils.html import strip_tags
 from django.utils.text import slugify
 from django.utils.translation import ugettext as _
 
@@ -177,3 +179,10 @@ def category_communities_links():
     return {
         'category_communities': category_communities
     }
+
+
+@register.filter(is_safe=True)
+@stringfilter
+def seo_description(value):
+    string_size = getattr(settings, 'SEO_DESCRIPTION_STRING_SIZE', 160)
+    return strip_tags(truncatechars(strip_tags(value), string_size)).strip()
