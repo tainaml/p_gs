@@ -150,20 +150,21 @@ def get_articles_general(arr_description):
     return articles
 
 
+def get_feed_articles(description):
+    arr_description = description.split(' ')
+    articles_by_title = get_articles_by_title(arr_description)
+    articles_by_description = get_articles_by_description(arr_description)
+    articles_general = get_articles_general(arr_description)
+    articles = list(OrderedDict.fromkeys(chain(articles_by_title, articles_by_description, articles_general)))
+    return articles
+
+
 def get_articles(description=None, items_per_page=None, page=None):
 
     items_per_page = items_per_page if items_per_page else 6
     page = page if page else 1
 
-    arr_description = description.split(' ')
-
-    articles_by_title = get_articles_by_title(arr_description)
-
-    articles_by_description = get_articles_by_description(arr_description)
-
-    articles_general = get_articles_general(arr_description)
-
-    articles = list(OrderedDict.fromkeys(chain(articles_by_title, articles_by_description, articles_general)))
+    articles = get_feed_articles(description)
 
     articles = Paginator(articles, items_per_page)
     try:
@@ -228,20 +229,20 @@ def get_questions_general(arr_description):
     return questions
 
 
+def get_feed_questions(description=None):
+    arr_description = description.split(' ')
+    questions_by_title = get_questions_by_title(arr_description)
+    questions_by_description = get_questions_by_description(arr_description)
+    questions_general = get_questions_general(arr_description)
+    questions = list(OrderedDict.fromkeys(chain(questions_by_title, questions_by_description, questions_general)))
+    return questions
+
 def get_questions(description=None, items_per_page=None, page=None):
 
     items_per_page = items_per_page if items_per_page else 6
     page = page if page else 1
 
-    arr_description = description.split(' ')
-
-    questions_by_title = get_questions_by_title(arr_description)
-
-    questions_by_description = get_questions_by_description(arr_description)
-
-    questions_general = get_questions_general(arr_description)
-
-    questions = list(OrderedDict.fromkeys(chain(questions_by_title, questions_by_description, questions_general)))
+    questions = get_feed_questions(description)
 
     questions = Paginator(questions, items_per_page)
     try:
