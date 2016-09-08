@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import urllib
+from django.views.decorators.cache import cache_page
 from django.core.urlresolvers import reverse
 
 from django.http import JsonResponse, Http404
@@ -175,10 +176,10 @@ class CoreCommunityVideosList(CoreCommunityVideosSearch):
 
 class CoreGetCommunities(views.View):
 
+
     def get(self, request):
 
         communities = Business.get_all_communities()
-
         return JsonResponse({'communities': communities})
 
 
