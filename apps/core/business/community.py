@@ -2,15 +2,14 @@ from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.db.models import Q
-
 from apps.article.models import Article
 from apps.community.models import Community
 from apps.core.models.embed import EmbedItem
 from apps.core.models.tags import Tags
 from apps.feed.models import FeedObject
 from apps.socialactions.models import UserAction
-
 from apps.taxonomy.models import Taxonomy
+from ..business import search as SearchBusiness
 
 __author__ = 'phillip'
 
@@ -22,14 +21,15 @@ def get_feed_objects(community_instance=None, description=None, content_types_li
 
     content_types = ContentType.objects.filter(model__in=content_types_list)
 
+    __articles = SearchBusiness.get_feed_articles(description)
+    __questions = SearchBusiness.get_feed_questions(description)
+
     feed_objects = FeedObject.objects.filter(
         Q(content_type__in=content_types) &
         Q(communities=community_instance) &
         (
-            (Q(article__status=Article.STATUS_PUBLISH) & (Q(article__title__icontains=description) |
-                                                          Q(article__text__icontains=description))) |
-            (Q(question__deleted=False) & (Q(question__title__icontains=description) |
-                                           Q(question__description__icontains=description)))
+            Q(article__status=Article.STATUS_PUBLISH) & Q(article__in=__articles) |
+            Q(question__deleted=False) & Q(question__in=__questions)
         )
     ).order_by(
         "-date"
@@ -38,6 +38,24 @@ def get_feed_objects(community_instance=None, description=None, content_types_li
         "content_object__author__profile",
         "taxonomies"
     )
+
+
+    # feed_objects = FeedObject.objects.filter(
+    #     Q(content_type__in=content_types) &
+    #     Q(communities=community_instance) &
+    #     (
+    #         (Q(article__status=Article.STATUS_PUBLISH) & (Q(article__title__icontains=description) |
+    #                                                       Q(article__text__icontains=description))) |
+    #         (Q(question__deleted=False) & (Q(question__title__icontains=description) |
+    #                                        Q(question__description__icontains=description)))
+    #     )
+    # ).order_by(
+    #     "-date"
+    # ).prefetch_related(
+    #     "content_object__author",
+    #     "content_object__author__profile",
+    #     "taxonomies"
+    # )
 
     if official is True:
         feed_objects = feed_objects.filter(official=official)
