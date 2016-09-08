@@ -14,6 +14,7 @@ from apps.socialactions.models import UserAction
 from apps.userprofile.models import UserProfile
 from django import forms
 from ideia_summernote.widget import SummernoteWidget
+from django.contrib.humanize.templatetags.humanize import naturaltime
 
 admin.site.register(Tags)
 admin.site.unregister(User)
@@ -35,7 +36,7 @@ class CoreUserAdmin(UserAdmin):
 
     form = CoreUserAdminForm
 
-    list_display = UserAdmin.list_display + ('show_contributor',)
+    list_display = ('id', 'username', 'first_name', 'last_name', 'show_staff', "is_active", 'show_contributor', "show_date_joined", "show_login",)
 
     inlines = [
         CoreProfile
@@ -45,6 +46,31 @@ class CoreUserAdmin(UserAdmin):
         return obj.profile.contributor
 
     show_contributor.short_description = _("Contributor")
+
+    def show_staff(self, obj):
+        return obj.is_staff
+
+
+    show_staff.short_description = 'Membro'
+    show_staff.boolean = True
+
+    def show_date_joined(self, obj):
+
+        return obj.date_joined
+
+    show_date_joined.admin_order_field = 'date_joined'
+    show_date_joined.short_description = 'Criado em'
+
+
+    def show_login(self, obj):
+        return naturaltime(obj.last_login)
+
+    def show_joined(self, obj):
+        return naturaltime(obj.last_login)
+
+    show_login.short_description = 'Login'
+    show_login.admin_order_field = 'last_login'
+
     show_contributor.boolean = True
 
     def get_formsets_with_inlines(self, request, obj=None):
