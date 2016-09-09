@@ -581,8 +581,8 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = config.get("GOOGLE", "secret")
 SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = ['email']
 
 # Linkedin
-SOCIAL_AUTH_LINKEDIN_OAUTH2_KEY = '77uty9ymi8og4h'
-SOCIAL_AUTH_LINKEDIN_OAUTH2_SECRET = 'hiZ3JbhVIWQ4wHub'
+SOCIAL_AUTH_LINKEDIN_OAUTH2_KEY = '78ecy0xien0nnw'
+SOCIAL_AUTH_LINKEDIN_OAUTH2_SECRET = 'CYRfAq5fJJL206jT'
 # Add email to requested authorizations.
 SOCIAL_AUTH_LINKEDIN_OAUTH2_SCOPE = ['r_basicprofile', 'r_emailaddress']
 # Add the fields so they will be requested from linkedin.
