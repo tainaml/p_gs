@@ -1,12 +1,18 @@
 {% load i18n %}
+{% load abs_url %}
 
 <div>
-<a href="http://localhost:8000/login/facebook">
+<a href="{% absolute_from_path 'login/facebook' %}">
     Facebook OAuth2
 </a>
 </div>
 <div>
-<a href="http://localhost:8000/login/google-oauth2">
+<a href="{% absolute_from_path 'login/google-oauth2' %}">
     Google OAuth2
+</a>
+</div>
+<div>
+<a href="{% absolute_from_path 'login/linkedin' %}">
+    Linkedin
 </a>
 </div>
