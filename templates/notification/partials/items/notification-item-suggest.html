@@ -6,7 +6,7 @@
      data-trigger="notification-as-read"
      data-csrf="{{ csrf_token }}"
      data-url-mark-as-read="{% url 'notifications:mark-as-read-and-visualized' %}"
-     data-next-url="{% url 'notifications:general' %}#notification-general-{{ notification.id }}"
+     data-next-url="{{ notification.target.get_absolute_url }}"
      data-notification="{{ notification.id }}">
     <header class="post-header">
         <div class="post-info"><time style="display: block;" datetime="{{ notification.notification_date }}" itemprop="datePublished"
