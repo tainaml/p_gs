@@ -20,6 +20,7 @@ from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 from apps.core.views.core import Home
 from apps.core.views import search as CoreSearch
+from apps.core.views.frontend import FrontEndBase
 from rede_gsti.urls_old import urls_old
 
 handler400 = "apps.core.views.errors.handler400"
@@ -108,4 +109,13 @@ urlpatterns = [
 
     url(r'^', include('apps.core.urls.blogspot', namespace='blogspot')),
 
-] + url_statics + url_media + urls_old + url_search_all
+] + url_statics + url_media + urls_old
+
+urls_front_end = [
+    url(_(r'^front-end/(?P<template>[a-z0-9.]+(?:(-|_)[a-z0-9.]+)*)'), FrontEndBase.as_view())
+]
+
+if settings.DEBUG:
+    urlpatterns +=urls_front_end
+
+urlpatterns += url_search_all
