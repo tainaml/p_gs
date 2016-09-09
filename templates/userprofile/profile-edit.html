@@ -3,6 +3,7 @@
 
 {% load avatar_tags %}
 {% load thumbor_tags %}
+{%  load comment_tags %}
 
 {% block seo-og-title %}{% block seo_title %}Editar Perfil | {{ profile.user.get_full_name }}{{ block.super }}{% endblock %}{% endblock %}
 {% block seo-og-description %}{% block seo-description %}Área para editar o seu perfil no Portal GSTI.{% endblock %}{% endblock %}
@@ -206,26 +207,9 @@
 
 
 {% block javascripts %}
-    <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/locale/pt-br.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.0/jquery.mask.min.js"></script>
     <script>
-        $('.datetime-picker').datetimepicker({
-            format: 'DD/MM/YYYY',
-            locale: 'pt-br',
-            icons: {
-                time: 'gsticon gsticon-clock-o',
-                up: 'gsticon gsticon-chevron-up',
-                down: 'gsticon gsticon-chevron-down',
-                previous: 'gsticon gsticon-chevron-left',
-                next: 'gsticon gsticon-chevron-right'
-            },
-            viewMode: 'years',
-            widgetPositioning: {
-              horizontal: 'auto',
-              vertical: 'bottom'
-            }
-        });
+        $('.datetime-picker').mask("00/00/0000", {placeholder: "__/__/____"});
 
         function fillElement($obj){
             $.ajax({
