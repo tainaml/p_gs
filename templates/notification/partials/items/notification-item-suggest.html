@@ -14,7 +14,7 @@
                 <i class="gsticon gsticon-clock-o hidden-lg"></i>
             </time></div>
         <div class="post-creator">
-            <a href="{% url 'profile:show' notification.author.get_username %}">{{ notification.author.get_full_name }}</a> te recomendou essa leitura <a href="javascript:;">{{ notification.target.title }}</a>
+            <a href="{% url 'profile:show' notification.author.get_username %}">{{ notification.author.get_full_name }}</a> te recomendou essa leitura <a href="{{ notification.target.get_absolute_url }}">{{ notification.target.title }}</a>
         </div>
     </header>
 </div>
