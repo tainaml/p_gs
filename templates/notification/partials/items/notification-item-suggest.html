@@ -6,7 +6,7 @@
      data-trigger="notification-as-read"
      data-csrf="{{ csrf_token }}"
      data-url-mark-as-read="{% url 'notifications:mark-as-read-and-visualized' %}"
-     data-next-url="{% url 'notifications:general' %}#notification-general-{{ notification.id }}"
+     data-next-url="{{ notification.target.get_absolute_url }}"
      data-notification="{{ notification.id }}">
     <header class="post-header">
         <div class="post-info"><time style="display: block;" datetime="{{ notification.notification_date }}" itemprop="datePublished"
@@ -14,7 +14,7 @@
                 <i class="gsticon gsticon-clock-o hidden-lg"></i>
             </time></div>
         <div class="post-creator">
-            <a href="{% url 'profile:show' notification.author.get_username %}">{{ notification.author.get_full_name }}</a> te recomendou essa leitura <a href="javascript:;">{{ notification.target.title }}</a>
+            <a href="{% url 'profile:show' notification.author.get_username %}">{{ notification.author.get_full_name }}</a> te recomendou essa leitura <a href="{{ notification.target.get_absolute_url }}">{{ notification.target.title }}</a>
         </div>
     </header>
 </div>
