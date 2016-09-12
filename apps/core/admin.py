@@ -1,3 +1,5 @@
+from datetime import date
+from django.conf import settings
 from django.contrib import admin
 from django.contrib.contenttypes.admin import GenericTabularInline
 from django.utils.translation import ugettext as _
@@ -9,7 +11,7 @@ from apps.core.forms.user import CoreUserAdminForm
 from apps.core.models.tags import Tags
 from apps.feed.models import FeedObject
 from apps.question.models import Question
-from apps.account.admin import UserAdmin, User
+from apps.account.admin import UserAdmin, User, UserNewAdmin
 from apps.socialactions.models import UserAction
 from apps.userprofile.models import UserProfile
 from django import forms
@@ -32,52 +34,76 @@ class CoreProfile(admin.StackedInline):
     verbose_name_plural = _("Profiles")
 
 
-class CoreUserAdmin(UserAdmin):
+class CoreUserAdmin(UserNewAdmin):
 
     form = CoreUserAdminForm
 
-    list_display = ('id', 'username', 'first_name', 'last_name', 'show_staff', "is_active", 'show_contributor', "show_date_joined", "show_login",)
+    list_display = [
+        'username', 'show_full_name',
+        'show_staff', 'is_active', 'show_contributor', 'show_wizard_is_complete',
+        'show_date_joined', 'show_login'
+    ]
+
+    list_display_links = [
+        'username', 'show_full_name'
+    ]
 
     inlines = [
         CoreProfile
     ]
 
+    def show_full_name(self, obj):
+        return u"{name} {last_name}".format(
+            name=obj.first_name,
+            last_name=obj.last_name
+        )
+
     def show_contributor(self, obj):
         return obj.profile.contributor
-
-    show_contributor.short_description = _("Contributor")
 
     def show_staff(self, obj):
         return obj.is_staff
 
+    def show_wizard_is_complete(self, obj):
 
-    show_staff.short_description = 'Membro'
-    show_staff.boolean = True
+        try:
+            return obj.profile.has_wizard_completed()
+        except Exception:
+            return False
 
     def show_date_joined(self, obj):
-
-        return obj.date_joined
-
-    show_date_joined.admin_order_field = 'date_joined'
-    show_date_joined.short_description = 'Criado em'
-
+        try:
+            return obj.date_joined.strftime('%d/%m/%Y %H:%M')
+        except Exception:
+            return "-"
 
     def show_login(self, obj):
         return naturaltime(obj.last_login)
-
-    def show_joined(self, obj):
-        return naturaltime(obj.last_login)
-
-    show_login.short_description = 'Login'
-    show_login.admin_order_field = 'last_login'
-
-    show_contributor.boolean = True
 
     def get_formsets_with_inlines(self, request, obj=None):
         for inline in self.get_inline_instances(request, obj):
             if isinstance(inline, CoreProfile) and obj is None:
                 continue
             yield inline.get_formset(request, obj), inline
+
+
+    show_full_name.short_description = _("Name")
+
+    show_contributor.short_description = _("Contributor")
+
+    show_staff.short_description = 'Membro'
+    show_staff.boolean = True
+
+    show_date_joined.admin_order_field = 'date_joined'
+    show_date_joined.short_description = 'Criado em'
+
+    show_login.short_description = 'Login'
+    show_login.admin_order_field = 'last_login'
+
+    show_wizard_is_complete.short_description = _('Completed Wizard?')
+    show_wizard_is_complete.boolean = True
+
+    show_contributor.boolean = True
 
 
 class FeedInline(GenericTabularInline):
