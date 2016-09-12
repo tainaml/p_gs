@@ -1,0 +1,210 @@
+@import "vendor/bootstrap/variables";
+@import "vendor/bootstrap/mixins";
+@import "vendor/bootstrap/normalize";
+@import "vendor/bootstrap/scaffolding";
+@import "vendor/bootstrap/grid";
+@import "vendor/bootstrap/responsive-utilities";
+@import "vendor/bootstrap/forms";
+@import "vendor/bootstrap/buttons";
+
+html {
+  height: 100%;
+}
+body {
+    height: auto;
+    min-height: 100%;
+}
+
+html {
+    background: #fff url('../images/background-body.png') no-repeat top center;
+    color: #fff;
+}
+
+body {
+    background-color: rgba(1, 96, 176, 0.8);
+}
+
+h2 {
+    margin-top: 40px;
+    margin-bottom: 17px;
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 30px;
+}
+
+p {
+    font-weight: 300;
+    font-size: 24px;
+    line-height: 30px;
+}
+@media (max-width: $screen-xs-max) {
+    h2 {
+        font-size: 24px;
+        line-height: 24px;
+        span { display: block; }
+    }
+    p {
+        font-size: 18px;
+        line-height: 24px;
+    }
+}
+
+// Logo
+.logo {
+    width: 230px;
+    height: 98px;
+    margin: 0 auto;
+    background: url('../images/logo.png') no-repeat center rgba(255, 255, 255, 0.8);
+    color: #fff;
+    text-align: center;
+    border-radius: 0 0 20px 20px;
+
+    .hidden-text {
+        @include text-hide();
+    }
+}
+
+.description {
+    color: #fff;
+    text-align: center;
+}
+
+.countdown {
+    text-align: center;
+}
+.counter {
+    margin-bottom: 45px;
+    color: #fff;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 24px;
+    text-transform: uppercase;
+}
+.counter-number {
+    width: 150px;
+    max-width: 100%;
+    height: 150px;
+    padding: 60px 0;
+    margin: 0 auto 26px;
+    display: block;
+    font-size: 52px;
+    font-weight: 300;
+    line-height: 24px;
+    border: 5px solid #fff;
+    border-radius: 50%;
+}
+
+.footer{
+    .col-xs-12 {
+        padding-top: 18px;
+        padding-bottom: 29px;
+        border-top: 1px solid #fff;
+        @media (min-width: $screen-sm-min) {
+            padding-bottom: 98px;
+        }
+    }
+}
+
+.form {
+    @media (min-width: $screen-sm-min) {
+        min-width: 555px;
+        margin-right: 15px;
+        float: left;
+    }
+    .form-group {
+        text-align: center;
+        @media (min-width: $screen-sm-min) {
+            text-align: left;
+        }
+    }
+
+    .form-control {
+        min-width: 390px;
+        min-height: 40px;
+        border: 1px solid #fff;
+        background-color: transparent;
+        color: #fff;
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 24px;
+        text-transform: uppercase;
+        &::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+          color: #fff;
+          opacity: 0.4;
+        }
+        &::-moz-placeholder { /* Firefox 19+ */
+          color: #fff;
+          opacity: 0.4;
+        }
+        &:-ms-input-placeholder { /* IE 10+ */
+          color: #fff;
+          opacity: 0.4;
+        }
+        &:-moz-placeholder { /* Firefox 18- */
+          color: #fff;
+          opacity: 0.4;
+        }
+        &:focus::-webkit-input-placeholder { opacity: 1; }
+        &:focus::-moz-placeholder { opacity: 1; }
+        &:focus:-ms-input-placeholder { opacity: 1; }
+        &:focus:-moz-placeholder { opacity: 1; }
+    }
+    .help-block {
+        margin-bottom: 6px;
+        color: #fff;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 24px;
+    }
+    .btn-submit {
+        width: 170px;
+        height: 40px;
+        margin-top: 10px;
+        background-color: white;
+        color: rgb(1, 96, 176);
+        font-size: 16px;
+        font-weight: 700;
+        line-height: 16px;
+        opacity: 0.8;
+        &:hover {
+            opacity: 1;
+        }
+
+        @media (min-width: $screen-sm-min) {
+            margin-top: 0;
+            margin-left: 10px;
+        }
+    }
+}
+
+.social-links {
+    margin-top: 29px;
+    text-align: center;
+    @media (min-width: $screen-sm-min) {
+        min-width: 349px;
+        margin-top: 38px;
+        padding-right: 0;
+        margin-left: 15px;
+        float: left;
+        text-align: right;
+    }
+}
+.social-links ul {
+    padding-left: 0;
+    margin: 0;
+    li {
+        margin-left: 15px;
+        display: inline-block;
+        a {
+            display: block;
+            color: white;
+            font-size: 30px;
+            font-weight: 400;
+            line-height: 24px;
+            opacity: 0.8;
+            &:hover {
+                opacity: 1;
+            }
+        }
+    }
+}

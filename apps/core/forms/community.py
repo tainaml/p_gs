@@ -1,7 +1,7 @@
 from django.utils.translation import ugettext as _
 
 from apps.community.models import Community
-from apps.core.models.tags import Tags
+from apps.community.service import business as CommunityBusiness
 from apps.taxonomy.models import Taxonomy
 from apps.geography.models import State, City
 from apps.custom_base.service.custom import IdeiaForm, forms
@@ -188,4 +188,25 @@ class CoreCommunityFollowersForm(IdeiaForm):
             self.items_per_page,
             self.cleaned_data.get('page'),
             self.startswith
+        )
+
+class CoreCommunityGetAllForm(IdeiaForm):
+
+    criteria = forms.CharField(required=False)
+
+    def __init__(self, items_per_page=None, *args, **kwargs):
+        self.items_per_page=items_per_page
+        super(CoreCommunityGetAllForm, self).__init__(*args, **kwargs)
+
+    def clean(self):
+        cleaned_data = super(CoreCommunityGetAllForm, self).clean()
+        cleaned_data['page'] = cleaned_data['page'] if 'page' in cleaned_data and cleaned_data['page'] else 1
+
+        return cleaned_data
+
+    def __process__(self):
+        return CommunityBusiness.get_all_communities(
+            self.cleaned_data['criteria'],
+            self.items_per_page,
+            self.cleaned_data.get('page'),
         )

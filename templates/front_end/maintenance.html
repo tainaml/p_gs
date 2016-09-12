@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <title>Portal GSTI</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+    <link rel="stylesheet" href="/static/stylesheets/sorry.css" />
+</head>
+<body>
+    <div class="container">
+        <h1 class="logo">
+            <span class="hidden-text">Portal GSTI</span>
+        </h1>
+        <div class="row">
+            <div class="description col-xs-12 col-sm-offset-1 col-sm-10">
+                <h2><span>Ops!</span> Estamos em manutenção.</h2>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque porta tortor nec libero dignissim bibendum. Interdum et malesuada fames ac ante ipsum primis in faucibus. Mauris malesuada massa sem, quis blandit diam imperdiet non.</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 countdown" data-countdown="2017/01/01"></div>
+        </div>
+        <footer class="footer">
+            <div class="col-xs-12 col-sm-offset-1 col-sm-10">
+                <div class="row">
+                    <form class="form form-inline">
+                        <div class="form-group">
+                            <div class="help-block">*Avisaremos assim que voltar</div>
+                            <input class="form-control" type="email" placeholder="INFOME O SEU EMAIL">
+                            <button class="btn btn-submit">NOTIFICAR</button>
+                        </div>
+                    </form>
+                    <div class="social-links">
+                        <ul>
+                            <li><a href="javascript:;">
+                                <i class="fa fa-facebook-square"></i>
+                            </a></li>
+                            <li><a href="javascript:;">
+                                <i class="fa fa-google-plus-square"></i>
+                            </a></li>
+                            <li><a href="javascript:;">
+                                <i class="fa fa-linkedin-square"></i>
+                            </a></li>
+                            <li><a href="javascript:;">
+                                <i class="fa fa-youtube-square"></i>
+                            </a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+    <script src="http://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.countdown/2.2.0/jquery.countdown.min.js"></script>
+    <script>
+        ;(function ($, window, document) {
+            $('[data-countdown]').each(function() {
+              var $this = $(this), finalDate = $(this).data('countdown');
+              console.log(finalDate);
+              $this.countdown('2017/01/01', function(event) {
+                $this.html(event.strftime('<div class="col-xs-6 col-sm-2 hidden-sm hidden-xs"></div>'
+                    + '<div class="col-xs-6 col-sm-2 counter"><span class="counter-number">%D</span> %!D:dia,dias;</div>'
+                    + '<div class="col-xs-6 col-sm-2 counter"><span class="counter-number">%M</span> %!M:minuto,minutos;</div>'
+                    + '<div class="col-xs-6 col-sm-2 counter"><span class="counter-number">%H</span> %!H:hr,hrs;</div>'
+                    + '<div class="col-xs-6 col-sm-2 counter"><span class="counter-number">%S</span> %!S:segundo,segundos;</div>'));
+              });
+            });
+        })(jQuery, window, document, undefined);
+    </script>
+</body>
+</html>
