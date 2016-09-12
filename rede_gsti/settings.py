@@ -581,14 +581,14 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = config.get("GOOGLE", "secret")
 SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = ['email']
 
 # Linkedin
-SOCIAL_AUTH_LINKEDIN_OAUTH2_KEY = '77uty9ymi8og4h'
-SOCIAL_AUTH_LINKEDIN_OAUTH2_SECRET = 'hiZ3JbhVIWQ4wHub'
+SOCIAL_AUTH_LINKEDIN_KEY  = '78ecy0xien0nnw'
+SOCIAL_AUTH_LINKEDIN_SECRET = 'CYRfAq5fJJL206jT'
 # Add email to requested authorizations.
-SOCIAL_AUTH_LINKEDIN_OAUTH2_SCOPE = ['r_basicprofile', 'r_emailaddress']
+SOCIAL_AUTH_LINKEDIN_SCOPE = ['r_basicprofile', 'r_emailaddress']
 # Add the fields so they will be requested from linkedin.
-SOCIAL_AUTH_LINKEDIN_OAUTH2_FIELD_SELECTORS = ['email-address', 'headline']
+SOCIAL_AUTH_LINKEDIN_FIELD_SELECTORS = ['email-address', 'headline']
 # Arrange to add the fields to UserSocialAuth.extra_data
-SOCIAL_AUTH_LINKEDIN_OAUTH2_EXTRA_DATA = [('id', 'id'),
+SOCIAL_AUTH_LINKEDIN_EXTRA_DATA = [('id', 'id'),
                                    ('firstName', 'first_name'),
                                    ('lastName', 'last_name'),
                                    ('emailAddress', 'email_address'),
@@ -599,7 +599,7 @@ AUTHENTICATION_BACKENDS = (
     'social.backends.facebook.FacebookOAuth2',
     'django.contrib.auth.backends.ModelBackend',
     'social.backends.google.GoogleOAuth2',
-    'social.backends.linkedin.LinkedinOAuth2',
+    'social.backends.linkedin.LinkedinOAuth',
 )
 
 SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
