@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
 from ..models import Community
 
@@ -30,6 +31,24 @@ def get_category_communities(taxonomies_id=None):
 
     return communities
 
-def get_all_communities():
-    queryset = Community.objects.all().only("slug", "title")
-    return [{'slug': community.slug, 'title': community.title} for community in queryset]
+def get_all_communities(criteria='', items_per_page=10, page=1):
+
+    if items_per_page > 100:
+        items_per_page = 100
+
+    queryset = Community.objects.filter(title__icontains=criteria).only("slug", "title")
+
+    items_per_page = items_per_page if items_per_page else 6
+    page = page if page else 1
+    communities = []
+    if items_per_page and page:
+        communities = Paginator(queryset, items_per_page)
+        try:
+            communities = communities.page(page)
+        except PageNotAnInteger:
+            communities = communities.page(1)
+        except EmptyPage:
+            communities = []
+
+
+    return [{'slug': community.slug, 'title': community.title} for community in communities]

@@ -11,7 +11,7 @@ from apps.community import views
 from apps.community.models import Community
 from apps.community.service import business as Business
 from apps.core.forms.community import CoreCommunityFeedFormSearch, CoreCommunityQuestionFeedFormSearch, \
-    CoreCommunitySearchVideosForm, CoreCommunityFollowersForm, CoreCommunitySearchMaterialsForm
+    CoreCommunitySearchVideosForm, CoreCommunityFollowersForm, CoreCommunitySearchMaterialsForm, CoreCommunityGetAllForm
 from apps.core.views.search import encoded_dict
 from apps.custom_base.views import FormBaseListView
 from apps.socialactions.service.business import get_users_acted_by_model
@@ -176,10 +176,15 @@ class CoreCommunityVideosList(CoreCommunityVideosSearch):
 
 class CoreGetCommunities(views.View):
 
+    form = CoreCommunityGetAllForm
+    itens_per_page = 25
 
     def get(self, request):
 
-        communities = Business.get_all_communities()
+
+        form = self.form(self.itens_per_page, request.GET)
+
+        communities = form.process() if form.is_valid() else []
         return JsonResponse({'communities': communities})
 
 
