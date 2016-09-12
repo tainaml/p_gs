@@ -5,7 +5,7 @@ from ..views import community as CoreViews
 from ..views import search
 urlpatterns = [
 
-    url(r'community/list-all/$', (CoreViews.CoreGetCommunities.as_view()), name='list-all'),
+    url(r'community/list-all/$', CoreViews.CoreGetCommunities.as_view(), name='list-all'),
 
     # Translators: URL de pagina de busca da comunidade
     url(_(r'^search/$'), CoreViews.CoreCommunitySearch.as_view(), name='general-search'),
