@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 from django.conf import settings
 from django.core import urlresolvers
 from django.template.defaultfilters import slugify
@@ -40,7 +43,8 @@ def reverse_absolute(request, path):
 
 def capitalize_this_name(name, separator=' '):
 
-    parts = str(name).split(separator)
+    parts = u'{}'.format(name)
+    parts = parts.split(separator)
     newparts = []
 
     prepositions = getattr(settings, 'PREPOSITIONS', [])
