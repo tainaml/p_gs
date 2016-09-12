@@ -35,6 +35,13 @@ class UserProfile(models.Model):
     def __unicode__(self):
         return self.user.get_full_name()
 
+    def has_wizard_completed(self):
+        # check if this wizard steps is equals with the settings value
+        try:
+            return bool(self.wizard_step == getattr(settings, 'WIZARD_STEPS_TOTAL', 3))
+        except Exception:
+            return False
+
     def has_locale_living(self):
         if self.city and self.city.state and self.city.state.country:
             return True
