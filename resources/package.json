@@ -6,6 +6,7 @@
   "scripts": {
     "javascript": "gulp webpack:development",
     "sass": "gulp sass",
+    "copy:images": "gulp images",
     "watch": "gulp"
   },
   "dependencies": {
