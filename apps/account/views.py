@@ -14,7 +14,8 @@ from rede_gsti import settings
 from .service.forms import SignUpForm, LoginForm, ChangePasswordForm, RecoveryPasswordForm, ForgotPasswordForm, \
     ResendAccountConfirmationForm, CheckUsernameForm
 from .service.business import logout_user, register_confirm, check_token_exist, log_in_user_no_credentials
-
+import logging
+logger = logging.getLogger('error')
 
 class IndexView(View):
 
@@ -205,20 +206,19 @@ class MailValidationView(View):
                         return redirect('/')
 
                 except Exception, e:
-
-                    message = _('Token not exist')
-
+                    logger.error(e)
+                    message = _('Um erro ocorreu, por favor tente novamente mais tarde!')
 
 
 
         except AccountDoesNotExistException:
-            message = _('Token not exist')
+            message = _('Account is not exists!')
         except TokenIsNoLongerValidException:
-            message = _('Token not exist')
+            message = _('Token is not longer valid!')
         except TokenIsNotActiveException:
-            message = _('Token not exist')
+            message = _('Token is not active!')
         except TokenDoesNotExistException:
-            message = _('Token not exist')
+            message = _('Token is not exists!')
 
 
 
