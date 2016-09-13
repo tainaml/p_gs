@@ -6,8 +6,6 @@ from ..views import account as CoreViews
 urlpatterns = [
 
 
-    url(r'^$', views.IndexView.as_view(), name='index'),
-
     # Translators: URL de pagina de inscricao
     url(_(r'^inscricao/$'), CoreViews.CoreRegisterView.as_view(), name='signup'),
 
