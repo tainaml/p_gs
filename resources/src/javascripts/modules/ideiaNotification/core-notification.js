@@ -5,7 +5,7 @@
     $.IdeiaNotification = function(element, options) {
 
         let isInactive = ( false );
-        let timeout = 10 * 1000;
+        let timeout = 600000; // 10 min
         let allowed_notifications = ['members', 'posts', 'general'];
 
         var $document = $( document );
