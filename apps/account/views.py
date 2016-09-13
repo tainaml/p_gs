@@ -190,7 +190,7 @@ class MailValidationView(View):
         :param activation_key:
         :return: HTML
         """
-
+        user = None
         message = _('Token exist - Account verified')
         try:
             user, token_verified = register_confirm(activation_key)
@@ -216,7 +216,15 @@ class MailValidationView(View):
         except TokenIsNoLongerValidException:
             message = _('Token is not longer valid!')
         except TokenIsNotActiveException:
-            message = _('Token is not active!')
+            if user and user.is_active:
+                log_in_user_no_credentials(request, user)
+
+                if user.profile.wizard_step < settings.WIZARD_STEPS_TOTAL:
+                    return redirect(reverse('profile:feed'))
+                else:
+                    return redirect('/')
+
+
         except TokenDoesNotExistException:
             message = _('Token is not exists!')
 
