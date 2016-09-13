@@ -9,7 +9,7 @@ from django.db import transaction
 from django.utils import timezone
 from django.utils.translation import ugettext as _
 from apps.account.account_exceptions import AccountDoesNotExistException, TokenIsNoLongerValidException, \
-    TokenIsNotActiveException, TokenIDoesNotExistException
+    TokenIsNotActiveException, TokenDoesNotExistException
 
 from ..models import TokenType
 from apps.account.models import MailValidation, User
@@ -119,7 +119,7 @@ def register_confirm(activation_key):
         else:
             raise TokenIsNotActiveException()
     else:
-        raise TokenIDoesNotExistException()
+        raise TokenDoesNotExistException()
 
 
 @transaction.atomic

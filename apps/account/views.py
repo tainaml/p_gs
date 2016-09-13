@@ -7,6 +7,8 @@ from django.shortcuts import render, redirect
 from django.utils.decorators import method_decorator
 from django.views.generic import View
 from django.utils.translation import ugettext as _
+from apps.account.account_exceptions import AccountDoesNotExistException, TokenIsNoLongerValidException, \
+    TokenIsNotActiveException, TokenDoesNotExistException
 
 from rede_gsti import settings
 from .service.forms import SignUpForm, LoginForm, ChangePasswordForm, RecoveryPasswordForm, ForgotPasswordForm, \
@@ -188,27 +190,38 @@ class MailValidationView(View):
         :return: HTML
         """
 
-        message = _('Token not exist')
-
-        # try:
-        user, token_verified = register_confirm(activation_key)
         message = _('Token exist - Account verified')
+        try:
+            user, token_verified = register_confirm(activation_key)
 
-        if token_verified and user and user.is_active:
+            if token_verified and user and user.is_active:
 
-            try:
-                log_in_user_no_credentials(request, user)
+                try:
+                    log_in_user_no_credentials(request, user)
 
-                if user.profile.wizard_step < settings.WIZARD_STEPS_TOTAL:
-                    return redirect(reverse('profile:feed'))
-                else:
-                    return redirect('/')
+                    if user.profile.wizard_step < settings.WIZARD_STEPS_TOTAL:
+                        return redirect(reverse('profile:feed'))
+                    else:
+                        return redirect('/')
 
-            except Exception, e:
-                pass
+                except Exception, e:
 
-        # except Exception as e:
-        #     message = e.message
+                    message = _('Token not exist')
+
+
+
+
+        except AccountDoesNotExistException:
+            message = _('Token not exist')
+        except TokenIsNoLongerValidException:
+            message = _('Token not exist')
+        except TokenIsNotActiveException:
+            message = _('Token not exist')
+        except TokenDoesNotExistException:
+            message = _('Token not exist')
+
+
+
 
         return render(request, 'account/mail_validation.html', {'message': message})
 

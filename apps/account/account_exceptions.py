@@ -12,5 +12,5 @@ class TokenIsNoLongerValidException(AccountException):
 class TokenIsNotActiveException(AccountException):
     pass
 
-class TokenIDoesNotExistException(AccountException):
+class TokenDoesNotExistException(AccountException):
     pass
