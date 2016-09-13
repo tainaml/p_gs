@@ -105,17 +105,17 @@ def register_confirm(activation_key):
 
     token = check_token_exist(activation_key)
     if token:
-        # if token.is_active():
-        if token.is_valid():
-            user = activate_account(token)
-            if user:
-                return user, True
+        if token.is_active():
+            if token.is_valid():
+                user = activate_account(token)
+                if user:
+                    return user, True
+                else:
+                    raise Exception('Account is not exists!')
             else:
-                raise Exception('Account is not exists!')
+                raise Exception('Token is not longer valid!')
         else:
-            raise Exception('Token is not longer valid!')
-        # else:
-        #     raise Exception('Token is not active!')
+            raise Exception('Token is not active!')
     else:
         raise Exception('Token is not exists!')
 
