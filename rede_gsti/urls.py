@@ -62,6 +62,9 @@ urlpatterns = [
     # Translators: URL root de notificacoes
     url(_(r'^notifications/'), include('apps.core.urls.notifications', namespace='notifications')),
 
+    # Translators: URL root de notificacoes
+    url(_(r'^hint/'), include('apps.core.urls.hint', namespace='hint')),
+
     # Translators: URL root de publicacao
     url(_(r'^'), include('apps.core.urls.article', namespace='article')),
 

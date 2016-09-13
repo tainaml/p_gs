@@ -73,18 +73,25 @@ def retrieve_own_comment(comment_id=None, user=None):
         return None
 
 
-def get_comments_by_content_type_and_id(content_type=None, object_id=None, items_per_page=None, page=None):
+def get_content_object_by_content_type_and_id(content_type, object_id):
     content_type = ContentType.objects.get(model=content_type)
-    content_object = content_type.get_object_for_this_type(pk=object_id)
+    return content_type.get_object_for_this_type(pk=object_id)
 
+
+def get_comments_by_content_type_and_id(content_type=None, object_id=None, items_per_page=None, page=None):
+    content_object = get_content_object_by_content_type_and_id(content_type, object_id)
     return get_comments_by_content_object(content_object, items_per_page, page)
 
 
-def get_comments_by_content_object(content_object=None, items_per_page=None, page=None):
+def get_all_comments_by_content_object(content_object):
     comments = Comment.objects.filter(
         content_type=ContentType.objects.get_for_model(content_object),
         object_id=content_object.id
-    ).order_by("-creation_date")
+    )
+    return comments
+
+def get_comments_by_content_object(content_object=None, items_per_page=None, page=None):
+    comments = get_all_comments_by_content_object(content_object).order_by("-creation_date")
 
     items_per_page = items_per_page if items_per_page else 10
 
