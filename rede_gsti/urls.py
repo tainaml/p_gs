@@ -118,7 +118,7 @@ urls_front_end = [
     url(_(r'^front-end/(?P<template>[a-z0-9.]+(?:(-|_)[a-z0-9.]+)*)'), FrontEndBase.as_view())
 ]
 
-if settings.DEBUG:
+if not (settings.ENVIRONMENT=='production'):
     urlpatterns +=urls_front_end
 
 urlpatterns += url_search_all

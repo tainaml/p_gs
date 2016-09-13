@@ -1,5 +1,6 @@
 {% load staticfiles %}
 {% load utils %}
+{% load recaptcha %}
 <!DOCTYPE html>
 <html lang="pt-br">
     <head>
@@ -143,7 +144,7 @@
                         </div>
 
                         <div class="form-group {% if form.captcha.errors %}has-error{% endif %}">
-                          <div class="g-recaptcha" data-sitekey="6LesCCYTAAAAAIg2T9OcOXXwsH8LZ6Ust2DxzaP5"></div>
+                          <div class="g-recaptcha" data-sitekey="{% recaptcha_site_key %}"></div>
                           {% if form.captcha.errors %} {{ form.captcha.errors }} {% endif %}
                         </div>
 
