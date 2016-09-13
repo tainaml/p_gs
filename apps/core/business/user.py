@@ -357,9 +357,10 @@ def get_followings(author, description=None, items_per_page=None, page=None):
     }
 
 
-def get_followers(user_filter, description=None, items_per_page=None, page=None):
+def get_all_followers(user_filter, description=None, content_type=None):
 
-    content_type = ContentType.objects.get_for_model(user_filter)
+    if not content_type:
+        content_type = ContentType.objects.get_for_model(user_filter)
 
     strings = description.strip().split(' ')
 
@@ -382,7 +383,16 @@ def get_followers(user_filter, description=None, items_per_page=None, page=None)
     except:
         users_actions = False
 
+    return users_actions
+
+
+def get_followers(user_filter, description=None, items_per_page=None, page=None):
+
+    content_type = ContentType.objects.get_for_model(user_filter)
+
+    users_actions = get_all_followers(user_filter, description, content_type)
     users_actions = Paginator(users_actions, items_per_page)
+
     try:
         users_actions = users_actions.page(page)
     except PageNotAnInteger:

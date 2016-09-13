@@ -1,5 +1,3 @@
-from distutils.command.register import register
-
 from django.http import Http404
 from django import template
 

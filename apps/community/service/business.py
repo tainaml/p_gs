@@ -27,7 +27,7 @@ def get_category_communities(taxonomies_id=None):
     try:
         communities = Community.objects.filter(taxonomy__in=taxonomies_id, taxonomy__term__slug='categoria')
     except Community.DoesNotExist:
-        return None
+        return None1
 
     return communities
 
