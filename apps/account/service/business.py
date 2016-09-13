@@ -8,6 +8,8 @@ from django.contrib.auth import authenticate, login as auth_login, logout, updat
 from django.db import transaction
 from django.utils import timezone
 from django.utils.translation import ugettext as _
+from apps.account.account_exceptions import AccountDoesNotExistException, TokenIsNoLongerValidException, \
+    TokenIsNotActiveException, TokenIDoesNotExistException
 
 from ..models import TokenType
 from apps.account.models import MailValidation, User
@@ -111,13 +113,13 @@ def register_confirm(activation_key):
                 if user:
                     return user, True
                 else:
-                    raise Exception('Account is not exists!')
+                    raise AccountDoesNotExistException()
             else:
-                raise Exception('Token is not longer valid!')
+                raise TokenIsNoLongerValidException()
         else:
-            raise Exception('Token is not active!')
+            raise TokenIsNotActiveException()
     else:
-        raise Exception('Token is not exists!')
+        raise TokenIDoesNotExistException()
 
 
 @transaction.atomic
