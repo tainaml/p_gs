@@ -30,7 +30,18 @@ def get_user(username_or_email=None):
 
 def check_profile_exists(user=None):
 
-    user = get_user(user.username)
+    try:
+
+        profile = user.profile
+        if isinstance(profile, UserProfile):
+            return profile
+        else:
+            return profile.first()
+
+    except Exception:
+        pass
+
+    # user = get_user(user.username)
 
     try:
         profile = UserProfile.objects.get(user=user)
@@ -43,7 +54,8 @@ def check_profile_exists(user=None):
 
 
 def get_profile(user=None):
-    return check_profile_exists(user) if user else None
+    return user.profile
+    # return check_profile_exists(user) if user else None
 
 
 def create_profile(user, data=None):

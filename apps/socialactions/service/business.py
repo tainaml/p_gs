@@ -71,9 +71,11 @@ def user_acted_by_object(user=None, content_object=None, action_type=None):
 def user_count_acted_by_object_and_action_id(user=None, content_object=None, action_type=None):
     content_type = ContentType.objects.get_for_model(content_object)
 
-    user_action_count = UserAction.objects.filter(content_type=content_type,
-                                                  object_id=content_object.id,
-                                                  action_type=action_type).count()
+    user_action_count = UserAction.objects.filter(
+        content_type=content_type,
+        object_id=content_object.id,
+        action_type=action_type
+    ).count()
 
     return user_action_count
 
@@ -110,6 +112,8 @@ def user_liked_by_id_and_content_type(user=None, content_type=None, object_id=No
 
 
 def user_liked_by_object(user=None, content_object=None):
+    if not user.is_authenticated():
+        return 0
     return user_acted_by_object(user, content_object, 'like')
 
 
@@ -118,6 +122,8 @@ def user_unliked_by_id_and_content_type(user=None, content_type=None, object_id=
 
 
 def user_unliked_by_object(user=None, content_object=None):
+    if not user.is_authenticated():
+        return 0
     return user_acted_by_object(user, content_object, 'unlike')
 
 
@@ -126,6 +132,9 @@ def user_followed(user=None, content_type=None, object_id=None):
 
 
 def user_likes_by_object(user=None, content_object=None):
+    if not user.is_authenticated():
+        return 0
+
     return user_count_acted_by_object(user, content_object, 'like')
 
 
@@ -134,6 +143,8 @@ def user_likes_by_object_content_type_and_id(user=None, content_type=None, objec
 
 
 def user_unlikes_by_object(user=None, content_object=None):
+    if not user.is_authenticated():
+        return 0
     return user_count_acted_by_object(user, content_object, 'unlike')
 
 

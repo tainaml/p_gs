@@ -55,10 +55,8 @@ class Article(models.Model):
     feed = GenericRelation(FeedObject, related_query_name="article")
     embed = GenericRelation(EmbedItem, related_query_name="article")
 
-
     def get_first_slug(self):
         return self.first_slug if self.first_slug else self.slug
-
 
     @property
     def modified_date(self):

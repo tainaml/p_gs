@@ -1,10 +1,14 @@
+import datetime
 from apps.feed.service import business as BusinessFeed
 from apps.article.models import Article
+from django.db.models import Q
+from django.db.models.query import Prefetch
 from reversion import revisions as reversion
 from apps.temp_comment.models import TempComment
+import calendar
 
 
-def get_article(year=None, month=None, slug=None):
+def get_article(year=None, month=None, slug=None, prefetch=None):
     """
     This method search for article id and slug.
     If a previous slug found, return the last version of the article with the redirect parameter
@@ -16,7 +20,19 @@ def get_article(year=None, month=None, slug=None):
     redirect = False
 
     try:
-        article = Article.objects.get(publishin__year=year, publishin__month=month, slug=slug)
+
+        try:
+            year = int(year)
+            month = int(month)
+        except Exception:
+            pass
+
+        article = Article.objects.prefetch_related('old_comments')
+
+        if prefetch is not None:
+            article = article.prefetch_related(*prefetch)
+
+        article = article.get(publishin__year=year, publishin__month=month, slug=slug)
 
     except Article.DoesNotExist:
         try:

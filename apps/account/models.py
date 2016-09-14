@@ -5,11 +5,14 @@ from django.contrib.auth.models import AbstractUser
 from django.core.urlresolvers import reverse
 from django.utils import timezone
 from django.utils.translation import ugettext as _
-
 from django.conf import settings
+from .manager import UserManager
 
 
 class User(AbstractUser):
+
+
+    objects = UserManager()
 
     class Meta(AbstractUser.Meta):
         swappable = 'AUTH_USER_MODEL'
