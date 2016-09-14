@@ -175,6 +175,9 @@ INTERNAL_APPS = (
 
 )
 
+#SESSION
+SESSION_ENGINE = "django.contrib.sessions.backends.cache"
+
 # Set up for installed apps
 INSTALLED_APPS = DJANGO_APPS + THIRD_PART_APPS + INTERNAL_APPS
 
