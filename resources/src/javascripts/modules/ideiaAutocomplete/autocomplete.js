@@ -1,8 +1,10 @@
+/* @flow */
+
 ;(function($){
 
     $.fn.extend({
 
-        autocomplete: function(){
+        autocomplete: function () {
 
             var EVENT_AJAX_SUCCESS = 'autocomplete.success';
             var EVENT_AJAX_ERROR   = 'autocomplete.error';
@@ -16,7 +18,7 @@
                 url = $self.data("autocompleteUrl") || $self.attr("href");
 
             var timeoutReference,
-                doneTyping = function(el){
+                doneTyping = function (el) {
                     if (!timeoutReference) return;
                     timeoutReference = null;
                     var ajaxParams = {
