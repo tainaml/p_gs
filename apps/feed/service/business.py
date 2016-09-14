@@ -4,6 +4,12 @@ from ..models import FeedObject
 
 
 def get_feed(content_instance):
+
+    try:
+        return content_instance.feed if content_instance.feed else content_instance.feed.first()
+    except Exception:
+        pass
+
     content_type = ContentType.objects.get_for_model(content_instance)
 
     try:

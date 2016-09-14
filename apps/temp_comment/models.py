@@ -8,7 +8,7 @@ class TempComment(models.Model):
 
     author = models.CharField(max_length=255)
 
-    article = models.ForeignKey(Article, null=True)
+    article = models.ForeignKey(Article, null=True, related_name='old_comments')
 
     google_id = models.CharField(max_length=512)
     parent_google_id = models.CharField(max_length=512)

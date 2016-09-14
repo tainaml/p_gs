@@ -86,8 +86,8 @@ class CoreArticleView(views.ArticleView):
     form_comment = CreateCommentForm
 
     # @Override
-    def filter_article(self, request=None, year=None, month=None, slug=None):
-        article_dict = core_article_business.get_article(year, month, slug)
+    def filter_article(self, request=None, year=None, month=None, slug=None, prefetch=None):
+        article_dict = core_article_business.get_article(year, month, slug, prefetch)
 
         if not article_dict['article']:
             '''
@@ -105,14 +105,20 @@ class CoreArticleView(views.ArticleView):
         return article_dict
 
     def get(self, request, year, month, slug):
-        article_dict = self.filter_article(request, year, month, slug)
+
+        prefetch = (
+            'feed', 'author',
+            'author__profile', 'author__profile__occupation',
+            'author__profile__occupation__responsibility'
+        )
+
+        article_dict = self.filter_article(request, year, month, slug, prefetch)
         article = article_dict['article']
         has_old_comments = False
         if article:
-            has_old_comments = core_article_business.has_old_comments(article)
+            has_old_comments = article.old_comments.all().exists()
             if article_dict['redirect']:
                 return redirect('article:view', article.year, article.month, article.slug, permanent=True)
-
 
         context = {'article': article, 'has_old_comments': has_old_comments}
         context.update(self.get_context(request, article))
@@ -122,7 +128,10 @@ class CoreArticleView(views.ArticleView):
     def get_context(self, request, article_instance=None):
 
         feed_object = BusinessFeed.BusinessFeed.get_feed(article_instance)
-        comments = Comment.objects.filter(object_id=article_instance.id)
+        comments = Comment.objects.filter(
+            object_id=article_instance.id
+        ).prefetch_related('author', 'author__profile', 'author__profile__occupation')
+
         return {
             'comments': comments,
             'feed': feed_object,
