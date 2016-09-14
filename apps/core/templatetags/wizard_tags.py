@@ -4,7 +4,7 @@ from django import template
 from apps.userprofile.models import GenderType
 from apps.userprofile.service import business as BusinessUserprofile
 from apps.taxonomy.service import business as BusinessTaxonomy
-
+from django.conf import settings
 
 register = template.Library()
 
@@ -19,22 +19,26 @@ def wizard(context):
 
     profile = request.user.profile
 
-    BRAZIL_ID = 1
+    if profile.wizard_step < getattr(settings, 'WIZARD_STEPS_TOTAL'):
 
-    states = BusinessUserprofile.get_states(BRAZIL_ID)
-    cities = BusinessUserprofile.get_cities(profile.city.state.id) if profile and profile.city else None
+        BRAZIL_ID = 1
 
-    responsibilities = BusinessUserprofile.get_responsibilities()
-    categories = BusinessTaxonomy.get_categories()
+        states = BusinessUserprofile.get_states(BRAZIL_ID)
+        cities = BusinessUserprofile.get_cities(profile.city.state.id) if profile and profile.city else None
 
-    response_data = {
-        'request': request,
-        'wizard_profile': profile,
-        'gender': GenderType(),
-        'states': states,
-        'cities': cities,
-        'responsibilities': responsibilities,
-        'categories': categories
-    }
+        responsibilities = BusinessUserprofile.get_responsibilities()
+        categories = BusinessTaxonomy.get_categories()
+
+        response_data = {
+            'request': request,
+            'wizard_profile': profile,
+            'gender': GenderType(),
+            'states': states,
+            'cities': cities,
+            'responsibilities': responsibilities,
+            'categories': categories
+        }
+    else:
+        response_data = {}
 
     return response_data
