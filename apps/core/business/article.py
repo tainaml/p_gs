@@ -29,9 +29,10 @@ def get_article(year=None, month=None, slug=None, prefetch=None):
 
         article = Article.objects.prefetch_related('old_comments')
 
-        if prefetch is not None:
-            article = article.prefetch_related(*prefetch)
+        if prefetch is None:
+            prefetch = ('feed',)
 
+        article = article.prefetch_related(*prefetch)
         article = article.get(publishin__year=year, publishin__month=month, slug=slug)
 
     except Article.DoesNotExist:
