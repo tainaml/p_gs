@@ -209,7 +209,7 @@ PREPOSITIONS = [
 if ENVIRONMENT == "develop":
     DEBUG = True
     #INSTALLED_APPS += ('debug_toolbar', 'apps.ninico',)
-    INSTALLED_APPS += ('apps.ninico',)
+    INSTALLED_APPS += ('apps.ninico','debug_toolbar',)
     STATIC_URL = '/static/'
     MEDIA_URL = '/media/uploads/'
     SECURE_SSL_HOST = None
