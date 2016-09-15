@@ -10,9 +10,9 @@
     </div>
 
     <div class="answer-group create-comment-body{% if form.content.errors %} has-error{% endif %}">
-{#         <textarea name="description" class="form-control"  placeholder="Deixe sua resposta" data-url-login="{% url 'account:is_logged' %}" data-trigger="login" data-token="{{ csrf_token }}"></textarea>#}
         {% url 'account:is_logged' as is_logged %}
-        {% render_field form_answer.description class="form-control"  placeholder="Deixe sua resposta" data-url-login=is_logged data-trigger="login" data-token=csrf_token %}
+        {% url 'hint:list' content_type content_object_id as hint_list_url %}
+        {% render_field form_answer.description class="form-control" placeholder="Deixe sua resposta" data-hint-url=hint_list_url data-url-login=is_logged data-trigger="login" data-token=csrf_token %}
         <span class="help-block"></span>
     </div>
 

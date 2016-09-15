@@ -15,7 +15,8 @@
 
     <div class="comment-group">
         <div class="create-comment-body{% if form.content.errors %} has-error{% endif %}">
-            <textarea name="content" class="form-control"  placeholder="Deixe seu comentário" data-url-login="{% url 'account:is_logged' %}" data-trigger="login" data-token="{{ csrf_token }}"></textarea>
+            {% url 'hint:list' content_type instance.id as hint_list_url %}
+            <textarea name="content" class="form-control" placeholder="Deixe seu comentário" data-hint-url=hint_list_url data-url-login="{% url 'account:is_logged' %}" data-trigger="login" data-token="{{ csrf_token }}"></textarea>
             <span class="help-block"></span>
         </div>
     </div>
