@@ -181,10 +181,6 @@ class CoreNotificationClear(views.NotificationBaseView):
                     key = Business.make_key(request.user, stat, ntype)
                     cache.delete(key)
 
-
-
-
-
         context = {'notifications': [n.id for n in notifications]}
         context.update(self.get_context(request))
 

@@ -19,14 +19,22 @@ def __invalidate_footer_cache__():
         logger.info("Footer cache found, cleaning Footer cache.")
         cache.delete("categories")
 
+def __invalidate_cache_community__(**kwargs):
+    community = kwargs.get('instance')
+    key = "community_%s" % community.slug
+    cache.delete(key)
+
 
 @receiver(post_save, sender=Community)
 def refresh_footer(sender, **kwargs):
+
+    __invalidate_cache_community__(**kwargs)
     __invalidate_footer_cache__()
 
 
 @receiver(post_delete, sender=Community)
 def refresh_delete(sender, **kwargs):
+    __invalidate_cache_community__(**kwargs)
     __invalidate_footer_cache__()
 
 

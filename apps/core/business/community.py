@@ -4,20 +4,19 @@ from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.db.models import Q
 from apps.article.models import Article
 from apps.community.models import Community
-from apps.core.models.embed import EmbedItem
+from apps.core.business.content_types import ContentTypeCachedSingleton
 from apps.core.models.tags import Tags
 from apps.feed.models import FeedObject
 from apps.socialactions.models import UserAction
-from apps.taxonomy.models import Taxonomy
 from ..business import search as SearchBusiness
-
-__author__ = 'phillip'
 
 
 def get_feed_objects(community_instance=None, description=None, content_types_list=None, items_per_page=None, page=None, official=None):
 
     if not content_types_list:
         content_types_list = []
+
+    print ContentTypeCachedSingleton.objects.all()
 
     content_types = ContentType.objects.filter(model__in=content_types_list)
 
@@ -38,24 +37,6 @@ def get_feed_objects(community_instance=None, description=None, content_types_li
         "content_object__author__profile",
         "taxonomies"
     )
-
-
-    # feed_objects = FeedObject.objects.filter(
-    #     Q(content_type__in=content_types) &
-    #     Q(communities=community_instance) &
-    #     (
-    #         (Q(article__status=Article.STATUS_PUBLISH) & (Q(article__title__icontains=description) |
-    #                                                       Q(article__text__icontains=description))) |
-    #         (Q(question__deleted=False) & (Q(question__title__icontains=description) |
-    #                                        Q(question__description__icontains=description)))
-    #     )
-    # ).order_by(
-    #     "-date"
-    # ).prefetch_related(
-    #     "content_object__author",
-    #     "content_object__author__profile",
-    #     "taxonomies"
-    # )
 
     if official is True:
         feed_objects = feed_objects.filter(official=official)

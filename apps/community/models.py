@@ -11,7 +11,7 @@ from apps.taxonomy.models import Taxonomy
 class Community(models.Model):
 
     title = models.CharField(blank=False, null=False, max_length=100)
-    slug = models.SlugField(blank=False, null=False, max_length=150)
+    slug = models.SlugField(blank=False, null=False, max_length=150, db_index=True)
     description = models.TextField(null=False)
     image = models.ImageField(max_length=100, upload_to='community/%Y/%m/%d', blank=True, default='')
     relevance = models.DecimalField(max_digits=4, decimal_places=2, null=False, default=0)

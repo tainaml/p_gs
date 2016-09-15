@@ -1,6 +1,7 @@
 {% load core_tags %}
 {% load user_agents %}
 {% load ads %}
+{% load cache %}
     <div class="squad-advertising">
         {% block community_right_block %}
             {% ads_only_production "community_right" "all" %}
@@ -11,7 +12,6 @@
     {% if request|is_pc %}
 
         {% relevance_box community %}
-
         {% last_questions community 'question' %}
 
     {% endif %}
