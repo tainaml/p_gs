@@ -8,7 +8,7 @@ class UserManager(models.UserManager):
         qs = qs.prefetch_related(
             'profile', 'profile__occupation',
             'profile__occupation__responsibility',
-            'profile__occupation__responsibility__occupation'
+            #'profile__occupation__responsibility__occupation'
         )
         return qs
 
