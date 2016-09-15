@@ -6,6 +6,7 @@ django-recaptcha
 django-widget-tweaks==1.4.1
 python-social-auth
 django-debug-toolbar==1.5
+django-silk=0.6.2
 django-autofixture==0.11.0
 django-migration-fixture==0.5.1
 python-memcached==1.57

@@ -32,7 +32,6 @@ url_statics = static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 url_media = static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 url_search_all = [url(r'(?P<params>.*)$', CoreSearch.SearchAll.as_view(), name='search_all')]
 
-
 urlpatterns = [
 
     url(r'^$', Home.as_view(), name='index'),
@@ -119,6 +118,10 @@ urls_front_end = [
 ]
 
 if not (settings.ENVIRONMENT=='production'):
-    urlpatterns +=urls_front_end
+    urlpatterns += urls_front_end
 
-urlpatterns += url_search_all
+urlpatterns += [
+        url(r'^admin/silk/', include('silk.urls', namespace='silk'))
+    ]
+
+#urlpatterns += url_search_all

@@ -201,30 +201,53 @@ SITE_PROTOCOL = 'https'
 
 PREPOSITIONS = [
     'de', 'dos', 'das', 'da', 'do'
-    'e'
+                              'e'
 ]
+
+
+MIDDLEWARE_CLASSES = (
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.common.CommonMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.security.SecurityMiddleware',
+    # 'apps.core.middleware.MinifyHTMLMiddleware',
+    # 'django_user_agents.middleware.UserAgentMiddleware',
+)
 
 
 # Setting Environment specific settings
 if ENVIRONMENT == "develop":
     DEBUG = True
     #INSTALLED_APPS += ('debug_toolbar', 'apps.ninico',)
-    INSTALLED_APPS += ('apps.ninico','debug_toolbar',)
+    INSTALLED_APPS += ('apps.ninico', 'debug_toolbar', 'silk', )
     STATIC_URL = '/static/'
     MEDIA_URL = '/media/uploads/'
     SECURE_SSL_HOST = None
     SECURE_PROXY_SSL_HEADER = None
 
+    MIDDLEWARE_CLASSES += ('silk.middleware.SilkyMiddleware',)
+
+    SILKY_PYTHON_PROFILER = True
+    SILKY_META = True
+
+    # SILKY_DYNAMIC_PROFILING = [
+    #     {
+    #         'module': 'apps.core.views.article',
+    #         'function': 'CoreArticleView.get',
+    #         'name': 'Ver Artigo'
+    #     }
+    # ]
+
     if USE_CACHE:
         CACHES = {
             'default': {
-                # 'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
-                # 'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
-                # 'LOCATION': 'unique-snowflake',
                 'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
-                'LOCATION': 'localhost:11211'
-
-            }
+                'LOCATION': '%s:%s' % (config.get("CACHE", "host"), config.get("CACHE", "port"),),
+            },
         }
     else:
         CACHES = {
@@ -285,18 +308,7 @@ AUTH_USER_MODEL = 'account.User'
 
 
 
-MIDDLEWARE_CLASSES = (
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'django.middleware.security.SecurityMiddleware',
-    # 'apps.core.middleware.MinifyHTMLMiddleware',
-    # 'django_user_agents.middleware.UserAgentMiddleware',
-)
+
 
 LOCALE_PATHS = (
     os.path.join(BASE_DIR, 'locale'),
@@ -450,6 +462,7 @@ TOOLBAR_CUSTOM = [
 ]
 
 NOTIFICATION_ALERT_DEFAULT_AUTHOR = 39
+TIME_TO_REFRESH_NOTIFICATION_IN_SEC = 30
 
 #HOME community characters limit
 HOME_CHARACTERS_LIMIT= 48
@@ -768,21 +781,21 @@ SUMMERNOTE_CONFIG = {
 
             ],
             'popover': {
-              'image': [
-                ['imagesize', ['imageSize100', 'imageSize50', 'imageSize25']],
-                ['float', ['floatLeft', 'floatRight', 'floatNone']],
-                ['remove', ['removeMedia']]
-              ],
-              'link': [
-                ['link', ['linkDialogShow', 'unlink']]
-              ],
-              'air': [
-                ['color', ['color']],
-                ['font', ['bold', 'clear']],
-                ['para', ['ul', 'paragraph']],
-                ['table', ['table']],
-                ['insert', ['link', 'picture']]
-              ]
+                'image': [
+                    ['imagesize', ['imageSize100', 'imageSize50', 'imageSize25']],
+                    ['float', ['floatLeft', 'floatRight', 'floatNone']],
+                    ['remove', ['removeMedia']]
+                ],
+                'link': [
+                    ['link', ['linkDialogShow', 'unlink']]
+                ],
+                'air': [
+                    ['color', ['color']],
+                    ['font', ['bold', 'clear']],
+                    ['para', ['ul', 'paragraph']],
+                    ['table', ['table']],
+                    ['insert', ['link', 'picture']]
+                ]
             }
 
         },
@@ -811,21 +824,21 @@ SUMMERNOTE_CONFIG = {
 
             ],
             'popover': {
-              'image': [
-                ['imagesize', ['imageSize100', 'imageSize50', 'imageSize25']],
-                ['float', ['floatLeft', 'floatRight', 'floatNone']],
-                ['remove', ['removeMedia']]
-              ],
-              'link': [
-                ['link', ['linkDialogShow', 'unlink']]
-              ],
-              'air': [
-                ['color', ['color']],
-                ['font', ['bold', 'clear']],
-                ['para', ['ul', 'paragraph']],
-                ['table', ['table']],
-                ['insert', ['link', 'picture']]
-              ]
+                'image': [
+                    ['imagesize', ['imageSize100', 'imageSize50', 'imageSize25']],
+                    ['float', ['floatLeft', 'floatRight', 'floatNone']],
+                    ['remove', ['removeMedia']]
+                ],
+                'link': [
+                    ['link', ['linkDialogShow', 'unlink']]
+                ],
+                'air': [
+                    ['color', ['color']],
+                    ['font', ['bold', 'clear']],
+                    ['para', ['ul', 'paragraph']],
+                    ['table', ['table']],
+                    ['insert', ['link', 'picture']]
+                ]
             }
 
         }
@@ -854,21 +867,21 @@ SUMMERNOTE_CONFIG = {
 
             ],
             'popover': {
-              'image': [
-                ['imagesize', ['imageSize100', 'imageSize50', 'imageSize25']],
-                ['float', ['floatLeft', 'floatRight', 'floatNone']],
-                ['remove', ['removeMedia']]
-              ],
-              'link': [
-                ['link', ['linkDialogShow', 'unlink']]
-              ],
-              'air': [
-                ['color', ['color']],
-                ['font', ['bold', 'clear']],
-                ['para', ['ul', 'paragraph']],
-                ['table', ['table']],
-                ['insert', ['link', 'picture']]
-              ]
+                'image': [
+                    ['imagesize', ['imageSize100', 'imageSize50', 'imageSize25']],
+                    ['float', ['floatLeft', 'floatRight', 'floatNone']],
+                    ['remove', ['removeMedia']]
+                ],
+                'link': [
+                    ['link', ['linkDialogShow', 'unlink']]
+                ],
+                'air': [
+                    ['color', ['color']],
+                    ['font', ['bold', 'clear']],
+                    ['para', ['ul', 'paragraph']],
+                    ['table', ['table']],
+                    ['insert', ['link', 'picture']]
+                ]
             }
 
         },
@@ -915,11 +928,11 @@ SUMMERNOTE_CONFIG = {
             ],
             'popover': {
                 'air':[
-                ['style', ['bold', 'italic', 'underline', 'clear']],
-                ['font', ['strikethrough', 'superscript', 'subscript']],
-                ['fontsize', ['fontsize']],
-                ['para', ['ul', 'ol', 'paragraph']],
-                ['height', ['height']]
+                    ['style', ['bold', 'italic', 'underline', 'clear']],
+                    ['font', ['strikethrough', 'superscript', 'subscript']],
+                    ['fontsize', ['fontsize']],
+                    ['para', ['ul', 'ol', 'paragraph']],
+                    ['height', ['height']]
                 ]
             }
         },'reply': {
@@ -935,11 +948,11 @@ SUMMERNOTE_CONFIG = {
             ],
             'popover': {
                 'air':[
-                ['style', ['bold', 'italic', 'underline', 'clear']],
-                ['font', ['strikethrough', 'superscript', 'subscript']],
-                ['fontsize', ['fontsize']],
-                ['para', ['ul', 'ol', 'paragraph']],
-                ['height', ['height']]
+                    ['style', ['bold', 'italic', 'underline', 'clear']],
+                    ['font', ['strikethrough', 'superscript', 'subscript']],
+                    ['fontsize', ['fontsize']],
+                    ['para', ['ul', 'ol', 'paragraph']],
+                    ['height', ['height']]
                 ]
             }
         },
