@@ -1,12 +1,9 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import urllib
-from django.views.decorators.cache import cache_page
 from django.core.urlresolvers import reverse
-
-from django.http import JsonResponse, Http404
+from django.http import JsonResponse
 from django.shortcuts import render, redirect
-
 from apps.community import views
 from apps.community.models import Community
 from apps.community.service import business as Business
@@ -91,7 +88,6 @@ class CoreCommunityFeedView(CoreCommunitySearch):
     template_path = 'community/community-view.html'
 
     def get(self, request, community_slug):
-
         community = Business.get_community(slug=community_slug)
         if not community:
             querystring = {'q': community_slug}
