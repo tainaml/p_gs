@@ -2,7 +2,7 @@ from django import template
 from django.conf import settings
 from apps.account.service.business import create_token
 from apps.notifications.service import business as Business
-from apps.notifications.service.business import get_notification_cached, make_key
+from apps.notifications.service.business import get_notification_cached, make_key, get_count_notification_cached
 
 register = template.Library()
 
@@ -34,7 +34,9 @@ def notification_navbar(context, notification_type, count=5):
                             notification_actions=notification_group, read=False)
 
 
-    count = notifications_not_visualized.count()
+    count_key = make_key(request.user, "count_visualized", notification_type)
+    count = get_count_notification_cached(count_key, notifications_not_visualized)
+
     notifications_not_visualized_id = [n.id for n in notifications_not_visualized]
 
     response_data = {

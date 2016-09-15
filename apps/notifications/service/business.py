@@ -10,6 +10,16 @@ NOT_VISUALIZED = "not_visualized"
 NOT_READ = "not_visualized"
 GENERAL = "general"
 
+def get_count_notification_cached(key, queryset):
+
+    notifications_paginator = cache.get(key)
+    if not notifications_paginator:
+        notifications_paginator = queryset.count()
+
+        cache.set(key, notifications_paginator, settings.TIME_TO_REFRESH_NOTIFICATION_IN_SEC)
+
+
+    return notifications_paginator
 
 def get_content_by_object(content_object=None):
     return ContentType.objects.get_for_model(content_object)

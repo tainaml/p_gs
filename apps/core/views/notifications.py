@@ -173,10 +173,16 @@ class CoreNotificationClear(views.NotificationBaseView):
 
         status = [Business.NOT_READ, Business.NOT_VISUALIZED, Business.GENERAL]
         notification_types = ["members", "posts", "general"]
-        for stat in status:
-            for ntype in notification_types:
-                key = Business.make_key(request.user, stat, ntype)
-                cache.delete(key)
+        for ntype in notification_types:
+            count_key = Business.make_key(request.user, "count_visualized", ntype)
+            cache.delete(count_key)
+
+            for stat in status:
+                    key = Business.make_key(request.user, stat, ntype)
+                    cache.delete(key)
+
+
+
 
 
         context = {'notifications': [n.id for n in notifications]}
