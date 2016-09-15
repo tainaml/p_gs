@@ -108,9 +108,9 @@ class CoreArticleView(views.ArticleView):
 
         prefetch = (
             'feed', 'author',
-            # 'author__profile', 'author__profile__occupation',
-            # 'author__profile__occupation__responsibility',
-            # 'author__profile__occupation'
+            'author__profile', 'author__profile__occupation',
+            'author__profile__occupation__responsibility',
+            'author__profile__occupation'
         )
 
         article_dict = self.filter_article(request, year, month, slug, prefetch)

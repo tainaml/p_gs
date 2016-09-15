@@ -1,6 +1,6 @@
 <div>
 {% if request.user.is_authenticated %}
-    <a class="{% if i_liked and i_liked.author == request.user %}liked{% endif %}" href="{% url 'socialactions:act' object_to_link content 'like' %}?url_next={{ url_next|urlencode }}"
+    <a class="{% if i_liked %}liked{% endif %}" href="{% url 'socialactions:act' object_to_link content 'like' %}?url_next={{ url_next|urlencode }}"
         data-async-like="true"
         data-social-action="like"
         data-target-like=".count-like-post-{{ object_to_link }}-{{ content }}"
@@ -11,7 +11,7 @@
         <i class="gsticon gsticon-caret-up"></i>
     </a>
     <hr>
-    <a class="{% if i_unliked and i_unliked.author == request.user %}unliked{% endif %}" href="{% url 'socialactions:act' object_to_link content 'unlike' %}?url_next={{ url_next|urlencode }}"
+    <a class="{% if i_unliked %}unliked{% endif %}" href="{% url 'socialactions:act' object_to_link content 'unlike' %}?url_next={{ url_next|urlencode }}"
         data-async-like="true"
         data-social-action="unlike"
         data-target-like=".count-like-post-{{ object_to_link }}-{{ content }}"

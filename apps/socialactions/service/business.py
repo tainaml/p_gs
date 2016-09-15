@@ -42,6 +42,56 @@ def get_content_object(content_type=None, object_id=None):
     return content_object
 
 
+class ObjectLikes(object):
+        likes = 0
+        unlikes = 0
+        user_likes = False
+        user_unlikes = False
+
+
+def get_object_actions_like(object, user=None, content_type=None):
+
+    """
+    Return likes from the object. If user, check actions from the user in object
+    :param object: Object to actions check
+    :param user: (Optional) User to increase checks
+    :param content_type: Content Type for the object
+    :return: ObjectLikes
+    """
+
+    act_like = getattr(settings, 'SOCIAL_LIKE')
+    act_unlike = getattr(settings, 'SOCIAL_UNLIKE')
+
+    action_types = [
+        act_like,
+        act_unlike,
+    ]
+
+    object_actions = UserAction.objects.only(
+        'id', 'author', 'action_type'
+    ).filter(
+        content_type=content_type,
+        object_id=object.id,
+        action_type__in=action_types
+    )
+
+    obj_likes = ObjectLikes()
+
+    for act in object_actions:
+        if act.action_type == act_like:
+            obj_likes.likes += 1
+        elif act.action_type == act_unlike:
+            obj_likes.unlikes += 1
+
+        if user.is_authenticated():
+
+            if act.author_id == user.id and act.action_type == act_like:
+                obj_likes.user_likes = True
+            elif act.author_id == user.id and act.action_type == act_unlike:
+                obj_likes.user_unlikes = True
+
+    return obj_likes
+
 def get_user_by_params(params=None):
     try:
         user_action = UserAction.objects.filter(**params)[0]
