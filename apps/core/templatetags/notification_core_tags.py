@@ -1,11 +1,11 @@
 from django import template
 from django.conf import settings
-from django.utils import timezone
 from apps.account.service.business import create_token
 from apps.notifications.service import business as Business
-import datetime
+from apps.notifications.service.business import get_notification_cached, make_key
 
 register = template.Library()
+
 
 
 @register.inclusion_tag('notification/templatetags/notification-include-navbar.html', takes_context=True)
@@ -16,28 +16,23 @@ def notification_navbar(context, notification_type, count=5):
     NOTIFICATION_GROUP = getattr(settings, 'NOTIFICATION_GROUP', {})
     NOTIFICATION_ACTIONS = getattr(settings, 'NOTIFICATION_ACTIONS', {})
 
-
     notification_group = NOTIFICATION_GROUP[notification_type] if notification_type in NOTIFICATION_GROUP.keys() else []
 
-    notifications, paginator = Business.get_notifications(
-        user=request.user,
-        notification_actions=notification_group,
-        visualized=None,
-        items_per_page=5,
-        page=1
-    )
+    attribute_key = make_key(request.user, Business.GENERAL, notification_type)
+    notifications, paginator = get_notification_cached(attribute_key, user=request.user,
+                                                       notification_actions=notification_group,
+                                                       visualized=None, items_per_page=5, page=1)
 
-    notifications_not_visualized, paginator_not_visualized = Business.get_notifications(
-        user=request.user,
-        notification_actions=notification_group,
-        visualized=False
-    )
 
-    notifications_not_read, paginator_not_read = Business.get_notifications(
-        user=request.user,
-        notification_actions=notification_group,
-        read=False
-    )
+    attribute_key_not_visualized = make_key(request.user, Business.NOT_VISUALIZED, notification_type)
+    notifications_not_visualized, paginator_not_visualized  = get_notification_cached(attribute_key_not_visualized, user=request.user,
+                                                    notification_actions=notification_group,
+                                                    visualized=False)
+
+    attribute_key_not_read = make_key(request.user, Business.NOT_READ, notification_type)
+    notifications_not_read, paginator_not_read = get_notification_cached(attribute_key_not_read, user=request.user,
+                            notification_actions=notification_group, read=False)
+
 
     count = notifications_not_visualized.count()
     notifications_not_visualized_id = [n.id for n in notifications_not_visualized]
@@ -51,6 +46,7 @@ def notification_navbar(context, notification_type, count=5):
         'notifications_id': notifications_not_visualized_id,
         'notification_type': notification_type
     }
+
 
     return response_data
 

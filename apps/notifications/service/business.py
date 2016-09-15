@@ -4,6 +4,11 @@ from django.contrib.contenttypes.models import ContentType
 from ..models import Notification
 from ..local_exceptions import NotValidNotificationSettings
 from django.conf import settings
+from django.core.cache import cache
+
+NOT_VISUALIZED = "not_visualized"
+NOT_READ = "not_visualized"
+GENERAL = "general"
 
 
 def get_content_by_object(content_object=None):
@@ -49,6 +54,20 @@ def send_notification_to_many(author=None, to_list=None,
 
     return notification_list
 
+def make_key(user, notification_status, notification_type):
+    return "%s_notifications_%s_%s" % (user.username, notification_status, notification_type)
+
+def get_notification_cached(key, **params):
+
+    notifications_paginator = cache.get(key)
+    if not notifications_paginator:
+        notifications_paginator = get_notifications(**params)
+
+        cache.set(key, notifications_paginator, settings.TIME_TO_REFRESH_NOTIFICATION_IN_SEC)
+
+
+    return notifications_paginator
+
 
 def get_notifications_by_user_and_notification_type_list(user=None,
                                                          notification_actions=None,
@@ -87,7 +106,7 @@ def get_notifications(user=None, notification_actions=None, visualized=None, rea
     if read is not None:
         criteria &= Q(read=read)
 
-    notifications = Notification.objects.filter(criteria).order_by("-notification_date")
+    notifications = Notification.objects.filter(criteria).prefetch_related("author").order_by("-notification_date")
 
     paginator = False
 

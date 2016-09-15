@@ -2,19 +2,15 @@
 {% load thumbor_tags %}
 {% load notification_core_tags %}
 {% load avatar_tags %}
-{% load cache %}
+{% load simplecache %}
 
 {% if request.user.is_authenticated %}
 
     <div class="user-actions-logged">
 
-        {% with notification_cache_key='notifications_'|add:request.user.username %}
-            {% cache 30 notification_cache_key %}
                 {% notification_navbar "members" %}
                 {% notification_navbar "posts" %}
                 {% notification_navbar "general" %}
-            {% endcache %}
-        {% endwith %}
 
 
         <a href="javascript:void(0);" class="user-actions-logged-link--logged user-actions-profile" data-toggle="dropdown" data-target="#dropdown-perfil-action">

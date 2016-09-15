@@ -218,13 +218,9 @@ if ENVIRONMENT == "develop":
     if USE_CACHE:
         CACHES = {
             'default': {
-                # 'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
-                'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
-                'LOCATION': 'unique-snowflake',
-                # 'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
-                # 'LOCATION': 'localhost:11211'
-
-            }
+                'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+                'LOCATION': '%s:%s' % (config.get("CACHE", "host"), config.get("CACHE", "port"),),
+            },
         }
     else:
         CACHES = {
@@ -450,6 +446,7 @@ TOOLBAR_CUSTOM = [
 ]
 
 NOTIFICATION_ALERT_DEFAULT_AUTHOR = 39
+TIME_TO_REFRESH_NOTIFICATION_IN_SEC = 30
 
 #HOME community characters limit
 HOME_CHARACTERS_LIMIT= 48
