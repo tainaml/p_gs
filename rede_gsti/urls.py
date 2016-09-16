@@ -120,8 +120,9 @@ urls_front_end = [
 if not (settings.ENVIRONMENT=='production'):
     urlpatterns += urls_front_end
 
-urlpatterns += [
-        # url(r'^admin/silk/', include('silk.urls', namespace='silk'))
+if getattr(settings, 'PROFILER_APP') == 'silk' and getattr(settings, 'ENVIRONMENT') == 'develop':
+    urlpatterns += [
+        url(r'^admin/silk/', include('silk.urls', namespace='silk'))
     ]
 
-#urlpatterns += url_search_all
+urlpatterns += url_search_all
