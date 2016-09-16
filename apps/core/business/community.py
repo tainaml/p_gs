@@ -152,18 +152,8 @@ def get_articles_with_videos(community, description=None, items_per_page=None, p
         )
     ).prefetch_related("content_object")
 
-    posts_videos = Article.objects.filter(
-
-        Q(status=Article.STATUS_PUBLISH) &
-        (
-            Q(title__icontains=description) |
-            Q(text__icontains=description)
-        )
-    )
-
     posts = feed_objects.filter(
-        Q(content_type=content_type) &
-        Q(object_id__in=posts_videos)
+        Q(content_type=content_type)
     )
 
     items_per_page = items_per_page if items_per_page else 10
