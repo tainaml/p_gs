@@ -71,18 +71,36 @@ def update_reply(params=None, answer=None):
     return False if answer.save() is False else answer
 
 
-def get_question(question_id=None):
+def get_question(question_id=None, prefetch=None, related=None):
+
+    qs = Question.objects.all()
+
+    if prefetch and isinstance(prefetch, (list, tuple)):
+        qs = qs.prefetch_related(*prefetch)
+
+    if related and isinstance(related, (list, tuple)):
+        qs = qs.select_related(*related)
+
     try:
-        quest = Question.objects.get(pk=question_id)
+        quest = qs.get(pk=question_id)
     except Question.DoesNotExist:
         quest = False
 
     return quest
 
 
-def get_answer(answer_id=None):
+def get_answer(answer_id=None, prefetch=None, related=None):
+
+    qs = Answer.objects.all()
+
+    if prefetch and isinstance(prefetch, (list, tuple)):
+        qs = qs.prefetch_related(*prefetch)
+
+    if related and isinstance(related, (list, tuple)):
+        qs = qs.select_related(*related)
+
     try:
-        answer = Answer.objects.get(pk=answer_id)
+        answer = qs.get(pk=answer_id)
     except Answer.DoesNotExist:
         answer = False
 

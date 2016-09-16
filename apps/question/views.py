@@ -216,7 +216,13 @@ class ShowQuestionView(View):
         return {}
 
     def get(self, request, question_slug, question_id):
-        question = business.get_question(question_id)
+
+        prefetch = (
+            'author', 'author__profile',
+            'author__profile__occupation',
+        )
+
+        question = business.get_question(question_id, prefetch=prefetch)
 
         if not question or (question and question.slug != question_slug):
             raise Http404(_("Question is not exists!"))
