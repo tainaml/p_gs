@@ -19,7 +19,8 @@ def get_community(slug=None):
         key = "comunity_%s" % slug
         community = cache.get(key)
         if not community:
-            community = Community.objects.get(slug=slug)
+            community = Community.objects.filter(slug=slug).prefetch_related("taxonomy")
+            community = community.first()
             cache.set(key, community)
 
     except Community.DoesNotExist:

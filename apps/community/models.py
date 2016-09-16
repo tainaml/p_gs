@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.contrib.contenttypes.fields import GenericRelation
 from django.contrib.contenttypes.models import ContentType
+from django.utils.functional import cached_property
 from django.utils.translation import ugettext as _
 from django.db import models
 from apps.core.business.content_types import ContentTypeCached
@@ -33,7 +34,7 @@ class Community(models.Model):
         return self.image if self.image else None
 
     #User Action Follower
-    @property
+    @cached_property
     def followers(self):
         try:
             return Counter.objects.defer("count").get(

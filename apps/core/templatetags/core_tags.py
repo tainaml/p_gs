@@ -39,7 +39,7 @@ def relevance_box(context, content_object, count=4, template_path='core/partials
             'article__publishin',
             'object_id',
             'content_type_id'
-        )[:count]
+        ).prefetch_related("content_object")[:count]
 
     except ValueError:
         raise Http404()
@@ -69,8 +69,7 @@ def last_questions(context, content_object, content_type, count=4, template_path
             'question__question_date',
             'object_id',
             'content_type_id'
-        )[:count]
-
+        ).prefetch_related("content_object")[:count]
     except ValueError:
         raise Http404()
 
@@ -103,7 +102,7 @@ def related_posts_box(context, instance, post_type=None, count=4, template_path=
             )
         ).exclude(
             Q(object_id=instance.id)
-        ).order_by(
+        ).prefetch_related("content_object").order_by(
             "-date"
         ).distinct(
             "date",
