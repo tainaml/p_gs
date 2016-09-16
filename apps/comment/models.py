@@ -3,6 +3,7 @@ from django.db import models
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.utils import timezone
+from apps.core.business.content_types import ContentTypeCached
 
 
 class Comment(models.Model):
@@ -20,6 +21,6 @@ class Comment(models.Model):
 
     @property
     def get_content_type(self):
-        content = ContentType.objects.get_for_model(self)
+        content = ContentTypeCached.objects.get(model="comment")
         return content.model
 

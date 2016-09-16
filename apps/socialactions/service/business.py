@@ -4,6 +4,7 @@ from django.db.models import Q
 from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
 from apps.account.models import User
+from apps.core.business.content_types import ContentTypeCached
 from apps.taxonomy.service.business import get_related_list_top_down
 from ..models import UserAction, UserActionCounter
 from ..localexceptions import NotFoundSocialSettings
@@ -25,11 +26,11 @@ def get_by_label(str_label=None):
 
 
 def get_content_by_object(content_object=None):
-    return ContentType.objects.get_for_model(content_object)
+    return ContentTypeCached.objects.get_for_model(model=content_object)
 
 
 def get_model_type(content_type=None):
-    model_type = ContentType.objects.get(model=content_type)
+    model_type = ContentTypeCached.objects.get(model=content_type)
 
     return model_type
 
@@ -102,7 +103,7 @@ def get_user_by_params(params=None):
 
 
 def user_acted_by_object_and_action_id(user=None, content_object=None, action_type_id=None):
-    content_type = ContentType.objects.get_for_model(content_object)
+    content_type = ContentTypeCached.objects.get_for_model(content_object)
     try:
         user_action = UserAction.objects.filter(content_type=content_type,
                                                 author=user,
@@ -119,7 +120,7 @@ def user_acted_by_object(user=None, content_object=None, action_type=None):
 
 
 def user_count_acted_by_object_and_action_id(user=None, content_object=None, action_type=None):
-    content_type = ContentType.objects.get_for_model(content_object)
+    content_type = ContentTypeCached.objects.get_for_model(content_object)
 
     user_action_count = UserAction.objects.filter(
         content_type=content_type,
@@ -207,7 +208,7 @@ def followers_count(user=None, content_object=None):
 
 
 def followings_count(author=None, content_type=None):
-    content_type = ContentType.objects.get(model=content_type)
+    content_type = ContentTypeCached.objects.get(model=content_type)
     action_type = get_by_label("follow")
 
     user_action_count = UserAction.objects.filter(author=author,
@@ -225,7 +226,7 @@ def suggest_post(author, object_to_link, content, to_user):
 
     suggested_to = []
 
-    content_type = ContentType.objects.get(model=content)
+    content_type = ContentTypeCached.objects.get(model=content)
 
     instance = content_type.get_object_for_this_type(id=object_to_link)
     if not instance:
@@ -288,7 +289,7 @@ def act_by_content_type_and_id(user=None, content_type=None, object_id=None, act
 
 
 def get_users_ids_acted_by_model_and_action(model=None, action=None, user=None):
-    content_type = ContentType.objects.get_for_model(user)
+    content_type = ContentTypeCached.objects.get_for_model(user)
 
     users_ids = []
     users_actions = UserAction.objects.filter(
@@ -308,7 +309,7 @@ def get_users_acted_by_model(model=None, action=None, filter_parameters=None,
     if not filter_parameters:
         filter_parameters = {}
 
-    content_type = ContentType.objects.get_for_model(model)
+    content_type = ContentTypeCached.objects.get_for_model(model)
     parameters = filter_parameters.copy()
     parameters['content_type'] = content_type
     parameters['object_id'] = model.id

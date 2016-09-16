@@ -223,16 +223,16 @@ MIDDLEWARE_CLASSES = (
 if ENVIRONMENT == "develop":
     DEBUG = True
     #INSTALLED_APPS += ('debug_toolbar', 'apps.ninico',)
-    INSTALLED_APPS += ('apps.ninico', 'debug_toolbar', 'silk', )
+    INSTALLED_APPS += ('apps.ninico', 'debug_toolbar', )
     STATIC_URL = '/static/'
     MEDIA_URL = '/media/uploads/'
     SECURE_SSL_HOST = None
     SECURE_PROXY_SSL_HEADER = None
 
-    MIDDLEWARE_CLASSES += ('silk.middleware.SilkyMiddleware',)
-
-    SILKY_PYTHON_PROFILER = True
-    SILKY_META = True
+    # MIDDLEWARE_CLASSES += ('silk.middleware.SilkyMiddleware',)
+    #
+    # SILKY_PYTHON_PROFILER = True
+    # SILKY_META = True
 
     # SILKY_DYNAMIC_PROFILING = [
     #     {

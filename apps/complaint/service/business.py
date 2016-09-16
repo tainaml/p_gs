@@ -3,6 +3,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.db import transaction
 
 from apps.complaint.models import ComplaintType, Complaint
+from apps.core.business.content_types import ContentTypeCached
 
 entity_to_complaint = settings.ENTITY_TO_COMPLAINT if hasattr(settings,
                                         'ENTITY_TO_COMPLAINT') else False
@@ -16,7 +17,7 @@ def get_type_complaint():
 @transaction.atomic
 def create_complaint(parameters, user):
 
-    content_type = ContentType.objects.get(model=parameters['content_type'])
+    content_type = ContentTypeCached.objects.get(model=parameters['content_type'])
 
     complaint, created = Complaint.objects.get_or_create(
         description=parameters['description'],

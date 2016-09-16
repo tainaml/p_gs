@@ -1,6 +1,7 @@
 from django.db.models import Q
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.contenttypes.models import ContentType
+from apps.core.business.content_types import ContentTypeCached
 from ..models import Notification
 from ..local_exceptions import NotValidNotificationSettings
 from django.conf import settings
@@ -22,11 +23,11 @@ def get_count_notification_cached(key, queryset):
     return notifications_paginator
 
 def get_content_by_object(content_object=None):
-    return ContentType.objects.get_for_model(content_object)
+    return ContentTypeCached.objects.get_for_model(model=content_object)
 
 
 def get_model_type(content_type=None):
-    model_type = ContentType.objects.get(model=content_type)
+    model_type = ContentTypeCached.objects.get(model=content_type)
 
     return model_type
 

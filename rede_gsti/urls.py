@@ -121,7 +121,7 @@ if not (settings.ENVIRONMENT=='production'):
     urlpatterns += urls_front_end
 
 urlpatterns += [
-        url(r'^admin/silk/', include('silk.urls', namespace='silk'))
+        # url(r'^admin/silk/', include('silk.urls', namespace='silk'))
     ]
 
 #urlpatterns += url_search_all

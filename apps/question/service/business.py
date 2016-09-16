@@ -3,6 +3,7 @@ from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.db import transaction
 
 from apps.comment.models import Comment
+from apps.core.business.content_types import ContentTypeCached
 from ..models import Question, Answer
 
 
@@ -113,7 +114,7 @@ def set_correct_answer(answer_id):
 @transaction.atomic()
 def remove_answer(answer):
 
-    content_type = ContentType.objects.get_for_model(answer)
+    content_type = ContentTypeCached.objects.get(model='answer')
 
     try:
         question = answer.question
