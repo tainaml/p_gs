@@ -93,7 +93,7 @@ class CoreUserProfile(CoreUserView):
 
         form = self.form(
             profile_instance,
-            content_type.first().id,
+            content_type.id,
             itens_by_page,
             profile_instance.user,
             request.GET
