@@ -11,3 +11,6 @@ docker-up:
 
 webless:
 	$(DOCKER_UP) db thumbor memcached
+
+clear-silk:
+	python manage.py silk_clear_request_log
