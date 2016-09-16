@@ -81,6 +81,9 @@ except IOError as e:
     config.set("CACHE", "host", '127.0.0.1')
     config.set("CACHE", "port", '11211')
 
+    config.add_section("DEVELOP")
+    config.set('DEVELOP', 'profiler', 'silk')
+
     config.add_section("LOG_FILES")
     config.set("LOG_FILES", "info", '/var/log/rede_gsti/info.log')
     config.set("LOG_FILES", "error", '/var/log/rede_gsti/error.log')
@@ -222,25 +225,24 @@ MIDDLEWARE_CLASSES = (
 # Setting Environment specific settings
 if ENVIRONMENT == "develop":
     DEBUG = True
-    #INSTALLED_APPS += ('debug_toolbar', 'apps.ninico',)
-    INSTALLED_APPS += ('apps.ninico', 'debug_toolbar', )
+
+    profiler = config.get("DEVELOP", 'profiler')
+
+    PROFILER_APP = 'silk'
+
+    if profiler == 'debug_toolbar':
+        PROFILER_APP = 'debug_toolbar'
+    else:
+        MIDDLEWARE_CLASSES += ('silk.middleware.SilkyMiddleware',)
+        SILKY_PYTHON_PROFILER = True
+        SILKY_META = True
+
+
+    INSTALLED_APPS += ('apps.ninico', PROFILER_APP )
     STATIC_URL = '/static/'
     MEDIA_URL = '/media/uploads/'
     SECURE_SSL_HOST = None
     SECURE_PROXY_SSL_HEADER = None
-
-    # MIDDLEWARE_CLASSES += ('silk.middleware.SilkyMiddleware',)
-    #
-    # SILKY_PYTHON_PROFILER = True
-    # SILKY_META = True
-
-    # SILKY_DYNAMIC_PROFILING = [
-    #     {
-    #         'module': 'apps.core.views.article',
-    #         'function': 'CoreArticleView.get',
-    #         'name': 'Ver Artigo'
-    #     }
-    # ]
 
     if USE_CACHE:
         CACHES = {
