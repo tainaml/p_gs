@@ -21,7 +21,7 @@ class ContentTypeCached():
                 articles_question = ContentType.objects.filter(Q(model__in=['article', 'question'])).order_by("model")
                 comment = ContentType.objects.filter(Q(model='comment'))
                 rest = ContentType.objects.all().exclude(Q(model__in=["article", "question", "comment"]))
-                content_types = itertools.chain(articles_question, comment, rest)
+                content_types = list(itertools.chain(articles_question, comment, rest))
 
                 cls._all = content_types
                 rest = cache.set("content_type", cls._all)
@@ -40,9 +40,10 @@ class ContentTypeCached():
             for content_type in cls.all():
                 if not model__in:
                     break
+                print content_type.model, model__in
                 if content_type.model in model__in:
                     content_types.append(content_type)
-                    model__in.remove(content_type)
+                    model__in.remove(content_type.model)
 
 
             return content_types
