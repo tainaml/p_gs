@@ -9,7 +9,7 @@ class UserManager(models.UserManager):
             'profile', 'profile__occupation',
             'profile__occupation__responsibility',
             #'profile__occupation__responsibility__occupation'
-        )
+        ).select_related('profile')
         return qs
 
     def get(self, *args, **kwargs):
