@@ -1,6 +1,7 @@
 import re
 
 from django.contrib.contenttypes.models import ContentType
+from apps.core.business.content_types import ContentTypeCached
 
 from apps.core.models.embed import EmbedItem
 
@@ -11,7 +12,7 @@ class EmbedBusiness(object):
 
     def __init__(self, instance):
         self.instance = instance
-        self.content_type = ContentType.objects.get_for_model(self.instance)
+        self.content_type = ContentTypeCached.objects.get(model=self.instance)
 
     def save(self):
         check_rule = re.compile(self.EMBED_REGEX, re.IGNORECASE)

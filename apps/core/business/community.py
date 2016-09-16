@@ -1,10 +1,9 @@
 from django.conf import settings
-from django.contrib.contenttypes.models import ContentType
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.db.models import Q
 from apps.article.models import Article
 from apps.community.models import Community
-from apps.core.business.content_types import ContentTypeCachedSingleton
+from apps.core.business.content_types import ContentTypeCached
 from apps.core.models.tags import Tags
 from apps.feed.models import FeedObject
 from apps.socialactions.models import UserAction
@@ -16,9 +15,7 @@ def get_feed_objects(community_instance=None, description=None, content_types_li
     if not content_types_list:
         content_types_list = []
 
-    print ContentTypeCachedSingleton.objects.all()
-
-    content_types = ContentType.objects.filter(model__in=content_types_list)
+    content_types = ContentTypeCached.objects.filter(model__in=content_types_list)
 
     __articles = SearchBusiness.get_feed_articles(description)
     __questions = SearchBusiness.get_feed_questions(description)
@@ -60,7 +57,7 @@ def get_feed_questions(community_instance=None, description=None, content_types_
     if not content_types_list:
         content_types_list = []
 
-    content_types = ContentType.objects.filter(model__in=content_types_list)
+    content_types = ContentTypeCached.objects.filter(model__in=content_types_list)
 
     if replies == 'reply':
         criteria = (
@@ -143,7 +140,7 @@ def get_communities(taxonomies_list=None, description=None, items_per_page=None,
 
 def get_articles_with_videos(community, description=None, items_per_page=None, page=None):
 
-    content_type = ContentType.objects.filter(model="article")
+    content_type = ContentTypeCached.objects.get(model="article")
 
     feed_objects = FeedObject.objects.filter(
         Q(content_type=content_type) &
@@ -192,7 +189,7 @@ def get_avaiable_tags():
 
 
 def get_articles_with_tags(community, description=None, items_per_page=None, page=None, tag=None):
-    content_type = ContentType.objects.filter(model="article")
+    content_type = ContentTypeCached.objects.get(model="article")
 
     tags = get_avaiable_tags()
 
@@ -226,7 +223,7 @@ def get_articles_with_tags(community, description=None, items_per_page=None, pag
 
 def get_random_communities_by_article_or_question(object_id=None, content_type=None):
 
-    content_type = ContentType.objects.get(model=content_type)
+    content_type = ContentTypeCached.objects.get(model=content_type)
 
     feed = FeedObject.objects.get(
         object_id=object_id,

@@ -5,6 +5,7 @@ from django.db import transaction
 from django.db.models import Q
 
 from apps.configuration.models import ConfigKey, ConfigValues, ConfigGroup
+from apps.core.business.content_types import ContentTypeCached
 from rede_gsti import settings
 
 logger = logging.getLogger('general')
@@ -31,7 +32,7 @@ def get_system_configs(config_group=None, show=True):
 
 
 def get_configs(entity, config_group=None):
-    content_type = ContentType.objects.get_for_model(entity)
+    content_type = ContentTypeCached.objects.get(model=entity)
 
     try:
         criteria = Q(content_type=content_type) & Q(object_id=entity.id)
@@ -54,7 +55,7 @@ def get_configs(entity, config_group=None):
 @transaction.atomic()
 def save_configs(entity, data):
 
-    content_type = ContentType.objects.get_for_model(entity)
+    content_type = ContentTypeCached.objects.get(model=entity)
 
     configs_created = []
     configs_updated = []
@@ -95,7 +96,7 @@ def check_config_to_notify(to_user, action, target_object=None):
 
     if action in allowed_social_tags and target_object:
         key_slug = key_prefix + settings.SOCIAL_LABELS[action] + '_'
-        target_content = ContentType.objects.get_for_model(target_object)
+        target_content = ContentTypeCached.objects.get(model=target_object)
         key_slug += target_content.model
     else:
         key_slug = key_prefix
@@ -104,7 +105,7 @@ def check_config_to_notify(to_user, action, target_object=None):
     try:
         config = ConfigValues.objects.get(
             Q(object_id=to_user.id) &
-            Q(content_type=ContentType.objects.get_for_model(to_user)) &
+            Q(content_type=ContentTypeCached.objects.get(model=to_user)) &
             Q(key=ConfigKey.objects.get(key=key_slug))
         )
     except Exception, e:

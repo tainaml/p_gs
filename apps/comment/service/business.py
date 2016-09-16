@@ -3,6 +3,7 @@ import logging
 from django.contrib.contenttypes.models import ContentType
 from django.conf import settings
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from apps.core.business.content_types import ContentTypeCached
 
 from ..models import Comment
 
@@ -17,7 +18,7 @@ def create_comment(user=None, parameters=None):
 
     comment = Comment()
     comment.author = user
-    content_type = ContentType.objects.get(model=parameters['content_type'])
+    content_type = ContentTypeCached.objects.get(model=parameters['content_type'])
     content_object = content_type.get_object_for_this_type(
         pk=parameters['content_object_id'])
 
@@ -46,7 +47,7 @@ def edit_comment(comment=None, parameters=None):
 
 def delete_comment(comment=None):
     try:
-        content_type = ContentType.objects.get_for_model(comment)
+        content_type = ContentTypeCached.objects.get_for_model(model='comment')
         children_comments = Comment.objects.filter(content_type=content_type, object_id=comment.id)
         for child_comment in children_comments:
             if comment:
@@ -74,7 +75,7 @@ def retrieve_own_comment(comment_id=None, user=None):
 
 
 def get_content_object_by_content_type_and_id(content_type, object_id):
-    content_type = ContentType.objects.get(model=content_type)
+    content_type = ContentTypeCached.objects.get(model=content_type)
     return content_type.get_object_for_this_type(pk=object_id)
 
 
@@ -85,7 +86,7 @@ def get_comments_by_content_type_and_id(content_type=None, object_id=None, items
 
 def get_all_comments_by_content_object(content_object):
     comments = Comment.objects.filter(
-        content_type=ContentType.objects.get_for_model(content_object),
+        content_type=ContentTypeCached.objects.get_for_model(model=content_object),
         object_id=content_object.id
     )
     return comments
@@ -108,5 +109,5 @@ def get_comments_by_content_object(content_object=None, items_per_page=None, pag
 
 
 def count_comments_by_id_and_content_type(object_id, content_type):
-    content_type = ContentType.objects.get(model=content_type)
+    content_type = ContentTypeCached.objects.get(model=content_type)
     return Comment.objects.filter(object_id=object_id, content_type=content_type).count()

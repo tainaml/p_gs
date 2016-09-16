@@ -3,10 +3,11 @@ from django.core.cache import caches
 from django.db.models import Q, Prefetch
 from django.utils import timezone
 from apps.article.models import Article
+from apps.core.business.content_types import ContentTypeCached
 from apps.taxonomy.models import Taxonomy
 
 cache = caches['default']
-article_type = ContentType.objects.get(model="article")
+article_type = ContentTypeCached.objects.get(model="article")
 
 class HomePageAbstract(object):
 
