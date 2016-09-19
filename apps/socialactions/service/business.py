@@ -1,12 +1,12 @@
 from django.db import transaction
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
-from django.db.models import Q
+from django.db.models import Q, Prefetch
 from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
 from apps.account.models import User
 from apps.core.business.content_types import ContentTypeCached
 from apps.taxonomy.service.business import get_related_list_top_down
-from ..models import UserAction, UserActionCounter
+from ..models import UserAction, UserActionCounter, Counter
 from ..localexceptions import NotFoundSocialSettings
 
 
@@ -316,7 +316,7 @@ def get_users_acted_by_model(model=None, action=None, filter_parameters=None,
     parameters['object_id'] = model.id
     parameters['action_type'] = action
 
-    users_actions = UserAction.objects.filter(**parameters).prefetch_related('author')
+    users_actions = UserAction.objects.filter(**parameters).prefetch_related('author', "author__profile", "content_object")
 
     list = Paginator(users_actions, itens_per_page)
     try:

@@ -26,7 +26,11 @@ class CoreCommunityView(views.CommunityView):
         if request.user and request.user.is_authenticated():
 
             if isinstance(community_instance, Community):
-                community_followers = community_instance.followers
+                community_followers = get_users_acted_by_model(model=community_instance,
+                                                               action=settings.SOCIAL_FOLLOW,
+                                                               filter_parameters={'author': request.user},
+                                                               itens_per_page=20,
+                                                               page=1)
 
                 return {'user_follows_community': community_followers}
 
@@ -98,7 +102,7 @@ class CoreCommunityQuestionSearch(CoreCommunityView):
 
     def get_context(self, request, community_instance=None):
         context = super(CoreCommunityQuestionSearch, self).get_context(request, community_instance)
-        itens_by_page = 2
+        itens_by_page = 3
 
         self.form = CoreCommunityQuestionFeedFormSearch(
             community_instance,
