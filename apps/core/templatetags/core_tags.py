@@ -1,7 +1,6 @@
 # coding=utf-8
 from django import template
 from django.conf import settings
-from django.contrib.contenttypes.models import ContentType
 from django.db.models import Q
 from django.http import Http404
 from django.template.defaultfilters import stringfilter, truncatechars
@@ -10,7 +9,6 @@ from django.core.cache import cache
 from django.utils.html import strip_tags
 from django.utils.text import slugify
 from django.utils.translation import ugettext as _
-
 from apps.article.models import Article
 from apps.community.models import Community
 from apps.core.business.content_types import ContentTypeCached

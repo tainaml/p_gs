@@ -1,5 +1,4 @@
 {% extends 'home/layout/base.html' %}
-
 {% load taxonomy_tags %}
 {% load core_tags %}
 {% load profile_tags %}
@@ -97,7 +96,8 @@
 
                     {% block article-post-footer %}
                         <aside class="post-footer">
-                            {% taxonomies article %}
+                            {% include "taxonomy/taxonomies.html" with communities=feed.communities.all %}
+
                             <div class="post-toolbar pull-right">
                                 <div class="post-count">{% like_box article request.path "inline" %}</div>
                                 <a href="#comments" class="post-count-comments">
@@ -145,7 +145,9 @@
                 </article>
 
                 {% block article-comments-area %}
-                    <div id="comments">{% profile_box article.author "horizontal" %}</div>
+                    <div id="comments">
+                    {% include 'userprofile/templatetags/profile-box.html' with profile=article.author.profile partial_template="userprofile/templatetags/profile-box-horizontal.html" %}
+                    </div>
                     {% if request|is_mobile %}
                         <div id="load-related-posts" data-load-async="true" data-load-async-url="{% url 'core:related-posts' article.id "article" "article" 4 %}" data-load-async-url-next="{{ request.path }}" data-load-async-method="get" data-load-async-response-type="json" data-load-async-timeout="1">
                             <div class="load-async load-async-content">

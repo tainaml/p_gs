@@ -9,21 +9,9 @@
 
     {% if request|is_pc %}
 
-        <!-- Comunidades -->
-        <div id="load-communities" data-load-async="true" data-load-async-url="{% url 'community:load-communities-async' article.id "article" %}" data-load-async-url-next="{{ request.path }}" data-load-async-method="get" data-load-async-response-type="json" data-load-async-timeout="1">
-            <div class="load-async load-async-content">
-                <div class="load-async-preload"></div>
-            </div>
-            {% csrf_token %}
-        </div>
-
+        {% include "article/partials/article-community-list.html" with communities=feed.communities.all %}
         <!-- Publicações Relacionadas -->
-        <div id="load-related-posts" data-load-async="true" data-load-async-url="{% url 'core:related-posts' article.id "article" "article" 4 %}" data-load-async-url-next="{{ request.path }}" data-load-async-method="get" data-load-async-response-type="json" data-load-async-timeout="1">
-            <div class="load-async load-async-content">
-                <div class="load-async-preload"></div>
-            </div>
-            {% csrf_token %}
-        </div>
+
 
     {% endif %}
 

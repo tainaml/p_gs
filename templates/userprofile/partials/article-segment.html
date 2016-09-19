@@ -60,7 +60,7 @@
         </div>
     </a>
     <footer class="post-footer">
-        {% taxonomies instance %}
+        {% include 'taxonomy/taxonomies.html' with communities=feed.communities.all  %}
         <div class="post-toolbar pull-right">
             <div class="post-count">
                 {% like_box instance request.path "inline" %}

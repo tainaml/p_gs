@@ -30,10 +30,11 @@ def get_feed_objects(community_instance=None, description=None, content_types_li
     ).order_by(
         "-date"
     ).prefetch_related(
+        "content_object",
         "content_object__author",
-        "content_object__author__profile",
-        "taxonomies"
-    )
+        "content_type",
+        "communities",
+        "communities__taxonomy")
 
     if official is True:
         feed_objects = feed_objects.filter(official=official)
@@ -93,10 +94,11 @@ def get_feed_questions(community_instance=None, description=None, content_types_
         )
 
     feed_objects = FeedObject.objects.filter(criteria).order_by("-date").prefetch_related(
+        "content_object",
         "content_object__author",
-        "content_object__author__profile",
-        "taxonomies"
-    )
+        "content_type",
+        "communities",
+        "communities__taxonomy")
 
     items_per_page = items_per_page if items_per_page else 10
     page = page if page else 1
@@ -141,7 +143,6 @@ def get_communities(taxonomies_list=None, description=None, items_per_page=None,
 def get_articles_with_videos(community, description=None, items_per_page=None, page=None):
 
     content_type = ContentTypeCached.objects.get(model="article")
-
     feed_objects = FeedObject.objects.filter(
         Q(tags__tag_slug__in=['video']) &
         Q(content_type=content_type) &
@@ -150,13 +151,20 @@ def get_articles_with_videos(community, description=None, items_per_page=None, p
             Q(article__title__icontains=description) |
             Q(article__text__icontains=description)
         )
-    ).prefetch_related("content_object")
+    ).prefetch_related(
+        "content_object",
+        "content_object__author",
+        "content_type",
+        "communities",
+        "communities__taxonomy")
+
+
 
     posts = feed_objects.filter(
         Q(content_type=content_type)
     )
 
-    items_per_page = items_per_page if items_per_page else 10
+    items_per_page = items_per_page if items_per_page else 5
     page = page if page else 1
 
     if items_per_page and page:
@@ -167,7 +175,6 @@ def get_articles_with_videos(community, description=None, items_per_page=None, p
             posts = posts.page(1)
         except EmptyPage:
             posts = []
-
     return posts
 
 

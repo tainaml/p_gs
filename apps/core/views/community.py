@@ -26,11 +26,7 @@ class CoreCommunityView(views.CommunityView):
         if request.user and request.user.is_authenticated():
 
             if isinstance(community_instance, Community):
-                community_followers = get_users_acted_by_model(model=community_instance,
-                                                               action=settings.SOCIAL_FOLLOW,
-                                                               filter_parameters={'author': request.user},
-                                                               itens_per_page=20,
-                                                               page=1)
+                community_followers = community_instance.followers
 
                 return {'user_follows_community': community_followers}
 
@@ -146,7 +142,7 @@ class CoreCommunityVideosSearch(views.CommunityView):
 
     def get_context(self, request, community_instance=None):
 
-        form = self.form_videos(community_instance, 10, request.GET)
+        form = self.form_videos(community_instance, 3, request.GET)
 
         videos = form.process()
 
@@ -173,7 +169,7 @@ class CoreCommunityVideosList(CoreCommunityVideosSearch):
 class CoreGetCommunities(views.View):
 
     form = CoreCommunityGetAllForm
-    itens_per_page = 25
+    itens_per_page = 6
 
     def get(self, request):
 
@@ -234,7 +230,7 @@ class CoreCommunityFollowersSearch(FormBaseListView):
     success_template_path = "community/partials/community-followers-list.html"
     fail_template_path = success_template_path
 
-    MAXIMUM_PER_PAGE = 9
+    MAXIMUM_PER_PAGE = 6
 
     # @Override
     def after_process(self, request=None, *args, **kwargs):
@@ -320,7 +316,6 @@ class CommunityCheckUserFollows(views.View):
 
 
 # Materials
-
 class CoreCommunityMaterialsSearch(views.CommunityView):
 
     template_path = "community/community-materials.html"
@@ -335,7 +330,7 @@ class CoreCommunityMaterialsSearch(views.CommunityView):
 
     def get_context(self, request, community_instance=None):
 
-        form = self.form_materials(community_instance, 10, request.GET)
+        form = self.form_materials(community_instance, 3, request.GET)
 
         posts = form.process()
 
