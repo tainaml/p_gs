@@ -10,7 +10,7 @@ urlpatterns = [
     url(_(r'^inscricao/$'), CoreViews.CoreRegisterView.as_view(), name='signup'),
 
     # Translators: URL de pagina de login
-    url(_(r'^login/$'), views.LoginView.as_view(), name='login'),
+    url(_(r'^login/?$'), views.LoginView.as_view(), name='login'),
 
     # Translators: URL de pagina de login ajax
     url(_(r'^login/ajax/$'), CoreViews.CoreLoginView.as_view(), name='login-ajax'),
