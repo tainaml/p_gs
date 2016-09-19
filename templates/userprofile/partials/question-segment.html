@@ -52,7 +52,7 @@
     </a>
     <footer class="post-footer">
         <nav class="post-communities">
-            {% taxonomies instance %}
+            {% include 'taxonomy/taxonomies.html' with communities=feed.communities.all  %}
         </nav>
         <div class="post-toolbar pull-right">
             <div class="post-count">
