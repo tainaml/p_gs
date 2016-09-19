@@ -15,7 +15,7 @@ class BaseCoreQuestionForm(CoreTaxonomiesMixin):
         return process_question if (process_question and process_taxonomies) else False
 
 
-class CoreCreateQuestionForm(CreateQuestionForm, BaseCoreQuestionForm):
+class CoreCreateQuestionForm(BaseCoreQuestionForm, CreateQuestionForm):
 
     def set_author(self, user):
         super(CoreCreateQuestionForm, self).set_author(user)
@@ -29,8 +29,11 @@ class CoreCreateQuestionForm(CreateQuestionForm, BaseCoreQuestionForm):
         return process_question if (process_question and process_taxonomies) else False
 
 
-class CoreEditQuestionForm(EditQuestionForm, BaseCoreQuestionForm):
+class CoreEditQuestionForm(BaseCoreQuestionForm, EditQuestionForm):
 
     def set_author(self, user):
         super(CoreEditQuestionForm, self).set_author(user)
         self.filter_comunities(user)
+
+    def __process__(self):
+        return super(CoreEditQuestionForm, self).__process__()

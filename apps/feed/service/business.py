@@ -24,7 +24,7 @@ def get_feed(content_instance):
     return feed_object
 
 def feed_get_or_create(content_instance):
-    content_type = ContentTypeCached.objects.get(model=content_instance)
+    content_type = ContentTypeCached.objects.get_for_model(model=content_instance)
 
     feed_object, created = FeedObject.objects.get_or_create(
         content_type=content_type,

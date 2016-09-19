@@ -126,7 +126,8 @@ def set_correct_answer(answer_id):
     answer = get_answer(answer_id)
 
     if answer:
-        question = get_question(answer.question.id)
+        # question = get_question(answer.question.id)
+        question = answer.question
         if question:
 
             if question.correct_answer and question.correct_answer == answer:
