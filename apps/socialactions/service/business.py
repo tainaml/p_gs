@@ -289,20 +289,22 @@ def act_by_content_type_and_id(user=None, content_type=None, object_id=None, act
                                      "Entity %s not found in SOCIAL_ENTITIES" % action_type_key)
 
 
+
 def get_users_ids_acted_by_model_and_action(model=None, action=None, user=None):
     content_type = ContentTypeCached.objects.get_for_model(user)
 
-    users_ids = []
-    users_actions = UserAction.objects.filter(
+    users = user.action_author.all().filter(
         content_type=content_type,
         action_type=action,
-        author=user
-    ).prefetch_related("author")
+    ).only(
+        'object_id'
+    ).distinct(
+        'object_id'
+    ).values_list(
+        'object_id', flat=True
+    )
 
-    for user in users_actions:
-        users_ids.append(user.object_id)
-
-    return users_ids
+    return users
 
 
 def get_users_acted_by_model(model=None, action=None, filter_parameters=None,
