@@ -60,10 +60,24 @@ def get_answers_by_question(question=None, items_per_page=None, page=None):
     return answers_paginated
 
 
-def get_all_answers_by_question(question=None):
-    return Answer.objects.filter(
-        question_id=question.id
-    ).order_by("-answer_date")
+def get_all_answers_by_question(question=None, prefetch=None, related=None):
+
+    qs = question.question_owner
+
+    if prefetch:
+        qs = qs.prefetch_related(*prefetch)
+
+    if related:
+        qs = qs.select_related(*related)
+
+    if qs == question.question_owner.none():
+        qs = qs.all()
+
+    if question and question.question_owner:
+        return question.question_owner.all().order_by('-answer_date')
+
+    else:
+        return Answer.objects.none()
 
 
 def update_reply(params=None, answer=None):
@@ -73,7 +87,7 @@ def update_reply(params=None, answer=None):
 
 def get_question(question_id=None, prefetch=None, related=None):
 
-    qs = Question.objects.all()
+    qs = Question.objects
 
     if prefetch and isinstance(prefetch, (list, tuple)):
         qs = qs.prefetch_related(*prefetch)
@@ -82,7 +96,7 @@ def get_question(question_id=None, prefetch=None, related=None):
         qs = qs.select_related(*related)
 
     try:
-        quest = qs.get(pk=question_id)
+        quest = qs.get(id=question_id)
     except Question.DoesNotExist:
         quest = False
 

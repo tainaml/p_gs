@@ -222,12 +222,16 @@ class ShowQuestionView(View):
             'author__profile__occupation',
         )
 
-        question = business.get_question(question_id, prefetch=prefetch)
+        related = (
+            'author'
+        )
+
+        question = business.get_question(question_id, prefetch=prefetch, related=related)
 
         if not question or (question and question.slug != question_slug):
             raise Http404(_("Question is not exists!"))
 
-        answers = business.get_all_answers_by_question(question)
+        answers = business.get_all_answers_by_question(question, prefetch=prefetch, related=related)
 
         form_answer = EditAnswerForm()
 

@@ -4,6 +4,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.core.urlresolvers import reverse
 from django.utils import timezone
+from django.utils.functional import cached_property
 from django.utils.translation import ugettext as _
 from django.conf import settings
 from .manager import UserManager
@@ -28,6 +29,9 @@ class User(AbstractUser):
     def get_absolute_ur(self):
         return 'javascript:void(0);' if not self.is_active else reverse('profile:show', args=[self.username])
 
+    @cached_property
+    def user_profile(self):
+        return self.profile if self.is_authenticated() else None
 
 
 class TokenType():
