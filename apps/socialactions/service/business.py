@@ -78,6 +78,7 @@ def get_object_actions_like(object, user=None, content_type=None):
 
     obj_likes = ObjectLikes()
 
+    # Only this interaction to return all infos
     for act in object_actions:
         if act.action_type == act_like:
             obj_likes.likes += 1
