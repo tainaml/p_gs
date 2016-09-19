@@ -71,6 +71,10 @@ def get_feed_objects(profile_instance=None, description=None, content_types_list
         user=user
     )
 
+    community_list = BusinessSocialActions.get_user_communities_following(
+        author=profile_instance.user,
+    )
+
     feed_objects = FeedObject.objects.filter(
         Q(content_type__in=content_types) &
         (
@@ -78,7 +82,7 @@ def get_feed_objects(profile_instance=None, description=None, content_types_list
             Q(question__deleted=False)
         ) &
         (
-            Q(communities__in=[]) |
+            Q(communities__id__in=community_list) |
             Q(article__author__in=followers_id) |
             Q(question__author__in=followers_id)
         )

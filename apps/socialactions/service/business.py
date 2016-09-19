@@ -334,6 +334,23 @@ def get_users_acted_by_model(model=None, action=None, filter_parameters=None,
     return list
 
 
+def get_user_communities_following(author, action=None, content_type=None, filter_parameters=None):
+    content_type = get_model_type('community')
+
+    communities_ids = author.action_author.all().filter(
+        content_type=content_type,
+        action_type=settings.SOCIAL_FOLLOW,
+    ).only(
+        'object_id'
+    ).distinct(
+        'object_id'
+    ).values_list(
+        'object_id', flat=True
+    )
+
+    return communities_ids
+
+
 def get_users_acted_by_author(author=None, action=None, content_type=None, filter_parameters=None, items_per_page=None,
                               page=None):
     if not filter_parameters:
@@ -342,7 +359,7 @@ def get_users_acted_by_author(author=None, action=None, content_type=None, filte
     content_type = get_model_type(content_type)
     parameters = filter_parameters.copy()
     parameters['content_type'] = content_type
-    parameters['author'] = author.id
+    parameters['author'] = author
     parameters['action_type'] = action
 
     users_actions = UserAction.objects.filter(**parameters).prefetch_related("author", "content_object")
