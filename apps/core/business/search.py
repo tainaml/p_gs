@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
 from django.conf import settings
+from django.contrib.postgres.lookups import Unaccent
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.db.models import Q
+import unicodedata
 from apps.account.models import User
 from apps.article.models import Article
 from apps.community.models import Community
@@ -10,7 +12,8 @@ from apps.question.models import Question
 from apps.userprofile.models import UserProfile
 from itertools import chain
 from collections import OrderedDict
-from django.contrib.postgres.search import SearchVector
+from django.contrib.postgres.search import SearchVector, SearchQuery, SearchRank
+
 
 def get_communities(description=None, items_per_page=None, page=None, startswith=False, category=None):
 
@@ -186,39 +189,12 @@ def get_articles(description=None, items_per_page=None, page=None):
     return articles
 
 
-def get_feed_title_criteria(description=''):
-    terms = description.split(' ')
-
-    main_criteria = Q(article__title__unaccent__icontains=description)
-    criteria = None
-    for term in terms:
-        term_criteria = Q(article__title__unaccent__icontains=term)
-        criteria = (criteria & term_criteria) if criteria else term_criteria
-
-    return main_criteria | criteria
-
-
-def get_feed_text_criteria(description):
-    main_criteria =  Q(
-        article__text__unaccent__icontains=description
-    )
-
-    terms = description.split(' ')
-    criteria = None
-    for term in terms:
-        term_criteria = Q(article__text__unaccent__icontains=term)
-        criteria = (criteria & term_criteria) if criteria else term_criteria
-
-    return main_criteria | criteria
-
-
 def get_feed_main_criteria():
     criteria = Q(
         article__status = Article.STATUS_PUBLISH,
     )
 
     return criteria
-
 
 def get_articles_feed(description=None, items_per_page=None, page=None):
 
@@ -227,20 +203,21 @@ def get_articles_feed(description=None, items_per_page=None, page=None):
 
 
     main_criteria = get_feed_main_criteria()
-    title_criteria = get_feed_title_criteria(description=description)
-    text_criteria = get_feed_text_criteria(description=description)
+
+    vector = SearchVector("article__title", weight="A") + SearchVector("article__text", weight="B")
+
+
+
+    query = SearchQuery(description)
 
     articles = FeedObject.objects.annotate(
-        search=SearchVector('blog__tagline', 'body_text'),
-    ).filter(main_criteria).prefetch_related(
-            "content_object",
-            "content_object__author",
-            "content_type",
-            "communities",
-            "communities__taxonomy").order_by("-article__publishin")
-
-
-
+        rank=SearchRank(vector, query)
+    ).filter(main_criteria, article__search_vector=query).prefetch_related(
+             "content_object",
+             "content_object__author",
+             "content_type",
+             "communities",
+             "communities__taxonomy").order_by('-rank')
 
     articles = Paginator(articles, items_per_page)
 
