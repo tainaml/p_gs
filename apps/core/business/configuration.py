@@ -23,7 +23,7 @@ def get_system_configs(config_group=None, show=True):
             criteria &= Q(group=group)
 
         config_keys = ConfigKey.objects.filter(criteria).order_by('order')
-    except Exception, e:
+    except Exception as e:
         if settings.DEBUG:
             logger.error(e.message)
         config_keys = []
@@ -44,7 +44,7 @@ def get_configs(entity, config_group=None):
 
         configs = ConfigValues.objects.filter(criteria)
 
-    except Exception, e:
+    except Exception as e:
         if settings.DEBUG:
             logger.error(e.message)
         configs = None
@@ -77,7 +77,7 @@ def save_configs(entity, data):
             else:
                 configs_updated.append(config)
 
-    except Exception, e:
+    except Exception as e:
         if settings.DEBUG:
             logger.error(e.message)
         return False
@@ -96,7 +96,7 @@ def check_config_to_notify(to_user, action, target_object=None):
 
     if action in allowed_social_tags and target_object:
         key_slug = key_prefix + settings.SOCIAL_LABELS[action] + '_'
-        target_content = ContentTypeCached.objects.get(model=target_object)
+        target_content = ContentTypeCached.objects.get_for_model(model=target_object)
         key_slug += target_content.model
     else:
         key_slug = key_prefix
@@ -108,7 +108,7 @@ def check_config_to_notify(to_user, action, target_object=None):
             Q(content_type=ContentTypeCached.objects.get(model=to_user)) &
             Q(key=ConfigKey.objects.get(key=key_slug))
         )
-    except Exception, e:
+    except Exception as e:
         if settings.DEBUG:
             logger.error(e.message)
         return False

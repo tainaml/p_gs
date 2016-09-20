@@ -57,10 +57,17 @@ $.fn.refreshEditors = function (){
         template: item => item.title,
         content: item => {
           if (item.slug && item.title) {
+            let tempself = $(this);
+
+            setTimeout(function () {
+              tempself.trigger('summernote.change');
+            }, 11);
+
             return $('<a />').attr({
               href: `/${item.slug}/`,
               title: item.title
             }).text(`#${item.title}`)[0];
+            $editor.val($editor.summernote('code'));
           }
           return '';
         },
@@ -69,19 +76,26 @@ $.fn.refreshEditors = function (){
 
     if (editorConfig.hasHint && hintURI) {
       editorConfig.hint.push({
-        match: /@([\-+\w| ]+)$/,
+        match: /\B@(\w*)$/,
         search: (keyword, callback) => {
-          $.getJSON(hintURI, { term: keyword },
-            data => {
-              callback(data.users);
-            }
-          );
+          if (keyword) {
+            $.getJSON(hintURI, { term: keyword },
+              data => {
+                callback(data.users);
+              }
+            );
+          }
         },
         template: item => item.full_name,
+
         content: item => {
           if (item.username && item.full_name) {
             // TODO:
             // A url ainda está fixa, fazer a tradução
+            let tempself = $(this);
+            setTimeout(function () {
+              tempself.trigger('summernote.change');
+            }, 11);
             return $('<a />').attr({
               href: `/perfil/${item.username}/`,
               title: item.full_name
@@ -112,7 +126,7 @@ $.fn.refreshEditors = function (){
           if($parentForm.data('logged') && $parentForm.data('logged').toLowerCase() == 'false') {
             $modalLogin.modal('show');
           }
-        }
+        },
       }
     });
 

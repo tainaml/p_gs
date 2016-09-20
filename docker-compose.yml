@@ -16,6 +16,11 @@ services:
       FACE_DETECTOR_CASCADE_FILE: 'haarcascade_frontalface_alt.xml'
       USE_GIFSICLE_ENGINE: "True"
       SECURITY_KEY: "MY_SECURE_KEY"
+      RESULT_STORAGE_STORES_UNSAFE: "True"
+      RESULT_STORAGE: "thumbor.result_storages.file_storage"
+    volumes:
+      - data:/data
+      - logs:/logs
     ports:
       - "8888:8000"
     networks:
@@ -42,22 +47,11 @@ services:
       - "5432:5432"
     volumes:
       - ../postgres_database:/var/lib/postgresql
-  web:
-    build: .
-    volumes:
-      - ./:/var/www
-    ports:
-      - "8000:8000"
-      - "2202:22"
-    networks:
-      - my-net
-    links:
-      - db:db
-      - thumbor:thumbor
-      - memcached:memcached
-    domainname: redegsti.dev
-    hostname: redegsti
-
+volumes:
+  data:
+    driver: local
+  logs:
+    driver: local
 networks:
   my-net:
     driver: bridge
