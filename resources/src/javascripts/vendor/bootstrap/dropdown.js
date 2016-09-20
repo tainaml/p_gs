@@ -60,18 +60,21 @@
 
         if ($this.is('.disabled, :disabled')) return
 
-        var $parent  = getParent($this)
-        var isActive = $parent.hasClass('open')
+        var $parent   = getParent($this)
+        var isActive  = $parent.hasClass('open')
+        var isComment = $parent.hasClass('comment-dropdown')
 
         clearMenus()
 
         if (!isActive) {
             if ('ontouchstart' in document.documentElement && !$parent.closest('.navbar-nav').length) {
                 // if mobile we use a backdrop because click events don't delegate
-                $(document.createElement('div'))
-                    .addClass('dropdown-backdrop')
-                    .insertAfter($(this))
-                    .on('click', clearMenus)
+                if (!isComment) {
+                  $(document.createElement('div'))
+                  .addClass('dropdown-backdrop')
+                  .insertAfter($(this))
+                  .on('click', clearMenus)
+                }
             }
 
             var relatedTarget = { relatedTarget: this }

@@ -13,7 +13,7 @@
         <i class="gsticon gsticon-clock-o hidden-lg"></i>
       </time>
       <a href="javascript:;" data-toggle="dropdown" data-selector="#setting-comment-{{ instance.id }}"><i class="gsticon gsticon-gear"></i></a>
-      <div class="dropdown-menu" id="setting-comment-{{ instance.id }}">
+      <div class="dropdown-menu dropdown-menu-right" id="setting-comment-{{ instance.id }}">
           <ul class="perfil-actions">
           {% if instance.author == request.user %}
             <li data-toggle="dropdown" data-target="#comment-edit-{{ instance.id }}"><a href="javascript:;"><i class="gsticon gsticon-edit"></i> Editar publicação</a></li>
