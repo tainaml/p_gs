@@ -5,7 +5,8 @@
 
     {% csrf_token %}
     <input type="hidden" name="reply_id" value="{{ reply.id }}" />
-    <textarea name="description" id="description" placeholder="{% trans  'Comment here' %}" cols="30" rows="10">{{ reply.description }}</textarea>
+    {% url 'hint:list' content_type content_object.id as hint_list_url %}
+    <textarea name="description" id="description" placeholder="{% trans  'Comment here' %}" cols="30" rows="10" data-hint-url=hint_list_url>{{ reply.description }}</textarea>
     {% if form.description.errors %}<span class="help-block">{{ form.description.errors }}</span> {% endif %}
     <input type="submit" value="Submit"/>
 </form>
