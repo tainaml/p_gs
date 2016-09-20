@@ -73,7 +73,7 @@
                     </header>
                     {% endif %}
 
-                    {% if articles.object_list %}
+                    {% if feed_articles %}
                         <div class="area-content">
                             <div class="row j-scroll-articles j-scroll-container-articles">
                                 {% include "search/partials/search-articles.html" %}
@@ -81,8 +81,6 @@
                         </div>
                     {% endif %}
                 </div>
-
-
 
                 <div class="result-container">
 

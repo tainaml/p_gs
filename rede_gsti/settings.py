@@ -146,7 +146,6 @@ THIRD_PART_APPS = (
     'django_user_agents',
     'smart_selects',
     'reversion',
-    'reversion_compare',
     'ideia_summernote',
     'micawber.contrib.mcdjango',
 )
