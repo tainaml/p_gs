@@ -5,6 +5,7 @@ from django.shortcuts import render
 from django.utils.decorators import method_decorator
 from django.views.generic import View
 from django.utils.translation import ugettext as _
+from apps.core.business.content_types import ContentTypeCached
 
 from apps.feed.models import FeedObject
 from apps.complaint.service.form import ComplaintForm
@@ -41,7 +42,7 @@ class ComplaintView(View):
         }
 
         try:
-            content_type = ContentType.objects.get(model=object_type)
+            content_type = ContentTypeCached.objects.get(model=object_type)
             content_object = content_type.get_object_for_this_type(id=object_id)
 
             context.update({

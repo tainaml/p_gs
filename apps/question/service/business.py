@@ -3,6 +3,7 @@ from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.db import transaction
 
 from apps.comment.models import Comment
+from apps.core.business.content_types import ContentTypeCached
 from ..models import Question, Answer
 
 
@@ -59,10 +60,24 @@ def get_answers_by_question(question=None, items_per_page=None, page=None):
     return answers_paginated
 
 
-def get_all_answers_by_question(question=None):
-    return Answer.objects.filter(
-        question_id=question.id
-    ).order_by("-answer_date")
+def get_all_answers_by_question(question=None, prefetch=None, related=None):
+
+    qs = question.question_owner
+
+    if prefetch:
+        qs = qs.prefetch_related(*prefetch)
+
+    if related:
+        qs = qs.select_related(*related)
+
+    if qs == question.question_owner.none():
+        qs = qs.all()
+
+    if question and question.question_owner:
+        return question.question_owner.all().order_by('-answer_date')
+
+    else:
+        return Answer.objects.none()
 
 
 def update_reply(params=None, answer=None):
@@ -70,18 +85,36 @@ def update_reply(params=None, answer=None):
     return False if answer.save() is False else answer
 
 
-def get_question(question_id=None):
+def get_question(question_id=None, prefetch=None, related=None):
+
+    qs = Question.objects
+
+    if prefetch and isinstance(prefetch, (list, tuple)):
+        qs = qs.prefetch_related(*prefetch)
+
+    if related and isinstance(related, (list, tuple)):
+        qs = qs.select_related(*related)
+
     try:
-        quest = Question.objects.get(pk=question_id)
+        quest = qs.get(id=question_id)
     except Question.DoesNotExist:
         quest = False
 
     return quest
 
 
-def get_answer(answer_id=None):
+def get_answer(answer_id=None, prefetch=None, related=None):
+
+    qs = Answer.objects.all()
+
+    if prefetch and isinstance(prefetch, (list, tuple)):
+        qs = qs.prefetch_related(*prefetch)
+
+    if related and isinstance(related, (list, tuple)):
+        qs = qs.select_related(*related)
+
     try:
-        answer = Answer.objects.get(pk=answer_id)
+        answer = qs.get(pk=answer_id)
     except Answer.DoesNotExist:
         answer = False
 
@@ -93,7 +126,8 @@ def set_correct_answer(answer_id):
     answer = get_answer(answer_id)
 
     if answer:
-        question = get_question(answer.question.id)
+        # question = get_question(answer.question.id)
+        question = answer.question
         if question:
 
             if question.correct_answer and question.correct_answer == answer:
@@ -113,7 +147,7 @@ def set_correct_answer(answer_id):
 @transaction.atomic()
 def remove_answer(answer):
 
-    content_type = ContentType.objects.get_for_model(answer)
+    content_type = ContentTypeCached.objects.get(model='answer')
 
     try:
         question = answer.question

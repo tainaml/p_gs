@@ -3,6 +3,7 @@ from django.db.models import Q
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
 from apps.article.models import Article
+from apps.core.business.content_types import ContentTypeCached
 from apps.socialactions.models import UserAction
 from rede_gsti import settings
 
@@ -12,7 +13,7 @@ def get_see_later_content(user, criteria=None, items_per_page=None, page=None):
     action_type = settings.SOCIAL_SEE_LATER
 
     condition = Q(author=user) & Q(action_type=action_type)
-    content_type = ContentType.objects.filter(model='article')
+    content_type = ContentTypeCached.objects.get(model='article')
 
     UserActions = UserAction.objects.filter(
         author=user,
@@ -59,7 +60,7 @@ def get_favourite_content(author, criteria=None, items_per_page=None, page=None)
 
     action_type = settings.SOCIAL_FAVOURITE
 
-    content_type = ContentType.objects.filter(model__in=['article', 'question'])
+    content_type = ContentTypeCached.objects.filter(model__in=['article', 'question'])
 
     UserActions = UserAction.objects.filter(
         author=author,
@@ -107,7 +108,7 @@ def get_suggest_content(user, criteria=None, items_per_page=None, page=None):
     action_type = settings.SOCIAL_SUGGEST
 
     condition = Q(target_user=user) & Q(action_type=action_type)
-    content_type = ContentType.objects.get(model='article')
+    content_type = ContentTypeCached.objects.get(model='article')
 
     user_actions = UserAction.objects.filter(
         target_user=user,
@@ -176,7 +177,7 @@ def remove_social_actions(action_type, items_to_remove, author=None, target_user
 
 def get_content_by_action(description, action_type, items_per_page=None, page=None, author=None, target_user=None):
 
-    content_type = ContentType.objects.filter(model__in=['article', 'question'])
+    content_type = ContentTypeCached.objects.filter(model__in=['article', 'question'])
 
     criteria = Q(action_type=action_type,) & Q(content_type__in=content_type)
 

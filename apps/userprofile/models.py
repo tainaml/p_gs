@@ -5,6 +5,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.db import models
 from django.utils.translation import ugettext as _
 from apps.account.models import User
+from apps.core.business.content_types import ContentTypeCached
 from apps.socialactions.models import Counter
 from apps.geography.models import State, City, Country
 
@@ -76,7 +77,7 @@ class UserProfile(models.Model):
             return Counter.objects.defer("count").get(
                 action_type=settings.SOCIAL_FOLLOW,
                 object_id=self.id,
-                content_type= ContentType.objects.get(model='community')
+                content_type= ContentTypeCached.objects.get(model='community')
 
             ).count
         except:

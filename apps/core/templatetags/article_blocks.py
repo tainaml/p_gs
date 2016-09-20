@@ -8,6 +8,7 @@ from django.utils import timezone
 from django.utils.safestring import mark_safe
 from apps.article.models import Article
 from apps.community.models import Community
+from apps.core.business.content_types import ContentTypeCached
 from apps.feed.models import FeedObject
 from apps.taxonomy.models import Taxonomy
 from ..cachecontrol import cachecontrol, CacheItemMixin
@@ -18,7 +19,7 @@ register = template.Library()
 article_type = None
 
 try:
-    article_type = ContentType.objects.get(model="article")
+    article_type = ContentTypeCached.objects.get(model="article")
 except:
     pass
 

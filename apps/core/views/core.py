@@ -8,6 +8,7 @@ from django.utils.safestring import mark_safe
 from django.views.generic import View
 import micawber
 from apps.article.models import Article
+from apps.core.business.content_types import ContentTypeCached
 from apps.feed.models import FeedObject
 
 
@@ -60,10 +61,10 @@ class CoreRelatedPosts(CoreBaseView):
         count = count if count and count < 10 else 4
 
         try:
-            content_type = ContentType.objects.get(model=instance_type)
+            content_type = ContentTypeCached.objects.get(model=instance_type)
             content_object = content_type.get_object_for_this_type(id=instance_id)
 
-            post_type = ContentType.objects.get(model=post_type) if post_type else content_type
+            post_type = ContentTypeCached.objects.get(model=post_type) if post_type else content_type
 
             template_path = 'core/partials/related-posts/%s-base.html' % post_type.model
 

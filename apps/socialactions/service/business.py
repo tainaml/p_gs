@@ -1,11 +1,12 @@
 from django.db import transaction
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
-from django.db.models import Q
+from django.db.models import Q, Prefetch
 from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
 from apps.account.models import User
+from apps.core.business.content_types import ContentTypeCached
 from apps.taxonomy.service.business import get_related_list_top_down
-from ..models import UserAction, UserActionCounter
+from ..models import UserAction, UserActionCounter, Counter
 from ..localexceptions import NotFoundSocialSettings
 
 
@@ -25,11 +26,11 @@ def get_by_label(str_label=None):
 
 
 def get_content_by_object(content_object=None):
-    return ContentType.objects.get_for_model(content_object)
+    return ContentTypeCached.objects.get_for_model(model=content_object)
 
 
 def get_model_type(content_type=None):
-    model_type = ContentType.objects.get(model=content_type)
+    model_type = ContentTypeCached.objects.get(model=content_type)
 
     return model_type
 
@@ -42,6 +43,57 @@ def get_content_object(content_type=None, object_id=None):
     return content_object
 
 
+class ObjectLikes(object):
+        likes = 0
+        unlikes = 0
+        user_likes = False
+        user_unlikes = False
+
+
+def get_object_actions_like(object, user=None, content_type=None):
+
+    """
+    Return likes from the object. If user, check actions from the user in object
+    :param object: Object to actions check
+    :param user: (Optional) User to increase checks
+    :param content_type: Content Type for the object
+    :return: ObjectLikes
+    """
+
+    act_like = getattr(settings, 'SOCIAL_LIKE')
+    act_unlike = getattr(settings, 'SOCIAL_UNLIKE')
+
+    action_types = [
+        act_like,
+        act_unlike,
+    ]
+
+    object_actions = UserAction.objects.only(
+        'id', 'author', 'action_type'
+    ).filter(
+        content_type=content_type,
+        object_id=object.id,
+        action_type__in=action_types
+    )
+
+    obj_likes = ObjectLikes()
+
+    # Only this interaction to return all infos
+    for act in object_actions:
+        if act.action_type == act_like:
+            obj_likes.likes += 1
+        elif act.action_type == act_unlike:
+            obj_likes.unlikes += 1
+
+        if user.is_authenticated():
+
+            if act.author_id == user.id and act.action_type == act_like:
+                obj_likes.user_likes = True
+            elif act.author_id == user.id and act.action_type == act_unlike:
+                obj_likes.user_unlikes = True
+
+    return obj_likes
+
 def get_user_by_params(params=None):
     try:
         user_action = UserAction.objects.filter(**params)[0]
@@ -52,7 +104,7 @@ def get_user_by_params(params=None):
 
 
 def user_acted_by_object_and_action_id(user=None, content_object=None, action_type_id=None):
-    content_type = ContentType.objects.get_for_model(content_object)
+    content_type = ContentTypeCached.objects.get_for_model(content_object)
     try:
         user_action = UserAction.objects.filter(content_type=content_type,
                                                 author=user,
@@ -69,11 +121,13 @@ def user_acted_by_object(user=None, content_object=None, action_type=None):
 
 
 def user_count_acted_by_object_and_action_id(user=None, content_object=None, action_type=None):
-    content_type = ContentType.objects.get_for_model(content_object)
+    content_type = ContentTypeCached.objects.get_for_model(content_object)
 
-    user_action_count = UserAction.objects.filter(content_type=content_type,
-                                                  object_id=content_object.id,
-                                                  action_type=action_type).count()
+    user_action_count = UserAction.objects.filter(
+        content_type=content_type,
+        object_id=content_object.id,
+        action_type=action_type
+    ).count()
 
     return user_action_count
 
@@ -110,6 +164,8 @@ def user_liked_by_id_and_content_type(user=None, content_type=None, object_id=No
 
 
 def user_liked_by_object(user=None, content_object=None):
+    if not user.is_authenticated():
+        return 0
     return user_acted_by_object(user, content_object, 'like')
 
 
@@ -118,6 +174,8 @@ def user_unliked_by_id_and_content_type(user=None, content_type=None, object_id=
 
 
 def user_unliked_by_object(user=None, content_object=None):
+    if not user.is_authenticated():
+        return 0
     return user_acted_by_object(user, content_object, 'unlike')
 
 
@@ -126,6 +184,9 @@ def user_followed(user=None, content_type=None, object_id=None):
 
 
 def user_likes_by_object(user=None, content_object=None):
+    if not user.is_authenticated():
+        return 0
+
     return user_count_acted_by_object(user, content_object, 'like')
 
 
@@ -134,6 +195,8 @@ def user_likes_by_object_content_type_and_id(user=None, content_type=None, objec
 
 
 def user_unlikes_by_object(user=None, content_object=None):
+    if not user.is_authenticated():
+        return 0
     return user_count_acted_by_object(user, content_object, 'unlike')
 
 
@@ -146,7 +209,7 @@ def followers_count(user=None, content_object=None):
 
 
 def followings_count(author=None, content_type=None):
-    content_type = ContentType.objects.get(model=content_type)
+    content_type = ContentTypeCached.objects.get(model=content_type)
     action_type = get_by_label("follow")
 
     user_action_count = UserAction.objects.filter(author=author,
@@ -164,7 +227,7 @@ def suggest_post(author, object_to_link, content, to_user):
 
     suggested_to = []
 
-    content_type = ContentType.objects.get(model=content)
+    content_type = ContentTypeCached.objects.get(model=content)
 
     instance = content_type.get_object_for_this_type(id=object_to_link)
     if not instance:
@@ -226,20 +289,22 @@ def act_by_content_type_and_id(user=None, content_type=None, object_id=None, act
                                      "Entity %s not found in SOCIAL_ENTITIES" % action_type_key)
 
 
-def get_users_ids_acted_by_model_and_action(model=None, action=None, user=None):
-    content_type = ContentType.objects.get_for_model(user)
 
-    users_ids = []
-    users_actions = UserAction.objects.filter(
+def get_users_ids_acted_by_model_and_action(model=None, action=None, user=None):
+    content_type = ContentTypeCached.objects.get_for_model(user)
+
+    users = user.action_author.all().filter(
         content_type=content_type,
         action_type=action,
-        author=user
-    ).prefetch_related("author")
+    ).only(
+        'object_id'
+    ).distinct(
+        'object_id'
+    ).values_list(
+        'object_id', flat=True
+    )
 
-    for user in users_actions:
-        users_ids.append(user.object_id)
-
-    return users_ids
+    return users
 
 
 def get_users_acted_by_model(model=None, action=None, filter_parameters=None,
@@ -247,13 +312,13 @@ def get_users_acted_by_model(model=None, action=None, filter_parameters=None,
     if not filter_parameters:
         filter_parameters = {}
 
-    content_type = ContentType.objects.get_for_model(model)
+    content_type = ContentTypeCached.objects.get_for_model(model)
     parameters = filter_parameters.copy()
     parameters['content_type'] = content_type
     parameters['object_id'] = model.id
     parameters['action_type'] = action
 
-    users_actions = UserAction.objects.filter(**parameters).prefetch_related('author')
+    users_actions = UserAction.objects.filter(**parameters).prefetch_related('author', "author__profile", "content_object")
 
     list = Paginator(users_actions, itens_per_page)
     try:
@@ -269,6 +334,23 @@ def get_users_acted_by_model(model=None, action=None, filter_parameters=None,
     return list
 
 
+def get_user_communities_following(author, action=None, content_type=None, filter_parameters=None):
+    content_type = get_model_type('community')
+
+    communities_ids = author.action_author.all().filter(
+        content_type=content_type,
+        action_type=settings.SOCIAL_FOLLOW,
+    ).only(
+        'object_id'
+    ).distinct(
+        'object_id'
+    ).values_list(
+        'object_id', flat=True
+    )
+
+    return communities_ids
+
+
 def get_users_acted_by_author(author=None, action=None, content_type=None, filter_parameters=None, items_per_page=None,
                               page=None):
     if not filter_parameters:
@@ -277,7 +359,7 @@ def get_users_acted_by_author(author=None, action=None, content_type=None, filte
     content_type = get_model_type(content_type)
     parameters = filter_parameters.copy()
     parameters['content_type'] = content_type
-    parameters['author'] = author.id
+    parameters['author'] = author
     parameters['action_type'] = action
 
     users_actions = UserAction.objects.filter(**parameters).prefetch_related("author", "content_object")

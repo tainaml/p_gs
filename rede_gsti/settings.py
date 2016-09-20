@@ -81,6 +81,9 @@ except IOError as e:
     config.set("CACHE", "host", '127.0.0.1')
     config.set("CACHE", "port", '11211')
 
+    config.add_section("DEVELOP")
+    config.set('DEVELOP', 'profiler', 'silk')
+
     config.add_section("LOG_FILES")
     config.set("LOG_FILES", "info", '/var/log/rede_gsti/info.log')
     config.set("LOG_FILES", "error", '/var/log/rede_gsti/error.log')
@@ -201,15 +204,41 @@ SITE_PROTOCOL = 'https'
 
 PREPOSITIONS = [
     'de', 'dos', 'das', 'da', 'do'
-    'e'
+                              'e'
 ]
+
+
+MIDDLEWARE_CLASSES = (
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.common.CommonMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.security.SecurityMiddleware',
+    # 'apps.core.middleware.MinifyHTMLMiddleware',
+    # 'django_user_agents.middleware.UserAgentMiddleware',
+)
 
 
 # Setting Environment specific settings
 if ENVIRONMENT == "develop":
     DEBUG = True
-    #INSTALLED_APPS += ('debug_toolbar', 'apps.ninico',)
-    INSTALLED_APPS += ('apps.ninico','debug_toolbar',)
+
+    profiler = config.get("DEVELOP", 'profiler')
+
+    PROFILER_APP = 'silk'
+
+    if profiler == 'debug_toolbar':
+        PROFILER_APP = 'debug_toolbar'
+    else:
+        MIDDLEWARE_CLASSES += ('silk.middleware.SilkyMiddleware',)
+        SILKY_PYTHON_PROFILER = True
+        SILKY_META = True
+
+
+    INSTALLED_APPS += ('apps.ninico', PROFILER_APP )
     STATIC_URL = '/static/'
     MEDIA_URL = '/media/uploads/'
     SECURE_SSL_HOST = None
@@ -218,13 +247,9 @@ if ENVIRONMENT == "develop":
     if USE_CACHE:
         CACHES = {
             'default': {
-                # 'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
-                'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
-                'LOCATION': 'unique-snowflake',
-                # 'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
-                # 'LOCATION': 'localhost:11211'
-
-            }
+                'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+                'LOCATION': '%s:%s' % (config.get("CACHE", "host"), config.get("CACHE", "port"),),
+            },
         }
     else:
         CACHES = {
@@ -285,18 +310,7 @@ AUTH_USER_MODEL = 'account.User'
 
 
 
-MIDDLEWARE_CLASSES = (
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'django.middleware.security.SecurityMiddleware',
-    'apps.core.middleware.MinifyHTMLMiddleware',
-    'django_user_agents.middleware.UserAgentMiddleware',
-)
+
 
 LOCALE_PATHS = (
     os.path.join(BASE_DIR, 'locale'),
@@ -450,6 +464,7 @@ TOOLBAR_CUSTOM = [
 ]
 
 NOTIFICATION_ALERT_DEFAULT_AUTHOR = 39
+TIME_TO_REFRESH_NOTIFICATION_IN_SEC = 30
 
 #HOME community characters limit
 HOME_CHARACTERS_LIMIT= 48
@@ -554,7 +569,7 @@ AVATAR = {
 
 
 # Login Urls
-LOGIN_URL = '/account/login'
+LOGIN_URL = '/conta/login/'
 
 
 # Wizard Steps
@@ -768,21 +783,21 @@ SUMMERNOTE_CONFIG = {
 
             ],
             'popover': {
-              'image': [
-                ['imagesize', ['imageSize100', 'imageSize50', 'imageSize25']],
-                ['float', ['floatLeft', 'floatRight', 'floatNone']],
-                ['remove', ['removeMedia']]
-              ],
-              'link': [
-                ['link', ['linkDialogShow', 'unlink']]
-              ],
-              'air': [
-                ['color', ['color']],
-                ['font', ['bold', 'clear']],
-                ['para', ['ul', 'paragraph']],
-                ['table', ['table']],
-                ['insert', ['link', 'picture']]
-              ]
+                'image': [
+                    ['imagesize', ['imageSize100', 'imageSize50', 'imageSize25']],
+                    ['float', ['floatLeft', 'floatRight', 'floatNone']],
+                    ['remove', ['removeMedia']]
+                ],
+                'link': [
+                    ['link', ['linkDialogShow', 'unlink']]
+                ],
+                'air': [
+                    ['color', ['color']],
+                    ['font', ['bold', 'clear']],
+                    ['para', ['ul', 'paragraph']],
+                    ['table', ['table']],
+                    ['insert', ['link', 'picture']]
+                ]
             }
 
         },
@@ -811,21 +826,21 @@ SUMMERNOTE_CONFIG = {
 
             ],
             'popover': {
-              'image': [
-                ['imagesize', ['imageSize100', 'imageSize50', 'imageSize25']],
-                ['float', ['floatLeft', 'floatRight', 'floatNone']],
-                ['remove', ['removeMedia']]
-              ],
-              'link': [
-                ['link', ['linkDialogShow', 'unlink']]
-              ],
-              'air': [
-                ['color', ['color']],
-                ['font', ['bold', 'clear']],
-                ['para', ['ul', 'paragraph']],
-                ['table', ['table']],
-                ['insert', ['link', 'picture']]
-              ]
+                'image': [
+                    ['imagesize', ['imageSize100', 'imageSize50', 'imageSize25']],
+                    ['float', ['floatLeft', 'floatRight', 'floatNone']],
+                    ['remove', ['removeMedia']]
+                ],
+                'link': [
+                    ['link', ['linkDialogShow', 'unlink']]
+                ],
+                'air': [
+                    ['color', ['color']],
+                    ['font', ['bold', 'clear']],
+                    ['para', ['ul', 'paragraph']],
+                    ['table', ['table']],
+                    ['insert', ['link', 'picture']]
+                ]
             }
 
         }
@@ -854,21 +869,21 @@ SUMMERNOTE_CONFIG = {
 
             ],
             'popover': {
-              'image': [
-                ['imagesize', ['imageSize100', 'imageSize50', 'imageSize25']],
-                ['float', ['floatLeft', 'floatRight', 'floatNone']],
-                ['remove', ['removeMedia']]
-              ],
-              'link': [
-                ['link', ['linkDialogShow', 'unlink']]
-              ],
-              'air': [
-                ['color', ['color']],
-                ['font', ['bold', 'clear']],
-                ['para', ['ul', 'paragraph']],
-                ['table', ['table']],
-                ['insert', ['link', 'picture']]
-              ]
+                'image': [
+                    ['imagesize', ['imageSize100', 'imageSize50', 'imageSize25']],
+                    ['float', ['floatLeft', 'floatRight', 'floatNone']],
+                    ['remove', ['removeMedia']]
+                ],
+                'link': [
+                    ['link', ['linkDialogShow', 'unlink']]
+                ],
+                'air': [
+                    ['color', ['color']],
+                    ['font', ['bold', 'clear']],
+                    ['para', ['ul', 'paragraph']],
+                    ['table', ['table']],
+                    ['insert', ['link', 'picture']]
+                ]
             }
 
         },
@@ -915,11 +930,11 @@ SUMMERNOTE_CONFIG = {
             ],
             'popover': {
                 'air':[
-                ['style', ['bold', 'italic', 'underline', 'clear']],
-                ['font', ['strikethrough', 'superscript', 'subscript']],
-                ['fontsize', ['fontsize']],
-                ['para', ['ul', 'ol', 'paragraph']],
-                ['height', ['height']]
+                    ['style', ['bold', 'italic', 'underline', 'clear']],
+                    ['font', ['strikethrough', 'superscript', 'subscript']],
+                    ['fontsize', ['fontsize']],
+                    ['para', ['ul', 'ol', 'paragraph']],
+                    ['height', ['height']]
                 ]
             }
         },'reply': {
@@ -935,11 +950,11 @@ SUMMERNOTE_CONFIG = {
             ],
             'popover': {
                 'air':[
-                ['style', ['bold', 'italic', 'underline', 'clear']],
-                ['font', ['strikethrough', 'superscript', 'subscript']],
-                ['fontsize', ['fontsize']],
-                ['para', ['ul', 'ol', 'paragraph']],
-                ['height', ['height']]
+                    ['style', ['bold', 'italic', 'underline', 'clear']],
+                    ['font', ['strikethrough', 'superscript', 'subscript']],
+                    ['fontsize', ['fontsize']],
+                    ['para', ['ul', 'ol', 'paragraph']],
+                    ['height', ['height']]
                 ]
             }
         },

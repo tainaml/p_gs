@@ -4,6 +4,7 @@ from django.contrib.contenttypes.fields import GenericRelation
 from django.db import models
 from django.template.defaultfilters import slugify
 from django.utils import timezone
+from django.utils.functional import cached_property
 from django.utils.translation import ugettext as _
 from django.conf import settings
 from apps.core.models.embed import EmbedItem
@@ -52,13 +53,12 @@ class Article(models.Model):
 
     status = models.IntegerField(choices=STATUS_CHOICES, null=False)
 
-    feed = GenericRelation(FeedObject, related_query_name="article")
-    embed = GenericRelation(EmbedItem, related_query_name="article")
+    feed = GenericRelation(FeedObject, related_name="feed", related_query_name="article")
 
+    embed = GenericRelation(EmbedItem, related_query_name="article")
 
     def get_first_slug(self):
         return self.first_slug if self.first_slug else self.slug
-
 
     @property
     def modified_date(self):

@@ -1,9 +1,10 @@
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
+from django.core.cache.utils import make_template_fragment_key
 from django.http import JsonResponse, Http404
 from django.shortcuts import render
 from django.utils.decorators import method_decorator
-
+from django.core.cache import cache
 from apps.notifications.service import business as Business
 from apps.notifications.service.forms import NotificationForm
 from apps.notifications import views
@@ -169,6 +170,17 @@ class CoreNotificationClear(views.NotificationBaseView):
         notifications_ids = request.POST.getlist('notifications[]')
         notifications = Business.set_notification_as_visualized(notifications_ids)
 
+
+        status = [Business.NOT_READ, Business.NOT_VISUALIZED, Business.GENERAL]
+        notification_types = ["members", "posts", "general"]
+        for ntype in notification_types:
+            count_key = Business.make_key(request.user, "count_visualized", ntype)
+            cache.delete(count_key)
+
+            for stat in status:
+                    key = Business.make_key(request.user, stat, ntype)
+                    cache.delete(key)
+
         context = {'notifications': [n.id for n in notifications]}
         context.update(self.get_context(request))
 
@@ -181,6 +193,7 @@ class CoreNotificationMarkAsRead(views.NotificationBaseView):
     def post(self, request):
         notifications_ids = request.POST.getlist('notifications[]')
         notifications = Business.set_notification_as_read(notifications_ids)
+
 
         context = {
             'notifications': [n.id for n in notifications],

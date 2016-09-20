@@ -1,3 +1,5 @@
+from apps.core.business.content_types import ContentTypeCached
+
 __author__ = 'phillip'
 
 from django.contrib.contenttypes.models import ContentType
@@ -21,7 +23,7 @@ def module_comment(content_object, **kwargs):
 
     return_dict = {
         'content_object': content_object,
-        'content_type': ContentType.objects.get_for_model(content_object),
+        'content_type': ContentTypeCached.objects.get_for_model(model=content_object),
         'comments': comments
     }
 

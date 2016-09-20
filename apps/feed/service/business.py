@@ -1,10 +1,17 @@
 from django.contrib.contenttypes.models import ContentType
+from apps.core.business.content_types import ContentTypeCached
 
 from ..models import FeedObject
 
 
 def get_feed(content_instance):
-    content_type = ContentType.objects.get_for_model(content_instance)
+
+    try:
+        return content_instance.feed.get() if content_instance.feed else content_instance.feed.first()
+    except Exception:
+        pass
+
+    content_type = ContentTypeCached.objects.get(model=content_instance)
 
     try:
         feed_object = FeedObject.objects.get(
@@ -17,7 +24,7 @@ def get_feed(content_instance):
     return feed_object
 
 def feed_get_or_create(content_instance):
-    content_type = ContentType.objects.get_for_model(content_instance)
+    content_type = ContentTypeCached.objects.get_for_model(model=content_instance)
 
     feed_object, created = FeedObject.objects.get_or_create(
         content_type=content_type,

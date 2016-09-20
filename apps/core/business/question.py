@@ -1,6 +1,7 @@
 from django.contrib.contenttypes.models import ContentType
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.db.models import Q
+from apps.core.business.content_types import ContentTypeCached
 
 from apps.feed.models import FeedObject
 from apps.taxonomy.service import business as BusinessTaxonomy
@@ -21,8 +22,8 @@ def save_feed_item(instance, data=None):
 
 def get_related(question_id, record_type=None, items_per_page=None, page=None):
 
-    content_type = ContentType.objects.get(model="question")
-    record_type = ContentType.objects.get(model=record_type)
+    content_type = ContentTypeCached.objects.get(model="question")
+    record_type = ContentTypeCached.objects.get(model=record_type)
 
     try:
 

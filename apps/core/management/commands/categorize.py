@@ -3,6 +3,7 @@ from django.core.management import BaseCommand
 from django.db.models import Q
 from apps.article.models import Article
 from apps.community.models import Community
+from apps.core.business.content_types import ContentTypeCached
 from apps.feed.models import FeedObject
 
 
@@ -21,7 +22,7 @@ class Command(BaseCommand):
 
                 articles  = Article.objects.filter(criteria)
                 for article in articles:
-                    feed = FeedObject.objects.get(content_type=ContentType.objects.filter(model='article'), object_id=article.id)
+                    feed = FeedObject.objects.get(content_type=ContentTypeCached.objects.get(model='article'), object_id=article.id)
                     feed.taxonomies.add(community.taxonomy)
                     feed.communities.add(community)
                     feed.save()

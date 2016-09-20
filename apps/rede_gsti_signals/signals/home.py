@@ -3,6 +3,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from apps.article.models import Article
+from apps.core.business.content_types import ContentTypeCached
 from apps.core.cachecontrol import cachecontrol
 from apps.core.templatetags.article_blocks import ArticleCacheExcludes
 from apps.feed.models import FeedObject
@@ -31,7 +32,7 @@ def refresh_home_block(sender, **kwargs):
     if force_update == False and feed_object.official == False and feed_object.official__old_value == False:
         return
 
-    article_type = ContentType.objects.get_for_model(Article)
+    article_type = ContentTypeCached.objects.get(model='article')
     if feed_object and feed_object.content_object and feed_object.content_type == article_type:
 
         try:

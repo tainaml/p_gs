@@ -4,13 +4,18 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.core.urlresolvers import reverse
 from django.utils import timezone
-from django.utils.six import python_2_unicode_compatible
+from django.utils.functional import cached_property
 from django.utils.translation import ugettext as _
-
 from django.conf import settings
+from apps.core.business.content_types import ContentTypeCached
+from apps.socialactions.models import Counter
+from .manager import UserManager
 
 
 class User(AbstractUser):
+
+
+    objects = UserManager()
 
     class Meta(AbstractUser.Meta):
         swappable = 'AUTH_USER_MODEL'
@@ -25,6 +30,22 @@ class User(AbstractUser):
 
     def get_absolute_ur(self):
         return 'javascript:void(0);' if not self.is_active else reverse('profile:show', args=[self.username])
+
+    @cached_property
+    def user_profile(self):
+        return self.profile if self.is_authenticated() else None
+
+    @cached_property
+    def followers(self):
+        try:
+            return Counter.objects.defer("count").get(
+                action_type=settings.SOCIAL_FOLLOW,
+                object_id=self.id,
+                content_type=ContentTypeCached.objects.get(model='user')
+
+            ).count
+        except:
+            return 0
 
 
 class TokenType():
@@ -83,5 +104,7 @@ class MailValidation(models.Model):
         """
 
         return self.active
+
+
 
 

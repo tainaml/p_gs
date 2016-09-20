@@ -1,7 +1,6 @@
 # coding=utf-8
 from django import template
 from django.conf import settings
-from django.contrib.contenttypes.models import ContentType
 from django.db.models import Q
 from django.http import Http404
 from django.template.defaultfilters import stringfilter, truncatechars
@@ -10,9 +9,9 @@ from django.core.cache import cache
 from django.utils.html import strip_tags
 from django.utils.text import slugify
 from django.utils.translation import ugettext as _
-
 from apps.article.models import Article
 from apps.community.models import Community
+from apps.core.business.content_types import ContentTypeCached
 from apps.feed.models import FeedObject
 from apps.taxonomy.models import Taxonomy
 from apps.temp_comment.models import TempComment
@@ -23,7 +22,7 @@ register = template.Library()
 @register.inclusion_tag('core/templatetags/relevance-box.html', takes_context=True)
 def relevance_box(context, content_object, count=4, template_path='core/partials/relevance/article-base.html'):
     try:
-        record_type = ContentType.objects.get(model="article")
+        record_type = ContentTypeCached.objects.get(model="article")
 
         records = FeedObject.objects.filter(
             communities__in=[content_object],
@@ -38,7 +37,7 @@ def relevance_box(context, content_object, count=4, template_path='core/partials
             'article__publishin',
             'object_id',
             'content_type_id'
-        )[:count]
+        ).prefetch_related("content_object")[:count]
 
     except ValueError:
         raise Http404()
@@ -53,7 +52,7 @@ def relevance_box(context, content_object, count=4, template_path='core/partials
 @register.inclusion_tag('core/templatetags/last_questions.html', takes_context=True)
 def last_questions(context, content_object, content_type, count=4, template_path=None):
     try:
-        record_type = ContentType.objects.get(model="question")
+        record_type = ContentTypeCached.objects.get(model="question")
 
         records = FeedObject.objects.filter(
             taxonomies=content_object.taxonomy,
@@ -68,8 +67,7 @@ def last_questions(context, content_object, content_type, count=4, template_path
             'question__question_date',
             'object_id',
             'content_type_id'
-        )[:count]
-
+        ).prefetch_related("content_object")[:count]
     except ValueError:
         raise Http404()
 
@@ -81,9 +79,9 @@ def last_questions(context, content_object, content_type, count=4, template_path
 @register.inclusion_tag("core/templatetags/related-posts-box.html", takes_context=True)
 def related_posts_box(context, instance, post_type=None, count=4, template_path=None):
     try:
-        content_type = ContentType.objects.get_for_model(instance)
+        content_type = ContentTypeCached.objects.get(instance)
 
-        post_type = ContentType.objects.get(model=post_type) if post_type else content_type
+        post_type = ContentTypeCached.objects.get(model=post_type) if post_type else content_type
 
         if template_path is None:
             template_path = 'core/partials/related-posts/%s-base.html' % post_type.model
@@ -102,7 +100,7 @@ def related_posts_box(context, instance, post_type=None, count=4, template_path=
             )
         ).exclude(
             Q(object_id=instance.id)
-        ).order_by(
+        ).prefetch_related("content_object").order_by(
             "-date"
         ).distinct(
             "date",

@@ -100,16 +100,17 @@ def get_users(description=None, items_per_page=None, page=None, startswith=False
 
 def get_articles_by_title(arr_description):
     criteria = None
+    criteria_base = Q(status=Article.STATUS_PUBLISH)
 
     for desc in arr_description:
         title_criteria = Q(title__unaccent__icontains=desc)
         criteria = title_criteria if not criteria else criteria & title_criteria
 
-    if len(arr_description) == 0:
-        criteria = True
+    if criteria:
+        criteria_base &= criteria
 
     articles = Article.objects.filter(
-        Q(status=Article.STATUS_PUBLISH) & criteria
+        criteria_base
     ).order_by('-publishin').distinct('id', 'publishin')
 
     return articles
@@ -117,45 +118,54 @@ def get_articles_by_title(arr_description):
 
 def get_articles_by_description(arr_description):
     criteria = None
+    criteria_base = Q(status=Article.STATUS_PUBLISH)
 
     for desc in arr_description:
         title_criteria = Q(text__unaccent__icontains=desc)
         criteria = title_criteria if not criteria else criteria & title_criteria
 
-    if len(arr_description) == 0:
-        criteria = True
+    if criteria:
+        criteria_base &= criteria
 
     articles = Article.objects.filter(
-        Q(status=Article.STATUS_PUBLISH) & criteria
+        criteria_base
     ).order_by('-publishin').distinct('id', 'publishin')
 
     return articles
 
 
 def get_articles_general(arr_description):
+
     criteria = None
+    criteria_base = Q(status=Article.STATUS_PUBLISH)
 
     for desc in arr_description:
         query_criteria = (Q(title__unaccent__icontains=desc) |
                           Q(text__unaccent__icontains=desc))
         criteria = query_criteria if not criteria else criteria | query_criteria
 
-    if len(arr_description) == 0:
-        criteria = True
+
+    if criteria:
+        criteria_base &= criteria
 
     articles = Article.objects.filter(
-        Q(status=Article.STATUS_PUBLISH) & criteria
+         criteria_base
     ).order_by('-publishin').distinct('id', 'publishin')
 
     return articles
 
 
 def get_feed_articles(description):
-    arr_description = description.split(' ')
+
+    arr_description = []
+    has_description = len(description.split())
+
+    arr_description = description.split(' ') if has_description else arr_description
     articles_by_title = get_articles_by_title(arr_description)
     articles_by_description = get_articles_by_description(arr_description)
     articles_general = get_articles_general(arr_description)
-    articles = list(OrderedDict.fromkeys(chain(articles_by_title, articles_by_description, articles_general)))
+    # articles = list(OrderedDict.fromkeys(chain(articles_by_title, articles_by_description, articles_general)))
+    articles = articles_general | articles_by_title | articles_by_description
     return articles
 
 
@@ -179,16 +189,17 @@ def get_articles(description=None, items_per_page=None, page=None):
 
 def get_questions_by_title(arr_description):
     criteria = None
+    criteria_base = Q(deleted=False)
 
     for desc in arr_description:
         query_criteria = Q(title__unaccent__icontains=desc)
         criteria = query_criteria if not criteria else criteria & query_criteria
 
-    if len(arr_description) == 0:
-        criteria = True
+    if arr_description:
+        criteria_base &= criteria
 
     questions = Question.objects.filter(
-        Q(deleted=False) & criteria
+         criteria_base
     ).order_by('-question_date').distinct('id', 'question_date')
 
     return questions
@@ -196,16 +207,17 @@ def get_questions_by_title(arr_description):
 
 def get_questions_by_description(arr_description):
     criteria = None
+    criteria_base = Q(deleted=False)
 
     for desc in arr_description:
         query_criteria = Q(description__unaccent__icontains=desc)
         criteria = query_criteria if not criteria else criteria & query_criteria
 
-    if len(arr_description) == 0:
-        criteria = True
+    if arr_description:
+        criteria_base &= criteria
 
     questions = Question.objects.filter(
-        Q(deleted=False) & criteria
+        criteria_base
     ).order_by('-question_date').distinct('id', 'question_date')
 
     return questions
@@ -213,28 +225,33 @@ def get_questions_by_description(arr_description):
 
 def get_questions_general(arr_description):
     criteria = None
+    criteria_base = Q(deleted=False)
 
     for desc in arr_description:
         query_criteria = (Q(title__unaccent__icontains=desc) |
                           Q(description__unaccent__icontains=desc))
         criteria = query_criteria if not criteria else criteria | query_criteria
 
-    if len(arr_description) == 0:
-        criteria = True
+    if arr_description:
+        criteria_base &= criteria
 
     questions = Question.objects.filter(
-        Q(deleted=False) & criteria
+        criteria_base
     ).order_by('-question_date').distinct('id', 'question_date')
 
     return questions
 
 
 def get_feed_questions(description=None):
-    arr_description = description.split(' ')
+    arr_description = []
+    has_description = len(description.split())
+
+    arr_description = description.split(' ') if has_description else arr_description
+
     questions_by_title = get_questions_by_title(arr_description)
     questions_by_description = get_questions_by_description(arr_description)
     questions_general = get_questions_general(arr_description)
-    questions = list(OrderedDict.fromkeys(chain(questions_by_title, questions_by_description, questions_general)))
+    questions = questions_general | questions_by_title | questions_by_description
     return questions
 
 def get_questions(description=None, items_per_page=None, page=None):

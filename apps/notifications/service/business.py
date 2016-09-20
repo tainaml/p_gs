@@ -1,17 +1,33 @@
 from django.db.models import Q
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.contenttypes.models import ContentType
+from apps.core.business.content_types import ContentTypeCached
 from ..models import Notification
 from ..local_exceptions import NotValidNotificationSettings
 from django.conf import settings
+from django.core.cache import cache
 
+NOT_VISUALIZED = "not_visualized"
+NOT_READ = "not_visualized"
+GENERAL = "general"
+
+def get_count_notification_cached(key, queryset):
+
+    notifications_paginator = cache.get(key)
+    if not notifications_paginator:
+        notifications_paginator = queryset.count()
+
+        cache.set(key, notifications_paginator, settings.TIME_TO_REFRESH_NOTIFICATION_IN_SEC)
+
+
+    return notifications_paginator
 
 def get_content_by_object(content_object=None):
-    return ContentType.objects.get_for_model(content_object)
+    return ContentTypeCached.objects.get_for_model(model=content_object)
 
 
 def get_model_type(content_type=None):
-    model_type = ContentType.objects.get(model=content_type)
+    model_type = ContentTypeCached.objects.get(model=content_type)
 
     return model_type
 
@@ -48,6 +64,20 @@ def send_notification_to_many(author=None, to_list=None,
             send_notification(author, to, notification_action, target_object))
 
     return notification_list
+
+def make_key(user, notification_status, notification_type):
+    return "%s_notifications_%s_%s" % (user.username, notification_status, notification_type)
+
+def get_notification_cached(key, **params):
+
+    notifications_paginator = cache.get(key)
+    if not notifications_paginator:
+        notifications_paginator = get_notifications(**params)
+
+        cache.set(key, notifications_paginator, settings.TIME_TO_REFRESH_NOTIFICATION_IN_SEC)
+
+
+    return notifications_paginator
 
 
 def get_notifications_by_user_and_notification_type_list(user=None,
@@ -87,7 +117,7 @@ def get_notifications(user=None, notification_actions=None, visualized=None, rea
     if read is not None:
         criteria &= Q(read=read)
 
-    notifications = Notification.objects.filter(criteria).order_by("-notification_date")
+    notifications = Notification.objects.filter(criteria).prefetch_related("author").order_by("-notification_date")
 
     paginator = False
 

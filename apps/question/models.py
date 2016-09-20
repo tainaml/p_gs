@@ -3,7 +3,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.core.urlresolvers import reverse
 from django.db import models
 from django.conf import settings
-
+from apps.core.business.content_types import ContentTypeCached
 
 from apps.taxonomy.models import Taxonomy
 from apps.feed.models import FeedObject
@@ -21,7 +21,7 @@ class Answer(models.Model):
 
     @property
     def get_content_type(self):
-        content = ContentType.objects.get_for_model(self)
+        content = ContentTypeCached.objects.get(model="answer")
         return content.model
 
 

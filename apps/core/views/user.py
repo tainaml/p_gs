@@ -7,6 +7,7 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 
 from apps.community.models import Community
+from apps.core.business.content_types import ContentTypeCached
 from apps.core.forms.user import CoreUserProfileForm, CoreUserProfileFullEditForm, CoreSearchFollowers, CoreSearchArticlesForm, CoreSearchVideosForm, \
     CoreSearchCommunitiesForm, CoreRemoveSocialActionForm, CoreSearchSocialActionsForm, CoreUserMyQuestionsForm, \
     CoreSearchQuestionsForm, CoreUserProfileEditStepOne
@@ -86,13 +87,13 @@ class CoreUserProfile(CoreUserView):
         return render(request, self.template_path, context)
 
     def get_context(self, request, profile_instance=None):
-        content_type = ContentType.objects.filter(model='article')
+        content_type = ContentTypeCached.objects.get(model='article')
 
         itens_by_page = 5
 
         form = self.form(
             profile_instance,
-            content_type.first().id,
+            content_type.id,
             itens_by_page,
             profile_instance.user,
             request.GET
@@ -120,7 +121,7 @@ class CoreUserSearch(CoreUserView):
     def get_context(self, request, profile_instance=None):
 
         items_per_page = 5
-        content_type = ContentType.objects.get(model='article')
+        content_type = ContentTypeCached.objects.get(model='article')
 
         form = self.form(
             profile_instance,
@@ -754,7 +755,7 @@ class CoreUserCommunitiesListAjax(View):
             items_per_page=None,
         )
 
-        community_content_type = ContentType.objects.get(model='community')
+        community_content_type = ContentTypeCached.objects.get(model='community')
 
         all_communities = Community.objects.filter(title__istartswith=filter_name)
         communities_objects = user_communities.filter(object_id__in=all_communities, content_type=community_content_type)
@@ -1008,7 +1009,7 @@ class CoreUserMyQuestions(CoreUserView):
         return super(CoreUserMyQuestions, self).get(request)
 
     def get_context(self, request, profile_instance=None):
-        content_type = ContentType.objects.get(model='question')
+        content_type = ContentTypeCached.objects.get(model='question')
 
         itens_by_page = 5
 

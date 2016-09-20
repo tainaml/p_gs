@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
-
+from django.core.cache import cache
 from ..models import Community
 
 
@@ -16,7 +16,13 @@ def get_community_by_params(params={}, order_by=[], limit=None, offset=None):
 
 def get_community(slug=None):
     try:
-        community = Community.objects.get(slug=slug)
+        key = "comunity_%s" % slug
+        community = cache.get(key)
+        if not community:
+            community = Community.objects.filter(slug=slug).prefetch_related("taxonomy")
+            community = community.first()
+            cache.set(key, community)
+
     except Community.DoesNotExist:
         return None
 
@@ -27,7 +33,7 @@ def get_category_communities(taxonomies_id=None):
     try:
         communities = Community.objects.filter(taxonomy__in=taxonomies_id, taxonomy__term__slug='categoria')
     except Community.DoesNotExist:
-        return None1
+        return None
 
     return communities
 

@@ -8,6 +8,7 @@ from django.conf import settings
 from apps.account.models import User
 from apps.community.models import Community
 from apps.article.models import Article
+from apps.core.business.content_types import ContentTypeCached
 from apps.core.models.embed import EmbedItem
 from apps.feed.models import FeedObject
 from apps.question.models import Question
@@ -58,8 +59,11 @@ def get_user_communities_list(author, width=20, height=20):
 
 
 def get_feed_objects(profile_instance=None, description=None, content_types_list=None, items_per_page=None, page=None, user=None):
+
     if not content_types_list:
         content_types_list = []
+
+    content_types = ContentTypeCached.objects.filter(model__in=content_types_list)
 
     followers_id = BusinessSocialActions.get_users_ids_acted_by_model_and_action(
         model=None,
@@ -67,19 +71,9 @@ def get_feed_objects(profile_instance=None, description=None, content_types_list
         user=user
     )
 
-    content_types = ContentType.objects.filter(model__in=content_types_list)
-
-    communities = BusinessSocialActions.get_users_acted_by_author(
+    community_list = BusinessSocialActions.get_user_communities_following(
         author=profile_instance.user,
-        action=settings.SOCIAL_FOLLOW,
-        content_type='community'
     )
-
-    taxonomy_list = []
-    community_list = []
-    for community in communities:
-        taxonomy_list.append(community.content_object.taxonomy)
-        community_list.append(community.content_object)
 
     feed_objects = FeedObject.objects.filter(
         Q(content_type__in=content_types) &
@@ -88,21 +82,17 @@ def get_feed_objects(profile_instance=None, description=None, content_types_list
             Q(question__deleted=False)
         ) &
         (
-            Q(communities__in=community_list) |
+            Q(communities__id__in=community_list) |
             Q(article__author__in=followers_id) |
             Q(question__author__in=followers_id)
         )
-    ).order_by(
-        "-date"
     ).prefetch_related(
+        "content_object",
         "content_object__author",
-        "content_object__author__profile",
-        "communities"
-    ).distinct(
-        "object_id",
         "content_type",
-        "date"
-    )
+        "communities",
+        "communities__taxonomy"
+    ).select_related('content_type')
 
     items_per_page = items_per_page if items_per_page else 10
     page = page if page else 1
@@ -116,6 +106,66 @@ def get_feed_objects(profile_instance=None, description=None, content_types_list
         feed_objects_paginated = []
 
     return feed_objects_paginated
+
+
+    # if not content_types_list:
+    #     content_types_list = []
+    #
+    # followers_id = BusinessSocialActions.get_users_ids_acted_by_model_and_action(
+    #     model=None,
+    #     action=settings.SOCIAL_FOLLOW,
+    #     user=user
+    # )
+    #
+    # content_types = ContentTypeCached.objects.filter(model__in=content_types_list)
+    #
+    # communities = BusinessSocialActions.get_users_acted_by_author(
+    #     author=profile_instance.user,
+    #     action=settings.SOCIAL_FOLLOW,
+    #     content_type='community'
+    # )
+    #
+    # taxonomy_list = []
+    # community_list = []
+    # for community in communities:
+    #     taxonomy_list.append(community.content_object.taxonomy)
+    #     community_list.append(community.content_object)
+    #
+    # feed_objects = FeedObject.objects.filter(
+    #     Q(content_type__in=content_types) &
+    #     (
+    #         Q(article__status=Article.STATUS_PUBLISH) |
+    #         Q(question__deleted=False)
+    #     ) &
+    #     (
+    #         Q(communities__in=community_list) |
+    #         Q(article__author__in=followers_id) |
+    #         Q(question__author__in=followers_id)
+    #     )
+    # ).order_by(
+    #     "-date"
+    # ).prefetch_related(
+    #     "content_object__author",
+    #     "content_object__author__profile",
+    #     "communities"
+    # ).distinct(
+    #     "object_id",
+    #     "content_type",
+    #     "date"
+    # )
+    #
+    # items_per_page = items_per_page if items_per_page else 10
+    # page = page if page else 1
+    #
+    # feed_objects_paginated = Paginator(feed_objects, items_per_page)
+    # try:
+    #     feed_objects_paginated = feed_objects_paginated.page(page)
+    # except PageNotAnInteger:
+    #     feed_objects_paginated = feed_objects_paginated.page(1)
+    # except EmptyPage:
+    #     feed_objects_paginated = []
+    #
+    # return feed_objects_paginated
 
 
 def get_articles_from_user(profile_instance=None, description=None, content_type=None, items_per_page=None, page=None, user=None):
@@ -312,7 +362,7 @@ def get_questions(author, description=None, deleted=None, items_per_page=None, p
 
 def get_followings(author, description=None, items_per_page=None, page=None):
 
-    content_type = ContentType.objects.get(model="user")
+    content_type = ContentTypeCached.objects.get(model="user")
 
     if description:
         strings = description.strip().split(' ')
@@ -360,7 +410,7 @@ def get_followings(author, description=None, items_per_page=None, page=None):
 def get_all_followers(user_filter, description=None, content_type=None):
 
     if not content_type:
-        content_type = ContentType.objects.get_for_model(user_filter)
+        content_type = ContentTypeCached.objects.get(model=user_filter)
 
     strings = description.strip().split(' ')
 
@@ -388,7 +438,7 @@ def get_all_followers(user_filter, description=None, content_type=None):
 
 def get_followers(user_filter, description=None, items_per_page=None, page=None):
 
-    content_type = ContentType.objects.get_for_model(user_filter)
+    content_type = ContentTypeCached.objects.get(model=user_filter)
 
     users_actions = get_all_followers(user_filter, description, content_type)
     users_actions = Paginator(users_actions, items_per_page)

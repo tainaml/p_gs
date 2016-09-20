@@ -1,12 +1,9 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import urllib
-from django.views.decorators.cache import cache_page
 from django.core.urlresolvers import reverse
-
-from django.http import JsonResponse, Http404
+from django.http import JsonResponse
 from django.shortcuts import render, redirect
-
 from apps.community import views
 from apps.community.models import Community
 from apps.community.service import business as Business
@@ -91,7 +88,6 @@ class CoreCommunityFeedView(CoreCommunitySearch):
     template_path = 'community/community-view.html'
 
     def get(self, request, community_slug):
-
         community = Business.get_community(slug=community_slug)
         if not community:
             querystring = {'q': community_slug}
@@ -106,7 +102,7 @@ class CoreCommunityQuestionSearch(CoreCommunityView):
 
     def get_context(self, request, community_instance=None):
         context = super(CoreCommunityQuestionSearch, self).get_context(request, community_instance)
-        itens_by_page = 2
+        itens_by_page = 3
 
         self.form = CoreCommunityQuestionFeedFormSearch(
             community_instance,
@@ -150,7 +146,7 @@ class CoreCommunityVideosSearch(views.CommunityView):
 
     def get_context(self, request, community_instance=None):
 
-        form = self.form_videos(community_instance, 10, request.GET)
+        form = self.form_videos(community_instance, 3, request.GET)
 
         videos = form.process()
 
@@ -177,7 +173,7 @@ class CoreCommunityVideosList(CoreCommunityVideosSearch):
 class CoreGetCommunities(views.View):
 
     form = CoreCommunityGetAllForm
-    itens_per_page = 25
+    itens_per_page = 6
 
     def get(self, request):
 
@@ -238,7 +234,7 @@ class CoreCommunityFollowersSearch(FormBaseListView):
     success_template_path = "community/partials/community-followers-list.html"
     fail_template_path = success_template_path
 
-    MAXIMUM_PER_PAGE = 9
+    MAXIMUM_PER_PAGE = 6
 
     # @Override
     def after_process(self, request=None, *args, **kwargs):
@@ -324,7 +320,6 @@ class CommunityCheckUserFollows(views.View):
 
 
 # Materials
-
 class CoreCommunityMaterialsSearch(views.CommunityView):
 
     template_path = "community/community-materials.html"
@@ -339,7 +334,7 @@ class CoreCommunityMaterialsSearch(views.CommunityView):
 
     def get_context(self, request, community_instance=None):
 
-        form = self.form_materials(community_instance, 10, request.GET)
+        form = self.form_materials(community_instance, 3, request.GET)
 
         posts = form.process()
 

@@ -1,5 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
+from django.db.models import Prefetch
 from django.http import Http404
 from django.shortcuts import redirect, render
 from django.utils.translation import gettext as _
@@ -8,6 +9,7 @@ from apps.article import views
 from apps.comment.models import Comment
 from apps.comment.service.forms import CreateCommentForm
 from apps.community.models import Community
+from apps.feed.models import FeedObject
 from ..forms.article import CoreArticleBaseForm, CoreArticleContributorForm
 from ..business import feed as BusinessFeed
 from apps.core.business import user as UserBusiness
@@ -86,8 +88,8 @@ class CoreArticleView(views.ArticleView):
     form_comment = CreateCommentForm
 
     # @Override
-    def filter_article(self, request=None, year=None, month=None, slug=None):
-        article_dict = core_article_business.get_article(year, month, slug)
+    def filter_article(self, request=None, year=None, month=None, slug=None, prefetch=None):
+        article_dict = core_article_business.get_article(year, month, slug, prefetch)
 
         if not article_dict['article']:
             '''
@@ -105,27 +107,39 @@ class CoreArticleView(views.ArticleView):
         return article_dict
 
     def get(self, request, year, month, slug):
-        article_dict = self.filter_article(request, year, month, slug)
+
+        prefetch = (
+            'content_object__author',
+             'content_object__author__profile', 'content_object__author__profile__occupation',
+            'content_object__author__profile__occupation__responsibility',
+            'content_object__author__profile__occupation',
+            'communities',
+            'communities__taxonomy'
+        )
+
+        article_dict = self.filter_article(request, year, month, slug, prefetch)
         article = article_dict['article']
         has_old_comments = False
+
         if article:
-            has_old_comments = core_article_business.has_old_comments(article)
+            has_old_comments = article.old_comments.all().exists()
             if article_dict['redirect']:
                 return redirect('article:view', article.year, article.month, article.slug, permanent=True)
 
 
-        context = {'article': article, 'has_old_comments': has_old_comments}
+        context = {'article': article, 'feed': article_dict['feed'],'has_old_comments': has_old_comments}
         context.update(self.get_context(request, article))
 
         return render(request, self.template_name, context)
 
     def get_context(self, request, article_instance=None):
 
-        feed_object = BusinessFeed.BusinessFeed.get_feed(article_instance)
-        comments = Comment.objects.filter(object_id=article_instance.id)
+        comments = Comment.objects.filter(
+            object_id=article_instance.id
+        ).prefetch_related('author', 'author__profile', 'author__profile__occupation')
+
         return {
             'comments': comments,
-            'feed': feed_object,
             'form_comment': self.form_comment()
         }
 

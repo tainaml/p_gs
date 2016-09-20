@@ -1,4 +1,5 @@
 from django.contrib.contenttypes.models import ContentType
+from apps.core.business.content_types import ContentTypeCached
 
 from apps.feed.models import FeedObject
 from apps.rede_gsti_signals.signals.home import clear_article_cache
@@ -49,7 +50,7 @@ def save_feed_official(feed_object, data=None):
 
 def toggle_feed_official(content_type, object_id):
 
-    content_type = ContentType.objects.get(model=content_type)
+    content_type = ContentTypeCached.objects.get(model=content_type)
     feed = FeedObject.objects.get(
         content_type=content_type,
         object_id=object_id

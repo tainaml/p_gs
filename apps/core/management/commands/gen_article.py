@@ -3,6 +3,7 @@ from django.core.management.base import BaseCommand
 from django.utils import timezone
 
 from apps.article.models import Article
+from apps.core.business.content_types import ContentTypeCached
 from apps.feed.models import FeedObject
 from apps.community.models import Community
 from apps.core.business.feed import save_taxonomies
@@ -15,7 +16,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
 
-        article_type = ContentType.objects.get_for_model(Article)
+        article_type = ContentTypeCached.objects.get(model='article')
 
         feeds = FeedObject.objects.filter(
             content_type=article_type,

@@ -6,6 +6,7 @@ from django.db.models import Q, Prefetch, QuerySet
 from django.template.loader import render_to_string
 from django.utils import timezone
 from django.utils.safestring import mark_safe
+from apps.core.business.content_types import ContentTypeCached
 from apps.feed.models import FeedObject
 from ..utils import generate_home_cache_key
 from apps.article.models import Article
@@ -17,7 +18,7 @@ from ..cachecontrol import cachecontrol, CacheItemMixin
 
 
 register = template.Library()
-article_type = ContentType.objects.get(model="article")
+article_type = ContentTypeCached.objects.get(model="article")
 
 cache = caches['default']
 

@@ -16,12 +16,12 @@ def get_avatar(context, user, **kwargs):
 
     if user.is_active or (request.user == user and request.user.is_authenticated()):
 
-        if hasattr(user, 'profile') and user.profile.profile_picture and user.profile.profile_picture.name:
-            image_url = '%s/%s' % (settings.THUMBOR_MEDIA_URL, user.profile.profile_picture.name)
+        if hasattr(user, 'user_profile') and user.user_profile.profile_picture and user.user_profile.profile_picture.name:
+            image_url = '%s/%s' % (settings.THUMBOR_MEDIA_URL, user.user_profile.profile_picture.name)
         else:
-            image_url = get_avatar_path(user.profile.gender if hasattr(user, 'profile') and user.profile.gender else 'M')
+            image_url = get_avatar_path(user.user_profile.gender if hasattr(user, 'profile') and user.user_profile.gender else 'M')
     elif not user.is_active:
-        image_url = get_avatar_path(user.profile.gender if hasattr(user, 'profile') and user.profile.gender else 'M')
+        image_url = get_avatar_path(user.user_profile.gender if hasattr(user, 'profile') and user.user_profile.gender else 'M')
     else:
         image_url = get_avatar_path('M')
 

@@ -1,10 +1,15 @@
+import datetime
+from apps.feed.models import FeedObject
 from apps.feed.service import business as BusinessFeed
 from apps.article.models import Article
+from django.db.models import Q
+from django.db.models.query import Prefetch
 from reversion import revisions as reversion
 from apps.temp_comment.models import TempComment
+import calendar
 
 
-def get_article(year=None, month=None, slug=None):
+def get_article(year=None, month=None, slug=None, prefetch=None):
     """
     This method search for article id and slug.
     If a previous slug found, return the last version of the article with the redirect parameter
@@ -16,24 +21,44 @@ def get_article(year=None, month=None, slug=None):
     redirect = False
 
     try:
-        article = Article.objects.get(publishin__year=year, publishin__month=month, slug=slug)
 
-    except Article.DoesNotExist:
         try:
-            temp_articles = Article.objects.filter(publishin__year=year, publishin__month=month)
+            year = int(year)
+            month = int(month)
+        except Exception:
+            pass
+
+        # article = Article.objects.prefetch_related('old_comments',  "feed")
+
+
+        if prefetch is None:
+            print prefetch
+            prefetch = ('content_object',)
+
+        feed_article = FeedObject.objects.filter\
+            (article__publishin__year=year, article__publishin__month=month, article__slug=slug).prefetch_related(*prefetch).get()
+
+        article = feed_article.content_object
+    except FeedObject.DoesNotExist, FeedObject.MultipleObjectsReturned:
+        feed_article = None
+        try:
+            temp_feed_articles = FeedObject.objects.filter(article__publishin__year=year, article__publishin__month=month).prefetch_related(*prefetch)
+
             #TODO make a better criteria to avoid multiqueries
-            for temp_article in temp_articles:
-                version_list = reversion.get_for_object(temp_article).get_unique()
+            for temp__feed_article in temp_feed_articles:
+                version_list = reversion.get_for_object(temp__feed_article.content_object).get_unique()
                 slug_list = [version.field_dict['slug'] for version in version_list]
+                feed_article = temp__feed_article
                 if slug in slug_list:
-                    article = temp_article
+                    article = temp__feed_article.content_object
+                    feed_article = temp__feed_article
                     redirect = True
                     break
 
         except Article.DoesNotExist:
             pass
 
-    return {'article': article, 'redirect': redirect}
+    return {'article': article, 'redirect': redirect, 'feed': feed_article}
 
 def save_feed_item(article, data=None):
     feed_object = BusinessFeed.feed_get_or_create(article)
