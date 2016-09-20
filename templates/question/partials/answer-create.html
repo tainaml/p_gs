@@ -5,11 +5,13 @@
 
 <form data-group-class=".answer-group" data-toggle="prepend" data-update="#container-answers" data-ajaxform="true" action="{% url 'question:comment_reply' %}" class="create-comment" method="post">{% csrf_token %}
 
+    {% comment %}
     <div class="create-comment-avatar">
         <img src="{% get_avatar request.user width=81 height=81 smart=False fit_in=False %}" alt="User avatar">
     </div>
+    {% endcomment %}
 
-    <div class="answer-group create-comment-body{% if form.content.errors %} has-error{% endif %}">
+    <div class="answer-group {% if form.content.errors %} has-error{% endif %}">
         {% url 'account:is_logged' as is_logged %}
         {% url 'hint:list' content_type content_object_id as hint_list_url %}
         {% render_field form_answer.description class="form-control" placeholder="Deixe sua resposta" data-hint-url=hint_list_url data-url-login=is_logged data-trigger="login" data-token=csrf_token %}
