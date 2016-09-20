@@ -47,13 +47,13 @@ def edit_comment(comment=None, parameters=None):
 
 def delete_comment(comment=None):
     try:
-        content_type = ContentTypeCached.objects.get_for_model(model='comment')
+        content_type = ContentTypeCached.objects.get('comment')
         children_comments = Comment.objects.filter(content_type=content_type, object_id=comment.id)
         for child_comment in children_comments:
             if comment:
                 delete_comment(child_comment)
         comment.delete()
-    except Exception, e:
+    except Exception as e:
         if settings.DEBUG:
             logger.error(e.message)
         return False
