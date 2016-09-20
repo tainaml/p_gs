@@ -5,7 +5,7 @@ from django.contrib.contenttypes.admin import GenericTabularInline
 from django.utils.translation import ugettext as _
 
 # Register your models here.
-from reversion_compare.admin import CompareVersionAdmin
+from reversion.admin import VersionAdmin
 from apps.article.models import Article
 from apps.core.forms.user import CoreUserAdminForm
 from apps.core.models.tags import Tags
@@ -24,7 +24,7 @@ admin.site.unregister(User)
 
 
 
-class QuestionAdmin(CompareVersionAdmin):
+class QuestionAdmin(VersionAdmin):
     pass
 
 
@@ -138,7 +138,7 @@ class ArticleAdminForm(forms.ModelForm):
         }
 
 
-class ArticlelAdmin(CompareVersionAdmin):
+class ArticlelAdmin(VersionAdmin):
 
     form = ArticleAdminForm
 

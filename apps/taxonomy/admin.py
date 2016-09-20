@@ -1,6 +1,5 @@
 from django.contrib import admin
-from reversion_compare.admin import CompareVersionAdmin
-
+from reversion.admin import VersionAdmin
 from .models import Taxonomy, Term
 
 
@@ -8,7 +7,7 @@ class TaxonomyInLine(admin.TabularInline):
     model = Taxonomy
 
 
-class TaxonomyAdmin(CompareVersionAdmin):
+class TaxonomyAdmin(VersionAdmin):
     list_display = ('description', 'slug','parent','term',)
     list_filter = ('term', 'parent',)
     search_fields = ['description', 'slug']

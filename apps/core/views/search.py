@@ -37,7 +37,6 @@ class Search(SearchBase):
     template_path = "search/search-result.html"
 
     def get(self, request):
-
         form_community = self.form_community(6, False, request.GET)
         form_user = self.form_user(6, False, request.GET)
         form_article = self.form_article(6, False, request.GET)
@@ -46,7 +45,7 @@ class Search(SearchBase):
         try:
             communities = form_community.process()
             users = form_user.process()
-            articles = form_article.process()
+            feed_articles = form_article.process()
             questions = form_question.process()
             states = BusinessUserProfile.get_states(1)
         except Exception, e:
@@ -55,7 +54,7 @@ class Search(SearchBase):
         context = {
             'communities': communities,
             'users': users,
-            'articles': articles,
+            'feed_articles': feed_articles,
             'questions': questions,
             'form_community': form_community,
             'form_user': form_user,
