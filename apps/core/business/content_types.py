@@ -40,7 +40,6 @@ class ContentTypeCached():
             for content_type in cls.all():
                 if not model__in:
                     break
-                print content_type.model, model__in
                 if content_type.model in model__in:
                     content_types.append(content_type)
                     model__in.remove(content_type.model)

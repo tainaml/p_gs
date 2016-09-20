@@ -59,8 +59,11 @@ def get_user_communities_list(author, width=20, height=20):
 
 
 def get_feed_objects(profile_instance=None, description=None, content_types_list=None, items_per_page=None, page=None, user=None):
+
     if not content_types_list:
         content_types_list = []
+
+    content_types = ContentTypeCached.objects.filter(model__in=content_types_list)
 
     followers_id = BusinessSocialActions.get_users_ids_acted_by_model_and_action(
         model=None,
@@ -68,19 +71,9 @@ def get_feed_objects(profile_instance=None, description=None, content_types_list
         user=user
     )
 
-    content_types = ContentTypeCached.objects.filter(model__in=content_types_list)
-
-    communities = BusinessSocialActions.get_users_acted_by_author(
+    community_list = BusinessSocialActions.get_user_communities_following(
         author=profile_instance.user,
-        action=settings.SOCIAL_FOLLOW,
-        content_type='community'
     )
-
-    taxonomy_list = []
-    community_list = []
-    for community in communities:
-        taxonomy_list.append(community.content_object.taxonomy)
-        community_list.append(community.content_object)
 
     feed_objects = FeedObject.objects.filter(
         Q(content_type__in=content_types) &
@@ -89,21 +82,17 @@ def get_feed_objects(profile_instance=None, description=None, content_types_list
             Q(question__deleted=False)
         ) &
         (
-            Q(communities__in=community_list) |
+            Q(communities__id__in=community_list) |
             Q(article__author__in=followers_id) |
             Q(question__author__in=followers_id)
         )
-    ).order_by(
-        "-date"
     ).prefetch_related(
+        "content_object",
         "content_object__author",
-        "content_object__author__profile",
-        "communities"
-    ).distinct(
-        "object_id",
         "content_type",
-        "date"
-    )
+        "communities",
+        "communities__taxonomy"
+    ).select_related('content_type')
 
     items_per_page = items_per_page if items_per_page else 10
     page = page if page else 1
@@ -117,6 +106,66 @@ def get_feed_objects(profile_instance=None, description=None, content_types_list
         feed_objects_paginated = []
 
     return feed_objects_paginated
+
+
+    # if not content_types_list:
+    #     content_types_list = []
+    #
+    # followers_id = BusinessSocialActions.get_users_ids_acted_by_model_and_action(
+    #     model=None,
+    #     action=settings.SOCIAL_FOLLOW,
+    #     user=user
+    # )
+    #
+    # content_types = ContentTypeCached.objects.filter(model__in=content_types_list)
+    #
+    # communities = BusinessSocialActions.get_users_acted_by_author(
+    #     author=profile_instance.user,
+    #     action=settings.SOCIAL_FOLLOW,
+    #     content_type='community'
+    # )
+    #
+    # taxonomy_list = []
+    # community_list = []
+    # for community in communities:
+    #     taxonomy_list.append(community.content_object.taxonomy)
+    #     community_list.append(community.content_object)
+    #
+    # feed_objects = FeedObject.objects.filter(
+    #     Q(content_type__in=content_types) &
+    #     (
+    #         Q(article__status=Article.STATUS_PUBLISH) |
+    #         Q(question__deleted=False)
+    #     ) &
+    #     (
+    #         Q(communities__in=community_list) |
+    #         Q(article__author__in=followers_id) |
+    #         Q(question__author__in=followers_id)
+    #     )
+    # ).order_by(
+    #     "-date"
+    # ).prefetch_related(
+    #     "content_object__author",
+    #     "content_object__author__profile",
+    #     "communities"
+    # ).distinct(
+    #     "object_id",
+    #     "content_type",
+    #     "date"
+    # )
+    #
+    # items_per_page = items_per_page if items_per_page else 10
+    # page = page if page else 1
+    #
+    # feed_objects_paginated = Paginator(feed_objects, items_per_page)
+    # try:
+    #     feed_objects_paginated = feed_objects_paginated.page(page)
+    # except PageNotAnInteger:
+    #     feed_objects_paginated = feed_objects_paginated.page(1)
+    # except EmptyPage:
+    #     feed_objects_paginated = []
+    #
+    # return feed_objects_paginated
 
 
 def get_articles_from_user(profile_instance=None, description=None, content_type=None, items_per_page=None, page=None, user=None):

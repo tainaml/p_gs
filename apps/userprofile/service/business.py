@@ -7,6 +7,7 @@ from apps.account.models import User
 from apps.taxonomy.models import Term, Taxonomy
 from apps.userprofile.models import UserProfile, Occupation, Responsibility
 from apps.geography.models import Country, State, City
+from django.db.models import Q
 from rede_gsti import settings
 
 logger = logging.getLogger('general')
@@ -15,9 +16,11 @@ logger = logging.getLogger('general')
 def check_user_exists(username_or_email=None):
 
     try:
-        user = User.objects.get(username=username_or_email)
-        if not user:
-            user = User.objects.get(email=username_or_email)
+
+        user = User.objects.prefetch_related(
+            'profile'
+        ).get(Q(username=username_or_email) | Q(email=username_or_email))
+
     except User.DoesNotExist:
         user = False
 
