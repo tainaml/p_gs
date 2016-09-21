@@ -4,6 +4,7 @@ collectstatic:
 	python manage.py collectstatic -c
 
 migrate:
+	python manage.py compilemessages
 	python manage.py makemigrations && python manage.py migrate
 
 docker-up:

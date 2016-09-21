@@ -3,6 +3,7 @@ from datetime import date
 from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
+from django.utils.functional import cached_property
 from django.utils.translation import ugettext as _
 from apps.account.models import User
 from apps.core.business.content_types import ContentTypeCached
@@ -32,6 +33,18 @@ class UserProfile(models.Model):
     profile_picture = models.ImageField(max_length=100, upload_to='userprofile/%Y/%m/%d', blank=True, default='')
     contributor = models.BooleanField(null=False, blank=False, default=False)
     wizard_step = models.IntegerField(null=False, blank=False, default=0)
+
+
+    @cached_property
+    def avatar_url(self):
+        profile_image = self.profile_picture.url if self.profile_picture else None
+        if profile_image:
+            return profile_image
+
+        gender = self.gender.upper() if self.gender else 'M'
+        gender_image = getattr(settings, 'AVATAR', {}).get(gender, None)
+
+        return gender_image
 
     def __unicode__(self):
         return self.user.get_full_name()
