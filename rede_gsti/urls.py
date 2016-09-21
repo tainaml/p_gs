@@ -121,7 +121,7 @@ urls_front_end = [
 if not (settings.ENVIRONMENT=='production'):
     urlpatterns += urls_front_end
 
-if getattr(settings, 'PROFILER_APP') == 'silk' and getattr(settings, 'ENVIRONMENT') == 'develop':
+if hasattr(settings, 'PROFILER_APP') and getattr(settings, 'PROFILER_APP') == 'silk' and getattr(settings, 'ENVIRONMENT') == 'develop':
     urlpatterns += [
         url(r'^admin/silk/', include('silk.urls', namespace='silk'))
     ]
