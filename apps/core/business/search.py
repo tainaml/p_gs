@@ -201,17 +201,26 @@ def get_articles_feed(description=None, items_per_page=None, page=None):
     items_per_page = items_per_page if items_per_page else 6
     page = page if page else 1
 
-    main_criteria = get_feed_main_criteria()
-    query = SearchQuery(description)
+    if description == '':
+        articles = FeedObject.objects.filter(article__status=Article.STATUS_PUBLISH).prefetch_related(
+                 "content_object",
+                 "content_object__author",
+                 "content_type",
+                 "communities",
+                 "communities__taxonomy").order_by("-article__publishin")
+    else:
 
-    articles = FeedObject.objects.annotate(
-        rank=SearchRank(Article.VECTOR, query)
-    ).filter(main_criteria, article__search_vector=query).prefetch_related(
-             "content_object",
-             "content_object__author",
-             "content_type",
-             "communities",
-             "communities__taxonomy").order_by('-rank')
+        main_criteria = get_feed_main_criteria()
+        query = SearchQuery(description)
+
+        articles = FeedObject.objects.annotate(
+            rank=SearchRank(Article.VECTOR, query)
+        ).filter(main_criteria, article__search_vector=query).prefetch_related(
+                 "content_object",
+                 "content_object__author",
+                 "content_type",
+                 "communities",
+                 "communities__taxonomy").order_by('-rank')
 
     articles = Paginator(articles, items_per_page)
 
@@ -229,25 +238,32 @@ def get_feed_questions(description='', items_per_page=None, page=None):
     items_per_page = items_per_page if items_per_page else 6
     page = page if page else 1
 
-    query = SearchQuery(description)
+    if description == '':
+        questions = FeedObject.objects.filter(question__id__isnull=False).prefetch_related(
+                 "content_object",
+                 "content_object__author",
+                 "content_type",
+                 "communities",
+                 "communities__taxonomy").order_by("-question__question_date")
+    else:
+        query = SearchQuery(description)
 
-    questions = FeedObject.objects.annotate(
-        rank=SearchRank(Question.VECTOR, query)
-    ).filter(question__search_vector=query).prefetch_related(
-             "content_object",
-             "content_object__author",
-             "content_type",
-             "communities",
-             "communities__taxonomy").order_by('-rank')
+        questions = FeedObject.objects.annotate(
+            rank=SearchRank(Question.VECTOR, query)
+        ).filter(question__search_vector=query).prefetch_related(
+                 "content_object",
+                 "content_object__author",
+                 "content_type",
+                 "communities",
+                 "communities__taxonomy").order_by('-rank')
 
-    questions = Paginator(questions, items_per_page)
-    print page
-    try:
-        questions = questions.page(page)
-    except PageNotAnInteger:
-        questions = questions.page(1)
-    except EmptyPage:
-        questions = []
+        questions = Paginator(questions, items_per_page)
+        print page
+        try:
+            questions = questions.page(page)
+        except PageNotAnInteger:
+            questions = questions.page(1)
+        except EmptyPage:
+            questions = []
 
-    print questions
     return questions

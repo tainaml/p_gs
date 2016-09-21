@@ -1,0 +1,3 @@
+<p class="text-{{ orientation|default_if_none:"left" }}">
+    {% if not gender or gender == "male" %}Nenhum{% else %}Nenhuma{% endif %} {% if item %}{{ item }}{% else %}item{% endif %}  foi {% if not gender or gender == "male" %}encontrado{% else %}encontrada{% endif %} com o termo
+    "<strong>{{ request.GET.q }}</strong>". Tente refinar a busca utilizando palavras-chave.</p>

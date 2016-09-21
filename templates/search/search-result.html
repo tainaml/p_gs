@@ -67,24 +67,28 @@
 
                 <div class="result-container">
 
-                    {% if content_type|default:"" == "" or content_type == 'articles' or articles.object_list %}
+                    {% if not content_type or content_type == 'articles' %}
                     <header class="area-title">
                         <h2>Publicações</h2>
                     </header>
                     {% endif %}
 
-                    {% if feed_articles %}
+
                         <div class="area-content">
-                            <div class="row j-scroll-articles j-scroll-container-articles">
-                                {% include "search/partials/search-articles.html" %}
-                            </div>
+                             {% if feed_articles %}
+                                 <div class="row j-scroll-articles j-scroll-container-articles">
+                                    {% include "search/partials/search-articles.html" %}
+                                </div>
+                             {% else %}
+                                {% include 'core/partials/empy-list.html' with item="publicação" gender="female" %}
+                            {% endif %}
                         </div>
-                    {% endif %}
+
                 </div>
 
                 <div class="result-container">
 
-                    {% if content_type == 'communities' or communities.object_list %}
+                    {% if not content_type or content_type == 'communities'%}
                     <header class="area-title">
                         <h2>Comunidades</h2>
                     </header>
@@ -121,27 +125,34 @@
                                     <hr>
                                 {% endif %}
                             {% endblock %}
-                            <div class="row j-scroll-communities j-scroll-container-communities" id="communities-container">
-                                {% include "search/partials/search-communities.html" %}
-                            </div>
-                        </div>
+                           </div>
                     {% endif %}
+                    {% if communities.object_list %}
+                        <div class="row j-scroll-communities j-scroll-container-communities" id="communities-container">
+                            {% include "search/partials/search-communities.html" %}
+                        </div>
+                    {% else %}
+                        {% include 'core/partials/empy-list.html' with  item="comunidade" gender="female" %}
+                    {% endif %}
+
+
                 </div>
 
 
 
                 <div class="result-container">
 
-                    {% if content_type == 'users' or users.object_list %}
+                    {% if not content_type or content_type == 'users' %}
                     <header class="area-title">
                         <h2>Membros</h2>
                     </header>
                     {% endif %}
 
-                    {% if users.object_list %}
+                    {% if not content_type or content_type == 'users' %}
                         <div class="area-content">
-                            {% block filter_users %}
-                                {% if content_type == 'users' %}
+                            {% if users.object_list %}
+
+                                {% block filter_users %}
                                     <div id="filters-members" class="form-search" data-toggle="filters">
                                         <form class="row" id="form-search-followers"  name="filterMember" action="{% url 'search:list' 'users' %}?next={{ request.path }}" method="GET" role="search" data-type="html" data-ajaxform="true" data-group-class=".form-group">
                                             <div class="col-lg-7 col-xs-12">
@@ -172,10 +183,16 @@
                                         </form>
                                     </div>
                                      <hr>
-                                {% endif %}
                             {% endblock filter_users %}
-                            <div class="row j-scroll-users j-scroll-container-users" id="followers-container">
-                                {% include "search/partials/search-users.html" %}
+                            {% endif %}
+
+                            <div class="j-scroll-users j-scroll-container-users" id="followers-container">
+                                {% if users.object_list %}
+                                    {% include "search/partials/search-users.html" %}
+                                {% else %}
+                                    {% include 'core/partials/empy-list.html' with orientation="left" item="membro" gender="male" %}
+                                {% endif %}
+
                             </div>
                         </div>
                     {% endif %}
@@ -185,27 +202,28 @@
 
                 <div class="result-container">
 
-                    {% if content_type == 'questions' or feed_questions %}
+                    {% if content_type == 'questions' or not content_type %}
                     <header class="area-title">
                         <h2>Perguntas</h2>
                     </header>
                     {% endif %}
-
+                    <section class="area-content">
                     {% if feed_questions %}
-                        <div class="area-content">
                             <div class="row j-scroll-questions j-scroll-container-questions">
                                 {% include "search/partials/search-questions.html" %}
                             </div>
-                        </div>
+                    {% else %}
+                        {% include 'core/partials/empy-list.html' with orientation="left" item="pergunta" gender="female" %}
                     {% endif %}
+                    </section>
                 </div>
 
 
-                {% if not articles.object_list and not communities.object_list and not users.object_list and not questions.object_list %}
-                    <hr>
-                    <p class="text-center">Nenhum resultado foi encontrado para a busca!</p>
-                    <hr>
-                {% endif %}
+{#                {% if not articles.object_list and not communities.object_list and not users.object_list and not questions.object_list %}#}
+{#                    <hr>#}
+{#                    <p class="text-center">Nenhum resultado foi encontrado para a busca!</p>#}
+{#                    <hr>#}
+{#                {% endif %}#}
 
             </div>
         </div>
