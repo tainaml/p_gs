@@ -1,12 +1,11 @@
 from django.contrib.auth.decorators import login_required
-from django.contrib.contenttypes.models import ContentType
 from django.http import JsonResponse
 from django.shortcuts import render
 from django.utils.decorators import method_decorator
 from django.views.generic import View
 from django.utils.translation import ugettext as _
-from apps.core.business.content_types import ContentTypeCached
 
+from apps.core.business.content_types import ContentTypeCached
 from apps.feed.models import FeedObject
 from apps.complaint.service.form import ComplaintForm
 from apps.complaint.service import business as Business

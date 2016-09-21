@@ -54,7 +54,7 @@ $.fn.refreshEditors = function (){
             }
           );
         },
-        template: item => item.title,
+        template: item => `<img src="${item.thumb_url}" width="16" height="16" alt="${item.title}" /> ${item.title}`,
         content: item => {
           if (item.slug && item.title) {
             let tempself = $(this);
@@ -86,7 +86,7 @@ $.fn.refreshEditors = function (){
             );
           }
         },
-        template: item => item.full_name,
+        template: item => `<img src="${item.thumb_url}" width="16" height="16" alt="${item.full_name}" /> ${item.full_name}`,
 
         content: item => {
           if (item.username && item.full_name) {

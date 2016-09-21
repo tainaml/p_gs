@@ -1,6 +1,6 @@
-from django.conf import settings
-from django.core.cache import caches, cache
 from abc import ABCMeta, abstractmethod
+
+from django.core.cache import cache
 from django.utils.safestring import mark_safe
 
 

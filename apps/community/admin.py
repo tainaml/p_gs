@@ -1,9 +1,10 @@
 from django.contrib import admin
 from django_thumbor import generate_url
 from ideia_summernote.widget import SummernoteWidget
-from .models import Community
 from django.conf import settings
 from django import forms
+
+from .models import Community
 
 
 class ComunnityAdminForm(forms.ModelForm):

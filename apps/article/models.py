@@ -1,12 +1,15 @@
 import os
 from datetime import datetime
+
 from django.contrib.contenttypes.fields import GenericRelation
+from django.contrib.postgres.search import SearchVectorField, SearchVector
 from django.db import models
 from django.template.defaultfilters import slugify
 from django.utils import timezone
-from django.utils.functional import cached_property
 from django.utils.translation import ugettext as _
+
 from django.conf import settings
+
 from apps.core.models.embed import EmbedItem
 from apps.feed.models import FeedObject
 
@@ -37,11 +40,14 @@ class Article(models.Model):
         (STATUS_PUBLISH, _('Publish'))
     )
 
+    VECTOR = SearchVector("article__title", weight="A") + SearchVector("article__text", weight="B")
+
     title = models.CharField(blank=False, null=False,
                              max_length=settings.ARTICLE_TITLE_LIMIT if hasattr(settings, "ARTICLE_TITLE_LIMIT") else 100)
     slug = models.SlugField(default='', null=False, max_length=255, db_index=True)
 
     first_slug = models.SlugField(default='', max_length=255, db_index=True)
+
 
     text = models.TextField(null=False, max_length=settings.ARTICLE_TEXT_LIMIT if hasattr(settings, "ARTICLE_TEXT_LIMIT") else 10000)
     image = models.ImageField(max_length=100, upload_to=article_image_upload, blank=True, default='')
@@ -50,6 +56,8 @@ class Article(models.Model):
     createdin = models.DateTimeField(null=False, auto_now_add=True)
     updatein = models.DateTimeField(null=False, auto_now=True)
     publishin = models.DateTimeField(null=True, db_index=True)
+
+    search_vector = SearchVectorField(null=True)
 
     status = models.IntegerField(choices=STATUS_CHOICES, null=False)
 

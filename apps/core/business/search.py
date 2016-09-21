@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
 from django.conf import settings
+from django.contrib.postgres.lookups import Unaccent
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.db.models import Q
+import unicodedata
 from apps.account.models import User
 from apps.article.models import Article
 from apps.community.models import Community
@@ -10,7 +12,8 @@ from apps.question.models import Question
 from apps.userprofile.models import UserProfile
 from itertools import chain
 from collections import OrderedDict
-from django.contrib.postgres.search import SearchVector
+from django.contrib.postgres.search import SearchVector, SearchQuery, SearchRank
+
 
 def get_communities(description=None, items_per_page=None, page=None, startswith=False, category=None):
 
@@ -186,32 +189,6 @@ def get_articles(description=None, items_per_page=None, page=None):
     return articles
 
 
-def get_feed_title_criteria(description=''):
-    terms = description.split(' ')
-
-    main_criteria = Q(article__title__unaccent__icontains=description)
-    criteria = None
-    for term in terms:
-        term_criteria = Q(article__title__unaccent__icontains=term)
-        criteria = (criteria & term_criteria) if criteria else term_criteria
-
-    return main_criteria | criteria
-
-
-def get_feed_text_criteria(description):
-    main_criteria =  Q(
-        article__text__unaccent__icontains=description
-    )
-
-    terms = description.split(' ')
-    criteria = None
-    for term in terms:
-        term_criteria = Q(article__text__unaccent__icontains=term)
-        criteria = (criteria & term_criteria) if criteria else term_criteria
-
-    return main_criteria | criteria
-
-
 def get_feed_main_criteria():
     criteria = Q(
         article__status = Article.STATUS_PUBLISH,
@@ -219,28 +196,22 @@ def get_feed_main_criteria():
 
     return criteria
 
-
 def get_articles_feed(description=None, items_per_page=None, page=None):
 
     items_per_page = items_per_page if items_per_page else 6
     page = page if page else 1
 
-
     main_criteria = get_feed_main_criteria()
-    title_criteria = get_feed_title_criteria(description=description)
-    text_criteria = get_feed_text_criteria(description=description)
+    query = SearchQuery(description)
 
     articles = FeedObject.objects.annotate(
-        search=SearchVector('blog__tagline', 'body_text'),
-    ).filter(main_criteria).prefetch_related(
-            "content_object",
-            "content_object__author",
-            "content_type",
-            "communities",
-            "communities__taxonomy").order_by("-article__publishin")
-
-
-
+        rank=SearchRank(Article.VECTOR, query)
+    ).filter(main_criteria, article__search_vector=query).prefetch_related(
+             "content_object",
+             "content_object__author",
+             "content_type",
+             "communities",
+             "communities__taxonomy").order_by('-rank')
 
     articles = Paginator(articles, items_per_page)
 
@@ -253,82 +224,24 @@ def get_articles_feed(description=None, items_per_page=None, page=None):
 
     return articles
 
-
-def get_questions_by_title(arr_description):
-    criteria = None
-    criteria_base = Q(deleted=False)
-
-    for desc in arr_description:
-        query_criteria = Q(title__unaccent__icontains=desc)
-        criteria = query_criteria if not criteria else criteria & query_criteria
-
-    if arr_description:
-        criteria_base &= criteria
-
-    questions = Question.objects.filter(
-         criteria_base
-    ).order_by('-question_date').distinct('id', 'question_date')
-
-    return questions
-
-
-def get_questions_by_description(arr_description):
-    criteria = None
-    criteria_base = Q(deleted=False)
-
-    for desc in arr_description:
-        query_criteria = Q(description__unaccent__icontains=desc)
-        criteria = query_criteria if not criteria else criteria & query_criteria
-
-    if arr_description:
-        criteria_base &= criteria
-
-    questions = Question.objects.filter(
-        criteria_base
-    ).order_by('-question_date').distinct('id', 'question_date')
-
-    return questions
-
-
-def get_questions_general(arr_description):
-    criteria = None
-    criteria_base = Q(deleted=False)
-
-    for desc in arr_description:
-        query_criteria = (Q(title__unaccent__icontains=desc) |
-                          Q(description__unaccent__icontains=desc))
-        criteria = query_criteria if not criteria else criteria | query_criteria
-
-    if arr_description:
-        criteria_base &= criteria
-
-    questions = Question.objects.filter(
-        criteria_base
-    ).order_by('-question_date').distinct('id', 'question_date')
-
-    return questions
-
-
-def get_feed_questions(description=None):
-    arr_description = []
-    has_description = len(description.split())
-
-    arr_description = description.split(' ') if has_description else arr_description
-
-    questions_by_title = get_questions_by_title(arr_description)
-    questions_by_description = get_questions_by_description(arr_description)
-    questions_general = get_questions_general(arr_description)
-    questions = questions_general | questions_by_title | questions_by_description
-    return questions
-
-def get_questions(description=None, items_per_page=None, page=None):
+def get_feed_questions(description='', items_per_page=None, page=None):
 
     items_per_page = items_per_page if items_per_page else 6
     page = page if page else 1
 
-    questions = get_feed_questions(description)
+    query = SearchQuery(description)
+
+    questions = FeedObject.objects.annotate(
+        rank=SearchRank(Question.VECTOR, query)
+    ).filter(question__search_vector=query).prefetch_related(
+             "content_object",
+             "content_object__author",
+             "content_type",
+             "communities",
+             "communities__taxonomy").order_by('-rank')
 
     questions = Paginator(questions, items_per_page)
+    print page
     try:
         questions = questions.page(page)
     except PageNotAnInteger:
@@ -336,4 +249,5 @@ def get_questions(description=None, items_per_page=None, page=None):
     except EmptyPage:
         questions = []
 
+    print questions
     return questions

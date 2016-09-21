@@ -4,8 +4,8 @@ from django.contrib.contenttypes.models import ContentType
 from django.utils.functional import cached_property
 from django.utils.translation import ugettext as _
 from django.db import models
-from apps.core.business.content_types import ContentTypeCached
 
+from apps.core.business.content_types import ContentTypeCached
 from apps.socialactions.models import UserAction, Counter
 from apps.taxonomy.models import Taxonomy
 
