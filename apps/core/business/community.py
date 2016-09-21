@@ -24,8 +24,8 @@ def get_feed_objects(community_instance=None, description=None, content_types_li
         Q(content_type__in=content_types) &
         Q(communities=community_instance) &
         (
-            Q(article__status=Article.STATUS_PUBLISH) & Q(article__in=__articles) |
-            Q(question__deleted=False) & Q(question__in=__questions)
+            (Q(article__status=Article.STATUS_PUBLISH) & Q(id__in=__articles)) |
+            (Q(question__deleted=False) & Q(id__in=__questions))
         )
     ).order_by(
         "-date"
@@ -39,7 +39,7 @@ def get_feed_objects(community_instance=None, description=None, content_types_li
     if official is True:
         feed_objects = feed_objects.filter(official=official)
 
-    items_per_page = items_per_page if items_per_page else 10
+    items_per_page = items_per_page if items_per_page else 6
     page = page if page else 1
 
     feed_objects_paginated = Paginator(feed_objects, items_per_page)

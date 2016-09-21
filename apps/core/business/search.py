@@ -196,7 +196,7 @@ def get_feed_main_criteria():
 
     return criteria
 
-def get_articles_feed(description=None, items_per_page=None, page=None):
+def get_articles_feed(description='', items_per_page=6, page=1):
 
     items_per_page = items_per_page if items_per_page else 6
     page = page if page else 1
