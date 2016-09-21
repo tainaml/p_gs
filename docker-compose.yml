@@ -1,9 +1,16 @@
 version: '2'
 services:
+  nginx:
+    image: nginx
+    ports:
+      - "8008:80"
+    volumes:
+      - ./provision/data/nginx.local:/etc/nginx/conf.d/default.conf
+#      - ./:/etc/nginx/html:ro
+      - ./staticfiles:/etc/nginx/html/static:ro
+      - ./media:/etc/nginx/html/media:ro
   thumbor:
-    image: apsl/thumbor
-    domainname: redegsti.dev
-    hostname: thumbor
+    image: zanui/thumbor
     environment:
       AUTO_WEBP: "False"
       USE_GIFSICLE_ENGINE: "True"
@@ -18,19 +25,14 @@ services:
       SECURITY_KEY: "MY_SECURE_KEY"
       RESULT_STORAGE_STORES_UNSAFE: "True"
       RESULT_STORAGE: "thumbor.result_storages.file_storage"
-    volumes:
-      - data:/data
-      - logs:/logs
     ports:
-      - "8888:8000"
-    networks:
-      - my-net
+      - "8888:9000"
+    links:
+      - nginx:nginx
   memcached:
     image: memcached
     ports:
       - "11211:11211"
-    networks:
-      - my-net
   db:
     image: "postgres:9.3"
     environment:
@@ -41,17 +43,10 @@ services:
       DB_UNACCENT: 'True'
     domainname: db.redegsti.dev
     hostname: database
-    networks:
-      - my-net
     ports:
       - "5432:5432"
     volumes:
       - ../postgres_database:/var/lib/postgresql
-volumes:
-  data:
-    driver: local
-  logs:
-    driver: local
 networks:
-  my-net:
+  default:
     driver: bridge

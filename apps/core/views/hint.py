@@ -144,7 +144,8 @@ class HintAjaxView(View):
         for user in users:
             users_to_return.append({
                 'full_name': user.get_full_name(),
-                'username': user.username
+                'username': user.username,
+                'thumb_url': user.user_profile
             })
 
         context = {

@@ -187,9 +187,6 @@ ADD_REVERSION_ADMIN=True
 
 APPEND_SLASH = True
 
-def show_toolbar(request):
-    return not request.is_ajax()
-
 USE_CACHE = config.getboolean("CACHE", "active")
 
 # Site Urls
@@ -219,91 +216,6 @@ MIDDLEWARE_CLASSES = (
     # 'apps.core.middleware.MinifyHTMLMiddleware',
     # 'django_user_agents.middleware.UserAgentMiddleware',
 )
-
-
-# Setting Environment specific settings
-if ENVIRONMENT == "develop":
-    DEBUG = True
-
-    profiler = config.get("DEVELOP", 'profiler')
-
-    PROFILER_APP = 'silk'
-
-    if profiler == 'debug_toolbar':
-        PROFILER_APP = 'debug_toolbar'
-    else:
-        MIDDLEWARE_CLASSES += ('silk.middleware.SilkyMiddleware',)
-        SILKY_PYTHON_PROFILER = True
-        SILKY_META = True
-
-
-    INSTALLED_APPS += ('apps.ninico', PROFILER_APP )
-    STATIC_URL = '/static/'
-    MEDIA_URL = '/media/uploads/'
-    SECURE_SSL_HOST = None
-    SECURE_PROXY_SSL_HEADER = None
-
-    if USE_CACHE:
-        CACHES = {
-            'default': {
-                'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
-                'LOCATION': '%s:%s' % (config.get("CACHE", "host"), config.get("CACHE", "port"),),
-            },
-        }
-    else:
-        CACHES = {
-            'default': {
-                'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
-            }
-        }
-
-    DEBUG_TOOLBAR_CONFIG = {
-        'SHOW_TOOLBAR_CALLBACK': show_toolbar,
-    }
-
-elif ENVIRONMENT == "test":
-    DEBUG = False
-    ALLOWED_HOSTS = ['*']
-    from django.core.cache.backends.memcached import PyLibMCCache
-    if USE_CACHE:
-
-        CACHES = {
-            'default': {
-                'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
-                'LOCATION': '%s:%s' % (config.get("CACHE", "host"), config.get("CACHE", "port"),),
-            },
-        }
-    else:
-        CACHES = {
-            'default': {
-                'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
-            }
-        }
-
-elif ENVIRONMENT == "production":
-    ALLOWED_HOSTS = ['*']
-    DEBUG = False
-    from django.core.cache.backends.memcached import PyLibMCCache
-    CACHES = {
-        'default': {
-            'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
-            'LOCATION': '%s:%s' % (config.get("CACHE", "host"), config.get("CACHE", "port"),),
-        },
-    }
-    if USE_CACHE:
-
-        CACHES = {
-            'default': {
-                'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
-                'LOCATION': '%s:%s' % (config.get("CACHE", "host"), config.get("CACHE", "port"),),
-            },
-        }
-    else:
-        CACHES = {
-            'default': {
-                'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
-            }
-        }
 
 AUTH_USER_MODEL = 'account.User'
 
@@ -960,3 +872,89 @@ SUMMERNOTE_CONFIG = {
 
     }
 }
+
+
+# Setting Environment specific settings
+if ENVIRONMENT == "develop":
+    DEBUG = True
+
+    profiler = config.get("DEVELOP", 'profiler')
+
+    PROFILER_APP = 'silk'
+
+    if profiler == 'debug_toolbar':
+        PROFILER_APP = 'debug_toolbar'
+    else:
+        MIDDLEWARE_CLASSES += ('silk.middleware.SilkyMiddleware',)
+        SILKY_PYTHON_PROFILER = True
+        SILKY_META = True
+
+
+    INSTALLED_APPS += ('apps.ninico', PROFILER_APP )
+    STATIC_URL = '/static/'
+    MEDIA_URL = '/media/uploads/'
+    SECURE_SSL_HOST = None
+    SECURE_PROXY_SSL_HEADER = None
+
+    AVATAR = {
+        'M': 'nginx/static/images/avatar-masculino.png',
+        'F': 'nginx/static/images/avatar-feminino.png'
+    }
+
+    if USE_CACHE:
+        CACHES = {
+            'default': {
+                'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+                'LOCATION': '%s:%s' % (config.get("CACHE", "host"), config.get("CACHE", "port"),),
+            },
+        }
+    else:
+        CACHES = {
+            'default': {
+                'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
+            }
+        }
+
+elif ENVIRONMENT == "test":
+    DEBUG = False
+    ALLOWED_HOSTS = ['*']
+    from django.core.cache.backends.memcached import PyLibMCCache
+    if USE_CACHE:
+
+        CACHES = {
+            'default': {
+                'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+                'LOCATION': '%s:%s' % (config.get("CACHE", "host"), config.get("CACHE", "port"),),
+            },
+        }
+    else:
+        CACHES = {
+            'default': {
+                'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
+            }
+        }
+
+elif ENVIRONMENT == "production":
+    ALLOWED_HOSTS = ['*']
+    DEBUG = False
+    from django.core.cache.backends.memcached import PyLibMCCache
+    CACHES = {
+        'default': {
+            'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+            'LOCATION': '%s:%s' % (config.get("CACHE", "host"), config.get("CACHE", "port"),),
+        },
+    }
+    if USE_CACHE:
+
+        CACHES = {
+            'default': {
+                'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+                'LOCATION': '%s:%s' % (config.get("CACHE", "host"), config.get("CACHE", "port"),),
+            },
+        }
+    else:
+        CACHES = {
+            'default': {
+                'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
+            }
+        }

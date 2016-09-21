@@ -1,0 +1,16 @@
+server {
+    listen *:80;
+    server_name "";
+
+    root /etc/nginx/html/;
+
+    location / {
+
+        # CORS
+        add_header 'Access-Control-Allow-Origin' '*';
+        add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS';
+
+        try_files $uri 404;
+
+    }
+}
