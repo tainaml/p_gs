@@ -94,6 +94,10 @@ def get_feed_objects(profile_instance=None, description=None, content_types_list
         "communities__taxonomy"
     ).select_related('content_type')
 
+    feed_objects = feed_objects.order_by(
+        "-date"
+    ).distinct()
+
     items_per_page = items_per_page if items_per_page else 10
     page = page if page else 1
 
