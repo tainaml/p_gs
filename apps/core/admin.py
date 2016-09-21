@@ -1,5 +1,3 @@
-from datetime import date
-from django.conf import settings
 from django.contrib import admin
 from django.contrib.contenttypes.admin import GenericTabularInline
 from django.utils.translation import ugettext as _
@@ -11,7 +9,7 @@ from apps.core.forms.user import CoreUserAdminForm
 from apps.core.models.tags import Tags
 from apps.feed.models import FeedObject
 from apps.question.models import Question
-from apps.account.admin import UserAdmin, User, UserNewAdmin
+from apps.account.admin import User, UserNewAdmin
 from apps.socialactions.models import UserAction
 from apps.userprofile.models import UserProfile
 from django import forms

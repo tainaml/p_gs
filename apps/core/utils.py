@@ -2,7 +2,6 @@
 # -*- coding: utf-8 -*-
 
 from django.conf import settings
-from django.core import urlresolvers
 from django.template.defaultfilters import slugify
 
 

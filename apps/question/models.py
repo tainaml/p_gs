@@ -1,10 +1,11 @@
 from django.contrib.contenttypes.fields import GenericRelation
 from django.contrib.contenttypes.models import ContentType
+from django.contrib.postgres.search import SearchVectorField, SearchVector
 from django.core.urlresolvers import reverse
 from django.db import models
 from django.conf import settings
-from apps.core.business.content_types import ContentTypeCached
 
+from apps.core.business.content_types import ContentTypeCached
 from apps.taxonomy.models import Taxonomy
 from apps.feed.models import FeedObject
 
@@ -34,6 +35,10 @@ class Question(models.Model):
     question_date = models.DateTimeField(auto_now=False, auto_now_add=True)
     correct_answer = models.OneToOneField("question.Answer", related_name="correct_answer", blank=True, null=True)
     deleted = models.BooleanField(default=False)
+
+    VECTOR = SearchVector("question__title", weight="A") + SearchVector("question__description", weight="B")
+
+    search_vector = SearchVectorField(null=True)
 
     feed = GenericRelation(FeedObject, related_query_name="question")
 

@@ -10,6 +10,7 @@ from django.shortcuts import render, redirect
 from django.utils.decorators import method_decorator
 from django.utils.translation import gettext as _
 from django.views.generic import View
+
 from apps.article.service.business import get_article
 from .service import business as Business
 from .service.forms import ArticleForm

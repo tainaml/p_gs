@@ -1,13 +1,15 @@
 import os
 from datetime import datetime
+
 from django.contrib.contenttypes.fields import GenericRelation
-from django.contrib.postgres.search import SearchVectorField
+from django.contrib.postgres.search import SearchVectorField, SearchVector
 from django.db import models
 from django.template.defaultfilters import slugify
 from django.utils import timezone
-from django.utils.functional import cached_property
 from django.utils.translation import ugettext as _
+
 from django.conf import settings
+
 from apps.core.models.embed import EmbedItem
 from apps.feed.models import FeedObject
 
@@ -37,6 +39,8 @@ class Article(models.Model):
         (STATUS_TRASH, _('Trash')),
         (STATUS_PUBLISH, _('Publish'))
     )
+
+    VECTOR = SearchVector("article__title", weight="A") + SearchVector("article__text", weight="B")
 
     title = models.CharField(blank=False, null=False,
                              max_length=settings.ARTICLE_TITLE_LIMIT if hasattr(settings, "ARTICLE_TITLE_LIMIT") else 100)

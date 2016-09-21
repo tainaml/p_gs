@@ -74,7 +74,7 @@ class SearchArticleForm(SearchBaseForm):
 
 class SearchQuestionForm(SearchBaseForm):
     def __process__(self):
-        return Business.get_questions(
+        return Business.get_feed_questions(
             self.cleaned_data['q'],
             self.items_per_page,
             self.cleaned_data['page']

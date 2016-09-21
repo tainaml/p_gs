@@ -185,13 +185,13 @@
 
                 <div class="result-container">
 
-                    {% if content_type == 'questions' or questions.object_list %}
+                    {% if content_type == 'questions' or feed_questions %}
                     <header class="area-title">
                         <h2>Perguntas</h2>
                     </header>
                     {% endif %}
 
-                    {% if questions.object_list %}
+                    {% if feed_questions %}
                         <div class="area-content">
                             <div class="row j-scroll-questions j-scroll-container-questions">
                                 {% include "search/partials/search-questions.html" %}

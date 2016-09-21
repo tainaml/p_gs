@@ -1,12 +1,9 @@
 # Register your models here.
 
 from django.contrib import admin
-from django.contrib.contenttypes.admin import GenericStackedInline
 from django.core.urlresolvers import reverse
-from apps.article.models import Article
 
 from .models import FeedObject
-
 
 
 class FeedObjectAdmin(admin.ModelAdmin):

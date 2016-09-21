@@ -18,6 +18,7 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
+
 from apps.core.views.core import Home
 from apps.core.views import search as CoreSearch
 from apps.core.views.frontend import FrontEndBase

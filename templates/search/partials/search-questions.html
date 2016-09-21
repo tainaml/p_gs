@@ -1,10 +1,11 @@
-{% if questions.object_list %}
 
-    {% for question in questions %}
-        {% include "search/partials/search-questions-segment.html" %}
+{% if feed_questions %}
+
+    {% for feed in feed_questions %}
+        {% include "userprofile/partials/question-segment.html" with instance=feed.content_object %}
     {% endfor %}
 
-    {% if questions and questions.has_next %}
+    {% if feed_questions and feed_questions.has_next %}
     <div class="col-lg-12">
         <a data-jscroll-next-questions href="{% url 'search:list' "questions" %}?q={{ query_search|urlencode|default:"" }}&page={{ page|default:2 }}" class="btn-default btn-block">Carregar mais resultados</a>
     </div>

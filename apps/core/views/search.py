@@ -42,20 +42,17 @@ class Search(SearchBase):
         form_article = self.form_article(6, False, request.GET)
         form_question = self.form_question(6, False, request.GET)
 
-        try:
-            communities = form_community.process()
-            users = form_user.process()
-            feed_articles = form_article.process()
-            questions = form_question.process()
-            states = BusinessUserProfile.get_states(1)
-        except Exception, e:
-            return self.return_error(request, {})
+        communities = form_community.process()
+        users = form_user.process()
+        feed_articles = form_article.process()
+        feed_questions = form_question.process()
+        states = BusinessUserProfile.get_states(1)
 
         context = {
             'communities': communities,
             'users': users,
             'feed_articles': feed_articles,
-            'questions': questions,
+            'feed_questions': feed_questions,
             'form_community': form_community,
             'form_user': form_user,
             'form_article': form_article,
@@ -161,17 +158,17 @@ class SearchList(SearchBase):
 
             elif content_type == "articles":
                 form = self.form_article(6, False, request.GET)
-                articles = form.process()
+                feed_articles = form.process()
                 context.update({
-                    'articles': articles,
+                    'feed_articles': feed_articles,
                     'form_article': form,
                 })
 
             elif content_type == "questions":
                 form = self.form_question(6, False, request.GET)
-                questions = form.process()
+                feed_questions = form.process()
                 context.update({
-                    'questions': questions,
+                    'feed_questions': feed_questions,
                     'form_question': form,
                 })
 

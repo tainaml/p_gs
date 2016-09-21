@@ -3,11 +3,9 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.views.generic import View
 from django.shortcuts import render
-from django.http import Http404, JsonResponse, HttpResponse
+from django.http import JsonResponse, HttpResponse
 
-from apps.custom_base.views import InstanceSaveFormBaseView, InstanceUpdateFormBaseView, FormBaseListView, \
-    InstanceDeleteFormBaseView
-
+from apps.custom_base.views import InstanceSaveFormBaseView, InstanceUpdateFormBaseView, FormBaseListView
 from .service.forms import CreateCommentForm, EditCommentForm, ListCommentForm, CommentDeleteForm
 from .service import business as comment_business
 

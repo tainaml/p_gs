@@ -2,8 +2,9 @@
 from django.contrib import admin
 from django.conf import settings
 from django.core.urlresolvers import reverse
-from apps.account.models import User
 from django.contrib.auth.admin import UserAdmin
+
+from apps.account.models import User
 
 
 class UserNewAdmin(UserAdmin):

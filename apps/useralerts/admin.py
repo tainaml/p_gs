@@ -1,4 +1,5 @@
 from django.contrib import admin
+
 from models import UserAlert
 from admin_form import UserAlertForm
 
