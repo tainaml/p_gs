@@ -2,11 +2,10 @@ from apps.account.models import User
 from apps.socialactions.service import business as SocialActionsBusiness
 from django.conf import settings
 from django.db.models import Q
-from django.db.models.query import Prefetch
-from django.http.response import JsonResponse, Http404, HttpResponseBadRequest
+from django.http.response import JsonResponse, HttpResponseBadRequest
 from django.views.generic import View
 from apps.comment.service import business as CommentBusiness
-from apps.core.business import user as UserBusiness
+import django_thumbor
 
 
 class HintAjaxView(View):
@@ -138,21 +137,13 @@ class HintAjaxView(View):
                 Q(id__in=all_users) &
                 (Q(first_name__unaccent__icontains=term_filter) | Q(last_name__unaccent__icontains=term_filter))
             )
-        ).distinct()
+        ).exclude(id=current_user.id).distinct()
 
         users_to_return = []
         for user in users:
 
             avatar_url = user.user_profile.avatar_url
-            thumbor_media_url = getattr(settings, 'THUMBOR_MEDIA_URL', None)
-            thumbor_url = getattr(settings, 'THUMBOR_URL', None)
-
-            if thumbor_url:
-                #avatar_url = user.user_profile.profile_picture.name
-                avatar_url = '{}/{}'.format(
-                    thumbor_url,
-                    avatar_url
-                )
+            avatar_url = django_thumbor.generate_url(avatar_url, width=16, height=16)
 
             users_to_return.append({
                 'full_name': user.get_full_name(),
