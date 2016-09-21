@@ -142,10 +142,22 @@ class HintAjaxView(View):
 
         users_to_return = []
         for user in users:
+
+            avatar_url = user.user_profile.avatar_url
+            thumbor_media_url = getattr(settings, 'THUMBOR_MEDIA_URL', None)
+            thumbor_url = getattr(settings, 'THUMBOR_URL', None)
+
+            if thumbor_url:
+                #avatar_url = user.user_profile.profile_picture.name
+                avatar_url = '{}/{}'.format(
+                    thumbor_url,
+                    avatar_url
+                )
+
             users_to_return.append({
                 'full_name': user.get_full_name(),
                 'username': user.username,
-                'thumb_url': user.user_profile
+                'thumb_url': avatar_url
             })
 
         context = {
