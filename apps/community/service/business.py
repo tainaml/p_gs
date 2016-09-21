@@ -3,6 +3,7 @@
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.core.cache import cache
 from ..models import Community
+import django_thumbor
 
 
 def get_community_by_params(params={}, order_by=[], limit=None, offset=None):
@@ -56,5 +57,18 @@ def get_all_communities(criteria='', items_per_page=10, page=1):
         except EmptyPage:
             communities = []
 
+    data = []
 
-    return [{'slug': community.slug, 'title': community.title} for community in communities]
+    for community in communities:
+
+        data.append({
+            'slug': community.slug,
+            'title': community.title,
+            'thumb_url': django_thumbor.generate_url(
+                community.image.url,
+                width=16,
+                height=16
+            ),
+        })
+
+    return data

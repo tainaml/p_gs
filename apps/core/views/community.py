@@ -181,6 +181,7 @@ class CoreGetCommunities(views.View):
         form = self.form(self.itens_per_page, request.GET)
 
         communities = form.process() if form.is_valid() else []
+
         return JsonResponse({'communities': communities})
 
 
