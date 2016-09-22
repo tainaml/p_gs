@@ -123,8 +123,9 @@ $.fn.refreshEditors = function (){
         },
         onFocus: function(e) {
           var $parentForm = $editor.closest('form');
-          if($parentForm.data('logged') && $parentForm.data('logged').toLowerCase() == 'false') {
+          if(!$parentForm.data('logged')) {
             $modalLogin.modal('show');
+            e.stopPropagation();
           }
         },
       }

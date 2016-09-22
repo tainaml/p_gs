@@ -9,7 +9,7 @@
     </div>
     <input type="hidden" name="comment_id" value="{{ content_object.id }}">
     <div class="create-comment-footer">
-        <input type="submit" value="Editar" class="btn btn-primary">
+        <input class="btn btn-primary" type="submit" value="Enviar" data-url-login="{% url 'account:is_logged' %}" data-trigger="login">
     </div>
     {% csrf_token %}
 </form>
