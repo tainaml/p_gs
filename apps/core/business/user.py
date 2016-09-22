@@ -195,7 +195,7 @@ def get_articles_from_user(profile_instance=None, description=None, content_type
 def get_questions_from_user(profile_instance=None, description=None, content_type=None, items_per_page=None, page=None, user=None):
 
     feed_objects = get_question_feed_queryset(description)
-    feed_objects = feed_objects.filter(question__object__author=profile_instance.user)
+    feed_objects = feed_objects.filter(question__author=profile_instance.user)
 
     items_per_page = items_per_page if items_per_page else 10
     page = page if page else 1

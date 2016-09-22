@@ -21,7 +21,7 @@ class CreateQuestionForm(IdeiaModelForm):
 
     class Meta:
         model = Business.Question
-        exclude = ['author', 'question_date']
+        exclude = ['author', 'question_date', 'search_vector']
 
     def is_valid(self):
         valid = super(CreateQuestionForm, self).is_valid()
@@ -41,9 +41,9 @@ class CreateQuestionForm(IdeiaModelForm):
         return _description
 
     def clean_slug(self):
-        _slug = self.cleaned_data.get('slug', '')
+        _slug = self.cleaned_data.get('slug', None)
         _title = self.cleaned_data.get('title')
-        _slug = _slug if _slug else slugify(_title)
+        _slug = _slug if _slug is not None else slugify(_title)
         return _slug
 
     @transaction.atomic()
