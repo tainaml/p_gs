@@ -6,7 +6,6 @@ def handler400(request):
 
 
 def handler403(request):
-    response = render_to_response('404.html')
     return render(request, "404.html")
 
 
