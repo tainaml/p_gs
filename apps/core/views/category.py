@@ -1,5 +1,6 @@
 from apps.article.models import Article
 from apps.core.business.content_types import ContentTypeCached
+from apps.core.templatetags.article_blocks import get_article_community_by_category
 from django.core.cache import cache
 from django.db.models import Q, Prefetch
 from django.http import Http404
@@ -73,6 +74,11 @@ class CoreCategoryPageView(View):
         ).distinct()[0:self.LIMIT_ITEMS]
 
         cache.set(cache_key, articles, 500)
+
+        for article in articles:
+            if not article.image:
+                _community = get_article_community_by_category(article, self.category)
+                article.image = _community.image if _community else None
 
         return articles
 
