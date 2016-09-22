@@ -122,8 +122,9 @@ $.fn.refreshEditors = function (){
             }, 10);
         },
         onFocus: function(e) {
-          var $parentForm = $editor.closest('form');
-          if(!$parentForm.data('logged')) {
+          let $parentForm = $editor.closest('form');
+          let formData = $parentForm.data();
+          if("logged" in formData && !formData.logged) {
             $modalLogin.modal('show');
             e.stopPropagation();
           }
