@@ -27,31 +27,38 @@
                         </div>
                     </div>
                 </div>
-                {% bighomecache category_slug %}
+{#                {% bighomecache category_slug %}#}
                 <div class="highlight-area-category">
                     <div class="highlight-left">
                         <div class="banner">
                             {% ads_only_production "category_top" "all" %}
                         </div>
                         <div class="post-list-container">
-                            {% article_block 'large' category_slug class_name=class_name quantity=4 offset=0 %}
+{#                            {% article_block 'large' category_slug class_name=class_name quantity=4 offset=0 %}#}
+                            {% article_block_show 'large' 'articles' category_slug class_name=class_name quantity=4 %}
                         </div>
 
-                        {% article_block 'simple' category_slug class_name=class_name quantity=2 differ="primeira" %}
+{#                        {% article_block 'simple' category_slug class_name=class_name quantity=2 differ="primeira" %}#}
+                        {% article_block_show 'simple' 'articles' category_slug class_name=class_name quantity=2 differ="primeira" %}
 
                     </div>
                     {% with community=category.community_related %}
                         <div class="highlight-right">
                             {% include "userprofile/partials/profile-community-segment.html" with community_obj=community %}
-                            {% article_block 'simple' category_slug class_name=class_name quantity=2 differ="lateral-1" %}
 
-                            {% article_block 'simple' category_slug class_name=class_name quantity=2 differ="lateral-2" %}
-                            {% article_block 'simple-image' category_slug class_name=class_name quantity=1 offset=10 %}
+{#                            {% article_block 'simple' category_slug class_name=class_name quantity=2 differ="lateral-1" %}#}
+                            {% article_block_show 'simple' 'articles' category_slug class_name=class_name quantity=2 differ="lateral-1" %}
+
+{#                            {% article_block 'simple' category_slug class_name=class_name quantity=2 differ="lateral-2" %}#}
+{#                            {% article_block 'simple-image' category_slug class_name=class_name quantity=1 offset=10 %}#}
+
+                            {% article_block_show 'simple' 'articles' category_slug class_name=class_name quantity=2 differ="lateral-2" %}
+                            {% article_block_show 'simple-image' 'articles' category_slug class_name=class_name quantity=1 offset=10 %}
                         </div>
                     {% endwith %}
                 </div>
 
-                {% endbighomecache %}
+{#                {% endbighomecache %}#}
 
                 <div class="container-posts">
                     <div class="banner-content-wide">
