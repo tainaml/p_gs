@@ -54,6 +54,7 @@ class CoreCategoryPageView(View):
         cache_key = 'gsti|excludes|{}'.format(self.category.slug)
         cached_feed = cache.get(cache_key)
         if cached_feed:
+
             return cached_feed
 
         communities = self.get_communities()
@@ -73,12 +74,13 @@ class CoreCategoryPageView(View):
             Prefetch('feed__communities', queryset=communities),
         ).distinct()[0:self.LIMIT_ITEMS]
 
-        cache.set(cache_key, articles, 500)
-
         for article in articles:
-            if not article.image:
+
+            if not bool(article.image):
                 _community = get_article_community_by_category(article, self.category)
-                article.image = _community.image if _community else None
+                article.image = _community.image if _community and bool(_community.image) else None
+
+        cache.set(cache_key, articles, 0)
 
         return articles
 
