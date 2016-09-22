@@ -89,7 +89,7 @@
 
     &.label-tall {
       height: 62px;
-      @media (min-width: $screen-lg-min) {
+      @media (max-width: $screen-sm-min) {
         right: 20px;
       }
     }
