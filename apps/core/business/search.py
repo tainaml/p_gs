@@ -61,8 +61,14 @@ def get_users(description=None, items_per_page=None, page=None, startswith=False
     items_per_page = items_per_page if items_per_page else 6
     page = page if page else 1
 
+    terms = description.split(' ')
+
     if startswith:
-        criteria = (Q(first_name__unaccent__istartswith=description))
+        criteria = (Q(first_name__unaccent__istartswith=description) | Q(last_name__unaccent__istartswith=description))
+        for term in terms:
+            term_criteria = (Q(first_name__unaccent__icontains=term) | Q(last_name__unaccent__icontains=term))
+            criteria = criteria | term_criteria if criteria else term_criteria
+
     else:
         criteria = None
         arr_description = description.split(' ')
