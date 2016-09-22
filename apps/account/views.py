@@ -8,7 +8,6 @@ from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.utils.decorators import method_decorator
 from django.views.generic import View
-
 from django.utils.translation import ugettext as _
 
 from apps.account.account_exceptions import AccountDoesNotExistException, TokenIsNoLongerValidException, \

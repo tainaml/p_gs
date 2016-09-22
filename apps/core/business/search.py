@@ -1,18 +1,13 @@
 # -*- coding: utf-8 -*-
 from django.conf import settings
-from django.contrib.postgres.lookups import Unaccent
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.db.models import Q
-import unicodedata
 from apps.account.models import User
 from apps.article.models import Article
 from apps.community.models import Community
 from apps.feed.models import FeedObject
 from apps.question.models import Question
-from apps.userprofile.models import UserProfile
-from itertools import chain
-from collections import OrderedDict
-from django.contrib.postgres.search import SearchVector, SearchQuery, SearchRank
+from django.contrib.postgres.search import  SearchQuery, SearchRank
 
 
 def get_communities(description=None, items_per_page=None, page=None, startswith=False, category=None):
