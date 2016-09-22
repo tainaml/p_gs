@@ -2,16 +2,15 @@
 
 {% url 'hint:list' content_type content_object.id as hint_list_url %}
 
-<form data-group-class=".comment-group" action="{% url 'comment:save' %}" data-logged="{{ request.user.is_authenticated }}" data-token="{{ csrf_token }}" data-ajaxform="true" data-toggle="prepend" data-update="{{ to_update }}" method="post">
-    <div class="comment-group">
-
+<form data-group-class=".form-group" action="{% url 'comment:save' %}" data-logged="{% if request.user.is_authenticated %}true{% else %}false{% endif %}" data-token="{{ csrf_token }}" data-ajaxform="true" data-toggle="prepend" data-update="{{ to_update }}" method="post">
+    <div class="form-group">
         {% render_field form.content data-hint-url=hint_list_url %}
         <span class="help-block"></span>
     </div>
     <input type="hidden" name="content_type" value="{{ content_type }}">
     <input type="hidden" name="content_object_id" value="{{ content_object.id }}">
      <div class="create-comment-footer">
-        <input type="submit" value="Enviar" class="btn btn-primary">
+        <input class="btn btn-primary" type="submit" value="Enviar" data-url-login="{% url 'account:is_logged' %}" data-trigger="login">
     </div>
     {% csrf_token %}
 </form>

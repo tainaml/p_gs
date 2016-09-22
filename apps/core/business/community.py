@@ -1,4 +1,5 @@
 from django.conf import settings
+from django.contrib.postgres.search import SearchRank, SearchQuery
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.db.models import Q
 from apps.article.models import Article
@@ -6,6 +7,7 @@ from apps.community.models import Community
 from apps.core.business.content_types import ContentTypeCached
 from apps.core.models.tags import Tags
 from apps.feed.models import FeedObject
+from apps.question.models import Question
 from apps.socialactions.models import UserAction
 from ..business import search as SearchBusiness
 
@@ -17,9 +19,10 @@ def get_feed_objects(community_instance=None, description=None, content_types_li
 
     content_types = ContentTypeCached.objects.filter(model__in=content_types_list)
 
-    __articles = SearchBusiness.get_feed_articles(description)
-    __questions = SearchBusiness.get_feed_questions(description)
+    __articles = SearchBusiness.get_articles_feed_queryset(description)
+    __questions = SearchBusiness.get_question_feed_queryset(description)
 
+    query = SearchQuery(description)
     feed_objects = FeedObject.objects.filter(
         Q(content_type__in=content_types) &
         Q(communities=community_instance) &
@@ -27,14 +30,14 @@ def get_feed_objects(community_instance=None, description=None, content_types_li
             (Q(article__status=Article.STATUS_PUBLISH) & Q(id__in=__articles)) |
             (Q(question__deleted=False) & Q(id__in=__questions))
         )
-    ).order_by(
-        "-date"
+    ).annotate(
+        rank=SearchRank(Question.VECTOR + Article.VECTOR, query)
     ).prefetch_related(
         "content_object",
         "content_object__author",
         "content_type",
         "communities",
-        "communities__taxonomy")
+        "communities__taxonomy").order_by("-rank")
 
     if official is True:
         feed_objects = feed_objects.filter(official=official)

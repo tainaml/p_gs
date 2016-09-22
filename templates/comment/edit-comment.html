@@ -2,14 +2,14 @@
 
 {% url 'hint:list' content_type content_object.id as hint_list_url %}
 
-<form data-group-class=".comment-group" data-logged="{{ request.user.is_authenticated }}" action="{% url 'comment:update' %}" data-ajaxform="true" data-toggle="replace" data-update="#comment-{{ content_object.id }}" method="post">
+<form data-group-class=".comment-group" data-logged="{% if request.user.is_authenticated %}true{% else %}false{% endif %}" action="{% url 'comment:update' %}" data-ajaxform="true" data-toggle="replace" data-update="#comment-{{ content_object.id }}" method="post">
     <div class="comment-group">
         {% render_field form.content data-hint-url=hint_list_url %}
         <span class="help-block"></span>
     </div>
     <input type="hidden" name="comment_id" value="{{ content_object.id }}">
     <div class="create-comment-footer">
-        <input type="submit" value="Editar" class="btn btn-primary">
+        <input class="btn btn-primary" type="submit" value="Enviar" data-url-login="{% url 'account:is_logged' %}" data-trigger="login">
     </div>
     {% csrf_token %}
 </form>

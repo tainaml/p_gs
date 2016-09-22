@@ -196,11 +196,7 @@ def get_feed_main_criteria():
 
     return criteria
 
-def get_articles_feed(description='', items_per_page=6, page=1):
-
-    items_per_page = items_per_page if items_per_page else 6
-    page = page if page else 1
-
+def get_articles_feed_queryset(description=''):
     if description == '':
         articles = FeedObject.objects.filter(article__status=Article.STATUS_PUBLISH).prefetch_related(
                  "content_object",
@@ -215,29 +211,16 @@ def get_articles_feed(description='', items_per_page=6, page=1):
 
         articles = FeedObject.objects.annotate(
             rank=SearchRank(Article.VECTOR, query)
-        ).filter(main_criteria, article__search_vector=query).prefetch_related(
+        ).filter(main_criteria & Q(article__search_vector=query)).prefetch_related(
                  "content_object",
                  "content_object__author",
                  "content_type",
                  "communities",
                  "communities__taxonomy").order_by('-rank')
 
-    articles = Paginator(articles, items_per_page)
-
-    try:
-        articles = articles.page(page)
-    except PageNotAnInteger:
-        articles = articles.page(1)
-    except EmptyPage:
-        articles = []
-
     return articles
 
-def get_feed_questions(description='', items_per_page=None, page=None):
-
-    items_per_page = items_per_page if items_per_page else 6
-    page = page if page else 1
-
+def get_question_feed_queryset(description=''):
     if description == '':
         questions = FeedObject.objects.filter(question__id__isnull=False).prefetch_related(
                  "content_object",
@@ -257,13 +240,40 @@ def get_feed_questions(description='', items_per_page=None, page=None):
                  "communities",
                  "communities__taxonomy").order_by('-rank')
 
-        questions = Paginator(questions, items_per_page)
-        print page
-        try:
-            questions = questions.page(page)
-        except PageNotAnInteger:
-            questions = questions.page(1)
-        except EmptyPage:
-            questions = []
+    return questions
+
+def get_articles_feed(description='', items_per_page=6, page=1):
+
+    items_per_page = items_per_page if items_per_page else 6
+    page = page if page else 1
+
+    articles = get_articles_feed_queryset(description)
+
+    articles = Paginator(articles, items_per_page)
+
+    try:
+        articles = articles.page(page)
+    except PageNotAnInteger:
+        articles = articles.page(1)
+    except EmptyPage:
+        articles = []
+
+    return articles
+
+def get_feed_questions(description='', items_per_page=None, page=None):
+
+    items_per_page = items_per_page if items_per_page else 6
+    page = page if page else 1
+
+    questions = get_question_feed_queryset(description)
+
+    questions = Paginator(questions, items_per_page)
+    print page
+    try:
+        questions = questions.page(page)
+    except PageNotAnInteger:
+        questions = questions.page(1)
+    except EmptyPage:
+        questions = []
 
     return questions

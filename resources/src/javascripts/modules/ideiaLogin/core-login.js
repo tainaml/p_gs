@@ -114,30 +114,6 @@
             });
         };
 
-        // public methods
-        // these methods can be called like:
-        // plugin.methodName(arg1, arg2, ... argn) from inside the plugin or
-        // element.data('ideiaLogin').publicMethod(arg1, arg2, ... argn) from outside
-        // the plugin, where "element" is the element the plugin is attached to;
-
-        // a public method. for demonstration purposes only - remove it!
-        plugin.foo_public_method = function() {
-
-            // code goes here
-
-        };
-
-        // private methods
-        // these methods can be called only from inside the plugin like:
-        // methodName(arg1, arg2, ... argn)
-
-        // a private method. for demonstration purposes only - remove it!
-        var foo_private_method = function() {
-
-            // code goes here
-
-        };
-
         // fire up the plugin!
         // call the "constructor" method
         plugin.init();
@@ -175,7 +151,7 @@
         $( '[data-trigger=login]' ).each( function () {
             var $e = $( this );
             $e.ideiaLogin( $e.data() );
-            $e.on('click', function(e){
+            $e.on('click', function(e) {
                 e.preventDefault();
             });
         });
