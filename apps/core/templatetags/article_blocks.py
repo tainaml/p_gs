@@ -1,3 +1,4 @@
+import copy
 from django import template
 from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
@@ -208,6 +209,42 @@ def article_block(context, type, category_slug, **kwargs):
     block_item = block_class(context, type, category_slug, **kwargs)
 
     return block_item.render()
+
+
+@register.simple_tag(takes_context=True)
+def article_block_show(context, type, items, category_slug, **kwargs):
+
+    template_file = kwargs.get('template', 'home/blocks/article/{}.html'.format(type))
+
+    data = {}
+
+    articles = context.get(items)
+    articles_count = len(articles)
+
+    quantity = kwargs.get('quantity')
+
+    if quantity > articles_count:
+        quantity = articles_count
+
+    filtered_articles = articles[0:quantity]
+
+    articles = [article for article in articles if article not in filtered_articles]
+
+    data.update({
+        'articles': filtered_articles
+    })
+
+    context.update({
+        'articles': articles
+    })
+
+    return mark_safe(
+        render_to_string(
+            template_name=template_file,
+            context=data,
+            request=context.get('request')
+        )
+    )
 
 
 @register.simple_tag(takes_context=True)

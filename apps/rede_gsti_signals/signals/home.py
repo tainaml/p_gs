@@ -26,8 +26,8 @@ def refresh_home_block(sender, **kwargs):
 
     __key = 'gsti__excludes__cache__%s'
 
-    print 'is_official %s' % feed_object.official
-    print 'is old official %s' % feed_object.official__old_value
+    print('is_official %s' % feed_object.official)
+    print('is old official %s' % feed_object.official__old_value)
 
     if force_update == False and feed_object.official == False and feed_object.official__old_value == False:
         return
