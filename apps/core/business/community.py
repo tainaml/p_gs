@@ -17,8 +17,8 @@ def get_feed_objects(community_instance=None, description=None, content_types_li
 
     content_types = ContentTypeCached.objects.filter(model__in=content_types_list)
 
-    __articles = SearchBusiness.get_feed_articles(description)
-    __questions = SearchBusiness.get_feed_questions(description)
+    __articles = SearchBusiness.get_articles_feed_queryset(description)
+    __questions = SearchBusiness.get_question_feed_queryset(description)
 
     feed_objects = FeedObject.objects.filter(
         Q(content_type__in=content_types) &
