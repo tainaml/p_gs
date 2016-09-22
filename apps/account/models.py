@@ -7,7 +7,6 @@ from django.core.urlresolvers import reverse
 from django.utils import timezone
 from django.utils.functional import cached_property
 from django.utils.translation import ugettext as _
-
 from django.conf import settings
 
 from apps.core.business.content_types import ContentTypeCached
