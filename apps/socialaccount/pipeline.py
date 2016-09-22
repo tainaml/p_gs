@@ -1,3 +1,4 @@
+from apps.core.utils import capitalize_this_name
 from django.contrib.auth import get_user_model
 from django.shortcuts import redirect
 from django.utils.text import slugify
@@ -44,6 +45,9 @@ def username_slugify(**kwargs):
 def create_profile(strategy, user, response, details, is_new=False,*args,**kwargs):
 
     user.is_active = True
+
+    user.first_name = capitalize_this_name(user.first_name)
+    user.last_name = capitalize_this_name(user.last_name)
     user.save()
     profile = GetProfile(user)
 
