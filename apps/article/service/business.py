@@ -38,16 +38,29 @@ def create_temp_article(author):
 
 
 def save_article(article, data):
+
+    changed = False
+    saved = True
+
     if not article.first_slug:
         article.first_slug=article.slug
+        changed = True
+
+    if 'image' in data:
+        #TODO: [POG] Try clear image in form. A django bug?
+        article.image = data['image']
+        changed = True
+
+    # __to_update = ['image']
 
     # for key in data.keys():
-    #     if not hasattr(article, key):
+    #     if not hasattr(article, key) and key not in __to_update:
     #         continue
     #
     #     setattr(article, key, data.get(key))
 
-    saved = article.save()
+    if changed:
+        saved = article.save()
     return False if saved is False else article
 
 
