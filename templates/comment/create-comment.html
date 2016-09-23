@@ -2,7 +2,7 @@
 
 {% url 'hint:list' content_type content_object.id as hint_list_url %}
 
-<form data-group-class=".form-group" action="{% url 'comment:save' %}" data-logged="{% if request.user.is_authenticated %}true{% else %}false{% endif %}" data-token="{{ csrf_token }}" data-ajaxform="true" data-toggle="prepend" data-update="{{ to_update }}" method="post">
+<form data-group-class=".form-group" action="{% url 'comment:save' %}" data-logged="{% if request.user.is_authenticated %}true{% else %}false{% endif %}" data-token="{{ csrf_token }}" data-ajaxform="true" data-toggle="append" data-update="{{ to_update }}" method="post">
     <div class="form-group">
         {% render_field form.content data-hint-url=hint_list_url %}
         <span class="help-block"></span>

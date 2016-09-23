@@ -92,7 +92,7 @@ def get_all_comments_by_content_object(content_object):
     return comments
 
 def get_comments_by_content_object(content_object=None, items_per_page=None, page=None):
-    comments = get_all_comments_by_content_object(content_object).order_by("-creation_date")
+    comments = get_all_comments_by_content_object(content_object).order_by("creation_date")
 
     items_per_page = items_per_page if items_per_page else 10
 

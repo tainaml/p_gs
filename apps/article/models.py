@@ -19,11 +19,9 @@ def article_image_upload(instance, filename):
     today_str = datetime.today().strftime('%Y/%m/%d')
     path = 'article/{0}/{1}'.format(owner, today_str)
 
-
     ext = filename.split('.')[-1]
     name = slugify(".".join(filename.split('.')[0:-1]))
     return os.path.join(path, "{0}.{1}".format(name, ext))
-
 
 
 class Article(models.Model):

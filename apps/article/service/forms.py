@@ -15,7 +15,7 @@ class ArticleForm(IdeiaModelForm):
     title = forms.CharField(required=True, max_length=settings.ARTICLE_TITLE_LIMIT if hasattr(settings, "ARTICLE_TITLE_LIMIT") else 100)
     slug = forms.SlugField(max_length=150, required=False)
     text = forms.CharField(required=True, widget=SummernoteWidget(editor_conf='article'), max_length=settings.ARTICLE_TEXT_LIMIT if hasattr(settings, "ARTICLE_TEXT_LIMIT") else 10000)
-    image = forms.ImageField(required=False)
+    # image = forms.ImageField(required=False)
     publishin = forms.DateTimeField(required=False)
     # status = forms.ChoiceField(required=False, choices=Business.Article.STATUS_CHOICES)
     author = forms.IntegerField(required=False)
@@ -128,5 +128,6 @@ class ArticleForm(IdeiaModelForm):
         self._author = author
 
     def __process__(self):
+        self.instance.author = self._author
         self.instance = self.save()
         return Business.save_article(self.instance, self.cleaned_data)
