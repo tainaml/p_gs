@@ -8,7 +8,7 @@
     width: 100%;
     min-height: 51px;
     border-bottom: 1px solid $color-border;
-    background: $link-white;
+    background: #f5f5f5;
 
     .gsti {
         overflow: hidden;
@@ -20,6 +20,10 @@
         margin-bottom: 0;
         color: $color-governance;
         text-align: center;
+
+        @media (min-width: $screen-lg-min) {
+          border-right: 1px solid #e1e1e1;
+        }
 
         &-#{link} {
             width: 126px;
@@ -71,7 +75,7 @@
     }
     .user-actions {
         @include make-xs-column(12);
-        @include make-lg-column(2);
+        @include make-lg-column(3);
         padding: 0;
         border-left: 1px solid #e1e1e1;
         @media (min-width: $screen-lg-min) {
@@ -79,7 +83,7 @@
             padding-right: 15px;
         }
         &-#{link} {
-            width: 63.5%;
+            width: 35%;
             border-right: 1px solid #e1e1e1;
             line-height: 3.7;
             float: left;
@@ -88,7 +92,7 @@
             font-size: 1em;
             text-align: center;
             &:last-child {
-                width: 36.5%;
+                width: 30%;
                 border-left-width: 0;
             }
             &:hover { background-color: #f2f2f2; }
@@ -99,7 +103,7 @@
         border-right: 1px solid $color-border;
     }
     .user-actions-logged {
-        @include make-lg-column(4);
+        @include make-lg-column(5);
         border-left: 1px solid $color-border;
         padding-left: 0;
         padding-right: 0;
@@ -113,8 +117,8 @@
             font-size: 1.014em;
             line-height: 3;
             background-color: $white-ice;
-            &:nth-child(4) {
-                width: 51%;
+            &:nth-child(5) {
+                width: 43%;
                 border-right: 1px solid $color-border;
                 border-left-width: 1px;
             }
@@ -203,17 +207,21 @@
 // ==========================================================================
 .search-header-container {
     @include make-xs-column(12);
-    @include make-xs-column(8.4);
-    border-left: 1px solid #e1e1e1;
+    @include make-lg-column(7.4);
 }
 .search-header-container--logged {
     @include make-xs-column(12);
-    @include make-lg-column(6.4);
-    border-left: 1px solid #e1e1e1;
+    @include make-lg-column(5.27);
 }
 .search-header-form {
     @include make-row;
     position: relative;
+    @media (min-width: $screen-lg-min) {
+      margin-top: 7px;
+      margin-right: 0;
+      margin-left: 0;
+      border: 1px solid #e1e1e1;
+    }
 }
 .search-header-input {
     @include make-xs-column(12);
@@ -222,6 +230,10 @@
     font-size: 14px;
     line-height: 3.45;
     outline: none;
+
+    @media (min-width: $screen-lg-min) {
+      line-height: 2.45;
+    }
 }
 .mobile-search {
     position: absolute;
@@ -241,4 +253,20 @@
     border-radius: 50%;
     font-size: 20px;
     text-align: center;
+}
+
+// A herança dentro de .header é por que o background conflita com os botões
+// anteriores
+.btn-publicar,
+.header .btn-publicar {
+  padding-right: 20px;
+  padding-left: 20px;
+  background: #3ea909;
+  color: #fff;
+  cursor: pointer;
+  font-weight: 600;
+  &:hover {
+    background-color: darken(#3ea909, 10%);
+    color: #fff;
+  }
 }
