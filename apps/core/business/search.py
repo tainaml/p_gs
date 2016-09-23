@@ -59,10 +59,29 @@ def get_users(description=None, items_per_page=None, page=None, startswith=False
     terms = description.split(' ')
 
     if startswith:
-        criteria = (Q(first_name__unaccent__istartswith=description) | Q(last_name__unaccent__istartswith=description))
-        for term in terms:
-            term_criteria = (Q(first_name__unaccent__icontains=term) | Q(last_name__unaccent__icontains=term))
-            criteria = criteria | term_criteria if criteria else term_criteria
+        has_more_than_one_term = len(terms) > 1
+
+        if has_more_than_one_term:
+
+            #TODO refactor this ugly queries
+            first_term = terms[0]
+            last_term = terms[1]
+            full_term_criteria = Q(first_name__unaccent__istartswith=first_term) & Q(last_name__unaccent__istartswith=last_term)
+
+            exists_users_with_full_term = User.objects.filter(full_term_criteria).exists()
+            if exists_users_with_full_term:
+                criteria = full_term_criteria
+            else:
+                criteria = (Q(first_name__unaccent__istartswith=description) | Q(last_name__unaccent__istartswith=description))
+                for term in terms:
+                    term_criteria = (Q(first_name__unaccent__icontains=term) | Q(last_name__unaccent__icontains=term))
+                    criteria = criteria | term_criteria if criteria else term_criteria
+
+
+        else:
+            criteria = (Q(first_name__unaccent__istartswith=description) | Q(last_name__unaccent__istartswith=description))
+
+
 
     else:
         criteria = None
