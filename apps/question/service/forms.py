@@ -21,7 +21,7 @@ class CreateQuestionForm(IdeiaModelForm):
 
     class Meta:
         model = Business.Question
-        exclude = ['author', 'question_date', 'search_vector']
+        exclude = ['author', 'question_date', 'slug', 'search_vector']
 
     def is_valid(self):
         valid = super(CreateQuestionForm, self).is_valid()
@@ -41,15 +41,16 @@ class CreateQuestionForm(IdeiaModelForm):
         return _description
 
     def clean_slug(self):
-        _slug = self.cleaned_data.get('slug', None)
-        _title = self.cleaned_data.get('title')
-        _slug = _slug if _slug is not None else slugify(_title)
-        return _slug
+        slug = self.cleaned_data.get('slug', None)
+        title = self.cleaned_data.get('title')
+        slug = slug if bool(slug) else slugify(title)
+        return slug
 
     @transaction.atomic()
     def __process__(self):
-        self.instance = Business.save_question(self.user, self.cleaned_data)
-        return self.instance
+        self.instance.author = self.user
+        # self.instance = Business.save_question(self.user, self.cleaned_data)
+        return self.save()
 
 
 class EditQuestionForm(CreateQuestionForm):
@@ -75,8 +76,15 @@ class EditQuestionForm(CreateQuestionForm):
         return is_valid
 
     def __process__(self):
-        question = Business.update_question(self.cleaned_data, self.instance)
-        return question
+        # question = Business.update_question(self.cleaned_data, self.instance)
+        self.instance = self.save()
+
+        # TODO: [POG] Protect for error in oldest questions without slug
+        if not bool(self.instance.slug):
+            self.instance.slug = slugify(self.instance.title)
+            self.instance.save()
+
+        return self.instance
 
 
 class CommentReplyForm(IdeiaForm):

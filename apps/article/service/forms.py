@@ -31,7 +31,7 @@ class ArticleForm(IdeiaModelForm):
 
     class Meta:
         model = Business.Article
-        exclude = ['first_slug']
+        exclude = ['first_slug', 'slug', 'search_vector']
 
     def __init__(self, data=None, files=None, author=False, *args, **kwargs):
 
@@ -64,11 +64,10 @@ class ArticleForm(IdeiaModelForm):
         return _date
 
     def clean_slug(self):
-        _slug = self.cleaned_data.get('slug', '')
-        _title = self.cleaned_data.get('title')
-        _slug = _slug if _slug else Business.get_valid_slug(self.instance, _title)
-
-        return _slug
+        slug = self.cleaned_data.get('slug', None)
+        title = self.cleaned_data.get('title')
+        slug = slug if bool(slug) else Business.get_valid_slug(self.instance, title)
+        return slug
 
     def clean_author(self):
         _author = self.cleaned_data.get('author')
@@ -112,6 +111,10 @@ class ArticleForm(IdeiaModelForm):
                 self.instance.status = Business.Article.STATUS_DRAFT
 
             self.instance.do_save()
+
+        self.cleaned_data.update({
+            'status': self.instance.status
+        })
 
         return valid
 
