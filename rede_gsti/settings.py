@@ -213,8 +213,8 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
-    # 'apps.core.middleware.MinifyHTMLMiddleware',
-    # 'django_user_agents.middleware.UserAgentMiddleware',
+    'apps.core.middleware.MinifyHTMLMiddleware',
+    'django_user_agents.middleware.UserAgentMiddleware',
 )
 
 AUTH_USER_MODEL = 'account.User'
@@ -283,7 +283,7 @@ FIXTURE_FILE = 'initial_data.json'
 IMAGES_ALLOWED = ['image/jpeg','image/png']
 
 # EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_BACKEND = 'apps.mailmanager.backend.MailManagedBackend'
+# EMAIL_BACKEND = 'apps.mailmanager.backend.MailManagedBackend'
 EMAIL_USE_TLS = config.getboolean("EMAIL", "tls")
 EMAIL_HOST = config.get("EMAIL", "host")
 EMAIL_HOST_USER = config.get("EMAIL", "user")
