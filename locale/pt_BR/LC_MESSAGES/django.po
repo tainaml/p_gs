@@ -81,19 +81,16 @@ msgid "Um erro ocorreu, por favor tente novamente mais tarde!"
 msgstr ""
 
 #: apps/account/views.py:217
-#, fuzzy
 #| msgid "Answer is not exists!"
 msgid "Account is not exists!"
-msgstr "Resposta não existe"
+msgstr "Conta não existe"
 
 #: apps/account/views.py:219
-#, fuzzy
 #| msgid "Token is no longer valid."
 msgid "Token is not longer valid!"
 msgstr "Token expirou"
 
 #: apps/account/views.py:231
-#, fuzzy
 #| msgid "Token not exist!"
 msgid "Token is not exists!"
 msgstr "Token não existe"
@@ -324,10 +321,9 @@ msgstr "^inscricao/$"
 
 #. Translators: URL de pagina de login
 #: apps/core/urls/account.py:13
-#, fuzzy
 #| msgid "^login/$"
 msgid "^login/?$"
-msgstr "^login/$"
+msgstr "^login/?$"
 
 #. Translators: URL de pagina de login ajax
 #: apps/core/urls/account.py:16
@@ -399,10 +395,9 @@ msgstr "^publicacao/criar$"
 
 #. Translators: URL de visualizacao
 #: apps/core/urls/article.py:18
-#, fuzzy
 #| msgid "^article/edit/(?P<article_id>\\d+)$"
 msgid "^article/preview/(?P<article_id>\\d+)$"
-msgstr "^publicacao/editar/(?P<article_id>\\d+)$"
+msgstr "^publicacao/pre-visualizar/(?P<article_id>\\d+)$"
 
 #. Translators: URL de edicao de artigo
 #: apps/core/urls/article.py:21
@@ -444,21 +439,18 @@ msgstr "^listar-publicacoes-comunidades$"
 
 #. Translators: URL de pagina de busca da comunidade
 #: apps/core/urls/community.py:11
-#, fuzzy
 #| msgid "^search$"
 msgid "^search/$"
-msgstr "^buscar$"
+msgstr "^buscar/$"
 
 #. Translators: URL de pagina de filtros de comunidades
 #: apps/core/urls/community.py:14
-#, fuzzy
 #| msgid "^ajax/user/communities/$"
 msgid "^search/community/list/$"
-msgstr "^ajax/usuario/comunidade/$"
+msgstr "^buscar/comunidade/listagem/$"
 
 #. Translators: URL de pagina principal de comunidade
 #: apps/core/urls/community.py:17
-#, fuzzy
 #| msgid "^(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/$"
 msgid "^(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)$"
 msgstr "^(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/$"
@@ -707,31 +699,27 @@ msgstr "^criar/(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)$"
 
 #. Translators: URL de busca geral
 #: apps/core/urls/search.py:8
-#, fuzzy
 #| msgid "^search$"
 msgid "^searching$"
-msgstr "^buscar$"
+msgstr "^pesquisando$"
 
 #. Translators: URL de autocomplete de busca geral
 #: apps/core/urls/search.py:11
-#, fuzzy
 #| msgid "^search/autocomplete$"
 msgid "^searching/autocomplete$"
-msgstr "^buscar/autocomplete$"
+msgstr "^pesquisando/autocomplete$"
 
 #. Translators: URL de listagem de busca geral
 #: apps/core/urls/search.py:14
-#, fuzzy
 #| msgid "^search/list/(?P<content_type>[a-z]+)$"
 msgid "^searching/list/(?P<content_type>[a-z]+)$"
-msgstr "^buscar/listagem/(?P<content_type>[a-z]+)$"
+msgstr "^pesquisando/listagem/(?P<content_type>[a-z]+)$"
 
 #. Translators: URL de procurar conteudo
 #: apps/core/urls/search.py:17
-#, fuzzy
 #| msgid "^search/(?P<content_type>[a-z]+)$"
 msgid "^searching/(?P<content_type>[a-z]+)$"
-msgstr "^buscar/(?P<content_type>[a-z]+)$"
+msgstr "^buscando/(?P<content_type>[a-z]+)$"
 
 #. Translators: URL de filtro de seguindo
 #: apps/core/urls/socialactions.py:8
@@ -1464,10 +1452,9 @@ msgid "^useralerts/"
 msgstr ""
 
 #: rede_gsti/urls.py:118
-#, fuzzy
 #| msgid "^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/$"
 msgid "^front-end/(?P<template>[a-z0-9.]+(?:(-|_)[a-z0-9.]+)*)"
-msgstr "^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/$"
+msgstr "^front-end/(?P<template>[a-z0-9.]+(?:(-|_)[a-z0-9.]+)*)"
 
 #: templates/400.html:8 templates/404.html:8
 msgid "Houston, we have a problem!"
@@ -1646,10 +1633,9 @@ msgid "View site"
 msgstr ""
 
 #: templates/admin/base.html:45
-#, fuzzy
 #| msgid "^occupation/$"
 msgid "Documentation"
-msgstr "^ocupacao/$"
+msgstr "Documentação"
 
 #: templates/admin/base.html:51
 msgid "Log out"
@@ -1826,35 +1812,32 @@ msgid "Error verifying input, please try again."
 msgstr ""
 
 #: venv/lib/python2.7/site-packages/django/contrib/messages/apps.py:7
-#, fuzzy
 #| msgid "Message"
 msgid "Messages"
-msgstr "Mensagem"
+msgstr "Mensagens"
 
 #: venv/lib/python2.7/site-packages/django/contrib/sitemaps/apps.py:7
 msgid "Site Maps"
 msgstr ""
 
 #: venv/lib/python2.7/site-packages/django/contrib/staticfiles/apps.py:7
-#, fuzzy
 #| msgid "States"
 msgid "Static Files"
-msgstr "Estados"
+msgstr "Arquivos estáticos"
 
 #: venv/lib/python2.7/site-packages/django/contrib/syndication/apps.py:7
-#, fuzzy
 #| msgid "^notification$"
 msgid "Syndication"
-msgstr "^notificacao$"
+msgstr "Syndication"
 
 #: venv/lib/python2.7/site-packages/django/core/validators.py:33
 msgid "Enter a valid value."
-msgstr ""
+msgstr "Digite um valor válido."
 
 #: venv/lib/python2.7/site-packages/django/core/validators.py:106
 #: venv/lib/python2.7/site-packages/django/forms/fields.py:663
 msgid "Enter a valid URL."
-msgstr ""
+msgstr "Digite uma url válida."
 
 #: venv/lib/python2.7/site-packages/django/core/validators.py:159
 msgid "Enter a valid integer."
@@ -1975,10 +1958,9 @@ msgid "This field cannot be null."
 msgstr ""
 
 #: venv/lib/python2.7/site-packages/django/db/models/fields/__init__.py:112
-#, fuzzy
 #| msgid "Your answer can not be blank"
 msgid "This field cannot be blank."
-msgstr "Sua resposta não pode estar em branco."
+msgstr "Este campo não pode estar branco."
 
 #: venv/lib/python2.7/site-packages/django/db/models/fields/__init__.py:113
 #, python-format
@@ -2086,10 +2068,9 @@ msgid ""
 msgstr ""
 
 #: venv/lib/python2.7/site-packages/django/db/models/fields/__init__.py:1610
-#, fuzzy
 #| msgid "^occupation/$"
 msgid "Duration"
-msgstr "^ocupacao/$"
+msgstr "Duração"
 
 #: venv/lib/python2.7/site-packages/django/db/models/fields/__init__.py:1662
 msgid "Email address"
@@ -2254,10 +2235,8 @@ msgid "No file was submitted. Check the encoding type on the form."
 msgstr ""
 
 #: venv/lib/python2.7/site-packages/django/forms/fields.py:543
-#, fuzzy
-#| msgid "No user was selected."
 msgid "No file was submitted."
-msgstr "Nenhum usuário foi selecionado"
+msgstr "Nenhum aquivo foi selecionado."
 
 #: venv/lib/python2.7/site-packages/django/forms/fields.py:544
 msgid "The submitted file is empty."
@@ -2381,16 +2360,14 @@ msgid "Currently"
 msgstr ""
 
 #: venv/lib/python2.7/site-packages/django/forms/widgets.py:359
-#, fuzzy
 #| msgid "Danger"
 msgid "Change"
-msgstr "Perigo"
+msgstr "Mudar"
 
 #: venv/lib/python2.7/site-packages/django/forms/widgets.py:360
-#, fuzzy
 #| msgid "^clear$"
 msgid "Clear"
-msgstr "^limpar$"
+msgstr "Limpar"
 
 #: venv/lib/python2.7/site-packages/django/forms/widgets.py:577
 msgid "Unknown"
@@ -2514,7 +2491,6 @@ msgid "Fri"
 msgstr ""
 
 #: venv/lib/python2.7/site-packages/django/utils/dates.py:11
-#, fuzzy
 #| msgid "State"
 msgid "Sat"
 msgstr "Estado"
@@ -2532,10 +2508,9 @@ msgid "February"
 msgstr ""
 
 #: venv/lib/python2.7/site-packages/django/utils/dates.py:18
-#, fuzzy
 #| msgid "^search$"
 msgid "March"
-msgstr "^buscar$"
+msgstr "Março"
 
 #: venv/lib/python2.7/site-packages/django/utils/dates.py:18
 msgid "April"
@@ -2566,44 +2541,42 @@ msgid "October"
 msgstr ""
 
 #: venv/lib/python2.7/site-packages/django/utils/dates.py:19
-#, fuzzy
 #| msgid "Phone Number"
 msgid "November"
-msgstr "Número de Telefone"
+msgstr "Novembro"
 
 #: venv/lib/python2.7/site-packages/django/utils/dates.py:20
 msgid "December"
-msgstr ""
+msgstr "Dezembro"
 
 #: venv/lib/python2.7/site-packages/django/utils/dates.py:23
 msgid "jan"
-msgstr ""
+msgstr "Jan"
 
 #: venv/lib/python2.7/site-packages/django/utils/dates.py:23
 msgid "feb"
-msgstr ""
+msgstr "fev"
 
 #: venv/lib/python2.7/site-packages/django/utils/dates.py:23
 msgid "mar"
-msgstr ""
+msgstr "mar"
 
 #: venv/lib/python2.7/site-packages/django/utils/dates.py:23
 msgid "apr"
-msgstr ""
+msgstr "abr"
 
 #: venv/lib/python2.7/site-packages/django/utils/dates.py:23
-#, fuzzy
 #| msgid "Company"
 msgid "may"
-msgstr "Empresa"
+msgstr "maio"
 
 #: venv/lib/python2.7/site-packages/django/utils/dates.py:23
 msgid "jun"
-msgstr ""
+msgstr "jun"
 
 #: venv/lib/python2.7/site-packages/django/utils/dates.py:24
 msgid "jul"
-msgstr ""
+msgstr "jul"
 
 #: venv/lib/python2.7/site-packages/django/utils/dates.py:24
 msgid "aug"
@@ -2614,10 +2587,9 @@ msgid "sep"
 msgstr ""
 
 #: venv/lib/python2.7/site-packages/django/utils/dates.py:24
-#, fuzzy
 #| msgid "Contact"
 msgid "oct"
-msgstr "Contato"
+msgstr "out"
 
 #: venv/lib/python2.7/site-packages/django/utils/dates.py:24
 msgid "nov"
@@ -2638,11 +2610,10 @@ msgid "Feb."
 msgstr ""
 
 #: venv/lib/python2.7/site-packages/django/utils/dates.py:33
-#, fuzzy
 #| msgid "^search$"
 msgctxt "abbrev. month"
 msgid "March"
-msgstr "^buscar$"
+msgstr "Março"
 
 #: venv/lib/python2.7/site-packages/django/utils/dates.py:34
 msgctxt "abbrev. month"
@@ -2700,11 +2671,10 @@ msgid "February"
 msgstr ""
 
 #: venv/lib/python2.7/site-packages/django/utils/dates.py:47
-#, fuzzy
 #| msgid "^search$"
 msgctxt "alt. month"
 msgid "March"
-msgstr "^buscar$"
+msgstr "Março"
 
 #: venv/lib/python2.7/site-packages/django/utils/dates.py:48
 msgctxt "alt. month"
@@ -2742,11 +2712,10 @@ msgid "October"
 msgstr ""
 
 #: venv/lib/python2.7/site-packages/django/utils/dates.py:55
-#, fuzzy
 #| msgid "Phone Number"
 msgctxt "alt. month"
 msgid "November"
-msgstr "Número de Telefone"
+msgstr "Novembro"
 
 #: venv/lib/python2.7/site-packages/django/utils/dates.py:56
 msgctxt "alt. month"
@@ -2937,10 +2906,9 @@ msgid "Directory indexes are not allowed here."
 msgstr ""
 
 #: venv/lib/python2.7/site-packages/django/views/static.py:60
-#, fuzzy, python-format
 #| msgid "Token not exist"
 msgid "\"%(path)s\" does not exist"
-msgstr "Token não existe"
+msgstr "\"%(path)s\" caminho não existe"
 
 #: venv/lib/python2.7/site-packages/django/views/static.py:100
 #, python-format
@@ -2955,7 +2923,6 @@ msgstr ""
 msgid "File size not supported!"
 msgstr ""
 
-#, fuzzy
 #~| msgid "Submit"
 #~ msgid "Submiting"
 #~ msgstr "Enviar"
