@@ -878,6 +878,7 @@ SUMMERNOTE_CONFIG = {
 # Setting Environment specific settings
 if ENVIRONMENT == "develop":
     DEBUG = True
+    TEMPLATE_DEBUG = DEBUG
 
     profiler = config.get("DEVELOP", 'profiler')
 
