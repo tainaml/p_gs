@@ -50,7 +50,15 @@ class CreateQuestionForm(IdeiaModelForm):
     def __process__(self):
         self.instance.author = self.user
         # self.instance = Business.save_question(self.user, self.cleaned_data)
-        return self.save()
+
+        self.instance = self.save()
+
+        # TODO: [POG] Protect for error in oldest questions without slug
+        if not bool(self.instance.slug):
+            self.instance.slug = slugify(self.instance.title)
+            self.instance.save()
+
+        return self.instance
 
 
 class EditQuestionForm(CreateQuestionForm):
