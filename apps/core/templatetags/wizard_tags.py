@@ -30,6 +30,7 @@ def wizard(context):
         categories = BusinessTaxonomy.get_categories()
 
         response_data = {
+            'response_data': True,
             'request': request,
             'wizard_profile': profile,
             'gender': GenderType(),
