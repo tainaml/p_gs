@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-07-27 10:14-0300\n"
+"POT-Creation-Date: 2016-09-23 11:18-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,105 +18,123 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: apps/account/models.py:15 apps/account/models.py:18
+#: apps/account/models.py:28 apps/account/models.py:31
 msgid "Anonymous"
 msgstr "Anônimo"
 
-#: apps/account/service/business.py:89
+#: apps/account/service/business.py:92
 msgid "Bem vindo!"
 msgstr "Bem vindo!"
 
-#: apps/account/service/business.py:287
+#: apps/account/service/business.py:290
 msgid "Password Recovery"
 msgstr "Confirmação de senha"
 
-#: apps/account/service/forms.py:36 apps/account/service/forms.py:111
-#: apps/account/service/forms.py:153
+#: apps/account/service/forms.py:51 apps/account/service/forms.py:126
+#: apps/account/service/forms.py:168
 msgid "Passwords are not the same."
 msgstr "Senhas não correspondem"
 
-#: apps/account/service/forms.py:40
+#: apps/account/service/forms.py:55
 msgid "Username is already in use."
 msgstr "Nome de usuário já está em uso"
 
-#: apps/account/service/forms.py:44
+#: apps/account/service/forms.py:59
 msgid "Email is already in use."
 msgstr "E-mail já está em uso"
 
-#: apps/account/service/forms.py:72
+#: apps/account/service/forms.py:87
 msgid "Wrong password or username."
 msgstr "Nome de usuário ou senha incorretos"
 
-#: apps/account/service/forms.py:106
+#: apps/account/service/forms.py:121
 msgid "Wrong old password."
 msgstr "Senha anterior incorreta."
 
-#: apps/account/service/forms.py:131
+#: apps/account/service/forms.py:146
 msgid "Does not exist account with this email."
 msgstr "Não foi encontrada uma conta com este e-mail"
 
-#: apps/account/service/forms.py:158
+#: apps/account/service/forms.py:173
 msgid "Token is no longer valid."
 msgstr "Token expirou"
 
 #. Translators: This message appears on the home page only
-#: apps/account/views.py:144 apps/notifications/models.py:41
+#: apps/account/views.py:149 apps/notifications/models.py:41
 msgid "Success"
 msgstr "Sucesso"
 
-#: apps/account/views.py:160
+#: apps/account/views.py:165
 msgid "Registered Successfully"
 msgstr "Registrado com sucesso!"
 
-#: apps/account/views.py:175
+#: apps/account/views.py:180
 msgid "Password successfully recovered"
 msgstr "Senha recuperada com sucesso"
 
-#: apps/account/views.py:191
-msgid "Token not exist"
-msgstr "Token não existe"
-
-#: apps/account/views.py:195
+#: apps/account/views.py:196
 msgid "Token exist - Account verified"
 msgstr "Token existe. Conta verificada."
 
-#: apps/account/views.py:230 apps/account/views.py:255
+#: apps/account/views.py:212
+msgid "Um erro ocorreu, por favor tente novamente mais tarde!"
+msgstr ""
+
+#: apps/account/views.py:217
+#, fuzzy
+#| msgid "Answer is not exists!"
+msgid "Account is not exists!"
+msgstr "Resposta não existe"
+
+#: apps/account/views.py:219
+#, fuzzy
+#| msgid "Token is no longer valid."
+msgid "Token is not longer valid!"
+msgstr "Token expirou"
+
+#: apps/account/views.py:231
+#, fuzzy
+#| msgid "Token not exist!"
+msgid "Token is not exists!"
+msgstr "Token não existe"
+
+#: apps/account/views.py:253 apps/account/views.py:278
 msgid "Token not exist!"
 msgstr "Token não existe"
 
-#: apps/account/views.py:261
+#: apps/account/views.py:284
 msgid "Password successfully changed!"
 msgstr "Senha alterada com sucesso!"
 
-#: apps/account/views.py:346
+#: apps/account/views.py:369
 msgid "A confirmation email was sent to you"
 msgstr "Um e-mail de confirmação foi enviado para você"
 
-#: apps/account/views.py:370 apps/core/views/account.py:49
+#: apps/account/views.py:393 apps/core/views/account.py:49
 msgid "E-mail re-sent successfully!"
 msgstr "E-mail reenviado com sucesso!"
 
-#: apps/account/views.py:385
+#: apps/account/views.py:408
 msgid "Username is available!"
 msgstr "Nome de usuário está disponível"
 
-#: apps/account/views.py:389
+#: apps/account/views.py:412
 msgid "Username is not available!"
 msgstr "Nome de usuário não está disponível"
 
-#: apps/article/models.py:19
+#: apps/article/models.py:37
 msgid "Draft"
 msgstr "Rascunho"
 
-#: apps/article/models.py:20
+#: apps/article/models.py:38
 msgid "Trash"
 msgstr "Lixo"
 
-#: apps/article/models.py:21
+#: apps/article/models.py:39
 msgid "Publish"
 msgstr "Publicado"
 
-#: apps/article/models.py:29 apps/job_vacancy/models.py:45
+#: apps/article/models.py:53 apps/job_vacancy/models.py:45
 msgid "Author"
 msgstr "Autor"
 
@@ -124,7 +142,7 @@ msgstr "Autor"
 msgid "Publish date has invalid"
 msgstr "Data de publicação inválida."
 
-#: apps/article/service/forms.py:88 apps/userprofile/service/forms.py:88
+#: apps/article/service/forms.py:88 apps/userprofile/service/forms.py:92
 msgid "Image format is not allowed."
 msgstr "Formato da imagem não é permitido"
 
@@ -132,23 +150,23 @@ msgstr "Formato da imagem não é permitido"
 msgid "Image size is too long."
 msgstr "Tamanho da imagem é muito grande"
 
-#: apps/article/views.py:20 apps/article/views.py:21
+#: apps/article/views.py:21 apps/article/views.py:22
 msgid "Article not Found."
 msgstr "Publicação não encontrada"
 
-#: apps/article/views.py:39
+#: apps/article/views.py:40
 msgid "Operation not permitted"
 msgstr "Operação não permitida"
 
-#: apps/article/views.py:147
+#: apps/article/views.py:150
 msgid "This article has been deleted"
 msgstr "Publicação removida"
 
-#: apps/article/views.py:224
+#: apps/article/views.py:234
 msgid "Publicação salva com sucesso"
 msgstr "Publicação salva com sucesso"
 
-#: apps/article/views.py:228
+#: apps/article/views.py:238
 msgid "Generic Error"
 msgstr "Erro"
 
@@ -165,61 +183,61 @@ msgstr "Título"
 msgid "Description"
 msgstr "Descrição"
 
-#: apps/comment/service/forms.py:171
+#: apps/comment/service/forms.py:161
 msgid "You do not have permission to perform this action."
 msgstr "Você não tem permissão para realizar esta ação"
 
 #. Translators: URL de pagina de salvar comentario
 #. Translators: URL de atualizacao de contato
 #. Translators: URL para salvar pergunta
-#: apps/comment/urls.py:8 apps/core/urls/contact.py:10
+#: apps/comment/urls.py:9 apps/core/urls/contact.py:10
 #: apps/core/urls/question.py:12
 msgid "^save/$"
 msgstr "^salvar/$"
 
 #. Translators: URL de pagina de salvar resposta
-#: apps/comment/urls.py:11
+#: apps/comment/urls.py:12
 msgid "^answer-save/$"
 msgstr "^salvar-resposta/$"
 
 #. Translators: URL de pagina de edicao de comentarios
 #. Translators: URL de edicao de usuario
-#: apps/comment/urls.py:14 apps/core/urls/user.py:9
+#: apps/comment/urls.py:15 apps/core/urls/user.py:9
 msgid "^edit/$"
 msgstr "^editar/$"
 
 #. Translators: URL de pagina de edicao de resposta
-#: apps/comment/urls.py:17
+#: apps/comment/urls.py:18
 msgid "^edit-answer/$"
 msgstr "^editar-resposta/$"
 
 #. Translators: URL de pagina de listagem de respostas
-#: apps/comment/urls.py:20
+#: apps/comment/urls.py:21
 msgid "^list-answer/$"
 msgstr "^listar-respostas/$"
 
 #. Translators: URL de pagina atualizacao de comentarios
 #. Translators: URL para atualizar pergunta
-#: apps/comment/urls.py:23 apps/core/urls/question.py:22
+#: apps/comment/urls.py:24 apps/core/urls/question.py:22
 msgid "^update/$"
 msgstr "^atualizar/$"
 
 #. Translators: URL de pagina de listagem de comentarios
-#: apps/comment/urls.py:26
+#: apps/comment/urls.py:27
 msgid "^list/$"
 msgstr "^listar/$"
 
 #. Translators: URL de pagina de delete de comentario
-#: apps/comment/urls.py:29
+#: apps/comment/urls.py:30
 msgid "^delete$"
 msgstr "^delete$"
 
 #. Translators: URL de pagina de contagem de comentario
-#: apps/comment/urls.py:32
+#: apps/comment/urls.py:33
 msgid "^count/(?P<object_to_link>\\d+)/(?P<content_type>[a-z]+)$"
 msgstr "^contar/(?P<object_to_link>\\d+)/(?P<content_type>[a-z]+)$"
 
-#: apps/community/models.py:23
+#: apps/community/models.py:25
 msgid "Community Related"
 msgstr "Comunidade relacionada"
 
@@ -227,7 +245,8 @@ msgstr "Comunidade relacionada"
 msgid "Community not Found."
 msgstr "Comunidade não encontrada"
 
-#: apps/company/models.py:7 templates/contact/contact.html.py:10
+#: apps/company/models.py:7 apps/core/admin.py:88
+#: templates/contact/contact.html:11
 msgid "Name"
 msgstr "Nome"
 
@@ -246,7 +265,7 @@ msgid "Company"
 msgstr "Empresa"
 
 #. Translators: URL de denunciar objeto
-#: apps/complaint/urls.py:9
+#: apps/complaint/urls.py:10
 msgid "^(?P<object_type>[a-z]+)/(?P<object_id>[0-9]+)$"
 msgstr "^(?P<object_type>[a-z]+)/(?P<object_id>[0-9]+)$"
 
@@ -270,17 +289,21 @@ msgstr "Configurar Chaves"
 msgid "Contact created!"
 msgstr "Mensagem enviada!"
 
-#: apps/core/admin.py:25
+#: apps/core/admin.py:31
 msgid "Profile"
 msgstr "Perfil"
 
-#: apps/core/admin.py:26
+#: apps/core/admin.py:32
 msgid "Profiles"
 msgstr "Perfis"
 
-#: apps/core/admin.py:40
+#: apps/core/admin.py:90
 msgid "Contributor"
 msgstr "Contribuidor"
+
+#: apps/core/admin.py:101
+msgid "Completed Wizard?"
+msgstr ""
 
 #: apps/core/forms/account.py:23
 msgid "Ocorreu um erro ao desativar a conta"
@@ -295,101 +318,109 @@ msgid "Olá, gostaria de sugerir a comunidade: "
 msgstr "Olá, gostaria de sugerir a comunidade: "
 
 #. Translators: URL de pagina de inscricao
-#: apps/core/urls/account.py:12
+#: apps/core/urls/account.py:10
 msgid "^inscricao/$"
 msgstr "^inscricao/$"
 
 #. Translators: URL de pagina de login
-#. Translators: URL de login de conta social
-#: apps/core/urls/account.py:15 apps/socialaccount/urls.py:17
-msgid "^login/$"
+#: apps/core/urls/account.py:13
+#, fuzzy
+#| msgid "^login/$"
+msgid "^login/?$"
 msgstr "^login/$"
 
 #. Translators: URL de pagina de login ajax
-#: apps/core/urls/account.py:18
+#: apps/core/urls/account.py:16
 msgid "^login/ajax/$"
 msgstr "^login/ajax/$"
 
 #. Translators: URL de pagina de logout
-#: apps/core/urls/account.py:21
+#: apps/core/urls/account.py:19
 msgid "^logout/"
 msgstr "^sair/"
 
 #. Translators: URL de pagina de servico que verifica se usuario esta logado
-#: apps/core/urls/account.py:24
+#: apps/core/urls/account.py:22
 msgid "^is-logged/"
 msgstr "^esta-logado/"
 
 #. Translators: URL de pagina de mudanca de senha
-#: apps/core/urls/account.py:27
+#: apps/core/urls/account.py:25
 msgid "^change_password$"
 msgstr "^mudar-senha$"
 
 #. Translators: URL de pagina de esquecimento de senha
-#: apps/core/urls/account.py:30
+#: apps/core/urls/account.py:28
 msgid "^forgot_password$"
 msgstr "^esqueci-minha-senha$"
 
 #. Translators: URL de pagina de registro com sucesso
-#: apps/core/urls/account.py:33
+#: apps/core/urls/account.py:31
 msgid "^registered-successfully/$"
 msgstr "^registrado-com-sucesso/$"
 
 #. Translators: URL de pagina de validacao de email
-#: apps/core/urls/account.py:36
+#: apps/core/urls/account.py:34
 #, python-brace-format
 msgid "^mail_validation/(?P<activation_key>[0-9a-z]{40})/$"
 msgstr "^validacao-de-email/(?P<activation_key>[0-9a-z]{40})/$"
 
 #. Translators: URL de pagina de recuperacao de senha com sucesso
-#: apps/core/urls/account.py:39
+#: apps/core/urls/account.py:37
 msgid "^recovery-password/successfully/$"
 msgstr "^recuperacao-de-senha/sucesso/$"
 
 #. Translators: URL de pagina de recuperacao de senha
-#: apps/core/urls/account.py:42
+#: apps/core/urls/account.py:40
 #, python-brace-format
 msgid "^recovery_password/(?P<activation_key>[0-9a-z]{40})/$"
 msgstr "^recuperacao-de-senha/(?P<activation_key>[0-9a-z]{40})/$"
 
 #. Translators: URL de pagina de validacao de recuperacao
-#: apps/core/urls/account.py:45
+#: apps/core/urls/account.py:43
 #, python-brace-format
 msgid "^recovery_validation/(?P<activation_key>[0-9a-z]{40})/$"
 msgstr "^validacao-de-recuperacao-de-senha/(?P<activation_key>[0-9a-z]{40})/$"
 
 #. Translators: URL de pagina de reenvio de confirmacao de conta
-#: apps/core/urls/account.py:48
+#: apps/core/urls/account.py:46
 msgid "^resend_account_confirmation$"
 msgstr "^reenviar-confirmacao-de-conta$"
 
 #. Translators: URL de pagina de check de username
-#: apps/core/urls/account.py:51
+#: apps/core/urls/account.py:49
 msgid "^check-username$"
 msgstr "^check-nome-de-usuario$"
 
 #. Translators: URL de criacao de artigo
-#: apps/core/urls/article.py:12
+#: apps/core/urls/article.py:15
 msgid "^article/create$"
 msgstr "^publicacao/criar$"
 
+#. Translators: URL de visualizacao
+#: apps/core/urls/article.py:18
+#, fuzzy
+#| msgid "^article/edit/(?P<article_id>\\d+)$"
+msgid "^article/preview/(?P<article_id>\\d+)$"
+msgstr "^publicacao/editar/(?P<article_id>\\d+)$"
+
 #. Translators: URL de edicao de artigo
-#: apps/core/urls/article.py:14
+#: apps/core/urls/article.py:21
 msgid "^article/edit/(?P<article_id>\\d+)$"
 msgstr "^publicacao/editar/(?P<article_id>\\d+)$"
 
 #. Translators: URL de delecao de artigo
-#: apps/core/urls/article.py:16
+#: apps/core/urls/article.py:23
 msgid "^article/delete/(?P<article_id>\\d+)$"
 msgstr "^publicacao/delete/(?P<article_id>\\d+)$"
 
 #. Translators: URL de delecao assincrona de artigo
-#: apps/core/urls/article.py:18
+#: apps/core/urls/article.py:25
 msgid "^article/delete/async/(?P<article_id>\\d+)$"
 msgstr "^publicacao/delete/async/(?P<article_id>\\d+)$"
 
 #. Translators: URL de criacao de artigo
-#: apps/core/urls/article.py:20
+#: apps/core/urls/article.py:28
 msgid ""
 "^(?P<year>\\d\\d\\d\\d+)/(?P<month>0[1-9]|1[0-2])/(?P<slug>[aA-zZ0-9-_]+)."
 "html$"
@@ -398,7 +429,7 @@ msgstr ""
 "html$"
 
 #. Translators: URL de criacao de artigo em uma comunidade
-#: apps/core/urls/article.py:23
+#: apps/core/urls/article.py:31
 msgid "^article/create/(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)$"
 msgstr "^publicacao/criar/(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)$"
 
@@ -412,111 +443,118 @@ msgid "^list-communities-articles$"
 msgstr "^listar-publicacoes-comunidades$"
 
 #. Translators: URL de pagina de busca da comunidade
-#: apps/core/urls/community.py:9
+#: apps/core/urls/community.py:11
 #, fuzzy
 #| msgid "^search$"
 msgid "^search/$"
 msgstr "^buscar$"
 
 #. Translators: URL de pagina de filtros de comunidades
-#: apps/core/urls/community.py:12
+#: apps/core/urls/community.py:14
 #, fuzzy
 #| msgid "^ajax/user/communities/$"
 msgid "^search/community/list/$"
 msgstr "^ajax/usuario/comunidade/$"
 
 #. Translators: URL de pagina principal de comunidade
-#: apps/core/urls/community.py:15
+#: apps/core/urls/community.py:17
+#, fuzzy
+#| msgid "^(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/$"
+msgid "^(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)$"
+msgstr "^(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/$"
+
+#. Translators: URL de pagina principal de comunidade without bar
+#: apps/core/urls/community.py:20
 msgid "^(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/$"
 msgstr "^(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/$"
 
 #. Translators: URL de sobre da comunidade
-#: apps/core/urls/community.py:18
+#: apps/core/urls/community.py:23
 msgid "^(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/about/$"
 msgstr "^(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/sobre/$"
 
 #. Translators: URL de seguidores da comunidade
-#: apps/core/urls/community.py:21
+#: apps/core/urls/community.py:26
 msgid "^(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/followers/$"
 msgstr "^(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/seguidores/$"
 
 #. Translators: URL de pagina de busca da comunidade
-#: apps/core/urls/community.py:24
+#: apps/core/urls/community.py:29
 msgid "^(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/search/$"
 msgstr "^(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/buscar/$"
 
 #. Translators: URL de listagem da comunidade
-#: apps/core/urls/community.py:27
+#: apps/core/urls/community.py:32
 msgid "^(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/list/$"
 msgstr "^(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/listagem/$"
 
 #. Translators: URL de perguntas da comunidade
-#: apps/core/urls/community.py:30
+#: apps/core/urls/community.py:35
 msgid "^(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/questions/$"
 msgstr "^(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/perguntas/$"
 
 #. Translators: URL de pagina de pesquisa de perguntas na comunidade
-#: apps/core/urls/community.py:33
+#: apps/core/urls/community.py:38
 msgid "^(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/questions/search/$"
 msgstr "^(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/perguntas/buscar/$"
 
 #. Translators: URL de pagina de listagem de perguntas da comunidade
-#: apps/core/urls/community.py:36
+#: apps/core/urls/community.py:41
 msgid "^(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/questions/list/$"
 msgstr "^(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/perguntas/listagem/$"
 
 #. Translators: URL de pagina de videos da comunidade
-#: apps/core/urls/community.py:39
+#: apps/core/urls/community.py:44
 msgid "^(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/videos/$"
 msgstr "^(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/videos/$"
 
 #. Translators: URL de pagina de procura de videos da comunidade
-#: apps/core/urls/community.py:42
+#: apps/core/urls/community.py:47
 msgid "^(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/videos/search/$"
 msgstr "^(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/videos/buscar/$"
 
 #. Translators: URL de pagina de listagem de videos da comunidade
-#: apps/core/urls/community.py:45
+#: apps/core/urls/community.py:50
 msgid "^(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/videos/list/$"
 msgstr "^(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/videos/listagem/$"
 
 #. Translators: URL de pagina de comunidades relacionadas
-#: apps/core/urls/community.py:48
+#: apps/core/urls/community.py:53
 msgid "^(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/related/$"
 msgstr "^(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/relacionados/$"
 
 #. Translators: URL de pagina checagem de seguidores da comunidade
-#: apps/core/urls/community.py:51
+#: apps/core/urls/community.py:56
 msgid "^check/user-follows/$"
 msgstr "^checar/usuario-segue/$"
 
 #. Translators: URL de pagina de carregamento assincrono
-#: apps/core/urls/community.py:54
+#: apps/core/urls/community.py:59
 msgid "^load/async/(?P<object_id>[0-9]+)/(?P<content_type>[a-z]+)/$"
 msgstr "^carregar/async/(?P<object_id>[0-9]+)/(?P<content_type>[a-z]+)/$"
 
 #. Translators: URL de pagina de procura de seguidores da comunidade
-#: apps/core/urls/community.py:57
+#: apps/core/urls/community.py:62
 msgid "^search/followers$"
 msgstr "^buscar/seguidores$"
 
 #. Translators: URL de pagina de listagem de seguidores da comunidade
-#: apps/core/urls/community.py:60
+#: apps/core/urls/community.py:65
 msgid "^search/followers/list$"
 msgstr "^buscar/seguidores/listagem$"
 
 #. Translators: URL de pagina de materials da comunidade
-#: apps/core/urls/community.py:63
+#: apps/core/urls/community.py:68
 msgid "^(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/materials/$"
 msgstr "^(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/materiais/$"
 
 #. Translators: URL de pagina de procura de videos da comunidade
-#: apps/core/urls/community.py:66
+#: apps/core/urls/community.py:71
 msgid "^(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/materials/search/$"
 msgstr "^(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/materiais/buscar/$"
 
 #. Translators: URL de pagina de listagem de videos da comunidade
-#: apps/core/urls/community.py:69
+#: apps/core/urls/community.py:74
 msgid "^(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/materials/list/$"
 msgstr "^(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/materiais/listagem/$"
 
@@ -555,6 +593,10 @@ msgstr ""
 #: apps/core/urls/core.py:11
 msgid "^about/"
 msgstr "^sobre/"
+
+#: apps/core/urls/core.py:13
+msgid "^oembed/"
+msgstr ""
 
 #. Translators: URL de setar conteudo como oficial
 #: apps/core/urls/feed.py:7
@@ -665,22 +707,30 @@ msgstr "^criar/(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)$"
 
 #. Translators: URL de busca geral
 #: apps/core/urls/search.py:8
-msgid "^search$"
+#, fuzzy
+#| msgid "^search$"
+msgid "^searching$"
 msgstr "^buscar$"
 
 #. Translators: URL de autocomplete de busca geral
 #: apps/core/urls/search.py:11
-msgid "^search/autocomplete$"
+#, fuzzy
+#| msgid "^search/autocomplete$"
+msgid "^searching/autocomplete$"
 msgstr "^buscar/autocomplete$"
 
 #. Translators: URL de listagem de busca geral
 #: apps/core/urls/search.py:14
-msgid "^search/list/(?P<content_type>[a-z]+)$"
+#, fuzzy
+#| msgid "^search/list/(?P<content_type>[a-z]+)$"
+msgid "^searching/list/(?P<content_type>[a-z]+)$"
 msgstr "^buscar/listagem/(?P<content_type>[a-z]+)$"
 
 #. Translators: URL de procurar conteudo
 #: apps/core/urls/search.py:17
-msgid "^search/(?P<content_type>[a-z]+)$"
+#, fuzzy
+#| msgid "^search/(?P<content_type>[a-z]+)$"
+msgid "^searching/(?P<content_type>[a-z]+)$"
 msgstr "^buscar/(?P<content_type>[a-z]+)$"
 
 #. Translators: URL de filtro de seguindo
@@ -929,20 +979,11 @@ msgid "^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/communities/load/ajax/$"
 msgstr "^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/comunidade/carregar/ajax/$"
 
 #. Translators: URL de videos do usuario
-#: apps/core/urls/user.py:150
-msgid "^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/videos/$"
-msgstr "^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/videos/$"
-
+#. url(_(r'^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/videos/$'), core_user.CoreProfileVideosView.as_view(), name='videos'),
 #. Translators: URL de procura de videos do usuario
-#: apps/core/urls/user.py:153
-msgid "^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/videos/search/$"
-msgstr "^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/videos/busca/$"
-
+#. url(_(r'^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/videos/search/$'), core_user.CoreProfileVideosSearch.as_view(), name='videos-search'),
 #. Translators: URL de listagem de busca de videos do usuario
-#: apps/core/urls/user.py:156
-msgid "^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/videos/search/list/$"
-msgstr "^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/videos/buscar/listagem/$"
-
+#. url(_(r'^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/videos/search/list/$'), core_user.CoreProfileVideosList.as_view(), name='videos-search-list'),
 #. Translators: URL de carregamento assincrono de comunidades do usuario
 #: apps/core/urls/user.py:159
 msgid "^ajax/user/communities/$"
@@ -961,15 +1002,15 @@ msgstr "Mudar senha"
 msgid "Your password has been changed!"
 msgstr "Sua senha foi alterada!"
 
-#: apps/core/views/article.py:84 apps/core/views/question.py:58
+#: apps/core/views/article.py:157 apps/core/views/question.py:58
 msgid "Community not Found"
 msgstr "Comunidade não encontrada"
 
-#: apps/core/views/article.py:90 apps/core/views/question.py:64
+#: apps/core/views/article.py:163 apps/core/views/question.py:64
 msgid "User need follow this community"
 msgstr "É necessário seguir esta comunidade"
 
-#: apps/core/views/category.py:46
+#: apps/core/views/category.py:103
 msgid "Category not found or not root category."
 msgstr "Categoria não encontrada ou não é uma categoria raiz."
 
@@ -1039,7 +1080,7 @@ msgstr "Número de Telefone"
 msgid "Web Site"
 msgstr "Web Site"
 
-#: apps/job_vacancy/models.py:56 templates/contact/contact.html.py:3
+#: apps/job_vacancy/models.py:56 templates/contact/contact.html:4
 msgid "Contact"
 msgstr "Contato"
 
@@ -1154,7 +1195,7 @@ msgid "Question created successfully!"
 msgstr "Pergunta criada com sucesso!"
 
 #: apps/question/views.py:185 apps/question/views.py:210
-#: apps/question/views.py:222 apps/question/views.py:268
+#: apps/question/views.py:232 apps/question/views.py:281
 msgid "Question is not exists!"
 msgstr "Pergunta não existe"
 
@@ -1162,19 +1203,19 @@ msgstr "Pergunta não existe"
 msgid "Question updated successfully!"
 msgstr "Pergunta atualizada com sucesso"
 
-#: apps/question/views.py:238
+#: apps/question/views.py:251
 msgid "Question not found"
 msgstr "Pergunta não encontrada"
 
-#: apps/question/views.py:270
+#: apps/question/views.py:283
 msgid "Answer is not exists!"
 msgstr "Resposta não existe"
 
-#: apps/question/views.py:284
+#: apps/question/views.py:297
 msgid "Answer not found!"
 msgstr "Resposta não encontrada"
 
-#: apps/question/views.py:286
+#: apps/question/views.py:299
 msgid "Answer not found"
 msgstr "Resposta não encontrada"
 
@@ -1187,6 +1228,11 @@ msgstr "^home/"
 #: apps/socialaccount/urls.py:14
 msgid "^email-sent/"
 msgstr "^email-enviados/"
+
+#. Translators: URL de login de conta social
+#: apps/socialaccount/urls.py:17
+msgid "^login/$"
+msgstr "^login/$"
 
 #. Translators: URL de logout de conta social
 #: apps/socialaccount/urls.py:20
@@ -1268,23 +1314,23 @@ msgstr "Ação social não encontrada"
 msgid "No user was selected."
 msgstr "Nenhum usuário foi selecionado"
 
-#: apps/userprofile/models.py:23
+#: apps/userprofile/models.py:22
 msgid "MALE"
 msgstr "MASCULINO"
 
-#: apps/userprofile/models.py:24
+#: apps/userprofile/models.py:23
 msgid "FEMALE"
 msgstr "FEMININO"
 
-#: apps/userprofile/service/forms.py:77
+#: apps/userprofile/service/forms.py:81
 msgid "Birth invalid."
 msgstr "Nascimento inválido"
 
-#: apps/userprofile/service/forms.py:83
+#: apps/userprofile/service/forms.py:87
 msgid "Gênero não permitido."
 msgstr "Gênero não permitido."
 
-#: apps/userprofile/service/forms.py:93
+#: apps/userprofile/service/forms.py:97
 msgid "Image size more than 1mb."
 msgstr "Tamanho da imagem excede 1mb"
 
@@ -1324,95 +1370,106 @@ msgstr "Ocupação não foi deletada"
 msgid "Occupation deleted successfully!"
 msgstr "Ocupação deletada com sucesso"
 
-#: rede_gsti/urls.py:33
+#: rede_gsti/urls.py:39
 msgid "^admin/"
 msgstr "^admin-portal/"
 
-#: rede_gsti/urls.py:36
+#: rede_gsti/urls.py:42
 msgid "^jobs/"
 msgstr "^vagas/"
 
 #. Translators: URL root de conta
-#: rede_gsti/urls.py:39
+#: rede_gsti/urls.py:45
 msgid "^account/"
 msgstr "^conta/"
 
 #. Translators: URL root de comentario
-#: rede_gsti/urls.py:42
+#: rede_gsti/urls.py:48
 msgid "^comment/"
 msgstr "^comentario/"
 
 #. Translators: URL root de perfil de usuario
-#: rede_gsti/urls.py:45
+#: rede_gsti/urls.py:51
 msgid "^profile/"
 msgstr "^perfil/"
 
 #. Translators: URL de conta social
-#: rede_gsti/urls.py:48
+#: rede_gsti/urls.py:54
 msgid "^socialaccount/"
 msgstr "^conta-social/"
 
 #. Translators: URL de acoes sociais
-#: rede_gsti/urls.py:51
+#: rede_gsti/urls.py:57
 msgid "^socialactions/"
 msgstr "^acoes-sociais/"
 
 #. Translators: URL root de notificacoes
-#: rede_gsti/urls.py:59
+#: rede_gsti/urls.py:63
 msgid "^notifications/"
 msgstr "^notificacoes/"
 
+#. Translators: URL root de notificacoes
+#: rede_gsti/urls.py:66
+msgid "^hint/"
+msgstr ""
+
 #. Translators: URL root de publicacao
 #. Translators: URL root CORE de acoes sociais
-#. Translators: URL de buscai
 #. Translators: URL core adicionais
+#. Translators: URL de buscai
 #. Translators: URL root de comunidade
-#: rede_gsti/urls.py:62 rede_gsti/urls.py:65 rede_gsti/urls.py:90
-#: rede_gsti/urls.py:93 rede_gsti/urls.py:101
+#: rede_gsti/urls.py:69 rede_gsti/urls.py:72 rede_gsti/urls.py:101
+#: rede_gsti/urls.py:106 rede_gsti/urls.py:109
 msgid "^"
 msgstr "^"
 
 #. Translators: URL root de categoria
-#: rede_gsti/urls.py:68
+#: rede_gsti/urls.py:75
 msgid "^category-feed/"
 msgstr "^categoria/"
 
 #. Translators: URL root de pergunta
-#: rede_gsti/urls.py:71
+#: rede_gsti/urls.py:78
 msgid "^question/"
 msgstr "^pergunta/"
 
 #. Translators: URL root de contato
-#: rede_gsti/urls.py:74
+#: rede_gsti/urls.py:81
 msgid "^contact/"
 msgstr "^contato/"
 
 #. Translators: URL root de contato
-#: rede_gsti/urls.py:77
+#: rede_gsti/urls.py:84
 msgid "^mailmanager/"
 msgstr "^gerenciador-de-email/"
 
 #. Translators: URL root de denuncia
-#: rede_gsti/urls.py:80
+#: rede_gsti/urls.py:87
 msgid "^complaint/"
 msgstr "^denuncia/"
 
 #. Translators: URL root de configuracao
-#: rede_gsti/urls.py:83
+#: rede_gsti/urls.py:90
 msgid "^settings/"
 msgstr "^configuracoes/"
 
 #. Translators: URL root de feed
-#: rede_gsti/urls.py:87
+#: rede_gsti/urls.py:94
 msgid "^feed/"
 msgstr "^feed/"
 
-#. Translators: URL do ckeditor
-#: rede_gsti/urls.py:96
-msgid "^ckeditor/"
-msgstr "^ckeditor/"
+#. Translators: URL root of user alerts
+#: rede_gsti/urls.py:98
+msgid "^useralerts/"
+msgstr ""
 
-#: templates/400.html:8 templates/404.html.py:8
+#: rede_gsti/urls.py:118
+#, fuzzy
+#| msgid "^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/$"
+msgid "^front-end/(?P<template>[a-z0-9.]+(?:(-|_)[a-z0-9.]+)*)"
+msgstr "^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/$"
+
+#: templates/400.html:8 templates/404.html:8
 msgid "Houston, we have a problem!"
 msgstr "Houston, we have a problem!"
 
@@ -1420,15 +1477,15 @@ msgstr "Houston, we have a problem!"
 msgid "Show profile"
 msgstr "Mostrar perfil"
 
-#: templates/account/index.html:6 templates/account/index.html.py:7
-#: templates/account/index.html:8 templates/account/index.html.py:9
-#: templates/account/index.html:10 templates/account/login.html.py:23
+#: templates/account/index.html:6 templates/account/index.html:7
+#: templates/account/index.html:8 templates/account/index.html:9
+#: templates/account/index.html:10 templates/account/login.html:23
 #: templates/account/login.html:24 templates/account/mail_validation.html:8
 #: templates/account/password_recovery_successfully.html:4
 #: templates/account/password_sent_email_successfully.html:4
 #: templates/account/recovery_validation.html:4
 #: templates/account/resend_account_confirmation_successfully.html:5
-#: templates/account/signup.html:143
+#: templates/account/signup.html:157
 #: templates/userprofile/occupation_add.html:21
 #: templates/userprofile/occupation_edit.html:22
 #: templates/userprofile/occupation_manage.html:22
@@ -1436,7 +1493,8 @@ msgstr "Mostrar perfil"
 #: templates/userprofile/occupation_manage.html:24
 #: templates/userprofile/occupation_show.html:6
 #: templates/userprofile/occupation_show.html:7
-#: templates/userprofile/show.html:30 templates/userprofile/show.html.py:31
+#: templates/userprofile/show.html:30 templates/userprofile/show.html:31
+#: venv/lib/python2.7/site-packages/django/utils/text.py:248
 msgid "or"
 msgstr "ou"
 
@@ -1456,7 +1514,7 @@ msgstr "Adicionar ocupação"
 msgid "Manage occupation"
 msgstr "Gerenciar ocupação"
 
-#: templates/account/index.html:10 templates/admin/base.html.py:49
+#: templates/account/index.html:10 templates/admin/base.html:49
 msgid "Change password"
 msgstr "Mudar senha"
 
@@ -1472,12 +1530,12 @@ msgstr "Sair"
 msgid "click here"
 msgstr "clique aqui"
 
-#: templates/account/login.html:8 templates/account/signup.html.py:118
+#: templates/account/login.html:8 templates/account/signup.html:129
 msgid "Username"
 msgstr "Nome de usuário"
 
 #: templates/account/login.html:12 templates/account/password_recovery.html:9
-#: templates/account/signup.html:126
+#: templates/account/signup.html:137
 msgid "Password"
 msgstr "Senha"
 
@@ -1498,7 +1556,7 @@ msgstr ""
 #: templates/account/recovery_validation.html:4
 #: templates/account/resend_account_confirmation.html:15
 #: templates/account/resend_account_confirmation_successfully.html:5
-#: templates/account/signup.html:143 templates/userprofile/show.html.py:34
+#: templates/account/signup.html:157 templates/userprofile/show.html:34
 msgid "Login"
 msgstr "Login"
 
@@ -1538,7 +1596,7 @@ msgstr "Confirmação de nova senha"
 #: templates/account/password_forgot.html:12
 #: templates/account/password_recovery.html:20
 #: templates/account/resend_account_confirmation.html:14
-#: templates/account/signup.html:142
+#: templates/account/signup.html:155
 #: templates/userprofile/occupation_add.html:20
 #: templates/userprofile/occupation_edit.html:21
 msgid "Submit"
@@ -1550,7 +1608,7 @@ msgstr "Ir para início!"
 
 #: templates/account/password_forgot.html:8
 #: templates/account/resend_account_confirmation.html:8
-#: templates/account/signup.html:113 templates/contact/contact.html.py:13
+#: templates/account/signup.html:124 templates/contact/contact.html:14
 msgid "Email"
 msgstr "Email"
 
@@ -1559,7 +1617,7 @@ msgid "Nova senha"
 msgstr "Nova senha"
 
 #: templates/account/password_recovery.html:13
-#: templates/account/signup.html:131
+#: templates/account/signup.html:142
 msgid "Password Confirm"
 msgstr "Confirmação de senha"
 
@@ -1567,13 +1625,17 @@ msgstr "Confirmação de senha"
 msgid "Resend account confirmation"
 msgstr "Reenviar confirmação de conta"
 
-#: templates/account/signup.html:101
+#: templates/account/signup.html:112
 msgid "First name"
 msgstr "Primeiro nome"
 
-#: templates/account/signup.html:107
+#: templates/account/signup.html:118
 msgid "Last Name"
 msgstr "Último nome"
+
+#: templates/account/signup.html:213
+msgid "Sending"
+msgstr "Enviando"
 
 #: templates/admin/base.html:35
 msgid "Welcome,"
@@ -1601,40 +1663,40 @@ msgstr ""
 msgid "Django site admin"
 msgstr ""
 
-#: templates/article/article-edit.html:36
+#: templates/article/article-base.html:33
 msgctxt "update article"
 msgid "Update"
 msgstr "Atualizar publicação"
 
-#: templates/article/article-edit.html:39
+#: templates/article/article-base.html:36
 msgctxt "save article"
 msgid "Save as draft"
 msgstr "Salvar como rascuho"
 
-#: templates/article/article-edit.html:40
+#: templates/article/article-base.html:37
 msgctxt "publish article"
 msgid "Publish"
 msgstr "Publicar"
 
-#: templates/community/community-materials.html:77
-#: templates/community/community-videos.html:38
-#: templates/community/partials/community-followers-list.html:33
-#: templates/community/partials/community-list.html:17
-#: templates/socialactions/followers_box.html:29
-#: templates/socialactions/followings_box.html:29
-#: templates/userprofile/partials/followers-segment.html:25
-#: templates/userprofile/partials/followings-segment.html:26
-#: templates/userprofile/partials/profile-communities.html:38
-#: templates/userprofile/profile-communities.html:57
-#: templates/userprofile/profile-feed.html:25
-#: templates/userprofile/profile-list.html:42
-#: templates/userprofile/profile-questions.html:41
+#: templates/community/community-materials.html:83
+#: templates/community/community-videos.html:51
+#: templates/community/partials/community-followers-list.html:41
+#: templates/community/partials/community-list.html:21
+#: templates/socialactions/followers_box.html:32
+#: templates/socialactions/followings_box.html:34
+#: templates/userprofile/partials/followers-segment.html:30
+#: templates/userprofile/partials/followings-segment.html:30
+#: templates/userprofile/partials/profile-communities.html:44
+#: templates/userprofile/profile-communities.html:67
+#: templates/userprofile/profile-feed.html:34
+#: templates/userprofile/profile-list.html:47
+#: templates/userprofile/profile-questions.html:50
 #: templates/userprofile/profile-search.html:43
-#: templates/userprofile/profile-videos.html:39
+#: templates/userprofile/profile-videos.html:48
 msgid "Não existem itens a serem exibidos"
 msgstr ""
 
-#: templates/configuration/configuration-account.html:36
+#: templates/configuration/configuration-account.html:45
 #: templates/configuration/configuration-deactivate-account.html:22
 msgid "Desativar Conta"
 msgstr "Desativar Conta"
@@ -1643,15 +1705,15 @@ msgstr "Desativar Conta"
 msgid "Confirmar"
 msgstr "Confirmar"
 
-#: templates/contact/contact.html:19
+#: templates/contact/contact.html:20
 msgid "Select"
 msgstr "Selecione"
 
-#: templates/contact/contact.html:27
+#: templates/contact/contact.html:28
 msgid "Message"
 msgstr "Mensagem"
 
-#: templates/contact/contact.html:37
+#: templates/contact/contact.html:38
 msgid "submit"
 msgstr "Enviar"
 
@@ -1670,16 +1732,16 @@ msgstr ""
 "\"%(url_resend_account_confirmation)s\" data-toggle=\"modal\" data-target="
 "\"#modal-resend-email-confirmation\">%(click_here)s</a> para reenviá-lo."
 
-#: templates/home/partials/slideout-menu.html:50
-#: templates/home/partials/user-actions.html:34
+#: templates/home/partials/slideout-menu.html:55
+#: templates/home/partials/user-actions.html:35
 msgid "Sair"
 msgstr "Sair"
 
-#: templates/notification/notification-posts.html:16
+#: templates/notification/notification-posts.html:25
 msgid "Notificações"
 msgstr ""
 
-#: templates/notification/notification-posts.html:20
+#: templates/notification/notification-posts.html:29
 msgid "Comentários e repostas"
 msgstr ""
 
@@ -1701,7 +1763,7 @@ msgstr ""
 msgid "Edit"
 msgstr "Editar"
 
-#: templates/question/edit_answer.html:8 templates/question/show.html.py:26
+#: templates/question/edit_answer.html:9
 msgid "Comment here"
 msgstr "Comente aqui"
 
@@ -1719,29 +1781,30 @@ msgstr "Mostrar"
 
 #: templates/userprofile/occupation_manage.html:35
 #: templates/userprofile/occupation_show.html:16
+#: venv/lib/python2.7/site-packages/django/forms/formsets.py:389
 msgid "Delete"
 msgstr "Deletar"
 
-#: templates/userprofile/profile-edit.html:64
+#: templates/userprofile/profile-edit.html:77
 #: templates/userprofile/show.html:13
 msgid "Birth date"
 msgstr "Data de nascimento"
 
-#: templates/userprofile/profile-edit.html:78
-#: templates/userprofile/profile-edit.html:110
+#: templates/userprofile/profile-edit.html:91
+#: templates/userprofile/profile-edit.html:123
 msgid "Selecione um estado"
 msgstr "Selecione um estado"
 
-#: templates/userprofile/profile-edit.html:92
-#: templates/userprofile/profile-edit.html:124
+#: templates/userprofile/profile-edit.html:105
+#: templates/userprofile/profile-edit.html:137
 msgid "Selecione uma cidade"
 msgstr "Selecione uma cidade"
 
-#: templates/userprofile/profile-questions.html:32
+#: templates/userprofile/profile-questions.html:41
 msgid "Atenção!"
 msgstr "Atenção!"
 
-#: templates/userprofile/profile-questions.html:32
+#: templates/userprofile/profile-questions.html:41
 msgid "Apenas você pode visualizar a listagem com suas perguntas!"
 msgstr "Apenas você pode visualizar a listagem com suas perguntas."
 
@@ -1752,6 +1815,1163 @@ msgstr "Sexo"
 #: templates/userprofile/show.html:14
 msgid "City / State / Country"
 msgstr "Cidade / Estado / País"
+
+#: venv/lib/python2.7/site-packages/captcha/fields.py:21
+#: venv/lib/python2.7/site-packages/nocaptcha_recaptcha/fields.py:21
+msgid "Incorrect, please try again."
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/captcha/fields.py:22
+msgid "Error verifying input, please try again."
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/contrib/messages/apps.py:7
+#, fuzzy
+#| msgid "Message"
+msgid "Messages"
+msgstr "Mensagem"
+
+#: venv/lib/python2.7/site-packages/django/contrib/sitemaps/apps.py:7
+msgid "Site Maps"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/contrib/staticfiles/apps.py:7
+#, fuzzy
+#| msgid "States"
+msgid "Static Files"
+msgstr "Estados"
+
+#: venv/lib/python2.7/site-packages/django/contrib/syndication/apps.py:7
+#, fuzzy
+#| msgid "^notification$"
+msgid "Syndication"
+msgstr "^notificacao$"
+
+#: venv/lib/python2.7/site-packages/django/core/validators.py:33
+msgid "Enter a valid value."
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/core/validators.py:106
+#: venv/lib/python2.7/site-packages/django/forms/fields.py:663
+msgid "Enter a valid URL."
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/core/validators.py:159
+msgid "Enter a valid integer."
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/core/validators.py:170
+msgid "Enter a valid email address."
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/core/validators.py:243
+msgid ""
+"Enter a valid 'slug' consisting of letters, numbers, underscores or hyphens."
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/core/validators.py:250
+msgid ""
+"Enter a valid 'slug' consisting of Unicode letters, numbers, underscores, or "
+"hyphens."
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/core/validators.py:255
+#: venv/lib/python2.7/site-packages/django/core/validators.py:274
+msgid "Enter a valid IPv4 address."
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/core/validators.py:260
+#: venv/lib/python2.7/site-packages/django/core/validators.py:275
+msgid "Enter a valid IPv6 address."
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/core/validators.py:270
+#: venv/lib/python2.7/site-packages/django/core/validators.py:273
+msgid "Enter a valid IPv4 or IPv6 address."
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/core/validators.py:305
+#: venv/lib/python2.7/site-packages/django/db/models/fields/__init__.py:1110
+msgid "Enter only digits separated by commas."
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/core/validators.py:311
+#, python-format
+msgid "Ensure this value is %(limit_value)s (it is %(show_value)s)."
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/core/validators.py:342
+#, python-format
+msgid "Ensure this value is less than or equal to %(limit_value)s."
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/core/validators.py:351
+#, python-format
+msgid "Ensure this value is greater than or equal to %(limit_value)s."
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/core/validators.py:361
+#, python-format
+msgid ""
+"Ensure this value has at least %(limit_value)d character (it has "
+"%(show_value)d)."
+msgid_plural ""
+"Ensure this value has at least %(limit_value)d characters (it has "
+"%(show_value)d)."
+msgstr[0] ""
+msgstr[1] ""
+
+#: venv/lib/python2.7/site-packages/django/core/validators.py:376
+#, python-format
+msgid ""
+"Ensure this value has at most %(limit_value)d character (it has "
+"%(show_value)d)."
+msgid_plural ""
+"Ensure this value has at most %(limit_value)d characters (it has "
+"%(show_value)d)."
+msgstr[0] ""
+msgstr[1] ""
+
+#: venv/lib/python2.7/site-packages/django/core/validators.py:396
+#, python-format
+msgid "Ensure that there are no more than %(max)s digit in total."
+msgid_plural "Ensure that there are no more than %(max)s digits in total."
+msgstr[0] ""
+msgstr[1] ""
+
+#: venv/lib/python2.7/site-packages/django/core/validators.py:401
+#, python-format
+msgid "Ensure that there are no more than %(max)s decimal place."
+msgid_plural "Ensure that there are no more than %(max)s decimal places."
+msgstr[0] ""
+msgstr[1] ""
+
+#: venv/lib/python2.7/site-packages/django/core/validators.py:406
+#, python-format
+msgid ""
+"Ensure that there are no more than %(max)s digit before the decimal point."
+msgid_plural ""
+"Ensure that there are no more than %(max)s digits before the decimal point."
+msgstr[0] ""
+msgstr[1] ""
+
+#: venv/lib/python2.7/site-packages/django/db/models/base.py:1191
+#: venv/lib/python2.7/site-packages/django/forms/models.py:734
+msgid "and"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/db/models/base.py:1193
+#, python-format
+msgid "%(model_name)s with this %(field_labels)s already exists."
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/db/models/fields/__init__.py:110
+#, python-format
+msgid "Value %(value)r is not a valid choice."
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/db/models/fields/__init__.py:111
+msgid "This field cannot be null."
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/db/models/fields/__init__.py:112
+#, fuzzy
+#| msgid "Your answer can not be blank"
+msgid "This field cannot be blank."
+msgstr "Sua resposta não pode estar em branco."
+
+#: venv/lib/python2.7/site-packages/django/db/models/fields/__init__.py:113
+#, python-format
+msgid "%(model_name)s with this %(field_label)s already exists."
+msgstr ""
+
+#. Translators: The 'lookup_type' is one of 'date', 'year' or 'month'.
+#. Eg: "Title must be unique for pub_date year"
+#: venv/lib/python2.7/site-packages/django/db/models/fields/__init__.py:117
+#, python-format
+msgid ""
+"%(field_label)s must be unique for %(date_field_label)s %(lookup_type)s."
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/db/models/fields/__init__.py:134
+#, python-format
+msgid "Field of type: %(field_type)s"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/db/models/fields/__init__.py:881
+#: venv/lib/python2.7/site-packages/django/db/models/fields/__init__.py:1788
+msgid "Integer"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/db/models/fields/__init__.py:885
+#: venv/lib/python2.7/site-packages/django/db/models/fields/__init__.py:1786
+#, python-format
+msgid "'%(value)s' value must be an integer."
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/db/models/fields/__init__.py:960
+#: venv/lib/python2.7/site-packages/django/db/models/fields/__init__.py:1857
+msgid "Big (8 byte) integer"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/db/models/fields/__init__.py:972
+#, python-format
+msgid "'%(value)s' value must be either True or False."
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/db/models/fields/__init__.py:974
+msgid "Boolean (Either True or False)"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/db/models/fields/__init__.py:1040
+#, python-format
+msgid "String (up to %(max_length)s)"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/db/models/fields/__init__.py:1094
+msgid "Comma-separated integers"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/db/models/fields/__init__.py:1151
+#, python-format
+msgid ""
+"'%(value)s' value has an invalid date format. It must be in YYYY-MM-DD "
+"format."
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/db/models/fields/__init__.py:1153
+#: venv/lib/python2.7/site-packages/django/db/models/fields/__init__.py:1298
+#, python-format
+msgid ""
+"'%(value)s' value has the correct format (YYYY-MM-DD) but it is an invalid "
+"date."
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/db/models/fields/__init__.py:1156
+msgid "Date (without time)"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/db/models/fields/__init__.py:1296
+#, python-format
+msgid ""
+"'%(value)s' value has an invalid format. It must be in YYYY-MM-DD HH:MM[:ss[."
+"uuuuuu]][TZ] format."
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/db/models/fields/__init__.py:1300
+#, python-format
+msgid ""
+"'%(value)s' value has the correct format (YYYY-MM-DD HH:MM[:ss[.uuuuuu]]"
+"[TZ]) but it is an invalid date/time."
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/db/models/fields/__init__.py:1304
+msgid "Date (with time)"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/db/models/fields/__init__.py:1454
+#, python-format
+msgid "'%(value)s' value must be a decimal number."
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/db/models/fields/__init__.py:1456
+msgid "Decimal number"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/db/models/fields/__init__.py:1607
+#, python-format
+msgid ""
+"'%(value)s' value has an invalid format. It must be in [DD] [HH:[MM:]]ss[."
+"uuuuuu] format."
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/db/models/fields/__init__.py:1610
+#, fuzzy
+#| msgid "^occupation/$"
+msgid "Duration"
+msgstr "^ocupacao/$"
+
+#: venv/lib/python2.7/site-packages/django/db/models/fields/__init__.py:1662
+msgid "Email address"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/db/models/fields/__init__.py:1686
+msgid "File path"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/db/models/fields/__init__.py:1752
+#, python-format
+msgid "'%(value)s' value must be a float."
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/db/models/fields/__init__.py:1754
+msgid "Floating point number"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/db/models/fields/__init__.py:1872
+msgid "IPv4 address"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/db/models/fields/__init__.py:1903
+msgid "IP address"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/db/models/fields/__init__.py:1985
+#, python-format
+msgid "'%(value)s' value must be either None, True or False."
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/db/models/fields/__init__.py:1987
+msgid "Boolean (Either True, False or None)"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/db/models/fields/__init__.py:2054
+msgid "Positive integer"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/db/models/fields/__init__.py:2066
+msgid "Positive small integer"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/db/models/fields/__init__.py:2079
+#, python-format
+msgid "Slug (up to %(max_length)s)"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/db/models/fields/__init__.py:2113
+msgid "Small integer"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/db/models/fields/__init__.py:2120
+msgid "Text"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/db/models/fields/__init__.py:2146
+#, python-format
+msgid ""
+"'%(value)s' value has an invalid format. It must be in HH:MM[:ss[.uuuuuu]] "
+"format."
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/db/models/fields/__init__.py:2148
+#, python-format
+msgid ""
+"'%(value)s' value has the correct format (HH:MM[:ss[.uuuuuu]]) but it is an "
+"invalid time."
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/db/models/fields/__init__.py:2151
+msgid "Time"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/db/models/fields/__init__.py:2279
+msgid "URL"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/db/models/fields/__init__.py:2302
+msgid "Raw binary data"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/db/models/fields/__init__.py:2349
+#, python-format
+msgid "'%(value)s' is not a valid UUID."
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/db/models/fields/files.py:225
+msgid "File"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/db/models/fields/files.py:387
+msgid "Image"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/db/models/fields/related.py:734
+#, python-format
+msgid "%(model)s instance with %(field)s %(value)r does not exist."
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/db/models/fields/related.py:736
+msgid "Foreign Key (type determined by related field)"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/db/models/fields/related.py:974
+msgid "One-to-one relationship"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/db/models/fields/related.py:1049
+#, python-format
+msgid "%(from)s-%(to)s relationship"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/db/models/fields/related.py:1050
+#, python-format
+msgid "%(from)s-%(to)s relationships"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/db/models/fields/related.py:1092
+msgid "Many-to-many relationship"
+msgstr ""
+
+#. Translators: If found as last label character, these punctuation
+#. characters will prevent the default label_suffix to be appended to the label
+#: venv/lib/python2.7/site-packages/django/forms/boundfield.py:156
+msgid ":?.!"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/forms/fields.py:56
+msgid "This field is required."
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/forms/fields.py:250
+msgid "Enter a whole number."
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/forms/fields.py:295
+#: venv/lib/python2.7/site-packages/django/forms/fields.py:332
+msgid "Enter a number."
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/forms/fields.py:410
+#: venv/lib/python2.7/site-packages/django/forms/fields.py:1136
+msgid "Enter a valid date."
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/forms/fields.py:434
+#: venv/lib/python2.7/site-packages/django/forms/fields.py:1137
+msgid "Enter a valid time."
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/forms/fields.py:456
+msgid "Enter a valid date/time."
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/forms/fields.py:485
+msgid "Enter a valid duration."
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/forms/fields.py:542
+msgid "No file was submitted. Check the encoding type on the form."
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/forms/fields.py:543
+#, fuzzy
+#| msgid "No user was selected."
+msgid "No file was submitted."
+msgstr "Nenhum usuário foi selecionado"
+
+#: venv/lib/python2.7/site-packages/django/forms/fields.py:544
+msgid "The submitted file is empty."
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/forms/fields.py:546
+#, python-format
+msgid "Ensure this filename has at most %(max)d character (it has %(length)d)."
+msgid_plural ""
+"Ensure this filename has at most %(max)d characters (it has %(length)d)."
+msgstr[0] ""
+msgstr[1] ""
+
+#: venv/lib/python2.7/site-packages/django/forms/fields.py:549
+msgid "Please either submit a file or check the clear checkbox, not both."
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/forms/fields.py:611
+msgid ""
+"Upload a valid image. The file you uploaded was either not an image or a "
+"corrupted image."
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/forms/fields.py:767
+#: venv/lib/python2.7/site-packages/django/forms/fields.py:863
+#: venv/lib/python2.7/site-packages/django/forms/models.py:1240
+#, python-format
+msgid "Select a valid choice. %(value)s is not one of the available choices."
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/forms/fields.py:864
+#: venv/lib/python2.7/site-packages/django/forms/fields.py:979
+#: venv/lib/python2.7/site-packages/django/forms/models.py:1239
+msgid "Enter a list of values."
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/forms/fields.py:980
+msgid "Enter a complete value."
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/forms/fields.py:1195
+msgid "Enter a valid UUID."
+msgstr ""
+
+#. Translators: This is the default suffix added to form field labels
+#: venv/lib/python2.7/site-packages/django/forms/forms.py:84
+msgid ":"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/forms/forms.py:199
+#, python-format
+msgid "(Hidden field %(name)s) %(error)s"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/forms/formsets.py:97
+msgid "ManagementForm data is missing or has been tampered with"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/forms/formsets.py:350
+#, python-format
+msgid "Please submit %d or fewer forms."
+msgid_plural "Please submit %d or fewer forms."
+msgstr[0] ""
+msgstr[1] ""
+
+#: venv/lib/python2.7/site-packages/django/forms/formsets.py:357
+#, python-format
+msgid "Please submit %d or more forms."
+msgid_plural "Please submit %d or more forms."
+msgstr[0] ""
+msgstr[1] ""
+
+#: venv/lib/python2.7/site-packages/django/forms/formsets.py:385
+#: venv/lib/python2.7/site-packages/django/forms/formsets.py:387
+msgid "Order"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/forms/models.py:729
+#, python-format
+msgid "Please correct the duplicate data for %(field)s."
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/forms/models.py:733
+#, python-format
+msgid "Please correct the duplicate data for %(field)s, which must be unique."
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/forms/models.py:739
+#, python-format
+msgid ""
+"Please correct the duplicate data for %(field_name)s which must be unique "
+"for the %(lookup)s in %(date_field)s."
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/forms/models.py:748
+msgid "Please correct the duplicate values below."
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/forms/models.py:1072
+msgid "The inline foreign key did not match the parent instance primary key."
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/forms/models.py:1133
+msgid "Select a valid choice. That choice is not one of the available choices."
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/forms/models.py:1242
+#, python-format
+msgid "\"%(pk)s\" is not a valid value for a primary key."
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/forms/utils.py:172
+#, python-format
+msgid ""
+"%(datetime)s couldn't be interpreted in time zone %(current_timezone)s; it "
+"may be ambiguous or it may not exist."
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/forms/widgets.py:358
+msgid "Currently"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/forms/widgets.py:359
+#, fuzzy
+#| msgid "Danger"
+msgid "Change"
+msgstr "Perigo"
+
+#: venv/lib/python2.7/site-packages/django/forms/widgets.py:360
+#, fuzzy
+#| msgid "^clear$"
+msgid "Clear"
+msgstr "^limpar$"
+
+#: venv/lib/python2.7/site-packages/django/forms/widgets.py:577
+msgid "Unknown"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/forms/widgets.py:578
+msgid "Yes"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/forms/widgets.py:579
+msgid "No"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/template/defaultfilters.py:848
+msgid "yes,no,maybe"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/template/defaultfilters.py:877
+#: venv/lib/python2.7/site-packages/django/template/defaultfilters.py:894
+#, python-format
+msgid "%(size)d byte"
+msgid_plural "%(size)d bytes"
+msgstr[0] ""
+msgstr[1] ""
+
+#: venv/lib/python2.7/site-packages/django/template/defaultfilters.py:896
+#, python-format
+msgid "%s KB"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/template/defaultfilters.py:898
+#, python-format
+msgid "%s MB"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/template/defaultfilters.py:900
+#, python-format
+msgid "%s GB"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/template/defaultfilters.py:902
+#, python-format
+msgid "%s TB"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/template/defaultfilters.py:904
+#, python-format
+msgid "%s PB"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/utils/dateformat.py:66
+msgid "p.m."
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/utils/dateformat.py:67
+msgid "a.m."
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/utils/dateformat.py:72
+msgid "PM"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/utils/dateformat.py:73
+msgid "AM"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/utils/dateformat.py:158
+msgid "midnight"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/utils/dateformat.py:160
+msgid "noon"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/utils/dates.py:6
+msgid "Monday"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/utils/dates.py:6
+msgid "Tuesday"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/utils/dates.py:6
+msgid "Wednesday"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/utils/dates.py:6
+msgid "Thursday"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/utils/dates.py:6
+msgid "Friday"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/utils/dates.py:7
+msgid "Saturday"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/utils/dates.py:7
+msgid "Sunday"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/utils/dates.py:10
+msgid "Mon"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/utils/dates.py:10
+msgid "Tue"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/utils/dates.py:10
+msgid "Wed"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/utils/dates.py:10
+msgid "Thu"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/utils/dates.py:10
+msgid "Fri"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/utils/dates.py:11
+#, fuzzy
+#| msgid "State"
+msgid "Sat"
+msgstr "Estado"
+
+#: venv/lib/python2.7/site-packages/django/utils/dates.py:11
+msgid "Sun"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/utils/dates.py:18
+msgid "January"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/utils/dates.py:18
+msgid "February"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/utils/dates.py:18
+#, fuzzy
+#| msgid "^search$"
+msgid "March"
+msgstr "^buscar$"
+
+#: venv/lib/python2.7/site-packages/django/utils/dates.py:18
+msgid "April"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/utils/dates.py:18
+msgid "May"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/utils/dates.py:18
+msgid "June"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/utils/dates.py:19
+msgid "July"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/utils/dates.py:19
+msgid "August"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/utils/dates.py:19
+msgid "September"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/utils/dates.py:19
+msgid "October"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/utils/dates.py:19
+#, fuzzy
+#| msgid "Phone Number"
+msgid "November"
+msgstr "Número de Telefone"
+
+#: venv/lib/python2.7/site-packages/django/utils/dates.py:20
+msgid "December"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/utils/dates.py:23
+msgid "jan"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/utils/dates.py:23
+msgid "feb"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/utils/dates.py:23
+msgid "mar"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/utils/dates.py:23
+msgid "apr"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/utils/dates.py:23
+#, fuzzy
+#| msgid "Company"
+msgid "may"
+msgstr "Empresa"
+
+#: venv/lib/python2.7/site-packages/django/utils/dates.py:23
+msgid "jun"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/utils/dates.py:24
+msgid "jul"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/utils/dates.py:24
+msgid "aug"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/utils/dates.py:24
+msgid "sep"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/utils/dates.py:24
+#, fuzzy
+#| msgid "Contact"
+msgid "oct"
+msgstr "Contato"
+
+#: venv/lib/python2.7/site-packages/django/utils/dates.py:24
+msgid "nov"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/utils/dates.py:24
+msgid "dec"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/utils/dates.py:31
+msgctxt "abbrev. month"
+msgid "Jan."
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/utils/dates.py:32
+msgctxt "abbrev. month"
+msgid "Feb."
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/utils/dates.py:33
+#, fuzzy
+#| msgid "^search$"
+msgctxt "abbrev. month"
+msgid "March"
+msgstr "^buscar$"
+
+#: venv/lib/python2.7/site-packages/django/utils/dates.py:34
+msgctxt "abbrev. month"
+msgid "April"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/utils/dates.py:35
+msgctxt "abbrev. month"
+msgid "May"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/utils/dates.py:36
+msgctxt "abbrev. month"
+msgid "June"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/utils/dates.py:37
+msgctxt "abbrev. month"
+msgid "July"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/utils/dates.py:38
+msgctxt "abbrev. month"
+msgid "Aug."
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/utils/dates.py:39
+msgctxt "abbrev. month"
+msgid "Sept."
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/utils/dates.py:40
+msgctxt "abbrev. month"
+msgid "Oct."
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/utils/dates.py:41
+msgctxt "abbrev. month"
+msgid "Nov."
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/utils/dates.py:42
+msgctxt "abbrev. month"
+msgid "Dec."
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/utils/dates.py:45
+msgctxt "alt. month"
+msgid "January"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/utils/dates.py:46
+msgctxt "alt. month"
+msgid "February"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/utils/dates.py:47
+#, fuzzy
+#| msgid "^search$"
+msgctxt "alt. month"
+msgid "March"
+msgstr "^buscar$"
+
+#: venv/lib/python2.7/site-packages/django/utils/dates.py:48
+msgctxt "alt. month"
+msgid "April"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/utils/dates.py:49
+msgctxt "alt. month"
+msgid "May"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/utils/dates.py:50
+msgctxt "alt. month"
+msgid "June"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/utils/dates.py:51
+msgctxt "alt. month"
+msgid "July"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/utils/dates.py:52
+msgctxt "alt. month"
+msgid "August"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/utils/dates.py:53
+msgctxt "alt. month"
+msgid "September"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/utils/dates.py:54
+msgctxt "alt. month"
+msgid "October"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/utils/dates.py:55
+#, fuzzy
+#| msgid "Phone Number"
+msgctxt "alt. month"
+msgid "November"
+msgstr "Número de Telefone"
+
+#: venv/lib/python2.7/site-packages/django/utils/dates.py:56
+msgctxt "alt. month"
+msgid "December"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/utils/ipv6.py:12
+msgid "This is not a valid IPv6 address."
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/utils/text.py:78
+#, python-format
+msgctxt "String to return when truncating text"
+msgid "%(truncated_text)s..."
+msgstr ""
+
+#. Translators: This string is used as a separator between list elements
+#: venv/lib/python2.7/site-packages/django/utils/text.py:267
+#: venv/lib/python2.7/site-packages/django/utils/timesince.py:63
+msgid ", "
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/utils/timesince.py:11
+#, python-format
+msgid "%d year"
+msgid_plural "%d years"
+msgstr[0] ""
+msgstr[1] ""
+
+#: venv/lib/python2.7/site-packages/django/utils/timesince.py:12
+#, python-format
+msgid "%d month"
+msgid_plural "%d months"
+msgstr[0] ""
+msgstr[1] ""
+
+#: venv/lib/python2.7/site-packages/django/utils/timesince.py:13
+#, python-format
+msgid "%d week"
+msgid_plural "%d weeks"
+msgstr[0] ""
+msgstr[1] ""
+
+#: venv/lib/python2.7/site-packages/django/utils/timesince.py:14
+#, python-format
+msgid "%d day"
+msgid_plural "%d days"
+msgstr[0] ""
+msgstr[1] ""
+
+#: venv/lib/python2.7/site-packages/django/utils/timesince.py:15
+#, python-format
+msgid "%d hour"
+msgid_plural "%d hours"
+msgstr[0] ""
+msgstr[1] ""
+
+#: venv/lib/python2.7/site-packages/django/utils/timesince.py:16
+#, python-format
+msgid "%d minute"
+msgid_plural "%d minutes"
+msgstr[0] ""
+msgstr[1] ""
+
+#: venv/lib/python2.7/site-packages/django/utils/timesince.py:52
+msgid "0 minutes"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/views/csrf.py:109
+msgid "Forbidden"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/views/csrf.py:110
+msgid "CSRF verification failed. Request aborted."
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/views/csrf.py:114
+msgid ""
+"You are seeing this message because this HTTPS site requires a 'Referer "
+"header' to be sent by your Web browser, but none was sent. This header is "
+"required for security reasons, to ensure that your browser is not being "
+"hijacked by third parties."
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/views/csrf.py:119
+msgid ""
+"If you have configured your browser to disable 'Referer' headers, please re-"
+"enable them, at least for this site, or for HTTPS connections, or for 'same-"
+"origin' requests."
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/views/csrf.py:124
+msgid ""
+"You are seeing this message because this site requires a CSRF cookie when "
+"submitting forms. This cookie is required for security reasons, to ensure "
+"that your browser is not being hijacked by third parties."
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/views/csrf.py:129
+msgid ""
+"If you have configured your browser to disable cookies, please re-enable "
+"them, at least for this site, or for 'same-origin' requests."
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/views/csrf.py:134
+msgid "More information is available with DEBUG=True."
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/views/debug.py:509
+msgid "Welcome to Django"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/views/debug.py:510
+msgid "It worked!"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/views/debug.py:511
+msgid "Congratulations on your first Django-powered page."
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/views/debug.py:513
+msgid ""
+"Of course, you haven't actually done any work yet. Next, start your first "
+"app by running <code>python manage.py startapp [app_label]</code>."
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/views/debug.py:517
+msgid ""
+"You're seeing this message because you have <code>DEBUG = True</code> in "
+"your Django settings file and you haven't configured any URLs. Get to work!"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/views/generic/dates.py:48
+msgid "No year specified"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/views/generic/dates.py:104
+msgid "No month specified"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/views/generic/dates.py:163
+msgid "No day specified"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/views/generic/dates.py:219
+msgid "No week specified"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/views/generic/dates.py:378
+#: venv/lib/python2.7/site-packages/django/views/generic/dates.py:406
+#, python-format
+msgid "No %(verbose_name_plural)s available"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/views/generic/dates.py:660
+#, python-format
+msgid ""
+"Future %(verbose_name_plural)s not available because %(class_name)s."
+"allow_future is False."
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/views/generic/dates.py:694
+#, python-format
+msgid "Invalid date string '%(datestr)s' given format '%(format)s'"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/views/generic/detail.py:55
+#, python-format
+msgid "No %(verbose_name)s found matching the query"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/views/generic/list.py:76
+msgid "Page is not 'last', nor can it be converted to an int."
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/views/generic/list.py:81
+#, python-format
+msgid "Invalid page (%(page_number)s): %(message)s"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/views/generic/list.py:171
+#, python-format
+msgid "Empty list and '%(class_name)s.allow_empty' is False."
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/views/static.py:58
+msgid "Directory indexes are not allowed here."
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/django/views/static.py:60
+#, fuzzy, python-format
+#| msgid "Token not exist"
+msgid "\"%(path)s\" does not exist"
+msgstr "Token não existe"
+
+#: venv/lib/python2.7/site-packages/django/views/static.py:100
+#, python-format
+msgid "Index of %(directory)s"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/ideia_summernote/views.py:35
+msgid "Only authenticated users can submit images!"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/ideia_summernote/views.py:43
+msgid "File size not supported!"
+msgstr ""
+
+#, fuzzy
+#~| msgid "Submit"
+#~ msgid "Submiting"
+#~ msgstr "Enviar"
+
+#~ msgid "^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/videos/$"
+#~ msgstr "^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/videos/$"
+
+#~ msgid "^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/videos/search/$"
+#~ msgstr "^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/videos/busca/$"
+
+#~ msgid "^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/videos/search/list/$"
+#~ msgstr ""
+#~ "^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/videos/buscar/listagem/$"
+
+#~ msgid "^ckeditor/"
+#~ msgstr "^ckeditor/"
 
 #~ msgid "^(?P<category_id>\\d+)/list-communities$"
 #~ msgstr "^(?P<category_id>\\d+)/listar-comunidades$"
@@ -1777,9 +2997,6 @@ msgstr "Cidade / Estado / País"
 
 #~ msgid "If you have not received the confirmation email %s to resend."
 #~ msgstr "Se você não recebeu o email de confirmação %s para reenviá-lo."
-
-#~ msgid "State"
-#~ msgstr "Estado"
 
 #~ msgid "City"
 #~ msgstr "Cidade"
