@@ -150,7 +150,10 @@
 
                         {% if form.non_field_errors %} {{ form.non_field_errors }} {% endif %}
 
-                        <input class="btn-action btn-block" type="submit" value="{% trans "Submit" %}" name="submit">
+                        {#<input class="btn-action btn-block" type="submit" value="{% trans "Submit" %}" name="submit">#}
+                        <button class="btn-block btn-action" type="submit">
+                          {% trans "Submit" %}
+                        </button>
                         <!-- {% trans 'or' %} <a href="{% url 'account:login' %}">{% trans 'Login' %}</a> -->
                       </form>
                       <div class="fb-account-box">
@@ -203,7 +206,13 @@
 
         {% include 'inline_scripts/modal.html' %}
 
-{#        <script type="text/javascript">#}
+        <script type="text/javascript">
+          $('form').on('submit', function (e) {
+            var button = $(e.currentTarget).find('[type="submit"]');
+            button.attr('disabled', true);
+            button.html('{% trans "Sending" %} <i class="gsticon gsticon-spinner gsticon-spin"></i>');
+          });
+        </script>
 {#            var timeoutReference= null;#}
 {#            var functionAjaxSuccessLogin = function(e, data) {#}
 {#                window.location.href = data.url_next;#}
