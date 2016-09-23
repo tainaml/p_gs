@@ -41,11 +41,11 @@ def save_article(article, data):
     if not article.first_slug:
         article.first_slug=article.slug
 
-    for key in data.keys():
-        if not hasattr(article, key):
-            continue
-
-        setattr(article, key, data.get(key))
+    # for key in data.keys():
+    #     if not hasattr(article, key):
+    #         continue
+    #
+    #     setattr(article, key, data.get(key))
 
     saved = article.save()
     return False if saved is False else article

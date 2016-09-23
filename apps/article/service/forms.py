@@ -17,7 +17,7 @@ class ArticleForm(IdeiaModelForm):
     text = forms.CharField(required=True, widget=SummernoteWidget(editor_conf='article'), max_length=settings.ARTICLE_TEXT_LIMIT if hasattr(settings, "ARTICLE_TEXT_LIMIT") else 10000)
     image = forms.ImageField(required=False)
     publishin = forms.DateTimeField(required=False)
-    status = forms.ChoiceField(required=False, choices=Business.Article.STATUS_CHOICES)
+    # status = forms.ChoiceField(required=False, choices=Business.Article.STATUS_CHOICES)
     author = forms.IntegerField(required=False)
 
     # Actions: save, publish, schedule
@@ -31,7 +31,7 @@ class ArticleForm(IdeiaModelForm):
 
     class Meta:
         model = Business.Article
-        exclude = ['first_slug', 'slug', 'search_vector']
+        exclude = ['first_slug', 'slug','status', 'search_vector']
 
     def __init__(self, data=None, files=None, author=False, *args, **kwargs):
 
@@ -79,6 +79,12 @@ class ArticleForm(IdeiaModelForm):
         if not super(ArticleForm, self).is_valid():
             valid = False
 
+        slug = self.cleaned_data.get('slug', None)
+        if bool(slug):
+            title = self.cleaned_data.get('title')
+            slug = slug if bool(slug) else Business.get_valid_slug(self.instance, title)
+            self.instance.slug = slug
+
         image = self.cleaned_data.get('image', False)
 
         if image and 'image' in self.changed_data:
@@ -112,9 +118,9 @@ class ArticleForm(IdeiaModelForm):
 
             self.instance.do_save()
 
-        self.cleaned_data.update({
-            'status': self.instance.status
-        })
+        # self.cleaned_data.update({
+        #     'status': self.instance.status
+        # })
 
         return valid
 
@@ -122,4 +128,5 @@ class ArticleForm(IdeiaModelForm):
         self._author = author
 
     def __process__(self):
+        self.instance = self.save()
         return Business.save_article(self.instance, self.cleaned_data)
