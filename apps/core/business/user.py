@@ -96,7 +96,7 @@ def get_feed_objects(profile_instance=None, description=None, content_types_list
     ).select_related('content_type')
 
     feed_objects = feed_objects.order_by(
-        "-date"
+        "-  date"
     ).distinct()
 
     items_per_page = items_per_page if items_per_page else 10
