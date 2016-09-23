@@ -257,17 +257,21 @@
         function setData($form, data, $divToUpdate){
 
             var action = $form.data("toggle");
-            if (action=="append"){
-                $divToUpdate.append(data.template);
-                $form[0].reset();
-            }else if (action=="prepend"){
-                $divToUpdate.prepend(data.template);
+            var $form_to_hide = $form.parent(".dropdown-content");
 
-                var $form_to_hide = $form.parent(".dropdown-content");
-                if ($form_to_hide){
+            if(action == "append" || action == "prepend") {
+
+                if (action == "append") {
+                    $divToUpdate.append(data.template);
+                } else {
+                    $divToUpdate.prepend(data.template);
+                }
+
+                if ($form_to_hide) {
                     $form_to_hide.removeClass("open");
                 }
                 $form[0].reset();
+
             }else if (action=="replace"){
                 var $element = $(data.template);
                 $divToUpdate.replaceWith($element);
