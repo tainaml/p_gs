@@ -39,7 +39,13 @@
         position: absolute;
         top: 20%;
         right: 15px;
+        padding: 0;
+        border: none;
+        background-color: transparent;
         color: #d3d3d3;
+        &:hover {
+          color: darken(#d3d3d3, 10%);
+        }
     }
 }
 .form-search-child {
