@@ -132,6 +132,9 @@ DJANGO_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.postgres',
     'django.contrib.humanize',
+
+    # SITEMAP
+    'django.contrib.sitemaps',
 )
 
 THIRD_PART_APPS = (

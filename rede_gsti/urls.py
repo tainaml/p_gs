@@ -18,10 +18,11 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
-
 from apps.core.views.core import Home
 from apps.core.views import search as CoreSearch
 from apps.core.views.frontend import FrontEndBase
+from django.contrib.sitemaps import views as sitemap_views
+from apps.core.sitemap import sitemaps
 from rede_gsti.urls_old import urls_old
 
 handler400 = "apps.core.views.errors.handler400"
@@ -109,6 +110,9 @@ urlpatterns = [
     url(_(r'^'), include('apps.core.urls.community', namespace='community')),
 
     url(r'^ideia-summernote/', include('ideia_summernote.urls', namespace='ideia-summernote')),
+
+    url(r'^sitemap\.xml$', sitemap_views.index, {'sitemaps': sitemaps}),
+    url(r'^sitemap-(?P<section>.+)\.xml$', sitemap_views.sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
 
     url(r'^', include('apps.core.urls.blogspot', namespace='blogspot')),
 

@@ -34,6 +34,8 @@ class UserProfile(models.Model):
     contributor = models.BooleanField(null=False, blank=False, default=False)
     wizard_step = models.IntegerField(null=False, blank=False, default=0)
 
+    last_update = models.DateTimeField(auto_now=True)
+
 
     @cached_property
     def avatar_url(self):
