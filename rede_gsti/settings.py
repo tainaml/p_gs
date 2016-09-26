@@ -177,13 +177,15 @@ INTERNAL_APPS = (
 
 )
 
+DEBUG = False
+
 #SESSION
 SESSION_ENGINE = "django.contrib.sessions.backends.cache"
 
 # Set up for installed apps
 INSTALLED_APPS = DJANGO_APPS + THIRD_PART_APPS + INTERNAL_APPS
 
-ADD_REVERSION_ADMIN=True
+ADD_REVERSION_ADMIN = True
 
 APPEND_SLASH = True
 
@@ -878,7 +880,6 @@ SUMMERNOTE_CONFIG = {
 # Setting Environment specific settings
 if ENVIRONMENT == "develop":
     DEBUG = True
-    TEMPLATE_DEBUG = DEBUG
 
     profiler = config.get("DEVELOP", 'profiler')
 
