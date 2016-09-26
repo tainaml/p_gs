@@ -33,7 +33,11 @@
     var lang = options.langInfo;
 
     var prettyprintOpitions = {
-
+      languages: [
+        'bsh', 'c', 'cc', 'cpp', 'cs', 'css', 'csh', 'cyc', 'cv', 'html',
+        'java', 'js', 'm', 'mxml', 'perl', 'pl', 'pm', 'py', 'php', 'rb',
+        'sh', 'sql', 'xhtml', 'xml', 'xsl'
+      ]
     };
 
     options.prettyprint = $.extend(prettyprintOpitions, options.prettyprint);
@@ -56,8 +60,6 @@
       self.showDialog()
         .then(function showDialogCb (data) {
           context.invoke('editor.restoreRange');
-          // Insert code prettyprinted into editor
-          // [function here]
           self.insertToEditor(data);
           ui.hideDialog(self.$dialog);
         }).fail(function () {
@@ -96,13 +98,7 @@
 
     this.createDialog = function ($container) {
 
-      var languages = [
-          'bsh', 'c', 'cc', 'cpp', 'cs', 'csh', 'cyc', 'cv', 'htm', 'html',
-          'java', 'js', 'm', 'mxml', 'perl', 'pl', 'pm', 'py', 'php', 'rb',
-          'sh', 'xhtml', 'xml', 'xsl'
-      ];
-
-      var select = '<select class="form-control" id="code-language"><option>' + languages.join('</option><option>') + '</option></select>';
+      var select = '<select class="form-control" id="code-language"><option>' + options.prettyprint.languages.join('</option><option>') + '</option></select>';
 
       var dialogOption = {
         title: lang.dialogPrettyfi.title,
