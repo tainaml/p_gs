@@ -11,7 +11,7 @@ class UserSitemap(Sitemap):
     priority = 0.5
 
     def lastmod(self, obj):
-        return obj.updatein if obj.updatein else obj.user.date_joined
+        return obj.updatein if obj and hasattr(obj, "updatein") else obj.user.date_joined
 
     def items(self):
 
