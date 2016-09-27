@@ -11,11 +11,11 @@
         <div class="widget widget-box" id="result-filter">
             <div class="widget-content">
                 <ul class="perfil-actions search-menu-content">
-                    <li {% if local_context == "searching" %}class="active"{% endif %}><a href="{% url "search:search" %}?q={{ query_search|default:"" }}">Todos</a></li>
-                    <li {% if local_context == "searchingarticles" %}class="active"{% endif %}><a href="{% url "search:search-content" "articles"  %}?q={{ query_search|default:"" }}">Publicações</a></li>
-                    <li {% if local_context == "searchingcommunities" %}class="active"{% endif %}><a href="{% url "search:search-content" "communities"  %}?q={{ query_search|default:"" }}">Comunidades</a></li>
-                    <li {% if local_context == "searchingusers" %}class="active"{% endif %}><a href="{% url "search:search-content" "users"  %}?q={{ query_search|default:"" }}">Membros</a></li>
-                    <li {% if local_context == "searchingquestions" %}class="active"{% endif %}><a href="{% url "search:search-content" "questions"  %}?q={{ query_search|default:"" }}">Perguntas</a></li>
+                    <li {% if not content_type %}class="active"{% endif %}><a href="{% url "search:search" %}?q={{ query_search|default:"" }}">Todos</a></li>
+                    <li {% if content_type == 'articles' %}class="active"{% endif %}><a href="{% url "search:search-content" "articles"  %}?q={{ query_search|default:"" }}">Publicações</a></li>
+                    <li {% if content_type == 'communities' %}class="active"{% endif %}><a href="{% url "search:search-content" "communities"  %}?q={{ query_search|default:"" }}">Comunidades</a></li>
+                    <li {% if content_type == 'users' %}class="active"{% endif %}><a href="{% url "search:search-content" "users"  %}?q={{ query_search|default:"" }}">Membros</a></li>
+                    <li {% if content_type == 'questions' %}class="active"{% endif %}><a href="{% url "search:search-content" "questions"  %}?q={{ query_search|default:"" }}">Perguntas</a></li>
                 </ul>
             </div>
         </div>

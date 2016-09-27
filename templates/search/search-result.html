@@ -79,7 +79,7 @@
                                  <div class="row j-scroll-articles j-scroll-container-articles">
                                     {% include "search/partials/search-articles.html" %}
                                 </div>
-                             {% else %}
+                             {% elif not content_type or content_type == 'articles' %}
                                 {% include 'core/partials/empy-list.html' with item="publicação" gender="female" %}
                             {% endif %}
                         </div>
@@ -88,7 +88,7 @@
 
                 <div class="result-container">
 
-                    {% if not content_type or content_type == 'communities'%}
+                    {% if not content_type or content_type == 'communities' %}
                     <header class="area-title">
                         <h2>Comunidades</h2>
                     </header>
@@ -127,11 +127,12 @@
                             {% endblock %}
                            </div>
                     {% endif %}
+
                     {% if communities.object_list %}
                         <div class="row j-scroll-communities j-scroll-container-communities" id="communities-container">
                             {% include "search/partials/search-communities.html" %}
                         </div>
-                    {% else %}
+                    {% elif not content_type or content_type == 'communities' %}
                         {% include 'core/partials/empy-list.html' with  item="comunidade" gender="female" %}
                     {% endif %}
 
@@ -189,7 +190,7 @@
                             <div class="j-scroll-users j-scroll-container-users" id="followers-container">
                                 {% if users.object_list %}
                                     {% include "search/partials/search-users.html" %}
-                                {% else %}
+                                {% elif not content_type or content_type == 'users' %}
                                     {% include 'core/partials/empy-list.html' with orientation="left" item="membro" gender="male" %}
                                 {% endif %}
 
@@ -212,7 +213,7 @@
                             <div class="row j-scroll-questions j-scroll-container-questions">
                                 {% include "search/partials/search-questions.html" %}
                             </div>
-                    {% else %}
+                    {% elif not content_type or content_type == 'questions' %}
                         {% include 'core/partials/empy-list.html' with orientation="left" item="pergunta" gender="female" %}
                     {% endif %}
                     </section>
