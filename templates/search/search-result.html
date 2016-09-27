@@ -74,15 +74,19 @@
                     {% endif %}
 
 
-                        <div class="area-content">
+
                              {% if feed_articles %}
+                                 <div class="area-content">
                                  <div class="row j-scroll-articles j-scroll-container-articles">
                                     {% include "search/partials/search-articles.html" %}
                                 </div>
+                                 </div>
                              {% elif not content_type or content_type == 'articles' %}
+                                 <div class="area-content">
                                 {% include 'core/partials/empy-list.html' with item="publicação" gender="female" %}
+                                 </div>
                             {% endif %}
-                        </div>
+
 
                 </div>
 
@@ -122,7 +126,6 @@
                                         </form>
 
                                     </div>
-                                    <hr>
                                 {% endif %}
                             {% endblock %}
                            </div>
@@ -133,7 +136,10 @@
                             {% include "search/partials/search-communities.html" %}
                         </div>
                     {% elif not content_type or content_type == 'communities' %}
-                        {% include 'core/partials/empy-list.html' with  item="comunidade" gender="female" %}
+                         <div class="area-content">
+
+                             {% include 'core/partials/empy-list.html' with  item="comunidade" gender="female" %}
+                         </div>
                     {% endif %}
 
 
@@ -183,7 +189,6 @@
                                             </div>
                                         </form>
                                     </div>
-                                     <hr>
                             {% endblock filter_users %}
                             {% endif %}
 
@@ -208,15 +213,20 @@
                         <h2>Perguntas</h2>
                     </header>
                     {% endif %}
-                    <section class="area-content">
+
                     {% if feed_questions %}
+                        <section class="area-content">
                             <div class="row j-scroll-questions j-scroll-container-questions">
                                 {% include "search/partials/search-questions.html" %}
                             </div>
+                        </section>
                     {% elif not content_type or content_type == 'questions' %}
-                        {% include 'core/partials/empy-list.html' with orientation="left" item="pergunta" gender="female" %}
+                        <section class="area-content">
+
+                            {% include 'core/partials/empy-list.html' with orientation="left" item="pergunta" gender="female" %}
+                        </section>
                     {% endif %}
-                    </section>
+
                 </div>
 
 
