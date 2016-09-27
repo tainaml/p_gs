@@ -18,6 +18,7 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
+from django.views.decorators.cache import cache_page
 from apps.core.views.core import Home
 from apps.core.views import search as CoreSearch
 from apps.core.views.frontend import FrontEndBase
@@ -112,7 +113,7 @@ urlpatterns = [
     url(r'^ideia-summernote/', include('ideia_summernote.urls', namespace='ideia-summernote')),
 
     url(r'^sitemap\.xml$', sitemap_views.index, {'sitemaps': sitemaps}),
-    url(r'^sitemap-(?P<section>.+)\.xml$', sitemap_views.sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
+    url(r'^sitemap-(?P<section>.+)\.xml$', cache_page(settings.TIME_TO_REFRESH_SITEMAP)(sitemap_views.sitemap), {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
 
     url(r'^', include('apps.core.urls.blogspot', namespace='blogspot')),
 

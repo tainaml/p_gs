@@ -500,6 +500,7 @@ CONTACT_SUGGEST = 2
 TIME_REGISTER_ACCOUNT = config.getint("GENERAL", "expiration_register_time")
 TIME_RECOVERY_PASSWORD = config.getint("GENERAL", "expiration_password_recovery")
 
+TIME_TO_REFRESH_SITEMAP = 60 * 60 * 24
 
 # Python Social auth backend configuration
 
