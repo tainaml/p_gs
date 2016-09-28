@@ -29,14 +29,9 @@ class WizardMiddleware(object):
     def __init__(self, get_response=None):
         self.get_response = get_response
 
-    def __call__(self, request):
-
+    def process_request(self, request):
         if request.user and hasattr(request.user, "user_profile") \
                 and request.user.user_profile.wizard_step < settings.WIZARD_STEPS_TOTAL \
                 and request.path not in REVERSE_TO_REDIRECT:
 
             return redirect(to="profile:wizard", step=request.user.user_profile.wizard_step)
-
-        response = self.get_response(request)
-
-        return response

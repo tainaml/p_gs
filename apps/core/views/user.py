@@ -201,6 +201,7 @@ class CoreProfileEditAjax(views.ProfileEditView):
         return JsonResponse(context, status=200)
 
 
+
 class CoreProfileWizard(View):
 
     template_steps = {
@@ -209,11 +210,19 @@ class CoreProfileWizard(View):
         3: 'core/partials/wizard/wizard-step-three.html',
     }
 
+    def __get_valid_wizard_index__(self, index):
+        return index if index and index > 0 else 1
+
     def get(self, request, step):
         template_index = int(step) if step else 1
-        if template_index == 0:
-            template_index = 1
-            return redirect(to="profile:wizard", step=template_index)
+        template_index = self.__get_valid_wizard_index__(template_index)
+
+
+        user_step = request.user.user_profile.wizard_step
+        if user_step < step:
+
+            return redirect(to="profile:wizard", step=self.__get_valid_wizard_index__(user_step))
+
 
         template = self.template_steps[template_index]
 
