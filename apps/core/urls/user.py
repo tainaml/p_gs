@@ -30,7 +30,7 @@ urlpatterns = [
     url(_(r'^edit-questions/search/list/$'), core_user.CoreProfileSearchEditQuestionsList.as_view(), name='edit-questions-list'),
 
     # Translators: URL de passo 1 do wizard
-    url(_(r'^wizard/step/personal-info$'), core_user.CoreProfileWizardStepOneAjax.as_view(), name='wizard-step-personal-info-ajax'),
+    url(_(r'^bem-vindo/passo/(?P<step>[0-9]+)/$'), core_user.CoreProfileWizard.as_view(), name='wizard'),
 
     # Translators: URL de passo 2 do wizard
     url(_(r'^wizard/step/filter-categories$'), core_user.CoreProfileWizardStepTwoAjax.as_view(), name='wizard-step-filter-categories-ajax'),

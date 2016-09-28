@@ -11,7 +11,7 @@
                     <h5>Adicione uma foto e preencha os campos exigidos abaixo.</h5>
                 </div>
                 <div class="steps">
-                    <form id="form-personal-info" action="{% url 'profile:wizard-step-personal-info-ajax' %}" method="POST" enctype="multipart/form-data" data-ajaxform="true" data-group-class=".item-form">
+                    <form id="form-personal-info" action="{% url 'profile:wizard' request.user.user_profile.wizard_step %}" method="POST" enctype="multipart/form-data" data-ajaxform="true" data-group-class=".item-form">
                         {% csrf_token %}
                         <ul class="step-items">
                             <li class="step active">1</li>

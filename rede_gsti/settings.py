@@ -219,6 +219,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'apps.core.middleware.MinifyHTMLMiddleware',
+    'apps.core.middleware.WizardMiddleware',
     'django_user_agents.middleware.UserAgentMiddleware',
 )
 

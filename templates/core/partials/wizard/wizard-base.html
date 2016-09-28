@@ -1,0 +1,23 @@
+{% extends 'home/layout/base.html' %}
+
+{% block title %} Wizard{% endblock %}
+
+{% block content %}
+
+<main class="container main">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+        <div class="modal-menssage">
+                {% block step_message %}
+                    <i class="gsticon gsticon-check"></i>
+                    <h4 class="message-title">Você agora tem uma conta na <strong>Rede GSTI.</strong></h4>
+                    <h5>Adicione uma foto e preencha os campos exigidos abaixo.</h5>
+                {% endblock step_message %}
+            </div>
+            <div class="steps">
+                {% block wizard_content %}{% endblock wizard_content %}
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock content %}

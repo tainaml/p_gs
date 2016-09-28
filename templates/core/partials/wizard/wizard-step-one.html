@@ -1,0 +1,93 @@
+{% extends 'core/partials/wizard/wizard-base.html' %}
+
+{% load thumbor_tags %}
+{% block wizard_content %}
+   
+    <form id="form-personal-info"
+          action="{% url 'profile:wizard' request.user.user_profile.wizard_step %}"
+          method="POST" enctype="multipart/form-data" data-ajaxform="true" data-group-class=".item-form">
+        {% csrf_token %}
+
+        <div class="steps-container row">
+            <div class="col-lg-12"><hr></div>
+            <div class="col-lg-4">
+                <div class="custom-file-upload set-avatar"
+                    data-module="dropzoneUploader"
+                    data-original-image="{% if wizard_profile.get_profile_picture %}{{ wizard_profile.get_profile_picture.url }}{% endif %}"
+                    >
+                    <div class="custom-file-content">
+                        <i class="gsticon gsticon-cloud-upload"></i>
+                        <h5><strong>Foto de perfil</strong></h5>
+                        <p>Arraste a imagem para este campo ou <a href="javascript:;" data-trigger="file">clique aqui</a></p>
+                    </div>
+                    <input type="file" accept="image/*" name="profile_picture">
+                    <div class="custom-file-upload-result" data-content="file"></div>
+                </div>
+            </div>
+            <div class="col-lg-8">
+                <div class="row">
+                    <div class="clearfix">
+                        <div data-form-group class="col-lg-12 item-form">
+                            <select name="responsibility" id="responsibility" class="" data-toggle="selectize" data-module="profession" placeholder="Área de atuação">
+                                <option value="0" {% if not wizard_profile.current_occupation.responsibility.id %}selected{% endif %} disabled>Área de atuação</option>
+                                {% for responsibility in responsibilities %}
+                                    <option value="{{ responsibility.id }}" {% if responsibility.id == wizard_profile.current_occupation.responsibility.id %}selected{% endif %}>{{ responsibility.name }}</option>
+                                {% endfor %}
+                            </select>
+                            <span class="help-block"></span>
+                        </div>
+                    </div>
+                    <div class="clearfix">
+                        <div data-form-group class="col-lg-6 item-form">
+                            <div class="custom-calendar">
+                                <input type="text" class="datetime-picker" name="birth" id="birth" placeholder="Aniversário" value="{{ wizard_profile.birth|date:"d/m/Y" }}" autocomplete="off">
+                                <i class="gsticon gsticon-calendar"></i>
+                            </div>
+                            <span class="help-block"></span>
+                        </div>
+                        <div data-form-group class="col-lg-6 item-form">
+                            <select name="gender" id="gender" class="form-control">
+                                <option value="" {% if not wizard_profile.gender %}selected{% endif %} disabled>Sexo</option>
+                                <option value="M">Masculino</option>
+                                <option value="F">Feminino</option>
+                            </select>
+                            <span class="help-block"></span>
+                        </div>
+                    </div>
+                    <div class="clearfix">
+                        <div data-form-group class="col-lg-6 item-form">
+                            <select name="state" id="state" class="form-control" data-ajax-change="true" data-url="{% url 'profile:get_city' %}" data-target="#city">
+                                <option value="0" {% if not wizard_profile.city_hometown.state %}selected{% endif %} disabled>Estado</option>
+                                {% for state in states %}
+                                    <option value="{{ state.id }}" {% if wizard_profile.city_hometown.state.id == state.id %}selected{% endif %}>{{ state.name }}</option>
+                                {% endfor %}
+                            </select>
+                            <span class="help-block"></span>
+                        </div>
+                        <div data-form-group class="col-lg-6 item-form">
+                            <select name="city_hometown" id="city" class="form-control">
+                                <option value="0" {% if not wizard_profile.city_hometown.id %}selected{% endif %} disabled>Cidade</option>
+                                {% for city in cities %}
+                                    <option value="{{ city.id }}" {% if wizard_profile.city_hometown.id == city.id %}selected{% endif %}>{{ city.name }}</option>
+                                {% endfor %}
+                            </select>
+                            <span class="help-block"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row text-right">
+            <div class="col-lg-12">
+                <hr>
+                <button class="btn-green" type="submit">Avançar</button>
+            </div>
+        </div>
+    </form>
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.0/jquery.mask.min.js"></script>
+<script>
+    $('.datetime-picker').mask("00/00/0000", {placeholder: "__/__/____"});
+</script>
+{% endblock wizard_content %}

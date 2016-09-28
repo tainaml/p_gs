@@ -3,7 +3,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.http import JsonResponse, Http404
 from django.utils.decorators import method_decorator
 from django.views.generic import View
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 
 from apps.community.models import Community
@@ -201,13 +201,23 @@ class CoreProfileEditAjax(views.ProfileEditView):
         return JsonResponse(context, status=200)
 
 
-class CoreProfileWizardStepOneAjax(CoreProfileEditAjax):
+class CoreProfileWizard(View):
 
-    MESSAGE_EXTRA_TAGS = 'profile-edit-first-step'
-    form_profile = CoreUserProfileEditStepOne
+    template_steps = {
+        1: 'core/partials/wizard/wizard-step-one.html',
+        2: 'core/partials/wizard/wizard-step-two.html',
+        3: 'core/partials/wizard/wizard-step-three.html',
+    }
 
-    def get_context(self, request, profile_instance=None):
-        return {'step': profile_instance.wizard_step}
+    def get(self, request, step):
+        template_index = int(step) if step else 1
+        if template_index == 0:
+            template_index = 1
+            return redirect(to="profile:wizard", step=template_index)
+
+        template = self.template_steps[template_index]
+
+        return render(request, template)
 
 
 class CoreProfileWizardStepTwoAjax(views.ProfileBaseView):

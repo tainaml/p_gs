@@ -120,10 +120,6 @@
     {% include 'home/partials/modals/modal-alert-community-questions.html' %}
 {% endblock %}
 
-{% if request and request.user %}
-    {% wizard %}
-{% endif %}
-
 <script src="{% static 'javascripts/shared.js'%}"></script>
 <script src="{% static 'javascripts/main.js'%}"></script>
 
