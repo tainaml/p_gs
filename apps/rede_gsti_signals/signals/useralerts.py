@@ -32,7 +32,8 @@ def alert_send(sender, **kwargs):
             target_object=instance,
             notification_action=getattr(settings, 'NOTIFICATION_USERALERT')
         )
-    except Exception, e:
+
+    except Exception as e:
         pass
 
 
