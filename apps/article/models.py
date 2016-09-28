@@ -84,12 +84,11 @@ class Article(models.Model):
         return self.image if self.image else None
 
     def do_publish(self, update_date=False):
-        pub = self.publishin
         if not self.publishin:
             self.publishin = timezone.now()
 
-        if update_date:
-            self.publishin = update_date if isinstance(update_date, timezone.datetime) else timezone.now()
+        # if update_date:
+        #     self.publishin = update_date if isinstance(update_date, timezone.datetime) else timezone.now()
 
         self.status = self.STATUS_PUBLISH
 

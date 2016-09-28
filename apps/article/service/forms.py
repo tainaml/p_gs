@@ -48,7 +48,11 @@ class ArticleForm(IdeiaModelForm):
 
     def clean_publishin(self):
         _date = self.cleaned_data.get('publishin')
+        _instance_date = self.instance.publishin
         _now = timezone.now()
+
+        if not _date and _instance_date:
+            _date = _instance_date
 
         if self.action == self.ACTION_SCHEDULE:
             if not _date:
@@ -59,7 +63,7 @@ class ArticleForm(IdeiaModelForm):
                 _date = _date if _date else _now
                 
         elif self.action == self.ACTION_PUBLISH:
-            _date = timezone.now()
+            _date = _now
 
         return _date
 
@@ -76,8 +80,13 @@ class ArticleForm(IdeiaModelForm):
     def is_valid(self):
         valid = True
 
+        old_status_is_published = False
+
         if not super(ArticleForm, self).is_valid():
             valid = False
+
+        if self.instance.status == Business.Article.STATUS_PUBLISH:
+            old_status_is_published = Business.Article.STATUS_PUBLISH
 
         slug = self.cleaned_data.get('slug', None)
         if bool(slug):
@@ -121,6 +130,9 @@ class ArticleForm(IdeiaModelForm):
         # self.cleaned_data.update({
         #     'status': self.instance.status
         # })
+
+        if old_status_is_published and 'publishin' in self.cleaned_data:
+            del self.cleaned_data['publishin']
 
         return valid
 
