@@ -55,7 +55,7 @@ def get_configs(entity, config_group=None):
 @transaction.atomic()
 def save_configs(entity, data):
 
-    content_type = ContentTypeCached.objects.get(model=entity)
+    content_type = ContentTypeCached.objects.get_for_model(entity)
 
     configs_created = []
     configs_updated = []
@@ -105,7 +105,7 @@ def check_config_to_notify(to_user, action, target_object=None):
     try:
         config = ConfigValues.objects.get(
             Q(object_id=to_user.id) &
-            Q(content_type=ContentTypeCached.objects.get(model=to_user)) &
+            Q(content_type=ContentTypeCached.objects.get_for_model(to_user)) &
             Q(key=ConfigKey.objects.get(key=key_slug))
         )
     except Exception as e:
