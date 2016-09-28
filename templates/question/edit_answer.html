@@ -1,12 +1,23 @@
 {% load i18n %}
+{% load widget_tweaks %}
 {{ form.non_field_errors }}
-<form action="{% url 'question:update_reply' %}" method="post">
-    {% include 'core/partials/messages-flash.html' with message_extra_tags="answer-edit" %}
+
+<form action="{% url 'question:update_reply' %}" data-group-class=".answer-group" data-toggle="replace" data-update="#answer-{{ answer.id }}" data-ajaxform="true" class="create-comment" method="post">
 
     {% csrf_token %}
-    <input type="hidden" name="reply_id" value="{{ reply.id }}" />
-    {% url 'hint:list' content_type content_object.id as hint_list_url %}
-    <textarea name="description" id="description" placeholder="{% trans  'Comment here' %}" cols="30" rows="10" data-hint-url=hint_list_url>{{ reply.description }}</textarea>
-    {% if form.description.errors %}<span class="help-block">{{ form.description.errors }}</span> {% endif %}
-    <input type="submit" value="Submit"/>
+
+    {% include 'core/partials/messages-flash.html' with message_extra_tags="answer-edit" %}
+
+    <div class="answer-group {% if form.description.errors %} has-error{% endif %}">
+        {% url 'account:is_logged' as is_logged %}
+        {% url 'hint:list' content_type content_object_id as hint_list_url %}
+        {% render_field form.description class="form-control" placeholder="Deixe sua resposta" data-hint-url=hint_list_url data-url-login=is_logged data-trigger="login" data-token=csrf_token %}
+        <span class="help-block"></span>
+    </div>
+
+    <div class="create-comment-footer">
+        <input type="hidden" name="reply_id" value="{{ answer.id }}" />
+        <input class="btn btn-primary" type="submit" value="Enviar" data-url-login="{{ is_logged }}">
+    </div>
+
 </form>
