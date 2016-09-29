@@ -8,6 +8,7 @@ class BaseArticleSitemap(Sitemap):
     limit = 100
     changefreq = "daily"
     __priority = 0.5
+    protocol = 'https'
 
     def lastmod(self, obj):
         return obj.updatein

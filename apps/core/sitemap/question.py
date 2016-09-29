@@ -7,6 +7,7 @@ class QuestionSitemap(Sitemap):
     limit = 10
     changefreq = "daily"
     priority = 0.5
+    protocol = 'https'
 
     def lastmod(self, obj):
         return obj.question_date
