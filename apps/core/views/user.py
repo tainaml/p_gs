@@ -8,6 +8,7 @@ from django.contrib.auth.decorators import login_required
 
 from apps.community.models import Community
 from apps.core.business.content_types import ContentTypeCached
+from apps.core.forms.WizardForm import WizardFormStepOne
 from apps.core.forms.user import CoreUserProfileForm, CoreUserProfileFullEditForm, CoreSearchFollowers, CoreSearchArticlesForm, CoreSearchVideosForm, \
     CoreSearchCommunitiesForm, CoreRemoveSocialActionForm, CoreSearchSocialActionsForm, CoreUserMyQuestionsForm, \
     CoreSearchQuestionsForm, CoreUserProfileEditStepOne
@@ -15,6 +16,7 @@ from apps.core.forms.community import CoreCommunityFormSearch
 from apps.core.forms.user import CoreUserSearchForm, CoreUserProfileEditForm
 from apps.article.models import Article
 from apps.userprofile import views
+from apps.userprofile.models import Occupation, Responsibility
 from apps.userprofile.service import business as BusinessUserProfile
 from apps.taxonomy.service import business as BusinessTaxonomy
 from apps.socialactions.service import business as BusinessSocialActions
@@ -202,31 +204,55 @@ class CoreProfileEditAjax(views.ProfileEditView):
 
 
 
+class CoreProfileWizardStepOne(View):
+    template_name = 'core/partials/wizard/wizard-step-one.html'
+    form  = WizardFormStepOne
+
+    def get_context(self, request):
+        context = {}
+        context['responsibilities'] = Responsibility.objects.all().\
+            only("id", "name").order_by("name")
+
+        return  context
+
+    def get(self, request):
+
+        context = self.get_context(request)
+        return render(request, self.template_name, context)
+
 class CoreProfileWizard(View):
 
-    template_steps = {
-        1: 'core/partials/wizard/wizard-step-one.html',
-        2: 'core/partials/wizard/wizard-step-two.html',
-        3: 'core/partials/wizard/wizard-step-three.html',
+    view_index = {
+        1: CoreProfileWizardStepOne
     }
 
-    def __get_valid_wizard_index__(self, index):
+
+    @staticmethod
+    def __get_valid_wizard_index__(index):
         return index if index and index > 0 else 1
+
+    def __get_step_one__(self, request):
+        template_name = 'core/partials/wizard/wizard-step-one.html'
+
+        return render(request, template_name)
+
+    def __get_step_two__(self, request):
+        template_name = 'core/partials/wizard/wizard-step-two.html'
+
+    def __get_step_three__(self, request):
+        template_name = 'core/partials/wizard/wizard-step-three.html'
+
 
     def get(self, request, step):
         template_index = int(step) if step else 1
-        template_index = self.__get_valid_wizard_index__(template_index)
 
+        user_step = self.__get_valid_wizard_index__(request.user.user_profile.wizard_step)
+        if user_step != template_index:
+            return redirect(to="profile:wizard", step=user_step)
 
-        user_step = request.user.user_profile.wizard_step
-        if user_step < step:
+        step_view = self.view_index[template_index]()
 
-            return redirect(to="profile:wizard", step=self.__get_valid_wizard_index__(user_step))
-
-
-        template = self.template_steps[template_index]
-
-        return render(request, template)
+        return step_view.get(request)
 
 
 class CoreProfileWizardStepTwoAjax(views.ProfileBaseView):

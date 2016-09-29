@@ -135,6 +135,7 @@ DJANGO_APPS = (
 
     # SITEMAP
     'django.contrib.sitemaps',
+    'django.contrib.sites',
 )
 
 THIRD_PART_APPS = (
@@ -195,6 +196,7 @@ APPEND_SLASH = True
 USE_CACHE = config.getboolean("CACHE", "active")
 
 # Site Urls
+SITE_ID = 1
 SITE_URL = config.get("GENERAL", 'site_url')
 STATIC_URL = '%s/static/' % SITE_URL
 MEDIA_URL = '%s/media/uploads/' % SITE_URL
