@@ -32,7 +32,7 @@ def get_system_configs(config_group=None, show=True):
 
 
 def get_configs(entity, config_group=None):
-    content_type = ContentTypeCached.objects.get(model=entity)
+    content_type = ContentTypeCached.objects.get_for_model(entity)
 
     try:
         criteria = Q(content_type=content_type) & Q(object_id=entity.id)
