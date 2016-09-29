@@ -21,3 +21,10 @@
     </div>
 </main>
 {% endblock content %}
+
+{% block javascripts %}
+    {{ block.super }}
+
+    {% include 'inline_scripts/wizard.html' %}
+
+{% endblock %}

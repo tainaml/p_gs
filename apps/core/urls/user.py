@@ -2,6 +2,7 @@ from django.conf.urls import url
 from django.utils.translation import ugettext_lazy as _
 from apps.userprofile import views
 from ..views import user as core_user
+from ..views import wizard as core_wizard
 
 urlpatterns = [
 
@@ -30,7 +31,7 @@ urlpatterns = [
     url(_(r'^edit-questions/search/list/$'), core_user.CoreProfileSearchEditQuestionsList.as_view(), name='edit-questions-list'),
 
     # Translators: URL de passo 1 do wizard
-    url(_(r'^bem-vindo/passo/(?P<step>[0-9]+)/$'), core_user.CoreProfileWizard.as_view(), name='wizard'),
+    url(_(r'^bem-vindo/passo/(?P<step>[0-9]+)/$'), core_wizard.wizard_proxy_view, name='wizard'),
 
     # Translators: URL de passo 2 do wizard
     url(_(r'^wizard/step/filter-categories$'), core_user.CoreProfileWizardStepTwoAjax.as_view(), name='wizard-step-filter-categories-ajax'),
