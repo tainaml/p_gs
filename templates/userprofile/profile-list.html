@@ -5,7 +5,6 @@
 
 {% load avatar_tags %}
 {% load thumbor_tags %}
-
 {% block seo-og-title %}{% block seo_title %}{{ profile.user.get_full_name }}{{ block.super }}{% endblock %}{% endblock %}
 {% block seo-og-description %}{% block seo-description %}Todo o conteúdo de publicações realizadas por {{ profile.user.get_full_name }}. Siga {{ profile.user.get_full_name }} e receba no seu feed as informações enviadas por esse membro.{% endblock %}{% endblock %}
 {% block seo-og-image %}{% get_avatar profile.user width=90 height=90 smart=False fit_in=False %}{% endblock %}
