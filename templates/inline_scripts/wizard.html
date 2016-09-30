@@ -147,6 +147,13 @@
         $(document).on("ajaxform.success", "#form-filter-categories", functionAjaxSuccessStepTwo);
         $(document).on("ajaxform.success", "#form-suggestions", functionAjaxSuccessStepThree);
 
+{#        var $select_state = $('select#state');#}
+{#        var $formPersonal = $('form#form-personal-info');#}
+{##}
+{#        if($select_state.length && $formPersonal.length && $select_state.val()){#}
+{#            $select_state.trigger('change');#}
+{#        }#}
+
         {% if request.user and request.user.profile and request.user.profile.wizard_step < 1 %}
             $("#modal-personal-infos").modal({
                 backdrop: 'static',

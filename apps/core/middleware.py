@@ -19,12 +19,28 @@ class MinifyHTMLMiddleware(object):
 
 class WizardMiddleware(object):
 
+    whitelist = [
+        'wizard_proxy_view',
+        'LogoutView',
+        'index',
+        'serve',
+    ]
+
+    whitelist_apps = [
+        'admin'
+    ]
+
     def __init__(self, get_response=None):
         self.get_response = get_response
 
     def process_view(self, request, view_func, view_args, view_kwargs):
 
-        if view_func.__name__ == 'wizard_proxy_view':
+        if request.resolver_match.app_name in self.whitelist_apps:
+            return None
+
+        print(view_func.__name__)
+
+        if view_func.__name__ in self.whitelist:
             return None
 
         if request.is_ajax():
