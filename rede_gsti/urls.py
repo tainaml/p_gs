@@ -25,6 +25,7 @@ from apps.core.views.frontend import FrontEndBase
 from django.contrib.sitemaps import views as sitemap_views
 from apps.core.sitemap import sitemaps
 from rede_gsti.urls_old import urls_old
+from django.views.generic import RedirectView
 
 handler400 = "apps.core.views.errors.handler400"
 handler403 = "apps.core.views.errors.handler403"
@@ -66,6 +67,8 @@ urlpatterns = [
 
     # Translators: URL root de notificacoes
     url(_(r'^hint/'), include('apps.core.urls.hint', namespace='hint')),
+
+    url('2011/02/importancia-das-certificacoes.html', RedirectView.as_view(url="/2011/06/importancia-da-certificacao-em-ti-iso.html")),
 
     # Translators: URL root de publicacao
     url(_(r'^'), include('apps.core.urls.article', namespace='article')),
