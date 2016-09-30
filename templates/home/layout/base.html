@@ -18,7 +18,8 @@
         <meta property="og:type" content="{% block seo-og-type %}website{% endblock %}">
         <meta property="fb:app_id" content="{% block seo-fb-id %}1716855088541343{% endblock %}">
 
-        <link rel="canonical" href="{% block seo-canonical %}{% absolute_url request.path %}{% endblock %}"/>
+        {% block canonical %}<link rel="canonical" href="{% block seo-canonical %}{% absolute_url request.path %}{% endblock %}"/>{% endblock canonical %}
+
         {% block seo-metas-extra %}
         {% endblock %}
     {% endblock %}

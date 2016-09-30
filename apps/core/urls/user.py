@@ -110,9 +110,6 @@ urlpatterns = [
     # Translators: URL para mostrar usuario
     url(_(r'^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/$'), core_user.CoreUserProfile.as_view(), name='show'),
 
-    # Translators: URL da listagem de perfil do usuario
-    url(_(r'^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/list$'), core_user.CoreUserProfileList.as_view(), name='list'),
-
     # Translators: URL de busca de usuario
     url(_(r'^(?P<username>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/search$'), core_user.CoreUserSearch.as_view(), name='search'),
 
