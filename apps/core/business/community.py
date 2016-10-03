@@ -25,7 +25,7 @@ def get_feed_objects(community_instance=None, description=None, content_types_li
     query = SearchQuery(description)
     feed_objects = FeedObject.objects.filter(
         Q(content_type__in=content_types) &
-        Q(communities=community_instance) &
+        Q(communities__id__exact=community_instance.id) &
         (
             (Q(article__status=Article.STATUS_PUBLISH) & Q(id__in=__articles)) |
             (Q(question__deleted=False) & Q(id__in=__questions))
