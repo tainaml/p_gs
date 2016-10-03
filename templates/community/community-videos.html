@@ -6,10 +6,15 @@
 {% load i18n %}
 {% load ads %}
 {% load thumbor_tags %}
-
+{% load seo_pagination_tags %}
 {% block seo-og-title %}{% block seo_title %}Vídeos sobre {{ community.title }} | Comunidade{{ block.super }}{% endblock %}{% endblock %}
 {% block seo-og-description %}{% block seo-description %}Conteúdo de {{ community.title }} em formato de vídeo. Todas as publicações que forem marcadas com a tag de vídeo aparecem nessa seção da comunidade de {{ community.title }} {% endblock %}{% endblock %}
 {% block seo-og-image %}{% thumbor_url community.get_picture.url width=82 height=82 smart=False fit_in=False %}{% endblock %}
+
+{% block seo-canonical %}{{ request.get_full_path }}{% endblock %}
+{% block link_pagination %}
+    {% pagination_links feed_objects %}
+{% endblock link_pagination %}
 
 {% block content %}
     <main class="container main">
@@ -33,9 +38,9 @@
 
                         {% block filters %}
                             <nav id="form-search" class="form-search filters-members" data-toggle="filters">
-                            <form action="{% url 'community:search' community.slug %}" method="GET" role="search">
+                            <form action="{% url 'community:videos' community.slug %}" method="GET" role="search">
                                 <div class="form-search-input">
-                                    <input type="text" name="criterio" placeholder="Procure vídeos" value="{{ form.cleaned_data.criterio }}">
+                                    <input type="text" name="criteria" placeholder="Procure vídeos" value="{{ form.cleaned_data.criteria }}">
                                 </div>
                                 <button type="submit" class="form-search-button">
                                     <i class="gsticon gsticon-search"></i>
@@ -45,12 +50,7 @@
                         {% endblock filters %}
 
                         <section class="area-content j-scroll j-scroll-container" id="community-list">
-                            {% if feed_objects.object_list %}
                                 {% include 'community/partials/community-videos-list.html' %}
-                            {% else %}
-                                <p class="text-center text-italic">{% trans 'Não existem itens a serem exibidos' %}</p>
-                                <hr>
-                            {% endif %}
                         </section>
                     </div>
                     <div class="col-lg-4">

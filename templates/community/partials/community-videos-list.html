@@ -10,6 +10,8 @@
         {% endwith %}
     {% endfor %}
 
-    <a data-jscroll-next href="{% url 'community:videos-list' community.slug %}?criteria={{ form.cleaned_data.criteria|urlencode }}&page={{ page|default_if_none:form.cleaned_data.page }}&next={{ url_next|urlencode }}">next</a>
+    {% if feed_objects.has_next %}
+        <a data-jscroll-next href="{% url 'community:videos' community.slug %}?criteria={{ form.cleaned_data.criteria|urlencode }}&page={{ page|default_if_none:form.cleaned_data.page }}&next={{ url_next|urlencode }}">next</a>
+    {% endif %}
 
 {% endif %}
