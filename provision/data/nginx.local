@@ -1,3 +1,8 @@
+upstream app_servers {
+    server 127.0.0.1:8000;
+}
+
+
 server {
     listen *:80;
     server_name "";
@@ -11,6 +16,11 @@ server {
         add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS';
 
         try_files $uri 404;
+
+        location ^~ /static/ {
+             alias /etc/nginx/html/static/;
+             include /etc/nginx/mime.types;
+        }
 
     }
 }

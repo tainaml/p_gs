@@ -1,18 +1,18 @@
 {% extends 'core/partials/wizard/wizard-base.html' %}
 
 {% load thumbor_tags %}
-{%  load comment_tags %}
+{% load comment_tags %}
 {% block wizard_content %}
     <ul class="step-items list-inline text-center">
-                <li class="step active">1</li>
-                <li class="step active">2</li>
-                <li class="step">3</li>
-            </ul>
-<div class="modal-menssage">
+        <li class="step active">1</li>
+        <li class="step active">2</li>
+        <li class="step">3</li>
+    </ul>
+    <div class="modal-menssage">
         <h4 class="message-title">Escolha categorias de sua preferência</h4>
     </div>
     <div class="steps">
-        <form id="form-filter-categories" action="{% url 'profile:wizard-step-filter-categories-ajax' %}" method="post" enctype="multipart/form-data" data-ajaxform="true" data-group-class=".item-form">
+        <form id="form-filter-categories" method="post" enctype="multipart/form-data">
             {% csrf_token %}
 
             <hr>

@@ -24,7 +24,7 @@ class WizardForm(IdeiaForm):
 class StepOneWizardForm(WizardForm):
 
     responsibility = forms.ModelChoiceField(queryset=Responsibility.objects.all(), required=True)
-    state = forms.ModelChoiceField(queryset=State.objects.filter(country=1), required=True)
+    state = forms.ModelChoiceField(queryset=State.objects.filter(country=1), required=False)
     birth = forms.DateField(input_formats=['%d/%m/%Y'], required=True)
     gender = forms.ChoiceField(choices=GenderType.CHOICES, required=True)
     city_hometown = forms.ModelChoiceField(queryset=City.objects.none(), required=True)
@@ -41,24 +41,39 @@ class StepOneWizardForm(WizardForm):
             'initial': initial
         })
 
-        print(initial)
+        kwargs.update({
+            'user': user
+        })
 
         super(StepOneWizardForm, self).__init__(data, files, *args, **kwargs)
 
-    def clean_city_hometown(self):
-        city = self.cleaned_data.get('city_hometown')
-        state = self.cleaned_data.get('state')
-
-        return city
-
-
-
+        if 'city_hometown' in initial:
+            self.fields['city_hometown'].queryset = City.objects.filter(id=initial.get('city_hometown').id)
 
     def load_initial_data(self, user, initial):
 
-        initial.update({
+        if user.user_profile.city_hometown:
+            initial.update({
+                'state': user.user_profile.city_hometown.state,
+                'city_hometown': user.user_profile.city_hometown,
+            })
 
-        })
+        if user.user_profile.birth:
+            initial.update({
+                'birth': user.user_profile.birth
+            })
+
+        print(user.user_profile.current_occupation)
+
+        if user.user_profile.current_occupation:
+            initial.update({
+                'responsibility': user.user_profile.current_occupation.responsibility
+            })
+
+        if user.user_profile.gender:
+            initial.update({
+                'gender': user.user_profile.gender
+            })
 
         return initial
 
@@ -99,3 +114,8 @@ class StepOneWizardForm(WizardForm):
             responsibilities=[self.cleaned_data.get('responsibility')])
 
         return process_profile if (process_profile and process_occupation) else False
+
+
+class StepTwoWizardForm(WizardForm):
+
+    pass

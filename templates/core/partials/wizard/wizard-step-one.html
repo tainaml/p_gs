@@ -3,7 +3,7 @@
 {% load thumbor_tags %}
 {% load widget_tweaks %}
 {% block wizard_content %}
-   
+
     <form id="form-personal-info" action="{% url 'profile:wizard' step %}" method="post" enctype="multipart/form-data">
 
         {% csrf_token %}
@@ -14,8 +14,8 @@
             <div class="col-lg-12"><hr></div>
             <div class="col-lg-4">
                 <div class="custom-file-upload set-avatar"
-                    data-module="dropzoneUploader"
-                    data-original-image="{% firstof form.profile_picture.value.url request.user.user_profile.profile_picture.url %}">
+                     data-module="dropzoneUploader"
+                     data-original-image="{% firstof form.profile_picture.value.url request.user.user_profile.profile_picture.url %}">
                     <div class="custom-file-content">
                         <i class="gsticon gsticon-cloud-upload"></i>
                         <h5><strong>Foto de perfil</strong></h5>
@@ -69,23 +69,26 @@
                         <div data-form-group class="col-lg-6 item-form">
                             {% url 'profile:get_city' as profile_get_city %}
                             {% render_field form.state id="state" class="form-control" data-ajax-change="true" data-url=profile_get_city data-target="#city" %}
-{#                            <select name="state" id="state" class="form-control" data-ajax-change="true" data-url="{% url 'profile:get_city' %}" data-target="#city">#}
-{#                                <option value="0" {% if not form.data.state %}selected{% endif %}>Estado</option>#}
-{#                                {% for state in states %}#}
-{#                                    <option data-teste="{{ form.data.state }}" value="{{ state.id }}" {% if form.data.state == state.id %}selected{% endif %}>{{ state.name }}</option>#}
-{#                                {% endfor %}#}
-{#                            </select>#}
+                            {#                            <select name="state" id="state" class="form-control" data-ajax-change="true" data-url="{% url 'profile:get_city' %}" data-target="#city">#}
+                            {#                                <option value="0" {% if not form.data.state %}selected{% endif %}>Estado</option>#}
+                            {#                                {% for state in states %}#}
+                            {#                                    <option data-teste="{{ form.data.state }}" value="{{ state.id }}" {% if form.data.state == state.id %}selected{% endif %}>{{ state.name }}</option>#}
+                            {#                                {% endfor %}#}
+                            {#                            </select>#}
                             <span class="help-block">
                                 {% if form.state.errors %}  {{ form.state.errors }} {% endif %}
                             </span>
                         </div>
                         <div data-form-group class="col-lg-6 item-form">
-                            <select name="city_hometown" id="city" class="form-control">
-                                <option value="0" {% if not wizard_profile.city_hometown.id %}selected{% endif %} disabled>Cidade</option>
-                                {% for city in cities %}
-                                    <option value="{{ city.id }}" {% if wizard_profile.city_hometown.id == city.id %}selected{% endif %}>{{ city.name }}</option>
-                                {% endfor %}
-                            </select>
+
+                            {% render_field form.city_hometown class="form-control" %}
+
+                            {#                            <select name="city_hometown" id="city" class="form-control">#}
+                            {#                                <option value="0" {% if not wizard_profile.city_hometown.id %}selected{% endif %} disabled>Cidade</option>#}
+                            {#                                {% for city in cities %}#}
+                            {#                                    <option value="{{ city.id }}" {% if request.user.userprofile.city_hometown.id == city.id %}selected{% endif %}>{{ city.name }}</option>#}
+                            {#                                {% endfor %}#}
+                            {#                            </select>#}
                             <span class="help-block">
                                 {% if form.city_hometown.errors %}  {{ form.city_hometown.errors }} {% endif %}
                             </span>

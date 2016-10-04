@@ -1,13 +1,23 @@
 from abc import ABCMeta, abstractmethod
-from apps.core.forms.user import CoreUserProfileEditStepOne
-from apps.core.forms.wizard import StepOneWizardForm
+from apps.community.models import Community
+from apps.core.forms.community import CoreCommunityFormSearch
+from apps.core.forms.wizard import StepOneWizardForm, StepTwoWizardForm
+from apps.core.templatetags.core_tags import __categories_in_cache__
+from apps.core.utils import build_absolute_uri
+from apps.taxonomy.models import Taxonomy
 from apps.userprofile.models import Responsibility
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from django.db.models import Q
 from django.http.response import Http404
 from django.shortcuts import redirect, render
+from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.views import View
 from apps.userprofile.service import business as BusinessUserProfile
+from apps.taxonomy.service import business as BusinessTaxonomy
+from ..business import community as Business
+from rede_gsti import settings
 
 
 class CoreProfileWizard(View):
@@ -80,11 +90,125 @@ class StepOneWizard(CoreProfileWizard):
 
 
 class StepTwoWizard(CoreProfileWizard):
-    pass
+
+    template_name = 'core/partials/wizard/wizard-step-two.html'
+    form = CoreCommunityFormSearch
+
+    def get_context(self, request, step, context=None):
+
+        context = super(StepTwoWizard, self).get_context(request, step, context)
+
+        context.update({
+            'categories': Taxonomy.objects.filter(term__description="Categoria")
+        })
+
+        return context
+
+    def get(self, request, step):
+
+        context = self.get_context(request, step)
+
+        return render(request, self.template_name, context)
+
+    def post(self, request, step):
+
+        context = self.get_context(request, step)
+
+        taxonomies = request.POST.getlist('taxonomies')
+
+        if not taxonomies:
+            raise Http404('Taxonomies not found')
+
+        request.session['wizard_step2_taxonomies'] = taxonomies
+        return redirect(to="profile:wizard", step=step+1)
 
 
 class StepThreeWizard(CoreProfileWizard):
-    pass
+
+    template_name = 'core/partials/wizard/wizard-step-three.html'
+    template_segment_path = 'core/partials/wizard/community-segment.html'
+
+    def get_context(self, request, step, context=None):
+        context = super(StepThreeWizard, self).get_context(request, step, context)
+
+        page = request.GET.get('page', 1)
+
+        taxonomies = request.session.get('wizard_step2_taxonomies', None)
+        criteria = request.GET.get('criteria', '')
+
+        communities = Business.get_communities(
+            taxonomies,
+            criteria,
+            6,
+            page
+        )
+
+        communities = Paginator(communities, per_page=6)
+
+        try:
+            pagination = communities.page(page)
+        except PageNotAnInteger:
+            page = 1
+            pagination = communities.page(page)
+        except EmptyPage:
+            page = communities.num_pages
+            pagination = communities.page(communities.num_pages)
+
+
+        context.update({
+            'communities': pagination,
+            'taxonomies': taxonomies,
+            'criteria': criteria,
+            'page': (int(page) + 1) if pagination.has_next() else False,
+        })
+        return context
+
+    def return_error(self, request, context=None):
+        pass
+
+    def return_success(self, request, context=None):
+        if not context:
+            context = {}
+        _context = context
+        return render(request, self.template_segment_path, _context, status=200)
+
+    def get(self, request, step):
+
+        context = self.get_context(request, step)
+
+        if 'taxonomies' not in context:
+            return redirect(to="profile:wizard", step=2)
+
+        if request.is_ajax():
+            return self.return_success(request, context)
+
+        return render(request, self.template_name, context)
+
+    def post(self, request, step):
+
+        user_profile = request.user.user_profile
+        user_profile.wizard_step = 3
+        user_profile.save()
+
+        del request.session['wizard_step2_taxonomies']
+
+        return redirect(to="profile:wizard-success")
+
+
+class WizardSuccessView(View):
+
+    template_name = 'core/partials/wizard/wizard-success.html'
+
+    @method_decorator(login_required)
+    def get(self, request):
+        last_step = getattr(settings, 'WIZARD_STEPS_TOTAL')
+        referer = request.META.get("HTTP_REFERER", None)
+        last_step_url = build_absolute_uri(reverse("profile:wizard", args=[last_step]))
+
+        if not getattr(settings, 'DEBUG', False) and last_step_url != referer:
+            redirect(reverse('profile:feed'))
+
+        return render(request, self.template_name)
 
 
 @login_required
