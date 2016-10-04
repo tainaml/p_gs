@@ -212,7 +212,7 @@
 {% block javascripts %}
     {{ block.super }}
     {#    {{ form_comment.media }}#}
-    <script src="{% static 'javascripts/vendor.js'%}"></script>
+    <script src="{% static 'javascripts/vendor.js'%}" data-manual></script>
 
     <script type="text/javascript">
 
@@ -280,7 +280,11 @@
             }
             $form.find('[data-toggle="editor"]').summernote('reset');
             $divToUpdate.refreshEditors();
-            PR.prettyPrint();
+            /*PR.prettyPrint();*/
+            var $preInComment = $('.comment-text').find('code');
+            $.each($preInComment, function (index, element) {
+              Prism.highlightElement(element);
+            });
 
             return $divToUpdate
         }
@@ -368,6 +372,11 @@
                             if($childs && $childs.length){
                                 $childs.renderList();
                             }
+
+                            var $preInComment = $('.comment-text').find('code');
+                            $.each($preInComment, function (index, element) {
+                              Prism.highlightElement(element);
+                            });
                         }
                     });
 

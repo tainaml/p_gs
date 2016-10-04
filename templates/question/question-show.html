@@ -113,7 +113,7 @@
 
 {% block javascripts %}
     <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-55e70ed11db7fa4e" async></script>
-    <script src="{% static 'javascripts/vendor.js'%}"></script>
+    <script src="{% static 'javascripts/vendor.js'%}" data-manual></script>
     <script>
 
         var functionOpenModalToDelete = function(e) {
@@ -172,7 +172,11 @@
         }
         $form.find('[data-toggle="editor"]').summernote('reset');
         $divToUpdate.refreshEditors();
-        PR.prettyPrint();
+        /*PR.prettyPrint();*/
+        var preInComment = $('.comment-text').find('code');
+        $.each(preInComment, function (index, element) {
+          Prism.highlightElement(element);
+        });
 
         return $divToUpdate
     }
@@ -260,6 +264,10 @@
                         if($childs && $childs.length){
                             $childs.renderList();
                         }
+                        var preInComment = $('.comment-text').find('code');
+                        $.each(preInComment, function (index, element) {
+                          Prism.highlightElement(element);
+                        });
                     }
                 });
 
