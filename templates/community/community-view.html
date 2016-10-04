@@ -12,7 +12,7 @@
 
 {% block seo-og-url %}{% absolute_url 'community:show' community.slug %}{% endblock %}
 
-{% block seo-canonical %}{{ request.get_full_path }}{% endblock %}
+{% block seo-canonical %}{% absolute_url request.get_full_path %}{% endblock %}
 {% block link_pagination %}
     {% pagination_links feed_objects %}
 {% endblock link_pagination %}

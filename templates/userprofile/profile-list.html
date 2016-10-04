@@ -11,7 +11,7 @@
 {% block seo-og-image %}{% get_avatar profile.user width=90 height=90 smart=False fit_in=False %}{% endblock %}
 
 
-{% block seo-canonical %}{{ request.get_full_path }}{% endblock %}
+{% block seo-canonical %}{% absolute_url request.get_full_path %}{% endblock %}
 {% block link_pagination %}
     {% pagination_links feed_objects %}
 {% endblock link_pagination %}
