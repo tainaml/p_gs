@@ -8,7 +8,7 @@
 {% load seo_pagination_tags %}
 {% block seo-og-title %}{% block seo_title %}Dúvidas sobre {{ community.title }} | Comunidade{{ block.super }}{% endblock %}{% endblock %}
 {% block seo-og-description %}{% block seo-description %}Faça perguntas e tire suas dúvidas sobre {{ community.title }}. Claro que antes veja se a sua dúvida já foi respondida por outros membros.{% endblock %}{% endblock %}
-{% block seo-og-image %}{% thumbor_url community.get_picture.url width=82 height=82 smart=False fit_in=False %}{% endblock %}
+{% block seo-og-image %}{% thumbor_url community.get_picture.url width=200 height=200 smart=False fit_in=False %}{% endblock %}
 {% load abs_url %}
 
 {% block seo-canonical %}{% absolute_url request.get_full_path %}{% endblock %}
