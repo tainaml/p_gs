@@ -108,19 +108,19 @@
 
     var fillValues = function() {
         var $this = $(this);
-        console.log('here');
-{#        $.ajax({#}
-{#            url: $this.data("url"),#}
-{#            method: "POST",#}
-{#            dataType: "html",#}
-{#            data: {#}
-{#                value_id: $this.val(),#}
-{#                csrfmiddlewaretoken: $("input:hidden[name='csrfmiddlewaretoken']").val()#}
-{#            },#}
-{#            success: function(response) {#}
-{#                $($this.data("target")).html(response);#}
-{#            }#}
-{#        });#}
+        $.ajax({
+            url: $this.data("url"),
+            method: "POST",
+            dataType: "html",
+            data: {
+                value_id: $this.val(),
+                csrfmiddlewaretoken: $("input:hidden[name='csrfmiddlewaretoken']").val()
+            },
+            success: function(response) {
+                console.dir($this.data("target"));
+                $($this.data("target")).html(response);
+            }
+        });
     };
 
     $(function() {
@@ -151,7 +151,7 @@
 
 
         $("form#form-filter-communities input[name=criteria]").inputTyping(200, functionSubmitCommunitiesSearch);
-{#        $("[data-ajax-change='true']").on("change", fillValues);#}
+        $("[data-ajax-change='true']").on("change", fillValues);
 {#        $(document).on("ajaxform.success", "#form-filter-communities", functionSearchCommunities);#}
 {#        $(document).on("ajaxform.success", "#form-personal-info", functionAjaxSuccessStepOne);#}
 {#        $(document).on("ajaxform.success", "#form-filter-categories", functionAjaxSuccessStepTwo);#}

@@ -81,14 +81,14 @@
                         </div>
                         <div data-form-group class="col-lg-6 item-form">
 
-                            {% render_field form.city_hometown class="form-control" %}
+{#                            {% render_field form.city_hometown class="form-control" id="city" %}#}
 
-                            {#                            <select name="city_hometown" id="city" class="form-control">#}
-                            {#                                <option value="0" {% if not wizard_profile.city_hometown.id %}selected{% endif %} disabled>Cidade</option>#}
-                            {#                                {% for city in cities %}#}
-                            {#                                    <option value="{{ city.id }}" {% if request.user.userprofile.city_hometown.id == city.id %}selected{% endif %}>{{ city.name }}</option>#}
-                            {#                                {% endfor %}#}
-                            {#                            </select>#}
+                                                        <select name="city_hometown" id="city" class="form-control">
+                                                            <option value="0" {% if not wizard_profile.city_hometown.id %}selected{% endif %} disabled>Cidade</option>
+                                                            {% for city in cities %}
+                                                                <option value="{{ city.id }}" {% if request.user.userprofile.city_hometown.id == city.id %}selected{% endif %}>{{ city.name }}</option>
+                                                            {% endfor %}
+                                                        </select>
                             <span class="help-block">
                                 {% if form.city_hometown.errors %}  {{ form.city_hometown.errors }} {% endif %}
                             </span>
