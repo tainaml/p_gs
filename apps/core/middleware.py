@@ -3,7 +3,7 @@ import re
 from django.utils.html import strip_spaces_between_tags
 from django.conf import settings
 
-RE_MULTISPACE = re.compile(r"\s{2,}")
+RE_MULTISPACE = re.compile(r"\s{2,}!<pre\s{2,}pre>")
 RE_NEWLINE = re.compile(r"\n")
  
 class MinifyHTMLMiddleware(object):
