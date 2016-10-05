@@ -38,8 +38,6 @@ class WizardMiddleware(object):
         if request.resolver_match.app_name in self.whitelist_apps:
             return None
 
-        print(view_func.__name__)
-
         if view_func.__name__ in self.whitelist:
             return None
 

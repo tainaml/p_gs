@@ -29,6 +29,7 @@ class StepOneWizardForm(WizardForm):
     gender = forms.ChoiceField(choices=GenderType.CHOICES, required=True)
     city_hometown = forms.ModelChoiceField(queryset=City.objects.none(), required=True)
     profile_picture = forms.ImageField(required=False)
+    wizard_step = forms.IntegerField(required=True)
 
     def __init__(self, data=None, files=None, user=None, *args, **kwargs):
 

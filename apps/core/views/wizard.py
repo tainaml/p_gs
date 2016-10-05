@@ -30,6 +30,9 @@ class CoreProfileWizard(View):
     @method_decorator(login_required)
     def get(self, request, step):
 
+        if request.user.user_profile.wizard_step >= step:
+            return redirect(to='profile:feed')
+
         self.user = request.user
 
         form = self.form(user=self.user)
@@ -45,7 +48,12 @@ class CoreProfileWizard(View):
 
         self.user = request.user
 
-        form = self.form(data=request.POST, files=request.FILES, user=self.user)
+        data = request.POST
+        data.update({
+            'wizard_step': step
+        })
+
+        form = self.form(data=data, files=request.FILES, user=self.user)
 
         if form.process():
             next_step = step + 1
@@ -106,11 +114,17 @@ class StepTwoWizard(CoreProfileWizard):
 
     def get(self, request, step):
 
+        if request.user.user_profile.wizard_step >= step:
+            return redirect(to='profile:feed')
+
         context = self.get_context(request, step)
 
         return render(request, self.template_name, context)
 
     def post(self, request, step):
+
+        if request.user.user_profile.wizard_step >= step:
+            return redirect(to='profile:feed')
 
         context = self.get_context(request, step)
 
@@ -173,6 +187,9 @@ class StepThreeWizard(CoreProfileWizard):
         return render(request, self.template_segment_path, _context, status=200)
 
     def get(self, request, step):
+
+        if request.user.user_profile.wizard_step >= step:
+            return redirect(to='profile:feed')
 
         context = self.get_context(request, step)
 
