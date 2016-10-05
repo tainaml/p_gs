@@ -24,6 +24,8 @@ from apps.core.forms.user import CoreSearchFollowings
 from rede_gsti import settings
 from apps.community.service import business as BusinessCommunity
 from apps.socialactions.service import business as BusinnesSocialAction
+
+
 class CoreUserView(views.ProfileShowView):
 
     template_path = 'userprofile/profile.html'
@@ -202,7 +204,7 @@ class CoreProfileEditAjax(views.ProfileEditView):
 
 class CoreProfileWizardStepOne(View):
     template_name = 'core/partials/wizard/wizard-step-one.html'
-    form  = WizardFormStepOne
+    form = WizardFormStepOne
 
     def get_context(self, request):
         context = {}
@@ -243,7 +245,7 @@ class CoreProfileWizard(View):
         template_index = int(step) if step else 1
 
         user_step = self.__get_valid_wizard_index__(request.user.user_profile.wizard_step)
-        if user_step != template_index:
+        if user_step < template_index:
             return redirect(to="profile:wizard", step=user_step)
 
         step_view = self.view_index[template_index]()

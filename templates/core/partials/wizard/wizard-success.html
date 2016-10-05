@@ -1,0 +1,16 @@
+{% extends 'home/layout/base.html' %}
+
+{% block title %} Wizard{% endblock %}
+
+{% load i18n %}
+
+{% block content %}
+    <main class="container main">
+        <div class="success-page">
+            <h2 class="success-page-title">Bem vindo ao Portal GSTI</h2>
+            <h4 class="success-page-subtitle">Estamos felizes com a sua chegada.</h4>
+            <p class="success-page-description"></p>
+            <a href="{% url 'profile:feed' %}" class="btn-grey success-page-btn">Ver meu feed</a>
+        </div>
+    </main>
+{% endblock %}

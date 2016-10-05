@@ -18,8 +18,8 @@
     {% endfor %}
 
     {% if communities and communities.has_next %}
-        <div class="col-lg-12">
-            <a class="btn-default btn-block" data-jscroll-next href="{% url 'profile:wizard-step-filter-categories-list-ajax' %}?criteria={{ criteria }}&page={{ page }}{% for tax in taxonomies %}&taxonomies={{ tax }}{% endfor %}">Carregar mais comunidades</a>
+        <div class="col-lg-12 next-button-container">
+            <a class="btn-default btn-block btn-wizard-next-categories" data-jscroll-next href="{% url "profile:wizard" step=3 %}?criteria={{ criteria }}&page={{ page }}">Carregar mais comunidades</a>
         </div>
     {% endif %}
 

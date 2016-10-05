@@ -2,6 +2,7 @@ from django.conf.urls import url
 from django.utils.translation import ugettext_lazy as _
 from apps.userprofile import views
 from ..views import user as core_user
+from ..views import wizard as core_wizard
 
 urlpatterns = [
 
@@ -29,17 +30,20 @@ urlpatterns = [
     # Translators: URL de listagem e procura de questions
     url(_(r'^edit-questions/search/list/$'), core_user.CoreProfileSearchEditQuestionsList.as_view(), name='edit-questions-list'),
 
-    # Translators: URL de passo 1 do wizard
-    url(_(r'^bem-vindo/passo/(?P<step>[0-9]+)/$'), core_user.CoreProfileWizard.as_view(), name='wizard'),
+    # Translators: URL de passo n do wizard
+    url(_(r'^bem-vindo/passo/(?P<step>[0-9]+)/$'), core_wizard.wizard_proxy_view, name='wizard'),
 
-    # Translators: URL de passo 2 do wizard
-    url(_(r'^wizard/step/filter-categories$'), core_user.CoreProfileWizardStepTwoAjax.as_view(), name='wizard-step-filter-categories-ajax'),
+    # Translators: URL de pagina de sucesso do wizard
+    url(_(r'^bem-vindo/sucesso/$'), core_wizard.WizardSuccessView.as_view(), name='wizard-success'),
 
-    # Translators: URL de passo 3 do wizard
-    url(_(r'^wizard/step/filter-categories/list$'), core_user.CoreProfileWizardStepTwoListAjax.as_view(), name='wizard-step-filter-categories-list-ajax'),
-
-    # Translators: URL de sugestoes do usuario
-    url(_(r'^wizard/step/suggestions$'), core_user.CoreProfileWizardStepThreeAjax.as_view(), name='wizard-step-suggestion-ajax'),
+    # # Translators: URL de passo 2 do wizard
+    # url(_(r'^wizard/step/filter-categories$'), core_user.CoreProfileWizardStepTwoAjax.as_view(), name='wizard-step-filter-categories-ajax'),
+    #
+    # # Translators: URL de passo 3 do wizard
+    # url(_(r'^wizard/step/filter-categories/list$'), core_user.CoreProfileWizardStepTwoListAjax.as_view(), name='wizard-step-filter-categories-list-ajax'),
+    #
+    # # Translators: URL de sugestoes do usuario
+    # url(_(r'^wizard/step/suggestions$'), core_user.CoreProfileWizardStepThreeAjax.as_view(), name='wizard-step-suggestion-ajax'),
 
     # Translators: URL para retornar o estado
     url(_(r'^get_state/$'), views.ProfileGetState.as_view(), name='get_state'),

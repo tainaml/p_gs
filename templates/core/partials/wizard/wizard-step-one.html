@@ -1,77 +1,97 @@
 {% extends 'core/partials/wizard/wizard-base.html' %}
 
 {% load thumbor_tags %}
+{% load widget_tweaks %}
 {% block wizard_content %}
-   
-    <form id="form-personal-info"
-          action="{% url 'profile:wizard' request.user.user_profile.wizard_step %}"
-          method="POST" enctype="multipart/form-data" data-ajaxform="true" data-group-class=".item-form">
+
+    <form id="form-personal-info" action="{% url 'profile:wizard' step %}" method="post" enctype="multipart/form-data">
+
         {% csrf_token %}
+
+        {{ form.non_field_errors.as_list }}
 
         <div class="steps-container row">
             <div class="col-lg-12"><hr></div>
             <div class="col-lg-4">
                 <div class="custom-file-upload set-avatar"
-                    data-module="dropzoneUploader"
-                    data-original-image="{% if wizard_profile.get_profile_picture %}{{ wizard_profile.get_profile_picture.url }}{% endif %}"
-                    >
+                     data-module="dropzoneUploader"
+                     data-original-image="{% firstof form.profile_picture.value.url request.user.user_profile.profile_picture.url %}">
                     <div class="custom-file-content">
                         <i class="gsticon gsticon-cloud-upload"></i>
                         <h5><strong>Foto de perfil</strong></h5>
                         <p>Arraste a imagem para este campo ou <a href="javascript:;" data-trigger="file">clique aqui</a></p>
                     </div>
-                    <input type="file" accept="image/*" name="profile_picture">
+                    <input type="file" accept="image/*" name="{{ form.profile_picture.name }}">
                     <div class="custom-file-upload-result" data-content="file"></div>
+                    <span class="help-block">
+                        {% if form.profile_picture.errors %}  {{ form.profile_picture.errors }} {% endif %}
+                    </span>
                 </div>
             </div>
             <div class="col-lg-8">
                 <div class="row">
                     <div class="clearfix">
                         <div data-form-group class="col-lg-12 item-form">
-                            <select name="responsibility" id="responsibility" class="" data-toggle="selectize" data-module="profession" placeholder="Área de atuação">
-                                <option value {% if not wizard_profile.current_occupation.responsibility.id %}selected{% endif %} disabled>Área de atuação</option>
-                                {% for responsibility in responsibilities %}
-                                    <option value="{{ responsibility.id }}" {% if responsibility.id == wizard_profile.current_occupation.responsibility.id %}selected{% endif %}>{{ responsibility.name }}</option>
-                                {% endfor %}
-                            </select>
-                            <span class="help-block"></span>
+
+                            {% render_field form.responsibility id="responsibility" data-toggle="selectize" data-module="profession" placeholder="Área de atuação" %}
+
+                            <span class="help-block">
+                                {% if form.responsibility.errors %}  {{ form.responsibility.errors }} {% endif %}
+                            </span>
                         </div>
                     </div>
                     <div class="clearfix">
                         <div data-form-group class="col-lg-6 item-form">
                             <div class="custom-calendar">
-                                <input type="text" class="datetime-picker" name="birth" id="birth" placeholder="Aniversário" value="{{ wizard_profile.birth|date:"d/m/Y" }}" autocomplete="off">
+                                {% render_field form.birth class="datetime-picker" id="birth" placeholder="Aniversário" autocomplete="off" %}
                                 <i class="gsticon gsticon-calendar"></i>
                             </div>
-                            <span class="help-block"></span>
+                            <span class="help-block">
+                                {% if form.birth.errors %}  {{ form.birth.errors }} {% endif %}
+                            </span>
                         </div>
+
                         <div data-form-group class="col-lg-6 item-form">
-                            <select name="gender" id="gender" class="form-control">
-                                <option value="" {% if not wizard_profile.gender %}selected{% endif %} disabled>Sexo</option>
-                                <option value="M">Masculino</option>
-                                <option value="F">Feminino</option>
+
+                            <select name="{{ form.gender.name }}" id="{{ form.gender.name }}" class="form-control">
+                                <option value="">Sexo</option>
+                                {% for value, name in form.fields.gender.choices %}
+                                    <option value="{{ value }}" {% if value == form.gender.value %}selected{% endif %}>{{ name|lower|capfirst }}</option>
+                                {% endfor %}
                             </select>
-                            <span class="help-block"></span>
+
+                            <span class="help-block">
+                                {% if form.gender.errors %}  {{ form.gender.errors }} {% endif %}
+                            </span>
                         </div>
                     </div>
                     <div class="clearfix">
                         <div data-form-group class="col-lg-6 item-form">
-                            <select name="state" id="state" class="form-control" data-ajax-change="true" data-url="{% url 'profile:get_city' %}" data-target="#city">
-                                <option value="0" {% if not wizard_profile.city_hometown.state %}selected{% endif %} disabled>Estado</option>
-                                {% for state in states %}
-                                    <option value="{{ state.id }}" {% if wizard_profile.city_hometown.state.id == state.id %}selected{% endif %}>{{ state.name }}</option>
-                                {% endfor %}
-                            </select>
-                            <span class="help-block"></span>
+                            {% url 'profile:get_city' as profile_get_city %}
+                            {% render_field form.state id="state" class="form-control" data-ajax-change="true" data-url=profile_get_city data-target="#city" %}
+                            {#                            <select name="state" id="state" class="form-control" data-ajax-change="true" data-url="{% url 'profile:get_city' %}" data-target="#city">#}
+                            {#                                <option value="0" {% if not form.data.state %}selected{% endif %}>Estado</option>#}
+                            {#                                {% for state in states %}#}
+                            {#                                    <option data-teste="{{ form.data.state }}" value="{{ state.id }}" {% if form.data.state == state.id %}selected{% endif %}>{{ state.name }}</option>#}
+                            {#                                {% endfor %}#}
+                            {#                            </select>#}
+                            <span class="help-block">
+                                {% if form.state.errors %}  {{ form.state.errors }} {% endif %}
+                            </span>
                         </div>
                         <div data-form-group class="col-lg-6 item-form">
-                            <select name="city_hometown" id="city" class="form-control">
-                                <option value="0" {% if not wizard_profile.city_hometown.id %}selected{% endif %} disabled>Cidade</option>
-                                {% for city in cities %}
-                                    <option value="{{ city.id }}" {% if wizard_profile.city_hometown.id == city.id %}selected{% endif %}>{{ city.name }}</option>
-                                {% endfor %}
-                            </select>
-                            <span class="help-block"></span>
+
+                            {% render_field form.city_hometown class="form-control" %}
+
+                            {#                            <select name="city_hometown" id="city" class="form-control">#}
+                            {#                                <option value="0" {% if not wizard_profile.city_hometown.id %}selected{% endif %} disabled>Cidade</option>#}
+                            {#                                {% for city in cities %}#}
+                            {#                                    <option value="{{ city.id }}" {% if request.user.userprofile.city_hometown.id == city.id %}selected{% endif %}>{{ city.name }}</option>#}
+                            {#                                {% endfor %}#}
+                            {#                            </select>#}
+                            <span class="help-block">
+                                {% if form.city_hometown.errors %}  {{ form.city_hometown.errors }} {% endif %}
+                            </span>
                         </div>
                     </div>
                 </div>
@@ -85,9 +105,15 @@
         </div>
     </form>
 
-
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.0/jquery.mask.min.js"></script>
-<script>
-    $('.datetime-picker').mask("00/00/0000", {placeholder: "__/__/____"});
-</script>
 {% endblock wizard_content %}
+
+{% block javascripts %}
+
+    {{ block.super }}
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.0/jquery.mask.min.js"></script>
+    <script>
+        $('.datetime-picker').mask("00/00/0000", {placeholder: "__/__/____"});
+    </script>
+
+{% endblock %}

@@ -16,22 +16,39 @@ class MinifyHTMLMiddleware(object):
             response.content = RE_NEWLINE.sub("", response.content)
         return response
 
-REVERSE_TO_REDIRECT = [
-    reverse("profile:wizard", args=[0]),
-    reverse("profile:wizard", args=[1]),
-    reverse("profile:wizard", args=[2]),
-    reverse("profile:wizard", args=[3])
-
-]
 
 class WizardMiddleware(object):
+
+    whitelist = [
+        'wizard_proxy_view',
+        'LogoutView',
+        'index',
+        'serve',
+    ]
+
+    whitelist_apps = [
+        'admin'
+    ]
 
     def __init__(self, get_response=None):
         self.get_response = get_response
 
-    def process_request(self, request):
-        if request.user and hasattr(request.user, "user_profile") \
-                and request.user.user_profile.wizard_step < settings.WIZARD_STEPS_TOTAL \
-                and request.path not in REVERSE_TO_REDIRECT:
+    def process_view(self, request, view_func, view_args, view_kwargs):
 
-            return redirect(to="profile:wizard", step=request.user.user_profile.wizard_step)
+        if request.resolver_match.app_name in self.whitelist_apps:
+            return None
+
+        if view_func.__name__ in self.whitelist:
+            return None
+
+        if request.is_ajax():
+            return None
+
+        if request.user and hasattr(request.user, "user_profile") \
+            and request.user.user_profile.wizard_step + 1 <= int(getattr(settings, 'WIZARD_STEPS_TOTAL')):
+
+            step_to_go = request.user.user_profile.wizard_step + 1
+
+            return redirect(to="profile:wizard", step=step_to_go)
+
+        return None

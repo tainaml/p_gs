@@ -13,18 +13,22 @@
             <li class="step active">3</li>
         </ul>
         <hr />
-        <form id="form-filter-communities" action="{% url 'profile:wizard-step-filter-categories-ajax' %}?page=1" method="GET" data-group-class=".form-group" data-ajaxform="true">
+        <form id="form-filter-communities" action="{% url "profile:wizard" step=3 %}" method="GET">
             <div class="form-group">
                 <input type="text" class="form-control" data-xhr-input="true" name="criteria" placeholder="Procure comunidades" >
             </div>
             <div id="filter-taxonomies-wizard"></div>
         </form>
-        <form id="form-suggestions" action="{% url 'profile:wizard-step-suggestion-ajax' %}" method="post" enctype="multipart/form-data" data-ajaxform="true" data-group-class=".item-form">
+        <form id="form-suggestions" method="post" enctype="multipart/form-data">
             {% csrf_token %}
             <hr>
             <div class="steps-container row">
-                <div class="col-lg-12" data-toggle="custom-scroll">
-                    <div id="wizard-container-communities" class="row"></div>
+                <div class="col-lg-12 container-wizard-communities" data-toggle="custom-scroll">
+{#                    <div id="wizard-container-communities" class="row">#}
+{#                        <div class="j-scroll-wizard-communities j-scroll-wizard-communities-container">#}
+                            {% include 'core/partials/wizard/community-segment.html' %}
+{#                        </div>#}
+{#                    </div>#}
                     <div class="item-form"></div>
                 </div>
                 <div class="col-lg-12">
