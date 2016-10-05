@@ -91,14 +91,23 @@
                     {% endif %}
                 </article>
 
-                <div id="comments">{% profile_box question.author "horizontal" %}</div>
 
-                <header class="area-title">
+                {% if answers %}
+
+                   <header class="area-title">
                     <h2 id="answers">Respostas</h2>
                 </header>
-                {% include 'question/partials/answer-create.html' with content_type='question' content_object_id=question.id %}
                 {%  include 'question/partials/list-answer.html' %}
+            {% endif %}
+
+
+                <header class="area-title">
+                <h2 id="answers">Responda</h2>
+            </header>
+                <div class="alert alert-warning"><p>Se não souber, não responda =)</p></div>
+                {% include 'question/partials/answer-create.html' with content_type='question' content_object_id=question.id %}
             </div>
+
             {% include "question/partials/question-sidebar-right.html" %}
         </div>
     </main>
