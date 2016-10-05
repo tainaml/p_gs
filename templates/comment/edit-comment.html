@@ -8,7 +8,7 @@
         <span class="help-block"></span>
     </div>
     <input type="hidden" name="comment_id" value="{{ content_object.id }}">
-    <div class="create-comment-footer">
+    <div class="comment-form-footer">
         <input class="btn btn-primary" type="submit" value="Enviar" data-url-login="{% url 'account:is_logged' %}" {% if not request.user.is_authenticated %}data-trigger="login"{% endif %}>
     </div>
     {% csrf_token %}

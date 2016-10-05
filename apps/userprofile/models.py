@@ -23,6 +23,11 @@ class GenderType:
         FEMALE: _("FEMALE")
     }
 
+    CHOICES = (
+        (MALE, _("MALE")),
+        (FEMALE, _("FEMALE"))
+    )
+
 
 class UserProfile(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, related_name='profile')

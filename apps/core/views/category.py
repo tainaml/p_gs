@@ -23,6 +23,8 @@ class CoreCategoryPageView(View):
     default_template = 'default'
     category = None
     context = {}
+    form = ListArticleCommunityForm
+    itens_per_page = 5
 
     def __init__(self, **kwargs):
         super(CoreCategoryPageView, self).__init__(**kwargs)
@@ -50,7 +52,6 @@ class CoreCategoryPageView(View):
         return communities
 
     def get_feed(self):
-
         cache_key = 'gsti|excludes|{}'.format(self.category.slug)
         cached_feed = cache.get(cache_key)
         if cached_feed:
@@ -86,7 +87,6 @@ class CoreCategoryPageView(View):
 
 
     def get(self, request, category_slug):
-
         try:
 
             self.category = Taxonomy.objects.prefetch_related(
@@ -102,13 +102,22 @@ class CoreCategoryPageView(View):
         except Taxonomy.DoesNotExist:
             raise Http404(gettext('Category not found or not root category.'))
 
+        page = request.GET.get("page")
+
+
+        form = self.form(self.itens_per_page, {'category_id': self.category.id,
+                                                       'page' : page})
+        feed_objects = form.process()
+
         self.get_context().update({
             'category': self.category,
             'category_slug': category_slug,
-            'articles': self.get_feed()
+            'articles': self.get_feed(),
+            'feed_objects': feed_objects,
+            'page': form.cleaned_data['page'] +1
         })
 
-        return render(request, self.get_template(), self.get_context())
+        return render(request, self.get_template() if  not request.is_ajax() else 'home/categorias/community-list.html', self.get_context())
 
 
 class ArticleCommunityList(FormBaseListView):

@@ -10,7 +10,7 @@
 {% load avatar_tags %}
 {% load humanize %}
 {% load url_utils %}
-{%  load comment_tags %}
+{% load comment_tags %}
 {% block editorfiles %}
 {% endblock %}
 {% load ads %}
@@ -212,7 +212,7 @@
 {% block javascripts %}
     {{ block.super }}
     {#    {{ form_comment.media }}#}
-    <script src="{% static 'javascripts/vendor.js'%}"></script>
+    <script src="{% static 'javascripts/vendor.js'%}" data-manual></script>
 
     <script type="text/javascript">
 
@@ -246,12 +246,9 @@
             $modal.find(".alert-container").html("");
 
             $("#" + itemType + "-" + itemId).fadeOut("slow", function(){
-                $(this).remove();
+              $('#list-'+itemType+'-'+itemId).remove();
+              $(this).remove();
             });
-        };
-
-        var commentDropDown = function(event) {
-          event.stopPropagation();
         };
 
         function setData($form, data, $divToUpdate){
@@ -280,7 +277,10 @@
             }
             $form.find('[data-toggle="editor"]').summernote('reset');
             $divToUpdate.refreshEditors();
-            PR.prettyPrint();
+            var $preInComment = $('.comment-text').find('code');
+            $.each($preInComment, function (index, element) {
+              Prism.highlightElement(element);
+            });
 
             return $divToUpdate
         }
@@ -337,7 +337,7 @@
                                     }
                                 }
 
-                                $childs = $element.find('div[data-xhr-url]');
+                                $childs = $element.next('div[data-xhr-url]');
                                 $self.jscroll({
                                     loadingHtml: '<div class="load-async-preload"></div>',
                                     contentSelect: "#" + $self.attr("id"),
@@ -368,6 +368,11 @@
                             if($childs && $childs.length){
                                 $childs.renderList();
                             }
+
+                            var $preInComment = $('.comment-text').find('code');
+                            $.each($preInComment, function (index, element) {
+                              Prism.highlightElement(element);
+                            });
                         }
                     });
 
@@ -375,6 +380,10 @@
                 }
 
             });
+        };
+
+        var commentDropDown = function(event) {
+          event.stopPropagation();
         };
 
         $(function(){

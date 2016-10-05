@@ -34,13 +34,17 @@
 
     var prettyprintOpitions = {
       languages: [
-        'bsh', 'c', 'cc', 'cpp', 'cs', 'css', 'csh', 'cyc', 'cv', 'html',
-        'java', 'js', 'm', 'mxml', 'perl', 'pl', 'pm', 'py', 'php', 'rb',
-        'sh', 'sql', 'xhtml', 'xml', 'xsl'
+        "html", "css", "clike", "javascript", "apacheconf", "aspnet", "bash",
+        "basic", "batch", "c", "csharp", "cpp", "coffeescript", "ruby", "dart",
+        "docker", "erlang", "fortran", "git", "go", "groovy", "haskell", "http",
+        "java", "json", "latex", "less", "lua", "makefile", "markdown", "matlab",
+        "nginx", "objectivec", "pascal", "perl", "php", "powershell", "prolog",
+        "python", "q", "jsx", "rest", "sass", "scss", "scala", "smalltalk", "sql",
+        "stylus", "swift", "textile", "twig", "typescript", "yaml"
       ]
     };
 
-    options.prettyprint = $.extend(prettyprintOpitions, options.prettyprint);
+    options.codeBeautify = $.extend(prettyprintOpitions, options.codeBeautify);
 
     context.memo('button.prettyprint', function () {
       var button = ui.button({
@@ -98,7 +102,169 @@
 
     this.createDialog = function ($container) {
 
-      var select = '<select class="form-control" id="code-language"><option>' + options.prettyprint.languages.join('</option><option>') + '</option></select>';
+
+      /*var languages = [
+        {
+          name: "HTML",
+          code: "html"
+        }, {
+          name: "CSS",
+          code: "css"
+        }, {
+          name: "Javascript",
+          code: "javascript"
+        }, {
+          name: "APACHE CONF",
+          code: "apacheconf"
+        }, {
+          names: "ASP.Net",
+          code: "aspnet"
+        }, {
+          name: "BASH",
+          code: "bash"
+        }, {
+          name: "Basic",
+          code: "basic"
+        }, {
+          name: "BATCH",
+          code: "batch"
+        }, {
+          name: "C",
+          code: "c"
+        }, {
+          name: "C#",
+          code: "csharp"
+        }, {
+          name: "C++",
+          code: "cpp"
+        }, {
+          name: "CoffeeScript",
+          code: "coffeescript"
+        }, {
+          name: "Ruby",
+          code: "ruby"
+        }, {
+          name: "Dart",
+          code: "dart"
+        }, {
+          name: "Docker",
+          code: "docker"
+        }, {
+          name: "Erlang",
+          code: "erlang"
+        }, {
+          name: "Fortran",
+          code: "fortran"
+        }, {
+          name: "Git",
+          code: "git"
+        }, {
+          name: "Go",
+          code: "go"
+        }, {
+          name: "GROOVY",
+          code: "groovy"
+        }, {
+          name: "HASKELL",
+          code: "haskell"
+        }, {
+          name: "HTTP",
+          code: "http"
+        }, {
+          name: "Java",
+          code: "java"
+        }, {
+          name: "JSON",
+          code: "json"
+        }, {
+          name: "LATEX",
+          code: "latex"
+        }, {
+          name: "LESS",
+          code: "less"
+        }, {
+          name: "LUA",
+          code: "lua"
+        }, {
+          name: "MAKEFILE",
+          code: "makefile"
+        }, {
+          name: "Markdown",
+          code: "markdown"
+        }, {
+          name: "MATLAB",
+          code: "matlab"
+        }, {
+          name: "NGINX",
+          code: "nginx"
+        }, {
+          name: "Objective-C",
+          code: "objectivec"
+        }, {
+          name: "Pascal",
+          code: "pascal"
+        }, {
+          name: "PERL",
+          code: "perl"
+        }, {
+          name: "PHP",
+          code: "php"
+        }, {
+          name: "Power Shell",
+          code: "powershell"
+        }, {
+          name: "PROLOG",
+          code: "prolog"
+        }, {
+          name: "Python",
+          code: "python"
+        }, {
+          name: "Q",
+          code: "q"
+        }, {
+          name: "JSX",
+          code: "jsx"
+        }, {
+          name: "REST",
+          code: "rest"
+        }, {
+          name: "SASS",
+          code: "sass"
+        }, {
+          name: "SCSS",
+          code: "scss"
+        }, {
+          name: "SCALA",
+          code: "scala"
+        }, {
+          name: "SMALLTALK",
+          code: "smalltalk"
+        }, {
+          name: "SQL",
+          code: "sql"
+        }, {
+          name: "Stylus",
+          code: "stylus"
+        }, {
+          name: "Swift",
+          code: "swift"
+        }, {
+          name: "TEXTILE",
+          code: "textile"
+        }, {
+          name: "Twig",
+          code: "twig"
+        }, {
+          name: "Typescript",
+          code: "typescript"
+        }, {
+          name: "YAML",
+          code: "yaml"
+        }
+      ];
+      */
+
+      var select = '<select class="form-control" id="code-language"><option>' + options.codeBeautify.languages.join('</option><option>') + '</option></select>';
 
       var dialogOption = {
         title: lang.dialogPrettyfi.title,
@@ -128,9 +294,7 @@
 
       var _options = $.extend(innerOptions, options);
 
-      var $node = $('<pre>', {
-        class: 'prettyprint linenums'
-      });
+      var $node = $('<pre class="line-numbers">');
       var $code = $('<code>');
       $code.html(_options.code.replace(/</g,"&lt;").replace(/>/g,"&gt;"));
       $code.addClass('language-' + _options.language);
@@ -152,12 +316,13 @@
     };
 
     this.init = function () {
-        self.$code.addEventListener('input', function (event) {
+        $(self.$code).on('input', function (event) {
           self.enableAddButton();
-        }, false);
-        self.$codeLanguage.addEventListener('change', function (event) {
+          self.$code
+        });
+        $(self.$codeLanguage).on('change', function (event) {
           self.enableAddButton();
-        }, false);
+        });
     };
 
     this.initialize = function() {
@@ -173,13 +338,6 @@
     this.events = {
       'summernote.init': function(we, e) {
         self.init();
-      },
-      'summernote.change': function (we, contents) {
-        if (window.PR) {
-          PR.prettyPrintOne(contents);
-        } else {
-          prettyPrintOne(contents);
-        }
       }
     };
   };
