@@ -2,6 +2,8 @@ version: '2'
 services:
   nginx:
     image: nginx
+    domainname: static.redegsti.dev
+    hostname: nginx
     ports:
       - "8008:80"
     volumes:

@@ -15,7 +15,12 @@ def get_articles_communities_by_category(category_id=None, items_per_page=None, 
         Q(article__status=Article.STATUS_PUBLISH)
         & Q(communities__in=communities)
 
-    ).distinct(
+    ).prefetch_related(
+        "content_object",
+        "content_object__author",
+        "content_type",
+        "communities",
+        "communities__taxonomy").distinct(
         "object_id",
         "content_type",
         "article__publishin"

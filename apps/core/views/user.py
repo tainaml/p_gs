@@ -3,11 +3,12 @@ from django.contrib.contenttypes.models import ContentType
 from django.http import JsonResponse, Http404
 from django.utils.decorators import method_decorator
 from django.views.generic import View
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 
 from apps.community.models import Community
 from apps.core.business.content_types import ContentTypeCached
+from apps.core.forms.WizardForm import WizardFormStepOne
 from apps.core.forms.user import CoreUserProfileForm, CoreUserProfileFullEditForm, CoreSearchFollowers, CoreSearchArticlesForm, CoreSearchVideosForm, \
     CoreSearchCommunitiesForm, CoreRemoveSocialActionForm, CoreSearchSocialActionsForm, CoreUserMyQuestionsForm, \
     CoreSearchQuestionsForm, CoreUserProfileEditStepOne
@@ -15,6 +16,7 @@ from apps.core.forms.community import CoreCommunityFormSearch
 from apps.core.forms.user import CoreUserSearchForm, CoreUserProfileEditForm
 from apps.article.models import Article
 from apps.userprofile import views
+from apps.userprofile.models import Occupation, Responsibility
 from apps.userprofile.service import business as BusinessUserProfile
 from apps.taxonomy.service import business as BusinessTaxonomy
 from apps.socialactions.service import business as BusinessSocialActions
@@ -22,6 +24,8 @@ from apps.core.forms.user import CoreSearchFollowings
 from rede_gsti import settings
 from apps.community.service import business as BusinessCommunity
 from apps.socialactions.service import business as BusinnesSocialAction
+
+
 class CoreUserView(views.ProfileShowView):
 
     template_path = 'userprofile/profile.html'
@@ -197,13 +201,56 @@ class CoreProfileEditAjax(views.ProfileEditView):
         return JsonResponse(context, status=200)
 
 
-class CoreProfileWizardStepOneAjax(CoreProfileEditAjax):
 
-    MESSAGE_EXTRA_TAGS = 'profile-edit-first-step'
-    form_profile = CoreUserProfileEditStepOne
+class CoreProfileWizardStepOne(View):
+    template_name = 'core/partials/wizard/wizard-step-one.html'
+    form = WizardFormStepOne
 
-    def get_context(self, request, profile_instance=None):
-        return {'step': profile_instance.wizard_step}
+    def get_context(self, request):
+        context = {}
+        context['responsibilities'] = Responsibility.objects.all().\
+            only("id", "name").order_by("name")
+
+        return  context
+
+    def get(self, request):
+
+        context = self.get_context(request)
+        return render(request, self.template_name, context)
+
+class CoreProfileWizard(View):
+
+    view_index = {
+        1: CoreProfileWizardStepOne
+    }
+
+
+    @staticmethod
+    def __get_valid_wizard_index__(index):
+        return index if index and index > 0 else 1
+
+    def __get_step_one__(self, request):
+        template_name = 'core/partials/wizard/wizard-step-one.html'
+
+        return render(request, template_name)
+
+    def __get_step_two__(self, request):
+        template_name = 'core/partials/wizard/wizard-step-two.html'
+
+    def __get_step_three__(self, request):
+        template_name = 'core/partials/wizard/wizard-step-three.html'
+
+
+    def get(self, request, step):
+        template_index = int(step) if step else 1
+
+        user_step = self.__get_valid_wizard_index__(request.user.user_profile.wizard_step)
+        if user_step < template_index:
+            return redirect(to="profile:wizard", step=user_step)
+
+        step_view = self.view_index[template_index]()
+
+        return step_view.get(request)
 
 
 class CoreProfileWizardStepTwoAjax(views.ProfileBaseView):

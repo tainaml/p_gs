@@ -102,6 +102,10 @@ def update_profile(user=None, data=None):
             profile.profile_picture.delete()
             profile.profile_picture = data.get('profile_picture')
 
+        _wizard_step = data.get('wizard_step', False)
+        if _wizard_step and _wizard_step <= settings.WIZARD_STEPS_TOTAL:
+            profile.wizard_step = _wizard_step
+
         profile.save()
     except Exception as e:
         if settings.DEBUG:
