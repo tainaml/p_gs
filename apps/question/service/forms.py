@@ -158,6 +158,18 @@ class EditAnswerForm(IdeiaForm):
     def __init__(self, instance=None, user=None, *args, **kwargs):
         self.instance = instance
         self.user = user
+
+        if self.instance:
+
+            initial = kwargs.get('initial', {})
+            initial.update({
+                'description': self.instance.description
+            })
+
+            kwargs.update({
+                'initial': initial
+            })
+
         super(EditAnswerForm, self).__init__(*args, **kwargs)
 
     def set_author(self, user):

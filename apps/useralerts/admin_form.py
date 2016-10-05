@@ -23,5 +23,5 @@ class UserAlertForm(forms.ModelForm):
         model = UserAlert
         exclude = ()
         widgets = {
-            'content': SummernoteWidget(editor_conf='default')
+            'content': SummernoteWidget(editor_conf='article')
         }

@@ -1,7 +1,8 @@
 {% load comment_tags %}
 
-
-<div class="container-comments">
+<div class="comment-box">
     {% include 'comment/create-comment.html' with to_update="#list-comment"  %}
+    <div class="comment-list">
+        <div data-xhr data-xhr-url="{% url "comment:list" %}?content_type={{ content_type }}&content_id={{ content_object.id }}" id="list-comment"></div>
+    </div>
 </div>
-    <div data-xhr data-xhr-url="{% url "comment:list" %}?content_type={{ content_type }}&content_id={{ content_object.id }}" id="list-comment" class="container-comments"></div>

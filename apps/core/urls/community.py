@@ -29,7 +29,6 @@ urlpatterns = [
     url(_(r'^(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/search/$'), CoreViews.CoreCommunitySearch.as_view(), name='search'),
 
     # Translators: URL de listagem da comunidade
-    url(_(r'^(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/list/$'), CoreViews.CoreCommunityList.as_view(), name='list'),
 
     # Translators: URL de perguntas da comunidade
     url(_(r'^(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/questions/$'), CoreViews.CoreCommunityQuestionFeedView.as_view(), name='questions'),

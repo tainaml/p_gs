@@ -133,6 +133,9 @@ DJANGO_APPS = (
     'django.contrib.postgres',
     'django.contrib.humanize',
 
+    #SITES
+    'django.contrib.sites',
+
     # SITEMAP
     'django.contrib.sitemaps',
     'django.contrib.sites',

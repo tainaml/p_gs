@@ -1,0 +1,6 @@
+{% if next_page_params %}
+    <link rel="next" href="{{ request.path }}?{{ next_page_params }}">
+{% endif %}
+{% if previous_page_params %}
+    <link rel="prev" href="{{ request.path }}?{{ previous_page_params }}">
+{% endif %}

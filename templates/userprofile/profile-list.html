@@ -2,15 +2,22 @@
 {% load staticfiles %}
 {% load i18n %}
 {% load user_agents %}
-
+{% load abs_url %}
+{% load seo_pagination_tags %}
 {% load avatar_tags %}
 {% load thumbor_tags %}
-
 {% block seo-og-title %}{% block seo_title %}{{ profile.user.get_full_name }}{{ block.super }}{% endblock %}{% endblock %}
 {% block seo-og-description %}{% block seo-description %}Todo o conteúdo de publicações realizadas por {{ profile.user.get_full_name }}. Siga {{ profile.user.get_full_name }} e receba no seu feed as informações enviadas por esse membro.{% endblock %}{% endblock %}
 {% block seo-og-image %}{% get_avatar profile.user width=90 height=90 smart=False fit_in=False %}{% endblock %}
 
+
+{% block seo-canonical %}{% absolute_url request.get_full_path %}{% endblock %}
+{% block link_pagination %}
+    {% pagination_links feed_objects %}
+{% endblock link_pagination %}
 {% block content %}
+
+
     <main class="container main">
         <div class="row">
             <div class="col-lg-3">
@@ -27,7 +34,7 @@
                     <div class="col-lg-8">
                         {% block filters %}
                             <nav id="form-search" class="form-search filters-members" data-toggle="filters">
-                                <form action="{% url 'profile:search' profile.user.username %}" method="GET" role="search">
+                                <form action="{% url 'profile:show' profile.user.username %}" method="GET" role="search">
                                     <div class="form-search-input">
                                         <input type="text" name="criterio" placeholder="{{placehold|default:"Pesquise conteúdo de "|add:profile.user.first_name}}">
                                     </div>

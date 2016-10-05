@@ -8,8 +8,15 @@
 {% load humanize %}
 {% load user_agents %}
 {% load ads %}
+{% load url_utils %}
+{% load core_tags %}
+{% block seo-og-title %}{% block seo_title %}{{ question.title }}{{ block.super }}{% endblock %}{% endblock %}
+{% block seo-og-description %}{% block seo-description %}{{ question.description|seo_description }}{% endblock %}{% endblock %}
+{% block seo-og-type %}article{% endblock %}
 
-{% block title %}{{ question.title }} | Pergunta{% endblock %}
+{% block seo-og-url %}{{ request.path|root  }}{% url 'question:show' question.slug question.id %}{% endblock %}
+
+{% block title %}{{ question.title }}{% endblock %}
 
 {% block content %}
 
@@ -89,14 +96,8 @@
                 <header class="area-title">
                     <h2 id="answers">Respostas</h2>
                 </header>
-                <div class="container-comments">
-                    {% include 'question/partials/answer-create.html' with content_type='question' content_object_id=question.id %}
-                </div>
-{#                <div data-xhr-url="{% url "question:answer_list" %}?question_id={{ question.id }}" data-xhr id="container-answers" class="container-comments j-scroll">#}
-{#                </div>#}
-                <div class="container-comments" id="container-answers">
-                    {%  include 'question/partials/list-answer.html' %}
-                </div>
+                {% include 'question/partials/answer-create.html' with content_type='question' content_object_id=question.id %}
+                {%  include 'question/partials/list-answer.html' %}
             </div>
             {% include "question/partials/question-sidebar-right.html" %}
         </div>
@@ -133,9 +134,9 @@
 
         var functionAjaxSuccessDeleteItem = function(e, data) {
             var $this = $(this),
-                $modal = $($this.closest(".modal.fade")),
-                itemId = $modal.find("#item-id").val(),
-                itemType = $modal.find("#item-type").val();
+            $modal = $($this.closest(".modal.fade")),
+            itemId = $modal.find("#item-id").val(),
+            itemType = $modal.find("#item-type").val();
 
             $modal.modal("hide");
             $modal.find("form").attr("action", "");
@@ -145,26 +146,31 @@
             $modal.find(".loading-container").html("");
             $modal.find(".alert-container").html("");
 
-            $("#" + itemType + "-" + itemId).fadeOut("slow", function(){
-                $(this).remove();
+            $("#" + itemType + "-" + itemId).fadeOut("slow", function () {
+              $('#list-'+itemType+'-'+itemId).remove();
+              $(this).remove();
             });
         };
 
         function setData($form, data, $divToUpdate){
 
         var action = $form.data("toggle");
-        if (action=="append"){
-            $divToUpdate.append(data.template);
-            $form[0].reset();
-        }else if (action=="prepend"){
-            $divToUpdate.prepend(data.template);
+        var $form_to_hide = $form.parent(".dropdown-content");
 
-            var $form_to_hide = $form.parent(".dropdown-content");
-            if ($form_to_hide){
-                $form_to_hide.removeClass("open");
-            }
-            $form[0].reset();
-        }else if (action=="replace"){
+        if (action=="append" || action=="prepend" ){
+
+          if (action=="append") {
+            $divToUpdate.append(data.template);
+          } else {
+            $divToUpdate.prepend(data.template);
+          }
+
+          if ($form_to_hide){
+            $form_to_hide.removeClass("open");
+          }
+          $form[0].reset();
+
+        } else if (action=="replace") {
             var $element = $(data.template);
             $divToUpdate.replaceWith($element);
             var $newForm = $element.find("form[data-ajaxform=\"true\"]");
@@ -172,7 +178,10 @@
         }
         $form.find('[data-toggle="editor"]').summernote('reset');
         $divToUpdate.refreshEditors();
-        PR.prettyPrint();
+        var preInComment = $('.comment-text').find('code');
+        $.each(preInComment, function (index, element) {
+          Prism.highlightElement(element);
+        });
 
         return $divToUpdate
     }
@@ -229,7 +238,7 @@
                                 }
                             }
 
-                            $childs = $element.find('div[data-xhr-url]');
+                            $childs = $element.next('div[data-xhr-url]');
                             $self.jscroll({
                                 loadingHtml: '<div class="load-async-preload"></div>',
                                 contentSelect: "#" + $self.attr("id"),

@@ -19,4 +19,4 @@ class AlertAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Notification)
-admin.site.register(Alert, AlertAdmin)
+# admin.site.register(Alert, AlertAdmin)

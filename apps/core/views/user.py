@@ -31,7 +31,6 @@ class CoreUserView(views.ProfileShowView):
 
     def get_context(self, request, profile_instance=None):
         context = super(CoreUserView, self).get_context(request, profile_instance)
-
         items_by_page = 5
 
         form = self.form(
@@ -53,7 +52,6 @@ class CoreUserView(views.ProfileShowView):
         return context
 
     def get(self, request, username=None):
-
         profile = self.filter(request, request.user)
 
         context = {'profile': profile}
@@ -69,7 +67,6 @@ class CoreUserList(CoreUserView):
     def get(self, request, username=None):
 
         profile = self.filter(request, request.user)
-
         context = {'profile': profile}
         context.update(self.get_context(request, profile))
 
@@ -78,6 +75,8 @@ class CoreUserList(CoreUserView):
 
 class CoreUserProfile(CoreUserView):
     template_path = 'userprofile/profile-list.html'
+    template_path_ajax = 'userprofile/partials/user-profile-list.html'
+
     form = CoreUserProfileForm
 
     def get(self, request, username=None):
@@ -85,6 +84,8 @@ class CoreUserProfile(CoreUserView):
 
         context = {'profile': profile}
         context.update(self.get_context(request, profile))
+
+        self.template_path = self.template_path if not request.is_ajax() else self.template_path_ajax
 
         return render(request, self.template_path, context)
 
@@ -109,10 +110,6 @@ class CoreUserProfile(CoreUserView):
             'page': form.cleaned_data.get('page', 0) + 1
         }
 
-
-class CoreUserProfileList(CoreUserProfile):
-
-    template_path = 'userprofile/partials/user-profile-list.html'
 
 
 class CoreUserSearch(CoreUserView):
@@ -143,7 +140,6 @@ class CoreUserSearch(CoreUserView):
 
     def get(self, request, username=None):
         profile = self.filter(request, username)
-
         context = {'profile': profile}
         context.update(self.get_context(request, profile))
 
