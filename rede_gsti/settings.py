@@ -138,7 +138,6 @@ DJANGO_APPS = (
 
     # SITEMAP
     'django.contrib.sitemaps',
-    'django.contrib.sites',
 )
 
 THIRD_PART_APPS = (
