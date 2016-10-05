@@ -148,12 +148,11 @@ require('./validation.js');
                 'type': method.toUpperCase(),
                 'url': url,
                 'cache': false,
-                beforeSend: function(jqXHR) {
+                beforeSend: function (jqXHR) {
                     $self.find('button[type=submit]').prop('disabled', true);
                     $self.trigger('ajaxform.before-send', jqXHR);
                 },
-                success: function(data){
-                    console.dir(data);
+                success: function (data) {
                     $self.trigger('ajaxform.success', data);
                 },
                 complete: function() {
@@ -161,11 +160,10 @@ require('./validation.js');
                 },
                 error: function(jqXHR){
                     var data;
-                    try{
-
-                        try{
+                    try {
+                        try {
                             data = $.parseJSON(jqXHR.responseText);
-                        }catch(e){
+                        } catch (e) {
                             if (typeof jqXHR.responseText == 'string') {
                                 data = {
                                     'errormessage': jqXHR.responseText
@@ -183,8 +181,6 @@ require('./validation.js');
                         console.dir(data);
                         console.dir(e);
                         return false;
-                        //console.error("Can't add error with data=", data);
-                        //console.dir(e);
                     }
 
                 },

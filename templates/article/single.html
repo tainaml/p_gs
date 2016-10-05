@@ -10,7 +10,7 @@
 {% load avatar_tags %}
 {% load humanize %}
 {% load url_utils %}
-{%  load comment_tags %}
+{% load comment_tags %}
 {% block editorfiles %}
 {% endblock %}
 {% load ads %}
@@ -246,12 +246,9 @@
             $modal.find(".alert-container").html("");
 
             $("#" + itemType + "-" + itemId).fadeOut("slow", function(){
-                $(this).remove();
+              $('#list-'+itemType+'-'+itemId).remove();
+              $(this).remove();
             });
-        };
-
-        var commentDropDown = function(event) {
-          event.stopPropagation();
         };
 
         function setData($form, data, $divToUpdate){
@@ -280,7 +277,6 @@
             }
             $form.find('[data-toggle="editor"]').summernote('reset');
             $divToUpdate.refreshEditors();
-            /*PR.prettyPrint();*/
             var $preInComment = $('.comment-text').find('code');
             $.each($preInComment, function (index, element) {
               Prism.highlightElement(element);
@@ -341,7 +337,7 @@
                                     }
                                 }
 
-                                $childs = $element.find('div[data-xhr-url]');
+                                $childs = $element.next('div[data-xhr-url]');
                                 $self.jscroll({
                                     loadingHtml: '<div class="load-async-preload"></div>',
                                     contentSelect: "#" + $self.attr("id"),
@@ -384,6 +380,10 @@
                 }
 
             });
+        };
+
+        var commentDropDown = function(event) {
+          event.stopPropagation();
         };
 
         $(function(){

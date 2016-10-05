@@ -4,9 +4,7 @@
 {% load comment_tags %}
 {% load comment_reply %}
 
-<div id="answer-{{ instance.id }}">
-
-    <div class="comment">
+<div id="answer-{{ instance.id }}" class="comment">
         <header class="post-header">
             <div class="post-info">
                 <time datetime="{{ instance.answer_date|date:'m-d-Y' }}" data-toggle="tooltip" data-placement="auto top" data-original-title="{{ instance.answer_date|date:'d/m/Y' }} às {{ instance.answer_date|date:'G:i' }}" itemprop="datePublished">
@@ -75,16 +73,12 @@
             </div>
         </footer>
 
-        <div id="data-answer-{{ instance.id }}" class="dropdown-content comment-dropdown">
-            {% with instance_id=instance.id|stringformat:"s" %}
-                {% with to_update="#list-answer-"|add:instance_id %}
-                    {% comment_box_inner instance to_update %}
-                {% endwith %}
+    <div id="data-answer-{{ instance.id }}" class="dropdown-content comment-dropdown">
+        {% with instance_id=instance.id|stringformat:"s" %}
+            {% with to_update="#list-answer-"|add:instance_id %}
+                {% comment_box_inner instance to_update %}
             {% endwith %}
-        </div>
-
-        {#        <aside id="answer-comments-{{ instance.id }}" class="container-comments">#}
-        {% comment_list instance %}
-        {#        </aside>#}
+        {% endwith %}
     </div>
 </div>
+{% comment_list instance %}
