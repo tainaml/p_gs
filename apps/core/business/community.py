@@ -37,7 +37,7 @@ def get_feed_objects(community_instance=None, description=None, content_types_li
         "content_object__author",
         "content_type",
         "communities",
-        "communities__taxonomy").order_by("-date")
+        "communities__taxonomy").distinct("id", "date").order_by("-date")
 
     if official is True:
         feed_objects = feed_objects.filter(official=official)
@@ -124,23 +124,25 @@ def get_communities(taxonomies_list=None, description=None, items_per_page=None,
 
 
     communities = Community.objects.filter(
-        Q(taxonomy__in=taxonomies_list)
+        (Q(taxonomy__in=taxonomies_list) | Q(taxonomy__parent_id__in=taxonomies_list))
         &Q(title__icontains=description)
 
     ).order_by("id")
     if description:
         communities.filter(Q(title__icontains=description))
 
-    if items_per_page and page:
-        communities = Paginator(communities, items_per_page)
-        try:
-            communities = communities.page(page)
-        except PageNotAnInteger:
-            communities = communities.page(1)
-        except EmptyPage:
-            communities = []
-
     return communities
+
+    # if items_per_page and page:
+    #     communities = Paginator(communities, items_per_page)
+    #     try:
+    #         communities = communities.page(page)
+    #     except PageNotAnInteger:
+    #         communities = communities.page(1)
+    #     except EmptyPage:
+    #         communities = communities.page(communities.num_pages)
+    #
+    # return communities
 
 
 def get_articles_with_videos(community, description=None, items_per_page=None, page=None):

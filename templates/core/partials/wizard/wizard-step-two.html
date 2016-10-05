@@ -1,0 +1,48 @@
+{% extends 'core/partials/wizard/wizard-base.html' %}
+
+{% load thumbor_tags %}
+{% load comment_tags %}
+{% block wizard_content %}
+    <ul class="step-items list-inline text-center">
+        <li class="step active">1</li>
+        <li class="step active">2</li>
+        <li class="step">3</li>
+    </ul>
+    <div class="modal-menssage">
+        <h4 class="message-title">Escolha categorias de sua preferência</h4>
+    </div>
+    <div class="steps">
+        <form id="form-filter-categories" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <hr>
+            <div class="steps-container row">
+                <div class="col-lg-12">
+                    <div class="row">
+                        {% if categories %}
+                            {% for category in categories %}
+                                <div class="modal-category">
+                                    <label class="modal-category-label">
+                                        <span class="modal-category-check">
+                                            <input type="checkbox" name="taxonomies" id="category-{{ category.id }}" value="{{ category.id }}">
+                                        </span>
+                                        <span class="color-governance">{{ category.description }}</span>
+                                    </label>
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="col-lg-12">
+                    <div class="item-form"></div>
+                    <hr>
+                </div>
+                <div class="col-lg-offset-4 col-lg-8 text-right">
+                    <button  class="btn-default" type="button" data-toggle="modal" data-backdrop="static" data-target="#modal-personal-infos">voltar</button>
+                    <button data-clean-action="true" class="btn-green" type="submit">Avançar</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+{% endblock wizard_content %}

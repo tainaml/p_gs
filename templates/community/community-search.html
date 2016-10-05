@@ -4,7 +4,7 @@
 
 {% block seo-og-title %}{% block seo_title %}Resultados da busca por {{ community.title }} | Comunidade{{ block.super }}{% endblock %}{% endblock %}
 {% block seo-og-description %}{% block seo-description %}Resultados da busca {% endblock %}{% endblock %}
-{% block seo-og-image %}{% thumbor_url community.get_picture.url width=82 height=82 smart=False fit_in=False %}{% endblock %}
+{% block seo-og-image %}{% thumbor_url community.get_picture.url width=200 height=200 smart=False fit_in=False %}{% endblock %}
 
 {% block content %}
 <main class="container main">

@@ -1,5 +1,5 @@
-{% if communities %}
-    {% for feed in communities %}
+{% if feed_objects %}
+    {% for feed in feed_objects %}
 
 
         {% with template_name=feed.content_type|stringformat:"s"|add:"-segment.html" %}
@@ -11,8 +11,8 @@
         {% endwith %}
     {% endfor %}
 
-    {% if communities.has_next %}
-        <a data-jscroll-next href="{% url 'category:list-community_articles' %}?category_id={{  category_id }}&page={{ page }}"></a>
+    {% if feed_objects.has_next %}
+        <a data-jscroll-next href="{% url 'category:show' category_slug %}?&page={{ page }}"></a>
     {% endif %}
 
 {% else %}

@@ -4,15 +4,19 @@
 {% load staticfiles %}
 {% load user_agents %}
 {% load thumbor_tags %}
-
 {% block seo-og-title %}{% block seo_title %}{{ community.title }} | Comunidade{{ block.super }}{% endblock %}{% endblock %}
 {% block seo-og-description %}{% block seo-description %}Comunidade destinada a discutir assunto de {{ community.title }}. É possível encontrar material de qualidade sobre {{ community.title }} (textos, slides, vídeos) e ainda ser um colaborador. Entre e participe!{% endblock %}{% endblock %}
-{% block seo-og-image %}{% thumbor_url community.get_picture.url width=82 height=82 smart=False fit_in=False %}{% endblock %}
-
+{% block seo-og-image %}{% thumbor_url community.get_picture.url width=200 height=200 smart=False fit_in=False %}{% endblock %}
+{% load seo_pagination_tags %}
 {% load abs_url %}
 
-{% block seo-canonical %}{% absolute_url 'community:show' community.slug %}{% endblock %}
 {% block seo-og-url %}{% absolute_url 'community:show' community.slug %}{% endblock %}
+
+{% block seo-canonical %}{% absolute_url request.get_full_path %}{% endblock %}
+{% block link_pagination %}
+    {% pagination_links feed_objects %}
+{% endblock link_pagination %}
+
 
 {% block content %}
 
@@ -41,8 +45,8 @@
                                     </span> <i class="gsticon gsticon-caret-down"></i>
                                 </button>
                                 <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown-filter-posts">
-                                    <li {% if form.cleaned_data.official %}class="active"{% endif %} ><a href="{% url 'community:search' community.slug %}?criterio={{ form.cleaned_data.criterio|urlencode }}&official=True&next={{ url_next|urlencode }}" data-target=".area-content">Posts oficiais</a></li>
-                                    <li {% if not form.cleaned_data.official %}class="active"{% endif %}><a href="{% url 'community:search' community.slug %}?criterio={{ form.cleaned_data.criterio|urlencode }}&official=False&next={{ url_next|urlencode }}" data-target=".area-content">Todos</a></li>
+                                    <li {% if form.cleaned_data.official %}class="active"{% endif %} ><a href="{% url 'community:show' community.slug %}?criterio={{ form.cleaned_data.criterio|urlencode }}&official=True&next={{ url_next|urlencode }}" data-target=".area-content">Posts oficiais</a></li>
+                                    <li {% if not form.cleaned_data.official %}class="active"{% endif %}><a href="{% url 'community:show' community.slug %}?criterio={{ form.cleaned_data.criterio|urlencode }}&official=False&next={{ url_next|urlencode }}" data-target=".area-content">Todos</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -51,7 +55,7 @@
                     {% endif %}
                     {% block filters %}
                         <nav id="form-search" class="form-search filters-members" data-toggle="filters">
-                            <form action="{% url 'community:search' community.slug %}" method="GET" role="search">
+                            <form action="{% url 'community:show' community.slug %}" method="GET" role="search">
                                 <div class="form-search-input">
                                     <input type="text" name="criterio" placeholder="Pesquise publicações ou perguntas..." value="{{ form.cleaned_data.criterio }}">
                                     <input type="hidden" name="official" value="{{ form.cleaned_data.official|default_if_none:False }}">
@@ -70,22 +74,16 @@
                                         </span> <i class="gsticon gsticon-caret-down"></i>
                                     </button>
                                     <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown-filter-posts">
-                                        <li {% if form.cleaned_data.official %}class="active"{% endif %} ><a href="{% url 'community:search' community.slug %}?criterio={{ form.cleaned_data.criterio|urlencode }}&official=True&next={{ url_next|urlencode }}" data-target=".area-content">Posts oficiais</a></li>
-                                        <li {% if not form.cleaned_data.official %}class="active"{% endif %}><a href="{% url 'community:search' community.slug %}?criterio={{ form.cleaned_data.criterio|urlencode }}&official=False&next={{ url_next|urlencode }}" data-target=".area-content">Todos</a></li>
+                                        <li {% if form.cleaned_data.official %}class="active"{% endif %} ><a href="{% url 'community:show' community.slug %}?criterio={{ form.cleaned_data.criterio|urlencode }}&official=True&next={{ url_next|urlencode }}" data-target=".area-content">Posts oficiais</a></li>
+                                        <li {% if not form.cleaned_data.official %}class="active"{% endif %}><a href="{% url 'community:show' community.slug %}?criterio={{ form.cleaned_data.criterio|urlencode }}&official=False&next={{ url_next|urlencode }}" data-target=".area-content">Todos</a></li>
                                     </ul>
                                 </div>
                                 {% endif %}
                             </form>
                         </nav>
                     {% endblock filters %}
-
-
                         <section class="area-content j-scroll j-scroll-container" id="community-list">
-                            {% if form.cleaned_data.criterio %}
                                 {% include 'community/partials/community-list.html' %}
-                            {% else %}
-                                <div class="load-async-preload"></div>
-                            {% endif %}
                         </section>
                     </div>
                     <div class="col-lg-4">
@@ -109,8 +107,6 @@
     <script>
         $(function() {
 
-            {% if form.cleaned_data.criterio %}
-
                 $(".j-scroll").jscroll({
                     loadingHtml: '<div class="load-async-preload"></div>',
                     contentSelect: ".j-scroll-container",
@@ -120,22 +116,6 @@
                     }
                 });
 
-            {% else %}
-
-                $.get("{% url 'community:list' community.slug %}?criterio={{ form.cleaned_data.criterio|urlencode }}&official={{ form.cleaned_data.official|default_if_none:False }}&page=1&next={{ url_next|urlencode }}", function( data ) {
-                    $( "#community-list" ).html( data );
-                    $(".j-scroll").jscroll({
-                        loadingHtml: '<div class="load-async-preload"></div>',
-                        contentSelect: ".j-scroll-container",
-                        nextSelector: "a[data-jscroll-next]",
-                        callback: function() {
-                            refreshAsyncLike();
-                        }
-                    });
-                    refreshAsyncLike();
-                });
-
-            {% endif %}
 
         });
     </script>

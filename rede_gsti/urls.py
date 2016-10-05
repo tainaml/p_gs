@@ -25,6 +25,7 @@ from apps.core.views.frontend import FrontEndBase
 from django.contrib.sitemaps import views as sitemap_views
 from apps.core.sitemap import sitemaps
 from rede_gsti.urls_old import urls_old
+from django.views.generic import RedirectView
 
 handler400 = "apps.core.views.errors.handler400"
 handler403 = "apps.core.views.errors.handler403"
@@ -66,6 +67,13 @@ urlpatterns = [
 
     # Translators: URL root de notificacoes
     url(_(r'^hint/'), include('apps.core.urls.hint', namespace='hint')),
+
+    #FIXED ARTICLES REDIRECTS
+    url('2011/02/importancia-das-certificacoes.html', RedirectView.as_view(url="/2011/06/importancia-da-certificacao-em-ti-iso.html", permanent=True)),
+    url('2012/10/gerenciamento-de-problemas-em-pequenas.html', RedirectView.as_view(url="/2015/11/gerenciamento-de-problemas-em-pequenas-organizacoes.html", permanent=True)),
+    url('2013/09/simulado-cobit5.html', RedirectView.as_view(url="/2009/10/simulado-cobit-foundation-5.html", permanent=True)),
+    url('2013/02/itil-computacao-em-nuvem.html', RedirectView.as_view(url="/2011/06/computacao-em-nuvem-e-itil-cloud.html", permanent=True)),
+    url('2013/02/cloud-computing-foundation.html', RedirectView.as_view(url="/2014/11/itil-e-cloud-computing-video-1724.html", permanent=True)),
 
     # Translators: URL root de publicacao
     url(_(r'^'), include('apps.core.urls.article', namespace='article')),

@@ -73,22 +73,16 @@ class CoreCommunitySearch(CoreCommunityView):
         return context
 
 
-class CoreCommunityList(CoreCommunitySearch):
-
-    template_path = 'community/partials/community-list.html'
-
-    def get_context(self, request, community_instance=None):
-        context = super(CoreCommunityList, self).get_context(request, community_instance)
-
-        return context
-
-
 class CoreCommunityFeedView(CoreCommunitySearch):
 
-    template_path = 'community/community-view.html'
 
     def get(self, request, community_slug):
         community = Business.get_community(slug=community_slug)
+        if request.is_ajax():
+            self.template_path = 'community/partials/community-list.html'
+        else:
+            self.template_path = 'community/community-view.html'
+
         if not community:
             querystring = {'q': community_slug}
             return redirect(reverse("search:search")+"?%s" % urllib.urlencode(encoded_dict(querystring)))
@@ -120,6 +114,14 @@ class CoreCommunityQuestionSearch(CoreCommunityView):
 class CoreCommunityQuestionFeedView(CoreCommunityQuestionSearch):
 
     template_path = 'community/community-questions.html'
+    
+    def get(self, request, community_slug):
+
+        if request.is_ajax():
+            self.template_path = 'community/partials/community-question-list.html'
+
+        return super(CoreCommunityQuestionFeedView, self).get(request, community_slug)
+
 
 
 class CoreCommunityQuestionList(CoreCommunityQuestionSearch):
@@ -149,7 +151,6 @@ class CoreCommunityVideosSearch(views.CommunityView):
         form = self.form_videos(community_instance, 3, request.GET)
 
         videos = form.process()
-
         have_posts = True if hasattr(videos, 'object_list') and videos.object_list else False
 
         return {
@@ -161,7 +162,15 @@ class CoreCommunityVideosSearch(views.CommunityView):
 
 
 class CoreCommunityVideosView(CoreCommunityVideosSearch):
-    pass
+    template_path = "community/community-videos.html"
+
+    def get(self, request, community_slug):
+
+        if request.is_ajax():
+            self.template_path = "community/partials/community-videos-list.html"
+
+
+        return super(CoreCommunityVideosSearch, self).get(request, community_slug)
 
 
 class CoreCommunityVideosList(CoreCommunityVideosSearch):
@@ -338,6 +347,8 @@ class CoreCommunityMaterialsSearch(views.CommunityView):
         form = self.form_materials(community_instance, 3, request.GET)
 
         posts = form.process()
+        if request.is_ajax():
+            self.template_path = "community/partials/community-materials-list.html"
 
         have_posts = True if hasattr(posts, 'object_list') and posts.object_list else False
 

@@ -3,26 +3,16 @@
 {% load widget_tweaks %}
 {{ form.non_field_errors }}
 
-<form data-group-class=".answer-group" data-toggle="prepend" data-update="#container-answers" data-ajaxform="true" action="{% url 'question:comment_reply' %}" class="create-comment" method="post">{% csrf_token %}
-
-    {% comment %}
-    <div class="create-comment-avatar">
-        <img src="{% get_avatar request.user width=81 height=81 smart=False fit_in=False %}" alt="User avatar">
-    </div>
-    {% endcomment %}
-
+<form data-group-class=".answer-group" data-toggle="prepend" data-update="#container-answers" data-ajaxform="true" action="{% url 'question:comment_reply' %}" method="post">
+    {% csrf_token %}
     <div class="answer-group {% if form.content.errors %} has-error{% endif %}">
         {% url 'account:is_logged' as is_logged %}
         {% url 'hint:list' content_type content_object_id as hint_list_url %}
         {% render_field form_answer.description class="form-control" placeholder="Deixe sua resposta" data-hint-url=hint_list_url data-url-login=is_logged data-trigger="login" data-token=csrf_token %}
-        <span class="help-block"></span>
     </div>
-
     <input name="question_id" value="{{ content_object_id }}" type="hidden"/>
-
-
-    <div class="create-comment-footer">
-        <input type="reset" data-toggle value="Cancelar" class="btn btn-default">
+    <div class="comment-form-footer">
+        {# TODO: Traduzir o texto do botão #}
         <input type="submit" value="Responder" class="btn btn-primary" data-token="{{ csrf_token }}">
     </div>
 </form>

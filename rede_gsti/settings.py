@@ -133,6 +133,9 @@ DJANGO_APPS = (
     'django.contrib.postgres',
     'django.contrib.humanize',
 
+    #SITES
+    'django.contrib.sites',
+
     # SITEMAP
     'django.contrib.sitemaps',
 )
@@ -195,6 +198,7 @@ APPEND_SLASH = True
 USE_CACHE = config.getboolean("CACHE", "active")
 
 # Site Urls
+SITE_ID = 1
 SITE_URL = config.get("GENERAL", 'site_url')
 STATIC_URL = '%s/static/' % SITE_URL
 MEDIA_URL = '%s/media/uploads/' % SITE_URL
@@ -219,6 +223,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'apps.core.middleware.MinifyHTMLMiddleware',
+    'apps.core.middleware.WizardMiddleware',
     'django_user_agents.middleware.UserAgentMiddleware',
 )
 
@@ -485,7 +490,7 @@ AVATAR = {
 
 
 # Login Urls
-LOGIN_URL = '/conta/login/'
+LOGIN_URL = '/'
 
 
 # Wizard Steps

@@ -28,13 +28,11 @@ var module = (element) => {
   })
 
   function cbDragOver (event) {
-    console.log('Make some when file is over of element')
     dropZone.addClass('hover')
     return false
   }
 
   function cbDragLeave (event) {
-    console.log('Make some when file is leaved of element')
     dropZone.removeClass('hover')
     return false
   }

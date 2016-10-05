@@ -161,17 +161,16 @@
     font-size: 13px;
     font-weight: 700;
     text-transform: uppercase;
+
 }
-.tag {
-    margin-bottom: 10px;
-    color: #607384;
-    font-size: 0.8em;
-    line-height: 1.8;
-    .custom-input { font-weight: 600; }
+.tag.custom-input {
+  margin-bottom: 10px;
+  color: #607384;
+  font-size: 0.8em;
+  line-height: 1.8;
 }
 
 .order-by {
-    // width: 50%;
     margin-right: -20px;
     float: right;
     text-align: right;
