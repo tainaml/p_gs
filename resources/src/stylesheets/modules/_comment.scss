@@ -65,23 +65,23 @@
 //             }
 //         }
 //     }
-//     &-#{vote} {
-//         text-align: center;
-//         > hr {
-//             border-color: $color-border;
-//             margin-top: 5px;
-//             margin-bottom: 5px;
-//         }
-//         > i,
-//         > div > a > i {
-//             color: #4d6479;
-//             font-size: 30px;
-//         }
-//         > div > hr {
-//             margin-top: 0;
-//             margin-bottom: 0;
-//         }
-//     }
+.comment-vote {
+  text-align: center;
+  > hr {
+    border-color: $color-border;
+    margin-top: 5px;
+    margin-bottom: 5px;
+  }
+  > i,
+  > div > a > i {
+    color: #4d6479;
+    font-size: 30px;
+  }
+  > div > hr {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+}
 //     &-#{body} {
 //         .post-creator {
 //             font-weight: 600;
