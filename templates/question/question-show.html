@@ -8,8 +8,15 @@
 {% load humanize %}
 {% load user_agents %}
 {% load ads %}
+{% load url_utils %}
+{% load core_tags %}
+{% block seo-og-title %}{% block seo_title %}{{ question.title }}{{ block.super }}{% endblock %}{% endblock %}
+{% block seo-og-description %}{% block seo-description %}{{ question.description|seo_description }}{% endblock %}{% endblock %}
+{% block seo-og-type %}article{% endblock %}
 
-{% block title %}{{ question.title }} | Pergunta{% endblock %}
+{% block seo-og-url %}{{ request.path|root  }}{% url 'question:show' question.slug question.id %}{% endblock %}
+
+{% block title %}{{ question.title }}{% endblock %}
 
 {% block content %}
 
@@ -113,7 +120,7 @@
 
 {% block javascripts %}
     <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-55e70ed11db7fa4e" async></script>
-    <script src="{% static 'javascripts/vendor.js'%}" data-manual></script>
+    <script src="{% static 'javascripts/vendor.js'%}"></script>
     <script>
 
         var functionOpenModalToDelete = function(e) {
@@ -172,11 +179,7 @@
         }
         $form.find('[data-toggle="editor"]').summernote('reset');
         $divToUpdate.refreshEditors();
-        /*PR.prettyPrint();*/
-        var preInComment = $('.comment-text').find('code');
-        $.each(preInComment, function (index, element) {
-          Prism.highlightElement(element);
-        });
+        PR.prettyPrint();
 
         return $divToUpdate
     }
@@ -264,10 +267,6 @@
                         if($childs && $childs.length){
                             $childs.renderList();
                         }
-                        var preInComment = $('.comment-text').find('code');
-                        $.each(preInComment, function (index, element) {
-                          Prism.highlightElement(element);
-                        });
                     }
                 });
 
