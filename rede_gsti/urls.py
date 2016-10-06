@@ -118,7 +118,7 @@ urlpatterns = [
     # Translators: URL root de comunidade
     url(_(r'^'), include('apps.core.urls.community', namespace='community')),
 
-    url(r'^ideia-summernote/', include('ideia_summernote.urls', namespace='ideia-summernote')),
+    url(r'^ideia-summernote/', include('apps.core.urls.summernote', namespace='ideia-summernote')),
 
     url(r'^sitemap\.xml$', sitemap_views.index, {'sitemaps': sitemaps}),
     url(r'^sitemap-(?P<section>.+)\.xml$', cache_page(settings.TIME_TO_REFRESH_SITEMAP)(sitemap_views.sitemap), {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),

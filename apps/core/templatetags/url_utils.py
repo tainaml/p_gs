@@ -94,8 +94,8 @@ def root(value):
 
     return URI(settings.SITE_URL).absolute_uri
 
-regex_pattern_with_style = re.compile(u'src="(?P<url>/media/uploads/editor-uploads/.*?)".*?height:(?P<height>\d+)px.*?width:(?P<width>\d+)px"')
-regex_pattern_with_attribute = re.compile(u'height="(?P<height>\d+)" src="(?P<url>/media/uploads/editor-uploads/.*?)".*?width="(?P<width>\d+)"')
+regex_pattern_with_style = re.compile(u'src="(?P<url>/media/uploads/.*?)".*?height:(?P<height>\d+)(px|%).*?width:(?P<width>\d+)(px|%)"')
+regex_pattern_with_attribute = re.compile(u'height="(?P<height>\d+)" src="(?P<url>/media/uploads/.*?)".*?width="(?P<width>\d+)"')
 
 
 def reduce_dimension(bigger, bigger_to, pair):
