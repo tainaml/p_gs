@@ -31,6 +31,7 @@
         letter-spacing: -0.03em;
     }
     &-#{content} {
+      @include clearfix();
         margin-top: 20px;
         border-top: 1px solid $color-border;
         color: #6f6f6f;
@@ -53,7 +54,9 @@
         }
     }
     .post-advertising {
-        margin-top: 20px;
+      overflow: hidden;
+      width: 100%;
+      padding-top: 20px;
     }
     &-#{image} {
         display: block;

@@ -387,6 +387,19 @@
         };
 
         $(function(){
+            var imagesContent = $('.full-post-content').find('img');
+            $.each(imagesContent, function (index, image) {
+              var $image = $(image);
+              var imageFloat = $image.css('float');
+              if (imageFloat) {
+                if (imageFloat == 'left') {
+                  $image.css('margin-right', 20);
+                } else if (imageFloat == 'right') {
+                  $image.css('margin-left', 20);
+                }
+              }
+            });
+
             var xhr_contents = $("div[data-xhr]");
             xhr_contents.renderList();
             var $comment_form = $("form[data-ajaxform=\"true\"]");
