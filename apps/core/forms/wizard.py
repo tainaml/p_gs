@@ -23,7 +23,7 @@ class WizardForm(IdeiaForm):
 
 class StepOneWizardForm(WizardForm):
 
-    responsibility = forms.ModelChoiceField(queryset=Responsibility.objects.all(), required=True)
+    responsibility = forms.ModelChoiceField(queryset=Responsibility.objects.all(), required=False)
     state = forms.ModelChoiceField(queryset=State.objects.filter(country=1), required=False)
     birth = forms.DateField(input_formats=['%d/%m/%Y'], required=True)
     gender = forms.ChoiceField(choices=GenderType.CHOICES, required=True)
@@ -83,6 +83,12 @@ class StepOneWizardForm(WizardForm):
         is_valid = super(StepOneWizardForm, self).is_valid()
         image = self.cleaned_data.get('profile_picture', False)
         birth = self.cleaned_data.get('birth', None)
+
+        # TODO: Remove this POG
+        responsibility = self.cleaned_data.get('responsibility', None)
+        if not responsibility:
+            is_valid = False
+            self.add_error('responsibility', ValidationError(u'Este campo é obrigatório', code='responsibility'))
 
         if birth and birth.year > timezone.now().year:
             is_valid = False
