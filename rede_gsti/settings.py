@@ -833,6 +833,11 @@ SUMMERNOTE_CONFIG = {
 
             ],
             'popover': {
+                'image': [
+                    ['imagesize', ['imageSize100', 'imageSize50', 'imageSize25']],
+                    ['float', ['floatLeft', 'floatRight', 'floatNone']],
+                    ['remove', ['removeMedia']]
+                ],
                 'air':[
                     ['para', ['ul', 'ol', 'paragraph']],
                 ]
