@@ -15,8 +15,9 @@
   border-bottom: 1px solid $color-border;
 }
 .container-comments {
-  padding-left: 55px;
+  margin-left: 14px;
   margin-bottom: 20px;
+  border-left: 10px solid #e1e1e1;
 
   [data-xhr] {
     padding-left: 0;
@@ -24,47 +25,16 @@
   }
   .comment {
     padding-top: 10px;
-    padding-left: 14px;
-    padding-bottom: 0;
-    margin-bottom: 0;
-    border-left: 10px solid $color-border;
-    border-bottom: 0;
-    .comment-text {
-      border-bottom: 1px solid $color-border;
-    }
+    margin-left: 14px;
+    // padding-bottom: 0;
+    // margin-bottom: 0;
+    // border-left: 10px solid $color-border;
+    // border-bottom: 0;
+    // .comment-text {
+    //   border-bottom: 1px solid $color-border;
+    // }
   }
 }
-//
-// .comment > .container-comments {
-//   width: 100%;
-//   padding-left: 55px;
-//   // float: left;
-// }
-// .comment {
-//     @extend %clearfix;
-//     padding-top: 20px;
-//     > .post-footer {
-//         padding-top: 0;
-//         padding-bottom: 10px;
-//         border-bottom: 1px solid $color-border;
-//     }
-//     &-#{user} {
-//         float: left;
-//         padding-right: 15px;
-//         min-height: 100px;
-//         > img {
-//             vertical-align: top;
-//             border: 4px solid #fff;
-//             box-shadow: -1px 1px 1px #e1e1e1, 1px -1px 1px #e1e1e1;
-//             max-width: 81px;
-//             max-height: 81px;
-//             @media (max-width: $screen-lg-min) {
-//                 max-width: 32px;
-//                 max-height: 32px;
-//                 overflow: hidden;
-//             }
-//         }
-//     }
 .comment-vote {
   text-align: center;
   > hr {
@@ -82,23 +52,10 @@
     margin-bottom: 0;
   }
 }
-//     &-#{body} {
-//         .post-creator {
-//             font-weight: 600;
-//             font-size: 1.5em;
-//         }
-//         .comment-text { overflow: hidden; }
-//     }
-// }
-//
-// .child-comment {
-//     margin-top: 20px;
-//     .comment-text,
-//     .comment-text p {
-//         overflow: hidden;
-//         color: #6f6f6f;
-//         font-size: 1em;
-//         letter-spacing: -0.05em;
-//     }
-//     &:last-child {}
-// }
+
+.answer-text {
+  color: #6f6f6f;
+  font-size: 17px;
+  line-height: 30px;
+  letter-spacing: -.05em;
+}
