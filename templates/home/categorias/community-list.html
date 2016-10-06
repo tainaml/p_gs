@@ -12,7 +12,7 @@
     {% endfor %}
 
     {% if feed_objects.has_next %}
-        <a data-jscroll-next href="{% url 'category:show' category_slug %}?&page={{ page }}"></a>
+        <a data-jscroll-next href="{% url 'category:show' category_slug %}?&page={{ page }}">Próximo</a>
     {% endif %}
 
 {% else %}
