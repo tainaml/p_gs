@@ -847,6 +847,7 @@ SUMMERNOTE_CONFIG = {
                 ['style', ['bold', 'italic']],
                 ['font', ['strikethrough']],
                 ['link', ['link']],
+                ['para', ['ul', 'ol']],
                 ['prettyprint', ['prettyprint']],
                 ['pre', ['pre']]
             ],
@@ -868,6 +869,7 @@ SUMMERNOTE_CONFIG = {
                 ['style', ['bold', 'italic', 'underline']],
                 ['font', ['strikethrough']],
                 ['link', ['link']],
+                ['para', ['ul', 'ol']],
                 ['prettyprint', ['prettyprint']],
                 ['pre', ['pre']]
             ],
