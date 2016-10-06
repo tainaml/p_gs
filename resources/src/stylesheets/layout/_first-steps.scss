@@ -44,7 +44,6 @@
 }
 
 .set-avatar {
-    /*padding: 10px 20px;*/
     border: 8px solid #fff;
     box-shadow: 1px 1px 1px $color-border, -1px -1px 2px $color-border;
     h5 {
@@ -86,4 +85,25 @@
   .btn-green {
     margin-left: 5px;
   }
+}
+
+.success-page {
+    padding: 70px 0 120px;
+    color: #0160b0;
+    text-align: center;
+}
+.success-page-title {
+    font-weight: 900;
+    font-size: 48px;
+}
+.success-page-subtitle {
+    font-weight: 600;
+    font-size: 24px;
+    margin-bottom: 5px;
+}
+.success-page-description {
+    font-size: 20px;
+}
+.success-page-btn {
+    margin-top: 20px;
 }
