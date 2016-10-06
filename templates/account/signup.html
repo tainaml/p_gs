@@ -4,6 +4,7 @@
 <!DOCTYPE html>
 <html lang="pt-br">
     <head>
+
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -44,6 +45,7 @@
         <meta name="msapplication-square150x150logo" content="{% static 'images/mstile-150x150.png' %}" />
         <meta name="msapplication-wide310x150logo" content="{% static 'images/mstile-310x150.png' %}" />
         <meta name="msapplication-square310x310logo" content="{% static 'images/mstile-310x310.png' %}" />
+    {% tag_manager_script %}
     </head>
     <body>
     <div class="slideout-menu" id="slideout-menu">
@@ -259,6 +261,6 @@
 {#                $linkModal.on("async.click.success", functionAjaxSuccessTriggerContactModal);#}
 {#            });#}
 {#        </script>#}
-    {% tag_manager %}
+    {% tag_manager_iframe %}
     </body>
 </html>
