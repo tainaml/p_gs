@@ -4,7 +4,7 @@ from django.contrib.auth.password_validation import validate_password
 from django.core.exceptions import ValidationError
 from django.utils.translation import ugettext as _
 from django.conf import settings
-
+import re
 from nocaptcha_recaptcha import NoReCaptchaField
 
 import business as Business
@@ -14,6 +14,9 @@ from apps.custom_base.service.custom import forms, IdeiaForm
 
 
 class SignUpForm(IdeiaForm):
+
+    COMPILED_PATTERN = re.compile(ur'^[a-zA-ZÁáàãâÂÃÀéÉèêÊÈëËẽẼíÍìÌĩĨîÎóÓòÒõÕüÜúÚùÙũŨûÛçÇ-ýÝỲỳ \']+$')
+
     username = forms.SlugField(max_length=100, required=True)
     first_name = forms.CharField(max_length=30, required=True)
     last_name = forms.CharField(max_length=150, required=True)
@@ -21,6 +24,9 @@ class SignUpForm(IdeiaForm):
     password = forms.CharField(max_length=50, required=True)
     password_confirmation = forms.CharField(max_length=50, required=True)
     captcha = NoReCaptchaField(required=True)
+
+    def __is_valid_name__(self, value):
+        return self.COMPILED_PATTERN.match(value) is not None
 
     def clean_password(self):
 
@@ -54,6 +60,15 @@ class SignUpForm(IdeiaForm):
         if 'username' in self.cleaned_data and User.objects.filter(username=self.cleaned_data['username']).exists():
             self.add_error('username', ValidationError(_('Username is already in use.'), code='username'))
             valid = False
+
+        if 'first_name' in self.cleaned_data and not self.__is_valid_name__(self.cleaned_data['first_name']):
+            self.add_error('first_name', ValidationError(_('Value is not a valid name.'), code='first_name'))
+            valid = False
+
+        if 'last_name' in self.cleaned_data and not self.__is_valid_name__(self.cleaned_data['last_name']):
+            self.add_error('last_name', ValidationError(_('Value is not a valid name.'), code='last_name'))
+            valid = False
+
 
         if 'email' in self.cleaned_data and User.objects.filter(email=self.cleaned_data['email']).exists():
             self.add_error('email', ValidationError(_('Email is already in use.'), code='email'))
