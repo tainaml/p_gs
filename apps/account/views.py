@@ -233,7 +233,7 @@ class MailValidationView(View):
 
 
 
-        return render(request, 'account/mail_validation.html', {'message': message})
+        return redirect(reverse('profile:feed'))
 
 
 class RecoveryValidationView(View):
