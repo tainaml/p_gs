@@ -8,7 +8,7 @@
 
 {% block seo-og-title %}{% block seo_title %}Relacionamentos -> Seguidores | {{ profile.user.get_full_name }}{{ block.super }}{% endblock %}{% endblock %}
 {% block seo-og-description %}{% block seo-description %}Lista dos membros que seguem {{ profile.user.get_full_name }} no Portal GSTI.{% endblock %}{% endblock %}
-{% block seo-og-image %}{% get_avatar profile.user width=90 height=90 smart=False fit_in=False %}{% endblock %}
+{% block seo-og-image %}{% get_avatar profile.user width=200 height=200 smart=False fit_in=False %}{% endblock %}
 
 {% block seo-metas-extra %}
     <meta name="robots" content="noindex, nofollow">
