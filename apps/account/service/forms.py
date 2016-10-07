@@ -13,27 +13,15 @@ from apps.account.models import User
 from apps.custom_base.service.custom import forms, IdeiaForm
 
 
-class SignUpForm(IdeiaForm):
-
+class BaseSignupForm(IdeiaForm):
     COMPILED_PATTERN = re.compile(ur'^[a-zA-ZÁáàãâÂÃÀéÉèêÊÈëËẽẼíÍìÌĩĨîÎóÓòÒõÕüÜúÚùÙũŨûÛçÇ-ýÝỲỳ \']+$')
 
-    username = forms.SlugField(max_length=100, required=True)
     first_name = forms.CharField(max_length=30, required=True)
     last_name = forms.CharField(max_length=150, required=True)
     email = forms.EmailField(max_length=150, required=True)
-    password = forms.CharField(max_length=50, required=True)
-    password_confirmation = forms.CharField(max_length=50, required=True)
-    captcha = NoReCaptchaField(required=True)
 
     def __is_valid_name__(self, value):
         return self.COMPILED_PATTERN.match(value) is not None
-
-    def clean_password(self):
-
-        _pass = self.cleaned_data.get('password')
-
-        validate_password(_pass)
-        return _pass
 
     def clean_first_name(self):
 
@@ -42,12 +30,72 @@ class SignUpForm(IdeiaForm):
             first_name = capitalize_this_name(first_name)
         return first_name
 
+
+    def clean_email(self):
+
+        return self.cleaned_data.get('email')
+
     def clean_last_name(self):
 
         last_name = self.cleaned_data.get('last_name')
         if last_name:
             last_name = capitalize_this_name(last_name)
         return last_name
+
+    def is_first_name_valid(self, valid):
+
+        if 'first_name' in self.cleaned_data and not self.__is_valid_name__(self.cleaned_data['first_name']):
+            self.add_error('first_name', ValidationError(_('Value is not a valid name.'), code='first_name'))
+            valid = False
+
+        return valid
+
+
+
+    def is_last_name_valid(self, valid):
+
+        if 'last_name' in self.cleaned_data and not self.__is_valid_name__(self.cleaned_data['last_name']):
+            self.add_error('last_name', ValidationError(_('Value is not a valid name.'), code='last_name'))
+            valid = False
+
+        return valid
+
+    def is_email_valid(self, valid):
+
+        if 'email' in self.cleaned_data and User.objects.filter(email=self.cleaned_data['email']).exists():
+            self.add_error('email', ValidationError(_('Email is already in use.'), code='email'))
+            valid = False
+
+
+
+        return valid
+
+    def is_valid(self):
+        valid = super(BaseSignupForm, self).is_valid()
+
+        valid = self.is_first_name_valid(valid)
+        valid = self.is_last_name_valid(valid)
+        valid = self.is_email_valid(valid)
+
+        return valid
+
+
+class SignUpForm(BaseSignupForm):
+
+
+    username = forms.SlugField(max_length=100, required=True)
+
+    password = forms.CharField(max_length=50, required=True)
+    password_confirmation = forms.CharField(max_length=50, required=True)
+    captcha = NoReCaptchaField(required=True)
+
+    def clean_password(self):
+
+        _pass = self.cleaned_data.get('password')
+
+        validate_password(_pass)
+        return _pass
+
 
     def is_valid(self):
         valid = super(SignUpForm, self).is_valid()
@@ -59,19 +107,6 @@ class SignUpForm(IdeiaForm):
 
         if 'username' in self.cleaned_data and User.objects.filter(username=self.cleaned_data['username']).exists():
             self.add_error('username', ValidationError(_('Username is already in use.'), code='username'))
-            valid = False
-
-        if 'first_name' in self.cleaned_data and not self.__is_valid_name__(self.cleaned_data['first_name']):
-            self.add_error('first_name', ValidationError(_('Value is not a valid name.'), code='first_name'))
-            valid = False
-
-        if 'last_name' in self.cleaned_data and not self.__is_valid_name__(self.cleaned_data['last_name']):
-            self.add_error('last_name', ValidationError(_('Value is not a valid name.'), code='last_name'))
-            valid = False
-
-
-        if 'email' in self.cleaned_data and User.objects.filter(email=self.cleaned_data['email']).exists():
-            self.add_error('email', ValidationError(_('Email is already in use.'), code='email'))
             valid = False
 
         return valid

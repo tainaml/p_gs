@@ -1,11 +1,13 @@
 # coding=utf-8
+from django.db.models import Q
+from apps.account.models import User
+from apps.account.service.forms import BaseSignupForm
 from apps.custom_base.service.custom import IdeiaForm
 from apps.geography.models import State, City
 from apps.userprofile.models import Responsibility, GenderType
 from django import forms
 from django.conf import settings
 from django.utils.translation import ugettext as _
-from ..business import user as UserBusiness
 from apps.userprofile.service import business as BusinessUserProfile
 from django.core.exceptions import ValidationError
 from django.utils import timezone
@@ -21,7 +23,8 @@ class WizardForm(IdeiaForm):
         super(WizardForm, self).__init__(data=data, files=files, *args, **kwargs)
 
 
-class StepOneWizardForm(WizardForm):
+class StepOneWizardForm(BaseSignupForm, WizardForm):
+
 
     responsibility = forms.ModelChoiceField(queryset=Responsibility.objects.all(), required=False)
     state = forms.ModelChoiceField(queryset=State.objects.filter(country=1), required=False)
@@ -31,15 +34,35 @@ class StepOneWizardForm(WizardForm):
     profile_picture = forms.ImageField(required=False)
     wizard_step = forms.IntegerField(required=True)
 
+    def clean_email(self):
+        return self.user.email if self.user.email else super(StepOneWizardForm, self).clean_email()
+
+    def is_email_valid(self, valid):
+
+        if 'email' in self.cleaned_data and User.objects.filter(Q(email=self.cleaned_data['email']) & ~Q(id=self.user.id)).exists():
+            self.add_error('email', ValidationError(_('Email is already in use.'), code='email'))
+            valid = False
+
+        return valid
+
     def __init__(self, data=None, files=None, user=None, *args, **kwargs):
 
-        initial = kwargs.get('initial', {})
+        self.initial = {
+            'first_name': user.first_name,
+            'last_name': user.last_name,
+            'email': user.email
+        }
+
+        self.initial.update(kwargs.get('initial', {}))
+
+        if user.email:
+            self.declared_fields['email'].required = False
 
         if user and hasattr(user, 'user_profile'):
-            initial = self.load_initial_data(user, initial)
+            self.initial = self.load_initial_data(user, self.initial)
 
         kwargs.update({
-            'initial': initial
+            'initial': self.initial
         })
 
         kwargs.update({
@@ -63,8 +86,6 @@ class StepOneWizardForm(WizardForm):
             initial.update({
                 'birth': user.user_profile.birth
             })
-
-        print(user.user_profile.current_occupation)
 
         if user.user_profile.current_occupation:
             initial.update({

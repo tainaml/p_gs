@@ -1,21 +1,17 @@
 from abc import ABCMeta, abstractmethod
-from apps.community.models import Community
 from apps.core.forms.community import CoreCommunityFormSearch
-from apps.core.forms.wizard import StepOneWizardForm, StepTwoWizardForm
-from apps.core.templatetags.core_tags import __categories_in_cache__
+from apps.core.forms.wizard import StepOneWizardForm
 from apps.core.utils import build_absolute_uri
 from apps.taxonomy.models import Taxonomy
 from apps.userprofile.models import Responsibility
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
-from django.db.models import Q
 from django.http.response import Http404
 from django.shortcuts import redirect, render
 from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.views import View
 from apps.userprofile.service import business as BusinessUserProfile
-from apps.taxonomy.service import business as BusinessTaxonomy
 from ..business import community as Business
 from rede_gsti import settings
 
@@ -58,6 +54,7 @@ class CoreProfileWizard(View):
         if form.process():
             next_step = step + 1
             return redirect(to="profile:wizard", step=next_step)
+
 
         context = self.get_context(request, step)
         context.update({
