@@ -12,6 +12,7 @@ from django.utils.translation import ugettext as _
 
 from apps.account.account_exceptions import AccountDoesNotExistException, TokenIsNoLongerValidException, \
     TokenIsNotActiveException, TokenDoesNotExistException
+from apps.account.models import MailValidation
 from rede_gsti import settings
 from .service.forms import SignUpForm, LoginForm, ChangePasswordForm, RecoveryPasswordForm, ForgotPasswordForm, \
     ResendAccountConfirmationForm, CheckUsernameForm
@@ -231,6 +232,12 @@ class MailValidationView(View):
             message = _('Token is not exists!')
 
 
+        try:
+            token = MailValidation.objects.get(token='activation_key')
+            log_in_user_no_credentials(request, token.user)
+            return redirect(reverse('profile:feed'))
+        except MailValidation.DoesNotExist:
+            pass
 
 
         return render(request, 'account/mail_validation.html', {'message': message})
