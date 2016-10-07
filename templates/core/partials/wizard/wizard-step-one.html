@@ -49,9 +49,9 @@
                           {% if form.first_name.errors %}  {{ form.first_name.errors }} {% endif %}
                         </div>
                         <div class="col-lg-7 item-form {% if form.last_name.errors %}has-error{% endif %}">
-                          <input {% if form.user.last_name %}readonly="readonly"{% endif %} class="form-control" type="text" id="last_name" name="last_name" value="{{ form.cleaned_data.last_name|default_if_none:"" }}" placeholder="{% trans "Last Name" %}" maxlength="150"
-                          data-toggle="validation"
-                          data-regex="^[a-zA-ZÁáàãâÂÃÀéÉèêÊÈëËẽẼíÍìÌĩĨîÎóÓòÒõÕüÜúÚùÙũŨûÛçÇ-ýÝỲỳ ]+$">
+                        {% trans "Last Name" as last_name_placeholder %}
+                          {% render_field form.last_name class="form-control" placeholder=last_name_placeholder %}
+
                           {% if form.last_name.errors %}  {{ form.last_name.errors }} {% endif %}
                         </div>
                 </div>
