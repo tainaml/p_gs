@@ -911,7 +911,7 @@ if ENVIRONMENT == "develop":
 
     INSTALLED_APPS += ('apps.ninico', PROFILER_APP )
     STATIC_URL = '/static/'
-    MEDIA_URL = '/media/uploads/'
+    MEDIA_URL = 'http://localhost:8888/media/uploads/'
     SECURE_SSL_HOST = None
     SECURE_PROXY_SSL_HEADER = None
 

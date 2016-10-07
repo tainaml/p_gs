@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+import copy
 
 from django.utils.safestring import mark_safe
 
@@ -94,8 +95,14 @@ def root(value):
 
     return URI(settings.SITE_URL).absolute_uri
 
-regex_pattern_with_style = re.compile(u'src="(?P<url>/media/uploads/editor-uploads/.*?)".*?height:(?P<height>\d+)px.*?width:(?P<width>\d+)px"')
-regex_pattern_with_attribute = re.compile(u'height="(?P<height>\d+)" src="(?P<url>/media/uploads/editor-uploads/.*?)".*?width="(?P<width>\d+)"')
+regex_pattern_with_style = re.compile(u'src="(?P<url>/media/uploads/.*?)".*?height:(?P<height>\d+)(px|%).*?width:(?P<width>\d+)(px|%)"')
+regex_pattern_with_attribute = re.compile(u'height="(?P<height>\d+)" src="(?P<url>/media/uploads/.*?)".*?width="(?P<width>\d+)"')
+regex_thumbor_mobile = re.compile(r'src\s*\=\s*\"(?P<thumbor_url>http://localhost:8888)/(?P<thumbor_key>[a-zA-z0-9\-\_\=]+)/(?P<image_size>708x0)/(?P<image_url>.+?)\"')
+
+# .format(
+#     static_url=settings.MEDIA_URL,
+#     thumbor_image_size=settings.MAXIMUM_PC_IMAGE_WIDTH
+# ))
 
 
 def reduce_dimension(bigger, bigger_to, pair):
@@ -146,10 +153,26 @@ def replace_mobile(m):
     height = m.group("height")
     width = m.group("width")
 
-
-
     return generate_url_with_dimensions(url, reduce_proportionally(int(width), int(height), True))
 
+
+def replace_mobile_thubor(text):
+    # return regex_thumbor_mobile.sub('/{}x0/'.format(settings.MAXIMUM_MOBILE_IMAGE_WIDTH), text)
+    # return generate_url()
+    matches = regex_thumbor_mobile.findall(text)
+
+    if not matches or len(matches) == 0:
+        return text
+
+    for match_original in matches:
+        match = list(copy.copy(match_original))
+
+        if len(match) < 4:
+            continue
+
+        text = str(text).replace('/'.join(match_original), generate_url(match[3], width=settings.MAXIMUM_MOBILE_IMAGE_WIDTH))
+
+    return text
 
 
 @register.simple_tag(takes_context=True)
@@ -157,7 +180,10 @@ def thumbor_replace(context, text):
 
     user_agent = get_user_agent(context['request'])
 
-    regex = regex_pattern_with_style if regex_pattern_with_style.match(text) else regex_pattern_with_attribute
+    #regex = regex_pattern_with_style if regex_pattern_with_style.match(text) else regex_pattern_with_attribute
+    #return mark_safe(regex.sub(replace_mobile if user_agent.is_mobile else replace_pc, text))
 
+    if user_agent.is_mobile:
+        text = replace_mobile_thubor(text)
 
-    return mark_safe(regex.sub(replace_mobile if user_agent.is_mobile else replace_pc, text))
+    return mark_safe(text)
