@@ -233,7 +233,7 @@ class MailValidationView(View):
 
 
         try:
-            token = MailValidation.objects.get(token='activation_key')
+            token = MailValidation.objects.get(token=activation_key)
             log_in_user_no_credentials(request, token.user)
             return redirect(reverse('profile:feed'))
         except MailValidation.DoesNotExist:
