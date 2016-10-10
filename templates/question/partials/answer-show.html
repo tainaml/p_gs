@@ -49,7 +49,6 @@
         </div>
 
         <div id="comment-edit-{{ instance.id }}" class="dropdown-content comment-dropdown">
-{#            {% include "question/edit_answer.html" with reply=instance %}#}
             {% answer_edit_box instance %}
         </div>
 
@@ -73,12 +72,12 @@
             </div>
         </footer>
 
-    <div id="data-answer-{{ instance.id }}" class="dropdown-content comment-dropdown">
-        {% with instance_id=instance.id|stringformat:"s" %}
-            {% with to_update="#list-answer-"|add:instance_id %}
-                {% comment_box_inner instance to_update %}
-            {% endwith %}
-        {% endwith %}
-    </div>
+</div>
+<div id="data-answer-{{ instance.id }}" class="dropdown-content comment-dropdown">
+  {% with instance_id=instance.id|stringformat:"s" %}
+  {% with to_update="#list-answer-"|add:instance_id %}
+  {% comment_box_inner instance to_update %}
+  {% endwith %}
+  {% endwith %}
 </div>
 {% comment_list instance %}
