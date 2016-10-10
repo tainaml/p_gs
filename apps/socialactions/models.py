@@ -14,13 +14,13 @@ class UserAction(models.Model):
     content_type = models.ForeignKey(ContentType)
     object_id = models.PositiveIntegerField()
     content_object = GenericForeignKey('content_type', 'object_id')
-    target_user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='target_user', null=True)
+    target_user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='target_user', null=True, on_delete=models.SET_NULL)
 
 
 class UserActionCounter(models.Model):
 
     action_type = models.PositiveIntegerField()
-    author = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='user_counter', null=True)
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='user_counter', null=True, on_delete=models.SET_NULL)
     count = models.PositiveIntegerField()
 
 class Counter(models.Model):
@@ -31,5 +31,5 @@ class Counter(models.Model):
     content_type = models.ForeignKey(ContentType)
     content_object = GenericForeignKey('content_type', 'object_id')
 
-    target_user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='target_user_counter', null=True)
+    target_user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='target_user_counter', null=True, on_delete=models.SET_NULL)
     count = models.PositiveIntegerField()
