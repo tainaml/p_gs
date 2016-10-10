@@ -96,8 +96,9 @@ class CoreQuestionRelatedView(views.View):
 
 
     def get(self, request, question_id, content_type):
-
-        related_list = BusinessQuestion.get_related(question_id, content_type, 4, 1)
+        items_per_page=4
+        page=1
+        related_list = BusinessQuestion.get_related(question_id, content_type, items_per_page, page)
 
         context = {'questions': related_list}
 
