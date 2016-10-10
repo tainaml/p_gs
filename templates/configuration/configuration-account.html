@@ -29,6 +29,8 @@
                         </header>
                         <section class="area-content">
                             <h4><i class="gsticon gsticon-user"></i> Conta</h4>
+                            <hr>
+                            {% if not request.user.is_social %}
                             <p>Mudar senha</p>
                             <form id="form-change-password" action="{% url 'account:change_password' %}" method="post" data-ajaxform="true" data-group-class=".form-group">
                                 {% csrf_token %}
@@ -46,6 +48,12 @@
                                     <button type="submit" class="btn-default pull-right">Salvar</button>
                                 </div>
                             </form>
+                            {% else %}
+                                <div class="form-group text-right">
+                                    <a class="btn text-danger pull-left" onclick="window.location.href='{% url 'configuration:deactivate-account' %}';" href="javascript:void(0);" title="{% trans 'Desativar Conta' %}">{% trans 'Desativar Conta' %}</a>
+                                </div>
+                            {% endif %}
+
                         </section>
                     </div>
                     {% include "configuration/partials/configuration-sidebar-right.html" with local_context="account" %}
