@@ -1,4 +1,3 @@
-from django.contrib.contenttypes.models import ContentType
 from django.db.models import Q
 from django.http import JsonResponse
 from django.shortcuts import render
@@ -6,10 +5,11 @@ from django.template.loader import render_to_string
 from django.utils import timezone
 from django.utils.safestring import mark_safe
 from django.views.generic import View
-import micawber
 from apps.article.models import Article
 from apps.core.business.content_types import ContentTypeCached
 from apps.feed.models import FeedObject
+import micawber
+from micawber.providers import Provider
 
 
 class CoreBaseView(View):
@@ -117,10 +117,15 @@ class OEmbed(View):
     def get(self, request):
         url = request.GET.get('url', None)
         if not url:
+
             return JsonResponse({'success': False, 'message': 'Invalid url.'})
 
         try:
             providers = micawber.bootstrap_noembed()
+
+            # Custom Providers
+            providers.register('http://(\S*.)?youtu(\.be/|be\.com/playlist)\S+', Provider('http://www.youtube.com/oembed'))
+            providers.register('https://(\S*.)?youtu(\.be/|be\.com/playlist)\S+', Provider('http://www.youtube.com/oembed?scheme=https&'))
 
             response = providers.request(url)
             html = response.get('html', '')
@@ -134,5 +139,5 @@ class OEmbed(View):
 
             return JsonResponse(response)
 
-        except Exception, e:
+        except Exception as e:
             return JsonResponse({'success': False, 'message': e.message})

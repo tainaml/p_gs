@@ -60,13 +60,15 @@
       <a class="post-count-comments" data-object-id="{{ instance.id }}" data-toggle="dropdown" data-target="#data-answer-{{ instance.id }}" href="javascript:;" data-token="{{ csrf_token }}">Responder comentário</a>
     </div>
   </footer>
-  <div id="data-answer-{{ instance.id }}" class="dropdown-content comment-dropdown">
-    {% with instance_id=instance.id|stringformat:"s" %}
-      {% with to_update="#list-"|add:instance.get_content_type|stringformat:"s"|add:"-"|add:instance_id %}
-        {% comment_create instance to_update %}
-      {% endwith %}
-    {% endwith %}
-  </div>
   {% endif %}
 </div>
+{% if instance.content_type.model != "comment" %}
+<div id="data-answer-{{ instance.id }}" class="dropdown-content comment-dropdown">
+  {% with instance_id=instance.id|stringformat:"s" %}
+  {% with to_update="#list-"|add:instance.get_content_type|stringformat:"s"|add:"-"|add:instance_id %}
+  {% comment_create instance to_update %}
+  {% endwith %}
+  {% endwith %}
+</div>
+{% endif %}
 {% comment_list instance %}

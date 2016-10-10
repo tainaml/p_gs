@@ -8,6 +8,7 @@ from django.utils import timezone
 from django.utils.functional import cached_property
 from django.utils.translation import ugettext as _
 from django.conf import settings
+from social.apps.django_app.default.models import UserSocialAuth
 
 from apps.core.business.content_types import ContentTypeCached
 from apps.socialactions.models import Counter
@@ -48,6 +49,10 @@ class User(AbstractUser):
             ).count
         except:
             return 0
+
+    @cached_property
+    def is_social(self):
+        return UserSocialAuth.objects.filter(user=self).exists()
 
 
 class TokenType():

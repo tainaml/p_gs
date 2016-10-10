@@ -22,8 +22,7 @@ admin.site.unregister(User)
 
 
 
-class QuestionAdmin(VersionAdmin):
-    pass
+
 
 
 class CoreProfile(admin.StackedInline):
@@ -111,6 +110,8 @@ class FeedInline(GenericTabularInline):
     min_num = 1
     max_num = 1
 
+class QuestionAdmin(VersionAdmin):
+    inlines = [FeedInline]
 
 class ArticleAdminForm(forms.ModelForm):
 

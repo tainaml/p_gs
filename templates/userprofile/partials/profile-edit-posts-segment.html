@@ -3,32 +3,32 @@
 
 {% if posts %}
     {% for post in posts %}
-        <article id="pub-{{ post.id }}" class="publication">
+        <article id="pub-{{ post.content_object.id }}" class="publication">
             <div class="publication-container clearfix">
-                {% if post.get_image %}
+                {% if post.content_object.get_image %}
                 <figure>
-                  <img class="publication-image img-responsive" src="{% thumbor_url post.get_image.url width=90 height=80 smart=False fit_in=False %}" alt="{{ post.title }}">
+                  <img class="publication-image img-responsive" src="{% thumbor_url post.content_object.get_image.url width=90 height=80 smart=False fit_in=False %}" alt="{{ post.content_object.title }}">
                 </figure>
                 {% endif %}
-                <a class="publication-content" href="{% url 'article:edit' post.id %}">
+                <a class="publication-content" href="{% url 'article:edit' post.content_object.id %}">
                     <h3 class="publication-title">
-                        {{ post.title }}
-                        {% if post.status == post.STATUS_DRAFT %}<span class="label label-draft">Rascunho</span>{% endif %}
-                        {% if post.status == post.STATUS_TRASH %}<span class="label label-trash">Item excluído</span>{% endif %}
+                        {{ post.content_object.title }}
+                        {% if post.content_object.status == post.content_object.STATUS_DRAFT %}<span class="label label-draft">Rascunho</span>{% endif %}
+                        {% if post.content_object.status == post.content_object.STATUS_TRASH %}<span class="label label-trash">Item excluído</span>{% endif %}
                     </h3>
                 </a>
             </div>
             <footer class="publication-footer clearfix">
-            {% if post.publishin != None  %}
-                <time class="publication-footer-date" datetime="{{ post.publishin|date:"d/m/Y" }}" class="time">{{ post.publishin|naturaltime }}</time>
+            {% if post.content_object.publishin != None  %}
+                <time class="publication-footer-date" datetime="{{ post.content_object.publishin|date:"d/m/Y" }}" class="time">{{ post.content_object.publishin|naturaltime }}</time>
             {% else %}
                 <span class="list_post publication-footer-date">Não publicado</span>
             {% endif %}
                 <nav class="publication-footer-menu">
-                    <a class="publication-footer-menu-item" href="{% url 'article:edit' post.id %}">Editar</a>
-                    <a class="publication-footer-menu-item" href="{% url 'article:view' post.year post.month post.slug %}" target="_blank">Visualizar</a>
-                    {% if post.status != post.STATUS_TRASH %}
-                    <a class="publication-footer-menu-item text-danger" href="{% url 'article:delete' post.id %}" data-delete-item="true" data-url="{% url 'article:delete-async' post.id %}" data-item="{{ post.id }}" data-title="{{ post.title }}"  data-modal="#modal-confirmation">Excluir</a>
+                    <a class="publication-footer-menu-item" href="{% url 'article:edit' post.content_object.id %}">Editar</a>
+                    <a class="publication-footer-menu-item" href="{% url 'article:view' post.content_object.year post.content_object.month post.content_object.slug %}" target="_blank">Visualizar</a>
+                    {% if post.content_object.status != post.content_object.STATUS_TRASH %}
+                    <a class="publication-footer-menu-item text-danger" href="{% url 'article:delete' post.content_object.id %}" data-delete-item="true" data-url="{% url 'article:delete-async' post.content_object.id %}" data-item="{{ post.content_object.id }}" data-title="{{ post.content_object.title }}"  data-modal="#modal-confirmation">Excluir</a>
                     {% endif %}
                 </nav>
             </footer>

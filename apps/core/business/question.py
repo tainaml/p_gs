@@ -34,13 +34,14 @@ def get_related(question_id, record_type=None, items_per_page=None, page=None):
 
         related_questions = FeedObject.objects.filter(
             Q(taxonomies__in=feed_question.taxonomies.all()) &
-            Q(content_type=record_type)
+            Q(content_type=record_type) &
+            ~Q(question__slug='')
         ).exclude(
             Q(object_id=question_id) &
             Q(content_type=content_type)
         ).order_by(
             '-date'
-        )
+        ).distinct("id")
 
     except Exception, e:
         return False

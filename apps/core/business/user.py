@@ -1,5 +1,6 @@
 from django.contrib.auth import get_user_model
-from django.contrib.contenttypes.models import ContentType
+from django.contrib.postgres.search import SearchQuery, SearchRank
+from apps.core.business import search as SearchBusiness
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django_thumbor import generate_url
 from django.db.models import Q
@@ -245,30 +246,42 @@ def get_active_articles_from_user(profile_instance=None, description=None, conte
     return feed_objects_paginated
 
 
-def get_articles(author, description=None, status=None, items_per_page=None, page=None, order=None):
 
-    condition = Q(author=author) & (Q(title__icontains=description) | Q(text__icontains=description))
-    if status:
-        condition &= Q(status=status)
+def get_feed_articles(author, description=None, status=None, items_per_page=None, page=None, order=None):
 
-    if order:
-        posts = Article.objects.filter(condition).prefetch_related("author").exclude(status=Article.STATUS_TEMP).order_by('-publishin')
-    else:
-        posts = Article.objects.filter(condition).prefetch_related("author").exclude(status=Article.STATUS_TEMP)
+    __articles = SearchBusiness.get_articles_general_feed_queryset(description)
+
+    status = [status] if status else Article.STATUS_ALL
+
+    content_type = ContentTypeCached.objects.get(model='article')
+    query = SearchQuery(description)
+    feed_objects = FeedObject.objects.filter(
+        Q(content_type=content_type)
+        & Q(id__in=__articles)
+        & Q(article__author=author)
+        & Q(article__status__in=status)
+    ).annotate(
+        rank=SearchRank(Article.VECTOR, query)
+    ).prefetch_related(
+        "content_object",
+        "content_object__author",
+        "content_type",
+        "communities",
+        "communities__taxonomy").distinct("id", "date").order_by("-date")
 
     items_per_page = items_per_page if items_per_page else 10
     page = page if page else 1
 
     if items_per_page and page:
-        posts = Paginator(posts, items_per_page)
+        feed_objects = Paginator(feed_objects, items_per_page)
         try:
-            posts = posts.page(page)
+            feed_objects = feed_objects.page(page)
         except PageNotAnInteger:
-            posts = posts.page(1)
+            feed_objects = feed_objects.page(1)
         except EmptyPage:
-            posts = []
+            feed_objects = []
 
-    return posts
+    return feed_objects
 
 
 def get_articles_with_videos(author, description=None, items_per_page=None, page=None):

@@ -30,6 +30,14 @@ class Article(models.Model):
     STATUS_TRASH = 2
     STATUS_DRAFT = 3
     STATUS_PUBLISH = 4
+    STATUS_ALL = [
+        STATUS_TEMP,
+        STATUS_TRASH,
+        STATUS_DRAFT,
+        STATUS_PUBLISH
+
+    ]
+
 
     STATUS_CHOICES = (
         (STATUS_DRAFT, _('Draft')),
