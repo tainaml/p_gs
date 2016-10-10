@@ -87,7 +87,7 @@ class SignUpForm(BaseSignupForm):
 
     password = forms.CharField(max_length=50, required=True)
     password_confirmation = forms.CharField(max_length=50, required=True)
-    # captcha = NoReCaptchaField(required=True)
+    captcha = NoReCaptchaField(required=True)
 
     def clean_password(self):
 
