@@ -96,11 +96,11 @@ def get_users(description=None, items_per_page=None, page=None, startswith=False
             criteria = True
 
     if state:
-        state_criteria = Q(profile__city__state=state)
+        state_criteria = Q(profile__city_hometown__state=state)
         criteria = state_criteria if not criteria else criteria & state_criteria
 
     if city:
-        city_criteria = Q(profile__city=city)
+        city_criteria = Q(profile__city_hometown=city)
         criteria = city_criteria if not criteria else criteria & city_criteria
 
     # TODO remove empty register
