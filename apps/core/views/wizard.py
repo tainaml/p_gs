@@ -128,7 +128,7 @@ class StepTwoWizard(CoreProfileWizard):
         taxonomies = request.POST.getlist('taxonomies')
 
         if not taxonomies:
-            raise Http404('Taxonomies not found')
+            return render(request, self.template_name, context)
 
         request.session['wizard_step2_taxonomies'] = taxonomies
         return redirect(to="profile:wizard", step=step+1)
