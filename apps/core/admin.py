@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.contrib.admin import SimpleListFilter
 from django.contrib.contenttypes.admin import GenericTabularInline
 from django.utils.translation import ugettext as _
 
@@ -31,10 +32,29 @@ class CoreProfile(admin.StackedInline):
     verbose_name_plural = _("Profiles")
 
 
+class WizardFilter(SimpleListFilter):
+    title = "Passo no Wizard"
+    parameter_name = 'step'
+    # Set the displaying options
+    def lookups(self, request, model_admin):
+        return (
+            (0, "Nao iniciou wizard"),
+            (1, "Passo 1"),
+            (2, "Passo 2"),
+            (3, "Passo 3"),
+        )
+    # Assign a query for each option
+    def queryset(self, request, queryset):
+
+        step = self.value()
+        if step:
+            return queryset.filter(profile__wizard_step=step)
+
+
 class CoreUserAdmin(UserNewAdmin):
 
     form = CoreUserAdminForm
-
+    list_filter = ('is_staff', 'is_active', 'profile__contributor', WizardFilter)
     list_display = [
         'username', 'show_full_name',
         'show_staff', 'is_active', 'show_contributor', 'show_wizard_is_complete',
@@ -48,6 +68,9 @@ class CoreUserAdmin(UserNewAdmin):
     inlines = [
         CoreProfile
     ]
+
+    def wizard(self, obj):
+        return User.objects.filter(profile__wizard=3)
 
     def show_full_name(self, obj):
         return u"{name} {last_name}".format(
