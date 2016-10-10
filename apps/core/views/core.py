@@ -1,12 +1,9 @@
-from django.contrib.contenttypes.models import ContentType
+from apps.core.oembed.providers import  get_oembed_data_from_url
 from django.db.models import Q
 from django.http import JsonResponse
 from django.shortcuts import render
-from django.template.loader import render_to_string
 from django.utils import timezone
-from django.utils.safestring import mark_safe
 from django.views.generic import View
-import micawber
 from apps.article.models import Article
 from apps.core.business.content_types import ContentTypeCached
 from apps.feed.models import FeedObject
@@ -120,19 +117,7 @@ class OEmbed(View):
             return JsonResponse({'success': False, 'message': 'Invalid url.'})
 
         try:
-            providers = micawber.bootstrap_noembed()
+            return JsonResponse(get_oembed_data_from_url(url))
 
-            response = providers.request(url)
-            html = response.get('html', '')
-            html = html.replace('height="%d"' % response.get('height'), '')
-            html = html.replace('width="%d"' % response.get('width'), 'style="width:100%; height:100%; position: absolute; top: 0; left: 0"')
-            html = mark_safe(render_to_string('core/partials/responsive_embed.html', {'html': html}))
-
-            response.update({
-                'html': html
-            })
-
-            return JsonResponse(response)
-
-        except Exception, e:
+        except Exception as e:
             return JsonResponse({'success': False, 'message': e.message})
