@@ -1,4 +1,3 @@
-from apps.core.oembed.providers import  get_oembed_data_from_url
 from django.db.models import Q
 from django.http import JsonResponse
 from django.shortcuts import render
