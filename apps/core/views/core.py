@@ -2,11 +2,15 @@ from apps.core.oembed.providers import  get_oembed_data_from_url
 from django.db.models import Q
 from django.http import JsonResponse
 from django.shortcuts import render
+from django.template.loader import render_to_string
 from django.utils import timezone
+from django.utils.safestring import mark_safe
 from django.views.generic import View
 from apps.article.models import Article
 from apps.core.business.content_types import ContentTypeCached
 from apps.feed.models import FeedObject
+import micawber
+from micawber.providers import Provider
 
 
 class CoreBaseView(View):
@@ -114,10 +118,27 @@ class OEmbed(View):
     def get(self, request):
         url = request.GET.get('url', None)
         if not url:
+
             return JsonResponse({'success': False, 'message': 'Invalid url.'})
 
         try:
-            return JsonResponse(get_oembed_data_from_url(url))
+            providers = micawber.bootstrap_noembed()
+
+            # Custom Providers
+            providers.register('http://(\S*.)?youtu(\.be/|be\.com/playlist)\S+', Provider('http://www.youtube.com/oembed'))
+            providers.register('https://(\S*.)?youtu(\.be/|be\.com/playlist)\S+', Provider('http://www.youtube.com/oembed?scheme=https&'))
+
+            response = providers.request(url)
+            html = response.get('html', '')
+            html = html.replace('height="%d"' % response.get('height'), '')
+            html = html.replace('width="%d"' % response.get('width'), 'style="width:100%; height:100%; position: absolute; top: 0; left: 0"')
+            html = mark_safe(render_to_string('core/partials/responsive_embed.html', {'html': html}))
+
+            response.update({
+                'html': html
+            })
+
+            return JsonResponse(response)
 
         except Exception as e:
             return JsonResponse({'success': False, 'message': e.message})
