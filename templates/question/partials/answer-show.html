@@ -28,7 +28,7 @@
                                 </a>
                             </li>
                         {% else %}
-                            <li><a href="{% url 'complaint:report' 'comment' instance.id %}" data-report="true" data-async-module="click" data-async-target="#modal-report" data-async-method="get"><i class="gsticon gsticon-exclamation-triangle"></i> Denunciar</a></li>
+                            <li><a href="{% url 'complaint:report' 'answer' instance.id %}" data-report="true" data-async-module="click" data-async-target="#modal-report" data-async-method="get"><i class="gsticon gsticon-exclamation-triangle"></i> Denunciar</a></li>
                         {% endif %}
                     </ul>
                 </div>

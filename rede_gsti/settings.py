@@ -309,7 +309,7 @@ CONTACT_SEND_TO_EMAIL = config.get("CONTACT", "to")
 ENTITY_TO_COMMENT = ['comment', 'article', 'answer']
 MAX_LEVELS = 2
 
-ENTITY_TO_COMPLAINT = ['article', 'question']
+ENTITY_TO_COMPLAINT = ['article', 'question', 'answer']
 
 # Article config
 ARTICLE_TITLE_LIMIT = 255
