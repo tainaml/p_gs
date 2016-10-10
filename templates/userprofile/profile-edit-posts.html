@@ -2,7 +2,6 @@
 
 {% load avatar_tags %}
 {% load thumbor_tags %}
-
 {% block seo-og-title %}{% block seo_title %}Editar Conteúdo -> Publicações | {{ profile.user.get_full_name }}{{ block.super }}{% endblock %}{% endblock %}
 {% block seo-og-description %}{% block seo-description %}Área para editar as publicações que foram feitas da sua conta no Portal GSTI.{% endblock %}{% endblock %}
 {% block seo-og-image %}{% get_avatar profile.user width=200 height=200 smart=False fit_in=False %}{% endblock %}
@@ -78,9 +77,6 @@
 
         var jScrollElemment = null;
         var functionAjaxSuccessFilterCommunities = function(e, data) {
-
-            console.log('the_data');
-            console.dir(data);
 
             var $divCommunities = $("#posts-container");
             var $divJScroll = $('<div class="j-scroll-posts j-scroll-posts-container"></div>');

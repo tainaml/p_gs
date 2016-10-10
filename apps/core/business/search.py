@@ -240,6 +240,29 @@ def get_articles_feed_queryset(description=''):
 
     return articles
 
+def get_articles_general_feed_queryset(description=''):
+    if description == '':
+        articles = FeedObject.objects.prefetch_related(
+                 "content_object",
+                 "content_object__author",
+                 "content_type",
+                 "communities",
+                 "communities__taxonomy").order_by("-article__publishin")
+    else:
+
+        query = SearchQuery(description)
+
+        articles = FeedObject.objects.annotate(
+            rank=SearchRank(Article.VECTOR, query)
+        ).filter(Q(article__search_vector=query)).prefetch_related(
+                 "content_object",
+                 "content_object__author",
+                 "content_type",
+                 "communities",
+                 "communities__taxonomy").order_by('-rank')
+
+    return articles
+
 def get_question_feed_queryset(description=''):
     if description == '':
         questions = FeedObject.objects.filter(question__id__isnull=False).prefetch_related(

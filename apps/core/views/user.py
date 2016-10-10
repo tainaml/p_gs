@@ -597,7 +597,6 @@ class CoreProfileSearchEditPosts(views.ProfileBaseView):
 
     def get(self, request):
         profile = self.filter(request, request.user)
-
         context = {'profile': profile}
         context.update(self.get_context(request, profile))
 

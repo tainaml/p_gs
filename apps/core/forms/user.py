@@ -212,13 +212,12 @@ class CoreSearchArticlesForm(IdeiaForm):
         return cleaned_data
 
     def __process__(self):
-        return Business.get_articles(
+        return Business.get_feed_articles(
             self.author,
             self.cleaned_data.get('criteria'),
             self.cleaned_data.get('status'),
             self.items_per_page,
             self.cleaned_data.get('page', 1),
-            self.order
         )
 
 
