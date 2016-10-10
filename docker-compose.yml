@@ -1,4 +1,4 @@
-version: '2'
+version: '2'2016-10-10
 services:
   nginx:
     image: nginx

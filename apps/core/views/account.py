@@ -1,12 +1,15 @@
 from django.http import JsonResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.urls import reverse
 from django.utils.translation import ugettext as _
 
 from apps.account import views
 
 
 class CoreRegisterView(views.RegisterView):
-    pass
+
+    def redirect_to(self, request):
+        return redirect(reverse('profile:feed'))
 
 
 class CoreLoginView(views.LoginView):
