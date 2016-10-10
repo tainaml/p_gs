@@ -7,6 +7,8 @@
     {% set post_name = notification.target.title %}
     {% set url_next = notification.target.get_absolute_url %}
     {% set show_anchor = False %}
+    {% set anchor = "#comments" %}
+
 
 {% elif notification.target_content_type.model == "question" %}
     {% set action_verb = "respondeu" %}
@@ -33,9 +35,9 @@
     data-trigger="notification-as-read"
     data-csrf="{{ csrf_token }}"
     data-url-mark-as-read="{% url 'notifications:mark-as-read-and-visualized' %}"
-    data-next-url="{{ url_next }}{% if show_anchor %}#{{ notification.target_content_type.model }}-{{ notification.target.id }}{% endif %}#comments"
+    data-next-url="{{ url_next }}{% if show_anchor %}#{{ notification.target_content_type.model }}-{{ notification.target.id }}{% elif anchor %}{{ anchor }}{% endif %}"
     data-notification="{{ notification.id }}">
-    <a href="{{ url_next }}{% if show_anchor %}#{{ notification.target_content_type.model }}-{{ notification.target.id }}{% endif %}#comments" title="{{ post_name }}">
+    <a href="{{ url_next }}{% if show_anchor %}#{{ notification.target_content_type.model }}-{{ notification.target.id }}{% elif anchor %}{{ anchor }}{% endif %}" title="{{ post_name }}">
       <figure>
         <img src="{% get_avatar notification.author width=20 height=20 smart=False fit_in=False %}" width="20" height="20" alt="{{ notification.author.get_full_name }}">
         <figcaption>
