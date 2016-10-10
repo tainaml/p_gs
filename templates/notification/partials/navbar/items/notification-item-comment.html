@@ -33,9 +33,9 @@
     data-trigger="notification-as-read"
     data-csrf="{{ csrf_token }}"
     data-url-mark-as-read="{% url 'notifications:mark-as-read-and-visualized' %}"
-    data-next-url="{{ url_next }}{% if show_anchor %}#{{ notification.target_content_type.model }}-{{ notification.target.id }}{% endif %}"
+    data-next-url="{{ url_next }}{% if show_anchor %}#{{ notification.target_content_type.model }}-{{ notification.target.id }}{% endif %}#comments"
     data-notification="{{ notification.id }}">
-    <a href="{{ url_next }}{% if show_anchor %}#{{ notification.target_content_type.model }}-{{ notification.target.id }}{% endif %}" title="{{ post_name }}">
+    <a href="{{ url_next }}{% if show_anchor %}#{{ notification.target_content_type.model }}-{{ notification.target.id }}{% endif %}#comments" title="{{ post_name }}">
       <figure>
         <img src="{% get_avatar notification.author width=20 height=20 smart=False fit_in=False %}" width="20" height="20" alt="{{ notification.author.get_full_name }}">
         <figcaption>
