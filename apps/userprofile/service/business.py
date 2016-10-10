@@ -72,6 +72,16 @@ def create_profile(user, data=None):
 def edit_profile(user, data_profile=None):
 
     try:
+        if user.email != data_profile['email']:
+            user.email = data_profile['email']
+
+        if user.first_name != data_profile['first_name']:
+            user.first_name = data_profile['first_name']
+
+        if user.last_name != data_profile['last_name']:
+            user.last_name = data_profile['last_name']
+
+        user.save()
         update_profile(user, data_profile)
     except Exception as e:
         if settings.DEBUG:

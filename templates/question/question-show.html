@@ -10,7 +10,7 @@
 {% load ads %}
 {% load url_utils %}
 {% load core_tags %}
-{% block seo-og-title %}{% block seo_title %}{{ question.title }}{{ block.super }}{% endblock %}{% endblock %}
+{% block seo-og-title %}{% block seo_title %}{{ block.super }}{% endblock %}{% endblock %}
 {% block seo-og-description %}{% block seo-description %}{{ question.description|seo_description }}{% endblock %}{% endblock %}
 {% block seo-og-type %}article{% endblock %}
 
