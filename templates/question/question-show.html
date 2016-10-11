@@ -8,6 +8,7 @@
 {% load humanize %}
 {% load user_agents %}
 {% load ads %}
+{% load abs_url %}
 {% load url_utils %}
 {% load core_tags %}
 {% block seo-og-title %}{% block seo_title %}{{ block.super }}{% endblock %}{% endblock %}
@@ -17,6 +18,11 @@
 {% block seo-og-url %}{{ request.path|root  }}{% url 'question:show' question.slug question.id %}{% endblock %}
 
 {% block title %}{{ question.title }}{% endblock %}
+
+{% block seo-metas-extra %}
+    {{ block.super }}
+    <link rel="amphtml" href="{% absolute_url 'amp:question-single' %}">
+{% endblock %}
 
 {% block content %}
 
