@@ -1,0 +1,77 @@
+/**
+*  [COMMENTS]
+*  <div class="comment-box">
+*    <div class="comment-form"></div>
+*    <div class="container-comments">
+*      <div class="comment">
+*        <div class="comment" data-comment="1"></div>
+*        <div class="reply-form"></div>
+*      </div>
+*      <div class="reply-list">
+*        <div class="comment" data-comment="12"></div>
+*      </div>
+*    </div>
+*  </div>
+*/
+
+.comment-box {}
+
+.comment-form {
+  @extend %clearfix;
+  &-footer { text-align: right; }
+}
+
+.comment-list {
+  margin-top: 20px;
+}
+
+.comment {
+  padding-bottom: 17px;
+  margin-bottom: 15px;
+  border-bottom: 1px solid $color-border;
+}
+.container-comments {
+  margin-left: 14px;
+  margin-bottom: 20px;
+  border-left: 10px solid #e1e1e1;
+
+  [data-xhr] {
+    padding-left: 0;
+    margin-bottom: 0;
+  }
+  .comment {
+    padding-top: 10px;
+    margin-left: 14px;
+    // padding-bottom: 0;
+    // margin-bottom: 0;
+    // border-left: 10px solid $color-border;
+    // border-bottom: 0;
+    // .comment-text {
+    //   border-bottom: 1px solid $color-border;
+    // }
+  }
+}
+.comment-vote {
+  text-align: center;
+  > hr {
+    border-color: $color-border;
+    margin-top: 5px;
+    margin-bottom: 5px;
+  }
+  > i,
+  > div > a > i {
+    color: #4d6479;
+    font-size: 30px;
+  }
+  > div > hr {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+}
+
+.answer-text {
+  color: #6f6f6f;
+  font-size: 17px;
+  line-height: 30px;
+  letter-spacing: -.05em;
+}

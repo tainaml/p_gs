@@ -129,6 +129,24 @@ $.fn.refreshEditors = function (){
             e.stopPropagation();
           }
         },
+        onChange: function (e) {
+          setTimeout(function () {
+            var imagesContent = $('.note-editable').find('img');
+            $.each(imagesContent, function (index, image) {
+              var $image = $(image);
+              var imageFloat = $image.css('float');
+              console.log(imageFloat);
+              if (imageFloat) {
+                if (imageFloat == 'left') {
+                  $image.addClass('left-space-20');
+                  console.log($image);
+                } else if (imageFloat == 'right') {
+                  $image.css('margin-left', 20);
+                }
+              }
+            });
+          }, 10);
+        },
       }
     });
 
