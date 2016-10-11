@@ -72,13 +72,13 @@ def edit_profile(user, data_profile=None):
 
 
     try:
-        if hasattr(data_profile, 'email') and user.email != data_profile['email']:
+        if 'email' in data_profile and user.email != data_profile['email']:
             user.email = data_profile['email']
 
-        if hasattr(data_profile, 'email') and user.first_name != data_profile['first_name']:
+        if 'first_name' in data_profile and user.first_name != data_profile['first_name']:
             user.first_name = data_profile['first_name']
 
-        if hasattr(data_profile, 'email') and user.last_name != data_profile['last_name']:
+        if 'last_name' in data_profile and user.last_name != data_profile['last_name']:
             user.last_name = data_profile['last_name']
 
 
