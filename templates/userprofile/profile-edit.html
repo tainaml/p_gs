@@ -255,11 +255,19 @@
         }
 
         $(function() {
-            var $elementsChange = $("[data-ajax-change='true']");
 
+            var cityListener = function(){
+              fillElement($(this));
+            };
+
+            var $elementsChange = $("[data-ajax-change='true']");
             $.each($elementsChange, function(index, value) {
-                fillElement($(value));
+                var $element = $(value);
+                fillElement($element);
+                $element.on("change", cityListener);
             });
+
+
 
             var $social_count = $("[data-social-count=\"true\"]");
             $.each($social_count, function(key, value){
