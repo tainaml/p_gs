@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.contrib.admin import SimpleListFilter
 from django.contrib.contenttypes.admin import GenericTabularInline
+from django.db.models import Q
 from django.utils.translation import ugettext as _
 
 # Register your models here.
@@ -50,11 +51,41 @@ class WizardFilter(SimpleListFilter):
         if step:
             return queryset.filter(profile__wizard_step=step)
 
+class SocialFilter(SimpleListFilter):
+    title = "Tipo de Cadastro"
+    parameter_name = 'social'
+    # Set the displaying options
+    def lookups(self, request, model_admin):
+        return (
+            ('false', "Cadastro padrao"),
+            ('true', "Redes sociais"),
+            ('facebook', "Facebook"),
+            ('google-oauth2', "Google+"),
+            ('linkedin', "Linkedin"),
+        )
+    SOCIAL_PROVIDERS = [
+        'facebook',
+        'google-oauth2',
+        'linkedin'
+    ]
+
+    def queryset(self, request, queryset):
+
+        social_filter = self.value()
+        print social_filter
+
+        if social_filter == 'false':
+            return queryset.filter(social_auth__isnull=True)
+        elif social_filter == 'true':
+            return queryset.filter(social_auth__isnull=False)
+        elif social_filter in self.SOCIAL_PROVIDERS:
+            return queryset.filter(social_auth__provider=social_filter)
+
 
 class CoreUserAdmin(UserNewAdmin):
 
     form = CoreUserAdminForm
-    list_filter = ('is_staff', 'is_active', 'profile__contributor', WizardFilter)
+    list_filter = ('is_active', 'profile__contributor', WizardFilter, SocialFilter)
     list_display = [
         'username', 'show_full_name',
         'show_staff', 'is_active', 'show_contributor', 'show_wizard_is_complete',
