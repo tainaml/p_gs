@@ -1,6 +1,5 @@
 import logging
 
-from apps.account.models import User
 from django.db import transaction
 from apps.account.models import User
 
@@ -71,15 +70,17 @@ def create_profile(user, data=None):
 @transaction.atomic()
 def edit_profile(user, data_profile=None):
 
+
     try:
-        if user.email != data_profile['email']:
+        if hasattr(data_profile, 'email') and user.email != data_profile['email']:
             user.email = data_profile['email']
 
-        if user.first_name != data_profile['first_name']:
+        if hasattr(data_profile, 'email') and user.first_name != data_profile['first_name']:
             user.first_name = data_profile['first_name']
 
-        if user.last_name != data_profile['last_name']:
+        if hasattr(data_profile, 'email') and user.last_name != data_profile['last_name']:
             user.last_name = data_profile['last_name']
+
 
         user.save()
         update_profile(user, data_profile)
@@ -94,7 +95,6 @@ def edit_profile(user, data_profile=None):
 def update_profile(user=None, data=None):
 
     profile = user.profile if user and hasattr(user, 'profile') else get_profile(user)
-
     try:
         if data.get('birth'):
             profile.birth = data.get('birth')

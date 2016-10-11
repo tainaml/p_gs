@@ -96,7 +96,6 @@ class EditProfileForm(IdeiaForm):
                 self.add_error('profile_picture',
                                ValidationError(_('Image size more than 1mb.'), code='profile_picture'))
                 is_valid = False
-
         return is_valid
 
     def __process__(self):
