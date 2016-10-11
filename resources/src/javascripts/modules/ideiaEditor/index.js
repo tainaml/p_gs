@@ -138,8 +138,7 @@ $.fn.refreshEditors = function (){
               console.log(imageFloat);
               if (imageFloat) {
                 if (imageFloat == 'left') {
-                  $image.addClass('left-space-20');
-                  console.log($image);
+                  $image.css('margin-right', 20);
                 } else if (imageFloat == 'right') {
                   $image.css('margin-left', 20);
                 }
