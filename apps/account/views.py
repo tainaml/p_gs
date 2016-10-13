@@ -12,7 +12,7 @@ from django.utils.translation import ugettext as _
 
 from apps.account.account_exceptions import AccountDoesNotExistException, TokenIsNoLongerValidException, \
     TokenIsNotActiveException, TokenDoesNotExistException
-from apps.account.models import MailValidation
+from apps.account.models import MailValidation, TokenType
 from rede_gsti import settings
 from .service.forms import SignUpForm, LoginForm, ChangePasswordForm, RecoveryPasswordForm, ForgotPasswordForm, \
     ResendAccountConfirmationForm, CheckUsernameForm
@@ -197,29 +197,27 @@ class MailValidationView(View):
         :return: HTML
         """
         user = None
+        token = None
         message = _('Token exist - Account verified')
+        #TODO refactor entire method
         try:
-            user, token_verified = register_confirm(activation_key)
-
-            if token_verified and user and user.is_active:
+            token = register_confirm(activation_key)
+            user = token.user
+            if token and user and user.is_active:
 
                 try:
                     log_in_user_no_credentials(request, user)
 
-                    if user.profile.wizard_step < settings.WIZARD_STEPS_TOTAL:
-                        return redirect(reverse('profile:feed'))
-                    else:
-                        return redirect('/')
+                    return redirect(reverse('profile:feed'))
 
                 except Exception, e:
                     logger.error(e)
                     message = _('Um erro ocorreu, por favor tente novamente mais tarde!')
 
-
-
         except AccountDoesNotExistException:
             message = _('Account is not exists!')
         except TokenIsNoLongerValidException:
+            token = MailValidation.objects.get(token=activation_key)
             message = _('Token is not longer valid!')
         except TokenIsNotActiveException:
             if user and user.is_active:
@@ -234,16 +232,7 @@ class MailValidationView(View):
         except TokenDoesNotExistException:
             message = _('Token is not exists!')
 
-
-        try:
-            token = MailValidation.objects.get(token=activation_key)
-            log_in_user_no_credentials(request, token.user)
-            return redirect(reverse('profile:feed'))
-        except MailValidation.DoesNotExist:
-            pass
-
-
-        return render(request, 'account/mail_validation.html', {'message': message})
+        return render(request, 'account/mail_validation.html', {'message': message, 'token': token,'TokenType': TokenType})
 
 
 class RecoveryValidationView(View):

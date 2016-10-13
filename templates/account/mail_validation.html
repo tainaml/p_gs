@@ -5,6 +5,14 @@
         <div class="success-page">
             <h4 class="success-page-subtitle">{{ message }}</h4>
             <p class="success-page-description"><a href="{% url 'account:signup' %}">{% trans "Sign-up" %}</a></p>
+            {{ TokenType.REGISTER_ACCOUNT_CONFIRM }}, {{ token.token_type }}
+            {% if token and token.token_type == TokenType.REGISTER_ACCOUNT_CONFIRM %}
+
+                <a href="{{ url_resend_account_confirmation }}" data-toggle="modal" data-target="#modal-resend-email-confirmation">Clique aqui para reenviá-lo</a>
+                <p>Se ainda não tem uma conta, <a href="{% url 'account:signup' %}">clique aqui e cadstre-se</a></p>
+            {% else %}
+                <p class="success-page-description"><a href="{% url 'account:signup' %}">{% trans "Sign-up" %}</a></p>
+            {% endif %}
         </div>
     </main>
 {% endblock %}

@@ -8,10 +8,10 @@
 Seu username é: {{ user.username }} <br>
 
 {% url 'account:mail_validation' token as token_url %}
-
+<p>Este é um email de reenvio de token para a verificação da conta. Se não foi você quem solicitou, por favor desconsidere-o</p>
 <p>Para ativar sua conta <a href="https://www.portalgsti.com.br{{ token_url}}">clique aqui</a></p>
 
-<p>A url é [https://www.portalgsti.com.br{{ token_url}}]</p>
+<p>Por questões de segurança, disponibilizamos também a url: [https://www.portalgsti.com.br{{ token_url}}]</p>
 
 
 {% endblock %}

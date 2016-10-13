@@ -102,24 +102,22 @@ def register_confirm(activation_key):
     """
     Method for confirm of user's account
     :param activation_key:
-    :return:
+    :return user:
     """
 
     token = check_token_exist(activation_key)
     if token:
-        if token.is_active():
-            if token.is_valid():
-                user = activate_account(token)
-                if user:
-                    return user, True
-                else:
-                    raise AccountDoesNotExistException()
+        if token.is_valid():
+            user =  activate_account(token)
+            if user:
+                return token
             else:
-                raise TokenIsNoLongerValidException()
+                raise AccountDoesNotExistException()
         else:
-            raise TokenIsNotActiveException()
+            raise TokenIsNoLongerValidException()
     else:
         raise TokenDoesNotExistException()
+
 
 
 @transaction.atomic

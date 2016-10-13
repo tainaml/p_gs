@@ -72,6 +72,8 @@ class MailValidation(models.Model):
     active = models.BooleanField(default=True)
     token_type = models.IntegerField()
 
+
+
     def __str__(self):
         return self.token
 
@@ -110,7 +112,7 @@ class MailValidation(models.Model):
         :return: Boolean
         """
 
-        return self.active
+        return self.is_valid()
 
 
 
