@@ -31,7 +31,7 @@ except IOError as e:
 
     config.add_section("GENERAL")
     config.set("GENERAL", "secret_key", '3u2oo))n_j*t#sjx*)=p*5j4mpb^7iruq4$v3%2nn!e2r2p$jj')
-    config.set("GENERAL", "site_url", 'http://redegsti.dev:8000')
+    config.set("GENERAL", "site_url", 'http://localhost:8000')
     config.set("GENERAL", "expiration_register_time", '48')
     config.set("GENERAL", "expiration_password_recovery", '8')
 
@@ -72,8 +72,8 @@ except IOError as e:
     config.set("GOOGLE", "secret", 'N6meHsg8fUGF4Ti4PKd0oh5m')
 
     config.add_section("THUMBOR")
-    config.set("THUMBOR", "server", 'http://thumbor.redegsti.dev:8888')
-    config.set("THUMBOR", "media_url", 'http://redegsti.dev:8000/media/uploads')
+    config.set("THUMBOR", "server", 'http://localhost:8888')
+    config.set("THUMBOR", "media_url", 'http://localhost:8000/media/uploads')
     config.set("THUMBOR", "key", 'MY_SECURE_KEY')
 
     config.add_section("CACHE")
@@ -908,17 +908,13 @@ if ENVIRONMENT == "develop":
         SILKY_PYTHON_PROFILER = True
         SILKY_META = True
 
+    STATIC_URL = '/static/'
+    MEDIA_URL = '/media/uploads/'
+
 
     INSTALLED_APPS += ('apps.ninico', PROFILER_APP )
-    STATIC_URL = '/static/'
-    MEDIA_URL = 'http://localhost:8888/media/uploads/'
     SECURE_SSL_HOST = None
     SECURE_PROXY_SSL_HEADER = None
-
-    AVATAR = {
-        'M': 'nginx/static/images/avatar-masculino.png',
-        'F': 'nginx/static/images/avatar-feminino.png'
-    }
 
     if USE_CACHE:
         CACHES = {
