@@ -28,7 +28,7 @@ def validate_username(**kwargs):
     username = kwargs.get('username')
     if username:
         username = str(username).lower()
-    users = len(User.objects.filter(username=username))
+    users = len(User.objects.filter(username__iexact=username))
     if username and users > 0:
         kwargs['username'] = username+str(users+1)
 

@@ -96,6 +96,13 @@ class SignUpForm(BaseSignupForm):
         validate_password(_pass)
         return _pass
 
+    def clean_username(self):
+        username = self.cleaned_data.get('username')
+        username = username.lower()
+
+        return username
+
+
 
     def is_valid(self):
         valid = super(SignUpForm, self).is_valid()
