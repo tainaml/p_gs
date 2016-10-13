@@ -13,7 +13,6 @@ def alert_send(sender, **kwargs):
     if not instance:
         # Exit if not have instance
         return
-    print "hehehHEHEH"
     if instance.status != UserAlert.STATUS_PUBLISH:
         # Exit if is not publish
         return
