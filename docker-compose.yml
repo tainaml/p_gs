@@ -1,16 +1,5 @@
 version: '2'
 services:
-  nginx:
-    image: nginx
-    domainname: static.redegsti.dev
-    hostname: nginx
-    ports:
-      - "8008:80"
-    volumes:
-      - ./provision/data/nginx.local:/etc/nginx/conf.d/default.conf
-#      - ./:/etc/nginx/html:ro
-      - ./staticfiles:/etc/nginx/html/static:ro
-      - ./media:/etc/nginx/html/media:ro
   thumbor:
     image: zanui/thumbor
     environment:
@@ -29,8 +18,7 @@ services:
       RESULT_STORAGE: "thumbor.result_storages.file_storage"
     ports:
       - "8888:9000"
-    links:
-      - nginx:nginx
+    network_mode: "host"
   memcached:
     image: memcached
     ports:
@@ -49,6 +37,3 @@ services:
       - "5432:5432"
     volumes:
       - ../postgres_database:/var/lib/postgresql
-networks:
-  default:
-    driver: bridge
