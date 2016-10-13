@@ -89,7 +89,7 @@ class CoreUserAdmin(UserNewAdmin):
     list_display = [
         'username', 'show_full_name',
         'show_staff', 'is_active', 'show_contributor', 'show_wizard_is_complete',
-        'show_date_joined', 'show_login'
+        'date_joined', 'show_login'
     ]
 
     list_display_links = [
@@ -122,12 +122,6 @@ class CoreUserAdmin(UserNewAdmin):
         except Exception:
             return False
 
-    def show_date_joined(self, obj):
-        try:
-            return obj.date_joined.strftime('%d/%m/%Y %H:%M')
-        except Exception:
-            return "-"
-
     def show_login(self, obj):
         return naturaltime(obj.last_login)
 
@@ -144,9 +138,9 @@ class CoreUserAdmin(UserNewAdmin):
 
     show_staff.short_description = 'Membro'
     show_staff.boolean = True
-
-    show_date_joined.admin_order_field = 'date_joined'
-    show_date_joined.short_description = 'Criado em'
+    #
+    # show_date_joined.admin_order_field = 'date_joined'
+    # show_date_joined.short_description = 'Criado em'
 
     show_login.short_description = 'Login'
     show_login.admin_order_field = 'last_login'
