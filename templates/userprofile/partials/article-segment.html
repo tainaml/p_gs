@@ -21,7 +21,7 @@
             <a href="javascript:;" data-toggle="dropdown"><i class="gsticon gsticon-gear"></i></a>
             <div class="dropdown-menu dropdown-menu-right">
                 <ul class="perfil-actions">
-                    {% if instance.author == request.user %}
+                    {% if instance.author == request.user or perms.article.change_other_articles %}
                         <li><a href="{% url 'article:edit' instance.id %}"><i class="gsticon gsticon-edit"></i> Editar publicação</a></li>
                     {% endif %}
                     <li><a data-url-login="{% url 'account:is_logged' %}" data-trigger="login" data-token="{{ csrf_token }}" href="javascript:;" data-suggest-modal="true" data-content="article" data-object="{{ instance.id }}" data-url="{% url 'socialactions:act-suggest' instance.id 'article' %}"><i class="gsticon gsticon-paper-plane"></i> Sugerir leitura</a></li>

@@ -33,7 +33,12 @@ class ArticleBaseView(View):
         return article
 
     def check_is_owner(self, request, article):
-        if article.id and not article.author.id == request.user.id:
+
+        can_edit_others = request.user.has_perm('article.change_other_articles')
+        is_author = (article.author_id == request.user.id) if article.id and article.author else False
+
+        if not is_author and not can_edit_others:
+
             '''
             Only the article author has permission to edit article
             '''

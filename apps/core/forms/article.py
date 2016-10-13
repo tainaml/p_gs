@@ -54,7 +54,7 @@ class CoreArticleBaseForm(ArticleForm, CoreTaxonomiesMixin):
     def __process__(self):
         process_article = super(CoreArticleBaseForm, self).__process__()
         if process_article:
-            reversion.set_user(process_article.author)
+            reversion.set_user(self._author)
         process_feed = Business.save_feed_item(self.instance, self.cleaned_data)
 
         process_taxonomies = None

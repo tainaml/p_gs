@@ -76,6 +76,9 @@ class Article(models.Model):
             ('change_other_articles', _('Can edit articles from others'))
         ]
 
+    def change_other_articles(self, user):
+        return bool(user.has_perm('article.change_other_articles'))
+
     def get_first_slug(self):
         return self.first_slug if self.first_slug else self.slug
 
