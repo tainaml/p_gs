@@ -27,7 +27,9 @@ class Show(View):
         self.check_alert(alert_id, request)
 
         self.context.update({
-            'alert': self.alert
+            'alert': self.alert,
+            'profile': request.user.profile,
+            'UserAlert': UserAlert
         })
 
         return render(request, 'useralerts/single.html', context=self.context)

@@ -15,10 +15,21 @@ class UserAlert(models.Model):
         (STATUS_SENDED, 'Sended')
     )
 
+    INFO = 1
+    WARNING = 2
+    DANGER = 3
+
+    TYPE_CHOICES = (
+        (INFO, 'Info'),
+        (WARNING, 'Warning'),
+        (DANGER, 'Danger')
+    )
+
     title = models.CharField(max_length=150)
     content = models.TextField()
     users = models.ManyToManyField(settings.AUTH_USER_MODEL)
     status = models.IntegerField(choices=STATUS_CHOICES, default=STATUS_DRAFT)
+    type = models.IntegerField(choices=TYPE_CHOICES, default=INFO)
 
     def is_published(self):
         return bool(self.status == self.STATUS_PUBLISH)

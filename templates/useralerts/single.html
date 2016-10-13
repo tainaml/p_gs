@@ -1,40 +1,43 @@
 {%extends 'home/layout/base.html' %}
-
-{% load taxonomy_tags %}
-{% load core_tags %}
-{% load profile_tags %}
-{% load social_tags %}
-{% load article_tags %}
-{% load thumbor_tags %}
-{% load user_agents %}
 {% load staticfiles %}
 {% load avatar_tags %}
-{% load humanize %}
-{% load url_utils %}
-
-{% block title %}{{ alert.title }} - Portal GSTI{% endblock %}
-
+{% load thumbor_tags %}
+{% block seo-og-title %}{% block seo_title %}Notificações -> Geral | {{ request.user.get_full_name }}{{ block.super }}{% endblock %}{% endblock %}
+{% block seo-og-description %}{% block seo-description %}Área para gerenciar as notificações gerais da sua conta no Portal GSTI.{% endblock %}{% endblock %}
+{% block seo-og-image %}{% get_avatar request.user width=90 height=90 smart=False fit_in=False %}{% endblock %}
+{% block seo-metas-extra %}
+    <meta name="robots" content="noindex, nofollow">
+{% endblock %}
 {% block content %}
     <main class="container main">
         <div class="row">
+            <div class="col-lg-3">{% include 'home/partials/sidebar-perfil.html' %}</div>
+            <div class="col-lg-9">
+                <div class="row">
+                    <div class="col-lg-8">
+                        <header class="area-title">
+                            <h2>{{ alert.title }}</h2>
+                        </header>
+                        {% comment %}TODO Refactor to a better aproach{% endcomment %}
+                        {% if alert.type == UserAlert.INFO %}
+                            <div class="area-content alert alert-info">
+                                <p>{{ alert.content|safe }}</p>
+                            </div>
 
-            <div class="container">
-                <article class="full-post">
-                    <header class="post-header">
-                        <h1 class="full-post-title">{{ alert.title }}</h1>
-                    </header>
+                        {% elif alert.type == UserAlert.WARNING %}
+                            <div class="area-content alert alert-warning">
+                                <p>{{ alert.content|safe }}</p>
+                            </div>
+                        {% elif alert.type == UserAlert.DANGER %}
+                            <div class="area-content alert alert-danger">
+                                <p>{{ alert.content|safe }}</p>
+                            </div>
 
-                    <div class="full-post-content">
-
-                        {% thumbor_replace alert.content %}
-
-                        <div class="post-advertising text-center">
-                            <img class="img-responsive" src="http://placehold.it/728x90" alt="Propaganda">
-                        </div>
+                        {% endif %}
 
                     </div>
-                </article>
-
+                    {% include "notification/partials/sidebar/notification-sidebar-right.html" with local_context="general" %}
+                </div>
             </div>
         </div>
     </main>
@@ -43,4 +46,61 @@
 
 {% block javascripts %}
     {{ block.super }}
+    <script>
+        $(function() {
+            $(".j-scroll").jscroll({
+                loadingHtml: '<div class="load-async-preload"></div>',
+                contentSelect: ".j-scroll-container",
+                nextSelector: "a[data-jscroll-next]",
+                callback: refreshAsyncLike
+            });
+        });
+    </script>
 {% endblock %}
+
+{#{%extends 'home/layout/base.html' %}#}
+{##}
+{#{% load taxonomy_tags %}#}
+{#{% load core_tags %}#}
+{#{% load profile_tags %}#}
+{#{% load social_tags %}#}
+{#{% load article_tags %}#}
+{#{% load thumbor_tags %}#}
+{#{% load user_agents %}#}
+{#{% load staticfiles %}#}
+{#{% load avatar_tags %}#}
+{#{% load humanize %}#}
+{#{% load url_utils %}#}
+{##}
+{#{% block title %}{{ alert.title }} - Portal GSTI{% endblock %}#}
+{##}
+{#{% block content %}#}
+{#    <main class="container main">#}
+{#        <div class="row">#}
+{##}
+{#            <div class="container">#}
+{#                <article class="full-post">#}
+{#                    <header class="post-header">#}
+{#                        <h1 class="full-post-title">{{ alert.title }}</h1>#}
+{#                    </header>#}
+{##}
+{#                    <div class="full-post-content">#}
+{##}
+{#                        {% thumbor_replace alert.content %}#}
+{##}
+{#                        <div class="post-advertising text-center">#}
+{#                            <img class="img-responsive" src="http://placehold.it/728x90" alt="Propaganda">#}
+{#                        </div>#}
+{##}
+{#                    </div>#}
+{#                </article>#}
+{##}
+{#            </div>#}
+{#        </div>#}
+{#    </main>#}
+{#{% endblock %}#}
+{##}
+{##}
+{#{% block javascripts %}#}
+{#    {{ block.super }}#}
+{#{% endblock %}#}
