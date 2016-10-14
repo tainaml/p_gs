@@ -68,7 +68,6 @@
 
     var functionAjaxSuccessStepThree = function(e, data) {
 {#        location.reload();#}
-        console.dir(data)
     };
     var functionSubmitCommunitiesSearch = function(){
         var $self = $(this);
@@ -82,7 +81,6 @@
     };
     var functionSearchCommunities = function(e, data){
 
-        console.dir(data);
 
 {#        var $containerCommunities = $("#wizard-container-communities");#}
         {#      $containerCommunities.html(data.template);#}
@@ -106,21 +104,25 @@
 {#        });#}
     };
 
-    var fillValues = function() {
-        var $this = $(this);
+    function fillValues($element) {
+
         $.ajax({
-            url: $this.data("url"),
+            url: $element.data("url"),
             method: "POST",
             dataType: "html",
             data: {
-                value_id: $this.val(),
+                value_id: $element.val(),
                 csrfmiddlewaretoken: $("input:hidden[name='csrfmiddlewaretoken']").val()
             },
             success: function(response) {
-                console.dir($this.data("target"));
-                $($this.data("target")).html(response);
+                $($element.data("target")).html(response);
             }
         });
+    }
+
+    var fillValuesIn = function(){
+        $this = $(this);
+        fillValues($this);
     };
 
     $(function() {
@@ -151,11 +153,14 @@
 
 
         $("form#form-filter-communities input[name=criteria]").inputTyping(200, functionSubmitCommunitiesSearch);
-        $("[data-ajax-change='true']").on("change", fillValues);
-{#        $(document).on("ajaxform.success", "#form-filter-communities", functionSearchCommunities);#}
-{#        $(document).on("ajaxform.success", "#form-personal-info", functionAjaxSuccessStepOne);#}
-{#        $(document).on("ajaxform.success", "#form-filter-categories", functionAjaxSuccessStepTwo);#}
-{#        $(document).on("ajaxform.success", "#form-suggestions", functionAjaxSuccessStepThree);#}
+
+        var $elementsToChange = $("[data-ajax-change='true']");
+        $elementsToChange.on("change", fillValuesIn);
+
+        $.each($elementsToChange, function(idx, value){
+            var $elementToChange = $(value);
+            fillValues($elementToChange);
+        });
 
 
         $(document).on('click', '.btn-wizard-next-categories', function doClickMoreCommunities(e){
@@ -188,14 +193,6 @@
             });
 
         });
-
-
-{#        var $select_state = $('select#state');#}
-{#        var $formPersonal = $('form#form-personal-info');#}
-{##}
-{#        if($select_state.length && $formPersonal.length && $select_state.val()){#}
-{#            $select_state.trigger('change');#}
-{#        }#}
 
         {% if request.user and request.user.profile and request.user.profile.wizard_step < 1 %}
             $("#modal-personal-infos").modal({
