@@ -34,6 +34,13 @@ class CoreTaxonomiesMixin(IdeiaModelForm):
 
     def filter_comunities(self, author, extra=None):
         communities = self.fields.get('communities')
+
+        if extra is None:
+            try:
+                extra = self.instance.feed.all().first().communities.all()
+            except Exception as e:
+                pass
+
         if communities:
             _user_communities = UserBusiness.get_user_communities(author)
             communities.queryset = _user_communities

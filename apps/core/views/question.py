@@ -54,7 +54,7 @@ class CoreQuestionInCommunityView(CoreQuestionCreateView):
 
         try:
             self.question_community = Community.objects.get(slug=community_slug)
-        except Community.DoesNotExist, e:
+        except Community.DoesNotExist:
             raise Http404(_('Community not Found'))
 
         # raize 403 if user not follow this community
