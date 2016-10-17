@@ -18,7 +18,7 @@ class ArticleForm(IdeiaModelForm):
     # image = forms.ImageField(required=False)
     publishin = forms.DateTimeField(required=False)
     # status = forms.ChoiceField(required=False, choices=Business.Article.STATUS_CHOICES)
-    author = forms.IntegerField(required=False)
+    # author = forms.IntegerField(required=False)
 
     # Actions: save, publish, schedule
     ACTION_SAVE = 1
@@ -31,14 +31,14 @@ class ArticleForm(IdeiaModelForm):
 
     class Meta:
         model = Business.Article
-        exclude = ['first_slug', 'slug','status', 'search_vector']
+        exclude = ['first_slug', 'slug','status', 'search_vector', 'author']
 
     def __init__(self, data=None, files=None, author=False, *args, **kwargs):
 
         super(ArticleForm, self).__init__(data, files, *args, **kwargs)
 
-        if author:
-            self.set_author(author)
+        # if author:
+        #     self.set_author(author)
 
     def clean_text(self):
         regex = re.compile(r'<p>&nbsp;</p>')
@@ -73,9 +73,9 @@ class ArticleForm(IdeiaModelForm):
         slug = slug if bool(slug) else Business.get_valid_slug(self.instance, title)
         return slug
 
-    def clean_author(self):
-        _author = self.cleaned_data.get('author')
-        return _author if _author else self._author
+    # def clean_author(self):
+    #     _author = self.cleaned_data.get('author')
+    #     return _author if _author else self._author
 
     def is_valid(self):
         valid = True
@@ -140,6 +140,8 @@ class ArticleForm(IdeiaModelForm):
         self._author = author
 
     def __process__(self):
-        self.instance.author = self._author
+        if not self.instance.author:
+            self.instance.author = self._author
+
         self.instance = self.save()
         return Business.save_article(self.instance, self.cleaned_data)

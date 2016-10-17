@@ -69,7 +69,7 @@
 
                                     {% url 'profile:user-communities-ajax' as user_ajax_url %}
 
-                                    {% render_field form.communities data-toggle="selectize" data-module="taxonomy" data-url="{{ user_ajax_url }}" data-label-field="name" data-value-field="id" data-options=communities|jsonify %}
+                                    {% render_field form.communities data-toggle="selectize" data-module="taxonomy" data-url="{{ user_ajax_url }}" data-label-field="name" data-value-field="id" %}
 
                                     {% if form.communities.errors %}  {{ form.communities.errors }} {% endif %}
 

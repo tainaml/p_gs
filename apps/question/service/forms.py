@@ -75,7 +75,7 @@ class EditQuestionForm(CreateQuestionForm):
                                            code='is_not_authenticated'))
             is_valid = False
 
-        if self.user != self.instance.author:
+        if not (self.user == self.instance.author) and not self.user.has_perm('question.change_other_questions'):
             self.add_error(None,
             ValidationError(('User dont have access'),
                                                code='is_not_permission'))
@@ -88,7 +88,7 @@ class EditQuestionForm(CreateQuestionForm):
         self.instance = self.save()
 
         # TODO: [POG] Protect for error in oldest questions without slug
-        if not bool(self.instance.slug):
+        if bool(self.instance.slug) == False:
             self.instance.slug = slugify(self.instance.title)
             self.instance.save()
 

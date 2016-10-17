@@ -98,7 +98,7 @@ def get_question(question_id=None, prefetch=None, related=None):
     try:
         quest = qs.get(id=question_id)
     except Question.DoesNotExist:
-        quest = False
+        quest = None
 
     return quest
 

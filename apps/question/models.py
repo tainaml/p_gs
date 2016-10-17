@@ -1,10 +1,9 @@
 from django.contrib.contenttypes.fields import GenericRelation
-from django.contrib.contenttypes.models import ContentType
 from django.contrib.postgres.search import SearchVectorField, SearchVector
 from django.core.urlresolvers import reverse
 from django.db import models
 from django.conf import settings
-
+from django.utils.translation import ugettext as _
 from apps.core.business.content_types import ContentTypeCached
 from apps.taxonomy.models import Taxonomy
 from apps.feed.models import FeedObject
@@ -41,6 +40,10 @@ class Question(models.Model):
     search_vector = SearchVectorField(null=True)
 
     feed = GenericRelation(FeedObject, related_query_name="question")
+
+    permissions = [
+        ('change_other_questions', _('Can edit questions from others'))
+    ]
 
     def check_is_owner(self, user):
         return self.author == user

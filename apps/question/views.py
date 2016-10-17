@@ -1,4 +1,5 @@
-from django.http import Http404, JsonResponse
+from django.core.exceptions import PermissionDenied
+from django.http import Http404, JsonResponse, HttpResponseForbidden
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
@@ -177,12 +178,16 @@ class EditQuestionView(View):
     @method_decorator(login_required)
     def get(self, request, question_id):
         question = business.get_question(question_id)
-        if question:
-            form = self.form(user=request.user, instance=question)
-            context = {'form': form, 'question': question}
-            return render(request, 'question/edit_question.html', self.prepare_context(request, context))
-        else:
+
+        if not question:
             raise Http404(_("Question is not exists!"))
+
+        if not (question.author_id == request.user.id) and not request.user.has_perm('question.change_other_questions'):
+            return HttpResponseForbidden()
+
+        form = self.form(user=request.user, instance=question)
+        context = {'form': form, 'question': question}
+        return render(request, 'question/edit_question.html', self.prepare_context(request, context))
 
 
 class UpdateQuestionView(View):
@@ -191,23 +196,28 @@ class UpdateQuestionView(View):
 
     @method_decorator(login_required)
     def post(self, request):
-        question = business.get_question(request.POST['question_id'])
-        if question:
-            form = self.form(data=request.POST, instance=question, user=request.user)
-            if form.process():
-                messages.add_message(request, messages.SUCCESS,
-                                     _("Question updated successfully!"), 'question-edit')
-                return redirect(reverse('question:edit', args=[question.id]))
-            else:
-                messages.add_message(request, messages.ERROR, 'Erro ao carregar question', 'question-edit')
 
-            return render(request, 'question/edit_question.html', {
-                'form': form,
-                'question': question
-            })
-        else:
+        question_id = request.POST.get('question_id', None)
+        question = business.get_question(question_id)
 
+        if not question:
             raise Http404(_("Question is not exists!"))
+
+        if not (question.author_id == request.user.id) and not request.user.has_perm('question.change_other_questions'):
+            return HttpResponseForbidden()
+
+        form = self.form(data=request.POST, instance=question, user=request.user)
+        if form.process():
+            messages.add_message(request, messages.SUCCESS,
+                                 _("Question updated successfully!"), 'question-edit')
+            return redirect(reverse('question:edit', args=[question.id]))
+        else:
+            messages.add_message(request, messages.ERROR, 'Erro ao carregar question', 'question-edit')
+
+        return render(request, 'question/edit_question.html', {
+            'form': form,
+            'question': question
+        })
 
 
 class ShowQuestionView(View):

@@ -44,7 +44,7 @@
                             <a href="javascript:;" data-toggle="dropdown"><i class="gsticon gsticon-gear"></i></a>
                             <div class="dropdown-menu">
                                 <ul class="perfil-actions">
-                                    {% if question.author.id == request.user.id %}
+                                    {% if question.author_id == request.user.id or perms.question.change_other_questions %}
                                     <li><a href="{% url 'question:edit' question.id %}"><i class="gsticon gsticon-edit"></i> Editar pergunta</a></li>
                                     {% endif %}
                                     <li><a data-url-login="{% url 'account:is_logged' %}" data-trigger="login" data-token="{{ csrf_token }}" data-action="see-later" data-action-type="text" data-action-text="Ver depois" data-action-text-alt="Desmarcar como visto" data-url-check="{% url 'socialactions:acted' question.id 'question' 'see-later' %}" data-object="see-later-{{ question.id }}" href="{% url 'socialactions:act-xhr' question.id 'question' 'see-later' %}?url_next={{ request.path|urlencode }}"><i class="gsticon gsticon-eye"></i> <span>{{" Ver depois"}}</span></a></li>
