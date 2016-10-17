@@ -19,3 +19,17 @@ def tag_manager_iframe():
     return {
         'must_be_rendered': must_be_rendered
     }
+
+
+@register.simple_tag(takes_context=True)
+def seo_feed_robots(context, noindex, nofollow):
+
+    robots = []
+
+    if noindex:
+        robots.append('noindex')
+
+    if nofollow:
+        robots.append('nofollow')
+
+    return ','.join(robots)

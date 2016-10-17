@@ -1,5 +1,9 @@
 {% extends "article/single.html" %}
 
+{% block seo-metas-extra %}
+    <meta name="robots" content="noindex,nofollow">
+{% endblock %}
+
 {% block article-box-share %}{% endblock %}
 
 {% block article-post-footer %}{% endblock %}

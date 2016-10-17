@@ -1,4 +1,5 @@
 {%extends 'home/layout/base.html' %}
+
 {% load staticfiles %}
 {% load thumbor_tags %}
 {% load profile_tags %}
@@ -10,11 +11,23 @@
 {% load ads %}
 {% load url_utils %}
 {% load core_tags %}
+{% load utils %}
+
 {% block seo-og-title %}{% block seo_title %}{{ block.super }}{% endblock %}{% endblock %}
 {% block seo-og-description %}{% block seo-description %}{{ question.description|seo_description }}{% endblock %}{% endblock %}
 {% block seo-og-type %}article{% endblock %}
 
 {% block seo-og-url %}{{ request.path|root  }}{% url 'question:show' question.slug question.id %}{% endblock %}
+
+{% block seo-metas-extra %}
+
+    {{ block.super }}
+
+    {% if question.feed.first.seo_no_index == True or question.feed.first.seo_no_follow == True %}
+        <meta name="robots" content="{% seo_feed_robots question.feed.first.seo_no_index question.feed.first.seo_no_follow %}">
+    {% endif %}
+
+{% endblock %}
 
 {% block title %}{{ question.title }}{% endblock %}
 

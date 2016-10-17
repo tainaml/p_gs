@@ -1,4 +1,5 @@
 {% extends 'home/layout/base.html' %}
+
 {% load taxonomy_tags %}
 {% load core_tags %}
 {% load profile_tags %}
@@ -11,11 +12,12 @@
 {% load humanize %}
 {% load url_utils %}
 {% load comment_tags %}
-{% block editorfiles %}
-{% endblock %}
 {% load ads %}
 {% load avatar_tags %}
 {% load thumbor_tags %}
+{% load utils %}
+
+
 {% block seo-og-title %}{% block seo_title %}{{ article.title }}{{ block.super }}{% endblock %}{% endblock %}
 {% block seo-og-description %}{% block seo-description %}{{ article.text|seo_description }}{% endblock %}{% endblock %}
 {% block seo-og-image %}{% if article.image and article.image.url  %}{% thumbor_url article.image.url width=480 height=250 smart=False fit_in=False %}{% else %}{{ block.super }}{% endif %}{% endblock %}
@@ -23,7 +25,20 @@
 
 {% block seo-og-url %}{{ request.path|root  }}{% url 'article:view' article.year article.month article.get_first_slug %}{% endblock %}
 
+{% block seo-metas-extra %}
+
+    {{ block.super }}
+
+    {% if article.feed.first.seo_no_index == True or article.feed.first.seo_no_follow == True %}
+        <meta name="robots" content="{% seo_feed_robots article.feed.first.seo_no_index article.feed.first.seo_no_follow %}">
+    {% endif %}
+
+{% endblock %}
+
+{% block editorfiles %}{% endblock %}
+
 {% block content %}
+
     <main class="container main">
         <div class="row">
             {% block article-box-share %}
