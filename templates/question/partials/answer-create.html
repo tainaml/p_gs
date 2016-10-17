@@ -3,7 +3,7 @@
 {% load widget_tweaks %}
 {{ form.non_field_errors }}
 
-<form data-group-class=".answer-group" data-toggle="prepend" data-update="#container-answers" data-ajaxform="true" action="{% url 'question:comment_reply' %}" method="post">
+<form data-group-class=".answer-group" data-toggle="append" data-update="#container-answers" data-ajaxform="true" action="{% url 'question:comment_reply' %}" method="post">
     {% csrf_token %}
     <div class="answer-group {% if form.content.errors %} has-error{% endif %}">
         {% url 'account:is_logged' as is_logged %}
