@@ -318,7 +318,7 @@ def get_users_acted_by_model(model=None, action=None, filter_parameters=None,
     parameters['object_id'] = model.id
     parameters['action_type'] = action
 
-    users_actions = UserAction.objects.filter(**parameters).prefetch_related('author', "author__profile", "content_object")
+    users_actions = UserAction.objects.filter(**parameters).prefetch_related('author', "author__profile", "content_object").distinct()
 
     list = Paginator(users_actions, itens_per_page)
     try:
@@ -362,7 +362,7 @@ def get_users_acted_by_author(author=None, action=None, content_type=None, filte
     parameters['author'] = author
     parameters['action_type'] = action
 
-    users_actions = UserAction.objects.filter(**parameters).prefetch_related("author", "content_object")
+    users_actions = UserAction.objects.filter(**parameters).prefetch_related("author", "content_object").distinct()
 
     if items_per_page is not None and page is not None:
         list_users = Paginator(users_actions, items_per_page)
