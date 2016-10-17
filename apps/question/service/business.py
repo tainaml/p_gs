@@ -74,7 +74,7 @@ def get_all_answers_by_question(question=None, prefetch=None, related=None):
         qs = qs.all()
 
     if question and question.question_owner:
-        return question.question_owner.all().order_by('-answer_date')
+        return question.question_owner.all().order_by('answer_date')
 
     else:
         return Answer.objects.none()
