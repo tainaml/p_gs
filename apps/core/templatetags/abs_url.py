@@ -4,7 +4,7 @@ from ..utils import reverse_absolute
 
 register = template.Library()
 
-@register.simple_tag(takes_context=True)
+@register.assignment_tag(takes_context=True)
 def absolute_url(context, parser, *token):
 
     request_obj = context['request']
