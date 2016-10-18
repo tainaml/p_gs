@@ -76,6 +76,15 @@ class CoreCommunitySearch(CoreCommunityView):
 class CoreCommunityFeedView(CoreCommunitySearch):
 
 
+    def get_context(self, request, community_instance=None):
+        context = super(CoreCommunityFeedView, self).get_context(request, community_instance)
+        context.update({
+            'from_root_category': bool(community_instance.taxonomy.term.slug == 'categoria')
+        })
+
+        return context
+
+
     def get(self, request, community_slug):
         community = Business.get_community(slug=community_slug)
         if request.is_ajax():

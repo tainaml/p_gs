@@ -7,7 +7,7 @@
     data-trigger="notification-as-read"
     data-csrf="{{ csrf_token }}"
     data-url-mark-as-read="{% url 'notifications:mark-as-read-and-visualized' %}"
-    data-next-url="{% url 'notifications:general' %}#notification-general-{{ notification.id }}"
+    data-next-url="{{ notification_url }}"
     data-notification="{{ notification.id }}">
     <a href="{{ notification_url }}" title="Notificação do Portal GSTI">
         Você recebeu um <span>alerta</span> do <span>Portal GSTI</span> com titulo de <span>{{ notification.target.title }}</span>
