@@ -96,10 +96,6 @@ class CoreUserAdmin(UserNewAdmin):
         'username', 'show_full_name'
     ]
 
-    inlines = [
-        CoreProfile
-    ]
-
     def wizard(self, obj):
         return User.objects.filter(profile__wizard=3)
 
