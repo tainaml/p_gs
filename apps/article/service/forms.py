@@ -94,7 +94,7 @@ class ArticleForm(IdeiaModelForm):
             slug = slug if bool(slug) else Business.get_valid_slug(self.instance, title)
             self.instance.slug = slug
 
-        if not self.is_author():
+        if bool(self.instance.slug) and not self.is_author():
             self.cleaned_data.pop('slug')
 
         image = self.cleaned_data.get('image', False)
