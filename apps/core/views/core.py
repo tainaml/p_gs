@@ -127,10 +127,13 @@ class OEmbed(View):
             providers.register('http://(\S*.)?youtu(\.be/|be\.com/playlist)\S+', Provider('http://www.youtube.com/oembed'))
             providers.register('https://(\S*.)?youtu(\.be/|be\.com/playlist)\S+', Provider('http://www.youtube.com/oembed?scheme=https&'))
 
+            providers.register('https?://(\S*.)?scribd.com/(doc|document)/\S+(/\S+)?', Provider('http://www.scribd.com/services/oembed'))
+            # providers.register('https?://(\S*.)?scribd.com/doc/\S+/\S+', Provider('http://www.scribd.com/services/oembed'))
+
             response = providers.request(url)
             html = response.get('html', '')
-            html = html.replace('height="%d"' % response.get('height'), '')
-            html = html.replace('width="%d"' % response.get('width'), 'style="width:100%; height:100%; position: absolute; top: 0; left: 0"')
+            html = html.replace('height="%s"' % response.get('height'), '')
+            html = html.replace('width="%s"' % response.get('width'), 'style="width:100%; height:100%; position: absolute; top: 0; left: 0"')
             html = mark_safe(render_to_string('core/partials/responsive_embed.html', {'html': html}))
 
             response.update({
