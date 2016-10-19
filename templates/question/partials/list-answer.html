@@ -1,5 +1,9 @@
 <div class="comment-list" id="container-answers">
 {% for instance in answers %}
     {% include 'question/partials/answer-show.html' %}
+{% empty %}
+  <div data-toggle="message">
+    <p><i>Ainda não há respostas para essa pergunta.</i></p>
+  </div>
 {% endfor %}
 </div>

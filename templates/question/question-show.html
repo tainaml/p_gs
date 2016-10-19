@@ -105,19 +105,11 @@
                     {% endif %}
                 </article>
 
-
-                {% if answers %}
-
-                   <header class="area-title">
+                <header class="area-title">
                     <h2 id="answers">Respostas</h2>
                 </header>
                 {%  include 'question/partials/list-answer.html' %}
-            {% endif %}
 
-
-                <header class="area-title">
-                <h2 id="answers">Responda</h2>
-            </header>
                 <div class="alert alert-warning"><p>Consegue ajudar? A comunidade agradece</p></div>
                 {% include 'question/partials/answer-create.html' with content_type='question' content_object_id=question.id %}
             </div>
@@ -213,6 +205,11 @@
         var $form = $(this);
         var $divToUpdate = $($form.data("update"));
         $divToUpdate = setData($form, data, $divToUpdate);
+
+        var $msgEmpty = $( '[data-toggle="message"]' );
+        if ($msgEmpty.is( ':visible' ) ) {
+          $msgEmpty.hide();
+        }
 
         var $subforms = $divToUpdate.find("form[data-ajaxform=\"true\"]");
         $.each($subforms, function(i, value){
