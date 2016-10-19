@@ -81,6 +81,11 @@ class EditQuestionForm(CreateQuestionForm):
                                                code='is_not_permission'))
             is_valid = False
 
+
+        if not bool(self.user == self.instance.author):
+            self.cleaned_data.pop('slug')
+
+
         return is_valid
 
     def __process__(self):

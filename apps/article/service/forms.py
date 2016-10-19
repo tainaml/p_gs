@@ -89,10 +89,13 @@ class ArticleForm(IdeiaModelForm):
             old_status_is_published = Business.Article.STATUS_PUBLISH
 
         slug = self.cleaned_data.get('slug', None)
-        if bool(slug):
+        if bool(slug) and self.is_author():
             title = self.cleaned_data.get('title')
             slug = slug if bool(slug) else Business.get_valid_slug(self.instance, title)
             self.instance.slug = slug
+
+        if not self.is_author():
+            self.cleaned_data.pop('slug')
 
         image = self.cleaned_data.get('image', False)
 
@@ -115,7 +118,6 @@ class ArticleForm(IdeiaModelForm):
             self.action = self.ACTION_PUBLISH
             self.instance.do_publish()
 
-
         elif 'submit-save' in self.data:
             '''
             Save action
@@ -135,6 +137,9 @@ class ArticleForm(IdeiaModelForm):
             del self.cleaned_data['publishin']
 
         return valid
+
+    def is_author(self):
+        return bool(self.instance.author == self._author)
 
     def set_author(self, author):
         self._author = author

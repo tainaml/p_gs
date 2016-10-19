@@ -8,7 +8,6 @@ from django.template.defaultfilters import slugify
 from django.utils import timezone
 from django.utils.translation import ugettext as _
 from django.conf import settings
-
 from apps.core.models.embed import EmbedItem
 from apps.feed.models import FeedObject
 

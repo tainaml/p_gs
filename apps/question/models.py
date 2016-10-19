@@ -41,9 +41,10 @@ class Question(models.Model):
 
     feed = GenericRelation(FeedObject, related_query_name="question")
 
-    permissions = [
-        ('change_other_questions', _('Can edit questions from others'))
-    ]
+    class Meta:
+        permissions = [
+            ('change_other_questions', _('Can edit questions from others'))
+        ]
 
     def check_is_owner(self, user):
         return self.author == user
