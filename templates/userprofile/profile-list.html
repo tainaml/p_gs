@@ -10,13 +10,23 @@
 {% block seo-og-description %}{% block seo-description %}Todo o conteúdo de publicações realizadas por {{ profile.user.get_full_name }}. Siga {{ profile.user.get_full_name }} e receba no seu feed as informações enviadas por esse membro.{% endblock %}{% endblock %}
 {% block seo-og-image %}{% get_avatar profile.user width=200 height=200 smart=False fit_in=False %}{% endblock %}
 
+{% block seo-metas-extra %}
+
+    {# Block track if not publishes #}
+
+    {% if feed_objects.object_list|length_is:0 %}
+
+        <meta name="robots" content="nofollow,noindex">
+
+    {% endif %}
+
+{% endblock %}
 
 {% block seo-canonical %}{% absolute_url request.get_full_path %}{% endblock %}
 {% block link_pagination %}
     {% pagination_links feed_objects %}
 {% endblock link_pagination %}
 {% block content %}
-
 
     <main class="container main">
         <div class="row">
@@ -31,33 +41,33 @@
                 {% else %}
                     {% include 'userprofile/partials/filters.html' with title="Publicações"  active="profile" has_filter=True has_navigation=True %}
                 {% endif %} <div class="row">
-                    <div class="col-lg-8">
-                        {% block filters %}
-                            <nav id="form-search" class="form-search filters-members" data-toggle="filters">
-                                <form action="{% url 'profile:show' profile.user.username %}" method="GET" role="search">
-                                    <div class="form-search-input">
-                                        <input type="text" name="criterio" placeholder="{{placehold|default:"Pesquise conteúdo de "|add:profile.user.first_name}}">
-                                    </div>
-                                    <button type="submit" class="form-search-button">
-                                        <i class="gsticon gsticon-search"></i>
-                                    </button>
-                                </form>
-                            </nav>
-                        {% endblock filters %}
+                <div class="col-lg-8">
+                    {% block filters %}
+                        <nav id="form-search" class="form-search filters-members" data-toggle="filters">
+                            <form action="{% url 'profile:show' profile.user.username %}" method="GET" role="search">
+                                <div class="form-search-input">
+                                    <input type="text" name="criterio" placeholder="{{placehold|default:"Pesquise conteúdo de "|add:profile.user.first_name}}">
+                                </div>
+                                <button type="submit" class="form-search-button">
+                                    <i class="gsticon gsticon-search"></i>
+                                </button>
+                            </form>
+                        </nav>
+                    {% endblock filters %}
 
-                        <section class="area-content">
-                            {% if feed_objects.object_list %}
+                    <section class="area-content">
+                        {% if feed_objects.object_list %}
                             <div class="j-scroll j-scroll-container">
                                 {% include 'userprofile/partials/user-profile-list.html' %}
                             </div>
-                            {% else %}
-                                <span>{% trans 'Não existem itens a serem exibidos' %}</span>
-                                <hr>
-                            {% endif %}
-                        </section>
-                    </div>
-                    {% include 'userprofile/partials/profile-sidebar-right.html' %}
+                        {% else %}
+                            <span>{% trans 'Não existem itens a serem exibidos' %}</span>
+                            <hr>
+                        {% endif %}
+                    </section>
                 </div>
+                {% include 'userprofile/partials/profile-sidebar-right.html' %}
+            </div>
             </div>
         </div>
     </main>
@@ -78,9 +88,9 @@
 
             var $social_count = $("[data-social-count=\"true\"]");
             $.each($social_count, function(key, value){
-               var $obj = $(value);
+                var $obj = $(value);
                 $.get($obj.data("url"), function(data){
-                   $obj.text(data.count);
+                    $obj.text(data.count);
                 });
             });
         });
