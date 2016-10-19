@@ -128,7 +128,6 @@ class OEmbed(View):
             providers.register('https://(\S*.)?youtu(\.be/|be\.com/playlist)\S+', Provider('http://www.youtube.com/oembed?scheme=https&'))
 
             providers.register('https?://(\S*.)?scribd.com/(doc|document)/\S+(/\S+)?', Provider('http://www.scribd.com/services/oembed'))
-            # providers.register('https?://(\S*.)?scribd.com/doc/\S+/\S+', Provider('http://www.scribd.com/services/oembed'))
 
             response = providers.request(url)
             html = response.get('html', '')
