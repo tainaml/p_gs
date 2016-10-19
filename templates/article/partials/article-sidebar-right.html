@@ -3,9 +3,14 @@
 {% load staticfiles %}
 {% load ads %}
 <div class="col-lg-3">
-    <div class="squad-advertising">
-        {% ads_only_production "article_right" "all"  %}
-    </div>
+
+    {% if request|is_pc %}
+
+        <div class="squad-advertising">
+            {% ads_only_production "article_right" "all" %}
+        </div>
+
+    {% endif %}
 
     {% if request|is_pc %}
 
