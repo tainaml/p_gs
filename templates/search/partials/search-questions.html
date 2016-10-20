@@ -6,9 +6,7 @@
     {% endfor %}
 
     {% if feed_questions and feed_questions.has_next %}
-    <div class="col-lg-12">
         <a data-jscroll-next-questions href="{% url 'search:list' "questions" %}?q={{ query_search|default:""|default_if_none:""|urlencode }}&page={{ page|default:2 }}" class="btn-default btn-block">Carregar mais resultados</a>
-    </div>
     {% endif %}
 
 {% endif %}
