@@ -77,7 +77,7 @@
 
                              {% if feed_articles %}
                                  <div class="area-content">
-                                 <div class="row j-scroll-articles j-scroll-container-articles">
+                                 <div class="j-scroll-articles j-scroll-container-articles">
                                     {% include "search/partials/search-articles.html" %}
                                 </div>
                                  </div>
@@ -192,7 +192,7 @@
                             {% endblock filter_users %}
                             {% endif %}
 
-                            <div class="j-scroll-users j-scroll-container-users" id="followers-container">
+                            <div class="row j-scroll-users j-scroll-container-users" id="followers-container">
                                 {% if users.object_list %}
                                     {% include "search/partials/search-users.html" %}
                                 {% elif not content_type or content_type == 'users' %}
@@ -216,7 +216,7 @@
 
                     {% if feed_questions %}
                         <section class="area-content">
-                            <div class="row j-scroll-questions j-scroll-container-questions">
+                            <div class="j-scroll-questions j-scroll-container-questions">
                                 {% include "search/partials/search-questions.html" %}
                             </div>
                         </section>
@@ -246,7 +246,7 @@
     {{ block.super }}
 
     <script>
-        var loaderHtml = '<div class="col-lg-12"><div class="load-async-preload"></div></div>';
+        var loaderHtml = '<div class="load-async-preload"></div>';
         var callbackFunction = function() {
             refreshAsyncLike();
         };
@@ -254,7 +254,7 @@
         $(function() {
             $(".j-scroll-communities").jscroll({
                 autoTrigger: false,
-                loadingHtml: loaderHtml,
+                loadingHtml: '<div class="col-xs-12">'+loaderHtml+'</div>',
                 contentSelect: ".j-scroll-container-communities",
                 nextSelector: "a[data-jscroll-next-communities]",
                 callback: callbackFunction
@@ -262,7 +262,7 @@
 
             $(".j-scroll-users").jscroll({
                 autoTrigger: false,
-                loadingHtml: loaderHtml,
+                loadingHtml: '<div class="col-xs-12">'+loaderHtml+'</div>',
                 contentSelect: ".j-scroll-container-user",
                 nextSelector: "a[data-jscroll-next-users]",
                 callback: callbackFunction
@@ -296,7 +296,7 @@
             $divJScroll.jscroll({
                 autoTrigger: false,
                 contentSelect: ".j-scroll-communities-container",
-                loadingHtml: '<div class="load-async-preload"></div>',
+                loadingHtml: loaderHtml,
                 nextSelector: "a[data-jscroll-next-communities]",
                 callback: callbackFunction
             });
@@ -346,7 +346,7 @@
         var functionAjaxSuccessSearchFollowers = function (e, data) {
             console.log(data);
             var $divFollowers = $("#followers-container");
-            var $divJScroll = $('<div class="row j-scroll-followers j-scroll-followers-container"></div>');
+            var $divJScroll = $('<div class="j-scroll-followers j-scroll-followers-container"></div>');
 
             $divJScroll.html(data);
 
@@ -355,10 +355,10 @@
 
             $divJScroll.jscroll({
                 autoTrigger: false,
-                loadingHtml: '<div class="load-async-preload"></div>',
+                loadingHtml: loaderHtml,
                 contentSelect: '.j-scroll-followers-container',
                 nextSelector: "a[data-jscroll-next-users]",
-                callback: refreshAsyncLike()
+                callback: callbackFunction
 
             });
         };
