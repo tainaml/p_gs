@@ -188,7 +188,6 @@ class ArticleEditView(ArticleBaseView):
         article = get_article(article_id)
 
         self.the_article = article
-        print "heheh"
         # Fail if is not owner
         self.check_is_owner(request, article)
 
