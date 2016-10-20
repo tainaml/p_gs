@@ -32,10 +32,9 @@
                 <div class="row">
                     <div class="clearfix">
                         <div data-form-group class="col-lg-12 item-form">
-
                             {% render_field form.responsibility id="responsibility" data-toggle="selectize" data-module="profession" placeholder="Área de atuação" %}
-
                             <span class="help-block">
+                                Área de atuação <br>
                                 {% if form.responsibility.errors %}  {{ form.responsibility.errors }} {% endif %}
                             </span>
                         </div>
@@ -46,20 +45,29 @@
                           {% trans "First name" as first_name_placeholder %}
                           {% render_field form.first_name class="form-control" placeholder=first_name_placeholder %}
 
-                          {% if form.first_name.errors %}  {{ form.first_name.errors }} {% endif %}
+                          <span class="help-block">
+                            Primeiro nome <br>
+                            {% if form.first_name.errors %}  {{ form.first_name.errors }} {% endif %}
+                          </span>
                         </div>
                         <div class="col-lg-7 item-form {% if form.last_name.errors %}has-error{% endif %}">
                         {% trans "Last Name" as last_name_placeholder %}
                           {% render_field form.last_name class="form-control" placeholder=last_name_placeholder %}
 
-                          {% if form.last_name.errors %}  {{ form.last_name.errors }} {% endif %}
+                          <span class="help-block">
+                            Último nome <br>
+                            {% if form.last_name.errors %}  {{ form.last_name.errors }} {% endif %}
+                          </span>
                         </div>
                 </div>
                 {% if not request.user.email %}
                     <div class="clearfix">
                      <div class="col-lg-12 item-form {% if form.email.errors %}has-error{% endif %}">
                          {% render_field form.email class="form-control" type="email" maxlength="150" %}
-                          {% if form.email.errors %}  {{ form.email.errors }} {% endif %}
+                          <span class="help-block">
+                            Email <br>
+                            {% if form.email.errors %}  {{ form.email.errors }} {% endif %}
+                          </span>
                         </div>
 
                 </div>
@@ -75,6 +83,7 @@
                                 <i class="gsticon gsticon-calendar"></i>
                             </div>
                             <span class="help-block">
+                                Data de nascimento
                                 {% if form.birth.errors %}  {{ form.birth.errors }} {% endif %}
                             </span>
                         </div>
@@ -89,6 +98,7 @@
                             </select>
 
                             <span class="help-block">
+                              Sexo <br>
                                 {% if form.gender.errors %}  {{ form.gender.errors }} {% endif %}
                             </span>
                         </div>
@@ -104,6 +114,7 @@
                             {#                                {% endfor %}#}
                             {#                            </select>#}
                             <span class="help-block">
+                              Estado onde mora <br>
                                 {% if form.state.errors %}  {{ form.state.errors }} {% endif %}
                             </span>
                         </div>
@@ -118,6 +129,7 @@
                                     {% endfor %}
                                 </select>
                             <span class="help-block">
+                              Cidade onde mora <br>
                                 {% if form.city_hometown.errors %}  {{ form.city_hometown.errors }} {% endif %}
                             </span>
                         </div>
