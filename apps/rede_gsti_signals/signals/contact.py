@@ -16,10 +16,10 @@ def create_profile(sender, **kwargs):
         return
 
     instance = kwargs.get('instance')
-
+    email_subject = "#" + str(instance.id) + " - " + instance.subject
     send_email(
         to=str(settings.CONTACT_SEND_TO_EMAIL),
-        subject=instance.subject,
+        subject=email_subject,
         template='mailmanager/contact.html',
         context={'contact': instance}
     )
