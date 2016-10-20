@@ -30,7 +30,7 @@ class StepOneWizardForm(BaseSignupForm, WizardForm):
     state = forms.ModelChoiceField(queryset=State.objects.filter(country=1), required=False)
     birth = forms.DateField(input_formats=['%d/%m/%Y'], required=True)
     gender = forms.ChoiceField(choices=GenderType.CHOICES, required=True)
-    city_hometown = forms.ModelChoiceField(queryset=City.objects.all(), required=True)
+    city = forms.ModelChoiceField(queryset=City.objects.all(), required=True)
     profile_picture = forms.ImageField(required=False)
     wizard_step = forms.IntegerField(required=True)
 
@@ -71,15 +71,13 @@ class StepOneWizardForm(BaseSignupForm, WizardForm):
 
         super(StepOneWizardForm, self).__init__(data, files, *args, **kwargs)
 
-        #if 'city_hometown' in initial:
-            #self.fields['city_hometown'].queryset = City.objects.filter(id=initial.get('city_hometown').id)
 
     def load_initial_data(self, user, initial):
 
-        if user.user_profile.city_hometown:
+        if user.user_profile.city:
             initial.update({
-                'state': user.user_profile.city_hometown.state,
-                'city_hometown': user.user_profile.city_hometown,
+                'state': user.user_profile.city.state,
+                'city': user.user_profile.city,
             })
 
         if user.user_profile.birth:
