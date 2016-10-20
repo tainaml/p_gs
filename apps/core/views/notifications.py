@@ -149,6 +149,7 @@ class CoreNotificationPollingLoad(CoreNotificationPollingBase):
 
         response_data = {
             'total': paginator.count,
+            'total_unread': notifications.filter(visualized=False).count(),
             'notifications': notifications,
             'notifications_label': NOTIFICATION_ACTIONS,
             'notifications_id': notifications_id,

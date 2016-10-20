@@ -81,7 +81,7 @@ class NotificationBaseView(View):
 
         try:
             notification_group = self.set_notification_group(self.notification_type)
-        except Exception, e:
+        except Exception as e:
             return self.not_found(request, {'error': e.message})
 
         form = self.form_notification(request.GET)
