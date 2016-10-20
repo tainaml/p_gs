@@ -19,7 +19,7 @@
 {% block seo-metas-extra %}
     {{ block.super }}
 
-    {% if have_posts == False %}
+    {% if feed_objects|length_is:0 %}
         <meta name="robots" content="noindex, nofollow">
     {% endif %}
 
@@ -27,6 +27,7 @@
 
 {% block content %}
     <main class="container main">
+
         <div class="row">
             <!-- mudar para 2.5 -->
             <div class="col-lg-3">
