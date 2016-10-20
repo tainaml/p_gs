@@ -17,6 +17,15 @@
     {% pagination_links feed_objects %}
 {% endblock link_pagination %}
 
+{% block seo-metas-extra %}
+    {{ block.super }}
+
+    {% if have_posts == False %}
+        <meta name="robots" content="noindex, nofollow">
+    {% endif %}
+
+{% endblock %}
+
 {% block content %}
     <main class="container main">
         <div class="row">
