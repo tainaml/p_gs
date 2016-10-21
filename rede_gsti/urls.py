@@ -128,7 +128,7 @@ urlpatterns = [
 ] + url_statics + url_media + urls_old
 
 urls_front_end = [
-    url(_(r'^front-end/(?P<template>[a-z0-9.]+(?:(-|_)[a-z0-9.]+)*)'), FrontEndBase.as_view())
+    url(_(r'^front-end/(?P<template>[a-z0-9./]+(?:(-|_)[a-z0-9.]+)*)'), FrontEndBase.as_view())
 ]
 
 if not (settings.ENVIRONMENT=='production'):

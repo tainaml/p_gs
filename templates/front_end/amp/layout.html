@@ -1,0 +1,234 @@
+{% load staticfiles %}
+<!doctype html>
+<html ⚡>
+ <head>
+   <meta charset="utf-8">
+   <script async src="https://cdn.ampproject.org/v0.js"></script>
+   <script async custom-element="amp-sidebar" src="https://cdn.ampproject.org/v0/amp-sidebar-0.1.js"></script>
+   <script async custom-element="amp-fit-text" src="https://cdn.ampproject.org/v0/amp-fit-text-0.1.js"></script>
+   {% block head %}
+  {% endblock head %}
+   <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+   <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700">
+   <style amp-custom>
+     * {
+       font-family: 'Open Sans', sans-serif;
+       box-sizing: border-box;
+     }
+     html { font-size: 10px }
+     body { font-size: 14px }
+     h1 {
+       padding-left: 15px;
+       padding-right: 15px;
+       color: #5d7184;
+     }
+     .amp-header {
+       position: relative;
+       top: 0;
+       width: 100%;
+       height: 70px;
+       padding: 15px 16px;
+       border-bottom: 1px solid #d4d4d4;
+       background-color: #fff;
+     }
+     .amp-logo { float: left }
+     .amp-toggle-sidebar {
+       width: 30px;
+       height: 22px;
+       margin-top: 8px;
+       float: right;
+     }
+     .amp-toggle-sidebar span:after,
+     .amp-toggle-sidebar span:before {
+        content: "";
+        position: absolute;
+        top: 0; left: 0;
+      }
+      .amp-toggle-sidebar span:before { top: 10px }
+      .amp-toggle-sidebar span:after { top: 20px }
+      .amp-toggle-sidebar span {
+        position: relative;
+        display: block;
+      }
+
+      .amp-toggle-sidebar span,
+      .amp-toggle-sidebar span:after,
+      .amp-toggle-sidebar span:before {
+        width: 100%;
+        height: 2px;
+        background-color: #212529;
+        backface-visibility: hidden;
+      }
+      amp-sidebar {
+        background-color: #fff;
+      }
+      .amp-menu {
+        position: relative;
+      }
+      .amp-menu-close {
+        position: absolute;
+        top: 0; right: 0;
+        z-index: 222;
+      }
+      .amp-menu-item {
+        min-width: 200px;
+        padding-left: 10px;
+        padding-right: 10px;
+        display: block;
+        text-decoration: none;
+      }
+      .amp-menu-item-text {
+        padding-top: 5px;
+        padding-bottom: 5px;
+        display: block;
+        border-bottom: 1px solid #d9d9d9;
+      }
+
+      .amp-publication-info {
+        overflow: hidden;
+        padding: 15px;
+        border-bottom: 1px solid #d4d4d4;
+        font-size: .929em;
+        font-weight: 600;
+        letter-spacing: -0.05em;
+      }
+      .amp-publication-creator {
+        float: left;
+        color: #337ab7;
+      }
+      .amp-publication-creator-figure {
+        margin: 0;
+        display: inline-block;
+      }
+      .amp-publication-creator-img {
+        max-height: 20px;
+        max-width: 20px;
+        margin-right: 5px;
+        float: left;
+      }
+      .amp-publication-creator-name { display: inline }
+      .amp-publication-publish {
+        float: right;
+        color: #d3d3d3;
+      }
+      .amp-publication-content {
+        padding: 0 15px;
+        color: #6f6f6f;
+        font-size: 17px;
+        line-height: 30px;
+        letter-spacing: -.05em;
+      }
+
+      .amp-footer { background-color: #0160b0 }
+      .amp-categories {
+        padding: 15px 15px 0;
+        list-style: none;
+      }
+      .amp-category {
+        border-bottom: 1px solid #fff;
+        color: #fff;
+        font-size: 1em;
+        font-weight: 700;
+        text-transform: uppercase;
+      }
+      .amp-category:last-child { border-bottom: none }
+      .amp-category a {
+        padding: 5px 0;
+        display: block;
+        color: inherit;
+        text-decoration: none;
+      }
+      .amp-footer-info {
+        overflow: hidden;
+        background-color: #005398;
+      }
+      .amp-copyright {
+        width: 100%;
+        color: #fff;
+        text-align: center;
+      }
+      .amp-footer-links {
+        padding-left: 0;
+        list-style: none;
+        text-align: center;
+      }
+      .amp-footer-item {
+        max-height: 25px;
+        display: inline-block;
+        padding-left: 10px;
+        padding-right: 10px;
+        border-right: 1px solid #fff;
+      }
+      .amp-footer-item:last-child { border-right: none }
+      .amp-footer-link {
+        color: #fff;
+        text-decoration: none;
+      }
+   </style>
+ </head>
+ <body class="amp-page">
+   <header class="amp-header">
+    <amp-img class="amp-logo" src="{% static 'images/gsti.png' %}" alt="Portal GSTI" width="126" height="40"></amp-img>
+     <a class="amp-toggle-sidebar" on="tap:sidebar1.toggle">
+       <span></span>
+     </a>
+   </header>
+   <amp-sidebar id="sidebar1" layout="nodisplay" side="left">
+     <div class="amp-menu">
+       <a class="amp-menu-item" href="#">
+         <span class="amp-menu-item-text">Nav item 1</span>
+       </a>
+       <span class="amp-menu-close" role="" tabindex="" on="tap:sidebar1.close">X</span>
+       <a class="amp-menu-item" href="#">
+         <span class="amp-menu-item-text">Nav item 2</span>
+       </a>
+       <a class="amp-menu-item" href="#">
+         <span class="amp-menu-item-text">Nav item 3</span>
+       </a>
+       <a class="amp-menu-item" href="#">
+         <span class="amp-menu-item-text">Nav item 4</span>
+       </a>
+       <a class="amp-menu-item" href="#">
+         <span class="amp-menu-item-text">Nav item 5</span>
+       </a>
+       <a class="amp-menu-item" href="#">
+         <span class="amp-menu-item-text">Nav item 6</span>
+       </a>
+       <a class="amp-menu-item" href="#">
+         <span class="amp-menu-item-text">Nav item 7</span>
+       </a>
+       <a class="amp-menu-item" href="#">
+         <span class="amp-menu-item-text">Nav item 8</span>
+       </a>
+       <a class="amp-menu-item" href="#">
+         <span class="amp-menu-item-text">Nav item 9</span>
+       </a>
+     </div>
+   </amp-sidebar>
+   <main class="amp-main">
+     {% block body %}{% endblock body %}
+   </main>
+   <footer class="amp-footer">
+     <ul class="amp-categories">
+       <li class="amp-category"><a href="#">Governança e Gestão</a></li>
+       <li class="amp-category"><a href="#">Desenvolvimento</a></li>
+       <li class="amp-category"><a href="#">Design</a></li>
+       <li class="amp-category"><a href="#">Marketing Digital</a></li>
+       <li class="amp-category"><a href="#">Infraestrutura</a></li>
+       <li class="amp-category"><a href="#">Banco de Dados</a></li>
+       <li class="amp-category"><a href="#">Mobile</a></li>
+       <li class="amp-category"><a href="#">Mais</a></li>
+     </ul>
+     <div class="amp-footer-info">
+       <p class="amp-copyright">
+         Portal GSTI © Copyright 2016
+       </p>
+       <ul class="amp-footer-links">
+         <li class="amp-footer-item"><a class="amp-footer-link" href="/sobre/">Sobre</a></li>
+         <li class="amp-footer-item"><a class="amp-footer-link" href="/contato/" data-contact="" data-async-module="click" data-async-target="#modal-content-form-contact" data-async-method="get">Contato</a></li>
+       </ul>
+     </div>
+   </footer>
+ </body>
+</html>
