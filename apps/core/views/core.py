@@ -112,6 +112,12 @@ class About(View):
         return render(request, 'about.html')
 
 
+class Rules(View):
+
+    def get(self, request):
+        return render(request, 'rules.html')
+
+
 class OEmbed(View):
 
     def get(self, request):

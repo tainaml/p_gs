@@ -1,0 +1,49 @@
+{% extends 'home/layout/base.html' %}
+
+
+{% load avatar_tags %}
+{% load thumbor_tags %}
+
+{% block seo-og-title %}{% block seo_title %}Regras{{ block.super }}{% endblock %}{% endblock %}
+{% block seo-og-description %}{% block seo-description %}Regras do Portal GSTI{% endblock %}{% endblock %}
+
+{% block content %}
+
+    <main class="container main">
+        <div class="col-lg-8">
+            <header class="area-title">
+                <h1>REGRAS DO PORTAL GSTI</h1>
+            </header>
+
+            <p>
+                O Portal GSTI é uma ferramenta que tem como principal objetivo reunir pessoas que tenham interesse por Gestão e Serviços de TI.
+                Para termos um ambiente favoravel é necessário seguir algumas regras de conduta:
+            </p>
+
+            <ol class="modal-ordered-list">
+                <li><span>Evite conteúdo duplicado</span></li>
+                <li><span>Certifique-se que sua publicação ou perguta não contenham erros de português</span></li>
+                <li><span>Não publique conteúdo que não tenha relação com sua categoria / comunidade. Sua publicação será vista por todos que seguem essa comunidade.</span></li>
+                <li><span>Não utilize palavrões nos seus comentários</span></li>
+                <li><span>Não é permitido links externos ao Portal GSTI como prática de spam e autopromoção</span></li>
+                <li><span>Não é permitido ou violação da Lei dos Direitos Autorais (Lei 9.610/98)</span></li>
+                <li><span>Os títulos das publicações/perguntas devem ter apenas a primeira letra, nomes próprios e de marcas em maiúscula</span></li>
+                <li><span>Não é permitido conteúdo com muitas palavras em caixa-alta</span></li>
+                <li><span>Os usuários poderão publicar quantas publicação desejarem, desde que sigam as regras estabelecidas</span></li>
+                <li><span>Denuncie publicações ou perguntas que fogem as regras do portal</span></li>
+            </ol>
+
+            <p>
+                Portal GSTI - Um mundo de informações para TI
+            </p>
+
+        </div>
+
+        <div class="col-lg-4">
+            <div class="embed-responsive embed-responsive-4by3 embed-responsive-4by3-mobile">
+                <iframe class="embed-responsive-item" width="100%" height="300" src="https://www.youtube.com/embed/G1xIlZ35mZo" frameborder="0" allowfullscreen></iframe>
+            </div>
+        </div>
+    </main>
+
+{% endblock %}

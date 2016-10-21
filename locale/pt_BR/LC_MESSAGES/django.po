@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-10-13 14:11-0300\n"
+"POT-Creation-Date: 2016-10-21 14:36-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -120,23 +120,23 @@ msgstr "Nome de usuário está disponível"
 msgid "Username is not available!"
 msgstr "Nome de usuário não está disponível"
 
-#: apps/article/models.py:43
+#: apps/article/models.py:42
 msgid "Draft"
 msgstr "Rascunho"
 
-#: apps/article/models.py:44
+#: apps/article/models.py:43
 msgid "Trash"
 msgstr "Lixo"
 
-#: apps/article/models.py:45
+#: apps/article/models.py:44
 msgid "Publish"
 msgstr "Publicado"
 
-#: apps/article/models.py:59 apps/job_vacancy/models.py:45
+#: apps/article/models.py:58 apps/job_vacancy/models.py:45
 msgid "Author"
 msgstr "Autor"
 
-#: apps/article/models.py:76
+#: apps/article/models.py:75
 msgid "Can edit articles from others"
 msgstr "Permissão para editar artigos de outros autores"
 
@@ -144,12 +144,12 @@ msgstr "Permissão para editar artigos de outros autores"
 msgid "Publish date has invalid"
 msgstr "Data de publicação inválida."
 
-#: apps/article/service/forms.py:102 apps/core/forms/wizard.py:127
+#: apps/article/service/forms.py:105 apps/core/forms/wizard.py:125
 #: apps/userprofile/service/forms.py:92
 msgid "Image format is not allowed."
 msgstr "Formato da imagem não é permitido"
 
-#: apps/article/service/forms.py:108
+#: apps/article/service/forms.py:111
 msgid "Image size is too long."
 msgstr "Tamanho da imagem é muito grande"
 
@@ -157,19 +157,19 @@ msgstr "Tamanho da imagem é muito grande"
 msgid "Article not Found."
 msgstr "Publicação não encontrada"
 
-#: apps/article/views.py:40
+#: apps/article/views.py:45
 msgid "Operation not permitted"
 msgstr "Operação não permitida"
 
-#: apps/article/views.py:150
+#: apps/article/views.py:155
 msgid "This article has been deleted"
 msgstr "Publicação removida"
 
-#: apps/article/views.py:234
+#: apps/article/views.py:239
 msgid "Publicação salva com sucesso"
 msgstr "Publicação salva com sucesso"
 
-#: apps/article/views.py:238
+#: apps/article/views.py:243
 msgid "Generic Error"
 msgstr "Erro"
 
@@ -248,7 +248,7 @@ msgstr "Comunidade relacionada"
 msgid "Community not Found."
 msgstr "Comunidade não encontrada"
 
-#: apps/company/models.py:7 apps/core/admin.py:141
+#: apps/company/models.py:7 apps/core/admin.py:131
 #: templates/contact/contact.html:11
 msgid "Name"
 msgstr "Nome"
@@ -300,11 +300,11 @@ msgstr "Perfil"
 msgid "Profiles"
 msgstr "Perfis"
 
-#: apps/core/admin.py:143
+#: apps/core/admin.py:133
 msgid "Contributor"
 msgstr "Contribuidor"
 
-#: apps/core/admin.py:154
+#: apps/core/admin.py:144
 msgid "Completed Wizard?"
 msgstr ""
 
@@ -316,15 +316,15 @@ msgstr "Ocorreu um erro ao desativar a conta"
 msgid "All"
 msgstr "Todos"
 
-#: apps/core/forms/wizard.py:116 apps/userprofile/service/forms.py:81
+#: apps/core/forms/wizard.py:114 apps/userprofile/service/forms.py:81
 msgid "Birth invalid."
 msgstr "Nascimento inválido"
 
-#: apps/core/forms/wizard.py:122 apps/userprofile/service/forms.py:87
+#: apps/core/forms/wizard.py:120 apps/userprofile/service/forms.py:87
 msgid "Gênero não permitido."
 msgstr "Gênero não permitido."
 
-#: apps/core/forms/wizard.py:132 apps/userprofile/service/forms.py:97
+#: apps/core/forms/wizard.py:130 apps/userprofile/service/forms.py:97
 msgid "Image size more than 1mb."
 msgstr "Tamanho da imagem excede 1mb"
 
@@ -595,7 +595,12 @@ msgstr ""
 msgid "^about/"
 msgstr "^sobre/"
 
-#: apps/core/urls/core.py:13
+#. Translators: URL de sobre
+#: apps/core/urls/core.py:15
+msgid "^rules/"
+msgstr "^regras/"
+
+#: apps/core/urls/core.py:18
 msgid "^oembed/"
 msgstr ""
 
@@ -1009,7 +1014,7 @@ msgid "Your settings have been successfully changed!"
 msgstr "Suas configurações foi alteradas com sucesso!"
 
 #: apps/core/views/question.py:119 apps/core/views/question.py:150
-#: apps/question/views.py:18
+#: apps/question/views.py:19
 msgid "Question not Found."
 msgstr "Pergunta não encontrada"
 
@@ -1177,40 +1182,46 @@ msgstr "Você precisa especificar a propriedade template_list_path"
 msgid "Notification not found!"
 msgstr "Notificação não encontrada"
 
-#: apps/question/service/forms.py:114
+#: apps/question/models.py:46
+#, fuzzy
+#| msgid "Can edit articles from others"
+msgid "Can edit questions from others"
+msgstr "Permissão para editar artigos de outros autores"
+
+#: apps/question/service/forms.py:119
 msgid "Your answer can not be blank"
 msgstr "Sua resposta não pode estar em branco."
 
-#: apps/question/views.py:139 apps/question/views.py:161
+#: apps/question/views.py:140 apps/question/views.py:162
 msgid "Question not created!"
 msgstr "Pergunta não criada"
 
-#: apps/question/views.py:141 apps/question/views.py:163
+#: apps/question/views.py:142 apps/question/views.py:164
 msgid "Question created successfully!"
 msgstr "Pergunta criada com sucesso!"
 
-#: apps/question/views.py:185 apps/question/views.py:210
-#: apps/question/views.py:232 apps/question/views.py:281
+#: apps/question/views.py:183 apps/question/views.py:204
+#: apps/question/views.py:242 apps/question/views.py:291
 msgid "Question is not exists!"
 msgstr "Pergunta não existe"
 
-#: apps/question/views.py:199
+#: apps/question/views.py:212
 msgid "Question updated successfully!"
 msgstr "Pergunta atualizada com sucesso"
 
-#: apps/question/views.py:251
+#: apps/question/views.py:261
 msgid "Question not found"
 msgstr "Pergunta não encontrada"
 
-#: apps/question/views.py:283
+#: apps/question/views.py:293
 msgid "Answer is not exists!"
 msgstr "Resposta não existe"
 
-#: apps/question/views.py:297
+#: apps/question/views.py:307
 msgid "Answer not found!"
 msgstr "Resposta não encontrada"
 
-#: apps/question/views.py:299
+#: apps/question/views.py:309
 msgid "Answer not found"
 msgstr "Resposta não encontrada"
 
@@ -1607,12 +1618,12 @@ msgid "Resend account confirmation"
 msgstr "Reenviar confirmação de conta"
 
 #: templates/account/signup.html:114
-#: templates/core/partials/wizard/wizard-step-one.html:46
+#: templates/core/partials/wizard/wizard-step-one.html:45
 msgid "First name"
 msgstr "Primeiro nome"
 
 #: templates/account/signup.html:120
-#: templates/core/partials/wizard/wizard-step-one.html:52
+#: templates/core/partials/wizard/wizard-step-one.html:54
 msgid "Last Name"
 msgstr "Último nome"
 
@@ -1670,7 +1681,7 @@ msgstr "Publicar"
 #: templates/userprofile/partials/profile-communities.html:44
 #: templates/userprofile/profile-communities.html:67
 #: templates/userprofile/profile-feed.html:34
-#: templates/userprofile/profile-list.html:54
+#: templates/userprofile/profile-list.html:64
 #: templates/userprofile/profile-questions.html:50
 #: templates/userprofile/profile-search.html:43
 #: templates/userprofile/profile-videos.html:48
