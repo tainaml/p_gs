@@ -1,13 +1,12 @@
 {% load staticfiles %}
 <!doctype html>
-<html ⚡>
+<html amp>
  <head>
    <meta charset="utf-8">
    <script async src="https://cdn.ampproject.org/v0.js"></script>
    <script async custom-element="amp-sidebar" src="https://cdn.ampproject.org/v0/amp-sidebar-0.1.js"></script>
    <script async custom-element="amp-fit-text" src="https://cdn.ampproject.org/v0/amp-fit-text-0.1.js"></script>
-   {% block head %}
-  {% endblock head %}
+   {% block head %}{% endblock head %}
    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700">
@@ -18,11 +17,6 @@
      }
      html { font-size: 10px }
      body { font-size: 14px }
-     h1 {
-       padding-left: 15px;
-       padding-right: 15px;
-       color: #5d7184;
-     }
      .amp-header {
        position: relative;
        top: 0;
@@ -65,30 +59,82 @@
       }
       .amp-menu {
         position: relative;
+        font-size: 1.2em;
       }
+      /*.amp-menu-close {
+        z-index: 222;
+        color: #fff;
+        font-size: 1.5em;
+        padding: 0 15px;
+      }*/
+      /* Important styles */
       .amp-menu-close {
         position: absolute;
-        top: 0; right: 0;
-        z-index: 222;
+        top: 26px; right: 15px;
+        display: block;
+        width: 20px;
+        height: 19px;
       }
+
+      .amp-menu-close span:after,
+      .amp-menu-close span:before {
+        content: "";
+        position: absolute;
+        top: 1px; left: 0;
+      }
+      .amp-menu-close span:after{ top: 19px }
+      .amp-menu-close span {
+        position: relative;
+        display: block;
+      }
+
+      .amp-menu-close span:after,
+      .amp-menu-close span:before {
+        width: 100%;
+        height: 2px;
+        background-color: #fff;
+        backface-visibility: hidden;
+      }
+      .amp-menu-close span { background-color: transparent }
+      .amp-menu-close span:before { transform: rotate(45deg) translate(5px, 5px) }
+      .amp-menu-close span:after { transform: rotate(-45deg) translate(7px, -8px) }
       .amp-menu-item {
         min-width: 200px;
-        padding-left: 10px;
-        padding-right: 10px;
+        padding-left: 15px;
+        padding-right: 15px;
         display: block;
+        color: #8c8c8c;
         text-decoration: none;
       }
+      .amp-menu-item.active {
+        background-color: #0160b0;
+        color: #fff;
+      }
+      .amp-menu-item.active:first-child {
+        padding-top: 15px;
+      }
+      .amp-menu-item.active .amp-menu-item-text { border-bottom: 1px solid #017ce4 }
       .amp-menu-item-text {
-        padding-top: 5px;
-        padding-bottom: 5px;
+        padding-top: 10px;
+        padding-bottom: 10px;
         display: block;
         border-bottom: 1px solid #d9d9d9;
       }
-
+      .amp-publication-header .amp-publication-info { border-bottom: 1px solid #d4d4d4 }
+      .amp-publication-title {
+        padding-left: 15px;
+        padding-right: 15px;
+        color: #5d7184;
+      }
+      .amp-publication-subtitle {
+        padding-left: 15px;
+        padding-right: 15px;
+        color: #5d7184;
+        font-size: 18px;
+      }
       .amp-publication-info {
         overflow: hidden;
         padding: 15px;
-        border-bottom: 1px solid #d4d4d4;
         font-size: .929em;
         font-weight: 600;
         letter-spacing: -0.05em;
@@ -118,6 +164,24 @@
         font-size: 17px;
         line-height: 30px;
         letter-spacing: -.05em;
+      }
+      .amp-publication-answer .amp-publication-content { border-bottom: 1px solid #d4d4d4 }
+      .amp-publication-answer:last-child .amp-publication-content {
+        border-bottom: none;
+      }
+      .amp-publication-answer .amp-publication-content p {
+        margin-top: 0;
+      }
+      .amp-content-aside { border-top: 1px solid #d4d4d4 }
+      .amp-publication-action {
+        padding: 10px;
+        margin: 0 15px 15px;
+        display: block;
+        background-color: #738d00;
+        color: #fff;
+        font-weight: bold;
+        text-align: center;
+        text-decoration: none;
       }
 
       .amp-footer { background-color: #0160b0 }
@@ -174,35 +238,56 @@
        <span></span>
      </a>
    </header>
-   <amp-sidebar id="sidebar1" layout="nodisplay" side="left">
+   <amp-sidebar id="sidebar1" layout="nodisplay" side="right">
      <div class="amp-menu">
-       <a class="amp-menu-item" href="#">
-         <span class="amp-menu-item-text">Nav item 1</span>
+       <a class="amp-menu-item active" href="#">
+         <span class="amp-menu-item-text">Cadastre-se</span>
        </a>
-       <span class="amp-menu-close" role="" tabindex="" on="tap:sidebar1.close">X</span>
-       <a class="amp-menu-item" href="#">
-         <span class="amp-menu-item-text">Nav item 2</span>
-       </a>
-       <a class="amp-menu-item" href="#">
-         <span class="amp-menu-item-text">Nav item 3</span>
+       <span class="amp-menu-close" role="" tabindex="" on="tap:sidebar1.close"><span></span></span>
+       <a class="amp-menu-item active" href="#">
+         <span class="amp-menu-item-text">Login</span>
        </a>
        <a class="amp-menu-item" href="#">
-         <span class="amp-menu-item-text">Nav item 4</span>
+         <span class="amp-menu-item-text">Governança e Gestão</span>
        </a>
        <a class="amp-menu-item" href="#">
-         <span class="amp-menu-item-text">Nav item 5</span>
+         <span class="amp-menu-item-text">Desenvolvimento</span>
        </a>
        <a class="amp-menu-item" href="#">
-         <span class="amp-menu-item-text">Nav item 6</span>
+         <span class="amp-menu-item-text">Design</span>
        </a>
        <a class="amp-menu-item" href="#">
-         <span class="amp-menu-item-text">Nav item 7</span>
+         <span class="amp-menu-item-text">Marketing Digital</span>
        </a>
        <a class="amp-menu-item" href="#">
-         <span class="amp-menu-item-text">Nav item 8</span>
+         <span class="amp-menu-item-text">Banco de Dados</span>
        </a>
        <a class="amp-menu-item" href="#">
-         <span class="amp-menu-item-text">Nav item 9</span>
+         <span class="amp-menu-item-text">Infra Estrutura</span>
+       </a>
+       <a class="amp-menu-item" href="#">
+         <span class="amp-menu-item-text">Mobile</span>
+       </a>
+       <a class="amp-menu-item" href="#">
+         <span class="amp-menu-item-text">Mais</span>
+       </a>
+       <a class="amp-menu-item" href="#">
+         <span class="amp-menu-item-text">Vagas de trabalho</span>
+       </a>
+       <a class="amp-menu-item" href="#">
+         <span class="amp-menu-item-text">Cursos gratuitos</span>
+       </a>
+       <a class="amp-menu-item" href="#">
+         <span class="amp-menu-item-text">Carreira</span>
+       </a>
+       <a class="amp-menu-item" href="#">
+         <span class="amp-menu-item-text">Comunidades</span>
+       </a>
+       <a class="amp-menu-item" href="#">
+         <span class="amp-menu-item-text">Membros</span>
+       </a>
+       <a class="amp-menu-item" href="#">
+         <span class="amp-menu-item-text">Perguntas</span>
        </a>
      </div>
    </amp-sidebar>
