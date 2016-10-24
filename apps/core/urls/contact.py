@@ -9,4 +9,7 @@ urlpatterns = [
     # Translators: URL de atualizacao de contato
     url(_(r'^save/$'), CoreContactViews.CoreContactSaveViews.as_view(), name='save'),
 
+    # Translators: URL de atualizacao de contato
+    url(_(r'^contact-success/$'), CoreContactViews.CoreContactSuccessView.as_view(), name='success'),
+
 ]

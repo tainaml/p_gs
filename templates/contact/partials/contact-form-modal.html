@@ -1,4 +1,6 @@
-<form id="form-contact-modal" action="{% url 'contact:save' %}" method="post" data-ajaxform="true" data-group-class=".form-group">
+{% load recaptcha %}
+
+<form id="form-contact-modal" action="{% url 'contact:save' %}" method="post" {% if not render_captcha %}data-ajaxform="true" data-group-class=".form-group" {% endif %}>
 
     {% csrf_token %}
     {% if request.user.is_anonymous %}
@@ -16,7 +18,7 @@
             <select name="subject" id="subject" class="form-control">
                 <option value="">Assunto</option>
                 {% for subject in subjects %}
-                    <option value="{{ subject.id }}">{{ subject.title }}</option>
+                    <option value="{{ subject.id }}">{{ subject.title }}</option>g-recaptcha
                 {% endfor %}
             </select>
         </div>
@@ -31,7 +33,7 @@
         {% if request.user.is_anonymous %}
             <div class="col-lg-8">
                 <div class="form-group">
-                    <div id="g-recaptcha"></div>
+                    <div id="g-recaptcha" class="g-recaptcha" data-sitekey="{% recaptcha_site_key %}"></div>
                     <input type="hidden" name="captcha">
                 </div>
             </div>

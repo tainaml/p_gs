@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-10-21 14:36-0300\n"
+"POT-Creation-Date: 2016-10-24 16:26-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -288,7 +288,7 @@ msgstr "COnfigurar chaves"
 msgid "Config Values"
 msgstr "Configurar Chaves"
 
-#: apps/contact/views.py:66
+#: apps/contact/views.py:88
 msgid "Contact created!"
 msgstr "Mensagem enviada!"
 
@@ -580,6 +580,13 @@ msgstr "^desativar-conta$"
 #: apps/socialaccount/urls.py:8
 msgid "^$"
 msgstr "^$"
+
+#. Translators: URL de atualizacao de contato
+#: apps/core/urls/contact.py:13
+#, fuzzy
+#| msgid "Success"
+msgid "^contact-success/$"
+msgstr "^sucesso/$"
 
 #. Translators: URL de posts relacionados
 #: apps/core/urls/core.py:8

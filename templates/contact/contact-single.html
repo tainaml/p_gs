@@ -1,0 +1,29 @@
+{% extends 'home/layout/base.html' %}
+
+
+{% load avatar_tags %}
+{% load thumbor_tags %}
+
+{% block seo-og-title %}{% block seo_title %}Contato{{ block.super }}{% endblock %}{% endblock %}
+{% block seo-og-description %}{% block seo-description %}Saiba mais sobre a ideia que originou o Portal GSTI e o que ele se tornou. Conheça e participe de nossa história.{% endblock %}{% endblock %}
+
+{% block content %}
+
+    <main class="container main">
+        <div class="col-lg-8">
+            <header class="area-title">
+                <h1>Contato</h1>
+            </header>
+
+            {% include 'contact/partials/contact-form-modal.html' %}
+
+        </div>
+
+        <div class="col-lg-4">
+            <div class="embed-responsive embed-responsive-4by3 embed-responsive-4by3-mobile">
+                <iframe class="embed-responsive-item" width="100%" height="300" src="https://www.youtube.com/embed/G1xIlZ35mZo" frameborder="0" allowfullscreen></iframe>
+            </div>
+        </div>
+    </main>
+
+{% endblock %}
