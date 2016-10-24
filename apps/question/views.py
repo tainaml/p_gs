@@ -222,6 +222,8 @@ class UpdateQuestionView(View):
 
 class ShowQuestionView(View):
 
+    template_name = 'question/question-show.html'
+
     def get_context(self, request, question_instance=None):
         return {}
 
@@ -247,7 +249,7 @@ class ShowQuestionView(View):
 
         context = {'question': question, 'answers': answers, 'form_answer': form_answer}
         context.update(self.get_context(request, question))
-        return render(request, 'question/question-show.html', context)
+        return render(request, self.template_name, context)
 
 
 class CommentReplayView(FormBaseView):
