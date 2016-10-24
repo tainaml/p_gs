@@ -1,24 +1,44 @@
 {% extends "core/amp/base.html" %}
-
-{% load  abs_url %}
+{% load abs_url %}
+{% load avatar_tags %}
+{% load humanize %}
+{% load thumbor_tags %}
+{% load i18n %}
 
 {% absolute_url 'question:show' question.slug question.id as 'question_url' %}
 
-{% block title %}{{ question.title }}{% endblock %}
-
-{% block canonical_url %}{{ question_url }}{% endblock %}
+{% block canonical_url %}{% absolute_url 'question:show' question.slug question.id %}{% endblock %}
 
 {% block content %}
 
-    {{ question.description|safe }}
+  <article class="amp-publication">
+    <header class="amp-publication-header">
+      <div class="amp-publication-info">
+        <time class="amp-publication-publish" datetime="{{ question.question_date|date:'m-d-Y' }}">{{ question.question_date|naturaltime }}</time>
+        <a class="amp-publication-creator" href="{% url 'profile:show' question.author.username %}">
+          <figure class="amp-publication-creator-figure">
+            <amp-img class="amp-publication-creator-img" src="{% get_avatar question.author width=20 height=20 smart=False fit_in=False %}" alt="foto de {{ question.author.get_full_name }}" width="20" height="20"></amp-img>
+            <figcaption class="amp-publication-creator-name">{{ question.author.get_full_name }}</figcaption>
+          </figure>
+        </a>
+      </div>
+      <h1 class="amp-publication-title">{{ question.title }}</h1>
+    </header>
+    <div class="amp-publication-content">
+      {{ question.description|safe }}
+    </div>
+  </article>
+  <aside class="amp-content-aside">
+    <h2 class="amp-publication-subtitle">Respostas</h2>
 
+    {% for answer in answers %}
 
-    <ul>
-        {% for answer in answers %}
-            <li>
-                <a href="{{ question_url }}">{{ answer.title }}</a>
-            </li>
-        {% endfor %}
-    </ul>
+    {% include 'core/amp/partials/answer.html' %}
 
-{% endblock %}
+    {% endfor %}
+
+  </aside>
+
+{% endblock content %}
+
+<a class="amp-publication-action" href="{% absolute_url 'question:show' question.slug question.id %}">{% trans 'Mais comentários' %}</a>

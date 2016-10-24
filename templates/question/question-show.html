@@ -27,15 +27,11 @@
     {% if question.feed.first.seo_no_index == True or question.feed.first.seo_no_follow == True %}
         <meta name="robots" content="{% seo_feed_robots question.feed.first.seo_no_index question.feed.first.seo_no_follow %}">
     {% endif %}
+    <link rel="amphtml" href="{% absolute_url 'amp:question-single' question.slug question.id %}">
 
 {% endblock %}
 
 {% block title %}{{ question.title }}{% endblock %}
-
-{% block seo-metas-extra %}
-    {{ block.super }}
-    <link rel="amphtml" href="{% absolute_url 'amp:question-single' %}">
-{% endblock %}
 
 {% block content %}
 
@@ -138,7 +134,7 @@
     <script src="{% static 'javascripts/vendor.js'%}"></script>
     <script>
 
-        var functionOpenModalToDelete = function(e) {
+        var functionOpenModalToDelete = function ( e ) {
             e.preventDefault();
 
             var $btn = $(e.currentTarget),
