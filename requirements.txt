@@ -17,3 +17,4 @@ django-user-agents==0.3.0
 django-reversion==1.10.2
 micawber==0.3.3
 django-ideia-summernote==0.5.3
+bleach==1.4.3

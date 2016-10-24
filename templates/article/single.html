@@ -11,6 +11,7 @@
 {% load avatar_tags %}
 {% load humanize %}
 {% load url_utils %}
+{% load abs_url %}
 {% load comment_tags %}
 {% load ads %}
 {% load avatar_tags %}
@@ -32,6 +33,7 @@
     {% if article.feed.first.seo_no_index == True or article.feed.first.seo_no_follow == True %}
         <meta name="robots" content="{% seo_feed_robots article.feed.first.seo_no_index article.feed.first.seo_no_follow %}">
     {% endif %}
+    <link rel="amphtml" href="{% absolute_url 'amp:article-single' article.year article.month article.get_first_slug %}">
 
 {% endblock %}
 

@@ -103,6 +103,8 @@ urlpatterns = [
     # Translators: URL root de feed
     url(_(r'^feed/'), include('apps.core.urls.feed', namespace='feed')),
 
+    # Translators: URL root de amp
+    url(_(r'^'), include('apps.core.urls.amp', namespace='amp')),
 
     # Translators: URL root of user alerts
     url(_(r'^useralerts/'), include('apps.useralerts.urls', namespace='useralerts')),
@@ -128,7 +130,7 @@ urlpatterns = [
 ] + url_statics + url_media + urls_old
 
 urls_front_end = [
-    url(_(r'^front-end/(?P<template>[a-z0-9.]+(?:(-|_)[a-z0-9.]+)*)'), FrontEndBase.as_view())
+    url(_(r'^front-end/(?P<template>[a-z0-9./]+(?:(-|_)[a-z0-9.]+)*)'), FrontEndBase.as_view())
 ]
 
 if not (settings.ENVIRONMENT=='production'):

@@ -1,0 +1,41 @@
+{% extends "core/amp/base.html" %}
+{% load staticfiles %}
+{% load abs_url %}
+{% load amp_tags %}
+{% load humanize %}
+{% load avatar_tags %}
+{% load thumbor_tags %}
+
+{% block title %}{{ article.title }}{% endblock %}
+
+{% block canonical_url %}{% absolute_url 'article:view' article.year article.month article.get_first_slug %}{% endblock %}
+
+{% block content %}
+
+<article class="amp-publication">
+  <header class="amp-publication-header">
+    <div class="amp-publication-info">
+      <time class="amp-publication-publish" datetime="{{ article.publishin|date:'d/m/Y G:i' }}">{{ article.publishin|naturaltime }}</time>
+      <a class="amp-publication-creator" href="{% if  article.author.is_active %}{% url 'profile:show' article.author.username %}{% else %}javascript:;{% endif %}">
+        <figure class="amp-publication-creator-figure">
+          <amp-img class="amp-publication-creator-img" src="{% get_avatar article.author width=20 height=20 smart=False fit_in=False %}" alt="foto de {{ article.author.get_full_name }}" width="20" height="20"></amp-img>
+          <figcaption class="amp-publication-creator-name">{{ article.author.get_full_name }}</figcaption>
+        </figure>
+      </a>
+    </div>
+    <h1 class="amp-publication-title">{{ article.title }}</h1>
+  </header>
+  {% if article.image %}
+    <amp-img src="{% thumbor_url article.image.url width=320 smart=True fit_in=True %}" width="320" height="240"></amp-img>
+  {% else %}
+    {% static "images/gsti-default-og-image.png" as default_image %}
+    {% absolute_url default_image as default_image %}
+    <amp-img src="{% thumbor_url default_image width=320 smart=True fit_in=True %}" width="320" height="240"></amp-img>
+  {% endif %}
+  {% amp_normalize_text article.text as text %}
+  <div class="amp-publication-content">
+    {{ text|safe }}
+  </div>
+</article>
+<a class="amp-publication-action" href="{% absolute_url 'article:view' article.year article.month article.get_first_slug %}">Mais notícias</a>
+{% endblock %}
