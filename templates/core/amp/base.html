@@ -1,4 +1,4 @@
-{% load staticfiles %}
+{% load staticfiles %}{% load i18n %}
 <!doctype html>
 <html amp lang="pt-br">
   <head>
@@ -244,13 +244,30 @@
     </header>
     <amp-sidebar id="sidebar1" layout="nodisplay" side="right">
       <div class="amp-menu">
-        <a class="amp-menu-item active" href="#">
-          <span class="amp-menu-item-text">Cadastre-se</span>
-        </a>
+          {% if request.user.is_authenticated %}
+                <a class="amp-menu-item active" href="{% url 'profile:feed' %}"><span class="amp-menu-item-text">Meu Feed</span></a>
+                <a class="amp-menu-item" href="{% if  request.user.is_active %}{% url 'profile:show' request.user.username %}{% else %}#{% endif %}"> <span class="amp-menu-item-text">Minhas Publicações</span></a>
+                <a class="amp-menu-item" href="{% url 'profile:my-questions' %}"><span class="amp-menu-item-text">Minhas Perguntas</span></a>
+                <a class="amp-menu-item" href="{% url 'article:create' %}"><span class="amp-menu-item-text">Criar Publicação</span></a>
+                <a class="amp-menu-item" href="{% url 'question:create' %}"><span class="amp-menu-item-text">Perguntar</span></a>
+                <a class="amp-menu-item" href="{% url 'profile:favourite' %}"><span class="amp-menu-item-text">Favoritos</span></a>
+                <a class="amp-menu-item" href="{% url 'profile:see-later' %}"><span class="amp-menu-item-text">Ver depois</span></a>
+                <a class="amp-menu-item" href="{% url 'profile:suggest' %}"><span class="amp-menu-item-text">Sugeridos</span></a>
+                <a class="amp-menu-item" href="{% url 'profile:edit-posts' %}"><span class="amp-menu-item-text">Editar Conteúdo</span></a>
+                <a class="amp-menu-item" href="{% url 'profile:edit' %}"><span class="amp-menu-item-text">Editar Perfil</span></a>
+                <a class="amp-menu-item" href="{% url 'configuration:account' %}"><span class="amp-menu-item-text">Configurações</span></a>
+                <a class="amp-menu-item" href="{% url 'account:logout' %}?next={{ request.path }}"><span class="amp-menu-item-text">{% trans "Sair" %}</span></a>
+          {% else %}
+
+            <a class="amp-menu-item active" href="#">
+              <span class="amp-menu-item-text">Cadastre-se</span>
+            </a>
+
+            <a class="amp-menu-item active" href="#">
+              <span class="amp-menu-item-text">Login</span>
+            </a>
+          {% endif %}
         <span class="amp-menu-close" role="" tabindex="" on="tap:sidebar1.close"><span></span></span>
-        <a class="amp-menu-item active" href="#">
-          <span class="amp-menu-item-text">Login</span>
-        </a>
         <a class="amp-menu-item" href="{% url 'category:show' 'governanca-e-gestao' %}">
           <span class="amp-menu-item-text">Governança e Gestão</span>
         </a>
