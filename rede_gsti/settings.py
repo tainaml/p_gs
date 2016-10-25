@@ -490,7 +490,7 @@ AVATAR = {
 
 
 # Login Urls
-LOGIN_URL = '/'
+LOGIN_URL = '/conta/login/'
 
 
 # Wizard Steps

@@ -1,13 +1,17 @@
-<form id="form-contact-modal" action="{% url 'contact:save' %}" method="post" data-ajaxform="true" data-group-class=".form-group">
+{% load recaptcha %}
+
+<form id="form-contact-modal" action="{% url 'contact:save' %}" method="post" {% if not render_captcha %}data-ajaxform="true" data-group-class=".form-group" {% endif %}>
 
     {% csrf_token %}
     {% if request.user.is_anonymous %}
         <div class="form-group">
             <input class="form-control" type="text" name="name" placeholder="Nome">
+            {% if form.name.errors %}{{ form.name.errors }}{% endif %}
         </div>
 
         <div class="form-group">
             <input class="form-control" type="email" name="email" placeholder="Email">
+        {% if form.email.errors %}{{ form.email.errors }}{% endif %}
         </div>
     {% endif %}
 
@@ -16,14 +20,16 @@
             <select name="subject" id="subject" class="form-control">
                 <option value="">Assunto</option>
                 {% for subject in subjects %}
-                    <option value="{{ subject.id }}">{{ subject.title }}</option>
+                    <option value="{{ subject.id }}">{{ subject.title }}</option>g-recaptcha
                 {% endfor %}
             </select>
+            {% if form.subject.errors %}{{ form.subject.errors }}{% endif %}
         </div>
     </div>
 
     <div class="form-group">
         <textarea id="contact_message" class="form-control" rows="7" name="message" placeholder="Mensagem"></textarea>
+        {% if form.message.errors %}{{ form.message.errors }}{% endif %}
     </div>
 
     <div class="row">
@@ -31,9 +37,10 @@
         {% if request.user.is_anonymous %}
             <div class="col-lg-8">
                 <div class="form-group">
-                    <div id="g-recaptcha"></div>
+                    <div id="g-recaptcha" class="g-recaptcha" data-sitekey="{% recaptcha_site_key %}"></div>
                     <input type="hidden" name="captcha">
                 </div>
+                {% if form.captcha.errors %}{{ form.captcha.errors }}{% endif %}
             </div>
         {% endif %}
 

@@ -22,10 +22,17 @@ class ContactView(View):
             })
         return render(request, self.template_path, context)
 
-    def get(self, request):
+    def get_context(self):
 
         subjects = Business.get_contact_subjects()
-        return self.return_success(request, {'subjects': subjects})
+        context = {
+            'subjects': subjects
+        }
+        return context
+
+    def get(self, request):
+
+        return self.return_success(request, context=self.get_context())
 
 
 class ContactSaveViews(View):
@@ -33,13 +40,23 @@ class ContactSaveViews(View):
     template_path = "contact/contact.html"
     form = ContactForm
 
-    def return_error(self, request, context=None):
+    render_captcha = False
+
+    def get_context(self, context=None):
+        context = {} if context is None else context
+
         subjects = Business.get_contact_subjects()
-        context.update({'subjects': subjects})
+        context.update({
+            'subjects': subjects,
+            'render_captcha': self.render_captcha,
+        })
+        return context
+
+    def return_error(self, request, context=None):
 
         if request.is_ajax():
             return JsonResponse({
-                'template': render(request, self.template_path, context).content
+                'template': render(request, self.template_path, self.get_context(context)).content
             })
 
         messages.add_message(request, messages.SUCCESS, context.get('message'), 'contact')
@@ -59,11 +76,23 @@ class ContactSaveViews(View):
         if not request.user.is_authenticated():
             self.form = ContactFormNoAuthenticated
 
-        form = self.form(request.user, request.POST)
-        context = {}
+        if request.is_ajax():
+            self.render_captcha = True
+
+        form = self.form(user=request.user, data=request.POST)
+
+        context = self.get_context()
 
         if form.process():
-            return self.return_success(request, {'message': _("Contact created!")})
+            if request.is_ajax():
+                return self.return_success(request, {'message': _("Contact created!")})
+            else:
+                return redirect(to='contact:success')
 
         context.update({'form': form})
-        return self.return_error(request, context)
+
+        if request.is_ajax():
+            return self.return_error(request, context=context)
+        else:
+            self.template_path = 'contact/contact-single.html'
+            return render(request, template_name=self.template_path, context=context)

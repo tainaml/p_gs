@@ -1,0 +1,30 @@
+{% load i18n %}
+{% trans 'click here' as click_here %}
+{% url 'account:resend_account_confirmation' as url_resend_account_confirmation %}
+
+<form action="{% url 'account:login' %}?next={{ url_next }}" method="post">
+    {% csrf_token %}
+
+    <input type="text" name="username" value="{{ form.cleaned_data.username|default_if_none:"" }}" placeholder="{% trans "Username" %}" maxlength="100">
+    {% if form.username.errors %}  {{ form.username.errors }} {% endif %}
+    <br/>
+
+    <input type="password" name="password" placeholder="{% trans "Password" %}" maxlength="50">
+    {% if form.password.errors %}  {{ form.password.errors }} {% endif %}
+    <br/>
+
+    {% if form.account_is_active_errors %}
+        <ul class="errorlist">
+            <li>{{ form.account_is_active_errors }} {% blocktrans %}If you have not received the confirmation email <a href="{{ url_resend_account_confirmation }}">{{ click_here }}</a> to resend. {% endblocktrans %}</li>
+        </ul>
+    {% endif %}
+
+    <input type="submit" value="{% trans "Login" %}" name="submit" />
+    {% trans 'or' %} <a href="{% url 'socialaccount:index' %}">{% trans 'Login Social' %}</a>
+    {% trans 'or' %} <a href="{% url 'account:signup' %}">{% trans 'Registrar' %}</a>
+
+    <br/>
+
+    <a href="{% url 'account:forgot_password' %}">{% trans 'Esqueceu sua senha?' %}</a>
+
+</form>
