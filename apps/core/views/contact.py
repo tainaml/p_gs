@@ -49,6 +49,7 @@ class CoreContactSaveViews(views.ContactSaveViews):
 
     def post(self, request):
         if not request.is_ajax():
+            self.render_captcha = True
             self.template_path = 'contact/contact-single.html'
         return super(CoreContactSaveViews, self).post(request)
 

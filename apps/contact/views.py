@@ -79,7 +79,7 @@ class ContactSaveViews(View):
         if request.is_ajax():
             self.render_captcha = True
 
-        form = self.form(request.user, request.POST)
+        form = self.form(user=request.user, data=request.POST)
 
         context = self.get_context()
 
@@ -92,6 +92,7 @@ class ContactSaveViews(View):
         context.update({'form': form})
 
         if request.is_ajax():
-            return self.return_error(request, context)
+            return self.return_error(request, context=context)
         else:
+            self.template_path = 'contact/contact-single.html'
             return render(request, template_name=self.template_path, context=context)
