@@ -8,22 +8,12 @@
 {% block seo-og-description %}{% block seo-description %}Saiba mais sobre a ideia que originou o Portal GSTI e o que ele se tornou. Conheça e participe de nossa história.{% endblock %}{% endblock %}
 
 {% block content %}
-
     <main class="container main">
-        <div class="col-lg-8">
-            <header class="area-title">
-                <h1>Contato</h1>
-            </header>
+        <div class="success-page">
+            <h2 class="success-page-title">Mensagem enviada</h2>
 
-            <h2>Sua mensagem foi entregue com sucesso!</h2>
-
-        </div>
-
-        <div class="col-lg-4">
-            <div class="embed-responsive embed-responsive-4by3 embed-responsive-4by3-mobile">
-                <iframe class="embed-responsive-item" width="100%" height="300" src="https://www.youtube.com/embed/G1xIlZ35mZo" frameborder="0" allowfullscreen></iframe>
-            </div>
+            <p class="success-page-description">O Portal GSTI agradece e em breve entraremos em contato.</p>
+            <a href="{% url 'profile:feed' %}" class="btn-grey success-page-btn">Ir para meu feed</a>
         </div>
     </main>
-
 {% endblock %}

@@ -1,4 +1,3 @@
-from copy import copy
 from django.conf import settings
 from django.db.models.signals import post_save
 from django.dispatch import receiver
@@ -18,7 +17,7 @@ def create_profile(sender, **kwargs):
     instance = kwargs.get('instance')
 
     if instance:
-        email_subject = "#{id}-{subject}".format(
+        email_subject = u"#{id}-{subject}".format(
             id=instance.id,
             subject=instance.subject.title if instance.subject else 'No subject'
         )
