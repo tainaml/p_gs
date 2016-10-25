@@ -69,16 +69,25 @@ class LoginView(View):
         :return: HTML
         """
 
-        url_next = '/account/'
+        url_next = reverse('profile:feed')
 
         if 'next' in request.GET and request.GET['next']:
             url_next = request.GET['next']
 
         if not request.user.is_authenticated():
             form = self.form_login()
-            return self.return_error(request, {'form': form})
+
+            context = {'form': form}
+
+            if request.is_ajax():
+                return self.return_error(request, context)
+            else:
+                return render(request, self.template_path, context)
         else:
-            return self.return_success(request, {'url_next': url_next})
+            if request.is_ajax():
+                return self.return_success(request, {'url_next': url_next})
+            else:
+                return redirect(to=url_next)
 
     def post(self, request):
         """
@@ -88,7 +97,7 @@ class LoginView(View):
         :return:
         """
 
-        url_next = '/account/'
+        url_next = reverse('profile:feed')
 
         if 'next' in request.GET and request.GET.get('next'):
             url_next = request.GET.get('next')
@@ -96,14 +105,21 @@ class LoginView(View):
         form = self.form_login(request, request.POST)
 
         if form.process():
-            url_next = '/profile/feed/' if form.redirect_to_wizard else url_next
             context = {
                 'status': 200,
                 'url_next': url_next
             }
-            return self.return_success(request, context)
+            if request.is_ajax():
+                return self.return_success(request, context)
+            else:
+                return redirect(to=url_next)
 
-        return self.return_error(request, {'form': form})
+        context = {'form': form}
+
+        if request.is_ajax():
+            return self.return_error(request, context)
+        else:
+            return render(request, template_name=self.template_path, context=context)
 
 
 class LogoutView(View):
