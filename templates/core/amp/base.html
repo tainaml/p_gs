@@ -25,11 +25,6 @@
       * { box-sizing: border-box }
       html { font-size: 10px }
       body { font: 14px 'Open Sans', sans-serif }
-      .amp-page {
-        max-width: 600px;
-        margin-left: auto;
-        margin-right: auto;
-      }
       .amp-header {
         position: relative;
         top: 0;
@@ -125,6 +120,11 @@
          padding-bottom: 10px;
          display: block;
          border-bottom: 1px solid #d9d9d9;
+       }
+       .amp-main {
+         max-width: 600px;
+         margin-left: auto;
+         margin-right: auto;
        }
        .amp-publication-header .amp-publication-info { border-bottom: 1px solid #d4d4d4 }
        .amp-publication-title {
@@ -238,38 +238,12 @@
     </style>
   </head>
   <body>
-    <div class="amp-page">
-      <header class="amp-header">
-        <amp-img class="amp-logo" src="{% static 'images/gsti.png' %}" alt="Portal GSTI" width="126" height="40"></amp-img>
-        <a class="amp-toggle-sidebar" on="tap:sidebar1.toggle">
-          <span></span>
-        </a>
-      </header>
-      <main class="amp-main">
-        {% block content %}{% endblock %}
-      </main>
-      <footer class="amp-footer">
-        <ul class="amp-categories">
-          <li class="amp-category"><a href="{% url 'category:show' 'governanca-e-gestao' %}">Governança e Gestão</a></li>
-          <li class="amp-category"><a href="{% url 'category:show' 'desenvolvimento' %}">Desenvolvimento</a></li>
-          <li class="amp-category"><a href="{% url 'category:show' 'design' %}">Design</a></li>
-          <li class="amp-category"><a href="{% url 'category:show' 'marketing-digital' %}">Marketing Digital</a></li>
-          <li class="amp-category"><a href="{% url 'category:show' 'banco-de-dados' %}">Banco de Dados</a></li>
-            <li class="amp-category"><a href="{% url 'category:show' 'infraestrutura' %}">Infraestrutura</a></li>
-            <li class="amp-category"><a href="{% url 'category:show' 'mobile' %}">Mobile</a></li>
-          <li class="amp-category"><a href="{% url 'category:show' 'mais' %}">Mais</a></li>
-        </ul>
-        <div class="amp-footer-info">
-          <p class="amp-copyright">
-            Portal GSTI © Copyright 2016
-          </p>
-          <ul class="amp-footer-links">
-            <li class="amp-footer-item"><a class="amp-footer-link" href="/sobre/">Sobre</a></li>
-            <li class="amp-footer-item"><a class="amp-footer-link" href="/contato/" data-contact="" data-async-module="click" data-async-target="#modal-content-form-contact" data-async-method="get">Contato</a></li>
-          </ul>
-        </div>
-      </footer>
-    </div>
+    <header class="amp-header">
+      <amp-img class="amp-logo" src="{% static 'images/gsti.png' %}" alt="Portal GSTI" width="126" height="40"></amp-img>
+      <a class="amp-toggle-sidebar" on="tap:sidebar1.toggle">
+        <span></span>
+      </a>
+    </header>
     <amp-sidebar id="sidebar1" layout="nodisplay" side="right">
       <div class="amp-menu">
           {% if request.user.is_authenticated %}
@@ -343,5 +317,29 @@
       {% endif %}
       </div>
     </amp-sidebar>
+    <main class="amp-main">
+      {% block content %}{% endblock %}
+    </main>
+    <footer class="amp-footer">
+      <ul class="amp-categories">
+        <li class="amp-category"><a href="{% url 'category:show' 'governanca-e-gestao' %}">Governança e Gestão</a></li>
+        <li class="amp-category"><a href="{% url 'category:show' 'desenvolvimento' %}">Desenvolvimento</a></li>
+        <li class="amp-category"><a href="{% url 'category:show' 'design' %}">Design</a></li>
+        <li class="amp-category"><a href="{% url 'category:show' 'marketing-digital' %}">Marketing Digital</a></li>
+        <li class="amp-category"><a href="{% url 'category:show' 'banco-de-dados' %}">Banco de Dados</a></li>
+        <li class="amp-category"><a href="{% url 'category:show' 'infraestrutura' %}">Infraestrutura</a></li>
+        <li class="amp-category"><a href="{% url 'category:show' 'mobile' %}">Mobile</a></li>
+        <li class="amp-category"><a href="{% url 'category:show' 'mais' %}">Mais</a></li>
+      </ul>
+      <div class="amp-footer-info">
+        <p class="amp-copyright">
+          Portal GSTI © Copyright 2016
+        </p>
+        <ul class="amp-footer-links">
+          <li class="amp-footer-item"><a class="amp-footer-link" href="/sobre/">Sobre</a></li>
+          <li class="amp-footer-item"><a class="amp-footer-link" href="/contato/" data-contact="" data-async-module="click" data-async-target="#modal-content-form-contact" data-async-method="get">Contato</a></li>
+        </ul>
+      </div>
+    </footer>
   </body>
 </html>
