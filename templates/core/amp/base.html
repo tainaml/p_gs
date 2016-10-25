@@ -265,11 +265,11 @@
 
           {% else %}
 
-            <a class="amp-menu-item active" href="#">
+            <a class="amp-menu-item active" href="{% url "account:signup" %}">
               <span class="amp-menu-item-text">Cadastre-se</span>
             </a>
 
-            <a class="amp-menu-item active" href="#">
+            <a class="amp-menu-item active" href="{% url "account:login" %}">
               <span class="amp-menu-item-text">Login</span>
             </a>
           {% endif %}
@@ -337,11 +337,11 @@
       </ul>
       <div class="amp-footer-info">
         <p class="amp-copyright">
-          Portal GSTI © Copyright 2016
+          Portal GSTI © Copyright {% now "Y" %}
         </p>
         <ul class="amp-footer-links">
-          <li class="amp-footer-item"><a class="amp-footer-link" href="/sobre/">Sobre</a></li>
-          <li class="amp-footer-item"><a class="amp-footer-link" href="/contato/" data-contact="" data-async-module="click" data-async-target="#modal-content-form-contact" data-async-method="get">Contato</a></li>
+          <li class="amp-footer-item"><a class="amp-footer-link" href="{% url "core:about" %}">Sobre</a></li>
+          <li class="amp-footer-item"><a class="amp-footer-link" href="{% url "contact:create" %}" data-contact="" data-async-module="click" data-async-target="#modal-content-form-contact" data-async-method="get">Contato</a></li>
         </ul>
       </div>
     </footer>

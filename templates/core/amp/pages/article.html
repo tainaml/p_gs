@@ -27,15 +27,11 @@
   </header>
   {% if article.image %}
     <amp-img src="{% thumbor_url article.image.url width=320 smart=True fit_in=True %}" width="320" height="240"></amp-img>
-  {% else %}
-    {% static "images/gsti-default-og-image.png" as default_image %}
-    {% absolute_url default_image as default_image %}
-    <amp-img src="{% thumbor_url default_image width=320 smart=True fit_in=True %}" width="320" height="240"></amp-img>
-  {% endif %}
+ {% endif %}
   {% amp_normalize_text article.text as text %}
   <div class="amp-publication-content">
     {{ text|safe }}
   </div>
 </article>
-<a class="amp-publication-action" href="{% absolute_url 'article:view' article.year article.month article.get_first_slug %}">Mais notícias</a>
+<a class="amp-publication-action" href="{% absolute_url 'article:view' article.year article.month article.get_first_slug %}">Comentários</a>
 {% endblock %}

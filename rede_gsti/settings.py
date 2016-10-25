@@ -912,7 +912,7 @@ if ENVIRONMENT == "develop":
     MEDIA_URL = '/media/uploads/'
 
 
-    INSTALLED_APPS += ('apps.ninico', PROFILER_APP )
+    # INSTALLED_APPS += ('apps.ninico', PROFILER_APP )
     SECURE_SSL_HOST = None
     SECURE_PROXY_SSL_HEADER = None
 
