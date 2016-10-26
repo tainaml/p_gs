@@ -26,7 +26,7 @@
     <h1 class="amp-publication-title">{{ article.title }}</h1>
   </header>
   {% if article.image %}
-    <amp-img src="{% thumbor_url article.image.url width=320 smart=True fit_in=True %}" width="320" height="240"></amp-img>
+    <amp-img layout="responsive" src="{% thumbor_url article.image.url width=320 smart=True fit_in=True %}" width="320" height="240"></amp-img>
  {% endif %}
   {% amp_normalize_text article.text as text %}
   <div class="amp-publication-content">
