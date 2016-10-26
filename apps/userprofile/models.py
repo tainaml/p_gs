@@ -38,7 +38,7 @@ class UserProfile(models.Model):
     profile_picture = models.ImageField(max_length=100, upload_to='userprofile/%Y/%m/%d', blank=True, default='')
     contributor = models.BooleanField(null=False, blank=False, default=False)
     wizard_step = models.IntegerField(null=False, blank=False, default=0)
-    description = models.TextField(null=True, blank=True, max_length=255)
+    description = models.CharField(null=True, blank=True, max_length=255)
     last_update = models.DateTimeField(auto_now=True)
 
 
