@@ -112,6 +112,9 @@ def update_profile(user=None, data=None):
             profile.profile_picture.delete()
             profile.profile_picture = data.get('profile_picture')
 
+        if 'description' in data:
+            profile.description = data.get('description')
+
         _wizard_step = data.get('wizard_step', False)
         if _wizard_step and _wizard_step <= settings.WIZARD_STEPS_TOTAL:
             profile.wizard_step = _wizard_step
