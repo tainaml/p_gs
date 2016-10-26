@@ -1,4 +1,4 @@
-{% load staticfiles %}{% load i18n %}
+{% load staticfiles %}{% load i18n %}{% load utils %}
 <!doctype html>
 <html amp lang="pt-br">
   <head>
@@ -260,6 +260,7 @@
          text-decoration: none;
        }
     </style>
+  {% amp_tag_manager_script %}
   </head>
   <body>
     <header class="amp-header">
@@ -365,5 +366,6 @@
         </ul>
       </div>
     </footer>
+  {% amp_tag_manager_iframe %}
   </body>
 </html>
