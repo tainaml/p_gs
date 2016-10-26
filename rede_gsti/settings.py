@@ -899,20 +899,24 @@ if ENVIRONMENT == "develop":
 
     profiler = config.get("DEVELOP", 'profiler')
 
-    PROFILER_APP = 'silk'
 
+    PROFILER_APP = None
     if profiler == 'debug_toolbar':
         PROFILER_APP = 'debug_toolbar'
-    else:
+    elif profiler == 'silk':
         MIDDLEWARE_CLASSES += ('silk.middleware.SilkyMiddleware',)
         SILKY_PYTHON_PROFILER = True
+        PROFILER_APP = 'silk'
         SILKY_META = True
 
     STATIC_URL = '/static/'
     MEDIA_URL = '/media/uploads/'
 
 
-    # INSTALLED_APPS += ('apps.ninico', PROFILER_APP )
+    INSTALLED_APPS += ('apps.ninico',)
+    if PROFILER_APP:
+        INSTALLED_APPS += (PROFILER_APP,)
+
     SECURE_SSL_HOST = None
     SECURE_PROXY_SSL_HEADER = None
 
