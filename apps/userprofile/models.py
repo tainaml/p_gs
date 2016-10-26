@@ -1,4 +1,5 @@
 from datetime import date
+from apps.taxonomy.models import Taxonomy
 
 from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
@@ -131,6 +132,7 @@ class UserProfile(models.Model):
 class Responsibility(models.Model):
     name = models.CharField(max_length=60, null=False, blank=False)
     text = models.TextField(null=True, blank=True)
+    categories = models.ManyToManyField(to=Taxonomy, related_name='responsibilities')
 
     class Meta:
         ordering = ('name',)

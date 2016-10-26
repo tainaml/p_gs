@@ -51,7 +51,7 @@ def get_communities(description=None, items_per_page=None, page=None, startswith
     return communities
 
 
-def get_users(description=None, items_per_page=None, page=None, startswith=False, state=None, city=None):
+def get_users(description=None, items_per_page=None, page=None, startswith=False, state=None, city=None, responsibility=None):
 
     items_per_page = items_per_page if items_per_page else 6
     page = page if page else 1
@@ -102,6 +102,10 @@ def get_users(description=None, items_per_page=None, page=None, startswith=False
     if city:
         city_criteria = Q(profile__city_hometown=city)
         criteria = city_criteria if not criteria else criteria & city_criteria
+
+    if responsibility:
+        responsibility_criteria = Q(profile__occupation__responsibility=responsibility)
+        criteria = responsibility_criteria if not criteria else criteria & responsibility_criteria
 
     # TODO remove empty register
     exclude_empty_register = ~Q(username__exact='') and Q(profile__wizard_step__gte=getattr(settings, 'WIZARD_STEPS_TOTAL'))
