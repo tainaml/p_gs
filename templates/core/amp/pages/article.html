@@ -36,18 +36,18 @@
    {% if article.image %}
    "image":{
       "@type":"ImageObject",
-      "url":"{% thumbor_url article.image.url width=300 height=360 smart=False fit_in=False %}",
-      "width":"300px",
-      "height": "360px"
+      "url":"{% thumbor_url article.image.url width=700 height=260 smart=False fit_in=False %}",
+      "width": 700,
+      "height": 260
    }
 
    {% else %}
    {% static 'images/gsti-default-og-image.png' as default_image %}
    "image":{
       "@type":"ImageObject",
-      "url":"{% thumbor_url default_image width=300 height=360 smart=False fit_in=False %}",
-      "width": "300px",
-      "height": "360px"
+      "url":"{% thumbor_url default_image width=700 height=260 smart=False fit_in=False %}",
+      "width": 700,
+      "height": 260
    }
 
    {% endif %}
