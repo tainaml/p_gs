@@ -1,9 +1,11 @@
-{% load staticfiles %}{% load i18n %}
+{% load staticfiles %}{% load i18n %}{% load utils %}
 <!doctype html>
 <html amp lang="pt-br">
   <head>
     <meta charset="utf-8">
     <title>{% block title %}{% endblock %}</title>
+  <script async custom-element="amp-analytics"
+    src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"></script>
     <link rel="canonical" href="{% block canonical_url %}{% endblock %}" />
     <link rel="apple-touch-icon-precomposed" sizes="57x57" href="{% static 'images/apple-touch-icon-57x57.png' %}" />
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{% static 'images/apple-touch-icon-114x114.png' %}" />
@@ -260,6 +262,7 @@
          text-decoration: none;
        }
     </style>
+
   </head>
   <body>
     <header class="amp-header">
@@ -365,5 +368,6 @@
         </ul>
       </div>
     </footer>
+    {% amp_tag_manager_script %}
   </body>
 </html>
