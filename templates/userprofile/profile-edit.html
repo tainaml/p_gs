@@ -15,194 +15,208 @@
 
 
 {% block content %}
-<main class="container main">
-<div class="row">
-    <!-- mudar para 2.5 -->
-    <div class="col-lg-3">
-        {% include 'home/partials/sidebar-perfil.html' with local_context="profile-edit" %}
-    </div>
-    <div class="col-lg-9">
+    <main class="container main">
         <div class="row">
-            <div class="col-lg-12">
-                <div class="area-title">
-                    <h2>Editar Perfil</h2>
-                </div>
-                <form class="area-content form-edit" action="{% url 'profile:edit' %}" method="post" enctype="multipart/form-data">
-                    {% include 'core/partials/messages-flash.html' with message_extra_tags="profile-edit" show_hr=True %}
-                    {% csrf_token %}
-                    <div class="row">
-                        <div class="col-lg-3">
-                            <div class="custom-file-upload set-avatar"
-                                data-module="dropzoneUploader"
-                                data-original-image="{% if profile.get_profile_picture %}{{ profile.get_profile_picture.url }}{% endif %}">
-                                <div class="custom-file-content">
-                                    <i class="gsticon gsticon-cloud-upload"></i>
-                                    <h5><strong>Foto de perfil</strong></h5>
-                                    <p>Arreste a imagem para este campo ou <a href="javascript:;" data-trigger="file">clique aqui</a></p>
+            <!-- mudar para 2.5 -->
+            <div class="col-lg-3">
+                {% include 'home/partials/sidebar-perfil.html' with local_context="profile-edit" %}
+            </div>
+            <div class="col-lg-9">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="area-title">
+                            <h2>Editar Perfil</h2>
+                        </div>
+                        <form class="area-content form-edit" action="{% url 'profile:edit' %}" method="post" enctype="multipart/form-data">
+                            {% include 'core/partials/messages-flash.html' with message_extra_tags="profile-edit" show_hr=True %}
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class="col-lg-3">
+                                    <div class="custom-file-upload set-avatar"
+                                         data-module="dropzoneUploader"
+                                         data-original-image="{% if profile.get_profile_picture %}{{ profile.get_profile_picture.url }}{% endif %}">
+                                        <div class="custom-file-content">
+                                            <i class="gsticon gsticon-cloud-upload"></i>
+                                            <h5><strong>Foto de perfil</strong></h5>
+                                            <p>Arreste a imagem para este campo ou <a href="javascript:;" data-trigger="file">clique aqui</a></p>
+                                        </div>
+                                        <input type="file" accept="image/*" name="profile_picture">
+                                        <div class="custom-file-upload-result" data-content="file"></div>
+                                    </div>
                                 </div>
-                                <input type="file" accept="image/*" name="profile_picture">
-                                <div class="custom-file-upload-result" data-content="file"></div>
-                            </div>
-                        </div>
-                        <div class="col-lg-9">
-                            <div class="form-group-inline {% if form.first_name.errors %}has-error{% endif %}">
-                                <label for="first_name">Nome</label>
-                                <input class="form-control" type="text" name="first_name" value="{{ request.user.first_name }}">
-                                {% if form.first_name.errors %}
-                                    {% for error in form.first_name.errors %}
-                                        <span class="help-block">{{ error|escape }}</span>
-                                    {% endfor %}
-                                {% endif %}
-                            </div>
-                            <div class="form-group-inline {% if form.last_name.errors %}has-error{% endif %}">
-                                <label for="last_name">Sobrenome</label>
-                                <input class="form-control" type="text" name="last_name" value="{{ request.user.last_name }}">
-                                {% if form.last_name.errors %}
-                                    {% for error in form.last_name.errors %}
-                                        <span class="help-block">{{ error|escape }}</span>
-                                    {% endfor %}
-                                {% endif %}
-                            </div>
-                            <div class="form-group-inline {% if form.gender.errors %}has-error{% endif %}">
-                                <label for="gender">Sexo</label>
-                                <select name="gender" id="gender" class="form-control">
-                                    <option value="">Selecione</option>
-                                    <option value="M" {% if form.data_model.gender|upper == "M" %}selected{% endif %}>Masculino</option>
-                                    <option value="F" {% if form.data_model.gender|upper == "F" %}selected{% endif %}>Feminino</option>
-                                </select>
-                            </div>
-                            <div class="form-group-inline {% if form.birth.errors %}has-error{% endif %}">
-
-                             <label for="birth">Data de Nascimento</label>
-                                    <input class="form-control datetime-picker" type="text" name="birth" id="birth" placeholder="{% trans "Birth date" %}" value="{{ form.data_model.birth|date:"d/m/Y" }}">
-                                {% if form.birth.errors %}
-                                    {% for error in form.birth.errors %}
-                                    <span class="help-block">{{ error|escape }}</span>
-                                    {% endfor %}
-                                {% endif %}
-                            </div>
-                        </div>
-                    </div>
-                <div class="row-form">
-                        <div class="col-lg-12">
-                            <div class="form-group-inline {% if form.state_hometown.errors %}has-error{% endif %}">
-                                <label for="state_hometown">Estado que nasceu</label>
-                                <select class="form-control" id="state_hometown" name="state_hometown" data-ajax-change="true" data-url="{% url 'profile:get_city' %}" data-target="#city_hometown" data-value="{% if  form.cleaned_data.city_hometown %}{{ form.cleaned_data.city_hometown.id }}{% elif form.data_model.city_hometown %}{{ form.data_model.city_hometown.id }}{% endif %}">
-                                    <option value="" {% if not form.data_model.city_hometown %}selected{% endif %} disabled>{% trans "Selecione um estado" %}</option>
-                                    {% for state in states %}
-                                        <option value="{{ state.id }}" {% if form.data_model.city_hometown.state.id == state.id %}selected{% endif %}>{{ state.name }}</option>
-                                    {% endfor %}
-                                </select>
-                                {% if form.state_hometown.errors %}
-                                    {% for error in form.state_hometown.errors %}
-                                        <span class="help-block">{{ error|escape }}</span>
-                                    {% endfor %}
-                                {% endif %}
-                            </div>
-                            <div class="form-group-inline {% if form.birth.errors %}has-error{% endif %}">
-                                <label for="city_hometown">Cidade que nasceu</label>
-                                <select class="form-control" id="city_hometown" name="city_hometown">
-                                    <option value="" {% if not form.data_model.city_hometown %}selected{% endif %} disabled>{% trans "Selecione uma cidade" %}</option>
-                                    {% for city in form.data_model.city_hometown.state.cities.all %}
-                                        <option value="{{ city.id }}" {% if form.data_model.city_hometown.id == city.id %}selected{% endif %}>{{ city.name }}</option>
-                                    {% endfor %}
-                                </select>
-                                {% if form.city_hometown.errors %}
-                                    {% for error in form.city_hometown.errors %}
-                                        <span class="help-block">{{ error|escape }}</span>
-                                    {% endfor %}
-                                {% endif %}
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row-form">
-                        <div class="col-lg-12">
-                            <div class="form-group-inline {% if form.state.errors %}has-error{% endif %}">
-                                <label for="residency_state">Estado que mora</label>
-                                <select id="residency_state" name="state" class="form-control" data-ajax-change="true" data-url="{% url 'profile:get_city' %}" data-target="#residency_city" data-value="{% if  form.cleaned_data.city %}{{ form.cleaned_data.city.id }}{% elif form.data_model.city %}{{ form.data_model.city.id }}{% endif %}">
-                                    <option value="" {% if not form.data_model.city %}selected{% endif %} disabled>{% trans "Selecione um estado" %}</option>
-                                    {% for state in states %}
-                                        <option value="{{ state.id }}" {% if form.data_model.city.state.id == state.id %}selected{% endif %}>{{ state.name }}</option>
-                                    {% endfor %}
-                                </select>
-                                {% if form.state.errors %}
-                                    {% for error in form.state.errors %}
-                                        <span class="help-block">{{ error|escape }}</span>
-                                    {% endfor %}
-                                {% endif %}
-                            </div>
-                            <div class="form-group-inline {% if form.city.errors %}has-error{% endif %}">
-                                <label for="residency_city">Cidade que mora</label>
-                                <select id="residency_city" name="city" class="form-control">
-                                    <option value="" {% if not form.data_model.city %}selected{% endif %} disabled>{% trans "Selecione uma cidade" %}</option>
-                                    {% for city in form.data_model.city.state.cities.all %}
-                                        <option value="{{ city.id }}" {% if form.data_model.city.id == city.id %}selected{% endif %}>{{ city.name }}</option>
-                                    {% endfor %}
-                                </select>
-                                {% if form.city.errors %}
-                                    {% for error in form.city.errors %}
-                                        <span class="help-block">{{ error|escape }}</span>
-                                    {% endfor %}
-                                {% endif %}
-                            </div>
-                        </div>
-                    </div>
-
-                    {{ responsabilities }}
-
-                    <div class="row-form">
-                        <div class="col-lg-12">
-                            <div class="form-group {% if form.responsibility.errors %}has-error{% endif %}">
-                                <label>Área de atuação</label>
-                                <script id="select-responsibility-template" type="text/template">
-                                    <div class="select-group" data-select-item>
-                                        <button type="button" class="btn btn-default" data-trigger="remove-select">
-                                            <i class="gsticon gsticon-trash"></i>
-                                        </button>
-                                        <select name="responsibility" id="" class="form-control">
-                                            <option value="" selected disabled>Selecione uma área de atuação</option>
-                                            {% for responsibility in responsibilities %}
-                                                <option value="{{ responsibility.id }}">{{ responsibility.name }}</option>
+                                <div class="col-lg-9">
+                                    <div class="form-group-inline {% if form.first_name.errors %}has-error{% endif %}">
+                                        <label for="first_name">Nome</label>
+                                        <input class="form-control" type="text" name="first_name" value="{{ request.user.first_name }}">
+                                        {% if form.first_name.errors %}
+                                            {% for error in form.first_name.errors %}
+                                                <span class="help-block">{{ error|escape }}</span>
                                             {% endfor %}
+                                        {% endif %}
+                                    </div>
+                                    <div class="form-group-inline {% if form.last_name.errors %}has-error{% endif %}">
+                                        <label for="last_name">Sobrenome</label>
+                                        <input class="form-control" type="text" name="last_name" value="{{ request.user.last_name }}">
+                                        {% if form.last_name.errors %}
+                                            {% for error in form.last_name.errors %}
+                                                <span class="help-block">{{ error|escape }}</span>
+                                            {% endfor %}
+                                        {% endif %}
+                                    </div>
+                                    <div class="form-group-inline {% if form.gender.errors %}has-error{% endif %}">
+                                        <label for="gender">Sexo</label>
+                                        <select name="gender" id="gender" class="form-control">
+                                            <option value="">Selecione</option>
+                                            <option value="M" {% if form.data_model.gender|upper == "M" %}selected{% endif %}>Masculino</option>
+                                            <option value="F" {% if form.data_model.gender|upper == "F" %}selected{% endif %}>Feminino</option>
                                         </select>
                                     </div>
-                                </script>
-                                <div id="selects-container">
-                                    {% for occupation in profile.occupations %}
-                                        <div class="select-group" data-select-item data-item="{{ occupation.id }}">
-                                            <button type="button" class="btn btn-default" data-trigger="remove-select">
-                                                <i class="gsticon gsticon-trash"></i>
-                                            </button>
-                                            <select name="responsibility" class="form-control">
-                                                <option value="" {% if not profile.current_occupation.responsibility.id %}selected{% endif %} disabled>Selecione uma área de atuação</option>
-                                                {% for responsibility in responsibilities %}
-                                                    <option value="{{ responsibility.id }}" {% if responsibility.id == occupation.responsibility.id %}selected{% endif %}>{{ responsibility.name }}</option>
-                                                {% endfor %}
-                                            </select>
-                                        </div>
-                                    {% endfor %}
+                                    <div class="form-group-inline {% if form.birth.errors %}has-error{% endif %}">
+
+                                        <label for="birth">Data de Nascimento</label>
+                                        <input class="form-control datetime-picker" type="text" name="birth" id="birth" placeholder="{% trans "Birth date" %}" value="{{ form.data_model.birth|date:"d/m/Y" }}">
+                                        {% if form.birth.errors %}
+                                            {% for error in form.birth.errors %}
+                                                <span class="help-block">{{ error|escape }}</span>
+                                            {% endfor %}
+                                        {% endif %}
+                                    </div>
                                 </div>
-                                <button type="button" class="btn btn-default btn-xs"
-                                        data-trigger="add-select-responsibility"
-                                        data-template="#select-responsibility-template"
-                                        data-target="#selects-container">
-                                    <i class="gsticon gsticon-plus"></i> Adicionar área de atuação
-                                </button>
-                                {% if form.responsibility.errors %}
-                                    {% for error in form.responsibility.errors %}
-                                        <span class="help-block">{{ error|escape }}</span>
-                                    {% endfor %}
-                                {% endif %}
                             </div>
-                        </div>
+                            <div class="row-form">
+                                <div class="col-lg-12">
+                                    <div class="form-group-inline {% if form.state_hometown.errors %}has-error{% endif %}">
+                                        <label for="state_hometown">Estado que nasceu</label>
+                                        <select class="form-control" id="state_hometown" name="state_hometown" data-ajax-change="true" data-url="{% url 'profile:get_city' %}" data-target="#city_hometown" data-value="{% if  form.cleaned_data.city_hometown %}{{ form.cleaned_data.city_hometown.id }}{% elif form.data_model.city_hometown %}{{ form.data_model.city_hometown.id }}{% endif %}">
+                                            <option value="" {% if not form.data_model.city_hometown %}selected{% endif %} disabled>{% trans "Selecione um estado" %}</option>
+                                            {% for state in states %}
+                                                <option value="{{ state.id }}" {% if form.data_model.city_hometown.state.id == state.id %}selected{% endif %}>{{ state.name }}</option>
+                                            {% endfor %}
+                                        </select>
+                                        {% if form.state_hometown.errors %}
+                                            {% for error in form.state_hometown.errors %}
+                                                <span class="help-block">{{ error|escape }}</span>
+                                            {% endfor %}
+                                        {% endif %}
+                                    </div>
+                                    <div class="form-group-inline {% if form.birth.errors %}has-error{% endif %}">
+                                        <label for="city_hometown">Cidade que nasceu</label>
+                                        <select class="form-control" id="city_hometown" name="city_hometown">
+                                            <option value="" {% if not form.data_model.city_hometown %}selected{% endif %} disabled>{% trans "Selecione uma cidade" %}</option>
+                                            {% for city in form.data_model.city_hometown.state.cities.all %}
+                                                <option value="{{ city.id }}" {% if form.data_model.city_hometown.id == city.id %}selected{% endif %}>{{ city.name }}</option>
+                                            {% endfor %}
+                                        </select>
+                                        {% if form.city_hometown.errors %}
+                                            {% for error in form.city_hometown.errors %}
+                                                <span class="help-block">{{ error|escape }}</span>
+                                            {% endfor %}
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row-form">
+                                <div class="col-lg-12">
+                                    <div class="form-group-inline {% if form.state.errors %}has-error{% endif %}">
+                                        <label for="residency_state">Estado que mora</label>
+                                        <select id="residency_state" name="state" class="form-control" data-ajax-change="true" data-url="{% url 'profile:get_city' %}" data-target="#residency_city" data-value="{% if  form.cleaned_data.city %}{{ form.cleaned_data.city.id }}{% elif form.data_model.city %}{{ form.data_model.city.id }}{% endif %}">
+                                            <option value="" {% if not form.data_model.city %}selected{% endif %} disabled>{% trans "Selecione um estado" %}</option>
+                                            {% for state in states %}
+                                                <option value="{{ state.id }}" {% if form.data_model.city.state.id == state.id %}selected{% endif %}>{{ state.name }}</option>
+                                            {% endfor %}
+                                        </select>
+                                        {% if form.state.errors %}
+                                            {% for error in form.state.errors %}
+                                                <span class="help-block">{{ error|escape }}</span>
+                                            {% endfor %}
+                                        {% endif %}
+                                    </div>
+                                    <div class="form-group-inline {% if form.city.errors %}has-error{% endif %}">
+                                        <label for="residency_city">Cidade que mora</label>
+                                        <select id="residency_city" name="city" class="form-control">
+                                            <option value="" {% if not form.data_model.city %}selected{% endif %} disabled>{% trans "Selecione uma cidade" %}</option>
+                                            {% for city in form.data_model.city.state.cities.all %}
+                                                <option value="{{ city.id }}" {% if form.data_model.city.id == city.id %}selected{% endif %}>{{ city.name }}</option>
+                                            {% endfor %}
+                                        </select>
+                                        {% if form.city.errors %}
+                                            {% for error in form.city.errors %}
+                                                <span class="help-block">{{ error|escape }}</span>
+                                            {% endfor %}
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row-form">
+                                <div class="col-lg-12">
+                                    <div class="form-group {% if form.description.errors %}has-error{% endif %}">
+                                        <label for="description">Coloque uma breve descrição sobre você</label>
+                                        <textarea name="description" id="description" cols="30" rows="5" class="form-control">{{ form.data_model.description|default_if_none:"" }}</textarea>
+                                        {% if form.description.errors %}
+                                            {% for error in form.description.errors %}
+                                                <span class="help-block">{{ error|escape }}</span>
+                                            {% endfor %}
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+
+{#                            {{ responsabilities }}#}
+
+                            <div class="row-form">
+                                <div class="col-lg-12">
+                                    <div class="form-group {% if form.responsibility.errors %}has-error{% endif %}">
+                                        <label>Área de atuação</label>
+                                        <script id="select-responsibility-template" type="text/template">
+                                            <div class="select-group" data-select-item>
+                                                <button type="button" class="btn btn-default" data-trigger="remove-select">
+                                                    <i class="gsticon gsticon-trash"></i>
+                                                </button>
+                                                <select name="responsibility" id="" class="form-control">
+                                                    <option value="" selected disabled>Selecione uma área de atuação</option>
+                                                    {% for responsibility in responsibilities %}
+                                                        <option value="{{ responsibility.id }}">{{ responsibility.name }}</option>
+                                                    {% endfor %}
+                                                </select>
+                                            </div>
+                                        </script>
+                                        <div id="selects-container">
+                                            {% for occupation in profile.occupations %}
+                                                <div class="select-group" data-select-item data-item="{{ occupation.id }}">
+                                                    <button type="button" class="btn btn-default" data-trigger="remove-select">
+                                                        <i class="gsticon gsticon-trash"></i>
+                                                    </button>
+                                                    <select name="responsibility" class="form-control">
+                                                        <option value="" {% if not profile.current_occupation.responsibility.id %}selected{% endif %} disabled>Selecione uma área de atuação</option>
+                                                        {% for responsibility in responsibilities %}
+                                                            <option value="{{ responsibility.id }}" {% if responsibility.id == occupation.responsibility.id %}selected{% endif %}>{{ responsibility.name }}</option>
+                                                        {% endfor %}
+                                                    </select>
+                                                </div>
+                                            {% endfor %}
+                                        </div>
+                                        <button type="button" class="btn btn-default btn-xs"
+                                                data-trigger="add-select-responsibility"
+                                                data-template="#select-responsibility-template"
+                                                data-target="#selects-container">
+                                            <i class="gsticon gsticon-plus"></i> Adicionar área de atuação
+                                        </button>
+                                        {% if form.responsibility.errors %}
+                                            {% for error in form.responsibility.errors %}
+                                                <span class="help-block">{{ error|escape }}</span>
+                                            {% endfor %}
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                            <input type="submit" value="Salvar" class="btn btn-default pull-right">
+                        </form>
                     </div>
-                    <input type="submit" value="Salvar" class="btn btn-default pull-right">
-                </form>
+                </div>
             </div>
         </div>
-    </div>
-</div>
-</main>
+    </main>
 {% endblock %}
 
 
@@ -234,7 +248,7 @@
 
         function addSelect () {
             var button = this,
-                target = $(button.dataset.target);
+                    target = $(button.dataset.target);
 
             var template = $($(button.dataset.template).html());
             template.css({
@@ -247,7 +261,7 @@
 
         function removeSelect () {
             var button = $(this),
-                selectItem = $(button.closest("[data-select-item]"));
+                    selectItem = $(button.closest("[data-select-item]"));
 
             selectItem.slideUp("slow", function () {
                 $(this).remove();
@@ -257,7 +271,7 @@
         $(function() {
 
             var cityListener = function(){
-              fillElement($(this));
+                fillElement($(this));
             };
 
             var $elementsChange = $("[data-ajax-change='true']");
@@ -271,9 +285,9 @@
 
             var $social_count = $("[data-social-count=\"true\"]");
             $.each($social_count, function(key, value){
-               var $obj = $(value);
+                var $obj = $(value);
                 $.get($obj.data("url"), function(data){
-                   $obj.text(data.count);
+                    $obj.text(data.count);
                 });
             });
 
