@@ -57,6 +57,7 @@ class EditProfileForm(IdeiaForm):
     city = forms.ModelChoiceField(queryset='', required=False)
     city_hometown = forms.ModelChoiceField(queryset='')
     profile_picture = forms.ImageField(required=False)
+    description = forms.CharField(required=False, widget=forms.Textarea)
 
     def __init__(self, user=None, data_model=None, *args, **kwargs):
         self.user = user
