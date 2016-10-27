@@ -1,12 +1,16 @@
 # coding=utf-8
+import re
+from apps.core.templatetags.amp_tags import do_amp_normalize_text
 from django import template
 from django.conf import settings
 from django.db.models import Q
 from django.http import Http404
 from django.template.defaultfilters import stringfilter, truncatechars
+from django.template.loader import render_to_string
 from django.utils import timezone
 from django.core.cache import cache
 from django.utils.html import strip_tags
+from django.utils.safestring import mark_safe
 from django.utils.text import slugify
 from django.utils.translation import ugettext as _
 from apps.article.models import Article
@@ -15,6 +19,7 @@ from apps.core.business.content_types import ContentTypeCached
 from apps.feed.models import FeedObject
 from apps.taxonomy.models import Taxonomy
 from apps.temp_comment.models import TempComment
+from apps.core.business import feed as FeedBusiness
 
 register = template.Library()
 
@@ -77,45 +82,42 @@ def last_questions(context, content_object, content_type, count=4, template_path
 
 
 @register.inclusion_tag("core/templatetags/related-posts-box.html", takes_context=True)
-def related_posts_box(context, instance, post_type=None, count=4, template_path=None):
+def related_posts_box(context, instance, instance_type, post_type=None, count=4, template_path=None):
     try:
-        content_type = ContentTypeCached.objects.get(instance)
-
-        post_type = ContentTypeCached.objects.get(model=post_type) if post_type else content_type
-
-        if template_path is None:
-            template_path = 'core/partials/related-posts/%s-base.html' % post_type.model
-
-        feed_obj = FeedObject.objects.get(content_type=content_type, object_id=instance.id)
-
-        feed_records = FeedObject.objects.filter(
-            Q(taxonomies__in=feed_obj.taxonomies.all()) &
-            Q(taxonomies__term__description__icontains="comunidade") &
-            Q(content_type=post_type) &
-            (
-                (
-                    Q(article__status=Article.STATUS_PUBLISH) &
-                    Q(article__publishin__lte=timezone.now())
-                ) | Q(question__title__isnull=False)
-            )
-        ).exclude(
-            Q(object_id=instance.id)
-        ).prefetch_related("content_object").order_by(
-            "-date"
-        ).distinct(
-            "date",
-            "object_id",
-            "content_type_id"
-        )[:count]
+        related_object = FeedBusiness.get_related_posts_from_item(instance_id=instance.id, instance_type=instance_type, count=count)
+        if not template_path:
+            template_path = related_object.get('template_path')
 
     except ValueError:
         raise Http404()
 
     return {
-        'feed_records': feed_records,
+        'feed_records': related_object.get('feed_records'),
         'request': context['request'],
         'template_path': template_path
     }
+
+@register.simple_tag(takes_context=True)
+def amp_related_posts_box(context, instance, instance_type, post_type=None, count=4, template_path="core/templatetags/related-posts-box.html"):
+
+    try:
+        related_object = FeedBusiness.get_related_posts_from_item(instance_id=instance.id, instance_type=instance_type, count=count)
+        if not template_path:
+            template_path = related_object.get('template_path')
+
+    except ValueError:
+        return ''
+
+    context = {
+        'feed_records': related_object.get('feed_records'),
+        'template_path': related_object.get('template_path'),
+        'is_amp': True
+    }
+
+    cleaned = render_to_string(template_path, context=context, request=context.get('request'))
+    cleaned = do_amp_normalize_text(cleaned)
+
+    return mark_safe(cleaned)
 
 
 def __categories_in_cache__(request):

@@ -50,6 +50,12 @@
         border: 1px solid #ccc;
         padding: 10px 15px;
       }
+      a { color: #337ab7 }
+      amp-img {
+        margin-right: auto;
+        margin-left: auto;
+        display: block;
+      }
       .amp-header {
         position: relative;
         top: 0;
@@ -147,6 +153,7 @@
          border-bottom: 1px solid #d9d9d9;
        }
        .amp-main {
+         overflow: hidden;
          max-width: 600px;
          margin-left: auto;
          margin-right: auto;
@@ -158,6 +165,7 @@
          padding-right: 15px;
          color: #5d7184;
        }
+       .area-title h3,
        .amp-publication-subtitle {
          padding-left: 15px;
          padding-right: 15px;
@@ -219,6 +227,7 @@
        .amp-footer { background-color: #0160b0 }
        .amp-categories {
          padding: 15px 15px 0;
+         margin-top: 0;
          list-style: none;
        }
        .amp-category {
@@ -233,6 +242,7 @@
          padding: 5px 0;
          display: block;
          color: inherit;
+         text-align: center;
          text-decoration: none;
        }
        .amp-footer-info {
@@ -260,6 +270,16 @@
        .amp-footer-link {
          color: #fff;
          text-decoration: none;
+       }
+       .amp-content-aside .article-excerpt {
+         margin: 0 15px 15px;
+         display: flex;
+         align-items: center;
+         text-decoration: none;
+         font-weight: 700;
+       }
+       .amp-content-aside .article-excerpt amp-img {
+         margin: 0 15px 0 0;
        }
     </style>
 

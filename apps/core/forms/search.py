@@ -43,10 +43,12 @@ class SearchUserForm(SearchBaseForm):
 
     state = forms.IntegerField(required=False)
     city = forms.IntegerField(required=False)
+    responsibility = forms.IntegerField(required=False)
 
     def __init__(self, items_per_page=None, startswith=False, *args, **kwargs):
         self.state = int(args[0]['state']) if "state" in args[0] and args[0]['state'] is not u'' else None
         self.city = int(args[0]['city']) if "city" in args[0] and args[0]['city'] is not u'' else None
+        self.responsibility = int(args[0]['responsibility']) if "responsibility" in args[0] and args[0]['responsibility'] is not u'' else None
         self.items_per_page = items_per_page
         self.startswith = startswith
         super(SearchBaseForm, self).__init__(*args, **kwargs)
@@ -59,6 +61,7 @@ class SearchUserForm(SearchBaseForm):
             self.startswith,
             self.state,
             self.city,
+            self.responsibility
         )
 
 
