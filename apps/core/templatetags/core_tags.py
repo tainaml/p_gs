@@ -1,12 +1,16 @@
 # coding=utf-8
+import re
+from apps.core.templatetags.amp_tags import do_amp_normalize_text
 from django import template
 from django.conf import settings
 from django.db.models import Q
 from django.http import Http404
 from django.template.defaultfilters import stringfilter, truncatechars
+from django.template.loader import render_to_string
 from django.utils import timezone
 from django.core.cache import cache
 from django.utils.html import strip_tags
+from django.utils.safestring import mark_safe
 from django.utils.text import slugify
 from django.utils.translation import ugettext as _
 from apps.article.models import Article
@@ -92,6 +96,28 @@ def related_posts_box(context, instance, instance_type, post_type=None, count=4,
         'request': context['request'],
         'template_path': template_path
     }
+
+@register.simple_tag(takes_context=True)
+def amp_related_posts_box(context, instance, instance_type, post_type=None, count=4, template_path="core/templatetags/related-posts-box.html"):
+
+    try:
+        related_object = FeedBusiness.get_related_posts_from_item(instance_id=instance.id, instance_type=instance_type, count=count)
+        if not template_path:
+            template_path = related_object.get('template_path')
+
+    except ValueError:
+        return ''
+
+    context = {
+        'feed_records': related_object.get('feed_records'),
+        'template_path': related_object.get('template_path'),
+        'is_amp': True
+    }
+
+    cleaned = render_to_string(template_path, context=context, request=context.get('request'))
+    cleaned = do_amp_normalize_text(cleaned)
+
+    return mark_safe(cleaned)
 
 
 def __categories_in_cache__(request):
