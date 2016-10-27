@@ -1,3 +1,4 @@
+from apps.article.models import Article
 from django.contrib.contenttypes.models import ContentType
 from apps.core.business.content_types import ContentTypeCached
 
@@ -5,6 +6,8 @@ from apps.feed.models import FeedObject
 from apps.rede_gsti_signals.signals.home import clear_article_cache
 from apps.taxonomy.service import business as BusinessTaxonomy
 from apps.feed.service import business as BusinessFeed
+from django.db.models import Q
+from django.utils import timezone
 
 
 def save_taxonomies(feed_instance=None, data=None):
@@ -65,3 +68,44 @@ def toggle_feed_official(content_type, object_id):
 
 def user_can_make_as_official(user):
     pass
+
+
+def get_related_posts_from_item(instance_id, instance_type, post_type=None, count=None):
+
+    content_type = ContentTypeCached.objects.get(model=instance_type)
+    content_object = content_type.get_object_for_this_type(id=instance_id)
+
+    post_type = ContentTypeCached.objects.get(model=post_type) if post_type else content_type
+
+    template_path = 'core/partials/related-posts/%s-base.html' % post_type.model
+
+    feed_obj = FeedObject.objects.get(content_type=content_type, object_id=content_object.id)
+
+    feed_records = FeedObject.objects.filter(
+        Q(communities__in=feed_obj.communities.all()) &
+        Q(content_type=post_type) &
+        (
+            (
+                Q(article__status=Article.STATUS_PUBLISH) &
+                Q(article__publishin__lte=timezone.now())
+            )
+        )
+    ).exclude(
+        Q(object_id=content_object.id)
+    ).order_by(
+        "-date"
+    ).distinct(
+        "date",
+        "object_id",
+        "content_type_id"
+    )
+
+    if count:
+        feed_records = feed_records[:count]
+
+    return {
+        'template_path': template_path,
+        'feed_records': feed_records,
+        'feed_obj': feed_obj,
+        'post_type': post_type
+    }
