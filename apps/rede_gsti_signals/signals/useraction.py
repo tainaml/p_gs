@@ -56,7 +56,7 @@ def count_user_actions(sender, **kwargs):
         counter_user_instance.count = count_user
         counter_user_instance.save()
 
-6
+
 @receiver(post_save, sender=UserAction)
 def social_action(sender, **kwargs):
     action = kwargs['instance']
