@@ -5,6 +5,7 @@
 {% load humanize %}
 {% load avatar_tags %}
 {% load thumbor_tags %}
+{% load core_tags %}
 
 {% block title %}{{ article.title }}{% endblock %}
 
@@ -30,5 +31,8 @@
     {{ text|safe }}
   </div>
 </article>
+<aside class="amp-content-aside">
+  {% related_posts_box article 'article' count=4 %}
+</aside>
 <a class="amp-publication-action" href="{% absolute_url 'article:view' article.year article.month article.get_first_slug %}">Comentários</a>
 {% endblock %}
