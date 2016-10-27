@@ -133,6 +133,7 @@ DJANGO_APPS = (
     'django.contrib.postgres',
     'django.contrib.humanize',
 
+
     #SITES
     'django.contrib.sites',
 
@@ -153,7 +154,7 @@ THIRD_PART_APPS = (
     'smart_selects',
     'reversion',
     'ideia_summernote',
-    'micawber.contrib.mcdjango',
+    'micawber.contrib.mcdjango'
 )
 
 INTERNAL_APPS = (
@@ -180,6 +181,7 @@ INTERNAL_APPS = (
     'apps.certification',
     'apps.useralerts',
     'apps.temp_comment',
+    'apps.job_vacancy'
 
 )
 
