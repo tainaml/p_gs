@@ -1,7 +1,9 @@
+from datetime import timedelta
 from django.db.models import Q
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.contenttypes.models import ContentType
 from apps.core.business.content_types import ContentTypeCached
+from django.utils.datetime_safe import datetime
 from ..models import Notification
 from ..local_exceptions import NotValidNotificationSettings
 from django.conf import settings
@@ -38,6 +40,20 @@ def send_notification(author=None, to=None, notification_action=None,
             notification_action, int):
         raise NotValidNotificationSettings('not_valid_setting',
                                            'NOTIFICATION_ACTIONS')
+
+    time_to_wait = getattr(settings, 'NOTIFICATION_TIME_TO_WAIT', 2880)
+
+    exists_notification = Notification.objects.filter(
+        author=author,
+        to=to,
+        target_content_type=get_content_by_object(target_object),
+        notification_action=notification_action,
+        target_object_id=target_object.id,
+        notification_date__gte=datetime.now() - timedelta(minutes=time_to_wait)
+    )
+
+    if exists_notification.count() > 0:
+        return None
 
     notification = Notification(
         author=author,

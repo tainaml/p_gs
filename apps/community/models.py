@@ -27,6 +27,8 @@ class Community(models.Model):
     taxonomy = models.OneToOneField(Taxonomy, related_name="community_related")
     user_action = GenericRelation(UserAction, related_query_name="community")
 
+    update_in = models.DateTimeField(auto_now=True)
+
     def __unicode__(self):
         return self.title
 
