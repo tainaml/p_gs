@@ -9,7 +9,7 @@
 
 <div class="perfil">
     <a href="{% if  profile.user.is_active %}{% url 'profile:show' profile.user.get_username %}{% else %}javascript:;{% endif %}">
-      <figure>
+      <figure class="profile-box__avatar">
         <img class="img-responsive" src="{% get_avatar profile.user width=90 height=90 smart=False fit_in=False %}" alt="{{ profile.user.get_full_name }}">
       </figure>
     </a>
@@ -48,9 +48,16 @@
         </li>
         {% endif %}
 
-{#        {% if profile.age %}#}
-{#        <li><i class="gsticon gsticon-birthday-cake"></i> Idade {{ profile.age }}</li>#}
-{#        {% endif %}#}
-
+        <li>
+          <i class="gsticon gsticon-user"></i>
+          Sobre
+          <div class="profile-box__bio">
+            Mussum ipsum cacilds, vidis litro abertis. Consetis adipiscings elitis.
+            Pra lá , depois divoltis porris, paradis. Paisis, filhis, espiritis santis.
+            Mé faiz elementum girarzis, nisi eros vermeio, in elementis mé pra
+            quem é amistosis quis leo. Manduma pindureta quium dia nois paga.
+            Sapien in monti palavris qui num significa nadis i pareci latim.
+          </div>
+        </li>
     </ul>
 </div>
