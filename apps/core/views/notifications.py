@@ -41,7 +41,12 @@ class CoreNotificationListView(views.NotificationBaseView):
             data=request.GET
         )
 
-        notifications = form.process()
+        notification_object = form.process()
+
+        notifications = notification_object.get('notifications')
+        notifications_paginator = notification_object.get('paginator')
+        notifications_counter = notification_object.get('all_notifications')
+
 
         context = {
             'notifications': notifications,
@@ -103,11 +108,13 @@ class CoreNotificationPollingCount(CoreNotificationPollingBase):
 
         notification_group = self.set_notification_group(notification_type)
 
-        notifications, paginator = Business.get_notifications(
+        notification_object = Business.get_notifications(
             user=request.user,
             notification_actions=notification_group,
             visualized=False
         )
+
+        notifications = notification_object.get('notifications')
 
         count = notifications.count()
         notifications_id = [n.id for n in notifications]
@@ -136,7 +143,7 @@ class CoreNotificationPollingLoad(CoreNotificationPollingBase):
 
         notification_group = self.set_notification_group(notification_type)
 
-        notifications, paginator = Business.get_notifications(
+        notification_object = Business.get_notifications(
             user=request.user,
             notification_actions=notification_group,
             visualized=None,
@@ -145,11 +152,15 @@ class CoreNotificationPollingLoad(CoreNotificationPollingBase):
             page=1
         )
 
+        notifications = notification_object.get('notifications')
+        paginator = notification_object.get('paginator')
+        notifications_counter = notification_object.get('all_notifications')
+
         notifications_id = [n.id for n in notifications]
 
         response_data = {
             'total': paginator.count,
-            'total_unread': notifications.filter(visualized=False).count(),
+            'total_unread': notifications_counter.filter(visualized=False).count(),
             'notifications': notifications,
             'notifications_label': NOTIFICATION_ACTIONS,
             'notifications_id': notifications_id,

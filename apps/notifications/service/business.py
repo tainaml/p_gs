@@ -88,7 +88,14 @@ def get_notification_cached(key, **params):
 
     notifications_paginator = cache.get(key)
     if not notifications_paginator:
-        notifications_paginator = get_notifications(**params)
+
+        notification_object = get_notifications(**params)
+
+        notifications = notification_object.get('notifications')
+        notifications_paginator = notification_object.get('paginator')
+        notifications_counter = notification_object.get('all_notifications')
+
+
 
         cache.set(key, notifications_paginator, settings.TIME_TO_REFRESH_NOTIFICATION_IN_SEC)
 
@@ -133,13 +140,14 @@ def get_notifications(user=None, notification_actions=None, visualized=None, rea
     if read is not None:
         criteria &= Q(read=read)
 
-    notifications = Notification.objects.filter(criteria).prefetch_related("author").order_by("-notification_date")
+    all_notifications = Notification.objects.filter(criteria).prefetch_related("author").order_by("-notification_date")
+    notifications = Notification.objects.none()
 
     paginator = False
 
     if items_per_page and page:
         items_per_page = items_per_page if items_per_page else 10
-        paginator = Paginator(notifications, items_per_page)
+        paginator = Paginator(all_notifications, items_per_page)
 
         try:
             notifications = paginator.page(page)
@@ -148,7 +156,11 @@ def get_notifications(user=None, notification_actions=None, visualized=None, rea
         except EmptyPage:
             notifications = []
 
-    return notifications, paginator
+    return {
+        'notifications': notifications,
+        'all_notifications': all_notifications,
+        'paginator': paginator
+    }
 
 
 def set_notification_as_read(notifications_ids):
