@@ -11,6 +11,52 @@
 
 {% block canonical_url %}{% absolute_url 'article:view' article.year article.month article.get_first_slug %}{% endblock %}
 
+{% block ld_json %}
+    <script type="application/ld+json">
+      {
+ "@context":"http:\/\/schema.org",
+   "@type":"NewsArticle",
+   "mainEntityOfPage":"{% absolute_url 'article:view' article.year article.month article.get_first_slug %}",
+   "publisher":{
+      "@type":"Organization",
+      "name":"Portal GSTI",
+      "logo":{
+         "@type":"ImageObject",
+         "url":"{% static 'images/gsti.png' %}",
+         "height":40,
+         "width":126
+      }
+   },
+   "headline":"{{ article.title }}",
+   "datePublished":"{{ article.publishin|date:'Y-m-d G:i' }}",
+   "dateModified":"{{ article.updatein|date:'Y-m-d G:i' }}",
+   "author":{
+      "@type":"Person",
+      "name":"{{ article.author.username }}"
+   },
+   {% if article.image %}
+   "image":{
+      "@type":"ImageObject",
+      "url":"{% thumbor_url article.image.url width=700 height=260 smart=False fit_in=False %}",
+      "width": 700,
+      "height": 260
+   }
+
+   {% else %}
+   {% static 'images/gsti-default-og-image.png' as default_image %}
+   "image":{
+      "@type":"ImageObject",
+      "url":"{% thumbor_url default_image width=700 height=260 smart=False fit_in=False %}",
+      "width": 700,
+      "height": 260
+   }
+
+   {% endif %}
+
+      }
+    </script>
+{% endblock ld_json %}
+
 {% block content %}
 
     <article class="amp-publication">

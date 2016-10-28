@@ -89,6 +89,8 @@ class CoreArticleView(views.ArticleView):
 
     # @Override
     def filter_article(self, request=None, year=None, month=None, slug=None, prefetch=None):
+
+
         article_dict = core_article_business.get_article(year, month, slug, prefetch)
 
         if not article_dict['article']:
@@ -124,7 +126,11 @@ class CoreArticleView(views.ArticleView):
         if article:
             has_old_comments = article.old_comments.all().exists()
             if article_dict['redirect']:
-                return redirect('article:view', article.year, article.month, article.slug, permanent=True)
+                page_format = request.path.split(".")[-1]
+                if page_format == 'amp':
+                    return redirect('amp:article-single', article.year, article.month, article.slug, permanent=True)
+                else:
+                    return redirect('article:view', article.year, article.month, article.slug, permanent=True)
 
 
         context = {'article': article, 'feed': article_dict['feed'],'has_old_comments': has_old_comments}
