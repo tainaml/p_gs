@@ -87,6 +87,8 @@ def make_key(user, notification_status, notification_type):
 def get_notification_cached(key, **params):
 
     notifications_paginator = cache.get(key)
+    notifications = None
+
     if not notifications_paginator:
 
         notification_object = get_notifications(**params)
@@ -100,7 +102,7 @@ def get_notification_cached(key, **params):
         cache.set(key, notifications_paginator, settings.TIME_TO_REFRESH_NOTIFICATION_IN_SEC)
 
 
-    return notifications_paginator
+    return notifications, notifications_paginator
 
 
 def get_notifications_by_user_and_notification_type_list(user=None,
