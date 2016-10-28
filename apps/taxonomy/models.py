@@ -19,6 +19,8 @@ class Taxonomy(models.Model):
     parent = models.ForeignKey("self", null=True, blank=True, related_name='taxonomies_children')
     term = models.ForeignKey(Term, related_name='taxonomies')
 
+    update_in = models.DateTimeField(auto_now=True)
+
     class Meta:
         ordering = ('description',)
 
