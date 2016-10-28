@@ -1,23 +1,30 @@
 from __future__ import absolute_import
+from django.conf import settings
 
-from django.core.mail import get_connection
+from django.core.mail import get_connection, send_mail
 from apps.mailmanager.backend import MailManageMessage
+from django.template import Context
+from django.template.loader import get_template
+from django.utils.html import strip_tags
+
+
+def __render(template_path, context):
+        template = get_template(template_path)
+        context = Context(context, autoescape=True)
+        message = template.render(context)
+        return message
 
 
 def send_email(to, subject, template=None, context=None, fail_silently=False, connection=None):
-    '''
 
-    :param to: string or tuple. Email recipient
-    :param subject: string. Subject from email
-    :param template: string. file with email template
-    :param context: dict. Dictionary with context to template.
-    :param fail_silently: boolean. If it is False, send_mail will raise an smtplib.SMTPException.
-    :param connection: The optional email backend to use to send the mail
-    :return: bool
-    '''
-    if not context:
-        context = {}
-    connection = connection or get_connection(fail_silently=fail_silently)
-    mail = MailManageMessage(to, subject, template, context, connection=connection)
-    mail.send()
-    return True
+    message = __render(template, context=context)
+
+    to = to if isinstance(to, (list, tuple)) else [to]
+
+    return send_mail(
+        subject=subject,
+        html_message=message,
+        message=strip_tags(message),
+        from_email=getattr(settings, 'DEFAULT_FROM_EMAIL'),
+        recipient_list=to
+    )
