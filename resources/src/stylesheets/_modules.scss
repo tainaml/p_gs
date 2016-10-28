@@ -11,8 +11,14 @@
 @import "modules/modal";
 @import "modules/menu-geral";
 @import "modules/colors";
-// @import "modules/ckeditor";
 @import "modules/load-async";
 @import "modules/jobs";
 @import "modules/nav";
 @import "modules/social-share";
+
+/**
+* Os módulos agora têm componentes dentro deles, que podem ser compartilhado por
+* outros módulos no sistema, em um próxima atualização os módulos serão transformados
+* em componentes.
+*/
+@import "modules/userprofile";

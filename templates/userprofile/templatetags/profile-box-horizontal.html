@@ -7,27 +7,35 @@
 {% set user_content_type = "user" %}
 {% followers_count profile.user as followers_count_value %}
 
-<div class="perfil">
-    {% if request.user != profile.user %}
-        {% follow_action profile.user request.path "pull-right text-center perfil-button" %}
-    {% endif %}
-    <a href="{% if  profile.user.is_active %}{% url 'profile:show' profile.user.get_username %}{% else %}javascript:;{% endif %}">
-      <figure>
+<div class="perfil profile-box--horizontal">
+  <div class="profile-box__info">
+    <a href="{% if profile.user.is_active %}{% url 'profile:show' profile.user.get_username %}{% else %}javascript:;{% endif %}">
+      <figure class="profile-box__avatar">
         <img class="img-responsive" src="{% get_avatar profile.user width=90 height=90 smart=False fit_in=False %}" alt="{{ profile.user.get_full_name }}">
       </figure>
     </a>
     <a class="perfil-name" title="{{ profile.user.get_full_name }}" href="{% if  profile.user.is_active %}{% url 'profile:show' profile.user.get_username %}{% else %}javascript:;{% endif %}">{{ profile.user.get_full_name }}</a>
-    <span class="perfil-counter"
-          data-counter="{{ followers_count_value }}"
-          data-refresh-counter="follow-{{ user_content_type }}-{{ profile.user.id }}">
-        <span class="counter-number">{{ followers_count_value }}</span> Seguidor{{ followers_count_value|pluralize:'es'}}
+    <span class="perfil-counter" data-counter="{{ followers_count_value }}"
+    data-refresh-counter="follow-{{ user_content_type }}-{{ profile.user.id }}">
+      <span class="counter-number">{{ followers_count_value }}</span> Seguidor{{ followers_count_value|pluralize:'es'}}
     </span>
     <span class="perfil-counter">
-        <span class="counter-number">{% articles_count profile.user as articles_count_value %}{{ articles_count_value }}</span> Publicaç{{ articles_count_value|pluralize:'ão,ões' }}
+      <span class="counter-number">{% articles_count profile.user as articles_count_value %}{{ articles_count_value }}</span> Publicaç{{ articles_count_value|pluralize:'ão,ões' }}
     </span>
     {% if profile.occupation.all %}
-        {% for occupation in profile.occupation.all %}
-            {{ occupation.responsibility.name }}{% if not forloop.last %},{% endif %}
-        {% endfor %}
+    {% for occupation in profile.occupation.all %}
+    {{ occupation.responsibility.name }}{% if not forloop.last %},{% endif %}
+    {% endfor %}
     {% endif %}
+  </div>
+  {% if request.user != profile.user %}
+    {% follow_action profile.user request.path "text-center perfil-button" %}
+  {% endif %}
+  <div class="profile-box__bio">
+    Mussum ipsum cacilds, vidis litro abertis. Consetis adipiscings elitis.
+    Pra lá , depois divoltis porris, paradis. Paisis, filhis, espiritis santis.
+    Mé faiz elementum girarzis, nisi eros vermeio, in elementis mé pra
+    quem é amistosis quis leo. Manduma pindureta quium dia nois paga.
+    Sapien in monti palavris qui num significa nadis i pareci latim.
+  </div>
 </div>
