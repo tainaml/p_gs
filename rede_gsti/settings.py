@@ -52,6 +52,7 @@ except IOError as e:
     config.set("EMAIL", "password", 'gZ-tr-g2VKy6zQdRIVzmxg')
     config.set("EMAIL", "port", '587')
     config.set("EMAIL", "from", 'philliparente@gmail.com')
+    config.set("EMAIL", "sparkpost_apikey", '')
 
     config.add_section("CONTACT")
     config.set("CONTACT", "to", "raphaelfruneaux@ideiaseo.com")
@@ -302,6 +303,9 @@ EMAIL_HOST_USER = config.get("EMAIL", "user")
 EMAIL_HOST_PASSWORD = config.get("EMAIL", "password")
 EMAIL_PORT = config.getint("EMAIL", "port")
 DEFAULT_FROM_EMAIL = config.get("EMAIL", "from")
+
+SPARKPOST_API_KEY = config.get("EMAIL", 'sparkpost_apikey')
+EMAIL_BACKEND = 'sparkpost.django.email_backend.SparkPostEmailBackend'
 
 
 # CONTACT
