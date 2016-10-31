@@ -99,7 +99,10 @@ class CoreArticleView(views.ArticleView):
             '''
             raise self.article_not_found
 
-        if article_dict['article'].status == core_article_business.Article.STATUS_DRAFT \
+        if article_dict['article'].status == core_article_business.Article.STATUS_TRASH:
+            raise self.article_not_found
+
+        elif article_dict['article'].status == core_article_business.Article.STATUS_DRAFT \
                 and article_dict['article'].author != request.user:
             '''
             If the item is Draft status only the author can view
