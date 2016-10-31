@@ -155,7 +155,11 @@ THIRD_PART_APPS = (
     'smart_selects',
     'reversion',
     'ideia_summernote',
-    'micawber.contrib.mcdjango'
+    'micawber.contrib.mcdjango',
+
+    # Celery
+    'kombu.transport.django',
+    'djcelery',
 )
 
 INTERNAL_APPS = (
@@ -306,6 +310,12 @@ DEFAULT_FROM_EMAIL = config.get("EMAIL", "from")
 
 SPARKPOST_API_KEY = config.get("EMAIL", 'sparkpost_apikey')
 EMAIL_BACKEND = 'sparkpost.django.email_backend.SparkPostEmailBackend'
+
+
+# CELERY
+BROKER_URL = 'django://'
+
+
 
 
 # CONTACT

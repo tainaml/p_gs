@@ -1,23 +1,20 @@
 from __future__ import absolute_import
+from celery import Celery
 import os
-
 from django.conf import settings
 
-from celery import Celery
 
-
-# set the default Django settings module for the 'celery' program.
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'rede_gsti.settings')
-app = Celery('rede_gsti',  backend="rpc://", broker='amqp://localhost:5672')
-app.conf.update(
-    CELERY_TASK_SERIALIZER='json',
-    CELERY_IGNORE_RESULT=False,
-    )
+app = Celery('rede_gsti')
 
-CELERY_RESULT_BACKEND = 'rpc://'
-CELERY_RESULT_PERSISTENT = False
-
-# Using a string here means the worker will not have to
-# pickle the object when using Windows.
 app.config_from_object('django.conf:settings')
 app.autodiscover_tasks(lambda: settings.INSTALLED_APPS)
+
+app.conf.update(
+    CELERY_RESULT_BACKEND='djcelery.backends.database:DatabaseBackend',
+)
+
+
+app.task(bind=True)
+def debug_task(self):
+    print('Request: {0!r}'.format(self.request))
