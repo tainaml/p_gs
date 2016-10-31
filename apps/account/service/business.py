@@ -1,7 +1,7 @@
 # coding=utf-8
 import hashlib
 import random
-
+from apps.mailmanager.tasks import send_mail_async
 from django.contrib.auth.hashers import make_password
 from django.conf import settings
 from django.contrib.auth import authenticate, login as auth_login, logout, update_session_auth_hash, get_user_model
@@ -13,7 +13,6 @@ from apps.account.account_exceptions import AccountDoesNotExistException, TokenI
 
 from ..models import TokenType
 from apps.account.models import MailValidation, User
-from apps.mailmanager import send_email
 
 __author__ = 'phillip'
 
@@ -87,7 +86,8 @@ def register_user(parameters=None):
     if user and user.email:
 
         token = register_token(user=user, token_type=TokenType.REGISTER_ACCOUNT_CONFIRM)
-        send_email(
+
+        send_mail_async.delay(
             to=str(user.email),
             subject=_('Bem vindo!'),
             template='mailmanager/register_user.html',
@@ -283,7 +283,7 @@ def forgot_password(user_email=None):
         MailValidation.objects.filter(user=user, token_type=TokenType.RECOVERY_PASSWORD_CONFIRM).update(active=False)
         token = register_token(user=user, token_type=TokenType.RECOVERY_PASSWORD_CONFIRM)
 
-        send_email(
+        send_mail_async.delay(
             to=str(user.email),
             subject=_('Password Recovery'),
             template='mailmanager/password-recovery.html',
@@ -316,7 +316,7 @@ def resend_account_confirmation(user_email=None):
                 MailValidation.objects.filter(user=user, token_type=TokenType.REGISTER_ACCOUNT_CONFIRM).update(active=False)
                 token = register_token(user=user, token_type=TokenType.REGISTER_ACCOUNT_CONFIRM)
 
-            send_email(
+            send_mail_async.delay(
                 to=str(user.email),
                 subject='Account Confirmation',
                 template='mailmanager/resend-account-confirmation.html',

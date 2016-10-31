@@ -158,6 +158,7 @@ THIRD_PART_APPS = (
     'micawber.contrib.mcdjango',
 
     # Celery
+    'djkombu',
     'kombu.transport.django',
     'djcelery',
 )
@@ -314,9 +315,12 @@ EMAIL_BACKEND = 'sparkpost.django.email_backend.SparkPostEmailBackend'
 
 # CELERY
 BROKER_URL = 'django://'
+CELERY_RESULT_BACKEND = 'rpc://'
+CELERY_RESULT_PERSISTENT = False
+BROKER_BACKEND = "djkombu.transport.DatabaseTransport"
 
-
-
+import djcelery
+djcelery.setup_loader()
 
 # CONTACT
 CONTACT_SEND_TO_EMAIL = config.get("CONTACT", "to")
