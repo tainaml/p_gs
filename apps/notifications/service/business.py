@@ -1,4 +1,6 @@
 from datetime import timedelta
+from apps.core.business import configuration
+from apps.mailmanager.tasks import send_mail_async
 from django.db.models import Q
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.contenttypes.models import ContentType
@@ -41,6 +43,10 @@ def send_notification(author=None, to=None, notification_action=None,
         raise NotValidNotificationSettings('not_valid_setting',
                                            'NOTIFICATION_ACTIONS')
 
+    if not configuration.check_config_to_notify(to, notification_action, target_object):
+        return False
+
+
     time_to_wait = getattr(settings, 'NOTIFICATION_TIME_TO_WAIT', 2880)
 
     exists_notification = Notification.objects.filter(
@@ -65,7 +71,18 @@ def send_notification(author=None, to=None, notification_action=None,
 
     notification.save()
 
+    if configuration.check_config_to_notify(to, 'mail_notification', None):
+
+        send_email_notification(to, notification)
+
     return notification
+
+
+def send_email_notification(to_obj, notification):
+    if not to_obj.email:
+        return
+
+    # Todo: Load template and send email
 
 
 def send_notification_to_many(author=None, to_list=None,

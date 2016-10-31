@@ -98,6 +98,8 @@ def check_config_to_notify(to_user, action, target_object=None):
         key_slug = key_prefix + settings.SOCIAL_LABELS[action] + '_'
         target_content = ContentTypeCached.objects.get_for_model(model=target_object)
         key_slug += target_content.model
+    elif action in ['mail_notification']:
+        key_slug = "{}{}".format(key_prefix, action)
     else:
         key_slug = key_prefix
         key_slug += settings.SOCIAL_LABELS[action]
