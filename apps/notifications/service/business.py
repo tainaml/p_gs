@@ -62,9 +62,8 @@ def send_notification(author=None, to=None, notification_action=None,
         notification_date__gte=datetime.now() - timedelta(minutes=time_to_wait)
     )
 
-    # TODO: Remove this before close ticket 6856
-    # if exists_notification.count() > 0:
-    #     return None
+    if exists_notification.count() > 0:
+        return None
 
     notification = Notification(
         author=author,
