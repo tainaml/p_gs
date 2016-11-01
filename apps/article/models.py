@@ -6,10 +6,14 @@ from django.contrib.postgres.search import SearchVectorField, SearchVector
 from django.db import models
 from django.template.defaultfilters import slugify
 from django.utils import timezone
+from django.utils.functional import cached_property
 from django.utils.translation import ugettext as _
 from django.conf import settings
+from apps.comment.models import Comment
+from apps.core.business.content_types import ContentTypeCached
 from apps.core.models.embed import EmbedItem
 from apps.feed.models import FeedObject
+from apps.socialactions.models import Counter, UserAction
 
 
 def article_image_upload(instance, filename):
@@ -69,6 +73,9 @@ class Article(models.Model):
 
     embed = GenericRelation(EmbedItem, related_query_name="article")
 
+    # useractions = GenericRelation(UserAction, related_name="useractions", related_query_name="article")
+
+
     class Meta:
 
         permissions = [
@@ -84,6 +91,37 @@ class Article(models.Model):
     @property
     def modified_date(self):
         return self.publishin if self.publishin and self.is_published() else self.updatein
+
+    @cached_property
+    def comments_count(self):
+        article_content_type = ContentTypeCached.objects.get(model='article')
+        try:
+            count_queryset = Counter.objects.defer("count").get(
+                action_type=settings.SOCIAL_COMMENT,
+                object_id=self.id,
+                content_type=article_content_type
+
+            )
+
+            count = count_queryset.count
+
+
+            return count
+        except Counter.DoesNotExist:
+            counter = Counter(
+                action_type=settings.SOCIAL_COMMENT,
+                object_id=self.id,
+                content_type=article_content_type,
+                count=Comment.objects.filter(
+                    content_type=article_content_type,
+                    object_id=self.id
+                ).count()
+
+            )
+            counter.save()
+            return counter.count
+
+
 
     @property
     def year(self):

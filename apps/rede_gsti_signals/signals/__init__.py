@@ -6,3 +6,5 @@ import core
 import home
 import useraction
 import contact
+import comment
+import counter

@@ -1,10 +1,7 @@
-from django.conf import settings
 from django.db.models import Model
-from django.db.models.signals import post_save, post_delete, pre_delete
+from django.db.models.signals import post_save, pre_delete
 from django.dispatch import receiver
-from django.core.cache import cache
 
-from apps.community.models import Community
 from apps.socialactions.models import UserAction, Counter, UserActionCounter
 from apps.article.models import Article
 from apps.core.business import embeditem, configuration

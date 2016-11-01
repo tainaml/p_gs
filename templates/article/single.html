@@ -38,6 +38,54 @@
 {% endblock %}
 
 {% block editorfiles %}{% endblock %}
+{% block ld_json %}
+    {% url 'profile:show' article.author.username as author_url %}
+    <script type="application/ld+json">
+        {
+            "@context": "http://schema.org",
+            "@type": "Article",
+            "name": "{{ article.title }}",
+            "author": {
+            "@type": "Person",
+                "image": "{% get_avatar article.author width=90 height=90 smart=False fit_in=False %}",
+                "name": "{{ article.author.get_full_name }}",
+                "sameAs": "{% absolute_url author_url %}"
+            },
+            "publisher": {
+            "@type": "Organization",
+            "name": "Portal GSTI",
+               "logo":{
+                 "@type":"ImageObject",
+                 "url":"{% static 'images/gsti.png' %}",
+                 "height":40,
+                 "width":126
+              }
+            },
+            "headline":"{{ article.title }}",
+           "datePublished":"{{ article.publishin|date:'Y-m-d G:i' }}",
+           "dateModified":"{{ article.updatein|date:'Y-m-d G:i' }}",
+           "commentCount": "{{ article.comments_count }}"
+            {% if article.image %}
+               "image":{
+                  "@type":"ImageObject",
+                  "url":"{% thumbor_url article.image.url width=700 height=260 smart=False fit_in=False %}",
+                  "width": 700,
+                  "height": 260
+               }
+
+               {% else %}
+               {% static 'images/gsti-default-og-image.png' as default_image %}
+               "image":{
+                  "@type":"ImageObject",
+                  "url":"{% thumbor_url default_image width=700 height=260 smart=False fit_in=False %}",
+                  "width": 700,
+                  "height": 260
+               }
+
+               {% endif %}
+        }
+    </script>
+{% endblock ld_json %}
 
 {% block content %}
 
