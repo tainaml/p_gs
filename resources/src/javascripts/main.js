@@ -13,6 +13,7 @@ import './modules/ideiaNotification/'
 import './modules/ideiaRestrict/'
 import './modules/ideiaValidationField/'
 import './modules/ideiaEditor/'
+import './components/professions'
 import Slideout from 'slideout'
 
 

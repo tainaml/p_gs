@@ -9,8 +9,8 @@ var cleanCSS = require('gulp-clean-css');
 gulp.task('sass', function () {
   return gulp.src(config.src)
     .pipe(sass(config.settings))
-    .pipe(cleanCSS())
     .on('error', handleErrors)
+    .pipe(cleanCSS())
     .pipe(autoprefixer(config.autoprefixer))
     .pipe(gulp.dest(config.dest))
     .pipe(browserSync.reload({stream:true}));
