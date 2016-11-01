@@ -52,10 +52,9 @@ def comment_action(sender, **kwargs):
             to = comment.content_object.author
             author = comment.author
             if to != author:
-                if configuration.check_config_to_notify(to, settings.SOCIAL_COMMENT, comment.content_object):
-                    Business.send_notification(
-                        author=author,
-                        to=to,
-                        notification_action=settings.SOCIAL_COMMENT,
-                        target_object=comment.content_object
-                    )
+                Business.send_notification(
+                    author=author,
+                    to=to,
+                    notification_action=settings.SOCIAL_COMMENT,
+                    target_object=comment.content_object
+                )

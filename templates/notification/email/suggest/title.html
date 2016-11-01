@@ -1,0 +1,9 @@
+{% extends 'notification/email/title.html' %}
+
+{% block title %}
+    {% if notification.target_content_type|stringformat:"s" == "article" %}
+        {{ notification.author.get_full_name }} recomendou a leitura de {{ notification.target.title }}
+    {% elif notification.target_content_type|stringformat:"s" == "question"  %}
+        {{ notification.author.get_full_name }} te recomendou a leitura de {{ notification.target.title }}
+    {% endif %}
+{% endblock %}

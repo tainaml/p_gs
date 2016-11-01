@@ -7,7 +7,7 @@ from django.views.generic import View
 from apps.core.forms.account import CoreDeactivateAccountForm
 
 from apps.core.forms.configuration import ConfigNotificationsForm
-from ..business import configuration as BusinessConfig
+from ..business import configuration as BusinessConfig# -*- coding: utf-8 -*-
 
 
 class CoreSettingsBaseView(View):
@@ -44,8 +44,9 @@ class CoreSettingsNotificationView(CoreSettingsBaseView):
         configurations_obj = BusinessConfig.get_configs(request.user, 'notification')
         configs = {}
 
-        for config in configurations_obj:
-            configs[config.key.key] = config.value
+        for config in configurations:
+            config_obj= configurations_obj.filter(key=config)
+            configs[config.key] = "{}".format(config_obj.first().value if config_obj.count() > 0 else True)
 
         context = {
             'profile': request.user.profile,

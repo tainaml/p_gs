@@ -1,0 +1,21 @@
+{% extends 'notification/email/content.html' %}
+
+{% load abs_url %}
+
+{% if notification.target_content_type|stringformat:"s" == "article" %}
+    {% url 'article:view' notification.target.year notification.target.month notification.target.slug as object_url %}
+{% elif notification.target_content_type|stringformat:"s" == "question"  %}
+    {% url 'question:show' notification.target.slug notification.target.id as object_url %}
+{% endif %}
+
+{% block url %}{% absolute_from_path object_url %}{% endblock %}
+
+{% block content %}
+
+    {% if notification.target_content_type|stringformat:"s" == "article" %}
+        <span>{{ notification.author.get_full_name }}</span> recomendou a leitura de <span>{{ notification.target.title }}</span>
+    {% elif notification.target_content_type|stringformat:"s" == "question"  %}
+        <span>{{ notification.author.get_full_name }}</span> te recomendou a leitura de <span>{{ notification.target.title }}</span>
+    {% endif %}
+
+{% endblock %}

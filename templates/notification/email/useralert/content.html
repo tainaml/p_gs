@@ -1,0 +1,11 @@
+{% extends 'notification/email/content.html' %}
+
+{% load abs_url %}
+
+{% block url %}{% absolute_url 'useralerts:show' notification.target.id  %}{% endblock %}
+
+{% block content %}
+
+    Você recebeu um <span>alerta</span> do <span>Portal GSTI</span> com titulo de <span>{{ notification.target.title }}</span>
+
+{% endblock %}

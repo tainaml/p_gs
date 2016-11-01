@@ -16,6 +16,7 @@ class ConfigNotificationsForm(IdeiaForm):
     notify_comment_answer = forms.BooleanField(required=False, initial=True)
     notify_suggest_article = forms.BooleanField(required=False, initial=True)
     notify_suggest_question = forms.BooleanField(required=False, initial=True)
+    notify_mail_notification = forms.BooleanField(required=False, initial=True)
 
     #notify_publications = forms.ChoiceField(required=True, choices=NOTIFY_PUBLICATIONS_CHOICES)
 

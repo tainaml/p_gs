@@ -1,9 +1,15 @@
 from datetime import timedelta
+from apps.core.business import configuration
+from apps.mailmanager import send_email
+from apps.mailmanager.tasks import send_mail_async
 from django.db.models import Q
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.contenttypes.models import ContentType
 from apps.core.business.content_types import ContentTypeCached
+from django.template.loader import render_to_string
 from django.utils.datetime_safe import datetime
+from django.utils.html import strip_tags
+from django.utils.safestring import mark_safe
 from ..models import Notification
 from ..local_exceptions import NotValidNotificationSettings
 from django.conf import settings
@@ -41,6 +47,10 @@ def send_notification(author=None, to=None, notification_action=None,
         raise NotValidNotificationSettings('not_valid_setting',
                                            'NOTIFICATION_ACTIONS')
 
+    if not configuration.check_config_to_notify(to, notification_action, target_object):
+        return False
+
+
     time_to_wait = getattr(settings, 'NOTIFICATION_TIME_TO_WAIT', 2880)
 
     exists_notification = Notification.objects.filter(
@@ -52,8 +62,9 @@ def send_notification(author=None, to=None, notification_action=None,
         notification_date__gte=datetime.now() - timedelta(minutes=time_to_wait)
     )
 
-    if exists_notification.count() > 0:
-        return None
+    # TODO: Remove this before close ticket 6856
+    # if exists_notification.count() > 0:
+    #     return None
 
     notification = Notification(
         author=author,
