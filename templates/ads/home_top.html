@@ -1,17 +1,29 @@
+{% load staticfiles %}
 {% if must_be_rendered %}
 {% block home_top %}
-    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-    <!-- gsti-home-topo -->
-    <ins class="adsbygoogle"
-         style="display:block"
-         data-ad-client="ca-pub-2686766225121981"
-         data-ad-slot="1890734825"
-         data-ad-format="auto"></ins>
-    <script>
-    (adsbygoogle = window.adsbygoogle || []).push({});
-    </script>
+{#    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>#}
+{#    <!-- gsti-home-topo -->#}
+{#    <ins class="adsbygoogle"#}
+{#         style="display:block"#}
+{#         data-ad-client="ca-pub-2686766225121981"#}
+{#         data-ad-slot="1890734825"#}
+{#         data-ad-format="auto"></ins>#}
+{#    <script>#}
+{#    (adsbygoogle = window.adsbygoogle || []).push({});#}
+{#    </script>#}
+        <div class="text-center">
+        <a href="http://congressodeti.com.br/" rel="nofollow" target="_blank">
+
+            <img class="img-responsive" style="margin: 0 auto;" src="{% static 'images/congresso-online-de-tecnologia-da-informação.jpg' %}" alt="Congresso online de tecnologia da informação">
+        </a>
+    </div>
 {% endblock home_top %}
 {% else %}
-<img src="https://loremflickr.com/970/90/technology/all" alt="">
+    <div class="text-center">
+        <a href="http://congressodeti.com.br/" rel="nofollow" target="_blank">
+
+            <img class="img-responsive" style="margin: 0 auto;" src="{% static 'images/congresso-online-de-tecnologia-da-informação.jpg' %}" alt="Congresso online de tecnologia da informação">
+        </a>
+    </div>
 {% endif %}
 
