@@ -1,7 +1,7 @@
 from django.db.models import Model
-from django.db.models.signals import post_save, pre_delete
+from django.db.models.signals import post_save, post_delete
 from django.dispatch import receiver
-
+from django.conf import settings
 from apps.socialactions.models import UserAction, Counter, UserActionCounter
 from apps.article.models import Article
 from apps.core.business import embeditem, configuration
@@ -10,17 +10,39 @@ from apps.notifications.service import business as Business
 
 @receiver(post_save, sender=UserAction)
 def counter_post_save(sender, **kwargs):
-    count_user_actions(sender, **kwargs)
-
-
-@receiver(pre_delete, sender=UserAction)
-def counter_post_delete(sender, **kwargs):
-    count_user_actions(sender, **kwargs)
-
-
-def count_user_actions(sender, **kwargs):
     action = kwargs['instance']
     if action:
+        count_user_actions(action)
+
+
+@receiver(post_delete, sender=UserAction)
+def counter_post_delete(sender, **kwargs):
+    action = kwargs['instance']
+    if action:
+        count_user_actions(action)
+
+def count_for_field(instance):
+    pass
+
+def count_user_actions(action=None):
+
+    count = UserAction.objects.filter(object_id=action.object_id,
+                                          content_type=action.content_type,
+                                          action_type=action.action_type,
+                                          target_user=action.target_user).count()
+
+    #TODO REFACTOR TO A BETTER APROACH
+    if action.action_type == settings.SOCIAL_LIKE:
+        action.content_object.like_count = count
+        action.content_object.save()
+    elif action.action_type == settings.SOCIAL_UNLIKE:
+        action.content_object.dislike_count = count
+        action.content_object.save()
+    elif action.action_type == settings.SOCIAL_COMMENT:
+        action.content_object.comment_count = count
+        action.content_object.save()
+    else:
+
         count = UserAction.objects.filter(object_id=action.object_id,
                                           content_type=action.content_type,
                                           action_type=action.action_type,
@@ -49,7 +71,6 @@ def count_user_actions(sender, **kwargs):
 
         counter_instance.count=count
         counter_instance.save()
-
         counter_user_instance.count = count_user
         counter_user_instance.save()
 

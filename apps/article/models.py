@@ -73,7 +73,9 @@ class Article(models.Model):
 
     embed = GenericRelation(EmbedItem, related_query_name="article")
 
-    # useractions = GenericRelation(UserAction, related_name="useractions", related_query_name="article")
+    comment_count = models.PositiveIntegerField(null=True)
+    like_count = models.PositiveIntegerField(null=True)
+    dislike_count = models.PositiveIntegerField(null=True)
 
 
     class Meta:
@@ -92,35 +94,39 @@ class Article(models.Model):
     def modified_date(self):
         return self.publishin if self.publishin and self.is_published() else self.updatein
 
-    @cached_property
-    def comments_count(self):
-        article_content_type = ContentTypeCached.objects.get(model='article')
-        try:
-            count_queryset = Counter.objects.defer("count").get(
-                action_type=settings.SOCIAL_COMMENT,
-                object_id=self.id,
-                content_type=article_content_type
-
-            )
-
-            count = count_queryset.count
 
 
-            return count
-        except Counter.DoesNotExist:
-            counter = Counter(
-                action_type=settings.SOCIAL_COMMENT,
-                object_id=self.id,
-                content_type=article_content_type,
-                count=Comment.objects.filter(
-                    content_type=article_content_type,
-                    object_id=self.id
-                ).count()
 
-            )
-            counter.save()
-            return counter.count
 
+    # @cached_property
+    # def comments_count(self):
+    #     article_content_type = ContentTypeCached.objects.get(model='article')
+    #     try:
+    #         count_queryset = Counter.objects.defer("count").get(
+    #             action_type=settings.SOCIAL_COMMENT,
+    #             object_id=self.id,
+    #             content_type=article_content_type
+    #
+    #         )
+    #
+    #         count = count_queryset.count
+    #
+    #
+    #         return count
+    #     except Counter.DoesNotExist:
+    #         counter = Counter(
+    #             action_type=settings.SOCIAL_COMMENT,
+    #             object_id=self.id,
+    #             content_type=article_content_type,
+    #             count=Comment.objects.filter(
+    #                 content_type=article_content_type,
+    #                 object_id=self.id
+    #             ).count()
+    #
+    #         )
+    #         counter.save()
+    #         return counter.count
+    #
 
 
     @property
