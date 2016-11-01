@@ -36,7 +36,7 @@ def build_absolute_uri(path):
         )
 
 
-def reverse_absolute(request, path):
+def reverse_absolute(request=None, path=None):
     return build_absolute_uri(path)
 
 

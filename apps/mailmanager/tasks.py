@@ -1,5 +1,5 @@
 from apps.mailmanager import do_send_email
-from celeryconfig import app
+from rede_gsti.celery import app
 
 __author__ = 'ladeia'
 

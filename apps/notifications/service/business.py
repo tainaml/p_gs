@@ -62,6 +62,7 @@ def send_notification(author=None, to=None, notification_action=None,
         notification_date__gte=datetime.now() - timedelta(minutes=time_to_wait)
     )
 
+    # TODO: Remove this before close ticket 6856
     # if exists_notification.count() > 0:
     #     return None
 
@@ -75,69 +76,7 @@ def send_notification(author=None, to=None, notification_action=None,
 
     notification.save()
 
-    if configuration.check_config_to_notify(to, 'mail_notification', None):
-
-        send_email_notification(to, notification)
-
     return notification
-
-
-def send_email_notification(to_obj, notification):
-    if not to_obj.email:
-        return
-
-    notification_slug = settings.NOTIFICATION_ACTIONS.get(notification.notification_action)
-    object_type = notification.target_content_type.name
-
-    title_templates = [
-        'notification/email/{}_{}/title.html'.format(notification_slug, object_type),
-        'notification/email/{}/title.html'.format(notification_slug),
-        'notification/email/title.html'
-    ]
-
-    content_templates = [
-        'notification/email/{}_{}/content.html'.format(notification_slug, object_type),
-        'notification/email/{}/content.html'.format(notification_slug),
-        'notification/email/content.html'
-    ]
-
-    context = {
-        'notification': notification,
-        'notification_slug': notification_slug,
-        'object_type': object_type,
-    }
-
-    # Todo: Load template and send email
-    mail_title = mark_safe(render_to_string(
-        template_name=title_templates,
-        context=context
-    ))
-
-    mail_content = mark_safe(render_to_string(
-        template_name=content_templates,
-        context=context
-    ))
-
-
-    print(send_email(
-        to=to_obj.email,
-        subject=strip_tags(mail_title).strip(),
-        template='mailmanager/notification.html',
-        context={
-            'mail_title': mail_title,
-            'mail_content': mail_content,
-        }
-    ))
-
-    send_mail_async.delay(
-        to=to_obj.email,
-        subject=strip_tags(mail_title),
-        template='mailmanager/notification.html',
-        context={
-            'mail_title': mail_title,
-            'mail_content': mail_content,
-        }
-    )
 
 
 def send_notification_to_many(author=None, to_list=None,

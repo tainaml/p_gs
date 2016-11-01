@@ -159,8 +159,8 @@ THIRD_PART_APPS = (
 
     # Celery
     'djkombu',
-    'kombu.transport.django',
     'djcelery',
+    'kombu.transport.django',
 )
 
 INTERNAL_APPS = (
@@ -314,13 +314,15 @@ EMAIL_BACKEND = 'sparkpost.django.email_backend.SparkPostEmailBackend'
 
 
 # CELERY
+# Using database as broker
 BROKER_URL = 'django://'
-CELERY_RESULT_BACKEND = 'rpc://'
-CELERY_RESULT_PERSISTENT = False
-BROKER_BACKEND = "djkombu.transport.DatabaseTransport"
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_BACKEND='djcelery.backends.database:DatabaseBackend'
+CELERYBEAT_SCHEDULER = 'djcelery.schedulers.DatabaseScheduler'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TIMEZONE = 'America/Sao_Paulo'
 
-import djcelery
-djcelery.setup_loader()
 
 # CONTACT
 CONTACT_SEND_TO_EMAIL = config.get("CONTACT", "to")
