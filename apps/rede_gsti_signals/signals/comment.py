@@ -1,9 +1,7 @@
-from django.db.models.signals import post_save
+from django.db.models.signals import post_save, post_delete
 from django.dispatch import receiver
 from apps.comment.models import Comment
-from django.conf import settings
 from apps.core.business.content_types import ContentTypeCached
-from apps.socialactions.models import Counter
 
 
 def __get_comment_count(content_object):
@@ -13,6 +11,19 @@ def __get_comment_count(content_object):
                     object_id=content_object.id
                 ).count()
 
+
+def change_comment_count(instance):
+    comment_count = __get_comment_count(instance.content_object)
+    instance.content_object.comment_count = comment_count
+    instance.content_object.save()
+
+
+@receiver(post_delete, sender=Comment)
+def comment_count_action(sender, **kwargs):
+    instance = kwargs['instance'] if 'instance' in kwargs else False
+    if not instance:
+        return
+    change_comment_count(instance)
 
 @receiver(post_save, sender=Comment)
 def comment_count_action(sender, **kwargs):
@@ -29,24 +40,5 @@ def comment_count_action(sender, **kwargs):
     if not instance:
         return
 
-    comment_count = __get_comment_count(instance.content_object)
-    try:
+    change_comment_count(instance)
 
-        counter = Counter.objects.defer("count").get(
-                action_type=settings.SOCIAL_COMMENT,
-                object_id=instance.object_id,
-                content_type=instance.content_type
-
-            )
-        counter.count = comment_count
-        counter.save()
-
-    except Counter.DoesNotExist:
-        counter = Counter(
-            action_type=settings.SOCIAL_COMMENT,
-            object_id=instance.object_id,
-            content_type=instance.content_type,
-            count=comment_count
-
-        )
-        counter.save()
