@@ -1,0 +1,29 @@
+.profession__board {}
+.profession__board__list {
+  @include clearfix();
+  margin-right: -4px;
+  margin-left: -4px;
+}
+.professional {
+  max-width: 87.5px;
+  margin: 4px;
+  float: left;
+  border: 1px solid #e1e1e1;
+}
+.professional__avatar {
+  border: 7px solid #fff;
+}
+.profession__board .btn-green {
+  margin-top: 10px;
+}
+
+@media (max-width: $screen-sm-min) {
+  .profession__board__list {
+    margin-right: -12px;
+    margin-left: -12px;
+  }
+
+  .professional {
+    margin: 11px;
+  }
+}
