@@ -1,3 +1,4 @@
+from apps.taxonomy.models import Taxonomy
 from django.contrib import admin
 from django import forms
 from apps.userprofile.models import Responsibility, UserProfile
@@ -5,6 +6,11 @@ from ideia_summernote.widget import SummernoteWidget
 
 
 class ResponsibilityAdminForm(forms.ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        super(ResponsibilityAdminForm, self).__init__(*args, **kwargs)
+        self.fields['categories'].queryset = Taxonomy.objects.filter(term__slug='categoria')
+
 
     class Media:
         js = (
