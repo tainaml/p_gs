@@ -158,8 +158,9 @@ THIRD_PART_APPS = (
     'micawber.contrib.mcdjango',
 
     # Celery
-    'kombu.transport.django',
+    'djkombu',
     'djcelery',
+    'kombu.transport.django',
 )
 
 INTERNAL_APPS = (
@@ -313,9 +314,14 @@ EMAIL_BACKEND = 'sparkpost.django.email_backend.SparkPostEmailBackend'
 
 
 # CELERY
+# Using database as broker
 BROKER_URL = 'django://'
-
-
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_BACKEND='djcelery.backends.database:DatabaseBackend'
+CELERYBEAT_SCHEDULER = 'djcelery.schedulers.DatabaseScheduler'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TIMEZONE = 'America/Sao_Paulo'
 
 
 # CONTACT
@@ -432,7 +438,7 @@ NOTIFICATION_ACTIONS = {
     NOTIFICATION_SEE_LATER: 'see-later',
     NOTIFICATION_ANSWER: 'answer',
     NOTIFICATION_ALERT: 'alert',
-    NOTIFICATION_USERALERT: 'useralert'
+    NOTIFICATION_USERALERT: 'useralert',
 
 }
 

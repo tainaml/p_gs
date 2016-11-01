@@ -1,0 +1,8 @@
+{% extends "mailmanager/layout/mail-base.html" %}
+{% block email_title %}{{ mail_title }}{% endblock email_title %}
+{% load url_utils %}
+{% block content %}
+
+    {{ mail_content|safe }}
+
+{% endblock %}

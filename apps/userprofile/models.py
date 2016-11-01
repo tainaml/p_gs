@@ -131,7 +131,10 @@ class UserProfile(models.Model):
 
 class Responsibility(models.Model):
     name = models.CharField(max_length=60, null=False, blank=False)
-    text = models.TextField(null=True, blank=True)
+    about = models.TextField(null=True, blank=True)
+    study = models.TextField(null=True, blank=True)
+    main_activity = models.TextField(null=True, blank=True)
+    more_info = models.TextField(null=True, blank=True)
     categories = models.ManyToManyField(to=Taxonomy, related_name='responsibilities')
 
     class Meta:
