@@ -117,6 +117,11 @@ class Rules(View):
     def get(self, request):
         return render(request, 'rules.html')
 
+class Privacy(View):
+
+    def get(self, request):
+        return render(request, 'privacy.html')
+
 
 class OEmbed(View):
 
