@@ -82,7 +82,7 @@ def get_object_actions_like(object, user=None, content_type=None):
 
     )
 
-    if content_type in easy_likes_contents:
+    if content_type in easy_likes_contents and user.is_authenticated():
         object_actions.filter(author=user)
 
     obj_likes = ObjectLikes()
