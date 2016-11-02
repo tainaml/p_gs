@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-11-02 10:53-0300\n"
+"POT-Creation-Date: 2016-11-02 16:59-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -120,23 +120,23 @@ msgstr "Nome de usuário está disponível"
 msgid "Username is not available!"
 msgstr "Nome de usuário não está disponível"
 
-#: apps/article/models.py:42
+#: apps/article/models.py:46
 msgid "Draft"
 msgstr "Rascunho"
 
-#: apps/article/models.py:43
+#: apps/article/models.py:47
 msgid "Trash"
 msgstr "Lixo"
 
-#: apps/article/models.py:44
+#: apps/article/models.py:48
 msgid "Publish"
 msgstr "Publicado"
 
-#: apps/article/models.py:58 apps/job_vacancy/models.py:45
+#: apps/article/models.py:62 apps/job_vacancy/models.py:45
 msgid "Author"
 msgstr "Autor"
 
-#: apps/article/models.py:75
+#: apps/article/models.py:84
 msgid "Can edit articles from others"
 msgstr "Permissão para editar artigos de outros autores"
 
@@ -619,21 +619,30 @@ msgstr ""
 "P<post_type>[a-z]+)/(?P<count>[1-9])/$"
 
 #: apps/core/urls/core.py:12
-#| msgid "Responsibility"
 msgid "^responsibilities/$"
 msgstr "^profissoes-de-ti/$"
 
+#: apps/core/urls/core.py:14
+#| msgid "^list_articles/(?P<username>[a-z0-9_-]+)/$"
+msgid "^responsibilities/(?P<slug>[aA-zZ0-9-_]+)/$"
+msgstr "^profissoes-de-ti/(?P<slug>[aA-zZ0-9-_]+)/$"
+
 #. Translators: URL de sobre
-#: apps/core/urls/core.py:15
+#: apps/core/urls/core.py:17
 msgid "^about/"
 msgstr "^sobre/"
 
 #. Translators: URL de sobre
-#: apps/core/urls/core.py:19
+#: apps/core/urls/core.py:21
 msgid "^rules/"
 msgstr "^regras/"
 
-#: apps/core/urls/core.py:22
+#. Translators: URL de sobre
+#: apps/core/urls/core.py:24
+msgid "^politica-de-privacidade/"
+msgstr ""
+
+#: apps/core/urls/core.py:27
 msgid "^oembed/"
 msgstr ""
 
@@ -1055,6 +1064,12 @@ msgstr "Pergunta não encontrada"
 msgid "This question has been deleted"
 msgstr "Publicação removida"
 
+#: apps/core/views/responsibility.py:70
+#, fuzzy
+#| msgid "Responsibility"
+msgid "Responsibility not found"
+msgstr "Área de atuação"
+
 #: apps/core/views/summernote.py:53
 #: venv/lib/python2.7/site-packages/ideia_summernote/views.py:35
 msgid "Only authenticated users can submit images!"
@@ -1215,7 +1230,7 @@ msgstr "Você precisa especificar a propriedade template_list_path"
 msgid "Notification not found!"
 msgstr "Notificação não encontrada"
 
-#: apps/question/models.py:46
+#: apps/question/models.py:50
 #, fuzzy
 #| msgid "Can edit articles from others"
 msgid "Can edit questions from others"
