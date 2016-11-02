@@ -1,0 +1,12 @@
+{% for responsibility in responsibilities %}
+    <a href="javascript:;" class="btn list__professions__btn">
+        {{ responsibility.name }}
+        <span class="list__professions__btn__icon">
+          <i class="gsticon gsticon-plus"></i>
+        </span>
+    </a>
+{% endfor %}
+
+{% if responsibilities.has_next %}
+    <a data-jscroll-next href="{% url 'core:responsibilities-list' %}?criterio={{ form.cleaned_data.criteria|urlencode }}&page={{ responsibilities.next_page_number }}">Próximo</a>
+{% endif %}

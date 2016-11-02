@@ -7,17 +7,17 @@ register = template.Library()
 @register.assignment_tag(takes_context=True)
 def absolute_url(context, parser, *token):
 
-    request_obj = context['request']
+    # request_obj = context['request']
 
     if not token or parser[1] == '/':
         path = parser
     else:
         path = reverse(parser, args=token)
 
-    return reverse_absolute(request_obj, path)
+    return reverse_absolute(path=path)
 
 
 @register.assignment_tag(takes_context=True)
 def absolute_from_path(context, path):
-    request_obj = context['request']
-    return reverse_absolute(request_obj, path)
+    # request_obj = context['request']
+    return reverse_absolute(path=path)

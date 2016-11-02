@@ -1,0 +1,11 @@
+{% extends 'notification/email/content.html' %}
+
+{% load abs_url %}
+
+{% block url %}{{ notification.target.get_absolute_url }}{% endblock %}
+
+{% block content %}
+
+    <span>{{ notification.author.get_full_name }}</span> não gostou da sua publicação <span>{{ notification.target.title }}</span>
+
+{% endblock %}

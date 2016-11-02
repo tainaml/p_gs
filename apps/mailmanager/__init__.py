@@ -14,9 +14,7 @@ def __render(template_path, context):
         message = template.render(context)
         return message
 
-
-def send_email(to, subject, template=None, context=None, fail_silently=False, connection=None):
-
+def do_send_email(to, subject, template=None, context=None, fail_silently=False, connection=None):
     message = __render(template, context=context)
 
     to = to if isinstance(to, (list, tuple)) else [to]
@@ -28,3 +26,8 @@ def send_email(to, subject, template=None, context=None, fail_silently=False, co
         from_email=getattr(settings, 'DEFAULT_FROM_EMAIL'),
         recipient_list=to
     )
+
+
+def send_email(to, subject, template=None, context=None, fail_silently=False, connection=None):
+
+    return do_send_email(to, subject, template, context, fail_silently, connection)
