@@ -619,7 +619,6 @@ msgstr ""
 "P<post_type>[a-z]+)/(?P<count>[1-9])/$"
 
 #: apps/core/urls/core.py:12
-#, fuzzy
 #| msgid "Responsibility"
 msgid "^responsibilities/$"
 msgstr "^profissoes-de-ti/$"
