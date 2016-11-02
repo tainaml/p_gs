@@ -41,6 +41,7 @@
 {% block ld_json %}
     {% url 'profile:show' article.author.username as author_url %}
     <script type="application/ld+json">
+    {% comment %}TODO Refactor to a JSON generator{% endcomment %}
         {
             "@context": "http://schema.org",
             "@type": "Article",
@@ -61,11 +62,30 @@
                  "width":126
               }
             },
-            "headline":"{{ article.title }}",
+           "headline":"{{ article.title }}",
            "datePublished":"{{ article.publishin|date:'Y-m-d G:i' }}",
            "dateModified":"{{ article.updatein|date:'Y-m-d G:i' }}",
-           "commentCount": "{{ article.comments_count }}"
-            {% if article.image %}
+           "commentCount": {{ article.comment_count }}
+           "interactionStatistic" [
+                {
+                    "@type": "InteractionCounter",
+                    "interactionType": "http://schema.org/LikeAction",
+                    "userInteractionCount": {{ article.like_count }}
+                },
+                {
+                    "@type": "InteractionCounter",
+                    "interactionType": "http://schema.org/DislikeAction",
+                    "userInteractionCount": {{ article.dislike_count }}
+                },
+           ]
+           {% if feed.communities %}
+            ,"about":[
+                {% for community in  feed.communities.all %}
+                    "{{ community.title }}"{% if not forloop.last %},{% endif %}
+                {% endfor %}
+            ]
+           {% endif %}
+           {% if article.image %},
                "image":{
                   "@type":"ImageObject",
                   "url":"{% thumbor_url article.image.url width=700 height=260 smart=False fit_in=False %}",
@@ -174,12 +194,8 @@
                             <div class="post-toolbar pull-right">
                                 <div class="post-count">{% like_box article request.path "inline" %}</div>
                                 <a href="#comments" class="post-count-comments">
-                            <span id="load-count-comment-article"
-                                  data-load-async="true"
-                                  data-load-async-url="{% url 'comment:count' article.id "article" %}"
-                                  data-load-async-method="get"
-                                  data-load-async-response-type="json">
-                                <strong class="load-async load-async-content">0</strong>
+                            <span>
+                                <strong class="">{{ article.comment_count }}</strong>
                                 {% csrf_token %}
                             </span>
                                     <span class="hidden-xs visible-lg-inline">Comentário(s)</span>
