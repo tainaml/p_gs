@@ -191,7 +191,7 @@
                                                 <select name="responsibility" class="form-control" id="filterResponsibility">
                                                     <option value="">Profissões</option>
                                                     {% for responsibility in responsibilities %}
-                                                        <option value="{{ responsibility.id }}">{{ responsibility.name }}</option>
+                                                        <option value="{{ responsibility.id }}" {% if request.GET.responsibility == responsibility.id|stringformat:"s" %}selected{% endif %}>{{ responsibility.name }}</option>
                                                     {% endfor %}
                                                 </select>
                                             </div>

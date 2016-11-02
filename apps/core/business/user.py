@@ -1,3 +1,4 @@
+from apps.userprofile.models import UserProfile
 from django.contrib.auth import get_user_model
 from django.contrib.postgres.search import SearchQuery, SearchRank
 from apps.core.business import search as SearchBusiness
@@ -432,3 +433,9 @@ def get_followers(user_filter, description=None, items_per_page=None, page=None)
         'content_type': content_type,
         'object': user_filter
     }
+
+def get_active_users():
+    return UserProfile.objects.filter(
+        user__is_active=True,
+        wizard_step__gte=settings.WIZARD_STEPS_TOTAL
+    )
