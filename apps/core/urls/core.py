@@ -18,6 +18,9 @@ urlpatterns = [
     # Translators: URL de sobre
     url(_(r'^rules/'), CoreView.Rules.as_view(), name='rules'),
 
+    # Translators: URL de sobre
+    url(_(r'^politica-de-privacidade/'), CoreView.Privacy.as_view(), name='privacy'),
+
 
     url(_(r'^oembed/'), CoreView.OEmbed.as_view(), name='oembed'),
 
