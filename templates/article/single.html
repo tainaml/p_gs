@@ -38,6 +38,74 @@
 {% endblock %}
 
 {% block editorfiles %}{% endblock %}
+{% block ld_json %}
+    {% url 'profile:show' article.author.username as author_url %}
+    <script type="application/ld+json">
+    {% comment %}TODO Refactor to a JSON generator{% endcomment %}
+        {
+            "@context": "http://schema.org",
+            "@type": "Article",
+            "name": "{{ article.title }}",
+            "author": {
+            "@type": "Person",
+                "image": "{% get_avatar article.author width=90 height=90 smart=False fit_in=False %}",
+                "name": "{{ article.author.get_full_name }}",
+                "sameAs": "{% absolute_url author_url %}"
+            },
+            "publisher": {
+            "@type": "Organization",
+            "name": "Portal GSTI",
+               "logo":{
+                 "@type":"ImageObject",
+                 "url":"{% static 'images/gsti.png' %}",
+                 "height":40,
+                 "width":126
+              }
+            },
+           "headline":"{{ article.title }}",
+           "datePublished":"{{ article.publishin|date:'Y-m-d G:i' }}",
+           "dateModified":"{{ article.updatein|date:'Y-m-d G:i' }}",
+           "commentCount": {{ article.comment_count }}
+           "interactionStatistic" [
+                {
+                    "@type": "InteractionCounter",
+                    "interactionType": "http://schema.org/LikeAction",
+                    "userInteractionCount": {{ article.like_count }}
+                },
+                {
+                    "@type": "InteractionCounter",
+                    "interactionType": "http://schema.org/DislikeAction",
+                    "userInteractionCount": {{ article.dislike_count }}
+                },
+           ]
+           {% if feed.communities %}
+            ,"about":[
+                {% for community in  feed.communities.all %}
+                    "{{ community.title }}"{% if not forloop.last %},{% endif %}
+                {% endfor %}
+            ]
+           {% endif %}
+           {% if article.image %},
+               "image":{
+                  "@type":"ImageObject",
+                  "url":"{% thumbor_url article.image.url width=700 height=260 smart=False fit_in=False %}",
+                  "width": 700,
+                  "height": 260
+               }
+
+               {% else %}
+               {% static 'images/gsti-default-og-image.png' as default_image %}
+               "image":{
+                  "@type":"ImageObject",
+                  "url":"{% thumbor_url default_image width=700 height=260 smart=False fit_in=False %}",
+                  "width": 700,
+                  "height": 260
+               }
+
+               {% endif %}
+        }
+    </script>
+{% endblock ld_json %}
 
 {% block content %}
 
@@ -126,12 +194,8 @@
                             <div class="post-toolbar pull-right">
                                 <div class="post-count">{% like_box article request.path "inline" %}</div>
                                 <a href="#comments" class="post-count-comments">
-                            <span id="load-count-comment-article"
-                                  data-load-async="true"
-                                  data-load-async-url="{% url 'comment:count' article.id "article" %}"
-                                  data-load-async-method="get"
-                                  data-load-async-response-type="json">
-                                <strong class="load-async load-async-content">0</strong>
+                            <span>
+                                <strong class="">{{ article.comment_count }}</strong>
                                 {% csrf_token %}
                             </span>
                                     <span class="hidden-xs visible-lg-inline">Comentário(s)</span>

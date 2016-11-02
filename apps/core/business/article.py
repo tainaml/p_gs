@@ -32,7 +32,6 @@ def get_article(year=None, month=None, slug=None, prefetch=None):
 
 
         if prefetch is None:
-            print prefetch
             prefetch = ('content_object',)
 
         feed_article = FeedObject.objects.filter\
