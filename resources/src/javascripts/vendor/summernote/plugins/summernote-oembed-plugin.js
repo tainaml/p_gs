@@ -117,85 +117,95 @@
       }
     };
 
-    this.disableAddButton = function() {
+    this.disableAddButton = function () {
       self.$addBtn.attr("disabled", true);
     };
 
-    this.insertEmbedToEditor = function (iframe) {
+    this.insertEmbedToEditor = function ( iframe ) {
       var $div = $('<div>');
 
 
-      $.getJSON(options.oEmbed.service+'?url='+iframe)
+      $.getJSON( options.oEmbed.service+'?url='+iframe )
         .done(function (data) {
-          $div.html(self.normalizeEmbed(data.html));
+          $div.html(self.normalizeEmbed( data ));
 
           context.invoke('editor.insertNode', $div[0]);
           self.$embedContainer.innerHTML = '';
         });
     };
 
-    this.normalizeEmbed = function(data){
+    this.normalizeEmbed = function ( data ) {
+      var $div;
+      console.log( data );
+      if ( data.provider_url ) {
+        if ( data.type === 'video' ) {
+          $div = $( '<div itemscope>' );
+          $div.attr({
+            'itemid': data.url,
+            'itemprop': data.type,
+            'itemtype': 'http://schema.org/VideoObject'
+          });
+          $div
+          .append( '<meta itemprop="name" content="'+data.title+'" />' )
+          .append( '<meta itemprop="thumbnail" content="'+data.thumbnail_url+'" />' )
+          .append( '<meta itemprop="author" content="'+data.author_name+'" />' )
+        } else {
+          $div = $( '<div>' );
+        }
 
-    if(data){
-      var $div = $('<div>');
-    var $iframe = $(data).find("iframe");
+        var $iframe = $( data.html ).find( 'iframe' );
 
-    $div.css({
-      'position': 'relative',
-      'padding-top': '25px',
-      'padding-bottom': '56.25%',
-      'height': '0'
-    });
-    $iframe.css({
-      'position': 'absolute',
-      'top': '0',
-      'left': '0',
-      'width': '100%',
-      'height': '100%'
-    });
-    $iframe.removeAttr("width");
-    $iframe.removeAttr("height");
+        $div.css({
+          'position': 'relative',
+          'padding-top': '25px',
+          'padding-bottom': '56.25%',
+          'height': '0'
+        });
+        $iframe.css({
+          'position': 'absolute',
+          'top': '0',
+          'left': '0',
+          'width': '100%',
+          'height': '100%'
+        });
+        $iframe.removeAttr( 'width' );
+        $iframe.removeAttr( 'height' );
 
-    $div.html($iframe);
+        $div.append( $iframe );
 
-    return $div;
+        return $div;
 
-    }  else{
-      console.log(lang);
-      throw new Error(lang.errorMessage.invalid_provider);
-    }
+      } else {
+        throw new Error(lang.errorMessage.invalid_provider);
+      }
 
     };
 
     this.initOembed = function () {
 
-      self.$embedInput.addEventListener('input', function (event) {
+      self.$embedInput.addEventListener('input', function ( event ) {
 
         var url = this.value;
 
+        if ( options.oEmbed.spinner ) {
+          self.$embedContainer.innerHTML = options.oEmbed.spinner;
+        }
+
         setTimeout(function () {
-          if(options.oEmbed.spinner){
-            self.$embedContainer.innerHTML = options.oEmbed.spinner;
-          }
-
-          $.getJSON(options.oEmbed.service+'?url='+url)
-          .done(function (data) {
-
+          $.getJSON( options.oEmbed.service+'?url='+url )
+          .done( function (data) {
               var content;
-              try{
-                content = self.normalizeEmbed(data.html);
-
-              }catch(e){
-
+              try {
+                content = self.normalizeEmbed( data );
+              } catch ( e ) {
                 content = e.message;
               }
 
-              $(self.$embedContainer).html(content);
-
+              $( self.$embedContainer ).html( content );
 
             self.enableAddButton();
           });
-        }, 1000);
+        }, 700);
       });
     };
 
@@ -210,7 +220,6 @@
     };
 
     this.events = {
-      // This will be called after modules are initialized.
       'summernote.init': function(we, e) {
         self.initOembed();
       }

@@ -18,7 +18,6 @@ def like_box(context, object_to_link, url_next, like_type=None):
 
     except ValueError:
         raise Http404()
-
     if like_type == "inline":
         like_box_template = "socialactions/like-box-inline.html"
     elif like_type == "share-box":

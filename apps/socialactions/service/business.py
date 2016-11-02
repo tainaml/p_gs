@@ -68,29 +68,44 @@ def get_object_actions_like(object, user=None, content_type=None):
         act_unlike,
     ]
 
+    easy_likes_contents = [
+        ContentTypeCached.objects.get(model='article'),
+        ContentTypeCached.objects.get(model='question')
+    ]
+
     object_actions = UserAction.objects.only(
         'id', 'author', 'action_type'
     ).filter(
         content_type=content_type,
         object_id=object.id,
         action_type__in=action_types
+
     )
+
+    if content_type in easy_likes_contents:
+        object_actions.filter(author=user)
 
     obj_likes = ObjectLikes()
 
+
+
     # Only this interaction to return all infos
     for act in object_actions:
-        if act.action_type == act_like:
-            obj_likes.likes += 1
-        elif act.action_type == act_unlike:
-            obj_likes.unlikes += 1
+        if content_type not in easy_likes_contents:
+            if act.action_type == act_like:
+                obj_likes.likes += 1
+            elif act.action_type == act_unlike:
+                obj_likes.unlikes += 1
+        else:
+            obj_likes.likes=object.like_count
+            obj_likes.unlikes=object.dislike_count
 
         if user.is_authenticated():
-
-            if act.author_id == user.id and act.action_type == act_like:
-                obj_likes.user_likes = True
-            elif act.author_id == user.id and act.action_type == act_unlike:
-                obj_likes.user_unlikes = True
+            if user == act.author:
+                if act.action_type == act_like:
+                    obj_likes.user_likes = True
+                elif act.action_type == act_unlike:
+                    obj_likes.user_unlikes = True
 
     return obj_likes
 

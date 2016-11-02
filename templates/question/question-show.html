@@ -32,7 +32,47 @@
 {% endblock %}
 
 {% block title %}{{ question.title }}{% endblock %}
+{% block ld_json %}
+    {% url 'profile:show' question.author.username as author_url %}
+    <script type="application/ld+json">
+    {% comment %}TODO Refactor to a JSON generator{% endcomment %}
+        {
+            "@context": "http://schema.org",
+            "@type": "Question",
+            "name": "{{ question.title }}",
+            "author": {
+            "@type": "Person",
+                "image": "{% get_avatar question.author width=90 height=90 smart=False fit_in=False %}",
+                "name": "{{ question.author.get_full_name }}",
+                "sameAs": "{% absolute_url author_url %}"
+            },
+            "publisher": {
+            "@type": "Organization",
+            "name": "Portal GSTI",
+               "logo":{
+                 "@type":"ImageObject",
+                 "url":"{% static 'images/gsti.png' %}",
+                 "height":40,
+                 "width":126
+              }
+            },
+           "headline":"{{ question.title|slice:":110"  }}",
+           "datePublished":"{{ question.question_date|date:'Y-m-d G:i' }}",
+           "dateModified":"{{ question.question_date|date:'Y-m-d G:i' }}",
+           "answerCount": {{ question.counter_answer }}
+           "upvoteCount": {{ question.like_count }},
+           "downvoteCount": {{ question.dislike_count }},
+           {% if question.feed.communities %}
+            ,"about":[
+                {% for community in  question.feed.communities.all %}
+                    "{{ community.title }}"{% if not forloop.last %},{% endif %}
+                {% endfor %}
+            ]
+           {% endif %}
 
+        }
+    </script>
+{% endblock ld_json %}
 {% block content %}
 
     <main class="container main">

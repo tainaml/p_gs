@@ -22,7 +22,7 @@
         <meta name="msvalidate.01" content="A19932BD10DA20BDBC9EA23CDD0E4056" />
 
         <link rel="canonical" href="{% block seo-canonical %}{% absolute_url request.path %}{% endblock %}"/>
-
+        {% block ld_json %}{% endblock ld_json %}
         {% block seo-metas-extra %}
         {% endblock %}
 
