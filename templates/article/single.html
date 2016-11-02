@@ -76,7 +76,7 @@
                     "@type": "InteractionCounter",
                     "interactionType": "http://schema.org/DislikeAction",
                     "userInteractionCount": {{ article.dislike_count }}
-                },
+                }
            ]
            {% if feed.communities %}
             ,"about":[
@@ -85,8 +85,8 @@
                 {% endfor %}
             ]
            {% endif %}
-           {% if article.image %},
-               "image":{
+           {% if article.image %}
+               ,"image":{
                   "@type":"ImageObject",
                   "url":"{% thumbor_url article.image.url width=700 height=260 smart=False fit_in=False %}",
                   "width": 700,
