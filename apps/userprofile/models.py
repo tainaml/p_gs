@@ -131,6 +131,7 @@ class UserProfile(models.Model):
 
 class Responsibility(models.Model):
     name = models.CharField(max_length=60, null=False, blank=False)
+    slug = models.SlugField(null=False, blank=True)
     about = models.TextField(null=True, blank=True)
     study = models.TextField(null=True, blank=True)
     main_activity = models.TextField(null=True, blank=True)

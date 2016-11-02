@@ -1,0 +1,90 @@
+{% extends 'home/layout/base.html' %}
+{% block title %}Profissões{% endblock title %}
+{% block content %}
+    <main class="container main">
+        <div class="row">
+            <div class="col-sm-9">
+                <form class="row filter" action="{% url 'core:responsibilities-list' %}">
+                    <div class="col-sm-12 filter__description">
+                        <p>Lista de profissões relacionadas a tecnologia</p>
+                    </div>
+                    <div class="col-sm-8 filter__inputbox">
+                        <div class="form-search-input">
+                            <input type="text" id="filter-profession" name="criteria"
+                                   placeholder="Pesquisar Profissão" autocomplete="off">
+                        </div>
+                        <button type="submit" class="form-search-button">
+                            <i class="gsticon gsticon-search"></i>
+                        </button>
+                    </div>
+                    <div class="col-sm-4 filter__communities">
+                        <select class="form-control"  id="filter-community" name="category" data-filter="select">
+                            <option value="">Categorias</option>
+                            {% for category in categories %}
+                                <option value="{{ category.id }}" {% if request.GET.category == category.id|stringformat:"s" %}selected{% endif %}>{{ category.description }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-sm-12"><hr></div>
+                </form>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <header class="area-title">
+                            <h2>{{ responsibility.name }}</h2>
+                            {% if responsibility_categories|length > 0 %}
+                                <span class="color-development"><strong>Categoria:</strong>
+                                {{ responsibility_categories|join:", " }}
+                            </span>
+                            {% endif %}
+                        </header>
+                        <hr>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 profession">
+                        <figure class="profession__img">
+                            <img class="img-responsive" src="http://placehold.it/270x225" alt="">
+                        </figure>
+
+                        {% if responsibility.about %}
+                            <h3>O que é um {{ responsibility.name }}</h3>
+                            {{ responsibility.about|safe }}
+                        {% endif %}
+
+                        {% if responsibility.study %}
+                            <h3>O que estudar para ser um {{ responsibility.name }}</h3>
+                            {{ responsibility.study|safe }}
+                        {% endif %}
+
+                        {% if responsibility.main_activity %}
+                            <h3>Principais atividades do {{ responsibility.name }}</h3>
+                            {{ responsibility.main_activity|safe }}
+                        {% endif %}
+
+                        {% if responsibility.more_info %}
+                            <h3>Mais informações</h3>
+                            {{ responsibility.more_info|safe }}
+                        {% endif %}
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3">
+
+                {% if profiles_with_this_responsibility %}
+                    {% include 'responsibilities/partials/board.html' %}
+                {% endif %}
+
+                {# Todo: Unhide when jobs module is active #}
+
+                {#                {% include 'front_end/professions/partials/jobs.html' %}#}
+
+            </div>
+        </div>
+    </main>
+{% endblock content %}
+
+{% block javascripts %}
+    {{ block.super }}
+
+{% endblock javascripts %}
