@@ -115,7 +115,7 @@ class SearchList(SearchBase):
     def return_success(self, request, context=None):
         return render(request, self.template_path, context)
 
-    def change_template(self, template_path):
+    def change_template(self, template_path, request=None):
         self.template_path = template_path
 
     def get(self, request, content_type):
@@ -187,7 +187,7 @@ class SearchList(SearchBase):
         })
         context.update(self.get_context(request))
 
-        self.change_template("search/partials/search-%s.html" % content_type)
+        self.change_template("search/partials/search-%s.html" % content_type, request)
 
         return self.return_success(request, context)
 
@@ -196,8 +196,11 @@ class SearchContent(SearchList):
 
     template_path = "search/search-result.html"
 
-    def change_template(self, template_path):
-        return self.template_path
+    def change_template(self, template_path, request=None):
+        if not request.is_ajax():
+            return self.template_path
+        else:
+            self.template_path = template_path
 
 
 class SearchCommunitiesList(SearchBase):

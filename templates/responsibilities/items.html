@@ -1,5 +1,5 @@
 {% for responsibility in responsibilities %}
-    <a href="javascript:;" class="btn list__professions__btn">
+    <a href="{% url 'core:responsibility' responsibility.slug %}" class="btn list__professions__btn">
         {{ responsibility.name }}
         <span class="list__professions__btn__icon">
           <i class="gsticon gsticon-plus"></i>

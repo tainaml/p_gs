@@ -1,12 +1,14 @@
+from apps.userprofile.models import Responsibility, UserProfile
 from django.http import Http404
-from django.http.response import JsonResponse
+from django.utils.translation import ugettext_lazy as _
 from django.shortcuts import render
 from django.views import View
 from apps.taxonomy.service import business as TaxonomyBusiness
 from ..forms.responsibility import ResponsibilityFiltersForm
+from apps.core.business import user as UserCoreBusiness
 
 
-class ResponsibilityView(View):
+class ResponsibilityListView(View):
 
     template_path = 'responsibilities/list.html'
     template_items = 'responsibilities/items.html'
@@ -46,4 +48,49 @@ class ResponsibilityView(View):
             request,
             template_name=self.template_path,
             context=context
+        )
+
+class ResponsibilityView(View):
+
+    template_path = 'responsibilities/responsibility.html'
+
+    def get_context(self, request):
+
+        categories = TaxonomyBusiness.get_categories()
+
+        return {
+            'categories': categories,
+        }
+
+    def get(self, request, slug):
+
+        try:
+            responsibility = Responsibility.objects.get(slug=slug)
+        except Responsibility.DoesNotExist as e:
+            raise Http404(_('Responsibility not found'))
+
+        _context = self.get_context(request)
+
+        # Categories names from this responsibility
+        main_categories = responsibility.categories.all()
+        categories_names = []
+
+        for category in main_categories:
+            categories_names.append(category.description)
+
+        # Peoples with this responsibility
+        profiles = UserCoreBusiness.get_active_users().filter(
+            occupation__responsibility=responsibility,
+        ).order_by('-user__date_joined')
+
+        _context.update({
+            'responsibility': responsibility,
+            'responsibility_categories': categories_names,
+            'profiles_with_this_responsibility': profiles[:9] if profiles else []
+        })
+
+        return render(
+            request,
+            template_name=self.template_path,
+            context=_context
         )

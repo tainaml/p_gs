@@ -2,6 +2,7 @@
 
 {% load thumbor_tags %}
 {% load var_tags %}
+{% load seo_pagination_tags %}
 
 {% block seo-og-title %}{% block seo_title %}{% spaceless %}
 
@@ -54,7 +55,16 @@
     {% if content_type or articles.object_list|length == 0 and communities.object_list|length == 0 and users.object_list|length == 0 and questions.object_list|length == 0 %}
         <meta name="robots" content="noindex,nofollow">
     {% endif %}
+
 {% endblock %}
+
+{% block link_pagination %}
+
+    {% if users %}
+    {% pagination_links users %}
+    {% endif %}
+
+{% endblock link_pagination %}
 
 {% block content %}
 
@@ -191,7 +201,7 @@
                                                 <select name="responsibility" class="form-control" id="filterResponsibility">
                                                     <option value="">Profissões</option>
                                                     {% for responsibility in responsibilities %}
-                                                        <option value="{{ responsibility.id }}">{{ responsibility.name }}</option>
+                                                        <option value="{{ responsibility.id }}" {% if request.GET.responsibility == responsibility.id|stringformat:"s" %}selected{% endif %}>{{ responsibility.name }}</option>
                                                     {% endfor %}
                                                 </select>
                                             </div>
