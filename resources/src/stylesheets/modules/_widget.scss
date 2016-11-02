@@ -61,9 +61,11 @@
         border-bottom: 1px solid $color-border;
         color: $color-link-counter;
         letter-spacing: -0.009em;
+        font-weight: 600;
         &:first-child { padding-top: 0 }
         &:last-child { border-bottom: 0 }
         .gsticon.gsticon-briefcase { margin-right: 5px }
+        .gsticon.gsticon-user { margin-right: 5px }
     }
 }
 .banner-collaborator {

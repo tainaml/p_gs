@@ -1,4 +1,5 @@
 from datetime import date
+from apps.taxonomy.models import Taxonomy
 
 from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
@@ -38,7 +39,7 @@ class UserProfile(models.Model):
     profile_picture = models.ImageField(max_length=100, upload_to='userprofile/%Y/%m/%d', blank=True, default='')
     contributor = models.BooleanField(null=False, blank=False, default=False)
     wizard_step = models.IntegerField(null=False, blank=False, default=0)
-
+    description = models.CharField(null=True, blank=True, max_length=255)
     last_update = models.DateTimeField(auto_now=True)
 
 
@@ -130,7 +131,11 @@ class UserProfile(models.Model):
 
 class Responsibility(models.Model):
     name = models.CharField(max_length=60, null=False, blank=False)
-    text = models.TextField(null=True, blank=True)
+    about = models.TextField(null=True, blank=True)
+    study = models.TextField(null=True, blank=True)
+    main_activity = models.TextField(null=True, blank=True)
+    more_info = models.TextField(null=True, blank=True)
+    categories = models.ManyToManyField(to=Taxonomy, related_name='responsibilities')
 
     class Meta:
         ordering = ('name',)

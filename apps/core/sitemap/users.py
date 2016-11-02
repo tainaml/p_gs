@@ -1,3 +1,4 @@
+from apps.article.models import Article
 from django.conf import settings
 from django.contrib.sitemaps import Sitemap
 from apps.userprofile.models import UserProfile
@@ -18,8 +19,9 @@ class UserSitemap(Sitemap):
 
         items = UserProfile.objects.all().filter(
             wizard_step=getattr(settings, 'WIZARD_STEPS_TOTAL', 3),
-            user__is_active=True
-        ).prefetch_related('user')
+            user__is_active=True,
+            user__articles__status=Article.STATUS_PUBLISH
+        ).prefetch_related('user').distinct()
 
         return items
 

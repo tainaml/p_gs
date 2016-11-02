@@ -1,0 +1,7 @@
+{% extends 'notification/email/title.html' %}
+
+{% block title %}
+
+    {{ notification.author.get_full_name }} não gostou da sua publicação {{ notification.target.title }}
+
+{% endblock %}

@@ -9,7 +9,7 @@
 
 <div class="perfil">
     <a href="{% if  profile.user.is_active %}{% url 'profile:show' profile.user.get_username %}{% else %}javascript:;{% endif %}">
-      <figure>
+      <figure class="profile-box__avatar">
         <img class="img-responsive" src="{% get_avatar profile.user width=90 height=90 smart=False fit_in=False %}" alt="{{ profile.user.get_full_name }}">
       </figure>
     </a>
@@ -47,10 +47,15 @@
             Mora em <strong>{{ profile.locale }}</strong>
         </li>
         {% endif %}
-
-{#        {% if profile.age %}#}
-{#        <li><i class="gsticon gsticon-birthday-cake"></i> Idade {{ profile.age }}</li>#}
-{#        {% endif %}#}
+        {%  if profile.description %}
+            <li>
+          <i class="gsticon gsticon-user"></i>
+          Sobre
+          <div class="profile-box__bio">
+            {{ profile.description }}
+          </div>
+        </li>
+        {% endif %}
 
     </ul>
 </div>

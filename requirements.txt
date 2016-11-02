@@ -18,3 +18,6 @@ django-reversion==1.10.2
 micawber==0.3.3
 django-ideia-summernote==0.5.3
 bleach==1.4.3
+sparkpost==1.3.0
+django-kombu==0.9.4
+django-celery==3.1.17

@@ -56,7 +56,7 @@ def count_user_actions(sender, **kwargs):
         counter_user_instance.count = count_user
         counter_user_instance.save()
 
-6
+
 @receiver(post_save, sender=UserAction)
 def social_action(sender, **kwargs):
     action = kwargs['instance']
@@ -89,13 +89,12 @@ def social_action(sender, **kwargs):
             _action_type = action.content_object
 
         if action.content_type.model not in not_allowed_content_type and to != author:
-            if configuration.check_config_to_notify(to, action.action_type, action.content_object):
-                Business.send_notification(
-                    author=action.author,
-                    to=to,
-                    notification_action=action.action_type,
-                    target_object=action.content_object
-                )
+            Business.send_notification(
+                author=action.author,
+                to=to,
+                notification_action=action.action_type,
+                target_object=action.content_object
+            )
 
 
 @receiver(post_save, sender=Article)

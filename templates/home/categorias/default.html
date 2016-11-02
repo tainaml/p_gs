@@ -64,8 +64,6 @@
                     {% endwith %}
                 </div>
 
-{#                {% endbighomecache %}#}
-
                 <div class="container-posts">
                     <div class="banner-content-wide">
                         <div class="banner">
@@ -92,9 +90,9 @@
                             <h2 class="post-list-heading">Comunidades</h2>
                         </div>
 
-                        {% cache 3600 'category_communities_related' category_slug %}
+{#                        {% cache 3600 'category_communities_related' category_slug %}#}
                             {% communities_related category %}
-                        {% endcache %}
+{#                        {% endcache %}#}
 
                         <div class="post-list-header">
                           <h2 class="post-list-heading">Conecte-se</h2>

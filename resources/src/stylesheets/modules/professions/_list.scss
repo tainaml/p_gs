@@ -1,0 +1,32 @@
+.list__professions {}
+.list__professions__btn {
+  padding: 10px;
+  display: block;
+  border: 1px solid #e1e1e1;
+  background-color: #fff;
+  color: #486075;
+  font-size: 14px;
+  line-height: 22px;
+  text-align: left;
+  &:hover {
+    background-color: #f7f7f7;
+    color: #486075;
+    .list__professions__btn__icon {
+      color: #486075;
+    }
+  }
+}
+.list__professions__btn__icon {
+  padding: 10px 15px;
+  margin-top: -10px;
+  margin-right: -10px;
+  float: right;
+  border-left: 1px solid #e1e1e1;
+  color: #d3d3d3;
+}
+
+@media (max-width: $screen-sm-min) {
+  .list__professions {
+    margin-bottom: 20px;
+  }
+}

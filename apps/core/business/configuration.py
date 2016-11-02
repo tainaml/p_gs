@@ -98,9 +98,21 @@ def check_config_to_notify(to_user, action, target_object=None):
         key_slug = key_prefix + settings.SOCIAL_LABELS[action] + '_'
         target_content = ContentTypeCached.objects.get_for_model(model=target_object)
         key_slug += target_content.model
-    else:
+
+    elif action in ['mail_notification']:
+        key_slug = "{}{}".format(key_prefix, action)
+
+    elif action in settings.SOCIAL_LABELS:
         key_slug = key_prefix
         key_slug += settings.SOCIAL_LABELS[action]
+
+    elif action in settings.NOTIFICATION_ACTIONS:
+        key_slug = key_prefix
+        key_slug += settings.NOTIFICATION_ACTIONS[action]
+
+    else:
+        return False
+
 
     try:
         config = ConfigValues.objects.get(
@@ -111,6 +123,8 @@ def check_config_to_notify(to_user, action, target_object=None):
     except Exception as e:
         if settings.DEBUG:
             logger.error(e.message)
+        if key_slug in ['notify_mail_notification', 'notify_useralert']:
+            return True
         return False
 
     if config.value == "True":

@@ -1,0 +1,17 @@
+.filter {}
+.filter__description {
+  color: #486075;
+  font-size: 15px;
+  line-height: 22px;
+}
+.filter__inputbox {
+  @include clearfix()
+}
+.filter__communities {}
+
+@media (max-width: $screen-sm-min) {
+  .filter__inputbox,
+  .filter__communities {
+    margin-bottom: 15px;
+  }
+}

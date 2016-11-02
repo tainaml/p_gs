@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+from apps.userprofile.models import Responsibility
 from django.contrib.auth.models import AnonymousUser
 
 from django.core.paginator import Paginator
@@ -150,10 +151,12 @@ class SearchList(SearchBase):
                 form = self.form_user(6, False, request.GET)
                 states = BusinessUserProfile.get_states(1)
                 users = form.process()
+                responsibilities = Responsibility.objects.all()
                 context.update({
                     'users': users,
                     'form_user': form,
                     'states': states,
+                    'responsibilities': responsibilities
                 })
 
             elif content_type == "articles":

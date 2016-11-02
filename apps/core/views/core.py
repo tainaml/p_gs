@@ -1,3 +1,4 @@
+from apps.core.business import feed as FeedBusiness
 from django.db.models import Q
 from django.http import JsonResponse
 from django.shortcuts import render
@@ -61,40 +62,15 @@ class CoreRelatedPosts(CoreBaseView):
         count = count if count and count < 10 else 4
 
         try:
-            content_type = ContentTypeCached.objects.get(model=instance_type)
-            content_object = content_type.get_object_for_this_type(id=instance_id)
 
-            post_type = ContentTypeCached.objects.get(model=post_type) if post_type else content_type
-
-            template_path = 'core/partials/related-posts/%s-base.html' % post_type.model
-
-            feed_obj = FeedObject.objects.get(content_type=content_type, object_id=content_object.id)
-
-            feed_records = FeedObject.objects.filter(
-                Q(communities__in=feed_obj.communities.all()) &
-                Q(content_type=post_type) &
-                (
-                    (
-                        Q(article__status=Article.STATUS_PUBLISH) &
-                        Q(article__publishin__lte=timezone.now())
-                    )
-                )
-            ).exclude(
-                Q(object_id=content_object.id)
-            ).order_by(
-                "-date"
-            ).distinct(
-                "date",
-                "object_id",
-                "content_type_id"
-            )[:count]
+            related_object = FeedBusiness.get_related_posts_from_item(instance_id, instance_type, post_type, count)
 
         except Exception, e:
             return self.return_error(request, None)
 
         context = {
-            'feed_records': feed_records,
-            'template_path': template_path
+            'feed_records': related_object.get('feed_records'),
+            'template_path': related_object.get('template_path')
         }
 
         return self.return_success(request, context)

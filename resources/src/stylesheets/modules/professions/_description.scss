@@ -1,0 +1,24 @@
+.profession {}
+.profession__img {
+  margin-right: 20px;
+  margin-bottom: 20px;
+  float: left;
+}
+
+.profession h3 {
+  margin-top: 0;
+  color: #486075;
+  font: 700 18px/22px "Open Sans";
+}
+.profession,
+.profession p {
+  color: #6f6f6f;
+  font: 600 15px/22px "Open Sans";
+}
+
+@media (max-width: $screen-sm-min) {
+  .profession__img {
+    display: none;
+    clip: rect(0, 0, 0, 0);
+  }
+}

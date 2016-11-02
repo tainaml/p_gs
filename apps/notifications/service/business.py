@@ -1,7 +1,15 @@
+from datetime import timedelta
+from apps.core.business import configuration
+from apps.mailmanager import send_email
+from apps.mailmanager.tasks import send_mail_async
 from django.db.models import Q
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.contenttypes.models import ContentType
 from apps.core.business.content_types import ContentTypeCached
+from django.template.loader import render_to_string
+from django.utils.datetime_safe import datetime
+from django.utils.html import strip_tags
+from django.utils.safestring import mark_safe
 from ..models import Notification
 from ..local_exceptions import NotValidNotificationSettings
 from django.conf import settings
@@ -39,6 +47,24 @@ def send_notification(author=None, to=None, notification_action=None,
         raise NotValidNotificationSettings('not_valid_setting',
                                            'NOTIFICATION_ACTIONS')
 
+    if not configuration.check_config_to_notify(to, notification_action, target_object):
+        return False
+
+
+    time_to_wait = getattr(settings, 'NOTIFICATION_TIME_TO_WAIT', 2880)
+
+    exists_notification = Notification.objects.filter(
+        author=author,
+        to=to,
+        target_content_type=get_content_by_object(target_object),
+        notification_action=notification_action,
+        target_object_id=target_object.id,
+        notification_date__gte=datetime.now() - timedelta(minutes=time_to_wait)
+    )
+
+    if exists_notification.count() > 0:
+        return None
+
     notification = Notification(
         author=author,
         to=to,
@@ -71,13 +97,22 @@ def make_key(user, notification_status, notification_type):
 def get_notification_cached(key, **params):
 
     notifications_paginator = cache.get(key)
+    notifications = None
+
     if not notifications_paginator:
-        notifications_paginator = get_notifications(**params)
+
+        notification_object = get_notifications(**params)
+
+        notifications = notification_object.get('notifications')
+        notifications_paginator = notification_object.get('paginator')
+        notifications_counter = notification_object.get('all_notifications')
+
+
 
         cache.set(key, notifications_paginator, settings.TIME_TO_REFRESH_NOTIFICATION_IN_SEC)
 
 
-    return notifications_paginator
+    return notifications, notifications_paginator
 
 
 def get_notifications_by_user_and_notification_type_list(user=None,
@@ -117,13 +152,14 @@ def get_notifications(user=None, notification_actions=None, visualized=None, rea
     if read is not None:
         criteria &= Q(read=read)
 
-    notifications = Notification.objects.filter(criteria).prefetch_related("author").order_by("-notification_date")
+    all_notifications = Notification.objects.filter(criteria).prefetch_related("author").order_by("-notification_date")
+    notifications = Notification.objects.none()
 
     paginator = False
 
     if items_per_page and page:
         items_per_page = items_per_page if items_per_page else 10
-        paginator = Paginator(notifications, items_per_page)
+        paginator = Paginator(all_notifications, items_per_page)
 
         try:
             notifications = paginator.page(page)
@@ -132,7 +168,11 @@ def get_notifications(user=None, notification_actions=None, visualized=None, rea
         except EmptyPage:
             notifications = []
 
-    return notifications, paginator
+    return {
+        'notifications': notifications,
+        'all_notifications': all_notifications,
+        'paginator': paginator
+    }
 
 
 def set_notification_as_read(notifications_ids):
