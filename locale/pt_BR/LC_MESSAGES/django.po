@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-10-24 16:26-0300\n"
+"POT-Creation-Date: 2016-11-02 10:53-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -64,59 +64,59 @@ msgid "Token is no longer valid."
 msgstr "Token expirou"
 
 #. Translators: This message appears on the home page only
-#: apps/account/views.py:153 apps/notifications/models.py:41
+#: apps/account/views.py:169 apps/notifications/models.py:41
 msgid "Success"
 msgstr "Sucesso"
 
-#: apps/account/views.py:169
+#: apps/account/views.py:185
 msgid "Registered Successfully"
 msgstr "Registrado com sucesso!"
 
-#: apps/account/views.py:184
+#: apps/account/views.py:200
 msgid "Password successfully recovered"
 msgstr "Senha recuperada com sucesso"
 
-#: apps/account/views.py:201
+#: apps/account/views.py:217
 msgid "Token exist - Account verified"
 msgstr "Token existe. Conta verificada."
 
-#: apps/account/views.py:215
+#: apps/account/views.py:231
 msgid "Um erro ocorreu, por favor tente novamente mais tarde!"
 msgstr ""
 
-#: apps/account/views.py:218
+#: apps/account/views.py:234
 msgid "Account is not exists!"
 msgstr "Conta não existe"
 
-#: apps/account/views.py:221
+#: apps/account/views.py:237
 msgid "Token is not longer valid!"
 msgstr "Token expirou"
 
-#: apps/account/views.py:233
+#: apps/account/views.py:249
 msgid "Token is not exists!"
 msgstr "Token não existe"
 
-#: apps/account/views.py:252 apps/account/views.py:277
+#: apps/account/views.py:268 apps/account/views.py:293
 msgid "Token not exist!"
 msgstr "Token não existe"
 
-#: apps/account/views.py:283
+#: apps/account/views.py:299
 msgid "Password successfully changed!"
 msgstr "Senha alterada com sucesso!"
 
-#: apps/account/views.py:368
+#: apps/account/views.py:384
 msgid "A confirmation email was sent to you"
 msgstr "Um e-mail de confirmação foi enviado para você"
 
-#: apps/account/views.py:392 apps/core/views/account.py:52
+#: apps/account/views.py:408 apps/core/views/account.py:52
 msgid "E-mail re-sent successfully!"
 msgstr "E-mail reenviado com sucesso!"
 
-#: apps/account/views.py:407
+#: apps/account/views.py:423
 msgid "Username is available!"
 msgstr "Nome de usuário está disponível"
 
-#: apps/account/views.py:411
+#: apps/account/views.py:427
 msgid "Username is not available!"
 msgstr "Nome de usuário não está disponível"
 
@@ -145,7 +145,7 @@ msgid "Publish date has invalid"
 msgstr "Data de publicação inválida."
 
 #: apps/article/service/forms.py:105 apps/core/forms/wizard.py:125
-#: apps/userprofile/service/forms.py:92
+#: apps/userprofile/service/forms.py:93
 msgid "Image format is not allowed."
 msgstr "Formato da imagem não é permitido"
 
@@ -316,19 +316,19 @@ msgstr "Ocorreu um erro ao desativar a conta"
 msgid "All"
 msgstr "Todos"
 
-#: apps/core/forms/wizard.py:114 apps/userprofile/service/forms.py:81
+#: apps/core/forms/wizard.py:114 apps/userprofile/service/forms.py:82
 msgid "Birth invalid."
 msgstr "Nascimento inválido"
 
-#: apps/core/forms/wizard.py:120 apps/userprofile/service/forms.py:87
+#: apps/core/forms/wizard.py:120 apps/userprofile/service/forms.py:88
 msgid "Gênero não permitido."
 msgstr "Gênero não permitido."
 
-#: apps/core/forms/wizard.py:130 apps/userprofile/service/forms.py:97
+#: apps/core/forms/wizard.py:130 apps/userprofile/service/forms.py:98
 msgid "Image size more than 1mb."
 msgstr "Tamanho da imagem excede 1mb"
 
-#: apps/core/templatetags/core_tags.py:159
+#: apps/core/templatetags/core_tags.py:161
 msgid "Olá, gostaria de sugerir a comunidade: "
 msgstr "Olá, gostaria de sugerir a comunidade: "
 
@@ -404,6 +404,27 @@ msgstr "^reenviar-confirmacao-de-conta$"
 #: apps/core/urls/account.py:49
 msgid "^check-username$"
 msgstr "^check-nome-de-usuario$"
+
+#: apps/core/urls/amp.py:10
+#, fuzzy
+#| msgid ""
+#| "^(?P<year>\\d\\d\\d\\d+)/(?P<month>0[1-9]|1[0-2])/(?P<slug>[aA-zZ0-9-_]+)."
+#| "html$"
+msgid ""
+"^(?P<year>\\d\\d\\d\\d+)/(?P<month>0[1-9]|1[0-2])/(?P<slug>[aA-zZ0-9-_]+).amp"
+"$"
+msgstr ""
+"^(?P<year>\\d\\d\\d\\d+)/(?P<month>0[1-9]|1[0-2])/(?P<slug>[aA-zZ0-9-_]+)."
+"html$"
+
+#: apps/core/urls/amp.py:17
+#, fuzzy
+#| msgid ""
+#| "^(?P<question_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/(?P<question_id>[0-9]+)/$"
+msgid ""
+"^(?P<question_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/(?P<question_id>[0-9]+).amp$"
+msgstr ""
+"^(?P<question_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/(?P<question_id>[0-9]+)/$"
 
 #. Translators: URL de criacao de artigo
 #: apps/core/urls/article.py:15
@@ -589,7 +610,7 @@ msgid "^contact-success/$"
 msgstr "^sucesso/$"
 
 #. Translators: URL de posts relacionados
-#: apps/core/urls/core.py:8
+#: apps/core/urls/core.py:10
 msgid ""
 "^related-posts/(?P<instance_id>[0-9]+)/(?P<instance_type>[a-z]+)/(?"
 "P<post_type>[a-z]+)/(?P<count>[1-9])/$"
@@ -597,17 +618,23 @@ msgstr ""
 "^postagens-relacionadas/(?P<instance_id>[0-9]+)/(?P<instance_type>[a-z]+)/(?"
 "P<post_type>[a-z]+)/(?P<count>[1-9])/$"
 
+#: apps/core/urls/core.py:12
+#, fuzzy
+#| msgid "Responsibility"
+msgid "^responsibilities/$"
+msgstr "^profissoes-de-ti/$"
+
 #. Translators: URL de sobre
-#: apps/core/urls/core.py:11
+#: apps/core/urls/core.py:15
 msgid "^about/"
 msgstr "^sobre/"
 
 #. Translators: URL de sobre
-#: apps/core/urls/core.py:15
+#: apps/core/urls/core.py:19
 msgid "^rules/"
 msgstr "^regras/"
 
-#: apps/core/urls/core.py:18
+#: apps/core/urls/core.py:22
 msgid "^oembed/"
 msgstr ""
 
@@ -999,11 +1026,11 @@ msgstr "Mudar senha"
 msgid "Your password has been changed!"
 msgstr "Sua senha foi alterada!"
 
-#: apps/core/views/article.py:157 apps/core/views/question.py:58
+#: apps/core/views/article.py:166 apps/core/views/question.py:58
 msgid "Community not Found"
 msgstr "Comunidade não encontrada"
 
-#: apps/core/views/article.py:163 apps/core/views/question.py:64
+#: apps/core/views/article.py:172 apps/core/views/question.py:64
 msgid "User need follow this community"
 msgstr "É necessário seguir esta comunidade"
 
@@ -1012,11 +1039,11 @@ msgid "Category not found or not root category."
 msgstr "Categoria não encontrada ou não é uma categoria raiz."
 
 #. Translators:
-#: apps/core/views/configuration.py:68
+#: apps/core/views/configuration.py:69
 msgid "Configuration Notification"
 msgstr "Configuração de Notificação"
 
-#: apps/core/views/configuration.py:69
+#: apps/core/views/configuration.py:70
 msgid "Your settings have been successfully changed!"
 msgstr "Suas configurações foi alteradas com sucesso!"
 
@@ -1208,7 +1235,7 @@ msgid "Question created successfully!"
 msgstr "Pergunta criada com sucesso!"
 
 #: apps/question/views.py:183 apps/question/views.py:204
-#: apps/question/views.py:242 apps/question/views.py:291
+#: apps/question/views.py:244 apps/question/views.py:293
 msgid "Question is not exists!"
 msgstr "Pergunta não existe"
 
@@ -1216,19 +1243,19 @@ msgstr "Pergunta não existe"
 msgid "Question updated successfully!"
 msgstr "Pergunta atualizada com sucesso"
 
-#: apps/question/views.py:261
+#: apps/question/views.py:263
 msgid "Question not found"
 msgstr "Pergunta não encontrada"
 
-#: apps/question/views.py:293
+#: apps/question/views.py:295
 msgid "Answer is not exists!"
 msgstr "Resposta não existe"
 
-#: apps/question/views.py:307
+#: apps/question/views.py:309
 msgid "Answer not found!"
 msgstr "Resposta não encontrada"
 
-#: apps/question/views.py:309
+#: apps/question/views.py:311
 msgid "Answer not found"
 msgstr "Resposta não encontrada"
 
@@ -1327,11 +1354,11 @@ msgstr "Ação social não encontrada"
 msgid "No user was selected."
 msgstr "Nenhum usuário foi selecionado"
 
-#: apps/userprofile/models.py:22 apps/userprofile/models.py:27
+#: apps/userprofile/models.py:23 apps/userprofile/models.py:28
 msgid "MALE"
 msgstr "MASCULINO"
 
-#: apps/userprofile/models.py:23 apps/userprofile/models.py:28
+#: apps/userprofile/models.py:24 apps/userprofile/models.py:29
 msgid "FEMALE"
 msgstr "FEMININO"
 
@@ -1371,101 +1398,104 @@ msgstr "Ocupação não foi deletada"
 msgid "Occupation deleted successfully!"
 msgstr "Ocupação deletada com sucesso"
 
-#: rede_gsti/urls.py:42
-msgid "^admin/"
-msgstr "^admin-portal/"
-
-#: rede_gsti/urls.py:45
+#: rede_gsti/urls.py:38 rede_gsti/urls.py:39
 msgid "^jobs/"
 msgstr "^vagas/"
 
+#: rede_gsti/urls.py:43
+msgid "^admin/"
+msgstr "^admin-portal/"
+
 #. Translators: URL root de conta
-#: rede_gsti/urls.py:48
+#: rede_gsti/urls.py:49
 msgid "^account/"
 msgstr "^conta/"
 
 #. Translators: URL root de comentario
-#: rede_gsti/urls.py:51
+#: rede_gsti/urls.py:52
 msgid "^comment/"
 msgstr "^comentario/"
 
 #. Translators: URL root de perfil de usuario
-#: rede_gsti/urls.py:54
+#: rede_gsti/urls.py:55
 msgid "^profile/"
 msgstr "^perfil/"
 
 #. Translators: URL de conta social
-#: rede_gsti/urls.py:57
+#: rede_gsti/urls.py:58
 msgid "^socialaccount/"
 msgstr "^conta-social/"
 
 #. Translators: URL de acoes sociais
-#: rede_gsti/urls.py:60
+#: rede_gsti/urls.py:61
 msgid "^socialactions/"
 msgstr "^acoes-sociais/"
 
 #. Translators: URL root de notificacoes
-#: rede_gsti/urls.py:66
+#: rede_gsti/urls.py:67
 msgid "^notifications/"
 msgstr "^notificacoes/"
 
 #. Translators: URL root de notificacoes
-#: rede_gsti/urls.py:69
+#: rede_gsti/urls.py:70
 msgid "^hint/"
 msgstr ""
 
 #. Translators: URL root de publicacao
 #. Translators: URL root CORE de acoes sociais
+#. Translators: URL root de amp
 #. Translators: URL core adicionais
 #. Translators: URL de buscai
 #. Translators: URL root de comunidade
-#: rede_gsti/urls.py:79 rede_gsti/urls.py:82 rede_gsti/urls.py:111
-#: rede_gsti/urls.py:116 rede_gsti/urls.py:119
+#: rede_gsti/urls.py:80 rede_gsti/urls.py:83 rede_gsti/urls.py:108
+#: rede_gsti/urls.py:114 rede_gsti/urls.py:119 rede_gsti/urls.py:122
 msgid "^"
 msgstr "^"
 
 #. Translators: URL root de categoria
-#: rede_gsti/urls.py:85
+#: rede_gsti/urls.py:86
 msgid "^category-feed/"
 msgstr "^categoria/"
 
 #. Translators: URL root de pergunta
-#: rede_gsti/urls.py:88
+#: rede_gsti/urls.py:89
 msgid "^question/"
 msgstr "^pergunta/"
 
 #. Translators: URL root de contato
-#: rede_gsti/urls.py:91
+#: rede_gsti/urls.py:92
 msgid "^contact/"
 msgstr "^contato/"
 
 #. Translators: URL root de contato
-#: rede_gsti/urls.py:94
+#: rede_gsti/urls.py:95
 msgid "^mailmanager/"
 msgstr "^gerenciador-de-email/"
 
 #. Translators: URL root de denuncia
-#: rede_gsti/urls.py:97
+#: rede_gsti/urls.py:98
 msgid "^complaint/"
 msgstr "^denuncia/"
 
 #. Translators: URL root de configuracao
-#: rede_gsti/urls.py:100
+#: rede_gsti/urls.py:101
 msgid "^settings/"
 msgstr "^configuracoes/"
 
 #. Translators: URL root de feed
-#: rede_gsti/urls.py:104
+#: rede_gsti/urls.py:105
 msgid "^feed/"
 msgstr "^feed/"
 
 #. Translators: URL root of user alerts
-#: rede_gsti/urls.py:108
+#: rede_gsti/urls.py:111
 msgid "^useralerts/"
 msgstr ""
 
-#: rede_gsti/urls.py:131
-msgid "^front-end/(?P<template>[a-z0-9.]+(?:(-|_)[a-z0-9.]+)*)"
+#: rede_gsti/urls.py:134
+#, fuzzy
+#| msgid "^front-end/(?P<template>[a-z0-9.]+(?:(-|_)[a-z0-9.]+)*)"
+msgid "^front-end/(?P<template>[a-z0-9./]+(?:(-|_)[a-z0-9.]+)*)"
 msgstr "^front-end/(?P<template>[a-z0-9.]+(?:(-|_)[a-z0-9.]+)*)"
 
 #: templates/400.html:8 templates/404.html:8
@@ -1478,8 +1508,8 @@ msgstr "Mostrar perfil"
 
 #: templates/account/index.html:6 templates/account/index.html:7
 #: templates/account/index.html:8 templates/account/index.html:9
-#: templates/account/index.html:10 templates/account/login.html:23
-#: templates/account/login.html:24
+#: templates/account/index.html:10 templates/account/old_login.html:23
+#: templates/account/old_login.html:24
 #: templates/account/password_recovery_successfully.html:4
 #: templates/account/password_sent_email_successfully.html:4
 #: templates/account/recovery_validation.html:4
@@ -1524,21 +1554,30 @@ msgstr "Mudar senha"
 msgid "Logout"
 msgstr "Sair"
 
-#: templates/account/login.html:2
+#: templates/account/mail_validation.html:7
+#: templates/account/mail_validation.html:13
+#: templates/account/password_recovery_successfully.html:4
+#: templates/account/password_sent_email_successfully.html:4
+#: templates/account/recovery_validation.html:4
+#: templates/account/resend_account_confirmation_successfully.html:5
+msgid "Sign-up"
+msgstr "Inscrever-se"
+
+#: templates/account/old_login.html:2
 #: templates/home/partials/modals/modal-login.html:53
 msgid "click here"
 msgstr "clique aqui"
 
-#: templates/account/login.html:8 templates/account/signup.html:131
+#: templates/account/old_login.html:8 templates/account/signup.html:131
 msgid "Username"
 msgstr "Nome de usuário"
 
-#: templates/account/login.html:12 templates/account/password_recovery.html:9
-#: templates/account/signup.html:139
+#: templates/account/old_login.html:12
+#: templates/account/password_recovery.html:9 templates/account/signup.html:139
 msgid "Password"
 msgstr "Senha"
 
-#: templates/account/login.html:18
+#: templates/account/old_login.html:18
 #, python-format
 msgid ""
 "If you have not received the confirmation email <a href="
@@ -1548,7 +1587,8 @@ msgstr ""
 "target=\"#modal-resend-email-confirmation\" href="
 "\"%(url_resend_account_confirmation)s\">%(click_here)s</a> para reenviá-lo. "
 
-#: templates/account/login.html:22 templates/account/password_forgot.html:13
+#: templates/account/old_login.html:22
+#: templates/account/password_forgot.html:13
 #: templates/account/password_recovery_successfully.html:4
 #: templates/account/password_sent_email_successfully.html:4
 #: templates/account/recovery_validation.html:4
@@ -1558,26 +1598,17 @@ msgstr ""
 msgid "Login"
 msgstr "Login"
 
-#: templates/account/login.html:23
+#: templates/account/old_login.html:23
 msgid "Login Social"
 msgstr "Login social"
 
-#: templates/account/login.html:24
+#: templates/account/old_login.html:24
 msgid "Registrar"
 msgstr "Registrar"
 
-#: templates/account/login.html:28 templates/account/password_forgot.html:3
+#: templates/account/old_login.html:28 templates/account/password_forgot.html:3
 msgid "Esqueceu sua senha?"
 msgstr "Esqueceu sua senha?"
-
-#: templates/account/mail_validation.html:7
-#: templates/account/mail_validation.html:13
-#: templates/account/password_recovery_successfully.html:4
-#: templates/account/password_sent_email_successfully.html:4
-#: templates/account/recovery_validation.html:4
-#: templates/account/resend_account_confirmation_successfully.html:5
-msgid "Sign-up"
-msgstr "Inscrever-se"
 
 #: templates/account/password_change.html:13
 msgid "Old password"
@@ -1655,6 +1686,8 @@ msgid "Log out"
 msgstr ""
 
 #: templates/admin/base.html:61
+#: venv/djcelery/templates/admin/djcelery/change_list.html:7
+#: venv/djcelery/templates/djcelery/confirm_rate_limit.html:6
 msgid "Home"
 msgstr ""
 
@@ -1717,6 +1750,16 @@ msgstr "Mensagem"
 msgid "submit"
 msgstr "Enviar"
 
+#: templates/core/amp/base.html:354
+#: templates/home/partials/slideout-menu.html:55
+#: templates/home/partials/user-actions.html:46
+msgid "Sair"
+msgstr "Sair"
+
+#: templates/core/amp/pages/question.html:78
+msgid "Comentários"
+msgstr ""
+
 #: templates/home/partials/modals/modal-login.html:51
 msgid "Account is not active."
 msgstr "Conta não está ativa."
@@ -1731,11 +1774,6 @@ msgstr ""
 "Se você não recebeu o email de confirmação <a href="
 "\"%(url_resend_account_confirmation)s\" data-toggle=\"modal\" data-target="
 "\"#modal-resend-email-confirmation\">%(click_here)s</a> para reenviá-lo."
-
-#: templates/home/partials/slideout-menu.html:55
-#: templates/home/partials/user-actions.html:46
-msgid "Sair"
-msgstr "Sair"
 
 #: templates/notification/notification-posts.html:25
 msgid "Notificações"
@@ -1810,6 +1848,15 @@ msgstr "Sexo"
 #: templates/userprofile/show.html:14
 msgid "City / State / Country"
 msgstr "Cidade / Estado / País"
+
+#: venv/djcelery/templates/djcelery/confirm_rate_limit.html:9
+#: venv/lib/python2.7/site-packages/djcelery/admin.py:174
+msgid "Rate limit selected tasks"
+msgstr ""
+
+#: venv/djcelery/templates/djcelery/confirm_rate_limit.html:22
+msgid "Rate limit"
+msgstr ""
 
 #: venv/lib/python2.7/site-packages/captcha/fields.py:21
 #: venv/lib/python2.7/site-packages/nocaptcha_recaptcha/fields.py:21
@@ -2494,30 +2541,37 @@ msgid "noon"
 msgstr ""
 
 #: venv/lib/python2.7/site-packages/django/utils/dates.py:6
+#: venv/lib/python2.7/site-packages/tornado/locale.py:264
 msgid "Monday"
 msgstr ""
 
 #: venv/lib/python2.7/site-packages/django/utils/dates.py:6
+#: venv/lib/python2.7/site-packages/tornado/locale.py:264
 msgid "Tuesday"
 msgstr ""
 
 #: venv/lib/python2.7/site-packages/django/utils/dates.py:6
+#: venv/lib/python2.7/site-packages/tornado/locale.py:264
 msgid "Wednesday"
 msgstr ""
 
 #: venv/lib/python2.7/site-packages/django/utils/dates.py:6
+#: venv/lib/python2.7/site-packages/tornado/locale.py:264
 msgid "Thursday"
 msgstr ""
 
 #: venv/lib/python2.7/site-packages/django/utils/dates.py:6
+#: venv/lib/python2.7/site-packages/tornado/locale.py:265
 msgid "Friday"
 msgstr ""
 
 #: venv/lib/python2.7/site-packages/django/utils/dates.py:7
+#: venv/lib/python2.7/site-packages/tornado/locale.py:265
 msgid "Saturday"
 msgstr ""
 
 #: venv/lib/python2.7/site-packages/django/utils/dates.py:7
+#: venv/lib/python2.7/site-packages/tornado/locale.py:265
 msgid "Sunday"
 msgstr ""
 
@@ -2552,54 +2606,66 @@ msgid "Sun"
 msgstr "jun"
 
 #: venv/lib/python2.7/site-packages/django/utils/dates.py:18
+#: venv/lib/python2.7/site-packages/tornado/locale.py:260
 msgid "January"
 msgstr ""
 
 #: venv/lib/python2.7/site-packages/django/utils/dates.py:18
+#: venv/lib/python2.7/site-packages/tornado/locale.py:260
 msgid "February"
 msgstr ""
 
 #: venv/lib/python2.7/site-packages/django/utils/dates.py:18
+#: venv/lib/python2.7/site-packages/tornado/locale.py:260
 msgid "March"
 msgstr "Março"
 
 #: venv/lib/python2.7/site-packages/django/utils/dates.py:18
+#: venv/lib/python2.7/site-packages/tornado/locale.py:260
 msgid "April"
 msgstr ""
 
 #: venv/lib/python2.7/site-packages/django/utils/dates.py:18
+#: venv/lib/python2.7/site-packages/tornado/locale.py:261
 #, fuzzy
 #| msgid "may"
 msgid "May"
 msgstr "maio"
 
 #: venv/lib/python2.7/site-packages/django/utils/dates.py:18
+#: venv/lib/python2.7/site-packages/tornado/locale.py:261
 msgid "June"
 msgstr ""
 
 #: venv/lib/python2.7/site-packages/django/utils/dates.py:19
+#: venv/lib/python2.7/site-packages/tornado/locale.py:261
 msgid "July"
 msgstr ""
 
 #: venv/lib/python2.7/site-packages/django/utils/dates.py:19
+#: venv/lib/python2.7/site-packages/tornado/locale.py:261
 msgid "August"
 msgstr ""
 
 #: venv/lib/python2.7/site-packages/django/utils/dates.py:19
+#: venv/lib/python2.7/site-packages/tornado/locale.py:262
 #, fuzzy
 #| msgid "December"
 msgid "September"
 msgstr "Dezembro"
 
 #: venv/lib/python2.7/site-packages/django/utils/dates.py:19
+#: venv/lib/python2.7/site-packages/tornado/locale.py:262
 msgid "October"
 msgstr ""
 
 #: venv/lib/python2.7/site-packages/django/utils/dates.py:19
+#: venv/lib/python2.7/site-packages/tornado/locale.py:262
 msgid "November"
 msgstr "Novembro"
 
 #: venv/lib/python2.7/site-packages/django/utils/dates.py:20
+#: venv/lib/python2.7/site-packages/tornado/locale.py:262
 msgid "December"
 msgstr "Dezembro"
 
@@ -2974,6 +3040,455 @@ msgstr "\"%(path)s\" caminho não existe"
 msgid "Index of %(directory)s"
 msgstr ""
 
+#: venv/lib/python2.7/site-packages/djcelery/admin.py:53
+#: venv/lib/python2.7/site-packages/djcelery/admin.py:60
+#: venv/lib/python2.7/site-packages/djcelery/models.py:34
+#: venv/lib/python2.7/site-packages/djcelery/models.py:335
+#, fuzzy
+#| msgid "States"
+msgid "state"
+msgstr "Estados"
+
+#: venv/lib/python2.7/site-packages/djcelery/admin.py:67
+#: venv/lib/python2.7/site-packages/djcelery/models.py:344
+msgid "ETA"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/djcelery/admin.py:74
+msgid "when"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/djcelery/admin.py:81
+#: venv/lib/python2.7/site-packages/djcelery/models.py:211
+#: venv/lib/python2.7/site-packages/djcelery/models.py:339
+#: venv/lib/python2.7/site-packages/djkombu/models.py:8
+#: venv/lib/python2.7/site-packages/kombu/transport/django/models.py:12
+#, fuzzy
+#| msgid "Username"
+msgid "name"
+msgstr "Nome de usuário"
+
+#: venv/lib/python2.7/site-packages/djcelery/admin.py:115
+msgid "Task detail"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/djcelery/admin.py:116
+msgid "Tasks"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/djcelery/admin.py:131
+#: venv/lib/python2.7/site-packages/djcelery/models.py:337
+msgid "UUID"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/djcelery/admin.py:155
+msgid "Revoke selected tasks"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/djcelery/admin.py:161
+msgid "Terminate selected tasks"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/djcelery/admin.py:167
+msgid "Kill selected tasks"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/djcelery/admin.py:187
+msgid "Rate limit selection"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/djcelery/admin.py:212
+msgid "Node detail"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/djcelery/admin.py:213
+#, fuzzy
+#| msgid "Work Load"
+msgid "Worker Nodes"
+msgstr "Carga horária"
+
+#: venv/lib/python2.7/site-packages/djcelery/admin.py:220
+msgid "Shutdown selected worker nodes"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/djcelery/admin.py:224
+msgid "Enable event mode for selected nodes."
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/djcelery/admin.py:229
+msgid "Disable event mode for selected nodes."
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/djcelery/admin.py:281
+msgid "Task (registered)"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/djcelery/admin.py:283
+msgid "Task (custom)"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/djcelery/admin.py:296
+msgid "Need name of task"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/djcelery/admin.py:307
+#, python-format
+msgid "Unable to parse JSON: %s"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/djcelery/humanize.py:10
+#, python-brace-format
+msgid "{num} year ago"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/djcelery/humanize.py:10
+#, python-brace-format
+msgid "{num} years ago"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/djcelery/humanize.py:14
+#, python-brace-format
+msgid "{num} month ago"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/djcelery/humanize.py:14
+#, python-brace-format
+msgid "{num} months ago"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/djcelery/humanize.py:18
+#, python-brace-format
+msgid "{num} week ago"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/djcelery/humanize.py:18
+#, python-brace-format
+msgid "{num} weeks ago"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/djcelery/humanize.py:22
+#, python-brace-format
+msgid "{num} day ago"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/djcelery/humanize.py:22
+#, python-brace-format
+msgid "{num} days ago"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/djcelery/humanize.py:56
+#: venv/lib/python2.7/site-packages/djcelery/humanize.py:71
+msgid "just now"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/djcelery/humanize.py:62
+#, python-brace-format
+msgid "{minutes} minute ago"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/djcelery/humanize.py:63
+#, python-brace-format
+msgid "{minutes} minutes ago"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/djcelery/humanize.py:68
+#, python-brace-format
+msgid "{seconds} second ago"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/djcelery/humanize.py:69
+#, python-brace-format
+msgid "{seconds} seconds ago"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/djcelery/humanize.py:74
+#, python-brace-format
+msgid "{hours} hour ago"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/djcelery/humanize.py:74
+#, python-brace-format
+msgid "{hours} hours ago"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/djcelery/humanize.py:78
+#, python-brace-format
+msgid "yesterday at {time}"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/djcelery/models.py:32
+msgid "task id"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/djcelery/models.py:38
+msgid "done at"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/djcelery/models.py:39
+#: venv/lib/python2.7/site-packages/djcelery/models.py:347
+msgid "traceback"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/djcelery/models.py:50
+#, fuzzy
+#| msgid "Select a state"
+msgid "task state"
+msgstr "Selecione um estado"
+
+#: venv/lib/python2.7/site-packages/djcelery/models.py:51
+#, fuzzy
+#| msgid "Select a state"
+msgid "task states"
+msgstr "Selecione um estado"
+
+#: venv/lib/python2.7/site-packages/djcelery/models.py:69
+msgid "group id"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/djcelery/models.py:71
+#, fuzzy
+#| msgid "Created In"
+msgid "created at"
+msgstr "Criado em"
+
+#: venv/lib/python2.7/site-packages/djcelery/models.py:78
+msgid "saved group result"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/djcelery/models.py:79
+msgid "saved group results"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/djcelery/models.py:91
+msgid "Days"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/djcelery/models.py:92
+msgid "Hours"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/djcelery/models.py:93
+msgid "Minutes"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/djcelery/models.py:94
+msgid "Seconds"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/djcelery/models.py:95
+msgid "Microseconds"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/djcelery/models.py:100
+msgid "every"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/djcelery/models.py:102
+msgid "period"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/djcelery/models.py:106
+#: venv/lib/python2.7/site-packages/djcelery/models.py:217
+msgid "interval"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/djcelery/models.py:107
+msgid "intervals"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/djcelery/models.py:127
+#, python-brace-format
+msgid "every {0.period_singular}"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/djcelery/models.py:128
+#, python-brace-format
+msgid "every {0.every:d} {0.period}"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/djcelery/models.py:137
+msgid "minute"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/djcelery/models.py:138
+msgid "hour"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/djcelery/models.py:140
+msgid "day of week"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/djcelery/models.py:143
+msgid "day of month"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/djcelery/models.py:146
+msgid "month of year"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/djcelery/models.py:150
+#: venv/lib/python2.7/site-packages/djcelery/models.py:220
+#, fuzzy
+#| msgid "^contact/"
+msgid "crontab"
+msgstr "^contato/"
+
+#: venv/lib/python2.7/site-packages/djcelery/models.py:151
+msgid "crontabs"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/djcelery/models.py:212
+#, fuzzy
+#| msgid "Description"
+msgid "Useful description"
+msgstr "Descrição"
+
+#: venv/lib/python2.7/site-packages/djcelery/models.py:214
+#, fuzzy
+#| msgid "First name"
+msgid "task name"
+msgstr "Primeiro nome"
+
+#: venv/lib/python2.7/site-packages/djcelery/models.py:221
+msgid "Use one of interval/crontab"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/djcelery/models.py:224
+#: venv/lib/python2.7/site-packages/djcelery/models.py:342
+msgid "Arguments"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/djcelery/models.py:225
+#, fuzzy
+#| msgid "Aditional Requirement"
+msgid "JSON encoded positional arguments"
+msgstr "Requisito adicional"
+
+#: venv/lib/python2.7/site-packages/djcelery/models.py:228
+#: venv/lib/python2.7/site-packages/djcelery/models.py:343
+#, fuzzy
+#| msgid "Aditional Requirement"
+msgid "Keyword arguments"
+msgstr "Requisito adicional"
+
+#: venv/lib/python2.7/site-packages/djcelery/models.py:229
+msgid "JSON encoded keyword arguments"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/djcelery/models.py:232
+#: venv/lib/python2.7/site-packages/djkombu/models.py:13
+#: venv/lib/python2.7/site-packages/kombu/transport/django/models.py:20
+msgid "queue"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/djcelery/models.py:233
+msgid "Queue defined in CELERY_QUEUES"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/djcelery/models.py:236
+#, fuzzy
+#| msgid "Change"
+msgid "exchange"
+msgstr "Mudar"
+
+#: venv/lib/python2.7/site-packages/djcelery/models.py:239
+msgid "routing key"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/djcelery/models.py:242
+#: venv/lib/python2.7/site-packages/djcelery/models.py:345
+msgid "expires"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/djcelery/models.py:245
+msgid "enabled"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/djcelery/models.py:255
+#, fuzzy
+#| msgid "Description"
+msgid "description"
+msgstr "Descrição"
+
+#: venv/lib/python2.7/site-packages/djcelery/models.py:261
+msgid "periodic task"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/djcelery/models.py:262
+msgid "periodic tasks"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/djcelery/models.py:301
+#, fuzzy
+#| msgid "First name"
+msgid "hostname"
+msgstr "Primeiro nome"
+
+#: venv/lib/python2.7/site-packages/djcelery/models.py:302
+msgid "last heartbeat"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/djcelery/models.py:309
+#: venv/lib/python2.7/site-packages/djcelery/models.py:354
+msgid "worker"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/djcelery/models.py:310
+msgid "workers"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/djcelery/models.py:341
+msgid "event received at"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/djcelery/models.py:346
+msgid "result"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/djcelery/models.py:349
+msgid "execution time"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/djcelery/models.py:350
+msgid "in seconds if task succeeded"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/djcelery/models.py:352
+msgid "number of retries"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/djcelery/models.py:362
+msgid "task"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/djcelery/models.py:363
+msgid "tasks"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/djkombu/models.py:14
+#: venv/lib/python2.7/site-packages/kombu/transport/django/models.py:21
+msgid "queues"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/djkombu/models.py:21
+#: venv/lib/python2.7/site-packages/kombu/transport/django/models.py:28
+msgid "payload"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/djkombu/models.py:27
+#: venv/lib/python2.7/site-packages/kombu/transport/django/models.py:37
+#, fuzzy
+#| msgid "Message"
+msgid "message"
+msgstr "Mensagem"
+
+#: venv/lib/python2.7/site-packages/djkombu/models.py:28
+#: venv/lib/python2.7/site-packages/kombu/transport/django/models.py:38
+#, fuzzy
+#| msgid "Messages"
+msgid "messages"
+msgstr "Mensagens"
+
 #: venv/lib/python2.7/site-packages/gunicorn/argparse_compat.py:313
 msgid "usage: "
 msgstr ""
@@ -3126,6 +3641,110 @@ msgstr ""
 #: venv/lib/python2.7/site-packages/gunicorn/argparse_compat.py:2362
 #, python-format
 msgid "%s: error: %s\n"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/kombu/transport/qpid.py:1295
+#, python-format
+msgid "Attempting to connect to qpid with SASL mechanism %s"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/kombu/transport/qpid.py:1300
+#, python-format
+msgid "Connected to qpid with SASL mechanism %s"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/kombu/transport/qpid.py:1318
+#, python-format
+msgid "Unable to connect to qpid with SASL mechanism %s"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/tornado/locale.py:317
+msgid "1 second ago"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/tornado/locale.py:322
+msgid "1 minute ago"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/tornado/locale.py:326
+msgid "1 hour ago"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/tornado/locale.py:330
+#, python-format
+msgid "%(time)s"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/tornado/locale.py:333
+msgid "yesterday"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/tornado/locale.py:334
+#, python-format
+msgid "yesterday at %(time)s"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/tornado/locale.py:336
+#, python-format
+msgid "%(weekday)s"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/tornado/locale.py:337
+#, python-format
+msgid "%(weekday)s at %(time)s"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/tornado/locale.py:339
+#: venv/lib/python2.7/site-packages/tornado/locale.py:381
+#, python-format
+msgid "%(month_name)s %(day)s"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/tornado/locale.py:340
+#, python-format
+msgid "%(month_name)s %(day)s at %(time)s"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/tornado/locale.py:343
+#, python-format
+msgid "%(month_name)s %(day)s, %(year)s"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/tornado/locale.py:344
+#, python-format
+msgid "%(month_name)s %(day)s, %(year)s at %(time)s"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/tornado/locale.py:375
+#, python-format
+msgid "%(weekday)s, %(month_name)s %(day)s"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/tornado/locale.py:398
+#, python-format
+msgid "%(commas)s and %(last)s"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/tornado/test/locale_test.py:44
+msgctxt "law"
+msgid "right"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/tornado/test/locale_test.py:45
+msgctxt "good"
+msgid "right"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/tornado/test/locale_test.py:46
+#: venv/lib/python2.7/site-packages/tornado/test/locale_test.py:47
+msgctxt "organization"
+msgid "club"
+msgstr ""
+
+#: venv/lib/python2.7/site-packages/tornado/test/locale_test.py:48
+#: venv/lib/python2.7/site-packages/tornado/test/locale_test.py:49
+msgctxt "stick"
+msgid "club"
 msgstr ""
 
 #~ msgid "^wizard/step/personal-info$"

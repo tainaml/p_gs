@@ -40,7 +40,7 @@ class ResponsibilityView(View):
                 'page': request.GET.get('page', 1),
                 'template': render(request, self.template_items, context).content
             }
-            return JsonResponse(_context, status=200)
+            return render(request, self.template_items, context)
 
         return render(
             request,

@@ -2,6 +2,7 @@ from apps.custom_base.service.custom import IdeiaForm
 from apps.userprofile.models import Responsibility
 from django import forms
 from apps.taxonomy.service import business as TaxonomyBusiness
+from django.core import paginator
 
 
 class ResponsibilityFiltersForm(IdeiaForm):
@@ -10,10 +11,12 @@ class ResponsibilityFiltersForm(IdeiaForm):
     criteria = forms.CharField(required=False)
     category = forms.IntegerField(required=False)
 
-    itens_per_page = 10
+    items_per_page = 10
 
     def clean_page(self):
         page = self.cleaned_data.get('page', 1)
+        if not page:
+            page = 1
         return page
 
     def clean_category(self):
@@ -36,4 +39,11 @@ class ResponsibilityFiltersForm(IdeiaForm):
         if criteria:
             qs = qs.filter(name__unaccent__icontains=criteria)
 
-        return qs
+        paginated = paginator.Paginator(qs, self.items_per_page)
+
+        try:
+            items = paginated.page(page)
+        except Exception:
+            items = paginated.page(1)
+
+        return items
