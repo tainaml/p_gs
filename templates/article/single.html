@@ -52,6 +52,7 @@
                 "name": "{{ article.author.get_full_name }}",
                 "sameAs": "{% absolute_url author_url %}"
             },
+            "mainEntityOfPage": "{{ request.path|root  }}{% url 'article:view' article.year article.month article.get_first_slug %}",
             "publisher": {
             "@type": "Organization",
             "name": "Portal GSTI",
