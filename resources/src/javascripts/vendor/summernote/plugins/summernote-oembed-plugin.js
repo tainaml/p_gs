@@ -147,7 +147,7 @@
             'itemtype': 'http://schema.org/VideoObject'
           })
           .append( '<meta itemprop="name" content="'+ data.title +'" />' )
-          .append( '<meta itemprop="thumbnail" content="'+ data.thumbnail_url +'" />' )
+          .append( '<meta itemprop="thumbnailUrl" content="'+ data.thumbnail_url +'" />' )
           .append( '<meta itemprop="author" content="'+ data.author_name +'" />' )
           .append( '<meta itemprop="description" content="'+ (data.description || data.title) +'" />' )
           .append( '<meta itemprop="uploadDate" content="'+ moment().format( 'YYYY-DD-MM HH:mm' ) +'" />' )

@@ -65,7 +65,7 @@ class ResponsibilityView(View):
     def get(self, request, slug):
 
         try:
-            responsibility = Responsibility.objects.get(slug=slug)
+            responsibility = Responsibility.objects.get(slug=slug, active=True)
         except Responsibility.DoesNotExist as e:
             raise Http404(_('Responsibility not found'))
 

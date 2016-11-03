@@ -27,7 +27,7 @@ class ResponsibilityFiltersForm(IdeiaForm):
             self.cleaned_data.pop('category')
 
     def __process__(self):
-        qs = Responsibility.objects.all()
+        qs = Responsibility.objects.filter(active=True)
         page = self.cleaned_data.get('page')
 
         category = self.cleaned_data.get('category')
