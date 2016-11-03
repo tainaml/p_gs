@@ -71,12 +71,12 @@
                 {
                     "@type": "InteractionCounter",
                     "interactionType": "http://schema.org/LikeAction",
-                    "userInteractionCount": {{ article.like_count }}
+                    "userInteractionCount": {{ article.like_count|default_if_none:0 }}
                 },
                 {
                     "@type": "InteractionCounter",
                     "interactionType": "http://schema.org/DislikeAction",
-                    "userInteractionCount": {{ article.dislike_count }}
+                    "userInteractionCount": {{ article.dislike_count|default_if_none:0 }}
                 }
            ]
            {% if feed.communities %}
