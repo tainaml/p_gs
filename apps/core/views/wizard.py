@@ -1,6 +1,7 @@
 from abc import ABCMeta, abstractmethod
 from apps.core.forms.community import CoreCommunityFormSearch
 from apps.core.forms.wizard import StepOneWizardForm
+from apps.core.tasks import notify_by_email_user_friends
 from apps.core.utils import build_absolute_uri
 from apps.taxonomy.models import Taxonomy
 from apps.userprofile.models import Responsibility
@@ -205,6 +206,8 @@ class StepThreeWizard(CoreProfileWizard):
         user_profile.save()
 
         del request.session['wizard_step2_taxonomies']
+
+        notify_by_email_user_friends.delay(request.user.id)
 
         return redirect(to="profile:wizard-success")
 

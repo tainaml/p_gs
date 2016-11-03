@@ -537,7 +537,7 @@ TIME_TO_REFRESH_SITEMAP = 60 * 60 * 24
 # Facebook
 SOCIAL_AUTH_FACEBOOK_KEY = config.get("FACEBOOK", "key")
 SOCIAL_AUTH_FACEBOOK_SECRET = config.get("FACEBOOK", "secret")
-SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
+SOCIAL_AUTH_FACEBOOK_SCOPE = ['email', 'user_friends']
 SOCIAL_AUTH_LOGIN_REDIRECT_URL = 'profile:feed'
 
 # Google +

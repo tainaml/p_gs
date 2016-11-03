@@ -5,5 +5,5 @@ __author__ = 'ladeia'
 
 
 @app.task
-def send_mail_async(to, subject, template=None, context=None, fail_silently=False, connection=None):
+def send_mail_async(to, subject, template=None, context=None, fail_silently=True, connection=None):
     return do_send_email(to, subject, template, context, fail_silently, connection)

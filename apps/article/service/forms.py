@@ -31,7 +31,7 @@ class ArticleForm(IdeiaModelForm):
 
     class Meta:
         model = Business.Article
-        exclude = ['first_slug', 'slug','status', 'search_vector', 'author']
+        exclude = ['first_slug', 'slug','status', 'search_vector', 'author', 'comment_count', 'like_count', 'dislike_count']
 
     def __init__(self, data=None, files=None, author=False, *args, **kwargs):
 
