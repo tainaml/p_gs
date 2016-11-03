@@ -103,9 +103,11 @@ def get_notification_cached(key, **params):
 
         notification_object = get_notifications(**params)
 
-        notifications = notification_object.get('notifications')
+        # notifications = notification_object.get('notifications')
         notifications_paginator = notification_object.get('paginator')
         notifications_counter = notification_object.get('all_notifications')
+
+        notifications = notifications_counter
 
 
 
