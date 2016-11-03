@@ -64,12 +64,19 @@ def notify_by_email_user_friends(user_id):
             print('[ERRROR] User {} does not have a email in account'.format(social_friend.user.id))
             return False
 
-        subject = 'Seu amigo {} acaba de entrar no Portal GSTI'.format(
+        gender_string = "Seu amigo"
+
+        if user.user_profile.gender.lower() == 'f':
+            gender_string = "Sua amiga"
+
+        subject = '{} {} entrou no Portal GSTI'.format(
+            gender_string,
             user.get_full_name()
         )
 
         context = {
             'social_friend': social_friend.user,
+            'gender_string': gender_string,
             'user': user
         }
 

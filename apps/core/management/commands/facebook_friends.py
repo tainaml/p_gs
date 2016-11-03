@@ -1,6 +1,4 @@
 # coding=utf-8
-import json
-import urllib2
 from apps.account.models import User
 from django.core.management import BaseCommand
 from apps.core.tasks import notify_by_email_user_friends
@@ -10,8 +8,13 @@ class Command(BaseCommand):
 
     user_id = 23
 
+    def add_arguments(self, parser):
+
+        parser.add_argument('user_id', type=int)
+
     def handle(self, *args, **options):
 
-        user = User.objects.get(id=self.user_id)
-        notify_by_email_user_friends.delay(user.id)
+        self.user_id = options.get('user_id', self.user_id)
+
+        notify_by_email_user_friends.delay(self.user_id)
         print('Cabô')
