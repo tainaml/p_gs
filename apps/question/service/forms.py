@@ -21,7 +21,7 @@ class CreateQuestionForm(IdeiaModelForm):
 
     class Meta:
         model = Business.Question
-        exclude = ['author', 'question_date', 'slug', 'search_vector']
+        exclude = ['author', 'question_date', 'slug', 'search_vector', 'like_count', 'dislike_count', 'comment_count']
 
     def is_valid(self):
         valid = super(CreateQuestionForm, self).is_valid()
