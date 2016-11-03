@@ -1,32 +1,33 @@
 (function(factory) {
     /* global define */
-    if (typeof define === 'function' && define.amd) {
+    if ( typeof define === 'function' && define.amd ) {
         // AMD. Register as an anonymous module.
-        define(['jquery'], factory);
-    } else if (typeof module === 'object' && module.exports) {
+        define([ 'jquery', 'moment' ], factory );
+    } else if ( typeof module === 'object' && module.exports ) {
         // Node/CommonJS
-        module.exports = factory(require('jquery'));
+        module.exports = factory( require( 'jquery' ) );
+        module.exports = factory( require( 'moment' ) );
     } else {
         // Browser globals
-        factory(window.jQuery);
+        factory( window.jQuery );
+        factory( window.moment );
     }
-}(function($) {
-  var embedToSummernote = function (context) {
+}( function( $, moment ) {
+  var embedToSummernote = function ( context ) {
     var self = this;
 
     var options = context.options;
     var inToolbar = false;
 
-    for (var idx in options.toolbar) {
-      // toolbar => [groupName, [list of button]]
+    for ( var idx in options.toolbar ) {
       var buttons = options.toolbar[idx][1];
-      if ($.inArray('oembed', buttons) > -1) {
+      if ( $.inArray('oembed', buttons ) > -1) {
         inToolbar = true;
         break;
       }
     }
 
-    if (!inToolbar) {
+    if ( !inToolbar ) {
       return;
     }
 
@@ -38,13 +39,13 @@
       service: 'https://noembed.com/'
     };
 
-    options.oEmbed = $.extend(oEmbedOptions, options.oEmbed);
+    options.oEmbed = $.extend( oEmbedOptions, options.oEmbed );
 
-    context.memo('button.oembed', function () {
+    context.memo( 'button.oembed', function () {
       var button = ui.button({
         contents: '<i class="note-icon-frame">',
         tooltip: lang.oEmbedButton.tooltip,
-        click: function (event) {
+        click: function ( event ) {
           self.show();
         }
       });
@@ -53,15 +54,15 @@
     });
 
     this.show = function () {
-      context.invoke('editor.saveRange');
+      context.invoke( 'editor.saveRange' );
 
       self.showEmbedDialog()
-        .then(function showEmbedDialogCb (data) {
-          context.invoke('editor.restoreRange');
-          self.insertEmbedToEditor(data.uri);
-          ui.hideDialog(self.$dialog);
-        }).fail(function () {
-          context.invoke('editor.restoreRange');
+        .then( function showEmbedDialogCb ( data ) {
+          context.invoke( 'editor.restoreRange' );
+          self.insertEmbedToEditor( data.uri );
+          ui.hideDialog( self.$dialog );
+        }).fail( function () {
+          context.invoke( 'editor.restoreRange' );
         });
     };
 
@@ -69,12 +70,12 @@
       self.disableAddButton();
       self.$embedInput.value = '';
 
-      return $.Deferred(function (deferred) {
-        ui.onDialogShown(self.$dialog, function dialogShownCb () {
-          context.triggerEvent('dialog.shown');
+      return $.Deferred( function ( deferred ) {
+        ui.onDialogShown( self.$dialog, function dialogShownCb () {
+          context.triggerEvent( 'dialog.shown' );
           self.$embedInput.focus();
 
-          self.$addBtn.on('click', function addEmbedCb (event) {
+          self.$addBtn.on( 'click', function addEmbedCb ( event ) {
             event.preventDefault();
             deferred.resolve({
               uri: self.$embedInput.value
@@ -82,18 +83,18 @@
           });
         });
 
-        ui.onDialogHidden(self.$dialog, function dialogHiddenCb () {
-          self.$addBtn.off('click');
-          if (deferred.state() === 'pending') {
+        ui.onDialogHidden( self.$dialog, function dialogHiddenCb () {
+          self.$addBtn.off( 'click' );
+          if ( deferred.state() === 'pending' ) {
             deferred.reject();
           }
         });
 
-        ui.showDialog(self.$dialog);
+        ui.showDialog( self.$dialog );
       });
     };
 
-    this.createDialog = function ($container) {
+    this.createDialog = function ( $container ) {
       var dialogOption = {
         title: lang.oEmbedDialog.title,
         body: '<div class="form-group">' +
@@ -105,31 +106,31 @@
         closeOnEscape: true
       };
 
-      self.$dialog = ui.dialog(dialogOption).render().appendTo($container);
-      self.$addBtn = self.$dialog.find('#btn-add');
-      self.$embedInput = self.$dialog.find('#input-autocomplete')[0];
-      self.$embedContainer = self.$dialog.find('#embed-in-dialog')[0];
+      self.$dialog = ui.dialog( dialogOption ).render().appendTo( $container );
+      self.$addBtn = self.$dialog.find( '#btn-add' );
+      self.$embedInput = self.$dialog.find( '#input-autocomplete' )[0];
+      self.$embedContainer = self.$dialog.find( '#embed-in-dialog' )[0];
     };
 
-    this.enableAddButton = function() {
-      if (self.$embedInput.value && self.$embedInput.value.length > 0) {
-        self.$addBtn.attr("disabled", false);
+    this.enableAddButton = function () {
+      if ( self.$embedInput.value && self.$embedInput.value.length > 0 ) {
+        self.$addBtn.attr( 'disabled', false );
       }
     };
 
     this.disableAddButton = function () {
-      self.$addBtn.attr("disabled", true);
+      self.$addBtn.attr( 'disabled', true );
     };
 
     this.insertEmbedToEditor = function ( iframe ) {
-      var $div = $('<div>');
+      var $wrapper = $( '<p>' );
 
 
       $.getJSON( options.oEmbed.service+'?url='+iframe )
-        .done(function (data) {
-          $div.html(self.normalizeEmbed( data ));
+        .done( function ( data ) {
+          $wrapper.html( self.normalizeEmbed( data ));
 
-          context.invoke('editor.insertNode', $div[0]);
+          context.invoke( 'editor.insertNode', $wrapper[0] );
           self.$embedContainer.innerHTML = '';
         });
     };
@@ -144,11 +145,12 @@
             'itemid': data.url,
             'itemprop': data.type,
             'itemtype': 'http://schema.org/VideoObject'
-          });
-          $div
-          .append( '<meta itemprop="name" content="'+data.title+'" />' )
-          .append( '<meta itemprop="thumbnail" content="'+data.thumbnail_url+'" />' )
-          .append( '<meta itemprop="author" content="'+data.author_name+'" />' )
+          })
+          .append( '<meta itemprop="name" content="'+ data.title +'" />' )
+          .append( '<meta itemprop="thumbnail" content="'+ data.thumbnail_url +'" />' )
+          .append( '<meta itemprop="author" content="'+ data.author_name +'" />' )
+          .append( '<meta itemprop="description" content="'+ (data.description || data.title) +'" />' )
+          .append( '<meta itemprop="uploadDate" content="'+ moment().format( 'YYYY-DD-MM HH:mm' ) +'" />' )
         } else {
           $div = $( '<div>' );
         }
@@ -176,14 +178,14 @@
         return $div;
 
       } else {
-        throw new Error(lang.errorMessage.invalid_provider);
+        throw new Error( lang.errorMessage.invalid_provider );
       }
 
     };
 
     this.initOembed = function () {
 
-      self.$embedInput.addEventListener('input', function ( event ) {
+      self.$embedInput.addEventListener( 'input', function ( event ) {
 
         var url = this.value;
 
@@ -191,9 +193,9 @@
           self.$embedContainer.innerHTML = options.oEmbed.spinner;
         }
 
-        setTimeout(function () {
+        setTimeout( function () {
           $.getJSON( options.oEmbed.service+'?url='+url )
-          .done( function (data) {
+          .done( function ( data ) {
               var content;
               try {
                 content = self.normalizeEmbed( data );
@@ -209,25 +211,25 @@
       });
     };
 
-    this.initialize = function() {
-      var $container = options.dialogsInBody ? $(document.body) : $editor;
-      self.createDialog($container);
+    this.initialize = function () {
+      var $container = options.dialogsInBody ? $( document.body ) : $editor;
+      self.createDialog( $container );
     };
 
-    this.destroy = function() {
-      ui.hideDialog(self.$dialog);
+    this.destroy = function () {
+      ui.hideDialog( self.$dialog );
       self.$dialog.remove();
     };
 
     this.events = {
-      'summernote.init': function(we, e) {
+      'summernote.init': function ( we, e ) {
         self.initOembed();
       }
     };
 
   };
 
-  $.extend(true, $.summernote, {
+  $.extend( true, $.summernote, {
     lang: {
       'en-US': {
         oEmbedButton: {
