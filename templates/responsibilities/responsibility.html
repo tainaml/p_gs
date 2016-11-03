@@ -28,12 +28,15 @@
                     <div class="col-sm-12">
                         <header class="area-title">
                             <h2>{{ responsibility.name }}</h2>
-                            {% if responsibility_categories|length > 0 %}
-                                <span class="color-development"><strong>Categoria:</strong>
-                                {{ responsibility_categories|join:", " }}
-                            </span>
-                            {% endif %}
                         </header>
+                        {% if responsibility_categories|length > 0 %}
+                        <span class="profession__categories">
+                          <strong>Categoria: </strong>
+                          {% for category in responsibility.categories.all %}
+                          <a href="{% url 'category:show' category.slug %}">{{ category.description }}</a>{% if not forloop.last %}, {% endif %}
+                          {% endfor %}
+                        </span>
+                        {% endif %}
                         <hr>
                     </div>
                 </div>
