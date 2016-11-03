@@ -97,8 +97,8 @@ def get_object_actions_like(object, user=None, content_type=None):
             elif act.action_type == act_unlike:
                 obj_likes.unlikes += 1
         else:
-            obj_likes.likes=object.like_count
-            obj_likes.unlikes=object.dislike_count
+            obj_likes.likes=object.like_count or 0
+            obj_likes.unlikes=object.dislike_count or 0
 
         if user.is_authenticated():
             if user == act.author:

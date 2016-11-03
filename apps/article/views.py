@@ -234,7 +234,7 @@ class ArticleEditView(ArticleBaseView):
         temp_article = copy.copy(article)
 
         article_saved = form_article.process()
-
+        print form_article.errors
         if article_saved is not False:
             messages.add_message(request, messages.SUCCESS, _('Publicação salva com sucesso'), 'article')
             article_id = form_article.instance.id

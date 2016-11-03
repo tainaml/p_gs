@@ -7,17 +7,17 @@ logger = logging.getLogger('error')
 
 class AbstractIdeiaForm(object):
     def process(self):
-        # :try:
-        return self.__process__() if self.is_valid() else False
-        # except NotImplementedError:
-        #     raise NotImplementedError
-        # except Exception, e:
-        #     if settings.DEBUG:
-        #         raise e
-        #     else:
-        #         logger.error(e)
-        #         self.add_error(None, "General error!")
-        #         return False
+        try:
+            return self.__process__() if self.is_valid() else False
+        except NotImplementedError:
+            raise NotImplementedError
+        except Exception, e:
+            if settings.DEBUG:
+                raise e
+            else:
+                logger.error(e)
+                self.add_error(None, "General error!")
+                return False
 
     def __process__(self):
         raise NotImplementedError

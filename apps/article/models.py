@@ -73,9 +73,9 @@ class Article(models.Model):
 
     embed = GenericRelation(EmbedItem, related_query_name="article")
 
-    comment_count = models.PositiveIntegerField(null=True)
-    like_count = models.PositiveIntegerField(null=True)
-    dislike_count = models.PositiveIntegerField(null=True)
+    comment_count = models.PositiveIntegerField(null=True, blank=True)
+    like_count = models.PositiveIntegerField(null=True, blank=True)
+    dislike_count = models.PositiveIntegerField(null=True, blank=True)
 
 
     class Meta:

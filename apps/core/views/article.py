@@ -64,6 +64,7 @@ class CoreArticleEditView(views.ArticleEditView):
         if self.check_user_is_contributor(request):
             self.form_article = CoreArticleContributorForm
 
+
         return super(CoreArticleEditView, self).post(request, article_id, *args, **kwargs)
 
 

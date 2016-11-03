@@ -41,9 +41,9 @@ class Question(models.Model):
 
     feed = GenericRelation(FeedObject, related_query_name="question")
 
-    comment_count = models.PositiveIntegerField(null=True)
-    like_count = models.PositiveIntegerField(null=True)
-    dislike_count = models.PositiveIntegerField(null=True)
+    comment_count = models.PositiveIntegerField(null=True, blank=True)
+    like_count = models.PositiveIntegerField(null=True, blank=True)
+    dislike_count = models.PositiveIntegerField(null=True, blank=True)
 
     class Meta:
         permissions = [

@@ -196,7 +196,7 @@
                                 <div class="post-count">{% like_box article request.path "inline" %}</div>
                                 <a href="#comments" class="post-count-comments">
                             <span>
-                                <strong class="">{{ article.comment_count }}</strong>
+                                <strong class="">{{ article.comment_count|default_if_none:"0" }}</strong>
                                 {% csrf_token %}
                             </span>
                                     <span class="hidden-xs visible-lg-inline">Comentário(s)</span>
