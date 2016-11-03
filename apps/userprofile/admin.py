@@ -42,7 +42,7 @@ class ResponsibilityAdmin(admin.ModelAdmin):
 
     fieldsets = (
         (None, {
-            'fields': ('name', 'slug', 'categories')
+            'fields': ('name', 'slug', 'active', 'categories')
         }),
 
         ('About', {

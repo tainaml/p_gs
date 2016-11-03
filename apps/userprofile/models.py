@@ -137,6 +137,7 @@ class Responsibility(models.Model):
     main_activity = models.TextField(null=True, blank=True)
     more_info = models.TextField(null=True, blank=True)
     categories = models.ManyToManyField(to=Taxonomy, related_name='responsibilities')
+    active = models.BooleanField(default=False)
 
     class Meta:
         ordering = ('name',)
