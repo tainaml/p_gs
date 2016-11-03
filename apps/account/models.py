@@ -34,6 +34,9 @@ class User(AbstractUser):
     def get_absolute_ur(self):
         return 'javascript:void(0);' if not self.is_active else reverse('profile:show', args=[self.username])
 
+    def get_absolute_url(self):
+        return 'javascript:void(0);' if not self.is_active else reverse('profile:show', args=[self.username])
+
     @cached_property
     def user_profile(self):
         return self.profile if self.is_authenticated() else None
