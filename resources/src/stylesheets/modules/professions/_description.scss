@@ -13,7 +13,8 @@
 .profession,
 .profession p {
   color: #6f6f6f;
-  font: 600 15px/22px "Open Sans";
+  font: 400 17px/30px "Open Sans";
+  letter-spacing: -0.05em;
 }
 
 @media (max-width: $screen-sm-min) {

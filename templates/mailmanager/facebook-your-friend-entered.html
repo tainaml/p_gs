@@ -1,0 +1,26 @@
+{% extends "mailmanager/layout/mail-base.html" %}
+
+{% load url_utils %}
+{% load abs_url %}
+
+{% block email_title %}Seu amigo {{ user.get_full_name }} entrou no Portal GSTI{% endblock email_title %}
+
+{% block content %}
+
+    <p>{{ gender_string }} {{ user.get_full_name }} do Facebook entrou no Portal GSTI.</p>
+
+    <p>
+        {{ user.get_full_name }} tem {{ user.followers }} {% if user.followers != 1 %}seguidores{% else %}seguidor{% endif %}
+    </p>
+
+    <p>
+        Siga {{ user.get_short_name }} e receba no seu feed o conteúdo publicado por {% if user.user_profile.gender|lower == 'f' %}ela{% else %}ele{% endif %}.
+    </p>
+
+    <p style="text-align: center;">
+        <a  href="{% absolute_from_path user.get_absolute_url %}" style="width: 50%;display: inline-block;margin-top: 15px;margin-bottom: 15px;color: #fff; background-color: #2c7906; border-color: #296f06; padding: 20px 12px; text-decoration: none;font-size: 0.9em; font-weight: 600;">
+            Ver perfil de {{user.get_full_name}}
+        </a>
+    </p>
+
+{% endblock %}
