@@ -37,10 +37,12 @@ class EmbedBusiness(object):
 
     def save_item(self, item):
 
-        embed, created = EmbedItem.objects.get_or_create(
-            object_id=self.instance.id,
-            content_type=self.content_type,
-            embed_url=item
-        )
-        embed.save()
-        return embed
+        return
+
+        # embed, created = EmbedItem.objects.get_or_create(
+        #     object_id=self.instance.id,
+        #     content_type=self.content_type,
+        #     embed_url=item
+        # )
+        # embed.save()
+        # return embed

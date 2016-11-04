@@ -3,15 +3,14 @@
 {% load abs_url %}
 {% load avatar_tags %}
 
-
-{% block url %}{{ notification.target.get_absolute_url }}?"utm_source=email_notificacao_membro&utm_campaign=notificacao_membro&utm_medium=email"{% endblock %}
+{% block url %}{{ notification.target.get_absolute_url }}?utm_source=email_notificacao_membro&utm_campaign=notificacao_membro&utm_medium=email#comments{% endblock %}
 
 {% block content %}
 
 {#    <figure>#}
 {#        <img src="{% get_avatar notification.author width=20 height=20 smart=False fit_in=False %}" width="20" height="20" alt="{{ notification.author.get_full_name }}">#}
 {#        <figcaption>#}
-          <span>{{ notification.author.get_full_name }}</span> comentou em um item seu<span></span>
+          <span>{{ notification.author.get_full_name }}</span> comentou em <span>{{ notification.target.title }}</span>
 {#        </figcaption>#}
 {#      </figure>#}
 

@@ -1,0 +1,3 @@
+{% extends 'notification/email/title.html' %}
+
+{% block title %}{{ notification.author.get_full_name }} comentou em {{ notification.target.title }}{% endblock %}

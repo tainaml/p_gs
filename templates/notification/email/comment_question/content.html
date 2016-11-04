@@ -1,0 +1,11 @@
+{% extends 'notification/email/content.html' %}
+
+{% load avatar_tags %}
+
+{% block url %}{{ notification.target.get_absolute_url }}?utm_source=email_notificacao_membro&utm_campaign=notificacao_membro&utm_medium=email{% endblock %}
+
+{% block content %}
+
+          <span>{{ notification.author.get_full_name }}</span> respondeu em <span>{{ notification.target.title }}</span>
+
+{% endblock %}

@@ -80,6 +80,8 @@ def notify_by_email_user_friends(user_id):
             'user': user
         }
 
+        print('Pode? {}'.format(configuration.check_config_to_notify(social_friend.user, 'mail_notification', None)))
+
         if configuration.check_config_to_notify(social_friend.user, 'mail_notification', None):
 
             send_mail_async(

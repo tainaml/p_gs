@@ -20,6 +20,7 @@ def try_dispatch_notification_mail(sender, **kwargs):
     created = kwargs.get('created', False)
 
     if not instance or not created:
+        print('Sem instancia {} ou nao criado {}'.format(bool(instance), bool(created)))
         return
 
     if configuration.check_config_to_notify(instance.to, 'mail_notification', None):
@@ -28,6 +29,8 @@ def try_dispatch_notification_mail(sender, **kwargs):
             send_email_notification(instance.to, instance)
         except Exception as e:
             logger.error(e)
+    else:
+        print('Permissao negada')
 
 
 
