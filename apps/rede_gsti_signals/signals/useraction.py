@@ -1,7 +1,7 @@
 from django.db.models import Model
 from django.db.models.signals import post_save, post_delete
 from django.dispatch import receiver
-from apps.rede_gsti_signals.tasks import count_user_actions
+from apps.core.tasks import count_user_actions
 from apps.socialactions.models import UserAction
 from apps.article.models import Article
 from apps.core.business import embeditem
