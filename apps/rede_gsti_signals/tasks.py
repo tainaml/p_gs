@@ -1,4 +1,4 @@
-from apps.socialactions.models import UserAction, Counter, UserActionCounter
+from ..socialactions.models import UserAction, Counter, UserActionCounter
 from rede_gsti.celery import app
 from django.conf import settings
 
