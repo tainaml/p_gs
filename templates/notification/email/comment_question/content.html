@@ -2,7 +2,7 @@
 
 {% load avatar_tags %}
 
-{% block url %}{{ notification.target.get_absolute_url }}?utm_source=email_notificacao_membro&utm_campaign=notificacao_membro&utm_medium=email{% endblock %}
+{% block url %}{{ notification.target.absolute_url }}?utm_source=email_notificacao_membro&utm_campaign=notificacao_membro&utm_medium=email{% endblock %}
 
 {% block content %}
 

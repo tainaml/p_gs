@@ -14,6 +14,7 @@ from apps.core.business.content_types import ContentTypeCached
 from apps.core.models.embed import EmbedItem
 from apps.feed.models import FeedObject
 from apps.socialactions.models import Counter, UserAction
+from apps.core.utils import build_absolute_uri
 
 
 def article_image_upload(instance, filename):
@@ -162,6 +163,12 @@ class Article(models.Model):
     def get_absolute_url(self):
         from django.core.urlresolvers import reverse
         return reverse('article:view', args=[self.year, self.month, self.slug])
+
+    @cached_property
+    def absolute_url(self):
+        from django.core.urlresolvers import reverse
+        path = reverse('article:view', args=[self.year, self.month, self.slug])
+        return build_absolute_uri(path)
 
     def __unicode__(self):
         return self.title or "no title"

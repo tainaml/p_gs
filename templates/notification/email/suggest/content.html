@@ -2,13 +2,13 @@
 
 {% load abs_url %}
 
-{% if notification.target_content_type|stringformat:"s" == "article" %}
-    {% url 'article:view' notification.target.year notification.target.month notification.target.slug as object_url %}
-{% elif notification.target_content_type|stringformat:"s" == "question"  %}
-    {% url 'question:show' notification.target.slug notification.target.id as object_url %}
-{% endif %}
-
-{% block url %}{% absolute_from_path object_url %}{% endblock %}
+{% block url %}
+    {% if notification.target_content_type|stringformat:"s" == "article" %}
+        {{ notification.target.absolute_url }}
+    {% elif notification.target_content_type|stringformat:"s" == "question"  %}
+        {{ notification.target.absolute_url }}
+    {% endif %}
+{% endblock %}
 
 {% block content %}
 

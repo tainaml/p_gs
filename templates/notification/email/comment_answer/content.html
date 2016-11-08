@@ -3,7 +3,7 @@
 {% load abs_url %}
 {% load avatar_tags %}
 
-{% block url %}{{ notification.target.question.get_absolute_url }}?utm_source=email_notificacao_membro&utm_campaign=notificacao_membro&utm_medium=email#{{ notification.target_content_type.model }}-{{ notification.target.id }}{% endblock %}
+{% block url %}{{ notification.target.question.absolute_url }}?utm_source=email_notificacao_membro&utm_campaign=notificacao_membro&utm_medium=email#{{ notification.target_content_type.model }}-{{ notification.target.id }}{% endblock %}
 
 {% block content %}
 

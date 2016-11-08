@@ -62,7 +62,7 @@ def send_notification(author=None, to=None, notification_action=None,
         notification_date__gte=datetime.now() - timedelta(minutes=time_to_wait)
     )
 
-    if exists_notification.count() > 0:
+    if exists_notification.count() > 0 and getattr(settings, 'DEBUG', False):
         return None
 
     notification = Notification(

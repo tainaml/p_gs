@@ -1,8 +1,10 @@
+from apps.core.utils import build_absolute_uri
 from django.contrib.contenttypes.fields import GenericRelation
 from django.contrib.postgres.search import SearchVectorField, SearchVector
 from django.core.urlresolvers import reverse
 from django.db import models
 from django.conf import settings
+from django.utils.functional import cached_property
 from django.utils.translation import ugettext as _
 from apps.core.business.content_types import ContentTypeCached
 from apps.taxonomy.models import Taxonomy
@@ -58,6 +60,12 @@ class Question(models.Model):
 
     def get_absolute_url(self):
         return reverse('question:show', args=[str(self.slug), str(self.id)])
+
+    @cached_property
+    def absolute_url(self):
+        from django.core.urlresolvers import reverse
+        path = reverse('question:show', args=[str(self.slug), str(self.id)])
+        return build_absolute_uri(path)
 
     def __unicode__(self):
         return self.title + " - " + self.description[:100] + "..."

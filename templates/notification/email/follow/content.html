@@ -2,7 +2,7 @@
 
 {% load abs_url %}
 
-{% block url %}{% if  notification.author.is_active %}{% url 'profile:show' notification.author.username %}{% else %}javascript:;{% endif %}{% endblock %}
+{% block url %}{% if notification.author.is_active %}{% url 'profile:show' notification.author.username %}{% else %}javascript:;{% endif %}{% endblock %}
 
 {% block content %}
 
