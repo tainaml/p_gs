@@ -52,7 +52,7 @@
           <i class="gsticon gsticon-user"></i>
           Sobre
           <div class="profile-box__bio">
-            {{ profile.description }}
+            {{ profile.description|default_if_none:"" }}
           </div>
         </li>
         {% endif %}
