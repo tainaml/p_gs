@@ -32,6 +32,6 @@
     {% follow_action profile.user request.path "text-center perfil-button" %}
   {% endif %}
   <div class="profile-box__bio">
-    {{ profile.description }}
+    {{ profile.description|default_if_none:"" }}
   </div>
 </div>
