@@ -2,7 +2,7 @@ from datetime import timedelta
 from apps.core.business import configuration
 from apps.mailmanager import send_email
 from apps.mailmanager.tasks import send_mail_async
-from django.db.models import Q
+from django.db.models import Q, QuerySet
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.contenttypes.models import ContentType
 from apps.core.business.content_types import ContentTypeCached
@@ -23,7 +23,7 @@ def get_count_notification_cached(key, queryset):
 
     notifications_paginator = cache.get(key)
     if not notifications_paginator:
-        notifications_paginator = queryset.count()
+        notifications_paginator = queryset.count() if isinstance(queryset, QuerySet) else 0
 
         cache.set(key, notifications_paginator, settings.TIME_TO_REFRESH_NOTIFICATION_IN_SEC)
 
@@ -96,11 +96,14 @@ def make_key(user, notification_status, notification_type):
 
 def get_notification_cached(key, **params):
 
-    notifications_paginator = cache.get(key)
-    # notifications_paginator = None
-    notifications = None
+    notifications_from_cache = cache.get(key)
 
-    if not notifications_paginator:
+    if notifications_from_cache:
+
+        notifications = notifications_from_cache.get('notifications')
+        notifications_paginator = notifications_from_cache.get('paginator')
+
+    else:
 
         notification_object = get_notifications(**params)
 
@@ -110,9 +113,12 @@ def get_notification_cached(key, **params):
 
         notifications = notifications_counter
 
+        notifications_from_cache = {
+            'notifications': notifications,
+            'paginator': notifications_paginator
+        }
 
-
-        cache.set(key, notifications, settings.TIME_TO_REFRESH_NOTIFICATION_IN_SEC)
+        cache.set(key, notifications_from_cache, settings.TIME_TO_REFRESH_NOTIFICATION_IN_SEC)
 
 
     return notifications, notifications_paginator
