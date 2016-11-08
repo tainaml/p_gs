@@ -41,7 +41,7 @@ def notification_navbar(context, notification_type, count=5):
 
     response_data = {
         'request': request,
-        'total': notifications_not_read.count,
+        'total': notifications_not_read.count(),
         'count': count,
         'notifications': notifications,
         'notifications_label': NOTIFICATION_ACTIONS,
