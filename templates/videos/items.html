@@ -1,0 +1,23 @@
+{% load avatar_tags %}
+
+{% for item in videos %}
+
+    <a href="{{ item.absolute_url }}">
+
+        <img src="" alt="">
+
+        {% get_avatar item.author %}
+
+        {{ item.author.full_name }}
+
+        {{ item.title }}
+
+        {{ item.communities }}
+
+    </a>
+
+{% endfor %}
+
+{% if videos.has_next %}
+    <a data-jscroll-next href="{% url 'core:videos-list' %}?{{ next_querystring }}">Próximo</a>
+{% endif %}
