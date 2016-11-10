@@ -15,7 +15,7 @@
 
                         {# TODO: Change the default image HERE #}
 
-                        <img src="http://placehold.it/150x113" alt="Vídeo thumbnail" />
+                        <img class="img-responsive" src="http://placehold.it/150x113" alt="{{ item.title }}" />
                     {% endif %}
 
                     {% if item.feed.first.official %}
@@ -57,7 +57,8 @@
 {% endfor %}
 
 {% if videos.has_next %}
-
-    <a data-jscroll-next href="{% url 'core:videos-list' %}?{{ next_querystring }}">Mais vídeos</a>
+  <div class="col-xs-12">
+    <a class="btn btn-block btn-primary" data-jscroll-next href="{% url 'core:videos-list' %}?{{ next_querystring }}">Mais vídeos</a>
+  </div>
 
 {% endif %}

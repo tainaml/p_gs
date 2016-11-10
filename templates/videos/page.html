@@ -80,8 +80,10 @@
                         <hr>
                     </div>
 
-                    <div class="j-scroll j-scroll-container" style="">
+                    <div class="j-scroll clearfix" style="">
+                      <div class="j-scroll-container">
                         {% include 'videos/items.html' %}
+                      </div>
                     </div>
 
                 </div>
@@ -98,12 +100,9 @@
         $(function(){
             $(".j-scroll").jscroll({
                 autoTrigger: false,
-                loadingHtml: '<div class="load-async-preload"></div>',
+                loadingHtml: '<div class="col-xs-12"><div class="load-async-preload"></div></div>',
                 contentSelect: ".j-scroll-container",
-                nextSelector: "a[data-jscroll-next]",
-                callback: function () {
-                    refreshAsyncLike();
-                }
+                nextSelector: "a[data-jscroll-next]"
             });
 
             $('[data-form-send]').on('change', function onChangeSelectSendVideoForm(){
