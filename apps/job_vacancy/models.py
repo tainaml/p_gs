@@ -70,8 +70,8 @@ class JobVacancyLocation(models.Model):
                                     blank=False, verbose_name=_('Job Vacancy'))
     country = models.ForeignKey(Country, verbose_name=_('Country'))
     state = ChainedForeignKey(State, chained_field="country", chained_model_field="country", show_all=False,
-                              auto_choose=True, verbose_name=_('States'))
-    cities = ChainedManyToManyField(City, chained_field="state", chained_model_field="state", verbose_name=_('Cities'))
+                              auto_choose=True, verbose_name=_('States'), null=True, blank=True)
+    cities = ChainedManyToManyField(City, chained_field="state", chained_model_field="state", verbose_name=_('Cities'), null=True, blank=True)
 
 
 class SalaryType(models.Model):
