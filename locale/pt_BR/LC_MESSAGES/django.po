@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-11-02 16:59-0300\n"
+"POT-Creation-Date: 2016-11-10 11:36-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -120,23 +120,23 @@ msgstr "Nome de usuário está disponível"
 msgid "Username is not available!"
 msgstr "Nome de usuário não está disponível"
 
-#: apps/article/models.py:46
+#: apps/article/models.py:47
 msgid "Draft"
 msgstr "Rascunho"
 
-#: apps/article/models.py:47
+#: apps/article/models.py:48
 msgid "Trash"
 msgstr "Lixo"
 
-#: apps/article/models.py:48
+#: apps/article/models.py:49
 msgid "Publish"
 msgstr "Publicado"
 
-#: apps/article/models.py:62 apps/job_vacancy/models.py:45
+#: apps/article/models.py:63 apps/job_vacancy/models.py:45
 msgid "Author"
 msgstr "Autor"
 
-#: apps/article/models.py:84
+#: apps/article/models.py:85
 msgid "Can edit articles from others"
 msgstr "Permissão para editar artigos de outros autores"
 
@@ -315,6 +315,26 @@ msgstr "Ocorreu um erro ao desativar a conta"
 #: apps/core/forms/community.py:133
 msgid "All"
 msgstr "Todos"
+
+#: apps/core/forms/videos.py:20
+msgid "Default"
+msgstr "Ordem padrão"
+
+#: apps/core/forms/videos.py:21
+msgid "Recent"
+msgstr "Mais recentes"
+
+#: apps/core/forms/videos.py:22
+msgid "Oldest"
+msgstr "Mais antigos"
+
+#: apps/core/forms/videos.py:23
+msgid "Likes Asc"
+msgstr "Menos curtidos"
+
+#: apps/core/forms/videos.py:24
+msgid "Likes Desc"
+msgstr "Mais curtidos"
 
 #: apps/core/forms/wizard.py:114 apps/userprofile/service/forms.py:82
 msgid "Birth invalid."
@@ -610,7 +630,7 @@ msgid "^contact-success/$"
 msgstr "^sucesso/$"
 
 #. Translators: URL de posts relacionados
-#: apps/core/urls/core.py:10
+#: apps/core/urls/core.py:11
 msgid ""
 "^related-posts/(?P<instance_id>[0-9]+)/(?P<instance_type>[a-z]+)/(?"
 "P<post_type>[a-z]+)/(?P<count>[1-9])/$"
@@ -618,31 +638,35 @@ msgstr ""
 "^postagens-relacionadas/(?P<instance_id>[0-9]+)/(?P<instance_type>[a-z]+)/(?"
 "P<post_type>[a-z]+)/(?P<count>[1-9])/$"
 
-#: apps/core/urls/core.py:12
+#: apps/core/urls/core.py:13
 msgid "^responsibilities/$"
 msgstr "^profissoes-de-ti/$"
 
-#: apps/core/urls/core.py:14
-#| msgid "^list_articles/(?P<username>[a-z0-9_-]+)/$"
+#: apps/core/urls/core.py:15
 msgid "^responsibilities/(?P<slug>[aA-zZ0-9-_]+)/$"
 msgstr "^profissoes-de-ti/(?P<slug>[aA-zZ0-9-_]+)/$"
 
+#. Translators: URL de videos
+#: apps/core/urls/core.py:18
+msgid "videos/$"
+msgstr ""
+
 #. Translators: URL de sobre
-#: apps/core/urls/core.py:17
+#: apps/core/urls/core.py:21
 msgid "^about/"
 msgstr "^sobre/"
 
 #. Translators: URL de sobre
-#: apps/core/urls/core.py:21
+#: apps/core/urls/core.py:25
 msgid "^rules/"
 msgstr "^regras/"
 
 #. Translators: URL de sobre
-#: apps/core/urls/core.py:24
+#: apps/core/urls/core.py:28
 msgid "^politica-de-privacidade/"
 msgstr ""
 
-#: apps/core/urls/core.py:27
+#: apps/core/urls/core.py:31
 msgid "^oembed/"
 msgstr ""
 
@@ -1034,11 +1058,11 @@ msgstr "Mudar senha"
 msgid "Your password has been changed!"
 msgstr "Sua senha foi alterada!"
 
-#: apps/core/views/article.py:166 apps/core/views/question.py:58
+#: apps/core/views/article.py:167 apps/core/views/question.py:58
 msgid "Community not Found"
 msgstr "Comunidade não encontrada"
 
-#: apps/core/views/article.py:172 apps/core/views/question.py:64
+#: apps/core/views/article.py:173 apps/core/views/question.py:64
 msgid "User need follow this community"
 msgstr "É necessário seguir esta comunidade"
 
@@ -1230,7 +1254,7 @@ msgstr "Você precisa especificar a propriedade template_list_path"
 msgid "Notification not found!"
 msgstr "Notificação não encontrada"
 
-#: apps/question/models.py:50
+#: apps/question/models.py:52
 #, fuzzy
 #| msgid "Can edit articles from others"
 msgid "Can edit questions from others"
@@ -1764,7 +1788,7 @@ msgstr "Mensagem"
 msgid "submit"
 msgstr "Enviar"
 
-#: templates/core/amp/base.html:354
+#: templates/core/amp/base.html:355
 #: templates/home/partials/slideout-menu.html:55
 #: templates/home/partials/user-actions.html:46
 msgid "Sair"

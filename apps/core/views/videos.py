@@ -1,3 +1,4 @@
+# coding=utf-8
 import urllib
 from django.http import QueryDict
 from django.shortcuts import render
@@ -30,6 +31,8 @@ class VideoView(View):
         return {
             'form': form,
             'videos': videos,
+            'categories': form.get_categories(),
+            'communities': form.get_communities(form_data.get('category', 0)),
             'next_querystring': next_querystring
         }
 

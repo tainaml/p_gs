@@ -1,23 +1,63 @@
 {% load avatar_tags %}
+{% load thumbor_tags %}
 
 {% for item in videos %}
+    <div class="col-sm-2 col-xs-6">
+        <div class="list__video__item">
+            <a href="{{ item.get_absolute_url }}">
+                <figure class="list__video__image">
 
-    <a href="{{ item.absolute_url }}">
 
-        <img src="" alt="">
+                    {% if item.image %}
+                        <img class="img-responsive" alt="{{ item.title }}"
+                             src="{% thumbor_url item.image.url width=150 height=113 smart=False fit_in=False %}">
+                    {% else %}
 
-        {% get_avatar item.author %}
+                        {# TODO: Change the default image HERE #}
 
-        {{ item.author.full_name }}
+                        <img src="http://placehold.it/150x113" alt="Vídeo thumbnail" />
+                    {% endif %}
 
-        {{ item.title }}
+                    {% if item.feed.first.official %}
+                        <span class="label-official-content"></span>
+                    {% endif %}
 
-        {{ item.communities }}
+                </figure>
+              <span class="post-creator">
+                <figure>
+                    <img src="{% get_avatar item.author width=20 %}" alt="foto de {{ item.author.get_full_name }}">
+                    <figcaption>{{ item.author.get_full_name }}</figcaption>
+                </figure>
+              </span>
+              <span class="list__video__description">
+                  {{ item.title|striptags|safe }}
+              </span>
+            </a>
+            <nav class="post-communities">
+                <a href="javascript:;" class="link-to-community" data-toggle="dropdown" aria-expanded="false">
+                    Comunidades <i class="gsticon gsticon-angle-down"></i>
+                </a>
+                <div class="dropdown-menu">
+                    <ul class="perfil-actions">
 
-    </a>
+                        {% for item_community in  item.feed.first.communities.all %}
 
+                            <li>
+                                <a href="{% url 'community:show' item_community.slug %}" class="link-to-community">
+                                    {{ item_community.title }}
+                                </a>
+                            </li>
+
+                        {% endfor %}
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </div>
 {% endfor %}
 
 {% if videos.has_next %}
-    <a data-jscroll-next href="{% url 'core:videos-list' %}?{{ next_querystring }}">Próximo</a>
+
+    <a data-jscroll-next href="{% url 'core:videos-list' %}?{{ next_querystring }}">Mais vídeos</a>
+
 {% endif %}
