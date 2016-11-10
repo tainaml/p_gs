@@ -37,14 +37,11 @@ def notification_navbar(context, notification_type, count=5):
     count_key = make_key(request.user, "count_visualized", notification_type)
     count = get_count_notification_cached(count_key, notifications_not_visualized)
 
-    notifications_not_visualized_id = []
-
-    if notifications_not_visualized:
-        notifications_not_visualized_id = [n.id for n in notifications_not_visualized]
+    notifications_not_visualized_id = [n.id for n in notifications_not_visualized]
 
     response_data = {
         'request': request,
-        'total': notifications_not_read.count() if bool(notifications_not_read) else 0,
+        'total': notifications_not_read.count,
         'count': count,
         'notifications': notifications,
         'notifications_label': NOTIFICATION_ACTIONS,
