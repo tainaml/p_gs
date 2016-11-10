@@ -6,7 +6,7 @@
 
     {% if users and users.has_next %}
     <div class="col-lg-12">
-        <a data-jscroll-next-users href="{% url 'search:search-content' "users" %}?q={{ query_search|default:""|default_if_none:""|urlencode }}&city={{ form_user.city.value|default:"" }}&state={{ form_user.state.value|default:"" }}&responsibility={{ form_user.state.value|default:"" }}&page={{ page|default:2 }}" class="btn-default btn-block">Carregar mais resultados</a>
+        <a data-jscroll-next-users href="{% url 'search:search-content' "users" %}?q={{ query_search|default:""|default_if_none:""|urlencode }}&city={{ form_user.city.value|default:"" }}&state={{ form_user.state.value|default:"" }}&responsibility={{ form_user.responsibility.value|default:"" }}&page={{ page|default:2 }}" class="btn-default btn-block">Carregar mais resultados</a>
     </div>
     {% endif %}
 {% else %}
