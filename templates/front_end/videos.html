@@ -1,0 +1,103 @@
+{% extends 'home/layout/base.html' %}
+
+{% load ads %}
+
+{% block title %}Vídeos{% endblock title %}
+
+{% block content %}
+<main class="container main" data-page="videos">
+  <div class="row">
+    <div class="col-sm-12">
+      <header class="area-title">
+        <h2>Vídeos de TI</h2>
+      </header>
+      <p class="videos__page__description">Lista de vídeos sobre tecnologia</p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="banner-content-wide">
+      <div class="banner">
+        {% ads_only_production "home_top" "all" %}
+      </div>
+    </div>
+  </div>
+  <div class="row video__form__filter">
+    <div class="col-sm-12 form-group visible-xs-block">
+      <div class="btn btn-lg btn-block btn-primary" data-target="#filters" data-toggle="collapse">
+        <i class="gsticon gsticon-search"></i>
+        Buscar vídeo
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <form action="#" class="collapse navbar-collapse" id="filters">
+      <div class="row">
+        <div class="col-sm-4 form-group clearfix">
+          <div class="form-search-input" style="width: 90%">
+            <input type="text" id="filter-profession" data-filter="textbox" name="criteria"
+            placeholder="Pesquisar por vídeos" autocomplete="off">
+          </div>
+          <button type="submit" class="form-search-button" style="width: 10%">
+            <i class="gsticon gsticon-search"></i>
+          </button>
+        </div>
+        <div class="col-sm-3 form-group">
+          <select name="categories" id="categories" class="form-control">
+            <option value="">Categorias</option>
+          </select>
+        </div>
+        <div class="col-sm-3 form-group">
+          <select name="communities" id="communities" class="form-control">
+            <option value="">Comunidade</option>
+          </select>
+        </div>
+        <div class="col-sm-2 form-group">
+          <select name="order-by" id="order-by" class="form-control">
+            <option value="">Ordenar por:</option>
+          </select>
+        </div>
+      </div>
+    </form>
+    <div class="col-sm-12 list__videos">
+      <div class="row">
+        <div class="col-sm-12">
+          <hr>
+        </div>
+        {% for i in '123456123456123456' %}
+        <div class="col-sm-2 col-xs-6">
+          <div class="list__video__item">
+            <a href="#">
+              <figure class="list__video__image">
+                <img src="http://placehold.it/150x113" alt="Vídeo thumbnail" />
+                <span class="label-official-content"></span>
+              </figure>
+              <span class="post-creator">
+                <figure>
+                  <img src="http://placehold.it/20" alt="foto de ">
+                  <figcaption>Yuri Silva</figcaption>
+                </figure>
+              </span>
+              <span class="list__video__description">
+                Microsoft lança software beta para migrar aplicativos iOS para Windows...
+              </span>
+            </a>
+            <nav class="post-communities">
+              <a href="javascript:;" class="link-to-community" data-toggle="dropdown" aria-expanded="false">
+                Comunidades <i class="gsticon gsticon-angle-down"></i>
+              </a>
+              <div class="dropdown-menu">
+                <ul class="perfil-actions">
+                  <li>
+                    <a href="/angularjs/" class="link-to-community">AngularJS</a>
+                  </li>
+                </ul>
+              </div>
+            </nav>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock content %}
