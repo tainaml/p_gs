@@ -28,7 +28,7 @@ def like_box(context, object_to_link, url_next, like_type=None):
         like_box_template = "socialactions/like-box-default.html"
 
     return {
-        # 'object_likes': object_likes,
+        'object_likes': object_likes,
         'object_to_link': object_to_link.id,
         'content': content,
         'likes': object_likes.likes,
