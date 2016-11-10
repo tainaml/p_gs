@@ -59,9 +59,9 @@
            "headline":"{{ question.title|slice:":110"  }}",
            "datePublished":"{{ question.question_date|date:'Y-m-d G:i' }}",
            "dateModified":"{{ question.question_date|date:'Y-m-d G:i' }}",
-           "answerCount": {{ question.counter_answer }}
+           "answerCount": {{ question.counter_answer }},
            "upvoteCount": {{ question.like_count }},
-           "downvoteCount": {{ question.dislike_count }},
+           "downvoteCount": {{ question.dislike_count }}
            {% if question.feed.communities %}
             ,"about":[
                 {% for community in  question.feed.communities.all %}
