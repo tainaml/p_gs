@@ -1,6 +1,6 @@
+from django.db.models import Q
 import os
 from datetime import datetime
-
 from django.contrib.contenttypes.fields import GenericRelation
 from django.contrib.postgres.search import SearchVectorField, SearchVector
 from django.db import models
@@ -10,7 +10,6 @@ from django.utils.functional import cached_property
 from django.utils.translation import ugettext as _
 from django.conf import settings
 from apps.comment.models import Comment
-from apps.core.business.content_types import ContentTypeCached
 from apps.core.models.embed import EmbedItem
 from apps.feed.models import FeedObject
 from apps.socialactions.models import Counter, UserAction
@@ -95,10 +94,6 @@ class Article(models.Model):
     def modified_date(self):
         return self.publishin if self.publishin and self.is_published() else self.updatein
 
-
-
-
-
     # @cached_property
     # def comments_count(self):
     #     article_content_type = ContentTypeCached.objects.get(model='article')
@@ -143,6 +138,19 @@ class Article(models.Model):
 
     def get_image(self):
         return self.image if self.image else None
+
+    @cached_property
+    def image_or_default(self):
+
+        if self.image and self.image.url:
+            return self.image
+
+        try:
+            feed = self.feed.first()
+            _community = feed.communities.all().exclude(image=None)
+            return _community.first().image
+        except Exception:
+            return self.image
 
     def do_publish(self, update_date=False):
         if not self.publishin:

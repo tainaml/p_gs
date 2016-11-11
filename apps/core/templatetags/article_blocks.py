@@ -141,9 +141,8 @@ class ArticleBlock(CacheItemMixin):
             # context_excludes.append(article.id)
             self.excludes.append(article.id)
 
-            if not article.image:
-                _community = get_article_community_by_category(article, self.category)
-                article.image = _community.image if _community else None
+            article.image = article.image_or_default
+
 
         # ArticleCacheExcludes.append(self.cache_excludes, excludes)
         # self.base_context.update({'excludes': context_excludes})

@@ -103,6 +103,6 @@ def get_categories(list_ids=None):
     try:
         categories = Taxonomy.objects.filter(criteria)
     except Taxonomy.DoesNotExist:
-        categories = None
+        categories = Taxonomy.objects.none()
 
     return categories
