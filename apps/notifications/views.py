@@ -81,7 +81,7 @@ class NotificationBaseView(View):
 
         try:
             notification_group = self.set_notification_group(self.notification_type)
-        except Exception as e:
+        except Exception, e:
             return self.not_found(request, {'error': e.message})
 
         form = self.form_notification(request.GET)
@@ -89,14 +89,10 @@ class NotificationBaseView(View):
         form.set_notification_group(notification_group)
         form.set_items_per_page(10)
 
-        notification_object = form.process()
-
-        notifications = notification_object.get('notifications')
-        notifications_paginator = notification_object.get('paginator')
-        notifications_counter = notification_object.get('all_notifications')
+        notifications, paginator = form.process()
 
         context['profile'] = request.user.profile
-        context['paginator'] = notifications_paginator
+        context['paginator'] = paginator
         context['notifications'] = notifications
         context['notifications_label'] = NOTIFICATION_ACTIONS
         context['url_pagination'] = 'notifications:%s' % self.notification_type
@@ -156,14 +152,11 @@ class NotificationMarkAllAsRead(NotificationBaseView):
 
         notification_group = self.set_notification_group(notification_type)
 
-        notification_object = Business.get_notifications(
+        notifications, paginator = Business.get_notifications(
             user=request.user,
             notification_actions=notification_group,
             read=False
         )
-
-        notifications = notification_object.get('notifications')
-
         notifications_read = Business.set_notification_as_read([n.id for n in notifications])
 
         return self.return_process(request, {
@@ -199,14 +192,11 @@ class NotificationMarkAllAsVisualized(NotificationBaseView):
 
         notification_group = self.set_notification_group(notification_type)
 
-        notification_object = Business.get_notifications(
+        notifications, paginator = Business.get_notifications(
             user=request.user,
             notification_actions=notification_group,
             visualized=False
         )
-
-        notifications = notification_object.get('notifications')
-
         notifications_visualized = Business.set_notification_as_visualized([n.id for n in notifications])
 
         return self.return_process(request, {
