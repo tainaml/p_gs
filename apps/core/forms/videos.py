@@ -67,7 +67,7 @@ class VideosFiltersForm(IdeiaForm):
             qs = Community.objects.all()
 
             if category:
-                qs = qs.filter(taxonomy__in=[category])
+                qs = self.get_communities(category)
 
             community_obj = qs.get(id=community)
             return community
@@ -79,7 +79,7 @@ class VideosFiltersForm(IdeiaForm):
         return ''
 
     def get_categories(self):
-        return TaxonomyBusiness.get_categories()
+        return TaxonomyBusiness.get_categories().order_by('description')
 
     def get_communities(self, category=None):
 
@@ -93,7 +93,7 @@ class VideosFiltersForm(IdeiaForm):
         else:
             communities = Community.objects.none()
 
-        return communities
+        return communities.order_by('title')
 
     def __process__(self):
 
