@@ -26,6 +26,7 @@
   border: 1px solid #e1e1e1;
 
   .post-creator {
+    height: 20px;
     margin-top: 10px;
     margin-bottom: 10px;
     display: block;
@@ -72,13 +73,14 @@
 }
 .list__video__description {
   overflow: hidden;
-  height: 79px;
+  height: 59px;
   margin-top: -5px;
   margin-bottom: 10px;
   display: block;
   color: #5d7184;
   font: 600 14px/20px "Open Sans";
   letter-spacing: -0.05em;
+  text-overflow: ellipsis;
 }
 .list__videos hr {
   margin-top: 0;
@@ -88,4 +90,10 @@
 .list__videos .post-communities {
   display: block;
   border-top: 1px solid #e1e1e1;
+  font-size: 14px;
+
+  .link-to-community {
+    padding-top: 5px;
+    display: block;
+  }
 }

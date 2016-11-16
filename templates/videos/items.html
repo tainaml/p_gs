@@ -5,7 +5,7 @@
     {% for item in videos %}
         <div class="col-sm-2 col-xs-6">
             <div class="list__video__item">
-                <a href="{{ item.get_absolute_url }}">
+                <a href="{{ item.get_absolute_url }}" title="{{ item.title }}">
                     <figure class="list__video__image">
 
 
@@ -27,7 +27,7 @@
               <span class="post-creator">
                 <figure>
                     <img src="{% get_avatar item.author width=20 %}" alt="foto de {{ item.author.get_full_name }}">
-                    <figcaption>{{ item.author.get_full_name }}</figcaption>
+                    <figcaption title="{{ item.author.get_full_name }}">{{ item.author.get_full_name }}</figcaption>
                 </figure>
               </span>
               <span class="list__video__description">
