@@ -23,7 +23,9 @@ def try_dispatch_notification_mail(sender, **kwargs):
         print('Sem instancia {} ou nao criado {}'.format(bool(instance), bool(created)))
         return
 
-    if configuration.check_config_to_notify(instance.to, 'mail_notification', None):
+    action_blacklist = instance.notification_action in getattr(settings, 'NOTIFICATION_MAIL_BLACKLIST', [])
+
+    if configuration.check_config_to_notify(instance.to, 'mail_notification', None) and not action_blacklist:
 
         try:
             send_email_notification(instance.to, instance)
