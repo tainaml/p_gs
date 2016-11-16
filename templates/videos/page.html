@@ -1,0 +1,101 @@
+{% extends 'home/layout/base.html' %}
+
+{% load ads %}
+{% load widget_tweaks %}
+{% load seo_pagination_tags %}
+
+{% block title %}Vídeos{% endblock title %}
+
+{% block link_pagination %}
+
+    {% if videos %}
+    {% pagination_links videos %}
+    {% endif %}
+
+{% endblock link_pagination %}
+
+{% block extra_meta %}
+    {{ block.super }}
+    {% if not videos %}
+        <meta name="robots" content="noindex,nofollow">
+    {% endif %}
+
+{% endblock %}
+
+{% block content %}
+    <main class="container main" data-page="videos">
+        <div class="row">
+            <div class="col-sm-12">
+                <header class="area-title">
+                    <h2>Vídeos de TI</h2>
+                </header>
+                <p class="videos__page__description">Lista de vídeos sobre tecnologia</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="banner-content-wide">
+                <div class="banner">
+                    {% ads_only_production "videos_top" "all" %}
+                </div>
+            </div>
+        </div>
+        <div class="row video__form__filter">
+            <div class="col-sm-12 form-group visible-xs-block">
+                <div class="btn btn-lg btn-block btn-primary" data-target="#filters" data-toggle="collapse">
+                    <i class="gsticon gsticon-search"></i>
+                    Buscar vídeo
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <form action="#" class="collapse navbar-collapse" id="filters" data-form-send-enables>
+                <div class="row">
+                    <div class="col-sm-4 form-group clearfix">
+                        <div class="form-search-input" style="width: 90%">
+                            <input type="text" id="filter-profession" name="criteria" value="{{ request.GET.criteria|default_if_none:"" }}"
+                                   placeholder="Pesquisar por vídeos" autocomplete="off">
+                        </div>
+                        <button type="submit" class="form-search-button" style="width: 10%">
+                            <i class="gsticon gsticon-search"></i>
+                        </button>
+                    </div>
+                    <div class="col-sm-3 form-group">
+                        <select name="category" id="categories" class="form-control" data-form-send>
+                            <option value="">Categorias</option>
+                            {% for category in categories %}
+                                <option value="{{ category.id }}" {% if category.id|stringformat:"s" == request.GET.category %}selected{% endif %}>{{ category.description }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-sm-3 form-group">
+                        <select name="community" id="communities" class="form-control" data-form-send>
+                            <option value="">Comunidade</option>
+                            {% for community in communities %}
+                                <option value="{{ community.id }}" {% if community.id|stringformat:"s" == request.GET.community %}selected{% endif %}>{{ community.title }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-sm-2 form-group">
+
+                        {% render_field form.order id='order-by' class='form-control' data-form-send=1 %}
+
+                    </div>
+                </div>
+            </form>
+            <div class="col-sm-12 list__videos">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <hr>
+                    </div>
+
+                    <div class="j-scroll clearfix" style="">
+                      <div class="j-scroll-container">
+                        {% include 'videos/items.html' %}
+                      </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock content %}
