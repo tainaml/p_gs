@@ -3,7 +3,7 @@
 import $ from 'jquery';
 import 'jscroll';
 
-if ( $( '[data-page="videos"]' )) {
+if ( $( '[data-page="videos"]' ).length) {
   $( '.j-scroll' ).jscroll({
       autoTrigger: false,
       loadingHtml: '<div class="col-xs-12"><div class="load-async-preload"></div></div>',
