@@ -77,7 +77,13 @@
                     </div>
                     <div class="col-sm-2 form-group">
 
-                        {% render_field form.order id='order-by' class='form-control' data-form-send=1 %}
+                        <select name="order" id="order-by" class="form-control" data-form-send="1">
+
+                            {% for value, order in order_choices %}
+                            <option value="{{ value }}">{{ order }}</option>
+                            {% endfor %}
+                            
+                        </select>
 
                     </div>
                 </div>
