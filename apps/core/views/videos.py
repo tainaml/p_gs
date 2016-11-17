@@ -20,6 +20,9 @@ class VideoView(View):
 
         videos = form.process()
 
+        if videos == False:
+            videos = form.empty_querystring()
+
         form_data = form.cleaned_data
         if videos.has_next():
             form_data.update({
@@ -31,6 +34,7 @@ class VideoView(View):
         return {
             'form': form,
             'videos': videos,
+            'order_choices': form.CHOICES_ORDER_BY,
             'categories': form.get_categories(),
             'communities': form.get_communities(form_data.get('category', 0)),
             'next_querystring': next_querystring

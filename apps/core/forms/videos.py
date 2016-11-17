@@ -28,7 +28,7 @@ class VideosFiltersForm(IdeiaForm):
     criteria = forms.CharField(required=False)
     category = forms.IntegerField(required=False)
     community = forms.IntegerField(required=False)
-    order = forms.ChoiceField(choices=CHOICES_ORDER_BY, required=False)
+    order = forms.IntegerField(required=False)
 
     items_per_page = 12
 
@@ -46,7 +46,8 @@ class VideosFiltersForm(IdeiaForm):
     def clean_order(self):
         order = self.cleaned_data.get('order')
         try:
-            return int(order)
+            order = int(order)
+            return order if order in self.CHOICES_ORDER_BY else 0
         except Exception:
             return 0
 
@@ -94,6 +95,13 @@ class VideosFiltersForm(IdeiaForm):
             communities = Community.objects.none()
 
         return communities.order_by('title')
+
+    def empty_querystring(self):
+
+        qs = Article.objects.none()
+        paginated = paginator.Paginator(qs, self.items_per_page)
+
+        return paginated.page(1)
 
     def __process__(self):
 
