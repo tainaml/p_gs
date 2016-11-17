@@ -14,10 +14,14 @@ def like_box(context, object_to_link, url_next, like_type=None):
 
         user = context['request'].user
 
-        object_likes = Business.get_object_actions_like(object_to_link, user, content)
+        likes = Business.user_likes_by_object(user=user, content_object=object_to_link)
+        unlikes = Business.user_unlikes_by_object(user=user, content_object=object_to_link)
+        i_liked = Business.user_liked_by_object(user=user,content_object=object_to_link)
+        i_unliked = Business.user_unliked_by_object(user=user, content_object=object_to_link)
 
     except ValueError:
         raise Http404()
+
     if like_type == "inline":
         like_box_template = "socialactions/like-box-inline.html"
     elif like_type == "share-box":
@@ -28,13 +32,12 @@ def like_box(context, object_to_link, url_next, like_type=None):
         like_box_template = "socialactions/like-box-default.html"
 
     return {
-        'object_likes': object_likes,
         'object_to_link': object_to_link.id,
         'content': content,
-        'likes': object_likes.likes,
-        'unlikes': object_likes.unlikes,
-        'i_liked': object_likes.user_likes,
-        'i_unliked': object_likes.user_unlikes,
+        'likes': likes,
+        'unlikes': unlikes,
+        'i_liked': i_liked,
+        'i_unliked': i_unliked,
         'url_next': url_next,
         'request': context['request'],
         'like_box_template': like_box_template
