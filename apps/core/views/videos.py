@@ -20,6 +20,9 @@ class VideoView(View):
 
         videos = form.process()
 
+        if videos == False:
+            videos = form.empty_querystring()
+
         form_data = form.cleaned_data
         if videos.has_next():
             form_data.update({
