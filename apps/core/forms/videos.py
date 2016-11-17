@@ -96,6 +96,13 @@ class VideosFiltersForm(IdeiaForm):
 
         return communities.order_by('title')
 
+    def empty_querystring(self):
+
+        qs = Article.objects.none()
+        paginated = paginator.Paginator(qs, self.items_per_page)
+
+        return paginated.page(1)
+
     def __process__(self):
 
         page = self.cleaned_data.get('page')
