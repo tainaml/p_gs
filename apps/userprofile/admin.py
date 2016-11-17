@@ -16,7 +16,9 @@ class ResponsibilityAdminForm(forms.ModelForm):
         js = (
             # 'https://code.jquery.com/jquery-2.2.4.min.js',
             'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js',
-            'https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.1/summernote.min.js', )
+            'https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.1/summernote.min.js',
+            'javascripts/django-jquery-adapter.js',
+            'javascripts/summernote-clean.js' )
 
         css= {
             'all': (
@@ -28,10 +30,10 @@ class ResponsibilityAdminForm(forms.ModelForm):
     class Meta:
         exclude = ()
         widgets = {
-            'about': SummernoteWidget(editor_conf='article'),
-            'study': SummernoteWidget(editor_conf='article'),
-            'main_activity': SummernoteWidget(editor_conf='article'),
-            'more_info': SummernoteWidget(editor_conf='article'),
+            'about': SummernoteWidget(editor_conf='responsibility'),
+            'study': SummernoteWidget(editor_conf='responsibility'),
+            'main_activity': SummernoteWidget(editor_conf='responsibility'),
+            'more_info': SummernoteWidget(editor_conf='responsibility'),
         }
 
 class ResponsibilityAdmin(admin.ModelAdmin):
