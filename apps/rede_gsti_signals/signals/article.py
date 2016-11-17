@@ -1,8 +1,18 @@
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-
 from apps.article.models import Article
-from apps.core.business.embeditem import EmbedBusiness
+from apps.core.tasks import clean_article_links
+
+
+@receiver(post_save, sender=Article)
+def clean_this_article(sender, **kwargs):
+
+    instance = kwargs.get('instance')
+
+    if not instance or instance.status != Article.STATUS_PUBLISH:
+        return
+
+    clean_article_links.delay(instance.id)
 
 
 # @receiver(post_save, sender=Article)
