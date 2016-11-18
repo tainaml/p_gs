@@ -4,8 +4,8 @@
 {% load avatar_tags %}
 {% load thumbor_tags %}
 
-{% block seo-og-title %}{% block seo_title %}Regras{{ block.super }}{% endblock %}{% endblock %}
-{% block seo-og-description %}{% block seo-description %}Regras do Portal GSTI{% endblock %}{% endblock %}
+{% block seo-og-title %}{% block seo_title %}{{ flatpage.title }}{{ block.super }}{% endblock %}{% endblock %}
+{% block seo-og-description %}{% block seo-description %}{{ flatpage.title }}{% endblock %}{% endblock %}
 
 {% block content %}
 
