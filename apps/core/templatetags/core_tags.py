@@ -1,4 +1,5 @@
 # coding=utf-8
+from django.contrib.flatpages.models import FlatPage
 import re
 from apps.core.templatetags.amp_tags import do_amp_normalize_text
 from django import template
@@ -186,3 +187,21 @@ def category_communities_links():
 def seo_description(value):
     string_size = getattr(settings, 'SEO_DESCRIPTION_STRING_SIZE', 160)
     return strip_tags(truncatechars(strip_tags(value), string_size)).strip()
+
+
+
+@register.simple_tag(takes_context=True)
+def portal_rules(context):
+
+    try:
+        page = FlatPage.objects.get(url='/rules/')
+
+        return mark_safe(render_to_string(
+            'modal-rules.html', {
+                'title': page.title,
+                'content': page.content
+            }
+        ))
+
+    except Exception:
+        return ''

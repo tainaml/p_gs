@@ -1,6 +1,7 @@
 {% load staticfiles %}
 {% load utils %}
 {% load recaptcha %}
+{% load core_tags %}
 <!DOCTYPE html>
 <html lang="pt-br">
     <head>
@@ -188,7 +189,8 @@
         </div>
 
         {% include 'home/partials/modals/modal-login.html' %}
-        {% include 'home/partials/modals/modal-rules.html' %}
+{#        {% include 'home/partials/modals/modal-rules.html' %}#}
+        {% portal_rules %}
         {% include 'home/partials/modals/modal-contato.html' %}
         {% include 'home/partials/modals/modal-esqueci-senha.html' %}
 
