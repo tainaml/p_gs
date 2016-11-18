@@ -22,11 +22,6 @@ admin.site.register(Tags)
 admin.site.unregister(User)
 
 
-
-
-
-
-
 class CoreProfile(admin.StackedInline):
     model = UserProfile
     verbose_name = _("Profile")

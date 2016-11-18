@@ -3,6 +3,7 @@ from django.utils.translation import ugettext_lazy as _
 from apps.core.views import core as CoreView
 from apps.core.views import responsibility
 from apps.core.views import videos
+from django.contrib.flatpages import views as flatpagesviews
 
 
 urlpatterns = [
@@ -20,13 +21,12 @@ urlpatterns = [
     # Translators: URL de sobre
     url(_(r'^about/'), CoreView.About.as_view(), name='about'),
 
-
     # Translators: URL de sobre
-    url(_(r'^rules/'), CoreView.Rules.as_view(), name='rules'),
+    url(_(r'^rules/'), flatpagesviews.flatpage, {'url': '/rules/'}, name='rules'),
+    # url(_(r'^rules/'), CoreView.Rules.as_view(), name='rules'),
 
     # Translators: URL de sobre
     url(_(r'^politica-de-privacidade/'), CoreView.Privacy.as_view(), name='privacy'),
-
 
     url(_(r'^oembed/'), CoreView.OEmbed.as_view(), name='oembed'),
 

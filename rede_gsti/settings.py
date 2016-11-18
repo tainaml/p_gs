@@ -137,6 +137,7 @@ DJANGO_APPS = (
 
     #SITES
     'django.contrib.sites',
+    'django.contrib.flatpages',
 
     # SITEMAP
     'django.contrib.sitemaps',
