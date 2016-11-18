@@ -180,24 +180,20 @@
                                                     <i class="gsticon gsticon-search"></i>
                                                 </button>
                                             </div>
-                                            <div class="col-lg-3 col-xs-12 text-right">
-                                                <div class="custom-select">
-                                                    <select class="form-control" id="filterState" name="state" data-ajax-change="true" data-url="{% url 'profile:get_city' %}" data-target="#filterCity">
-                                                        <option value="" selected>Estado</option>
-                                                        {% for state in states %}
-                                                            <option value="{{ state.id }}">{{ state.name }}</option>
-                                                        {% endfor %}
-                                                    </select>
-                                                </div>
+                                            <div class="col-lg-4 col-xs-12 form-group">
+                                                <select class="form-control" id="filterState" name="state" data-ajax-change="true" data-url="{% url 'profile:get_city' %}" data-target="#filterCity">
+                                                    <option value="" selected>Estado</option>
+                                                    {% for state in states %}
+                                                        <option value="{{ state.id }}">{{ state.name }}</option>
+                                                    {% endfor %}
+                                                </select>
                                             </div>
-                                            <div class="col-lg-4 col-xs-12 text-right">
-                                                <div class="custom-select">
-                                                    <select class="form-control" id="filterCity" name="city">
-                                                        <option value="">Cidade</option>
-                                                    </select>
-                                                </div>
+                                            <div class="col-lg-4 col-xs-12 form-group">
+                                                <select class="form-control" id="filterCity" name="city">
+                                                    <option value="">Cidade</option>
+                                                </select>
                                             </div>
-                                            <div class="col-lg-5 col-xs-12 text-right">
+                                            <div class="col-lg-4 col-xs-12 form-group">
                                                 <select name="responsibility" class="form-control" id="filterResponsibility">
                                                     <option value="">Profissões</option>
                                                     {% for responsibility in responsibilities %}

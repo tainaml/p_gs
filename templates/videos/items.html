@@ -1,3 +1,5 @@
+{% load staticfiles %}
+{% load abs_url %}
 {% load avatar_tags %}
 {% load thumbor_tags %}
 
@@ -15,12 +17,8 @@
                         {% else %}
 
                             {# TODO: Change the default image HERE #}
-
-                            <div class="img-responsive">
-                              <div class="placeholder"></div>
-                            </div>
-
-                            <!-- <img class="img-responsive" src="http://placehold.it/150x113?text=" alt="{{ item.title }}" /> -->
+                            {% absolute_url '/static/images/gsti-video-placeholder.png' as image_placeholder %}
+                             <img class="img-responsive" src="{% thumbor_url image_placeholder width=150 height=113 smart=False fit_in=False %}" alt="{{ item.title }}" /> 
                         {% endif %}
 
                         {% if item.feed.first.official %}
