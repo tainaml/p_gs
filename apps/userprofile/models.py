@@ -130,14 +130,14 @@ class UserProfile(models.Model):
 
 
 class Responsibility(models.Model):
-    name = models.CharField(max_length=60, null=False, blank=False)
-    slug = models.SlugField(null=False, blank=True)
-    about = models.TextField(null=True, blank=True)
-    study = models.TextField(null=True, blank=True)
-    main_activity = models.TextField(null=True, blank=True)
-    more_info = models.TextField(null=True, blank=True)
-    categories = models.ManyToManyField(to=Taxonomy, related_name='responsibilities')
-    active = models.BooleanField(default=False)
+    name = models.CharField(max_length=60, null=False, blank=False, verbose_name=_('Name'))
+    slug = models.SlugField(null=False, blank=True, verbose_name=_('Slug'))
+    about = models.TextField(null=True, blank=True, verbose_name=_('Sobre'))
+    study = models.TextField(null=True, blank=True, verbose_name=_('What study'))
+    main_activity = models.TextField(null=True, blank=True, verbose_name=_('Main Activities'))
+    more_info = models.TextField(null=True, blank=True, verbose_name=_('More info'))
+    categories = models.ManyToManyField(to=Taxonomy, related_name='responsibilities', verbose_name=_('Categories'))
+    active = models.BooleanField(default=False, verbose_name=_('Active'))
 
     class Meta:
         ordering = ('name',)
