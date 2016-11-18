@@ -1,4 +1,15 @@
 {% extends 'home/layout/base.html' %}
+
+{% load seo_pagination_tags %}
+
+{% block link_pagination %}
+
+    {% if responsibilities %}
+    {% pagination_links responsibilities %}
+    {% endif %}
+
+{% endblock link_pagination %}
+
 {% block title %}Profissões{% endblock title %}
 {% block content %}
     <main class="container main">

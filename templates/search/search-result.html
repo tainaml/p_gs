@@ -172,7 +172,7 @@
                                 {% block filter_users %}
                                     <div id="filters-members" class="form-search" data-toggle="filters">
                                         <form class="row" id="form-search-followers"  name="filterMember" action="{% url 'search:list' 'users' %}?next={{ request.path }}" method="GET" role="search" data-type="html" data-ajaxform="true" data-group-class=".form-group">
-                                            <div class="col-lg-4 col-xs-12">
+                                            <div class="form-group col-xs-12">
                                                 <div class="form-search-input">
                                                     <input type="text" id="filterName" value="{{ request.GET.q }}" name="q" placeholder="{{ placehold|default:"Procure por pessoas" }}" autocomplete="off">
                                                 </div>
@@ -180,7 +180,7 @@
                                                     <i class="gsticon gsticon-search"></i>
                                                 </button>
                                             </div>
-                                            <div class="col-lg-2 col-xs-12 text-right">
+                                            <div class="col-lg-3 col-xs-12 text-right">
                                                 <div class="custom-select">
                                                     <select class="form-control" id="filterState" name="state" data-ajax-change="true" data-url="{% url 'profile:get_city' %}" data-target="#filterCity">
                                                         <option value="" selected>Estado</option>
@@ -190,14 +190,14 @@
                                                     </select>
                                                 </div>
                                             </div>
-                                            <div class="col-lg-3 col-xs-12 text-right">
+                                            <div class="col-lg-4 col-xs-12 text-right">
                                                 <div class="custom-select">
                                                     <select class="form-control" id="filterCity" name="city">
                                                         <option value="">Cidade</option>
                                                     </select>
                                                 </div>
                                             </div>
-                                            <div class="col-lg-3 col-xs-12 text-right">
+                                            <div class="col-lg-5 col-xs-12 text-right">
                                                 <select name="responsibility" class="form-control" id="filterResponsibility">
                                                     <option value="">Profissões</option>
                                                     {% for responsibility in responsibilities %}

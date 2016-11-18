@@ -1,3 +1,4 @@
+from apps.core.business import configuration
 from django.db.models import Q
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.contenttypes.models import ContentType
@@ -38,6 +39,9 @@ def send_notification(author=None, to=None, notification_action=None,
             notification_action, int):
         raise NotValidNotificationSettings('not_valid_setting',
                                            'NOTIFICATION_ACTIONS')
+
+    if not configuration.check_config_to_notify(to_user=to, action=notification_action, target_object=target_object):
+        return None
 
     notification = Notification(
         author=author,

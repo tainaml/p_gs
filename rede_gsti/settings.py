@@ -137,6 +137,7 @@ DJANGO_APPS = (
 
     #SITES
     'django.contrib.sites',
+    'django.contrib.flatpages',
 
     # SITEMAP
     'django.contrib.sitemaps',
@@ -444,11 +445,15 @@ NOTIFICATION_ACTIONS = {
 
 NOTIFICATION_GROUP = {
 
-    'members': [NOTIFICATION_FOLLOW],
-    'general': [NOTIFICATION_LIKE, NOTIFICATION_UNLIKE, NOTIFICATION_ALERT, NOTIFICATION_USERALERT, NOTIFICATION_SUGGEST],
-    'posts': [NOTIFICATION_LIKE, NOTIFICATION_COMMENT, NOTIFICATION_ANSWER]
-
+    'members': [NOTIFICATION_FOLLOW, NOTIFICATION_LIKE, NOTIFICATION_UNLIKE],
+    'general': [NOTIFICATION_ALERT, NOTIFICATION_USERALERT, NOTIFICATION_SUGGEST],
+    'posts': [NOTIFICATION_COMMENT, NOTIFICATION_ANSWER]
 }
+
+
+NOTIFICATION_MAIL_BLACKLIST = [
+    NOTIFICATION_UNLIKE
+]
 
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
@@ -718,6 +723,49 @@ SUMMERNOTE_CONFIG = {
 
             },
             'styleTags':  ['p', 'blockquote', 'pre', 'h2', 'h3', 'h4'],
+            'toolbar': [
+                ['style', ['style']],
+                ['font', ['strikethrough']],
+                ['hr', ['hr']],
+                ['link', ['link']],
+                ['style', ['bold', 'italic', 'clear']],
+                ['table', ['table']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['picture', ['picture', 'oembed', 'prettyprint']]
+
+            ],
+            'popover': {
+                'image': [
+                    ['imagesize', ['imageSize100', 'imageSize50', 'imageSize25']],
+                    ['float', ['floatLeft', 'floatRight', 'floatNone']],
+                    ['remove', ['removeMedia']]
+                ],
+                'link': [
+                    ['link', ['linkDialogShow', 'unlink']]
+                ],
+                'air': [
+                    ['color', ['color']],
+                    ['font', ['bold', 'clear']],
+                    ['para', ['ul', 'paragraph']],
+                    ['table', ['table']],
+                    ['insert', ['link', 'picture']]
+                ]
+            }
+
+        },
+        'responsibility': {
+            'airMode': False,
+            'lang': 'pt-BR',
+            'minHeight': 340,
+            'maxHeight': 340,
+            'hasHint': True,
+
+            'oEmbed': {
+                'service': '/oembed/',
+                'spinner': '<div class=\"text-center\"><img src=\"/static/images/preload.gif\" /></div>',
+
+            },
+            'styleTags':  ['p', 'blockquote', 'pre', 'h3', 'h4'],
             'toolbar': [
                 ['style', ['style']],
                 ['font', ['strikethrough']],
