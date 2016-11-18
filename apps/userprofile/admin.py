@@ -30,10 +30,10 @@ class ResponsibilityAdminForm(forms.ModelForm):
     class Meta:
         exclude = ()
         widgets = {
-            'about': SummernoteWidget(editor_conf='responsibility'),
-            'study': SummernoteWidget(editor_conf='responsibility'),
-            'main_activity': SummernoteWidget(editor_conf='responsibility'),
-            'more_info': SummernoteWidget(editor_conf='responsibility'),
+            'about': SummernoteWidget(editor_conf='responsibility', load_init=False),
+            'study': SummernoteWidget(editor_conf='responsibility', load_init=False),
+            'main_activity': SummernoteWidget(editor_conf='responsibility', load_init=False),
+            'more_info': SummernoteWidget(editor_conf='responsibility', load_init=False),
         }
 
 class ResponsibilityAdmin(admin.ModelAdmin):
