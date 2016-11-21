@@ -29,6 +29,16 @@ class SelectizeSelectSingle(Select):
         final_attrs = self.build_attrs(attrs, name=name)
 
         output = [format_html('<select{}>', flatatt(final_attrs))]
+
+        if(value):
+            display_name = value
+            try:
+                display_name = self.choices.queryset.get(id=value).username
+            except Exception:
+                pass
+
+            output.append('<option value="{}">{}</option>'.format(value, display_name))
+
         output.append('</select>')
 
         return mark_safe('\n'.join(output))
