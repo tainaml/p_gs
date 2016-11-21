@@ -23,7 +23,8 @@ admin.site.unregister(User)
 
 
 class CoreProfile(admin.StackedInline):
-    model = UserProfile
+    model = UserProfile__author__ = 'jroque'
+
     verbose_name = _("Profile")
     verbose_name_plural = _("Profiles")
 
@@ -152,48 +153,7 @@ class FeedInline(GenericTabularInline):
 class QuestionAdmin(VersionAdmin):
     inlines = [FeedInline]
 
-class ArticleAdminForm(forms.ModelForm):
-
-
-
-    class Media:
-        js = (
-            # 'https://code.jquery.com/jquery-2.2.4.min.js',
-            'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js',
-            'https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.1/summernote.min.js', )
-
-        css= {
-            'all': (
-                'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css',
-                'https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.1/summernote.css',
-            )
-        }
-
-    class Meta:
-        excludes = ()
-        widgets = {
-          'text': SummernoteWidget(editor_conf='article_admin')
-        }
-
-
-class ArticlelAdmin(VersionAdmin):
-
-    form = ArticleAdminForm
-
-    list_display = ('id', 'title', 'slug', 'status', 'publishin', 'show_author_name')
-    search_fields = ('id', 'title', 'slug')
-    list_display_links = ('id', 'title', 'slug')
-
-    list_filter = ['status']
-
-    inlines = [FeedInline]
-
-    def show_author_name(self, obj):
-        return obj.author.get_full_name()
-    show_author_name.short_description = 'Author'
-
 
 admin.site.register(UserAction)
-admin.site.register(Article, ArticlelAdmin)
 admin.site.register(Question, QuestionAdmin)
 admin.site.register(User, CoreUserAdmin)
