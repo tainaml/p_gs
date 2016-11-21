@@ -13,6 +13,9 @@ def clean_this_article(sender, **kwargs):
         return
 
     clean_article_links.delay(instance.id)
+    # clean_article_links(instance.id)
+
+    print('ok')
 
 
 # @receiver(post_save, sender=Article)

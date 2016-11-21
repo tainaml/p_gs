@@ -1,7 +1,9 @@
 from apps.article.models import Article
+from django.utils.safestring import mark_safe, mark_for_escaping
 from rede_gsti.celery import app
 import bleach
 import re
+from html5lib.tokenizer import HTMLTokenizer
 
 
 @app.task
@@ -27,13 +29,22 @@ def clean_article_links(article_id):
 
         return attrs
 
-    article_text = bleach.linkify(
-        text=article.text,
-        callbacks=[
-            no_follow_external_links
-        ]
-    )
+    try:
+        article_pre = u'<pre>{}</pre>'.format(mark_for_escaping(article.text))
 
-    if article_text != article.text:
-        article.text = article_text
-        article.save()
+        article_text = bleach.linkify(
+            text=article_pre,
+            callbacks=[
+                no_follow_external_links
+            ],
+            tokenizer=HTMLTokenizer,
+            skip_pre=True
+        )
+
+        article_text = article_text.replace('<pre>', '', 1).replace('</pre>', '', -1)
+
+        if article_text != article.text:
+            article.text = article_text
+            article.save()
+    except Exception as e:
+        pass
