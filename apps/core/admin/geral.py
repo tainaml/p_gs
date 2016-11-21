@@ -150,6 +150,8 @@ class FeedInline(GenericTabularInline):
     max_num = 1
 
 class QuestionAdmin(VersionAdmin):
+    raw_id_fields = ('author',)
+
     inlines = [FeedInline]
 
 class ArticleAdminForm(forms.ModelForm):
@@ -184,7 +186,9 @@ class ArticlelAdmin(VersionAdmin):
     search_fields = ('id', 'title', 'slug')
     list_display_links = ('id', 'title', 'slug')
 
+    raw_id_fields = ('author',)
     list_filter = ['status']
+
 
     inlines = [FeedInline]
 
