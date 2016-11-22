@@ -199,8 +199,6 @@ def user_followed(user=None, content_type=None, object_id=None):
 
 
 def user_likes_by_object(user=None, content_object=None):
-    if not user.is_authenticated():
-        return 0
 
     return user_count_acted_by_object(user, content_object, 'like')
 
@@ -210,8 +208,7 @@ def user_likes_by_object_content_type_and_id(user=None, content_type=None, objec
 
 
 def user_unlikes_by_object(user=None, content_object=None):
-    if not user.is_authenticated():
-        return 0
+
     return user_count_acted_by_object(user, content_object, 'unlike')
 
 
