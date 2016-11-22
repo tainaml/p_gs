@@ -6,7 +6,7 @@ import re
 from html5lib.tokenizer import HTMLTokenizer
 
 
-@app.task
+
 def clean_article_links(article_id):
 
     portal_rule = re.compile(r'http(.+)(portalgsti\.com\.br)')

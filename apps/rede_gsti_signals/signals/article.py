@@ -12,7 +12,7 @@ def clean_this_article(sender, **kwargs):
     if not instance or instance.status != Article.STATUS_PUBLISH:
         return
 
-    clean_article_links.delay(instance.id)
+    # clean_article_links.delay(instance.id)
     # clean_article_links(instance.id)
 
     print('ok')
