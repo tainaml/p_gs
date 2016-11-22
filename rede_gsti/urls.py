@@ -118,6 +118,9 @@ urlpatterns = [
     # Translators: URL de buscai
     url(_(r'^'), include('apps.core.urls.search', namespace='search')),
 
+    # Translators: URL core adicionais
+    url(_(r'^'), include('apps.core.urls.core', namespace='core')),
+
     # Translators: URL root de comunidade
     url(_(r'^'), include('apps.core.urls.community', namespace='community')),
 

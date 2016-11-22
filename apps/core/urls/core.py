@@ -16,7 +16,7 @@ urlpatterns = [
     url(_(r'^responsibilities/(?P<slug>[aA-zZ0-9-_]+)/$'), responsibility.ResponsibilityView.as_view(), name='responsibility'),
 
     # Translators: URL de videos
-    url(_(r'videos/$'), videos.VideoView.as_view(), name='videos-list'),
+    url(_(r'^videos/$'), videos.VideoView.as_view(), name='videos-list'),
 
     # Translators: URL de sobre
     url(_(r'^about/'), flatpagesviews.flatpage, {'url': '/about/'}, name='about'),
