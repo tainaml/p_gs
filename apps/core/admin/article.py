@@ -25,7 +25,12 @@ class ArticleAdminForm(forms.ModelForm):
         excludes = ()
         widgets = {
             'text': SummernoteWidget(editor_conf='article_admin'),
-            'author': SelectizeSelectSingle(),
+            'author': SelectizeSelectSingle(
+                unique_name='admin_authors',
+                # search_fields={
+                #
+                # }
+            ),
         }
 
 
