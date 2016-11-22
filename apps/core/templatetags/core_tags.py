@@ -194,14 +194,23 @@ def seo_description(value):
 def portal_rules(context):
 
     try:
-        page = FlatPage.objects.get(url='/rules/')
 
-        return mark_safe(render_to_string(
-            'modal-rules.html', {
-                'title': page.title,
-                'content': page.content
-            }
-        ))
+        in_cache = cache.get('flatpages_rules')
+
+        if not in_cache:
+
+            page = FlatPage.objects.get(url='/rules/')
+
+            in_cache = render_to_string(
+                'modal-rules.html', {
+                    'title': page.title,
+                    'content': page.content
+                }
+            )
+
+            cache.set('flatpages_rules', in_cache, 1800)
+
+        return mark_safe(in_cache)
 
     except Exception:
         return ''

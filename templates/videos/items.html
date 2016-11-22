@@ -21,7 +21,7 @@
                              <img class="img-responsive" src="{% thumbor_url image_placeholder width=150 height=113 smart=False fit_in=False %}" alt="{{ item.title }}" /> 
                         {% endif %}
 
-                        {% if item.feed.first.official %}
+                        {% if item.feed_object.official %}
                             <span class="label-official-content"></span>
                         {% endif %}
 
@@ -38,7 +38,7 @@
                 </a>
                 <nav class="post-communities">
 
-                  {% if item.feed.first.communities.all %}
+                  {% if item.feed_object.communities.all %}
 
                     <a href="javascript:;" rel="nofollow" class="link-to-community" data-toggle="dropdown" aria-expanded="false">
                         Comunidades <i class="gsticon gsticon-angle-down"></i>
@@ -46,7 +46,7 @@
                     <div class="dropdown-menu">
                         <ul class="perfil-actions">
 
-                            {% for item_community in item.feed.first.communities.all %}
+                            {% for item_community in item.feed_object.communities.all %}
 
                                 <li>
                                     <a href="{% url 'community:show' item_community.slug %}" class="link-to-community">

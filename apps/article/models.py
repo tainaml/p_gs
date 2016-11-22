@@ -178,5 +178,9 @@ class Article(models.Model):
         path = reverse('article:view', args=[self.year, self.month, self.slug])
         return build_absolute_uri(path)
 
+    @cached_property
+    def feed_object(self):
+        return self.feed
+
     def __unicode__(self):
         return self.title or "no title"
