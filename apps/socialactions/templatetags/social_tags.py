@@ -14,10 +14,14 @@ def like_box(context, object_to_link, url_next, like_type=None):
 
         user = context['request'].user
 
-        likes = Business.user_likes_by_object(user=user, content_object=object_to_link)
-        unlikes = Business.user_unlikes_by_object(user=user, content_object=object_to_link)
+
         i_liked = Business.user_liked_by_object(user=user,content_object=object_to_link)
         i_unliked = Business.user_unliked_by_object(user=user, content_object=object_to_link)
+
+
+        likes = object_to_link.like_count or Business.user_likes_by_object(user=user, content_object=object_to_link)
+        unlikes =object_to_link.dislike_count or Business.user_unlikes_by_object(user=user, content_object=object_to_link)
+
 
     except ValueError:
         raise Http404()
