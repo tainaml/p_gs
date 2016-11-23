@@ -1,11 +1,15 @@
 from django.http import Http404
 from django import template
+from apps.core.business.content_types import ContentTypeCached
 
 from rede_gsti import settings
 from ..service import business as Business
 
 register = template.Library()
 
+
+article_content_type = ContentTypeCached.objects.get(model='article')
+question_content_type = ContentTypeCached.objects.get(model='question')
 
 @register.inclusion_tag('socialactions/like_box.html', takes_context=True)
 def like_box(context, object_to_link, url_next, like_type=None):
@@ -18,9 +22,12 @@ def like_box(context, object_to_link, url_next, like_type=None):
         i_liked = Business.user_liked_by_object(user=user,content_object=object_to_link)
         i_unliked = Business.user_unliked_by_object(user=user, content_object=object_to_link)
 
-
-        likes = object_to_link.like_count or Business.user_likes_by_object(user=user, content_object=object_to_link)
-        unlikes =object_to_link.dislike_count or Business.user_unlikes_by_object(user=user, content_object=object_to_link)
+        if content in [article_content_type, question_content_type]:
+            likes = object_to_link.like_count or Business.user_likes_by_object(user=user, content_object=object_to_link)
+            unlikes =object_to_link.dislike_count or Business.user_unlikes_by_object(user=user, content_object=object_to_link)
+        else:
+            likes = Business.user_likes_by_object(user=user, content_object=object_to_link)
+            unlikes =Business.user_unlikes_by_object(user=user, content_object=object_to_link)
 
 
     except ValueError:

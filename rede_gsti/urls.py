@@ -37,6 +37,7 @@ url_media = static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 url_search_all = [url(r'(?P<params>.*)$', CoreSearch.SearchAll.as_view(), name='search_all')]
 url_job_vacancy = url(_(r'^jobs/'), include('apps.core.urls.jobs_temporary', namespace='jobs'))\
                    if settings.ENVIRONMENT == 'production' else url(_(r'^jobs/'), include('apps.job_vacancy.urls', namespace='jobs'))
+
 urlpatterns = [
 
     url(r'^$', Home.as_view(), name='index'),
@@ -75,6 +76,11 @@ urlpatterns = [
     url('2013/09/simulado-cobit5.html', RedirectView.as_view(url="/2009/10/simulado-cobit-foundation-5.html", permanent=True)),
     url('2013/02/itil-computacao-em-nuvem.html', RedirectView.as_view(url="/2011/06/computacao-em-nuvem-e-itil-cloud.html", permanent=True)),
     url('2013/02/cloud-computing-foundation.html', RedirectView.as_view(url="/2014/11/itil-e-cloud-computing-video-1724.html", permanent=True)),
+    url(r'2012/09/itil-v3-2011.html', RedirectView.as_view(pattern_name='article:view', permanent=True), {'slug': "itil-v3-2011", 'year': "2012", 'month': '04'}),
+    url(r'2011/07/tcc-monografia-em-itil-2.html', RedirectView.as_view(pattern_name='article:view', permanent=True), {'slug': "tcc-monografia-em-itil-2", 'year': "2012", 'month': '09'}),
+    url(r'2009/09/principais-desafios-da-ti-iii.html', RedirectView.as_view(pattern_name='article:view', permanent=True), {'slug': "principais-desafios-da-ti-ii", 'year': "2009", 'month': '09'}),
+    url(r'2016/10/10-passos-para-elaborar-um-plano-da-capacidade-de-ti.html', RedirectView.as_view(pattern_name='article:view', permanent=True), {'slug': "10-passos-para-elaborar-um-plano-da-capacidade-de-ti", 'year': "2012", 'month': '08'}),
+    url(r'2011/07/simulado-iso-27002-foundation-2.html', RedirectView.as_view(pattern_name='article:view', permanent=True), {'slug': "simulado-iso-27002", 'year': "2011", 'month': '04'}),
 
     # Translators: URL root de publicacao
     url(_(r'^'), include('apps.core.urls.article', namespace='article')),
@@ -132,7 +138,6 @@ urlpatterns = [
     url(r'^', include('apps.core.urls.blogspot', namespace='blogspot')),
 
 ] + url_statics + url_media + urls_old
-
 urls_front_end = [
     url(_(r'^front-end/(?P<template>[a-z0-9./]+(?:(-|_)[a-z0-9.]+)*)'), FrontEndBase.as_view())
 ]
