@@ -39,6 +39,10 @@ class User(AbstractUser):
     def user_profile(self):
         return self.profile if self.is_authenticated() else None
 
+    @staticmethod
+    def autocomplete_search_fields():
+        return 'username', 'first_name', 'last_name'
+
     @cached_property
     def followers(self):
         try:
