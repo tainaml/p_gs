@@ -976,7 +976,6 @@ if ENVIRONMENT == "develop":
 
     profiler = config.get("DEVELOP", 'profiler')
 
-
     PROFILER_APP = None
     if profiler == 'debug_toolbar':
         PROFILER_APP = 'debug_toolbar'
@@ -989,6 +988,7 @@ if ENVIRONMENT == "develop":
     STATIC_URL = '/static/'
     MEDIA_URL = '/media/uploads/'
 
+    INSTALLED_APPS = ('jet',) + INSTALLED_APPS
 
     INSTALLED_APPS += ('apps.ninico',)
     if PROFILER_APP:
@@ -1015,6 +1015,9 @@ elif ENVIRONMENT == "test":
     DEBUG = False
     ALLOWED_HOSTS = ['*']
     from django.core.cache.backends.memcached import PyLibMCCache
+
+    INSTALLED_APPS = ('jet',) + INSTALLED_APPS
+
     if USE_CACHE:
 
         CACHES = {
