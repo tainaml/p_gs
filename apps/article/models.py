@@ -180,7 +180,7 @@ class Article(models.Model):
 
     @cached_property
     def feed_object(self):
-        return self.feed
+        return self.feed.first()
 
     def __unicode__(self):
         return self.title or "no title"
