@@ -1,4 +1,5 @@
 from abc import ABCMeta, abstractmethod
+from django.db.models import Q
 from django.http import JsonResponse
 from django.views import View
 from django import forms
@@ -10,14 +11,16 @@ class SelectizeRegistrator(object):
     __mapper = {}
 
     def add_item(self, key, queryset, value_field='id', label_field='id', search_fields=None):
-        self.__mapper.update({
-            key: {
-                'queryset': queryset,
-                'value_field': value_field,
-                'label_field': label_field,
-                'search_fields': search_fields
-            }
-        })
+
+        if not self.__mapper.has_key(key):
+            self.__mapper.update({
+                key: {
+                    'queryset': queryset,
+                    'value_field': value_field,
+                    'label_field': label_field,
+                    'search_fields': search_fields
+                }
+            })
 
     def get_item(self, key):
         return self.__mapper.get(key, None)
@@ -32,7 +35,49 @@ class SelectizeValidationForm(forms.Form):
 
 
 class SelectizeAutomatic(View):
-    pass
+
+    def get(self, request, unique_name):
+
+        form = SelectizeValidationForm(data=request.GET)
+
+        context = {
+            'unique_name': unique_name,
+        }
+
+        if not form.is_valid():
+            return JsonResponse(context, status=400)
+
+        term = form.cleaned_data.get('q')
+
+        field_obj =  register.get_item(unique_name)
+
+        search_keys = field_obj.get('search_fields')
+
+        value_field = field_obj.get('value_field')
+        label_field = field_obj.get('label_field')
+
+        search_criteria = Q()
+        for key in search_keys:
+            qriteria = {
+                '{}'.format(key): term
+            }
+            search_criteria = search_criteria | Q(**qriteria)
+
+        items = []
+        qs = field_obj.get('queryset')
+
+        try:
+            if qs:
+                items_qs = qs.filter(search_criteria)[:10]
+                items = [{'value': getattr(it, value_field), 'label': getattr(it, label_field)} for it in items_qs if hasattr(it, value_field) and hasattr(it, label_field)]
+        except Exception as e:
+            print('Error in selectize: {}'.format(e))
+
+        context.update({
+            'items': items
+        })
+
+        return JsonResponse(context, status=200)
 
 
 class SelectizeBaseView(View):

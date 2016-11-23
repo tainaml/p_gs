@@ -1,5 +1,6 @@
 from django.forms.widgets import Select
 from django.forms.utils import flatatt
+from django.urls import reverse
 from django.utils.html import format_html
 from django.utils.safestring import mark_safe
 from apps.core.views.selectize import register
@@ -15,7 +16,7 @@ class SelectizeSelectSingle(Select):
 
         js = ('selectize/selectize.min.js', 'selectize/main.js')
 
-    def __init__(self, unique_name, attrs=None, choices=(), search_fields=(), value_field='', label_field=''):
+    def __init__(self, unique_name, attrs=None, choices=(), search_fields=(), value_field='id', label_field='id'):
         super(SelectizeSelectSingle, self).__init__(attrs=attrs, choices=choices)
         self.unique_name = unique_name
         self.search_fields = search_fields
@@ -39,7 +40,8 @@ class SelectizeSelectSingle(Select):
         attrs.update({
             'data-ideia-selectize': True,
             'class': classes,
-            'data-value': value
+            'data-value': value,
+            'data-url': reverse('core:selectize-combosearch', args=(self.unique_name,))
         })
 
         final_attrs = self.build_attrs(attrs, name=name)

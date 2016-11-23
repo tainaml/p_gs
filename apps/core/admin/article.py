@@ -27,9 +27,12 @@ class ArticleAdminForm(forms.ModelForm):
             'text': SummernoteWidget(editor_conf='article_admin'),
             'author': SelectizeSelectSingle(
                 unique_name='admin_authors',
-                # search_fields={
-                #
-                # }
+                label_field='username',
+                search_fields=(
+                    'username__unaccent__icontains',
+                    'first_name__unaccent__icontains',
+                    'last_name__unaccent__icontains',
+                )
             ),
         }
 
