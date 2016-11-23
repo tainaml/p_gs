@@ -137,7 +137,7 @@ urls_front_end = [
     url(_(r'^front-end/(?P<template>[a-z0-9./]+(?:(-|_)[a-z0-9.]+)*)'), FrontEndBase.as_view())
 ]
 
-if settings.ENVIRONMENT == 'develop':
+if settings.ENVIRONMENT in ['develop', 'test']:
     urlpatterns = [
         url(r'^jet/', include('jet.urls', 'jet')),  # Django JET URLS
     ] + urlpatterns
