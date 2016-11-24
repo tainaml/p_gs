@@ -133,6 +133,9 @@ urlpatterns = [
 
     url(r'^ideia-summernote/', include('apps.core.urls.summernote', namespace='ideia-summernote')),
 
+    # Translators: URL de curso
+    url(_(r'^courses/'), include('apps.core.urls.course', namespace='course')),
+
     url(r'^sitemap\.xml$', sitemap_views.index, {'sitemaps': sitemaps}),
     url(r'^sitemap-(?P<section>.+)\.xml$', cache_page(settings.TIME_TO_REFRESH_SITEMAP)(sitemap_views.sitemap), {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
 
