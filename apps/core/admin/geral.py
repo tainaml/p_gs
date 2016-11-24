@@ -23,7 +23,8 @@ admin.site.unregister(User)
 
 
 class CoreProfile(admin.StackedInline):
-    model = UserProfile
+    model = UserProfile__author__ = 'jroque'
+
     verbose_name = _("Profile")
     verbose_name_plural = _("Profiles")
 
@@ -154,6 +155,7 @@ class QuestionAdmin(VersionAdmin):
 
     inlines = [FeedInline]
 
+
 class ArticleAdminForm(forms.ModelForm):
 
 
@@ -198,6 +200,5 @@ class ArticlelAdmin(VersionAdmin):
 
 
 admin.site.register(UserAction)
-admin.site.register(Article, ArticlelAdmin)
 admin.site.register(Question, QuestionAdmin)
 admin.site.register(User, CoreUserAdmin)

@@ -3,6 +3,7 @@ from django.utils.translation import ugettext_lazy as _
 from apps.core.views import core as CoreView
 from apps.core.views import responsibility
 from apps.core.views import videos
+from apps.core.views import selectize
 from django.contrib.flatpages import views as flatpagesviews
 
 
@@ -14,6 +15,9 @@ urlpatterns = [
     url(_(r'^responsibilities/$'), responsibility.ResponsibilityListView.as_view(), name='responsibilities-list'),
 
     url(_(r'^responsibilities/(?P<slug>[aA-zZ0-9-_]+)/$'), responsibility.ResponsibilityView.as_view(), name='responsibility'),
+
+    # Translators: URL do Selectize
+    url(r'^selectize/search/(?P<unique_name>[aA-zZ0-9-_]+)/$', selectize.SelectizeAutomatic.as_view(), name='selectize-combosearch'),
 
     # Translators: URL de videos
     url(_(r'^videos/$'), videos.VideoView.as_view(), name='videos-list'),

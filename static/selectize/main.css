@@ -1,0 +1,10 @@
+.selectize-control{
+    min-width: 300px;
+    float: left;
+    margin-right: 10px;
+}
+
+.selectize-dropdown {
+    position: relative !important;
+    top: 0 !important;
+}
