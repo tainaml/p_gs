@@ -41,6 +41,7 @@ url_job_vacancy = url(_(r'^jobs/'), include('apps.core.urls.jobs_temporary', nam
 urlpatterns = [
 
     url(r'^$', Home.as_view(), name='index'),
+    url(r'^jet/', include('jet.urls', 'jet')),  # Django JET URLS
     url(_(r'^admin/'), include(admin.site.urls)),
 
     # Job vacancy
@@ -141,11 +142,6 @@ urlpatterns = [
 urls_front_end = [
     url(_(r'^front-end/(?P<template>[a-z0-9./]+(?:(-|_)[a-z0-9.]+)*)'), FrontEndBase.as_view())
 ]
-
-if settings.ENVIRONMENT in ['develop', 'test']:
-    urlpatterns = [
-        url(r'^jet/', include('jet.urls', 'jet')),  # Django JET URLS
-    ] + urlpatterns
 
 if not (settings.ENVIRONMENT=='production'):
     urlpatterns += urls_front_end
