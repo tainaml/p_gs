@@ -4,7 +4,6 @@ from django.contrib import admin
 from django import forms
 from ideia_summernote.widget import SummernoteWidget
 from reversion.admin import VersionAdmin
-from apps.custom_base.widgets.selectize import SelectizeSelectSingle
 
 
 class ArticleAdminForm(forms.ModelForm):
@@ -25,15 +24,15 @@ class ArticleAdminForm(forms.ModelForm):
         excludes = ()
         widgets = {
             'text': SummernoteWidget(editor_conf='article_admin'),
-            'author': SelectizeSelectSingle(
-                unique_name='admin_authors',
-                label_field='username',
-                search_fields=(
-                    'username__unaccent__icontains',
-                    'first_name__unaccent__icontains',
-                    'last_name__unaccent__icontains',
-                )
-            ),
+            # 'author': SelectizeSelectSingle(
+            #     unique_name='admin_authors',
+            #     label_field='username',
+            #     search_fields=(
+            #         'username__unaccent__icontains',
+            #         'first_name__unaccent__icontains',
+            #         'last_name__unaccent__icontains',
+            #     )
+            # ),
         }
 
 
