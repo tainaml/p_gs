@@ -117,11 +117,11 @@ urlpatterns = [
     # Translators: URL root of user alerts
     url(_(r'^useralerts/'), include('apps.useralerts.urls', namespace='useralerts')),
 
-    # Translators: URL core adicionais
-    url(_(r'^'), include('apps.core.urls.core', namespace='core')),
-
     # Translators: URL de curso
     url(_(r'^courses/'), include('apps.core.urls.course', namespace='course')),
+
+    # Translators: URL core adicionais
+    url(_(r'^'), include('apps.core.urls.core', namespace='core')),
 
     url(r'^chaining/', include('smart_selects.urls')),
 
