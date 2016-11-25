@@ -1,3 +1,8 @@
+{% load staticfiles %}
+{% load abs_url %}
+{% load avatar_tags %}
+{% load thumbor_tags %}
+
 <div class="col-sm-2 col-xs-6">
     <div class="list__course__item">
         <a href="{{ item.get_absolute_url }}" title="{{ item.title }}">
@@ -26,12 +31,13 @@
             <a href="javascript:;" rel="nofollow" class="link-to-community" data-toggle="dropdown" aria-expanded="false">
                 Comunidades <i class="gsticon gsticon-angle-down"></i>
             </a>
+
             <div class="dropdown-menu">
                 <ul class="perfil-actions">
-                    {% for item_community in item.feed_object.communities.all %}
+                    {% for item_community in item.taxonomies.all %}
                         <li>
                             <a href="{% url 'community:show' item_community.slug %}" class="link-to-community">
-                                {{ item_community.title }}
+                                {{ item_community.community.title }}
                             </a>
                         </li>
                         {% empty %}

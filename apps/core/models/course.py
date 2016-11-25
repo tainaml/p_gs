@@ -47,7 +47,7 @@ class Course(models.Model):
     languages = models.ManyToManyField(Language, blank=True, verbose_name=_('Languages'), related_name="languages")
     image = models.ImageField(max_length=100, upload_to=course_image_upload, blank=True, verbose_name=_('Image'))
     related_courses = models.ManyToManyField("self", blank=True, verbose_name=_('Related Courses'))
-    taxonomies = models.ManyToManyField(Taxonomy, blank=True, verbose_name=_('Taxonomy'), related_name="taxonomies")
+    taxonomies = models.ManyToManyField(Taxonomy, blank=True, verbose_name=_('Taxonomy'), related_name="courses")
 
     affiliate_link = models.URLField(verbose_name=_('Affiliate link'))
 
