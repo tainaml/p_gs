@@ -120,6 +120,9 @@ urlpatterns = [
     # Translators: URL core adicionais
     url(_(r'^'), include('apps.core.urls.core', namespace='core')),
 
+    # Translators: URL de curso
+    url(_(r'^courses/'), include('apps.core.urls.course', namespace='course')),
+
     url(r'^chaining/', include('smart_selects.urls')),
 
     # Translators: URL de buscai
@@ -132,9 +135,6 @@ urlpatterns = [
     url(_(r'^'), include('apps.core.urls.community', namespace='community')),
 
     url(r'^ideia-summernote/', include('apps.core.urls.summernote', namespace='ideia-summernote')),
-
-    # Translators: URL de curso
-    url(_(r'^courses/'), include('apps.core.urls.course', namespace='course')),
 
     url(r'^sitemap\.xml$', sitemap_views.index, {'sitemaps': sitemaps}),
     url(r'^sitemap-(?P<section>.+)\.xml$', cache_page(settings.TIME_TO_REFRESH_SITEMAP)(sitemap_views.sitemap), {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
