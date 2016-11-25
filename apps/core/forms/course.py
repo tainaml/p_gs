@@ -3,6 +3,9 @@ from apps.core.business import course as course_business
 from apps.taxonomy.models import Taxonomy
 from django.utils.translation import ugettext_lazy as _
 
+class CategorylChoiceField(forms.ModelChoiceField):
+    def label_from_instance(self, obj):
+        return obj.description
 
 class CourseListForm(IdeiaForm):
 
@@ -12,11 +15,11 @@ class CourseListForm(IdeiaForm):
         ('', _('Default')),
         ('updatein', _('Recent')),
         ('-updatein', _('Oldest')),
-        ('rating', _('Rating')),
-        ('-rating', _('Rating'))
+        ('rating', _('Better rating')),
+        ('-rating', _('Worst rating'))
     )
 
-    category = forms.ChoiceField(required=False, choices=CHOICES_TAXONOMY)
+    category = CategorylChoiceField(required=False, queryset=CHOICES_TAXONOMY, empty_label=_("Category"), to_field_name="slug")
     community = forms.ChoiceField(required=False, choices=('',))
     order = forms.ChoiceField(required=False, choices=CHOICES_ORDER_BY)
     page = forms.IntegerField(min_value=1, required=False)

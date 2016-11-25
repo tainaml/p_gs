@@ -8,8 +8,8 @@
 
 {% block link_pagination %}
 
-    {% if videos %}
-    {% pagination_links videos %}
+    {% if courses %}
+        {% pagination_links courses %}
     {% endif %}
 
 {% endblock link_pagination %}
@@ -60,12 +60,7 @@
                         </button>
                     </div>
                     <div class="col-sm-3 form-group">
-                        <select name="category" id="categories" class="form-control" data-form-send>
-                            <option value="">Categorias</option>
-                            {% for category in categories %}
-                                <option value="{{ category.id }}" {% if category.id|stringformat:"s" == request.GET.category %}selected{% endif %}>{{ category.description }}</option>
-                            {% endfor %}
-                        </select>
+                        {% render_field form.category class="form-control" data-form-send="" %}
                     </div>
                     <div class="col-sm-3 form-group">
                         <select name="community" id="communities" class="form-control" data-form-send>
@@ -76,14 +71,7 @@
                         </select>
                     </div>
                     <div class="col-sm-2 form-group">
-
-                        <select name="order" id="order-by" class="form-control" data-form-send="1">
-
-                            {% for value, order in order_choices %}
-                            <option value="{{ value }}">{{ order }}</option>
-                            {% endfor %}
-                            
-                        </select>
+                        {% render_field form.order class="form-control" data-form-send="1" %}
 
                     </div>
                 </div>

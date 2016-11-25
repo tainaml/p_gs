@@ -13,7 +13,7 @@ class CourseListView(FormBasePaginetedListView):
     # @Override
     def after_process(self, request=None, *args, **kwargs):
         super(CourseListView, self).after_process(*args, **kwargs)
-        self.context.update({'courses': self.process_return})
+        self.context.update({'courses': self.process_return, 'form': self.form})
 
 
 class CourseShowView(View):
