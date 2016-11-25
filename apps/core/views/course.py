@@ -1,4 +1,3 @@
-import urllib
 from django.utils.translation import ugettext_lazy as _
 from apps.core.models.course import Course
 from django.http import Http404

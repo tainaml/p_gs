@@ -8,6 +8,10 @@ class CategorylChoiceField(forms.ModelChoiceField):
     def label_from_instance(self, obj):
         return obj.description
 
+class CommunityTaxonomylChoiceField(forms.ModelChoiceField):
+    def label_from_instance(self, obj):
+        return obj.description
+
 class CourseListForm(IdeiaForm):
 
     CHOICES_TAXONOMY = Taxonomy.objects.filter(term__slug='categoria')
@@ -23,7 +27,7 @@ class CourseListForm(IdeiaForm):
     title = forms.CharField(required=False, max_length=255)
     category = CategorylChoiceField(required=False, queryset=CHOICES_TAXONOMY, empty_label=_("Category"), to_field_name="slug")
 
-    community = forms.ModelChoiceField(required=False, queryset=None)
+    community = CommunityTaxonomylChoiceField(required=False, queryset=Taxonomy.objects.none(), to_field_name="slug")
     order = forms.ChoiceField(required=False, choices=CHOICES_ORDER_BY)
     page = forms.IntegerField(min_value=1, required=False)
 
@@ -31,7 +35,7 @@ class CourseListForm(IdeiaForm):
         self.itens_per_page = itens_per_page
         category =  kwargs.get('data', {}).get('category', "")
         if category:
-            self.declared_fields['community'].queryset = Community.objects.filter(taxonomy__parent__slug=category)
+            self.declared_fields['community'].queryset = Taxonomy.objects.filter(parent__slug=category)
         super(CourseListForm, self).__init__(*args, **kwargs)
 
     def clean(self):

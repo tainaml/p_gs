@@ -1,6 +1,8 @@
 import copy
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from apps.core.models.course import Course
+from apps.taxonomy.models import Taxonomy
+
 
 def get_paginate_list(list=None, items_per_page=None, page=None):
     paginated_items = Paginator(list, items_per_page)
@@ -16,10 +18,19 @@ def get_paginate_list(list=None, items_per_page=None, page=None):
 
 def get_courses(itens_per_page=None, **cleaned_data):
 
-    criteria  = copy.copy(cleaned_data)
+    filters = {}
+    if cleaned_data.get('title'):
+        filters['title__contains']= cleaned_data.get('title')
 
+    if cleaned_data.get('category'):
+        filters['taxonomies__parent']= Taxonomy.objects.filter(slug=cleaned_data['category'])
 
-    return get_paginate_list(list=Course.objects.all(), items_per_page=itens_per_page, page=cleaned_data['page'])
+    if cleaned_data.get('community'):
+        filters['taxonomies']= Taxonomy.objects.filter(slug=cleaned_data['community'])
+
+    items = Course.objects.filter(**filters).order_by(cleaned_data['order'])
+
+    return get_paginate_list(list=items, items_per_page=itens_per_page, page=cleaned_data['page'])
 
 
 def get_items(model_class=None, order=None, items_per_page=None, page=None, **criteria):
