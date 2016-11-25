@@ -1,11 +1,15 @@
 from django.core.exceptions import ValidationError
 from apps.custom_base.service.custom import IdeiaForm, forms
 from apps.core.business import course as course_business
+from apps.taxonomy.models import Taxonomy
+
 
 class CourseListForm(IdeiaForm):
 
-    content_id = forms.IntegerField(min_value=1, required=True)
-    content_type = forms.CharField(required=True)
+    choices = Taxonomy.objects.filter(term__slug='categoria')
+
+    category = forms.ChoiceField(required=False, choices=choices)
+
     page = forms.IntegerField(min_value=1, required=False)
 
     def __init__(self, itens_per_page=10, *args, **kwargs):
@@ -21,11 +25,6 @@ class CourseListForm(IdeiaForm):
 
     def is_valid(self):
         valid = super(CourseListForm, self).is_valid()
-
-        if 'content_type' in self.cleaned_data and self.cleaned_data['content_type'] not in settings.ENTITY_TO_COMMENT:
-            self.add_error(None,
-                           ValidationError(('ContentType not found in comment contentType list.'),
-                                           code='comment_content_type_not_found'))
 
         return valid
 

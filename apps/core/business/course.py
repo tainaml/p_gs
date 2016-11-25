@@ -1,11 +1,9 @@
+import copy
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
-from django.db.models import Q
 from apps.core.models.course import Course
 
-__author__ = 'phillip'
-
-def paginate_list(list=None, itens_per_page=None):
-    paginated_items = Paginator(list, itens_per_page)
+def get_paginate_list(list=None, items_per_page=None, page=None):
+    paginated_items = Paginator(list, items_per_page)
 
     try:
         paginated_items = paginated_items.page(page)
@@ -17,9 +15,17 @@ def paginate_list(list=None, itens_per_page=None):
     return paginated_items
 
 def get_courses(itens_per_page=None, **cleaned_data):
-    course_filter = Q()
-    course_order = ("")
-    courses = Course.objects.filter(course_filter).order_by(course_order)
+
+    criteria  = copy.copy(cleaned_data)
+    del criteria['page']
+
+    return get_items(Course, **criteria)
+
+
+def get_items(model_class=None, order=None, items_per_page=None, page=None, **criteria):
+
+    items = model_class.objects.filter(**criteria).order_by(order)
+    return get_paginate_list(list=items, items_per_page=items_per_page, page=page)
 
 
 
