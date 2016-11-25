@@ -1,8 +1,6 @@
 from django.core.exceptions import ValidationError
-
-__author__ = 'phillip'
 from apps.custom_base.service.custom import IdeiaForm, forms
-
+from apps.core.business import course as course_business
 
 class CourseListForm(IdeiaForm):
 
@@ -32,12 +30,8 @@ class CourseListForm(IdeiaForm):
         return valid
 
     def __process__(self):
-        return  Business.get_comments_by_content_type_and_id(
-            self.cleaned_data['content_type'],
-            self.cleaned_data['content_id'],
-            self.itens_per_page,
-            self.cleaned_data['page']
-        )
+        return  course_business.get_courses(self.itens_per_page, **self.cleaned_data)
+
 
 
 
