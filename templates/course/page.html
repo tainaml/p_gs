@@ -4,7 +4,7 @@
 {% load widget_tweaks %}
 {% load seo_pagination_tags %}
 
-{% block title %}Vídeos{% endblock title %}
+{% block title %}Cursos{% endblock title %}
 
 {% block link_pagination %}
 
@@ -27,9 +27,9 @@
         <div class="row">
             <div class="col-sm-12">
                 <header class="area-title">
-                    <h2>Vídeos de TI</h2>
+                    <h2>Cursos</h2>
                 </header>
-                <p class="videos__page__description">Lista de vídeos sobre tecnologia</p>
+                <p class="videos__page__description">Lista de cursos de tecnologia</p>
             </div>
         </div>
         <div class="row">
@@ -43,7 +43,7 @@
             <div class="col-sm-12 form-group visible-xs-block">
                 <div class="btn btn-lg btn-block btn-primary" data-target="#filters" data-toggle="collapse">
                     <i class="gsticon gsticon-search"></i>
-                    Buscar vídeo
+                    Buscar curso
                 </div>
             </div>
         </div>
@@ -52,8 +52,7 @@
                 <div class="row">
                     <div class="col-sm-4 form-group clearfix">
                         <div class="form-search-input" style="width: 90%">
-                            <input type="text" id="filter-profession" name="criteria" value="{{ request.GET.criteria|default_if_none:"" }}"
-                                   placeholder="Pesquisar por vídeos" autocomplete="off">
+                            {% render_field form.title placeholder="Pesquisar por cursos" autocomplete="off" %}
                         </div>
                         <button type="submit" class="form-search-button" style="width: 10%">
                             <i class="gsticon gsticon-search"></i>
@@ -63,20 +62,14 @@
                         {% render_field form.category class="form-control" data-form-send="" %}
                     </div>
                     <div class="col-sm-3 form-group">
-                        <select name="community" id="communities" class="form-control" data-form-send>
-                            <option value="">Comunidade</option>
-                            {% for community in communities %}
-                                <option value="{{ community.id }}" {% if community.id|stringformat:"s" == request.GET.community %}selected{% endif %}>{{ community.title }}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
+                        {% render_field form.community class="form-control" data-form-send="" %}
+                     </div>
                     <div class="col-sm-2 form-group">
                         {% render_field form.order class="form-control" data-form-send="1" %}
-
                     </div>
                 </div>
             </form>
-            <div class="col-sm-12 list__videos">
+            <div class="col-sm-12 list__course">
                 <div class="row">
                     <div class="col-sm-12">
                         <hr>

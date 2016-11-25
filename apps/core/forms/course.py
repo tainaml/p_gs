@@ -1,3 +1,4 @@
+from apps.community.models import Community
 from apps.custom_base.service.custom import IdeiaForm, forms
 from apps.core.business import course as course_business
 from apps.taxonomy.models import Taxonomy
@@ -19,19 +20,26 @@ class CourseListForm(IdeiaForm):
         ('-rating', _('Worst rating'))
     )
 
+    title = forms.CharField(required=False, max_length=255)
     category = CategorylChoiceField(required=False, queryset=CHOICES_TAXONOMY, empty_label=_("Category"), to_field_name="slug")
-    community = forms.ChoiceField(required=False, choices=('',))
+
+    community = forms.ModelChoiceField(required=False, queryset=None)
     order = forms.ChoiceField(required=False, choices=CHOICES_ORDER_BY)
     page = forms.IntegerField(min_value=1, required=False)
 
     def __init__(self, itens_per_page=10, *args, **kwargs):
         self.itens_per_page = itens_per_page
+        category =  kwargs.get('data', {}).get('category', "")
+        if category:
+            self.declared_fields['community'].queryset = Community.objects.filter(taxonomy__parent__slug=category)
         super(CourseListForm, self).__init__(*args, **kwargs)
 
     def clean(self):
         cleaned_data = super(CourseListForm, self).clean()
         cleaned_data['page'] = cleaned_data['page']\
             if 'page' in cleaned_data and cleaned_data['page'] else 1
+
+
 
         return cleaned_data
 
