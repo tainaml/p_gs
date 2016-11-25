@@ -106,6 +106,33 @@ class FormBaseListView(FormBaseView):
         return self.do_process(request, *args, **kwargs)
 
 
+class FormBasePaginetedListView(FormBaseListView):
+    form = None
+    itens_per_page = 10
+
+    # @Override
+    def after_process(self, request=None, *args, **kwargs):
+        self.context.update({'instance_list': self.process_return})
+        self.context.update({'form': self.form})
+        cleaned_data = self.form.cleaned_data if hasattr(self.form, "cleaned_data") else {'page': 1}
+        cleaned_data['page']+=1
+        self.context.update(cleaned_data)
+
+    # @Override
+    def do_process(self, request=None, *args, **kwargs):
+        if not self.form:
+            raise NotImplementedError("you must specify the class form. Ex: form = FooForm")
+        self.before_process(request, *args, **kwargs)
+        self.form = self.form(**self.fill_form_kwargs(request))
+        self.process_return = self.form.process()
+        self.after_process(request, *args, **kwargs)
+
+        if request.is_ajax():
+            return self.__response_render__(request, *args, **kwargs)
+        else:
+            return self.__response_render__(request, *args, **kwargs)
+
+
 class InstanceSaveFormBaseView(FormBaseView):
     form = None
 

@@ -1,5 +1,3 @@
-__author__ = 'phillip'
-
 from django.utils.functional import cached_property
 from apps.core.models.languages import Language
 from apps.taxonomy.models import Taxonomy
@@ -30,10 +28,10 @@ class Course(models.Model):
 
     rating = models.DecimalField(max_digits=3, decimal_places=2, verbose_name=_('Rating'))
 
-    internal_author = models.ForeignKey(settings.AUTH_USER_MODEL, null=False, related_name='courses',
+    internal_author = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, blank=True, related_name='courses',
                                verbose_name=_('Internal author'))
 
-    external_author = models.TextField(max_length=255, verbose_name=_('External Author'))
+    external_author = models.TextField(max_length=255, verbose_name=_('External Author'), null=True, blank=True)
 
     @cached_property
     def author(self):

@@ -1,15 +1,24 @@
-from django.core.exceptions import ValidationError
 from apps.custom_base.service.custom import IdeiaForm, forms
 from apps.core.business import course as course_business
 from apps.taxonomy.models import Taxonomy
+from django.utils.translation import ugettext_lazy as _
 
 
 class CourseListForm(IdeiaForm):
 
-    choices = Taxonomy.objects.filter(term__slug='categoria')
+    CHOICES_TAXONOMY = Taxonomy.objects.filter(term__slug='categoria')
 
-    category = forms.ChoiceField(required=False, choices=choices)
+    CHOICES_ORDER_BY = (
+        ('', _('Default')),
+        ('updatein', _('Recent')),
+        ('-updatein', _('Oldest')),
+        ('rating', _('Rating')),
+        ('-rating', _('Rating'))
+    )
 
+    category = forms.ChoiceField(required=False, choices=CHOICES_TAXONOMY)
+    community = forms.ChoiceField(required=False, choices=('',))
+    order = forms.ChoiceField(required=False, choices=CHOICES_ORDER_BY)
     page = forms.IntegerField(min_value=1, required=False)
 
     def __init__(self, itens_per_page=10, *args, **kwargs):
@@ -29,6 +38,7 @@ class CourseListForm(IdeiaForm):
         return valid
 
     def __process__(self):
+
         return  course_business.get_courses(self.itens_per_page, **self.cleaned_data)
 
 

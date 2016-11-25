@@ -2,11 +2,11 @@ import urllib
 from django.shortcuts import render
 from django.views import View
 from apps.core.forms.course import CourseListForm
-from apps.custom_base.views import FormBaseListView
+from apps.custom_base.views import FormBasePaginetedListView
 
 
-class CourseListView(FormBaseListView):
-    success_template_path = 'course/items.html'
+class CourseListView(FormBasePaginetedListView):
+    success_template_path = 'course/page.html'
     form = CourseListForm
     itens_per_page = 6
 
