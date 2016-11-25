@@ -1,11 +1,14 @@
+import urllib
 from django.shortcuts import render
 from django.views import View
+from apps.core.forms.course import CourseListForm
+
 
 class CourseListView(View):
 
-    template_path = 'videos/page.html'
-    template_items = 'videos/items.html'
-    form = VideosFiltersForm
+    template_path = 'course/page.html'
+    template_items = 'course/items.html'
+    form = CourseListForm
 
     def get_context(self, request):
 
