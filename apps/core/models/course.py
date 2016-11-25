@@ -1,15 +1,15 @@
+__author__ = 'phillip'
+
 from django.utils.functional import cached_property
 from apps.core.models.languages import Language
 from apps.taxonomy.models import Taxonomy
-
-__author__ = 'phillip'
-
 from django.db import models
 from django.utils.translation import ugettext as _
 from django.conf import settings
 from datetime import datetime
 from django.template.defaultfilters import slugify
 import os
+
 
 def course_image_upload(instance, filename):
 
@@ -21,9 +21,11 @@ def course_image_upload(instance, filename):
     name = slugify(".".join(filename.split('.')[0:-1]))
     return os.path.join(path, "{0}.{1}".format(name, ext))
 
+
 class Course(models.Model):
 
     title = models.CharField(max_length=255, verbose_name=_('Title'))
+    slug = models.SlugField(max_length=200, verbose_name=_('Slug'))
     description = models.TextField(verbose_name=_('Description'))
 
     rating = models.DecimalField(max_digits=3, decimal_places=2, verbose_name=_('Rating'))
@@ -36,7 +38,6 @@ class Course(models.Model):
     @cached_property
     def author(self):
         return self.internal_author or self.external_author
-
 
     def image_or_default(self):
         #TODO
@@ -52,5 +53,5 @@ class Course(models.Model):
 
     affiliate_link = models.URLField(verbose_name=_('Affiliate link'))
 
-
-
+    def __unicode__(self):
+        return u'{}'.format(self.title)

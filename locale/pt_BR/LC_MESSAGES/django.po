@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-11-25 09:17-0300\n"
+"POT-Creation-Date: 2016-11-25 09:51-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -173,14 +173,14 @@ msgstr "Publicação salva com sucesso"
 msgid "Generic Error"
 msgstr "Erro"
 
-#: apps/certification/models.py:8 apps/core/models/course.py:26
+#: apps/certification/models.py:8 apps/core/models/course.py:27
 #: apps/job_vacancy/models.py:39
 msgid "Title"
 msgstr "Título"
 
 #: apps/certification/models.py:9 apps/company/models.py:10
 #: apps/company/models.py:20 apps/company/models.py:27
-#: apps/core/models/course.py:27 apps/core/models/languages.py:9
+#: apps/core/models/course.py:29 apps/core/models/languages.py:9
 #: apps/core/models/plataform.py:21 apps/job_vacancy/models.py:18
 #: apps/job_vacancy/models.py:25 apps/job_vacancy/models.py:32
 #: apps/job_vacancy/models.py:78 apps/job_vacancy/models.py:94
@@ -351,47 +351,48 @@ msgstr "Gênero não permitido."
 msgid "Image size more than 1mb."
 msgstr "Tamanho da imagem excede 1mb"
 
-#: apps/core/models/course.py:29
+#: apps/core/models/course.py:28 apps/core/models/languages.py:8
+#: apps/core/models/plataform.py:20 apps/job_vacancy/models.py:40
+#: apps/userprofile/models.py:134
+msgid "Slug"
+msgstr "Slug"
+
+#: apps/core/models/course.py:31
 msgid "Rating"
 msgstr ""
 
-#: apps/core/models/course.py:32
+#: apps/core/models/course.py:34
 msgid "Internal author"
 msgstr ""
 
-#: apps/core/models/course.py:34
+#: apps/core/models/course.py:36
 msgid "External Author"
 msgstr ""
 
-#: apps/core/models/course.py:46
+#: apps/core/models/course.py:47
 msgid "Curriculum"
 msgstr ""
 
-#: apps/core/models/course.py:48
+#: apps/core/models/course.py:49
 msgid "Languages"
 msgstr ""
 
-#: apps/core/models/course.py:49
+#: apps/core/models/course.py:50
 #: venv/lib/python2.7/site-packages/django/db/models/fields/files.py:387
 msgid "Image"
 msgstr ""
 
-#: apps/core/models/course.py:50
+#: apps/core/models/course.py:51
 msgid "Related Courses"
 msgstr ""
 
-#: apps/core/models/course.py:51
+#: apps/core/models/course.py:52
 msgid "Taxonomy"
 msgstr ""
 
-#: apps/core/models/course.py:53
+#: apps/core/models/course.py:54
 msgid "Affiliate link"
 msgstr ""
-
-#: apps/core/models/languages.py:8 apps/core/models/plataform.py:20
-#: apps/job_vacancy/models.py:40 apps/userprofile/models.py:134
-msgid "Slug"
-msgstr "Slug"
 
 #: apps/core/models/languages.py:10
 #, fuzzy
@@ -661,8 +662,8 @@ msgstr "^desativar-conta$"
 
 #. Translators: URL de criacao de contato
 #. Translators: URL index de conta social
-#: apps/core/urls/contact.py:7 apps/core/urls/notifications.py:7
-#: apps/socialaccount/urls.py:8
+#: apps/core/urls/contact.py:7 apps/core/urls/course.py:8
+#: apps/core/urls/notifications.py:7 apps/socialaccount/urls.py:8
 msgid "^$"
 msgstr "^$"
 
@@ -712,24 +713,11 @@ msgstr ""
 msgid "^oembed/"
 msgstr ""
 
-#: apps/core/urls/course.py:8
+#: apps/core/urls/course.py:9
 #, fuzzy
 #| msgid "^(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/$"
 msgid "^(?P<course_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/$"
 msgstr "^(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/$"
-
-#. Translators: URL root de publicacao
-#. Translators: URL root CORE de acoes sociais
-#. Translators: URL root de amp
-#. Translators: URL core adicionais
-#. Translators: URL de buscai
-#. Translators: URL core adicionais
-#. Translators: URL root de comunidade
-#: apps/core/urls/course.py:9 rede_gsti/urls.py:87 rede_gsti/urls.py:90
-#: rede_gsti/urls.py:115 rede_gsti/urls.py:121 rede_gsti/urls.py:126
-#: rede_gsti/urls.py:129 rede_gsti/urls.py:132
-msgid "^"
-msgstr "^"
 
 #. Translators: URL de setar conteudo como oficial
 #: apps/core/urls/feed.py:7
@@ -1556,6 +1544,19 @@ msgstr "^notificacoes/"
 msgid "^hint/"
 msgstr ""
 
+#. Translators: URL root de publicacao
+#. Translators: URL root CORE de acoes sociais
+#. Translators: URL root de amp
+#. Translators: URL core adicionais
+#. Translators: URL de buscai
+#. Translators: URL core adicionais
+#. Translators: URL root de comunidade
+#: rede_gsti/urls.py:87 rede_gsti/urls.py:90 rede_gsti/urls.py:115
+#: rede_gsti/urls.py:124 rede_gsti/urls.py:129 rede_gsti/urls.py:132
+#: rede_gsti/urls.py:135
+msgid "^"
+msgstr "^"
+
 #. Translators: URL root de categoria
 #: rede_gsti/urls.py:93
 msgid "^category-feed/"
@@ -1597,7 +1598,7 @@ msgid "^useralerts/"
 msgstr ""
 
 #. Translators: URL de curso
-#: rede_gsti/urls.py:137
+#: rede_gsti/urls.py:121
 msgid "^courses/"
 msgstr "^cursos/"
 
