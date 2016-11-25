@@ -38,6 +38,10 @@ class Course(models.Model):
         return self.internal_author or self.external_author
 
 
+    def image_or_default(self):
+        #TODO
+        return self.image or None
+
     updatein = models.DateTimeField(null=False, auto_now=True)
     curriculum = models.TextField(max_length=255, verbose_name=_('Curriculum'))
 

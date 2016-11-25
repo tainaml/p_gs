@@ -1,0 +1,24 @@
+{% load staticfiles %}
+{% load abs_url %}
+{% load avatar_tags %}
+{% load thumbor_tags %}
+
+{% if courses %}
+    {% for item in courses %}
+        {% include 'course/item.html' %}
+    {% endfor %}
+
+    {% if courses.has_next %}
+        <div class="col-xs-12">
+            <a class="btn btn-block btn-primary" data-jscroll-next href="{% url 'course:list' %}?{{ next_querystring }}">Mais Cursos</a>
+        </div>
+
+    {% endif %}
+
+{% else %}
+
+    <div class="col-xs-12 courses__not_found">
+        <p>Nenhum vídeo foi encontrado para estes parametros de busca. Tente com termos diferentes.</p>
+    </div>
+
+{% endif %}
