@@ -51,5 +51,7 @@ class Course(models.Model):
 
     affiliate_link = models.URLField(verbose_name=_('Affiliate link'))
 
+    active = models.BooleanField(default=True, verbose_name=_('Active'))
+
     def __unicode__(self):
         return u'{}'.format(self.title)

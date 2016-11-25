@@ -1,0 +1,21 @@
+{% extends 'home/layout/base.html' %}
+
+{% load ads %}
+{% load widget_tweaks %}
+{% load seo_pagination_tags %}
+
+{% block title %}{{ course.title }}{% endblock title %}
+
+{% block content %}
+
+    <p>Titulo: {{ course.title }}</p>
+    <p>Slug: {{ course.slug }}</p>
+    <p>Description: {{ course.description|safe }}</p>
+
+    {% if course.internal_author %}
+        <p>{{ course.internal_author.username }}</p>
+    {% endif %}
+
+
+{% endblock content %}
+

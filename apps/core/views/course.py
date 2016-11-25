@@ -1,4 +1,7 @@
 import urllib
+from django.utils.translation import ugettext_lazy as _
+from apps.core.models.course import Course
+from django.http import Http404
 from django.shortcuts import render
 from django.views import View
 from apps.core.forms.course import CourseListForm
@@ -6,6 +9,7 @@ from apps.custom_base.views import FormBasePaginetedListView
 
 
 class CourseListView(FormBasePaginetedListView):
+
     success_template_path = 'course/page.html'
     fail_validation_template_path = 'course/page.html'
     form = CourseListForm
@@ -19,18 +23,35 @@ class CourseListView(FormBasePaginetedListView):
 
 class CourseShowView(View):
 
-    template_path = "#TODO"
+    template_path = "course/single.html"
 
+    def get_context(self, request, course):
 
+        return {
+            'course': course,
+        }
 
-    def return_success(self, request, context=None):
-        pass
+    def get(self, request, course_slug):
 
-    def get_context(self):
+        try:
+            course = Course.objects.prefetch_related(
 
-        pass
+                'internal_author', 'languages',
+                'related_courses', 'taxonomies'
 
-    def get(self, request):
+            ).select_related(
 
-        pass
+                'internal_author',
 
+            ).get(slug=course_slug)
+
+        except Course.DoesNotExist:
+            raise Http404(_('Course not found'))
+
+        context = self.get_context(request, course)
+
+        return render(
+            request,
+            template_name=self.template_path,
+            context=context
+        )
