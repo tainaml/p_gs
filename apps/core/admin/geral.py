@@ -10,7 +10,7 @@ from apps.article.models import Article
 from apps.core.forms.user import CoreUserAdminForm
 from apps.core.models.tags import Tags
 from apps.feed.models import FeedObject
-from apps.question.models import Question
+from apps.question.models import Question, Answer
 from apps.account.admin import User, UserNewAdmin
 from apps.socialactions.models import UserAction
 from apps.userprofile.models import UserProfile
@@ -149,6 +149,8 @@ class FeedInline(GenericTabularInline):
     min_num = 1
     max_num = 1
 
+
+
 class QuestionAdmin(VersionAdmin):
     raw_id_fields = ('author',)
 
@@ -178,6 +180,11 @@ class ArticleAdminForm(forms.ModelForm):
         }
 
 
+class AnswerAdmin(VersionAdmin):
+    search_fields = ('decription',)
+
+
+
 class ArticlelAdmin(VersionAdmin):
 
     form = ArticleAdminForm
@@ -200,4 +207,5 @@ class ArticlelAdmin(VersionAdmin):
 admin.site.register(UserAction)
 admin.site.register(Article, ArticlelAdmin)
 admin.site.register(Question, QuestionAdmin)
+admin.site.register(Answer, AnswerAdmin)
 admin.site.register(User, CoreUserAdmin)
