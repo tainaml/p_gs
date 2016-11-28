@@ -27,14 +27,13 @@
       </span>
         </a>
         <nav class="post-communities">
-          {% if item.taxonommies.all %}
+          {% if item.taxonomies.all %}
             <a href="javascript:;" rel="nofollow" class="link-to-community" data-toggle="dropdown" aria-expanded="false">
                 Comunidades <i class="gsticon gsticon-angle-down"></i>
             </a>
 
             <div class="dropdown-menu">
                 <ul class="perfil-actions">
-                    {{ items.taxonomies }}
                     {% for item_community in item.taxonomies.all %}
                         <li>
                             <a href="{% url 'community:show' item_community.slug %}" class="link-to-community">

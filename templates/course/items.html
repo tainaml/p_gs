@@ -6,7 +6,7 @@
 
     {% if courses.has_next %}
         <div class="col-xs-12">
-            <a class="btn btn-block btn-primary" data-jscroll-next href="{% url 'course:list' %}?{{ next_querystring }}">Mais Cursos</a>
+            <a class="btn btn-block btn-primary" data-jscroll-next href="{% url 'course:list' %}?{{ form.querystring }}{{ next_querystring }}">Mais Cursos</a>
         </div>
 
     {% endif %}

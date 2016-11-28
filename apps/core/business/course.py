@@ -1,7 +1,8 @@
-import copy
+
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from apps.core.models.course import Course
 from apps.taxonomy.models import Taxonomy
+
 
 
 def get_paginate_list(list=None, items_per_page=None, page=None):
@@ -28,7 +29,10 @@ def get_courses(itens_per_page=None, **cleaned_data):
     if cleaned_data.get('community'):
         filters['taxonomies']= Taxonomy.objects.filter(slug=cleaned_data['community'])
 
-    items = Course.objects.filter(**filters).order_by(cleaned_data['order'])
+    order = cleaned_data.get('order') or "-updatein"
+
+
+    items = Course.objects.filter(**filters).prefetch_related("taxonomies", "languages", "internal_author__profile").order_by(order)
 
     return get_paginate_list(list=items, items_per_page=itens_per_page, page=cleaned_data['page'])
 

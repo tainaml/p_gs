@@ -110,6 +110,11 @@ class FormBasePaginetedListView(FormBaseListView):
     form = None
     itens_per_page = 10
 
+    @property
+    def success_ajax_template_path(self):
+        raise NotImplementedError("you must specify the success_ajax_template_path")
+
+
     # @Override
     def after_process(self, request=None, *args, **kwargs):
         self.context.update({'instance_list': self.process_return})
@@ -127,10 +132,16 @@ class FormBasePaginetedListView(FormBaseListView):
         self.process_return = self.form.process()
         self.after_process(request, *args, **kwargs)
 
-        if request.is_ajax():
-            return self.__response_render__(request, *args, **kwargs)
-        else:
-            return self.__response_render__(request, *args, **kwargs)
+        return self.__response_render__(request, *args, **kwargs)
+
+    def __response_render__(self, request, *args, **kwargs):
+        return render(request,
+                      (self.success_ajax_template_path if request.is_ajax()
+                       else  self.success_template_path)if self.form.is_valid() else
+                      self.fail_validation_template_path,
+                      self.context,
+                      *args,
+                      **kwargs)
 
 
 class InstanceSaveFormBaseView(FormBaseView):

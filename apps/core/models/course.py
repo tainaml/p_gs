@@ -1,5 +1,7 @@
+from django.contrib.auth import get_user_model
 from django.utils.functional import cached_property
 from apps.core.models.languages import Language
+from apps.core.utils import build_absolute_uri
 from apps.taxonomy.models import Taxonomy
 from django.db import models
 from django.utils.translation import ugettext as _
@@ -8,10 +10,17 @@ from datetime import datetime
 from django.template.defaultfilters import slugify
 import os
 
-
 def course_image_upload(instance, filename):
 
-    owner = instance.author.id
+    UserModel = get_user_model()
+
+    if isinstance(instance.author, UserModel):
+        owner = instance.author.id or instance.author
+    else:
+        owner = instance.author
+
+    owner = slugify(owner)
+
     today_str = datetime.today().strftime('%Y/%m/%d')
     path = 'course/{0}/{1}'.format(owner, today_str)
 
@@ -55,3 +64,10 @@ class Course(models.Model):
 
     def __unicode__(self):
         return u'{}'.format(self.title)
+
+    @cached_property
+    def get_absolute_url(self):
+        from django.core.urlresolvers import reverse
+        path = reverse('course:show', args=[self.slug])
+        return build_absolute_uri(path)
+

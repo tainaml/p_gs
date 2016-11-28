@@ -1,9 +1,8 @@
-from apps.community.models import Community
 from apps.custom_base.service.custom import IdeiaForm, forms
 from apps.core.business import course as course_business
 from apps.taxonomy.models import Taxonomy
 from django.utils.translation import ugettext_lazy as _
-
+from urllib import urlencode
 class CategorylChoiceField(forms.ModelChoiceField):
     def label_from_instance(self, obj):
         return obj.description
@@ -18,18 +17,27 @@ class CourseListForm(IdeiaForm):
 
     CHOICES_ORDER_BY = (
         ('', _('Default')),
-        ('updatein', _('Recent')),
-        ('-updatein', _('Oldest')),
-        ('rating', _('Better rating')),
-        ('-rating', _('Worst rating'))
+        ('-updatein', _('Recent')),
+        ('updatein', _('Oldest')),
+        ('-rating', _('Better rating')),
+        ('rating', _('Worst rating'))
     )
 
     title = forms.CharField(required=False, max_length=255)
     category = CategorylChoiceField(required=False, queryset=CHOICES_TAXONOMY, empty_label=_("Category"), to_field_name="slug")
 
-    community = CommunityTaxonomylChoiceField(required=False, queryset=Taxonomy.objects.none(), to_field_name="slug")
+    community = CommunityTaxonomylChoiceField(required=False, queryset=Taxonomy.objects.none(), to_field_name="slug", empty_label=_("Community"))
     order = forms.ChoiceField(required=False, choices=CHOICES_ORDER_BY)
     page = forms.IntegerField(min_value=1, required=False)
+
+    @property
+    def querystring(self):
+        querystring_dict = {}
+        for key in self.cleaned_data:
+            querystring_dict[key] = unicode(self.cleaned_data[key] or '').encode('utf-8')
+
+        return urlencode(querystring_dict)
+
 
     def __init__(self, itens_per_page=10, *args, **kwargs):
         self.itens_per_page = itens_per_page
