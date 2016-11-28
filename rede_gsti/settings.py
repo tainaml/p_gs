@@ -315,10 +315,6 @@ DEFAULT_FROM_EMAIL = config.get("EMAIL", "from")
 SPARKPOST_API_KEY = config.get("EMAIL", 'sparkpost_apikey')
 EMAIL_BACKEND = 'sparkpost.django.email_backend.SparkPostEmailBackend'
 
-SPARKPOST_OPTIONS = {
-'track_opens': True,
-'track_clicks': True
-}
 
 # CELERY
 # Using database as broker
