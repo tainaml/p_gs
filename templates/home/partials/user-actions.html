@@ -23,7 +23,7 @@
         </div>
       </div>
 
-      <a href="javascript:void(0);" class="user-actions-logged-link--logged user-actions-profile" data-toggle="dropdown" data-target="#dropdown-perfil-action">
+      <a href="javascript:;" class="user-actions-logged-link--logged user-actions-profile" data-toggle="dropdown" data-target="#dropdown-perfil-action">
           <img title="{{ request.user.get_full_name }}" src="{% get_avatar request.user width=40 height=40 smart=False fit_in=False %}" alt="{{ request.user.get_full_name }}" class="img-circle">
           {% if request.user.first_name|length >= 10 %}
               {{ request.user.first_name|slice:":10" }}...
@@ -54,7 +54,7 @@
     <div class="user-actions">
         <a class="user-actions-link btn-publicar" href="javascript:;" data-toggle="modal" data-target="#modal-login">Publicar</a>
         <a class="user-actions-link" href="{% url 'account:signup' %}">Cadastre-se</a>
-        <a class="user-actions-link" href="javascript:;" data-toggle="modal" data-target="#modal-login">Login</a>
+        <a class="user-actions-link" href="#modal-login" data-toggle="modal">Login</a>
     </div>
 
 {% endif %}

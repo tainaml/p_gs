@@ -1,0 +1,218 @@
+{% extends "home/layout/base.html" %}
+
+{% load ads %}
+{% load widget_tweaks %}
+{% load seo_pagination_tags %}
+
+{% block title %}Cursos{% endblock title %}
+
+{% block link_pagination %}
+
+    {% if videos %}
+    {% pagination_links videos %}
+    {% endif %}
+
+{% endblock link_pagination %}
+
+{% block extra_meta %}
+    {{ block.super }}
+    {% if not videos %}
+        <meta name="robots" content="noindex,nofollow">
+    {% endif %}
+
+{% endblock %}
+
+{% block content %}
+<main class="container main">
+    <div class="row">
+        <div class="banner-content-wide">
+            <div class="banner">
+                {% ads_only_production "videos_top" "all" %}
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <header class="area-title courses__title">
+                <h2>Cursos</h2>
+            </header>
+        </div>
+    </div>
+    <div class="row">
+        <form class="hidden-xs filter__courses" action="#">
+            <div class="col-sm-4 form-group clearfix">
+                <div class="form-search-input" style="width: 90%">
+                    <input type="text" id="filter-profession" name="criteria" value="{{ request.GET.criteria|default_if_none:"" }}"
+                           placeholder="Pesquisar por cursos" autocomplete="off">
+                </div>
+                <button type="submit" class="form-search-button" style="width: 10%">
+                    <i class="gsticon gsticon-search"></i>
+                </button>
+            </div>
+            <div class="col-sm-3 form-group">
+                <select class="form-control" name="categories">
+                    <option value="">Categorias</option>
+                </select>
+            </div>
+            <div class="col-sm-3 form-group">
+                <select class="form-control" name="communities">
+                    <option value="">Comunidade</option>
+                </select>
+            </div>
+            <div class="col-sm-2 form-group">
+                <select class="form-control" name="order">
+                    <option value="">Ordenar por:</option>
+                </select>
+            </div>
+        </form>
+        <div class="col-xs-12">
+            <div class="row list__courses" data-toggle="scroll">
+                <div class="col-sm-3">
+                    <a href="#" class="thumb__course">
+                        <figure>
+                            <img src="{{ course.image | default:'http://placehold.it/270x160'}}" width="270" height="160" alt="{{ course.title | default:"Lorem ipsum dolor sit amet, assum augue duo at, quo ei tation postulant" }}">
+                        </figure>
+                        <span class="thumb__course__title">{{ course.title | default:"Lorem ipsum dolor sit amet, assum augue duo at, quo ei tation postulant" }}</span>
+                        <span class="thumb__course__categories">Rede de Computadores, Analytics, Banco de Dados, Active Directory, Cloud Computing</span>
+                        <span class="thumb__course__avaliation">
+                          <span style="width: 24%"></span>
+                        </span>
+                    </a>
+                </div>
+                <div class="col-sm-3">
+                    <a href="#" class="thumb__course">
+                        <figure>
+                            <img src="{{ course.image | default:'http://placehold.it/270x160'}}" width="270" height="160" alt="{{ course.title | default:"Lorem ipsum dolor sit amet, assum augue duo at, quo ei tation postulant" }}">
+                        </figure>
+                        <span class="thumb__course__title">{{ course.title | default:"Lorem ipsum dolor sit amet, assum augue duo at, quo ei tation postulant" }}</span>
+                        <span class="thumb__course__categories">Rede de Computadores, Analytics, Banco de Dados, Active Directory, Cloud Computing</span>
+                        <span class="thumb__course__avaliation">
+                          <span style="width: 40%"></span>
+                        </span>
+                    </a>
+                </div>
+                <div class="col-sm-3">
+                    <a href="#" class="thumb__course">
+                        <figure>
+                            <img src="{{ course.image | default:'http://placehold.it/270x160'}}" width="270" height="160" alt="{{ course.title | default:"Lorem ipsum dolor sit amet, assum augue duo at, quo ei tation postulant" }}">
+                        </figure>
+                        <span class="thumb__course__title">{{ course.title | default:"Lorem ipsum dolor sit amet, assum augue duo at, quo ei tation postulant" }}</span>
+                        <span class="thumb__course__categories">Rede de Computadores, Analytics, Banco de Dados, Active Directory, Cloud Computing</span>
+                        <span class="thumb__course__avaliation">
+                          <span style="width: 80%"></span>
+                        </span>
+                    </a>
+                </div>
+                <div class="col-sm-3">
+                    <a href="#" class="thumb__course">
+                        <figure>
+                            <img src="{{ course.image | default:'http://placehold.it/270x160'}}" width="270" height="160" alt="{{ course.title | default:"Lorem ipsum dolor sit amet, assum augue duo at, quo ei tation postulant" }}">
+                        </figure>
+                        <span class="thumb__course__title">{{ course.title | default:"Lorem ipsum dolor sit amet, assum augue duo at, quo ei tation postulant" }}</span>
+                        <span class="thumb__course__categories">Rede de Computadores, Analytics, Banco de Dados, Active Directory, Cloud Computing</span>
+                        <span class="thumb__course__avaliation">
+                          <span style="width: 50%"></span>
+                        </span>
+                    </a>
+                </div>
+                <div class="col-sm-3">
+                    <a href="#" class="thumb__course">
+                        <figure>
+                            <img src="{{ course.image | default:'http://placehold.it/270x160'}}" width="270" height="160" alt="{{ course.title | default:"Lorem ipsum dolor sit amet, assum augue duo at, quo ei tation postulant" }}">
+                        </figure>
+                        <span class="thumb__course__title">{{ course.title | default:"Lorem ipsum dolor sit amet, assum augue duo at, quo ei tation postulant" }}</span>
+                        <span class="thumb__course__categories">Rede de Computadores, Analytics, Banco de Dados, Active Directory, Cloud Computing</span>
+                        <span class="thumb__course__avaliation">
+                          <span style="width: 24%"></span>
+                        </span>
+                    </a>
+                </div>
+                <div class="col-sm-3">
+                    <a href="#" class="thumb__course">
+                        <figure>
+                            <img src="{{ course.image | default:'http://placehold.it/270x160'}}" width="270" height="160" alt="{{ course.title | default:"Lorem ipsum dolor sit amet, assum augue duo at, quo ei tation postulant" }}">
+                        </figure>
+                        <span class="thumb__course__title">{{ course.title | default:"Lorem ipsum dolor sit amet, assum augue duo at, quo ei tation postulant" }}</span>
+                        <span class="thumb__course__categories">Rede de Computadores, Analytics, Banco de Dados, Active Directory, Cloud Computing</span>
+                        <span class="thumb__course__avaliation">
+                          <span style="width: 40%"></span>
+                        </span>
+                    </a>
+                </div>
+                <div class="col-sm-3">
+                    <a href="#" class="thumb__course">
+                        <figure>
+                            <img src="{{ course.image | default:'http://placehold.it/270x160'}}" width="270" height="160" alt="{{ course.title | default:"Lorem ipsum dolor sit amet, assum augue duo at, quo ei tation postulant" }}">
+                        </figure>
+                        <span class="thumb__course__title">{{ course.title | default:"Lorem ipsum dolor sit amet, assum augue duo at, quo ei tation postulant" }}</span>
+                        <span class="thumb__course__categories">Rede de Computadores, Analytics, Banco de Dados, Active Directory, Cloud Computing</span>
+                        <span class="thumb__course__avaliation">
+                          <span style="width: 80%"></span>
+                        </span>
+                    </a>
+                </div>
+                <div class="col-sm-3">
+                    <a href="#" class="thumb__course">
+                        <figure>
+                            <img src="{{ course.image | default:'http://placehold.it/270x160'}}" width="270" height="160" alt="{{ course.title | default:"Lorem ipsum dolor sit amet, assum augue duo at, quo ei tation postulant" }}">
+                        </figure>
+                        <span class="thumb__course__title">{{ course.title | default:"Lorem ipsum dolor sit amet, assum augue duo at, quo ei tation postulant" }}</span>
+                        <span class="thumb__course__categories">Rede de Computadores, Analytics, Banco de Dados, Active Directory, Cloud Computing</span>
+                        <span class="thumb__course__avaliation">
+                          <span style="width: 50%"></span>
+                        </span>
+                    </a>
+                </div>
+                <div class="col-sm-3">
+                    <a href="#" class="thumb__course">
+                        <figure>
+                            <img src="{{ course.image | default:'http://placehold.it/270x160'}}" width="270" height="160" alt="{{ course.title | default:"Lorem ipsum dolor sit amet, assum augue duo at, quo ei tation postulant" }}">
+                        </figure>
+                        <span class="thumb__course__title">{{ course.title | default:"Lorem ipsum dolor sit amet, assum augue duo at, quo ei tation postulant" }}</span>
+                        <span class="thumb__course__categories">Rede de Computadores, Analytics, Banco de Dados, Active Directory, Cloud Computing</span>
+                        <span class="thumb__course__avaliation">
+                          <span style="width: 24%"></span>
+                        </span>
+                    </a>
+                </div>
+                <div class="col-sm-3">
+                    <a href="#" class="thumb__course">
+                        <figure>
+                            <img src="{{ course.image | default:'http://placehold.it/270x160'}}" width="270" height="160" alt="{{ course.title | default:"Lorem ipsum dolor sit amet, assum augue duo at, quo ei tation postulant" }}">
+                        </figure>
+                        <span class="thumb__course__title">{{ course.title | default:"Lorem ipsum dolor sit amet, assum augue duo at, quo ei tation postulant" }}</span>
+                        <span class="thumb__course__categories">Rede de Computadores, Analytics, Banco de Dados, Active Directory, Cloud Computing</span>
+                        <span class="thumb__course__avaliation">
+                          <span style="width: 40%"></span>
+                        </span>
+                    </a>
+                </div>
+                <div class="col-sm-3">
+                    <a href="#" class="thumb__course">
+                        <figure>
+                            <img src="{{ course.image | default:'http://placehold.it/270x160'}}" width="270" height="160" alt="{{ course.title | default:"Lorem ipsum dolor sit amet, assum augue duo at, quo ei tation postulant" }}">
+                        </figure>
+                        <span class="thumb__course__title">{{ course.title | default:"Lorem ipsum dolor sit amet, assum augue duo at, quo ei tation postulant" }}</span>
+                        <span class="thumb__course__categories">Rede de Computadores, Analytics, Banco de Dados, Active Directory, Cloud Computing</span>
+                        <span class="thumb__course__avaliation">
+                          <span style="width: 80%"></span>
+                        </span>
+                    </a>
+                </div>
+                <div class="col-sm-3">
+                    <a href="#" class="thumb__course">
+                        <figure>
+                            <img src="{{ course.image | default:'http://placehold.it/270x160'}}" width="270" height="160" alt="{{ course.title | default:"Lorem ipsum dolor sit amet, assum augue duo at, quo ei tation postulant" }}">
+                        </figure>
+                        <span class="thumb__course__title">{{ course.title | default:"Lorem ipsum dolor sit amet, assum augue duo at, quo ei tation postulant" }}</span>
+                        <span class="thumb__course__categories">Rede de Computadores, Analytics, Banco de Dados, Active Directory, Cloud Computing</span>
+                        <span class="thumb__course__avaliation">
+                          <span style="width: 50%"></span>
+                        </span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock content %}
