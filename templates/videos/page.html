@@ -63,7 +63,7 @@
                         <select name="category" id="categories" class="form-control" data-form-send>
                             <option value="">Categorias</option>
                             {% for category in categories %}
-                                <option value="{{ category.id }}" {% if category.id|stringformat:"s" == request.GET.category %}selected{% endif %}>{{ category.description }}</option>
+                                <option value="{{ category.slug }}" {% if category.slug == request.GET.category %}selected{% endif %}>{{ category.description }}</option>
                             {% endfor %}
                         </select>
                     </div>
@@ -71,7 +71,7 @@
                         <select name="community" id="communities" class="form-control" data-form-send>
                             <option value="">Comunidade</option>
                             {% for community in communities %}
-                                <option value="{{ community.id }}" {% if community.id|stringformat:"s" == request.GET.community %}selected{% endif %}>{{ community.title }}</option>
+                                <option value="{{ community.slug }}" {% if community.slug == request.GET.community %}selected{% endif %}>{{ community.title }}</option>
                             {% endfor %}
                         </select>
                     </div>

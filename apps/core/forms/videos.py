@@ -26,8 +26,8 @@ class VideosFiltersForm(IdeiaForm):
 
     page = forms.IntegerField(required=False)
     criteria = forms.CharField(required=False)
-    category = forms.IntegerField(required=False)
-    community = forms.IntegerField(required=False)
+    category = forms.SlugField(required=False)
+    community = forms.SlugField(required=False)
     order = forms.IntegerField(required=False)
 
     items_per_page = 12
@@ -53,7 +53,8 @@ class VideosFiltersForm(IdeiaForm):
 
     def clean_category(self):
         category = self.cleaned_data.get('category')
-        if category and TaxonomyBusiness.get_categories(list_ids=[category]).count() > 0:
+
+        if category and TaxonomyBusiness.get_category_from_slug(category).count() > 0:
             return category
         else:
             self.cleaned_data.pop('category')
@@ -70,7 +71,7 @@ class VideosFiltersForm(IdeiaForm):
             if category:
                 qs = self.get_communities(category)
 
-            community_obj = qs.get(id=community)
+            community_obj = qs.get(slug=community)
             return community
         except Community.DoesNotExist:
             self.cleaned_data.pop('community')
@@ -88,7 +89,7 @@ class VideosFiltersForm(IdeiaForm):
 
         if category:
             communities = communities.filter(
-                Q(taxonomy__in=[category]) | Q(taxonomy__parent__in=[category])
+                Q(taxonomy__slug=category) | Q(taxonomy__parent__slug=category)
 
             )
         else:
@@ -120,10 +121,10 @@ class VideosFiltersForm(IdeiaForm):
         community = self.cleaned_data.get('community')
 
         if category:
-            qs = qs.filter(feed__taxonomies__in=[category])
+            qs = qs.filter(feed__taxonomies__slug=category)
 
         if community and category:
-            qs = qs.filter(feed__communities__in=[community])
+            qs = qs.filter(feed__communities__slug=community)
 
         if criteria:
             qs = qs.filter(title__unaccent__icontains=criteria)
