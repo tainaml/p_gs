@@ -1,0 +1,132 @@
+.area-title.courses__title {
+  margin-top: 30px;
+  margin-bottom: 47px;
+}
+.filter__courses {
+  @include clearfix();
+  margin-bottom: 45px;
+
+  .form-search-input { width: 88%; }
+  .form-search-button { width: 12%; }
+}
+.list__courses {
+  margin-bottom: 160px;
+}
+.thumb__course {
+  @include clearfix();
+  display: block;
+  margin-bottom: 30px;
+  &__title {
+    margin-top: 27px;
+    margin-bottom: 15px;
+    display: block;
+    color: #666;
+    font: 400 18px/20px "Open Sans";
+  }
+  &__categories {
+    margin-bottom: 16px;
+    display: block;
+    color: #484848;
+    letter-spacing: -0.05em;
+    font: 400 12px/20px "Open Sans";
+  }
+  &__avaliation {
+    position: relative;
+    display: inline-block;
+    color: #a09e9e;
+    font: 20px/20px "FontAwesome";
+    &:before {
+      content: '\f005\f005\f005\f005\f005';
+    }
+    > span {
+      position: absolute;
+      top: 0; left: 0;
+      overflow: hidden;
+      z-index: 2;
+      color: #d68004;
+      white-space: nowrap;
+      &:before {
+        content: '\f005\f005\f005\f005\f005';
+      }
+    }
+  }
+}
+
+@media (min-width: $screen-md-min) {
+  .thumb__course {
+    figure img { max-width: 100%; }
+  }
+}
+@media (max-width: $screen-sm-min) {
+  .area-title.courses__title {
+    margin-bottom: 12px;
+  }
+  .filter__courses {
+    .form-search-input {
+      width: 100%;
+      position: relative;
+
+      &:after {
+        position: absolute;
+        top: 10px; right: 10px;
+        color: #486075;
+        font: 19px/22px 'FontAwesome';
+        content: '\f002'
+      }
+
+      input {
+
+        &::-webkit-input-placeholder {
+          color: #5f5f5f;
+          font: italic 14px/22px 'Open Sans';
+        }
+        &::-moz-placeholder {
+          color: #5f5f5f;
+          font: italic 14px/22px 'Open Sans';
+        }
+        &:-ms-input-placeholder {
+          color: #5f5f5f;
+          font: italic 14px/22px 'Open Sans';
+        }
+        &:-moz-placeholder {
+          color: #5f5f5f;
+          font: italic 14px/22px 'Open Sans';
+        }
+      }
+
+    }
+  }
+  .list__courses {
+    .col-sm-3 {
+      @include clearfix();
+      margin-bottom: 20px;
+      border-bottom: 1px solid #b7b7b7;
+    }
+  }
+  .thumb__course {
+    margin-bottom: 20px;
+    > figure {
+      overflow: hidden;
+      max-width: 130px;
+      width: 45%;
+      margin-right: 20px;
+      float: left;
+      img { max-width: 100%; }
+    }
+    &__title {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-height: 40px;
+      margin-top: 0;
+      font-weight: 600;
+      font-size: 14px;
+    }
+    &__categories {
+      font-size: 10px;
+      font-weight: 600;
+    }
+    &__avaliation {
+      font-size: 13px;
+    }
+  }
+}
