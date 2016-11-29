@@ -1,0 +1,58 @@
+{% load staticfiles %}
+{% load abs_url %}
+{% load avatar_tags %}
+{% load thumbor_tags %}
+
+<div class="col-sm-2 col-xs-6">
+    <div class="list__course__item">
+        <a href="{{ item.get_absolute_url }}" title="{{ item.title }}">
+            <figure class="list__course__image">
+                {% if item.image_or_default %}
+                    <img class="img-responsive" alt="{{ item.title }}"
+                         src="{% thumbor_url item.image_or_default.url width=150 height=113 smart=False fit_in=False %}">
+                {% else %}
+
+                    {% absolute_url '/static/images/gsti-video-placeholder.png' as image_placeholder %}
+                     <img class="img-responsive" src="{% thumbor_url image_placeholder width=150 height=113 smart=False fit_in=False %}" alt="{{ item.title }}" />
+                {% endif %}
+            </figure>
+      <span class="post-creator">
+        <figure>
+            <img src="{% get_avatar item.author width=20 %}" alt="foto de {{ item.author.get_full_name }}">
+            <figcaption title="{{ item.author.get_full_name }}">{{ item.author.get_full_name }}</figcaption>
+        </figure>
+      </span>
+      <span class="list__course__description">
+          {{ item.title|striptags|safe }}
+      </span>
+        </a>
+        <nav class="post-communities">
+          {% if item.taxonomies.all %}
+            <a href="javascript:;" rel="nofollow" class="link-to-community" data-toggle="dropdown" aria-expanded="false">
+                Comunidades <i class="gsticon gsticon-angle-down"></i>
+            </a>
+
+            <div class="dropdown-menu">
+                <ul class="perfil-actions">
+                    {% for item_community in item.taxonomies.all %}
+                        <li>
+                            <a href="{% url 'community:show' item_community.slug %}" class="link-to-community">
+                                {{ item_community.community.title }}
+                            </a>
+                        </li>
+                        {% empty %}
+
+                        <li><a rel="nofollow">Sem comunidade</a></li>
+
+                    {% endfor %}
+                </ul>
+            </div>
+            {% else %}
+
+            <span class="link-to-community"><em>Sem comunidade</em></span>
+
+            {% endif %}
+
+        </nav>
+    </div>
+</div>
