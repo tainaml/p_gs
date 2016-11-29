@@ -15,6 +15,7 @@ import './modules/ideiaValidationField/'
 import './modules/ideiaEditor/'
 import './components/professions'
 import './components/videos'
+import './components/courses'
 import Slideout from 'slideout'
 
 
