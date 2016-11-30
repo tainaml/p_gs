@@ -14,8 +14,12 @@
 }
 .thumb__course {
   @include clearfix();
+  padding-bottom: 18px;
   display: block;
   margin-bottom: 30px;
+  &:hover {
+    background: #ebebeb;
+  }
   &__title {
     margin-top: 27px;
     margin-bottom: 15px;
@@ -104,6 +108,7 @@
     }
   }
   .thumb__course {
+    padding-bottom: 0;
     margin-bottom: 20px;
     > figure {
       overflow: hidden;

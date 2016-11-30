@@ -7,6 +7,7 @@ if ( $( '[data-page="courses"]' ).length ) {
     left: 0
   }) => {
     $sideMenu.animate( position )
+    $( 'body' ).toggleClass( 'modal-open' )
   }
 
 
