@@ -106,3 +106,14 @@ def get_categories(list_ids=None):
         categories = Taxonomy.objects.none()
 
     return categories
+
+def get_category_from_slug(slug):
+
+    criteria = Q(term__description__icontains="categoria") & Q(slug=slug)
+
+    try:
+        categories = Taxonomy.objects.filter(criteria)
+    except Taxonomy.DoesNotExist:
+        categories = Taxonomy.objects.none()
+
+    return categories
