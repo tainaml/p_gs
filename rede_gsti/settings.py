@@ -530,6 +530,8 @@ WIZARD_STEPS_TOTAL = 3
 # Contact Suggest Community
 CONTACT_SUGGEST = 2
 
+#Rating
+MAX_RATING = 5.00
 
 # MailValidation Time
 TIME_REGISTER_ACCOUNT = config.getint("GENERAL", "expiration_register_time")

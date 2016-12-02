@@ -1,3 +1,4 @@
+from decimal import Decimal
 from django.contrib.auth import get_user_model
 from django.contrib.contenttypes.fields import GenericRelation
 from django.utils.functional import cached_property
@@ -39,6 +40,8 @@ class Course(models.Model):
 
     rating = models.DecimalField(max_digits=3, decimal_places=2, verbose_name=_('Rating'))
 
+
+
     internal_author = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, blank=True, related_name='courses',
                                verbose_name=_('Internal author'))
 
@@ -73,4 +76,8 @@ class Course(models.Model):
         from django.core.urlresolvers import reverse
         path = reverse('course:show', args=[self.slug])
         return build_absolute_uri(path)
+
+    @cached_property
+    def rating_percentage(self):
+        return int((self.rating/Decimal(Rating.MAX_RATING))*100)
 
