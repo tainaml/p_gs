@@ -14,11 +14,9 @@ class Command(BaseCommand):
 
         content_type_article = ContentTypeCached.objects.get(model='article')
 
-        print "Refreshing articles..."
         for article in articles:
 
             comment_count = Comment.objects.filter(content_type=content_type_article, object_id=article.id).count()
             article.comment_count = comment_count
             article.save()
 
-        print "done"

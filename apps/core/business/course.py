@@ -1,4 +1,3 @@
-
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from apps.core.models.course import Course
 from apps.taxonomy.models import Taxonomy

@@ -239,9 +239,7 @@ MIDDLEWARE_CLASSES = (
 )
 
 AUTH_USER_MODEL = 'account.User'
-
-
-
+AVAIABLE_TYPES_TO_RATE = ['course']
 
 
 LOCALE_PATHS = (

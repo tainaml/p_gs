@@ -53,5 +53,4 @@ class Command(BaseCommand):
                         article.save()
                     except User.DoesNotExist:
                         pass
-                else:
-                    print row[0]
+

@@ -3,6 +3,7 @@ from apps.core.business import course as course_business
 from apps.taxonomy.models import Taxonomy
 from django.utils.translation import ugettext_lazy as _
 from urllib import urlencode
+
 class CategorylChoiceField(forms.ModelChoiceField):
     def label_from_instance(self, obj):
         return obj.description
@@ -63,6 +64,8 @@ class CourseListForm(IdeiaForm):
     def __process__(self):
 
         return  course_business.get_courses(self.itens_per_page, **self.cleaned_data)
+
+
 
 
 

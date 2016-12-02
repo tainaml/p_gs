@@ -15,9 +15,7 @@ class Command(BaseCommand):
 
         for community in communities:
 
-            if community.title.lower() in ['mais', 'desenvolvimento', 'infraestrutura', 'design', 'mobile', 'ios', 'cores', 'branding', 'processo criativo']:
-                print community.title
-            else:
+            if community.title.lower() not  in ['mais', 'desenvolvimento', 'infraestrutura', 'design', 'mobile', 'ios', 'cores', 'branding', 'processo criativo']:
                 criteria = Q(title__unaccent__icontains=community.title+" ") | Q(title__unaccent__icontains=" " + community.title)
 
                 articles  = Article.objects.filter(criteria)
@@ -26,7 +24,6 @@ class Command(BaseCommand):
                     feed.taxonomies.add(community.taxonomy)
                     feed.communities.add(community)
                     feed.save()
-                    print "Done article %s" % str(article.id)
 
 
 

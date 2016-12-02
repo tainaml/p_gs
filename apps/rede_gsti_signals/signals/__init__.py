@@ -8,3 +8,4 @@ import useraction
 import contact
 import comment
 import notification
+import rating

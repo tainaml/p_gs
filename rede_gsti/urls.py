@@ -120,6 +120,9 @@ urlpatterns = [
     # Translators: URL de curso
     url(_(r'^courses/'), include('apps.core.urls.course', namespace='course')),
 
+    # Translators: URL de curso
+    url(_(r'^rating/'), include('apps.core.urls.rating', namespace='rating')),
+
     # Translators: URL core adicionais
     url(_(r'^'), include('apps.core.urls.core', namespace='core')),
 

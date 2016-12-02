@@ -1,6 +1,8 @@
 from django.contrib.auth import get_user_model
+from django.contrib.contenttypes.fields import GenericRelation
 from django.utils.functional import cached_property
 from apps.core.models.languages import Language
+from apps.core.models.rating import Rating
 from apps.core.utils import build_absolute_uri
 from apps.taxonomy.models import Taxonomy
 from django.db import models
@@ -41,6 +43,7 @@ class Course(models.Model):
                                verbose_name=_('Internal author'))
 
     external_author = models.TextField(max_length=255, verbose_name=_('External Author'), null=True, blank=True)
+    ratings = GenericRelation(Rating, related_query_name="course")
 
     @cached_property
     def author(self):

@@ -55,3 +55,4 @@ class CourseShowView(View):
             template_name=self.template_path,
             context=context
         )
+
