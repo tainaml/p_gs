@@ -7,9 +7,15 @@ from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes.fields import GenericForeignKey
 
 
+def get_content_type(model=None):
+    try:
+        return ContentType.objects.get(model=model)
+    except ContentType.DoesNotExist:
+        return None
 
-AVAIABLE_TYPES_TO_RATE = [ContentType.objects.get(model=model)
-                          for model in getattr(settings, "AVAIABLE_TYPES_TO_RATE", ['course'])]
+
+AVAIABLE_TYPES_TO_RATE = [get_content_type(model)
+                          for model in getattr(settings, "AVAIABLE_TYPES_TO_RATE", ['course']) if get_content_type(model)]
 
 def content_in_settings(value):
     try:
@@ -21,7 +27,6 @@ def content_in_settings(value):
         )
 
     if content_type not in AVAIABLE_TYPES_TO_RATE:
-        print content_type
         raise ValidationError(
             _('Type is not registered to rate!')
         )

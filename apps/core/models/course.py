@@ -57,7 +57,7 @@ class Course(models.Model):
         return self.image or None
 
     updatein = models.DateTimeField(null=False, auto_now=True)
-    curriculum = models.TextField(max_length=255, verbose_name=_('Curriculum'))
+    # curriculum = models.TextField(max_length=255, verbose_name=_('Curriculum'))
 
     languages = models.ManyToManyField(Language, blank=True, verbose_name=_('Languages'), related_name="languages")
     image = models.ImageField(max_length=100, upload_to=course_image_upload, blank=True, verbose_name=_('Image'))
@@ -81,3 +81,9 @@ class Course(models.Model):
     def rating_percentage(self):
         return int((self.rating/Decimal(Rating.MAX_RATING))*100)
 
+
+class Curriculum(models.Model):
+    title = models.CharField(max_length=255, verbose_name=_('Title'))
+    description = models.TextField(verbose_name=_('Description'))
+
+    course = models.ForeignKey(Course, related_name="curriculums", verbose_name=_('Course'))
