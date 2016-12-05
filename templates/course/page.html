@@ -37,7 +37,7 @@
             </header>
         </div>
     </div>
-    <form class="row filter__courses" action="#">
+    <form class="row filter__courses" action="#" data-form-send-enables>
         <div class="col-sm-4 form-group clearfix">
             <div class="form-search-input">
                     {% render_field form.title placeholder="Pesquisar por cursos" type="search" autocomplete="off" %}
@@ -47,7 +47,7 @@
             </button>
         </div>
 
-        <div class="collapse navbar-collapse" id="filters" data-form-send-enables>
+        <div class="collapse navbar-collapse" id="filters">
             <div class="row">
                 <div class="col-sm-3 form-group">
                   {% render_field form.category class="form-control" data-form-send="" %}
