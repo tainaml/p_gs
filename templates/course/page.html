@@ -38,7 +38,6 @@
         </div>
     </div>
         <form class="row filter__courses" action="#">
-        <div>
             <div class="col-sm-4 form-group clearfix">
                 <div class="form-search-input">
                         {% render_field form.title placeholder="Pesquisar por cursos" type="search" autocomplete="off" %}
@@ -47,33 +46,34 @@
                     <i class="gsticon gsticon-search"></i>
                 </button>
             </div>
-            <div class="col-xs-12 visible-xs-block text-right">
-                <span class="btn btn-primary btn-filter" data-toggle="sidemenu">Filtrar</span>
+            <div class="col-xs-12 visible-xs-block form-group">
+                <span class="btn btn-lg btn-block btn-primary btn-filter" data-target="#filters" data-toggle="collapse">Filtrar</span>
             </div>
-        </div>
-        <div class="hidden-xs">
-            <div class="col-sm-3 form-group">
-                  {% render_field form.category class="form-control" data-form-send="" %}
+            <div class="collapse navbar-collapse" id="filters" data-form-send-enables>
+                <div class="row">
+                    <div class="col-sm-3 form-group">
+                      {% render_field form.category class="form-control" data-form-send="" %}
+                    </div>
+                    <div class="col-sm-3 form-group">
+                      {% render_field form.community class="form-control" data-form-send="" %}
+                    </div>
+                    <div class="col-sm-2 form-group">
+                      {% render_field form.order class="form-control" data-form-send="1" %}
+                    </div>
+                </div>
             </div>
-            <div class="col-sm-3 form-group">
-                  {% render_field form.community class="form-control" data-form-send="" %}
-            </div>
-            <div class="col-sm-2 form-group">
-                  {% render_field form.order class="form-control" data-form-send="1" %}
-            </div>
-        </div>
-    </form>
+        </form>
         <div class="row">
-        <div class="col-xs-12">
-            <div class="row list__courses" data-toggle="scroll">
-              <div class="j-scroll-container">
-                {% include 'course/items.html' %}
-              </div>
-
+            <div class="col-xs-12">
+                <div class="row list__courses" data-toggle="scroll">
+                    <div class="j-scroll-container">
+                        {% include 'course/items.html' %}
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
     </main>
+{% comment %}
     <div class="side__menu" data-target="sidemenu">
     <div class="side__menu__content">
         <div class="side__menu__title">Filtro</div>
@@ -135,4 +135,5 @@
           </div>
     </div>
 </div>
+{% endcomment %}
 {% endblock content %}
