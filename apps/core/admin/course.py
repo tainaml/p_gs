@@ -4,7 +4,7 @@ from django.contrib.admin import StackedInline
 from django.forms import inlineformset_factory
 from ideia_summernote.widget import SummernoteWidget
 from apps.core.models.course import Course, Curriculum
-
+from apps.core.models.plataform import Plataform
 
 
 class CurriculumInline(StackedInline):
@@ -23,3 +23,4 @@ class CoreCourseAdmin(admin.ModelAdmin):
     inlines = [CurriculumInline]
 
 admin.site.register(Course, CoreCourseAdmin)
+admin.site.register(Plataform)

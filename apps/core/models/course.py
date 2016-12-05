@@ -3,6 +3,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.contenttypes.fields import GenericRelation
 from django.utils.functional import cached_property
 from apps.core.models.languages import Language
+from apps.core.models.plataform import Plataform
 from apps.core.models.rating import Rating
 from apps.core.utils import build_absolute_uri
 from apps.taxonomy.models import Taxonomy
@@ -40,8 +41,6 @@ class Course(models.Model):
 
     rating = models.DecimalField(max_digits=3, decimal_places=2, verbose_name=_('Rating'))
 
-
-
     internal_author = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, blank=True, related_name='courses',
                                verbose_name=_('Internal author'))
 
@@ -67,6 +66,9 @@ class Course(models.Model):
     affiliate_link = models.URLField(verbose_name=_('Affiliate link'))
 
     active = models.BooleanField(default=True, verbose_name=_('Active'))
+
+    plataform = models.ForeignKey(Plataform, related_name="courses", verbose_name=_('Plataform'))
+    class_link = models.URLField(verbose_name=_('Class Link'), null=True, blank=True)
 
     def __unicode__(self):
         return u'{}'.format(self.title)

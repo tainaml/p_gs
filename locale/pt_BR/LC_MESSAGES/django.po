@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-05 16:54-0300\n"
+"POT-Creation-Date: 2016-12-05 18:55-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -173,14 +173,14 @@ msgstr "Publicação salva com sucesso"
 msgid "Generic Error"
 msgstr "Erro"
 
-#: apps/certification/models.py:8 apps/core/models/course.py:37
-#: apps/core/models/course.py:86 apps/job_vacancy/models.py:39
+#: apps/certification/models.py:8 apps/core/models/course.py:38
+#: apps/core/models/course.py:88 apps/job_vacancy/models.py:39
 msgid "Title"
 msgstr "Título"
 
 #: apps/certification/models.py:9 apps/company/models.py:10
 #: apps/company/models.py:20 apps/company/models.py:27
-#: apps/core/models/course.py:39 apps/core/models/course.py:87
+#: apps/core/models/course.py:40 apps/core/models/course.py:89
 #: apps/core/models/languages.py:9 apps/core/models/plataform.py:21
 #: apps/job_vacancy/models.py:18 apps/job_vacancy/models.py:25
 #: apps/job_vacancy/models.py:32 apps/job_vacancy/models.py:78
@@ -340,12 +340,10 @@ msgid "Worst rating"
 msgstr "Pior avaliado"
 
 #: apps/core/forms/course.py:28
-#| msgid "^category-feed/"
 msgid "Category"
 msgstr "Categoria"
 
 #: apps/core/forms/course.py:30
-#| msgid "Community Related"
 msgid "Community"
 msgstr "Comunidade"
 
@@ -369,55 +367,61 @@ msgstr "Gênero não permitido."
 msgid "Image size more than 1mb."
 msgstr "Tamanho da imagem excede 1mb"
 
-#: apps/core/models/course.py:38 apps/core/models/languages.py:8
+#: apps/core/models/course.py:39 apps/core/models/languages.py:8
 #: apps/core/models/plataform.py:20 apps/job_vacancy/models.py:40
 #: apps/userprofile/models.py:134
 msgid "Slug"
 msgstr "Slug"
 
-#: apps/core/models/course.py:41
+#: apps/core/models/course.py:42
 msgid "Rating"
 msgstr "Avaliação"
 
-#: apps/core/models/course.py:46
+#: apps/core/models/course.py:45
 msgid "Internal author"
 msgstr "Autor interno"
 
-#: apps/core/models/course.py:48
+#: apps/core/models/course.py:47
 msgid "External Author"
 msgstr "Autor externo"
 
-#: apps/core/models/course.py:62
+#: apps/core/models/course.py:61
 msgid "Languages"
 msgstr "Linguagens"
 
-#: apps/core/models/course.py:63
+#: apps/core/models/course.py:62
 msgid "Image"
 msgstr "Imagem"
 
-#: apps/core/models/course.py:64
+#: apps/core/models/course.py:63
 msgid "Related Courses"
 msgstr "Cursos relacionados"
 
-#: apps/core/models/course.py:65
+#: apps/core/models/course.py:64
 msgid "Taxonomy"
 msgstr "Taxonomia"
 
-#: apps/core/models/course.py:67
+#: apps/core/models/course.py:66
 msgid "Affiliate link"
 msgstr "Link afiliado"
 
-#: apps/core/models/course.py:69 apps/userprofile/models.py:140
+#: apps/core/models/course.py:68 apps/userprofile/models.py:140
 msgid "Active"
 msgstr "Ativo"
 
-#: apps/core/models/course.py:89
-#| msgid "^courses/"
+#: apps/core/models/course.py:70
+msgid "Plataform"
+msgstr "Plataforma"
+
+#: apps/core/models/course.py:71
+msgid "Class Link"
+msgstr "Link da aula"
+
+#: apps/core/models/course.py:91
 msgid "Course"
 msgstr "Curso"
 
 #: apps/core/models/languages.py:10
-#| msgid "Anonymous"
 msgid "Acronym"
 msgstr "Sigla"
 
@@ -748,7 +752,6 @@ msgid "^oembed/"
 msgstr "^oembed/"
 
 #: apps/core/urls/course.py:9
-#| msgid "^(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/$"
 msgid "^(?P<course_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/$"
 msgstr "^(?P<course_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/$"
 
@@ -834,8 +837,7 @@ msgstr "^atualizar-resposta/$"
 #. Translators: URL de carregar perguntas relacionadas
 #: apps/core/urls/question.py:34
 msgid "^load/related/(?P<question_id>[0-9]+)/(?P<content_type>[a-z]+)/$"
-msgstr ""
-"^carregar/relacionadas/(?P<question_id>[0-9]+)/(?P<content_type>[a-z]+)/$"
+msgstr "^carregar/relacionadas/(?P<question_id>[0-9]+)/(?P<content_type>[a-z]+)/$"
 
 #. Translators: URL para marcar resposta correta
 #: apps/core/urls/question.py:37
@@ -860,7 +862,6 @@ msgid "^create/(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)$"
 msgstr "^criar/(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)$"
 
 #: apps/core/urls/rating.py:7
-#| msgid "^create/$"
 msgid "^rate/$"
 msgstr "^avaliar/$"
 
@@ -1167,7 +1168,6 @@ msgid "Your settings have been successfully changed!"
 msgstr "Suas configurações foi alteradas com sucesso!"
 
 #: apps/core/views/course.py:49
-#| msgid "Answer not found"
 msgid "Course not found"
 msgstr "Curso não encontrado"
 
@@ -1637,7 +1637,6 @@ msgstr "^cursos/"
 
 #. Translators: URL de curso
 #: rede_gsti/urls.py:124
-#| msgid "^settings/"
 msgid "^rating/"
 msgstr "^avaliacao/"
 

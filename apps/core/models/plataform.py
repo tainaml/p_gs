@@ -7,7 +7,7 @@ import os
 
 def plataform_image_upload(instance, filename):
 
-    owner = instance.author.id
+    owner = instance.slug
     today_str = datetime.today().strftime('%Y/%m/%d')
     path = 'plataform/{0}/{1}'.format(owner, today_str)
 
@@ -21,3 +21,6 @@ class Plataform(models.Model):
     description = models.CharField(max_length=255, verbose_name=_('Description'))
 
     image = models.ImageField(max_length=100, upload_to=plataform_image_upload, blank=True)
+
+    def __unicode__(self):
+        return self.slug
