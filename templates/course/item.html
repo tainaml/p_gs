@@ -2,12 +2,19 @@
 {% load abs_url %}
 {% load avatar_tags %}
 {% load thumbor_tags %}
+{% load user_agents %}
 <div class="col-sm-3">
     <a href="#" class="thumb__course">
         <figure>
             {% if item.image_or_default %}
-                <img class="img-responsive" alt="{{ item.title }}"
+                {% if request|is_mobile %}
+                     <img class="img-responsive" alt="{{ item.title }}"
+                     src="{% thumbor_url item.image_or_default.url width=130 height=140 smart=False fit_in=False %}">
+                {% else %}
+                         <img class="img-responsive" alt="{{ item.title }}"
                      src="{% thumbor_url item.image_or_default.url width=270 height=160 smart=False fit_in=False %}">
+                {% endif %}
+
             {% else %}
                 {% absolute_url '/static/images/gsti-video-placeholder.png' as image_placeholder %}
                  <img class="img-responsive" src="{% thumbor_url image_placeholder width=150 height=113 smart=False fit_in=False %}" alt="{{ item.title }}" />
