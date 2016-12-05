@@ -9,9 +9,7 @@
   .form-search-input { width: 88%; }
   .form-search-button { width: 12%; }
 }
-.list__courses {
-  margin-bottom: 160px;
-}
+.list__courses {}
 .thumb__course {
   @include clearfix();
   overflow: hidden;
@@ -32,7 +30,9 @@
     .thumb__course__title { color: #0160b0; }
   }
   &__title {
-    min-height: 60px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    height: 42px;
     margin-top: 27px;
     margin-bottom: 15px;
     display: block;
@@ -41,7 +41,7 @@
     letter-spacing: -0.05em;
   }
   &__categories {
-    min-height: 40px;
+    height: 40px;
     margin-bottom: 16px;
     display: block;
     color: #484848;
@@ -129,9 +129,6 @@
       img { max-width: 100%; }
     }
     &__title {
-      overflow: hidden;
-      text-overflow: ellipsis;
-      max-height: 40px;
       min-height: auto;
       margin-top: 15px;
       font-weight: 600;
