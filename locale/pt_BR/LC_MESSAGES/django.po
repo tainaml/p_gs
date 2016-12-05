@@ -342,7 +342,7 @@ msgstr "Pior avaliado"
 #: apps/core/forms/course.py:28
 #| msgid "^category-feed/"
 msgid "Category"
-msgstr "^categoria/"
+msgstr "Categoria"
 
 #: apps/core/forms/course.py:30
 #| msgid "Community Related"
