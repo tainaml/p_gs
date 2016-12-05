@@ -70,7 +70,30 @@
             </div>
         </div>
     </form>
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="row list__courses" data-toggle="scroll">
 
+                {% for course in 'lorem ipsume' %}
+                {% cycle '24' '50' as percentage silent %}
+                <div class="col-sm-3">
+                    <a href="#" class="thumb__course">
+                        <figure>
+                          <img src="{{ 'http://placehold.it/270x160' }}" width="270" height="160" alt="{{ "Lorem ipsum dolor sit amet, assum augue duo at, quo ei tation postulant" }}">
+                        </figure>
+                        <span class="thumb__course__title">{{ "Lorem ipsum dolor sit amet, assum augue duo at, quo ei tation postulant" }}</span>
+                        <span class="thumb__course__categories">Rede de Computadores, Analytics, Banco de Dados, Active Directory, Cloud Computing</span>
+                        <span class="thumb__course__avaliation">
+                            <span style="width: {{ percentage }}%"></span>
+                        </span>
+                    </a>
+                </div>
+
+                {% endfor %}
+
+            </div>
+        </div>
+    </div>
 </main>
 
 <div class="side__menu" data-target="sidemenu">

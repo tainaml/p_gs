@@ -83,17 +83,14 @@
               Categorias
             </a>
             <div id="collapseOne" class="collapse" role="tabpanel" aria-labelledby="headingOne">
-              <ul class="list-unstyled">
-                  {{ form.category.get_choices }}
-{#                    <li><a href="#">Banco de Dados</a></li>#}
-{#                    <li><a href="#">Desenvolvimento</a></li>#}
-{#                    <li><a href="#">Design</a></li>#}
-{#                    <li><a href="#">governança de TI</a></li>#}
-{#                    <li><a href="#">Infraestrutura</a></li>#}
-{#                    <li><a href="#">Mobile</a></li>#}
-{#                    <li class="item__hidden" data-hidden="true"><a href="#">Mais</a></li>#}
+
+                <ul class="list-unstyled">
+                    {% for value, description in form.category.field.choices %}
+                        {% if not forloop.first %}
+                            <li><a href="{{ request.GET.querystring }}">{{ description }} {{ request.GET.querystring }}</a></li>
+                        {% endif %}
+                    {% endfor %}
               </ul>
-              <a data-toggle="showmore" href="#">mais 10...</a>
             </div>
           </div>
           <div class="accordeon__item">
