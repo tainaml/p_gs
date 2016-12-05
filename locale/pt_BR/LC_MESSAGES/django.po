@@ -325,11 +325,11 @@ msgstr "Ordem padrão"
 
 #: apps/core/forms/course.py:21 apps/core/forms/videos.py:21
 msgid "Recent"
-msgstr "Mais recentes"
+msgstr "Mais recente"
 
 #: apps/core/forms/course.py:22 apps/core/forms/videos.py:22
 msgid "Oldest"
-msgstr "Mais antigos"
+msgstr "Mais antigo"
 
 #: apps/core/forms/course.py:23
 msgid "Better rating"
