@@ -1,9 +1,9 @@
 from django.contrib import admin
 from django.db import models
+from django import forms
 from apps.account.models import User
-from apps.account.admin import UserNewAdmin
-from apps.company.models import Company, CompanyContact, Membership
-from jet.admin import CompactInline
+from apps.company.models import Company, CompanyContact
+from django.template.defaultfilters import slugify
 
 
 class CompanyProxyManager(models.Manager):
@@ -17,11 +17,30 @@ class CompanyProxyManager(models.Manager):
 
 class CompanyProxy(Company):
 
+    class Meta:
+        proxy = True
+
     objects = CompanyProxyManager()
 
-    class Meta:
+    def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
 
-        proxy = True
+        if not self.user:
+
+            company_user = User.objects.create_user(
+                username=slugify(self.name),
+                first_name=self.name,
+                last_name='',
+                is_active=True,
+                usertype=User.ORGANIZATION
+            )
+
+            company_user.save()
+
+            self.user = company_user
+            
+
+        super(CompanyProxy, self).save(force_insert, force_update, using, update_fields)
+        #after save
 
 
 class MembersInline(admin.StackedInline):
@@ -36,9 +55,9 @@ class CompanyContactInline(admin.TabularInline):
     extra = 1
 
 
-
 class CompanyAdmin(admin.ModelAdmin):
 
+    readonly_fields = ['user']
     inlines = [MembersInline, CompanyContactInline]
 
 
