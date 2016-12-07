@@ -1,9 +1,12 @@
-from django.http import JsonResponse
+from django.http import JsonResponse, Http404
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.utils.translation import ugettext as _
 
 from apps.account import views
+from apps.company.models import Company
+from apps.core.business.account import log_with_company
+from apps.core.exceptions.account import CompanyHasNoUserAssociated, NoPermissionToLogWithCompany
 
 
 class CoreRegisterView(views.RegisterView):
@@ -31,6 +34,28 @@ class CoreLoginView(views.LoginView):
     def return_success(self, request, context=None):
         return JsonResponse(context, status=200)
 
+
+class LoginWithCompany(views.View):
+
+    def get(self,request, company_slug):
+
+        try:
+            company = Company.objects.get(user__username=company_slug)
+
+            log_with_company(request, company)
+
+            return redirect(reverse('profile:feed'))
+        except Company.DoesNotExist:
+            raise Http404()
+        except CompanyHasNoUserAssociated:
+            raise Http404()
+        except NoPermissionToLogWithCompany:
+            raise Http404()
+
+
+    def __do__proccess(self, request):
+
+        return JsonResponse(data={'is_logged': request.user.is_authenticated()})
 
 class CoreResendAccountConfirmationView(views.ResendAccountConfirmationView):
 

@@ -47,6 +47,8 @@ class IsLogged(View):
         return JsonResponse(data={'is_logged': request.user.is_authenticated()})
 
 
+
+
 class LoginView(View):
 
     template_path = 'account/login.html'
