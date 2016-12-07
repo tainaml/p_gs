@@ -1,7 +1,6 @@
 from django.contrib import admin
 from django.db import models
 from apps.account.models import User
-from apps.core.models.company import CompanyUser
 from apps.account.admin import UserNewAdmin
 from apps.company.models import Company, CompanyContact, Membership
 from jet.admin import CompactInline
