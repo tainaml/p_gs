@@ -6,6 +6,7 @@ class UserManager(models.UserManager):
     prefetch_fields = [
         'profile', 'profile__occupation',
         'profile__occupation__responsibility',
+        'companies', 'companies__user', 'companies__user__profile'
     ]
 
     def get_queryset(self):
