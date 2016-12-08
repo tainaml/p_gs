@@ -3,12 +3,39 @@ import '../../vendor/rateYo/jquery.rateyo';
 if ( $( '[data-page="courses"]' ).length ) {
   const $showMore = $( '[data-toggle="showmore"]' )
   const $rating = $( '[data-toogle="rating"]' )
+  const formRating = $( '[name="rating"]' )
 
-  $rating.rateYo({
+  const defaultSettings = {
     rating: 3.6,
     spacing: '5px',
-    starWidth: '18px'
+    starWidth: '18px',
+    onSet: function (rating, rateYoInstance) {
+      formRating.val( rating )
+      alert( `Rating is set to: ${rating}` )
+      console.log( formRating.val() )
+    },
+    onChange: function (rating, rateYoInstance) {
+      $(this).next().text(rating);
+    }
+  }
+
+  $rating.each( ( index, item ) => {
+    let $this = $( item )
+    const dataConfig = $this.data( 'config' )
+    const settings = $.extend({}, {
+      spacing: '5px',
+      starWidth: '18px',
+      onSet: function (rating, rateYoInstance) {
+        formRating.val( rating )
+      },
+      onChange: function (rating, rateYoInstance) {
+        $(this).next().text(rating);
+      }
+    }, dataConfig)
+    $this.rateYo( settings )
   })
+
+
 
   $showMore.on( 'click tap', ( event ) => {
     toggleHeight($( event.currentTarget ).attr( 'href' ))
