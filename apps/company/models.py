@@ -1,8 +1,5 @@
 from __future__ import unicode_literals
-from datetime import datetime
-import os
 from django.core.exceptions import ValidationError
-from django.template.defaultfilters import slugify
 from django.utils.translation import ugettext as _
 from django.db import models
 from django.conf import settings
@@ -42,6 +39,7 @@ class Company(models.Model):
 
     objects = CompanyManager()
 
+    website = models.URLField(verbose_name=_('Website'), blank=True, null=True)
 
 
     taxonomies = models.ManyToManyField(Taxonomy, verbose_name=_("Taxonomies"), related_name="companies")
