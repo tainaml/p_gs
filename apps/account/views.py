@@ -134,7 +134,7 @@ class LogoutView(View):
         :return:
         """
         logout_user(request)
-        return redirect('/')
+        return redirect(reverse('account:login'))
 
 
 class RegisterView(View):
