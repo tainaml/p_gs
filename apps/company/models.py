@@ -51,6 +51,9 @@ class Company(models.Model):
 
     objects = CompanyManager()
 
+    website = models.URLField(verbose_name=_('Website'), blank=True, null=True)
+
+
     taxonomies = models.ManyToManyField(Taxonomy, verbose_name=_("Taxonomies"), related_name="companies")
 
     def __unicode__(self):

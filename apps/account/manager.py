@@ -5,7 +5,7 @@ class UserManager(models.UserManager):
 
     prefetch_fields = [
         'profile', 'profile__occupation',
-        'profile__occupation__responsibility',
+        'profile__occupation__responsibility','company',
         'companies', 'companies__user', 'companies__user__profile'
     ]
 
