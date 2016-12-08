@@ -51,8 +51,6 @@ class Company(models.Model):
 
     objects = CompanyManager()
 
-
-
     taxonomies = models.ManyToManyField(Taxonomy, verbose_name=_("Taxonomies"), related_name="companies")
 
     def __unicode__(self):
