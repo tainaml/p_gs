@@ -1,3 +1,4 @@
+from apps.userprofile.models import UserProfile
 from django.contrib import admin
 from django.db import models
 from django import forms
@@ -46,23 +47,21 @@ class CompanyProxy(Company):
 
     def update_user(self):
 
-        backup_user = self.user
-        backup_profile = self.user.user_profile
-
         if not self.user:
             return None
 
         self.user.first_name = self.name
+        self.user.save()
 
-        if self.user != backup_user:
-            self.user.save()
+        try:
 
-        user_profile = self.user.user_profile
-        user_profile.profile_picture = self.logo
-        user_profile.description = self.description
-
-        if user_profile != backup_profile:
+            user_profile = UserProfile.objects.get(user=self.user)
+            user_profile.profile_picture = self.logo
+            user_profile.description = self.description
             user_profile.save()
+
+        except Exception as e:
+            print(e)
 
     def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
 
