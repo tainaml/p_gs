@@ -65,5 +65,10 @@ class ResponsibilityAdmin(admin.ModelAdmin):
     )
 
 
+class UserProfileAdmin(admin.ModelAdmin):
+
+    raw_id_fields = ['user', 'city', 'city_hometown']
+
+
 admin.site.register(Responsibility, ResponsibilityAdmin)
-admin.site.register(UserProfile)
+admin.site.register(UserProfile, UserProfileAdmin)
