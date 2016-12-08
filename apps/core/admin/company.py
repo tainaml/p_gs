@@ -5,6 +5,7 @@ from django import forms
 from apps.account.models import User
 from apps.company.models import Company, CompanyContact
 from django.template.defaultfilters import slugify
+from jet.admin import CompactInline
 
 
 class CompanyProxyManager(models.Manager):
@@ -70,10 +71,10 @@ class CompanyProxy(Company):
         self.update_user()
 
 
-class MembersInline(admin.StackedInline):
+class MembersInline(CompactInline):
 
     model = CompanyProxy.members.through
-    extra = 0
+    extra = 1
     raw_id_fields = ['user']
 
 

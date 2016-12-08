@@ -21,10 +21,19 @@ class Membership(models.Model):
         COLLABORATOR: _("Collaborator")
     }
 
+    MEMBERSHIP_CHOICES = (
+        (ADMIN, _('Admin')),
+        (COLLABORATOR, _("Collaborator")),
+    )
+
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name=_("User"))
     company = models.ForeignKey("Company", on_delete=models.CASCADE, verbose_name=_("Company"))
 
-    permission = models.PositiveSmallIntegerField(verbose_name=_("Permission"), validators=[limit_to_membershiptypes])
+    permission = models.PositiveSmallIntegerField(verbose_name=_("Permission"), choices=MEMBERSHIP_CHOICES, validators=[limit_to_membershiptypes])
+
+    def __unicode__(self):
+        return u'{} - {}'.format(self.user, self.get_permission_display())
+
 
 class CompanyManager(models.Manager):
     def get_queryset(self):
