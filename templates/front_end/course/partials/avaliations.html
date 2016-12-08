@@ -1,33 +1,24 @@
-<div class="list__avaliations">
-    <h3>Avaliações</h3>
-    <form class="clearfix">
+<div class="course__avaliations">
+    <h3 class="course__avaliations__title">Avaliações</h3>
+    <form class="clearfix avaliation__form">
+        <input type="hidden" name="rating" value="0">
         <div class="form-group">
-            Avalie este curso
-            <span class="thumb__course__avaliation">
-              <span style="width: 60%"></span>
+            <span class="avaliation__form__title" data-toogle="title-form">Avalie este curso</span>
+            <span class="avaliation__form__rating">
+              <span data-toogle="rating" data-config="{}"></span>
+              <span class="avaliation__reaction__text">Detestei</span>
             </span>
         </div>
+        <!-- vai ser exibida essa área quando o usuário que já avaliou o curso entrar na página do curso -->
+        {% include "front_end/course/partials/avaliation.html" %}
         <div class="form-group">
-            <textarea class="form-control" name="name"></textarea>
+            <textarea class="form-control" data-toggle="editor" data-config="{}" name="comment_avaliation" placeholder="Escreva um comentário (opcional)"></textarea>
         </div>
         <button class="btn btn-primary pull-right">Enviar</button>
     </form>
-    <div class="avaliation">
-        <figure>
-            <img class="img-responsive img-circle pull-left" src="http://placehold.it/38" alt="">
-            <figcaption>
-                <div class="avaliator__name">Lara Matos</div>
-                <span class="thumb__course__avaliation">
-                  <span style="width: 60%"></span>
-                </span>
-                <time class="pull-right" datetime="">2 semanas atrás</time>
-            </figcaption>
-        </figure>
-        <div class="avaliation__comment">
-          <p>Lorem ipsum dolor sit amet, expetendis honestatis eos id. Nam prima mnesarchum te, eiqui enim consulatu.</p>
-        </div>
-        <div class="avaliation__tools">
-          <a href="#">Denunciar</a>
-        </div>
-    </div>
+
+    {% for i in "12" %}
+      {% include "front_end/course/partials/avaliation.html" %}
+    {% endfor %}
+
 </div>

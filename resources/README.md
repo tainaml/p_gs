@@ -13,6 +13,7 @@ adicionar o `/static/` antes do `javascripts/` dentro do "shared-[hash].js"
 em static/javascripts.
 
 
-## instalando o npm par ao usuário
+## instalando o npm para ao usuário
 
-sudo chown -R $(whoami) $(npm config get prefix)/{lib/node_modules,bin,share}
+sudo chown -R $(whoami) ~/.npm
+[more here](http://stackoverflow.com/questions/16151018/npm-throws-error-without-sudo)

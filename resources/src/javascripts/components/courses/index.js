@@ -2,6 +2,13 @@ import '../../vendor/rateYo/jquery.rateyo';
 
 if ( $( '[data-page="courses"]' ).length ) {
   const $showMore = $( '[data-toggle="showmore"]' )
+  const $rating = $( '[data-toogle="rating"]' )
+
+  $rating.rateYo({
+    rating: 3.6,
+    spacing: '5px',
+    starWidth: '18px'
+  })
 
   $showMore.on( 'click tap', ( event ) => {
     toggleHeight($( event.currentTarget ).attr( 'href' ))
