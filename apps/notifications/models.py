@@ -6,10 +6,16 @@ from django.utils.translation import ugettext as _
 from django.db import models
 
 
+class NotificationManager(models.Manager):
+    def get_queryset(self):
+        return super(NotificationManager, self).get_queryset().select_related('author', 'to')
+
 class Notification(models.Model):
 
     to = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='notifications_received')
     author = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='notifications_sent')
+
+    objects = NotificationManager()
 
     #Target
     target_content_type = models.ForeignKey(ContentType)

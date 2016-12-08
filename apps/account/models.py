@@ -34,6 +34,9 @@ class User(AbstractUser):
 
     usertype = models.PositiveSmallIntegerField(verbose_name=_("User type"), validators=[limit_usertypes_to], default=PERSON)
 
+    def is_company(self):
+        return self.usertype == User.ORGANIZATION
+
     class Meta(AbstractUser.Meta):
         swappable = 'AUTH_USER_MODEL'
         verbose_name = u'Usuário'

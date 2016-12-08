@@ -26,12 +26,20 @@ class Membership(models.Model):
 
     permission = models.PositiveSmallIntegerField(verbose_name=_("Permission"), validators=[limit_to_membershiptypes])
 
+class CompanyManager(models.Manager):
+    def get_queryset(self):
+        return super(CompanyManager, self).get_queryset().select_related('user', 'user__profile')
+
 class Company(models.Model):
     name = models.CharField(blank=False, null=False, max_length=255, verbose_name=_('Name'))
     logo = models.ImageField(max_length=100, upload_to='company/%Y/%m/%d', blank=True, default='', verbose_name=_('Logo'))
     user = models.OneToOneField(settings.AUTH_USER_MODEL, related_name='company', blank=True, null=True)
     members = models.ManyToManyField(settings.AUTH_USER_MODEL, through="Membership", related_name="companies")
     description = models.TextField(blank=False, null=False, verbose_name=_('Description'))
+
+    objects = CompanyManager()
+
+
 
     taxonomies = models.ManyToManyField(Taxonomy, verbose_name=_("Taxonomies"), related_name="companies")
 
