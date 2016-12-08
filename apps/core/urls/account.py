@@ -50,6 +50,7 @@ urlpatterns = [
 
     # Translators: URL de pagina de login com empresa
     url(r'^login-company/(?P<company_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/$', CoreViews.LoginWithCompany.as_view(), name='login_with_company'),
+    url(r'^relogin/$', CoreViews.ReLoginFromCompany.as_view(), name='relogin'),
 
 
 ]

@@ -16,7 +16,7 @@ from apps.account.models import MailValidation, User
 
 __author__ = 'phillip'
 
-
+UserModel = get_user_model()
 def create_user_by_parameters(parameters):
 
     """
@@ -234,6 +234,8 @@ def log_in_user(request=None, user=None):
     :param user: user to attach
     :return:
     """
+    if user and user.usertype == UserModel.ORGANIZATION:
+        return False
     try:
         auth_login(request, user)
         return True
@@ -242,6 +244,9 @@ def log_in_user(request=None, user=None):
 
 
 def log_in_user_no_credentials(request, user):
+
+    if user.usertype == UserModel.ORGANIZATION:
+        return
 
     from django.contrib.auth import load_backend, login
     if not hasattr(user, 'backend'):

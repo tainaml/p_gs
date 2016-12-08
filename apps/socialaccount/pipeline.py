@@ -6,10 +6,15 @@ from requests import request, HTTPError, ConnectionError
 from django.core.files.base import ContentFile
 from social.pipeline.partial import partial
 from apps.account.models import User
-
+from django.core.exceptions import PermissionDenied
 from apps.userprofile.service.business import  get_profile as GetProfile
 
 User = get_user_model()
+
+def user_allowed_to_login(backend, user=None, *args, **kwargs):
+   if user and user.usertype == User.ORGANIZATION:
+        raise PermissionDenied
+
 
 @partial
 def require_email(strategy, details, user=None, is_new=False, *args, **kwargs):

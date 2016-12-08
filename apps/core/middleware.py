@@ -46,6 +46,7 @@ class WizardMiddleware(object):
         if request.is_ajax():
             return None
 
+
         if request.user and hasattr(request.user, "user_profile") \
             and request.user.user_profile.wizard_step + 1 <= int(getattr(settings, 'WIZARD_STEPS_TOTAL')) and request.user.usertype != UserModel.ORGANIZATION:
 
