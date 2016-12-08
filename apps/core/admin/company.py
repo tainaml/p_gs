@@ -22,10 +22,9 @@ class CompanyProxy(Company):
 
     objects = CompanyProxyManager()
 
-    def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
+    def create_user(self):
 
         if not self.user:
-
             company_user = User.objects.create_user(
                 username=slugify(self.name),
                 first_name=self.name,
@@ -37,16 +36,46 @@ class CompanyProxy(Company):
             company_user.save()
 
             self.user = company_user
-            
 
+            user_profile = self.user.user_profile
+            user_profile.profile_picture = self.logo
+            user_profile.description = self.description
+            user_profile.save()
+
+        return self.user
+
+    def update_user(self):
+
+        backup_user = self.user
+        backup_profile = self.user.user_profile
+
+        if not self.user:
+            return None
+
+        self.user.first_name = self.name
+
+        if self.user != backup_user:
+            self.user.save()
+
+        user_profile = self.user.user_profile
+        user_profile.profile_picture = self.logo
+        user_profile.description = self.description
+
+        if user_profile != backup_profile:
+            user_profile.save()
+
+    def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
+
+        self.create_user()
         super(CompanyProxy, self).save(force_insert, force_update, using, update_fields)
-        #after save
+        self.update_user()
 
 
 class MembersInline(admin.StackedInline):
 
     model = CompanyProxy.members.through
     extra = 0
+    raw_id_fields = ['user']
 
 
 class CompanyContactInline(admin.TabularInline):

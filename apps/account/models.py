@@ -53,6 +53,10 @@ class User(AbstractUser):
 
     @cached_property
     def user_profile(self):
+        '''
+
+        :return UserProfile:
+        '''
         return self.profile if self.is_authenticated() else None
 
     @staticmethod
