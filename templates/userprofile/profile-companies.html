@@ -21,24 +21,17 @@
                 {% include 'home/partials/sidebar-perfil.html' %}
             </div>
             <div class="col-lg-9">
-                  {% include 'userprofile/partials/filters.html' with title="Feed" active="feed" has_filter=False has_navigation=True %}
+{#                  {% include 'userprofile/partials/filters.html' with title="Feed" active="feed" has_filter=False has_navigation=True %}#}
+                <header class="area-title title-mobile">
+                     <h2>Organizações</h2>
+                </header>
                 <div class="row">
-                    <div class="col-lg-8">
-                        {% if profile.user == request.user %}
+                    <div class="col-lg-12">
                         <section class="area-content" data-target="content">
-                            {% if feed_objects.object_list %}
-                                <div class="j-scroll j-scroll-container">
-                                    {% include 'userprofile/partials/user-profile-feed.html' %}
-                                </div>
-                            {% else %}
-                                <span>{% trans 'Não existem itens a serem exibidos' %}</span>
-                                <hr>
-                            {% endif %}
+
                         </section>
-                        {% endif %}
                     </div>
                     <!-- Right bar -->
-                    {% include 'userprofile/partials/profile-sidebar-right.html' %}
                 </div>
             </div>
         </div>

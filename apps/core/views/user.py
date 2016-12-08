@@ -166,19 +166,20 @@ class CoreUserFeed(CoreUserView):
         return context
 
 
-class CoreUserCOmpanies(CoreUserView):
+class CoreUserCompanies(CoreUserView):
 
-    template_path = 'userprofile/profile-feed.html'
+    template_path = 'userprofile/profile-companies.html'
 
     @method_decorator(login_required)
     def get(self, request, **kwargs):
-        return super(CoreUserFeed, self).get(request)
+
+
+        context = {'profile': request.user.profile}
+
+        return render(request, self.template_path, context)
 
     def get_context(self, request, profile_instance=None):
-        context = super(CoreUserFeed, self).get_context(request, profile_instance)
 
-        categories = BusinessTaxonomy.get_categories()
-        context.update({'categories': categories})
 
         return context
 
