@@ -124,14 +124,12 @@
       max-height: 40px;
       margin-top: 0;
       font-weight: 600;
-      font-size: 14px;
     }
     &__categories {
       font-size: 10px;
       font-weight: 600;
     }
-    &__avaliation {
-      font-size: 13px;
-    }
   }
 }
+
+@import 'single';
