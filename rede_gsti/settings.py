@@ -585,6 +585,7 @@ SOCIAL_AUTH_PIPELINE = (
     'social.pipeline.social_auth.social_user',
     'social.pipeline.user.get_username',
     'apps.socialaccount.pipeline.require_email',
+    'apps.socialaccount.pipeline.user_allowed_to_login',
     'social.pipeline.mail.mail_validation',
     'apps.socialaccount.pipeline.username_slugify',
     'apps.socialaccount.pipeline.validate_username',
@@ -593,11 +594,8 @@ SOCIAL_AUTH_PIPELINE = (
     'apps.socialaccount.pipeline.create_profile',
     'apps.socialaccount.pipeline.save_profile_picture',
     'social.pipeline.social_auth.associate_user',
-    'social.pipeline.debug.debug',
     'social.pipeline.social_auth.load_extra_data',
     'social.pipeline.user.user_details',
-    'social.pipeline.debug.debug',
-    'social.pipeline.debug.debug',
 
 )
 
