@@ -64,4 +64,4 @@ def refresh_home_block(sender, **kwargs):
             #     # cachecontrol.clear_group('global_home::%s' % _slug)
 
         except Exception, e:
-            print 'GERAL_ERROR: %s' % e.message
+            pass

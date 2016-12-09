@@ -68,7 +68,6 @@ class SocialFilter(SimpleListFilter):
     def queryset(self, request, queryset):
 
         social_filter = self.value()
-        print social_filter
 
         if social_filter == 'false':
             return queryset.filter(social_auth__isnull=True)

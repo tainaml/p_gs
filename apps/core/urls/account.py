@@ -46,6 +46,11 @@ urlpatterns = [
     url(_(r'^resend_account_confirmation$'), CoreViews.CoreResendAccountConfirmationView.as_view(), name='resend_account_confirmation'),
 
     # Translators: URL de pagina de check de username
-    url(_(r'^check-username$'), views.CheckUsernameView.as_view(), name='check-username')
+    url(_(r'^check-username$'), views.CheckUsernameView.as_view(), name='check-username'),
+
+    # Translators: URL de pagina de login com empresa
+    url(r'^login-company/(?P<company_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/$', CoreViews.LoginWithCompany.as_view(), name='login_with_company'),
+    url(r'^relogin/$', CoreViews.ReLoginFromCompany.as_view(), name='relogin'),
+
 
 ]

@@ -281,7 +281,7 @@ class ArticleCommunityPartial(AbstractHomeBlock):
             the_communities = the_communities.filter(taxonomy=self.__category)
             the_community = the_communities.first()
         except Exception, e:
-            print e.message
+            pass
 
         self.get_context().update({
             'article': self.article,

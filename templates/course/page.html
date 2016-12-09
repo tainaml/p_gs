@@ -1,0 +1,137 @@
+{% extends 'home/layout/base.html' %}
+
+{% load ads %}
+{% load widget_tweaks %}
+{% load seo_pagination_tags %}
+
+{% block title %}Cursos{% endblock title %}
+
+{% block link_pagination %}
+
+    {% if courses %}
+        {% pagination_links courses %}
+    {% endif %}
+
+{% endblock link_pagination %}
+
+{% block extra_meta %}
+    {{ block.super }}
+    {% if not videos %}
+        <meta name="robots" content="noindex,nofollow">
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    <main class="container main" data-page="courses" data-filtered="false">
+        <div class="row">
+        <div class="banner-content-wide">
+            <div class="banner">
+                {% ads_only_production "videos_top" "all" %}
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <header class="area-title courses__title">
+                <h2>Cursos</h2>
+            </header>
+        </div>
+    </div>
+    <form class="row filter__courses" action="#" data-form-send-enables>
+        <div class="col-sm-4 form-group clearfix">
+            <div class="form-search-input">
+                    {% render_field form.title placeholder="Pesquisar por cursos" type="search" autocomplete="off" %}
+            </div>
+            <button type="submit" class="form-search-button hidden-xs">
+                <i class="gsticon gsticon-search"></i>
+            </button>
+        </div>
+
+        <div class="collapse navbar-collapse" id="filters">
+            <div class="row">
+                <div class="col-sm-3 form-group">
+                  {% render_field form.category class="form-control" data-form-send="" %}
+                </div>
+                <div class="col-sm-3 form-group">
+                  {% render_field form.community class="form-control" data-form-send="" %}
+                </div>
+                <div class="col-sm-2 form-group">
+                  {% render_field form.order class="form-control" data-form-send="1" %}
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 visible-xs-block form-group text-right">
+            <span class="btn btn-lg btn-primary btn-filter" data-target="#filters" data-toggle="collapse">Filtrar</span>
+        </div>
+    </form>
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="row list__courses" data-toggle="scroll">
+                <div class="j-scroll-container">
+                    {% include 'course/items.html' %}
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+{% comment %}
+    <div class="side__menu" data-target="sidemenu">
+    <div class="side__menu__content">
+        <div class="side__menu__title">Filtro</div>
+        <div class="accordeon" id="accordion" role="tablist" aria-multiselectable="true">
+          <div class="accordeon__item">
+            <a class="accordeon__title collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+              Categorias
+            </a>
+            <div id="collapseOne" class="collapse" role="tabpanel" aria-labelledby="headingOne">
+
+                <ul class="list-unstyled">
+                    {% for value, description in form.category.field.choices %}
+                        {% if not forloop.first %}
+                            <li><a href="{{ request.GET.querystring }}">{{ description }} {{ request.GET.querystring }}</a></li>
+                        {% endif %}
+                    {% endfor %}
+              </ul>
+            </div>
+          </div>
+          <div class="accordeon__item">
+            <a class="accordeon__title collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+              Comunidades
+            </a>
+            <div id="collapseTwo" class="collapse" role="tabpanel" aria-labelledby="headingTwo">
+              <ul class="list-unstyled">
+                <li><a href="#">Banco de Dados</a></li>
+                <li><a href="#">Desenvolvimento</a></li>
+                <li><a href="#">Design</a></li>
+                <li><a href="#">governança de TI</a></li>
+                <li><a href="#">Infraestrutura</a></li>
+                <li><a href="#">Mobile</a></li>
+                <li class="item__hidden" data-hidden="true"><a href="#">Mais</a></li>
+              </ul>
+              <a data-toggle="showmore" href="#">mais 10...</a>
+            </div>
+          </div>
+          <div class="accordeon__item">
+            <div role="tab" id="headingThree">
+              <a class="accordeon__title collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                Ordenar por
+              </a>
+            </div>
+            <div id="collapseThree" class="collapse" role="tabpanel" aria-labelledby="headingThree">
+              <ul class="list-unstyled">
+                <li><a href="#">Banco de Dados</a></li>
+                <li><a href="#">Desenvolvimento</a></li>
+                <li><a href="#">Design</a></li>
+                <li><a href="#">governança de TI</a></li>
+                <li><a href="#">Infraestrutura</a></li>
+                <li><a href="#">Mobile</a></li>
+                <li class="item__hidden" data-hidden="true"><a href="#">Mais</a></li>
+              </ul>
+              <a data-toggle="showmore" href="#">mais 10...</a>
+            </div>
+          </div>
+          </div>
+    </div>
+</div>
+{% endcomment %}
+{% endblock content %}

@@ -315,7 +315,6 @@ def get_feed_questions(description='', items_per_page=None, page=None):
     questions = get_question_feed_queryset(description)
 
     questions = Paginator(questions, items_per_page)
-    print page
     try:
         questions = questions.page(page)
     except PageNotAnInteger:

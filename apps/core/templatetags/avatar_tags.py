@@ -1,5 +1,6 @@
 from django import template
 from django.conf import settings
+from django.contrib.auth import get_user_model
 from django_thumbor import generate_url
 
 register = template.Library()
@@ -11,7 +12,7 @@ def get_avatar_path(gender):
 
 @register.simple_tag(takes_context=True)
 def get_avatar(context, user, **kwargs):
-
+    UserModel = get_user_model()
     request = context.get('request')
 
     user_profile = None
@@ -19,6 +20,11 @@ def get_avatar(context, user, **kwargs):
         user_profile = user.user_profile
     except Exception:
         pass
+
+    if not isinstance(user, UserModel):
+        image_url = get_avatar_path('M')
+        return generate_url(image_url, **kwargs)
+
 
     if user.is_active or (request.user == user and request.user.is_authenticated()):
 

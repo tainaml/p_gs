@@ -39,34 +39,34 @@
         </div>
     </div>
     <form class="row filter__courses" action="#">
-        <div>
-            <div class="col-sm-4 form-group clearfix">
-                <div class="form-search-input">
-                    <input type="search" id="filter-course" name="criteria" value="{{ request.GET.criteria|default_if_none:"" }}" placeholder="Pesquisar por cursos" autocomplete="off">
-                </div>
-                <button type="submit" class="form-search-button hidden-xs">
-                    <i class="gsticon gsticon-search"></i>
-                </button>
+        <div class="col-sm-4 form-group clearfix">
+            <div class="form-search-input">
+                <input type="search" id="filter-course" name="criteria" placeholder="Pesquisar por cursos" autocomplete="off">
             </div>
-            <div class="col-xs-12 visible-xs-block text-right">
-                <span class="btn btn-primary btn-filter" data-toggle="sidemenu">Filtrar</span>
-            </div>
+            <button type="submit" class="form-search-button hidden-xs">
+                <i class="gsticon gsticon-search"></i>
+            </button>
         </div>
-        <div class="hidden-xs">
-            <div class="col-sm-3 form-group">
-                <select class="form-control" name="categories">
+        <div class="col-xs-12 visible-xs-block form-group">
+            <span class="btn btn-lg btn-block btn-primary btn-filter" data-target="#filters" data-toggle="collapse">Filtrar</span>
+        </div>
+        <div class="collapse navbar-collapse" id="filters" data-form-send-enables>
+            <div class="row">
+                <div class="col-sm-3 form-group">
+                  <select class="form-control" name="categories">
                     <option value="">Categorias</option>
-                </select>
-            </div>
-            <div class="col-sm-3 form-group">
-                <select class="form-control" name="communities">
+                  </select>
+                </div>
+                <div class="col-sm-3 form-group">
+                  <select class="form-control" name="communities">
                     <option value="">Comunidade</option>
-                </select>
-            </div>
-            <div class="col-sm-2 form-group">
-                <select class="form-control" name="order">
+                  </select>
+                </div>
+                <div class="col-sm-2 form-group">
+                  <select class="form-control" name="order">
                     <option value="">Ordenar por:</option>
-                </select>
+                  </select>
+                </div>
             </div>
         </div>
     </form>
@@ -79,7 +79,7 @@
                 <div class="col-sm-3">
                     <a href="single.html" class="thumb__course">
                         <figure>
-                          <img src="{{ 'http://placehold.it/270x160' }}" width="270" height="160" alt="{{ "Lorem ipsum dolor sit amet, assum augue duo at, quo ei tation postulant" }}">
+                          <img src="{{ 'http://lorempixel.com/270/160' }}" width="270" height="160" alt="{{ "Lorem ipsum dolor sit amet, assum augue duo at, quo ei tation postulant" }}">
                         </figure>
                         <span class="thumb__course__title">{{ "Lorem ipsum dolor sit amet, assum augue duo at, quo ei tation postulant" }}</span>
                         <span class="thumb__course__categories">Rede de Computadores, Analytics, Banco de Dados, Active Directory, Cloud Computing</span>
