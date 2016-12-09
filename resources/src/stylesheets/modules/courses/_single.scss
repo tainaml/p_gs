@@ -39,9 +39,8 @@
     }
     &__text {
       overflow: hidden;
-      margin-bottom: 52px;
+      margin-bottom: 20px;
       text-overflow: ellipsis;
-      line-height: 100%;
     }
     &__list {
       @include list-unstyled();
@@ -49,8 +48,10 @@
     }
   }
   &__btn {
-    padding: 20px;
+    padding: 19px;
     display: block;
+    font-weight: 400;
+    font-size: 18px;
   }
   &__menu {
     &__title {
@@ -78,6 +79,7 @@
       position: relative;
       overflow: hidden;
       height: 80px;
+      font-size: 14px;
       &:after {
         position: absolute;
         left: 0; bottom: -5px;
@@ -150,9 +152,7 @@
         }
         &__rating { display: inline-block }
       }
-      &__reaction__text {
-        margin-left: 20px;
-      }
+      &__reaction__text { margin-left: 20px }
       &__img {
         img {
           min-width: 38px;
@@ -217,6 +217,7 @@
   &__categories {
     color: #666;
     font: 400 11px/20px 'Open Sans';
+    margin-bottom: 10px;
   }
   &__followers {
     color: #666;
@@ -243,18 +244,18 @@
         margin-top: -4px;
         margin-bottom: 33px;
       }
-      &__text {
-        height: 130px;
-        margin-bottom: 47px;
-      }
+      &__text { height: 157px }
     }
     &__btn {
       min-width: 200px;
-      margin-top: 60px;
+      margin-top: 57px;
       display: inline-block;
     }
     &__menu {
-      &__title { font-size: 25px }
+      &__title {
+        margin-top: 60px;
+        font-size: 25px;
+      }
       &__course__class {}
       &__class__title { padding-bottom: 28px }
       &__class__content {}
@@ -270,21 +271,24 @@
         width: 80%;
         margin-top: 0;
         float: left;
-        font-size: 12px;
       }
     }
   }
   .related__items {
     &__title {
-      margin-top: 70px;
+      margin-top: 90px;
+      margin-bottom: 30px;
     }
   }
   .related {
-    &__img {
-      margin-right: 30px;
-    }
+    &__img { margin-right: 30px }
     &__body {
       width: 71.5%;
+      .perfil-button {
+        min-width: 138px;
+        min-height: 26px;
+        padding: 6px 12px;
+      }
     }
     &__title {}
   }

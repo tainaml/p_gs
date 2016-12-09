@@ -6,8 +6,10 @@ if ( $( '[data-page="courses"]' ).length ) {
   const formRating = $( '[name="rating"]' )
 
   const defaultSettings = {
-    spacing: '5px',
-    starWidth: '18px',
+    normalFill: '#a09e9e',
+    ratedFill: '#d68004',
+    spacing: '2px',
+    starWidth: '20px',
     onSet: function (rating, rateYoInstance) {
       formRating.val( rating )
     },
@@ -28,7 +30,7 @@ if ( $( '[data-page="courses"]' ).length ) {
     var $self = $( this )
     var $form = $self.closest( 'form[data-form-send-enables]' )
     if ( $form.length ) {
-        $form.trigger( 'submit' )
+      $form.trigger( 'submit' )
     }
   })
 
@@ -36,7 +38,6 @@ if ( $( '[data-page="courses"]' ).length ) {
   $showMore.on( 'click tap', ( event ) => {
     toggleHeight($( event.currentTarget ).attr( 'href' ))
     event.preventDefault()
-
   })
 }
 
