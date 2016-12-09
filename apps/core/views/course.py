@@ -1,3 +1,5 @@
+from apps.community.models import Community
+from apps.core.models.rating import Rating
 from django.utils.translation import ugettext_lazy as _
 from apps.core.models.course import Course
 from django.http import Http404
@@ -27,9 +29,26 @@ class CourseShowView(View):
 
     def get_context(self, request, course):
 
+        taxs = course.taxonomies.all()
+        communities = Community.objects.filter(taxonomy__in=taxs)
+
+        avaliations = course.ratings.all()
+        user_avaliation = None
+
+        try:
+            user_avaliation = avaliations.get(author=request.user)
+        except Rating.DoesNotExist, Rating.MultipleObjectsReturned:
+            pass
+        except Exception as e:
+            print(e)
+
         return {
             'course': course,
-            'curriculums': course.curriculums.all()
+            'curriculums': course.curriculums.all(),
+            'course_communities': communities,
+            'user_avaliation': user_avaliation,
+            'related_courses': course.related_courses.all(),
+            'course_avaliations': avaliations.exclude(author=request.user),
         }
 
     def get(self, request, course_slug):

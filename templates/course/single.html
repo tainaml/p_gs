@@ -3,6 +3,8 @@
 {% load ads %}
 {% load widget_tweaks %}
 {% load seo_pagination_tags %}
+{% load thumbor_tags %}
+{% load social_tags %}
 
 {% block title %}{{ course.title }}{% endblock title %}
 
@@ -33,18 +35,15 @@
                 <h1 class="course__title">{{ course.title }}</h1>
                 <time class="course__date__publication" datetime="{{ course.createdin|date:"d/m/Y" }}">
                     <div class="course__avaliation">
-              <span class="thumb__course__avaliation">
-                <span style="width: 60%"></span>
-              </span> {{ course.rating }}
+                        <span data-toogle="rating" data-config='{"rating": {{ course.rating|stringformat:"f" }}, "readOnly": true}'></span>
+                        </span> {{ course.rating }}
                     </div>
                     <i class="gsticon gsticon-calendar-o"></i> {{ course.createdin|date:"d/m/Y" }}
                 </time>
                 <div class="course__categories visible-lg-block">
-                    <a href="#" class="course__category">Design</a> /
-                    <a href="#" class="course__category">Photoshop</a> /
-                    <a href="#" class="course__category">Banco de Dados</a> /
-                    <a href="#" class="course__category">InDesgin</a> /
-                    <a href="#" class="course__category">Desenvolvimento</a>
+                    {% for community in course_communities %}
+                        <a href="{% url 'community:show' community.slug %}" class="course__category">{{ community.title }}</a>
+                    {% endfor %}
                 </div>
                 <div class="dropdown visible-xs course__categories">
                     <a href="javascript:;" id="dLabel" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -52,18 +51,17 @@
                         <i class="gsticon gsticon-angle-down"></i>
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="dLabel">
-                        <li><a href="#" class="course__category">Design</a></li>
-                        <li><a href="#" class="course__category">Photoshop</a></li>
-                        <li><a href="#" class="course__category">Banco de Dados</a></li>
-                        <li><a href="#" class="course__category">InDesgin</a></li>
-                        <li><a href="#" class="course__category">Desenvolvimento</a></li>
+                        {% for community in course_communities %}
+                            <li><a href="{% url 'community:show' community.slug %}" class="course__category">{{ community.title }}</a></li>
+                        {% endfor %}
                     </ul>
                 </div>
             </div>
             <div class="col-xs-12">
                 <div class="row">
                     <div class="col-sm-7">
-                        <img class="img-responsive" src="http://placehold.it/670x440" alt="Contexto da imagem" />
+                        {# Todo: show playlist, if necessary #}
+                        <img class="img-responsive" src="{% thumbor_url course.image.url width=670 height=440 %}" alt="Contexto da imagem" />
                     </div>
                     <div class="col-sm-5 course__about">
                         <h2 class="course__about__title">Sobre o curso</h2>
@@ -72,10 +70,11 @@
                         </div>
                         <ul class="course__about__list">
                             <li>
-                                <i class="gsticon gsticon-globe"></i> Idioma: Inglês, Português
+                                <i class="gsticon gsticon-globe"></i>
+                                Idioma: {% for language in course.languages.all %}{{ language.description }}{% endfor %}
                             </li>
                             <li>
-                                <i class="gsticon gsticon-tag"></i> Plataforma: Udemy
+                                <i class="gsticon gsticon-tag"></i> Plataforma: {{ course.plataform.description }}
                             </li>
                         </ul>
                         {% if course.affiliate_link %}
@@ -113,38 +112,45 @@
                             <a href="{{ course.affiliate_link }}" class="btn btn-green course__btn">Ementa Completa</a>
                         {% endif %}
 
-                        {% include "front_end/course/partials/author.html" %}
-                        {% include "front_end/course/partials/avaliations.html" %}
+                        {% include "course/author.html" %}
+                        {% include "course/avaliations.html" %}
                     </div>
                     <div class="col-sm-5">
                         <div class="related__items">
                             <h2 class="related__items__title">Cursos Relacionados</h2>
-                            {% for percentagem in '123' %}
-                                <div class="related">
+
+                            {% for related_course in related_courses %}
+
+                                <a class="related" href="{% url 'course:show' related_course.slug %}">
                                     <figure class="related__img">
-                                        <img class="img-responsive" src="http://placehold.it/100" alt="">
+                                        <img class="img-responsive" src="{% thumbor_url related_course.image.url width=100 height=100 %}" alt="{{ related_course.title }}">
                                     </figure>
                                     <div class="related__body">
-                                        <h3 class="related__title">Lorem ipsum dolor ipsum dolor</h3>
-                                        <div class="related__categories">Rede de Computadores, Analytics, Banco de Dados, Active Directory, Cloud Computing</div>
+                                        <h3 class="related__title">{{ related_course.title }}</h3>
+                                        {# TODO: como pegar as categorias relacionadas com a menor query possivel? #}
+{#                                        <div class="related__categories">#}
+{#                                            Rede de Computadores, Analytics, Banco de Dados, Active Directory, Cloud Computing#}
+{#                                        </div>#}
                                 <span class="thumb__course__avaliation">
                                     <span style="width: 60%"></span>
                                 </span>
                                     </div>
-                                </div>
+                                </a>
                             {% endfor %}
                         </div>
                         <div class="related__items">
                             <h2 class="related__items__title">Comunidades</h2>
-                            {% for percentagem in '123' %}
+
+                            {% for related_community in course_communities %}
+
                                 <div class="related">
                                     <figure class="related__img">
-                                        <img class="img-responsive" src="http://placehold.it/100" alt="">
+                                        <img class="img-responsive" src="{% thumbor_url related_community.image.url width=100 height=100 %}" alt="{{ related_community.title }}">
                                     </figure>
                                     <div class="related__body">
-                                        <h3 class="related__title">Lorem ipsum dolor ipsum dolor</h3>
-                                        <div class="related__followers">238 Seguidores</div>
-                                        <a class="btn perfil-button" href="#"><span>Entrar</span></a>
+                                        <h3 class="related__title">{{ related_community.title }}</h3>
+                                        <div class="related__followers">{{ related_community.followers }} seguidor{{ related_community.followers|pluralize:"es" }}</div>
+                                        {% follow_action related_community None btn_class="btn perfil-button" %}
                                     </div>
                                 </div>
                             {% endfor %}

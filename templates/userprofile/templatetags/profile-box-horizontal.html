@@ -22,11 +22,17 @@
     <span class="perfil-counter">
       <span class="counter-number">{% articles_count profile.user as articles_count_value %}{{ articles_count_value }}</span> Publicaç{{ articles_count_value|pluralize:'ão,ões' }}
     </span>
-    {% if profile.occupation.all %}
-    {% for occupation in profile.occupation.all %}
-    {{ occupation.responsibility.name }}{% if not forloop.last %},{% endif %}
-    {% endfor %}
-    {% endif %}
+
+      {% with occupations=profile.occupation.all %}
+
+          {% if occupations %}
+              {% for occupation in occupations %}
+                  {{ occupation.responsibility.name }}{% if not forloop.last %},{% endif %}
+              {% endfor %}
+          {% endif %}
+
+      {% endwith %}
+
   </div>
   {% if request.user != profile.user %}
     {% follow_action profile.user request.path "text-center perfil-button" %}

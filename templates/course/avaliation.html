@@ -1,0 +1,31 @@
+{% load humanize %}
+{% load avatar_tags %}
+
+<div class="avaliation">
+    <figure class="avaliation__img">
+
+        <img class="img-responsive img-circle pull-left" src="{% get_avatar avaliation.author width=38 %}" alt="{{ avaliation.author.get_full_name }}">
+
+        <figcaption class="avaliator">
+            <time class="avaliation__time"
+                  datetime="{{ avaliation.rating_date|date:'d/m/Y G:i' }}"
+                  data-toggle="tooltip"
+                  data-placement="auto top"
+                  data-original-title="{{ avaliation.rating_date|date:'d/m/Y' }} às {{ avaliation.rating_date|date:'G:i' }}">
+                <span class="hidden-xs visible-lg-inline">{{ avaliation.rating_date|naturaltime }}</span>
+                <i class="gsticon gsticon-clock-o hidden-lg"></i>
+            </time>
+            <div class="avaliator__name">{{ avaliation.author.get_full_name }}</div>
+            <span class="avaliation__form__rating" >
+                <span data-toogle="rating" data-config='{ "rating": {{ avaliation.value|default_if_none:"0"|stringformat:"f" }}, "readOnly": true}'>
+            </span>
+        </figcaption>
+    </figure>
+    <div class="avaliation__comment">
+        {{ avaliation.comment|safe }}
+    </div>
+    <div class="avaliation__tools">
+        {# TODO: Como denunciar a avaliação? #}
+        <a href="#">Denunciar</a>
+    </div>
+</div>

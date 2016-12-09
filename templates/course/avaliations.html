@@ -1,0 +1,57 @@
+<div class="course__avaliations">
+    <h3 class="course__avaliations__title">Avaliações</h3>
+
+    {# TODO: Enviar pra onde? #}
+    <form class="clearfix avaliation__form">
+
+        {# TODO: metodo para gerar a média de votos #}
+
+        <input type="hidden" name="rating" value="{{ user_avaliation.value|default_if_none:"0"|stringformat:"f" }}">
+
+        <div class="form-group">
+            <span class="avaliation__form__title" data-toogle="title-form">
+
+                {% if user_avaliation %}
+                    Minha avaliação
+                {% else %}
+                    Avalie este curso
+                {% endif %}
+
+            </span>
+            <span class="avaliation__form__rating">
+
+              <span
+                      data-toogle="rating"
+                      data-reactions='["Detestei", "Não gostei", "Razoável", "Gostei", "Adorei"]'
+                      data-config='{"rating": {{ user_avaliation.value|default_if_none:"0"|stringformat:"f" }}}'></span>
+                <span class="avaliation__reaction__text"></span>
+            </span>
+        </div>
+
+        {% if user_avaliation %}
+            {% include "course/avaliation.html" with avaliation=user_avaliation %}
+        {% endif %}
+
+        <div class="form-group">
+            <textarea class="form-control" data-toggle="editor" data-config="{}" name="comment_avaliation" placeholder="Escreva um comentário (opcional)"></textarea>
+        </div>
+        <button class="btn btn-primary pull-right">
+            {% if user_avaliation %}Atualizar{% else %}Enviar{% endif %}
+
+        </button>
+    </form>
+
+    {% if course_avaliations %}
+
+        {% for avaliation in course_avaliations %}
+            {% include "course/avaliation.html" with avaliation=avaliation %}
+        {% endfor %}
+
+    {% else %}
+
+        <p>Ninguém avaliou este curso ainda. Seja o primeiro...</p>
+
+    {% endif %}
+
+
+</div>

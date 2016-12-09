@@ -36,9 +36,10 @@ def course_image_upload(instance, filename):
 class CourseManager(models.Manager):
 
     def get_queryset(self):
-        qs = Course.objects.prefetch_related(
-            'languages', 'related_courses', 'taxonomies', 'plataform'
-        )
+        qs = super(CourseManager, self).get_queryset()
+
+        qs = qs.prefetch_related('taxonomies', 'languages').select_related('internal_author', 'plataform')
+
         return qs
 
 
@@ -56,7 +57,9 @@ class Course(models.Model):
     internal_author = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, blank=True, related_name='courses',
                                verbose_name=_('Internal author'))
 
-    external_author = models.TextField(max_length=255, verbose_name=_('External Author'), null=True, blank=True)
+    external_author = models.CharField(max_length=200, verbose_name=_('External Author'), null=True, blank=True)
+    external_author_description = models.TextField(max_length=255, verbose_name=_('External Author - Description'), null=True, blank=True)
+
     ratings = GenericRelation(Rating, related_query_name="course")
 
     createdin = models.DateTimeField(null=False, blank=True, auto_now_add=True)
