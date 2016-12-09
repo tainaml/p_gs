@@ -1,0 +1,25 @@
+<div class="course__avaliations">
+    <h3 class="course__avaliations__title">Avaliações</h3>
+    <form class="clearfix avaliation__form">
+        <input type="hidden" name="rating" value="0">
+        <div class="form-group">
+            <span class="avaliation__form__title" data-toogle="title-form">Avalie este curso</span>
+            <span class="avaliation__form__rating">
+              <span data-toogle="rating" data-reactions='["Detestei", "Não gostei", "Razoável", "Gostei", "Adorei"]'
+              data-config='{"rating": 0}'></span>
+              <span class="avaliation__reaction__text">Detestei</span>
+            </span>
+        </div>
+        <!-- vai ser exibida essa área quando o usuário que já avaliou o curso entrar na página do curso -->
+        {% include "front_end/course/partials/avaliation.html" %}
+        <div class="form-group">
+            <textarea class="form-control" data-toggle="editor" data-config="{}" name="comment_avaliation" placeholder="Escreva um comentário (opcional)"></textarea>
+        </div>
+        <button class="btn btn-primary pull-right">Enviar</button>
+    </form>
+
+    {% for i in "12" %}
+      {% include "front_end/course/partials/avaliation.html" %}
+    {% endfor %}
+
+</div>

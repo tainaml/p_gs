@@ -62,6 +62,7 @@ class CoreUserView(views.ProfileShowView):
         return render(request, self.template_path, context)
 
 
+
 class CoreUserList(CoreUserView):
 
     template_path = 'userprofile/partials/user-profile-feed.html'
@@ -150,6 +151,23 @@ class CoreUserSearch(CoreUserView):
 
 class CoreUserFeed(CoreUserView):
             
+    template_path = 'userprofile/profile-feed.html'
+
+    @method_decorator(login_required)
+    def get(self, request, **kwargs):
+        return super(CoreUserFeed, self).get(request)
+
+    def get_context(self, request, profile_instance=None):
+        context = super(CoreUserFeed, self).get_context(request, profile_instance)
+
+        categories = BusinessTaxonomy.get_categories()
+        context.update({'categories': categories})
+
+        return context
+
+
+class CoreUserCOmpanies(CoreUserView):
+
     template_path = 'userprofile/profile-feed.html'
 
     @method_decorator(login_required)

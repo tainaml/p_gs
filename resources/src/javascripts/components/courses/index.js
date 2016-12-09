@@ -1,54 +1,66 @@
+import '../../vendor/rateYo/jquery.rateyo';
+
 if ( $( '[data-page="courses"]' ).length ) {
-  const $sideMenu = $( '[data-target="sidemenu"]' )
-  const $dispather = $( '[data-toggle="sidemenu"]' )
   const $showMore = $( '[data-toggle="showmore"]' )
-  const ESC_KEYCODE = 27
-  const animateMenu = ( position = {
-    left: 0
-  }) => {
-    $sideMenu.animate( position )
-    $( 'body' ).toggleClass( 'modal-open' )
+  const $rating = $( '[data-toogle="rating"]' )
+  const formRating = $( '[name="rating"]' )
+
+  const defaultSettings = {
+    spacing: '5px',
+    starWidth: '18px',
+    onSet: function (rating, rateYoInstance) {
+      formRating.val( rating )
+    },
+    onChange: function (rating, rateYoInstance) {
+      const reactions = $( rateYoInstance.node ).data( 'reactions' )
+      $( this ).next().text( reactions[ Math.ceil( rating ) - 1 ]);
+    }
   }
 
-
-  $dispather.on( 'click tap', ( event ) => {
-    animateMenu()
+  $rating.each( ( index, item ) => {
+    const $this = $( item )
+    const dataConfig = $this.data( 'config' )
+    const settings = $.extend({}, defaultSettings, dataConfig)
+    $this.rateYo( settings )
   })
 
-  $sideMenu.on( 'click tap', ( event ) => {
-    if ( $( event.target ).is( '.side__menu' )) {
-      animateMenu({
-        left: '100%'
-      })
+  $( '[data-form-send]' ).on( 'change', function onChangeSelectSendVideoForm () {
+    var $self = $( this )
+    var $form = $self.closest( 'form[data-form-send-enables]' )
+    if ( $form.length ) {
+        $form.trigger( 'submit' )
     }
   })
 
-  $( window ).on( 'keydown', ( event ) => {
-    if ( event.keyCode == 27 ) {
-      animateMenu({
-        left: '100%'
-      })
-    }
-  })
 
   $showMore.on( 'click tap', ( event ) => {
-    const $list = $( event.target ).siblings( '.list-unstyled' )
-    const $itemList = $list.find( '[data-hidden]' )
+    toggleHeight($( event.currentTarget ).attr( 'href' ))
+    event.preventDefault()
 
-    $itemList.toggleClass( function () {
-      $( this ).removeClass( 'item__visible item__hidden' )
-
-      if ( $( this ).data( 'hidden' ) ) {
-        $( this ).data( 'hidden', false )
-        $( event.target ).text( 'Fechar' )
-        return 'item__visible'
-      } else {
-        $( this ).data( 'hidden', true )
-        $( event.target ).text( 'mais 10...' )
-        return 'item__hidden'
-      }
-    })
   })
+}
 
-  $sideMenu.prependTo( 'body' )
+const toggleHeight = ( seletor ) => {
+  const $this = $( seletor )
+  const ANIMATION_TIME = $this.data( 'animationSpeed' ) || 200
+
+  if ( $this.hasClass( 'open' )) {
+    $this.animate({
+      height: $this.data( 'height' )
+    }, 200, function () {
+      $this.removeClass( 'open' )
+    })
+
+    return false
+  }
+
+  const currentHeight =  $this.height();
+  const autoHeight = $this.css('height', 'auto').height()
+  $this.data('height', currentHeight)
+  .height(currentHeight).animate({
+    height: autoHeight
+  }, ANIMATION_TIME,
+  function () {
+    $this.addClass( 'open' )
+  })
 }

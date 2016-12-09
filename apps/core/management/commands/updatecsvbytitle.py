@@ -51,5 +51,5 @@ class Command(BaseCommand):
                     except Article.DoesNotExist:
                         pass
                     except Article.MultipleObjectsReturned:
-                        print article_slug
+                        pass
 

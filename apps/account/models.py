@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from datetime import timedelta
+from django.core.exceptions import ValidationError
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.core.urlresolvers import reverse
@@ -13,10 +14,28 @@ from apps.socialactions.models import Counter
 from .manager import UserManager
 
 
+def limit_usertypes_to(value):
+    if value not in User.USER_TYPES.keys():
+        raise ValidationError(
+            _('This is not a valid user type'))
+
 class User(AbstractUser):
 
 
+    PERSON = 1
+    ORGANIZATION = 2
+
+    USER_TYPES = {
+        PERSON: _("Person"),
+        ORGANIZATION: _("Organization")
+    }
+
     objects = UserManager()
+
+    usertype = models.PositiveSmallIntegerField(verbose_name=_("User type"), validators=[limit_usertypes_to], default=PERSON)
+
+    def is_company(self):
+        return self.usertype == User.ORGANIZATION
 
     class Meta(AbstractUser.Meta):
         swappable = 'AUTH_USER_MODEL'
@@ -37,6 +56,10 @@ class User(AbstractUser):
 
     @cached_property
     def user_profile(self):
+        '''
+
+        :return UserProfile:
+        '''
         return self.profile if self.is_authenticated() else None
 
     @staticmethod

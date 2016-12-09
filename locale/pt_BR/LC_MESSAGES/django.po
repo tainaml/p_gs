@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-11-18 09:35-0300\n"
+"POT-Creation-Date: 2016-12-08 09:55-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,7 +18,25 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: apps/account/models.py:29 apps/account/models.py:32
+#: apps/account/models.py:20
+#, fuzzy
+#| msgid "Value is not a valid name."
+msgid "This is not a valid user type"
+msgstr "Valor não é um nome válido"
+
+#: apps/account/models.py:29
+msgid "Person"
+msgstr ""
+
+#: apps/account/models.py:30
+msgid "Organization"
+msgstr ""
+
+#: apps/account/models.py:35
+msgid "User type"
+msgstr ""
+
+#: apps/account/models.py:43 apps/account/models.py:46
 msgid "Anonymous"
 msgstr "Anônimo"
 
@@ -26,7 +44,7 @@ msgstr "Anônimo"
 msgid "Bem vindo!"
 msgstr "Bem vindo!"
 
-#: apps/account/service/business.py:288
+#: apps/account/service/business.py:293
 msgid "Password Recovery"
 msgstr "Confirmação de senha"
 
@@ -64,59 +82,59 @@ msgid "Token is no longer valid."
 msgstr "Token expirou"
 
 #. Translators: This message appears on the home page only
-#: apps/account/views.py:169 apps/notifications/models.py:41
+#: apps/account/views.py:171 apps/notifications/models.py:41
 msgid "Success"
 msgstr "Sucesso"
 
-#: apps/account/views.py:185
+#: apps/account/views.py:187
 msgid "Registered Successfully"
 msgstr "Registrado com sucesso!"
 
-#: apps/account/views.py:200
+#: apps/account/views.py:202
 msgid "Password successfully recovered"
 msgstr "Senha recuperada com sucesso"
 
-#: apps/account/views.py:217
+#: apps/account/views.py:219
 msgid "Token exist - Account verified"
 msgstr "Token existe. Conta verificada."
 
-#: apps/account/views.py:231
+#: apps/account/views.py:233
 msgid "Um erro ocorreu, por favor tente novamente mais tarde!"
 msgstr ""
 
-#: apps/account/views.py:234
+#: apps/account/views.py:236
 msgid "Account is not exists!"
 msgstr "Conta não existe"
 
-#: apps/account/views.py:237
+#: apps/account/views.py:239
 msgid "Token is not longer valid!"
 msgstr "Token expirou"
 
-#: apps/account/views.py:249
+#: apps/account/views.py:251
 msgid "Token is not exists!"
 msgstr "Token não existe"
 
-#: apps/account/views.py:268 apps/account/views.py:293
+#: apps/account/views.py:270 apps/account/views.py:295
 msgid "Token not exist!"
 msgstr "Token não existe"
 
-#: apps/account/views.py:299
+#: apps/account/views.py:301
 msgid "Password successfully changed!"
 msgstr "Senha alterada com sucesso!"
 
-#: apps/account/views.py:384
+#: apps/account/views.py:386
 msgid "A confirmation email was sent to you"
 msgstr "Um e-mail de confirmação foi enviado para você"
 
-#: apps/account/views.py:408 apps/core/views/account.py:52
+#: apps/account/views.py:410 apps/core/views/account.py:87
 msgid "E-mail re-sent successfully!"
 msgstr "E-mail reenviado com sucesso!"
 
-#: apps/account/views.py:423
+#: apps/account/views.py:425
 msgid "Username is available!"
 msgstr "Nome de usuário está disponível"
 
-#: apps/account/views.py:427
+#: apps/account/views.py:429
 msgid "Username is not available!"
 msgstr "Nome de usuário não está disponível"
 
@@ -177,8 +195,8 @@ msgstr "Erro"
 msgid "Title"
 msgstr "Título"
 
-#: apps/certification/models.py:9 apps/company/models.py:10
-#: apps/company/models.py:20 apps/company/models.py:27
+#: apps/certification/models.py:9 apps/company/models.py:34
+#: apps/company/models.py:46 apps/company/models.py:53
 #: apps/job_vacancy/models.py:18 apps/job_vacancy/models.py:25
 #: apps/job_vacancy/models.py:32 apps/job_vacancy/models.py:78
 #: apps/job_vacancy/models.py:94 apps/job_vacancy/models.py:109
@@ -248,24 +266,54 @@ msgstr "Comunidade relacionada"
 msgid "Community not Found."
 msgstr "Comunidade não encontrada"
 
-#: apps/company/models.py:7 apps/core/admin.py:131
+#: apps/company/models.py:12
+#, fuzzy
+#| msgid "Value is not a valid name."
+msgid "This is not a valid membership"
+msgstr "Valor não é um nome válido"
+
+#: apps/company/models.py:20
+#, fuzzy
+#| msgid "^admin/"
+msgid "Admin"
+msgstr "^admin-portal/"
+
+#: apps/company/models.py:21
+msgid "Collaborator"
+msgstr ""
+
+#: apps/company/models.py:24
+#, fuzzy
+#| msgid "Username"
+msgid "User"
+msgstr "Nome de usuário"
+
+#: apps/company/models.py:25 apps/company/models.py:55
+#: apps/job_vacancy/models.py:43 templates/userprofile/occupation_add.html:13
+#: templates/userprofile/occupation_edit.html:13
+msgid "Company"
+msgstr "Empresa"
+
+#: apps/company/models.py:27
+msgid "Permission"
+msgstr ""
+
+#: apps/company/models.py:30 apps/core/admin/geral.py:127
 #: apps/userprofile/models.py:133 templates/contact/contact.html:11
 msgid "Name"
 msgstr "Nome"
 
-#: apps/company/models.py:8
+#: apps/company/models.py:31
 msgid "Logo"
 msgstr "Logo"
 
-#: apps/company/models.py:28
+#: apps/company/models.py:36
+msgid "Taxonomies"
+msgstr ""
+
+#: apps/company/models.py:54
 msgid "Type"
 msgstr "Tipo"
-
-#: apps/company/models.py:29 apps/job_vacancy/models.py:43
-#: templates/userprofile/occupation_add.html:13
-#: templates/userprofile/occupation_edit.html:13
-msgid "Company"
-msgstr "Empresa"
 
 #. Translators: URL de denunciar objeto
 #: apps/complaint/urls.py:10
@@ -292,20 +340,36 @@ msgstr "Configurar Chaves"
 msgid "Contact created!"
 msgstr "Mensagem enviada!"
 
-#: apps/core/admin.py:32
+#: apps/core/admin/geral.py:28
 msgid "Profile"
 msgstr "Perfil"
 
-#: apps/core/admin.py:33
+#: apps/core/admin/geral.py:29
 msgid "Profiles"
 msgstr "Perfis"
 
-#: apps/core/admin.py:133
+#: apps/core/admin/geral.py:129
 msgid "Contributor"
 msgstr "Contribuidor"
 
-#: apps/core/admin.py:144
+#: apps/core/admin/geral.py:140
 msgid "Completed Wizard?"
+msgstr ""
+
+#: apps/core/business/account.py:30
+msgid "Only company users can relogin"
+msgstr ""
+
+#: apps/core/business/account.py:38
+msgid "Session has no id from user!"
+msgstr ""
+
+#: apps/core/business/account.py:55
+msgid "Company has no user associated with"
+msgstr ""
+
+#: apps/core/business/account.py:57
+msgid "User has no permission to log in with this company!"
 msgstr ""
 
 #: apps/core/forms/account.py:23
@@ -348,7 +412,7 @@ msgstr "Gênero não permitido."
 msgid "Image size more than 1mb."
 msgstr "Tamanho da imagem excede 1mb"
 
-#: apps/core/templatetags/core_tags.py:161
+#: apps/core/templatetags/core_tags.py:162
 msgid "Olá, gostaria de sugerir a comunidade: "
 msgstr "Olá, gostaria de sugerir a comunidade: "
 
@@ -426,9 +490,6 @@ msgid "^check-username$"
 msgstr "^check-nome-de-usuario$"
 
 #: apps/core/urls/amp.py:10
-#| msgid ""
-#| "^(?P<year>\\d\\d\\d\\d+)/(?P<month>0[1-9]|1[0-2])/(?P<slug>[aA-zZ0-9-_]+)."
-#| "html$"
 msgid ""
 "^(?P<year>\\d\\d\\d\\d+)/(?P<month>0[1-9]|1[0-2])/(?P<slug>[aA-zZ0-9-_]+).amp"
 "$"
@@ -437,8 +498,6 @@ msgstr ""
 "$"
 
 #: apps/core/urls/amp.py:17
-#| msgid ""
-#| "^(?P<question_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/(?P<question_id>[0-9]+)/$"
 msgid ""
 "^(?P<question_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/(?P<question_id>[0-9]+).amp$"
 msgstr ""
@@ -622,12 +681,11 @@ msgstr "^$"
 
 #. Translators: URL de atualizacao de contato
 #: apps/core/urls/contact.py:13
-#| msgid "Success"
 msgid "^contact-success/$"
 msgstr "^contato-enviado/$"
 
 #. Translators: URL de posts relacionados
-#: apps/core/urls/core.py:11
+#: apps/core/urls/core.py:13
 msgid ""
 "^related-posts/(?P<instance_id>[0-9]+)/(?P<instance_type>[a-z]+)/(?"
 "P<post_type>[a-z]+)/(?P<count>[1-9])/$"
@@ -635,37 +693,37 @@ msgstr ""
 "^postagens-relacionadas/(?P<instance_id>[0-9]+)/(?P<instance_type>[a-z]+)/(?"
 "P<post_type>[a-z]+)/(?P<count>[1-9])/$"
 
-#: apps/core/urls/core.py:13
+#: apps/core/urls/core.py:15
 msgid "^responsibilities/$"
 msgstr "^profissoes-de-ti/$"
 
-#: apps/core/urls/core.py:15
+#: apps/core/urls/core.py:17
 msgid "^responsibilities/(?P<slug>[aA-zZ0-9-_]+)/$"
 msgstr "^profissoes-de-ti/(?P<slug>[aA-zZ0-9-_]+)/$"
 
 #. Translators: URL de videos
-#: apps/core/urls/core.py:18
-msgid "videos/$"
-msgstr ""
+#: apps/core/urls/core.py:23
+msgid "^videos/$"
+msgstr "^videos/$"
 
 #. Translators: URL de sobre
-#: apps/core/urls/core.py:21
+#: apps/core/urls/core.py:26
 msgid "^about/"
 msgstr "^sobre/"
 
 #. Translators: URL de sobre
-#: apps/core/urls/core.py:25
+#: apps/core/urls/core.py:29
 msgid "^rules/"
 msgstr "^regras/"
 
 #. Translators: URL de sobre
-#: apps/core/urls/core.py:28
+#: apps/core/urls/core.py:33
 msgid "^politica-de-privacidade/"
-msgstr ""
+msgstr "^politica-de-privacidade/"
 
-#: apps/core/urls/core.py:31
+#: apps/core/urls/core.py:35
 msgid "^oembed/"
-msgstr ""
+msgstr "^oembed/"
 
 #. Translators: URL de setar conteudo como oficial
 #: apps/core/urls/feed.py:7
@@ -846,12 +904,12 @@ msgstr "^editar-perguntas/busca/listagem/$"
 #. Translators: URL de passo n do wizard
 #: apps/core/urls/user.py:34
 msgid "^bem-vindo/passo/(?P<step>[0-9]+)/$"
-msgstr ""
+msgstr "^bem-vindo/passo/(?P<step>[0-9]+)/$"
 
 #. Translators: URL de pagina de sucesso do wizard
 #: apps/core/urls/user.py:37
 msgid "^bem-vindo/sucesso/$"
-msgstr ""
+msgstr "^bem-vindo/sucesso/$"
 
 #. Translators: URL de passo 2 do wizard
 #. url(_(r'^wizard/step/filter-categories$'), core_user.CoreProfileWizardStepTwoAjax.as_view(), name='wizard-step-filter-categories-ajax'),
@@ -1042,15 +1100,15 @@ msgstr "^(?P<username>[a-z0-9_-]+)/comunidade/carregar/ajax/$"
 msgid "^ajax/user/communities/$"
 msgstr "^ajax/usuario/comunidade/$"
 
-#: apps/core/views/account.py:51
+#: apps/core/views/account.py:86
 msgid "Resend confirmation email"
 msgstr "Reenviar confirmação de conta"
 
-#: apps/core/views/account.py:100
+#: apps/core/views/account.py:135
 msgid "Change Password"
 msgstr "Mudar senha"
 
-#: apps/core/views/account.py:101
+#: apps/core/views/account.py:136
 #: templates/account/password_change_successfully.html:2
 msgid "Your password has been changed!"
 msgstr "Sua senha foi alterada!"
@@ -1086,7 +1144,6 @@ msgid "This question has been deleted"
 msgstr "Publicação removida"
 
 #: apps/core/views/responsibility.py:70
-#| msgid "Responsibility"
 msgid "Responsibility not found"
 msgstr "Área de atuação não encontrada"
 
@@ -1249,7 +1306,6 @@ msgid "Notification not found!"
 msgstr "Notificação não encontrada"
 
 #: apps/question/models.py:52
-#| msgid "Can edit articles from others"
 msgid "Can edit questions from others"
 msgstr "Permissão para editar perguntas de outros autores"
 
@@ -1414,7 +1470,6 @@ msgid "Categories"
 msgstr ""
 
 #: apps/userprofile/models.py:140
-#| msgid "Is active"
 msgid "Active"
 msgstr "Ativo"
 
@@ -1458,42 +1513,42 @@ msgstr "Ocupação deletada com sucesso"
 msgid "^jobs/"
 msgstr "^vagas/"
 
-#: rede_gsti/urls.py:43
+#: rede_gsti/urls.py:45
 msgid "^admin/"
 msgstr "^admin-portal/"
 
 #. Translators: URL root de conta
-#: rede_gsti/urls.py:49
+#: rede_gsti/urls.py:51
 msgid "^account/"
 msgstr "^conta/"
 
 #. Translators: URL root de comentario
-#: rede_gsti/urls.py:52
+#: rede_gsti/urls.py:54
 msgid "^comment/"
 msgstr "^comentario/"
 
 #. Translators: URL root de perfil de usuario
-#: rede_gsti/urls.py:55
+#: rede_gsti/urls.py:57
 msgid "^profile/"
 msgstr "^perfil/"
 
 #. Translators: URL de conta social
-#: rede_gsti/urls.py:58
+#: rede_gsti/urls.py:60
 msgid "^socialaccount/"
 msgstr "^conta-social/"
 
 #. Translators: URL de acoes sociais
-#: rede_gsti/urls.py:61
+#: rede_gsti/urls.py:63
 msgid "^socialactions/"
 msgstr "^acoes-sociais/"
 
 #. Translators: URL root de notificacoes
-#: rede_gsti/urls.py:67
+#: rede_gsti/urls.py:69
 msgid "^notifications/"
 msgstr "^notificacoes/"
 
 #. Translators: URL root de notificacoes
-#: rede_gsti/urls.py:70
+#: rede_gsti/urls.py:72
 msgid "^hint/"
 msgstr ""
 
@@ -1502,60 +1557,89 @@ msgstr ""
 #. Translators: URL root de amp
 #. Translators: URL core adicionais
 #. Translators: URL de buscai
+#. Translators: URL core adicionais
 #. Translators: URL root de comunidade
-#: rede_gsti/urls.py:80 rede_gsti/urls.py:83 rede_gsti/urls.py:108
-#: rede_gsti/urls.py:114 rede_gsti/urls.py:119 rede_gsti/urls.py:122
+#: rede_gsti/urls.py:87 rede_gsti/urls.py:90 rede_gsti/urls.py:115
+#: rede_gsti/urls.py:121 rede_gsti/urls.py:126 rede_gsti/urls.py:129
+#: rede_gsti/urls.py:132
 msgid "^"
 msgstr "^"
 
 #. Translators: URL root de categoria
-#: rede_gsti/urls.py:86
+#: rede_gsti/urls.py:93
 msgid "^category-feed/"
 msgstr "^categoria/"
 
 #. Translators: URL root de pergunta
-#: rede_gsti/urls.py:89
+#: rede_gsti/urls.py:96
 msgid "^question/"
 msgstr "^pergunta/"
 
 #. Translators: URL root de contato
-#: rede_gsti/urls.py:92
+#: rede_gsti/urls.py:99
 msgid "^contact/"
 msgstr "^contato/"
 
 #. Translators: URL root de contato
-#: rede_gsti/urls.py:95
+#: rede_gsti/urls.py:102
 msgid "^mailmanager/"
 msgstr "^gerenciador-de-email/"
 
 #. Translators: URL root de denuncia
-#: rede_gsti/urls.py:98
+#: rede_gsti/urls.py:105
 msgid "^complaint/"
 msgstr "^denuncia/"
 
 #. Translators: URL root de configuracao
-#: rede_gsti/urls.py:101
+#: rede_gsti/urls.py:108
 msgid "^settings/"
 msgstr "^configuracoes/"
 
 #. Translators: URL root de feed
-#: rede_gsti/urls.py:105
+#: rede_gsti/urls.py:112
 msgid "^feed/"
 msgstr "^feed/"
 
 #. Translators: URL root of user alerts
-#: rede_gsti/urls.py:111
+#: rede_gsti/urls.py:118
 msgid "^useralerts/"
 msgstr ""
 
-#: rede_gsti/urls.py:134
-#| msgid "^front-end/(?P<template>[a-z0-9.]+(?:(-|_)[a-z0-9.]+)*)"
+#: rede_gsti/urls.py:143
 msgid "^front-end/(?P<template>[a-z0-9./]+(?:(-|_)[a-z0-9.]+)*)"
 msgstr "^front-end/(?P<template>[a-z0-9./]+(?:(-|_)[a-z0-9.]+)*)"
 
 #: templates/400.html:8 templates/404.html:8
 msgid "Houston, we have a problem!"
 msgstr "Houston, we have a problem!"
+
+#: templates/aadmin/base.html:35
+msgid "Welcome,"
+msgstr ""
+
+#: templates/aadmin/base.html:40
+msgid "View site"
+msgstr ""
+
+#: templates/aadmin/base.html:45
+msgid "Documentation"
+msgstr "Documentação"
+
+#: templates/aadmin/base.html:49 templates/account/index.html:10
+msgid "Change password"
+msgstr "Mudar senha"
+
+#: templates/aadmin/base.html:51
+msgid "Log out"
+msgstr ""
+
+#: templates/aadmin/base.html:61
+msgid "Home"
+msgstr ""
+
+#: templates/aadmin/base_site.html:4
+msgid "Django site admin"
+msgstr ""
 
 #: templates/account/index.html:6
 msgid "Show profile"
@@ -1569,7 +1653,7 @@ msgstr "Mostrar perfil"
 #: templates/account/password_sent_email_successfully.html:4
 #: templates/account/recovery_validation.html:4
 #: templates/account/resend_account_confirmation_successfully.html:5
-#: templates/account/signup.html:159
+#: templates/account/signup.html:160
 #: templates/userprofile/occupation_add.html:21
 #: templates/userprofile/occupation_edit.html:22
 #: templates/userprofile/occupation_manage.html:22
@@ -1597,10 +1681,6 @@ msgstr "Adicionar ocupação"
 msgid "Manage occupation"
 msgstr "Gerenciar ocupação"
 
-#: templates/account/index.html:10 templates/admin/base.html:49
-msgid "Change password"
-msgstr "Mudar senha"
-
 #: templates/account/index.html:11
 #: templates/userprofile/occupation_manage.html:25
 #: templates/userprofile/occupation_show.html:8
@@ -1622,12 +1702,12 @@ msgstr "Inscrever-se"
 msgid "click here"
 msgstr "clique aqui"
 
-#: templates/account/old_login.html:8 templates/account/signup.html:131
+#: templates/account/old_login.html:8 templates/account/signup.html:132
 msgid "Username"
 msgstr "Nome de usuário"
 
 #: templates/account/old_login.html:12
-#: templates/account/password_recovery.html:9 templates/account/signup.html:139
+#: templates/account/password_recovery.html:9 templates/account/signup.html:140
 msgid "Password"
 msgstr "Senha"
 
@@ -1648,7 +1728,7 @@ msgstr ""
 #: templates/account/recovery_validation.html:4
 #: templates/account/resend_account_confirmation.html:15
 #: templates/account/resend_account_confirmation_successfully.html:5
-#: templates/account/signup.html:159 templates/userprofile/show.html:34
+#: templates/account/signup.html:160 templates/userprofile/show.html:34
 msgid "Login"
 msgstr "Login"
 
@@ -1680,7 +1760,7 @@ msgstr "Confirmação de nova senha"
 #: templates/account/password_forgot.html:12
 #: templates/account/password_recovery.html:20
 #: templates/account/resend_account_confirmation.html:14
-#: templates/account/signup.html:157
+#: templates/account/signup.html:158
 #: templates/userprofile/occupation_add.html:20
 #: templates/userprofile/occupation_edit.html:21
 msgid "Submit"
@@ -1692,7 +1772,7 @@ msgstr "Ir para início!"
 
 #: templates/account/password_forgot.html:8
 #: templates/account/resend_account_confirmation.html:8
-#: templates/account/signup.html:126 templates/contact/contact.html:14
+#: templates/account/signup.html:127 templates/contact/contact.html:14
 msgid "Email"
 msgstr "Email"
 
@@ -1701,7 +1781,7 @@ msgid "Nova senha"
 msgstr "Nova senha"
 
 #: templates/account/password_recovery.html:13
-#: templates/account/signup.html:144
+#: templates/account/signup.html:145
 msgid "Password Confirm"
 msgstr "Confirmação de senha"
 
@@ -1709,43 +1789,19 @@ msgstr "Confirmação de senha"
 msgid "Resend account confirmation"
 msgstr "Reenviar confirmação de conta"
 
-#: templates/account/signup.html:114
+#: templates/account/signup.html:115
 #: templates/core/partials/wizard/wizard-step-one.html:45
 msgid "First name"
 msgstr "Primeiro nome"
 
-#: templates/account/signup.html:120
+#: templates/account/signup.html:121
 #: templates/core/partials/wizard/wizard-step-one.html:54
 msgid "Last Name"
 msgstr "Último nome"
 
-#: templates/account/signup.html:215
+#: templates/account/signup.html:217
 msgid "Sending"
 msgstr "Enviando"
-
-#: templates/admin/base.html:35
-msgid "Welcome,"
-msgstr ""
-
-#: templates/admin/base.html:40
-msgid "View site"
-msgstr ""
-
-#: templates/admin/base.html:45
-msgid "Documentation"
-msgstr "Documentação"
-
-#: templates/admin/base.html:51
-msgid "Log out"
-msgstr ""
-
-#: templates/admin/base.html:61
-msgid "Home"
-msgstr ""
-
-#: templates/admin/base_site.html:4
-msgid "Django site admin"
-msgstr ""
 
 #: templates/article/article-base.html:33
 msgctxt "update article"
@@ -1802,7 +1858,7 @@ msgstr "Mensagem"
 msgid "submit"
 msgstr "Enviar"
 
-#: templates/core/amp/base.html:355
+#: templates/core/amp/base.html:358
 #: templates/home/partials/slideout-menu.html:55
 #: templates/home/partials/user-actions.html:46
 msgid "Sair"

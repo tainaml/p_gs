@@ -72,6 +72,5 @@ class Command(BaseCommand):
                     article.author=author
                     article.save()
 
-            print row_count
 
 

@@ -1,4 +1,5 @@
 import re
+from django.contrib.auth import get_user_model
 from django.shortcuts import redirect
 from django.urls import reverse
 
@@ -7,7 +8,8 @@ from django.conf import settings
 
 RE_MULTISPACE = re.compile(r"\s{2,}!<pre\s{2,}pre>")
 RE_NEWLINE = re.compile(r"\n!<pre\npre>")
- 
+UserModel = get_user_model()
+
 class MinifyHTMLMiddleware(object):
     def process_response(self, request, response):
         if 'text/html' in response.get('Content-Type', []) and getattr(settings, 'COMPRESS_HTML', True):
@@ -44,8 +46,9 @@ class WizardMiddleware(object):
         if request.is_ajax():
             return None
 
+
         if request.user and hasattr(request.user, "user_profile") \
-            and request.user.user_profile.wizard_step + 1 <= int(getattr(settings, 'WIZARD_STEPS_TOTAL')):
+            and request.user.user_profile.wizard_step + 1 <= int(getattr(settings, 'WIZARD_STEPS_TOTAL')) and request.user.usertype != UserModel.ORGANIZATION:
 
             step_to_go = request.user.user_profile.wizard_step + 1
 

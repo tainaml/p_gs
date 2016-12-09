@@ -12,5 +12,4 @@ class Command(BaseCommand):
         for article in articles:
             article.search_vector = vector
             article.save()
-            print "saving %s" % article.slug
 
