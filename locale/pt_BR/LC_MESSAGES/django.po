@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-08 09:55-0300\n"
+"POT-Creation-Date: 2016-12-09 15:17-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -36,7 +36,7 @@ msgstr ""
 msgid "User type"
 msgstr ""
 
-#: apps/account/models.py:43 apps/account/models.py:46
+#: apps/account/models.py:46 apps/account/models.py:49
 msgid "Anonymous"
 msgstr "Anônimo"
 
@@ -82,7 +82,7 @@ msgid "Token is no longer valid."
 msgstr "Token expirou"
 
 #. Translators: This message appears on the home page only
-#: apps/account/views.py:171 apps/notifications/models.py:41
+#: apps/account/views.py:171 apps/notifications/models.py:47
 msgid "Success"
 msgstr "Sucesso"
 
@@ -150,7 +150,8 @@ msgstr "Lixo"
 msgid "Publish"
 msgstr "Publicado"
 
-#: apps/article/models.py:62 apps/job_vacancy/models.py:45
+#: apps/article/models.py:62 apps/core/models/rating.py:45
+#: apps/job_vacancy/models.py:45
 msgid "Author"
 msgstr "Autor"
 
@@ -183,20 +184,23 @@ msgstr "Operação não permitida"
 msgid "This article has been deleted"
 msgstr "Publicação removida"
 
-#: apps/article/views.py:239
+#: apps/article/views.py:238
 msgid "Publicação salva com sucesso"
 msgstr "Publicação salva com sucesso"
 
-#: apps/article/views.py:243
+#: apps/article/views.py:242
 msgid "Generic Error"
 msgstr "Erro"
 
-#: apps/certification/models.py:8 apps/job_vacancy/models.py:39
+#: apps/certification/models.py:8 apps/core/models/course.py:38
+#: apps/core/models/course.py:88 apps/job_vacancy/models.py:39
 msgid "Title"
 msgstr "Título"
 
-#: apps/certification/models.py:9 apps/company/models.py:34
-#: apps/company/models.py:46 apps/company/models.py:53
+#: apps/certification/models.py:9 apps/company/models.py:50
+#: apps/company/models.py:67 apps/company/models.py:74
+#: apps/core/models/course.py:40 apps/core/models/course.py:89
+#: apps/core/models/languages.py:9 apps/core/models/plataform.py:21
 #: apps/job_vacancy/models.py:18 apps/job_vacancy/models.py:25
 #: apps/job_vacancy/models.py:32 apps/job_vacancy/models.py:78
 #: apps/job_vacancy/models.py:94 apps/job_vacancy/models.py:109
@@ -266,52 +270,56 @@ msgstr "Comunidade relacionada"
 msgid "Community not Found."
 msgstr "Comunidade não encontrada"
 
-#: apps/company/models.py:12
+#: apps/company/models.py:15
 #, fuzzy
 #| msgid "Value is not a valid name."
 msgid "This is not a valid membership"
 msgstr "Valor não é um nome válido"
 
-#: apps/company/models.py:20
+#: apps/company/models.py:23 apps/company/models.py:28
 #, fuzzy
 #| msgid "^admin/"
 msgid "Admin"
 msgstr "^admin-portal/"
 
-#: apps/company/models.py:21
+#: apps/company/models.py:24 apps/company/models.py:29
 msgid "Collaborator"
-msgstr ""
+msgstr "Colaborador"
 
-#: apps/company/models.py:24
+#: apps/company/models.py:32
 #, fuzzy
 #| msgid "Username"
 msgid "User"
 msgstr "Nome de usuário"
 
-#: apps/company/models.py:25 apps/company/models.py:55
+#: apps/company/models.py:33 apps/company/models.py:76
 #: apps/job_vacancy/models.py:43 templates/userprofile/occupation_add.html:13
 #: templates/userprofile/occupation_edit.html:13
 msgid "Company"
 msgstr "Empresa"
 
-#: apps/company/models.py:27
+#: apps/company/models.py:35
 msgid "Permission"
-msgstr ""
+msgstr "Permissão"
 
-#: apps/company/models.py:30 apps/core/admin/geral.py:127
+#: apps/company/models.py:46 apps/core/admin/geral.py:126
 #: apps/userprofile/models.py:133 templates/contact/contact.html:11
 msgid "Name"
 msgstr "Nome"
 
-#: apps/company/models.py:31
+#: apps/company/models.py:47
 msgid "Logo"
 msgstr "Logo"
 
-#: apps/company/models.py:36
-msgid "Taxonomies"
-msgstr ""
-
 #: apps/company/models.py:54
+msgid "Website"
+msgstr "Website"
+
+#: apps/company/models.py:57
+msgid "Taxonomies"
+msgstr "Taxonomias"
+
+#: apps/company/models.py:75
 msgid "Type"
 msgstr "Tipo"
 
@@ -348,11 +356,11 @@ msgstr "Perfil"
 msgid "Profiles"
 msgstr "Perfis"
 
-#: apps/core/admin/geral.py:129
+#: apps/core/admin/geral.py:128
 msgid "Contributor"
 msgstr "Contribuidor"
 
-#: apps/core/admin/geral.py:140
+#: apps/core/admin/geral.py:139
 msgid "Completed Wizard?"
 msgstr ""
 
@@ -364,11 +372,11 @@ msgstr ""
 msgid "Session has no id from user!"
 msgstr ""
 
-#: apps/core/business/account.py:55
+#: apps/core/business/account.py:52
 msgid "Company has no user associated with"
 msgstr ""
 
-#: apps/core/business/account.py:57
+#: apps/core/business/account.py:54
 msgid "User has no permission to log in with this company!"
 msgstr ""
 
@@ -380,17 +388,37 @@ msgstr "Ocorreu um erro ao desativar a conta"
 msgid "All"
 msgstr "Todos"
 
-#: apps/core/forms/videos.py:20
+#: apps/core/forms/course.py:20 apps/core/forms/videos.py:20
 msgid "Default"
 msgstr "Ordem padrão"
 
-#: apps/core/forms/videos.py:21
+#: apps/core/forms/course.py:21 apps/core/forms/videos.py:21
 msgid "Recent"
 msgstr "Mais recentes"
 
-#: apps/core/forms/videos.py:22
+#: apps/core/forms/course.py:22 apps/core/forms/videos.py:22
 msgid "Oldest"
 msgstr "Mais antigos"
+
+#: apps/core/forms/course.py:23
+msgid "Better rating"
+msgstr "Melhor avaliação"
+
+#: apps/core/forms/course.py:24
+msgid "Worst rating"
+msgstr "Pior avaliação"
+
+#: apps/core/forms/course.py:28
+#, fuzzy
+#| msgid "^category-feed/"
+msgid "Category"
+msgstr "^categoria/"
+
+#: apps/core/forms/course.py:30
+#, fuzzy
+#| msgid "Community Related"
+msgid "Community"
+msgstr "Comunidade relacionada"
 
 #: apps/core/forms/videos.py:23
 msgid "Likes Asc"
@@ -411,6 +439,79 @@ msgstr "Gênero não permitido."
 #: apps/core/forms/wizard.py:130 apps/userprofile/service/forms.py:98
 msgid "Image size more than 1mb."
 msgstr "Tamanho da imagem excede 1mb"
+
+#: apps/core/models/course.py:39 apps/core/models/languages.py:8
+#: apps/core/models/plataform.py:20 apps/job_vacancy/models.py:40
+#: apps/userprofile/models.py:134
+msgid "Slug"
+msgstr "Slug"
+
+#: apps/core/models/course.py:42
+msgid "Rating"
+msgstr "Avaliação"
+
+#: apps/core/models/course.py:45
+msgid "Internal author"
+msgstr "Autor interno"
+
+#: apps/core/models/course.py:47
+msgid "External Author"
+msgstr "Autor externo"
+
+#: apps/core/models/course.py:61
+msgid "Languages"
+msgstr "Linguagens"
+
+#: apps/core/models/course.py:62
+msgid "Image"
+msgstr "Imagens"
+
+#: apps/core/models/course.py:63
+msgid "Related Courses"
+msgstr "Cursos realacionados"
+
+#: apps/core/models/course.py:64
+msgid "Taxonomy"
+msgstr "Taxonomia"
+
+#: apps/core/models/course.py:66
+msgid "Affiliate link"
+msgstr "Link afiliado"
+
+#: apps/core/models/course.py:68 apps/userprofile/models.py:140
+msgid "Active"
+msgstr "Ativo"
+
+#: apps/core/models/course.py:70
+msgid "Plataform"
+msgstr "Plataforma"
+
+#: apps/core/models/course.py:71
+msgid "Class Link"
+msgstr "Link da Aula"
+
+#: apps/core/models/course.py:91
+msgid "Course"
+msgstr "Curso"
+
+#: apps/core/models/languages.py:10
+#, fuzzy
+#| msgid "Anonymous"
+msgid "Acronym"
+msgstr "Anônimo"
+
+#: apps/core/models/rating.py:26 apps/core/models/rating.py:31
+msgid "Type is not registered to rate!"
+msgstr "Este não é um tipo avaliável"
+
+#: apps/core/models/rating.py:40
+#, python-format
+msgid "value is larger than maximum %(value)s"
+msgstr "Valor é maior que máximo %(value)s"
+
+#: apps/core/models/rating.py:49 apps/job_vacancy/models.py:42
+msgid "Date"
+msgstr "Data"
 
 #: apps/core/templatetags/core_tags.py:162
 msgid "Olá, gostaria de sugerir a comunidade: "
@@ -674,8 +775,8 @@ msgstr "^desativar-conta$"
 
 #. Translators: URL de criacao de contato
 #. Translators: URL index de conta social
-#: apps/core/urls/contact.py:7 apps/core/urls/notifications.py:7
-#: apps/socialaccount/urls.py:8
+#: apps/core/urls/contact.py:7 apps/core/urls/course.py:8
+#: apps/core/urls/notifications.py:7 apps/socialaccount/urls.py:8
 msgid "^$"
 msgstr "^$"
 
@@ -724,6 +825,12 @@ msgstr "^politica-de-privacidade/"
 #: apps/core/urls/core.py:35
 msgid "^oembed/"
 msgstr "^oembed/"
+
+#: apps/core/urls/course.py:9
+#, fuzzy
+#| msgid "^(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/$"
+msgid "^(?P<course_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/$"
+msgstr "^(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/$"
 
 #. Translators: URL de setar conteudo como oficial
 #: apps/core/urls/feed.py:7
@@ -831,6 +938,12 @@ msgstr ""
 #: apps/core/urls/question.py:47
 msgid "^create/(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)$"
 msgstr "^criar/(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)$"
+
+#: apps/core/urls/rating.py:7
+#, fuzzy
+#| msgid "^create/$"
+msgid "^rate/$"
+msgstr "^criar/$"
 
 #. Translators: URL de busca geral
 #: apps/core/urls/search.py:8
@@ -1134,6 +1247,12 @@ msgstr "Configuração de Notificação"
 msgid "Your settings have been successfully changed!"
 msgstr "Suas configurações foi alteradas com sucesso!"
 
+#: apps/core/views/course.py:49
+#, fuzzy
+#| msgid "Answer not found"
+msgid "Course not found"
+msgstr "Resposta não encontrada"
+
 #: apps/core/views/question.py:119 apps/core/views/question.py:150
 #: apps/question/views.py:19
 msgid "Question not Found."
@@ -1155,17 +1274,9 @@ msgstr "Apenas usuários autenticados podem submeter imagens"
 msgid "File size not supported!"
 msgstr "Tamanho de arquivo não suportado"
 
-#: apps/job_vacancy/models.py:40 apps/userprofile/models.py:134
-msgid "Slug"
-msgstr "Slug"
-
 #: apps/job_vacancy/models.py:41
 msgid "Is active"
 msgstr "Está ativo"
-
-#: apps/job_vacancy/models.py:42
-msgid "Date"
-msgstr "Data"
 
 #: apps/job_vacancy/models.py:47
 msgid "Responsibility Description"
@@ -1277,23 +1388,23 @@ msgstr "Certificação"
 msgid "Job not found!"
 msgstr "Vaga não encontrada"
 
-#: apps/notifications/models.py:38
+#: apps/notifications/models.py:44
 msgid "Info"
 msgstr "Info"
 
-#: apps/notifications/models.py:39
+#: apps/notifications/models.py:45
 msgid "Danger"
 msgstr "Perigo"
 
-#: apps/notifications/models.py:40
+#: apps/notifications/models.py:46
 msgid "Warning"
 msgstr "Aviso"
 
-#: apps/notifications/models.py:49
+#: apps/notifications/models.py:55
 msgid "Updated In"
 msgstr "Atualizado em"
 
-#: apps/notifications/models.py:50
+#: apps/notifications/models.py:56
 msgid "Created In"
 msgstr "Criado em"
 
@@ -1455,23 +1566,19 @@ msgstr ""
 
 #: apps/userprofile/models.py:136
 msgid "What study"
-msgstr ""
+msgstr "O que estudar"
 
 #: apps/userprofile/models.py:137
 msgid "Main Activities"
-msgstr ""
+msgstr "Principais atividades"
 
 #: apps/userprofile/models.py:138
 msgid "More info"
-msgstr ""
+msgstr "Mais informações"
 
 #: apps/userprofile/models.py:139
 msgid "Categories"
-msgstr ""
-
-#: apps/userprofile/models.py:140
-msgid "Active"
-msgstr "Ativo"
+msgstr "Categorias"
 
 #: apps/userprofile/views.py:21
 msgid "Profile not Found."
@@ -1550,7 +1657,7 @@ msgstr "^notificacoes/"
 #. Translators: URL root de notificacoes
 #: rede_gsti/urls.py:72
 msgid "^hint/"
-msgstr ""
+msgstr "^hint/"
 
 #. Translators: URL root de publicacao
 #. Translators: URL root CORE de acoes sociais
@@ -1560,8 +1667,8 @@ msgstr ""
 #. Translators: URL core adicionais
 #. Translators: URL root de comunidade
 #: rede_gsti/urls.py:87 rede_gsti/urls.py:90 rede_gsti/urls.py:115
-#: rede_gsti/urls.py:121 rede_gsti/urls.py:126 rede_gsti/urls.py:129
-#: rede_gsti/urls.py:132
+#: rede_gsti/urls.py:127 rede_gsti/urls.py:132 rede_gsti/urls.py:135
+#: rede_gsti/urls.py:138
 msgid "^"
 msgstr "^"
 
@@ -1605,7 +1712,19 @@ msgstr "^feed/"
 msgid "^useralerts/"
 msgstr ""
 
-#: rede_gsti/urls.py:143
+#. Translators: URL de curso
+#: rede_gsti/urls.py:121
+msgid "^courses/"
+msgstr ""
+
+#. Translators: URL de curso
+#: rede_gsti/urls.py:124
+#, fuzzy
+#| msgid "^settings/"
+msgid "^rating/"
+msgstr "^configuracoes/"
+
+#: rede_gsti/urls.py:149
 msgid "^front-end/(?P<template>[a-z0-9./]+(?:(-|_)[a-z0-9.]+)*)"
 msgstr "^front-end/(?P<template>[a-z0-9./]+(?:(-|_)[a-z0-9.]+)*)"
 
@@ -1613,33 +1732,33 @@ msgstr "^front-end/(?P<template>[a-z0-9./]+(?:(-|_)[a-z0-9.]+)*)"
 msgid "Houston, we have a problem!"
 msgstr "Houston, we have a problem!"
 
-#: templates/aadmin/base.html:35
+#: templates/__admin/base.html:35
 msgid "Welcome,"
-msgstr ""
+msgstr "Bem vindo,"
 
-#: templates/aadmin/base.html:40
+#: templates/__admin/base.html:40
 msgid "View site"
-msgstr ""
+msgstr "Ver site"
 
-#: templates/aadmin/base.html:45
+#: templates/__admin/base.html:45
 msgid "Documentation"
 msgstr "Documentação"
 
-#: templates/aadmin/base.html:49 templates/account/index.html:10
+#: templates/__admin/base.html:49 templates/account/index.html:10
 msgid "Change password"
 msgstr "Mudar senha"
 
-#: templates/aadmin/base.html:51
+#: templates/__admin/base.html:51
 msgid "Log out"
-msgstr ""
+msgstr "Logout"
 
-#: templates/aadmin/base.html:61
+#: templates/__admin/base.html:61
 msgid "Home"
-msgstr ""
+msgstr "Home"
 
-#: templates/aadmin/base_site.html:4
+#: templates/__admin/base_site.html:4
 msgid "Django site admin"
-msgstr ""
+msgstr "Administração"
 
 #: templates/account/index.html:6
 msgid "Show profile"
@@ -1828,6 +1947,7 @@ msgstr "Publicar"
 #: templates/userprofile/partials/followings-segment.html:30
 #: templates/userprofile/partials/profile-communities.html:44
 #: templates/userprofile/profile-communities.html:67
+#: templates/userprofile/profile-companies.html:34
 #: templates/userprofile/profile-feed.html:34
 #: templates/userprofile/profile-list.html:64
 #: templates/userprofile/profile-questions.html:50
