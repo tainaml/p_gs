@@ -6,7 +6,7 @@
 
 {% block title %}{{ course.title }}{% endblock title %}
 
-{% block content %}
+{% block content_old %}
 
     <p>Titulo: {{ course.title }}</p>
     <p>Slug: {{ course.slug }}</p>
@@ -17,5 +17,142 @@
     {% endif %}
 
 
+{% endblock content_old %}
+
+{% block content %}
+    <main class="container main" data-page="courses" data-filtered="false">
+        <div class="row">
+            <div class="banner-content-wide">
+                <div class="banner">
+                    {% ads_only_production "videos_top" "all" %}
+                </div>
+            </div>
+        </div>
+        <article class="row course__single">
+            <div class="col-xs-12">
+                <h1 class="course__title">{{ course.title }}</h1>
+                <time class="course__date__publication" datetime="{{ course.createdin|date:"d/m/Y" }}">
+                    <div class="course__avaliation">
+              <span class="thumb__course__avaliation">
+                <span style="width: 60%"></span>
+              </span> {{ course.rating }}
+                    </div>
+                    <i class="gsticon gsticon-calendar-o"></i> {{ course.createdin|date:"d/m/Y" }}
+                </time>
+                <div class="course__categories visible-lg-block">
+                    <a href="#" class="course__category">Design</a> /
+                    <a href="#" class="course__category">Photoshop</a> /
+                    <a href="#" class="course__category">Banco de Dados</a> /
+                    <a href="#" class="course__category">InDesgin</a> /
+                    <a href="#" class="course__category">Desenvolvimento</a>
+                </div>
+                <div class="dropdown visible-xs course__categories">
+                    <a href="javascript:;" id="dLabel" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Comunidades
+                        <i class="gsticon gsticon-angle-down"></i>
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="dLabel">
+                        <li><a href="#" class="course__category">Design</a></li>
+                        <li><a href="#" class="course__category">Photoshop</a></li>
+                        <li><a href="#" class="course__category">Banco de Dados</a></li>
+                        <li><a href="#" class="course__category">InDesgin</a></li>
+                        <li><a href="#" class="course__category">Desenvolvimento</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-xs-12">
+                <div class="row">
+                    <div class="col-sm-7">
+                        <img class="img-responsive" src="http://placehold.it/670x440" alt="Contexto da imagem" />
+                    </div>
+                    <div class="col-sm-5 course__about">
+                        <h2 class="course__about__title">Sobre o curso</h2>
+                        <div class="course__about__text">
+                            {{ course.description|safe }}
+                        </div>
+                        <ul class="course__about__list">
+                            <li>
+                                <i class="gsticon gsticon-globe"></i> Idioma: Inglês, Português
+                            </li>
+                            <li>
+                                <i class="gsticon gsticon-tag"></i> Plataforma: Udemy
+                            </li>
+                        </ul>
+                        {% if course.affiliate_link %}
+                            <a href="{{ course.affiliate_link }}" class="btn btn-green course__btn">Tenho Interesse</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12">
+                <div class="row">
+                    <div class="col-sm-7 course__menu">
+                        <h2 class="course__menu__title">Ementa do Curso</h2>
+                        <ul class="course__menu__classes">
+                            {% for curriculum in curriculums %}
+                                <li class="course__menu__class">
+                                    <div class="course__menu__class__title">
+                                        {# Aula {{ class }} #}
+                                        <span>{{ curriculum.title }}</span>
+                                    </div>
+                                    <div class="course__menu__class__content" id="class-{{ class }}">
+                                        {{ course.description }}
+                                    </div>
+                                    <a data-toggle="showmore" href="#class-{{ class }}"><i class="gsticon gsticon-plus"></i> Detalhes</a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                        {% if course.observation %}
+                            <div>
+                                <h4>OBS:</h4>
+                                {{ course.observation }}
+                            </div>
+                        {% endif %}
+
+                        {% if course.affiliate_link %}
+                            <a href="{{ course.affiliate_link }}" class="btn btn-green course__btn">Ementa Completa</a>
+                        {% endif %}
+
+                        {% include "front_end/course/partials/author.html" %}
+                        {% include "front_end/course/partials/avaliations.html" %}
+                    </div>
+                    <div class="col-sm-5">
+                        <div class="related__items">
+                            <h2 class="related__items__title">Cursos Relacionados</h2>
+                            {% for percentagem in '123' %}
+                                <div class="related">
+                                    <figure class="related__img">
+                                        <img class="img-responsive" src="http://placehold.it/100" alt="">
+                                    </figure>
+                                    <div class="related__body">
+                                        <h3 class="related__title">Lorem ipsum dolor ipsum dolor</h3>
+                                        <div class="related__categories">Rede de Computadores, Analytics, Banco de Dados, Active Directory, Cloud Computing</div>
+                                <span class="thumb__course__avaliation">
+                                    <span style="width: 60%"></span>
+                                </span>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                        <div class="related__items">
+                            <h2 class="related__items__title">Comunidades</h2>
+                            {% for percentagem in '123' %}
+                                <div class="related">
+                                    <figure class="related__img">
+                                        <img class="img-responsive" src="http://placehold.it/100" alt="">
+                                    </figure>
+                                    <div class="related__body">
+                                        <h3 class="related__title">Lorem ipsum dolor ipsum dolor</h3>
+                                        <div class="related__followers">238 Seguidores</div>
+                                        <a class="btn perfil-button" href="#"><span>Entrar</span></a>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </article>
+    </main>
 {% endblock content %}
 

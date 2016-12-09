@@ -33,11 +33,23 @@ def course_image_upload(instance, filename):
     return os.path.join(path, "{0}.{1}".format(name, ext))
 
 
+class CourseManager(models.Manager):
+
+    def get_queryset(self):
+        qs = Course.objects.prefetch_related(
+            'languages', 'related_courses', 'taxonomies', 'plataform'
+        )
+        return qs
+
+
 class Course(models.Model):
+
+    objects = CourseManager()
 
     title = models.CharField(max_length=255, verbose_name=_('Title'))
     slug = models.SlugField(max_length=200, verbose_name=_('Slug'))
     description = models.TextField(verbose_name=_('Description'))
+    observation = models.TextField(null=True, blank=True, verbose_name=_('Observation'))
 
     rating = models.DecimalField(max_digits=3, decimal_places=2, verbose_name=_('Rating'))
 
@@ -47,14 +59,7 @@ class Course(models.Model):
     external_author = models.TextField(max_length=255, verbose_name=_('External Author'), null=True, blank=True)
     ratings = GenericRelation(Rating, related_query_name="course")
 
-    @cached_property
-    def author(self):
-        return self.internal_author or self.external_author
-
-    def image_or_default(self):
-        #TODO
-        return self.image or None
-
+    createdin = models.DateTimeField(null=False, blank=True, auto_now_add=True)
     updatein = models.DateTimeField(null=False, auto_now=True)
     # curriculum = models.TextField(max_length=255, verbose_name=_('Curriculum'))
 
@@ -63,7 +68,7 @@ class Course(models.Model):
     related_courses = models.ManyToManyField("self", blank=True, verbose_name=_('Related Courses'))
     taxonomies = models.ManyToManyField(Taxonomy, blank=True, verbose_name=_('Taxonomy'), related_name="courses")
 
-    affiliate_link = models.URLField(verbose_name=_('Affiliate link'))
+    affiliate_link = models.URLField(verbose_name=_('Affiliate link'), blank=True, null=True)
 
     active = models.BooleanField(default=True, verbose_name=_('Active'))
 
@@ -72,6 +77,14 @@ class Course(models.Model):
 
     def __unicode__(self):
         return u'{}'.format(self.title)
+
+    @cached_property
+    def author(self):
+        return self.internal_author or self.external_author
+
+    def image_or_default(self):
+        #TODO
+        return self.image or None
 
     @cached_property
     def get_absolute_url(self):

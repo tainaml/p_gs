@@ -29,22 +29,13 @@ class CourseShowView(View):
 
         return {
             'course': course,
+            'curriculums': course.curriculums.all()
         }
 
     def get(self, request, course_slug):
 
         try:
-            course = Course.objects.prefetch_related(
-
-                'internal_author', 'languages',
-                'related_courses', 'taxonomies'
-
-            ).select_related(
-
-                'internal_author',
-
-            ).get(slug=course_slug)
-
+            course = Course.objects.get(slug=course_slug)
         except Course.DoesNotExist:
             raise Http404(_('Course not found'))
 

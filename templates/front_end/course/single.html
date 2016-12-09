@@ -4,24 +4,6 @@
 {% load widget_tweaks %}
 {% load seo_pagination_tags %}
 
-{% block title %}Cursos{% endblock title %}
-
-{% block link_pagination %}
-
-    {% if videos %}
-    {% pagination_links videos %}
-    {% endif %}
-
-{% endblock link_pagination %}
-
-{% block extra_meta %}
-    {{ block.super }}
-    {% if not videos %}
-        <meta name="robots" content="noindex,nofollow">
-    {% endif %}
-
-{% endblock %}
-
 {% block content %}
 <main class="container main" data-page="courses" data-filtered="false">
     <div class="row">
