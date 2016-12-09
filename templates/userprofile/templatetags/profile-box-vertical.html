@@ -37,6 +37,15 @@
         <li>
             <a href="{{ profile.user.company.website }}" rel="nofollow" target="_blank"><i class="gsticon gsticon-globe"></i> {{ profile.user.company.website|slice:"150" }}</a>
         </li>
+        {% else %}
+            {% if profile.occupation.all %}
+            <li>
+                <i class="gsticon gsticon-briefcase"></i>
+                {% for occupation in profile.occupation.all %}
+                    {{ occupation.responsibility.name }}{% if not forloop.last %},{% endif %}
+                {% endfor %}
+            </li>
+            {% endif %}
         {% endif %}
 
         {% if profile.has_locale %}

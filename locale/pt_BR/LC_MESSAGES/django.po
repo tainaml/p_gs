@@ -19,10 +19,9 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #: apps/account/models.py:20
-#, fuzzy
 #| msgid "Value is not a valid name."
 msgid "This is not a valid user type"
-msgstr "Valor não é um nome válido"
+msgstr "Este não é um tipo de usuário válido"
 
 #: apps/account/models.py:29
 msgid "Person"
@@ -271,13 +270,11 @@ msgid "Community not Found."
 msgstr "Comunidade não encontrada"
 
 #: apps/company/models.py:15
-#, fuzzy
 #| msgid "Value is not a valid name."
 msgid "This is not a valid membership"
-msgstr "Valor não é um nome válido"
+msgstr "Isto não é um membro valido"
 
 #: apps/company/models.py:23 apps/company/models.py:28
-#, fuzzy
 #| msgid "^admin/"
 msgid "Admin"
 msgstr "^admin-portal/"
@@ -287,7 +284,6 @@ msgid "Collaborator"
 msgstr "Colaborador"
 
 #: apps/company/models.py:32
-#, fuzzy
 #| msgid "Username"
 msgid "User"
 msgstr "Nome de usuário"
@@ -409,16 +405,14 @@ msgid "Worst rating"
 msgstr "Pior avaliação"
 
 #: apps/core/forms/course.py:28
-#, fuzzy
 #| msgid "^category-feed/"
 msgid "Category"
-msgstr "^categoria/"
+msgstr "Categoria"
 
 #: apps/core/forms/course.py:30
-#, fuzzy
 #| msgid "Community Related"
 msgid "Community"
-msgstr "Comunidade relacionada"
+msgstr "Comunidade"
 
 #: apps/core/forms/videos.py:23
 msgid "Likes Asc"
@@ -495,10 +489,9 @@ msgid "Course"
 msgstr "Curso"
 
 #: apps/core/models/languages.py:10
-#, fuzzy
 #| msgid "Anonymous"
 msgid "Acronym"
-msgstr "Anônimo"
+msgstr "Sigla"
 
 #: apps/core/models/rating.py:26 apps/core/models/rating.py:31
 msgid "Type is not registered to rate!"
@@ -827,10 +820,9 @@ msgid "^oembed/"
 msgstr "^oembed/"
 
 #: apps/core/urls/course.py:9
-#, fuzzy
 #| msgid "^(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/$"
 msgid "^(?P<course_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/$"
-msgstr "^(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/$"
+msgstr "^(?P<course_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/$"
 
 #. Translators: URL de setar conteudo como oficial
 #: apps/core/urls/feed.py:7
@@ -940,10 +932,9 @@ msgid "^create/(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)$"
 msgstr "^criar/(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)$"
 
 #: apps/core/urls/rating.py:7
-#, fuzzy
 #| msgid "^create/$"
 msgid "^rate/$"
-msgstr "^criar/$"
+msgstr "^avaliar/$"
 
 #. Translators: URL de busca geral
 #: apps/core/urls/search.py:8
@@ -1248,10 +1239,9 @@ msgid "Your settings have been successfully changed!"
 msgstr "Suas configurações foi alteradas com sucesso!"
 
 #: apps/core/views/course.py:49
-#, fuzzy
 #| msgid "Answer not found"
 msgid "Course not found"
-msgstr "Resposta não encontrada"
+msgstr "Curso não encontrado"
 
 #: apps/core/views/question.py:119 apps/core/views/question.py:150
 #: apps/question/views.py:19
@@ -1715,14 +1705,13 @@ msgstr ""
 #. Translators: URL de curso
 #: rede_gsti/urls.py:121
 msgid "^courses/"
-msgstr ""
+msgstr "^cursos/"
 
 #. Translators: URL de curso
 #: rede_gsti/urls.py:124
-#, fuzzy
 #| msgid "^settings/"
 msgid "^rating/"
-msgstr "^configuracoes/"
+msgstr "^avaliacoes/"
 
 #: rede_gsti/urls.py:149
 msgid "^front-end/(?P<template>[a-z0-9./]+(?:(-|_)[a-z0-9.]+)*)"
