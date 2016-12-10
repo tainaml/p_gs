@@ -6,6 +6,7 @@ if ( $( '[data-page="courses"]' ).length ) {
   const formRating = $( '[name="rating"]' )
 
   const defaultSettings = {
+    halfStar: true,
     normalFill: '#a09e9e',
     ratedFill: '#d68004',
     spacing: '2px',
@@ -15,7 +16,7 @@ if ( $( '[data-page="courses"]' ).length ) {
     },
     onChange: function (rating, rateYoInstance) {
       const reactions = $( rateYoInstance.node ).data( 'reactions' )
-      $( this ).next().text( reactions[ Math.ceil( rating ) - 1 ]);
+      $( this ).next().text( reactions[ Math.floor( rating )])
     }
   }
 
