@@ -2,8 +2,8 @@ import '../../vendor/rateYo/jquery.rateyo';
 
 if ( $( '[data-page="courses"]' ).length ) {
   const $showMore = $( '[data-toggle="showmore"]' )
-  const $rating = $( '[data-toogle="rating"]' )
-  const formRating = $( '[name="rating"]' )
+  const $rating = $( '[data-toggle="rating"]' )
+  const formRating = $( '[data-toggle="rating-value"]' )
 
   const defaultSettings = {
     halfStar: true,
@@ -37,31 +37,32 @@ if ( $( '[data-page="courses"]' ).length ) {
 
 
   $showMore.on( 'click tap', ( event ) => {
-    toggleHeight( $( event.currentTarget ).attr( 'href' ))
+    toggleHeight($( event.currentTarget ).attr( 'href' ))
     event.preventDefault()
   })
 }
 
-function toggleHeight(selector) {
-  var $this = $( selector );
+const toggleHeight = ( seletor ) => {
+  const $this = $( seletor )
+  const ANIMATION_TIME = $this.data( 'animationSpeed' ) || 200
 
   if ( $this.hasClass( 'open' )) {
-    var originalHeight = $this.data( 'height' );
-    console.log(originalHeight);
     $this.animate({
-      height: originalHeight
-    }, 200, function () {
-        $( this ).removeClass( 'open' )
+      height: $this.data( 'height' )
+    }, ANIMATION_TIME, function () {
+      $this.removeClass( 'open' )
     })
+
     return false
   }
 
-  var currentHeight =  $this.innerHeight()
-  var autoHeight = $this.css( 'height', 'auto' ).height()
-  $this.data( 'height' , currentHeight )
-    .height( currentHeight ).animate({
-      height: autoHeight
-    }, 200, function () {
-      $( this ).addClass( 'open' )
-    })
+  const currentHeight =  $this.outerHeight();
+  const autoHeight = $this.css('height', 'auto').outerHeight()
+  $this.data('height', currentHeight)
+  .height(currentHeight).animate({
+    height: autoHeight
+  }, ANIMATION_TIME,
+  function () {
+    $this.addClass( 'open' )
+  })
 }
