@@ -80,10 +80,10 @@
       position: relative;
       overflow: hidden;
       height: 80px;
-      padding-top: 20px;
+      padding-top: 14px;
       color: #666;
       font-size: 14px;
-      // font: 400 16px/1.15 'Open Sans';
+      line-height: 1.5;
       &:after {
         position: absolute;
         left: 0; bottom: -5px;

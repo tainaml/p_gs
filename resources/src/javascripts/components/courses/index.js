@@ -37,32 +37,31 @@ if ( $( '[data-page="courses"]' ).length ) {
 
 
   $showMore.on( 'click tap', ( event ) => {
-    toggleHeight($( event.currentTarget ).attr( 'href' ))
+    toggleHeight( $( event.currentTarget ).attr( 'href' ))
     event.preventDefault()
   })
 }
 
-const toggleHeight = ( seletor ) => {
-  const $this = $( seletor )
-  const ANIMATION_TIME = $this.data( 'animationSpeed' ) || 200
+function toggleHeight(selector) {
+  var $this = $( selector );
 
   if ( $this.hasClass( 'open' )) {
+    var originalHeight = $this.data( 'height' );
+    console.log(originalHeight);
     $this.animate({
-      height: $this.data( 'height' )
+      height: originalHeight
     }, 200, function () {
-      $this.removeClass( 'open' )
+        $( this ).removeClass( 'open' )
     })
-
     return false
   }
 
-  const currentHeight =  $this.height();
-  const autoHeight = $this.css('height', 'auto').height()
-  $this.data('height', currentHeight)
-  .height(currentHeight).animate({
-    height: autoHeight
-  }, ANIMATION_TIME,
-  function () {
-    $this.addClass( 'open' )
-  })
+  var currentHeight =  $this.innerHeight()
+  var autoHeight = $this.css( 'height', 'auto' ).height()
+  $this.data( 'height' , currentHeight )
+    .height( currentHeight ).animate({
+      height: autoHeight
+    }, 200, function () {
+      $( this ).addClass( 'open' )
+    })
 }
