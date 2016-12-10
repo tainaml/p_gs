@@ -39,19 +39,25 @@
     }
     &__text {
       overflow: hidden;
-      margin-bottom: 52px;
+      margin-bottom: 20px;
       text-overflow: ellipsis;
-      line-height: 100%;
+    }
+    &__list {
+      @include list-unstyled();
+      line-height: 2;
     }
   }
   &__btn {
-    padding: 20px;
+    padding: 19px;
     display: block;
+    font-weight: 400;
+    font-size: 18px;
   }
   &__menu {
     &__title {
+      margin-top: 50px;
       color: #666;
-      font: 400 20px 'Open Sans';
+      font: 400 25px 'Open Sans';
     }
     &__classes {
       padding-left: 0;
@@ -74,6 +80,7 @@
       position: relative;
       overflow: hidden;
       height: 80px;
+      font-size: 14px;
       &:after {
         position: absolute;
         left: 0; bottom: -5px;
@@ -93,17 +100,16 @@
           list-style-position: inside;
           list-style-type: disc;
         }
-        li {
-          line-height: 100%;
-        }
+        li { line-height: 100%; }
       }
     }
   }
   &__author {
     @include clearfix();
     &__title {
+      margin-top: 50px;
       color: #666;
-      font: 400 20px 'Open Sans';
+      font: 400 25px 'Open Sans';
     }
     &__img {
       max-width: 100px;
@@ -132,6 +138,7 @@
   }
   &__avaliations {
     &__title {
+      margin-top: 50px;
       color: #666;
       font: 400 25px 'Open Sans';
     }
@@ -142,8 +149,11 @@
         .form-group {
           color: #666;
           font: 400 18px 'Open Sans';
+          .avaliation__form__rating { margin-left: 30px }
         }
+        &__rating { display: inline-block }
       }
+      &__reaction__text { margin-left: 20px }
       &__img {
         img {
           min-width: 38px;
@@ -208,6 +218,7 @@
   &__categories {
     color: #666;
     font: 400 11px/20px 'Open Sans';
+    margin-bottom: 10px;
   }
   &__followers {
     color: #666;
@@ -234,48 +245,54 @@
         margin-top: -4px;
         margin-bottom: 33px;
       }
-      &__text {
-        height: 130px;
-        margin-bottom: 67px;
-      }
+      &__text { height: 157px }
     }
     &__btn {
       min-width: 200px;
-      margin-top: 60px;
+      margin-top: 57px;
       display: inline-block;
     }
     &__menu {
-      &__title { font-size: 25px }
+      &__title {
+        margin-top: 60px;
+        font-size: 25px;
+      }
       &__course__class {}
       &__class__title { padding-bottom: 28px }
       &__class__content {}
     }
     &__author {
       margin-top: 60px;
-      &__title { font-size: 25px; }
-      &__img { margin-right: 30px; }
+      &__title {
+        margin-top: 10px;
+        font-size: 25px;
+      }
+      &__img { margin-right: 30px }
       &__body {}
-      &__name { margin-bottom: 7px; }
-      &__infos { margin-bottom: 10px; }
+      &__name { margin-bottom: 7px }
+      &__infos { margin-bottom: 10px }
       &__biography {
         width: 80%;
         margin-top: 0;
         float: left;
-        font-size: 12px;
       }
     }
   }
   .related__items {
     &__title {
-      margin-top: 70px;
+      margin-top: 90px;
+      margin-bottom: 30px;
     }
   }
   .related {
-    &__img {
-      margin-right: 30px;
-    }
+    &__img { margin-right: 30px }
     &__body {
       width: 71.5%;
+      .perfil-button {
+        min-width: 138px;
+        min-height: 26px;
+        padding: 6px 12px;
+      }
     }
     &__title {}
   }

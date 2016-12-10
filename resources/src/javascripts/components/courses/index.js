@@ -6,32 +6,23 @@ if ( $( '[data-page="courses"]' ).length ) {
   const formRating = $( '[name="rating"]' )
 
   const defaultSettings = {
-    rating: 3.6,
-    spacing: '5px',
-    starWidth: '18px',
+    normalFill: '#a09e9e',
+    ratedFill: '#d68004',
+    spacing: '2px',
+    starWidth: '20px',
     onSet: function (rating, rateYoInstance) {
       formRating.val( rating )
-      alert( `Rating is set to: ${rating}` )
-      console.log( formRating.val() )
     },
     onChange: function (rating, rateYoInstance) {
-      $(this).next().text(rating);
+      const reactions = $( rateYoInstance.node ).data( 'reactions' )
+      $( this ).next().text( reactions[ Math.ceil( rating ) - 1 ]);
     }
   }
 
   $rating.each( ( index, item ) => {
-    let $this = $( item )
+    const $this = $( item )
     const dataConfig = $this.data( 'config' )
-    const settings = $.extend({}, {
-      spacing: '5px',
-      starWidth: '18px',
-      onSet: function (rating, rateYoInstance) {
-        formRating.val( rating )
-      },
-      onChange: function (rating, rateYoInstance) {
-        $(this).next().text(rating);
-      }
-    }, dataConfig)
+    const settings = $.extend({}, defaultSettings, dataConfig)
     $this.rateYo( settings )
   })
 
@@ -39,7 +30,7 @@ if ( $( '[data-page="courses"]' ).length ) {
     var $self = $( this )
     var $form = $self.closest( 'form[data-form-send-enables]' )
     if ( $form.length ) {
-        $form.trigger( 'submit' )
+      $form.trigger( 'submit' )
     }
   })
 
@@ -47,13 +38,12 @@ if ( $( '[data-page="courses"]' ).length ) {
   $showMore.on( 'click tap', ( event ) => {
     toggleHeight($( event.currentTarget ).attr( 'href' ))
     event.preventDefault()
-
   })
 }
 
 const toggleHeight = ( seletor ) => {
   const $this = $( seletor )
-  const ANIMATION_TIME = $this.data('animationSpeed') || 200
+  const ANIMATION_TIME = $this.data( 'animationSpeed' ) || 200
 
   if ( $this.hasClass( 'open' )) {
     $this.animate({
