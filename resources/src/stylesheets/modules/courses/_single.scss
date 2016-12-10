@@ -199,6 +199,7 @@
   @include clearfix();
   padding-bottom: 20px;
   margin-bottom: 20px;
+  display: block;
   border-bottom: 1px solid #e1e1e1;
   &:last-child { border-bottom: none }
   &__img {
