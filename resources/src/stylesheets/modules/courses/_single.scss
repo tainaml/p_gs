@@ -80,7 +80,10 @@
       position: relative;
       overflow: hidden;
       height: 80px;
+      padding-top: 20px;
+      color: #666;
       font-size: 14px;
+      // font: 400 16px/1.15 'Open Sans';
       &:after {
         position: absolute;
         left: 0; bottom: -5px;
@@ -93,8 +96,6 @@
       li {
         margin-top: 14px;
         margin-bottom: 14px;
-        color: #666;
-        font: 400 16px/1.15 'Open Sans';
         ul, ol {
           padding-left: 0;
           list-style-position: inside;
