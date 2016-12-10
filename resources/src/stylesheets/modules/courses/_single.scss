@@ -55,8 +55,9 @@
   }
   &__menu {
     &__title {
+      margin-top: 50px;
       color: #666;
-      font: 400 20px 'Open Sans';
+      font: 400 25px 'Open Sans';
     }
     &__classes {
       padding-left: 0;
@@ -99,17 +100,16 @@
           list-style-position: inside;
           list-style-type: disc;
         }
-        li {
-          line-height: 100%;
-        }
+        li { line-height: 100%; }
       }
     }
   }
   &__author {
     @include clearfix();
     &__title {
+      margin-top: 50px;
       color: #666;
-      font: 400 20px 'Open Sans';
+      font: 400 25px 'Open Sans';
     }
     &__img {
       max-width: 100px;
@@ -138,6 +138,7 @@
   }
   &__avaliations {
     &__title {
+      margin-top: 50px;
       color: #666;
       font: 400 25px 'Open Sans';
     }
@@ -262,11 +263,14 @@
     }
     &__author {
       margin-top: 60px;
-      &__title { font-size: 25px; }
-      &__img { margin-right: 30px; }
+      &__title {
+        margin-top: 10px;
+        font-size: 25px;
+      }
+      &__img { margin-right: 30px }
       &__body {}
-      &__name { margin-bottom: 7px; }
-      &__infos { margin-bottom: 10px; }
+      &__name { margin-bottom: 7px }
+      &__infos { margin-bottom: 10px }
       &__biography {
         width: 80%;
         margin-top: 0;
