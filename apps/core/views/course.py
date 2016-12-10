@@ -1,4 +1,6 @@
 from apps.community.models import Community
+from apps.core.business.content_types import ContentTypeCached
+from apps.core.forms.rating import FormRating
 from apps.core.models.rating import Rating
 from django.utils.translation import ugettext_lazy as _
 from apps.core.models.course import Course
@@ -26,35 +28,29 @@ class CourseListView(FormBasePaginetedListView):
 class CourseShowView(View):
 
     template_path = "course/single.html"
+    form = FormRating
+
 
     def get_context(self, request, course):
 
-        taxs = course.taxonomies.all()
-        communities = Community.objects.filter(taxonomy__in=taxs)
-
-        avaliations = course.ratings.all()
-        user_avaliation = None
-
         try:
-            user_avaliation = avaliations.get(author=request.user)
-        except Rating.DoesNotExist, Rating.MultipleObjectsReturned:
-            pass
-        except Exception as e:
-            print(e)
+            instance = course.ratings.get(author=request.user)
+            form = self.form(instance=instance)
 
+        except Rating.DoesNotExist:
+            content_type = ContentTypeCached.objects.get(model="course")
+            form_data = {"object_id": course.id, "content_type": content_type}
+
+            form = self.form(data=form_data, instance=None)
         return {
             'course': course,
-            'curriculums': course.curriculums.all(),
-            'course_communities': communities,
-            'user_avaliation': user_avaliation,
-            'related_courses': course.related_courses.all(),
-            'course_avaliations': avaliations.exclude(author=request.user),
+            'form': form
         }
 
     def get(self, request, course_slug):
 
         try:
-            course = Course.objects.get(slug=course_slug)
+            course = Course.objects.prefetch_related("ratings", "curriculums", "related_courses").get(slug=course_slug)
         except Course.DoesNotExist:
             raise Http404(_('Course not found'))
 

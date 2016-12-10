@@ -3,7 +3,7 @@ from django.http import JsonResponse
 from django.utils.decorators import method_decorator
 from django.views.generic import View
 from apps.core.forms.rating import FormRating
-
+from apps.core.models.rating import Rating
 
 
 class CourseRating(View):
@@ -24,6 +24,21 @@ class CourseRating(View):
             return JsonResponse({'success': True, 'value': form.cleaned_data['value']}, status=200)
         else:
             return JsonResponse(data={'errors': form.errors}, status=400)
+
+    @method_decorator(login_required)
+    def post(self, request):
+
+        data = {'author': request.user.id}
+        data.update(request.POST.dict())
+
+        form = self.form(data=data)
+
+
+
+
+    def get_instance(self, data):
+        pass
+
 
 
 

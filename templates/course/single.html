@@ -36,13 +36,14 @@
                 <time class="course__date__publication" datetime="{{ course.createdin|date:"d/m/Y" }}">
                     <div class="course__avaliation">
                         <span data-toogle="rating" data-config='{"rating": {{ course.rating|stringformat:"f" }}, "readOnly": true}'></span>
-                        </span> {{ course.rating }}
+                         {{ course.rating }}
                     </div>
                     <i class="gsticon gsticon-calendar-o"></i> {{ course.createdin|date:"d/m/Y" }}
                 </time>
                 <div class="course__categories visible-lg-block">
-                    {% for community in course_communities %}
-                        <a href="{% url 'community:show' community.slug %}" class="course__category">{{ community.title }}</a>
+                    {% for taxonomy in course.taxonomies.all %}
+                        <a href="{% url 'community:show' taxonomy.community_related.slug %}" class="course__category">{{ taxonomy.community_related.title }}</a>
+                        {% if not forloop.last %} / {% endif %}
                     {% endfor %}
                 </div>
                 <div class="dropdown visible-xs course__categories">
@@ -88,7 +89,7 @@
                     <div class="col-sm-7 course__menu">
                         <h2 class="course__menu__title">Ementa do Curso</h2>
                         <ul class="course__menu__classes">
-                            {% for curriculum in curriculums %}
+                            {% for curriculum in course.curriculums.all %}
                                 <li class="course__menu__class">
                                     <div class="course__menu__class__title">
                                         {# Aula {{ class }} #}
@@ -119,7 +120,7 @@
                         <div class="related__items">
                             <h2 class="related__items__title">Cursos Relacionados</h2>
 
-                            {% for related_course in related_courses %}
+                            {% for related_course in course.related_courses.all %}
 
                                 <a class="related" href="{% url 'course:show' related_course.slug %}">
                                     <figure class="related__img">
@@ -127,10 +128,11 @@
                                     </figure>
                                     <div class="related__body">
                                         <h3 class="related__title">{{ related_course.title }}</h3>
-                                        {# TODO: como pegar as categorias relacionadas com a menor query possivel? #}
-{#                                        <div class="related__categories">#}
-{#                                            Rede de Computadores, Analytics, Banco de Dados, Active Directory, Cloud Computing#}
-{#                                        </div>#}
+                                        <div class="related__categories">
+                                            {% for taxonomy in related_course.taxonomies.all %}
+                                                {{ taxonomy.community_related.title }}{% if not forloop.last %} / {% endif %}
+                                            {% endfor %}
+                                        </div>
                                 <span class="thumb__course__avaliation">
                                     <span style="width: 60%"></span>
                                 </span>
@@ -141,16 +143,16 @@
                         <div class="related__items">
                             <h2 class="related__items__title">Comunidades</h2>
 
-                            {% for related_community in course_communities %}
+                            {% for taxonomy in course.taxonomies.all %}
 
                                 <div class="related">
                                     <figure class="related__img">
-                                        <img class="img-responsive" src="{% thumbor_url related_community.image.url width=100 height=100 %}" alt="{{ related_community.title }}">
+                                        <img class="img-responsive" src="{% thumbor_url taxonomy.community_related.image.url width=100 height=100 %}" alt="{{ taxonomy.community_related.title }}">
                                     </figure>
                                     <div class="related__body">
-                                        <h3 class="related__title">{{ related_community.title }}</h3>
-                                        <div class="related__followers">{{ related_community.followers }} seguidor{{ related_community.followers|pluralize:"es" }}</div>
-                                        {% follow_action related_community None btn_class="btn perfil-button" %}
+                                        <h3 class="related__title">{{ taxonomy.community_related.title }}</h3>
+                                        <div class="related__followers">{{ taxonomy.community_related.followers }} seguidor{{ taxonomy.community_related.followers|pluralize:"es" }}</div>
+                                        {% follow_action taxonomy.community_related None btn_class="btn perfil-button" %}
                                     </div>
                                 </div>
                             {% endfor %}

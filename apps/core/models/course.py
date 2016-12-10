@@ -38,7 +38,7 @@ class CourseManager(models.Manager):
     def get_queryset(self):
         qs = super(CourseManager, self).get_queryset()
 
-        qs = qs.prefetch_related('taxonomies', 'languages').select_related('internal_author', 'plataform')
+        qs = qs.prefetch_related('taxonomies', 'taxonomies__community_related', 'languages').select_related('internal_author', 'plataform')
 
         return qs
 
@@ -83,7 +83,8 @@ class Course(models.Model):
 
     @cached_property
     def author(self):
-        return self.internal_author or self.external_author
+        return self.internal_author or {'get_full_name': self.external_author,
+                                        'description' : self.external_author_description}
 
     def image_or_default(self):
         #TODO
