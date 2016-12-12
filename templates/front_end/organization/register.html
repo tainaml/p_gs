@@ -1,0 +1,48 @@
+{% extends "home/layout/base.html" %}
+{% load ads %}
+
+{% block title %}Organization Register{% endblock title %}
+
+{% block content %}
+<main class="container main">
+  <div class="row">
+    <div class="col-sm-offset-1 col-sm-10">
+      <div class="banner">
+        {% ads_only_production "home_top" "all" %}
+      </div>
+    </div>
+  </div>
+  <div class="row organization">
+      <form class="col-sm-offset-1 col-sm-10 col-xs-12">
+          <fieldset class="organization__register">
+              <legend class="organization__register__title">Cadastro de Organização</legend>
+              <div class="row organization__register__tabs">
+                  <div class="col-xs-12">
+                      <div class="row" role="tablist">
+                          <div class="col-sm-offset-2 col-sm-9 col-xs-12 organization__register__tablist">
+                              <a class="organization__register__tab active" role="tab" href="#step-one">
+                                  <i class="gsticon gsticon-user"></i>
+                                  Passo 1:  Lorem ipsum
+                              </a>
+                              <a class="organization__register__tab" role="tab" href="#step-two">
+                                  <i class="gsticon gsticon-gear"></i>
+                                  Passo 2:  Lorem ipsum
+                              </a>
+                          </div>
+                      </div>
+                  </div>
+
+                  <div class="col-xs-12 col-sm-11 tab-content">
+                    <div role="tabpanel" class="row active" id="step-one">
+                        {% include "front_end/organization/partials/register-step-one.html" %}
+                    </div>
+                    <div role="tabpanel" class="row" id="step-two">
+                        {% include "front_end/organization/partials/register-step-two.html" %}
+                    </div>
+                  </div>
+              </div>
+          </fieldset>
+      </form>
+  </div>
+</main>
+{% endblock content %}
