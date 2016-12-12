@@ -130,7 +130,10 @@
                         {% endif %}
 
                         {% if not instance.class_link %}
-                            <a href="{{ instance.affiliate_link }}" class="btn btn-green course__btn">Detalhes</a>
+                            <a href="{{ instance.affiliate_link }}" target="_blank" rel="nofollow" class="btn btn-green course__btn">Detalhes</a>
+                        {% else %}
+
+                            <a href="{{ instance.class_link }}" target="_blank" rel="nofollow" class="btn btn-green course__btn">Detalhes</a>
                         {% endif %}
 
                         {% include "course/author.html" %}
