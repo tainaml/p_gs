@@ -98,12 +98,16 @@
                                 <li class="course__menu__class">
                                     <div class="course__menu__class__title">
                                         {# Aula {{ class }} #}
-                                        <span>{{ curriculum.title }}</span>
+                                        <span>Aula {{ forloop.counter }} - {{ curriculum.title }}</span>
                                     </div>
+                                    {% if curriculum.description %}
                                     <div class="course__menu__class__content" id="class-{{ class }}">
-                                        {{ instance.description }}
+                                        {{ curriculum.description }}
                                     </div>
-                                    <a data-toggle="showmore" href="#class-{{ class }}"><i class="gsticon gsticon-plus"></i> Detalhes</a>
+
+
+                                        <a data-toggle="showmore" href="#class-{{ class }}"><i class="gsticon gsticon-plus"></i> Detalhes</a>
+                                    {% endif %}
                                 </li>
                             {% endfor %}
                         </ul>
