@@ -2,10 +2,11 @@ from apps.community.models import Community
 from apps.core.business.content_types import ContentTypeCached
 from apps.core.forms.rating import FormRating
 from apps.core.models.rating import Rating
+from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
 from apps.core.models.course import Course
-from django.http import Http404
-from django.shortcuts import render
+from django.http import Http404, JsonResponse
+from django.shortcuts import render, redirect
 from django.views import View
 from apps.core.forms.course import CourseListForm
 from apps.core.views.rating import Rate
@@ -79,3 +80,31 @@ class CourseRate(Rate):
             content_data = {"object_id": self.context['instance'].id, "content_type": content_type}
             context.update({'content_data': content_data})
         return context
+
+
+class CourseRateDelete(View):
+
+    def get(self, request, rate_id):
+
+        try:
+            rate = Rating.objects.get(id=rate_id, author__id=request.user.id)
+        except Rating.DoesNotExist, Rating.MultipleObjectsReturned:
+            raise Http404(_('Rating does not exist'))
+
+        next_url = request.GET.get('next_url')
+
+        course = rate.course.get()
+
+        if not next_url:
+            next_url = reverse('course:show', args=[rate.content_object.slug])
+
+        # deletes
+        rate.delete()
+
+        if request.is_ajax():
+            return JsonResponse({
+                'next_url': next_url
+            })
+        else:
+            return redirect(to=next_url)
+
