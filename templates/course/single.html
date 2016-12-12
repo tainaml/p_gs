@@ -42,8 +42,16 @@
                     <i class="gsticon gsticon-calendar-o"></i> {{ instance.createdin|date:"d/m/Y" }}
                 </time>
                 <div class="course__categories visible-lg-block">
+                    <a href="{% url 'course:list' %}" class="course__category">Cursos</a> /
                     {% for taxonomy in instance.taxonomies.all %}
-                        <a href="{% url 'community:show' taxonomy.community_related.slug %}" class="course__category">{{ taxonomy.community_related.title }}</a>
+                        {% if taxonomy.term.slug == 'categoria' %}
+
+                             <a href="{% url 'course:list' %}?category={{ taxonomy.slug }}" class="course__category">{{ taxonomy.community_related.title }}</a>
+                        {% else %}
+                            <a href="{% url 'course:list' %}?community={{ taxonomy.community_related.slug }}" class="course__category">{{ taxonomy.community_related.title }}</a>
+
+                        {% endif %}
+
                         {% if not forloop.last %} / {% endif %}
                     {% endfor %}
                 </div>
