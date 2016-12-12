@@ -1,3 +1,4 @@
+from django.urls import reverse
 from apps.core.models.rating import Rating
 from django import forms
 from django.contrib import admin
@@ -29,6 +30,12 @@ class CoreCourseAdmin(admin.ModelAdmin):
     list_display_links = list_display
 
     inlines = [CurriculumInline, RatingsInline]
+
+    def view_on_site(self, obj):
+
+        return reverse('course:show', args=[obj.slug])
+
+
 
 
 admin.site.register(Course, CoreCourseAdmin)
