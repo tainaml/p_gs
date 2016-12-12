@@ -95,7 +95,7 @@
                             </li>
                         </ul>
                         {% if not instance.class_link %}
-                            <a href="{{ instance.affiliate_link }}" class="btn btn-green course__btn">Tenho Interesse</a>
+                            <a href="{{ instance.affiliate_link }}" rel="nofollow" class="btn btn-green course__btn" target="_blank">Tenho Interesse</a>
                         {% endif %}
                     </div>
                 </div>
@@ -117,7 +117,7 @@
                                     </div>
 
 
-                                        <a data-toggle="showmore" href="#class-{{ forloop.counter }}"><i class="gsticon gsticon-plus"></i> Detalhes</a>
+                                        <a data-toggle="showmore" href="#class-{{ forloop.counter }}" target="_blank" rel="nofollow"><i class="gsticon gsticon-plus"></i> Detalhes</a>
                                     {% endif %}
                                 </li>
                             {% endfor %}
