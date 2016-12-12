@@ -73,14 +73,6 @@ class CourseShowView(View):
 class CourseRate(Rate):
     template_name = 'course/single.html'
 
-    def get_context(self):
-        context = {}
-        if 'instance' in self.context:
-            content_type = ContentTypeCached.objects.get(model="course")
-            content_data = {"object_id": self.context['instance'].id, "content_type": content_type}
-            context.update({'content_data': content_data})
-        return context
-
 
 class CourseRateDelete(View):
 
@@ -93,7 +85,6 @@ class CourseRateDelete(View):
 
         next_url = request.GET.get('next_url')
 
-        course = rate.course.get()
 
         if not next_url:
             next_url = reverse('course:show', args=[rate.content_object.slug])
