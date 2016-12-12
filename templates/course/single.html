@@ -5,8 +5,9 @@
 {% load seo_pagination_tags %}
 {% load thumbor_tags %}
 {% load social_tags %}
-
+{% load core_tags %}
 {% block title %}{{ instance.title }}{% endblock title %}
+{% block seo-og-description %}{% block seo-description %}{{ instance.description|seo_description }}{% endblock %}{% endblock %}
 
 {% block content_old %}
 
