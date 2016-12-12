@@ -33,6 +33,25 @@ def course_image_upload(instance, filename):
     return os.path.join(path, "{0}.{1}".format(name, ext))
 
 
+def course_thumb_upload(instance, filename):
+
+    UserModel = get_user_model()
+
+    if isinstance(instance.author, UserModel):
+        owner = instance.author.id or instance.author
+    else:
+        owner = instance.author
+
+    owner = slugify(owner)
+
+    today_str = datetime.today().strftime('%Y/%m/%d')
+    path = 'course/{0}/{1}'.format(owner, today_str)
+
+    ext = filename.split('.')[-1]
+    name = slugify(".".join(filename.split('.')[0:-1]))
+    return os.path.join(path, "{0}.{1}".format(name, ext))
+
+
 class CourseManager(models.Manager):
 
     def get_queryset(self):
@@ -68,6 +87,10 @@ class Course(models.Model):
 
     languages = models.ManyToManyField(Language, blank=True, verbose_name=_('Languages'), related_name="languages")
     image = models.ImageField(max_length=100, upload_to=course_image_upload, blank=True, verbose_name=_('Image'))
+
+    thumbnail = models.ImageField(max_length=100, upload_to=course_thumb_upload, blank=True, verbose_name=_('Thumbnail'), null=True)
+
+
     related_courses = models.ManyToManyField("self", blank=True, verbose_name=_('Related Courses'))
     taxonomies = models.ManyToManyField(Taxonomy, blank=True, verbose_name=_('Taxonomy'), related_name="courses")
 
@@ -77,6 +100,8 @@ class Course(models.Model):
 
     plataform = models.ForeignKey(Plataform, related_name="courses", verbose_name=_('Plataform'))
     class_link = models.URLField(verbose_name=_('Class Link'), null=True, blank=True)
+
+    embed = models.TextField(null=True, blank=True, verbose_name=_("Embed"))
 
     def __unicode__(self):
         return u'{}'.format(self.title)
@@ -88,7 +113,7 @@ class Course(models.Model):
 
     def image_or_default(self):
         #TODO
-        return self.image or None
+        return self.thumbnail or self.image or None
 
     @cached_property
     def get_absolute_url(self):

@@ -63,8 +63,8 @@
                 <div class="row">
 
                     <div class="col-sm-7">
-                        {% if instance.class_link %}
-                            <iframe  src="{{ instance.class_link }}" width="670" height="440" frameborder="0"></iframe>
+                        {% if instance.embed %}
+                            {{ instance.embed|safe }}
                         {% else %}
                             <img class="img-responsive" src="{% thumbor_url instance.image.url width=670 height=440 %}" alt="Imagem destacada do curso {{ instance.title }}" />
                         {% endif %}
