@@ -5,22 +5,22 @@
     <h4 class="course__author__title">Autor</h4>
     <figure class="course__author__img">
 
-        <img class="img-responsive" src="{% get_avatar course.author width=100  %}" alt="{% firstof course.author.first_name course.author %}">
+        <img class="img-responsive" src="{% get_avatar instance.author width=100  %}" alt="{% firstof instance.author.first_name instance.author %}">
 
-        {% if course.internal_author %}
-            {% follow_action course.internal_author None btn_class="btn-follow" %}
+        {% if instance.internal_author %}
+            {% follow_action instance.internal_author None btn_class="btn-follow" %}
         {% endif %}
 
     </figure>
     <div class="course__author__body">
         <h3 class="course__author__name">
-            <a href="{% firstof course.internal_author.get_absolute_url 'javascript:;' %}">
-                {% firstof course.external_author course.internal_author.get_full_name %}
+            <a href="{% firstof instance.internal_author.get_absolute_url 'javascript:;' %}">
+                {% firstof instance.external_author instance.internal_author.get_full_name %}
             </a>
         </h3>
-        {% if course.internal_author %}
+        {% if instance.internal_author %}
             <div class="course__author__infos">
-                <div class="course__author__followers">{{ course.author.followers }} seguidor{{ course.author.followers|pluralize:"es" }}</div>
+                <div class="course__author__followers">{{ instance.author.followers }} seguidor{{ instance.author.followers|pluralize:"es" }}</div>
                 <div class="course__author__occupations">
 
                     {% with occupations=course.internal_author.user_profile.occupation.all %}
@@ -41,7 +41,7 @@
     </div>
     <div class="course__author__biography">
         <p class="course__menu__class__content open" id="author-biography">
-            {{ course.author.description|safe }}
+            {{ instance.author.description|safe }}
         </p>
     </div>
 </div>
