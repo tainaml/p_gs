@@ -101,7 +101,7 @@ class Course(models.Model):
     plataform = models.ForeignKey(Plataform, related_name="courses", verbose_name=_('Plataform'))
     class_link = models.URLField(verbose_name=_('Class Link'), null=True, blank=True)
 
-    embed = models.TextField(null=True, blank=True, verbose_name=_("Embed"))
+    embed = models.TextField(null=True, blank=True, verbose_name=_("Embed"), help_text="class: embed-responsive-item")
 
     def __unicode__(self):
         return u'{}'.format(self.title)

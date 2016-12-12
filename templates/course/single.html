@@ -64,7 +64,10 @@
 
                     <div class="col-sm-7">
                         {% if instance.embed %}
-                            {{ instance.embed|safe }}
+                            <div class="embed-responsive embed-responsive-4by3">
+
+                                {{ instance.embed|safe }}
+                            </div>
                         {% else %}
                             <img class="img-responsive" src="{% thumbor_url instance.image.url width=670 height=440 %}" alt="Imagem destacada do curso {{ instance.title }}" />
                         {% endif %}
@@ -98,10 +101,10 @@
                                 <li class="course__menu__class">
                                     <div class="course__menu__class__title">
                                         {# Aula {{ class }} #}
-                                        <span>Aula {{ forloop.counter }} - {{ curriculum.title }}</span>
+                                        <span>{{ curriculum.title }}</span>
                                     </div>
                                     {% if curriculum.description %}
-                                    <div class="course__menu__class__content" id="class-{{ class }}">
+                                    <div class="course__menu__class__content" id="class-{{ forloop.counter }}">
                                         {{ curriculum.description }}
                                     </div>
 
@@ -119,13 +122,14 @@
                         {% endif %}
 
                         {% if not instance.class_link %}
-                            <a href="{{ instance.affiliate_link }}" class="btn btn-green course__btn">Ementa Completa</a>
+                            <a href="{{ instance.affiliate_link }}" class="btn btn-green course__btn">Detalhes</a>
                         {% endif %}
 
                         {% include "course/author.html" %}
                         {% include "course/avaliations.html" %}
                     </div>
                     <div class="col-sm-5">
+                    {% if instance.related_courses %}
                         <div class="related__items">
                             <h2 class="related__items__title">Cursos Relacionados</h2>
 
@@ -149,6 +153,8 @@
                                 </a>
                             {% endfor %}
                         </div>
+                    {% endif %}
+
                         <div class="related__items">
                             <h2 class="related__items__title">Comunidades</h2>
 
