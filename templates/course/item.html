@@ -21,7 +21,11 @@
             {% endif %}
         </figure>
         <span class="thumb__course__title">{{ item.title }}</span>
-        <span class="thumb__course__categories">{{ item.taxonomies.all|join:', ' }}</span>
+        <span class="thumb__course__categories">
+            {% for taxonomy in item.taxonomies.all %}
+                {{ taxonomy.community_related.title }}{% if not forloop.last %}, {% endif %}
+            {% endfor %}
+        </span>
         <span class="thumb__course__avaliation">
             <span style="width: {{ item.rating_percentage }}%"></span>
         </span>

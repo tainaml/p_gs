@@ -1,9 +1,15 @@
+from apps.community.models import Community
+from apps.core.business.content_types import ContentTypeCached
+from apps.core.forms.rating import FormRating
+from apps.core.models.rating import Rating
+from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
 from apps.core.models.course import Course
-from django.http import Http404
-from django.shortcuts import render
+from django.http import Http404, JsonResponse
+from django.shortcuts import render, redirect
 from django.views import View
 from apps.core.forms.course import CourseListForm
+from apps.core.views.rating import Rate
 from apps.custom_base.views import FormBasePaginetedListView
 
 
@@ -24,27 +30,34 @@ class CourseListView(FormBasePaginetedListView):
 class CourseShowView(View):
 
     template_path = "course/single.html"
+    form = FormRating
+
 
     def get_context(self, request, course):
 
+        content_type = ContentTypeCached.objects.get(model="course")
+        content_data = {"object_id": course.id, "content_type": content_type}
+
+        try:
+            if not request.user.is_authenticated():
+                raise Rating.DoesNotExist()
+            instance = course.ratings.get(author=request.user)
+            form = self.form(instance=instance)
+
+        except Rating.DoesNotExist:
+
+            form = self.form()
+
         return {
-            'course': course,
+            'instance': course,
+            'form': form,
+            'content_data': content_data
         }
 
     def get(self, request, course_slug):
 
         try:
-            course = Course.objects.prefetch_related(
-
-                'internal_author', 'languages',
-                'related_courses', 'taxonomies'
-
-            ).select_related(
-
-                'internal_author',
-
-            ).get(slug=course_slug)
-
+            course = Course.objects.prefetch_related("ratings", "curriculums", "related_courses").get(slug=course_slug)
         except Course.DoesNotExist:
             raise Http404(_('Course not found'))
 
@@ -55,4 +68,34 @@ class CourseShowView(View):
             template_name=self.template_path,
             context=context
         )
+
+
+class CourseRate(Rate):
+    template_name = 'course/single.html'
+
+
+class CourseRateDelete(View):
+
+    def get(self, request, rate_id):
+
+        try:
+            rate = Rating.objects.get(id=rate_id, author__id=request.user.id)
+        except Rating.DoesNotExist, Rating.MultipleObjectsReturned:
+            raise Http404(_('Rating does not exist'))
+
+        next_url = request.GET.get('next_url')
+
+
+        if not next_url:
+            next_url = reverse('course:show', args=[rate.content_object.slug])
+
+        # deletes
+        rate.delete()
+
+        if request.is_ajax():
+            return JsonResponse({
+                'next_url': next_url
+            })
+        else:
+            return redirect(to=next_url)
 

@@ -33,45 +33,87 @@ def course_image_upload(instance, filename):
     return os.path.join(path, "{0}.{1}".format(name, ext))
 
 
+def course_thumb_upload(instance, filename):
+
+    UserModel = get_user_model()
+
+    if isinstance(instance.author, UserModel):
+        owner = instance.author.id or instance.author
+    else:
+        owner = instance.author
+
+    owner = slugify(owner)
+
+    today_str = datetime.today().strftime('%Y/%m/%d')
+    path = 'course/{0}/{1}'.format(owner, today_str)
+
+    ext = filename.split('.')[-1]
+    name = slugify(".".join(filename.split('.')[0:-1]))
+    return os.path.join(path, "{0}.{1}".format(name, ext))
+
+
+class CourseManager(models.Manager):
+
+    def get_queryset(self):
+        qs = super(CourseManager, self).get_queryset()
+
+        qs = qs.prefetch_related('taxonomies', 'taxonomies__community_related', 'languages').select_related('internal_author', 'plataform')
+
+        return qs
+
+
 class Course(models.Model):
+
+    objects = CourseManager()
 
     title = models.CharField(max_length=255, verbose_name=_('Title'))
     slug = models.SlugField(max_length=200, verbose_name=_('Slug'))
     description = models.TextField(verbose_name=_('Description'))
+    observation = models.TextField(null=True, blank=True, verbose_name=_('Observation'))
 
     rating = models.DecimalField(max_digits=3, decimal_places=2, verbose_name=_('Rating'))
 
     internal_author = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, blank=True, related_name='courses',
                                verbose_name=_('Internal author'))
 
-    external_author = models.TextField(max_length=255, verbose_name=_('External Author'), null=True, blank=True)
+    external_author = models.CharField(max_length=200, verbose_name=_('External Author'), null=True, blank=True)
+    external_author_description = models.TextField(max_length=255, verbose_name=_('External Author - Description'), null=True, blank=True)
+
     ratings = GenericRelation(Rating, related_query_name="course")
 
-    @cached_property
-    def author(self):
-        return self.internal_author or self.external_author
-
-    def image_or_default(self):
-        #TODO
-        return self.image or None
-
+    createdin = models.DateTimeField(null=False, blank=True, auto_now_add=True)
     updatein = models.DateTimeField(null=False, auto_now=True)
     # curriculum = models.TextField(max_length=255, verbose_name=_('Curriculum'))
 
     languages = models.ManyToManyField(Language, blank=True, verbose_name=_('Languages'), related_name="languages")
     image = models.ImageField(max_length=100, upload_to=course_image_upload, blank=True, verbose_name=_('Image'))
+
+    thumbnail = models.ImageField(max_length=100, upload_to=course_thumb_upload, blank=True, verbose_name=_('Thumbnail'), null=True)
+
+
     related_courses = models.ManyToManyField("self", blank=True, verbose_name=_('Related Courses'))
     taxonomies = models.ManyToManyField(Taxonomy, blank=True, verbose_name=_('Taxonomy'), related_name="courses")
 
-    affiliate_link = models.URLField(verbose_name=_('Affiliate link'))
+    affiliate_link = models.URLField(verbose_name=_('Affiliate link'), blank=True, null=True)
 
     active = models.BooleanField(default=True, verbose_name=_('Active'))
 
     plataform = models.ForeignKey(Plataform, related_name="courses", verbose_name=_('Plataform'))
     class_link = models.URLField(verbose_name=_('Class Link'), null=True, blank=True)
 
+    embed = models.TextField(null=True, blank=True, verbose_name=_("Embed"))
+
     def __unicode__(self):
         return u'{}'.format(self.title)
+
+    @cached_property
+    def author(self):
+        return self.internal_author or {'get_full_name': self.external_author,
+                                        'description' : self.external_author_description}
+
+    def image_or_default(self):
+        #TODO
+        return self.thumbnail or self.image or None
 
     @cached_property
     def get_absolute_url(self):
@@ -86,6 +128,6 @@ class Course(models.Model):
 
 class Curriculum(models.Model):
     title = models.CharField(max_length=255, verbose_name=_('Title'))
-    description = models.TextField(verbose_name=_('Description'))
+    description = models.TextField(verbose_name=_('Description'), null=True, blank=True)
 
     course = models.ForeignKey(Course, related_name="curriculums", verbose_name=_('Course'))

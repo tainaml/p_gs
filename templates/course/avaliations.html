@@ -1,0 +1,63 @@
+{% load  widget_tweaks %}
+<div class="course__avaliations">
+    <h3 class="course__avaliations__title">Avaliações</h3>
+    <form class="clearfix avaliation__form" method="post" id="form-avaliacao" action="{% url 'rating:course' %}?#form-avaliacao">
+
+        {{ form.value }}
+        <input type="hidden" name="content_type" value="{{ content_data.content_type.id }}">
+        <input type="hidden" name="object_id" value="{{ content_data.object_id }}">
+
+        <div class="form-group">
+            <span class="avaliation__form__title" data-toggle="title-form">
+
+                {% if form.instance.id %}
+                    Minha avaliação
+                {% else %}
+                    Avalie este curso
+                {% endif %}
+
+            </span>
+
+            <span class="avaliation__form__rating">
+              <span
+                      data-toggle="rating"
+                      data-reactions='["Muito ruim", "Ruim", "Razoável", "Bom", "Muito bom", "Excelente"]'
+                      data-config='{"rating": {{ form.instance.value|default_if_none:"0"|stringformat:"f" }}}'></span>
+                <span class="avaliation__reaction__text"></span>
+            </span>
+            {% if form.value.errors %}{{ form.value.errors }}{% endif %}
+        </div>
+
+        {% csrf_token %}
+        <div class="form-group">
+            {% render_field form.comment rows="5" class="form-control" placeholder="Escreva um comentário (opcional)" %}
+        </div>
+
+        <div class="form-group text-right">
+
+            {% if form.instance.id %}
+
+                <a href="{% url 'rating:course-delete' form.instance.id %}" class="btn btn-link avaliation__form__delete">Deletar</a>
+
+            {% endif %}
+
+            <button class="btn btn-primary">
+                {% if form.instance.id %}Atualizar{% else %}Enviar{% endif %}
+            </button>
+
+        </div>
+
+
+
+    </form>
+
+    {% if instance.ratings %}
+        {% for avaliation in instance.ratings.all %}
+            {% if not avaliation.author == request.user %}
+                {% include "course/avaliation.html" with avaliation=avaliation %}
+            {% endif %}
+        {% endfor %}
+    {% else %}
+        <p>Ninguém avaliou este curso ainda. Seja o primeiro...</p>
+    {% endif %}
+</div>
