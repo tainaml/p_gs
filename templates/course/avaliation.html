@@ -17,7 +17,7 @@
             </time>
             <div class="avaliator__name">{{ avaliation.author.get_full_name }}</div>
             <span class="avaliation__form__rating" >
-                <span data-toogle="rating" data-config='{ "rating": {{ avaliation.value|default_if_none:"0"|stringformat:"f" }}, "readOnly": true}'></span>
+                <span data-toggle="rating" data-config='{ "rating": {{ avaliation.value|default_if_none:"0"|stringformat:"f" }}, "readOnly": true}'></span>
             </span>
         </figcaption>
     </figure>
