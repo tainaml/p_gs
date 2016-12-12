@@ -21,7 +21,7 @@ def course_image_upload(instance, filename):
     if isinstance(instance.author, UserModel):
         owner = instance.author.id or instance.author
     else:
-        owner = instance.author
+        owner = instance.author['get_full_name']
 
     owner = slugify(owner)
 
@@ -40,7 +40,7 @@ def course_thumb_upload(instance, filename):
     if isinstance(instance.author, UserModel):
         owner = instance.author.id or instance.author
     else:
-        owner = instance.author
+        owner = instance.author['get_full_name']
 
     owner = slugify(owner)
 
