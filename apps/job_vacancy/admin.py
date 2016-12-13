@@ -81,8 +81,9 @@ class JobVacancyAdmin(admin.ModelAdmin):
     show_salary.short_description = "Salário"
 
     def show_cargo(self, obj):
-        return "%s - %s" % (obj.resposibility.responsibility_type.description,
-                            obj.resposibility.responsibility.name)
+        return 'Cargo'
+        # return "%s - %s" % (obj.responsibility.responsibility_type.description,
+        #                     obj.responsibility.responsibility.name)
 
     show_cargo.short_description = "Cargo"
 

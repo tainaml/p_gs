@@ -4,14 +4,12 @@ from django.utils import timezone
 from django.utils.translation import ugettext as _
 from django.db import models
 from apps.certification.models import Certification
-
 from apps.company.models import Company
 from apps.geography.models import City, State, Country
 from apps.taxonomy.models import Taxonomy
-
-# Create your models here.
 from apps.userprofile.models import Responsibility
 from smart_selects.db_fields import ChainedManyToManyField, ChainedForeignKey
+from social.utils import slugify
 
 
 class JobRegime(models.Model):
@@ -40,13 +38,13 @@ class JobVacancy(models.Model):
     slug = models.SlugField(default='', null=False, max_length=150, verbose_name=_('Slug'))
     is_active = models.BooleanField(default=False, verbose_name=_('Is active'))
     job_vacancy_date = models.DateField(default=timezone.now, null=False, verbose_name=_('Date'))
-    company = models.ForeignKey(Company, null=False, related_name='job_vacancys', verbose_name=_('Company'))
+    company = models.ForeignKey(Company, null=True, blank=True, related_name='job_vacancys', verbose_name=_('Company'))
     author = models.ForeignKey(settings.AUTH_USER_MODEL, null=False, related_name='job_vacancys',
                                verbose_name=_('Author'))
     job_vacancy_responsibility = models.TextField(null=True, blank=True, max_length=10000,
                                                   verbose_name=_('Responsibility Description'))
     regime = models.ForeignKey(JobRegime, blank=True, null=True, verbose_name=_('Regime'))
-    home_office = models.BooleanField(verbose_name=_('Home Office'))
+    home_office = models.BooleanField(verbose_name=_('Home Office'), default=False, blank=True)
     quantity = models.PositiveIntegerField(null=True, blank=True, verbose_name=_('Quantity'))
     workload = models.ForeignKey(WorkLoad, null=True, blank=True, verbose_name=_('Work Load'))
     benefits = models.ManyToManyField(Benefit, blank=True, verbose_name=_('Benefits'))
@@ -57,6 +55,13 @@ class JobVacancy(models.Model):
 
     def __unicode__(self):
         return self.title
+
+    def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
+
+        if not self.slug:
+            self.slug = slugify(self.title)
+
+        super(JobVacancy, self).save(force_insert, force_update, using, update_fields)
 
 
 class JobVacancyAdditionalRequirement(models.Model):
@@ -101,7 +106,7 @@ class JobVacancyResponsibility(models.Model):
     responsibility = models.ForeignKey(Responsibility, null=True, verbose_name=_('Responsibility'))
     responsibility_type = models.ForeignKey(JobVacancyResponsibilityType, null=True, blank=True,
                                             verbose_name=_('Responsibility Type'))
-    job_vacancy = models.OneToOneField(JobVacancy, on_delete=models.CASCADE, related_name='resposibility',
+    job_vacancy = models.OneToOneField(JobVacancy, on_delete=models.CASCADE, related_name='responsibility',
                                        primary_key=True, verbose_name=_('Job Vacancy'))
 
 
