@@ -102,6 +102,8 @@ class Course(models.Model):
     class_link = models.URLField(verbose_name=_('Class Link'), null=True, blank=True)
 
     embed = models.TextField(null=True, blank=True, verbose_name=_("Embed"), help_text="class=\"embed-responsive-item\"")
+    price = models.DecimalField(max_digits=5, decimal_places=2, verbose_name=_('Price'), null=True, blank=True, help_text=_("0 to free courses, blank to unknow price"))
+
 
     def __unicode__(self):
         return u'{}'.format(self.title)
