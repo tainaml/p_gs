@@ -160,20 +160,6 @@ class QuestionAdmin(VersionAdmin):
 class ArticleAdminForm(forms.ModelForm):
 
 
-
-    class Media:
-        js = (
-            # 'https://code.jquery.com/jquery-2.2.4.min.js',
-            'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js',
-            'https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.1/summernote.min.js', )
-
-        css= {
-            'all': (
-                'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css',
-                'https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.1/summernote.css',
-            )
-        }
-
     class Meta:
         excludes = ()
         widgets = {
