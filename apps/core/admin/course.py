@@ -18,17 +18,17 @@ class CurruculumAdminInlineForm(forms.ModelForm):
             'description': SummernoteWidget(editor_conf='article_admin')
         }
 
-    class Media:
-        js = (
-            'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js',
-            'https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.1/summernote.min.js', )
-
-        css= {
-            'all': (
-                'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css',
-                'https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.1/summernote.css',
-            )
-        }
+    # class Media:
+    #     js = (
+    #         'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js',
+    #         'https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.1/summernote.min.js', )
+    #
+    #     css= {
+    #         'all': (
+    #             'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css',
+    #             'https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.1/summernote.css',
+    #         )
+    #     }
 
 class CurriculumInline(StackedInline):
 
