@@ -71,7 +71,7 @@ class Course(models.Model):
     description = models.TextField(verbose_name=_('Description'))
     observation = models.TextField(null=True, blank=True, verbose_name=_('Observation'))
 
-    rating = models.DecimalField(max_digits=3, decimal_places=2, verbose_name=_('Rating'))
+    rating = models.DecimalField(max_digits=3, decimal_places=2, verbose_name=_('Rating'), default=0.00)
 
     internal_author = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, blank=True, related_name='courses',
                                verbose_name=_('Internal author'))
