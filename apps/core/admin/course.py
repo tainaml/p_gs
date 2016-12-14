@@ -17,7 +17,7 @@ class CurruculumAdminInlineForm(forms.ModelForm):
         model = Curriculum
         exclude = ()
         widgets = {
-            'description': AdminSummernoteWidget(editor_conf='article_admin')
+            'description': SummernoteWidget(editor_conf='article_admin')
         }
 
 
@@ -44,7 +44,7 @@ class ModelFormAdminCourse(forms.ModelForm):
         model = Course
         exclude = ('rating',)
         widgets = {
-            'observation': AdminSummernoteWidget(editor_conf='article_admin')
+            'observation': SummernoteWidget(editor_conf='article_admin')
         }
 
 
@@ -61,7 +61,7 @@ class CoreCourseAdmin(admin.ModelAdmin):
 
     class Meta:
         widgets = {
-            'observation': AdminSummernoteWidget(editor_conf='article_admin')
+            'observation': SummernoteWidget(editor_conf='article_admin')
         }
 
 
