@@ -7,6 +7,8 @@ from ideia_summernote.widget import SummernoteWidget
 from apps.core.models.course import Course, Curriculum
 from apps.core.models.plataform import Plataform
 from django.contrib.contenttypes.admin import GenericStackedInline
+from apps.core.widgets import AdminSummernoteWidget
+
 
 class CurruculumAdminInlineForm(forms.ModelForm):
 
@@ -15,7 +17,7 @@ class CurruculumAdminInlineForm(forms.ModelForm):
         model = Curriculum
         exclude = ()
         widgets = {
-            'description': SummernoteWidget(editor_conf='article_admin')
+            'description': AdminSummernoteWidget(editor_conf='article_admin')
         }
 
 
@@ -26,6 +28,7 @@ class CurriculumInline(StackedInline):
     model = Curriculum
     extra = 0
     min_num = 1
+
 
 
 
@@ -41,7 +44,7 @@ class ModelFormAdminCourse(forms.ModelForm):
         model = Course
         exclude = ('rating',)
         widgets = {
-            'observation': SummernoteWidget(editor_conf='article_admin')
+            'observation': AdminSummernoteWidget(editor_conf='article_admin')
         }
 
 
@@ -58,7 +61,7 @@ class CoreCourseAdmin(admin.ModelAdmin):
 
     class Meta:
         widgets = {
-            'observation': SummernoteWidget(editor_conf='article_admin')
+            'observation': AdminSummernoteWidget(editor_conf='article_admin')
         }
 
 

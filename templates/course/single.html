@@ -125,7 +125,7 @@
                         {% if instance.observation %}
                             <div>
                                 <h4>Mais informações</h4>
-                                {{ instance.observation }}
+                                {{ instance.observation|safe }}
                             </div>
                         {% endif %}
 
