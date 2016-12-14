@@ -122,7 +122,7 @@
                                 </li>
                             {% endfor %}
                         </ul>
-                        {% if instance.observation %}
+                        {% if instance.observation|striptags %}
                             <div>
                                 <h4>Mais informações</h4>
                                 {{ instance.observation|safe }}
