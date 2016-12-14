@@ -1,6 +1,9 @@
 <div class="col-xs-12">
-    <h4>Comunidade</h4>
-    <input type="text" placeholder="escolha a comunidade que deseja buscar">
+    <h4 class="organization__form__title">Comunidade</h4>
+    <div class="form-group organization__form__item organization__form__item--search">
+        <label class="organization__form__label" for="">Escolha a comunidade de sua preferência</label>
+        <input class="organization__form__input" type="text" placeholder="Digite aqui a comunidade que deseja buscar">
+    </div>
     <div class="row">
         <div class="col-sm-4">
             {% include "front_end/organization/partials/community.html" %}
@@ -11,6 +14,15 @@
         <div class="col-sm-4">
             {% include "front_end/organization/partials/community.html" %}
         </div>
+        <div class="col-sm-4">
+            {% include "front_end/organization/partials/community.html" %}
+        </div>
+        <div class="col-sm-4">
+            {% include "front_end/organization/partials/community.html" %}
+        </div>
+        <div class="col-sm-4">
+            {% include "front_end/organization/partials/community.html" %}
+        </div>
     </div>
-    <a href="#" class="show__more">Veja mais resultados</a>
+    <a href="#" class="organization__showmore">Veja mais resultados</a>
 </div>

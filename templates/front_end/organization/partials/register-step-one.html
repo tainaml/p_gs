@@ -1,50 +1,56 @@
-<div class="col-sm-2">
-    photo
+<div class="col-sm-2 organization__form__item">
+    <label for="organization-image" class="organization__form__image">
+        <!-- <img src="http://placehold.it/200" alt=""> -->
+        <div class="organization__form__image__legend">
+            Alterar foto <i class="gsticon gsticon-camera"></i>
+        </div>
+        <input class="hidden" hidden type="file" name="organization-image" id="organization-image">
+    </label>
 </div>
-<div class="col-sm-10 form-group">
-    <label for="name">Nome da Organização</label>
-    <input type="text" name="name">
+<div class="col-sm-9 form-group organization__form__item">
+    <label class="organization__form__label" for="name">Nome da Organização</label>
+    <input class="organization__form__input" type="text" name="name">
 </div>
-<div class="col-sm-offset-2 col-sm-10 form-group">
-    <label for="description">
+<div class="col-sm-9 form-group organization__form__item">
+    <label class="organization__form__label" for="description">
         Descrição <small>(Escreva uma breve descrição da sua organização)</small>
     </label>
-    <input type="text" name="description">
+    <input class="organization__form__input" type="text" name="description">
 </div>
-<div class="col-sm-offset-2 col-sm-10">
+<div class="col-sm-offset-2 col-sm-9">
     <div class="row">
-        <div class="col-sm-6 form-group">
-            <label for="url">URL</label>
-            <input type="text" name="url">
+        <div class="col-sm-5 form-group organization__form__item">
+            <label class="organization__form__label" for="url">URL</label>
+            <input class="organization__form__input" type="url" name="url">
         </div>
-        <div class="col-sm-6 form-group">
-            <label for="url">cidade</label>
-            <input type="text" name="url">
+        <div class="col-sm-offset-2 col-sm-5 form-group organization__form__item">
+            <label class="organization__form__label" for="city">Cidade</label>
+            <input class="organization__form__input" type="text" name="city">
         </div>
     </div>
 </div>
-<div class="col-sm-offset-2 col-sm-10">
+<div class="col-sm-offset-2 col-sm-9">
     <div class="row">
-        <div class="col-sm-12 form-group">
-            <label>Membros do Perfil</label>
+        <div class="col-sm-12 organization__form__item">
+            <label class="organization__form__label">Membros do Perfil</label>
             <div class="row">
-                <div class="col-sm-5">
-                    <input type="text" placeholder="Digite um nome">
+                <div class="col-sm-5 col-xs-9 form-group">
+                    <input class="organization__form__input" type="text" placeholder="Digite um nome">
                 </div>
-                <div class="col-sm-4">
-                    <select name="role">
+                <div class="col-sm-4 col-xs-9 form-group">
+                    <select class="organization__form__input" name="role">
                         <option value="">Administrador</option>
+                        <option value="">Colaborador</option>
                     </select>
                 </div>
                 <div class="col-sm-3 text-right">
-                    <a class="btn btn-primary" href="#target" data-toggle="add-member">Adicionar</a>
+                    <a class="organization__form__btn btn btn-sm" href="#target" data-toggle="add-member">Adicionar</a>
                 </div>
             </div>
-            <div class="col-xs-12 organization__team">
-            </div>
+            <div class="col-xs-12 organization__team"></div>
         </div>
     </div>
 </div>
-<div class="col-xs-12 text-right">
+<div class="col-sm-11 text-right">
     <a href="#" class="btn btn-lg btn-green">Próximo</a>
 </div>

@@ -4,7 +4,7 @@
 {% block title %}Organization Register{% endblock title %}
 
 {% block content %}
-<main class="container main">
+<main class="container main" data-page="organization">
   <div class="row">
     <div class="col-sm-offset-1 col-sm-10">
       <div class="banner">
@@ -13,32 +13,26 @@
     </div>
   </div>
   <div class="row organization">
-      <form class="col-sm-offset-1 col-sm-10 col-xs-12">
-          <fieldset class="organization__register">
+      <form class="col-sm-offset-1 col-sm-10">
+          <fieldset class="row organization__register" data-toggle="tab">
               <legend class="organization__register__title">Cadastro de Organização</legend>
-              <div class="row organization__register__tabs">
-                  <div class="col-xs-12">
-                      <div class="row" role="tablist">
-                          <div class="col-sm-offset-2 col-sm-9 col-xs-12 organization__register__tablist">
-                              <a class="organization__register__tab active" role="tab" href="#step-one">
-                                  <i class="gsticon gsticon-user"></i>
-                                  Passo 1:  Lorem ipsum
-                              </a>
-                              <a class="organization__register__tab" role="tab" href="#step-two">
-                                  <i class="gsticon gsticon-gear"></i>
-                                  Passo 2:  Lorem ipsum
-                              </a>
-                          </div>
-                      </div>
+              <div class="col-sm-offset-2 col-sm-9 organization__register__tablist" role="tablist">
+                  <a class="organization__register__tab active" href="#step-one" role="tab">
+                      <i class="gsticon gsticon-user"></i>
+                      Passo 1:  Lorem ipsum
+                  </a>
+                  <a class="organization__register__tab" href="#step-two" role="tab">
+                      <i class="gsticon gsticon-gear"></i>
+                      Passo 2:  Lorem ipsum
+                  </a>
+              </div>
+              <div class="clearfix"></div>
+              <div class="row organization__form">
+                  <div class="organization__register__panel col-sm-12" id="step-one" role="tabpanel">
+                      {% include "front_end/organization/partials/register-step-one.html" %}
                   </div>
-
-                  <div class="col-xs-12 col-sm-11 tab-content">
-                    <div role="tabpanel" class="row active" id="step-one">
-                        {% include "front_end/organization/partials/register-step-one.html" %}
-                    </div>
-                    <div role="tabpanel" class="row" id="step-two">
-                        {% include "front_end/organization/partials/register-step-two.html" %}
-                    </div>
+                  <div class="organization__register__panel col-sm-12" id="step-two" role="tabpanel">
+                      {% include "front_end/organization/partials/register-step-two.html" %}
                   </div>
               </div>
           </fieldset>

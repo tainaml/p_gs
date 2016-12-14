@@ -1,6 +1,6 @@
 import $ from 'jquery'
 import 'jscroll'
-import './jquery.render-list'
+import './comments/jquery.render-list'
 
 var form_submit = function(event, data){
     var $form = $(this);
