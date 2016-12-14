@@ -1,5 +1,5 @@
 from django.utils.translation import ugettext as _
-from django.http import JsonResponse, Http404
+from django.http import Http404
 from django.shortcuts import render
 from django.views.generic import View
 from .service.forms import JobSearchForm
@@ -88,7 +88,7 @@ class JobEditView(View):
     def get_context(self, request):
 
         return {
-            'form': self.form
+            'form': self.form,
         }
 
     def get(self, request, job_id=None):
@@ -96,7 +96,9 @@ class JobEditView(View):
         if job_id:
             self.job = get_job(job_id)
 
-        self.form = self.form_class()
+        self.form = self.form_class(
+            instance=self.job
+        )
 
         return render(
             request,
@@ -109,7 +111,10 @@ class JobEditView(View):
         if job_id:
             self.job = get_job(job_id)
 
-        self.form = self.form_class(data=request.POST)
+        self.form = self.form_class(
+            data=request.POST,
+            instance=self.job
+        )
 
         context = self.get_context(request)
 

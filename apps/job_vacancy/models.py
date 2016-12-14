@@ -21,6 +21,7 @@ class JobRegime(models.Model):
 
 class Benefit(models.Model):
     description = models.CharField(blank=False, null=False, max_length=100, verbose_name=_('Description'))
+    active = models.BooleanField(default=False, verbose_name=_('Active'))
 
     def __unicode__(self):
         return self.description
@@ -52,6 +53,8 @@ class JobVacancy(models.Model):
     phone_number = models.CharField(blank=True, null=True, max_length=100, verbose_name=_('Phone Number'))
     site = models.CharField(blank=True, null=True, max_length=100, verbose_name=_('Web Site'))
     contact = models.TextField(null=True, blank=True, max_length=10000, verbose_name=_('Contact'))
+    observation = models.TextField(null=True, blank=True, max_length=10000,
+                                                  verbose_name=_('Observation'))
 
     def __unicode__(self):
         return self.title
@@ -79,18 +82,22 @@ class JobVacancyLocation(models.Model):
     cities = ChainedManyToManyField(City, chained_field="state", chained_model_field="state", verbose_name=_('Cities'), null=True, blank=True)
 
 
-class SalaryType(models.Model):
-    description = models.CharField(blank=False, null=False, max_length=100, verbose_name=_('Description'))
-
-    def __unicode__(self):
-        return self.description
-
-
 class Salary(models.Model):
+
+    TYPE_INTERVAL = 1
+    TYPE_FIXED = 2
+    TYPE_COMBINE = 3
+
+    CHOICES_TYPE = (
+        (TYPE_INTERVAL, _('Interval')),
+        (TYPE_FIXED, _('Fixed')),
+        (TYPE_COMBINE, _('Combine'))
+    )
+
     fixed_value = models.FloatField(null=True, blank=True, verbose_name=_('Fixed value'))
     range_value_from = models.FloatField(null=True, blank=True, verbose_name=_('Range from'))
     range_value_to = models.FloatField(null=True, blank=True, verbose_name=_('Range to'))
-    regime = models.ForeignKey(SalaryType, null=False, verbose_name=_('Salary Type'))
+    salary_type = models.PositiveIntegerField(choices=CHOICES_TYPE, default=TYPE_COMBINE, verbose_name=_('Type'))
     job_vacancy = models.OneToOneField(JobVacancy, on_delete=models.CASCADE, related_name='salary', primary_key=True,
                                        verbose_name=_('Job Vacancy'))
 
