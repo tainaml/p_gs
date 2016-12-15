@@ -14,6 +14,12 @@
   </div>
   <div class="row organization">
       <form class="col-sm-offset-1 col-sm-10">
+
+          {{ form }}
+
+          {{ form.members.formset }}
+
+
           <fieldset class="row organization__register" data-toggle="tab">
               <legend class="organization__register__title">Cadastro de Organização</legend>
               <div class="col-sm-offset-2 col-sm-9 organization__register__tablist" role="tablist">
