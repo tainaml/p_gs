@@ -3,6 +3,9 @@ module.exports = ( name ) => {
 
   const $input = $root.find( 'input:text' ) // TODO: Change selector
   const $tab = $root.find( '[data-toggle="tab"]' )
+  const $tabContent = $( '[role=tabpanel]' )
+
+  $tabContent.not( '.active' ).hide()
 
   $input.on( 'focus', ( event ) => {
     const $this = $( event.currentTarget )
@@ -17,12 +20,11 @@ module.exports = ( name ) => {
   $tab.on( 'click tap', '[role=tab]', ( event ) => {
     event.preventDefault()
 
-    const tabContent = $( '[role=tabpanel]' )
     const $this = $( event.currentTarget )
     const target =  $this.attr('href')
 
     $this.addClass( 'active' )
-    tabContent.fadeOut(() => {
+    $tabContent.fadeOut(() => {
       $( target ).fadeIn()
     })
   })
