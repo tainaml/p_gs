@@ -69,6 +69,9 @@ urlpatterns = [
     # Translators: URL de feed
     url(_(r'^feed/$'), core_user.CoreUserFeed.as_view(), name='feed'),
 
+    # Translators: URL de listagem de Organizacoes
+    url(_(r'^companies/$'), core_user.CoreUserCompanies.as_view(), name='companies'),
+
     # Translators: URL de listagem de feed
     url(_(r'^list$'), core_user.CoreUserList.as_view(), name='feed-list'),
 
