@@ -19,7 +19,7 @@ class CourseListView(FormBasePaginetedListView):
     success_ajax_template_path = 'course/items.html'
     fail_validation_template_path = 'course/page.html'
     form = CourseListForm
-    itens_per_page = 14
+    itens_per_page = 12
 
     # @Override
     def after_process(self, request=None, *args, **kwargs):

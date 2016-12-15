@@ -48,7 +48,7 @@
 
                              <a href="{% url 'course:list' %}?category={{ taxonomy.slug }}" class="course__category">{{ taxonomy.community_related.title }}</a>
                         {% else %}
-                            <a href="{% url 'course:list' %}?community={{ taxonomy.community_related.slug }}" class="course__category">{{ taxonomy.community_related.title }}</a>
+                            <a href="{% url 'course:list' %}?community={{ taxonomy.slug }}&category={{ taxonomy.parent.slug }}" class="course__category">{{ taxonomy.community_related.title }}</a>
 
                         {% endif %}
 
@@ -76,7 +76,7 @@
 
                                 {{ instance.embed|safe }}
                             </div>
-                        {% else %}
+                        {% elif instance.image %}
                             <img class="img-responsive" src="{% thumbor_url instance.image.url width=670 height=440 %}" alt="Imagem destacada do curso {{ instance.title }}" />
                         {% endif %}
                     </div>
@@ -148,7 +148,11 @@
 
                                 <a class="related" href="{% url 'course:show' related_course.slug %}">
                                     <figure class="related__img">
-                                        <img class="img-responsive" src="{% thumbor_url related_course.image.url width=100 height=100 %}" alt="{{ related_course.title }}">
+                                        {% if related_course.image %}
+                                            <img class="img-responsive" src="{% thumbor_url related_course.image.url width=100 height=100 %}" alt="{{ related_course.title }}">
+                                        {% else %}
+                                            <i>no image</i>
+                                        {% endif %}
                                     </figure>
                                     <div class="related__body">
                                         <h3 class="related__title">{{ related_course.title }}</h3>
