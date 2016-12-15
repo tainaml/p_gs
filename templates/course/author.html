@@ -41,7 +41,7 @@
     </div>
     <div class="course__author__biography">
         <p class="course__menu__class__content open" id="author-biography">
-            {{ instance.author.description|safe }}
+            {{ instance.author.description|default_if_none:""|safe }}
         </p>
     </div>
 </div>

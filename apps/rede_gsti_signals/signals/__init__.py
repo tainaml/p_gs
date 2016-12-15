@@ -9,3 +9,4 @@ import contact
 import comment
 import notification
 import rating
+# import course

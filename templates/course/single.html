@@ -42,8 +42,16 @@
                     <i class="gsticon gsticon-calendar-o"></i> {{ instance.createdin|date:"d/m/Y" }}
                 </time>
                 <div class="course__categories visible-lg-block">
+                    <a href="{% url 'course:list' %}" class="course__category">Cursos</a> /
                     {% for taxonomy in instance.taxonomies.all %}
-                        <a href="{% url 'community:show' taxonomy.community_related.slug %}" class="course__category">{{ taxonomy.community_related.title }}</a>
+                        {% if taxonomy.term.slug == 'categoria' %}
+
+                             <a href="{% url 'course:list' %}?category={{ taxonomy.slug }}" class="course__category">{{ taxonomy.community_related.title }}</a>
+                        {% else %}
+                            <a href="{% url 'course:list' %}?community={{ taxonomy.slug }}&category={{ taxonomy.parent.slug }}" class="course__category">{{ taxonomy.community_related.title }}</a>
+
+                        {% endif %}
+
                         {% if not forloop.last %} / {% endif %}
                     {% endfor %}
                 </div>
@@ -63,9 +71,12 @@
                 <div class="row">
 
                     <div class="col-sm-7">
-                        {% if instance.class_link %}
-                            <iframe  src="{{ instance.class_link }}" width="670" height="440" frameborder="0"></iframe>
-                        {% else %}
+                        {% if instance.embed %}
+                            <div class="embed-responsive embed-responsive-4by3">
+
+                                {{ instance.embed|safe }}
+                            </div>
+                        {% elif instance.image %}
                             <img class="img-responsive" src="{% thumbor_url instance.image.url width=670 height=440 %}" alt="Imagem destacada do curso {{ instance.title }}" />
                         {% endif %}
                     </div>
@@ -84,7 +95,7 @@
                             </li>
                         </ul>
                         {% if not instance.class_link %}
-                            <a href="{{ instance.affiliate_link }}" class="btn btn-green course__btn">Tenho Interesse</a>
+                            <a href="{{ instance.affiliate_link }}" rel="nofollow" class="btn btn-green course__btn" target="_blank">Tenho Interesse</a>
                         {% endif %}
                     </div>
                 </div>
@@ -100,28 +111,36 @@
                                         {# Aula {{ class }} #}
                                         <span>{{ curriculum.title }}</span>
                                     </div>
-                                    <div class="course__menu__class__content" id="class-{{ class }}">
-                                        {{ instance.description }}
+                                    {% if curriculum.description %}
+                                    <div class="course__menu__class__content" id="class-{{ forloop.counter }}">
+                                        {{ curriculum.description|safe }}
                                     </div>
-                                    <a data-toggle="showmore" href="#class-{{ class }}"><i class="gsticon gsticon-plus"></i> Detalhes</a>
+
+
+                                        <a data-toggle="showmore" href="#class-{{ forloop.counter }}" target="_blank" rel="nofollow"><i class="gsticon gsticon-plus"></i> Detalhes</a>
+                                    {% endif %}
                                 </li>
                             {% endfor %}
                         </ul>
-                        {% if instance.observation %}
+                        {% if instance.observation|striptags %}
                             <div>
-                                <h4>OBS:</h4>
-                                {{ instance.observation }}
+                                <h4>Mais informações</h4>
+                                {{ instance.observation|safe }}
                             </div>
                         {% endif %}
 
                         {% if not instance.class_link %}
-                            <a href="{{ instance.affiliate_link }}" class="btn btn-green course__btn">Ementa Completa</a>
+                            <a href="{{ instance.affiliate_link }}" target="_blank" rel="nofollow" class="btn btn-green course__btn">Detalhes</a>
+                        {% else %}
+
+                            <a href="{{ instance.class_link }}" target="_blank" rel="nofollow" class="btn btn-green course__btn">Detalhes</a>
                         {% endif %}
 
                         {% include "course/author.html" %}
                         {% include "course/avaliations.html" %}
                     </div>
                     <div class="col-sm-5">
+                    {% if instance.related_courses.all %}
                         <div class="related__items">
                             <h2 class="related__items__title">Cursos Relacionados</h2>
 
@@ -129,7 +148,11 @@
 
                                 <a class="related" href="{% url 'course:show' related_course.slug %}">
                                     <figure class="related__img">
-                                        <img class="img-responsive" src="{% thumbor_url related_course.image.url width=100 height=100 %}" alt="{{ related_course.title }}">
+                                        {% if related_course.image %}
+                                            <img class="img-responsive" src="{% thumbor_url related_course.image.url width=100 height=100 %}" alt="{{ related_course.title }}">
+                                        {% else %}
+                                            <i>no image</i>
+                                        {% endif %}
                                     </figure>
                                     <div class="related__body">
                                         <h3 class="related__title">{{ related_course.title }}</h3>
@@ -139,12 +162,14 @@
                                             {% endfor %}
                                         </div>
                                 <span class="thumb__course__avaliation">
-                                    <span style="width: 60%"></span>
+                                    <span style="width: {{ related_course.rating_percentage }}%"></span>
                                 </span>
                                     </div>
                                 </a>
                             {% endfor %}
                         </div>
+                    {% endif %}
+
                         <div class="related__items">
                             <h2 class="related__items__title">Comunidades</h2>
 
@@ -167,5 +192,8 @@
             </div>
         </article>
     </main>
+
+
+
 {% endblock content %}
 

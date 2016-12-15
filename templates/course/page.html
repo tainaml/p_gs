@@ -66,7 +66,7 @@
     </form>
     <div class="row">
         <div class="col-xs-12">
-            <div class="row list__courses" data-toggle="scroll">
+            <div class="row list__courses j-scroll clearfix" data-toggle="scroll">
                 <div class="j-scroll-container">
                     {% include 'course/items.html' %}
                 </div>
@@ -74,64 +74,19 @@
         </div>
     </div>
 </main>
-{% comment %}
-    <div class="side__menu" data-target="sidemenu">
-    <div class="side__menu__content">
-        <div class="side__menu__title">Filtro</div>
-        <div class="accordeon" id="accordion" role="tablist" aria-multiselectable="true">
-          <div class="accordeon__item">
-            <a class="accordeon__title collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-              Categorias
-            </a>
-            <div id="collapseOne" class="collapse" role="tabpanel" aria-labelledby="headingOne">
-
-                <ul class="list-unstyled">
-                    {% for value, description in form.category.field.choices %}
-                        {% if not forloop.first %}
-                            <li><a href="{{ request.GET.querystring }}">{{ description }} {{ request.GET.querystring }}</a></li>
-                        {% endif %}
-                    {% endfor %}
-              </ul>
-            </div>
-          </div>
-          <div class="accordeon__item">
-            <a class="accordeon__title collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-              Comunidades
-            </a>
-            <div id="collapseTwo" class="collapse" role="tabpanel" aria-labelledby="headingTwo">
-              <ul class="list-unstyled">
-                <li><a href="#">Banco de Dados</a></li>
-                <li><a href="#">Desenvolvimento</a></li>
-                <li><a href="#">Design</a></li>
-                <li><a href="#">governança de TI</a></li>
-                <li><a href="#">Infraestrutura</a></li>
-                <li><a href="#">Mobile</a></li>
-                <li class="item__hidden" data-hidden="true"><a href="#">Mais</a></li>
-              </ul>
-              <a data-toggle="showmore" href="#">mais 10...</a>
-            </div>
-          </div>
-          <div class="accordeon__item">
-            <div role="tab" id="headingThree">
-              <a class="accordeon__title collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                Ordenar por
-              </a>
-            </div>
-            <div id="collapseThree" class="collapse" role="tabpanel" aria-labelledby="headingThree">
-              <ul class="list-unstyled">
-                <li><a href="#">Banco de Dados</a></li>
-                <li><a href="#">Desenvolvimento</a></li>
-                <li><a href="#">Design</a></li>
-                <li><a href="#">governança de TI</a></li>
-                <li><a href="#">Infraestrutura</a></li>
-                <li><a href="#">Mobile</a></li>
-                <li class="item__hidden" data-hidden="true"><a href="#">Mais</a></li>
-              </ul>
-              <a data-toggle="showmore" href="#">mais 10...</a>
-            </div>
-          </div>
-          </div>
-    </div>
-</div>
-{% endcomment %}
 {% endblock content %}
+
+{% block javascripts %}
+    <script>
+    $(function(){
+        var $element = $(".j-scroll-container");
+        $element.jscroll({
+            loadingHtml: '<div class="load-async-preload"></div>',
+{#            contentSelect: "#" + $self.attr("id"),#}
+            nextSelector: "a[data-jscroll-next]",
+            autoTrigger: false
+        });
+    });
+
+    </script>
+{% endblock javascripts %}

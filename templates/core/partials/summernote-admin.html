@@ -1,0 +1,1 @@
+<textarea data-toggle="editor{% if async %}-async{% endif %}" {% for key, value in attrs.items %} {{ key }}="{{ value }}" {% endfor %} name="{{ name }}" id="id_{{ name }}" data-config="{{ config }}" >{{ value|default_if_none:"" }}</textarea>

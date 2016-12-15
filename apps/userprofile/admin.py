@@ -11,22 +11,6 @@ class ResponsibilityAdminForm(forms.ModelForm):
         super(ResponsibilityAdminForm, self).__init__(*args, **kwargs)
         self.fields['categories'].queryset = Taxonomy.objects.filter(term__slug='categoria')
 
-
-    class Media:
-        js = (
-            # 'https://code.jquery.com/jquery-2.2.4.min.js',
-            'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js',
-            'https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.1/summernote.min.js',
-            'javascripts/django-jquery-adapter.js',
-            'javascripts/summernote-clean.js' )
-
-        css= {
-            'all': (
-                'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css',
-                'https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.1/summernote.css',
-            )
-        }
-
     class Meta:
         exclude = ()
         widgets = {

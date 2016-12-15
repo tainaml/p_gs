@@ -21,7 +21,26 @@ def course_image_upload(instance, filename):
     if isinstance(instance.author, UserModel):
         owner = instance.author.id or instance.author
     else:
-        owner = instance.author
+        owner = instance.author['get_full_name']
+
+    owner = slugify(owner)
+
+    today_str = datetime.today().strftime('%Y/%m/%d')
+    path = 'course/{0}/{1}'.format(owner, today_str)
+
+    ext = filename.split('.')[-1]
+    name = slugify(".".join(filename.split('.')[0:-1]))
+    return os.path.join(path, "{0}.{1}".format(name, ext))
+
+
+def course_thumb_upload(instance, filename):
+
+    UserModel = get_user_model()
+
+    if isinstance(instance.author, UserModel):
+        owner = instance.author.id or instance.author
+    else:
+        owner = instance.author['get_full_name']
 
     owner = slugify(owner)
 
@@ -52,7 +71,7 @@ class Course(models.Model):
     description = models.TextField(verbose_name=_('Description'))
     observation = models.TextField(null=True, blank=True, verbose_name=_('Observation'))
 
-    rating = models.DecimalField(max_digits=3, decimal_places=2, verbose_name=_('Rating'))
+    rating = models.DecimalField(max_digits=3, decimal_places=2, verbose_name=_('Rating'), default=0.00)
 
     internal_author = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, blank=True, related_name='courses',
                                verbose_name=_('Internal author'))
@@ -68,6 +87,10 @@ class Course(models.Model):
 
     languages = models.ManyToManyField(Language, blank=True, verbose_name=_('Languages'), related_name="languages")
     image = models.ImageField(max_length=100, upload_to=course_image_upload, blank=True, verbose_name=_('Image'))
+
+    thumbnail = models.ImageField(max_length=100, upload_to=course_thumb_upload, blank=True, verbose_name=_('Thumbnail'), null=True)
+
+
     related_courses = models.ManyToManyField("self", blank=True, verbose_name=_('Related Courses'))
     taxonomies = models.ManyToManyField(Taxonomy, blank=True, verbose_name=_('Taxonomy'), related_name="courses")
 
@@ -77,6 +100,10 @@ class Course(models.Model):
 
     plataform = models.ForeignKey(Plataform, related_name="courses", verbose_name=_('Plataform'))
     class_link = models.URLField(verbose_name=_('Class Link'), null=True, blank=True)
+
+    embed = models.TextField(null=True, blank=True, verbose_name=_("Embed"), help_text="class=\"embed-responsive-item\"")
+
+    price = models.DecimalField(max_digits=6, decimal_places=2, verbose_name=_('Price'), null=True, blank=True, help_text=_("0 to free courses, blank to unknow price"))
 
     def __unicode__(self):
         return u'{}'.format(self.title)
@@ -88,7 +115,7 @@ class Course(models.Model):
 
     def image_or_default(self):
         #TODO
-        return self.image or None
+        return self.thumbnail or self.image or None
 
     @cached_property
     def get_absolute_url(self):
@@ -104,5 +131,8 @@ class Course(models.Model):
 class Curriculum(models.Model):
     title = models.CharField(max_length=255, verbose_name=_('Title'))
     description = models.TextField(verbose_name=_('Description'), null=True, blank=True)
-
+    order = models.PositiveSmallIntegerField(verbose_name=_("Order"), default=0)
     course = models.ForeignKey(Course, related_name="curriculums", verbose_name=_('Course'))
+
+    class Meta:
+        ordering = ('order',)
