@@ -86,9 +86,11 @@ $input-border-color: #bfbfbf !default;
 		transform-origin: 0 -220%;
 		transition: transform 300ms ease;
 		pointer-events: none;
+    &.active {
+      transform: scale(0.7);
+    }
 	}
-	&-input:focus ~ &-label,
-	&-input:valid ~ &-label {
+	&-input:focus ~ &-label {
 		color: $input-active-color;
 		transform: scale(0.7);
 	}
