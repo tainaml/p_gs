@@ -1,41 +1,41 @@
+{% load widget_tweaks %}
+
 <div class="col-sm-2 customform" data-module="dropzoneUploader"
-    data-original-image="{% if profile.get_profile_picture %}{{ profile.get_profile_picture.url }}{% endif %}">
+    data-original-image="{% if form.get_logo %}{{ form.get_logo.url }}{% endif %}">
+
     <div class="customform-file" data-trigger="file">
         <div class="custom-file-upload-result" data-content="file"></div>
         <div class="customform-filecaption">Alterar foto</div>
         <i class="gsticon gsticon-camera"></i>
     </div>
-    <input type="file" class="hidden" hidden accept="image/*" name="profile_picture">
+
+    {% render_field form.logo class="hidden" accept="image/*" %}
+
 </div>
+
 <div class="col-sm-9 form-group">
-    <div class="customform">
-        <input class="customform-input" type="text" data-toggle="input" name="name" placeholder="Ex.: Portal GSTI">
-        <hr>
-        <label class="customform-label" for="name">Nome da Organização</label>
-    </div>
+
+    {% render_field form.name data-toggle="input" placeholder="Ex.: Portal GSTI" %}
+
 </div>
+
 <div class="col-sm-9 form-group">
-    <div class="customform">
-        <textarea class="customform-input" data-toggle="input" name="description" maxlength="140" placeholder="Escreva uma breve descrição da sua organização"></textarea>
-        <hr>
-        <label class="customform-label" for="description">Descrição</label>
-    </div>
+
+    {% render_field form.description data-toggle="input" placeholder="Escreva uma breve descrição da sua organização" %}
+
 </div>
+
 <div class="col-sm-offset-2 col-sm-9">
     <div class="row">
         <div class="col-sm-5 form-group">
-            <div class="customform">
-                <input class="customform-input" type="url" data-toggle="input" name="url">
-                <hr>
-                <label class="customform-label" for="url">URL</label>
-            </div>
+
+            {% render_field form.website data-toggle="input" %}
+
         </div>
         <div class="col-sm-offset-2 col-sm-5 form-group">
-            <div class="customform">
-                <input class="customform-input" type="text" data-toggle="input" name="city">
-                <hr>
-                <label class="customform-label" for="city">Cidade</label>
-            </div>
+
+            {% render_field form.city data-toggle="input" %}
+
         </div>
     </div>
 </div>
@@ -43,21 +43,21 @@
     <div class="row">
         <div class="col-sm-12 form-group">
             <label class="organization__form__label">Membros do Perfil</label>
+
+            {{ form.members_formset.management_form }}
+
+            {{form.members_formset}}
+
             <div class="row">
                 <div class="col-sm-5 col-xs-9">
-                    <div class="customform">
-                        <input class="customform-input" type="text" data-toggle="input" name="user" placeholder="Digite um nome">
-                        <hr>
-                    </div>
+
+                    {% render_field form.members_formset.user data-toggle="input" placeholder="Digite um nome" %}
+
                 </div>
                 <div class="col-sm-4 col-xs-9">
-                    <div class="customform">
-                        <select class="customform-input" name="role">
-                            <option value="">Administrador</option>
-                            <option value="">Colaborador</option>
-                        </select>
-                        <hr>
-                    </div>
+
+                    {% render_field form.members_formset.permission %}
+
                 </div>
                 <div class="col-sm-3 col-xs-12 text-right">
                     <a class="organization__form__btn btn btn-sm" href="#target" data-toggle="add-member">Adicionar</a>

@@ -8,7 +8,31 @@ IDEIA_AVAIABLE_FIELDS = [
     widgets.PasswordInput,
 ]
 
-def ideia_wrapper_render(render_func, field):
+def ideia_field_wraper(field):
+
+    try:
+
+        widget_class = field.widget.__class__
+        if widget_class in IDEIA_AVAIABLE_FIELDS:
+
+            field.custom_label = field.label if field.label else ''
+            field.label = ''
+
+            widget = field.widget
+            widget.render = ideia_wrapper_render(widget.render, field)
+        return field
+    except Exception as e:
+        print(e)
+        return field
+
+
+def ideia_wrapper_render(render_func, field=None, label=None):
+
+    def render_label(name, label):
+        return mark_safe(u'<label class="customform-label" for="{name}">{label_html}</label>'.format(
+            name=name,
+            label_html=label
+        ))
 
     def render(name, value, attrs=None):
 
@@ -18,12 +42,12 @@ def ideia_wrapper_render(render_func, field):
             'class': '{} {}'.format('customform-input', attrs.get('class', ''))
         })
 
-        if field.custom_label:
+        if field and field.custom_label:
 
-            label_html = mark_safe(u'<label class="customform-label" for="{name}">{label_html}</label>'.format(
-                name=name,
-                label_html=field.custom_label
-            ))
+            label_html = render_label(name, field.custom_label)
+
+        if label:
+            label_html = render_label(name, label)
 
         new_html = u'<div class="customform">\r\n{widget}\r\n<hr>{label}</div>'.format(
             widget=render_func(name, value, attrs),
@@ -39,15 +63,23 @@ def ideia_custom_fielder(class_name='custom_form'):
     def wrapper(form_cls):
 
         for field in form_cls.base_fields.itervalues():
-            widget_class = field.widget.__class__
-            if widget_class in IDEIA_AVAIABLE_FIELDS:
-
-                field.custom_label = field.label if field.label else ''
-                field.label = ''
-
-                widget = field.widget
-                widget.render = ideia_wrapper_render(widget.render, field)
+            ideia_field_wraper(field)
 
         return form_cls
 
     return wrapper
+
+
+class CustomFielderWidget(object):
+
+    @staticmethod
+    def factory(widget, label=None):
+
+        class new_widget(widget):
+
+            def __init__(self, *args, **kwargs):
+                super(new_widget, self).__init__(*args, **kwargs)
+                self.old_render = self.render
+                self.render = ideia_wrapper_render(self.old_render, field=None)
+
+        return new_widget
