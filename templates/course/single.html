@@ -26,12 +26,12 @@
         <script type="application/ld+json">
         {
           "@context": "http://schema.org/",
-          "@type": "Product",
+          "@type": "Course",
           "name": "{{ instance.title }}",
           "image": "{% thumbor_url instance.image_or_default.url width=140 height=140 smart=False fit_in=False %}",
           "description": "{{ instance.description }}",
-          "brand": {
-            "@type": "Thing",
+          "provider": {
+            "@type": "Organization",
             "name": "{{ instance.plataform.description }}"
           },
           "aggregateRating": {
