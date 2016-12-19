@@ -33,7 +33,7 @@
         </div>
         <article class="row course__single">
             <div class="col-xs-12">
-                <h1 class="course__title">{{ instance.title }}</h1>
+                <h1 class="course__title" title="{{ instance.title }}">{{ instance.title }}</h1>
                 <time class="course__date__publication" datetime="{{ instance.createdin|date:"d/m/Y" }}">
                     <div class="course__avaliation">
                         <span data-toggle="rating" data-config='{"rating": {{ instance.rating|stringformat:"f" }}, "readOnly": true}'></span>
@@ -83,7 +83,7 @@
                     <div class="col-sm-5 course__about">
                         <h2 class="course__about__title">Sobre o curso</h2>
                         <div class="course__about__text">
-                            {{ instance.description|safe }}
+                            {{ instance.description|safe|truncatechars:409 }}
                         </div>
                         <ul class="course__about__list">
                             <li>
@@ -196,4 +196,3 @@
 
 
 {% endblock content %}
-
