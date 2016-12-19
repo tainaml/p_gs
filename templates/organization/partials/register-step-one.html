@@ -43,21 +43,21 @@
     <div class="row">
         <div class="col-sm-12 form-group">
             <label class="organization__form__label">Membros do Perfil</label>
-
-            {{ form.members_formset.management_form }}
-
-            {{form.members_formset}}
-
             <div class="row">
                 <div class="col-sm-5 col-xs-9">
-
-                    {% render_field form.members_formset.user data-toggle="input" placeholder="Digite um nome" %}
-
+                    <div class="customform">
+                        <input class="customform-input" type="text" data-toggle="input" name="user" placeholder="Digite um nome">
+                        <hr>
+                    </div>
                 </div>
                 <div class="col-sm-4 col-xs-9">
-
-                    {% render_field form.members_formset.permission %}
-
+                    <div class="customform">
+                        <select class="customform-input" name="role">
+                            <option value="">Administrador</option>
+                            <option value="">Colaborador</option>
+                        </select>
+                        <hr>
+                    </div>
                 </div>
                 <div class="col-sm-3 col-xs-12 text-right">
                     <a class="organization__form__btn btn btn-sm" href="#target" data-toggle="add-member">Adicionar</a>

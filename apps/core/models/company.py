@@ -1,7 +1,9 @@
+from social.utils import slugify
+from django.db.models import Q
+from apps.taxonomy.models import Taxonomy
 from apps.company.models import Company, CompanyContact, CompanyManager, Membership
 from apps.account.models import User
 from apps.userprofile.models import UserProfile
-from social.utils import slugify
 
 
 class CompanyProxyManager(CompanyManager):
@@ -77,3 +79,18 @@ class CompanyProxy(Company):
             self.add_default_permission()
 
         self.update_user()
+
+    @classmethod
+    def list_categories(cls):
+
+        return Taxonomy.objects.filter(
+            term__slug='categoria'
+        )
+
+    @classmethod
+    def list_communities(cls):
+
+        return Taxonomy.objects.filter(
+            term__slug='comunidade',
+            parent__term__slug='comunidade'
+        ).order_by('description')

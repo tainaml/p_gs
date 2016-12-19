@@ -1,56 +1,21 @@
+{% load widget_tweaks %}
 <div class="col-xs-12">
     <h4>Categoria</h4>
     <div class="organization__form__item">
         <p>Selecione a categoria de sua preferência</p>
     </div>
     <div class="row organization__form__categories">
-        <div class="col-sm-4 col-xs-6">
-            <div class="customform">
-                <input class="hidden" hidden type="checkbox" name="banco_de_dados" id="banco_de_dados">
-                <label class="customform-checkbutton" for="banco_de_dados">Banco de Dados</label>
+
+        {% for choice in form.categories %}
+
+            <div class="col-sm-4 col-xs-6">
+                <div class="customform">
+                    {{ choice.tag }}
+                    <label class="customform-checkbutton" for="{{choice.id_for_label}}">{{ choice.choice_label }}</label>
+                </div>
             </div>
-        </div>
-        <div class="col-sm-4 col-xs-6">
-            <div class="customform">
-                <input class="hidden" hidden type="checkbox" name="desenvolvimento" id="desenvolvimento">
-                <label class="customform-checkbutton" for="desenvolvimento">Desenvolvimento</label>
-            </div>
-        </div>
-        <div class="col-sm-4 col-xs-6">
-            <div class="customform">
-                <input class="hidden" hidden type="checkbox" name="design" id="design">
-                <label class="customform-checkbutton" for="design">Design</label>
-            </div>
-        </div>
-        <div class="col-sm-4 col-xs-6">
-            <div class="customform">
-                <input class="hidden" hidden type="checkbox" name="infraestrutura" id="infraestrutura">
-                <label class="customform-checkbutton" for="infraestrutura">Infraestrutura</label>
-            </div>
-        </div>
-        <div class="col-sm-4 col-xs-6">
-            <div class="customform">
-                <input class="hidden" hidden type="checkbox" name="governanca_e_gestão" id="governanca_e_gestao">
-                <label class="customform-checkbutton" for="governanca_e_gestao">Governança e Gestão</label>
-            </div>
-        </div>
-        <div class="col-sm-4 col-xs-6">
-            <div class="customform">
-                <input class="hidden" hidden type="checkbox" name="marketing_digital" id="marketing_digital">
-                <label for="marketing_digital" class="customform-checkbutton">Marketing Digital</label>
-            </div>
-        </div>
-        <div class="col-sm-4 col-xs-6">
-            <div class="customform">
-                <input class="hidden" hidden type="checkbox" name="mobile" id="mobile">
-                <label for="mobile" class="customform-checkbutton">Mobile</label>
-            </div>
-        </div>
-        <div class="col-sm-4 col-xs-6">
-            <div class="customform">
-                <input class="hidden" hidden type="checkbox" name="mais" id="mais">
-                <label for="mais" class="customform-checkbutton">Mais</label>
-            </div>
-        </div>
+
+        {% endfor %}
+
     </div>
 </div>

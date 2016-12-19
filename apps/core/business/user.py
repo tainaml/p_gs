@@ -39,21 +39,20 @@ def get_user_communities(author):
     return communities
 
 
-def get_user_communities_list_from_queryset(queryset, author, width=20, height=20):
+def get_user_communities_list_from_queryset(queryset, author, width=20, height=20, id_field='id'):
     communities = []
 
     for community in queryset:
         img_url = str(settings.THUMBOR_MEDIA_URL) + '/' + str(community.image)
 
         c = dict()
-        c['id'] = community.id
+        c['id'] = getattr(community, id_field)
         c['name'] = community.title
         c['image'] = generate_url(img_url, width=width, height=height, thumbor_server=settings.THUMBOR_SERVER)
 
         communities.append(c)
 
     return communities
-
 
 def get_user_communities_list(author, width=20, height=20):
 

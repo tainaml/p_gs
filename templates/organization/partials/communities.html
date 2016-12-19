@@ -1,20 +1,16 @@
+{% load widget_tweaks %}
+{% load json_filter %}
+
 <div class="col-xs-12">
     <h4 class="organization__form__title">Comunidade</h4>
-    <p class="organization__form__label" for="">Escolha a comunidade de sua preferência</p>
+    <p class="organization__form__label">Escolha a comunidade de sua preferência</p>
 
     <div class="form-group">
-        <div class="customform search">
-            <input class="customform-input" type="text" placeholder="Digite aqui a comunidade que deseja buscar">
-            <i class="gsticon gsticon-search"></i>
+        <div class="customform">
+            {% render_field form.communities class="customform-input" data-toggle="selectize" data-module="taxonomy" data-placeholder="Digite aqui a comunidade que deseja buscar" data-label-field="name" data-value-field="id" data-options=communities|jsonify %}
+            {% if form.categories.errors %}  {{ form.categories.errors }} {% endif %}
             <hr>
         </div>
     </div>
-    <div class="row">
-        {% for community in '123456789' %}
-        <div class="col-sm-4">
-            {% include "organization/partials/community.html" %}
-        </div>
-        {% endfor %}
-    </div>
-    <a href="#" class="organization__showmore">Veja mais resultados</a>
+
 </div>
