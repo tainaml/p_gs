@@ -26,7 +26,7 @@ $input-border-color: #bfbfbf !default;
 
   select { background-color: transparent }
   textarea {
-    min-height: 8.5em;
+    overflow: hidden;
     display: block;
     resize: none;
   }

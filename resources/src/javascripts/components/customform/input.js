@@ -12,6 +12,17 @@ module.exports = ( name ) => {
       if ( !$this.val() ) {
         $this.siblings( 'label' ).removeClass( 'active' )
       }
+    },
+    input: function ( event ) {
+      if ( event.currentTarget.nodeName === 'TEXTAREA' ) {
+        setTimeout( inputResize( event.currentTarget ), 0)
+      }
     }
   })
+}
+
+const inputResize = ( selector ) => {
+  const style = selector.style
+  style.height = 'auto'
+  style.height = selector.scrollHeight+'px'
 }
