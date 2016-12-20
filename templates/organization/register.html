@@ -13,7 +13,11 @@
             </div>
         </div>
         <div class="row organization">
-            <form class="col-sm-offset-1 col-sm-10">
+            <form class="col-sm-offset-1 col-sm-10" method="post" enctype="multipart/form-data">
+
+                {% csrf_token %}
+
+                {{ form.non_field_errors }}
 
                 <fieldset class="row organization__register" data-toggle="tab">
                     <legend class="organization__register__title">Cadastro de Organização</legend>

@@ -2,6 +2,7 @@
 from django import forms
 from django.forms import widgets
 from apps.core.models.company import CompanyProxy, Membership
+from apps.taxonomy.models import Taxonomy
 from apps.core.widgets.custom_field import (
     ideia_custom_fielder, ideia_field_wraper,
     CustomFielderWidget
@@ -19,15 +20,16 @@ class CompanyForm(forms.ModelForm):
 
     categories = TaxonomyModelChoiceField(
         queryset=CompanyProxy.list_categories(),
+        to_field_name='slug',
         empty_label=None,
         widget=widgets.CheckboxSelectMultiple(attrs={'class': 'hidden'})
     )
 
-    communities = TaxonomyModelChoiceField(
-        queryset=CompanyProxy.list_communities(),
-        empty_label=None,
-        widget=widgets.SelectMultiple
-    )
+    # communities = TaxonomyModelChoiceField(
+    #     queryset=CompanyProxy.list_communities(),
+    #     empty_label=None,
+    #     widget=widgets.SelectMultiple
+    # )
 
     class Meta:
 
@@ -50,3 +52,6 @@ class CompanyForm(forms.ModelForm):
         },
         extra=1,
     )
+
+    def fake_save(self):
+        pass
