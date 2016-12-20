@@ -22,6 +22,26 @@
 
 {% endblock content_old %}
 
+{% block ld_json %}
+        <script type="application/ld+json">
+        {
+          "@context": "http://schema.org/",
+          "@type": "Course",
+          "name": "{{ instance.title }}",
+          "image": "{% thumbor_url instance.image_or_default.url width=140 height=140 smart=False fit_in=False %}",
+          "description": "{{ instance.description }}",
+          "provider": {
+            "@type": "Organization",
+            "name": "{{ instance.plataform.description }}"
+          },
+          "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "{{ instance.rating|stringformat:".2f" }}",
+            "reviewCount": "{{ instance.ratings.all.count }}"
+          }
+        }
+    </script>
+{% endblock ld_json %}
 {% block content %}
     <main class="container main" data-page="courses" data-filtered="false">
         <div class="row">
@@ -122,11 +142,14 @@
                                 </li>
                             {% endfor %}
                         </ul>
-                        {% if instance.observation|striptags %}
-                            <div>
+
+                        {% if instance.observation %}
+                            {% if instance.observation|striptags %}
+                                <div>
                                 <h4>Mais informações</h4>
                                 {{ instance.observation|safe }}
                             </div>
+                            {% endif %}
                         {% endif %}
 
                         {% if not instance.class_link %}
