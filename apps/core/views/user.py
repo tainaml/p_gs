@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 from django.contrib.contenttypes.models import ContentType
+from django.db.models import Q
 from django.http import JsonResponse, Http404
 from django.utils.decorators import method_decorator
 from django.views.generic import View
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-
 from apps.community.models import Community
 from apps.core.business.content_types import ContentTypeCached
 from apps.core.forms.WizardForm import WizardFormStepOne
@@ -21,9 +21,11 @@ from apps.userprofile.service import business as BusinessUserProfile
 from apps.taxonomy.service import business as BusinessTaxonomy
 from apps.socialactions.service import business as BusinessSocialActions
 from apps.core.forms.user import CoreSearchFollowings
+import django_thumbor
 from rede_gsti import settings
 from apps.community.service import business as BusinessCommunity
 from apps.socialactions.service import business as BusinnesSocialAction
+from apps.account.models import User
 
 
 class CoreUserView(views.ProfileShowView):
@@ -1096,3 +1098,39 @@ class CoreUserMyQuestionsList(CoreUserMyQuestions):
     template_path = 'userprofile/partials/profile-questions-list.html'
 
 
+class CoreListUsersView(View):
+
+    def get(self, request):
+
+        users = User.objects.filter(
+            usertype=User.PERSON,
+            is_active=True
+        )
+
+        term = request.GET.get('name', '')
+
+        if term:
+
+            users = users.filter(
+                Q(first_name__unaccent__icontains=term) |
+                Q(last_name__unaccent__icontains=term) |
+                Q(username__unaccent__icontains=term)
+            )
+
+        list_users = []
+
+        for user in users[:50]:
+            _user = {
+                'id': user.id,
+                'name': user.get_full_name(),
+                'img': django_thumbor.generate_url(
+                    user.user_profile.avatar_url,
+                    width=16,
+                    height=16
+                )
+            }
+            list_users.append(_user)
+
+        return JsonResponse(data={
+            'items': list_users
+        })
