@@ -44,6 +44,7 @@ $input-border-color: #bfbfbf !default;
 
 		&::placeholder { transition: color 300ms ease }
 		&:not(:focus)::placeholder { color: transparent }
+    &.selectize-control { padding: 0 }
 	}
 
 	hr {
@@ -86,13 +87,16 @@ $input-border-color: #bfbfbf !default;
 		transform-origin: 0 -220%;
 		transition: transform 300ms ease;
 		pointer-events: none;
-    &.active {
-      transform: scale(0.7);
-    }
+    &.active { transform: scale(0.7) }
 	}
 	&-input:focus ~ &-label {
 		color: $input-active-color;
 		transform: scale(0.7);
 	}
   &.search > &-input { padding-right: 16px }
+  .selectize-input {
+    border: none;
+    padding: 0;
+    box-shadow: none;
+  }
 }
