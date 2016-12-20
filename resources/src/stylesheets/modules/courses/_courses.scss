@@ -13,15 +13,22 @@
 .thumb__course {
   @include clearfix();
   overflow: hidden;
+  padding-right: 20px;
   padding-bottom: 18px;
+  padding-left: 20px;
   margin-bottom: 30px;
   display: block;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.7);
   figure {
     position: relative;
     overflow: hidden;
+    margin-right: -20px;
+    margin-left: -20px;
+    text-align: center;
     img {
       max-width: 100%;
       max-height: 100%;
+      display: inline-block;
       transition: all 0.6s ease;
     }
   }
