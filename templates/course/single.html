@@ -26,11 +26,11 @@
         <script type="application/ld+json">
         {
           "@context": "http://schema.org/",
-          "@type": "Course",
+          "@type": "Product",
           "name": "{{ instance.title }}",
           "image": "{% thumbor_url instance.image_or_default.url width=140 height=140 smart=False fit_in=False %}",
           "description": "{{ instance.description }}",
-          "provider": {
+          "brand": {
             "@type": "Organization",
             "name": "{{ instance.plataform.description }}"
           },
