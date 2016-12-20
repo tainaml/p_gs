@@ -125,14 +125,18 @@
     }
   }
   .thumb__course {
+    padding-right: 0;
     padding-bottom: 0;
+    padding-left: 0;
     margin-bottom: 20px;
     border: 0;
+    box-shadow: none;
     > figure {
       overflow: hidden;
       max-width: 130px;
       width: 45%;
       margin-right: 20px;
+      margin-left: 0;
       float: left;
       img { max-width: 100%; }
     }
