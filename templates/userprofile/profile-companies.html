@@ -21,19 +21,31 @@
                 {% include 'home/partials/sidebar-perfil.html' %}
             </div>
             <div class="col-lg-9">
-                <header class="area-title title-mobile">
-                     <h2>Organizações</h2>
-                </header>
                 <div class="row">
-                    <div class="col-lg-12">
-                        <section class="area-content" data-target="content">
+                    <div class="col-lg-8">
+                        <header class="area-title title-mobile">
+                             <h2>Organizações</h2>
+                        </header>
+                        <section class="area-content user-companies" data-target="content">
                         {% if  profile.user.companies %}
+                            <ul class="perfil-actions">
                             {% for company in profile.user.companies.all %}
-                                <a href="{% url 'account:login_with_company' company.user.username %}">{{ company }}</a>
+                                <li><a href="{% url 'account:login_with_company' company.user.username %}">
+                                    <span>
+                                        <img src="http://placehold.it/48" alt="">
+                                        {{ company }}
+                                    </span>
+                                    <span class="sign-in">
+                                        <span class="text">Entrar</span>
+                                        <i class="gsticon gsticon-sign-in"></i>
+                                    </span>
+                                </a></li>
                             {% endfor %}
+                            </ul>
                         {% endif %}
                         </section>
                     </div>
+                    {% include 'userprofile/partials/profile-sidebar-right.html' %}
                     <!-- Right bar -->
                 </div>
             </div>

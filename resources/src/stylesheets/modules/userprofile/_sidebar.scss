@@ -1,0 +1,46 @@
+.user__pages {
+    margin-top: 30px;
+    &__title {
+        margin-bottom: 5px;
+        display: block;
+        color: $link-color;
+        font-size: .85em;
+    }
+    &__list {
+        @include list-unstyled();
+        overflow: hidden;
+        height: 93px;
+        margin-bottom: 0;
+        transition: height 300ms ease-in;
+        &:target,
+        &.open {
+            height: auto;
+        }
+    }
+    &__page {
+        padding-top: 2px;
+        padding-bottom: 2px;
+    }
+    &__page a {
+        position: relative;
+        padding: 3px;
+        display: block;
+        &:hover {
+            background-color: #ddd;
+        }
+        &:hover:after {
+            position: absolute;
+            top: 4px; right: 5px;
+            font-family: 'FontAwesome';
+            content: '\f090';
+        }
+    }
+    .showmore {
+        margin-bottom: 20px;
+        display: block;
+        color: #263646;
+        font-size: 13px;
+        text-align: center;
+        text-decoration: underline;
+    }
+}
