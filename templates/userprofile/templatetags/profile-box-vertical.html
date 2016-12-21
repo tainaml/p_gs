@@ -34,7 +34,14 @@
         {% endif %}
 
         {% if profile.user.company %}
+             <ul class="user__pages__list" id="list-pages">
+                <li class="user__pages__page"><a href="{% url 'account:relogin' %}">
+                        <img src="{% thumbor_url request.session.before_user_image width=20 height=20 smart=False fit_in=False %}" alt="Image de {{ request.session.before_user_full_name }}">
+                    {{ request.session.before_user_full_name }}
+                </a></li>
+            </ul>
         <li>
+
             <a href="{{ profile.user.company.website }}" rel="nofollow" target="_blank"><i class="gsticon gsticon-globe"></i> {{ profile.user.company.website|slice:"150" }}</a>
         </li>
         {% else %}
@@ -42,10 +49,11 @@
             <li>
                 <i class="gsticon gsticon-briefcase"></i>
                 {% for occupation in profile.occupation.all %}
-                    {{ occupation.responsibility.name }}{% if not forloop.last %},{% endif %}
+                        {{ occupation.responsibility.name }}{% if not forloop.last %},{% endif %}
                 {% endfor %}
             </li>
             {% endif %}
+
         {% endif %}
 
         {% if profile.has_locale %}

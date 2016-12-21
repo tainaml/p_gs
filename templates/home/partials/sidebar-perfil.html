@@ -31,55 +31,12 @@
                     <li {% if local_context == "profile-edit" %}class="active"{% endif %}><a href="{% url 'profile:edit' %}"><i class="gsticon gsticon-pencil"></i> Editar perfil</a></li>
                     <li {% if local_context == "posts-edit" %}class="active"{% endif %}><a href="{% url 'profile:edit-posts' %}"><i class="gsticon gsticon-pencil-square-o"></i> Editar Conteúdo</a></li>
                 </ul>
-                <div class="user__pages">
-                    <span class="user__pages__title">PÁGINAS</span>
-                    <ul class="user__pages__list" id="list-pages">
-                        <li class="user__pages__page"><a href="#">
-                            <img src="http://placehold.it/20" alt="">
-                            Lorem Ipsum
-                        </a></li>
-                        <li class="user__pages__page"><a href="#">
-                            <img src="http://placehold.it/20" alt="">
-                            Lorem Ipsum
-                        </a></li>
-                        <li class="user__pages__page"><a href="#">
-                            <img src="http://placehold.it/20" alt="">
-                            Lorem Ipsum
-                        </a></li>
-                        <li class="user__pages__page"><a href="#">
-                            <img src="http://placehold.it/20" alt="">
-                            Lorem Ipsum
-                        </a></li>
-                        <li class="user__pages__page"><a href="#">
-                            <img src="http://placehold.it/20" alt="">
-                            Lorem Ipsum
-                        </a></li>
-                        <li class="user__pages__page"><a href="#">
-                            <img src="http://placehold.it/20" alt="">
-                            Lorem Ipsum
-                        </a></li>
-                        <li class="user__pages__page"><a href="#">
-                            <img src="http://placehold.it/20" alt="">
-                            Lorem Ipsum
-                        </a></li>
-                        <li class="user__pages__page"><a href="#">
-                            <img src="http://placehold.it/20" alt="">
-                            Lorem Ipsum
-                        </a></li>
-                    </ul>
-                    <a class="showmore" href="#list-pages">
-                        MAIS
-                    </a>
-                </div>
+                 {% include 'userprofile/partials/companies.html' %}
+
             </div>
         </div>
     </div>
     {% endif %}
-
-    {% include 'userprofile/partials/companies.html' %}
-
-
-
 
     {% if request|is_pc %}
         <div class="widget widget-box">
