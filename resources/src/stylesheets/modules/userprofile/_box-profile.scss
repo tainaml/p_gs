@@ -5,95 +5,6 @@
 * usuário
 *
 *
-* <div class="perfil">
-*   <a class="btn pull-right text-center perfil-button-alt" data-action="follow"
-*   data-action-type="button" data-object="follow-user-24" data-action-text="Seguir"
-*   data-action-text-alt="Seguindo" data-class-name="perfil-button perfil-button-alt"
-*   data-hover="Não seguir" data-follow-object="24" data-follow-content_type="user"
-*   data-url-login="/conta/esta-logado/" data-trigger="login"
-*   data-token="Y7JY53crVcUbRNu48ieK36eseVlYEwWcswyJDyYhr0yKDxhhZ2lP2TelJ8l5Vv25"
-*   href="/acoes-sociais/agir/xhr/24/user/follow?url_next=/2015/09/virtualizacao-de-servidores-o-quarteto-fantastico-da-virtualizacao.html">
-*     <span>Seguindo</span>
-*   </a>
-*   <div class="profile-info">
-*     <a href="/perfil/marcomascarenhas/">
-*       <figure>
-*         <img class="img-responsive" src="http://localhost:9000/6zPIbBIj9Fh_IufKmqjGSt9i8Ac=/90x90/localhost:8000/media/uploads/userprofile/2016/04/14/marcomascarenhas2_social.jpg" alt="Marco Mascarenhas">
-*       </figure>
-*     </a>
-*     <a class="perfil-name" title="Marco Mascarenhas" href="/perfil/marcomascarenhas/">Marco Mascarenhas</a>
-*     <span class="perfil-counter" data-counter="7" data-refresh-counter="follow-user-24">
-*       <span class="counter-number">7</span> Seguidores
-*     </span>
-*     <span class="perfil-counter">
-*       <span class="counter-number">1448</span> Publicações
-*     </span>
-*     Gerente de Projetos, CEO, Programador
-*   </div>
-*   <div class="profile-bio">Mussum ipsum cacilds, vidis litro abertis. Consetis
-*   adipiscings elitis. Pra lá , depois divoltis porris, paradis. Paisis, filhis,
-*   espiritis santis. Mé faiz elementum girarzis, nisi eros vermeio, in elementis
-*   mé pra quem é amistosis quis leo. Manduma pindureta quium dia nois paga.
-*   Sapien in monti palavris qui num significa nadis i pareci latim.</div>
-* </div>
-*
-*
-* <div class="widget widget-box">
-*   <div class="widget-content">
-*     <div class="perfil">
-*       <a class="btn pull-right text-center perfil-button-alt" data-action="follow"
-*       data-action-type="button" data-object="follow-user-24" data-action-text="Seguir"
-*       data-action-text-alt="Seguindo" data-class-name="perfil-button perfil-button-alt"
-*       data-hover="Não seguir" data-follow-object="24" data-follow-content_type="user"
-*       data-url-login="/conta/esta-logado/" data-trigger="login"
-*       data-token="Y7JY53crVcUbRNu48ieK36eseVlYEwWcswyJDyYhr0yKDxhhZ2lP2TelJ8l5Vv25"
-*       href="/acoes-sociais/agir/xhr/24/user/follow?url_next=/2015/09/virtualizacao-de-servidores-o-quarteto-fantastico-da-virtualizacao.html">
-*         <span>Seguindo</span>
-*       </a>
-*       <div class="profile-info">
-*         <a href="/perfil/marcomascarenhas/">
-*         <figure>
-*           <img class="img-responsive" src="http://localhost:9000/6zPIbBIj9Fh_IufKmqjGSt9i8Ac=/90x90/localhost:8000/media/uploads/userprofile/2016/04/14/marcomascarenhas2_social.jpg" alt="Marco Mascarenhas">
-*         </figure>
-*         </a>
-*         <a class="perfil-name" title="Marco Mascarenhas" href="/perfil/marcomascarenhas/">Marco Mascarenhas</a>
-*         <span class="perfil-counter" data-counter="7" data-refresh-counter="follow-user-24">
-*           <span class="counter-number">7</span> Seguidores
-*         </span>
-*         <span class="perfil-counter">
-*           <span class="counter-number">1448</span> Publicações
-*         </span>
-*         Gerente de Projetos, CEO, Programador
-*       </div>
-*     </div>
-*     <div class="banner-collaborator">Colaborador do Portal GSTI</div>
-*     <div class="follower-content">
-*       <ul class="list-unstyled clearfix">
-*         <li>
-*           <a class="btn btn-follow-alt" data-action="follow" data-action-type="button"
-*           data-object="follow-user-24" data-action-text="Seguir" data-action-text-alt="Seguindo"
-*           data-class-name="btn-follow btn-follow-alt" data-hover="Não seguir" data-follow-object="24"
-*           data-follow-content_type="user" data-url-login="/conta/esta-logado/" data-trigger="login"
-*           data-token="8jOllK6b4o2zcFVSlYhDYsH28iPKjctICID6TfS1AcG8YpI5cIoIXfHVDvPRAbzB"
-*           href="/acoes-sociais/agir/xhr/24/user/follow?url_next=/perfil/marcomascarenhas/">
-*             <span>Seguindo</span>
-*           </a>
-*         </li>
-*         <li>
-*           <i class="gsticon gsticon-briefcase"></i>
-*           Gerente de Projetos, CEO, Programador
-*         </li>
-*         <li>
-*           <div class="profile-bio">Mussum ipsum cacilds, vidis litro abertis. Consetis
-*           adipiscings elitis. Pra lá , depois divoltis porris, paradis. Paisis, filhis,
-*           espiritis santis. Mé faiz elementum girarzis, nisi eros vermeio, in elementis
-*           mé pra quem é amistosis quis leo. Manduma pindureta quium dia nois paga.
-*           Sapien in monti palavris qui num significa nadis i pareci latim.</div>
-*         </li>
-*       </ul>
-*     </div>
-*   </div>
-* </div>
 */
 
 .profile-box__info {
@@ -106,7 +17,7 @@
   width: 100%;
   color: rgb(111, 111, 111);
   font-size: 13px;
-  font-weight: 600;
+  font-weight: 400;
   line-height: 26px;
 
   @media ( min-width: $screen-sm-min ) {
@@ -135,4 +46,34 @@
     float: right;
     max-width: 100px;
   }
+}
+
+.profile__sidebar {
+    min-height: 132px;
+    padding: 20px;
+    margin-top: -1px;
+    border: 1px solid #e1e1e1;
+    background: #fff;
+
+    &__avatar {
+        display: flex;
+        justify-content: center;
+    }
+    &__name {
+        font-size: 18px;
+        text-align: center;
+    }
+    &__relationship {
+        display: flex;
+        justify-content: space-between;
+        color: #616161;
+        font: 400 13px 'Open Sans';
+    }
+    &__website,
+    &__locale,
+    &__occupation {
+        .gsticon { margin-right: 7px }
+        color: #616161;
+        font: 400 13px 'Open Sans';
+    }
 }
