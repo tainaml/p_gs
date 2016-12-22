@@ -9,8 +9,6 @@
     &__list {
         @include list-unstyled();
         overflow: hidden;
-        height: 93px;
-        margin-bottom: 0;
         transition: height 300ms ease-in;
         &:target,
         &.open {
