@@ -21,24 +21,3 @@
         </a>
     {% endif %}
 </div>
-
-
-
-
-{#<div class="widget widget-box">#}
-{#    <div class="widget-content">#}
-{#        <ul class="perfil-actions">#}
-{#            {% for company in profile.user.companies.all %}#}
-{#                <li><a href="{% url 'account:login_with_company' company.user.username  %}"><i class="gsticon gsticon-lock"></i> {{ company.name }}</a></li>#}
-{#            {% endfor %}#}
-{#        </ul>#}
-{#    </div>#}
-{#</div>#}
-{#{% elif profile.user.is_company %}#}
-{#<div class="widget widget-box">#}
-{#    <div class="widget-content">#}
-{#        <ul class="perfil-actions">#}
-{#            <li><a href="{% url 'account:relogin' %}"><i class="gsticon gsticon-user"></i> Voltar como <i>{{ request.session.before_user_full_name }}</i></a></li>#}
-{#        </ul>#}
-{#    </div>#}
-{#</div>#}
