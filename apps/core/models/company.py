@@ -1,3 +1,4 @@
+from apps.account.service.business import username_is_available
 from social.utils import slugify
 from django.db.models import Q
 from apps.taxonomy.models import Taxonomy
@@ -25,8 +26,22 @@ class CompanyProxy(Company):
     def create_user(self):
 
         if not self.user:
+
+            __username = slugify(self.name)
+            original_username = slugify(self.name)
+            _exists = username_is_available(original_username)
+
+            if not _exists:
+
+                inc = 1
+                while(_exists == False):
+                    __username = '{}-{}'.format(original_username, inc)
+                    _exists = username_is_available(__username)
+                    inc = inc + 1
+
+
             company_user = User.objects.create_user(
-                username=slugify(self.name),
+                username=__username,
                 first_name=self.name,
                 last_name='',
                 is_active=True,
@@ -91,6 +106,5 @@ class CompanyProxy(Company):
     def list_communities(cls):
 
         return Taxonomy.objects.filter(
-            term__slug='comunidade',
-            parent__term__slug='comunidade'
+            term__slug='comunidade'
         ).order_by('description')
