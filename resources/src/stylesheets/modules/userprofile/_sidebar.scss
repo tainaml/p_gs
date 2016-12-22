@@ -23,9 +23,8 @@
         position: relative;
         padding: 3px;
         display: block;
-        &:hover {
-            background-color: #ddd;
-        }
+        img { margin-right: 10px }
+        &:hover { background-color: #ddd }
         &:hover:after {
             position: absolute;
             top: 4px; right: 5px;

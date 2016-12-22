@@ -65,9 +65,14 @@
     }
     &__relationship {
         display: flex;
-        justify-content: space-around;
+        align-items: center;
+        justify-content: center;
         color: #616161;
         font: 400 13px 'Open Sans';
+        > span {
+            padding-left: 10px;
+            padding-right: 10px;
+        }
     }
     &__website,
     &__locale,
@@ -79,8 +84,8 @@
         color: #616161;
         font: 400 13px 'Open Sans';
     }
-    .user__pages__list {
-        margin-top: 5px;
-        margin-bottom: 5px;
+    > .user__pages__list {
+        margin-top: 40px;
+        margin-bottom: 40px;
     }
 }

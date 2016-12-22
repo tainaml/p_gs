@@ -27,7 +27,7 @@
     <a class="profile__sidebar__website" href="{{ profile.user.company.website }}" rel="nofollow" target="_blank">
         <i class="gsticon gsticon-link"></i> {{ profile.user.company.website|slice:"150" }}
     </a>
-    <ul class="user__pages__list" id="list-pages">
+    <ul class="user__pages__list">
         <li class="user__pages__page"><a href="{% url 'account:relogin' %}">
             <img src="{% thumbor_url request.session.before_user_image width=20 height=20 smart=False fit_in=False %}" alt="Image de {{ request.session.before_user_full_name }}">
             {{ request.session.before_user_full_name }}
@@ -47,6 +47,15 @@
         {% endfor %}
     </span>
     {% endif %}
+    <div class="user__pages">
+        <div class="user__pages__title">LOGAR COMO</div>
+        <ul class="user__pages__list">
+            <li class="user__pages__page"><a href="{% url 'account:relogin' %}">
+                <img src="{% thumbor_url request.session.before_user_image width=20 height=20 smart=False fit_in=False %}" alt="Image de {{ request.session.before_user_full_name }}">
+                {{ request.session.before_user_full_name }}
+            </a></li>
+        </ul>
+    </div>
     {% endif %}
 </div>
 {% if profile.isContributor %}<div class="banner-collaborator">Colaborador do Portal GSTI</div>{% endif %}
