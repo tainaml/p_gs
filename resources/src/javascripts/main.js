@@ -77,7 +77,7 @@ $(function () {
         e.preventDefault();
         mobileSearch.slideToggle();
 
-        if (mobileSearch.is(':visible')) {
+        if ( mobileSearch.is(':visible') ) {
             inputSearch.focus();
         } else {
             inputSearch.blur();

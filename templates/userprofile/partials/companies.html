@@ -1,20 +1,23 @@
-{%  if profile.user.companies.all %}
-<div class="widget widget-box">
-    <div class="widget-content">
-        <ul class="perfil-actions">
-            {% for company in profile.user.companies.all %}
-                <li><a href="{% url 'account:login_with_company' company.user.username  %}"><i class="gsticon gsticon-lock"></i> {{ company.name }}</a></li>
-            {% endfor %}
-        </ul>
-    </div>
-</div>
-{% elif profile.user.is_company %}
-<div class="widget widget-box">
-    <div class="widget-content">
-        <ul class="perfil-actions">
-            <li><a href="{% url 'account:relogin' %}"><i class="gsticon gsticon-user"></i> Voltar como <i>{{ request.session.before_user_full_name }}</i></a></li>
-        </ul>
-    </div>
-</div>
-{% endif %}
+{% load thumbor_tags %}
+{% load avatar_tags %}
 
+ <div class="user__pages">
+
+    {%  if profile.user == request.user and profile.user.companies.all %}
+        <span class="user__pages__title">LOGAR COMO</span>
+    <ul class="user__pages__list" id="list-pages">
+            {% for company in profile.user.companies.all|slice:":3" %}
+                <li class="user__pages__page"><a href="{% url 'account:login_with_company' company.user.username  %}">
+                        <img src="{% thumbor_url company.image.url width=20 height=20 smart=False fit_in=False %}" alt="">
+                    {{ company.name }}
+                </a></li>
+            {% endfor %}
+
+    </ul>
+    {% endif %}
+    {% if profile.user.companies.al|length > 3 %}
+        <a class="showmore" href="{% url "profile:companies" %}">
+            Mais
+        </a>
+    {% endif %}
+</div>

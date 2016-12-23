@@ -44,10 +44,12 @@ def log_with_company(request, company):
         user_company = company.user
         before_user_id = request.user.id
         before_user_full_name = request.user.get_full_name()
+        before_user_image = request.user.profile.avatar_url
         if user_company:
             auth_login(request, user_company, backend="django.contrib.auth.backends.ModelBackend")
             request.session['before_user_id'] = before_user_id
             request.session['before_user_full_name'] = before_user_full_name
+            request.session['before_user_image'] = before_user_image
         else:
             raise CompanyHasNoUserAssociated(_("Company has no user associated with"))
     else:
