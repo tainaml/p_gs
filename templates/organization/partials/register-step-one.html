@@ -1,7 +1,7 @@
 {% load widget_tweaks %}
 
 <div class="col-sm-2 customform" data-module="dropzoneUploader"
-    data-original-image="{% if form.get_logo %}{{ form.get_logo.url }}{% endif %}">
+     data-original-image="{% if form.get_logo %}{{ form.get_logo.url }}{% endif %}">
 
     <div class="customform-file" data-trigger="file">
         <div class="custom-file-upload-result" data-content="file"></div>
@@ -45,14 +45,19 @@
             <label class="organization__form__label">Membros do Perfil</label>
             <div class="row">
                 <div class="col-sm-5 col-xs-9">
-                    <div class="customform">
-                        <input class="customform-input" type="text" data-toggle="input" name="user" placeholder="Digite um nome">
+                    <div class="">
+                        <select id="membership-user"
+                                data-module="ajaxselect"
+                                data-url="{% url 'profile:userlist' %}"
+                                class=""
+                                data-toggle="input"
+                                name="user"></select>
                         <hr>
                     </div>
                 </div>
                 <div class="col-sm-4 col-xs-9">
                     <div class="customform">
-                        <select class="customform-input" name="role">
+                        <select id="membership-role" class="customform-input" name="role">
                             <option value="">Administrador</option>
                             <option value="">Colaborador</option>
                         </select>
@@ -60,10 +65,14 @@
                     </div>
                 </div>
                 <div class="col-sm-3 col-xs-12 text-right">
-                    <a class="organization__form__btn btn btn-sm" href="#target" data-toggle="add-member">Adicionar</a>
+                    <a id="membership-add" class="organization__form__btn btn btn-sm" href="#target" data-toggle="add-member">Adicionar</a>
                 </div>
             </div>
-            <div class="col-xs-12 organization__team"></div>
+            <div class="col-xs-12 organization__team">
+
+                {{ members_formset }}
+
+            </div>
         </div>
     </div>
 </div>

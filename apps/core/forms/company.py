@@ -2,13 +2,14 @@
 from django import forms
 from django.forms import widgets
 from apps.core.models.company import CompanyProxy, Membership
+from apps.taxonomy.models import Taxonomy
 from apps.core.widgets.custom_field import (
     ideia_custom_fielder, ideia_field_wraper,
     CustomFielderWidget
 )
 
 
-class TaxonomyModelChoiceField(forms.ModelChoiceField):
+class TaxonomyModelChoiceField(forms.ModelMultipleChoiceField):
 
     def label_from_instance(self, obj):
         return u'{}'.format(obj.description)
@@ -19,15 +20,30 @@ class CompanyForm(forms.ModelForm):
 
     categories = TaxonomyModelChoiceField(
         queryset=CompanyProxy.list_categories(),
-        empty_label=None,
         widget=widgets.CheckboxSelectMultiple(attrs={'class': 'hidden'})
     )
 
     communities = TaxonomyModelChoiceField(
         queryset=CompanyProxy.list_communities(),
-        empty_label=None,
-        widget=widgets.SelectMultiple
+        widget=widgets.SelectMultiple(attrs={'class': 'shows'})
     )
+
+    def __init__(self, *args, **kwargs):
+
+        instance = kwargs.get('instance')
+        if instance:
+
+            initial = kwargs.get('initial', {})
+            initial.update({
+                'categories': instance.taxonomies.filter(term__slug='categoria'),
+                'communities': instance.taxonomies.filter(term__slug='comunidade')
+            })
+
+            kwargs.update({
+                'initial': initial
+            })
+
+        super(CompanyForm, self).__init__(*args, **kwargs)
 
     class Meta:
 
@@ -39,14 +55,11 @@ class CompanyForm(forms.ModelForm):
             'city': ''
         }
 
-    members_formset = forms.inlineformset_factory(
-        parent_model=CompanyProxy,
-        model=CompanyProxy.members.through,
-        exclude=(),
-        can_delete=False,
-        widgets={
-            'user': widgets.HiddenInput,
-            'permission': widgets.HiddenInput
-        },
-        extra=1,
-    )
+    def save(self, commit=True):
+        super(CompanyForm, self).save(commit)
+
+        for tax in self.cleaned_data.get('categories', []):
+            self.instance.taxonomies.add(tax)
+
+        for tax in self.cleaned_data.get('communities', []):
+            self.instance.taxonomies.add(tax)
