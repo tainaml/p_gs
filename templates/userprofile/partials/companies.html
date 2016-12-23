@@ -4,7 +4,7 @@
  <div class="user__pages">
 
     {%  if profile.user == request.user and profile.user.companies.all %}
-        <span class="user__pages__title">Páginas</span>
+        <span class="user__pages__title">LOGAR COMO</span>
     <ul class="user__pages__list" id="list-pages">
             {% for company in profile.user.companies.all|slice:":3" %}
                 <li class="user__pages__page"><a href="{% url 'account:login_with_company' company.user.username  %}">
