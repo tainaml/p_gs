@@ -152,7 +152,7 @@ class CoreUserSearch(CoreUserView):
 
 
 class CoreUserFeed(CoreUserView):
-            
+
     template_path = 'userprofile/profile-feed.html'
 
     @method_decorator(login_required)
@@ -225,7 +225,7 @@ class CoreProfileWizardStepOne(View):
 
     def get_context(self, request):
         context = {}
-        context['responsibilities'] = Responsibility.objects.all().\
+        context['responsibilities'] = Responsibility.objects.all(). \
             only("id", "name").order_by("name")
 
         return  context
@@ -1096,12 +1096,43 @@ class CoreUserMyQuestionsList(CoreUserMyQuestions):
 
 class CoreListUsersView(View):
 
-    def get(self, request):
+    def single_user(self, user_id):
+
+        try:
+            user = User.objects.get(
+                id=user_id,
+                usertype=User.PERSON,
+                is_active=True
+            )
+        except User.DoesNotExist, User.MultipleObjectsReturned:
+            raise Http404('User not found.')
+        except Exception:
+            raise Http404('User not found. Generic Error')
+
+        return JsonResponse(data={
+            'user': self.serialize_user(user)
+        })
+
+    def serialize_user(self, user):
+        return {
+            'id': user.id,
+            'name': user.get_full_name(),
+            'img': django_thumbor.generate_url(
+                user.user_profile.avatar_url,
+                width=16,
+                height=16
+            )
+        }
+
+    def get(self, request, user_id=None):
 
         users = User.objects.filter(
             usertype=User.PERSON,
             is_active=True
         )
+
+        if user_id:
+            return self.single_user(user_id)
 
         term = request.GET.get('name', '')
 
@@ -1116,16 +1147,7 @@ class CoreListUsersView(View):
         list_users = []
 
         for user in users[:50]:
-            _user = {
-                'id': user.id,
-                'name': user.get_full_name(),
-                'img': django_thumbor.generate_url(
-                    user.user_profile.avatar_url,
-                    width=16,
-                    height=16
-                )
-            }
-            list_users.append(_user)
+            list_users.append(self.serialize_user(user))
 
         return JsonResponse(data={
             'items': list_users
