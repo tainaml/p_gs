@@ -1,0 +1,40 @@
+.user-companies {
+    .perfil-actions {
+        padding: 10px 20px;
+        margin-top: 0;
+    }
+    .perfil-actions a {
+        padding-top: 10px;
+        padding-bottom: 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        color: #0160b0;
+        span { padding-left: 0 }
+        .sign-in {
+            visibility: visible;
+            color: #999797;
+            letter-spacing: -0.05em;
+            .text {
+                display: none;
+                margin-right: 5px;
+            }
+        }
+    }
+    .perfil-actions a:hover {
+        .sign-in { visibility: visible }
+    }
+}
+
+@media (min-width: $screen-xs-max) {
+    .user-companies {
+        .perfil-actions a {
+            .sign-in {
+                visibility: hidden;
+                .text {
+                    display: inline-block;
+                }
+            }
+        }
+    }
+}

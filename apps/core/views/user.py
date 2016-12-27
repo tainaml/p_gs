@@ -175,15 +175,11 @@ class CoreUserCompanies(CoreUserView):
     @method_decorator(login_required)
     def get(self, request, **kwargs):
 
-
+        if request.user.company:
+            raise Http404()
         context = {'profile': request.user.profile}
 
         return render(request, self.template_path, context)
-
-    def get_context(self, request, profile_instance=None):
-
-
-        return context
 
 
 class CoreProfileEdit(views.ProfileEditView):

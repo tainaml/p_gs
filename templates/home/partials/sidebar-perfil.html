@@ -24,20 +24,19 @@
     {% if request|is_pc %}
     <div class="widget widget-box">
         <div class="widget-content">
-            <ul class="perfil-actions">
-                <li><a href="{% url 'question:create' %}"><i class="gsticon gsticon-question-circle"></i> Perguntar</a></li>
-                <li><a href="{% url 'article:create' %}"><i class="gsticon gsticon-file-text"></i> Criar publicação</a></li>
-                <li {% if local_context == "profile-edit" %}class="active"{% endif %}><a href="{% url 'profile:edit' %}"><i class="gsticon gsticon-pencil"></i> Editar perfil</a></li>
-                <li {% if local_context == "posts-edit" %}class="active"{% endif %}><a href="{% url 'profile:edit-posts' %}"><i class="gsticon gsticon-pencil-square-o"></i> Editar Conteúdo</a></li>
-            </ul>
+            <div class="follower-content">
+                <ul class="list-unstyled clearfix">
+                    <li><a href="{% url 'question:create' %}"><i class="gsticon gsticon-question-circle"></i> Perguntar</a></li>
+                    <li><a href="{% url 'article:create' %}"><i class="gsticon gsticon-file-text"></i> Criar publicação</a></li>
+                    <li {% if local_context == "profile-edit" %}class="active"{% endif %}><a href="{% url 'profile:edit' %}"><i class="gsticon gsticon-pencil"></i> Editar perfil</a></li>
+                    <li {% if local_context == "posts-edit" %}class="active"{% endif %}><a href="{% url 'profile:edit-posts' %}"><i class="gsticon gsticon-pencil-square-o"></i> Editar Conteúdo</a></li>
+                </ul>
+
+
+            </div>
         </div>
     </div>
     {% endif %}
-
-    {% include 'userprofile/partials/companies.html' %}
-
-
-
 
     {% if request|is_pc %}
         <div class="widget widget-box">
@@ -58,7 +57,6 @@
             </ul>
         </div>
     </div>
-
     {% endif %}
 
 
