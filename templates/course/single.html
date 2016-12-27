@@ -33,12 +33,16 @@
           "brand": {
             "@type": "Organization",
             "name": "{{ instance.plataform.description }}"
-          },
+          }{% if instance.ratings %},
           "aggregateRating": {
             "@type": "AggregateRating",
             "ratingValue": "{{ instance.rating|stringformat:".2f" }}",
-            "reviewCount": "{{ instance.ratings.all.count }}"
+            "reviewCount": "{{ instance.ratings.all.count }}",
+            "bestRating": "5",
+            "worstRating": "0"
+
           }
+          {% endif %}
         }
     </script>
 {% endblock ld_json %}
