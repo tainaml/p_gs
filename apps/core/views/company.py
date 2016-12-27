@@ -46,6 +46,8 @@ class CompanyEditView(View):
             extra=1,
         )
 
+        members_formset = members_formset(data=request.POST if request.POST else None, instance=company)
+
         return {
             'form': self.form,
             'company': company,
