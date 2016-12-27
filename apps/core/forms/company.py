@@ -52,7 +52,7 @@ class CompanyForm(forms.ModelForm):
         labels = {
             'name': u'Nome da Organização',
             'website': 'URL',
-            'city': ''
+            'city': 'Cidade'
         }
 
     def save(self, commit=True):

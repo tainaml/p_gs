@@ -43,7 +43,7 @@ class CompanyEditView(View):
                 'user': widgets.HiddenInput,
                 'permission': widgets.HiddenInput
             },
-            extra=1,
+            extra=0,
         )
 
         members_formset = members_formset(data=request.POST if request.POST else None, instance=company)
@@ -95,5 +95,3 @@ class CompanyEditView(View):
             template_name=self.template_path,
             context=context
         )
-
-

@@ -34,7 +34,7 @@
         </div>
         <div class="col-sm-offset-2 col-sm-5 form-group">
 
-            {% render_field form.city data-toggle="input" %}
+            {# render_field form.city data-toggle="input" #}
 
         </div>
     </div>
@@ -45,21 +45,17 @@
             <label class="organization__form__label">Membros do Perfil</label>
             <div class="row">
                 <div class="col-sm-5 col-xs-9">
-                    <div class="">
-                        <select id="membership-user"
-                                data-module="ajaxselect"
-                                data-url="{% url 'profile:userlist' %}"
-                                class=""
-                                data-toggle="input"
-                                name="user"></select>
+                    <div class="customform">
+                        <select id="membership-user" class="customform-input" name="user" data-module="ajaxselect" data-url="{% url 'profile:userlist' %}"
+                        data-toggle="input"></select>
                         <hr>
                     </div>
                 </div>
                 <div class="col-sm-4 col-xs-9">
                     <div class="customform">
-                        <select id="membership-role" class="customform-input" name="role">
-                            <option value="">Administrador</option>
-                            <option value="">Colaborador</option>
+                        <select id="membership-permission" class="customform-input" name="permission">
+                            <option value="1">Administrador</option>
+                            <option value="2">Colaborador</option>
                         </select>
                         <hr>
                     </div>
@@ -68,9 +64,15 @@
                     <a id="membership-add" class="organization__form__btn btn btn-sm" href="#target" data-toggle="add-member">Adicionar</a>
                 </div>
             </div>
-            <div class="col-xs-12 organization__team">
+            <div class="row" data-toggle="formset" data-name="{{ members_formset.prefix }}">
+                {{ members_formset.management_form }}
+                {% for form in members_formset %}
 
-                {{ members_formset }}
+                    {{ form }}
+
+                {% endfor %}
+
+                {% include "organization/partials/organization-user.html" %}
 
             </div>
         </div>
