@@ -1124,6 +1124,7 @@ class CoreListUsersView(View):
             )
         }
 
+    @method_decorator(login_required)
     def get(self, request, user_id=None):
 
         users = User.objects.filter(

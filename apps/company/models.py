@@ -32,6 +32,9 @@ class Membership(models.Model):
 
     permission = models.PositiveSmallIntegerField(verbose_name=_("Permission"), choices=MEMBERSHIP_CHOICES, validators=[limit_to_membershiptypes])
 
+    class Meta:
+        unique_together = (('user', 'company', 'permission'),)
+
     def __unicode__(self):
         return u'{} - {}'.format(self.user, self.get_permission_display())
 

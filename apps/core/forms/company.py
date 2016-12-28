@@ -28,6 +28,8 @@ class CompanyForm(forms.ModelForm):
         widget=widgets.SelectMultiple(attrs={'class': 'shows'})
     )
 
+    request_user = None
+
     def __init__(self, *args, **kwargs):
 
         instance = kwargs.get('instance')
@@ -55,7 +57,11 @@ class CompanyForm(forms.ModelForm):
             'city': 'Cidade'
         }
 
+    def set_request_user(self, user):
+        self.request_user = user
+
     def save(self, commit=True):
+        self.instance.set_request_user(self.request_user)
         super(CompanyForm, self).save(commit)
 
         for tax in self.cleaned_data.get('categories', []):

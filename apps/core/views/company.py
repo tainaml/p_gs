@@ -17,8 +17,10 @@ class CompanyEditView(View):
     form_class = CompanyForm
     form = None
 
-    def get_company(self, company_id):
+    def get_company(self, company_id, request_user=None):
+
         company = None
+
         try:
             company = CompanyProxy.objects.get(id=company_id)
         except CompanyProxy.DoesNotExist, CompanyProxy.MultipleObjectsReturned:
@@ -46,7 +48,16 @@ class CompanyEditView(View):
             extra=0,
         )
 
-        members_formset = members_formset(data=request.POST if request.POST else None, instance=company)
+        initial = []
+
+        if not company:
+            initial = {
+                'user': request.user,
+                'permission': Membership.ADMIN
+            }
+
+
+        members_formset = members_formset(data=request.POST if request.POST else None, instance=company, initial=initial)
 
         return {
             'form': self.form,
@@ -57,7 +68,7 @@ class CompanyEditView(View):
 
     def get(self, request, company_id=None):
 
-        company = self.get_company(company_id)
+        company = self.get_company(company_id, request.user)
 
         self.form = self.form_class(
             instance=company
@@ -73,7 +84,7 @@ class CompanyEditView(View):
 
     def post(self, request, company_id=None):
 
-        company = self.get_company(company_id)
+        company = self.get_company(company_id, request.user)
 
         self.form = self.form_class(
             instance=company,
@@ -84,6 +95,7 @@ class CompanyEditView(View):
         context = self.get_context(request, company)
 
         if self.form.is_valid():
+            self.form.set_request_user(request.user)
             self.form.save()
 
             return redirect(

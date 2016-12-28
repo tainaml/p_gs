@@ -23,6 +23,8 @@ class CompanyProxy(Company):
 
     organizations = CompanyProxyManager()
 
+    request_user = None
+
     def create_user(self):
 
         if not self.user:
@@ -77,22 +79,37 @@ class CompanyProxy(Company):
         except Exception as e:
             print(e)
 
+
+    def process_permissions(self):
+
+        permissions = Membership.objects.filter(company=self)
+
+        # If dont have admins, set current user as admin
+        if permissions.filter(permission=Membership.ADMIN).count() == 0:
+            try:
+                current_user_in_list = permissions.get(user=self.request_user)
+                current_user_in_list.permission = Membership.ADMIN
+                current_user_in_list.save()
+            except Exception:
+                self.add_default_permission()
+
     def add_default_permission(self):
 
         member = Membership()
-        member.user = self.user
+        member.user = self.request_user
         member.company = self
         member.permission = Membership.ADMIN
         member.save()
+
+    def set_request_user(self, user):
+        self.request_user = user
 
     def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
 
         self.create_user()
         super(CompanyProxy, self).save(force_insert, force_update, using, update_fields)
 
-        if self.members.count() == 0:
-            self.add_default_permission()
-
+        self.process_permissions()
         self.update_user()
 
     @classmethod
