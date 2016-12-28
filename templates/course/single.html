@@ -8,6 +8,7 @@
 {% load core_tags %}
 {% block title %}{{ instance.title }}{% endblock title %}
 {% block seo-og-description %}{% block seo-description %}{{ instance.description|seo_description }}{% endblock %}{% endblock %}
+{% block seo-og-image %}{% if instance.image_or_default and instance.image_or_default.url  %}{% thumbor_url instance.image_or_default.url width=480 height=250 smart=False fit_in=False %}{% else %}{{ block.super }}{% endif %}{% endblock %}
 
 {% block content_old %}
 
@@ -33,12 +34,16 @@
           "brand": {
             "@type": "Organization",
             "name": "{{ instance.plataform.description }}"
-          },
+          }{% if instance.ratings %},
           "aggregateRating": {
             "@type": "AggregateRating",
             "ratingValue": "{{ instance.rating|stringformat:".2f" }}",
-            "reviewCount": "{{ instance.ratings.all.count }}"
+            "reviewCount": "{{ instance.ratings.all.count }}",
+            "bestRating": "5",
+            "worstRating": "0"
+
           }
+          {% endif %}
         }
     </script>
 {% endblock ld_json %}
