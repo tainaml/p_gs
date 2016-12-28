@@ -36,23 +36,23 @@ module.exports = ( name ) => {
     const formPrefix = $formset.data( 'name' )
     const formCount = parseInt(totalForms.val())
     let userTemplate = $formset.find( '.hidden.customform' ).clone(true)
-    userTemplate.find( childElementSelector ).each( (index, element) => {
-      updateElementIndex($(element), formPrefix, formCount)
-    })
 
 
     if ($user.val() && $role.val()) {
       userTemplate.find( '[name $='+$user.attr('name')+']' ).val( $user.val() )
       userTemplate.find( '[name $='+$role.attr('name')+']' ).val( $role.val() )
-      totalForms.val( formCount + 1);
-      userTemplate.removeClass( 'hidden' )
 
-      if ( usersId.indexOf($user.val()) > -1) {
-        console.log(usersId);
-      } else {
+      if ( !(usersId.indexOf($user.val()) > -1)) {
+        userTemplate.find( childElementSelector ).each( (index, element) => {
+          updateElementIndex($(element), formPrefix, formCount)
+        })
+        totalForms.val( formCount + 1)
+        $( userTemplate ).find( '[data-target="name"]').text( $user.text())
+        $( userTemplate ).find( '[data-target="role"]').text( $role.find('option:selected').text())
+        userTemplate.removeClass( 'hidden' )
         userTemplate.attr('id', $user.val())
         $formset.append( userTemplate )
-        usersId.push($user.val());
+        usersId.push($user.val())
       }
 
 
@@ -64,15 +64,12 @@ module.exports = ( name ) => {
   $formset.find( ':checkbox' ).on( 'change', ( event ) => {
     const $this = $( event.currentTarget )
     if ( $this.is( ':checked' )) {
-      for (var i = 0; i < usersId.length; i++) {
-
-        console.log(usersId[i],
-        $this.parent());
-        if ( usersId[i] == $this.parent().attr( 'id' )) {
-          usersId.splice(i, 1)
+      usersId.some( user => {
+        if ( user == $this.parent().attr( 'id' )) {
+          usersId.splice(usersId.indexOf(user), 1)
           $this.parent().hide()
         }
-      }
+      })
 
     }
   })

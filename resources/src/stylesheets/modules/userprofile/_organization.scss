@@ -76,6 +76,10 @@
   &__categories { margin-top: 20px }
 }
 
+.organization-members {
+  margin-top: 50px;
+}
+
 @media (max-width: $screen-xs-max) {
   .organization{
     &__register__tab {
