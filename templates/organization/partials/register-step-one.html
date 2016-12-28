@@ -46,7 +46,7 @@
             <div class="row">
                 <div class="col-sm-5 col-xs-9">
                     <div class="customform">
-                        <select id="membership-user" class="customform-input" name="user" data-module="ajaxselect" data-url="{% url 'profile:userlist' %}"
+                        <select id="membership-user" class="customform-input" name="user" data-module="ajaxselect" placeholder="Digite um nome" data-url="{% url 'profile:userlist' %}"
                         data-toggle="input"></select>
                         <hr>
                     </div>
@@ -64,7 +64,7 @@
                     <a id="membership-add" class="organization__form__btn btn btn-sm" href="#target" data-toggle="add-member">Adicionar</a>
                 </div>
             </div>
-            <div class="row" data-toggle="formset" data-name="{{ members_formset.prefix }}">
+            <div class="row organization-members" data-toggle="formset" data-name="{{ members_formset.prefix }}">
                 {{ members_formset.management_form }}
                 {% for form in members_formset %}
 
