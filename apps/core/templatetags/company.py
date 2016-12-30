@@ -7,13 +7,18 @@ register = template.Library()
 
 
 @register.inclusion_tag('organization/partials/organization-user-block.html', takes_context=True)
-def user_company_block(context, membership_id):
+def user_company_block(context, user_id, permission):
+
+    default_permission_name = Membership.MEMBERSHIP_TYPES.get(Membership.COLLABORATOR)
+    permission_name = Membership.MEMBERSHIP_TYPES.get(int(permission), default_permission_name)
 
     try:
-        membership = Membership.objects.get(id=membership_id)
+        user = User.objects.get(id=user_id)
+
     except Exception as e:
         return {}
 
     return {
-        'membership': membership
+        'user': user,
+        'permission_name': permission_name
     }
