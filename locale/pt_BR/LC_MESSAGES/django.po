@@ -277,7 +277,7 @@ msgstr "Isto não é um membro valido"
 #: apps/company/models.py:23 apps/company/models.py:28
 #| msgid "^admin/"
 msgid "Admin"
-msgstr "^admin-portal/"
+msgstr "Administrator"
 
 #: apps/company/models.py:24 apps/company/models.py:29
 msgid "Collaborator"
