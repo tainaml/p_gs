@@ -1,0 +1,83 @@
+{% load widget_tweaks %}
+
+<div class="col-sm-2 customform" data-module="dropzoneUploader"
+     data-original-image="{% if form.get_logo %}{{ form.get_logo.url }}{% endif %}">
+
+    <div class="customform-file" data-trigger="file">
+        <div class="custom-file-upload-result" data-content="file"></div>
+        <div class="customform-filecaption">Alterar foto</div>
+        <i class="gsticon gsticon-camera"></i>
+    </div>
+
+    {% render_field form.logo class="hidden" accept="image/*" %}
+
+</div>
+
+<div class="col-sm-9 form-group">
+
+    {% render_field form.name data-toggle="input" placeholder="Ex.: Portal GSTI" %}
+
+</div>
+
+<div class="col-sm-9 form-group">
+
+    {% render_field form.description data-toggle="input" placeholder="Escreva uma breve descrição da sua organização" %}
+
+</div>
+
+<div class="col-sm-offset-2 col-sm-9">
+    <div class="row">
+        <div class="col-sm-5 form-group">
+
+            {% render_field form.website data-toggle="input" %}
+
+        </div>
+        <div class="col-sm-offset-2 col-sm-5 form-group">
+
+            {# render_field form.city data-toggle="input" #}
+
+        </div>
+    </div>
+</div>
+<div class="col-sm-offset-2 col-sm-9">
+    <div class="row">
+        <div class="col-sm-12 form-group">
+            <label class="organization__form__label">Membros do Perfil</label>
+            <div class="row">
+                <div class="col-sm-5 col-xs-9">
+                    <div class="customform">
+                        <select id="membership-user" class="customform-input" name="user" data-module="ajaxselect" placeholder="Digite um nome" data-url="{% url 'profile:userlist' %}"
+                        data-toggle="input"></select>
+                        <hr>
+                    </div>
+                </div>
+                <div class="col-sm-4 col-xs-9">
+                    <div class="customform">
+                        <select id="membership-permission" class="customform-input" name="permission">
+                            <option value="1">Administrador</option>
+                            <option value="2">Colaborador</option>
+                        </select>
+                        <hr>
+                    </div>
+                </div>
+                <div class="col-sm-3 col-xs-12 text-right">
+                    <a id="membership-add" class="organization__form__btn btn btn-sm" href="#target" data-toggle="add-member">Adicionar</a>
+                </div>
+            </div>
+            <div class="row organization-members" data-toggle="formset" data-name="{{ members_formset.prefix }}">
+                {{ members_formset.management_form }}
+
+                {% for form in members_formset %}
+
+                    {% include "organization/partials/organization-user-edit.html" %}
+
+                {% endfor %}
+
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-sm-11 text-right">
+    <a role="tab" href="#step-two" class="btn btn-lg btn-green">Próximo</a>
+</div>

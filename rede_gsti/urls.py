@@ -56,6 +56,9 @@ urlpatterns = [
     # Translators: URL root de perfil de usuario
     url(_(r'^profile/'), include('apps.core.urls.user', namespace='profile')),
 
+    # Translators: URL root de company-organization
+    url(_(r'^organization/'), include('apps.core.urls.company', namespace='organization')),
+
     # Translators: URL de conta social
     url(_(r'^socialaccount/'), include('apps.socialaccount.urls', namespace='socialaccount')),
 

@@ -36,6 +36,17 @@ urlpatterns = [
     # Translators: URL de pagina de sucesso do wizard
     url(_(r'^bem-vindo/sucesso/$'), core_wizard.WizardSuccessView.as_view(), name='wizard-success'),
 
+
+    # Translators: URL carregamento assincrono de usuarios
+    url(_(r'^ajax/list/users$'), core_user.CoreListUsersView.as_view(), name='userlist'),
+
+    # Translators: URL carregamento assincrono de usuarios
+    url(_(r'^ajax/list/users/(?P<user_id>[0-9]+)/$'), core_user.CoreListUsersView.as_view(), name='userlist'),
+
+    # Translators: URL carregamento assincrono de usuarios
+    url(_(r'^dinamic-profile-image/(?P<user_id>[0-9]+)/(?P<size>[0-9]+)/$'), core_user.CoreDynamicUserImage.as_view(), name='user-image'),
+
+
     # # Translators: URL de passo 2 do wizard
     # url(_(r'^wizard/step/filter-categories$'), core_user.CoreProfileWizardStepTwoAjax.as_view(), name='wizard-step-filter-categories-ajax'),
     #
@@ -161,4 +172,5 @@ urlpatterns = [
 
     # Translators: URL de carregamento assincrono de comunidades do usuario
     url(_(r'^ajax/user/communities/$'), core_user.CoreUserCommunitiesListAjax.as_view(), name='user-communities-ajax'),
+
 ]

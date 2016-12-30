@@ -13,9 +13,11 @@ import './modules/ideiaNotification/'
 import './modules/ideiaRestrict/'
 import './modules/ideiaValidationField/'
 import './modules/ideiaEditor/'
-import './components/professions'
-import './components/videos'
-import './components/courses'
+import './components'
+// import './components/professions'
+// import './components/videos'
+// import './components/courses'
+// import './components/organization'
 import Slideout from 'slideout'
 
 
@@ -75,7 +77,7 @@ $(function () {
         e.preventDefault();
         mobileSearch.slideToggle();
 
-        if (mobileSearch.is(':visible')) {
+        if ( mobileSearch.is(':visible') ) {
             inputSearch.focus();
         } else {
             inputSearch.blur();

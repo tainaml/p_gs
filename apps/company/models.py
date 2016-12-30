@@ -1,12 +1,10 @@
 from __future__ import unicode_literals
-from datetime import datetime
-import os
 from django.core.exceptions import ValidationError
-from django.template.defaultfilters import slugify
 from django.utils.translation import ugettext as _
 from django.db import models
 from django.conf import settings
 from apps.taxonomy.models import Taxonomy
+from apps.geography.models import City
 
 
 def limit_to_membershiptypes(value):
@@ -34,6 +32,9 @@ class Membership(models.Model):
 
     permission = models.PositiveSmallIntegerField(verbose_name=_("Permission"), choices=MEMBERSHIP_CHOICES, validators=[limit_to_membershiptypes])
 
+    class Meta:
+        unique_together = (('user', 'company', 'permission'),)
+
     def __unicode__(self):
         return u'{} - {}'.format(self.user, self.get_permission_display())
 
@@ -43,16 +44,17 @@ class CompanyManager(models.Manager):
         return super(CompanyManager, self).get_queryset().select_related('user', 'user__profile')
 
 class Company(models.Model):
+
+    objects = CompanyManager()
+
     name = models.CharField(blank=False, null=False, max_length=255, verbose_name=_('Name'))
     logo = models.ImageField(max_length=100, upload_to='company/%Y/%m/%d', blank=True, verbose_name=_('Logo'))
     user = models.OneToOneField(settings.AUTH_USER_MODEL, related_name='company', blank=True, null=True)
     members = models.ManyToManyField(settings.AUTH_USER_MODEL, through="Membership", related_name="companies")
     description = models.TextField(blank=False, null=False, verbose_name=_('Description'))
-
-    objects = CompanyManager()
+    city = models.ForeignKey(to=City, blank=True, null=True, verbose_name=_('City'))
 
     website = models.URLField(verbose_name=_('Website'), blank=True, null=True)
-
 
     taxonomies = models.ManyToManyField(Taxonomy, verbose_name=_("Taxonomies"), related_name="companies")
 
