@@ -30,6 +30,9 @@ section: Default
     transition: all 300ms;
 
     &.no-rounded { border-radius: 0 }
+    &.no-check {
+      background: none !important;
+    }
     &.no-bordered {
       padding: 0;
       border: none;

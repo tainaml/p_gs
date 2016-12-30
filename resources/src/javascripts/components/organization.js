@@ -32,13 +32,15 @@ module.exports = ( name ) => {
     })
   })
 
+  $formset.find('[data-id]').each(( index, element ) => {
+    usersId.push( $(element).data( 'id' ))
+  })
+
   $addMember.on( 'click', ( event ) => {
     const $this = $( event.currentTarget )
     const formPrefix = $formset.data( 'name' )
     const formCount = parseInt(totalForms.val())
     let userTemplate = $templateOrganizationUser.clone(true)
-
-    console.dir(totalForms)
 
 
     if ($user.val() && $role.val()) {
@@ -54,34 +56,33 @@ module.exports = ( name ) => {
         totalForms.val( formCount + 1)
         $( userTemplate ).find( '[data-target="name"]').text( $user.text())
         $( userTemplate ).find( '[data-target="role"]').text( $role.find('option:selected').text())
+        $( userTemplate ).find( 'img').attr( 'src', `${location.origin}/perfil/dinamic-profile-image/${$user.val()}/70/`)
         userTemplate.removeClass( 'hidden' )
-        userTemplate.attr('id', $user.val())
+        userTemplate.data( 'id', $user.val())
         $formset.append( userTemplate )
         usersId.push($user.val())
       }
-
 
     } else {
       alert( 'empty' )
     }
   })
 
-  $formset.find( ':checkbox' ).on( 'change', ( event ) => {
+  $formset.on( 'click', '.gsticon.gsticon-close', ( event ) => {
     const $this = $( event.currentTarget )
-    if ( $this.is( ':checked' )) {
+    const _user = $this.parent().parent();
       usersId.some( user => {
-        if ( user == $this.parent().attr( 'id' )) {
+        console.log(user);
+        if ( user == _user.data( 'id' )) {
           usersId.splice(usersId.indexOf(user), 1)
-          $this.parent().hide()
+          _user.hide()
         }
       })
 
-    }
   })
 };
 
 function updateElementIndex(elem, prefix, ndx) {
-  console.log(elem, prefix, ndx)
   const idRegex = new RegExp(prefix + '-(\\d+|__prefix__)-'),
       replacement = prefix + '-' + ndx + '-';
   if (elem.attr("for")) elem.attr("for", elem.attr("for").replace(idRegex, replacement));
