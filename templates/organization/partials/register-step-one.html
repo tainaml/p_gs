@@ -10,18 +10,21 @@
     </div>
 
     {% render_field form.logo class="hidden" accept="image/*" %}
+    {% if form.logo.errors %}{{ form.logo.errors }}{% endif %}
 
 </div>
 
 <div class="col-sm-9 form-group">
 
     {% render_field form.name data-toggle="input" placeholder="Ex.: Portal GSTI" %}
+    {% if form.name.errors %}{{ form.name.errors }}{% endif %}
 
 </div>
 
 <div class="col-sm-9 form-group">
 
     {% render_field form.description data-toggle="input" placeholder="Escreva uma breve descrição da sua organização" %}
+    {% if form.description.errors %}{{ form.description.errors }}{% endif %}
 
 </div>
 
@@ -30,6 +33,7 @@
         <div class="col-sm-5 form-group">
 
             {% render_field form.website data-toggle="input" %}
+            {% if form.website.errors %}{{ form.website.errors }}{% endif %}
 
         </div>
         <div class="col-sm-offset-2 col-sm-5 form-group">

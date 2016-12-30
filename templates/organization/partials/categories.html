@@ -17,5 +17,7 @@
 
         {% endfor %}
 
+        {% if form.categories.errors %}{{ form.categories.errors }}{% endif %}
+
     </div>
 </div>
