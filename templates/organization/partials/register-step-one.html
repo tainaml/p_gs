@@ -66,13 +66,13 @@
             </div>
             <div class="row organization-members" data-toggle="formset" data-name="{{ members_formset.prefix }}">
                 {{ members_formset.management_form }}
+
                 {% for form in members_formset %}
 
-                    {{ form }}
+                    {% include "organization/partials/organization-user-edit.html" %}
 
                 {% endfor %}
 
-                {% include "organization/partials/organization-user.html" %}
 
             </div>
         </div>

@@ -1,9 +1,11 @@
 from apps.community.models import Community
 from apps.core.business.user import get_user_communities_list_from_queryset
 from django import forms
+from django.contrib.auth.decorators import login_required
 from django.forms import widgets
 from django.shortcuts import render
 from django.urls import reverse
+from django.utils.decorators import method_decorator
 from django.views import View
 from apps.core.models.company import CompanyProxy
 from apps.company.models import Membership
@@ -16,6 +18,7 @@ class CompanyEditView(View):
     template_path = 'organization/register.html'
     form_class = CompanyForm
     form = None
+    members_formset = None
 
     def get_company(self, company_id, request_user=None):
 
@@ -48,24 +51,18 @@ class CompanyEditView(View):
             extra=0,
         )
 
-        initial = []
+        formset_data = request.POST if request.POST else None
 
-        if not company:
-            initial = {
-                'user': request.user,
-                'permission': Membership.ADMIN
-            }
-
-
-        members_formset = members_formset(data=request.POST if request.POST else None, instance=company, initial=initial)
+        self.members_formset = members_formset(data=formset_data, instance=company)
 
         return {
             'form': self.form,
             'company': company,
-            'members_formset': members_formset,
+            'members_formset': self.members_formset,
             'communities': communities_list
         }
 
+    @method_decorator(login_required)
     def get(self, request, company_id=None):
 
         company = self.get_company(company_id, request.user)
@@ -82,6 +79,7 @@ class CompanyEditView(View):
             context=context
         )
 
+    @method_decorator(login_required)
     def post(self, request, company_id=None):
 
         company = self.get_company(company_id, request.user)
@@ -94,9 +92,11 @@ class CompanyEditView(View):
 
         context = self.get_context(request, company)
 
-        if self.form.is_valid():
+        if self.form.is_valid() and self.members_formset.is_valid():
             self.form.set_request_user(request.user)
             self.form.save()
+
+            self.members_formset.save()
 
             return redirect(
                 reverse('organization:edit', args=[self.form.instance.id])

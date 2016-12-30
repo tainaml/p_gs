@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
@@ -7,7 +8,7 @@ from django.views.generic import View
 from apps.core.forms.account import CoreDeactivateAccountForm
 
 from apps.core.forms.configuration import ConfigNotificationsForm
-from ..business import configuration as BusinessConfig# -*- coding: utf-8 -*-
+from ..business import configuration as BusinessConfig
 
 
 class CoreSettingsBaseView(View):

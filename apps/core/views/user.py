@@ -1153,3 +1153,27 @@ class CoreListUsersView(View):
         return JsonResponse(data={
             'items': list_users
         })
+
+class CoreDynamicUserImage(View):
+
+    @method_decorator(login_required)
+    def get(self, request, user_id, size=40):
+        if not user_id:
+            raise Http404()
+
+        if int(size) > 100:
+            raise Http404('Invalid size')
+
+        try:
+            user = User.objects.get(
+                id=user_id,
+                usertype=User.PERSON,
+                is_active=True
+            )
+
+            image_url = django_thumbor.generate_url(user.user_profile.avatar_url, width=size)
+
+            return redirect(to=image_url)
+
+        except Exception as e:
+            raise Http404('Not found {}', e)

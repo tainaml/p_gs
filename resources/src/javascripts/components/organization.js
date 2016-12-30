@@ -10,6 +10,7 @@ module.exports = ( name ) => {
   const $user = $( '[name="user"]' )
   const $role = $( '[name="permission"]' )
   const $formset = $root.find( '[data-toggle="formset"]' )
+  const $templateOrganizationUser = $('#template-organization-user')
   const $addMember = $root.find( '[data-toggle="add-member"]' )
   const totalForms = $('#id_' + $formset.data( 'name' ) + '-TOTAL_FORMS')
   const maxForms = $('#id_' + $formset.data( 'name' ) + '-MAX_NUM_FORMS')
@@ -35,12 +36,16 @@ module.exports = ( name ) => {
     const $this = $( event.currentTarget )
     const formPrefix = $formset.data( 'name' )
     const formCount = parseInt(totalForms.val())
-    let userTemplate = $formset.find( '.hidden.customform' ).clone(true)
+    let userTemplate = $templateOrganizationUser.clone(true)
+
+    console.dir(totalForms)
 
 
     if ($user.val() && $role.val()) {
       userTemplate.find( '[name $='+$user.attr('name')+']' ).val( $user.val() )
       userTemplate.find( '[name $='+$role.attr('name')+']' ).val( $role.val() )
+      userTemplate.removeAttr('id')
+      userTemplate.removeProp('id')
 
       if ( !(usersId.indexOf($user.val()) > -1)) {
         userTemplate.find( childElementSelector ).each( (index, element) => {
@@ -76,6 +81,7 @@ module.exports = ( name ) => {
 };
 
 function updateElementIndex(elem, prefix, ndx) {
+  console.log(elem, prefix, ndx)
   const idRegex = new RegExp(prefix + '-(\\d+|__prefix__)-'),
       replacement = prefix + '-' + ndx + '-';
   if (elem.attr("for")) elem.attr("for", elem.attr("for").replace(idRegex, replacement));
