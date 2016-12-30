@@ -14,10 +14,10 @@ class ResponsibilityAdminForm(forms.ModelForm):
     class Meta:
         exclude = ()
         widgets = {
-            'about': SummernoteWidget(editor_conf='responsibility', load_init=False),
-            'study': SummernoteWidget(editor_conf='responsibility', load_init=False),
-            'main_activity': SummernoteWidget(editor_conf='responsibility', load_init=False),
-            'more_info': SummernoteWidget(editor_conf='responsibility', load_init=False),
+            'about': SummernoteWidget(editor_conf='responsibility'),
+            'study': SummernoteWidget(editor_conf='responsibility'),
+            'main_activity': SummernoteWidget(editor_conf='responsibility'),
+            'more_info': SummernoteWidget(editor_conf='responsibility'),
         }
 
 class ResponsibilityAdmin(admin.ModelAdmin):
@@ -25,28 +25,6 @@ class ResponsibilityAdmin(admin.ModelAdmin):
     form = ResponsibilityAdminForm
 
     filter_horizontal  = ('categories',)
-
-    fieldsets = (
-        (None, {
-            'fields': ('name', 'slug', 'active', 'categories')
-        }),
-
-        ('About', {
-            'fields': ('about',)
-        }),
-
-        ('Study', {
-            'fields': ('study',)
-        }),
-
-        ('Main Activity', {
-            'fields': ('main_activity',)
-        }),
-
-        ('More Info', {
-            'fields': ('more_info',)
-        }),
-    )
 
 
 class UserProfileAdmin(admin.ModelAdmin):
