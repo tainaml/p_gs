@@ -56,9 +56,6 @@ class JobVacancyAdmin(admin.ModelAdmin):
 
     list_display = ('title', 'show_salary', 'show_cargo', 'company', 'regime', 'workload', 'quantity', 'home_office')
 
-    def view_on_site(self, obj):
-
-        return reverse('jobs:detail', args=[obj.slug, obj.id])
 
     inlines = [
         JobVacancyLocationInLine,
