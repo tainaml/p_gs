@@ -11,5 +11,5 @@ def __redirect_jobs_index(response):
 
 urlpatterns = [
     url(r'^$', __redirect_jobs_index, name='index'),
-    url(r'^/(?P<slug>[a-z0-9./]+(?:(-|_)[a-z0-9.]+)*)/d+$', JobDetailView.as_view(), name='detail'),
+    url(r'^(?P<slug>[a-z0-9./]+(?:(-|_)[a-z0-9.]+)*)/d+$', JobDetailView.as_view(), name='detail'),
 ]
