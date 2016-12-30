@@ -28,10 +28,11 @@ def ideia_field_wraper(field):
 
 def ideia_wrapper_render(render_func, field=None, label=None):
 
-    def render_label(name, label):
-        return mark_safe(u'<label class="customform-label" for="{name}">{label_html}</label>'.format(
+    def render_label(name, label, active=''):
+        return mark_safe(u'<label class="customform-label {active}" for="{name}">{label_html}</label>'.format(
             name=name,
-            label_html=label
+            label_html=label,
+            active=active
         ))
 
     def render(name, value, attrs=None):
@@ -42,12 +43,19 @@ def ideia_wrapper_render(render_func, field=None, label=None):
             'class': '{} {}'.format('customform-input', attrs.get('class', ''))
         })
 
+        if value:
+            attrs.update({
+                'class': '{} {}'.format(attrs.get('class', ''), 'active')
+            })
+
+        active_class = 'active' if value else ''
+
         if field and field.custom_label:
 
-            label_html = render_label(name, field.custom_label)
+            label_html = render_label(name, field.custom_label, active=active_class)
 
         if label:
-            label_html = render_label(name, label)
+            label_html = render_label(name, label, active=active_class)
 
         new_html = u'<div class="customform">\r\n{widget}\r\n<hr>{label}</div>'.format(
             widget=render_func(name, value, attrs),
