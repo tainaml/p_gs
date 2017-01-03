@@ -7,7 +7,6 @@ from ideia_summernote.widget import SummernoteWidget
 from apps.core.models.course import Course, Curriculum
 from apps.core.models.plataform import Plataform
 from django.contrib.contenttypes.admin import GenericStackedInline
-from apps.core.widgets import AdminSummernoteWidget
 
 
 class CurruculumAdminInlineForm(forms.ModelForm):

@@ -35,8 +35,7 @@ handler500 = "apps.core.views.errors.handler500"
 url_statics = static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 url_media = static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 url_search_all = [url(r'(?P<params>.*)$', CoreSearch.SearchAll.as_view(), name='search_all')]
-url_job_vacancy = url(_(r'^jobs/'), include('apps.core.urls.jobs_temporary', namespace='jobs'))\
-                   if settings.ENVIRONMENT == 'production' else url(_(r'^jobs/'), include('apps.job_vacancy.urls', namespace='jobs'))
+url_job_vacancy = url(_(r'^jobs/'), include('apps.job_vacancy.urls', namespace='jobs'))
 
 urlpatterns = [
 
@@ -111,7 +110,7 @@ urlpatterns = [
     url(_(r'^settings/'), include('apps.core.urls.configuration', namespace='configuration')),
 
 
-    # Translators: URL root de feed
+    # Translators: URL root de fe   ed
     url(_(r'^feed/'), include('apps.core.urls.feed', namespace='feed')),
 
     # Translators: URL root de amp
