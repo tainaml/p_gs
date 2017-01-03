@@ -9,6 +9,7 @@ class ContactInLine(admin.TabularInline):
     model = CompanyContact
 
 class CompanyAdmin(admin.ModelAdmin):
+    raw_id_fields = ['user', 'city']
 
     inlines = [
             ContactInLine,

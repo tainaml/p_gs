@@ -1,5 +1,4 @@
 from django.forms import widgets
-from django.utils.html import format_html
 from django.utils.safestring import mark_safe
 
 IDEIA_AVAIABLE_FIELDS = [
