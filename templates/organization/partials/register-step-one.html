@@ -23,7 +23,7 @@
 
 <div class="col-sm-9 form-group">
 
-    {% render_field form.description data-toggle="input" placeholder="Escreva uma breve descrição da sua organização" %}
+    {% render_field form.description data-toggle="input" rows="1" placeholder="Escreva uma breve descrição da sua organização" %}
     {% if form.description.errors %}{{ form.description.errors }}{% endif %}
 
 </div>

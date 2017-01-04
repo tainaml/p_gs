@@ -48,7 +48,7 @@ class Company(models.Model):
     objects = CompanyManager()
 
     name = models.CharField(blank=False, null=False, max_length=255, verbose_name=_('Name'))
-    logo = models.ImageField(max_length=100, upload_to='company/%Y/%m/%d', blank=True, verbose_name=_('Logo'))
+    logo = models.ImageField(max_length=100, upload_to='company/%Y/%m/%d', blank=False, verbose_name=_('Logo'))
     user = models.OneToOneField(settings.AUTH_USER_MODEL, related_name='company', blank=True, null=True)
     members = models.ManyToManyField(settings.AUTH_USER_MODEL, through="Membership", related_name="companies")
     description = models.TextField(blank=False, null=False, verbose_name=_('Description'))

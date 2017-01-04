@@ -17,7 +17,7 @@
 
     </ul>
     {% endif %}
-    {% if profile.user.companies.al|length > 3 %}
+    {% if profile.user.companies.all|length > 3 %}
         <a class="showmore" href="{% url "profile:companies" %}">
             Mais
         </a>

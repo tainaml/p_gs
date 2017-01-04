@@ -175,7 +175,7 @@ class CoreUserCompanies(CoreUserView):
     @method_decorator(login_required)
     def get(self, request, **kwargs):
 
-        if request.user.company:
+        if hasattr(request.user, "company"):
             raise Http404()
         context = {'profile': request.user.profile}
 

@@ -32,7 +32,9 @@
                             {% for company in profile.user.companies.all %}
                                 <li><a href="{% url 'account:login_with_company' company.user.username %}">
                                     <span>
-                                        <img src="http://placehold.it/48" alt="">
+                                       {% if company.logo %}
+                                            <img src="{% thumbor_url company.logo.url width=20 height=20 smart=False fit_in=False %}" alt="">
+                                    {% endif %}
                                         {{ company }}
                                     </span>
                                     <span class="sign-in">

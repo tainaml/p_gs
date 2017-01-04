@@ -23,16 +23,21 @@
         <span>{% articles_count profile.user as articles_count_value %}{{ articles_count_value }} Publicaç{{ articles_count_value|pluralize:"ão,ões" }}
         </span>
     </div>
-    {% if profile.user.company %}
-    <a class="profile__sidebar__website" href="{{ profile.user.company.website }}" rel="nofollow" target="_blank">
-        <i class="gsticon gsticon-link"></i> {{ profile.user.company.website|slice:"150" }}
-    </a>
-    <ul class="user__pages__list">
-        <li class="user__pages__page"><a href="{% url 'account:relogin' %}">
-            <img src="{% thumbor_url request.session.before_user_image width=20 height=20 smart=False fit_in=False %}" alt="Image de {{ request.session.before_user_full_name }}">
-            {{ request.session.before_user_full_name }}
-        </a></li>
-    </ul>
+    {% if profile.user.is_company %}
+         {% if profile.user.company.website %}
+                <a class="profile__sidebar__website" href="{{ profile.user.company.website }}" rel="nofollow" target="_blank">
+                <i class="gsticon gsticon-link"></i> {{ profile.user.company.website|slice:"150" }}
+            </a>
+         {% endif %}
+
+            <ul class="user__pages__list">
+                <li class="user__pages__page"><a href="{% url 'account:relogin' %}">
+                    <img src="{% thumbor_url request.session.before_user_image width=20 height=20 smart=False fit_in=False %}" alt="Image de {{ request.session.before_user_full_name }}">
+                    {{ request.session.before_user_full_name }}
+                </a></li>
+            </ul>
+
+
     {% if profile.has_locale %}
     <span class="profile__sidebar__locale">
         <i class="gsticon gsticon-map-marker"></i> {{ profile.locale }}
