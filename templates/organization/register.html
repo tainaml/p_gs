@@ -13,29 +13,26 @@
             </div>
         </div>
         <div class="row organization">
-            <form class="col-sm-offset-1 col-sm-10" method="post" enctype="multipart/form-data">
+            <form class="col-sm-offset-1 col-sm-10" method="post" enctype="multipart/form-data" data-toggle="form">
 
                 {% csrf_token %}
 
                 {{ form.non_field_errors }}
 
-                <fieldset class="row organization__register" data-toggle="tab">
+                <fieldset class="row organization__register" data-toggle="steps">
                     <legend class="organization__register__title">Cadastro de Organização</legend>
-                    <div class="col-sm-offset-2 col-sm-9 organization__register__tablist" role="tablist">
+                    <div class="organization__register__tablist" role="tablist">
                         <a class="organization__register__tab active" href="#step-one" role="tab">
                             <i class="gsticon gsticon-user"></i>
                             Passo 1
                         </a>
+                        <div class="organization__register__panel col-sm-12 active" id="step-one" role="tabpanel">
+                            {% include "organization/partials/register-step-one.html" %}
+                        </div>
                         <a class="organization__register__tab" href="#step-two" role="tab">
                             <i class="gsticon gsticon-gear"></i>
                             Passo 2
                         </a>
-                    </div>
-                    <div class="clearfix"></div>
-                    <div class="row organization__form">
-                        <div class="organization__register__panel col-sm-12 active" id="step-one" role="tabpanel">
-                            {% include "organization/partials/register-step-one.html" %}
-                        </div>
                         <div class="organization__register__panel col-sm-12" id="step-two" role="tabpanel">
                             {% include "organization/partials/register-step-two.html" %}
                         </div>
@@ -48,19 +45,3 @@
         </div>
     </main>
 {% endblock content %}
-
-{% block javascripts %}
-
-    {{ block.super }}
-
-    <script>
-
-        $(document).on('click', '#membership-add', function(e){
-
-            e.preventDefault();
-
-        });
-
-    </script>
-
-{% endblock %}

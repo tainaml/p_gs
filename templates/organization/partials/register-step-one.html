@@ -1,6 +1,6 @@
 {% load widget_tweaks %}
 
-<div class="col-sm-2 customform" data-module="dropzoneUploader"
+<div class="col-sm-2 customform" data-toggle="dropzoneUploader"
      data-original-image="{% if form.get_logo %}{{ form.get_logo.url }}{% endif %}">
 
     <div class="customform-file" data-trigger="file">
@@ -50,7 +50,7 @@
             <div class="row">
                 <div class="col-sm-5 col-xs-9">
                     <div class="customform">
-                        <select id="membership-user" class="customform-input" name="user" data-module="ajaxselect" placeholder="Digite um nome" data-url="{% url 'profile:userlist' %}"
+                        <select id="membership-user" class="customform-input" name="user" data-select="ajaxselect" placeholder="Digite um nome" data-url="{% url 'profile:userlist' %}"
                         data-toggle="input"></select>
                         <hr>
                     </div>
@@ -81,7 +81,4 @@
             </div>
         </div>
     </div>
-</div>
-<div class="col-sm-11 text-right">
-    <a role="tab" href="#step-two" class="btn btn-lg btn-green">Próximo</a>
 </div>

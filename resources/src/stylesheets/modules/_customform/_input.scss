@@ -18,6 +18,7 @@ My ``styleguide`` includes two predefined **button** styles, each serving its ow
 $input-color: #616161 !default;
 $input-active-color: #0160b0 !default;
 $input-border-color: #bfbfbf !default;
+$input-error-color: #f00 !default;
 
 .customform {
   position: relative;
@@ -110,5 +111,13 @@ $input-border-color: #bfbfbf !default;
     border: none;
     padding: 0;
     box-shadow: none;
+  }
+  label.error {
+    position: absolute;
+    width: 100%;
+    left: 0;
+    bottom: -20px;
+    font-size: 10px;
+    color: $input-error-color;
   }
 }
