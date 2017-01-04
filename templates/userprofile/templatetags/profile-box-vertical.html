@@ -23,6 +23,7 @@
         <span>{% articles_count profile.user as articles_count_value %}{{ articles_count_value }} Publicaç{{ articles_count_value|pluralize:"ão,ões" }}
         </span>
     </div>
+
     {% if profile.user.company %}
     <a class="profile__sidebar__website" href="{{ profile.user.company.website }}" rel="nofollow" target="_blank">
         <i class="gsticon gsticon-link"></i> {{ profile.user.company.website|slice:"150" }}
@@ -33,6 +34,7 @@
             {{ request.session.before_user_full_name }}
         </a></li>
     </ul>
+
     {% if profile.has_locale %}
     <span class="profile__sidebar__locale">
         <i class="gsticon gsticon-map-marker"></i> {{ profile.locale }}
@@ -51,10 +53,15 @@
     {% endif %}
 </div>
 {% if profile.isContributor %}<div class="banner-collaborator">Colaborador do Portal GSTI</div>{% endif %}
-{%  if profile.description %}
+
 <div class="follower-content">
     <ul class="list-unstyled clearfix">
-
+        {% if request.user != profile.user %}
+        <li>
+            {% follow_action profile.user request.path "btn-follow" %}
+        </li>
+        {% endif %}
+    {%  if profile.description %}
         <li class="tiny">
               <i class="gsticon gsticon-user"></i>
               Sobre
@@ -63,8 +70,8 @@
                 {{ profile.description }}
               </div>
         </li>
+    {% endif %}
 
 
     </ul>
 </div>
-{% endif %}
