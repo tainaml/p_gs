@@ -1,0 +1,21 @@
+{% extends 'home/layout/base.html' %}
+
+{% load ads %}
+
+{% block title %}Registro de Vaga{% endblock title %}
+
+{% block content %}
+<main class="container main">
+    <div class="row">
+        <form class="col-sm-offset-1 col-sm-10">
+            <fieldset class="organization__register">
+                <legend class="organization__register__title">Cadastro de vaga de trabalho</legend>
+                <div class="col-sm-offset-1 col-sm-10 steps">
+                    {% include "front_end/job/partials/basic.html" %}
+                    {% include "front_end/job/partials/vaga.html" %}
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</main>
+{% endblock content %}

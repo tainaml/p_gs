@@ -42,6 +42,10 @@ module.exports = ( name ) => {
       ajaxselect( $('[data-select="ajaxselect"]') )
       taxonomy( $('[data-select="taxonomy"]') )
       dropzoneUploader( $('[data-toggle="dropzoneUploader"]') )
+      $formset.find('[data-id]').each(( index, element ) => {
+        usersId.push( $(element).data( 'id' ))
+      })
+
       $root.find( '[data-toggle="add-member"]' ).on( 'click', ( event ) => {
         const $this = $( event.currentTarget )
         const formPrefix = $formset.data( 'name' )
@@ -52,7 +56,8 @@ module.exports = ( name ) => {
           userTemplate.find( '[name $='+$role.attr('name')+']' ).val( $role.val() )
           userTemplate.removeAttr('id')
           userTemplate.removeProp('id')
-          if ( !(usersId.indexOf($user.val()) > -1)) {
+          let userValue = parseInt($user.val(), 10)
+          if ( !(usersId.indexOf(userValue) > -1)) {
             userTemplate.find( childElementSelector ).each( (index, element) => {
               updateElementIndex($(element), formPrefix, formCount)
             })
@@ -63,15 +68,11 @@ module.exports = ( name ) => {
             userTemplate.removeClass( 'hidden' )
             userTemplate.data( 'id', $user.val())
             $formset.append( userTemplate )
-            usersId.push($user.val())
+            usersId.push(userValue)
           }
-        } else {
-          alert( 'empty' )
         }
       })
-      $formset.find('[data-id]').each(( index, element ) => {
-        usersId.push( $(element).data( 'id' ))
-      })
+
       $formset.on( 'click', '.gsticon.gsticon-close', ( event ) => {
         const $this = $( event.currentTarget )
         const _user = $this.parent().parent();
