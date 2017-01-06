@@ -16,14 +16,14 @@
 
 <div class="col-sm-9 form-group">
 
-    {% render_field form.name data-toggle="input" placeholder="Ex.: Portal GSTI" %}
+    {% render_field form.name data-toggle="input" placeholder="Ex.: Portal GSTI" data-msg="Este campo é obrigatório" %}
     {% if form.name.errors %}{{ form.name.errors }}{% endif %}
 
 </div>
 
 <div class="col-sm-9 form-group">
 
-    {% render_field form.description data-toggle="input" rows="1" placeholder="Escreva uma breve descrição da sua organização" %}
+    {% render_field form.description data-toggle="input" rows="1" placeholder="Escreva uma breve descrição da sua organização" data-msg="Este campo é obrigatório" %}
     {% if form.description.errors %}{{ form.description.errors }}{% endif %}
 
 </div>
@@ -32,7 +32,7 @@
     <div class="row">
         <div class="col-sm-5 form-group">
 
-            {% render_field form.website data-toggle="input" %}
+            {% render_field form.website data-toggle="input"  %}
             {% if form.website.errors %}{{ form.website.errors }}{% endif %}
 
         </div>
