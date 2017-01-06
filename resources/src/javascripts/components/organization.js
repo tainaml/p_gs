@@ -20,6 +20,7 @@ module.exports = ( name ) => {
   $steps.children( '[role="tablist"]' ).steps({
     headerTag: '.organization__register__tab',
     bodyTag: '[role="tabpanel"]',
+    enableAllSteps: true,
     transitionEffect: 'slideLeft',
     titleTemplate: '#title#',
     labels: {
