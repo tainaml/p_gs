@@ -20,7 +20,7 @@
                 {{ form.non_field_errors }}
 
                 <fieldset class="row organization__register" data-toggle="steps">
-                    <legend class="organization__register__title">Cadastro de Organização</legend>
+                    <legend class="organization__register__title">{% if form.instance and form.instance.id %}Editar{% else %}Cadastrar{% endif %} Organização</legend>
                     <div class="organization__register__tablist" role="tablist">
                         <a class="organization__register__tab active" href="#step-one" role="tab">
                             <i class="gsticon gsticon-user"></i>

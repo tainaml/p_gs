@@ -96,11 +96,7 @@ class CompanyEditView(View):
             self.form.set_request_user(request.user)
             self.form.save()
 
-            self.members_formset.save(commit=False)
-            for subform in self.members_formset:
-                subform.save(commit=False)
-                subform.instance.company = self.form.instance
-                subform.instance.save()
+            self.members_formset.save()
 
             return redirect(
                 reverse('organization:edit', args=[self.form.instance.id])

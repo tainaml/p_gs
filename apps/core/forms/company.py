@@ -18,6 +18,8 @@ class TaxonomyModelChoiceField(forms.ModelMultipleChoiceField):
 @ideia_custom_fielder()
 class CompanyForm(forms.ModelForm):
 
+
+
     categories = TaxonomyModelChoiceField(
         queryset=CompanyProxy.list_categories(),
         widget=widgets.CheckboxSelectMultiple(attrs={'class': 'hidden'})
@@ -55,6 +57,9 @@ class CompanyForm(forms.ModelForm):
             'name': u'Nome da Organização',
             'website': 'URL',
             'city': 'Cidade'
+        }
+        widgets = {
+            "logo": forms.FileInput,
         }
 
     def set_request_user(self, user):

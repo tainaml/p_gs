@@ -1,7 +1,7 @@
 {% load widget_tweaks %}
 
 <div class="col-sm-2 customform" data-toggle="dropzoneUploader"
-     data-original-image="{% if form.get_logo %}{{ form.get_logo.url }}{% endif %}">
+     data-original-image="{% if form.instance and form.instance.logo %}{{ form.instance.logo.url }}{% endif %}">
 
     <div class="customform-file" data-trigger="file">
         <div class="custom-file-upload-result" data-content="file"></div>
@@ -37,8 +37,6 @@
 
         </div>
         <div class="col-sm-offset-2 col-sm-5 form-group">
-
-            {# render_field form.city data-toggle="input" #}
 
         </div>
     </div>
