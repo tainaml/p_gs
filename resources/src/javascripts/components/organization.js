@@ -26,7 +26,7 @@ module.exports = ( name ) => {
         cancel: "Cancelar",
         current: "passo atual:",
         pagination: "Paginação",
-        finish: "Criar",
+        finish: "Salvar",
         next: "Avançar",
         previous: "Voltar",
         loading: "Carregando ..."
@@ -65,13 +65,13 @@ module.exports = ( name ) => {
             $formset.append( userTemplate )
             usersId.push($user.val())
           }
-        } else {
-          alert( 'empty' )
         }
       })
+
       $formset.find('[data-id]').each(( index, element ) => {
         usersId.push( $(element).data( 'id' ))
       })
+
       $formset.on( 'click', '.gsticon.gsticon-close', ( event ) => {
         const $this = $( event.currentTarget )
         const _user = $this.parent().parent();
