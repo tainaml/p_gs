@@ -1,3 +1,5 @@
+from django.db import transaction
+from django.db.models import Q
 from apps.community.models import Community
 from apps.core.business.user import get_user_communities_list_from_queryset
 from django import forms
@@ -39,26 +41,10 @@ class CompanyEditView(View):
 
         communities_list = get_user_communities_list_from_queryset(communities, author=None, id_field='taxonomy_id')
 
-        members_formset = forms.inlineformset_factory(
-            parent_model=CompanyProxy,
-            model=CompanyProxy.members.through,
-            exclude=(),
-            can_delete=True,
-            widgets={
-                'user': widgets.HiddenInput,
-                'permission': widgets.HiddenInput
-            },
-            extra=0,
-        )
 
-        formset_data = request.POST if request.POST else None
-
-        self.members_formset = members_formset(data=formset_data, instance=company)
 
         return {
-            'form': self.form,
             'company': company,
-            'members_formset': self.members_formset,
             'communities': communities_list
         }
 
@@ -71,7 +57,12 @@ class CompanyEditView(View):
             instance=company
         )
 
+        members_formset = self.get_members_formset()
+        self.members_formset = members_formset(instance=company)
+
         context = self.get_context(request, company)
+
+        context.update({'form': self.form, 'members_formset': self.members_formset})
 
         return render(
             request,
@@ -79,6 +70,22 @@ class CompanyEditView(View):
             context=context
         )
 
+    @staticmethod
+    def get_members_formset():
+         return forms.inlineformset_factory(
+                    parent_model=CompanyProxy,
+                    model=CompanyProxy.members.through,
+                    exclude=(),
+                    can_delete=True,
+                    widgets={
+                        'user': widgets.HiddenInput,
+                        'permission': widgets.HiddenInput
+                    },
+                    extra=0,
+                )
+
+
+    @transaction.atomic
     @method_decorator(login_required)
     def post(self, request, company_id=None):
 
@@ -91,12 +98,23 @@ class CompanyEditView(View):
         )
 
         context = self.get_context(request, company)
+        members_formset = self.get_members_formset()
+        self.members_formset = members_formset(data=request.POST, instance=company)
+        context.update({'form': self.form, 'members_formset': self.members_formset})
 
+        #TODO refactor allt this. It was nothing working!
         if self.form.is_valid() and self.members_formset.is_valid():
             self.form.set_request_user(request.user)
-            self.form.save()
+            self.form.save(commit=False)
 
+            self.members_formset = members_formset(data=request.POST, instance=self.form.instance)
+
+            self.form.instance.save()
+            taxonomies = [tax for tax in self.form.cleaned_data.get('categories', [])] + [tax for tax in self.form.cleaned_data.get('communities', [])]
+            self.form.instance.taxonomies = taxonomies
+            self.form.instance.save()
             self.members_formset.save()
+
 
             return redirect(
                 reverse('organization:edit', args=[self.form.instance.id])

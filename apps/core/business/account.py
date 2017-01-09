@@ -40,11 +40,13 @@ def relogin(request):
 
 def log_with_company(request, company):
     permission = get_permission_to_login(request.user, company)
+
     if permission:
         user_company = company.user
         before_user_id = request.user.id
         before_user_full_name = request.user.get_full_name()
         before_user_image = request.user.profile.avatar_url
+
         if user_company:
             auth_login(request, user_company, backend="django.contrib.auth.backends.ModelBackend")
             request.session['before_user_id'] = before_user_id

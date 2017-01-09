@@ -65,12 +65,15 @@ class CompanyForm(forms.ModelForm):
     def set_request_user(self, user):
         self.request_user = user
 
+    def clean_taxonomies(self):
+        print "over here"
+
     def save(self, commit=True):
         self.instance.set_request_user(self.request_user)
-        super(CompanyForm, self).save(commit)
+        self.instance = super(CompanyForm, self).save(commit)
 
-        for tax in self.cleaned_data.get('categories', []):
-            self.instance.taxonomies.add(tax)
 
-        for tax in self.cleaned_data.get('communities', []):
-            self.instance.taxonomies.add(tax)
+
+
+        return self.instance
+
