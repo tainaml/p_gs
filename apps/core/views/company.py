@@ -108,7 +108,7 @@ class CompanyEditView(View):
             self.form.save(commit=False)
 
             self.members_formset = members_formset(data=request.POST, instance=self.form.instance)
-
+            self.members_formset.full_clean()
             self.form.instance.save()
             taxonomies = [tax for tax in self.form.cleaned_data.get('categories', [])] + [tax for tax in self.form.cleaned_data.get('communities', [])]
             self.form.instance.taxonomies = taxonomies
