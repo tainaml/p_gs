@@ -14,6 +14,7 @@ from apps.core.models.company import CompanyProxy
 from apps.company.models import Membership
 from apps.core.forms.company import CompanyForm
 from django.shortcuts import redirect
+from django.http import Http404
 
 
 class CompanyEditView(View):
@@ -49,15 +50,17 @@ class CompanyEditView(View):
             'communities': communities_list
         }
 
+
+
     @method_decorator(login_required)
     def get(self, request, company_id=None):
 
-        # TODO refactor turning it to a decorator
-        if not((request.user.is_company() and request.user.company.id==int(company_id))
-               or getattr(request.session, 'before_user_permission', None) == Membership.ADMIN):
-            return HttpResponseForbidden()
-
         company = self.get_company(company_id, request.user)
+        if not company:
+            raise Http404()
+
+        if not company.has_session_permission(request):
+            return HttpResponseForbidden()
 
         self.form = self.form_class(
             instance=company
@@ -96,6 +99,9 @@ class CompanyEditView(View):
     def post(self, request, company_id=None):
 
         company = self.get_company(company_id, request.user)
+
+        if not company.has_session_permission(request):
+            return HttpResponseForbidden()
 
         self.form = self.form_class(
             instance=company,

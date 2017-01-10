@@ -6,7 +6,6 @@ from django.conf import settings
 from apps.taxonomy.models import Taxonomy
 from apps.geography.models import City
 
-
 def limit_to_membershiptypes(value):
     if value not in Membership.MEMBERSHIP_TYPES.keys():
         raise ValidationError(
@@ -38,6 +37,15 @@ class Membership(models.Model):
     def __unicode__(self):
         return u'{} - {}'.format(self.user, self.get_permission_display())
 
+    @staticmethod
+    def get_permission_to_login(user, company):
+
+        membership = Membership.objects.filter(user=user, company=company)
+        if membership:
+            return membership[0].permission
+
+        return None
+
 
 class CompanyManager(models.Manager):
     def get_queryset(self):
@@ -63,6 +71,23 @@ class Company(models.Model):
 
     def get_logo(self):
         return self.logo if self.logo else None
+
+
+    def has_user_permission(self, user=None):
+
+        permission = Membership.get_permission_to_login(user, self)
+
+        return (permission and permission == Membership.ADMIN)
+
+
+    def has_session_permission(self, request=None):
+        if request.user.is_company():
+            key = 'before_user_permission'
+            permission = request.session[key] if key  in request.session else None
+            return (permission == Membership.ADMIN)
+        else:
+            return self.has_user_permission(request.user)
+
 
 
 class CompanyContactType(models.Model):

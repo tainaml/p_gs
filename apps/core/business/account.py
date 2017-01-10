@@ -14,7 +14,7 @@ def save_profile(user):
     user.save()
     return profile
 
-
+#TODO move to Membership Model
 def get_permission_to_login(user, company):
 
     membership = Membership.objects.filter(user=user, company=company)
@@ -39,7 +39,7 @@ def relogin(request):
 
 
 def log_with_company(request, company):
-    permission = get_permission_to_login(request.user, company)
+    permission =Membership.get_permission_to_login(request.user, company)
     if permission:
         user_company = company.user
         before_user_id = request.user.id
