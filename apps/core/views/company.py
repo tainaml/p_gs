@@ -1,5 +1,6 @@
 from django.db import transaction
 from django.db.models import Q
+from django.http import HttpResponseForbidden
 from apps.community.models import Community
 from apps.core.business.user import get_user_communities_list_from_queryset
 from django import forms
@@ -50,6 +51,11 @@ class CompanyEditView(View):
 
     @method_decorator(login_required)
     def get(self, request, company_id=None):
+
+        # TODO refactor turning it to a decorator
+        if not((request.user.is_company() and request.user.company.id==int(company_id))
+               or getattr(request.session, 'before_user_permission', None) == Membership.ADMIN):
+            return HttpResponseForbidden()
 
         company = self.get_company(company_id, request.user)
 

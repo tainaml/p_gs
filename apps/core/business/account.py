@@ -40,7 +40,6 @@ def relogin(request):
 
 def log_with_company(request, company):
     permission = get_permission_to_login(request.user, company)
-
     if permission:
         user_company = company.user
         before_user_id = request.user.id
@@ -52,6 +51,7 @@ def log_with_company(request, company):
             request.session['before_user_id'] = before_user_id
             request.session['before_user_full_name'] = before_user_full_name
             request.session['before_user_image'] = before_user_image
+            request.session['before_user_permission'] = permission
         else:
             raise CompanyHasNoUserAssociated(_("Company has no user associated with"))
     else:
