@@ -99,7 +99,7 @@ class CompanyEditView(View):
 
         company = self.get_company(company_id, request.user)
 
-        if not company.has_session_permission(request):
+        if company and not company.has_session_permission(request):
             return HttpResponseForbidden()
 
         self.form = self.form_class(
