@@ -1,0 +1,56 @@
+/*---
+title: Image Uploader
+resume: Simple Image uploader
+section: Default
+---
+
+```example
+<label for="organization-image" class="organization__form__image">
+      <img src="http://placehold.it/200" alt="">
+      <div class="organization__form__image__legend">Alterar foto</div>
+      <i class="gsticon gsticon-camera"></i>
+      <input class="hidden" hidden type="file" name="organization-image" id="organization-image">
+  </label>
+```
+
+*/
+
+.customform {
+  &-file {
+    position: relative;
+    overflow: hidden;
+    min-height: 130px;
+    display: block;
+    background: #959595 url('../images/bg-upload-organization.png') no-repeat center 10px;
+    cursor: pointer;
+    img {
+      position: absolute;
+      top: 0; right: 0;
+      left: 0; bottom: 0;
+      width: 100%;
+      height: 100%;
+    }
+    &#{"caption"} {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      height: 25px;
+      padding-left: 10px;
+      background-color: rgba(0, 0, 0, .3);
+      color: #fff;
+      font: 400 14px/1.5 'Open Sans';
+      transform: translateY(100%);
+      transition: transform .3s ease;
+    }
+    .gsticon-camera {
+      position: absolute;
+      right: 10px;
+      bottom: 5px;
+    }
+    &:hover {
+      .customform-filecaption {
+        transform: translateY(0);
+      }
+    }
+  }
+}

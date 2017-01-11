@@ -1,0 +1,144 @@
+<div data-step-part="header">
+    <i class="gsticon gsticon-briefcase"></i>
+    VAGA
+</div>
+<div data-step-part="content">
+    <div class="row customrow">
+        <div class="col-sm-offset-1 col-sm-4">
+            <div class="customform">
+                <label class="organization__form__label" for="org">
+                    Organização
+                    {% include "front_end/job/partials/tooltip.html" with content="<i class='gsticon gsticon-info-circle'></i> troll" %}
+                </label>
+                <select class="customform-input" name="org">
+                    <option disabled selected>selecione</option>
+                </select>
+                <hr>
+            </div>
+        </div>
+    </div>
+    <div class="row customrow">
+        <div class="col-sm-offset-1 col-sm-4">
+            <div class="customform">
+                <select class="customform-input" name="regime" id="regime">
+                    <option disabled selected>selecione</option>
+                </select>
+                <hr>
+                <label class="customform-label active" for="regime">Regime</label>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="customform">
+                <select class="customform-input" name="time">
+                    <option disabled selected>selecione</option>
+                </select>
+                <hr>
+                <label class="customform-label active" for="time">Carga Horária</label>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="customform">
+                <div class="checkbox checkbox-primary">
+                    <input type="checkbox" id="is_home" name="is_home">
+                    <label for="is_home">Home office</label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row customrow">
+        <div class="col-sm-offset-1 col-sm-11">
+            <h3 class="formjob-title">beneficios</h3>
+        </div>
+        <div class="col-sm-offset-1 col-sm-3">
+            <div class="checkbox checkbox-inline checkbox-primary">
+                <input type="checkbox" name="transporte" id="transporte">
+                <label for="transporte">Transporte</label>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="checkbox checkbox-inline checkbox-primary">
+                <input type="checkbox" name="plano_saude" id="plano_saude">
+                <label for="plano_saude">Plano de saúde</label>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="checkbox checkbox-inline checkbox-primary">
+                <input type="checkbox" name="assistencia_medica" id="assistencia_medica">
+                <label for="assistencia_medica">Assistência Médica</label>
+            </div>
+        </div>
+        <div class="col-sm-offset-1 col-sm-3">
+            <div class="checkbox checkbox-inline checkbox-primary">
+                <input type="checkbox" name="vale_refeicao" id="vale_refeicao">
+                <label for="vale_refeicao">Vale Refeição</label>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="checkbox checkbox-inline checkbox-primary">
+                <input type="checkbox" name="vale_cultura" id="vale_cultura">
+                <label for="vale_cultura">Vale - cultura</label>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="checkbox checkbox-inline checkbox-primary">
+                <input type="checkbox" name="vale_outros" id="vale_outros">
+                <label for="vale_outros">Outros</label>
+            </div>
+        </div>
+    </div>
+    <div class="row customrow">
+        <div class="col-sm-offset-1 col-sm-11">
+            <h3 class="formjob-title">localização</h3>
+            <div class="checkbox checkbox-primary">
+                <input type="checkbox" name="all" id="all">
+                <label for="all">Todo o Brasil</label>
+            </div>
+        </div>
+        <div class="col-sm-offset-1 col-sm-4">
+            <div class="customform">
+                <select class="customform-input" name="state" id="state">
+                    <option disabled selected>selecione</option>
+                </select>
+                <hr>
+                <label class="customform-label active" for="state">Estado</label>
+            </div>
+        </div>
+        <div class="col-sm-offset-2 col-sm-4">
+            <div class="customform">
+                <select class="customform-input" name="city" id="city">
+                    <option disabled selected>selecione</option>
+                </select>
+                <hr>
+                <label class="customform-label active" for="city">Cidade</label>
+            </div>
+        </div>
+    </div>
+    <div class="row customrow customrow-bottom">
+        <div class="col-sm-offset-1 col-sm-12">
+            <h3 class="formjob-title">salário</h3>
+        </div>
+        <div class="col-sm-offset-1 col-sm-4">
+            <div class="customform">
+                <select class="customform-input" name="salary_type" id="salary_type">
+                    <option disabled selected>selecione</option>
+                    <option value="1">Valor fixo</option>
+                </select>
+                <hr>
+                <label class="customform-label active" for="salary_type">Tipo de salário</label>
+            </div>
+        </div>
+        <div class="col-sm-offset-2 col-sm-4">
+            <div class="customform">
+                <input class="customform-input" data-toggle="input" name="salary_value" id="salary_value" type="text">
+                <hr>
+                <label class="customform-label" for="salary_value">Qual o valor do salário?</label>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12 text-right">
+            <button type="submit" class="customform-button">Publicar</button>
+            <a href="#next" data-step-action="next" class="customform-button primary">Avançar</a>
+        </div>
+    </div>
+</div>

@@ -59,7 +59,7 @@ $(function () {
     });
 
     // Tooltips
-    $('[data-toggle=tooltip]').tooltip();
+    $('[data-toggle="tooltip"]').tooltip();
 
     // Slideout
     var slideout = new Slideout({

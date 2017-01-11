@@ -1,0 +1,98 @@
+<div data-step-part="header">
+    <i class="gsticon gsticon-user"></i>
+    PROFISSIONAL
+</div>
+<div data-step-part="content">
+    <div class="row customrow">
+        <div class="col-sm-offset-1 col-sm-11">
+            <h3 class="formjob-title">
+                Conhecimentos
+                {% include "front_end/job/partials/tooltip.html" with content="<i class='gsticon gsticon-info-circle'></i> content here" %}
+            </h3>
+        </div>
+    </div>
+    <div class="row customrow">
+        <div class="col-sm-offset-1 col-sm-3">
+            <div class="customform">
+                <select class="customform-input" name="requirements" id="requirements">
+                    <option disabled selected>selecione</option>
+                </select>
+                <hr>
+                <label class="customform-label active" for="requirements">Requisitos</label>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="customform">
+                <select class="customform-input" name="level" id="level">
+                    <option disabled selected>selecione</option>
+                </select>
+                <hr>
+                <label class="customform-label active" for="level">Nível</label>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="customform">
+                <select class="customform-input" name="xp" id="xp">
+                    <option disabled selected>selecione</option>
+                </select>
+                <hr>
+                <label class="customform-label active" for="xp">Experiência</label>
+            </div>
+        </div>
+        <div class="col-sm-2 text-center">
+            <div class="customform">
+                <a data-toggle="duplicate-row" href="#">
+                    <i class="gsticon gsticon-lg gsticon-plus-circle"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="row customrow">
+        <div class="col-sm-offset-1 col-sm-11">
+            <h3 class="formjob-title">
+                Conhecimento Adicional
+                {% include "front_end/job/partials/tooltip.html" with content="<div class='text-info'><i class='gsticon gsticon-info-circle'></i> troll</div>" %}
+            </h3>
+        </div>
+        <div class="col-sm-offset-1 col-sm-3">
+            <div class="customform">
+                <select class="customform-input" name="requirements_adicional" id="requirements_adicional">
+                    <option disabled selected>selecione</option>
+                </select>
+                <hr>
+                <label class="customform-label active" for="requirements_adicional">Requisitos</label>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="customform">
+                <select class="customform-input" name="level_adicional" id="level_adicional">
+                    <option disabled selected>selecione</option>
+                </select>
+                <hr>
+                <label class="customform-label active" for="level_adicional">Nível</label>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="customform">
+                <select class="customform-input" name="xp_adicional" id="xp_adicional">
+                    <option disabled selected>selecione</option>
+                </select>
+                <hr>
+                <label class="customform-label active" for="xp_adicional">Experiência</label>
+            </div>
+        </div>
+        <div class="col-sm-2 text-center">
+            <div class="customform">
+                <a data-toggle="duplicate-row" href="#">
+                    <i class="gsticon gsticon-lg gsticon-plus-circle"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12 text-right">
+            <button type="submit" class="customform-button">Publicar</button>
+            <a href="#next" data-step-action="next" class="customform-button primary">Avançar</a>
+        </div>
+    </div>
+</div>
