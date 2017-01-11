@@ -10,9 +10,11 @@
         <form class="col-sm-offset-1 col-sm-10">
             <fieldset class="organization__register">
                 <legend class="organization__register__title">Cadastro de vaga de trabalho</legend>
-                <div class="col-sm-offset-1 col-sm-10 steps">
+                <div class="col-sm-offset-1 col-sm-10 steps" data-module="steps">
                     {% include "front_end/job/partials/basic.html" %}
                     {% include "front_end/job/partials/vaga.html" %}
+                    {% include "front_end/job/partials/professional.html" %}
+                    {% include "front_end/job/partials/contact.html" %}
                 </div>
             </fieldset>
         </form>

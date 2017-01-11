@@ -18,7 +18,7 @@ My ``styleguide`` includes two predefined **button** styles, each serving its ow
 $input-color: #616161 !default;
 $input-active-color: #0160b0 !default;
 $input-border-color: #bfbfbf !default;
-$input-error-color: #f00 !default;
+$input-error-color: #e10c14 !default;
 
 .customform {
   position: relative;
@@ -78,11 +78,6 @@ $input-error-color: #f00 !default;
 		visibility: hidden;
 		z-index: 10;
 	}
-  .gsticon {
-    position: absolute;
-    right: 0; bottom: 10px;
-    color: $input-color;
-  }
 	&-input:focus ~ hr {
 		transform: scaleX(1);
 		visibility: visible;
@@ -112,6 +107,7 @@ $input-error-color: #f00 !default;
     padding: 0;
     box-shadow: none;
   }
+
   label.error {
     position: absolute;
     width: 100%;
@@ -119,5 +115,20 @@ $input-error-color: #f00 !default;
     bottom: -20px;
     font-size: 10px;
     color: $input-error-color;
+  }
+  &-error {
+    color: $input-error-color;
+
+    .customform-input:focus ~ .customform-label,
+    .customform-label {
+  		color: $input-error-color;
+  		transform: scale(0.7);
+  	}
+    hr {
+  		transform: scaleX(1);
+  		visibility: visible;
+      background-color: $input-error-color;
+    }
+
   }
 }

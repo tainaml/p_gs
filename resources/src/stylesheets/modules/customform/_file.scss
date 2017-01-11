@@ -42,7 +42,8 @@ section: Default
       transform: translateY(100%);
       transition: transform .3s ease;
     }
-    .gsticon {
+    .gsticon-camera {
+      position: absolute;
       right: 10px;
       bottom: 5px;
     }

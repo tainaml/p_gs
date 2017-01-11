@@ -204,3 +204,31 @@
   border-bottom: 1px solid #e1e1e1;
   color: #808080;
 }
+
+.formjob {
+  &-title {
+    color: #616161;
+    font: 400 16px 'Open Sans';
+    text-transform: uppercase;
+    .formjob-tooltip > .gsticon-info-circle { font-size: 12px }
+  }
+  &-tooltip { vertical-align: super }
+  &-tooltip ~ .tooltip {
+    opacity: 1;
+    .tooltip-arrow {
+      top: -15px;
+      border-bottom-color: #fff;
+      border-width: 10px;
+    }
+    .tooltip-inner {
+      width: 225px;
+      height: 130px;
+      padding: 20px;
+      background-color: #fff;
+      color: #757575;
+      font: 400 14px 'Open Sans';
+      text-align: left;
+      box-shadow: 0 1px 3px 1px rgba(0, 0, 0, 0.18);
+    }
+  }
+}

@@ -48,8 +48,6 @@
 
 .custom-file-upload {
     position: relative;
-    /*padding: 35px;*/
-    /*padding: 0 !important;*/
     background: #f2f2f2;
     color: #d8d8d8;
     cursor: pointer;
@@ -76,10 +74,6 @@
     }
     .custom-file-content {
         padding: 10px 20px;
-        // position: relative;
-        // top: 0; left: 0;
-        // right: 0; bottom: 0;
-        // background-color: rgba(242,242,242,0.7);
     }
     .custom-file-upload-result {
         text-align: center;
@@ -224,4 +218,21 @@
         width: calc(100% - 42px);
         float: left;
     }
+}
+
+.customrow {
+  display: flex;
+  align-items: center;
+  flex-flow: row wrap;
+  &-bottom {
+    align-items: flex-end;
+  }
+  .customform {
+    margin-bottom: 50px;
+  }
+  .customform .organization__form__label {
+    margin-bottom: 0;
+    margin-left: 10px;
+  }
+
 }
