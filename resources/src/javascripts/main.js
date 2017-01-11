@@ -1,6 +1,7 @@
 'use strict';
 
 import $ from 'jquery'
+import Slideout from 'slideout'
 import './asyncModules'
 import './vendor/bootstrap/'
 import './modules/ideiaForm/'
@@ -14,11 +15,6 @@ import './modules/ideiaRestrict/'
 import './modules/ideiaValidationField/'
 import './modules/ideiaEditor/'
 import './components'
-// import './components/professions'
-// import './components/videos'
-// import './components/courses'
-// import './components/organization'
-import Slideout from 'slideout'
 
 
 $(function () {

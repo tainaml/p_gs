@@ -13,8 +13,12 @@ module.exports = ( name ) => {
   const childElementSelector = 'input,select,textarea,label,div'
   let usersId = []
   $form.validate({
-    errorPlacement: function errorPlacement(error, element) {
-      element.after(error)
+    errorPlacement: function errorPlacement( error, element ) {
+      if (element[0].id == 'id_communities-selectized') {
+        element.parent().after(error)
+      } else {
+        element.after(error)
+      }
     }
   })
   $steps.children( '[role="tablist"]' ).steps({
@@ -43,6 +47,10 @@ module.exports = ( name ) => {
       ajaxselect( $('[data-select="ajaxselect"]') )
       taxonomy( $('[data-select="taxonomy"]') )
       dropzoneUploader( $('[data-toggle="dropzoneUploader"]') )
+      const usersList = $user[0].selectize
+      const communitiesList = $('[data-select="taxonomy"]')[0].selectize
+      const communitiesErrorMsg = communitiesList.$input.data('msg')
+      communitiesList.$control_input.data('msg', communitiesErrorMsg)
       $formset.find('[data-id]').each(( index, element ) => {
         usersId.push( $(element).data( 'id' ))
       })
@@ -72,6 +80,9 @@ module.exports = ( name ) => {
             usersId.push(userValue)
           }
         }
+
+        usersList.clear()
+
       })
 
       $formset.on( 'click', '.gsticon.gsticon-close', ( event ) => {
@@ -84,8 +95,14 @@ module.exports = ( name ) => {
           }
         })
       })
+      $('.actions > ul > li:first-child').attr('style', 'display:none')
     },
     onStepChanging: function ( event, currentIndex, newIndex ) {
+      if ( newIndex > 0 ) {
+        $('.actions > ul > li:first-child').attr('style', '')
+      } else {
+        $('.actions > ul > li:first-child').attr('style', 'display:none')
+      }
       $form.validate().settings.ignore = ':disabled,:hidden'
       return $form.valid()
     },

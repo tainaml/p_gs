@@ -7,7 +7,7 @@
 
     <div class="form-group">
         <div class="customform">
-            {% render_field form.communities class="customform-input" data-toggle="selectize" data-select="taxonomy" data-placeholder="Digite aqui a comunidade que deseja buscar" data-label-field="name" data-value-field="id" data-options=communities|jsonify %}
+            {% render_field form.communities class="customform-input" data-toggle="selectize" data-select="taxonomy" data-placeholder="Digite aqui a comunidade que deseja buscar" data-label-field="name" data-value-field="id" data-max-items="null" data-msg="troll" data-options=communities|jsonify %}
             {% if form.categories.errors %}  {{ form.categories.errors }} {% endif %}
             <hr>
         </div>

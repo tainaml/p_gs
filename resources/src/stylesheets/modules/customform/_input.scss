@@ -51,12 +51,26 @@ $input-error-color: #e10c14 !default;
         display: none;
       }
     }
+    .plugin-remove_button div[data-value] {
+      padding: 5px;
+      line-height: 10px;
+      a {
+        vertical-align: super;
+      }
+    }
     &.selectize-dropdown {
       top: 100% !important;
       left: 0 !important;
       width: 100% !important;
       padding: 0;
       border: 1px solid $input-border-color;
+    }
+    .plugin-remove_button.selectize-dropdown {
+      position: relative;
+
+      [data-selectable] {
+        padding: 10px;
+      }
     }
 	}
 
@@ -130,5 +144,8 @@ $input-error-color: #e10c14 !default;
       background-color: $input-error-color;
     }
 
+  }
+  .selectize-control.single .selectize-input:after {
+    display: none;
   }
 }
