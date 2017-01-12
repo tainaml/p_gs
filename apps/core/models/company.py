@@ -85,7 +85,7 @@ class CompanyProxy(Company):
         permissions = Membership.objects.filter(company=self)
 
         # If dont have admins, set current user as admin
-        if permissions.filter(permission=Membership.ADMIN).count() == 0:
+        if not permissions.filter(permission=Membership.ADMIN).exists():
             try:
                 current_user_in_list = permissions.get(user=self.request_user)
                 current_user_in_list.permission = Membership.ADMIN
@@ -109,7 +109,7 @@ class CompanyProxy(Company):
         self.create_user()
         super(CompanyProxy, self).save(force_insert, force_update, using, update_fields)
 
-        self.process_permissions()
+        # self.process_permissions()
         self.update_user()
 
     @classmethod

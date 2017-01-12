@@ -26,10 +26,10 @@ class Membership(models.Model):
         (COLLABORATOR, _("Collaborator")),
     )
 
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name=_("User"))
-    company = models.ForeignKey("Company", on_delete=models.CASCADE, verbose_name=_("Company"))
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name=_("User"), null=False, blank=False)
+    company = models.ForeignKey("Company", on_delete=models.CASCADE, verbose_name=_("Company"), null=False, blank=False)
 
-    permission = models.PositiveSmallIntegerField(verbose_name=_("Permission"), choices=MEMBERSHIP_CHOICES, validators=[limit_to_membershiptypes])
+    permission = models.PositiveSmallIntegerField(verbose_name=_("Permission"), choices=MEMBERSHIP_CHOICES, validators=[limit_to_membershiptypes], null=False, blank=False)
 
     class Meta:
         unique_together = (('user', 'company'),)

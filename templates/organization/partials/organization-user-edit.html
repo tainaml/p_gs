@@ -1,19 +1,25 @@
 {% load widget_tweaks %}
 {% load company %}
 
+{% render_field form.DELETE class="hidden" %}
+{% render_field form.user class="hidden" %}
+{% render_field form.permission class="hidden" %}
+{% render_field form.id class="hidden" %}
+ {% if not form.DELETE.value %}
 <div class="customform col-sm-4" data-id="{{ form.user.value }}">
 
-    {% render_field form.DELETE class="hidden" %}
-    {% render_field form.user class="hidden" %}
-    {% render_field form.permission class="hidden" %}
-    {% render_field form.id class="hidden" %}
+
+
 
     <label for="{{ form.DELETE.id_for_label }}" class="customform-checkbutton no-check no-bordered content-left">
 
 
-        {% user_company_block form.user.value form.permission.value %}
+
+            {% user_company_block form.user.value form.permission.value %}
+
 
     </label>
+
 
     {#    <input class="hidden" type="checkbox" name="id_membership_set-__prefix__-DELETE" id="id_membership_set-__prefix__-DELETE">#}
     {#    <input type="hidden" name="id_membership_set-__prefix__-user" value="" id="id_membership_set-__prefix__-user">#}
@@ -27,3 +33,4 @@
     {#        <i class="gsticon gsticon-close"></i>#}
     {#    </label>#}
 </div>
+{% endif %}

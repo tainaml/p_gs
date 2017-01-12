@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from django import forms
-from django.forms import widgets
+from django.forms import widgets, BaseFormSet, BaseInlineFormSet
+from apps.company.models import Company
 from apps.core.models.company import CompanyProxy, Membership
 from apps.taxonomy.models import Taxonomy
 from apps.core.widgets.custom_field import (
@@ -18,7 +19,7 @@ class TaxonomyModelChoiceField(forms.ModelMultipleChoiceField):
 @ideia_custom_fielder()
 class CompanyForm(forms.ModelForm):
 
-
+    use_required_attribute = False
 
     categories = TaxonomyModelChoiceField(
         queryset=CompanyProxy.list_categories(),
@@ -52,7 +53,7 @@ class CompanyForm(forms.ModelForm):
     class Meta:
 
         model = CompanyProxy
-        exclude = ('user', 'members', 'taxonomies')
+        exclude = ('user', 'taxonomies', 'members')
         labels = {
             'name': u'Nome da Organização',
             'website': 'URL',
@@ -64,16 +65,4 @@ class CompanyForm(forms.ModelForm):
 
     def set_request_user(self, user):
         self.request_user = user
-
-    def clean_taxonomies(self):
-        print "over here"
-
-    def save(self, commit=True):
-        self.instance.set_request_user(self.request_user)
-        self.instance = super(CompanyForm, self).save(commit)
-
-
-
-
-        return self.instance
 

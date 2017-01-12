@@ -2,6 +2,7 @@ from django.db import transaction
 from django.db.models import Q
 from django.http import HttpResponseForbidden
 from apps.community.models import Community
+from apps.core.business.account import log_with_company
 from apps.core.business.user import get_user_communities_list_from_queryset
 from django import forms
 from django.contrib.auth.decorators import login_required
@@ -10,11 +11,11 @@ from django.shortcuts import render
 from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.views import View
+from apps.core.exceptions.account import NoPermissionToLogWithCompany
 from apps.core.models.company import CompanyProxy
-from apps.company.models import Membership
+from apps.company.models import Company, Membership
 from apps.core.forms.company import CompanyForm
 from django.shortcuts import redirect
-from django.http import Http404
 
 
 class CompanyEditView(View):
@@ -23,6 +24,7 @@ class CompanyEditView(View):
     form_class = CompanyForm
     form = None
     members_formset = None
+
 
     def get_company(self, company_id, request_user=None):
 
@@ -66,7 +68,7 @@ class CompanyEditView(View):
         )
 
         members_formset = self.get_members_formset()
-        self.members_formset = members_formset(instance=company)
+        self.members_formset = members_formset(instance=company, initial=[{'user': request.user.id, 'permission': Membership.ADMIN}])
 
         context = self.get_context(request, company)
 
@@ -81,8 +83,10 @@ class CompanyEditView(View):
     @staticmethod
     def get_members_formset():
          return forms.inlineformset_factory(
-                    parent_model=CompanyProxy,
-                    model=CompanyProxy.members.through,
+                    parent_model=Company,
+                    model=Membership,
+                    min_num=1,
+                    validate_min=True,
                     exclude=(),
                     can_delete=True,
                     widgets={
@@ -126,11 +130,16 @@ class CompanyEditView(View):
             self.form.instance.save()
             self.members_formset.save()
 
+            try:
+                log_with_company(request, self.form.instance)
+
+            except NoPermissionToLogWithCompany:
+                pass
+
 
             return redirect(
-                reverse('organization:edit', args=[self.form.instance.id])
-            )
-
+                        reverse('profile:feed')
+                    )
         return render(
             request,
             template_name=self.template_path,

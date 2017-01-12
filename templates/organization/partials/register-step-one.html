@@ -70,12 +70,9 @@
                 {{ members_formset.management_form }}
 
                 {% for form in members_formset %}
-
                     {% include "organization/partials/organization-user-edit.html" %}
-
                 {% endfor %}
-
-
+                {{ members_formset.non_form_errors }}
             </div>
         </div>
     </div>
