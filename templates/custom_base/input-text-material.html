@@ -1,8 +1,5 @@
-<div class="customform{% if errors %} customform-error{% endif %}">
-    <input type="text" {{ flatattrs }} value="{{ value }}">
-    <hr>
-    <label class="customform-label" for="{{ attrs.id }}">{{ label }}</label>
-{#    {% for error in errors %}#}
-{#        {{ error }}#}
-{#    {% endfor %}#}
-</div>
+{% extends "custom_base/base-material.html" %}
+
+{% block input %}
+    <input {{ flatattrs }} value="{{ value }}">
+{% endblock input %}

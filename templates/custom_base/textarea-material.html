@@ -1,3 +1,5 @@
-<div class="customform">
+{% extends "custom_base/base-material.html" %}
+
+{% block input %}
     <textarea {{ flatattrs }} >{{ value }}</textarea>
-</div>
+{% endblock input %}

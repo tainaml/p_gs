@@ -19,6 +19,12 @@ module.exports = ( name ) => {
       } else {
         element.after(error)
       }
+    },
+    highlight: function( element, errorClass, validClass ) {
+      $( element ).parents( '.customform' ).addClass( 'customform-error' )
+    },
+    unhighlight: function( element, errorClass, validClass ) {
+      $( element ).parents( '.customform' ).removeClass( 'customform-error' )
     }
   })
   $steps.children( '[role="tablist"]' ).steps({
