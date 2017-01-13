@@ -45,8 +45,6 @@ class CompanyEditView(View):
 
         communities_list = get_user_communities_list_from_queryset(communities, author=None, id_field='taxonomy_id')
 
-
-
         return {
             'company': company,
             'communities': communities_list
