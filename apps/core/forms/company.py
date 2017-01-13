@@ -17,7 +17,6 @@ class TaxonomyModelChoiceField(forms.ModelMultipleChoiceField):
     def label_from_instance(self, obj):
         return u'{}'.format(obj.description)
 
-
 class CompanyForm(MaterialModelForm):
 
     use_required_attribute = False
@@ -35,11 +34,10 @@ class CompanyForm(MaterialModelForm):
     request_user = None
 
     def __init__(self, *args, **kwargs):
-        super(CompanyForm, self).__init__(*args, **kwargs)
+
         instance = kwargs.get('instance')
 
         if instance:
-
             initial = kwargs.get('initial', {})
             initial.update({
                 'categories': instance.taxonomies.filter(term__slug='categoria'),
@@ -50,7 +48,7 @@ class CompanyForm(MaterialModelForm):
                 'initial': initial
             })
 
-
+        super(CompanyForm, self).__init__(*args, **kwargs)
 
     class Meta:
 
