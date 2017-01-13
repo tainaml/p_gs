@@ -97,7 +97,6 @@ class CompanyEditView(View):
                 )
 
 
-    @transaction.atomic
     @method_decorator(login_required)
     def post(self, request, company_id=None):
 
