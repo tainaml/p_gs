@@ -53,9 +53,17 @@ class InputTextMaterial(InputMaterial):
             self.input_type = attrs.pop('type', self.input_type)
         super(InputTextMaterial, self).__init__(attrs)
 
+class URLMaterial(InputTextMaterial):
+
+    template = 'custom_base/input-text-material.html'
+    input_type = 'url'
+
+
 class TextAreaMaterial(InputMaterial):
 
     template = 'custom_base/textarea-material.html'
+
+
 
 class SelectMaterial(InputMaterial, Select):
 
