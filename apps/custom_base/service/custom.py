@@ -1,9 +1,7 @@
 from django import forms
 import logging
-
-from django.conf import settings
-from django.forms import TextInput
-from apps.custom_base.widgets.material import InputTextMaterial
+from django.forms import widgets
+from apps.custom_base.widgets.material import InputTextMaterial, TextAreaMaterial, SelectMaterial
 
 logger = logging.getLogger('error')
 
@@ -42,7 +40,9 @@ class IdeiaModelForm(forms.ModelForm, AbstractIdeiaForm):
         super(IdeiaModelForm, self).__init__(*args, **kwargs)
 
 MATERIAL_WIDGETS = {
-    TextInput: InputTextMaterial,
+    widgets.TextInput: InputTextMaterial,
+    widgets.Textarea: TextAreaMaterial,
+    widgets.Select: SelectMaterial
 }
 
 class MaterialModelForm(forms.ModelForm):

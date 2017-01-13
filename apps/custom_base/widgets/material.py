@@ -1,5 +1,5 @@
 from django.forms.utils import flatatt
-from django.forms.widgets import TextInput, Input
+from django.forms.widgets import Input, Select
 from django.shortcuts import render
 from django.utils.encoding import force_text
 from django.utils.safestring import mark_safe
@@ -18,6 +18,9 @@ class InputMaterial(Input):
     def template(self):
         raise NotImplementedError("You must specify a 'template' property!")
 
+    def get_aditional_context(self, name, value, attrs=None):
+        return {}
+
     def render(self, name, value, attrs=None):
 
         if value is None:
@@ -29,14 +32,16 @@ class InputMaterial(Input):
             final_attrs['class'] = force_text(self.format_value('customform-input'))
 
         flatattrs = flatatt(final_attrs)
+        base_context={ 'self': self,
+                             'value': value,
+                             'flatattrs': flatattrs,
+                              'label': self.label,
+                             'attrs': final_attrs,
+                             'errors': self.errors if self.show_errors else None
+                            }
+        base_context.update(self.get_aditional_context(name=name, value=value, attrs=attrs))
 
-        return mark_safe(render(None, template_name=self.template, context={ 'self': self,
-                                                                         'value': value,
-                                                                         'flatattrs': flatattrs,
-                                                                          'label': self.label,
-                                                                         'attrs': final_attrs,
-                                                                         'errors': self.errors if self.show_errors else None
-                                                                        }).content)
+        return mark_safe(render(None, template_name=self.template, context=base_context).content)
 
 class InputTextMaterial(InputMaterial):
 
@@ -51,4 +56,11 @@ class InputTextMaterial(InputMaterial):
 class TextAreaMaterial(InputMaterial):
 
     template = 'custom_base/textarea-material.html'
+
+class SelectMaterial(InputMaterial, Select):
+
+    def get_aditional_context(self, name, value, attrs=None):
+        return {'options': self.render_options([value])}
+
+    template = 'custom_base/select-material.html'
 
