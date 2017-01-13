@@ -23,6 +23,11 @@
     text-align: center;
     border-radius: 3px;
   }
+  .errorlist {
+    > li {
+      display: block !important;
+    }
+  }
 }
 .organization__register {
   padding: 15px;

@@ -17,7 +17,9 @@
 
         {% endfor %}
 
-        {% if form.categories.errors %}{{ form.categories.errors }}{% endif %}
+        <div class="col-xs-12">
+            {% if form.categories.errors %}{{ form.categories.errors }}{% endif %}
+        </div>
 
     </div>
 </div>
