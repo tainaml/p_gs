@@ -1,6 +1,5 @@
 {% load widget_tweaks %}
-
-<div class="col-sm-2 customform" data-toggle="dropzoneUploader"
+    <div class="col-sm-2 customform" data-toggle="dropzoneUploader"
      data-original-image="{% if form.instance and form.instance.logo %}{{ form.instance.logo.url }}{% endif %}">
 
     <div class="customform-file" data-trigger="file">
@@ -16,15 +15,15 @@
 
 <div class="col-sm-9 form-group">
 
-    {% render_field form.name data-toggle="input" placeholder="Nome da Empresa, Instituição, Grupo..." data-msg="Este campo é obrigatório" %}
-    {% if form.name.errors %}{{ form.name.errors }}{% endif %}
+   {% render_field form.name data-toggle="input" placeholder="Nome da Empresa, Instituição, Grupo..." data-msg="Este campo é obrigatório" %}
 
 </div>
 
 <div class="col-sm-9 form-group">
 
-    {% render_field form.description data-toggle="input" rows="1" placeholder="Escreva uma breve descrição da sua organização" data-msg="Este campo é obrigatório" %}
+    {% render_field form.description data-toggle="input" rows="1" placeholder="Escreva uma breve descrição da sua organização" %}
     {% if form.description.errors %}{{ form.description.errors }}{% endif %}
+
 
 </div>
 
@@ -77,3 +76,4 @@
         </div>
     </div>
 </div>
+

@@ -2,6 +2,8 @@ from django import forms
 import logging
 
 from django.conf import settings
+from django.forms import TextInput
+from apps.custom_base.widgets.material import InputTextMaterial
 
 logger = logging.getLogger('error')
 
@@ -38,3 +40,37 @@ class IdeiaModelForm(forms.ModelForm, AbstractIdeiaForm):
 
     def __init__(self, *args, **kwargs):
         super(IdeiaModelForm, self).__init__(*args, **kwargs)
+
+MATERIAL_WIDGETS = {
+    TextInput: InputTextMaterial,
+}
+
+class MaterialModelForm(forms.ModelForm):
+
+    def __update_fields__(self, attrs=None):
+
+        for key in self.fields:
+            widget = self.fields[key].widget
+
+            if key not in self._meta.widgets and type(widget) in MATERIAL_WIDGETS:
+
+                self.fields[key].widget = MATERIAL_WIDGETS[type(widget)](attrs=attrs)
+                self.fields[key].widget.label = self.fields[key].label
+
+
+    def __init__(self, *args, **kwargs):
+        super(MaterialModelForm, self).__init__(*args, **kwargs)
+        attrs = kwargs.get('attrs')
+        self.__update_fields__(attrs=attrs)
+
+
+    def is_valid(self):
+        valid = super(MaterialModelForm, self).is_valid()
+        for key in self.fields:
+            widget = self.fields[key].widget
+
+            if key not in self._meta.widgets and type(widget) in MATERIAL_WIDGETS.values():
+                self.fields[key].widget.errors = self.errors[key]
+
+        return valid
+

@@ -3,6 +3,8 @@ from django import forms
 from django.forms import widgets, BaseFormSet, BaseInlineFormSet
 from apps.company.models import Company
 from apps.core.models.company import CompanyProxy, Membership
+from apps.custom_base.service.custom import MaterialModelForm
+from apps.custom_base.widgets.material import InputTextMaterial
 from apps.taxonomy.models import Taxonomy
 from apps.core.widgets.custom_field import (
     ideia_custom_fielder, ideia_field_wraper,
@@ -16,8 +18,7 @@ class TaxonomyModelChoiceField(forms.ModelMultipleChoiceField):
         return u'{}'.format(obj.description)
 
 
-@ideia_custom_fielder()
-class CompanyForm(forms.ModelForm):
+class CompanyForm(MaterialModelForm):
 
     use_required_attribute = False
 
@@ -34,8 +35,9 @@ class CompanyForm(forms.ModelForm):
     request_user = None
 
     def __init__(self, *args, **kwargs):
-
+        super(CompanyForm, self).__init__(*args, **kwargs)
         instance = kwargs.get('instance')
+
         if instance:
 
             initial = kwargs.get('initial', {})
@@ -48,7 +50,7 @@ class CompanyForm(forms.ModelForm):
                 'initial': initial
             })
 
-        super(CompanyForm, self).__init__(*args, **kwargs)
+
 
     class Meta:
 
@@ -60,7 +62,8 @@ class CompanyForm(forms.ModelForm):
             'city': 'Cidade'
         }
         widgets = {
-            "logo": forms.FileInput,
+            "logo": forms.FileInput
+            # "name": InputTextMaterial
         }
 
     def set_request_user(self, user):
