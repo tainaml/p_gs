@@ -69,7 +69,7 @@ class MaterialModelForm(forms.ModelForm):
         for key in self.fields:
             widget = self.fields[key].widget
 
-            if key not in self._meta.widgets and type(widget) in MATERIAL_WIDGETS.values():
+            if key not in self._meta.widgets and type(widget) in MATERIAL_WIDGETS.values() and key in self.errors:
                 self.fields[key].widget.errors = self.errors[key]
 
         return valid
