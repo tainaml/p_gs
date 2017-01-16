@@ -57,7 +57,6 @@ def get_users(description=None, items_per_page=None, page=None, startswith=False
     page = page if page else 1
 
     terms = description.split(' ')
-
     if startswith:
         has_more_than_one_term = len(terms) > 1
 

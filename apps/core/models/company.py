@@ -1,6 +1,6 @@
 from apps.account.service.business import username_is_available
 from social.utils import slugify
-from django.db.models import Q
+from django.conf import settings
 from apps.taxonomy.models import Taxonomy
 from apps.company.models import Company, CompanyContact, CompanyManager, Membership
 from apps.account.models import User
@@ -68,12 +68,14 @@ class CompanyProxy(Company):
 
         self.user.first_name = self.name
         self.user.email = self.email
+
         self.user.save()
 
         try:
 
             user_profile = UserProfile.objects.get(user=self.user)
             user_profile.profile_picture = self.logo
+            user_profile.wizard_step = settings.WIZARD_STEPS_TOTAL
             user_profile.description = self.description
             user_profile.save()
 

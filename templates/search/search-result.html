@@ -161,7 +161,7 @@
 
                     {% if not content_type or content_type == 'users' %}
                     <header class="area-title">
-                        <h2>Membros</h2>
+                        <h2>Membros e Organizações</h2>
                     </header>
                     {% endif %}
 
@@ -174,7 +174,7 @@
                                         <form class="row" id="form-search-followers"  name="filterMember" action="{% url 'search:list' 'users' %}?next={{ request.path }}" method="GET" role="search" data-type="html" data-ajaxform="true" data-group-class=".form-group">
                                             <div class="form-group col-xs-12">
                                                 <div class="form-search-input">
-                                                    <input type="text" id="filterName" value="{{ request.GET.q }}" name="q" placeholder="{{ placehold|default:"Procure por pessoas" }}" autocomplete="off">
+                                                    <input type="text" id="filterName" value="{{ request.GET.q }}" name="q" placeholder="{{ placehold|default:"Procure por pessoas e organizações" }}" autocomplete="off">
                                                 </div>
                                                 <button type="submit" class="form-search-button">
                                                     <i class="gsticon gsticon-search"></i>
