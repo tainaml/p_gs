@@ -1,5 +1,6 @@
 {% extends 'home/layout/base.html' %}
-{% block title %}Profissões{% endblock title %}
+{% block title %}{{ responsibility.name }} | Profissão{% endblock title %}
+{% load ads %}
 {% block content %}
     <main class="container main">
         <div class="row">
@@ -42,9 +43,13 @@
                 </div>
                 <div class="row">
                     <div class="col-xs-12 profession">
-                        <figure class="profession__img">
-                            <img class="img-responsive" src="http://placehold.it/270x225" alt="">
-                        </figure>
+
+                        <div class="profession__img">
+                             {% block community_right_block %}
+                            {% ads_only_production "community_right" "all" %}
+                        {% endblock community_right_block %}
+                        </div>
+
 
                         {% if responsibility.about %}
                             <h3>O que é um {{ responsibility.name }}</h3>
