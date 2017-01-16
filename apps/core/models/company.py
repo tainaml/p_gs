@@ -67,6 +67,7 @@ class CompanyProxy(Company):
             return None
 
         self.user.first_name = self.name
+        self.user.email = self.email
         self.user.save()
 
         try:

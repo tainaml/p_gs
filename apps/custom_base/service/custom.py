@@ -66,14 +66,21 @@ class MaterialModelForm(forms.ModelForm):
         attrs = kwargs.get('attrs')
         self.__update_fields__(attrs=attrs)
 
+    def add_error(self, field, error):
+        super(MaterialModelForm, self).add_error(field=field, error=error)
+        self.__update_error__(field=field)
+
+
+    def __update_error__(self, field):
+        widget = self.fields[field].widget
+        if field and field not in self._meta.widgets \
+                and type(widget) in MATERIAL_WIDGETS.values() and field in self.errors:
+                self.fields[field].widget.errors = self.errors[field]
 
     def is_valid(self):
         valid = super(MaterialModelForm, self).is_valid()
         for key in self.fields:
-            widget = self.fields[key].widget
-
-            if key not in self._meta.widgets and type(widget) in MATERIAL_WIDGETS.values() and key in self.errors:
-                self.fields[key].widget.errors = self.errors[key]
+           self.__update_error__(field=key)
 
         return valid
 
