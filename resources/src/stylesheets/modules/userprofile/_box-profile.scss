@@ -65,6 +65,7 @@
     }
     &__relationship {
         display: flex;
+        flex-flow: row wrap;
         align-items: center;
         justify-content: space-between;
         color: #616161;
