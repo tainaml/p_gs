@@ -53,17 +53,16 @@
     {% endif %}
 </div>
 {% if profile.isContributor %}<div class="banner-collaborator">Colaborador do Portal GSTI</div>{% endif %}
-{%  if profile.description %}
+{%  if profile.description or request.user != profile.user %}
 <div class="follower-content">
     <ul class="list-unstyled clearfix">
          {% if request.user != profile.user %}
         <li>
             {% follow_action profile.user request.path "btn-follow" %}
         </li>
-             {% else %}
-             HEheh
         {% endif %}
 
+        {%  if profile.description %}
         <li class="tiny">
               <i class="gsticon gsticon-user"></i>
               Sobre
@@ -72,6 +71,7 @@
                 {{ profile.description }}
               </div>
         </li>
+         {% endif %}
 
 
     </ul>
