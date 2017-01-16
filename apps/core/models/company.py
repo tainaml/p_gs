@@ -109,7 +109,9 @@ class CompanyProxy(Company):
         self.create_user()
         super(CompanyProxy, self).save(force_insert, force_update, using, update_fields)
 
+        # TODO Problem
         # self.process_permissions()
+
         self.update_user()
 
     @classmethod

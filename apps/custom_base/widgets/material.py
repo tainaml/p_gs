@@ -55,8 +55,11 @@ class InputTextMaterial(InputMaterial):
 
 class URLMaterial(InputTextMaterial):
 
-    template = 'custom_base/input-text-material.html'
     input_type = 'url'
+
+class EmailMaterial(InputTextMaterial):
+
+    input_type = 'email'
 
 
 class TextAreaMaterial(InputMaterial):

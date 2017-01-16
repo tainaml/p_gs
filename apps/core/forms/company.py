@@ -1,21 +1,23 @@
 # -*- coding: utf-8 -*-
 from django import forms
+from django.contrib.auth import get_user_model
+from django.core.exceptions import ValidationError
 from django.forms import widgets, BaseFormSet, BaseInlineFormSet
 from apps.company.models import Company
 from apps.core.models.company import CompanyProxy, Membership
 from apps.custom_base.service.custom import MaterialModelForm
-from apps.custom_base.widgets.material import InputTextMaterial
-from apps.taxonomy.models import Taxonomy
-from apps.core.widgets.custom_field import (
-    ideia_custom_fielder, ideia_field_wraper,
-    CustomFielderWidget
-)
-
+from django.utils.translation import ugettext as _
 
 class TaxonomyModelChoiceField(forms.ModelMultipleChoiceField):
 
     def label_from_instance(self, obj):
         return u'{}'.format(obj.description)
+
+def verify_if_exists(value):
+    User = get_user_model()
+    if User.objects.filter(email=value).exists():
+        raise ValidationError(
+            _('This e-mail already exists!'))
 
 class CompanyForm(MaterialModelForm):
 
@@ -30,6 +32,8 @@ class CompanyForm(MaterialModelForm):
         queryset=CompanyProxy.list_communities(),
         widget=widgets.SelectMultiple(attrs={'class': 'shows'})
     )
+
+    email = forms.EmailField(required=True, label=_("Email"), validators=[verify_if_exists])
 
     request_user = None
 
@@ -65,5 +69,12 @@ class CompanyForm(MaterialModelForm):
         }
 
     def set_request_user(self, user):
+
         self.request_user = user
+        
+    def save(self, commit=True):
+        self.instance.user.email = self.cleaned_data['email']
+        instance = super(CompanyForm, self).save(commit=commit)
+
+        return instance
 

@@ -1,7 +1,8 @@
 from django import forms
 import logging
 from django.forms import widgets
-from apps.custom_base.widgets.material import InputTextMaterial, TextAreaMaterial, SelectMaterial, URLMaterial
+from apps.custom_base.widgets.material import InputTextMaterial, TextAreaMaterial, SelectMaterial, URLMaterial, \
+    EmailMaterial
 
 logger = logging.getLogger('error')
 
@@ -44,6 +45,7 @@ MATERIAL_WIDGETS = {
     widgets.Textarea: TextAreaMaterial,
     widgets.Select: SelectMaterial,
     widgets.URLInput: URLMaterial,
+    widgets.EmailInput: EmailMaterial,
 }
 
 class MaterialModelForm(forms.ModelForm):
