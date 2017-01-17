@@ -119,8 +119,9 @@
                                 <i class="gsticon gsticon-tag"></i> Plataforma: {{ instance.plataform.description }}
                             </li>
                         </ul>
-                        {% if not instance.class_link %}
-                            <a href="{{ instance.affiliate_link }}" rel="nofollow" class="btn btn-green course__btn" target="_blank">Tenho Interesse</a>
+
+                        {% if not instance.class_link and instance.is_date_valid %}
+                                <a href="{{ instance.affiliate_link }}" rel="nofollow" class="btn btn-green course__btn" target="_blank">Tenho Interesse</a>
                         {% endif %}
                     </div>
                 </div>

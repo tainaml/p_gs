@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-01-06 11:31-0300\n"
+"POT-Creation-Date: 2017-01-16 21:11-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -190,15 +190,15 @@ msgstr "Publicação salva com sucesso"
 msgid "Generic Error"
 msgstr "Erro"
 
-#: apps/certification/models.py:8 apps/core/models/course.py:69
-#: apps/core/models/course.py:132 apps/job_vacancy/models.py:39
+#: apps/certification/models.py:8 apps/core/models/course.py:70
+#: apps/core/models/course.py:140 apps/job_vacancy/models.py:39
 #: templates/admin/base.html:284
 msgid "Title"
 msgstr "Título"
 
-#: apps/certification/models.py:9 apps/company/models.py:54
-#: apps/company/models.py:69 apps/company/models.py:76
-#: apps/core/models/course.py:71 apps/core/models/course.py:133
+#: apps/certification/models.py:9 apps/company/models.py:62
+#: apps/company/models.py:94 apps/company/models.py:101
+#: apps/core/models/course.py:72 apps/core/models/course.py:141
 #: apps/core/models/languages.py:9 apps/core/models/plataform.py:21
 #: apps/job_vacancy/models.py:18 apps/job_vacancy/models.py:25
 #: apps/job_vacancy/models.py:32 apps/job_vacancy/models.py:78
@@ -269,54 +269,54 @@ msgstr "Comunidade relacionada"
 msgid "Community not Found."
 msgstr "Comunidade não encontrada"
 
-#: apps/company/models.py:13
+#: apps/company/models.py:12
 msgid "This is not a valid membership"
 msgstr "Isto não é um membro valido"
 
-#: apps/company/models.py:21 apps/company/models.py:26
+#: apps/company/models.py:20 apps/company/models.py:25
 msgid "Admin"
 msgstr "Administrator"
 
-#: apps/company/models.py:22 apps/company/models.py:27
+#: apps/company/models.py:21 apps/company/models.py:26
 msgid "Collaborator"
 msgstr "Colaborador"
 
-#: apps/company/models.py:30
+#: apps/company/models.py:29
 msgid "User"
 msgstr "Nome de usuário"
 
-#: apps/company/models.py:31 apps/company/models.py:78
+#: apps/company/models.py:30 apps/company/models.py:103
 #: apps/job_vacancy/models.py:43 templates/userprofile/occupation_add.html:13
 #: templates/userprofile/occupation_edit.html:13
 msgid "Company"
 msgstr "Empresa"
 
-#: apps/company/models.py:33
+#: apps/company/models.py:32
 msgid "Permission"
 msgstr "Permissão"
 
-#: apps/company/models.py:50 apps/core/admin/geral.py:126
+#: apps/company/models.py:58 apps/core/admin/geral.py:126
 #: apps/userprofile/models.py:134 templates/contact/contact.html:11
 msgid "Name"
 msgstr "Nome"
 
-#: apps/company/models.py:51
+#: apps/company/models.py:59
 msgid "Logo"
 msgstr "Logo"
 
-#: apps/company/models.py:55
+#: apps/company/models.py:63
 msgid "City"
 msgstr "Cidade"
 
-#: apps/company/models.py:57
+#: apps/company/models.py:65
 msgid "Website"
 msgstr "Website"
 
-#: apps/company/models.py:59
+#: apps/company/models.py:67
 msgid "Taxonomies"
 msgstr "Taxonomias"
 
-#: apps/company/models.py:77
+#: apps/company/models.py:102
 msgid "Type"
 msgstr "Tipo"
 
@@ -369,11 +369,11 @@ msgstr "Apenas organizações podem relogar"
 msgid "Session has no id from user!"
 msgstr "Sessão não tem id do usuário que logou pela organização"
 
-#: apps/core/business/account.py:54
+#: apps/core/business/account.py:56
 msgid "Company has no user associated with"
 msgstr "Organização não tem usuário associado"
 
-#: apps/core/business/account.py:56
+#: apps/core/business/account.py:58
 msgid "User has no permission to log in with this company!"
 msgstr "Usuário não tem permissão para logar por esta organização"
 
@@ -384,6 +384,12 @@ msgstr "Ocorreu um erro ao desativar a conta"
 #: apps/core/forms/community.py:133
 msgid "All"
 msgstr "Todos"
+
+#: apps/core/forms/company.py:29 templates/account/password_forgot.html:8
+#: templates/account/resend_account_confirmation.html:8
+#: templates/account/signup.html:127 templates/contact/contact.html:14
+msgid "Email"
+msgstr "Email"
 
 #: apps/core/forms/course.py:20 apps/core/forms/videos.py:20
 msgid "Default"
@@ -433,87 +439,94 @@ msgstr "Gênero não permitido."
 msgid "Image size more than 1mb."
 msgstr "Tamanho da imagem excede 1mb"
 
-#: apps/core/models/course.py:70 apps/core/models/languages.py:8
+#: apps/core/models/course.py:71 apps/core/models/languages.py:8
 #: apps/core/models/plataform.py:20 apps/job_vacancy/models.py:40
 #: apps/userprofile/models.py:135
 msgid "Slug"
 msgstr "Slug"
 
-#: apps/core/models/course.py:72
+#: apps/core/models/course.py:73
 msgid "Observation"
 msgstr "Observação"
 
-#: apps/core/models/course.py:74
+#: apps/core/models/course.py:75
+msgid "Start Date"
+msgstr "Data de início"
+
+#: apps/core/models/course.py:76
+#| msgid "Date"
+msgid "Due Date"
+msgstr "Data final"
+
+#: apps/core/models/course.py:78
 msgid "Rating"
 msgstr "Avaliação"
 
-#: apps/core/models/course.py:77
+#: apps/core/models/course.py:81
 msgid "Internal author"
 msgstr "Autor interno"
 
-#: apps/core/models/course.py:79
+#: apps/core/models/course.py:83
 msgid "External Author"
 msgstr "Autor externo"
 
-#: apps/core/models/course.py:80
-#| msgid "External Author"
+#: apps/core/models/course.py:84
 msgid "External Author - Description"
 msgstr "Autor externo - Descrição"
 
-#: apps/core/models/course.py:88
+#: apps/core/models/course.py:92
 msgid "Languages"
 msgstr "Linguagens"
 
-#: apps/core/models/course.py:89
+#: apps/core/models/course.py:93
 msgid "Image"
 msgstr "Imagens"
 
-#: apps/core/models/course.py:91
+#: apps/core/models/course.py:95
 msgid "Thumbnail"
 msgstr "Miniatura"
 
-#: apps/core/models/course.py:94
+#: apps/core/models/course.py:98
 msgid "Related Courses"
 msgstr "Cursos realacionados"
 
-#: apps/core/models/course.py:95
+#: apps/core/models/course.py:99
 msgid "Taxonomy"
 msgstr "Taxonomia"
 
-#: apps/core/models/course.py:97
+#: apps/core/models/course.py:101
 msgid "Affiliate link"
 msgstr "Link afiliado"
 
-#: apps/core/models/course.py:99 apps/userprofile/models.py:141
+#: apps/core/models/course.py:103 apps/userprofile/models.py:141
 msgid "Active"
 msgstr "Ativo"
 
-#: apps/core/models/course.py:101
+#: apps/core/models/course.py:105
 msgid "Plataform"
 msgstr "Plataforma"
 
-#: apps/core/models/course.py:102
+#: apps/core/models/course.py:106
 msgid "Class Link"
 msgstr "Link da Aula"
 
-#: apps/core/models/course.py:104
-#| msgid "^oembed/"
+#: apps/core/models/course.py:108
 msgid "Embed"
 msgstr "Embed"
 
-#: apps/core/models/course.py:106
+#: apps/core/models/course.py:110
 msgid "Price"
 msgstr "Preço"
 
-#: apps/core/models/course.py:106
+#: apps/core/models/course.py:110
 msgid "0 to free courses, blank to unknow price"
 msgstr "0 para cursos grátis, branco para preço desconhecido"
 
-#: apps/core/models/course.py:134
+#: apps/core/models/course.py:142
 msgid "Order"
 msgstr "Ordem"
 
-#: apps/core/models/course.py:135
+#: apps/core/models/course.py:143
 msgid "Course"
 msgstr "Curso"
 
@@ -780,12 +793,10 @@ msgid "^(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/materials/list/$"
 msgstr "^(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/materiais/listagem/$"
 
 #: apps/core/urls/company.py:7
-#| msgid "^create/$"
 msgid "^create$"
 msgstr "^criar$"
 
 #: apps/core/urls/company.py:8
-#| msgid "^edit/(?P<question_id>[0-9]+)$"
 msgid "^edit/(?P<company_id>\\d+)$"
 msgstr "^editar/(?P<company_id>\\d+)$"
 
@@ -969,12 +980,10 @@ msgid "^create/(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)$"
 msgstr "^criar/(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)$"
 
 #: apps/core/urls/rating.py:8
-#| msgid "^create/$"
 msgid "^course/rate/$"
 msgstr "^curso/avaliar/$"
 
 #: apps/core/urls/rating.py:9
-#| msgid "^article/delete/(?P<article_id>\\d+)$"
 msgid "^course/rate/(?P<rate_id>\\d+)/delete$"
 msgstr "^curso/avaliar/(?P<rate_id>\\d+)/delete$"
 
@@ -1064,13 +1073,11 @@ msgstr "^ajax/listar/usuarios$"
 
 #. Translators: URL carregamento assincrono de usuarios
 #: apps/core/urls/user.py:44
-#| msgid "^correct-answer/(?P<answer_id>[0-9]+)$"
 msgid "^ajax/list/users/(?P<user_id>[0-9]+)/$"
 msgstr "^ajax/list/users/(?P<user_id>[0-9]+)/$"
 
 #. Translators: URL carregamento assincrono de usuarios
 #: apps/core/urls/user.py:47
-#| msgid "^load/related/(?P<question_id>[0-9]+)/(?P<content_type>[a-z]+)/$"
 msgid "^dinamic-profile-image/(?P<user_id>[0-9]+)/(?P<size>[0-9]+)/$"
 msgstr "^dinamic-profile-image/(?P<user_id>[0-9]+)/(?P<size>[0-9]+)/$"
 
@@ -1124,7 +1131,6 @@ msgstr "^feed/$"
 
 #. Translators: URL de listagem de Organizacoes
 #: apps/core/urls/user.py:84
-#| msgid "^complaint/"
 msgid "^companies/$"
 msgstr "^organizacoes/$"
 
@@ -1308,7 +1314,6 @@ msgid "Course not found"
 msgstr "Curso não encontrado"
 
 #: apps/core/views/course.py:84
-#| msgid "Question is not exists!"
 msgid "Rating does not exist"
 msgstr "Avaliação não existe"
 
@@ -1700,7 +1705,6 @@ msgstr "^perfil/"
 
 #. Translators: URL root de company-organization
 #: rede_gsti/urls.py:59
-#| msgid "^notifications/"
 msgid "^organization/"
 msgstr "^organizacao/"
 
@@ -1956,12 +1960,6 @@ msgstr "Enviar"
 msgid "Go to index!"
 msgstr "Ir para início!"
 
-#: templates/account/password_forgot.html:8
-#: templates/account/resend_account_confirmation.html:8
-#: templates/account/signup.html:127 templates/contact/contact.html:14
-msgid "Email"
-msgstr "Email"
-
 #: templates/account/password_recovery.html:3
 msgid "Nova senha"
 msgstr "Nova senha"
@@ -2002,7 +2000,6 @@ msgid "Hide applications"
 msgstr "Esconder aplicações"
 
 #: templates/admin/base.html:252
-#| msgid "Show profile"
 msgid "Show hidden"
 msgstr "Mostrar omitidos"
 
@@ -2045,12 +2042,10 @@ msgid "Add another %(verbose_name)s"
 msgstr "Adicionar outro %(verbose_name)s"
 
 #: templates/admin/edit_inline/compact.html:37
-#| msgid "Danger"
 msgid "Change"
 msgstr "Mudar"
 
 #: templates/admin/edit_inline/compact.html:43
-#| msgid "View site"
 msgid "View on site"
 msgstr "Ver no portal!"
 
@@ -2069,7 +2064,7 @@ msgid "Save as draft"
 msgstr "Salvar como rascuho"
 
 #: templates/article/article-base.html:37
-#: templates/home/partials/slideout-menu.html:64
+#: templates/home/partials/slideout-menu.html:65
 #: templates/home/partials/user-actions.html:15
 msgctxt "publish article"
 msgid "Publish"
@@ -2113,9 +2108,9 @@ msgstr "Mensagem"
 msgid "submit"
 msgstr "Enviar"
 
-#: templates/core/amp/base.html:358
-#: templates/home/partials/slideout-menu.html:55
-#: templates/home/partials/user-actions.html:46
+#: templates/core/amp/base.html:359
+#: templates/home/partials/slideout-menu.html:56
+#: templates/home/partials/user-actions.html:47
 msgid "Sair"
 msgstr "Sair"
 
