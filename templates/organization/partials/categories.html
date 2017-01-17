@@ -1,0 +1,25 @@
+{% load widget_tweaks %}
+<div class="col-xs-12">
+    <h4>Categoria</h4>
+    <div class="organization__form__item">
+        <p>Selecione a(s) categoria(s) relacionada(s) a sua organização</p>
+    </div>
+    <div class="row organization__form__categories">
+
+        {% for choice in form.categories %}
+
+            <div class="col-sm-4 col-xs-6">
+                <div class="customform">
+                    {{ choice.tag }}
+                    <label class="customform-checkbutton" for="{{choice.id_for_label}}">{{ choice.choice_label }}</label>
+                </div>
+            </div>
+
+        {% endfor %}
+
+        <div class="col-xs-12">
+            {% if form.categories.errors %}{{ form.categories.errors }}{% endif %}
+        </div>
+
+    </div>
+</div>

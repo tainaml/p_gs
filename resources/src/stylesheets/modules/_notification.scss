@@ -118,6 +118,11 @@ $color-counter-notification: #b2b2b2 !default;
 
         span { color: #337ab7; }
         .perfil-counter { color: #7b787d }
+        .icontype {
+          float: right;
+          color: lighten(#616161, 30%);
+          font-size: 20px;
+        }
     }
 }
 .not-visualized { background-color: #fcfcfc; }

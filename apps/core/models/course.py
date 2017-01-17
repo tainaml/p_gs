@@ -1,6 +1,7 @@
 from decimal import Decimal
 from django.contrib.auth import get_user_model
 from django.contrib.contenttypes.fields import GenericRelation
+from django.utils import timezone
 from django.utils.functional import cached_property
 from apps.core.models.languages import Language
 from apps.core.models.plataform import Plataform
@@ -71,7 +72,10 @@ class Course(models.Model):
     description = models.TextField(verbose_name=_('Description'))
     observation = models.TextField(null=True, blank=True, verbose_name=_('Observation'))
 
-    rating = models.DecimalField(max_digits=3, decimal_places=2, verbose_name=_('Rating'))
+    start_date = models.DateTimeField(default=timezone.now, null=True, blank=True, verbose_name=_('Start Date'))
+    due_date = models.DateTimeField(null=True, blank=True, verbose_name=_('Due Date'))
+
+    rating = models.DecimalField(max_digits=3, decimal_places=2, verbose_name=_('Rating'), default=0.00)
 
     internal_author = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, blank=True, related_name='courses',
                                verbose_name=_('Internal author'))
@@ -102,6 +106,12 @@ class Course(models.Model):
     class_link = models.URLField(verbose_name=_('Class Link'), null=True, blank=True)
 
     embed = models.TextField(null=True, blank=True, verbose_name=_("Embed"), help_text="class=\"embed-responsive-item\"")
+
+    price = models.DecimalField(max_digits=6, decimal_places=2, verbose_name=_('Price'), null=True, blank=True, help_text=_("0 to free courses, blank to unknow price"))
+
+    @property
+    def is_date_valid(self):
+        return (timezone.now() < self.due_date) if self.due_date else True
 
     def __unicode__(self):
         return u'{}'.format(self.title)

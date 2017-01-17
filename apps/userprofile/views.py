@@ -88,8 +88,12 @@ class ProfileEditView(ProfileBaseView):
     @method_decorator(login_required)
     def get(self, request, *args, **kwargs):
 
+
+
         profile = self.filter(request, request.user)
 
+        if profile.user.is_company():
+            return redirect(reverse("organization:edit", args=[profile.user.company.id]))
         countries = Business.get_countries()
         form = self.form_profile(data_model=profile)
 

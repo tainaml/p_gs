@@ -1,4 +1,4 @@
 [submodule "apps/geography"]
 	path = apps/geography
-	url = git@git.dominiodeteste.net:djangoapps/geography.git
+	url = git@git.ideiaseo.com:django-apps/geography.git
 	branch = develop

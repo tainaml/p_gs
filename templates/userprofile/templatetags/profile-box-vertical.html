@@ -1,4 +1,3 @@
-
 {% load social_tags %}
 {% load article_tags %}
 {% load thumbor_tags %}
@@ -8,61 +7,75 @@
 {% set user_content_type = "user" %}
 {% followers_count profile.user as followers_count_value %}
 
-<div class="perfil">
-    <a href="{% if  profile.user.is_active %}{% url 'profile:show' profile.user.get_username %}{% else %}javascript:;{% endif %}">
-      <figure class="profile-box__avatar">
-        <img class="img-responsive" src="{% get_avatar profile.user width=90 height=90 smart=False fit_in=False %}" alt="{{ profile.user.get_full_name }}">
+<div class="profile__sidebar">
+    <a class="profile__sidebar__avatar" href="{% if  profile.user.is_active %}{% url 'profile:show' profile.user.get_username %}{% else %}javascript:;{% endif %}">
+      <figure>
+        <img class="img-responsive" src="{% get_avatar profile.user width=130 height=130 smart=False fit_in=False %}" alt="{{ profile.user.get_full_name }}">
       </figure>
     </a>
-    <h1 class="perfil-name"><a title="{{ profile.user.get_full_name }}" href="{% if  profile.user.is_active %}{% url 'profile:show' profile.user.get_username %}{% else %}javascript:;{% endif %}">{{ profile.user.get_full_name }}</a></h1>
-    <span class="perfil-counter"
-          data-counter="{{ followers_count_value }}"
-          data-refresh-counter="follow-{{ user_content_type }}-{{ profile.user.id }}">
-        <span class="counter-number">{{ followers_count_value }}</span> Seguidor{{ followers_count_value|pluralize:'es' }}
+    <h1 class="profile__sidebar__name">
+        <a title="{{ profile.user.get_full_name }}" href="{% if  profile.user.is_active %}{% url 'profile:show' profile.user.get_username %}{% else %}javascript:;{% endif %}">{{ profile.user.get_full_name }}</a>
+    </h1>
+    <div class="profile__sidebar__relationship">
+        <span data-counter="{{ followers_count_value }}" data-refresh-counter="follow-{{ user_content_type }}-{{ profile.user.id }}">
+            <span class="counter-number">{{ followers_count_value }}</span> Seguidor{{ followers_count_value|pluralize:'es' }}
+        </span>|
+        <span>{% articles_count profile.user as articles_count_value %}{{ articles_count_value }} Publicaç{{ articles_count_value|pluralize:"ão,ões" }}
+        </span>
+    </div>
+
+    {% if profile.user.company %}
+    <a class="profile__sidebar__website" href="{{ profile.user.company.website }}" rel="nofollow" target="_blank">
+        <i class="gsticon gsticon-link"></i> {{ profile.user.company.website|slice:"150" }}
+    </a>
+    {% if request.user == profile.user %}
+    <ul class="user__pages__list">
+        <li class="user__pages__page"><a href="{% url 'account:relogin' %}">
+            <img src="{% thumbor_url request.session.before_user_image width=20 height=20 smart=False fit_in=False %}" alt="Image de {{ request.session.before_user_full_name }}">
+            {{ request.session.before_user_full_name }}
+        </a></li>
+    </ul>
+    {% endif %}
+
+    {% if profile.has_locale %}
+    <span class="profile__sidebar__locale">
+        <i class="gsticon gsticon-map-marker"></i> {{ profile.locale }}
     </span>
-    <span class="perfil-counter">
-        <span class="counter-number">{% articles_count profile.user as articles_count_value %}{{ articles_count_value }}</span> Publicaç{{ articles_count_value|pluralize:"ão,ões" }}
+    {% endif %}
+    {% else %}
+    {% if profile.occupation.all %}
+    <span class="profile__sidebar__occupation">
+        <i class="gsticon gsticon-briefcase"></i>
+        {% for occupation in profile.occupation.all %}
+            {{ occupation.responsibility.name }}{% if not forloop.last %},{% endif %}
+        {% endfor %}
     </span>
+    {% endif %}
+         {% include 'userprofile/partials/companies.html' %}
+    {% endif %}
 </div>
 {% if profile.isContributor %}<div class="banner-collaborator">Colaborador do Portal GSTI</div>{% endif %}
+{%  if profile.description or request.user != profile.user %}
 <div class="follower-content">
     <ul class="list-unstyled clearfix">
-        {% if request.user != profile.user %}
+         {% if request.user != profile.user %}
         <li>
             {% follow_action profile.user request.path "btn-follow" %}
         </li>
         {% endif %}
 
-        {% if profile.user.company %}
-        <li>
-            <a href="{{ profile.user.company.website }}" rel="nofollow" target="_blank"><i class="gsticon gsticon-globe"></i> {{ profile.user.company.website|slice:"150" }}</a>
-        </li>
-        {% else %}
-            {% if profile.occupation.all %}
-            <li>
-                <i class="gsticon gsticon-briefcase"></i>
-                {% for occupation in profile.occupation.all %}
-                    {{ occupation.responsibility.name }}{% if not forloop.last %},{% endif %}
-                {% endfor %}
-            </li>
-            {% endif %}
-        {% endif %}
-
-        {% if profile.has_locale %}
-        <li>
-            <i class="gsticon gsticon-map-marker"></i>
-            Mora em <strong>{{ profile.locale }}</strong>
-        </li>
-        {% endif %}
         {%  if profile.description %}
-            <li>
-          <i class="gsticon gsticon-user"></i>
-          Sobre
-          <div class="profile-box__bio">
-            {{ profile.description }}
-          </div>
+        <li class="tiny">
+              <i class="gsticon gsticon-user"></i>
+              Sobre
+              <div class="profile-box__bio">
+
+                {{ profile.description }}
+              </div>
         </li>
-        {% endif %}
+         {% endif %}
+
 
     </ul>
 </div>
+{% endif %}

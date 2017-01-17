@@ -8,6 +8,7 @@ from apps.core.models.course import Course, Curriculum
 from apps.core.models.plataform import Plataform
 from django.contrib.contenttypes.admin import GenericStackedInline
 
+
 class CurruculumAdminInlineForm(forms.ModelForm):
 
 
@@ -18,17 +19,6 @@ class CurruculumAdminInlineForm(forms.ModelForm):
             'description': SummernoteWidget(editor_conf='article_admin')
         }
 
-    class Media:
-        js = (
-            'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js',
-            'https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.1/summernote.min.js', )
-
-        css= {
-            'all': (
-                'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css',
-                'https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.1/summernote.css',
-            )
-        }
 
 class CurriculumInline(StackedInline):
 
@@ -40,13 +30,21 @@ class CurriculumInline(StackedInline):
 
 
 
+
 class RatingsInline(GenericStackedInline):
 
     model = Rating
     extra = 1
     raw_id_fields = ['author']
 
+class ModelFormAdminCourse(forms.ModelForm):
 
+    class Meta:
+        model = Course
+        exclude = ('rating',)
+        widgets = {
+            'observation': SummernoteWidget(editor_conf='article_admin')
+        }
 
 
 class CoreCourseAdmin(admin.ModelAdmin):
@@ -55,11 +53,15 @@ class CoreCourseAdmin(admin.ModelAdmin):
     list_display_links = list_display
 
     inlines = [CurriculumInline, RatingsInline]
-
+    form = ModelFormAdminCourse
     def view_on_site(self, obj):
 
         return reverse('course:show', args=[obj.slug])
 
+    class Meta:
+        widgets = {
+            'observation': SummernoteWidget(editor_conf='article_admin')
+        }
 
 
 admin.site.register(Course, CoreCourseAdmin)

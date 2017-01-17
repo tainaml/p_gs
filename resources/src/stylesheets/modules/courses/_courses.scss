@@ -1,4 +1,4 @@
-.area-title.courses__title {
+loca.area-title.courses__title {
   margin-top: 30px;
   margin-bottom: 47px;
 }
@@ -13,15 +13,23 @@
 .thumb__course {
   @include clearfix();
   overflow: hidden;
+  height: 360px;
+  padding-right: 20px;
   padding-bottom: 18px;
+  padding-left: 20px;
   margin-bottom: 30px;
   display: block;
+  box-shadow: 0.2px 2px 4.8px 0.3px rgba(0, 0, 0, 0.24);
   figure {
     position: relative;
     overflow: hidden;
+    margin-right: -20px;
+    margin-left: -20px;
+    text-align: center;
     img {
       max-width: 100%;
       max-height: 100%;
+      display: inline-block;
       transition: all 0.6s ease;
     }
   }
@@ -32,9 +40,9 @@
   &__title {
     overflow: hidden;
     text-overflow: ellipsis;
-    height: 42px;
-    margin-top: 27px;
-    margin-bottom: 10px;
+    height: 61px;
+    margin-top: 22px;
+    margin-bottom: 15px;
     display: block;
     color: #666;
     font: 400 18px/20px 'Open Sans';
@@ -43,7 +51,7 @@
   &__categories {
     overflow: hidden;
     height: 40px;
-    margin-bottom: 5px;
+    margin-bottom: 8px;
     display: block;
     color: #484848;
     letter-spacing: -0.05em;
@@ -118,14 +126,19 @@
     }
   }
   .thumb__course {
+    height: auto;
+    padding-right: 0;
     padding-bottom: 0;
+    padding-left: 0;
     margin-bottom: 20px;
     border: 0;
+    box-shadow: none;
     > figure {
       overflow: hidden;
       max-width: 130px;
       width: 45%;
       margin-right: 20px;
+      margin-left: 0;
       float: left;
       img { max-width: 100%; }
     }

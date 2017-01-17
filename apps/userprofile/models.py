@@ -45,6 +45,7 @@ class UserProfile(models.Model):
 
     @cached_property
     def avatar_url(self):
+
         profile_image = self.profile_picture.url if self.profile_picture else None
         if profile_image:
             return profile_image

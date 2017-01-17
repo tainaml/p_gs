@@ -1,0 +1,47 @@
+{% extends "home/layout/base.html" %}
+{% load ads %}
+
+{% block title %}Organization Register{% endblock title %}
+
+{% block content %}
+    <main class="container main" data-page="organization">
+        <div class="row">
+            <div class="col-sm-offset-1 col-sm-10">
+                <div class="banner">
+                    {% ads_only_production "home_top" "all" %}
+                </div>
+            </div>
+        </div>
+        <div class="row organization">
+            <form class="col-sm-offset-1 col-sm-10" method="post" enctype="multipart/form-data" data-toggle="form">
+
+                {% csrf_token %}
+
+                {{ form.non_field_errors }}
+
+                <fieldset class="row organization__register" data-toggle="steps">
+                    <legend class="organization__register__title">{% if form.instance and form.instance.id %}Editar{% else %}Cadastrar{% endif %} Organização</legend>
+                    <div class="organization__register__tablist" role="tablist">
+                        <a class="organization__register__tab active" href="#step-one" role="tab">
+                            <i class="gsticon gsticon-user"></i>
+                            Passo 1
+                        </a>
+                        <div class="organization__register__panel col-sm-12 active" id="step-one" role="tabpanel">
+                            {% include "organization/partials/register-step-one.html" %}
+                        </div>
+                        <a class="organization__register__tab" href="#step-two" role="tab">
+                            <i class="gsticon gsticon-gear"></i>
+                            Passo 2
+                        </a>
+                        <div class="organization__register__panel col-sm-12" id="step-two" role="tabpanel">
+                            {% include "organization/partials/register-step-two.html" %}
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+
+            {% include "organization/partials/organization-user.html" %}
+
+        </div>
+    </main>
+{% endblock content %}

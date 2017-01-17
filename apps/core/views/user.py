@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 from django.contrib.contenttypes.models import ContentType
+from django.db.models import Q
 from django.http import JsonResponse, Http404
 from django.utils.decorators import method_decorator
 from django.views.generic import View
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-
 from apps.community.models import Community
 from apps.core.business.content_types import ContentTypeCached
 from apps.core.forms.WizardForm import WizardFormStepOne
@@ -21,9 +21,11 @@ from apps.userprofile.service import business as BusinessUserProfile
 from apps.taxonomy.service import business as BusinessTaxonomy
 from apps.socialactions.service import business as BusinessSocialActions
 from apps.core.forms.user import CoreSearchFollowings
+import django_thumbor
 from rede_gsti import settings
 from apps.community.service import business as BusinessCommunity
 from apps.socialactions.service import business as BusinnesSocialAction
+from apps.account.models import User
 
 
 class CoreUserView(views.ProfileShowView):
@@ -150,23 +152,6 @@ class CoreUserSearch(CoreUserView):
 
 
 class CoreUserFeed(CoreUserView):
-            
-    template_path = 'userprofile/profile-feed.html'
-
-    @method_decorator(login_required)
-    def get(self, request, **kwargs):
-        return super(CoreUserFeed, self).get(request)
-
-    def get_context(self, request, profile_instance=None):
-        context = super(CoreUserFeed, self).get_context(request, profile_instance)
-
-        categories = BusinessTaxonomy.get_categories()
-        context.update({'categories': categories})
-
-        return context
-
-
-class CoreUserCOmpanies(CoreUserView):
 
     template_path = 'userprofile/profile-feed.html'
 
@@ -181,6 +166,20 @@ class CoreUserCOmpanies(CoreUserView):
         context.update({'categories': categories})
 
         return context
+
+
+class CoreUserCompanies(CoreUserView):
+
+    template_path = 'userprofile/profile-companies.html'
+
+    @method_decorator(login_required)
+    def get(self, request, **kwargs):
+
+        if hasattr(request.user, "company"):
+            raise Http404()
+        context = {'profile': request.user.profile}
+
+        return render(request, self.template_path, context)
 
 
 class CoreProfileEdit(views.ProfileEditView):
@@ -226,7 +225,7 @@ class CoreProfileWizardStepOne(View):
 
     def get_context(self, request):
         context = {}
-        context['responsibilities'] = Responsibility.objects.all().\
+        context['responsibilities'] = Responsibility.objects.all(). \
             only("id", "name").order_by("name")
 
         return  context
@@ -1095,3 +1094,86 @@ class CoreUserMyQuestionsList(CoreUserMyQuestions):
     template_path = 'userprofile/partials/profile-questions-list.html'
 
 
+class CoreListUsersView(View):
+
+    def single_user(self, user_id):
+
+        try:
+            user = User.objects.get(
+                id=user_id,
+                usertype=User.PERSON,
+                is_active=True
+            )
+        except User.DoesNotExist, User.MultipleObjectsReturned:
+            raise Http404('User not found.')
+        except Exception:
+            raise Http404('User not found. Generic Error')
+
+        return JsonResponse(data={
+            'user': self.serialize_user(user)
+        })
+
+    def serialize_user(self, user):
+        return {
+            'id': user.id,
+            'name': user.get_full_name(),
+            'img': django_thumbor.generate_url(
+                user.user_profile.avatar_url,
+                width=16,
+                height=16
+            )
+        }
+
+    @method_decorator(login_required)
+    def get(self, request, user_id=None):
+
+        users = User.objects.filter(
+            usertype=User.PERSON,
+            is_active=True
+        )
+
+        if user_id:
+            return self.single_user(user_id)
+
+        term = request.GET.get('name', '')
+
+        if term:
+
+            users = users.filter(
+                Q(first_name__unaccent__icontains=term) |
+                Q(last_name__unaccent__icontains=term) |
+                Q(username__unaccent__icontains=term)
+            )
+
+        list_users = []
+
+        for user in users[:50]:
+            list_users.append(self.serialize_user(user))
+
+        return JsonResponse(data={
+            'items': list_users
+        })
+
+class CoreDynamicUserImage(View):
+
+    @method_decorator(login_required)
+    def get(self, request, user_id, size=40):
+        if not user_id:
+            raise Http404()
+
+        if int(size) > 100:
+            raise Http404('Invalid size')
+
+        try:
+            user = User.objects.get(
+                id=user_id,
+                usertype=User.PERSON,
+                is_active=True
+            )
+
+            image_url = django_thumbor.generate_url(user.user_profile.avatar_url, width=size)
+
+            return redirect(to=image_url)
+
+        except Exception as e:
+            raise Http404('Not found {}', e)

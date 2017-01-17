@@ -1,0 +1,20 @@
+<div class="col-xs-12">
+    <h4 class="organization__form__title">Comunidade</h4>
+    <p class="organization__form__label" for="">Escolha a comunidade de sua preferência</p>
+
+    <div class="form-group">
+        <div class="customform search">
+            <input class="customform-input" type="text" name="communities" placeholder="Digite aqui a comunidade que deseja buscar">
+            <i class="gsticon gsticon-search"></i>
+            <hr>
+        </div>
+    </div>
+    <div class="row">
+        {% for community in '123456789' %}
+        <div class="col-sm-4">
+            {% include "front_end/organization/partials/community.html" %}
+        </div>
+        {% endfor %}
+    </div>
+    <a href="#" class="organization__showmore">Veja mais resultados</a>
+</div>

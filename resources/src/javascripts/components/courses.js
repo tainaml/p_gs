@@ -1,6 +1,5 @@
-import '../../vendor/rateYo/jquery.rateyo';
-
-if ( $( '[data-page="courses"]' ).length ) {
+import '../vendor/rateYo/jquery.rateyo';
+module.exports = ( name ) => {
   const $showMore = $( '[data-toggle="showmore"]' )
   const $rating = $( '[data-toggle="rating"]' )
   const formRating = $( '[data-toggle="rating-value"]' )
@@ -40,18 +39,16 @@ if ( $( '[data-page="courses"]' ).length ) {
     toggleHeight($( event.currentTarget ).attr( 'href' ))
     event.preventDefault()
   })
-}
+  }
 
-const toggleHeight = ( seletor ) => {
+  const toggleHeight = ( seletor ) => {
   const $this = $( seletor )
   const ANIMATION_TIME = $this.data( 'animationSpeed' ) || 200
 
   if ( $this.hasClass( 'open' )) {
     $this.animate({
       height: $this.data( 'height' )
-    }, ANIMATION_TIME, function () {
-      $this.removeClass( 'open' )
-    })
+    }, ANIMATION_TIME, () => $this.removeClass( 'open' ))
 
     return false
   }
@@ -61,8 +58,5 @@ const toggleHeight = ( seletor ) => {
   $this.data('height', currentHeight)
   .height(currentHeight).animate({
     height: autoHeight
-  }, ANIMATION_TIME,
-  function () {
-    $this.addClass( 'open' )
-  })
+  }, ANIMATION_TIME, () => $this.addClass( 'open' ))
 }

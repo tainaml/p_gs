@@ -8,6 +8,7 @@
 {% load core_tags %}
 {% block title %}{{ instance.title }}{% endblock title %}
 {% block seo-og-description %}{% block seo-description %}{{ instance.description|seo_description }}{% endblock %}{% endblock %}
+{% block seo-og-image %}{% if instance.image_or_default and instance.image_or_default.url  %}{% thumbor_url instance.image_or_default.url width=480 height=250 smart=False fit_in=False %}{% else %}{{ block.super }}{% endif %}{% endblock %}
 
 {% block content_old %}
 
@@ -22,6 +23,30 @@
 
 {% endblock content_old %}
 
+{% block ld_json %}
+        <script type="application/ld+json">
+        {
+          "@context": "http://schema.org/",
+          "@type": "Product",
+          "name": "{{ instance.title }}",
+          "image": "{% thumbor_url instance.image_or_default.url width=140 height=140 smart=False fit_in=False %}",
+          "description": "{{ instance.description }}",
+          "brand": {
+            "@type": "Organization",
+            "name": "{{ instance.plataform.description }}"
+          }{% if instance.ratings %},
+          "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "{{ instance.rating|stringformat:".2f" }}",
+            "reviewCount": "{{ instance.ratings.all.count }}",
+            "bestRating": "5",
+            "worstRating": "0"
+
+          }
+          {% endif %}
+        }
+    </script>
+{% endblock ld_json %}
 {% block content %}
     <main class="container main" data-page="courses" data-filtered="false">
         <div class="row">
@@ -33,7 +58,7 @@
         </div>
         <article class="row course__single">
             <div class="col-xs-12">
-                <h1 class="course__title">{{ instance.title }}</h1>
+                <h1 class="course__title" title="{{ instance.title }}">{{ instance.title }}</h1>
                 <time class="course__date__publication" datetime="{{ instance.createdin|date:"d/m/Y" }}">
                     <div class="course__avaliation">
                         <span data-toggle="rating" data-config='{"rating": {{ instance.rating|stringformat:"f" }}, "readOnly": true}'></span>
@@ -48,7 +73,7 @@
 
                              <a href="{% url 'course:list' %}?category={{ taxonomy.slug }}" class="course__category">{{ taxonomy.community_related.title }}</a>
                         {% else %}
-                            <a href="{% url 'course:list' %}?community={{ taxonomy.community_related.slug }}" class="course__category">{{ taxonomy.community_related.title }}</a>
+                            <a href="{% url 'course:list' %}?community={{ taxonomy.slug }}&category={{ taxonomy.parent.slug }}" class="course__category">{{ taxonomy.community_related.title }}</a>
 
                         {% endif %}
 
@@ -72,18 +97,18 @@
 
                     <div class="col-sm-7">
                         {% if instance.embed %}
-                            <div class="embed-responsive embed-responsive-16by9">
+                            <div class="embed-responsive embed-responsive-4by3">
 
                                 {{ instance.embed|safe }}
                             </div>
-                        {% else %}
+                        {% elif instance.image %}
                             <img class="img-responsive" src="{% thumbor_url instance.image.url width=670 height=440 %}" alt="Imagem destacada do curso {{ instance.title }}" />
                         {% endif %}
                     </div>
                     <div class="col-sm-5 course__about">
                         <h2 class="course__about__title">Sobre o curso</h2>
                         <div class="course__about__text">
-                            {{ instance.description|safe }}
+                            {{ instance.description|safe|truncatechars:409 }}
                         </div>
                         <ul class="course__about__list">
                             <li>
@@ -94,8 +119,9 @@
                                 <i class="gsticon gsticon-tag"></i> Plataforma: {{ instance.plataform.description }}
                             </li>
                         </ul>
-                        {% if not instance.class_link %}
-                            <a href="{{ instance.affiliate_link }}" rel="nofollow" class="btn btn-green course__btn" target="_blank">Tenho Interesse</a>
+
+                        {% if not instance.class_link and instance.is_date_valid %}
+                                <a href="{{ instance.affiliate_link }}" rel="nofollow" class="btn btn-green course__btn" target="_blank">Tenho Interesse</a>
                         {% endif %}
                     </div>
                 </div>
@@ -122,11 +148,14 @@
                                 </li>
                             {% endfor %}
                         </ul>
+
                         {% if instance.observation %}
-                            <div>
+                            {% if instance.observation|striptags %}
+                                <div>
                                 <h4>Mais informações</h4>
-                                {{ instance.observation }}
+                                {{ instance.observation|safe }}
                             </div>
+                            {% endif %}
                         {% endif %}
 
                         {% if not instance.class_link %}
@@ -148,7 +177,11 @@
 
                                 <a class="related" href="{% url 'course:show' related_course.slug %}">
                                     <figure class="related__img">
-                                        <img class="img-responsive" src="{% thumbor_url related_course.image.url width=100 height=100 %}" alt="{{ related_course.title }}">
+                                        {% if related_course.image %}
+                                            <img class="img-responsive" src="{% thumbor_url related_course.image.url width=100 height=100 %}" alt="{{ related_course.title }}">
+                                        {% else %}
+                                            <i>no image</i>
+                                        {% endif %}
                                     </figure>
                                     <div class="related__body">
                                         <h3 class="related__title">{{ related_course.title }}</h3>
@@ -192,4 +225,3 @@
 
 
 {% endblock content %}
-

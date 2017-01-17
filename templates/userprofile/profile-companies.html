@@ -21,24 +21,34 @@
                 {% include 'home/partials/sidebar-perfil.html' %}
             </div>
             <div class="col-lg-9">
-                  {% include 'userprofile/partials/filters.html' with title="Feed" active="feed" has_filter=False has_navigation=True %}
                 <div class="row">
                     <div class="col-lg-8">
-                        {% if profile.user == request.user %}
-                        <section class="area-content" data-target="content">
-                            {% if feed_objects.object_list %}
-                                <div class="j-scroll j-scroll-container">
-                                    {% include 'userprofile/partials/user-profile-feed.html' %}
-                                </div>
-                            {% else %}
-                                <span>{% trans 'Não existem itens a serem exibidos' %}</span>
-                                <hr>
-                            {% endif %}
-                        </section>
+                        <header class="area-title title-mobile">
+                             <h2>Organizações</h2>
+                        </header>
+                        <section class="area-content user-companies" data-target="content">
+                        {% if  profile.user.companies %}
+                            <ul class="perfil-actions">
+                            {% for company in profile.user.companies.all %}
+                                <li><a href="{% url 'account:login_with_company' company.user.username %}">
+                                    <span>
+                                       {% if company.logo %}
+                                            <img src="{% thumbor_url company.logo.url width=20 height=20 smart=False fit_in=False %}" alt="">
+                                    {% endif %}
+                                        {{ company }}
+                                    </span>
+                                    <span class="sign-in">
+                                        <span class="text">Entrar</span>
+                                        <i class="gsticon gsticon-sign-in"></i>
+                                    </span>
+                                </a></li>
+                            {% endfor %}
+                            </ul>
                         {% endif %}
+                        </section>
                     </div>
-                    <!-- Right bar -->
                     {% include 'userprofile/partials/profile-sidebar-right.html' %}
+                    <!-- Right bar -->
                 </div>
             </div>
         </div>

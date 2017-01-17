@@ -1,0 +1,12 @@
+{% load thumbor_tags %}
+
+<img class="customform-image" src="{% thumbor_url user.user_profile.avatar_url width=70 %}" alt="">
+<span class="customform-checkbutton-body">
+                <span class="customform-checkbutton-title" data-target="name">
+                    {{ user.get_full_name }}
+                </span>
+                <span class="customform-checkbutton-description" data-target="role">
+                    {{ permission_name }}
+                </span>
+            </span>
+<i class="gsticon gsticon-close"></i>

@@ -1,0 +1,73 @@
+{% load widget_tweaks %}
+<div class="col-sm-2 customform" data-toggle="dropzoneUploader"
+    data-original-image="{% if form.instance and form.instance.logo %}{{ form.instance.logo.url }}{% endif %}">
+
+    <div class="customform-file" data-trigger="file">
+        <div class="custom-file-upload-result" data-content="file"></div>
+        <div class="customform-filecaption">Alterar foto</div>
+        <i class="gsticon gsticon-camera"></i>
+    </div>
+
+    {% render_field form.logo class="hidden" accept="image/*" %}
+    {% if form.logo.errors %}{{ form.logo.errors }}{% endif %}
+
+</div>
+
+<div class="col-sm-9 form-group">
+   {% render_field form.name data-toggle="input" placeholder="Nome da Empresa, Instituição, Grupo..." data-msg="Este campo é obrigatório" %}
+</div>
+
+<div class="col-sm-9 form-group">
+    {% render_field form.description data-toggle="input" rows="1" placeholder="Escreva uma breve descrição da sua organização" %}
+</div>
+
+<div class="col-sm-offset-2 col-sm-9">
+    <div class="row">
+        <div class="col-sm-5 form-group">
+            {% render_field form.website data-toggle="input"  %}
+        </div>
+        <div class="col-sm-5 form-group">
+            {% render_field form.email data-toggle="input"  %}
+        </div>
+    </div>
+</div>
+<div class="col-sm-offset-2 col-sm-9">
+    <div class="row">
+        <div class="col-sm-12 form-group">
+            <label class="organization__form__label">Funções administrativas</label>
+            <div class="row">
+                <div class="col-sm-5 col-xs-9">
+                    <div class="customform">
+                        <select id="membership-user" class="customform-input" name="user" data-select="ajaxselect" placeholder="Procure um membro" data-url="{% url 'profile:userlist' %}"
+                        data-toggle="input"></select>
+                        <hr>
+                    </div>
+                </div>
+                <div class="col-sm-4 col-xs-9">
+                    <div class="customform">
+                        <select id="membership-permission" class="customform-input" name="permission">
+                            <option value="1">Administrador</option>
+                            <option value="2">Colaborador</option>
+                        </select>
+                        <hr>
+                    </div>
+                </div>
+                <div class="col-sm-3 col-xs-12 text-right">
+                    <a id="membership-add" class="organization__form__btn btn btn-sm" href="javascript:;" data-toggle="add-member">Adicionar</a>
+                </div>
+            </div>
+            <div class="row organization-members" data-toggle="formset" data-name="{{ members_formset.prefix }}">
+                {{ members_formset.management_form }}
+
+                {% for form in members_formset %}
+                    {% include "organization/partials/organization-user-edit.html" %}
+                {% endfor %}
+                {% if members_formset.non_form_errors %}
+                    <div class="col-xs-12">
+                        {{ members_formset.non_form_errors }}
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,13 @@
+// Styles for customize erro messages of back-end system
+
+
+.customform ~ .errorlist {
+  padding: 0;
+  > li {
+    margin-top: 3px;
+    margin-left: 6px;
+    display: block !important;
+    color: #e10c14;
+    font: 600 10px 'Open Sans';
+  }
+}

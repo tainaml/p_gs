@@ -1,6 +1,7 @@
 'use strict';
 
 import $ from 'jquery'
+import Slideout from 'slideout'
 import './asyncModules'
 import './vendor/bootstrap/'
 import './modules/ideiaForm/'
@@ -13,10 +14,7 @@ import './modules/ideiaNotification/'
 import './modules/ideiaRestrict/'
 import './modules/ideiaValidationField/'
 import './modules/ideiaEditor/'
-import './components/professions'
-import './components/videos'
-import './components/courses'
-import Slideout from 'slideout'
+import './components'
 
 
 $(function () {
@@ -57,7 +55,7 @@ $(function () {
     });
 
     // Tooltips
-    $('[data-toggle=tooltip]').tooltip();
+    $('[data-toggle="tooltip"]').tooltip();
 
     // Slideout
     var slideout = new Slideout({
@@ -75,7 +73,7 @@ $(function () {
         e.preventDefault();
         mobileSearch.slideToggle();
 
-        if (mobileSearch.is(':visible')) {
+        if ( mobileSearch.is(':visible') ) {
             inputSearch.focus();
         } else {
             inputSearch.blur();

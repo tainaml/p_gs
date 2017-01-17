@@ -1,7 +1,8 @@
 from django import forms
 import logging
-
-from django.conf import settings
+from django.forms import widgets
+from apps.custom_base.widgets.material import InputTextMaterial, TextAreaMaterial, SelectMaterial, URLMaterial, \
+    EmailMaterial
 
 logger = logging.getLogger('error')
 
@@ -38,3 +39,48 @@ class IdeiaModelForm(forms.ModelForm, AbstractIdeiaForm):
 
     def __init__(self, *args, **kwargs):
         super(IdeiaModelForm, self).__init__(*args, **kwargs)
+
+MATERIAL_WIDGETS = {
+    widgets.TextInput: InputTextMaterial,
+    widgets.Textarea: TextAreaMaterial,
+    widgets.Select: SelectMaterial,
+    widgets.URLInput: URLMaterial,
+    widgets.EmailInput: EmailMaterial,
+}
+
+class MaterialModelForm(forms.ModelForm):
+
+    def __update_fields__(self, attrs=None):
+
+        for key in self.fields:
+            widget = self.fields[key].widget
+
+            if key not in self._meta.widgets and type(widget) in MATERIAL_WIDGETS:
+
+                self.fields[key].widget = MATERIAL_WIDGETS[type(widget)](attrs=attrs)
+                self.fields[key].widget.label = self.fields[key].label
+
+
+    def __init__(self, *args, **kwargs):
+        super(MaterialModelForm, self).__init__(*args, **kwargs)
+        attrs = kwargs.get('attrs')
+        self.__update_fields__(attrs=attrs)
+
+    def add_error(self, field, error):
+        super(MaterialModelForm, self).add_error(field=field, error=error)
+        self.__update_error__(field=field)
+
+
+    def __update_error__(self, field):
+        widget = self.fields[field].widget
+        if field and field not in self._meta.widgets \
+                and type(widget) in MATERIAL_WIDGETS.values() and field in self.errors:
+                self.fields[field].widget.errors = self.errors[field]
+
+    def is_valid(self):
+        valid = super(MaterialModelForm, self).is_valid()
+        for key in self.fields:
+           self.__update_error__(field=key)
+
+        return valid
+
