@@ -61,6 +61,10 @@ class EmailMaterial(InputTextMaterial):
 
     input_type = 'email'
 
+class NumberMaterial(InputTextMaterial):
+
+    input_type = 'number'
+
 
 class TextAreaMaterial(InputMaterial):
 
@@ -69,7 +73,7 @@ class TextAreaMaterial(InputMaterial):
 
 
 class SelectMaterial(InputMaterial, Select):
-
+    
     def get_aditional_context(self, name, value, attrs=None):
         return {'options': self.render_options([value])}
 

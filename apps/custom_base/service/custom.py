@@ -2,7 +2,7 @@ from django import forms
 import logging
 from django.forms import widgets
 from apps.custom_base.widgets.material import InputTextMaterial, TextAreaMaterial, SelectMaterial, URLMaterial, \
-    EmailMaterial
+    EmailMaterial, NumberMaterial
 
 logger = logging.getLogger('error')
 
@@ -46,6 +46,7 @@ MATERIAL_WIDGETS = {
     widgets.Select: SelectMaterial,
     widgets.URLInput: URLMaterial,
     widgets.EmailInput: EmailMaterial,
+    widgets.NumberInput: NumberMaterial,
 }
 
 class MaterialModelForm(forms.ModelForm):
@@ -53,13 +54,15 @@ class MaterialModelForm(forms.ModelForm):
     def __update_fields__(self, attrs=None):
 
         for key in self.fields:
-            widget = self.fields[key].widget
 
-            if key not in self._meta.widgets and type(widget) in MATERIAL_WIDGETS:
+            field = self.fields[key]
+            widget = field.widget
 
-                self.fields[key].widget = MATERIAL_WIDGETS[type(widget)](attrs=attrs)
-                self.fields[key].widget.label = self.fields[key].label
-
+            if (not self._meta.widgets or key not in self._meta.widgets) and  type(widget) in MATERIAL_WIDGETS:
+                field.widget = MATERIAL_WIDGETS[type(widget)](attrs=attrs)
+                field.widget.label = field.label
+                if hasattr(field, "choices"):
+                    field.widget.choices = field.choices
 
     def __init__(self, *args, **kwargs):
         super(MaterialModelForm, self).__init__(*args, **kwargs)
@@ -73,7 +76,7 @@ class MaterialModelForm(forms.ModelForm):
 
     def __update_error__(self, field):
         widget = self.fields[field].widget
-        if field and field not in self._meta.widgets \
+        if (not self._meta.widgets  or field and field not in self._meta.widgets) \
                 and type(widget) in MATERIAL_WIDGETS.values() and field in self.errors:
                 self.fields[field].widget.errors = self.errors[field]
 

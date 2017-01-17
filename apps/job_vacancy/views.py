@@ -81,11 +81,13 @@ class JobDetailView(BaseJobView):
 class JobEditView(View):
 
     job = None
-    template_name = 'job_vacation/job_edit.html'
+    template_name = 'job_vacation/register.html'
     form = None
     form_class = JobVacancyForm
 
     def get_context(self, request):
+        if request.method == 'GET':
+            self.form.responsibility_formset = self.form.responsibility_formset(instance=self.job)
 
         return {
             'form': self.form,
@@ -101,6 +103,7 @@ class JobEditView(View):
         )
 
         return render(
+
             request,
             template_name=self.template_name,
             context=self.get_context(request)
@@ -116,11 +119,13 @@ class JobEditView(View):
             instance=self.job
         )
 
+        self.form.responsibility_formset = self.form.responsibility_formset(request.POST, instance=self.form.instance)
         context = self.get_context(request)
 
-        if self.form.is_valid():
+        if self.form.is_valid() and self.form.responsibility_formset.is_valid():
             self.form.set_author(request.user)
             self.form.save()
+            self.form.responsibility_formset.save()
         else:
             context.update({
                 'error_message': 'Not saved. Model error.'

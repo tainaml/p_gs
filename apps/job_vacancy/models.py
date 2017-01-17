@@ -11,7 +11,6 @@ from apps.userprofile.models import Responsibility
 from smart_selects.db_fields import ChainedManyToManyField, ChainedForeignKey
 from social.utils import slugify
 
-
 class JobRegime(models.Model):
     description = models.CharField(blank=False, null=False, max_length=100, verbose_name=_('Description'))
 

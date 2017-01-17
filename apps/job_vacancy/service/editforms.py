@@ -1,6 +1,7 @@
 from django.utils.translation import ugettext as _
 from django import forms
 from django.db import models
+from apps.custom_base.service.custom import MaterialModelForm
 from apps.job_vacancy.models import (
     JobVacancy, JobVacancyResponsibility,
     Responsibility, JobVacancyResponsibilityType,
@@ -9,21 +10,27 @@ from apps.job_vacancy.models import (
 )
 
 
-class JobVacancyForm(forms.ModelForm):
+class JobVacancyForm(MaterialModelForm):
 
     # # Responsibility Fields
     # responsibility = forms.ModelChoiceField(queryset=Responsibility.objects.filter(active=True), required=True)
     # responsibility_type = forms.ModelChoiceField(queryset=JobVacancyResponsibilityType.objects.all(), required=True)
 
     responsibility_formset = forms.inlineformset_factory(
+        form=MaterialModelForm,
+        labels=None,
         parent_model=JobVacancy,
         model=JobVacancyResponsibility,
         exclude=(),
         extra=1,
-        max_num=1
+        max_num=1,
+        min_num=1,
+        validate_max=True,
+        validate_min=True
     )
 
     location_formset = forms.inlineformset_factory(
+        labels=None,
         parent_model=JobVacancy,
         model=JobVacancyLocation,
         exclude=(),
@@ -31,11 +38,15 @@ class JobVacancyForm(forms.ModelForm):
     )
 
     salary_formset = forms.inlineformset_factory(
+        labels=None,
         parent_model=JobVacancy,
         model=Salary,
         exclude=(),
         extra=1,
-        max_num=1
+        max_num=1,
+        min_num=1,
+        validate_max=True,
+        validate_min=True
     )
 
 
@@ -57,14 +68,3 @@ class JobVacancyForm(forms.ModelForm):
     def set_author(self, author):
         if self.instance:
             self.instance.author = author
-
-    def save(self, commit=True):
-
-        item = super(JobVacancyForm, self).save(commit)
-        job_responsibility, created = JobVacancyResponsibility.objects.get_or_create(
-            responsibility=self.cleaned_data.get('responsibility'),
-            responsibility_type=self.cleaned_data.get('responsibility_type'),
-            job_vacancy=item
-        )
-        job_responsibility.save()
-        return item
