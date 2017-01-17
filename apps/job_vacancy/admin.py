@@ -7,7 +7,7 @@ from django import forms
 
 from apps.certification.models import Certification
 from apps.job_vacancy.models import Requirement, JobVacancyCertification, Salary, JobVacancy, Benefit, \
-    JobRegime, Level, Exigency, Experience, SalaryType, JobVacancyResponsibility, WorkLoad, JobVacancyResponsibilityType, \
+    JobRegime, Level, Exigency, Experience, JobVacancyResponsibility, WorkLoad, JobVacancyResponsibilityType, \
     JobVacancyLocation, JobVacancyAdditionalRequirement
 
 
@@ -81,8 +81,9 @@ class JobVacancyAdmin(admin.ModelAdmin):
     show_salary.short_description = "Salário"
 
     def show_cargo(self, obj):
-        return "%s - %s" % (obj.resposibility.responsibility_type.description,
-                            obj.resposibility.responsibility.name)
+        return 'Cargo'
+        # return "%s - %s" % (obj.responsibility.responsibility_type.description,
+        #                     obj.responsibility.responsibility.name)
 
     show_cargo.short_description = "Cargo"
 
@@ -93,7 +94,6 @@ admin.site.register(Exigency)
 admin.site.register(JobVacancyLocation)
 admin.site.register(Certification)
 admin.site.register(Experience)
-admin.site.register(SalaryType)
 admin.site.register(WorkLoad)
 admin.site.register(JobVacancyResponsibilityType)
 admin.site.register(JobVacancy, JobVacancyAdmin)

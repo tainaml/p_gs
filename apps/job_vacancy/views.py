@@ -1,10 +1,12 @@
 from django.utils.translation import ugettext as _
-from django.http import JsonResponse, Http404
+from django.http import Http404
 from django.shortcuts import render
 from django.views.generic import View
-
 from .service.forms import JobSearchForm
 from .service.business import get_job
+from apps.job_vacancy.service.editforms import (
+    JobVacancyForm
+)
 
 
 def do_list(request):
@@ -74,3 +76,58 @@ class JobDetailView(BaseJobView):
         }
 
         return self.do_return(request, response_data)
+
+
+class JobEditView(View):
+
+    job = None
+    template_name = 'job_vacation/job_edit.html'
+    form = None
+    form_class = JobVacancyForm
+
+    def get_context(self, request):
+
+        return {
+            'form': self.form,
+        }
+
+    def get(self, request, job_id=None):
+
+        if job_id:
+            self.job = get_job(job_id)
+
+        self.form = self.form_class(
+            instance=self.job
+        )
+
+        return render(
+            request,
+            template_name=self.template_name,
+            context=self.get_context(request)
+        )
+
+    def post(self, request, job_id=None):
+
+        if job_id:
+            self.job = get_job(job_id)
+
+        self.form = self.form_class(
+            data=request.POST,
+            instance=self.job
+        )
+
+        context = self.get_context(request)
+
+        if self.form.is_valid():
+            self.form.set_author(request.user)
+            self.form.save()
+        else:
+            context.update({
+                'error_message': 'Not saved. Model error.'
+            })
+
+        return render(
+            request,
+            template_name=self.template_name,
+            context=context
+        )
