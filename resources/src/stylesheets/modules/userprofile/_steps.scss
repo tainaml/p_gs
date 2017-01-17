@@ -148,8 +148,12 @@
 .wizard > .actions .disabled a,
 .wizard > .actions .disabled a:hover,
 .wizard > .actions .disabled a:active {
-    background: #eee;
-    color: #aaa;
+  background: #eee;
+  color: #aaa;
+}
+.wizard > .actions a[href="#previous"] {
+  background: #eee !important;
+  color: #aaa;
 }
 .wizard > .loading {}
 .wizard > .loading .spinner {}
