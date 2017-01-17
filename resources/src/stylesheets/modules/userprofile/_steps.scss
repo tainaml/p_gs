@@ -151,7 +151,7 @@
   background: #eee;
   color: #aaa;
 }
-.wizard > .actions a[href="#previous"] {
+.wizard > .actions > ul > li[aria-disabled="false"] a[href="#previous"] {
   background: #eee !important;
   color: #aaa;
 }
