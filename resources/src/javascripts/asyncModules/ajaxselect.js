@@ -11,6 +11,7 @@ const [suggest] = [{
     , labelField: 'name'
     , searchField: 'name'
     , create: false
+    , highlight: false
     , render: {
         item: templateItem
         , option: templateOption
@@ -31,10 +32,12 @@ function templateItem (item, escape) {
 }
 function templateOption (item, escape) {
     let name = item.name ? escape(item.name) : ''
-    return `<div class="item-float-notification">
-        <span><img src="${item.img}" alt="${name}"></span>
-        <span>${name}</span>
-        </div>`
+    var template = `<div class="item-float-notification">
+      <span><img src="${item.img}" alt="${name}"></span>
+      ${name}
+    </div>`
+    console.log(template);
+      return template
 }
 
 function loadUsers(query, callback) {
@@ -45,6 +48,7 @@ function loadUsers(query, callback) {
 
     var _data = {};
     _data[this.settings.searchField] = query;
+    console.log(_data);
 
     $.ajax({
         url: options.url,
