@@ -52,22 +52,22 @@
 
 
                         {% if responsibility.about %}
-                            <h2>O que é um {{ responsibility.name }}</h2>
+                            <h3>O que é um {{ responsibility.name }}</h3>
                             {{ responsibility.about|safe }}
                         {% endif %}
 
                         {% if responsibility.study %}
-                            <h2>O que estudar para ser um {{ responsibility.name }}</h2>
+                            <h3>O que estudar para ser um {{ responsibility.name }}</h3>
                             {{ responsibility.study|safe }}
                         {% endif %}
 
                         {% if responsibility.main_activity %}
-                            <h2>Principais atividades do {{ responsibility.name }}</h2>
+                            <h3>Principais atividades do {{ responsibility.name }}</h3>
                             {{ responsibility.main_activity|safe }}
                         {% endif %}
 
                         {% if responsibility.more_info %}
-                            <h2>Mais informações</h2>
+                            <h3>Mais informações</h3>
                             {{ responsibility.more_info|safe }}
                         {% endif %}
 
