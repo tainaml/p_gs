@@ -1,6 +1,7 @@
+from django.urls import reverse
 from django.utils.translation import ugettext as _
 from django.http import Http404
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic import View
 from .service.forms import JobSearchForm
 from .service.business import get_job
@@ -129,6 +130,8 @@ class JobEditView(View):
             self.form.save()
             self.form.responsibility_formset.save()
             self.form.salary_formset.save()
+
+            return redirect(reverse("jobs:edit", args=[self.form.instance.id]))
         else:
             context.update({
                 'error_message': 'Not saved. Model error.'
