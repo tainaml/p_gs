@@ -70,6 +70,15 @@ class BooleanMaterial(InputTextMaterial):
     input_type = 'checkbox'
     template = 'custom_base/input-boolean-material.html'
 
+    # def render(self, name, value, attrs=None):
+    #     final_attrs = self.build_attrs(attrs, type='checkbox', name=name)
+    #     if self.check_test(value):
+    #         final_attrs['checked'] = 'checked'
+    #     if not (value is True or value is False or value is None or value == ''):
+    #         # Only add the 'value' attribute if a value is non-empty.
+    #         final_attrs['value'] = force_text(value)
+    #     return format_html('<input{} />', flatatt(final_attrs))
+
 
 class TextAreaMaterial(InputMaterial):
 

@@ -1,7 +1,8 @@
-{% extends "custom_base/base-material.html" %}
+<div class="customform{%if errors %} customform-error{% endif %}">
 {% block input %}
     <div class="checkbox checkbox-primary">
         <input {{ flatattrs }} value="{{ value }}" name="is_home">
-        {% block label %}<label for="{{ attrs.id }}">{{ label }}</label>{% endblock label %}
+         <label for="{{ attrs.id }}">{{ label }}</label>{{ value }}
     </div>
 {% endblock input %}
+</div>
