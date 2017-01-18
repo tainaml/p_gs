@@ -1,3 +1,4 @@
+{% load widget_tweaks %}
 <div data-step-part="header">
     <i class="gsticon gsticon-briefcase"></i>
     VAGA
@@ -96,28 +97,24 @@
         {% for salary_formset in form.salary_formset %}
         <div class="col-sm-offset-1 col-sm-4">
             {{ salary_formset.job_vacancy }}
-            {{ salary_formset.salary_type }}
-{#            <div class="customform">#}
-{#                <select class="customform-input" name="salary_type" id="salary_type">#}
-{#                    <option disabled selected>selecione</option>#}
-{#                    <option value="1">Valor fixo</option>#}
-{#                </select>#}
-{#                <hr>#}
-{#                <label class="customform-label active" for="salary_type">Tipo de salário</label>#}
-{#            </div>#}
+            {% render_field salary_formset.salary_type data-toggle="salary" %}
         </div>
         {% comment %}############ Apenas aparece se o valor for fixo ############{% endcomment %}
-        <div class="col-sm-offset-2 col-sm-4">
+        <div class="col-sm-offset-2 col-sm-4" data-salary="2">
             {{ salary_formset.fixed_value }}
         </div>
         {% comment %}################################{% endcomment %}
 
         {% comment %}############ Apenas aparece se o valor for intervalo ############{% endcomment %}
-        <div class="col-sm-offset-2 col-sm-4">
-            {{ salary_formset.range_value_from }}
-        </div>
-        <div class="col-sm-offset-2 col-sm-4">
-            {{ salary_formset.range_value_to }}
+        <div class="col-xs-12" data-salary="1">
+            <div class="row">
+                <div class="col-sm-offset-1 col-sm-4">
+                    {{ salary_formset.range_value_from }}
+                </div>
+                <div class="col-sm-offset-2 col-sm-4">
+                    {{ salary_formset.range_value_to }}
+                </div>
+            </div>
         </div>
          {% comment %}##############################################{% endcomment %}
         {% endfor %}

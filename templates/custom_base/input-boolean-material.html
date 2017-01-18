@@ -1,8 +1,6 @@
 <div class="customform{%if errors %} customform-error{% endif %}">
-{% block input %}
-    <div class="checkbox checkbox-primary">
-        <input {{ flatattrs }} value="{{ value }}" name="is_home">
-         <label for="{{ attrs.id }}">{{ label }}</label>{{ value }}
+    <div class="checkbox {{ attrs.type }}-primary">
+        <input type="{{ attrs.type }}" name="{{ attrs.name }}" id="{{ attrs.id }}" value="{{ value }}">
+        <label for="{{ attrs.id }}">{{ label }}</label>
     </div>
-{% endblock input %}
 </div>

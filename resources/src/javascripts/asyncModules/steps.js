@@ -1,4 +1,5 @@
 import input from '../components/customform/input'
+import toggleSelect from '../components/customform/toggle-select'
 import '../vendor/jquery.steps'
 import '../vendor/jquery.validate'
 
@@ -31,6 +32,7 @@ const steps = ( root ) => {
     enablePagination: false,
     onInit: function ( event, currentIndex ) {
       input( $root.find( '[data-toggle="input"]' ))
+      toggleSelect( $root.find( '[data-toggle="salary"]' ) )
       $( '[data-toggle="tooltip"]' ).tooltip()
     },
     onStepChanging: function ( event, currentIndex, newIndex ) {

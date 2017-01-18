@@ -5,6 +5,7 @@ import taxonomy from '../asyncModules/taxonomy'
 import dropzoneUploader from '../asyncModules/dropzoneUploader'
 import '../vendor/jquery.steps'
 import '../vendor/jquery.validate'
+
 module.exports = ( name ) => {
   const $root = $( name )
   const $steps = $root.find( '[data-toggle="steps"]' )
