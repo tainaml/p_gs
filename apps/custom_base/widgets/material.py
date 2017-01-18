@@ -1,5 +1,5 @@
 from django.forms.utils import flatatt
-from django.forms.widgets import Input, Select
+from django.forms.widgets import Input, Select, CheckboxInput
 from django.shortcuts import render
 from django.utils.encoding import force_text
 from django.utils.safestring import mark_safe
@@ -10,6 +10,7 @@ class InputMaterial(Input):
     errors = None
     show_errors = True
     label = None
+    class_name = 'customform-input'
 
     def __init__(self, attrs=None):
         super(InputMaterial, self).__init__(attrs)
@@ -21,15 +22,21 @@ class InputMaterial(Input):
     def get_aditional_context(self, name, value, attrs=None):
         return {}
 
+    def get_aditional_attrs(self, name, value, attrs=None):
+        aditional_attrs = {}
+        if value != '':
+            aditional_attrs['value'] = force_text(self.format_value(value))
+        return aditional_attrs
+
     def render(self, name, value, attrs=None):
 
         if value is None:
             value = ''
         final_attrs = self.build_attrs(attrs, type=self.input_type, name=name)
-        if value != '':
-            final_attrs['value'] = force_text(self.format_value(value))
-        if 'class' not in final_attrs:
-            final_attrs['class'] = force_text(self.format_value('customform-input'))
+        final_attrs.update(self.get_aditional_attrs(name=name, value=value, attrs=attrs))
+
+        if 'class' not in final_attrs and self.class_name:
+            final_attrs['class'] = force_text(self.format_value(self.class_name))
 
         flatattrs = flatatt(final_attrs)
         base_context={ 'self': self,
@@ -40,7 +47,6 @@ class InputMaterial(Input):
                              'errors': self.errors if self.show_errors else None
                             }
         base_context.update(self.get_aditional_context(name=name, value=value, attrs=attrs))
-
         return mark_safe(render(None, template_name=self.template, context=base_context).content)
 
 class InputTextMaterial(InputMaterial):
@@ -65,19 +71,25 @@ class NumberMaterial(InputTextMaterial):
 
     input_type = 'number'
 
-class BooleanMaterial(InputTextMaterial):
+class BooleanMaterial(InputTextMaterial, CheckboxInput):
 
     input_type = 'checkbox'
     template = 'custom_base/input-boolean-material.html'
+    class_name = None
 
-    # def render(self, name, value, attrs=None):
-    #     final_attrs = self.build_attrs(attrs, type='checkbox', name=name)
-    #     if self.check_test(value):
-    #         final_attrs['checked'] = 'checked'
-    #     if not (value is True or value is False or value is None or value == ''):
-    #         # Only add the 'value' attribute if a value is non-empty.
-    #         final_attrs['value'] = force_text(value)
-    #     return format_html('<input{} />', flatatt(final_attrs))
+
+    def get_aditional_attrs(self, name, value, attrs=None):
+        aditional_attrs = {}
+
+        #Django's code
+        if self.check_test(value):
+            aditional_attrs['checked'] = 'checked'
+        if not (value is True or value is False or value is None or value == ''):
+            # Only add the 'value' attribute if a value is non-empty.
+            aditional_attrs['value'] = force_text(value)
+
+
+        return aditional_attrs
 
 
 class TextAreaMaterial(InputMaterial):

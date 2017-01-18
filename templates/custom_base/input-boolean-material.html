@@ -1,6 +1,6 @@
 <div class="customform{%if errors %} customform-error{% endif %}">
     <div class="checkbox {{ attrs.type }}-primary">
-        <input type="{{ attrs.type }}" name="{{ attrs.name }}" id="{{ attrs.id }}" value="{{ value }}">
+        <input {{ flatattrs }}>
         <label for="{{ attrs.id }}">{{ label }}</label>
     </div>
 </div>

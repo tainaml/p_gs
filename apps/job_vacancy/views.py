@@ -121,12 +121,14 @@ class JobEditView(View):
         )
 
         self.form.responsibility_formset = self.form.responsibility_formset(request.POST, instance=self.form.instance)
+        self.form.salary_formset = self.form.salary_formset(request.POST, instance=self.job)
         context = self.get_context(request)
 
-        if self.form.is_valid() and self.form.responsibility_formset.is_valid():
+        if self.form.is_valid() and self.form.responsibility_formset.is_valid() and self.form.salary_formset.is_valid():
             self.form.set_author(request.user)
             self.form.save()
             self.form.responsibility_formset.save()
+            self.form.salary_formset.save()
         else:
             context.update({
                 'error_message': 'Not saved. Model error.'
