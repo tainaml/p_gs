@@ -88,6 +88,7 @@ class JobEditView(View):
     def get_context(self, request):
         if request.method == 'GET':
             self.form.responsibility_formset = self.form.responsibility_formset(instance=self.job)
+            self.form.salary_formset = self.form.salary_formset(instance=self.job)
 
         return {
             'form': self.form,

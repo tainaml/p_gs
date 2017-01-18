@@ -31,6 +31,7 @@ class JobVacancyForm(MaterialModelForm):
 
     location_formset = forms.inlineformset_factory(
         labels=None,
+        form=MaterialModelForm,
         parent_model=JobVacancy,
         model=JobVacancyLocation,
         exclude=(),
@@ -39,6 +40,7 @@ class JobVacancyForm(MaterialModelForm):
 
     salary_formset = forms.inlineformset_factory(
         labels=None,
+         form=MaterialModelForm,
         parent_model=JobVacancy,
         model=Salary,
         exclude=(),
