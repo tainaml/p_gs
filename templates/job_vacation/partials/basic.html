@@ -5,55 +5,43 @@
 <div data-step-part="content">
     <div class="row customrow">
         <div class="col-sm-12">
-            <div class="customform">
-                <input class="customform-input" data-toggle="input" name="title" id="title" type="text">
-                <hr>
-                <label class="customform-label" for="title">Título da vaga *</label>
-            </div>
+            {{ form.title }}
         </div>
     </div>
     <div class="row customrow">
         <div class="col-sm-12">
-            <div class="customform">
-                <textarea class="customform-input" data-toggle="input" name="description" id="description"></textarea>
-                <hr>
-                <label class="customform-label" for="description">Descrição da vaga *</label>
-            </div>
+            {{ form.job_vacancy_responsibility }}
         </div>
     </div>
+
+
     <div class="row customrow customrow-bottom">
-        <div class="col-sm-4">
+       {{ form.responsibility_formset.management_form }}
+       {% for formset_responsibility in form.responsibility_formset %}
+           {{ formset_responsibility.job_vacancy }}
+{#              {% for hidden in formset_responsibility.hidden_fields %}#}
+{#                {{ hidden }}#}
+{#            {% endfor %}#}
+          <div class="col-sm-4">
             <div class="customform">
-                <label class="organization__form__label" for="area_atuacao">Área de atuação *</label>
-                <select class="customform-input" name="area_atuacao">
-                    <option disabled selected>selecione</option>
-                </select>
-                <hr>
+               {{ formset_responsibility.responsibility }}
             </div>
         </div>
         <div class="col-sm-4">
             <div class="customform">
-                <label class="organization__form__label" for="area_atuacao">Nível da área de atuação</label>
-                <select class="customform-input" name="area_atuacao">
-                    <option disabled selected>selecione</option>
-                </select>
-                <hr>
+               {{ formset_responsibility.responsibility_type }}
             </div>
         </div>
+       {% endfor %}
+
         <div class="col-sm-offset-1 col-sm-3">
-            <div class="customform">
-                <input class="customform-input" data-toggle="input" type="text">
-                <hr>
-                <label class="customform-label" for="area_atuacao">Número de vagas *</label>
-            </div>
+            {{ form.quantity }}
         </div>
     </div>
     <div class="row customrow">
         <div class="col-sm-12">
             <div class="customform">
-                <input class="customform-input" data-toggle="input" type="email">
-                <hr>
-                <label class="customform-label" for="area_atuacao">Email para contato</label>
+                {{ form.email }}
             </div>
         </div>
     </div>

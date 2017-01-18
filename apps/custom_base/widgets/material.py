@@ -65,6 +65,11 @@ class NumberMaterial(InputTextMaterial):
 
     input_type = 'number'
 
+class BooleanMaterial(InputTextMaterial):
+
+    input_type = 'checkbox'
+    template = 'custom_base/input-boolean-material.html'
+
 
 class TextAreaMaterial(InputMaterial):
 

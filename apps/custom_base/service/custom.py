@@ -2,7 +2,7 @@ from django import forms
 import logging
 from django.forms import widgets
 from apps.custom_base.widgets.material import InputTextMaterial, TextAreaMaterial, SelectMaterial, URLMaterial, \
-    EmailMaterial, NumberMaterial
+    EmailMaterial, NumberMaterial, BooleanMaterial
 
 logger = logging.getLogger('error')
 
@@ -47,6 +47,7 @@ MATERIAL_WIDGETS = {
     widgets.URLInput: URLMaterial,
     widgets.EmailInput: EmailMaterial,
     widgets.NumberInput: NumberMaterial,
+    widgets.CheckboxInput: BooleanMaterial,
 }
 
 class MaterialModelForm(forms.ModelForm):
@@ -57,7 +58,6 @@ class MaterialModelForm(forms.ModelForm):
 
             field = self.fields[key]
             widget = field.widget
-
             if (not self._meta.widgets or key not in self._meta.widgets) and  type(widget) in MATERIAL_WIDGETS:
                 field.widget = MATERIAL_WIDGETS[type(widget)](attrs=attrs)
                 field.widget.label = field.label

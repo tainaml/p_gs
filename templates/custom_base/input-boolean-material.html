@@ -1,0 +1,7 @@
+{% extends "custom_base/base-material.html" %}
+{% block input %}
+    <div class="checkbox checkbox-primary">
+        <input {{ flatattrs }} value="{{ value }}" name="is_home">
+        {% block label %}<label for="{{ attrs.id }}">{{ label }}</label>{% endblock label %}
+    </div>
+{% endblock input %}

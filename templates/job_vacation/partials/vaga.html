@@ -5,44 +5,18 @@
 <div data-step-part="content">
     <div class="row customrow">
         <div class="col-sm-offset-1 col-sm-4">
-            <div class="customform">
-                <label class="organization__form__label" for="org">
-                    Organização
-                    {% include "front_end/job/partials/tooltip.html" with content="<i class='gsticon gsticon-info-circle'></i> troll" %}
-                </label>
-                <select class="customform-input" name="org">
-                    <option disabled selected>selecione</option>
-                </select>
-                <hr>
-            </div>
+            {{ form.company }}
         </div>
     </div>
     <div class="row customrow">
         <div class="col-sm-offset-1 col-sm-4">
-            <div class="customform">
-                <select class="customform-input" name="regime" id="regime">
-                    <option disabled selected>selecione</option>
-                </select>
-                <hr>
-                <label class="customform-label active" for="regime">Regime</label>
-            </div>
+            {{ form.regime }}
         </div>
         <div class="col-sm-4">
-            <div class="customform">
-                <select class="customform-input" name="time">
-                    <option disabled selected>selecione</option>
-                </select>
-                <hr>
-                <label class="customform-label active" for="time">Carga Horária</label>
-            </div>
+            {{ form.workload }}
         </div>
         <div class="col-sm-3">
-            <div class="customform">
-                <div class="checkbox checkbox-primary">
-                    <input type="checkbox" id="is_home" name="is_home">
-                    <label for="is_home">Home office</label>
-                </div>
-            </div>
+            {{ form.home_office }}
         </div>
     </div>
     <div class="row customrow">
@@ -114,26 +88,39 @@
         </div>
     </div>
     <div class="row customrow customrow-bottom">
+        {{ form.salary_formset.management_form }}
+
         <div class="col-sm-offset-1 col-sm-12">
             <h3 class="formjob-title">salário</h3>
         </div>
+        {% for salary_formset in form.salary_formset %}
         <div class="col-sm-offset-1 col-sm-4">
-            <div class="customform">
-                <select class="customform-input" name="salary_type" id="salary_type">
-                    <option disabled selected>selecione</option>
-                    <option value="1">Valor fixo</option>
-                </select>
-                <hr>
-                <label class="customform-label active" for="salary_type">Tipo de salário</label>
-            </div>
+            {{ salary_formset.job_vacancy }}
+            {{ salary_formset.salary_type }}
+{#            <div class="customform">#}
+{#                <select class="customform-input" name="salary_type" id="salary_type">#}
+{#                    <option disabled selected>selecione</option>#}
+{#                    <option value="1">Valor fixo</option>#}
+{#                </select>#}
+{#                <hr>#}
+{#                <label class="customform-label active" for="salary_type">Tipo de salário</label>#}
+{#            </div>#}
+        </div>
+        {% comment %}############ Apenas aparece se o valor for fixo ############{% endcomment %}
+        <div class="col-sm-offset-2 col-sm-4">
+            {{ salary_formset.fixed_value }}
+        </div>
+        {% comment %}################################{% endcomment %}
+
+        {% comment %}############ Apenas aparece se o valor for intervalo ############{% endcomment %}
+        <div class="col-sm-offset-2 col-sm-4">
+            {{ salary_formset.range_value_from }}
         </div>
         <div class="col-sm-offset-2 col-sm-4">
-            <div class="customform">
-                <input class="customform-input" data-toggle="input" name="salary_value" id="salary_value" type="text">
-                <hr>
-                <label class="customform-label" for="salary_value">Qual o valor do salário?</label>
-            </div>
+            {{ salary_formset.range_value_to }}
         </div>
+         {% comment %}##############################################{% endcomment %}
+        {% endfor %}
     </div>
     <div class="row">
         <div class="col-sm-12 text-right">
