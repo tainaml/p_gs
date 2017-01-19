@@ -54,9 +54,9 @@ class CoreCourseAdmin(admin.ModelAdmin):
 
     inlines = [CurriculumInline, RatingsInline]
     form = ModelFormAdminCourse
-    def view_on_site(self, obj):
-
-        return reverse('course:show', args=[obj.slug])
+    # def view_on_site(self, obj):
+    #
+    #     return reverse('course:show', args=[obj.slug])
 
     class Meta:
         widgets = {
