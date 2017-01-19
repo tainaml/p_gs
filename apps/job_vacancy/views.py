@@ -129,7 +129,7 @@ class JobEditView(View):
         self.form.aditional_requirements_formset = self.form.aditional_requirements_formset(request.POST, instance=self.form.instance)
 
         context = self.get_context(request)
-
+        print request.POST.getlist('benefits')
         if self.form.is_valid() \
                 and self.form.responsibility_formset.is_valid() \
                 and self.form.salary_formset.is_valid() \
