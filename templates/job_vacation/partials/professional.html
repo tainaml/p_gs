@@ -11,33 +11,26 @@
             </h3>
         </div>
     </div>
-    {{ form.requirements_formset.management_form }}
 
-    {% for requirements_formset in form.requirements_formset %}
-
-        <div class="row customrow">
-        <div class="col-sm-4">
-            {% for hidden in requirements_formset.hidden_fields %}
+    <div data-toggle="formset" data-add-text="Adicionar" data-prefix="{{ form.requirements_formset.prefix }}">
+        {% for requirements_formset in form.requirements_formset %}
+        <div class="row customrow" >
+            <div class="col-sm-4">
+                {% for hidden in requirements_formset.hidden_fields %}
                 {{ hidden }}
-            {% endfor %}
-            {{ requirements_formset.item }}
-        </div>
-        <div class="col-sm-3">
-            {{ requirements_formset.level }}
-        </div>
-        <div class="col-sm-3">
-            {{ requirements_formset.exigency }}
-        </div>
-
-        <div class="col-sm-2 text-center">
-            <div class="customform">
-                <a data-toggle="duplicate-row" href="#">
-                    <i class="gsticon gsticon-lg gsticon-plus-circle"></i>
-                </a>
+                {% endfor %}
+                {{ requirements_formset.item }}
+            </div>
+            <div class="col-sm-4">
+                {{ requirements_formset.level }}
+            </div>
+            <div class="col-sm-3">
+                {{ requirements_formset.exigency }}
             </div>
         </div>
+        {% endfor %}
+        {{ form.requirements_formset.management_form }}
     </div>
-    {% endfor %}
 
     <div class="row customrow">
         <div class="col-sm-12">
@@ -48,27 +41,20 @@
         </div>
     </div>
 
-        {{ form.aditional_requirements_formset.management_form }}
+
+    <div data-toggle="formset" data-add-text="Adicionar" data-prefix="{{ form.aditional_requirements_formset.prefix }}">
         {%  for aditional_requirements_formset in form.aditional_requirements_formset %}
-            <div class="row customrow">
-        <div class="col-sm-10">
+        <div class="row customrow">
+            <div class="col-sm-11">
                 {% for hidden in aditional_requirements_formset.hidden_fields %}
                 {{ hidden }}
-            {% endfor %}
+                {% endfor %}
                 {{ aditional_requirements_formset.description }}
-        </div>
-
-
-        <div class="col-sm-2 text-center">
-            <div class="customform">
-                <a data-toggle="duplicate-row" href="#">
-                    <i class="gsticon gsticon-lg gsticon-plus-circle"></i>
-                </a>
             </div>
         </div>
-    </div>
-
         {% endfor %}
+        {{ form.aditional_requirements_formset.management_form }}
+    </div>
 
 
     <div class="row">
