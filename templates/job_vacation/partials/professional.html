@@ -7,7 +7,7 @@
         <div class="col-sm-12">
             <h3 class="formjob-title">
                 Conhecimentos
-                {% include "front_end/job/partials/tooltip.html" with content="<i class='gsticon gsticon-info-circle'></i> content here" %}
+                {% include "front_end/job/partials/tooltip.html" with content="content here" %}
             </h3>
         </div>
     </div>
@@ -43,7 +43,7 @@
         <div class="col-sm-12">
             <h3 class="formjob-title">
                 Conhecimento Adicional
-                {% include "front_end/job/partials/tooltip.html" with content="<div class='text-info'><i class='gsticon gsticon-info-circle'></i> troll</div>" %}
+                {% include "front_end/job/partials/tooltip.html" with content="Requisitos adicionais, tais como: Facilidade de trabalho em equipe, proatividade e etc." %}
             </h3>
         </div>
     </div>
@@ -52,7 +52,7 @@
         {%  for aditional_requirements_formset in form.aditional_requirements_formset %}
             <div class="row customrow">
         <div class="col-sm-10">
-                {% for hidden in requirements_formset.hidden_fields %}
+                {% for hidden in aditional_requirements_formset.hidden_fields %}
                 {{ hidden }}
             {% endfor %}
                 {{ aditional_requirements_formset.description }}

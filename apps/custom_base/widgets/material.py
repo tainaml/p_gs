@@ -1,5 +1,5 @@
 from django.forms.utils import flatatt
-from django.forms.widgets import Input, Select, CheckboxInput
+from django.forms.widgets import Input, Select, CheckboxInput, CheckboxSelectMultiple
 from django.shortcuts import render
 from django.utils.encoding import force_text
 from django.utils.safestring import mark_safe
@@ -104,4 +104,20 @@ class SelectMaterial(InputMaterial, Select):
         return {'options': self.render_options([value])}
 
     template = 'custom_base/select-material.html'
+
+
+class CheckboxSelectMultipleMaterial(InputMaterial):
+    input_type = 'checkbox'
+    def get_aditional_context(self, name, value, attrs=None):
+
+        return {'choices': self.choices}
+
+
+    def use_required_attribute(self, initial):
+        # Don't use the 'required' attribute because browser validation would
+        # require all checkboxes to be checked instead of at least one.
+        return False
+
+
+    template = 'custom_base/select-multiple-checkbox-material.html'
 

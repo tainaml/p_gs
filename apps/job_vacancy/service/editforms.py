@@ -2,6 +2,7 @@ from django.utils.translation import ugettext as _
 from django import forms
 from django.db import models
 from apps.custom_base.service.custom import MaterialModelForm
+from apps.custom_base.widgets.material import CheckboxSelectMultipleMaterial
 from apps.job_vacancy.models import (
     JobVacancy, JobVacancyResponsibility,
     Responsibility, JobVacancyResponsibilityType,
@@ -83,7 +84,8 @@ class JobVacancyForm(MaterialModelForm):
         ]
 
         widgets =  {
-            'benefits': forms.CheckboxSelectMultiple
+            'benefits':CheckboxSelectMultipleMaterial
+            # 'benefits':forms.CheckboxSelectMultiple
         }
 
     def set_author(self, author):
