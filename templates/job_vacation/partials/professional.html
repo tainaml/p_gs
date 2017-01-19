@@ -19,6 +19,9 @@
                 {% for hidden in requirements_formset.hidden_fields %}
                 {{ hidden }}
                 {% endfor %}
+                {% if requirements_formset.instance.pk %}
+                {{ requirements_formset.DELETE }}
+                {% endif %}
                 {{ requirements_formset.item }}
             </div>
             <div class="col-sm-4">
