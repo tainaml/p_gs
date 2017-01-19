@@ -85,7 +85,6 @@ class JobVacancyForm(MaterialModelForm):
 
         widgets =  {
             'benefits':CheckboxSelectMultipleMaterial
-            # 'benefits':forms.CheckboxSelectMultiple
         }
 
     def set_author(self, author):

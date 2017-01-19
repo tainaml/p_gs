@@ -27,6 +27,10 @@
         </div>
         <div class="col-sm-offset-1 col-sm-11">
             {{ form.benefits }}
+            {% for hidden in form.benefits.hidden %}
+                HEhEHEH
+                {{ hidden }}
+            {% endfor %}
 {#            <div class="checkbox checkbox-inline checkbox-primary">#}
 {#                <input type="checkbox" name="transporte" id="transporte">#}
 {#                <label for="transporte">Transporte</label>#}

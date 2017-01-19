@@ -1,6 +1,7 @@
 from django.forms.utils import flatatt
-from django.forms.widgets import Input, Select, CheckboxInput, CheckboxSelectMultiple
+from django.forms.widgets import Input, Select, CheckboxInput, CheckboxSelectMultiple, SelectMultiple
 from django.shortcuts import render
+from django.utils.datastructures import MultiValueDict
 from django.utils.encoding import force_text
 from django.utils.safestring import mark_safe
 
@@ -106,11 +107,14 @@ class SelectMaterial(InputMaterial, Select):
     template = 'custom_base/select-material.html'
 
 
-class CheckboxSelectMultipleMaterial(InputMaterial):
+class CheckboxSelectMultipleMaterial(InputMaterial, SelectMultiple):
+
+    _empty_value = []
     input_type = 'checkbox'
     def get_aditional_context(self, name, value, attrs=None):
 
         return {'choices': self.choices}
+
 
 
     def use_required_attribute(self, initial):
