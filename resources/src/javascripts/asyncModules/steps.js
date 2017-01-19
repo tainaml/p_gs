@@ -2,6 +2,7 @@ import input from '../components/customform/input'
 import toggleSelect from '../components/customform/toggle-select'
 import '../vendor/jquery.steps'
 import '../vendor/jquery.validate'
+import '../vendor/jquery.formset'
 
 const steps = ( root ) => {
   const $root = $( root )
@@ -34,6 +35,21 @@ const steps = ( root ) => {
       input( $root.find( '[data-toggle="input"]' ))
       toggleSelect( $root.find( '[data-toggle="salary"]' ) )
       $( '[data-toggle="tooltip"]' ).tooltip()
+      let formsetLength = $( '[data-toggle="formset"]' ).length
+      if ( !!formsetLength ) {
+        let $containerForm = $root.find( '[data-toggle="formset"]' )
+        $containerForm.each(( index, value ) => {
+          let dataFormset = $( value ).data()
+          $( value ).find( '.row' ).formset({
+            prefix: dataFormset.prefix,
+            formCssClass: `dynamic-formset-${index}`,
+            addCssClass: 'customform-button',
+            addText: dataFormset.addText,
+            deleteTemplate: `<div class="col-sm-1 text-center"><div class="customform customform-error">
+              <a class="delete-row text-danger" href="javascript:void(0)"><i class="gsticon gsticon-lg gsticon-minus-circle"></i></a></div></div>`
+          })
+        })
+      }
     },
     onStepChanging: function ( event, currentIndex, newIndex ) {
       $form.validate().settings.ignore = ':disabled,:hidden'
