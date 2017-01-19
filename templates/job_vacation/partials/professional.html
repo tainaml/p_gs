@@ -11,10 +11,15 @@
             </h3>
         </div>
     </div>
+    {{ form.requirements_formset.management_form }}
+
     {% for requirements_formset in form.requirements_formset %}
-        {{ formset_responsibility.job_vacancy }}
+
         <div class="row customrow">
-        <div class="col-sm-3">
+        <div class="col-sm-4">
+            {% for hidden in requirements_formset.hidden_fields %}
+                {{ hidden }}
+            {% endfor %}
             {{ requirements_formset.item }}
         </div>
         <div class="col-sm-3">
@@ -23,10 +28,8 @@
         <div class="col-sm-3">
             {{ requirements_formset.exigency }}
         </div>
-        <div class="col-sm-2">
-            {{ requirements_formset.experience }}
-        </div>
-        <div class="col-sm-1 text-center">
+
+        <div class="col-sm-2 text-center">
             <div class="customform">
                 <a data-toggle="duplicate-row" href="#">
                     <i class="gsticon gsticon-lg gsticon-plus-circle"></i>
@@ -37,39 +40,25 @@
     {% endfor %}
 
     <div class="row customrow">
-        <div class="col-sm-offset-1 col-sm-11">
+        <div class="col-sm-12">
             <h3 class="formjob-title">
                 Conhecimento Adicional
                 {% include "front_end/job/partials/tooltip.html" with content="<div class='text-info'><i class='gsticon gsticon-info-circle'></i> troll</div>" %}
             </h3>
         </div>
-        <div class="col-sm-offset-1 col-sm-3">
-            <div class="customform">
-                <select class="customform-input" name="requirements_adicional" id="requirements_adicional">
-                    <option disabled selected>selecione</option>
-                </select>
-                <hr>
-                <label class="customform-label active" for="requirements_adicional">Requisitos</label>
-            </div>
+    </div>
+
+        {{ form.aditional_requirements_formset.management_form }}
+        {%  for aditional_requirements_formset in form.aditional_requirements_formset %}
+            <div class="row customrow">
+        <div class="col-sm-10">
+                {% for hidden in requirements_formset.hidden_fields %}
+                {{ hidden }}
+            {% endfor %}
+                {{ aditional_requirements_formset.description }}
         </div>
-        <div class="col-sm-3">
-            <div class="customform">
-                <select class="customform-input" name="level_adicional" id="level_adicional">
-                    <option disabled selected>selecione</option>
-                </select>
-                <hr>
-                <label class="customform-label active" for="level_adicional">Nível</label>
-            </div>
-        </div>
-        <div class="col-sm-3">
-            <div class="customform">
-                <select class="customform-input" name="xp_adicional" id="xp_adicional">
-                    <option disabled selected>selecione</option>
-                </select>
-                <hr>
-                <label class="customform-label active" for="xp_adicional">Experiência</label>
-            </div>
-        </div>
+
+
         <div class="col-sm-2 text-center">
             <div class="customform">
                 <a data-toggle="duplicate-row" href="#">
@@ -78,6 +67,10 @@
             </div>
         </div>
     </div>
+
+        {% endfor %}
+
+
     <div class="row">
         <div class="col-sm-12 text-right">
             <button type="submit" class="customform-button">Publicar</button>
