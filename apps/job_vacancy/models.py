@@ -55,6 +55,9 @@ class JobVacancy(models.Model):
     observation = models.TextField(null=True, blank=True, max_length=10000,
                                                   verbose_name=_('Observation'))
 
+    def can_modify(self, user=None):
+        return ( user and (user.is_superuser or self.author == user))
+
     def __unicode__(self):
         return self.title
 

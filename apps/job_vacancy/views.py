@@ -101,6 +101,8 @@ class JobEditView(View):
 
         if job_id:
             self.job = get_job(job_id)
+            if self.job and not self.job.can_modify(request.user):
+                raise Http404()
 
         self.form = self.form_class(
             instance=self.job
@@ -117,6 +119,8 @@ class JobEditView(View):
 
         if job_id:
             self.job = get_job(job_id)
+            if self.job and not self.job.can_modify(request.user):
+                raise Http404()
 
         self.form = self.form_class(
             data=request.POST,
@@ -129,7 +133,7 @@ class JobEditView(View):
         self.form.aditional_requirements_formset = self.form.aditional_requirements_formset(request.POST, instance=self.form.instance)
 
         context = self.get_context(request)
-        print request.POST.getlist('benefits')
+
         if self.form.is_valid() \
                 and self.form.responsibility_formset.is_valid() \
                 and self.form.salary_formset.is_valid() \
