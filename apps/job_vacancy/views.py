@@ -90,6 +90,7 @@ class JobEditView(View):
         if request.method == 'GET':
             self.form.responsibility_formset = self.form.responsibility_formset(instance=self.job)
             self.form.salary_formset = self.form.salary_formset(instance=self.job)
+            self.form.requirements_formset = self.form.requirements_formset(instance=self.job)
 
         return {
             'form': self.form,
@@ -123,13 +124,20 @@ class JobEditView(View):
 
         self.form.responsibility_formset = self.form.responsibility_formset(request.POST, instance=self.form.instance)
         self.form.salary_formset = self.form.salary_formset(request.POST, instance=self.form.instance)
+        self.form.requirements_formset = self.form.requirements_formset(instance=self.form.instance)
+
         context = self.get_context(request)
 
-        if self.form.is_valid() and self.form.responsibility_formset.is_valid() and self.form.salary_formset.is_valid():
+        if self.form.is_valid() \
+                and self.form.responsibility_formset.is_valid() \
+                and self.form.salary_formset.is_valid() \
+                and self.form.requirements_formset.is_valid():
+
             self.form.set_author(request.user)
             self.form.save()
             self.form.responsibility_formset.save()
             self.form.salary_formset.save()
+            self.form.requirements_formset.save()
 
             return redirect(reverse("jobs:edit", args=[self.form.instance.id]))
         else:

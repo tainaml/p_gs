@@ -6,8 +6,8 @@ from apps.job_vacancy.models import (
     JobVacancy, JobVacancyResponsibility,
     Responsibility, JobVacancyResponsibilityType,
     JobVacancyLocation,
-    Salary
-)
+    Salary,
+    Requirement)
 
 
 class JobVacancyForm(MaterialModelForm):
@@ -49,6 +49,15 @@ class JobVacancyForm(MaterialModelForm):
         min_num=1,
         validate_max=True,
         validate_min=True
+    )
+
+    requirements_formset = forms.inlineformset_factory(
+        labels=None,
+         form=MaterialModelForm,
+        parent_model=JobVacancy,
+        model=Requirement,
+        exclude=(),
+        extra=1
     )
 
 

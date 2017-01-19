@@ -4,42 +4,29 @@
 </div>
 <div data-step-part="content">
     <div class="row customrow">
-        <div class="col-sm-offset-1 col-sm-11">
+        <div class="col-sm-12">
             <h3 class="formjob-title">
                 Conhecimentos
                 {% include "front_end/job/partials/tooltip.html" with content="<i class='gsticon gsticon-info-circle'></i> content here" %}
             </h3>
         </div>
     </div>
-    <div class="row customrow">
-        <div class="col-sm-offset-1 col-sm-3">
-            <div class="customform">
-                <select class="customform-input" name="requirements" id="requirements">
-                    <option disabled selected>selecione</option>
-                </select>
-                <hr>
-                <label class="customform-label active" for="requirements">Requisitos</label>
-            </div>
+    {% for requirements_formset in form.requirements_formset %}
+        {{ formset_responsibility.job_vacancy }}
+        <div class="row customrow">
+        <div class="col-sm-3">
+            {{ requirements_formset.item }}
         </div>
         <div class="col-sm-3">
-            <div class="customform">
-                <select class="customform-input" name="level" id="level">
-                    <option disabled selected>selecione</option>
-                </select>
-                <hr>
-                <label class="customform-label active" for="level">Nível</label>
-            </div>
+            {{ requirements_formset.level }}
         </div>
         <div class="col-sm-3">
-            <div class="customform">
-                <select class="customform-input" name="xp" id="xp">
-                    <option disabled selected>selecione</option>
-                </select>
-                <hr>
-                <label class="customform-label active" for="xp">Experiência</label>
-            </div>
+            {{ requirements_formset.exigency }}
         </div>
-        <div class="col-sm-2 text-center">
+        <div class="col-sm-2">
+            {{ requirements_formset.experience }}
+        </div>
+        <div class="col-sm-1 text-center">
             <div class="customform">
                 <a data-toggle="duplicate-row" href="#">
                     <i class="gsticon gsticon-lg gsticon-plus-circle"></i>
@@ -47,6 +34,8 @@
             </div>
         </div>
     </div>
+    {% endfor %}
+
     <div class="row customrow">
         <div class="col-sm-offset-1 col-sm-11">
             <h3 class="formjob-title">

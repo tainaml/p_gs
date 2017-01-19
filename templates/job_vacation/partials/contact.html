@@ -5,25 +5,13 @@
 <div data-step-part="content">
     <div class="row customrow">
         <div class="col-sm-4">
-            <div class="customform">
-                <input class="customform-input" data-toggle="input" name="phone" id="phone" type="tel">
-                <hr>
-                <label class="customform-label" for="phone">Telefone</label>
-            </div>
+            {{ form.phone_number }}
         </div>
         <div class="col-sm-12">
-            <div class="customform">
-                <input class="customform-input" data-toggle="input" name="website" id="website" type="url">
-                <hr>
-                <label class="customform-label" for="website">Website</label>
-            </div>
+            {{ form.site }}
         </div>
         <div class="col-sm-12">
-            <div class="customform">
-                <textarea class="customform-input" data-toggle="input" name="more_info" id="more_info"></textarea>
-                <hr>
-                <label class="customform-label" for="more_info">Mais informações de contato</label>
-            </div>
+            {{ form.observation }}
         </div>
     </div>
     <div class="row">
