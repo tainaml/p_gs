@@ -1,8 +1,8 @@
 module.exports = ( name ) => {
   const $element = $( name )
-  
+
   $element.map( element => {
-    if ( $element[element].nodeName === 'TEXTAREA' ) {
+    if ( $element[element].nodeName === 'TEXTAREA' && ( $element[element].value.length !== 0 )) {
       setTimeout( inputResize( $element[element] ), 0)
     }
   })
