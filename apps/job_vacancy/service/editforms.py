@@ -6,7 +6,6 @@ from apps.custom_base.widgets.material import CheckboxSelectMultipleMaterial
 from apps.job_vacancy.models import (
     JobVacancy, JobVacancyResponsibility,
     Responsibility, JobVacancyResponsibilityType,
-    JobVacancyLocation,
     Salary,
     Requirement, JobVacancyAdditionalRequirement)
 
@@ -30,14 +29,6 @@ class JobVacancyForm(MaterialModelForm):
         validate_min=True
     )
 
-    location_formset = forms.inlineformset_factory(
-        labels=None,
-        form=MaterialModelForm,
-        parent_model=JobVacancy,
-        model=JobVacancyLocation,
-        exclude=(),
-        extra=1
-    )
 
     salary_formset = forms.inlineformset_factory(
         labels=None,

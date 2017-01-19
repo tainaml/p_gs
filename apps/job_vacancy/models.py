@@ -1,5 +1,6 @@
 from __future__ import unicode_literals
 from django.conf import settings
+from django.core.validators import MinValueValidator
 from django.utils import timezone
 from django.utils.translation import ugettext as _
 from django.db import models
@@ -45,7 +46,7 @@ class JobVacancy(models.Model):
                                                   verbose_name=_('Responsibility Description'))
     regime = models.ForeignKey(JobRegime, blank=True, null=True, verbose_name=_('Regime'))
     home_office = models.BooleanField(verbose_name=_('Home Office'), default=False, blank=True)
-    quantity = models.PositiveIntegerField(null=True, blank=True, verbose_name=_('Quantity'))
+    quantity = models.PositiveIntegerField(null=True, blank=True, verbose_name=_('Quantity'), validators=[MinValueValidator(1, message=_("Only number greater than 1 are permitted"))])
     workload = models.ForeignKey(WorkLoad, null=True, blank=True, verbose_name=_('Work Load'))
     benefits = models.ManyToManyField(Benefit, blank=True, verbose_name=_('Benefits'))
     email = models.CharField(blank=True, null=True, max_length=255, verbose_name=_('E-mail'))
@@ -54,6 +55,10 @@ class JobVacancy(models.Model):
     contact = models.TextField(null=True, blank=True, max_length=10000, verbose_name=_('Contact'))
     observation = models.TextField(null=True, blank=True, max_length=10000,
                                                   verbose_name=_('Observation'))
+
+    cities = models.ManyToManyField(City, blank=True, verbose_name=_('Cities'))
+    states = models.ManyToManyField(State, blank=True, verbose_name=_('States'))
+
 
     def can_modify(self, user=None):
         return ( user and (user.is_superuser or self.author == user))
@@ -74,15 +79,6 @@ class JobVacancyAdditionalRequirement(models.Model):
                                     blank=False, verbose_name=_('Job Vacancy'))
 
     description = models.CharField(blank=False, null=False, max_length=512, verbose_name=_('Aditional Requirement'))
-
-class JobVacancyLocation(models.Model):
-    job_vacancy = models.ForeignKey(JobVacancy, null=False, related_name='locations', on_delete=models.CASCADE,
-                                    blank=False, verbose_name=_('Job Vacancy'))
-    country = models.ForeignKey(Country, verbose_name=_('Country'))
-    state = ChainedForeignKey(State, chained_field="country", chained_model_field="country", show_all=False,
-                              auto_choose=True, verbose_name=_('States'), null=True, blank=True)
-    cities = ChainedManyToManyField(City, chained_field="state", chained_model_field="state", verbose_name=_('Cities'), null=True, blank=True)
-
 
 class Salary(models.Model):
 
