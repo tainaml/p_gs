@@ -20,11 +20,12 @@ var defaultSettings = {
   // }
 };
 
-profession = (element) => {
-  $element = $(element);
-  elementData = $element.data();
-  var selectizeSettings = $.extend({}, defaultSettings, elementData);
-  $(element).selectize(defaultSettings);
+profession = ( element ) => {
+  const $element = $( element )
+  console.log($element);
+  elementData = $element.data()
+  var selectizeSettings = $.extend( {}, defaultSettings, elementData )
+  $element.selectize( defaultSettings )
 };
 
 export default profession;

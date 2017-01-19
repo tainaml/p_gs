@@ -1,3 +1,5 @@
+{% load widget_tweaks %}
+
 <div data-step-part="header">
     <i class="gsticon gsticon-file"></i>
     BÁSICO
@@ -19,30 +21,21 @@
        {{ form.responsibility_formset.management_form }}
        {% for formset_responsibility in form.responsibility_formset %}
            {{ formset_responsibility.job_vacancy }}
-{#              {% for hidden in formset_responsibility.hidden_fields %}#}
-{#                {{ hidden }}#}
-{#            {% endfor %}#}
-          <div class="col-sm-4">
-            <div class="customform">
-               {{ formset_responsibility.responsibility }}
-            </div>
+        <div class="col-sm-5">
+            {% render_field formset_responsibility.responsibility data-module="profession" data-toggle="selectize" %}
         </div>
         <div class="col-sm-4">
-            <div class="customform">
-               {{ formset_responsibility.responsibility_type }}
-            </div>
+            {{ formset_responsibility.responsibility_type }}
         </div>
        {% endfor %}
 
-        <div class="col-sm-offset-1 col-sm-3">
+        <div class="col-sm-3">
             {{ form.quantity }}
         </div>
     </div>
     <div class="row customrow">
         <div class="col-sm-12">
-            <div class="customform">
-                {{ form.email }}
-            </div>
+            {{ form.email }}
         </div>
     </div>
     <div class="row customrow">

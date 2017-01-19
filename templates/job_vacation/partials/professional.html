@@ -52,6 +52,9 @@
                 {% for hidden in aditional_requirements_formset.hidden_fields %}
                 {{ hidden }}
                 {% endfor %}
+                {% if aditional_requirements_formset.instance.pk %}
+                {{ aditional_requirements_formset.DELETE }}
+                {% endif %}
                 {{ aditional_requirements_formset.description }}
             </div>
         </div>

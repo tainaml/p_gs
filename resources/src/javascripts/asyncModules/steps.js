@@ -1,3 +1,4 @@
+import profession from './profession'
 import input from '../components/customform/input'
 import toggleSelect from '../components/customform/toggle-select'
 import '../vendor/jquery.steps'
@@ -36,6 +37,7 @@ const steps = ( root ) => {
       toggleSelect( $root.find( '[data-toggle="salary"]' ) )
       $( '[data-toggle="tooltip"]' ).tooltip()
       let formsetLength = $( '[data-toggle="formset"]' ).length
+      let professionLength = $( '[data-module="profession"]' ).length
       if ( !!formsetLength ) {
         let $containerForm = $root.find( '[data-toggle="formset"]' )
         $containerForm.each(( index, value ) => {
@@ -49,6 +51,9 @@ const steps = ( root ) => {
               <a class="delete-row text-danger" href="javascript:void(0)"><i class="gsticon gsticon-lg gsticon-minus-circle"></i></a></div></div>`
           })
         })
+      }
+      if ( !!professionLength ) {
+        profession( $root.find( '[data-module="profession"]' ))
       }
     },
     onStepChanging: function ( event, currentIndex, newIndex ) {
