@@ -11,7 +11,7 @@ def get_geography(model=None, text='', items_per_page=None, page=None):
         raise NotSearchableModelException()
 
     LocaleModel = MODELS_TO_SEARCH[model]
-    locales = LocaleModel.objects.filter(name__icontains=text)
+    locales = LocaleModel.objects.filter(name__icontains=text).only("id", "name")
     items_per_page = items_per_page if items_per_page else 10
 
     locales = Paginator(locales, items_per_page)

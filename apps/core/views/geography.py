@@ -1,8 +1,8 @@
+from django.forms import model_to_dict
 from django.http import JsonResponse, Http404
 from django.views import View
 from apps.core.exceptions.geography import NotSearchableModelException
 from apps.core.forms.geography import GeographyListForm
-from django.core import serializers
 
 class Search(View):
 
@@ -15,8 +15,7 @@ class Search(View):
         try:
             locales = self.form.process()
 
-            data = serializers.serialize('json', locales)
-            return JsonResponse(data=data, safe=False)
+            return JsonResponse(data=[model_to_dict(locale) for locale in locales], safe=False)
         except NotSearchableModelException:
             raise Http404()
 
