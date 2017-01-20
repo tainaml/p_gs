@@ -65,13 +65,6 @@ $input-error-color: #e10c14 !default;
       padding: 0;
       border: 1px solid $input-border-color;
     }
-    .plugin-remove_button.selectize-dropdown {
-      position: relative;
-
-      [data-selectable] {
-        padding: 10px;
-      }
-    }
 	}
 
 	hr {
@@ -143,5 +136,14 @@ $input-error-color: #e10c14 !default;
   }
   .selectize-control.single .selectize-input:after {
     display: none;
+  }
+  &.comunnities-organization {
+    .plugin-remove_button.selectize-dropdown {
+      position: relative;
+
+      [data-selectable] {
+        padding: 10px;
+      }
+    }
   }
 }

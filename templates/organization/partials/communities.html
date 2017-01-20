@@ -6,7 +6,7 @@
     <p class="organization__form__label">Selecione o(s) assuntos(s) relacionado(s) a sua organização</p>
 
     <div class="form-group">
-        <div class="customform">
+        <div class="customform comunnities-organization">
             {% render_field form.communities class="customform-input" data-toggle="selectize" data-select="taxonomy" data-placeholder="Digite aqui a comunidade que deseja buscar" data-label-field="name" data-value-field="id" data-max-items="null" data-options=communities|jsonify %}
             {% if form.categories.errors %}  {{ form.categories.errors }} {% endif %}
             <hr>
