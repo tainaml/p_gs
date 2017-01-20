@@ -11,7 +11,7 @@ let geography,
 var defaultSettings = {
   plugins: ['remove_button'],
   maxItems: null,
-  valueField: 'name',
+  valueField: 'id',
   labelField: 'name',
   searchField: 'name',
   options: [],

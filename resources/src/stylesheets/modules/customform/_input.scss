@@ -65,6 +65,11 @@ $input-error-color: #e10c14 !default;
       padding: 0;
       border: 1px solid $input-border-color;
     }
+    .plugin-remove_button.selectize-dropdown {
+      [data-selectable] {
+        padding: 5px;
+      }
+    }
 	}
 
 	hr {
