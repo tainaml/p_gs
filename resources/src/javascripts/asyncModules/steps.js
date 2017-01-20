@@ -1,6 +1,8 @@
 import profession from './profession'
+import geography from './geography'
 import input from '../components/customform/input'
 import toggleSelect from '../components/customform/toggle-select'
+import toggleCheck from '../components/customform/toggle-check'
 import '../vendor/jquery.steps'
 import '../vendor/jquery.validate'
 import '../vendor/jquery.formset'
@@ -34,7 +36,8 @@ const steps = ( root ) => {
     enablePagination: false,
     onInit: function ( event, currentIndex ) {
       input( $root.find( '[data-toggle="input"]' ))
-      toggleSelect( $root.find( '[data-toggle="salary"]' ) )
+      toggleSelect( $root.find( '[data-toggle="salary"]' ), 'data-salary' )
+      toggleCheck( $root.find( '[data-toggle="location"]' ), 'data-location' )
       $( '[data-toggle="tooltip"]' ).tooltip()
       let formsetLength = $( '[data-toggle="formset"]' ).length
       let professionLength = $( '[data-module="profession"]' ).length
@@ -54,6 +57,7 @@ const steps = ( root ) => {
       }
       if ( !!professionLength ) {
         profession( $root.find( '[data-module="profession"]' ))
+        geography( $root.find( '[data-module="geography"]'))
       }
     },
     onStepChanging: function ( event, currentIndex, newIndex ) {

@@ -1,16 +1,16 @@
-module.exports = ( select ) => {
+module.exports = ( select, dataTarget ) => {
   const $select = $( select )
-  const $target = $( '[data-salary]' )
+  const $target = $( `[${dataTarget}]` )
   $target.hide()
   $target.find(':input').attr('disabled', true)
-  $( `[data-salary=${$select.val()}]` ).show().find(':input' ).attr('disabled', false)
+  $( `[${dataTarget}=${$select.val()}]` ).show().find(':input' ).attr('disabled', false)
 
   $select.on({
     change: function ( event ) {
       const $this = $( event.currentTarget )
       $target.hide()
       $target.find(':input').attr('disabled', true)
-      $( `[data-salary=${$this.val()}]` ).show().find(':input' ).attr('disabled', false)
+      $( `[${dataTarget}=${$this.val()}]` ).show().find(':input' ).attr('disabled', false)
     }
   })
 }
