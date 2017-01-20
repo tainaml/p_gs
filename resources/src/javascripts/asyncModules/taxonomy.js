@@ -17,8 +17,8 @@ var defaultSettings = {
     searchField: 'name',
     create: false,
     render: {
-        'item': renderItem,
-        'option': renderOption
+        item: renderItem,
+        option: renderOption
     },
     load: loadItems
 };

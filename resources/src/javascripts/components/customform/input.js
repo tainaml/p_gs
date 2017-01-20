@@ -29,7 +29,6 @@ module.exports = ( name ) => {
 const inputResize = ( selector ) => {
   const style = selector.style
   const height = !!selector.scrollHeight ? selector.scrollHeight + 'px' : 'auto'
-  console.log(selector.scrollHeight);
   style.height = 'auto'
 
   style.height = height
