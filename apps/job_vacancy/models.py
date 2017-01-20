@@ -46,7 +46,7 @@ class JobVacancy(models.Model):
                                                   verbose_name=_('Responsibility Description'))
     regime = models.ForeignKey(JobRegime, blank=True, null=True, verbose_name=_('Regime'))
     home_office = models.BooleanField(verbose_name=_('Home Office'), default=False, blank=True)
-    quantity = models.PositiveIntegerField(null=True, blank=True, verbose_name=_('Quantity'), validators=[MinValueValidator(1, message=_("Only number greater than 1 are permitted"))])
+    quantity = models.IntegerField(null=True, blank=True, verbose_name=_('Quantity'), validators=[MinValueValidator(1, message=_("Only number greater than 1 are permitted"))])
     workload = models.ForeignKey(WorkLoad, null=True, blank=True, verbose_name=_('Work Load'))
     benefits = models.ManyToManyField(Benefit, blank=True, verbose_name=_('Benefits'))
     email = models.CharField(blank=True, null=True, max_length=255, verbose_name=_('E-mail'))
