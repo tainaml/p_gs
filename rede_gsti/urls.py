@@ -136,6 +136,9 @@ urlpatterns = [
     # Translators: URL core adicionais
     url(_(r'^'), include('apps.core.urls.core', namespace='core')),
 
+    # Translators: URl geography
+    url(_(r'^geography/'), include('apps.core.urls.geography', namespace='geography')),
+
     # Translators: URL root de comunidade
     url(_(r'^'), include('apps.core.urls.community', namespace='community')),
 

@@ -75,10 +75,12 @@ class MaterialModelForm(forms.ModelForm):
 
 
     def __update_error__(self, field):
-        widget = self.fields[field].widget
-        if (not self._meta.widgets  or field and field not in self._meta.widgets) \
-                and type(widget) in MATERIAL_WIDGETS.values() and field in self.errors:
-                self.fields[field].widget.errors = self.errors[field]
+        if field:
+            widget = self.fields[field].widget
+
+            if (not self._meta.widgets  or field and field not in self._meta.widgets) \
+                    and type(widget) in MATERIAL_WIDGETS.values() and field in self.errors:
+                    self.fields[field].widget.errors = self.errors[field]
 
     def is_valid(self):
         valid = super(MaterialModelForm, self).is_valid()

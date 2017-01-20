@@ -37,7 +37,7 @@ class WorkLoad(models.Model):
 class JobVacancy(models.Model):
     title = models.CharField(blank=False, null=False, max_length=100, verbose_name=_('Title'))
     slug = models.SlugField(default='', null=False, max_length=150, verbose_name=_('Slug'))
-    is_active = models.BooleanField(default=False, verbose_name=_('Is active'))
+    is_active = models.BooleanField(default=True, verbose_name=_('Is active'))
     job_vacancy_date = models.DateField(default=timezone.now, null=False, verbose_name=_('Date'))
     company = models.ForeignKey(Company, null=True, blank=True, related_name='job_vacancys', verbose_name=_('Company'))
     author = models.ForeignKey(settings.AUTH_USER_MODEL, null=False, related_name='job_vacancys',
