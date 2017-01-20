@@ -9,7 +9,6 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('geography', '0004_auto_20161110_1452'),
         ('job_vacancy', '0015_auto_20170117_1530'),
     ]
 
