@@ -1,5 +1,5 @@
 import profession from './profession'
-import geography from './geography'
+import geography from '../components/geography'
 import input from '../components/customform/input'
 import toggleSelect from '../components/customform/toggle-select'
 import toggleCheck from '../components/customform/toggle-check'
@@ -57,8 +57,8 @@ const steps = ( root ) => {
       }
       if ( !!professionLength ) {
         profession( $root.find( '[data-module="profession"]' ))
-        geography( $root.find( '[data-module="geography"]'))
       }
+      geography( $root.find( '[data-component="geography"]' ))
     },
     onStepChanging: function ( event, currentIndex, newIndex ) {
       $form.validate().settings.ignore = ':disabled,:hidden'

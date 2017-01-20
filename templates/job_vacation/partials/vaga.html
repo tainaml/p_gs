@@ -39,18 +39,14 @@
         </div>
         <div class="col-sm-5" data-location>
             <div class="customform">
-                <select class="customform-input" data-module="geography" data-url="profile" name="state" data-search-field="state" data-value-field="state" id="state">
-                    <option disabled selected>selecione</option>
-                </select>
+                <select class="customform-input" type="text" data-component="geography" data-url="{% url 'geography:search' 'state' %}" name="state" id="state"></select>
                 <hr>
                 <label class="customform-label active" for="state">Estado</label>
             </div>
         </div>
         <div class="col-sm-offset-2 col-sm-5" data-location>
             <div class="customform">
-                <select class="customform-input" data-module="geography" data-url="profile" data-search-field="city" data-value-field="city" name="city" id="city">
-                    <option disabled selected>selecione</option>
-                </select>
+                <input class="customform-input" type="text" data-component="geography" data-url="{% url 'geography:search' 'city' %}" name="city" id="city">
                 <hr>
                 <label class="customform-label active" for="city">Cidade</label>
             </div>

@@ -72,6 +72,7 @@ function loadItems(query, callback) {
             callback()
         },
         success: function(res){
+          console.log(res);
             callback(res);
         }
     });
