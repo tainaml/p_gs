@@ -11,7 +11,7 @@
             {% csrf_token %}
             <fieldset class="organization__register">
                 <legend class="organization__register__title">Cadastro de vaga de trabalho</legend>
-                <div class="col-sm-offset-1 col-sm-10 steps" data-module="steps">
+                <div class="col-sm-offset-1 col-sm-10 steps" data-index="2" data-error="true" data-module="steps">
                     {% include "job_vacation/partials/basic.html" %}
                     {% include "job_vacation/partials/vaga.html" %}
                     {% include "job_vacation/partials/professional.html" %}

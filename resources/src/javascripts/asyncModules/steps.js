@@ -32,8 +32,9 @@ const steps = ( root ) => {
     headerTag: '[data-step-part="header"]',
     bodyTag: '[data-step-part="content"]',
     enableAllSteps: true,
-    titleTemplate: '#title#',
     enablePagination: false,
+    titleTemplate: '#title#',
+    startIndex: $root.data( 'index' ),
     onInit: function ( event, currentIndex ) {
       input( $root.find( '[data-toggle="input"]' ))
       toggleSelect( $root.find( '[data-toggle="salary"]' ), 'data-salary' )
@@ -59,8 +60,12 @@ const steps = ( root ) => {
         profession( $root.find( '[data-module="profession"]' ))
       }
       geography( $root.find( '[data-component="geography"]' ))
+      if ( $root.data( 'error' )) {
+        $root.find( '.steps .current' ).addClass( 'error' )
+      }
     },
     onStepChanging: function ( event, currentIndex, newIndex ) {
+      $root.data( 'index', newIndex )
       $form.validate().settings.ignore = ':disabled,:hidden'
       return $form.valid()
     },
