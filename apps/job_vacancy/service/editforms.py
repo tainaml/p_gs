@@ -19,11 +19,15 @@ class SalaryFormSet(BaseInlineFormSet):
          form.fields["fixed_value"] = forms.FloatField(localize=True, widget=InputTextMaterial, required=False)
          form.fields["fixed_value"].widget.label = _('Fixed value')
 
+
+
          form.fields["range_value_from"] = forms.FloatField(localize=True, widget=InputTextMaterial, required=False)
          form.fields["range_value_from"].widget.label = _('Range from')
 
          form.fields["range_value_to"] = forms.FloatField(localize=True, widget=InputTextMaterial, required=False)
          form.fields["range_value_to"].widget.label = _('Range to')
+
+
 
 
 
@@ -38,6 +42,10 @@ class JobVacancyForm(MaterialModelForm):
 
     def __init__(self, *args, **kwargs):
         super(JobVacancyForm, self).__init__(*args, **kwargs)
+
+        self.fields["cities"].widget.label = _('Cities related with the job vacancy')
+        self.fields["states"].widget.label = _('State related with the job vacancy')
+
         if self.instance.pk:
             self.fields['states']._set_queryset(self.instance.states)
             self.fields['cities']._set_queryset(self.instance.cities)
@@ -90,12 +98,6 @@ class JobVacancyForm(MaterialModelForm):
         min_num=1,
     )
 
-
-    def full_clean(self):
-
-
-
-        super(JobVacancyForm, self).full_clean()
 
     class Meta:
 

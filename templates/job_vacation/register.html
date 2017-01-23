@@ -12,7 +12,7 @@
 
             <fieldset class="organization__register">
                 <legend class="organization__register__title">{% if form.instance.id %}Editar{% else %}Cadastrar{% endif %} vaga de trabalho</legend>
-                <div class="col-sm-offset-1 col-sm-10 steps" data-module="steps">
+                <div class="col-sm-offset-1 col-sm-10 steps" data-module="steps" data-index="1">
                     {% include "job_vacation/partials/basic.html" %}
                     {% include "job_vacation/partials/vaga.html" %}
                     {% include "job_vacation/partials/professional.html" %}

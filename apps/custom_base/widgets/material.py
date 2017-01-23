@@ -129,7 +129,8 @@ class MaterialSelectMultiple(InputMaterial, SelectMultiple):
         final_attrs = self.build_attrs(attrs, name=name)
 
         options = self.render_options(value)
-
+        if 'class' not in final_attrs and self.class_name:
+            final_attrs['class'] = force_text(self.format_value(self.class_name))
         flatattrs = flatatt(final_attrs)
         base_context={ 'self': self,
                              'value': value,
