@@ -34,6 +34,7 @@ const steps = ( root ) => {
     enableAllSteps: true,
     titleTemplate: '#title#',
     enablePagination: false,
+    startIndex: $root.data( 'index' ),
     onInit: function ( event, currentIndex ) {
       input( $root.find( '[data-toggle="input"]' ))
       toggleSelect( $root.find( '[data-toggle="salary"]' ), 'data-salary' )
@@ -41,6 +42,7 @@ const steps = ( root ) => {
       $( '[data-toggle="tooltip"]' ).tooltip()
       let formsetLength = $( '[data-toggle="formset"]' ).length
       let professionLength = $( '[data-module="profession"]' ).length
+      let geographyLength = $( '[data-module="geography"]' ).length
       if ( !!formsetLength ) {
         let $containerForm = $root.find( '[data-toggle="formset"]' )
         $containerForm.each(( index, value ) => {
@@ -58,10 +60,19 @@ const steps = ( root ) => {
       if ( !!professionLength ) {
         profession( $root.find( '[data-module="profession"]' ))
       }
-      geography( $root.find( '[data-component="geography"]' ))
+      if (!!geographyLength) {
+        geography( $root.find( '[data-component="geography"]' ))
+      }
+
+      if ($root.data( 'error' )) {
+        $root.find( '.steps .current' ).addClass( 'error' )
+      }
+
+
     },
     onStepChanging: function ( event, currentIndex, newIndex ) {
       $form.validate().settings.ignore = ':disabled,:hidden'
+      $root.data( 'index', newIndex )
       return $form.valid()
     },
   })
