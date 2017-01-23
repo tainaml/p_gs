@@ -14,15 +14,13 @@ let defaultSettings = {
   create: false,
   render: {
     item: function (item) {
-      console.log(item);
       return `<div>${item.name}</div>`;
     },
     option: function (option, escape) {
-      console.dir(option);
       return `<div>${escape(option.name)}</div>`;
     }
   },
-  load: function (query, callback) {
+  load: function ( query, callback ) {
     var options = $(this.$input).data();
 
     if(!query.length){
@@ -40,9 +38,7 @@ let defaultSettings = {
         error: function(){
             callback()
         },
-        success: function(res){
-            // console.log(res)
-            // console.dir( result )
+        success: function ( res ) {
             callback( res )
         }
     });

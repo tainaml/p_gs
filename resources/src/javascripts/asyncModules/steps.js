@@ -42,7 +42,7 @@ const steps = ( root ) => {
       $( '[data-toggle="tooltip"]' ).tooltip()
       let formsetLength = $( '[data-toggle="formset"]' ).length
       let professionLength = $( '[data-module="profession"]' ).length
-      let geographyLength = $( '[data-module="geography"]' ).length
+      let geographyLength = $( '[data-component="geography"]' ).length
       if ( !!formsetLength ) {
         let $containerForm = $root.find( '[data-toggle="formset"]' )
         $containerForm.each(( index, value ) => {
@@ -60,7 +60,8 @@ const steps = ( root ) => {
       if ( !!professionLength ) {
         profession( $root.find( '[data-module="profession"]' ))
       }
-      if (!!geographyLength) {
+      
+      if ( !!geographyLength ) {
         geography( $root.find( '[data-component="geography"]' ))
       }
 
