@@ -14,9 +14,11 @@
 
     <div data-toggle="formset" data-add-text="Adicionar" data-prefix="{{ form.requirements_formset.prefix }}">
         {% for requirements_formset in form.requirements_formset %}
+
         <div class="row customrow" >
             <div class="col-sm-4">
                 {% for hidden in requirements_formset.hidden_fields %}
+
                 {{ hidden }}
                 {% endfor %}
                 {% if requirements_formset.instance.pk %}
@@ -30,9 +32,16 @@
             <div class="col-sm-3">
                 {{ requirements_formset.exigency }}
             </div>
+            {% if requirements_formset.non_field_errors %}
+                <div class="col-sm-12">
+
+                    {{ requirements_formset.non_field_errors }}
+                </div>
+            {% endif %}
         </div>
         {% endfor %}
         {{ form.requirements_formset.management_form }}
+
     </div>
 
     <div class="row customrow">

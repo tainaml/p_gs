@@ -9,8 +9,9 @@
     <div class="row">
         <form class="col-sm-offset-1 col-sm-10" method="post">
             {% csrf_token %}
+
             <fieldset class="organization__register">
-                <legend class="organization__register__title">Cadastro de vaga de trabalho</legend>
+                <legend class="organization__register__title">{% if form.instance.id %}Editar{% else %}Cadastrar{% endif %} vaga de trabalho</legend>
                 <div class="col-sm-offset-1 col-sm-10 steps" data-module="steps">
                     {% include "job_vacation/partials/basic.html" %}
                     {% include "job_vacation/partials/vaga.html" %}

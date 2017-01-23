@@ -33,18 +33,18 @@
         </div>
 
         <div class="col-sm-5" data-location>
-            <div class="customform">
-                <select class="customform-input" type="text" data-component="geography" data-url="{% url 'geography:search' 'state' %}" name="state" id="state"></select>
-                <hr>
-                <label class="customform-label active" for="state">Estado</label>
-            </div>
+{#            <div class="customform">#}
+{#                <select class="customform-input" type="text" data-component="geography" data-url="{% url 'geography:search' 'state' %}" name="state" id="state"></select>#}
+{#                <hr>#}
+{#                <label class="customform-label active" for="state">Estado</label>#}
+                {% url 'geography:search' 'state' as state_url%}
+            {% render_field form.states data-component="geography" data-url=state_url  %}
+{#            </div>#}
+
         </div>
         <div class="col-sm-offset-2 col-sm-5" data-location>
-            <div class="customform">
-                <input class="customform-input" type="text" data-component="geography" data-url="{% url 'geography:search' 'city' %}" name="city" id="city">
-                <hr>
-                <label class="customform-label active" for="city">Cidade</label>
-            </div>
+            {% url 'geography:search' 'city' as city_url%}
+            {% render_field form.cities data-component="geography" data-url=city_url  %}
         </div>
     </div>
     <div class="row customrow customrow-bottom">

@@ -1,0 +1,9 @@
+{% extends "custom_base/base-material.html" %}
+{% block input %}
+    <select multiple="multiple" {{ flatattrs }} data-toggle="input">
+        {{ options|safe }}
+    </select>
+{% endblock input %}
+{% block label %}
+        <label for="{{ attrs.id }}" class="customform-label active">{{ label }}</label>
+{% endblock label %}
