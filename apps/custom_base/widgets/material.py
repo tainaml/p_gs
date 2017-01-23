@@ -3,6 +3,7 @@ from django.forms.widgets import Input, Select, CheckboxInput, CheckboxSelectMul
 from django.shortcuts import render
 from django.utils.datastructures import MultiValueDict
 from django.utils.encoding import force_text
+from django.utils.html import format_html
 from django.utils.safestring import mark_safe
 
 
@@ -30,7 +31,6 @@ class InputMaterial(Input):
         return aditional_attrs
 
     def render(self, name, value, attrs=None):
-
         if value is None:
             value = ''
         final_attrs = self.build_attrs(attrs, type=self.input_type, name=name)
@@ -48,6 +48,7 @@ class InputMaterial(Input):
                              'errors': self.errors if self.show_errors else None
                             }
         base_context.update(self.get_aditional_context(name=name, value=value, attrs=attrs))
+
         return mark_safe(render(None, template_name=self.template, context=base_context).content)
 
 class InputTextMaterial(InputMaterial):
@@ -106,6 +107,42 @@ class SelectMaterial(InputMaterial, Select):
 
     template = 'custom_base/select-material.html'
 
+class MaterialSelectMultiple(InputMaterial, SelectMultiple):
+
+    _empty_value = []
+
+    def value_from_datadict(self, data, files, name):
+        if isinstance(data, MultiValueDict):
+            return data.getlist(name)
+        return data.get(name)
+
+    def get_aditional_context(self, name, value, attrs=None):
+
+        return {'choices': self.choices}
+
+    template = 'custom_base/selectize-material.html'
+
+    def render(self, name, value, attrs=None):
+
+        if value is None:
+            value = []
+        final_attrs = self.build_attrs(attrs, name=name)
+
+        options = self.render_options(value)
+
+        flatattrs = flatatt(final_attrs)
+        base_context={ 'self': self,
+                             'value': value,
+                             'flatattrs': flatattrs,
+                              'options': options,
+                              'label': self.label,
+                             'attrs': final_attrs,
+                             'errors': self.errors if self.show_errors else None
+                            }
+        base_context.update(self.get_aditional_context(name=name, value=value, attrs=attrs))
+
+        return mark_safe(render(None, template_name=self.template, context=base_context).content)
+
 
 class CheckboxSelectMultipleMaterial(InputMaterial, SelectMultiple):
 
@@ -114,8 +151,6 @@ class CheckboxSelectMultipleMaterial(InputMaterial, SelectMultiple):
     def get_aditional_context(self, name, value, attrs=None):
 
         return {'choices': self.choices}
-
-
 
     def use_required_attribute(self, initial):
         # Don't use the 'required' attribute because browser validation would

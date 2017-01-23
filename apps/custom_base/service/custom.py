@@ -1,8 +1,10 @@
 from django import forms
 import logging
+from django.core.exceptions import ValidationError
 from django.forms import widgets
+from django.utils.encoding import force_text
 from apps.custom_base.widgets.material import InputTextMaterial, TextAreaMaterial, SelectMaterial, URLMaterial, \
-    EmailMaterial, NumberMaterial, BooleanMaterial
+    EmailMaterial, NumberMaterial, BooleanMaterial, MaterialSelectMultiple
 
 logger = logging.getLogger('error')
 
@@ -48,6 +50,7 @@ MATERIAL_WIDGETS = {
     widgets.EmailInput: EmailMaterial,
     widgets.NumberInput: NumberMaterial,
     widgets.CheckboxInput: BooleanMaterial,
+    widgets.SelectMultiple: MaterialSelectMultiple,
 }
 
 class MaterialModelForm(forms.ModelForm):
@@ -88,4 +91,3 @@ class MaterialModelForm(forms.ModelForm):
            self.__update_error__(field=key)
 
         return valid
-

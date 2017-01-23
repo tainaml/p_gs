@@ -1,5 +1,7 @@
+# -*- encoding: utf-8 -*-
 from __future__ import unicode_literals
 from django.conf import settings
+from django.core.exceptions import ValidationError
 from django.core.validators import MinValueValidator
 from django.utils import timezone
 from django.utils.translation import ugettext as _
@@ -139,7 +141,12 @@ class Experience(models.Model):
 class Requirement(models.Model):
     job_vacancy = models.ForeignKey(JobVacancy, on_delete=models.CASCADE, related_name='requirements', null=False,
                                     verbose_name=_('Job Vacancy'))
-    item = models.ForeignKey(Taxonomy, null=False, blank=False, verbose_name=_('Item'))
+
+    def clean(self):
+        if ((self.level or self.exigency) and not self.item) or (self.exigency and not self.level):
+            raise ValidationError(_("Um item deve ser associado se for selecionado um nível ou uma exigência"))
+
+    item = models.ForeignKey(Taxonomy, null=True, blank=True, verbose_name=_('Item'))
     level = models.ForeignKey(Level, null=True, blank=True, verbose_name=_('Level'))
     exigency = models.ForeignKey(Exigency, null=True, blank=True,  verbose_name=_('Exigency'))
     experience = models.ForeignKey(Experience, null=True, blank=True,  verbose_name=_('Experience'))
