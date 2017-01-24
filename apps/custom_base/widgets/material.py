@@ -151,7 +151,15 @@ class CheckboxSelectMultipleMaterial(InputMaterial, SelectMultiple):
     input_type = 'checkbox'
     def get_aditional_context(self, name, value, attrs=None):
 
-        return {'choices': self.choices}
+        choices = []
+        for key, value in self.choices:
+            choices.append([force_text(key), value])
+        return {'choices': choices}
+
+    def render(self, name, value, attrs=None):
+        value= set(force_text(v) for v in value)
+        return super(CheckboxSelectMultipleMaterial, self).render(name=name, value=value, attrs=attrs)
+
 
     def use_required_attribute(self, initial):
         # Don't use the 'required' attribute because browser validation would

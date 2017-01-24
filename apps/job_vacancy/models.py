@@ -101,6 +101,16 @@ class Salary(models.Model):
     job_vacancy = models.OneToOneField(JobVacancy, on_delete=models.CASCADE, related_name='salary', primary_key=True,
                                        verbose_name=_('Job Vacancy'))
 
+    def clean(self):
+        if (self.salary_type == self.TYPE_COMBINE and (self.fixed_value or self.range_value_from or self.range_value_to)):
+            raise ValidationError(_("Wrong type combination!"))
+        elif (self.salary_type==self.TYPE_FIXED and (not self.fixed_value)):
+            raise ValidationError(_("Fixex value must be set!"))
+        elif (self.salary_type==self.TYPE_INTERVAL and ((not self.range_value_from or not self.range_value_to))
+              or (self.range_value_from and self.range_value_to and self.range_value_to < self.range_value_from)):
+            raise ValidationError(_("You must fill the range with valid values and be sure that range value to is greather than range value from"))
+
+
 
 class JobVacancyResponsibilityType(models.Model):
     description = models.CharField(blank=False, null=False, max_length=100, verbose_name=_('Description'))
@@ -144,7 +154,7 @@ class Requirement(models.Model):
 
     def clean(self):
         if ((self.level or self.exigency) and not self.item) or (self.exigency and not self.level):
-            raise ValidationError(_("Um item deve ser associado se for selecionado um nível ou uma exigência"))
+            raise ValidationError(_("A item must be selected if a level or exigency was set"))
 
     item = models.ForeignKey(Taxonomy, null=True, blank=True, verbose_name=_('Item'))
     level = models.ForeignKey(Level, null=True, blank=True, verbose_name=_('Level'))
