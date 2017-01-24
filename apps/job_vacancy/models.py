@@ -86,13 +86,27 @@ class Salary(models.Model):
     TYPE_INTERVAL = 1
     TYPE_FIXED = 2
     TYPE_COMBINE = 3
+    TYPE_TO_SEND = 4
 
     CHOICES_TYPE = (
         (None, "---------"),
         (TYPE_INTERVAL, _('Interval')),
         (TYPE_FIXED, _('Fixed')),
-        (TYPE_COMBINE, _('Combine'))
+        (TYPE_COMBINE, _('Combine')),
+        (TYPE_TO_SEND, _('Send salary')),
     )
+
+    def is_fixed(self):
+        return self.salary_type==self.TYPE_FIXED
+
+    def is_combined(self):
+        return self.salary_type==self.TYPE_COMBINE
+
+    def is_interval(self):
+        return self.salary_type==self.TYPE_INTERVAL
+
+    def is_to_send(self):
+        return self.salary_type==self.TYPE_TO_SEND
 
     fixed_value = models.FloatField(null=True, blank=True, verbose_name=_('Fixed value'))
     range_value_from = models.FloatField(null=True, blank=True, verbose_name=_('Range from'))
