@@ -11,7 +11,6 @@ from apps.company.models import Company
 from apps.geography.models import City, State, Country
 from apps.taxonomy.models import Taxonomy
 from apps.userprofile.models import Responsibility
-from smart_selects.db_fields import ChainedManyToManyField, ChainedForeignKey
 from social.utils import slugify
 
 class JobRegime(models.Model):
@@ -80,7 +79,7 @@ class JobVacancyAdditionalRequirement(models.Model):
     job_vacancy = models.ForeignKey(JobVacancy, null=False, related_name='additional_requirements', on_delete=models.CASCADE,
                                     blank=False, verbose_name=_('Job Vacancy'))
 
-    description = models.CharField(blank=False, null=False, max_length=512, verbose_name=_('Aditional Requirement'))
+    description = models.CharField(blank=True, null=True, max_length=512, verbose_name=_('Aditional Requirement'))
 
 class Salary(models.Model):
 
@@ -121,7 +120,7 @@ class JobVacancyResponsibilityType(models.Model):
 
 
 class JobVacancyResponsibility(models.Model):
-    responsibility = models.ForeignKey(Responsibility, null=True, verbose_name=_('Responsibility'))
+    responsibility = models.ForeignKey(Responsibility, null=True, verbose_name=_('Responsibility'), related_name="responsibility")
     responsibility_type = models.ForeignKey(JobVacancyResponsibilityType, null=True, blank=True,
                                             verbose_name=_('Responsibility Type'))
     job_vacancy = models.OneToOneField(JobVacancy, on_delete=models.CASCADE, related_name='responsibility',

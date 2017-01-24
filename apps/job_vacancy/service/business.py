@@ -49,28 +49,35 @@ def get_jobs(keywords=None, locale=None, items_per_page=None, page=None):
                     Q(company__name__unaccent__icontains=keyword) |
                     Q(regime__description__unaccent__icontains=keyword) |
                     Q(benefits__description__unaccent__icontains=keyword) |
-                    Q(resposibility__responsibility__name__unaccent__icontains=keyword) |
-                    Q(resposibility__responsibility_type__description__unaccent__icontains=keyword) |
+                    Q(responsibility__responsibility__name__unaccent__icontains=keyword) |
+                    Q(responsibility__responsibility_type__description__unaccent__icontains=keyword) |
                     Q(requirements__item__description__unaccent__icontains=keyword) |
                     Q(requirements__level__description__unaccent__icontains=keyword) |
                     Q(additional_requirements__description__unaccent__icontains=keyword)
                 )
         criteria = query_criteria if not criteria else criteria & query_criteria
 
-    for location in list_locales:
-        query_criteria_location = (
-            Q(locations__cities__name__unaccent__icontains=location) |
-            Q(locations__state__name__unaccent__icontains=location) |
-            Q(locations__country__name__unaccent__icontains=location)
-        )
-        criteria_location = query_criteria_location if not criteria_location \
-            else criteria_location | query_criteria_location
-
     jobs = JobVacancy \
         .objects \
-        .filter(criteria & criteria_location) \
+        .filter(criteria) \
         .order_by('-job_vacancy_date') \
         .distinct('id', 'job_vacancy_date')
+
+
+    #TODO make a better aproach. TIME, ALWAYS TIME
+    if list_locales and list_locales !=[ u'']:
+        print list_locales == u'', list_locales
+        for location in list_locales:
+            query_criteria_location = (
+                Q(cities__name__unaccent__icontains=location) |
+                Q(states__name__unaccent__icontains=location)
+            )
+            criteria_location = query_criteria_location if not criteria_location \
+                else criteria_location | query_criteria_location
+
+
+        jobs = jobs.filter(criteria_location)
+
 
     if items_per_page and page:
         jobs = Paginator(jobs, items_per_page)

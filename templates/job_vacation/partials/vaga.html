@@ -3,7 +3,7 @@
     <i class="gsticon gsticon-briefcase"></i>
     VAGA
 </div>
-<div data-step-part="content">
+<div data-step-part="content" {% if form.company.errors or form.regime.errors or form.workload.errors or form.home_office.errors or form.benefits.errors or form.states.errors or form.cities.errors or form.salary_formset.errors.0 or form.salary_formset.non_field_errors %}data-error="true"{% endif %}>
     <div class="row customrow">
         <div class="col-sm-4">
             {{ form.company }}
@@ -33,13 +33,9 @@
         </div>
 
         <div class="col-sm-5" data-location>
-{#            <div class="customform">#}
-{#                <select class="customform-input" type="text" data-component="geography" data-url="{% url 'geography:search' 'state' %}" name="state" id="state"></select>#}
-{#                <hr>#}
-{#                <label class="customform-label active" for="state">Estado</label>#}
-                {% url 'geography:search' 'state' as state_url%}
+
+            {% url 'geography:search' 'state' as state_url%}
             {% render_field form.states data-component="geography" data-url=state_url  %}
-{#            </div>#}
 
         </div>
         <div class="col-sm-offset-2 col-sm-5" data-location>
@@ -73,7 +69,6 @@
         </div>
             {% if salary_formset.non_field_errors %}
                 <div class="col-sm-12">
-                    {% block vaga_error %}error{% endblock vaga_error %}
                     {{ salary_formset.non_field_errors }}
                 </div>
             {% endif %}

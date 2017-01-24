@@ -2,9 +2,10 @@
 
 <div data-step-part="header">
     <i class="gsticon gsticon-file"></i>
-    BÁSICO
+    BÁSICO {{ form.responsibility_formset.errors.as_data }}
 </div>
-<div data-step-part="content">
+
+<div data-step-part="content" {% if form.title.errors or form.job_vacancy_responsibility.errors or form.quantity.errors or form.responsibility_formset.errors.0 or form.responsibility_formset.non_field_errors %}data-error="true"{% endif %}>
     <div class="row customrow">
         <div class="col-sm-12">
             {{ form.title }}
@@ -27,6 +28,7 @@
         <div class="col-sm-4">
             {{ formset_responsibility.responsibility_type }}
         </div>
+
        {% endfor %}
 
         <div class="col-sm-3">

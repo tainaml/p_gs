@@ -2,7 +2,7 @@
     <i class="gsticon gsticon-address-book"></i>
     CONTATO
 </div>
-<div data-step-part="content">
+<div data-step-part="content" {% if form.phone_number.errors or form.site.error or form.observation.error %}data-error="true"{% endif %}>
     <div class="row customrow">
         <div class="col-sm-4">
             {{ form.phone_number }}
