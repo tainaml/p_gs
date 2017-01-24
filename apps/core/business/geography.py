@@ -16,7 +16,7 @@ def get_geography(model=None, text='', items_per_page=None, page=None):
     LocaleModel = MODELS_TO_SEARCH[model]['model']
     prefetch = MODELS_TO_SEARCH[model]['prefetch']
 
-    locales = LocaleModel.objects.filter(name__icontains=text).only("id", "name", "state")
+    locales = LocaleModel.objects.filter(name__icontains=text).only("id", "name")
     if prefetch:
         locales = locales.prefetch_related(prefetch)
     items_per_page = items_per_page if items_per_page else 10
