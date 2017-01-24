@@ -97,7 +97,7 @@ class Salary(models.Model):
     fixed_value = models.FloatField(null=True, blank=True, verbose_name=_('Fixed value'))
     range_value_from = models.FloatField(null=True, blank=True, verbose_name=_('Range from'))
     range_value_to = models.FloatField(null=True, blank=True, verbose_name=_('Range to'))
-    salary_type = models.PositiveIntegerField(choices=CHOICES_TYPE, default=TYPE_COMBINE, verbose_name=_('Type'))
+    salary_type = models.PositiveIntegerField(null=False, blank=False, choices=CHOICES_TYPE, default=TYPE_COMBINE, verbose_name=_('Type'))
     job_vacancy = models.OneToOneField(JobVacancy, on_delete=models.CASCADE, related_name='salary', primary_key=True,
                                        verbose_name=_('Job Vacancy'))
 
