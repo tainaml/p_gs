@@ -89,6 +89,7 @@ class Salary(models.Model):
     TYPE_COMBINE = 3
 
     CHOICES_TYPE = (
+        (None, "---------"),
         (TYPE_INTERVAL, _('Interval')),
         (TYPE_FIXED, _('Fixed')),
         (TYPE_COMBINE, _('Combine'))
