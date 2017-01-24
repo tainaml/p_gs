@@ -157,7 +157,8 @@ class CheckboxSelectMultipleMaterial(InputMaterial, SelectMultiple):
         return {'choices': choices}
 
     def render(self, name, value, attrs=None):
-        value= set(force_text(v) for v in value)
+        if value:
+            value= set(force_text(v) for v in value)
         return super(CheckboxSelectMultipleMaterial, self).render(name=name, value=value, attrs=attrs)
 
 

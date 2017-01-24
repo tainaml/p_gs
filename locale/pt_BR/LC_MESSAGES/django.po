@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-01-17 15:03-0300\n"
+"POT-Creation-Date: 2017-01-24 10:33-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -149,7 +149,7 @@ msgid "Publish"
 msgstr "Publicado"
 
 #: apps/article/models.py:62 apps/core/models/rating.py:45
-#: apps/job_vacancy/models.py:44
+#: apps/job_vacancy/models.py:46
 msgid "Author"
 msgstr "Autor"
 
@@ -191,7 +191,7 @@ msgid "Generic Error"
 msgstr "Erro"
 
 #: apps/certification/models.py:8 apps/core/models/course.py:70
-#: apps/core/models/course.py:140 apps/job_vacancy/models.py:38
+#: apps/core/models/course.py:140 apps/job_vacancy/models.py:40
 #: templates/admin/base.html:284
 msgid "Title"
 msgstr "Título"
@@ -200,10 +200,10 @@ msgstr "Título"
 #: apps/company/models.py:94 apps/company/models.py:101
 #: apps/core/models/course.py:72 apps/core/models/course.py:141
 #: apps/core/models/languages.py:9 apps/core/models/plataform.py:21
-#: apps/job_vacancy/models.py:16 apps/job_vacancy/models.py:23
-#: apps/job_vacancy/models.py:31 apps/job_vacancy/models.py:106
-#: apps/job_vacancy/models.py:121 apps/job_vacancy/models.py:128
-#: apps/job_vacancy/models.py:135
+#: apps/job_vacancy/models.py:18 apps/job_vacancy/models.py:25
+#: apps/job_vacancy/models.py:33 apps/job_vacancy/models.py:116
+#: apps/job_vacancy/models.py:131 apps/job_vacancy/models.py:138
+#: apps/job_vacancy/models.py:145
 msgid "Description"
 msgstr "Descrição"
 
@@ -286,7 +286,7 @@ msgid "User"
 msgstr "Nome de usuário"
 
 #: apps/company/models.py:30 apps/company/models.py:103
-#: apps/job_vacancy/models.py:42 templates/userprofile/occupation_add.html:13
+#: apps/job_vacancy/models.py:44 templates/userprofile/occupation_add.html:13
 #: templates/userprofile/occupation_edit.html:13
 msgid "Company"
 msgstr "Empresa"
@@ -440,12 +440,12 @@ msgid "Image size more than 1mb."
 msgstr "Tamanho da imagem excede 1mb"
 
 #: apps/core/models/course.py:71 apps/core/models/languages.py:8
-#: apps/core/models/plataform.py:20 apps/job_vacancy/models.py:39
+#: apps/core/models/plataform.py:20 apps/job_vacancy/models.py:41
 #: apps/userprofile/models.py:135
 msgid "Slug"
 msgstr "Slug"
 
-#: apps/core/models/course.py:73 apps/job_vacancy/models.py:57
+#: apps/core/models/course.py:73 apps/job_vacancy/models.py:59
 msgid "Observation"
 msgstr "Observação"
 
@@ -497,7 +497,7 @@ msgstr "Taxonomia"
 msgid "Affiliate link"
 msgstr "Link afiliado"
 
-#: apps/core/models/course.py:103 apps/job_vacancy/models.py:24
+#: apps/core/models/course.py:103 apps/job_vacancy/models.py:26
 #: apps/userprofile/models.py:141
 msgid "Active"
 msgstr "Ativo"
@@ -543,7 +543,7 @@ msgstr "Este não é um tipo avaliável"
 msgid "value is larger than maximum %(value)s"
 msgstr "Valor é maior que máximo %(value)s"
 
-#: apps/core/models/rating.py:49 apps/job_vacancy/models.py:41
+#: apps/core/models/rating.py:49 apps/job_vacancy/models.py:43
 msgid "Date"
 msgstr "Data"
 
@@ -876,6 +876,10 @@ msgstr "^(?P<course_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/$"
 #: apps/core/urls/feed.py:7
 msgid "^set-official/(?P<content_type>[a-z]+)/(?P<object_id>[0-9]+)$"
 msgstr "^marcar-como-oficial/(?P<content_type>[a-z]+)/(?P<object_id>[0-9]+)$"
+
+#: apps/core/urls/geography.py:7
+msgid "^(?P<model>\\w+)$"
+msgstr ""
 
 #: apps/core/urls/notifications.py:8
 msgid "^members$"
@@ -1338,79 +1342,77 @@ msgstr "Apenas usuários autenticados podem submeter imagens"
 msgid "File size not supported!"
 msgstr "Tamanho de arquivo não suportado"
 
-#: apps/job_vacancy/models.py:40
+#: apps/job_vacancy/models.py:42
 msgid "Is active"
 msgstr "Está ativo"
 
-#: apps/job_vacancy/models.py:46
+#: apps/job_vacancy/models.py:48
 msgid "Responsibility Description"
 msgstr "Descriçao da resposabilidade"
 
-#: apps/job_vacancy/models.py:47
+#: apps/job_vacancy/models.py:49
 msgid "Regime"
 msgstr "Regime"
 
-#: apps/job_vacancy/models.py:48
+#: apps/job_vacancy/models.py:50
 msgid "Home Office"
 msgstr "Home Office"
 
-#: apps/job_vacancy/models.py:49
+#: apps/job_vacancy/models.py:51
 msgid "Quantity"
 msgstr "Quantidade"
 
-#: apps/job_vacancy/models.py:50
+#: apps/job_vacancy/models.py:51
+msgid "Only number greater than 1 are permitted"
+msgstr "Apenas números maiores que 1 são permitidos"
+
+#: apps/job_vacancy/models.py:52
 msgid "Work Load"
 msgstr "Carga horária"
 
-#: apps/job_vacancy/models.py:51
+#: apps/job_vacancy/models.py:53
 msgid "Benefits"
 msgstr "Benefícios"
 
-#: apps/job_vacancy/models.py:52
+#: apps/job_vacancy/models.py:54
 msgid "E-mail"
 msgstr "E-mail"
 
-#: apps/job_vacancy/models.py:53
+#: apps/job_vacancy/models.py:55
 msgid "Phone Number"
 msgstr "Número de Telefone"
 
-#: apps/job_vacancy/models.py:54
+#: apps/job_vacancy/models.py:56
 msgid "Web Site"
 msgstr "Web Site"
 
-#: apps/job_vacancy/models.py:55 templates/contact/contact.html:4
+#: apps/job_vacancy/models.py:57 templates/contact/contact.html:4
 msgid "Contact"
 msgstr "Contato"
 
-#: apps/job_vacancy/models.py:72 apps/job_vacancy/models.py:78
-#: apps/job_vacancy/models.py:102 apps/job_vacancy/models.py:117
-#: apps/job_vacancy/models.py:143 apps/job_vacancy/models.py:152
-msgid "Job Vacancy"
-msgstr "Vaga de trabalho"
-
-#: apps/job_vacancy/models.py:74
-msgid "Aditional Requirement"
-msgstr "Requisito adicional"
-
-#: apps/job_vacancy/models.py:79
-msgid "Country"
-msgstr "País"
-
-#: apps/job_vacancy/models.py:81
-msgid "States"
-msgstr "Estados"
-
-#: apps/job_vacancy/models.py:82
+#: apps/job_vacancy/models.py:61
 msgid "Cities"
 msgstr "Cidades"
 
+#: apps/job_vacancy/models.py:62
+msgid "States"
+msgstr "Estados"
+
+#: apps/job_vacancy/models.py:81 apps/job_vacancy/models.py:102
+#: apps/job_vacancy/models.py:127 apps/job_vacancy/models.py:153
+#: apps/job_vacancy/models.py:167
+msgid "Job Vacancy"
+msgstr "Vaga de trabalho"
+
+#: apps/job_vacancy/models.py:83
+msgid "Aditional Requirement"
+msgstr "Requisito adicional"
+
 #: apps/job_vacancy/models.py:92
-#| msgid "Internal author"
 msgid "Interval"
 msgstr "Intervalo"
 
 #: apps/job_vacancy/models.py:93
-#| msgid "Fixed value"
 msgid "Fixed"
 msgstr "Fixo"
 
@@ -1418,47 +1420,73 @@ msgstr "Fixo"
 msgid "Combine"
 msgstr "A Combinar"
 
-#: apps/job_vacancy/models.py:97
+#: apps/job_vacancy/models.py:97 apps/job_vacancy/service/editforms.py:20
 msgid "Fixed value"
 msgstr "Valor fixo"
 
-#: apps/job_vacancy/models.py:98
+#: apps/job_vacancy/models.py:98 apps/job_vacancy/service/editforms.py:25
 msgid "Range from"
 msgstr "Intervalo de"
 
-#: apps/job_vacancy/models.py:99
+#: apps/job_vacancy/models.py:99 apps/job_vacancy/service/editforms.py:28
 msgid "Range to"
 msgstr "Intervalo para"
 
-#: apps/job_vacancy/models.py:113
+#: apps/job_vacancy/models.py:106
+msgid "Wrong type combination!"
+msgstr "Combinação inconsistente"
+
+#: apps/job_vacancy/models.py:108
+msgid "Fixex value must be set!"
+msgstr "O valor fixo deve ser informado"
+
+#: apps/job_vacancy/models.py:111
+msgid ""
+"You must fill the range with valid values and be sure that range value to is "
+"greather than range value from"
+msgstr "É necessário preencher o intervalo com valores válidos. Certifique-se também que o intervalo comece com o menor número."
+
+#: apps/job_vacancy/models.py:123
 msgid "Responsibility"
 msgstr "Área de atuação"
 
-#: apps/job_vacancy/models.py:115
+#: apps/job_vacancy/models.py:125
 msgid "Responsibility Type"
 msgstr "tipo da área de atuação"
 
-#: apps/job_vacancy/models.py:144
+#: apps/job_vacancy/models.py:157
+msgid "A item must be selected if a level or exigency was set"
+msgstr "Um item deve ser selecionado se um nível ou uma exigência forem selecionados"
+
+#: apps/job_vacancy/models.py:159
 msgid "Item"
 msgstr "Item"
 
-#: apps/job_vacancy/models.py:145
+#: apps/job_vacancy/models.py:160
 msgid "Level"
 msgstr "Nível"
 
-#: apps/job_vacancy/models.py:146 apps/job_vacancy/models.py:154
+#: apps/job_vacancy/models.py:161 apps/job_vacancy/models.py:169
 msgid "Exigency"
 msgstr "Exigência"
 
-#: apps/job_vacancy/models.py:147
+#: apps/job_vacancy/models.py:162
 msgid "Experience"
 msgstr "Experiência"
 
-#: apps/job_vacancy/models.py:153
+#: apps/job_vacancy/models.py:168
 msgid "Certification"
 msgstr "Certificação"
 
-#: apps/job_vacancy/views.py:72
+#: apps/job_vacancy/service/editforms.py:46
+msgid "Cities related with the job vacancy"
+msgstr "Cidades relacionadas com a vaga"
+
+#: apps/job_vacancy/service/editforms.py:47
+msgid "State related with the job vacancy"
+msgstr "Estados relacionados com a vaga"
+
+#: apps/job_vacancy/views.py:73
 msgid "Job not found!"
 msgstr "Vaga não encontrada"
 
@@ -1747,7 +1775,7 @@ msgstr "^hint/"
 #. Translators: URL root de comunidade
 #: rede_gsti/urls.py:89 rede_gsti/urls.py:92 rede_gsti/urls.py:117
 #: rede_gsti/urls.py:129 rede_gsti/urls.py:134 rede_gsti/urls.py:137
-#: rede_gsti/urls.py:140
+#: rede_gsti/urls.py:143
 msgid "^"
 msgstr "^"
 
@@ -1801,7 +1829,12 @@ msgstr "^cursos/"
 msgid "^rating/"
 msgstr "^avaliacoes/"
 
-#: rede_gsti/urls.py:151
+#. Translators: URl geography
+#: rede_gsti/urls.py:140
+msgid "^geography/"
+msgstr ""
+
+#: rede_gsti/urls.py:154
 msgid "^front-end/(?P<template>[a-z0-9./]+(?:(-|_)[a-z0-9.]+)*)"
 msgstr "^front-end/(?P<template>[a-z0-9./]+(?:(-|_)[a-z0-9.]+)*)"
 
@@ -2215,6 +2248,9 @@ msgstr "Sexo"
 #: templates/userprofile/show.html:14
 msgid "City / State / Country"
 msgstr "Cidade / Estado / País"
+
+#~ msgid "Country"
+#~ msgstr "País"
 
 #~ msgid "Salary Type"
 #~ msgstr "Tipo de salário"
