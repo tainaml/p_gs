@@ -10,6 +10,13 @@ import '../vendor/jquery.formset'
 const steps = ( root ) => {
   const $root = $( root )
   const $form = $root.parents( 'form' )
+  const stepsWithErros = []
+
+  $( '[data-step-part="content"]' ).each((index, element) => {
+    if ( element.getAttribute( 'data-error' ) == 'true' ) {
+      stepsWithErros.push(index)
+    }
+  })
 
   $form.validate({
     errorPlacement: function errorPlacement(error, element) {
@@ -34,7 +41,7 @@ const steps = ( root ) => {
     enableAllSteps: true,
     titleTemplate: '#title#',
     enablePagination: false,
-    startIndex: $root.data( 'index' ),
+    startIndex: stepsWithErros.length ? Math.min(...stepsWithErros) : 0,
     onInit: function ( event, currentIndex ) {
       input( $root.find( '[data-toggle="input"]' ))
       toggleSelect( $root.find( '[data-toggle="salary"]' ), 'data-salary' )
@@ -60,21 +67,18 @@ const steps = ( root ) => {
       if ( !!professionLength ) {
         profession( $root.find( '[data-module="profession"]' ))
       }
-      
+
       if ( !!geographyLength ) {
         geography( $root.find( '[data-component="geography"]' ))
       }
 
-      if ($root.data( 'error' )) {
-        $root.find( '.steps .current' ).addClass( 'error' )
-      }
+      $( '[data-step-part="content"]' ).each((index, element) => {
+        if ( element.getAttribute( 'data-error' ) == 'true' ) {
+          $(`[role=tab]:eq(${index})`).addClass( 'error' )
+        }
+      })
 
 
-    },
-    onStepChanging: function ( event, currentIndex, newIndex ) {
-      $form.validate().settings.ignore = ':disabled,:hidden'
-      $root.data( 'index', newIndex )
-      return $form.valid()
     },
   })
 
