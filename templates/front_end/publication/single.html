@@ -1,0 +1,16 @@
+{% extends "home/layout/base.html" %}
+
+{% load staticfiles %}
+
+{% block content %}
+
+<main class="container publication-single">
+    {% include "front_end/publication/partials/slide-cursos.html" %}
+    <h1 class="publication-single-title">5 atitudes que podem arruinar seus negócios na internet</h1>
+</main>
+
+{% endblock content %}
+
+{% block javascripts %}
+    <script src="{% static 'javascripts/publication.js'%}"></script>
+{% endblock javascripts %}

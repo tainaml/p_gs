@@ -1,8 +1,12 @@
 'use strict';
 
-import { loadCSS } from 'fg-loadcss'
-import '../../node_modules/fg-loadcss/src/onloadCSS'
+const asyncModules = document.querySelectorAll( '[data-async]' )
 
-const ADITIONAL_CSS = $( 'main' ).data( 'asyncstyle' )
+asyncModules.forEach((element, index) => {
+  const name = element.getAttribute( 'data-async' )
 
-loadCSS(ADITIONAL_CSS, $( 'link' )[0] )
+  require.ensure([], function () {
+    module = require(`${name}`)
+    module( element )
+  })
+})

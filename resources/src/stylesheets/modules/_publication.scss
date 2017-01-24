@@ -1,0 +1,32 @@
+/* ==========================================================================
+   Publication section style (Comprehend article and question areas)
+   ========================================================================== */
+
+
+/*
+   Carousel
+   ========================================================================== */
+@import "publication/carousel";
+
+.publication-single {
+  &-title {
+    margin-top: 30px;
+    color: #616161;
+    font: 600 26px/30px 'Open Sans';
+    text-align: center;
+  }
+  &-category {
+    border-top: 1px solid #0162b1;
+    text-align: center;
+    span {
+      min-width: 130px;
+      padding: 5px;
+      margin: 0 auto;
+      display: inline-block;
+      background-color: #0162b1;
+      color: #fff;
+      font: 400 12px 'Open Sans';
+      text-transform: uppercase;
+    }
+  }
+}

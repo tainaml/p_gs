@@ -1,0 +1,66 @@
+/* ==========================================================================
+   Publication section style (Comprehend article and question areas)
+   ========================================================================== */
+
+
+/*
+   Vendors
+   ========================================================================== */
+@import "../../node_modules/slick-carousel/slick/slick.scss";
+// @import "../../node_modules/slick-carousel/slick/slick-theme.scss";
+.slick-arrow {
+  position: absolute;
+  top: 50%;
+  z-index: 2;
+  width: 20px;
+  height: 20px;
+  border: 0;
+  line-height: 0;
+  font-size: 0;
+  background: 0 0;
+  color: transparent;
+  &.slick-prev {
+    left: -20px
+  }
+  &.slick-prev::before {
+    content: '\f104'
+  }
+  &.slick-next {
+    right: -20px
+  }
+  &.slick-next::before {
+    content: '\f105'
+  }
+  &::before {
+    font-family: 'Fontawesome';
+    font-size: 28px;
+    line-height: 1;
+    color: #000;
+  }
+}
+
+.publication-carousel {
+  margin-top: 30px;
+ &-item {
+   display: flex;
+   align-items: flex-start;
+   flex: 1 1 auto;
+   color: #616161;
+   &-body {
+     margin-left: 17px;
+   }
+   &:hover { color: #0162b1; }
+  }
+  &-title {
+    margin-top: 0;
+    font: 600 18px/18px 'Open Sans';
+  }
+}
+
+@media (max-width: $screen-xs-max) {
+  .publication-carousel {
+    &-title {
+      font-size: 14px;
+    }
+  }
+}
