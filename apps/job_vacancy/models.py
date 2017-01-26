@@ -50,12 +50,11 @@ class JobVacancy(models.Model):
     quantity = models.IntegerField(null=True, blank=True, verbose_name=_('Quantity'), validators=[MinValueValidator(1, message=_("Only number greater than 1 are permitted"))])
     workload = models.ForeignKey(WorkLoad, null=True, blank=True, verbose_name=_('Work Load'))
     benefits = models.ManyToManyField(Benefit, blank=True, verbose_name=_('Benefits'))
-    email = models.CharField(blank=True, null=True, max_length=255, verbose_name=_('E-mail'))
+    email = models.CharField(blank=True, null=True, max_length=255, verbose_name=_('Job vacancy E-mail'))
     phone_number = models.CharField(blank=True, null=True, max_length=100, verbose_name=_('Phone Number'))
-    site = models.CharField(blank=True, null=True, max_length=100, verbose_name=_('Web Site'))
-    contact = models.TextField(null=True, blank=True, max_length=10000, verbose_name=_('Contact'))
+    site = models.CharField(blank=True, null=True, max_length=100, verbose_name=_('Job vacancy Web Site'))
     observation = models.TextField(null=True, blank=True, max_length=10000,
-                                                  verbose_name=_('Observation'))
+                                                  verbose_name=_('Aditional Observation'))
 
     cities = models.ManyToManyField(City, blank=True, verbose_name=_('Cities'))
     states = models.ManyToManyField(State, blank=True, verbose_name=_('States'))
