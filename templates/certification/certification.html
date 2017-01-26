@@ -1,0 +1,95 @@
+{% extends 'home/layout/base.html' %}
+{% block title %}{{ responsibility.name }} | Profissão{% endblock title %}
+{% load ads %}
+{% block content %}
+    <main class="container main">
+        <div class="row">
+            <div class="col-sm-9">
+                <form class="row filter" action="{% url 'core:responsibilities-list' %}">
+                    <div class="col-sm-8 filter__inputbox">
+                        <div class="form-search-input">
+                            <input type="text" id="filter-profession" name="criteria"
+                                   placeholder="Pesquisar Profissão" autocomplete="off">
+                        </div>
+                        <button type="submit" class="form-search-button">
+                            <i class="gsticon gsticon-search"></i>
+                        </button>
+                    </div>
+                    <div class="col-sm-4 filter__communities">
+                        <select class="form-control"  id="filter-community" name="category" data-filter="select">
+                            <option value="">Categorias</option>
+                            {% for category in categories %}
+                                <option value="{{ category.id }}" {% if request.GET.category == category.id|stringformat:"s" %}selected{% endif %}>{{ category.description }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-sm-12"><hr></div>
+                </form>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <header class="area-title">
+                            <h1>{{ responsibility.name }}</h1>
+                        </header>
+                        {% if responsibility_categories|length > 0 %}
+                        <span class="profession__categories">
+                          <strong>Categoria: </strong>
+                          {% for category in responsibility.categories.all %}
+                          <a href="{% url 'category:show' category.slug %}">{{ category.description }}</a>{% if not forloop.last %}, {% endif %}
+                          {% endfor %}
+                        </span>
+                        {% endif %}
+                        <hr>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 profession">
+
+                        <div class="profession__img">
+                             {% block community_right_block %}
+                            {% ads_only_production "community_right" "all" %}
+                        {% endblock community_right_block %}
+                        </div>
+
+
+                        {% if responsibility.about %}
+                            <h2 class="profession-name">O que é um {{ responsibility.name }}</h2>
+                            {{ responsibility.about|safe }}
+                        {% endif %}
+
+                        {% if responsibility.study %}
+                            <h2 class="profession-name">O que estudar para ser um {{ responsibility.name }}</h2>
+                            {{ responsibility.study|safe }}
+                        {% endif %}
+
+                        {% if responsibility.main_activity %}
+                            <h2 class="profession-name">Principais atividades do {{ responsibility.name }}</h2>
+                            {{ responsibility.main_activity|safe }}
+                        {% endif %}
+
+                        {% if responsibility.more_info %}
+                            <h2 class="profession-name">Mais informações</h2>
+                            {{ responsibility.more_info|safe }}
+                        {% endif %}
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3">
+
+                {% if profiles_with_this_responsibility %}
+                    {% include 'responsibilities/partials/board.html' %}
+                {% endif %}
+
+                {# Todo: Unhide when jobs module is active #}
+
+                {#                {% include 'front_end/professions/partials/jobs.html' %}#}
+
+            </div>
+        </div>
+    </main>
+{% endblock content %}
+
+{% block javascripts %}
+    {{ block.super }}
+
+{% endblock javascripts %}

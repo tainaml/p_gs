@@ -1,0 +1,18 @@
+{% load avatar_tags %}
+
+<div class="profession__board">
+    <header class="area-title">
+        <h3>{{ responsibility.name }}</h3>
+    </header>
+    <div class="profession__board__list">
+
+        {% for profile in profiles_with_this_responsibility %}
+        <a class="professional" href="{% url 'profile:show' profile.user.username %}">
+            <figure class="professional__avatar">
+                <img src="{% get_avatar profile.user width=66 height=66 smart=False fit_in=False %}" alt="{{ profile.user.get_full_name }}" />
+            </figure>
+        </a>
+        {% endfor %}
+    </div>
+    <a class="btn btn-block btn-green" href="{% url 'search:search-content' 'users' %}?responsibility={{ responsibility.id }}">Buscar mais</a>
+</div>

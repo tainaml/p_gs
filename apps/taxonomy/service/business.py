@@ -9,6 +9,7 @@ __author__ = 'phillip'
 logger = logging.getLogger('general')
 
 
+
 def __get_related_list__(taxonomy=None, taxonomy_list=None):
     if not taxonomy_list:
         taxonomy_list = []
