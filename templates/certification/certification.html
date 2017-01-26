@@ -1,5 +1,5 @@
 {% extends 'home/layout/base.html' %}
-{% block title %}{{ responsibility.name }} | Profissão{% endblock title %}
+{% block title %}{{ certification.title }}{% endblock title %}
 {% load ads %}
 {% block content %}
     <main class="container main">
@@ -9,7 +9,7 @@
                     <div class="col-sm-8 filter__inputbox">
                         <div class="form-search-input">
                             <input type="text" id="filter-profession" name="criteria"
-                                   placeholder="Pesquisar Profissão" autocomplete="off">
+                                   placeholder="Pesquisar certificação" autocomplete="off">
                         </div>
                         <button type="submit" class="form-search-button">
                             <i class="gsticon gsticon-search"></i>
@@ -28,16 +28,16 @@
                 <div class="row">
                     <div class="col-sm-12">
                         <header class="area-title">
-                            <h1>{{ responsibility.name }}</h1>
+                            <h1>{{ certification.title }}</h1>
                         </header>
-                        {% if responsibility_categories|length > 0 %}
                         <span class="profession__categories">
-                          <strong>Categoria: </strong>
-                          {% for category in responsibility.categories.all %}
-                          <a href="{% url 'category:show' category.slug %}">{{ category.description }}</a>{% if not forloop.last %}, {% endif %}
+                          <strong>Relação: </strong>
+                          {% for taxonomy in certification.taxonomies.all %}
+                              {% if taxonomy.community_related %}
+                                  <a href="{% url 'community:show' taxonomy.community_related.slug %}">{{ taxonomy.community_related.title }}</a>{% if not forloop.last %}, {% endif %}
+                              {% endif %}
                           {% endfor %}
                         </span>
-                        {% endif %}
                         <hr>
                     </div>
                 </div>
@@ -51,24 +51,19 @@
                         </div>
 
 
-                        {% if responsibility.about %}
-                            <h2 class="profession-name">O que é um {{ responsibility.name }}</h2>
-                            {{ responsibility.about|safe }}
+                        {% if certification.description %}
+                            <h2 class="profession-name">O que é a certificação {{ certification.title }}</h2>
+                            {{ certification.about|safe }}
                         {% endif %}
 
-                        {% if responsibility.study %}
-                            <h2 class="profession-name">O que estudar para ser um {{ responsibility.name }}</h2>
-                            {{ responsibility.study|safe }}
+                        {% if certification.where_get %}
+                            <h2 class="profession-name">Onde obter a certificação {{ certification.title }}</h2>
+                            {{ certification.where_get|safe }}
                         {% endif %}
 
-                        {% if responsibility.main_activity %}
-                            <h2 class="profession-name">Principais atividades do {{ responsibility.name }}</h2>
-                            {{ responsibility.main_activity|safe }}
-                        {% endif %}
-
-                        {% if responsibility.more_info %}
+                        {% if certification.more_info %}
                             <h2 class="profession-name">Mais informações</h2>
-                            {{ responsibility.more_info|safe }}
+                            {{ certification.more_info|safe }}
                         {% endif %}
 
                     </div>

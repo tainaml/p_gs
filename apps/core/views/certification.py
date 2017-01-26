@@ -1,4 +1,5 @@
-from apps.userprofile.models import Responsibility, UserProfile
+from apps.certification.models import Certification
+from apps.userprofile.models import Responsibility
 from django.http import Http404
 from django.utils.translation import ugettext_lazy as _
 from django.shortcuts import render
@@ -23,11 +24,11 @@ class CertificationListView(View):
             data=request.GET,
         )
 
-        responsibilities = form.process()
+        certifications = form.process()
 
         return {
             'categories': categories,
-            'responsibilities': responsibilities,
+            'certifications': certifications,
         }
 
     def get(self, request):
@@ -43,6 +44,7 @@ class CertificationListView(View):
                 'template': render(request, self.template_items, context).content
             }
             return render(request, self.template_items, context)
+
 
         return render(
             request,
@@ -65,28 +67,23 @@ class CertificationView(View):
     def get(self, request, slug):
 
         try:
-            responsibility = Responsibility.objects.get(slug=slug, active=True)
+            certification = Certification.objects.get(slug=slug, active=True)
         except Responsibility.DoesNotExist as e:
             raise Http404(_('Certification not found'))
 
         _context = self.get_context(request)
 
         # Categories names from this responsibility
-        main_categories = responsibility.categories.all()
+        main_categories = certification.taxonomies.all()
         categories_names = []
 
         for category in main_categories:
             categories_names.append(category.description)
 
-        # Peoples with this responsibility
-        profiles = UserCoreBusiness.get_active_users().filter(
-            occupation__responsibility=responsibility,
-        ).order_by('-user__date_joined')
 
         _context.update({
-            'responsibility': responsibility,
-            'responsibility_categories': categories_names,
-            'profiles_with_this_responsibility': profiles[:9] if profiles else []
+            'certification': certification,
+            'responsibility_categories': categories_names
         })
 
         return render(

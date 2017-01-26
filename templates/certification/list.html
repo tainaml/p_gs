@@ -4,8 +4,8 @@
 {% load ads %}
 {% block link_pagination %}
 
-    {% if responsibilities %}
-    {% pagination_links responsibilities %}
+    {% if certifications %}
+    {% pagination_links certifications %}
     {% endif %}
 
 {% endblock link_pagination %}
@@ -18,7 +18,7 @@
                 <div class="row">
                     <div class="col-sm-12">
                         <header class="area-title">
-                            <h2>Profissões</h2>
+                            <h2>Certificações</h2>
                         </header>
                         <hr>
                     </div>
@@ -26,7 +26,7 @@
                 <form id="form-search-responsibilities" class="row list__filter" action="#" data-toggle="filter" method="get">
 
                     <div class="col-sm-12 list__filter__description">
-                        <p>Lista de profissões relacionadas a tecnologia</p>
+                        <p>Lista de certificações relacionadas a tecnologia</p>
                     </div>
                     <div class="col-sm-8 list__filter__inputbox">
                         <div class="form-search-input">
@@ -50,7 +50,7 @@
                 </form>
                 <div class="row">
                     <div class="col-xs-12 list__professions j-scroll j-scroll-container" data-list="professions">
-                        {% include 'responsibilities/items.html' %}
+                        {% include 'certification/items.html' %}
                     </div>
                 </div>
             </div>

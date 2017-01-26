@@ -1,3 +1,4 @@
+from django.db.models import Q
 from apps.certification.models import Certification
 from apps.custom_base.service.custom import IdeiaForm
 from django import forms
@@ -27,9 +28,8 @@ class CertificationFiltersForm(IdeiaForm):
             self.cleaned_data.pop('category')
 
     def __process__(self):
-        qs = Certification.objects.filter(active=True)
+        qs = Certification.objects.filter(Q(active=True) & ~Q(slug=''))
         page = self.cleaned_data.get('page')
-
         category = self.cleaned_data.get('category')
         if category:
             qs = qs.filter(categories__in=[category])

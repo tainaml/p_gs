@@ -1,12 +1,13 @@
-{% for responsibility in responsibilities %}
-    <a href="{% url 'core:responsibility' responsibility.slug %}" class="btn list__professions__btn">
-        {{ responsibility.name }}
+
+{% for certification in certifications %}
+    <a href="{% url 'core:certification' certification.slug %}" class="btn list__professions__btn">
+        {{ certification.title }}
         <span class="list__professions__btn__icon">
           <i class="gsticon gsticon-plus"></i>
         </span>
     </a>
 {% endfor %}
 
-{% if responsibilities.has_next %}
-    <a data-jscroll-next href="{% url 'core:responsibilities-list' %}?criterio={{ form.cleaned_data.criteria|urlencode }}&page={{ responsibilities.next_page_number }}">Próximo</a>
+{% if certifications.has_next %}
+    <a data-jscroll-next href="{% url 'core:certification-list' %}?criterio={{ form.cleaned_data.criteria|urlencode }}&page={{ certifications.next_page_number }}">Próximo</a>
 {% endif %}
