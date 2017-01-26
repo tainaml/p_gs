@@ -31,14 +31,14 @@ class JobVacancyForm(MaterialModelForm):
 
     use_required_attribute = False
 
-    states = forms.ModelMultipleChoiceField(queryset=State.objects.none(), required=False)
-    cities = forms.ModelMultipleChoiceField(queryset=City.objects.none(), required=False)
+    states = forms.ModelMultipleChoiceField(queryset=State.objects.all().prefetch_related("country"), required=False)
+    cities = forms.ModelMultipleChoiceField(queryset=City.objects.all().prefetch_related("state", "state__country"), required=False)
 
 
     #TODO find a better way to don't get all cities
     def clean(self):
-        self.fields['states']._set_queryset(State.objects.all().prefetch_related("country"))
-        self.fields['cities']._set_queryset(City.objects.all().prefetch_related("state", "state__country"))
+        self.fields['states'].queryset = State.objects.all().prefetch_related("country")
+        self.fields['cities'].queryset = City.objects.all().prefetch_related("state", "state__country")
         super(JobVacancyForm, self).clean()
 
     def __init__(self, *args, **kwargs):
