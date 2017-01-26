@@ -27,18 +27,19 @@ class SalaryFormSet(BaseInlineFormSet):
          form.fields["range_value_to"] = forms.FloatField(localize=True, widget=InputTextMaterial, required=False)
          form.fields["range_value_to"].widget.label = _('Range to')
 
-
-
-
-
-
-
 class JobVacancyForm(MaterialModelForm):
 
     use_required_attribute = False
 
     states = forms.ModelMultipleChoiceField(queryset=State.objects.none(), required=False)
     cities = forms.ModelMultipleChoiceField(queryset=City.objects.none(), required=False)
+
+
+    #TODO find a better way to don't get all cities
+    def clean(self):
+        self.fields['states']._set_queryset(State.objects.all().prefetch_related("country"))
+        self.fields['cities']._set_queryset(City.objects.all().prefetch_related("state", "state__country"))
+        super(JobVacancyForm, self).clean()
 
     def __init__(self, *args, **kwargs):
         super(JobVacancyForm, self).__init__(*args, **kwargs)
