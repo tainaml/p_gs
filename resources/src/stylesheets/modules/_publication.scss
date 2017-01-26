@@ -7,13 +7,18 @@
    Carousel
    ========================================================================== */
 @import "publication/carousel";
+@import "publication/social-actions";
 
-.publication-single {
+.single {
   &-title {
-    margin-top: 30px;
+    margin-top: 40px;
     color: #616161;
-    font: 600 26px/30px 'Open Sans';
+    font: 600 35px/30px 'Open Sans';
     text-align: center;
+  }
+  &-header {
+    overflow: hidden;
+    margin-bottom: 30px;
   }
   &-category {
     border-top: 1px solid #0162b1;
@@ -25,8 +30,157 @@
       display: inline-block;
       background-color: #0162b1;
       color: #fff;
-      font: 400 12px 'Open Sans';
+      font-size: 12px;
       text-transform: uppercase;
     }
   }
+}
+
+.single-main {
+  max-width: 800px;
+  margin-right: 35px;
+  float: left;
+  &-content {
+    color: #616161;
+    font-size: 16px;
+    line-height: 36px;
+    h2, h3 {
+      margin: 0;
+      font-weight: 600;
+    }
+    h2 { font-size: 20px }
+    h3 { font-size: 18px }
+  }
+  &-about {
+    margin-bottom: 20px;
+  }
+  &-reactions {
+    width: 123px;
+    padding: 5px 0;
+    margin-top: -70px;
+    float: right;
+    display: flex;
+    justify-content: space-around;
+    .single-reaction {
+      flex: 1 1 auto;
+      text-align: center;
+      border-right: 1px solid #616161;
+      color: #616161;
+      font-size: 14px;
+      line-height: 22px;
+      &:last-child {
+        border-right: none;
+      }
+    }
+  }
+}
+
+.toggle-menu,
+[id^=drop] {
+	display: none;
+}
+.single-communities:after {
+	content:"";
+	display:table;
+	clear:both;
+}
+.single-communities .drop-communities {
+  width: 100%;
+  position: relative;
+	padding: 3px 0;
+	margin: 0;
+  border-top: 1px solid #d6d4d4;
+  border-bottom: 1px solid #d6d4d4;
+  float: right;
+	list-style: none;
+}
+.single-communities li {
+	margin: 0;
+	display: inline-block;
+	float: left;
+}
+.single-communities a {
+	display: block;
+	padding: 3px 5px;
+  border-radius: 3px;
+  color: #616161;
+  font-size: 12px;
+	text-decoration:none;
+  text-transform: uppercase;
+  &:hover {
+    background-color: #f3f3f3;
+  }
+}
+.btn-denunciar {
+  color: #616161;
+}
+
+@media (max-width: $screen-xs-max) {
+  .single {
+    &-title { font-size: 26px }
+    &-category {
+      span {}
+    }
+  }
+  .single-main {
+    max-width: auto;
+    padding-left: 15px;
+    padding-right: 15px;
+    margin: 0 auto;
+    &-content { line-height: 30px }
+    &-reactions {
+      width: 100%;
+      margin: 0;
+      float: none;
+      border-top: 1px solid #616161;
+      border-bottom: 1px solid #616161;
+      .single-reaction {
+        width: 50%;
+        &:last-child {
+          border-right: none;
+        }
+      }
+    }
+  }
+
+  .toggle + a,
+	.drop-communities {
+		display: none;
+	}
+  .toggle-menu {
+		display: inline-block;
+    padding: 10px 0;
+    margin: 15px 0 0;
+    color: #616161;
+    cursor: pointer;
+    font-weight: 400;
+		font-size: 13px;
+		text-decoration: none;
+    text-transform: uppercase;
+		border: none;
+	}
+  .single-communities .drop-communities {
+    position: absolute;
+    width: auto;
+    border: 1px solid #616161;
+    background-color: #fff;
+  }
+  .single-communities .drop-communities li {
+    padding: 0 20px;
+    display: block;
+    float: none;
+    text-align: center;
+    &:last-child a {
+      border-bottom: none;
+    }
+  }
+  .single-communities .drop-communities a {
+    padding: 10px 0;
+    background-color: transparent;
+    border-radius: 0;
+    border-bottom: 1px solid #616161;
+  }
+  [id^=drop]:checked + .drop-communities {
+		display: block;
+	}
 }
