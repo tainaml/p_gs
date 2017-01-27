@@ -8,13 +8,21 @@
     {% include "front_end/publication/partials/advertising.html" %}
     <h1 class="single-title">5 atitudes que podem arruinar seus negócios na internet</h1>
     {% include "front_end/publication/partials/social-actions.html" %}
-    <div>
-        <section class="single-main">
+    <div class="row">
+        <div class="single-main">
             <div class="single-header">
-                <div class="single-main-about">
-                    <img src="http://placehold.it/40" width="40" height="40" alt="">
-
-                </div>
+                <a class="single-main-about" href="#">
+                    <img class="single-author-image" src="http://placehold.it/40" width="40" height="40" alt="">
+                    <span class="single-main-about-body">
+                        <span class="single-author">Marco Mascarenhas</span>
+                        <span class="single-main-about-info">
+                            <time class="single-time" datetime="25/10/2016 0:29"><i class="gsticon gsticon-clock-o"></i>3 meses atrás</time>
+                            <span class="single-official">
+                                <i class="gsti-rocket"></i> CONTEÚDO OFICIAL
+                            </span>
+                        </span>
+                    </span>
+                </a>
                 <div class="single-main-reactions">
                     <a href="javascript:;" data-toggle="reaction" class="single-reaction">
                         <i class="gsticon gsticon-thumbs-up"></i> 26
@@ -50,28 +58,32 @@
                     </a>
                 </div>
                 <div class="publication-author">
-                    <a href="#" class="btn pull-right">SEGUIR</a>
+                    <a class="btn pull-right text-center perfil-button-alt" data-action="follow" data-action-type="button" data-object="follow-user-24" data-action-text="Seguir" data-action-text-alt="Seguindo" data-class-name="perfil-button perfil-button-alt" data-hover="Não seguir" data-follow-object="24" data-follow-content_type="user" data-url-login="/conta/esta-logado/" data-trigger="login" data-token="jsIHlgxKXlgai8VqsHNB21L1mizWkoUHJ6ErY1ANj3RbklYpEL5nEdeP1ChnrBC8" href="/acoes-sociais/agir/xhr/24/user/follow?url_next=/2016/10/como-criar-paginas-amp-no-wordpress.html"><span>Seguindo</span></a>
                     <div class="publication-author-info">
-                        <img class="publication-author-image" src="http://placehold.it/100" alt="">
-                        <a class="publication-author-name" href="#">Marco Mascarenhas</a>
-                        <div class="publication-author-relationship">
-                            <div class="publication-author-followers">
-                                22 Seguidores
+                        <a href="#">
+                            <img class="publication-author-image" src="http://placehold.it/100" alt="">
+                        </a>
+                        <div>
+                            <a class="publication-author-name" href="#">Marco Mascarenhas</a>
+                            <div class="publication-author-relationship">
+                                <div class="publication-author-followers">22 Seguidores</div>
+                                <div class="publication-author-publications">80 Publicações</div>
                             </div>
-                            <div class="publication-author-publications">
-                                80 Publicações
+                            <div class="publication-author-atuation">
+                                CEO, Analista de SEO, Analista de Métricas, Cientista da Computação
                             </div>
-                        </div>
-                        <div class="publication-author-autation">
-                            CEO, Analista de SEO, Analista de Métricas, Cientista da Computação
                         </div>
                     </div>
                     <div class="publication-author-about">
                         Sou formado em Ciência da Computação pela Universidade Federal da Bahia e trabalho com SEO desde 2008. Me interesso muito por marketing digital, desenvolvimento de sistemas, cerveja e praia.
                     </div>
                 </div>
+                {% include "front_end/publication/partials/recomendations.html" %}
             </div>
-        </section>
+        </div>
+        <div class="single-aside">
+            {% include "front_end/publication/partials/single-aside.html" %}
+        </div>
     </div>
 </main>
 
