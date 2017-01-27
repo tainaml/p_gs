@@ -2,10 +2,11 @@
 {% block title %}{{ certification.title }}{% endblock title %}
 {% load ads %}
 {% block content %}
+    {% load thumbor_tags %}
     <main class="container main">
         <div class="row">
             <div class="col-sm-9">
-                <form class="row filter" action="{% url 'core:responsibilities-list' %}">
+                <form class="row filter" action="{% url 'core:certification-list' %}">
                     <div class="col-sm-8 filter__inputbox">
                         <div class="form-search-input">
                             <input type="text" id="filter-profession" name="criteria"
@@ -66,10 +67,47 @@
                             {{ certification.more_info|safe }}
                         {% endif %}
 
+                        {% if certification.guide %}
+                            <h2 class="profession-name">Guia</h2>
+                            <a href="{{ certification.guide }}">Guia para a certificação {{ certification.title }}</a>
+                        {% endif %}
+
                     </div>
                 </div>
             </div>
             <div class="col-sm-3">
+
+                {% if certification.courses.all %}
+                        <div class="related__items">
+                            <header class="area-title">
+                                <h3>Cursos</h3>
+                            </header>
+
+                            {% for related_course in certification.courses.all %}
+
+                                <a class="related" href="{% url 'course:show' related_course.slug %}">
+                                    <figure class="related__img">
+{#                                        {% if related_course.image %}#}
+{#                                            <img class="img-responsive" src="{% thumbor_url related_course.image.url width=100 height=100 %}" alt="{{ related_course.title }}">#}
+{#                                        {% else %}#}
+{#                                            <i>no image</i>#}
+{#                                        {% endif %}#}
+                                    </figure>
+                                    <div class="related__body">
+                                        <h3 class="related__title">{{ related_course.title }}</h3>
+                                        <div class="related__categories">
+                                            {% for taxonomy in related_course.taxonomies.all %}
+                                                {{ taxonomy.community_related.title }}{% if not forloop.last %} / {% endif %}
+                                            {% endfor %}
+                                        </div>
+                                <span class="thumb__course__avaliation">
+                                    <span style="width: {{ related_course.rating_percentage }}%"></span>
+                                </span>
+                                    </div>
+                                </a>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
 
                 {% if profiles_with_this_responsibility %}
                     {% include 'responsibilities/partials/board.html' %}

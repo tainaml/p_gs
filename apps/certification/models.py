@@ -1,6 +1,7 @@
 from __future__ import unicode_literals
 from django.utils.translation import ugettext as _
 from django.db import models
+from apps.core.models.course import Course
 from apps.taxonomy.models import Taxonomy
 
 
@@ -14,6 +15,10 @@ class Certification(models.Model):
     where_get = models.TextField(null=True, blank=True, verbose_name=_('Where get'))
     more_info = models.TextField(null=True, blank=True, verbose_name=_('More info'))
     taxonomies = models.ManyToManyField(to=Taxonomy, related_name='certifications', verbose_name=_('Related with'))
+
+    courses = models.ManyToManyField(to=Course, related_name='certifications', verbose_name=_('Courses'))
+    guide = models.URLField(blank=True, null=True, verbose_name=_("Guide link"))
+
 
     active = models.BooleanField(default=False, verbose_name=_('Active'))
 

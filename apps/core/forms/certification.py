@@ -32,14 +32,14 @@ class CertificationFiltersForm(IdeiaForm):
         page = self.cleaned_data.get('page')
         category = self.cleaned_data.get('category')
         if category:
-            qs = qs.filter(categories__in=[category])
+            qs = qs.filter(taxonomies__parent__in=[category])
 
         criteria = self.cleaned_data.get('criteria')
 
         if criteria:
-            qs = qs.filter(name__unaccent__icontains=criteria)
+            qs = qs.filter(title__unaccent__icontains=criteria)
 
-        paginated = paginator.Paginator(qs, self.items_per_page)
+        paginated = paginator.Paginator(qs.distinct("id"), self.items_per_page)
 
         try:
             items = paginated.page(page)
