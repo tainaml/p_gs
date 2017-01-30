@@ -14,7 +14,7 @@
         border: 4px solid $link-white;
         box-shadow: -1px 1px 1px $color-border, 1px -1px 1px $color-border;
     }
-    &-#{name} {
+    &-name {
         overflow: hidden;
         margin: 0;
         color: $color-link-feed;
@@ -26,7 +26,7 @@
             color: lighten($color-link-feed, 10%);
         }
     }
-    &-#{counter} {
+    &-counter {
         display: block;
         color: $color-link-counter;
         font-size: 1em;
@@ -39,8 +39,8 @@
             font-weight: 600;
         }
     }
-    &-#{button} {
-        min-width: 138px;
+    &-button {
+        min-width: 130px;
         background: #41a764;
         color: $link-white;
         font-weight: 600;
@@ -52,10 +52,10 @@
             color: $link-white;
             background: $background-primary-button-hover;
         }
-        &-#{alt} {
+        &-alt {
             position: relative;
             overflow: hidden;
-            min-width: 138px;
+            min-width: 130px;
             border: 1px solid #41a764;
             background: $link-white;
             color: #41a764;
@@ -63,15 +63,12 @@
             font-size: 14px;
             border-radius: 3px;
             text-transform: uppercase;
-
             span {}
-
             &:hover {
                 background: $btn-danger-bg;
                 border-color: $btn-danger-bg;
             }
             &:focus { color: $link-white; }
-
             &:before,
             &:after {
                 content: '';
@@ -83,18 +80,15 @@
                 text-align: center;
                 opacity: 0;
             }
-
             &:before {
                 content: attr(data-hover);
                 transform: translate(0, 20%);
             }
-
             &:hover span,
             &:active span {
                 opacity: 0;
                 transform: scale(0.3);
             }
-
             &:hover:before,
             &:active:after {
                 color: $link-white;
@@ -457,6 +451,6 @@
 }
 
 .postFeedImage{
-    height:92px;
-    width:120px;
+    // height:92px;
+    // width:120px;
 }

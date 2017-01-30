@@ -6,17 +6,19 @@
 {% set counter_content_type = "user" %}
 {% followers_count following_obj as followers_count_value %}
 
-<div class="perfil">
+<div class="widget-item">
     <a href="{% url 'profile:show' following_obj.username %}">
       <figure>
-        <img class="img-responsive" src="{% get_avatar following_obj width=82 height=82 smart=False fit_in=False %}" alt="{{ following_obj.get_full_name }}">
+        <img class="img-responsive" src="{% get_avatar following_obj width=100 height=100 smart=False fit_in=False %}" alt="{{ following_obj.get_full_name }}">
       </figure>
     </a>
-    <a class="perfil-name" title="{{ following_obj.get_full_name }}" href="{% if  following_obj.is_active %}{% url 'profile:show' following_obj.get_username %}{% else %}javascript:;{% endif %}">{{ following_obj.get_full_name }}</a>
-    <span class="perfil-counter"
-          data-counter="{{ followers_count_value }}"
-          data-refresh-counter="follow-{{ counter_content_type }}-{{ following_obj.id }}">
-        <span class="counter-number">{{ followers_count_value }}</span> Seguidor{{ followers_count_value|pluralize:'es'}}
-    </span>
-    {% follow_action following_obj url_next %}
+    <div>
+        <a class="perfil-name" title="{{ following_obj.get_full_name }}" href="{% if  following_obj.is_active %}{% url 'profile:show' following_obj.get_username %}{% else %}javascript:;{% endif %}">{{ following_obj.get_full_name }}</a>
+        <span class="perfil-counter"
+        data-counter="{{ followers_count_value }}"
+        data-refresh-counter="follow-{{ counter_content_type }}-{{ following_obj.id }}">
+            <span class="counter-number">{{ followers_count_value }}</span> Seguidor{{ followers_count_value|pluralize:'es'}}
+        </span>
+        {% follow_action following_obj url_next %}
+    </div>
 </div>
