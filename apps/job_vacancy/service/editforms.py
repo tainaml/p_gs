@@ -1,13 +1,11 @@
 from django.forms import BaseInlineFormSet
 from django.utils.translation import ugettext as _
 from django import forms
-from django.db import models
 from apps.custom_base.service.custom import MaterialModelForm
-from apps.custom_base.widgets.material import CheckboxSelectMultipleMaterial, InputTextMaterial, MaterialSelectMultiple
+from apps.custom_base.widgets.material import CheckboxSelectMultipleMaterial, InputTextMaterial
 from apps.geography.models import City, State
 from apps.job_vacancy.models import (
     JobVacancy, JobVacancyResponsibility,
-    Responsibility, JobVacancyResponsibilityType,
     Salary,
     Requirement, JobVacancyAdditionalRequirement)
 
@@ -27,6 +25,21 @@ class SalaryFormSet(BaseInlineFormSet):
          form.fields["range_value_to"] = forms.FloatField(localize=True, widget=InputTextMaterial, required=False)
          form.fields["range_value_to"].widget.label = _('Range to')
 
+
+class ResposibilityForm(MaterialModelForm):
+    detached_responsibility = forms.CharField(max_length=100, required=False)
+
+    class Meta:
+        model = JobVacancyResponsibility
+        fields = ('responsibility', 'responsibility_type')
+
+# class ResponsibilityFormset(BaseInlineFormSet):
+#
+#     def clean(self):
+#
+#         super(ResponsibilityFormset, self).clean()
+#         print self.forms[0].cleaned_data
+
 class JobVacancyForm(MaterialModelForm):
 
     use_required_attribute = False
@@ -37,6 +50,7 @@ class JobVacancyForm(MaterialModelForm):
 
     #TODO find a better way to don't get all cities
     def clean(self):
+
         self.fields['states'].queryset = State.objects.all().prefetch_related("country")
         self.fields['cities'].queryset = City.objects.all().prefetch_related("state", "state__country")
         super(JobVacancyForm, self).clean()
@@ -53,7 +67,8 @@ class JobVacancyForm(MaterialModelForm):
 
 
     responsibility_formset = forms.inlineformset_factory(
-        form=MaterialModelForm,
+        form=ResposibilityForm,
+        formset=BaseInlineFormSet,
         labels=None,
         parent_model=JobVacancy,
         model=JobVacancyResponsibility,
