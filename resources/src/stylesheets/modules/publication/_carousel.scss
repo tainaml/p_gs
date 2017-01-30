@@ -62,6 +62,9 @@
   .publication-carousel {
     margin-bottom: 40px;
     &-title {}
+    &-item {
+      padding: 10px 15px;
+    }
   }
   .btn-show-more {
     display: none;
