@@ -1,3 +1,4 @@
+import itertools
 from apps.article.models import Article
 from django.contrib.contenttypes.models import ContentType
 from apps.core.business.content_types import ContentTypeCached
@@ -81,6 +82,7 @@ def get_related_posts_from_item(instance_id, instance_type, post_type=None, coun
 
     feed_obj = FeedObject.objects.get(content_type=content_type, object_id=content_object.id)
 
+
     feed_records = FeedObject.objects.filter(
         Q(communities__in=feed_obj.communities.all()) &
         Q(content_type=post_type) &
@@ -102,6 +104,26 @@ def get_related_posts_from_item(instance_id, instance_type, post_type=None, coun
 
     if count:
         feed_records = feed_records[:count]
+        if len(feed_records) < count:
+            complement = FeedObject.objects.filter(
+                    Q(taxonomies__in=feed_obj.taxonomies.all()) &
+                    Q(content_type=post_type) &
+                    (
+                        (
+                            Q(article__status=Article.STATUS_PUBLISH) &
+                            Q(article__publishin__lte=timezone.now())
+                        )
+                    )
+                ).exclude(
+                    Q(object_id=content_object.id) & Q(id__in=feed_records)
+                ).order_by(
+                    "-date"
+                ).distinct(
+                    "date",
+                    "object_id",
+                    "content_type_id"
+                )[:count-len(feed_records)]
+            feed_records = itertools.chain(feed_records, complement)
 
     return {
         'template_path': template_path,

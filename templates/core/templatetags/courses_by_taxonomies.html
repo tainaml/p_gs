@@ -1,0 +1,24 @@
+{% load thumbor_tags %}
+<div class="publication-carousel" data-async="./components/publication-carousel">
+    {% for course in courses %}
+        <div>
+        <a href="{% url 'course:show' course.slug %}" class="publication-carousel-item">
+            <img class="publication-carousel-image" src="{% thumbor_url course.image_or_default.url width=80 height=80 smart=False fit_in=False %}" width="80" height="80" alt="{{ course.title }}">
+            <span class="publication-carousel-item-body">
+                <h3 class="publication-carousel-title">{{ course.title }}</h3>
+                <span data-toggle="rating" data-config='{"rating": {{ course.rating|floatformat:".2" }}, "readOnly": true}'></span>
+            </span>
+        </a>
+    </div>
+    {% endfor %}
+</div>
+<div class="row">
+    <div class="col-sm-12 text-right">
+        <a class="btn btn-link btn-show-more" href="{% url 'course:list' %}">ver mais</a>
+    </div>
+    <div class="col-sm-12">
+        <div class="single-category">
+            <span>CURSOS</span>
+        </div>
+    </div>
+</div>

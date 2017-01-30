@@ -1,6 +1,8 @@
 # coding=utf-8
 from django.contrib.flatpages.models import FlatPage
 import re
+import itertools
+from apps.core.models.course import Course
 from apps.core.templatetags.amp_tags import do_amp_normalize_text
 from django import template
 from django.conf import settings
@@ -52,6 +54,22 @@ def relevance_box(context, content_object, count=4, template_path='core/partials
         'records': records,
         'request': context['request'],
         'template_path': template_path
+    }
+
+
+
+@register.inclusion_tag('core/templatetags/courses_by_taxonomies.html', takes_context=True)
+def courses_by_taxonomies(context, taxonomies=None, count=4):
+    if not taxonomies:
+        taxonomies = Taxonomy.objects.all()
+
+    courses = Course.objects.filter(taxonomies__in=taxonomies).distinct("id", "rating").order_by("-rating")[:count]
+    if len(courses) < count:
+        # if not foud the minimum related, retrieve courses anyway!
+        courses = itertools.chain(courses, Course.objects.exclude(id__in=courses).order_by("-rating")[:count-len(courses)])
+
+    return {
+        'courses': courses
     }
 
 

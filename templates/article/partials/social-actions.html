@@ -1,0 +1,22 @@
+<div class="publication-social-actions">
+    <div class="publication-actions">
+        {% if article.author == request.user or perms.article.change_other_articles %}
+            <a href="{% url 'article:edit' article.id %}" class="action-button">
+                <i class="gsticon gsticon-edit"></i>
+                Editar
+            </a>
+        {% endif %}
+        <a class="action-button" data-url-login="{% url 'account:is_logged' %}" data-trigger="login" data-token="{{ csrf_token }}" data-action="favourite" data-action-type="text" data-action-text="Favoritar" data-action-text-alt="Desfavoritar" data-object="favourite-{{ article.id }}" data-article="{{ article.id }}" data-url-check="{% url 'socialactions:acted' article.id 'article' 'favourite' %}" href="{% url 'socialactions:act-xhr' article.id 'article' 'favourite' %}?url_next={{ request.path|urlencode }}"><i class="gsticon gsticon-star"></i> <span>{{" Favoritar"}}</span></a>
+        <a class="action-button" data-url-login="{% url 'account:is_logged' %}" data-trigger="login" data-token="{{ csrf_token }}" data-action="see-later" data-action-type="text" data-action-text="Ver depois" data-action-text-alt="Marcar como visto" data-object="see-later-{{ article.id }}" data-url-check="{% url 'socialactions:acted' article.id 'article' 'see-later' %}" href="{% url 'socialactions:act-xhr' article.id 'article' 'see-later' %}?url_next={{ request.path|urlencode }}"><i class="gsticon gsticon-eye"></i> <span>{{" Ver depois"}}</span></a>
+        <a class="action-button" data-url-login="{% url 'account:is_logged' %}" data-trigger="login" data-token="{{ csrf_token }}" href="javascript:;" {% if request.user.is_authenticated %}data-suggest-modal="true"{% endif %} data-content="article" data-object="{{ article.id }}" data-url="{% url 'socialactions:act-suggest' article.id 'article' %}">
+                                                    <i class="gsticon gsticon-paper-plane"></i> Sugerir leitura
+                                                </a>
+    </div>
+
+    <div class="share-buttons">
+        <a class="social-button facebook" href="http://www.facebook.com/sharer/sharer.php?u=[URL]&title=[TITLE]" target="_blank">Facebook</a>
+        <a class="social-button twitter" href="http://twitter.com/intent/tweet?status=[TITLE]+[URL]" target="_blank">Twitter</a>
+        <a class="social-button gplus" href="https://plus.google.com/share?url=[URL]" target="_blank">Google+</a>
+        <a class="social-button linkedin" href="http://www.linkedin.com/shareArticle?mini=true&url=http://loremipsum.com&title=lorem ipsum&source=portalgsti" target="_blank">LinkedIn</a>
+    </div>
+</div>

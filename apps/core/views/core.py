@@ -59,7 +59,7 @@ class CoreRelatedPosts(CoreBaseView):
     def get(self, request, instance_id, instance_type, post_type=None, count=None):
 
 
-        count = count if count and count < 10 else 4
+        count = count if count and count < 10 else 3
 
         try:
 
