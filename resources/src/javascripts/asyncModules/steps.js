@@ -39,9 +39,9 @@ const steps = ( root ) => {
     headerTag: '[data-step-part="header"]',
     bodyTag: '[data-step-part="content"]',
     enableAllSteps: true,
-    titleTemplate: '#title#',
     enablePagination: false,
     startIndex: stepsWithErros.length ? Math.min(...stepsWithErros) : 0,
+    titleTemplate: '#title#',
     onInit: function ( event, currentIndex ) {
       input( $root.find( '[data-toggle="input"]' ))
       toggleSelect( $root.find( '[data-toggle="salary"]' ), 'data-salary' )
@@ -77,8 +77,6 @@ const steps = ( root ) => {
           $(`[role=tab]:eq(${index})`).addClass( 'error' )
         }
       })
-
-
     },
   })
 
