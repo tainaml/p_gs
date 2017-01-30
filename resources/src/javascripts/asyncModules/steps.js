@@ -1,4 +1,4 @@
-import profession from './profession'
+import profession from './profession-with-create'
 import geography from '../components/geography'
 import input from '../components/customform/input'
 import toggleSelect from '../components/customform/toggle-select'

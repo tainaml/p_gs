@@ -22,16 +22,17 @@
        {{ form.responsibility_formset.management_form }}
        {% for formset_responsibility in form.responsibility_formset %}
            {{ formset_responsibility.job_vacancy }}
-        <div class="col-sm-5">
+        <div class="col-sm-5 col-xs-12">
             {% render_field formset_responsibility.responsibility data-module="profession" data-toggle="selectize" %}
+            <input type="hidden" name="detached_responsibility">
         </div>
-        <div class="col-sm-4">
+        <div class="col-sm-4 col-xs-12">
             {{ formset_responsibility.responsibility_type }}
         </div>
 
        {% endfor %}
 
-        <div class="col-sm-3">
+        <div class="col-sm-3 col-xs-12">
             {{ form.quantity }}
         </div>
     </div>
