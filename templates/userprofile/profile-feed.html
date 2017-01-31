@@ -17,15 +17,18 @@
 {% block content %}
     <main class="container main">
         <div class="row">
+            <div class="col-xs-12">
+                {% include 'userprofile/partials/filters.html' with title="Feed" active="feed" has_filter=False has_navigation=True %}
+            </div>
+        </div>
+        <div class="row">
             <div class="col-lg-3">
                 {% include 'home/partials/sidebar-perfil.html' %}
             </div>
             <div class="col-lg-9">
-                  {% include 'userprofile/partials/filters.html' with title="Feed" active="feed" has_filter=False has_navigation=True %}
                 <div class="row">
                     <div class="col-lg-8">
                         {% if profile.user == request.user %}
-                        <section class="area-content" data-target="content">
                             {% if feed_objects.object_list %}
                                 <div class="j-scroll j-scroll-container">
                                     {% include 'userprofile/partials/user-profile-feed.html' %}
@@ -34,10 +37,8 @@
                                 <span>{% trans 'Não existem itens a serem exibidos' %}</span>
                                 <hr>
                             {% endif %}
-                        </section>
                         {% endif %}
                     </div>
-                    <!-- Right bar -->
                     {% include 'userprofile/partials/profile-sidebar-right.html' %}
                 </div>
             </div>

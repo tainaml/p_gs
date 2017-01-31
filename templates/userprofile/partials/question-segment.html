@@ -6,11 +6,19 @@
 
 <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
     {% if feed and feed.official %}
-        <div class="label-official-content"
-             data-toggle="tooltip"
-             data-original-title="Conteúdo Oficial"></div>
+    <div class="label-official-content" data-toggle="tooltip" data-original-title="Conteúdo Oficial"></div>
     {% endif%}
     <header class="post-header">
+        <a class="post-creator" href="{% if  instance.author.is_active %}{% url 'profile:show' instance.author.get_username %}{% else %}javascript:;{% endif %}">
+            <img class="post-creator-image"  src="{% get_avatar instance.author width=20 height=20 smart=False fit_in=False %}" alt="foto de {{ instance.author.get_full_name }}">
+            <span class="post-creator-username">
+                <span>
+                    {{ instance.author.get_full_name }}
+                </span>
+                <time datetime="{{ instance.question_date|date:'d/m/Y G:i' }}">{{ instance.question_date|naturaltime }}</time>
+            </span>
+            <span class="">Pergunta</span>
+        </a>
         <div class="post-info">
             <a class="post-actions" href="javascript:;" data-toggle="dropdown">
                 <i class="gsticon gsticon-ellipsis-v" aria-hidden="true"></i>
@@ -27,16 +35,6 @@
                 </ul>
             </div>
         </div>
-        <a class="post-creator" href="{% if  instance.author.is_active %}{% url 'profile:show' instance.author.get_username %}{% else %}javascript:;{% endif %}">
-            <img class="post-creator-image"  src="{% get_avatar instance.author width=20 height=20 smart=False fit_in=False %}" alt="foto de {{ instance.author.get_full_name }}">
-            <span class="post-creator-username">
-                <span>
-                    {{ instance.author.get_full_name }}
-                </span>
-                <time datetime="{{ instance.question_date|date:'d/m/Y G:i' }}">{{ instance.question_date|naturaltime }}</time>
-            </span>
-            <span class="">Pergunta</span>
-        </a>
     </header>
     <a class="post-content" href="{% url 'question:show' instance.slug instance.id %}" itemprop="articleBody">
         <div class="post-text">
@@ -48,19 +46,20 @@
             <p>{{ instance.description|safe|striptags|slice:":250" }}{% if instance.description|safe|length > 250 %}...{% endif %}</p>
         </div>
     </a>
+
     {% if feed.communities.all %}
     <nav class="post-nav">
         <ul class="post-nav-list">{% for community in feed.communities.all %}
-
             <li><a href="{% url 'community:show' community.slug %}" class="link-to-community">{{ community.taxonomy.description }}</a></li>
-
         {% endfor %}</ul>
     </nav>
     {% endif %}
+
     <footer class="post-footer">
         <div class="post-count">{% like_box instance request.path "inline" %}</div>
         <div class="post-count-comments">
-            <i class="gsticon gsticon-comment"></i>
+            <!-- <i class="gsticon gsticon-comment"></i> -->
+            <i class="post-count-comments-icon"></i>
             <strong>{{ instance.counter_answer }}</strong>
             <span class="hidden-xs visible-lg-inline">Resposta(s)</span>
         </div>
@@ -70,7 +69,12 @@
                 <span class="hidden-xs visible-lg-inline">Compartilhar</span>
             </span>
             <div class="dropdown-menu dropdown-menu-right">
-                sdasdas
+                <div class="share-buttons">
+                    <a class="social-button facebook" href="#" target="_blank">Facebook</a>
+                    <a class="social-button twitter" href="#" target="_blank">Twitter</a>
+                    <a class="social-button gplus" href="#" target="_blank">Google+</a>
+                    <a class="social-button linkedin" href="#" target="_blank">LinkedIn</a>
+                </div>
             </div>
         </div>
     </footer>

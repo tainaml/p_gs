@@ -6,11 +6,16 @@
 
 <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
     {% if feed and feed.official %}
-        <div class="label-official-content"
-             data-toggle="tooltip"
-             data-original-title="Conteúdo Oficial"></div>
+    <div class="label-official-content" data-toggle="tooltip" data-original-title="Conteúdo Oficial"></div>
     {% endif%}
     <header class="post-header">
+        <a class="post-creator" href="{% if  instance.author.is_active %}{% url 'profile:show' instance.author.get_username %}{% else %}javascript:;{% endif %}">
+            <img class="post-creator-image" src="{% get_avatar instance.author width=40 height=40 smart=False fit_in=False %}" alt="foto de {{ instance.author.get_full_name }}">
+            <span class="post-creator-username">
+                <span>{{instance.author.get_full_name}}</span>
+                <time datetime="{{ instance.publishin|date:'d/m/Y G:i' }}">{{ instance.publishin|naturaltime }}</time>
+            </span>
+        </a>
         <div class="post-info">
             <a class="post-actions" href="javascript:;" data-toggle="dropdown">
                 <i class="gsticon gsticon-ellipsis-v" aria-hidden="true"></i>
@@ -28,14 +33,6 @@
             </div>
         </div>
 
-        <a class="post-creator" href="{% if  instance.author.is_active %}{% url 'profile:show' instance.author.get_username %}{% else %}javascript:;{% endif %}">
-            <img class="post-creator-image" src="{% get_avatar instance.author width=40 height=40 smart=False fit_in=False %}" alt="foto de {{ instance.author.get_full_name }}">
-            <span class="post-creator-username">
-                <span>{{instance.author.get_full_name}}</span>
-                <time datetime="{{ instance.publishin|date:'d/m/Y G:i' }}">{{ instance.publishin|naturaltime }}</time>
-            </span>
-        </a>
-
     </header>
 
     <a class="post-content" href="{% url 'article:view' instance.year instance.month instance.slug %}" itemprop="articleBody">
@@ -51,16 +48,15 @@
                 {{ instance.title }}
             {% endif %}</h3>
             <p>
-                {% if instance.get_image %}
-                    {{ instance.text|safe|striptags|slice:":90"}}{% if instance.text|length >= 90 %}...{% endif %}
-                {% else %}
-                    {{ instance.text|safe|striptags|slice:":250"}}{% if instance.text|length >= 250 %}...{% endif %}
-                {% endif %}
+            {% if instance.get_image %}
+                {{ instance.text|safe|striptags|slice:":90"}}{% if instance.text|length >= 90 %}...{% endif %}
+            {% else %}
+                {{ instance.text|safe|striptags|slice:":250"}}{% if instance.text|length >= 250 %}...{% endif %}
+            {% endif %}
             </p>
         </div>
     </a>
 
-    {#% include 'taxonomy/taxonomies.html' with communities=feed.communities.all  %#}
     {% if feed.communities.all %}
     <nav class="post-nav">
         <ul class="post-nav-list">{% for community in feed.communities.all %}
@@ -72,27 +68,30 @@
     {% endif %}
 
     <footer class="post-footer">
-
         <div class="post-count">{% like_box instance request.path "inline" %}</div>
-
         <div class="post-count-comments">
             <span id="load-count-comment-{{ feed.content_type.model }}-{{ instance.id }}"
             data-load-async="true" data-load-async-url="{% url 'comment:count' instance.id "article" %}"
             data-load-async-method="get" data-load-async-response-type="json">
                 {% csrf_token %}
-                <i class="gsticon gsticon-comment"></i>
+                <!-- <i class="gsticon gsticon-comment"></i> -->
+                <span class="post-count-comments-icon"></span>
                 <strong class="load-async load-async-content">0</strong>
             </span>
             <span class="hidden-xs visible-lg-inline">Comentário(s)</span>
         </div>
-
         <div class="post-share">
             <span data-toggle="dropdown">
                 <i class="gsticon gsticon-share-alt"></i>
                 <span class="hidden-xs visible-lg-inline">Compartilhar</span>
             </span>
             <div class="dropdown-menu dropdown-menu-right">
-                sdasdas
+                <div class="share-buttons">
+                    <a class="social-button facebook" href="#" target="_blank">Facebook</a>
+                    <a class="social-button twitter" href="#" target="_blank">Twitter</a>
+                    <a class="social-button gplus" href="#" target="_blank">Google+</a>
+                    <a class="social-button linkedin" href="#" target="_blank">LinkedIn</a>
+                </div>
             </div>
         </div>
     </footer>
