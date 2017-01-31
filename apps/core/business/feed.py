@@ -5,6 +5,7 @@ from apps.core.business.content_types import ContentTypeCached
 
 from apps.feed.models import FeedObject
 from apps.rede_gsti_signals.signals.home import clear_article_cache
+from apps.taxonomy.models import Taxonomy
 from apps.taxonomy.service import business as BusinessTaxonomy
 from apps.feed.service import business as BusinessFeed
 from django.db.models import Q
@@ -103,10 +104,11 @@ def get_related_posts_from_item(instance_id, instance_type, post_type=None, coun
     )
 
     if count:
+
         feed_records = feed_records[:count]
         if len(feed_records) < count:
             complement = FeedObject.objects.filter(
-                    Q(taxonomies__in=feed_obj.taxonomies.all()) &
+                    Q(taxonomies__in=feed_obj.taxonomies.all() if feed_obj.taxonomies.all() else Taxonomy.objects.all()) &
                     Q(content_type=post_type) &
                     (
                         (

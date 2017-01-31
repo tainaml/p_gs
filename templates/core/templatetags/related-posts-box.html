@@ -1,4 +1,6 @@
 {% load thumbor_tags %}
+{% load static %}
+{% load abs_url %}
 {% if feed_records %}
     {% if is_amp %}
             <div class="widget widget-feed">
@@ -31,7 +33,14 @@
                              <a href="{% url 'article:view' record.year record.month record.slug %}" title="{{ record.title }}" class="col-sm-4 col-xs-12">
                         <figure class="recomendation">
                             <span>
-                                <img class="img-responsive" src="{% thumbor_url record.get_image.url width=400 height=300 smart=False fit_in=False %}" alt="Imagem de {{ record.title }}">
+                                {% if record.get_image %}
+                                         <img class="img-responsive" src="{% thumbor_url record.get_image.url width=400 height=300 smart=False fit_in=False %}" alt="Imagem de {{ record.title }}">
+                                {% else %}
+                                         {% static 'images/gsti-default-og-image.png' as image_url %}
+                                         {% absolute_url image_url as image_url %}
+                                         <img class="img-responsive" src="{% thumbor_url image_url width=400 height=300 smart=False fit_in=False %}" alt="Imagem de {{ record.title }}">
+                                {% endif %}
+
                             </span>
                             <figcaption>{{ record.title }}</figcaption>
                         </figure>
@@ -41,7 +50,7 @@
                     {% endfor %}
                 </div>
             </div>
-            <div class="advertising-horizontal hidden-xs"></div>
+
     {% endif %}
 
 {% endif %}

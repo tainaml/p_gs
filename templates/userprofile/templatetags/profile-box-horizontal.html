@@ -5,52 +5,18 @@
 
 {% set user_content_type = "user" %}
 {% followers_count profile.user as followers_count_value %}
-{##}
-{#<div class="perfil profile-box--horizontal">#}
-{#  <div class="profile-box__info">#}
-{#    <a href="{% if profile.user.is_active %}{% url 'profile:show' profile.user.get_username %}{% else %}javascript:;{% endif %}">#}
-{#      <figure class="profile-box__avatar">#}
-{#        <img class="img-responsive" src="{% get_avatar profile.user width=90 height=90 smart=False fit_in=False %}" alt="{{ profile.user.get_full_name }}">#}
-{#      </figure>#}
-{#    </a>#}
-{#    <a class="perfil-name" title="{{ profile.user.get_full_name }}" href="{% if  profile.user.is_active %}{% url 'profile:show' profile.user.get_username %}{% else %}javascript:;{% endif %}">{{ profile.user.get_full_name }}</a>#}
-{#    <span class="perfil-counter" data-counter="{{ followers_count_value }}"#}
-{#    data-refresh-counter="follow-{{ user_content_type }}-{{ profile.user.id }}">#}
-{#      <span class="counter-number">{{ followers_count_value }}</span> Seguidor{{ followers_count_value|pluralize:'es'}}#}
-{#    </span>#}
-{#    <span class="perfil-counter">#}
-{#      <span class="counter-number">{% articles_count profile.user as articles_count_value %}{{ articles_count_value }}</span> Publicaç{{ articles_count_value|pluralize:'ão,ões' }}#}
-{#    </span>#}
-{##}
-{#      {% with occupations=profile.occupation.all %}#}
-{##}
-{#          {% if occupations %}#}
-{#              {% for occupation in occupations %}#}
-{#                  {{ occupation.responsibility.name }}{% if not forloop.last %},{% endif %}#}
-{#              {% endfor %}#}
-{#          {% endif %}#}
-{##}
-{#      {% endwith %}#}
-{##}
-{#  </div>#}
-{#  {% if request.user != profile.user %}#}
-{#    {% follow_action profile.user request.path "text-center perfil-button" %}#}
-{#  {% endif %}#}
-{#  <div class="profile-box__bio">#}
-{#    {{ profile.description|default_if_none:"" }}#}
-{#  </div>#}
-{#</div>#}
-{% comment %}========================={% endcomment %}
- <div class="publication-author">
-               {% if request.user != profile.user %}
-                {% follow_action profile.user request.path "text-center perfil-button" %}
-              {% endif %}
-     <div class="publication-author-info">
-        <a href="{% if profile.user.is_active %}{% url 'profile:show' profile.user.get_username %}{% else %}javascript:;{% endif %}">
-            <img class="publication-author-image" src="{% get_avatar profile.user width=100 height=100 smart=False fit_in=False %}" alt="">
+
+<div class="publication-author">
+{#    <a class="btn pull-right text-center hidden-xs perfil-button-alt" data-action="follow" data-action-type="button" data-object="follow-user-24" data-action-text="Seguir" data-action-text-alt="Seguindo" data-class-name="perfil-button perfil-button-alt" data-hover="Não seguir" data-follow-object="24" data-follow-content_type="user" data-url-login="/conta/esta-logado/" data-trigger="login" data-token="jsIHlgxKXlgai8VqsHNB21L1mizWkoUHJ6ErY1ANj3RbklYpEL5nEdeP1ChnrBC8" href="/acoes-sociais/agir/xhr/24/user/follow?url_next=/2016/10/como-criar-paginas-amp-no-wordpress.html"><span>Seguindo</span></a>#}
+             {% if request.user != profile.user %}
+    {% follow_action profile.user request.path "pull-right text-center hidden-xs perfil-button-alt" %}
+  {% endif %}
+    <div class="publication-author-info">
+        <a href="#">
+            <img class="publication-author-image" src="{% get_avatar profile.user width=100 height=100 smart=False fit_in=False %}" alt="foto de {{ profile.user.get_full_name }}">
         </a>
         <div>
-            <a class="publication-author-name" href="{% if profile.user.is_active %}{% url 'profile:show' profile.user.get_username %}{% else %}javascript:;{% endif %}">{{ profile.user.get_full_name }}</a>
+            <a class="publication-author-name" href="#">{{ profile.user.get_full_name }}</a>
             <div class="publication-author-relationship">
                 <div class="publication-author-followers"><span data-counter="{{ followers_count_value }}"
     data-refresh-counter="follow-{{ user_content_type }}-{{ profile.user.id }}">
@@ -62,19 +28,18 @@
             </div>
             <div class="publication-author-atuation">
                 {% with occupations=profile.occupation.all %}
-
                   {% if occupations %}
                       {% for occupation in occupations %}
                           {{ occupation.responsibility.name }}{% if not forloop.last %},{% endif %}
                       {% endfor %}
                   {% endif %}
-
               {% endwith %}
             </div>
+
         </div>
     </div>
     <div class="publication-author-about">
         {{ profile.description|default_if_none:"" }}
     </div>
 
- </div>
+</div>
