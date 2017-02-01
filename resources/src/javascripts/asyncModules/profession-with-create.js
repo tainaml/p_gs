@@ -9,18 +9,14 @@ var profession,
   $element;
 
 var defaultSettings = {
-  // plugins: ['remove_button'],
-  // delimiter: ',',
-  // persist: false,
   create: function ( input ) {
-    const detached_responsibility = $( '[name="detached_responsibility"]' )
+    const detached_responsibility = $( '[data-toggle="detached"]' )
     detached_responsibility.val( input )
+    return {
+      'value': '',
+      'text': input
+    };
   },
-  // render: {
-  //   option_create: function (item) {
-  //     return `<div class="create">${item.input}</div>`;
-  //   }
-  // }
 };
 
 profession = ( element ) => {
