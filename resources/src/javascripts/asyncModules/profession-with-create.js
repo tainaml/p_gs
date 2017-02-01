@@ -9,14 +9,20 @@ var profession,
   $element;
 
 var defaultSettings = {
-  create: function ( input ) {
+  create: function ( input, callback ) {
     const detached_responsibility = $( '[data-toggle="detached"]' )
     detached_responsibility.val( input )
-    return {
-      'value': '',
-      'text': input
-    };
+
+    callback({
+      'value': detached_responsibility.val(),
+      'text': detached_responsibility.val()
+    })
   },
+  render: {
+    option_create: function ( create ) {
+      return `<div class="create">${create.input}</div>`
+    }
+  }
 };
 
 profession = ( element ) => {
