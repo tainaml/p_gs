@@ -35,6 +35,11 @@ class ResposibilityForm(MaterialModelForm):
     detached_responsibility = forms.CharField(max_length=100, required=False, widget=forms.HiddenInput)
     responsibility = forms.ModelChoiceField(queryset=Responsibility.objects.filter(Q(avaiable_to_choose=True) | Q(author=author)), required=False)
 
+    def __init__(self, *args, **kwargs):
+
+        super(ResposibilityForm, self).__init__(*args, **kwargs)
+        self.fields['responsibility'].widget.label = _("Responsibility")
+
     def clean(self):
         cleaned_data = super(ResposibilityForm, self).clean()
 
