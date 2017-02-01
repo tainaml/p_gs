@@ -128,6 +128,9 @@ class JobEditView(View):
         )
 
         self.form.responsibility_formset = self.form.responsibility_formset(request.POST, instance=self.form.instance)
+        for form in self.form.responsibility_formset:
+            form.author = request.user
+
         self.form.salary_formset = self.form.salary_formset(request.POST, instance=self.form.instance)
         self.form.requirements_formset = self.form.requirements_formset(request.POST, instance=self.form.instance)
         self.form.aditional_requirements_formset = self.form.aditional_requirements_formset(request.POST, instance=self.form.instance)

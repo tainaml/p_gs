@@ -1,3 +1,4 @@
+from django.db.models import Q
 from django.forms import BaseInlineFormSet
 from django.utils.translation import ugettext as _
 from django import forms
@@ -8,6 +9,7 @@ from apps.job_vacancy.models import (
     JobVacancy, JobVacancyResponsibility,
     Salary,
     Requirement, JobVacancyAdditionalRequirement)
+from apps.userprofile.models import Responsibility
 
 
 class SalaryFormSet(BaseInlineFormSet):
@@ -27,18 +29,23 @@ class SalaryFormSet(BaseInlineFormSet):
 
 
 class ResposibilityForm(MaterialModelForm):
+
+    author = None
+
     detached_responsibility = forms.CharField(max_length=100, required=False, widget=forms.HiddenInput)
+    responsibility = forms.ModelChoiceField(queryset=Responsibility.objects.filter(Q(avaiable_to_choose=True) | Q(author=author)), required=False)
+
+    def clean(self):
+        cleaned_data = super(ResposibilityForm, self).clean()
+
+        return cleaned_data
 
     class Meta:
         model = JobVacancyResponsibility
         fields = ('responsibility', 'responsibility_type')
 
-# class ResponsibilityFormset(BaseInlineFormSet):
-#
-#     def clean(self):
-#
-#         super(ResponsibilityFormset, self).clean()
-#         print self.forms[0].cleaned_data
+
+
 
 class JobVacancyForm(MaterialModelForm):
 
@@ -133,3 +140,36 @@ class JobVacancyForm(MaterialModelForm):
     def set_author(self, author):
         if self.instance:
             self.instance.author = author
+            
+    def is_valid(self):
+        self_valid = super(JobVacancyForm, self).is_valid()
+        responsibility_formset_valid = self.responsibility_formset.is_valid()
+        salary_formset_valid =  self.salary_formset.is_valid()
+        requirements_formset_valid = self.requirements_formset.is_valid()
+        aditional_requirements_formset_valid = self.aditional_requirements_formset.is_valid()
+
+        return self_valid and responsibility_formset_valid and salary_formset_valid \
+               and requirements_formset_valid and aditional_requirements_formset_valid
+
+
+    def save(self, commit=True):
+        instance = super(JobVacancyForm, self).save(commit)
+
+        responsibility_form = self.responsibility_formset.forms[0]
+        self.responsibility_formset.save()
+        if 'detached_responsibility' in responsibility_form.cleaned_data \
+            and responsibility_form.cleaned_data['detached_responsibility'] != '' \
+            and not responsibility_form.cleaned_data['responsibility']:
+            name = responsibility_form.cleaned_data['detached_responsibility']
+            new_responsibility = Responsibility(name=name, avaiable_to_choose=False)
+            new_responsibility.save()
+            instance.responsibility.responsibility = new_responsibility
+            instance.save()
+
+
+        self.salary_formset.save()
+
+        self.requirements_formset.save()
+        self.aditional_requirements_formset.save()
+
+        return instance

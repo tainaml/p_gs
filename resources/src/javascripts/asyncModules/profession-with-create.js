@@ -14,7 +14,7 @@ var defaultSettings = {
     detached_responsibility.val( input )
 
     callback({
-      'value': detached_responsibility.val(),
+      'value': '',
       'text': detached_responsibility.val()
     })
   },
