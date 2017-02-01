@@ -24,7 +24,7 @@
            {{ formset_responsibility.job_vacancy }}
         <div class="col-sm-5 col-xs-12">
             {% render_field formset_responsibility.responsibility data-module="profession" data-toggle="selectize" %}
-            <input type="hidden" name="detached_responsibility">
+            {% render_field formset_responsibility.detached_responsibility data-toggle="detached" %}
         </div>
         <div class="col-sm-4 col-xs-12">
             {{ formset_responsibility.responsibility_type }}
