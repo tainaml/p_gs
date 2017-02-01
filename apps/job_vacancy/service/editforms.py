@@ -27,7 +27,7 @@ class SalaryFormSet(BaseInlineFormSet):
 
 
 class ResposibilityForm(MaterialModelForm):
-    detached_responsibility = forms.CharField(max_length=100, required=False)
+    detached_responsibility = forms.CharField(max_length=100, required=False, widget=forms.HiddenInput)
 
     class Meta:
         model = JobVacancyResponsibility
