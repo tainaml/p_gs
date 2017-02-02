@@ -965,6 +965,12 @@ SUMMERNOTE_CONFIG = {
     }
 }
 
+#ARTICLE IMAGE
+ARTICLE_IMAGE_SIZE = {
+    'larger': {'width': 520, 'height': 270},
+    'medium': {'width': 170, 'height': 130},
+}
+
 
 # Setting Environment specific settings
 if ENVIRONMENT == "develop":

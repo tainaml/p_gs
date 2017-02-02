@@ -64,6 +64,25 @@ class Article(models.Model):
     image_width = models.PositiveIntegerField(editable=False, null=True)
     image_height = models.PositiveIntegerField(editable=False, null=True)
 
+
+
+    @property
+    def image_size(self):
+        size = 'no-image'
+        if self.image:
+            ARTICLE_IMAGE_SIZE = getattr(settings, "ARTICLE_IMAGE_SIZE", {
+                    'larger': {'width': 520, 'height': 270},
+                    'medium': {'width': 170, 'height': 130},
+                })
+
+            for item in ARTICLE_IMAGE_SIZE:
+                if self.image.width >= ARTICLE_IMAGE_SIZE[item]['width'] \
+                        and self.image.height >= ARTICLE_IMAGE_SIZE[item]['height']:
+                    size = item
+
+        return size
+
+
     createdin = models.DateTimeField(null=False, auto_now_add=True)
     updatein = models.DateTimeField(null=False, auto_now=True)
     publishin = models.DateTimeField(null=True, db_index=True)
