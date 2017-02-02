@@ -58,8 +58,11 @@ class Article(models.Model):
 
 
     text = models.TextField(null=False, max_length=settings.ARTICLE_TEXT_LIMIT if hasattr(settings, "ARTICLE_TEXT_LIMIT") else 10000)
-    image = models.ImageField(max_length=100, upload_to=article_image_upload, blank=True)
+    image = models.ImageField(max_length=100, upload_to=article_image_upload, blank=True, width_field="image_width", height_field="image_height")
     author = models.ForeignKey(settings.AUTH_USER_MODEL, null=False, related_name='articles', verbose_name=_('Author'))
+
+    image_width = models.PositiveIntegerField(editable=False, null=True)
+    image_height = models.PositiveIntegerField(editable=False, null=True)
 
     createdin = models.DateTimeField(null=False, auto_now_add=True)
     updatein = models.DateTimeField(null=False, auto_now=True)
