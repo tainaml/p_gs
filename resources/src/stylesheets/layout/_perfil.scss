@@ -1,96 +1,38 @@
 .perfil {
-    @extend %clearfix;
-    min-height: 132px;
-    padding: 20px;
-    margin-top: -1px;
-    border: 1px solid $color-border;
-    background: $link-white;
+  @extend %clearfix;
+  min-height: 132px;
+  padding: 20px;
+  margin-top: -1px;
+  border: 1px solid $color-border;
+  background: $link-white;
 
-    > a > figure,
-    > img {
-        max-width: 90px;
-        float: left;
-        margin-right: 8px;
-    }
-    &-name {
-        overflow: hidden;
-        margin: 0;
-        color: #616161;
-        font-weight: 600;
-        font-size: 1.22em;
-        display: block;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-        &:hover {
-            color: lighten(#616161, 10%);
-        }
-    }
-    &-counter {
-        display: block;
-        color: $color-link-counter;
-        font-size: 1em;
-        line-height: $line-height-computed;
-        letter-spacing: -0.005em;
-        &:hover {
-            color: lighten($color-link-counter, 10%);
-        }
-    }
-  &-button {
-    min-width: 130px;
-    background: #41a764;
-    color: $link-white;
+  > a > figure,
+  > img {
+    max-width: 90px;
+    float: left;
+    margin-right: 8px;
+  }
+  &-name {
+    overflow: hidden;
+    margin: 0;
+    color: #616161;
     font-weight: 600;
-    font-size: 14px;
-    border-radius: 3px;
-    text-transform: uppercase;
-    &:focus { color: $link-white; }
+    font-size: 1.22em;
+    display: block;
+    text-overflow: ellipsis;
+    white-space: nowrap;
     &:hover {
-      color: $link-white;
-      background: #64c786;
+      color: lighten(#616161, 10%);
     }
-    &-alt {
-      position: relative;
-      overflow: hidden;
-      min-width: 130px;
-      border: 1px solid #41a764;
-      background: $link-white;
-      color: #41a764;
-      font-weight: 600;
-      font-size: 14px;
-      border-radius: 3px;
-      text-transform: uppercase;
-      span {}
-      &:hover {
-        background: lighten($btn-danger-bg, 10%);
-        border-color: lighten($btn-danger-bg, 10%);
-      }
-      &:focus { color: $link-white; }
-      &:before,
-      &:after {
-        content: '';
-        position: absolute;
-        top: 0; left: 0;
-        width: 100%;
-        height: 100%;
-        text-align: center;
-        opacity: 0;
-      }
-      &:before {
-        content: attr(data-hover);
-        transform: translate(0, 10%);
-      }
-      &:hover span,
-      &:active span {
-        opacity: 0;
-        transform: scale(0.3);
-      }
-      &:hover:before,
-      &:active:after {
-        color: $link-white;
-        background: lighten($btn-danger-bg, 10%);
-        opacity: 1;
-        transform: translate(0, 15%);
-      }
+  }
+  &-counter {
+    display: block;
+    color: $color-link-counter;
+    font-size: 1em;
+    line-height: $line-height-computed;
+    letter-spacing: -0.005em;
+    &:hover {
+      color: lighten($color-link-counter, 10%);
     }
   }
 }
@@ -100,29 +42,6 @@
   margin-bottom: 15px;
   text-align: center;
   .img-responsive { margin: auto }
-}
-
-.perfil-navegation {
-  padding: 10px;
-  margin-bottom: 30px;
-  border: 1px solid $color-border;
-  color: $color-border;
-  background: $link-white;
-  @media (max-width: $screen-lg-min) { margin-top: 20px }
-
-  > a {
-    margin-right: 5px;
-    margin-left: 5px;
-    display: inline-block;
-    color: $color-link-counter;
-    &.active {
-      font-weight: 600;
-      color: $color-governance;
-    }
-    &:hover {
-      color: lighten($color-link-counter, 20%);
-    }
-  }
 }
 
 .perfil-actions,
@@ -166,13 +85,12 @@
 }
 
 .perfil-repositories {
+  padding: 0;
+  border: none;
   > li {
     > a {
-      color: $color-link-counter;
-      &:hover,
-      &.selected {
-        color: $color-link-counter-dark;
-      }
+      font-size: 14px;
+      color: #0160b0;
     }
     &.active > a {
       color: $color-link-counter-dark;
@@ -266,22 +184,58 @@
     margin-top: 10px;
   }
 }
+
+.perfil-navegation {
+  margin-bottom: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  @media (max-width: $screen-lg-min) { margin-top: 20px }
+
+  > a {
+    padding-bottom: 7px;
+    margin-right: 21px;
+    margin-left: 21px;
+    color: #616161;
+    font-size: 16px;
+    line-height: 22px;
+    text-transform: uppercase;
+    &.active {
+      color: #0160b0;
+      border-bottom: 2px solid;
+      font-weight: 600;
+    }
+    &:hover {
+      color: #0160b0;
+    }
+  }
+}
 .mobile-perfil-navegation {
-  margin-top: -20px;
+  overflow: auto;
+  margin-bottom: 20px;
   display: none;
-  background-color: #f7f7f7;
+  align-items: center;
+  border-top: 1px solid #e1e1e1;
+  border-bottom: 1px solid #e1e1e1;
+  white-space: nowrap;
   a {
-    padding: 5px;
-    display: block;
-    font-size: 1.2em;
+    padding-top: 7px;
+    padding-bottom: 7px;
+    margin-right: 21px;
+    margin-left: 21px;
+    color: #616161;
+    font-size: 16px;
+    line-height: 22px;
+    text-transform: uppercase;
+    &.active {
+      color: #0160b0;
+      border-bottom: 2px solid;
+      font-weight: 600;
+    }
   }
   @media (max-width: $screen-xs-max) {
-    padding: 0 10px;
-    a {
-      border-bottom: 1px solid #e1e1e1;
-      &:last-child { border-bottom: none }
-    }
-    span { display: none }
+    display: flex;
+    // padding: 0 10px;
   }
 }
 

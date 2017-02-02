@@ -64,22 +64,28 @@
         text-align: center;
     }
     &__relationship {
-        display: flex;
-        flex-flow: row wrap;
-        align-items: center;
-        justify-content: space-between;
-        color: #616161;
-        font: 400 13px 'Open Sans';
+      margin-bottom: 25px;
+      display: flex;
+      flex-flow: row wrap;
+      align-items: flex-end;
+      justify-content: space-around;
+      color: #616161;
+      font-size: 13px;
+      .counter-number {
+        display: block;
+        text-align: center;
+      }
     }
+    &__bio,
     &__website,
     &__locale,
     &__occupation {
         .gsticon { margin-right: 7px }
-        margin-top: 10px;
+        margin-top: 25px;
         margin-bottom: 10px;
         display: block;
         color: #616161;
-        font: 400 13px 'Open Sans';
+        font-size: 13px;
     }
     > .user__pages__list {
         margin-top: 40px;

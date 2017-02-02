@@ -17,15 +17,16 @@
 {% block content %}
     <main class="container main">
         <div class="row">
-            <!-- mudar para 2.5 -->
+            <div class="col-xs-12">
+                {% include 'userprofile/partials/filters.html' with title="Relacionamentos" active="relationship" has_filter=True has_navigation=True %}
+            </div>
+        </div>
+        <div class="row">
             <div class="col-lg-3">
                 {% include 'home/partials/sidebar-perfil.html' %}
             </div>
-            <!-- mudar para 9.5 -->
             <div class="col-lg-9">
-                {% include 'userprofile/partials/filters.html' with title="Relacionamentos" active="relationship" has_filter=True has_navigation=True %}
-                {% block filters %}
-                    <div id="form-search" class="filter row form-search filters-members" data-toggle="filters">
+                <div id="form-search" class="filter row form-search filters-members" data-toggle="filters">
                     <div class="col-lg-8">
                         {% include 'userprofile/partials/search-followers.html' with placeholder="Procure por pessoas" %}
                     </div>
@@ -34,11 +35,9 @@
                         <a class="btn btn-perfil" href="{% url 'profile:followings' username=profile.user.username %}">Seguindo</a>
                     </div>
                 </div>
-                {% endblock filters %}
 
                 <div class="row">
                     <div class="col-lg-12">
-                        <hr>
                         <p class="description-text">Quem segue <a href="{% if  profile.user.is_active %}{% url 'profile:show' profile.user.get_username %}{% else %}javascript:;{% endif %}">{{ profile.user.get_full_name }}</a></p>
                     </div>
                     <div class="col-lg-12">
