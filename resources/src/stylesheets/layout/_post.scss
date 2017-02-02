@@ -41,35 +41,41 @@
       overflow: hidden;
       margin-right: 5px;
     }
-    &-username {
+    &-userinfo {
       display: flex;
       justify-content: space-between;
       flex-direction: column;
-      span {
-        color: #616161;
-        font-weight: 600;
-        font-size: 16px;
-        line-height: 100%;
-      }
       time {
         border-right: none;
         color: #888686;
         line-height: 100%;
       }
     }
+    &-username {
+      color: #616161;
+      font-weight: 600;
+      font-size: 16px;
+      line-height: 100%;
+    }
+    &-label {
+      margin-left: 15px;
+      color: #888686;
+      font-size: 14px;
+    }
   }
   &-info {
     position: relative;
     float: right;
 
-    &.open .dropdown-menu { min-width: 200px }
+    &.open .dropdown-menu {
+      right: -21px;
+      min-width: 200px;
+    }
 
     .gsticon-ellipsis-v {
       color: $background-button;
       &:hover,
-      &.is-active {
-
-      }
+      &.is-active {}
     }
   }
   &-content {
@@ -186,6 +192,9 @@
       height: 24px;
       margin: 5px;
       background-size: cover;
+    }
+    &.open .dropdown-menu-right {
+      right: -21px;
     }
   }
 }

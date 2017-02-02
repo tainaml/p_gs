@@ -10,14 +10,17 @@
     {% endif%}
     <header class="post-header">
         <a class="post-creator" href="{% if  instance.author.is_active %}{% url 'profile:show' instance.author.get_username %}{% else %}javascript:;{% endif %}">
-            <img class="post-creator-image"  src="{% get_avatar instance.author width=20 height=20 smart=False fit_in=False %}" alt="foto de {{ instance.author.get_full_name }}">
-            <span class="post-creator-username">
-                <span>
+            <img class="post-creator-image"  src="{% get_avatar instance.author width=40 height=40 smart=False fit_in=False %}" alt="foto de {{ instance.author.get_full_name }}">
+            <span class="post-creator-userinfo">
+                <span class="post-creator-username">
                     {{ instance.author.get_full_name }}
+                    <span class="post-creator-label">
+                        <i class="gsticon gsticon-question-circle" aria-hidden="true"></i>
+                        Pergunta
+                    </span>
                 </span>
                 <time datetime="{{ instance.question_date|date:'d/m/Y G:i' }}">{{ instance.question_date|naturaltime }}</time>
             </span>
-            <span class="">Pergunta</span>
         </a>
         <div class="post-info">
             <a class="post-actions" href="javascript:;" data-toggle="dropdown">
@@ -58,7 +61,6 @@
     <footer class="post-footer">
         <div class="post-count">{% like_box instance request.path "inline" %}</div>
         <div class="post-count-comments">
-            <!-- <i class="gsticon gsticon-comment"></i> -->
             <i class="post-count-comments-icon"></i>
             <strong>{{ instance.counter_answer }}</strong>
             <span class="hidden-xs visible-lg-inline">Resposta(s)</span>
