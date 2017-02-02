@@ -1,16 +1,26 @@
 .perfil {
   @extend %clearfix;
+  overflow: hidden;
   min-height: 132px;
-  padding: 20px;
-  margin-top: -1px;
+  padding: 25px 10px;
   border: 1px solid $color-border;
   background: $link-white;
+  display: flex;
+  // align-items: center;
+  justify-content: center;
 
   > a > figure,
   > img {
     max-width: 90px;
     float: left;
-    margin-right: 8px;
+    margin-right: 15px;
+  }
+  > div {
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
   }
   &-name {
     overflow: hidden;

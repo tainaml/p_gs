@@ -58,6 +58,16 @@
     &__avatar {
         display: flex;
         justify-content: center;
+        figure {
+          position: relative;
+        }
+        .banner-collaborator {
+          position: absolute;
+          bottom: -6px; right: -10px;
+          width: 26px;
+          height: 26px;
+          color: transparent;
+        }
     }
     &__name {
         font-size: 18px;

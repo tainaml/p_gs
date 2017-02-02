@@ -13,6 +13,9 @@
     <a class="profile__sidebar__avatar" href="{% if  profile.user.is_active %}{% url 'profile:show' profile.user.get_username %}{% else %}javascript:;{% endif %}">
       <figure>
         <img class="img-responsive" src="{% get_avatar profile.user width=130 height=130 smart=False fit_in=False %}" alt="{{ profile.user.get_full_name }}">
+        {% if profile.isContributor %}
+        <div class="banner-collaborator">Colaborador do Portal GSTI</div>
+        {% endif %}
       </figure>
     </a>
     <h1 class="profile__sidebar__name">
@@ -29,9 +32,6 @@
         </span>
     </div>
 
-    {% if profile.isContributor %}
-    <div class="banner-collaborator">Colaborador do Portal GSTI</div>
-    {% endif %}
 
     {% if request.user != profile.user %}
         {% follow_action profile.user request.path "btn-follow" %}
