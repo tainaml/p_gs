@@ -8,15 +8,15 @@ import '../vendor/jquery.validate'
 import '../vendor/jquery.formset'
 
 const steps = ( root ) => {
-  const $root = $( root )
-  const $form = $root.parents( 'form' )
-  const stepsWithErros = []
+  const $root = $( root );
+  const $form = $root.parents( 'form' );
+  const stepsWithErros = [];
 
   $( '[data-step-part="content"]' ).each((index, element) => {
     if ( element.getAttribute( 'data-error' ) == 'true' ) {
       stepsWithErros.push(index)
     }
-  })
+  });
 
   $form.validate({
     errorPlacement: function errorPlacement(error, element) {
@@ -33,7 +33,7 @@ const steps = ( root ) => {
         form.submit()
       }
     }
-  })
+  });
 
   $root.steps({
     headerTag: '[data-step-part="header"]',
@@ -43,17 +43,17 @@ const steps = ( root ) => {
     startIndex: stepsWithErros.length ? Math.min(...stepsWithErros) : 0,
     titleTemplate: '#title#',
     onInit: function ( event, currentIndex ) {
-      input( $root.find( '[data-toggle="input"]' ))
-      toggleSelect( $root.find( '[data-toggle="salary"]' ), 'data-salary' )
-      toggleCheck( $root.find( '[data-toggle="location"]' ), 'data-location' )
-      $( '[data-toggle="tooltip"]' ).tooltip()
-      let formsetLength = $( '[data-toggle="formset"]' ).length
-      let professionLength = $( '[data-module="profession"]' ).length
-      let geographyLength = $( '[data-component="geography"]' ).length
+      input( $root.find( '[data-toggle="input"]' ));
+      toggleSelect( $root.find( '[data-toggle="salary"]' ), 'data-salary' );
+      toggleCheck( $root.find( '[data-toggle="location"]' ), 'data-location' );
+      $( '[data-toggle="tooltip"]' ).tooltip();
+      let formsetLength = $( '[data-toggle="formset"]' ).length;
+      let professionLength = $( '[data-module="profession"]' ).length;
+      let geographyLength = $( '[data-component="geography"]' ).length;
       if ( !!formsetLength ) {
-        let $containerForm = $root.find( '[data-toggle="formset"]' )
+        let $containerForm = $root.find( '[data-toggle="formset"]' );
         $containerForm.each(( index, value ) => {
-          let dataFormset = $( value ).data()
+          let dataFormset = $( value ).data();
           $( value ).find( '.row' ).formset({
             prefix: dataFormset.prefix,
             formCssClass: `dynamic-formset-${index}`,
@@ -65,7 +65,15 @@ const steps = ( root ) => {
         })
       }
       if ( !!professionLength ) {
-        profession( $root.find( '[data-module="profession"]' ))
+        profession( $root.find( '[data-module="profession"]' ));
+        var selectize = $('[data-module="profession"]')[0].selectize;
+        var hiddenResponsibility = $("[data-toggle=\"detached\"]");
+        if (hiddenResponsibility.val()){
+            selectize.setTextboxValue(hiddenResponsibility.val());
+        }
+
+
+
       }
 
       if ( !!geographyLength ) {
@@ -77,12 +85,12 @@ const steps = ( root ) => {
           $(`[role=tab]:eq(${index})`).addClass( 'error' )
         }
       })
-    },
-  })
+    }
+  });
 
   $root.find( '[data-step-action="next"]' ).on( 'click', ( event ) => {
     $root.steps( 'next' )
   })
-}
+};
 
 export default steps
