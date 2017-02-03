@@ -68,7 +68,7 @@ class Article(models.Model):
 
     @property
     def image_size(self):
-        size = 'no-image'
+        size = {'width':100, 'height': 100}
         if self.image:
             ARTICLE_IMAGE_SIZE = getattr(settings, "ARTICLE_IMAGE_SIZE", {
                     'larger': {'width': 520, 'height': 270},
@@ -78,7 +78,7 @@ class Article(models.Model):
             for item in ARTICLE_IMAGE_SIZE:
                 if self.image.width >= ARTICLE_IMAGE_SIZE[item]['width'] \
                         and self.image.height >= ARTICLE_IMAGE_SIZE[item]['height']:
-                    size = item
+                    size = ARTICLE_IMAGE_SIZE[item]
 
         return size
 

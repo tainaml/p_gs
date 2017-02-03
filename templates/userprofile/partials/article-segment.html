@@ -38,7 +38,8 @@
     <a class="post-content" href="{% url 'article:view' instance.year instance.month instance.slug %}" itemprop="articleBody">
         {% if instance.get_image %}
         <figure>
-            <img src="{% thumbor_url instance.get_image.url width=170 height=130 smart=False fit_in=False %}" alt="{{ instance.title }}" class="postFeedImage">
+
+            <img src="{% thumbor_url instance.get_image.url width=instance.image_size.width height=instance.image_size.height smart=False fit_in=False %}" alt="{{ instance.title }}" class="postFeedImage">
         </figure>
         {% endif %}
         <div class="post-text">

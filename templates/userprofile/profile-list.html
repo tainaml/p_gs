@@ -33,8 +33,8 @@
             <div class="col-xs-12">
                 <nav class="perfil-navegation hidden-xs">
                     {% if profile.user == request.user %}<a href="{% url 'profile:feed' %}">Feed</a>{% endif %}
-                    <a  class="active" href="{% if  profile.user.is_active %}{% url 'profile:show' profile.user.get_username %}{% else %}javascript:;{% endif %}">Publicações</a>
-                    {% if profile.user == request.user %}<a href="{% url 'profile:my-questions' %}">Minhas Perguntas</a>{% endif %}
+                    <a  class="active" href="{% if  profile.user.is_active %}{% url 'profile:show' profile.user.get_username %}{% else %}javascript:;{% endif %}">Perfil</a>
+                    {% if profile.user == request.user %}<a href="{% url 'profile:my-questions' %}">Perguntas</a>{% endif %}
                     <a href="{% url 'profile:communities' username=profile.user.username %}">Comunidades</a>
                     <a href="{% url 'profile:followers' username=profile.user.username %}">Relacionamentos</a>
                 </nav>
@@ -57,7 +57,12 @@
                         <nav id="form-search" class="form-search filters-members" data-toggle="filters">
                             <form action="{% url 'profile:show' profile.user.username %}" method="GET" role="search">
                                 <div class="form-search-input">
-                                    <input type="text" name="criterio" placeholder="{{placehold|default:"Pesquise conteúdo de "|add:profile.user.first_name}}">
+                                    <div class="customform{%if errors %} customform-error{% endif %}">
+                                             <input class="customform-input" id="criterio" type="text" name="criterio" data-toggle="input" >
+                                            <hr>
+                                                <label for="criterio" class="customform-label{% if value %} active {% endif %}">{{placehold|default:"Pesquise conteúdo de "|add:profile.user.first_name}}</label>
+                                        </div>
+
                                 </div>
                                 <button type="submit" class="form-search-button">
                                     <i class="gsticon gsticon-search"></i>
