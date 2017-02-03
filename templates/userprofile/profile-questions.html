@@ -17,16 +17,23 @@
     <main class="container main">
         <div class="row">
             <div class="col-xs-12">
-                {% include 'userprofile/partials/filters.html' with title="Minhas Perguntas" active="my-questions" has_filter=True has_navigation=True %}
+                <nav class="perfil-navegation hidden-xs">
+                    {% if profile.user == request.user %}<a href="{% url 'profile:feed' %}">Feed</a>{% endif %}
+                    <a href="{% if  profile.user.is_active %}{% url 'profile:show' profile.user.get_username %}{% else %}javascript:;{% endif %}">Publicações</a>
+                    {% if profile.user == request.user %}<a class="active" href="{% url 'profile:my-questions' %}">Minhas Perguntas</a>{% endif %}
+                    <a href="{% url 'profile:communities' username=profile.user.username %}">Comunidades</a>
+                    <a href="{% url 'profile:followers' username=profile.user.username %}">Relacionamentos</a>
+                </nav>
             </div>
         </div>
         <div class="row">
             <div class="col-lg-3">
-                {% include 'home/partials/sidebar-perfil.html' %}
+                {% include 'userprofile/partials/left-sidebar.html' %}
             </div>
             <div class="col-lg-9">
                 <div class="row">
                     <div class="col-lg-8">
+                        {% include 'userprofile/partials/filters.html' with title="Minhas Perguntas" active="my-questions" has_filter=True has_navigation=True %}
                         <nav id="form-search" class="form-search filters-members" data-toggle="filters">
                             <form action="{% url 'profile:my-questions' %}" method="GET" role="search">
                                 <div class="form-search-input">

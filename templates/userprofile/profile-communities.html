@@ -20,14 +20,21 @@
     <main class="container main">
         <div class="row">
             <div class="col-xs-12">
-                {% include 'userprofile/partials/filters.html' with title="Comunidades" active="community" has_filter=True has_navigation=True %}
+                <nav class="perfil-navegation hidden-xs">
+                    {% if profile.user == request.user %}<a href="{% url 'profile:feed' %}">Feed</a>{% endif %}
+                    <a href="{% if  profile.user.is_active %}{% url 'profile:show' profile.user.get_username %}{% else %}javascript:;{% endif %}">Publicações</a>
+                    {% if profile.user == request.user %}<a href="{% url 'profile:my-questions' %}">Minhas Perguntas</a>{% endif %}
+                    <a class="active" href="{% url 'profile:communities' username=profile.user.username %}">Comunidades</a>
+                    <a href="{% url 'profile:followers' username=profile.user.username %}">Relacionamentos</a>
+                </nav>
             </div>
         </div>
         <div class="row">
             <div class="col-lg-3">
-                {% include 'home/partials/sidebar-perfil.html' %}
+                {% include 'userprofile/partials/left-sidebar.html' %}
             </div>
             <div class="col-lg-9">
+                {% include 'userprofile/partials/filters.html' with title="Comunidades" active="community" has_filter=True has_navigation=True %}
                 <div id="form-search" class="filter row form-search filters-members" data-toggle="filters">
                     <form id="search-form" action="{% url 'profile:communities' profile.user.username %}" method="GET" data-ajaxform="true" data-group-class=".form-search-input">
                         <div class="col-lg-8 clearfix">
@@ -53,14 +60,10 @@
 
                 <div class="row">
                     <div class="col-lg-12">
-                        <hr>
-                    </div>
-                    <div class="col-lg-12">
                         <div id="communities-container">
                             {% if items %}
                                 <div id="communities-container-partial" class="row j-scroll-communities j-scroll-communities-container">
                                     {% include "userprofile/partials/profile-communities.html" %}
-
                                 </div>
                             {% else %}
                                 <p class="text-center text-italic">{% trans 'Não existem itens a serem exibidos' %}</p>
@@ -68,16 +71,6 @@
                             {% endif %}
                         </div>
                     </div>
-                    <!--
-                    <div class="box-perfil">
-                        <div class="perfil">
-                            <img class="img-responsive" src="http://placehold.it/82" alt="Imagem 1">
-                            <a class="perfil-name" href="javascript:;">Python</a>
-                            <a class="perfil-counter" href="javascript;;"><span class="counter-number">180</span> Seguidores</a>
-                            <a class="btn btn-sm perfil-button-alt" href="javascript:;">Entrou</a>
-                        </div>
-                    </div>
-                    -->
                 </div>
             </div>
         </div>

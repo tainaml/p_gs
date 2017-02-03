@@ -28,6 +28,20 @@
 
 {% block content %}
     <main class="container main">
+        {% if request|is_pc %}
+        <div class="row">
+            <div class="col-xs-12">
+                <nav class="perfil-navegation">
+                    <a href="{% url 'community:show' community.slug %}">Feed</a>
+                    <a href="{% url 'community:questions' community.slug %}">Perguntas</a>
+                    <a href="{% url 'community:followers' community.slug %}">Membros</a>
+                    <a href="{% url 'community:about' community.slug %}">Sobre</a>
+                    <a href="{% url 'community:videos' community.slug %}">Vídeos</a>
+                    <a class="active" href="{% url 'community:materials' community.slug %}">Materiais</a>
+                </nav>
+            </div>
+        </div>
+        {% endif %}
         <div class="row">
             <!-- mudar para 2.5 -->
             <div class="col-lg-3">
@@ -39,15 +53,15 @@
                 <div class="row">
                     <div class="col-lg-8">
                         {% if request|is_pc %}
-                        <header class="area-title">
+                        <header class="clearfix">
                             <div class="order-by">
                                 <div class="dropdown">
-                                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdown-filter-posts" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                    <button class="btn btn-default dropdown-toggle" type="button" id="filter-posts" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                                         <span>
                                             {% firstof form.cleaned_data.tags.tag_name 'Todos' %}
                                         </span> <i class="gsticon gsticon-caret-down"></i>
                                     </button>
-                                    <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown-filter-posts">
+                                    <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="filter-posts">
                                         <li {% if current_tag not in tags %}class="active"{% endif %}>
                                             <a href="{% url 'community:materials' community.slug %}" data-target=".area-content">Todos</a>
                                         </li>
@@ -59,7 +73,7 @@
                                     </ul>
                                 </div>
                             </div>
-                            <h2>Materiais</h2>
+                            <!-- <h2>Materiais</h2> -->
                         </header>
                         {% endif %}
                         {% block filters %}
@@ -74,14 +88,14 @@
                                     </button>
                                     {% if request|is_mobile %}
                                     <div class="dropdown">
-                                        <button class="btn btn-block btn-default dropdown-toggle" type="button" id="dropdown-filter-posts" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                        <button class="btn btn-block btn-default dropdown-toggle" type="button" id="filter-posts" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                                             <span>
                                                 {% if form.cleaned_data.official %}
                                                 Posts oficiais
                                                 {% else %} Todos {% endif %}
                                             </span> <i class="gsticon gsticon-caret-down"></i>
                                         </button>
-                                        <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown-filter-posts">
+                                        <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="filter-posts">
                                             <li {% if form.cleaned_data.official %}class="active"{% endif %} ><a href="{% url 'community:search' community.slug %}?criterio={{ form.cleaned_data.criterio|urlencode }}&official=True&next={{ url_next|urlencode }}" data-target=".area-content">Posts oficiais</a></li>
                                             <li {% if not form.cleaned_data.official %}class="active"{% endif %}><a href="{% url 'community:search' community.slug %}?criterio={{ form.cleaned_data.criterio|urlencode }}&official=False&next={{ url_next|urlencode }}" data-target=".area-content">Todos</a></li>
                                         </ul>
@@ -92,8 +106,8 @@
                             </nav>
                         {% endblock filters %}
 
-                        <section class="area-content j-scroll j-scroll-container" id="community-list">
-                                {% include 'community/partials/community-materials-list.html' %}
+                        <section class="j-scroll j-scroll-container" id="community-list">
+                            {% include 'community/partials/community-materials-list.html' %}
                         </section>
                     </div>
                     <div class="col-lg-4">
