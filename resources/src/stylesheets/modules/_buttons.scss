@@ -1,149 +1,209 @@
 .btn-default {
-    @extend .btn;
-    @include button-variant(#4d6479, #f2f2f2, #e1e1e1);
-    font-weight: 600;
-    font-size: 13px;
+  @extend .btn;
+  @include button-variant(#4d6479, #f2f2f2, #e1e1e1);
+  font-weight: 600;
+  font-size: 13px;
 }
 .btn-primary {
-    @extend .btn;
-    background: #4d6479;
+  @extend .btn;
+  background: #4d6479;
+  color: #fff;
+  font-weight: 600;
+  font-size: 13px;
+  &:hover {
+    background: darken(#4d6479, 10%);
     color: #fff;
-    font-weight: 600;
-    font-size: 13px;
-    &:hover {
-        background: darken(#4d6479, 10%);
-        color: #fff;
-    }
+  }
 }
 
 .btn-green {
-    @extend .btn;
-    @include button-variant($btn-danger-color, #3ea909, #3ea909);
-    font-weight: 600;
+  @extend .btn;
+  @include button-variant($btn-danger-color, #3ea909, #3ea909);
+  font-weight: 600;
 }
 .btn-grey {
-    @extend .btn;
-    @include button-variant($btn-danger-color, #4d6479, #4d6479);
-    font-weight: 600;
+  @extend .btn;
+  @include button-variant($btn-danger-color, #4d6479, #4d6479);
+  font-weight: 600;
 }
 .btn-error {
-    @extend .btn;
-    @include button-variant($btn-danger-color, $btn-danger-bg, $btn-danger-border);
-    font-weight: 600;
+  @extend .btn;
+  @include button-variant($btn-danger-color, $btn-danger-bg, $btn-danger-border);
+  font-weight: 600;
 }
 
 .btn-login-google,
 .btn-login-linkedin,
 .btn-login-facebook {
-    @extend .btn;
-    position: relative;
-    height: 40px;
-    margin-bottom: 5px;
-    display: block;
-    font-weight: 600;
-    font-size: 15px;
-    > i {
-        position: absolute;
-        top: 0; left: 0;
-        width: 40px;
-        min-height: 99%;
-        height: auto;
-        line-height: 2.5;
-        text-align: center;
-    }
+  @extend .btn;
+  position: relative;
+  height: 40px;
+  margin-bottom: 5px;
+  display: block;
+  font-weight: 600;
+  font-size: 15px;
+  > i {
+    position: absolute;
+    top: 0; left: 0;
+    width: 40px;
+    min-height: 99%;
+    height: auto;
+    line-height: 2.5;
+    text-align: center;
+  }
 }
 .btn-login-facebook {
-    @include button-variant(#fff, #4e69a1, #4e69a1);
-    > i { background-color: #3c5a98; }
+  @include button-variant(#fff, #4e69a1, #4e69a1);
+  > i { background-color: #3c5a98; }
 }
 .btn-login-google {
-    @include button-variant(#fff, #d7392e, #d7392e);
-    > i { background-color: #d4281b; }
+  @include button-variant(#fff, #d7392e, #d7392e);
+  > i { background-color: #d4281b; }
 }
 .btn-login-linkedin {
-    @include button-variant(#fff, #0077b5, #0077b5);
-    > i { background-color: #005582; }
+  @include button-variant(#fff, #0077b5, #0077b5);
+  > i { background-color: #005582; }
 }
 
 .btn-action {
-    @extend .btn;
-    @include button-variant(#fff, #738d00, #738d00);
-    height: 40px;
-    display: block;
-    font-weight: 600;
-    font-size: 15px;
+  @extend .btn;
+  @include button-variant(#fff, #738d00, #738d00);
+  height: 40px;
+  display: block;
+  font-weight: 600;
+  font-size: 15px;
 }
 
 .btn-follow {
-    @extend .btn;
-    @include button-variant($link-white, $background-primary-button, $background-primary-button);
-    display: block;
-    font-weight: 600;
-    font-size: 1.286em;
+  @extend .btn;
+  @include button-variant($link-white, #41a764, #41a764);
+  display: block;
+  font-weight: 600;
+  font-size: 1.286em;
+  text-transform: uppercase;
+  border-radius: 3px;
 
-    &:hover:active { background: #495a00; }
+  &:hover:active { background: #495a00; }
 }
 
 .btn-follow-alt {
-    @extend .btn;
-    @include button-variant(#fff, #0160b0, #0160b0);
+  @extend .btn;
+  @include button-variant(#41a764, transparent, #41a764);
+  position: relative;
+  overflow: hidden;
+  display: block;
+  font-weight: 600;
+  font-size: 1.286em;
+  text-transform: uppercase;
+  border-radius: 3px;
+
+  span {
+    transition: 0.6s;
+    transition-delay: 0.2s;
+  }
+
+  &:hover {
+    color: $link-white;
+    background: $btn-danger-bg;
+    border-color: $btn-danger-bg;
+  }
+
+  &:before,
+  &:after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    line-height: 2;
+    text-align: center;
+    opacity: 0;
+    transition: .4s,opacity .6s;
+  }
+
+  &:before {
+    content: attr(data-hover);
+    transform: translate(0, -100%);
+  }
+
+  &:hover span,
+  &:active span {
+    opacity: 0;
+    transform: scale(0.3);
+  }
+
+  &:hover:before,
+  &:active:after {
+    opacity: 1;
+    transform: translate(0,0);
+    transition-delay: .4s;
+  }
+}
+
+.perfil-button {
+  min-width: 130px;
+  background: #41a764;
+  color: $link-white;
+  font-weight: 600;
+  font-size: 14px;
+  border-radius: 3px;
+  text-transform: uppercase;
+  &:focus { color: $link-white; }
+  &:hover {
+    color: $link-white;
+    background: #64c786;
+  }
+  &-alt {
     position: relative;
     overflow: hidden;
-    display: block;
+    min-width: 130px;
+    border: 1px solid #41a764;
+    background: $link-white;
+    color: #41a764;
     font-weight: 600;
-    font-size: 1.286em;
-
-    span {
-        transition: 0.6s;
-        transition-delay: 0.2s;
-    }
-
+    font-size: 14px;
+    border-radius: 3px;
+    text-transform: uppercase;
+    span {}
     &:hover {
-        color: $link-white;
-        background: $btn-danger-bg;
-        border-color: $btn-danger-bg;
+      background: lighten($btn-danger-bg, 10%);
+      border-color: lighten($btn-danger-bg, 10%);
     }
-
+    &:focus { color: #41a764; }
     &:before,
     &:after {
-        content: '';
-        position: absolute;
-        top: 0; left: 0;
-        width: 100%;
-        height: 100%;
-        line-height: 2;
-        text-align: center;
-        opacity: 0;
-        transition: .4s,opacity .6s;
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      text-align: center;
+      opacity: 0;
     }
-
     &:before {
-        content: attr(data-hover);
-        transform: translate(0, -100%);
+      content: attr(data-hover);
+      transform: translate(0, 10%);
     }
-
     &:hover span,
     &:active span {
-        opacity: 0;
-        transform: scale(0.3);
+      opacity: 0;
+      transform: scale(0.3);
     }
-
     &:hover:before,
     &:active:after {
-        opacity: 1;
-        transform: translate(0,0);
-        transition-delay: .4s;
+      color: $link-white;
+      background: lighten($btn-danger-bg, 10%);
+      opacity: 1;
+      transform: translate(0, 15%);
     }
+  }
 }
 
 .follower-content .btn-follow,
 .follower-content .btn-follow-alt {
-    margin-bottom: 10px;
+  margin-bottom: 10px;
 }
 .follower-content > ul > li:only-child > .btn-follow,
 .follower-content > ul > li:only-child > .btn-follow-alt {
-    margin-bottom: 0;
-}
-
-.remove-suggest {
+  margin-bottom: 0;
 }

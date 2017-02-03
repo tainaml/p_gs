@@ -1,10 +1,10 @@
 {% load thumbor_tags %}
 {% load avatar_tags %}
 
- <div class="user__pages">
+{%  if profile.user == request.user and profile.user.companies.all %}
 
-    {%  if profile.user == request.user and profile.user.companies.all %}
-        <span class="user__pages__title">LOGAR COMO</span>
+ <div class="user__pages">
+    <span class="user__pages__title">LOGAR COMO</span>
     <ul class="user__pages__list" id="list-pages">
             {% for company in profile.user.companies.all|slice:":3" %}
                 <li class="user__pages__page"><a href="{% url 'account:login_with_company' company.user.username  %}">
@@ -14,12 +14,14 @@
                     {{ company.name }}
                 </a></li>
             {% endfor %}
-
     </ul>
-    {% endif %}
+
     {% if profile.user.companies.all|length > 3 %}
         <a class="showmore" href="{% url "profile:companies" %}">
             Mais
         </a>
     {% endif %}
+
 </div>
+
+{% endif %}

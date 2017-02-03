@@ -16,6 +16,20 @@
 
 {% block content %}
     <main class="container main">
+        {% if request|is_pc %}
+        <div class="row">
+            <div class="col-xs-12">
+                <nav class="perfil-navegation">
+                    <a href="{% url 'community:show' community.slug %}">Feed</a>
+                    <a href="{% url 'community:questions' community.slug %}">Perguntas</a>
+                    <a class="active" href="{% url 'community:followers' community.slug %}">Membros</a>
+                    <a href="{% url 'community:about' community.slug %}">Sobre</a>
+                    <a href="{% url 'community:videos' community.slug %}">Vídeos</a>
+                    <a href="{% url 'community:materials' community.slug %}">Materiais</a>
+                </nav>
+            </div>
+        </div>
+        {% endif %}
         <div class="row">
             <!-- mudar para 2.5 -->
             <div class="col-lg-3">
@@ -27,9 +41,9 @@
                 {% include 'community/partials/filters.html' with title="Membros" active="membros" has_filter=True %}
 
                 {% if request|is_pc %}
-                    <header class="area-title">
+                    <!-- <header class="area-title">
                         <h2>Membros</h2>
-                    </header>
+                    </header> -->
                 {% endif %}
 
                 {% block filters %}
@@ -91,7 +105,7 @@
         var functionAjaxSuccessSearchFollowers = function (e, data) {
 
             var $divFollowers = $("#followers-container");
-            var $divJScroll = $('<div class="row j-scroll-followers j-scroll-followers-container"></div>');
+            var $divJScroll = $('<div class="row j-scroll-followers-container"></div>');
 
             $divJScroll.html(data.template);
 
@@ -104,7 +118,6 @@
                 contentSelect: '.j-scroll-followers-container',
                 nextSelector: "a[data-jscroll-next]",
                 callback: refreshAsyncLike()
-
             });
         };
 

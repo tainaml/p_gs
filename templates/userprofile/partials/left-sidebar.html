@@ -1,0 +1,107 @@
+{% load profile_tags %}
+{% load user_agents %}
+{% load social_tags %}
+{% load article_tags %}
+{% load thumbor_tags %}
+{% load var_tags %}
+{% load avatar_tags %}
+
+{% set user_content_type = "user" %}
+{% followers_count profile.user as followers_count_value %}
+
+<div class="profile__sidebar">
+    <a class="profile__sidebar__avatar" href="{% if  profile.user.is_active %}{% url 'profile:show' profile.user.get_username %}{% else %}javascript:;{% endif %}">
+      <figure>
+        <img class="img-responsive" src="{% get_avatar profile.user width=130 height=130 smart=False fit_in=False %}" alt="{{ profile.user.get_full_name }}">
+        {% if profile.isContributor %}
+        <div class="banner-collaborator">Colaborador do Portal GSTI</div>
+        {% endif %}
+      </figure>
+    </a>
+    <h1 class="profile__sidebar__name">
+        <a title="{{ profile.user.get_full_name }}" href="{% if  profile.user.is_active %}{% url 'profile:show' profile.user.get_username %}{% else %}javascript:;{% endif %}">{{ profile.user.get_full_name }}</a>
+    </h1>
+    <div class="profile__sidebar__relationship">
+        <span data-counter="{{ followers_count_value }}" data-refresh-counter="follow-{{ user_content_type }}-{{ profile.user.id }}">
+            <span class="counter-number">{{ followers_count_value }}</span>
+            Seguidor{{ followers_count_value|pluralize:'es' }}
+        </span>|
+        <span>{% articles_count profile.user as articles_count_value %}
+            <span class="counter-number">{{ articles_count_value }}</span>
+            Publicaç{{ articles_count_value|pluralize:"ão,ões" }}
+        </span>
+    </div>
+
+
+    {% if request.user != profile.user %}
+        {% follow_action profile.user request.path "btn-follow" %}
+    {% endif %}
+
+    {% if not profile.user.company %}
+        {% include 'userprofile/partials/companies.html' %}
+    {% else %}
+        <div class="user__pages">
+           <span class="user__pages__title">LOGAR COMO</span>
+            <ul class="user__pages__list">
+                <li class="user__pages__page"><a href="{% url 'account:relogin' %}">
+                    <img src="{% thumbor_url request.session.before_user_image width=20 height=20 smart=False fit_in=False %}" alt="Image de {{ request.session.before_user_full_name }}">
+                    {{ request.session.before_user_full_name }}
+                </a></li>
+            </ul>
+        </div>
+    {% endif %}
+
+    <span class="profile__sidebar__locale">
+        <label>
+            <i class="gsticon gsticon-map-marker"></i> Localização
+        </label>
+        <br>
+        Mora em <span class="tiny">{{ profile.locale }}</span> <br>
+        De <span class="tiny">{{ profile.locale }}</span>
+    </span>
+
+    {% if not profile.user.company %}
+        {% if profile.occupation.all %}
+        <span class="profile__sidebar__occupation">
+            <label>
+                <i class="gsticon gsticon-briefcase"></i> Profissão
+            </label>
+            <br>
+            {% for occupation in profile.occupation.all %}
+                {{ occupation.responsibility.name }}{% if not forloop.last %},{% endif %}
+            {% endfor %}
+        </span>
+        {% endif %}
+    {% endif %}
+
+    {%  if profile.description %}
+        <div class="profile__sidebar__bio">
+            <label>
+                <i class="gsticon gsticon-user"></i> Sobre
+            </label>
+            <br>
+            {{ profile.description }}
+        </div>
+    {% endif %}
+
+    {% if profile.user == request.user and request|is_pc %}
+    <div class="widget widget-box">
+        <div class="widget-content">
+            <ul class="perfil-repositories">
+                <li {% if local_context == "favourite" %}class="active"{% endif %}>
+                    {# <span data-social-count="true" class="counter" data-url="{% url "core_socialactions:counter-actions" profile.user.username "favourite" %}"></span>#}
+                    <a href="{% url 'profile:favourite' %}"><i class="gsticon gsticon-star"></i> Favoritos </a>
+                </li>
+                <li {% if local_context == "see-later" %}class="active"{% endif %}>
+                    {# <span data-social-count="true" class="counter" data-url="{% url "core_socialactions:counter-actions" profile.user.username "see-later" %}"></span>#}
+                    <a href="{% url 'profile:see-later' %}"><i class="gsticon gsticon-eye"></i> Ver depois </a>
+                </li>
+                <li {% if local_context == "suggest" %}class="active"{% endif %}>
+                    {# <span data-social-count="true" class="counter" data-url="{% url "core_socialactions:counter-actions" profile.user.username "suggest" %}"></span>#}
+                    <a href="{% url 'profile:suggest' %}"><i class="gsticon gsticon-paper-plane"></i> Sugeridos </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    {% endif %}
+</div>

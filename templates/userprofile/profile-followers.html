@@ -15,48 +15,54 @@
 {% endblock %}
 
 {% block content %}
-    <main class="container main">
-        <div class="row">
-            <!-- mudar para 2.5 -->
-            <div class="col-lg-3">
-                {% include 'home/partials/sidebar-perfil.html' %}
-            </div>
-            <!-- mudar para 9.5 -->
-            <div class="col-lg-9">
-                {% include 'userprofile/partials/filters.html' with title="Relacionamentos" active="relationship" has_filter=True has_navigation=True %}
-                {% block filters %}
-                    <div id="form-search" class="filter row form-search filters-members" data-toggle="filters">
-                    <div class="col-lg-8">
-                        {% include 'userprofile/partials/search-followers.html' with placeholder="Procure por pessoas" %}
-                    </div>
-                    <div class="col-lg-4 text-right">
-                        <a class="btn btn-perfil active" href="{% url 'profile:followers' username=profile.user.username %}">Seguidores</a>
-                        <a class="btn btn-perfil" href="{% url 'profile:followings' username=profile.user.username %}">Seguindo</a>
-                    </div>
+<main class="container main">
+    <div class="row">
+        <div class="col-xs-12">
+            <nav class="perfil-navegation hidden-xs">
+                {% if profile.user == request.user %}<a href="{% url 'profile:feed' %}">Feed</a>{% endif %}
+                <a  href="{% if  profile.user.is_active %}{% url 'profile:show' profile.user.get_username %}{% else %}javascript:;{% endif %}">Publicações</a>
+                {% if profile.user == request.user %}<a href="{% url 'profile:my-questions' %}">Minhas Perguntas</a>{% endif %}
+                <a href="{% url 'profile:communities' username=profile.user.username %}">Comunidades</a>
+                <a class="active" href="{% url 'profile:followers' username=profile.user.username %}">Relacionamentos</a>
+            </nav>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-3">
+            {% include 'userprofile/partials/left-sidebar.html' %}
+        </div>
+        <div class="col-lg-9">
+            {% include 'userprofile/partials/filters.html' with title="Relacionamentos" active="relationship" has_filter=True has_navigation=True %}
+            <div id="form-search" class="filter row form-search filters-members" data-toggle="filters">
+                <div class="col-lg-8">
+                    {% include 'userprofile/partials/search-followers.html' with placeholder="Procure por pessoas" %}
                 </div>
-                {% endblock filters %}
+                <div class="col-lg-4 text-right">
+                    <a class="btn btn-perfil active" href="{% url 'profile:followers' username=profile.user.username %}">Seguidores</a>
+                    <a class="btn btn-perfil" href="{% url 'profile:followings' username=profile.user.username %}">Seguindo</a>
+                </div>
+            </div>
 
-                <div class="row">
-                    <div class="col-lg-12">
-                        <hr>
-                        <p class="description-text">Quem segue <a href="{% if  profile.user.is_active %}{% url 'profile:show' profile.user.get_username %}{% else %}javascript:;{% endif %}">{{ profile.user.get_full_name }}</a></p>
-                    </div>
-                    <div class="col-lg-12">
+            <div class="row">
+                <div class="col-lg-12">
+                    <p class="description-text">Quem segue <a href="{% if  profile.user.is_active %}{% url 'profile:show' profile.user.get_username %}{% else %}javascript:;{% endif %}">{{ profile.user.get_full_name }}</a></p>
+                </div>
+                <div class="col-lg-12">
 
-                        {% if not form.cleaned_data.criteria %}
-                        <div class="row j-scroll-followers j-scroll-followers-container">
-                            {% followers_box profile.user request.path %}
-                        </div>
-                        {% elif items.object_list %}
-                        <div class="row j-scroll-followers j-scroll-followers-container">
-                            {% include 'userprofile/partials/followers-segment.html' %}
-                        </div>
-                        {% endif %}
+                    {% if not form.cleaned_data.criteria %}
+                    <div class="row j-scroll-followers j-scroll-followers-container">
+                        {% followers_box profile.user request.path %}
                     </div>
+                    {% elif items.object_list %}
+                    <div class="row j-scroll-followers j-scroll-followers-container">
+                        {% include 'userprofile/partials/followers-segment.html' %}
+                    </div>
+                    {% endif %}
                 </div>
             </div>
         </div>
-    </main>
+    </div>
+</main>
 {% endblock %}
 
 

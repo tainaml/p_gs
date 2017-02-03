@@ -1,21 +1,20 @@
 {% load social_tags %}
 
 {% if followings.object_list %}
-<div class="widget widget-feed">
-    <div class="widget-header">
-        <span class="counter">{% followings_count profile.user "user" %}</span>
-        <header class="area-title">
-            <h3>Seguindo</h3>
-        </header>
-    </div>
+
+<div class="widget">
+    <header class="widget-header">
+        <h3 class="widget-title">
+            <span>Seguindo</span>
+        </h3>
+    </header>
+        <!-- <span class="counter">{% followings_count profile.user "user" %}</span> -->
     <div class="widget-content">
         {% for following in followings %}
             {% include "userprofile/partials/profile-followings-segment.html" with following_obj=following.content_object %}
         {% endfor %}
     </div>
-    <a class="widget-footer" href="{% url 'profile:followings' profile.user.username %}">
-        <i class="gsticon gsticon-plus"></i>
-        Ver todos
-    </a>
+    <a class="widget-footer" href="{% url 'profile:followings' profile.user.username %}">Ver todos</a>
 </div>
+
 {% endif %}

@@ -27,7 +27,20 @@
 
 {% block content %}
     <main class="container main">
-
+        {% if request|is_pc %}
+        <div class="row">
+            <div class="col-xs-12">
+                <nav class="perfil-navegation">
+                    <a href="{% url 'community:show' community.slug %}">Feed</a>
+                    <a class="active" href="{% url 'community:questions' community.slug %}">Perguntas</a>
+                    <a href="{% url 'community:followers' community.slug %}">Membros</a>
+                    <a href="{% url 'community:about' community.slug %}">Sobre</a>
+                    <a href="{% url 'community:videos' community.slug %}">Vídeos</a>
+                    <a href="{% url 'community:materials' community.slug %}">Materiais</a>
+                </nav>
+            </div>
+        </div>
+        {% endif %}
         <div class="row">
             <!-- mudar para 2.5 -->
             <div class="col-lg-3">
