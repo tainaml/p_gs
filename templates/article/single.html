@@ -117,10 +117,12 @@
     <div class="row">
         <div class="single-main">
             <div class="single-header">
-                <a class="single-main-about" href="{% if  article.author.is_active %}{% url 'profile:show' article.author.username %}{% else %}javascript:;{% endif %}">
-                     <img class="single-author-image" width="40" height="40" src="{% get_avatar article.author width=40 height=40 smart=False fit_in=False %}" alt="foto de {{ instance.author.get_full_name }}">
+                <div class="single-main-about" href="{% if  article.author.is_active %}{% url 'profile:show' article.author.username %}{% else %}javascript:;{% endif %}">
+                    <a href="{% if  article.author.is_active %}{% url 'profile:show' article.author.username %}{% else %}javascript:;{% endif %}">
+                        <img class="single-author-image" width="40" height="40" src="{% get_avatar article.author width=40 height=40 smart=False fit_in=False %}" alt="foto de {{ instance.author.get_full_name }}">
+                    </a>
                     <span class="single-main-about-body">
-                        <span class="single-author">{{ article.author.get_full_name }}</span>
+                        <a class="single-author" href="{% if  article.author.is_active %}{% url 'profile:show' article.author.username %}{% else %}javascript:;{% endif %}">{{ article.author.get_full_name }}</a>
                         <span class="single-main-about-info">
                             <time class="single-time" datetime="{{ article.publishin|date:'d/m/Y G:i' }}" data-toggle="tooltip" data-placement="auto top" data-original-title="{{ article.publishin|date:'d/m/Y' }} às {{ article.publishin|date:'G:i' }}" itemprop="datePublished" ><i class="gsticon gsticon-clock-o"></i>{{ article.publishin|naturaltime }}</time>
                             {% if feed and feed.official %}
@@ -130,7 +132,7 @@
                             {% endif %}
                         </span>
                     </span>
-                </a>
+                </div>
                 <div class="single-main-reactions">
                     {% like_box article request.path 'inline' %}
                 </div>
@@ -149,7 +151,7 @@
                 {% endif %}
 
             </div>
-            <div class="single-main-content">
+            <div class="single-main-content" data-target="post-content">
                 {% thumbor_replace article.text %}
             </div>
             <div class="publication-main-footer">
@@ -202,8 +204,8 @@
 {% endblock content %}
 
 {% block javascripts %}
-    <script src="{% static 'javascripts/publication.js'%}"></script>
      <script src="{% static 'javascripts/vendor.js'%}" data-manual></script>
+     <script src="{% static 'javascripts/publication.js'%}"></script>
 
     <script type="text/javascript">
 

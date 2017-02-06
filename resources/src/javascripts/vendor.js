@@ -6,7 +6,7 @@ require('./vendor/summernote/plugins/summernote-oembed-plugin');
 require('./vendor/summernote/plugins/summernote-prettyprint-plugin');
 require('./modules/ideiaEditor');
 
-var $preInPost = $('.full-post-content').find('code');
+var $preInPost = $('[data-target="post-content"]').find('code');
 
 $.each($preInPost, function (index, element) {
   Prism.highlightElement(element);

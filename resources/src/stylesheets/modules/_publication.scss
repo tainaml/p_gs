@@ -20,6 +20,7 @@
     overflow: hidden;
     margin-top: 50px;
     margin-bottom: 30px;
+    border-bottom: 1px solid #d6d4d4;
   }
   &-category {
     border-top: 1px solid #0162b1;
@@ -75,7 +76,7 @@
   }
   .advertising-horizontal {
     height: 90px;
-    margin-top: 50px;
+    margin: 50px auto;
     background-color: #ecebeb;
   }
   .advertising-vertical {
@@ -119,8 +120,8 @@
       &-image { margin-right: 10px }
     }
     .single-time {
-      margin-right: 18px;
-      border-color: #616161;
+      margin-right: 0;
+      border-right: none;
       color: #616161;
       font-size: 12px;
       .gsticon {
@@ -135,10 +136,16 @@
       background: url('../images/gsti-rocket.png') no-repeat center;
     }
     .single-official {
-      display: inline-block;
+      display: none;;
+      padding-left: 10px;
+      border-left: 1px solid #616161;
       font-size: 12px;
       line-height: 19px;
       vertical-align: bottom;
+    }
+    &:hover {
+      img { opacity: .9 }
+      .single-author {}
     }
   }
   &-reactions {
@@ -182,7 +189,6 @@
 	padding: 3px 0;
 	margin: 0;
   border-top: 1px solid #d6d4d4;
-  border-bottom: 1px solid #d6d4d4;
   float: right;
 	list-style: none;
 }
@@ -211,6 +217,7 @@
   margin-top: 25px;
   border-top: 1px solid #d6d4d4;
   border-bottom: 1px solid #d6d4d4;
+
 
   &-image {
     margin-right: 25px;
@@ -246,6 +253,12 @@
     font-size: 14px;
     line-height: 24px;
   }
+
+  .perfil-button-alt,
+  .perfil-button {
+    float: right;
+    margin-top: -12.5%;
+  }
 }
 
 @media (max-width: $screen-xs-max) {
@@ -266,7 +279,7 @@
     }
   }
   .single-main {
-    max-width: auto;
+    width: 100%;
     padding-left: 15px;
     padding-right: 15px;
     margin: 0 auto;
@@ -352,6 +365,13 @@
     &-publications {}
     &-about { margin-bottom: 26px }
     &-atuation { font-size: 12px }
+    .perfil-button-alt,
+    .perfil-button {
+      padding: 10px;
+      margin-top: 25px;
+      display: block;
+      float: none;
+    }
   }
   .recomendations {
     .recomendation {
