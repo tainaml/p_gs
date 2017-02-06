@@ -35,7 +35,7 @@ $check-icon: $fa-var-check !default;
 
 
 
-.checkbox{
+.check{
   padding-left: 20px;
 
   label{
@@ -110,27 +110,27 @@ $check-icon: $fa-var-check !default;
 
   }
 
-  &.checkbox-circle label::before{
+  &.check-circle label::before{
     border-radius: 50%;
   }
 
-  &.checkbox-inline{
+  &.check-inline{
     margin-top: 0;
   }
 }
 
-@include checkbox-variant('.checkbox-primary', $brand-primary);
-@include checkbox-variant('.checkbox-danger', $brand-danger);
-@include checkbox-variant('.checkbox-info', $brand-info);
-@include checkbox-variant('.checkbox-warning', $brand-warning);
-@include checkbox-variant('.checkbox-success', $brand-success);
+@include checkbox-variant('.check-primary', $brand-primary);
+@include checkbox-variant('.check-danger', $brand-danger);
+@include checkbox-variant('.check-info', $brand-info);
+@include checkbox-variant('.check-warning', $brand-warning);
+@include checkbox-variant('.check-success', $brand-success);
 
 
-@include checkbox-variant-indeterminate('.checkbox-primary', $brand-primary);
-@include checkbox-variant-indeterminate('.checkbox-danger', $brand-danger);
-@include checkbox-variant-indeterminate('.checkbox-info', $brand-info);
-@include checkbox-variant-indeterminate('.checkbox-warning', $brand-warning);
-@include checkbox-variant-indeterminate('.checkbox-success', $brand-success);
+@include checkbox-variant-indeterminate('.check-primary', $brand-primary);
+@include checkbox-variant-indeterminate('.check-danger', $brand-danger);
+@include checkbox-variant-indeterminate('.check-info', $brand-info);
+@include checkbox-variant-indeterminate('.check-warning', $brand-warning);
+@include checkbox-variant-indeterminate('.check-success', $brand-success);
 
 //
 // Radios

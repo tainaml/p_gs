@@ -1,6 +1,6 @@
 {% for choice in choices %}
     <div class="col-sm-4">
-        <div class="checkbox checkbox-inline {{ attrs.type }}-primary">
+        <div class="check check-inline {{ attrs.type }}-primary">
             <input {% if choice.0 in value %}checked="checked"{% endif %} id="id_{{ attrs.name }}_{{ forloop.counter0 }}" name="{{ attrs.name }}" type="checkbox" value="{{ choice.0 }}" >
             <label for="id_{{ attrs.name }}_{{ forloop.counter0 }}">{{ choice.1 }}</label>
         </div>
