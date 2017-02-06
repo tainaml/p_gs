@@ -66,7 +66,7 @@
 <div class="slideout-menu" id="slideout-menu">
     {% include 'home/partials/slideout-menu.html' %}
 </div>
-<div class="slideout-panel" id="wrapper">
+<div class="slideout-panel {% block page_class %}{% endblock page_class %}" id="wrapper">
     <header class="header">
         <div class="container">
             <div class="menu-mobile hidden-lg">

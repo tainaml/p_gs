@@ -2,6 +2,7 @@
 
 import $ from 'jquery'
 import Slideout from 'slideout'
+import input from './components/customform/input.js'
 import './asyncModules'
 import './vendor/bootstrap/'
 import './modules/ideiaForm/'
@@ -79,4 +80,5 @@ $(function () {
             inputSearch.blur();
         }
     });
+    input($('[data-toggle="input"]'))
 });

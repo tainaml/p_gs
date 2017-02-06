@@ -13,7 +13,7 @@
             <div class="perfil">
                 <a title="{{ follower.author.get_full_name }}" href="{% url 'profile:show' follower.author.username %}">
                   <figure>
-                    <img src="{% get_avatar follower.author width=82 height=82 smart=False fit_in=False %}" alt="{{ follower.author.get_full_name }}">
+                    <img src="{% get_avatar follower.author width=90 height=90 smart=False fit_in=False %}" alt="{{ follower.author.get_full_name }}">
                   </figure>
                 </a>
                 <div>

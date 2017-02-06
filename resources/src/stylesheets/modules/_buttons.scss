@@ -83,7 +83,12 @@
   text-transform: uppercase;
   border-radius: 3px;
 
-  &:hover:active { background: #495a00; }
+  &:hover,
+  &:focus {
+    border-color: #64c786;
+    background: #64c786;
+  }
+  &:hover:active { background: #64c786; }
 }
 
 .btn-follow-alt {
@@ -144,7 +149,7 @@
   min-width: 130px;
   background: #41a764;
   color: $link-white;
-  font-weight: 600;
+  // font-weight: 600;
   font-size: 14px;
   border-radius: 3px;
   text-transform: uppercase;
@@ -160,7 +165,7 @@
     border: 1px solid #41a764;
     background: $link-white;
     color: #41a764;
-    font-weight: 600;
+    // font-weight: 600;
     font-size: 14px;
     border-radius: 3px;
     text-transform: uppercase;

@@ -1,3 +1,5 @@
+.profile-page { background: #fdfdfd }
+
 .perfil {
   @extend %clearfix;
   overflow: hidden;
@@ -6,14 +8,15 @@
   border: 1px solid $color-border;
   background: $link-white;
   display: flex;
-  // align-items: center;
   justify-content: space-between;
 
-  > a > figure,
-  > img {
-    max-width: 90px;
+  figure {
+    overflow: hidden;
     float: left;
     margin-right: 15px;
+  }
+  img {
+    transition: transform ease .6s;
   }
   > div {
     position: relative;
@@ -43,6 +46,11 @@
     letter-spacing: -0.005em;
     &:hover {
       color: lighten($color-link-counter, 10%);
+    }
+  }
+  &:hover {
+    img {
+      transform: scale(1.2);
     }
   }
 }
@@ -199,15 +207,14 @@
   margin-bottom: 30px;
   display: flex;
   align-items: center;
-  justify-content: center;
   @media (max-width: $screen-lg-min) { margin-top: 20px }
 
   > a {
     padding-bottom: 7px;
-    margin-right: 21px;
-    margin-left: 21px;
+    margin-right: 10px;
+    margin-left: 10px;
     color: #616161;
-    font-size: 16px;
+    font-size: 15px;
     line-height: 22px;
     text-transform: uppercase;
     &.active {
@@ -215,9 +222,7 @@
       border-bottom: 2px solid;
       font-weight: 600;
     }
-    &:hover {
-      color: #0160b0;
-    }
+    &:hover { color: #0160b0 }
   }
 }
 .mobile-perfil-navegation {
@@ -245,7 +250,6 @@
   }
   @media (max-width: $screen-xs-max) {
     display: flex;
-    // padding: 0 10px;
   }
 }
 

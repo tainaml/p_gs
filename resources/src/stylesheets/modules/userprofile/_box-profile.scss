@@ -95,7 +95,10 @@
         margin-bottom: 10px;
         display: block;
         color: #616161;
-        font-size: 13px;
+        font-size: 14px;
+        > .tiny {
+          color: #337ab7;
+        }
     }
     > .user__pages__list {
         margin-top: 40px;

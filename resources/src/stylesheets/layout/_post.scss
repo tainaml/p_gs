@@ -27,11 +27,9 @@
   }
   &-actions {
     padding: 0 9px;
-    font-size: 16px;
+    color: #888686;
+    font-size: 20px;
     border-radius: 50%;
-    &:hover {
-      background: #f7f7f7;
-    }
   }
   &-creator {
     display: flex;
@@ -48,7 +46,7 @@
       time {
         border-right: none;
         color: #888686;
-        line-height: 100%;
+        font: 400 14px/100% 'Open Sans';
       }
     }
     &-username {
@@ -85,12 +83,25 @@
     display: block;
     figure {
       float: left;
-      margin: 10px 20px 0 0;
+      margin: 15px 20px 0 0;
+      overflow: hidden;
       > img {
         border: 1px solid $color-border;
+        transition: transform ease .6s;
+      }
+      &.post-content-thumb {
+        float: none;
+        margin-right: 0;
+        > img {
+        }
       }
     }
-    &:hover { background: rgba(253, 252, 252, 0.58) }
+    &:hover {
+      // background: rgba(253, 252, 252, 0.58)
+      figure > img {
+        transform: scale(1.2);
+      }
+    }
   }
   .question-text {
     color: #5d7184;
@@ -105,11 +116,15 @@
     padding-right: 4px;
     display: inline-block;
     > a {
-      padding: 0 9px;
+      // padding: 0 9px;
       display: inline-block;
       color: #616161;
       font-size: 15px;
-      &.post-votes-up { border-right: 1px solid #c5c2c2 }
+      &.post-votes-up {
+        padding-right: 20px;
+        border-right: 1px solid #c5c2c2;
+      }
+      &.post-votes-down { padding-left: 20px }
       .icon-reaction {
         width: 16px;
         height: 22px;
@@ -133,11 +148,10 @@
 
     &-comments {
       color: #616161;
+      font-size: 15px;
       strong {
         margin: 0 5px 0 9px;
         font-weight: 400;
-        font-size: 15px;
-        line-height: 22px;
       }
       &-icon {
         width: 17px;
@@ -173,7 +187,7 @@
     }
     &-list a {
       display: block;
-      padding: 3px 6px;
+      padding: 4px 6px;
       border-radius: 3px;
       color: #616161;
       font-size: 12px;
@@ -187,6 +201,7 @@
     position: relative;
     color: #616161;
     cursor: pointer;
+    font-size: 15px;
     .gsticon { margin-right: 5px }
     .share-buttons .social-button {
       width: 24px;
@@ -196,6 +211,7 @@
     }
     &.open .dropdown-menu-right {
       right: -21px;
+      min-width: 150px;
     }
   }
 }

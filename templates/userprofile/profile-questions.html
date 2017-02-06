@@ -13,10 +13,11 @@
     <meta name="robots" content="noindex, nofollow">
 {% endblock %}
 
+{% block page_class %}profile-page{% endblock page_class %}
 {% block content %}
     <main class="container main">
         <div class="row">
-            <div class="col-xs-12">
+            <div class="col-lg-offset-3 col-lg-9">
                 <nav class="perfil-navegation hidden-xs">
                     {% if profile.user == request.user %}<a href="{% url 'profile:feed' %}">Feed</a>{% endif %}
                     <a href="{% if  profile.user.is_active %}{% url 'profile:show' profile.user.get_username %}{% else %}javascript:;{% endif %}">Publicações</a>

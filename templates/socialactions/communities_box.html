@@ -6,7 +6,7 @@
         <div class="box-perfil">
             <div class="perfil">
               <figure>
-                <img src="{% thumbor_url community.content_object.get_picture.url width=82 height=82 smart=False fit_in=False %}" alt="{{ community.content_object.title }}" title="{{ community_obj.title }}">
+                <img src="{% thumbor_url community.content_object.get_picture.url width=90 height=90 smart=False fit_in=False %}" alt="{{ community.content_object.title }}" title="{{ community_obj.title }}">
               </figure>
               <div>
                   <a class="perfil-name" title="{{ community.content_object.title }}" href="{% url 'community:show' community.content_object.slug %}">{{ community.content_object.title }}</a>

@@ -26,15 +26,17 @@
 {% block link_pagination %}
     {% pagination_links feed_objects %}
 {% endblock link_pagination %}
+
+{% block page_class %}profile-page{% endblock page_class %}
 {% block content %}
 
     <main class="container main">
         <div class="row">
-            <div class="col-xs-12">
+            <div class="col-lg-offset-3 col-lg-9">
                 <nav class="perfil-navegation hidden-xs">
                     {% if profile.user == request.user %}<a href="{% url 'profile:feed' %}">Feed</a>{% endif %}
                     <a  class="active" href="{% if  profile.user.is_active %}{% url 'profile:show' profile.user.get_username %}{% else %}javascript:;{% endif %}">Perfil</a>
-                    {% if profile.user == request.user %}<a href="{% url 'profile:my-questions' %}">Perguntas</a>{% endif %}
+                    {% if profile.user == request.user %}<a href="{% url 'profile:my-questions' %}">Minhas Perguntas</a>{% endif %}
                     <a href="{% url 'profile:communities' username=profile.user.username %}">Comunidades</a>
                     <a href="{% url 'profile:followers' username=profile.user.username %}">Relacionamentos</a>
                 </nav>
@@ -56,22 +58,19 @@
                     {% block filters %}
                         <nav id="form-search" class="form-search filters-members" data-toggle="filters">
                             <form action="{% url 'profile:show' profile.user.username %}" method="GET" role="search">
-                                <div class="form-search-input">
-                                    <div class="customform{%if errors %} customform-error{% endif %}">
-                                             <input class="customform-input" id="criterio" type="text" name="criterio" data-toggle="input" >
-                                            <hr>
-                                                <label for="criterio" class="customform-label{% if value %} active {% endif %}">{{placehold|default:"Pesquise conteúdo de "|add:profile.user.first_name}}</label>
-                                        </div>
-
+                                <div class="customform search{%if errors %} customform-error{% endif %}">
+                                    <input class="customform-input" id="criterio" type="text" name="criterio" data-toggle="input" >
+                                    <hr>
+                                    <label for="criterio" class="customform-label{% if value %} active {% endif %}">{{placehold|default:"Pesquise conteúdo de "|add:profile.user.first_name}}</label>
+                                    <button type="submit" class="form-search-button">
+                                        <i class="gsticon gsticon-search"></i>
+                                    </button>
                                 </div>
-                                <button type="submit" class="form-search-button">
-                                    <i class="gsticon gsticon-search"></i>
-                                </button>
                             </form>
                         </nav>
                     {% endblock filters %}
 
-                    <section class="area-content">
+                    <section>
                         {% if feed_objects.object_list %}
                             <div class="j-scroll j-scroll-container">
                                 {% include 'userprofile/partials/user-profile-list.html' %}

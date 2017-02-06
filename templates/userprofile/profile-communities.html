@@ -19,7 +19,7 @@
 {% block content %}
     <main class="container main">
         <div class="row">
-            <div class="col-xs-12">
+            <div class="col-lg-offset-3 col-lg-9">
                 <nav class="perfil-navegation hidden-xs">
                     {% if profile.user == request.user %}<a href="{% url 'profile:feed' %}">Feed</a>{% endif %}
                     <a href="{% if  profile.user.is_active %}{% url 'profile:show' profile.user.get_username %}{% else %}javascript:;{% endif %}">Publicações</a>
@@ -38,16 +38,18 @@
                 <div id="form-search" class="filter row form-search filters-members" data-toggle="filters">
                     <form id="search-form" action="{% url 'profile:communities' profile.user.username %}" method="GET" data-ajaxform="true" data-group-class=".form-search-input">
                         <div class="col-lg-8 clearfix">
-                            <div class="form-search-input">
-                                <input type="text" id="fcommunity" name="criteria" placeholder="{{placehold|default:"Procure comunidades"}}" autocomplete="off" />
+                            <div class="customform search{%if errors %} customform-error{% endif %}">
+                                <input class="customform-input" id="fcommunity" name="criteria" placeholder="{{placehold|default:"Procure comunidades"}}" autocomplete="off" data-toggle="input" >
+                                <hr>
+                                <label for="criterio" class="customform-label{% if value %} active {% endif %}">{{placehold|default:"Procure comunidades"}}</label>
+                                <button type="submit" class="form-search-button">
+                                    <i class="gsticon gsticon-search"></i>
+                                </button>
                             </div>
-                            <button type="submit" id="search" class="form-search-button">
-                                <i class="gsticon gsticon-search"></i>
-                            </button>
                         </div>
                         <div class="col-lg-4 text-right">
-                            <div class="custom-select">
-                                <select id="cfilter" class="form-control" name="category">
+                            <div class="customform {%if errors %} customform-error{% endif %}">
+                                <select id="cfilter" class="customform-input" name="category">
                                     <option class="custom-select-option" value="">Selecione</option>
                                     {% for category in categories %}
                                     <option class="custom-select-option" value="{{ category.id }}">{{ category.description }}</option>

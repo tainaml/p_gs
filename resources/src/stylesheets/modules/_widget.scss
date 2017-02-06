@@ -8,6 +8,7 @@
     margin: 0;
     border-bottom: 2px solid #cdddeb;
     color: #0160b0;
+    font-size: 20px;
     span {
       padding: 7px;
       border-bottom: 2px solid;
@@ -24,13 +25,26 @@
       margin-bottom: 0;
       border-bottom: none;
     }
-    img { margin-right: 30px }
+    figure {
+      overflow: hidden;
+      margin-right: 30px;
+      img {
+        max-width: 100%;
+        max-height: 100%;
+        transition: transform ease .6s;
+      }
+    }
     div {
       position: relative;
       overflow: hidden;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
+    }
+    &:hover {
+      img {
+        transform: scale(1.2);
+      }
     }
   }
 

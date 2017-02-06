@@ -14,10 +14,11 @@
     <meta name="robots" content="noindex, nofollow">
 {% endblock %}
 
+{% block page_class %}profile-page{% endblock page_class %}
 {% block content %}
 <main class="container main">
     <div class="row">
-        <div class="col-xs-12">
+        <div class="col-lg-offset-3 col-lg-9">
             <nav class="perfil-navegation hidden-xs">
                 {% if profile.user == request.user %}<a href="{% url 'profile:feed' %}">Feed</a>{% endif %}
                 <a  href="{% if  profile.user.is_active %}{% url 'profile:show' profile.user.get_username %}{% else %}javascript:;{% endif %}">Publicações</a>
@@ -35,7 +36,8 @@
             {% include 'userprofile/partials/filters.html' with title="Relacionamentos" active="relationship" has_filter=True has_navigation=True %}
             <div id="form-search" class="filter row form-search filters-members" data-toggle="filters">
                 <div class="col-lg-8">
-                    {% include 'userprofile/partials/search-followers.html' with placeholder="Procure por pessoas" %}
+                    {% url 'profile:followers-search' profile.user.username as url_action %}
+                    {% include 'userprofile/partials/search-relationship.html' with action=url_action placeholder="Procure por pessoas" %}
                 </div>
                 <div class="col-lg-4 text-right">
                     <a class="btn btn-perfil active" href="{% url 'profile:followers' username=profile.user.username %}">Seguidores</a>

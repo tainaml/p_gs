@@ -113,7 +113,15 @@ $input-error-color: #e10c14 !default;
 		color: $input-active-color;
 		transform: scale(0.7);
 	}
-  &.search > &-input { padding-right: 16px }
+  &.search {
+    > &-input { padding-right: 16px }
+    .form-search-button {
+      position: absolute;
+      top: 0; right: 0;
+      color: #555;
+      background-color: transparent;
+    }
+  }
   .selectize-input {
     border: none;
     padding: 0;
