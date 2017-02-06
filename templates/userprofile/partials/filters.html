@@ -1,43 +1,24 @@
 {% load user_agents %}
+
+{% if has_navigation %}
+<nav class="mobile-perfil-navegation" id="mobile-perfil-navegation">
+    {% if profile.user == request.user %}<a {% if active == "feed" %}class="active"{% endif %} href="{% url 'profile:feed' %}">Feed</a>{% endif %}
+    <a {% if active == "profile" %}class="active"{% endif %} href="{% url 'profile:show' username=profile.user.username %}">Publicações</a>
+    {% if profile.user == request.user %}<a {% if active == "my-questions" %}class="active"{% endif %} href="{% url 'profile:my-questions' %}">Perguntas</a>{% endif %}
+
+    <a {% if active == "community" %}class="active"{% endif %} href="{% url 'profile:communities' username=profile.user.username %}">Comunidades</a>
+    <a {% if active == "relationship" %}class="active"{% endif %} href="{% url 'profile:followers' username=profile.user.username %}">Relacionamentos</a>
+</nav>
+{% endif %}
+
 {% if request|is_mobile %}
-<header class="area-title title-mobile">
+<header class="clearfix title-mobile">
     <div class="toggle-box">
         {% if has_filter %}<a class="btn-toggle" data-target="#form-search" href="javascript:;">
             <i class="gsticon gsticon-filter"></i>
         </a>{% endif %}
-
-        {% if has_navigation %}<a class="btn-toggle" data-target="#mobile-perfil-navegation" href="javascript:;">
-            <i class="gsticon gsticon-bars"></i>
-        </a>{% endif %}
     </div>
-    <h2>{{ title }}</h2>
 </header>
-{% else %}
-{% if has_navigation %}
-<nav class="perfil-navegation hidden-xs">
-    {% if profile.user == request.user %}<a {% if active == "feed" %}class="active"{% endif %} href="{% url 'profile:feed' %}">Feed</a> <span>•</span>{% endif %}
-    <a {% if active == "profile" %}class="active"{% endif %} href="{% if  profile.user.is_active %}{% url 'profile:show' profile.user.get_username %}{% else %}javascript:;{% endif %}">Publicações</a> <span>•</span>
-    {% if profile.user == request.user %}<a {% if active == "my-questions" %}class="active"{% endif %} href="{% url 'profile:my-questions' %}">Minhas Perguntas</a> <span>•</span>{% endif %}
-
-    <a {% if active == "community" %}class="active"{% endif %} href="{% url 'profile:communities' username=profile.user.username %}">Comunidades</a> <span>•</span>
-    <a {% if active == "relationship" %}class="active"{% endif %} href="{% url 'profile:followers' username=profile.user.username %}">Relacionamentos</a>
-</nav>
-{% endif %}
-<header class="area-title">
-    <h2>{{ title }}</h2>
-</header>
-{% endif %}
-
-{% if has_navigation %}
-<nav class="mobile-perfil-navegation" id="mobile-perfil-navegation">
-    {% if profile.user == request.user %}<a {% if active == "feed" %}class="active"{% endif %} href="{% url 'profile:feed' %}">Feed</a> <span>•</span>{% endif %}
-    <a {% if active == "profile" %}class="active"{% endif %} href="{% url 'profile:show' username=profile.user.username %}">Publicações</a> <span>•</span>
-    {% if profile.user == request.user %}<a {% if active == "my-questions" %}class="active"{% endif %} href="{% url 'profile:my-questions' %}">Minhas Perguntas</a> <span>•</span>{% endif %}
-
-    <a {% if active == "community" %}class="active"{% endif %} href="{% url 'profile:communities' username=profile.user.username %}">Comunidades</a> <span>•</span>
-    <a {% if active == "relationship" %}class="active"{% endif %} href="{% url 'profile:followers' username=profile.user.username %}">Relacionamentos</a> <span>•</span>
-{#    <a {% if active == "videos" %}class="active"{% endif %} href="{% url 'profile:videos' profile.user.username %}">Vídeos</a>#}
-</nav>
 {% endif %}
 
 {% if has_filter %}

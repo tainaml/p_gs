@@ -257,7 +257,12 @@ class CoreCommunityFollowersSearch(FormBaseListView):
 
     # @Override
     def after_process(self, request=None, *args, **kwargs):
-        self.context.update({'community': request.GET['community'],'followers': self.process_return, 'page': 2})
+        page = 1
+        if 'page' in request.GET and request.GET.get('page').isdigit():
+
+            page = int(request.GET.get('page')) + 1
+
+        self.context.update({'community': request.GET['community'],'followers': self.process_return, 'page': page})
 
     # @Override
     def fill_form_kwargs(self, request=None, *args, **kwargs):

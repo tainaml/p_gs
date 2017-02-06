@@ -92,7 +92,6 @@ class FormBaseListView(FormBaseView):
         self.form = self.form(**self.fill_form_kwargs(request))
         self.process_return = self.form.process()
         self.after_process(request, *args, **kwargs)
-
         if request.GET.get("page"):
             return self.__response_render__(request, *args, **kwargs)
         else:

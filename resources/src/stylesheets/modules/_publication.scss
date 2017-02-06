@@ -36,34 +36,6 @@
       text-transform: uppercase;
     }
   }
-  .widget {
-    &-title {
-      padding: 10px 0;
-      margin: 0;
-      border-bottom: 2px solid #cdddeb;
-      color: #0160b0;
-      span {
-        padding: 7px;
-        border-bottom: 2px solid;
-        text-transform: uppercase;
-      }
-    }
-    &-item {
-      padding-bottom: 25px;
-      margin-bottom: 25px;
-      display: flex;
-      border-bottom: 1px solid #dad7d7;
-      flex: 1 1 auto;
-      img {
-        margin-right: 30px;
-      }
-      div {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-      }
-    }
-  }
   .recomendations {
     margin-top: 55px;
     header { margin-bottom: 40px }
@@ -265,18 +237,6 @@
   .single {
     &-title { font-size: 26px }
     &-category {}
-    .widget {
-      &-title {
-        font-size: 18px;
-        span {}
-      }
-      &-item {
-        img {
-        }
-        div {
-        }
-      }
-    }
   }
   .single-main {
     width: 100%;

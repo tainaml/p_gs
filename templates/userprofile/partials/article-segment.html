@@ -6,19 +6,20 @@
 
 <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
     {% if feed and feed.official %}
-        <div class="label-official-content"
-             data-toggle="tooltip"
-             data-original-title="Conteúdo Oficial"></div>
+    <div class="label-official-content" data-toggle="tooltip" data-original-title="Conteúdo Oficial"></div>
     {% endif%}
     <header class="post-header">
+        <a class="post-creator" href="{% if  instance.author.is_active %}{% url 'profile:show' instance.author.get_username %}{% else %}javascript:;{% endif %}">
+            <img class="post-creator-image" src="{% get_avatar instance.author width=40 height=40 smart=False fit_in=False %}" alt="foto de {{ instance.author.get_full_name }}">
+            <span class="post-creator-userinfo">
+                <span class="post-creator-username">{{instance.author.get_full_name}}</span>
+                <time datetime="{{ instance.publishin|date:'d/m/Y G:i' }}">{{ instance.publishin|naturaltime }}</time>
+            </span>
+        </a>
         <div class="post-info">
-{#            <time datetime="{{ instance.publishin|date:'d/m/Y G:i' }}" itemprop="datePublished">{{ instance.publishin|date:'d/m/Y' }} às {{ instance.publishin|date:'G:i' }}</time>#}
-
-            <time datetime="{{ instance.publishin|date:'d/m/Y G:i' }}" data-toggle="tooltip" data-placement="auto top" data-original-title="{{ instance.publishin|date:'d/m/Y' }} às {{ instance.publishin|date:'G:i' }}" itemprop="datePublished">
-                <span class="hidden-xs visible-lg-inline">{{ instance.publishin|naturaltime }}</span>
-                <i class="gsticon gsticon-clock-o hidden-lg"></i>
-            </time>
-            <a href="javascript:;" data-toggle="dropdown"><i class="gsticon gsticon-gear"></i></a>
+            <a class="post-actions" href="javascript:;" data-toggle="dropdown">
+                <i class="gsticon gsticon-ellipsis-v" aria-hidden="true"></i>
+            </a>
             <div class="dropdown-menu dropdown-menu-right">
                 <ul class="perfil-actions">
                     {% if instance.author == request.user or perms.article.change_other_articles %}
@@ -27,21 +28,18 @@
                     <li><a data-url-login="{% url 'account:is_logged' %}" data-trigger="login" data-token="{{ csrf_token }}" href="javascript:;" data-suggest-modal="true" data-content="article" data-object="{{ instance.id }}" data-url="{% url 'socialactions:act-suggest' instance.id 'article' %}"><i class="gsticon gsticon-paper-plane"></i> Sugerir leitura</a></li>
                     <li><a data-url-login="{% url 'account:is_logged' %}" data-trigger="login" data-token="{{ csrf_token }}" data-action="see-later" data-action-type="text" data-action-text="Ver depois" data-action-text-alt="Marcar como visto" data-object="see-later-{{ instance.id }}" data-url-check="{% url 'socialactions:acted' instance.id 'article' 'see-later' %}" href="{% url 'socialactions:act-xhr' instance.id 'article' 'see-later' %}?url_next={{ request.path|urlencode }}"><i class="gsticon gsticon-eye"></i> <span>{{" Ver depois"}}</span></a></li>
                   <li><a data-url-login="{% url 'account:is_logged' %}" data-trigger="login" data-token="{{ csrf_token }}" data-action="favourite" data-action-type="text" data-action-text="Favoritar" data-action-text-alt="Desfavoritar" data-object="favourite-{{ instance.id }}" data-article="{{ instance.id }}" data-url-check="{% url 'socialactions:acted' instance.id 'article' 'favourite' %}" href="{% url 'socialactions:act-xhr' instance.id 'article' 'favourite' %}?url_next={{ request.path|urlencode }}"><i class="gsticon gsticon-star"></i> <span>{{" Favoritar"}}</span></a></li>
-                    <li><a data-url-login="{% url 'account:is_logged' %}" data-trigger="login" data-token="{{ csrf_token }}" href="{% url 'complaint:report' 'article' instance.id %}" data-report="true" data-async-module="click" data-async-target="#modal-report" data-async-method="get"><i class="gsticon gsticon-exclamation-triangle"></i> Denunciar</a></li>
+                    <li><a data-url-login="{% url 'account:is_logged' %}" data-trigger="login" data-token="{{ csrf_token }}" href="{% url 'complaint:report' 'article' instance.id %}" data-report="true" data-async-module="click" data-async-target="#modal-report" data-async-method="get"><i class="gsticon gsticon-flag"></i> Denunciar</a></li>
                 </ul>
             </div>
         </div>
-        <a class="post-creator" href="{% if  instance.author.is_active %}{% url 'profile:show' instance.author.get_username %}{% else %}javascript:;{% endif %}">
-          <figure>
-            <img src="{% get_avatar instance.author width=20 height=20 smart=False fit_in=False %}" alt="foto de {{ instance.author.get_full_name }}">
-            <figcaption>{{instance.author.get_full_name}}</figcaption>
-          </figure>
-        </a>
+
     </header>
+
     <a class="post-content" href="{% url 'article:view' instance.year instance.month instance.slug %}" itemprop="articleBody">
         {% if instance.get_image %}
         <figure>
-            <img src="{% thumbor_url instance.get_image.url width=120 height=92 smart=False fit_in=False %}" alt="{{ instance.title }}" class="postFeedImage">
+
+            <img src="{% thumbor_url instance.get_image.url width=instance.image_size.width height=instance.image_size.height smart=False fit_in=False %}" alt="{{ instance.title }}" class="postFeedImage">
         </figure>
         {% endif %}
         <div class="post-text">
@@ -51,29 +49,52 @@
                 {{ instance.title }}
             {% endif %}</h3>
             <p>
-                {% if instance.get_image %}
-                    {{ instance.text|safe|striptags|slice:":90"}}{% if instance.text|length >= 90 %}...{% endif %}
-                {% else %}
-                    {{ instance.text|safe|striptags|slice:":250"}}{% if instance.text|length >= 250 %}...{% endif %}
-                {% endif %}
+            {% if instance.get_image %}
+                {{ instance.text|safe|striptags|slice:":90"}}{% if instance.text|length >= 90 %}...{% endif %}
+            {% else %}
+                {{ instance.text|safe|striptags|slice:":250"}}{% if instance.text|length >= 250 %}...{% endif %}
+            {% endif %}
             </p>
         </div>
     </a>
+
+    {% if feed.communities.all %}
+    <nav class="post-nav">
+        <ul class="post-nav-list">{% for community in feed.communities.all %}
+
+            <li><a href="{% url 'community:show' community.slug %}" class="link-to-community">{{ community.taxonomy.description }}</a></li>
+
+        {% endfor %}</ul>
+    </nav>
+    {% endif %}
+
     <footer class="post-footer">
-        {% include 'taxonomy/taxonomies.html' with communities=feed.communities.all  %}
-        <div class="post-toolbar pull-right">
-            <div class="post-count">
-                {% like_box instance request.path "inline" %}
-            </div>
-            <div class="post-count-comments">
-                <span id="load-count-comment-{{ feed.content_type.model }}-{{ instance.id }}"
-                data-load-async="true" data-load-async-url="{% url 'comment:count' instance.id "article" %}"
-                data-load-async-method="get" data-load-async-response-type="json">
-                    <strong class="load-async load-async-content">0</strong>
-                    {% csrf_token %}
-                </span> <span class="hidden-xs visible-lg-inline">Comentário(s)</span>
-                <span class="hidden-lg"><i class="gsticon gsticon-comment"></i></span>
+        <div class="post-count">{% like_box instance request.path "inline" %}</div>
+        <div class="post-count-comments">
+            <span id="load-count-comment-{{ feed.content_type.model }}-{{ instance.id }}"
+            data-load-async="true" data-load-async-url="{% url 'comment:count' instance.id "article" %}"
+            data-load-async-method="get" data-load-async-response-type="json">
+                {% csrf_token %}
+                <!-- <i class="gsticon gsticon-comment"></i> -->
+                <span class="post-count-comments-icon"></span>
+                <strong class="load-async load-async-content">0</strong>
+            </span>
+            <span class="hidden-xs visible-lg-inline">Comentário(s)</span>
+        </div>
+        <div class="post-share">
+            <span data-toggle="dropdown">
+                <i class="gsticon gsticon-share-alt"></i>
+                <span class="hidden-xs visible-lg-inline">Compartilhar</span>
+            </span>
+            <div class="dropdown-menu dropdown-menu-right">
+                <div class="share-buttons">
+                    <a class="social-button facebook" href="#" target="_blank">Facebook</a>
+                    <a class="social-button twitter" href="#" target="_blank">Twitter</a>
+                    <a class="social-button gplus" href="#" target="_blank">Google+</a>
+                    <a class="social-button linkedin" href="#" target="_blank">LinkedIn</a>
+                </div>
             </div>
         </div>
     </footer>
+
 </article>
