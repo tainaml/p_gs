@@ -126,13 +126,36 @@
     float: right;
     display: flex;
     justify-content: space-around;
-    .single-reaction {
+    .single-reaction,
+    .post-votes-down,
+    .post-votes-up {
       flex: 1 1 auto;
+      display: flex;
+      justify-content: center;
       text-align: center;
-      border-right: 1px solid #616161;
+      border-right: 1px solid #d6d4d4;
       color: #616161;
       font-size: 14px;
       line-height: 22px;
+      .icon-reaction {
+        width: 16px;
+        height: 22px;
+        margin-right: 5px;
+        float: left;
+        background: url('../images/reaction-buttons.png') no-repeat;
+        &.icon-like { background-position: -4px 50% }
+        &.icon-dislike { background-position: -63px 50% }
+      }
+      &.liked {
+        color: #41a764;
+        &:hover { color: lighten(#41a764, 10%) }
+        .icon-like { background-position: -33px 50% }
+      }
+      &.unliked {
+        color: #d94545;
+        &:hover { color: lighten(#d94545, 10%) }
+        .icon-dislike { background-position: -91px 50% }
+      }
       &:last-child {
         border-right: none;
       }

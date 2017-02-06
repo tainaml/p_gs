@@ -69,7 +69,8 @@
 
     &.open .dropdown-menu {
       right: -21px;
-      min-width: 200px;
+      min-width: 250px;
+      a { color: #616161 }
     }
 
     .gsticon-ellipsis-v {
