@@ -5,10 +5,9 @@
   overflow: hidden;
   min-height: 132px;
   padding: 25px 10px;
+  display: flex;
   border: 1px solid $color-border;
   background: $link-white;
-  display: flex;
-  justify-content: space-between;
 
   figure {
     overflow: hidden;
@@ -23,14 +22,15 @@
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
   }
   &-name {
     overflow: hidden;
     margin: 0;
+    margin-bottom: 7px;
     color: #616161;
     font-weight: 600;
     font-size: 1.22em;
+    line-height: 100%;
     display: block;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -39,10 +39,11 @@
     }
   }
   &-counter {
+    margin-bottom: 16px;
     display: block;
     color: $color-link-counter;
     font-size: 1em;
-    line-height: $line-height-computed;
+    line-height: 100%;
     letter-spacing: -0.005em;
     &:hover {
       color: lighten($color-link-counter, 10%);
@@ -234,12 +235,12 @@
   border-bottom: 1px solid #e1e1e1;
   white-space: nowrap;
   a {
-    padding-top: 7px;
-    padding-bottom: 7px;
+    padding-top: 15px;
+    padding-bottom: 14px;
     margin-right: 10px;
     margin-left: 10px;
     color: #616161;
-    font-size: 16px;
+    font-size: 14px;
     line-height: 22px;
     text-transform: uppercase;
     &.active {

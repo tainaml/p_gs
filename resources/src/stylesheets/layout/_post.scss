@@ -38,13 +38,13 @@
     font-weight: 600;
     &-image {
       overflow: hidden;
-      margin-right: 5px;
+      margin-right: 13px;
     }
     &-userinfo {
       display: flex;
-      justify-content: space-between;
       flex-direction: column;
       time {
+        margin-top: 13px;
         border-right: none;
         color: #888686;
         font: 400 14px/100% 'Open Sans';
@@ -73,7 +73,6 @@
     }
 
     .gsticon-ellipsis-v {
-      color: $background-button;
       &:hover,
       &.is-active {}
     }
@@ -110,6 +109,9 @@
   &-text {
     color: #969595;
     font-size: 13px;
+    p {
+      margin-bottom: 0;
+    }
   }
   &-count {
     padding-right: 4px;
@@ -161,7 +163,7 @@
   }
   &-footer {
     padding-top: 14px;
-    margin-top: 20px;
+    margin-top: 5px;
     display: flex;
     justify-content: space-between;
     border-top: 1px solid #e1e1e1;
@@ -170,7 +172,7 @@
     position: relative;
     overflow: hidden;
     width: 100%;
-    margin-top: 25px;
+    margin-top: 10px;
     display: inline-block;
     &-list {
       position: relative;
@@ -301,8 +303,6 @@
 // @media only screen and (max-width : 1200px) {}
 // @media only screen and (max-width : 992px) {}
 @media only screen and (max-width : 768px) {
-}
-@media only screen and (max-width : 480px) {
   .post {
     margin-right: -15px;
     margin-left: -15px;
@@ -324,7 +324,6 @@
       }
     }
     &-nav {
-      margin-top: 0;
       &-list {}
       &-list li {}
       &-list a { font-size: 10px }
@@ -332,12 +331,16 @@
     &-creator {
       &-image { margin-right: 14px }
       &-userinfo {
-        justify-content: space-around;
-        time { font-size:12px }
+        // justify-content: space-around;
+        time {
+          margin-top: 14px;
+          font-size: 12px;
+        }
       }
       &-username { font-size: 14px }
       &-label { font-size: 13px }
     }
   }
 }
+// @media only screen and (max-width : 480px) {}
 // @media only screen and (max-width : 320px) {}
