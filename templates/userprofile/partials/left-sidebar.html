@@ -51,14 +51,18 @@
         </div>
     {% endif %}
 
-    <span class="profile__sidebar__locale">
+    {% if not profile.user.is_company %}
+        <span class="profile__sidebar__locale">
         <label>
             <i class="gsticon gsticon-map-marker"></i> Localização
         </label>
         <br>
-        Mora em <span class="tiny">{{ profile.locale }}</span> <br>
-        De <span class="tiny">{{ profile.locale }}</span>
+        Mora em: {{ profile.city }} <br>
+        De: {{ profile.city_hometown }}
     </span>
+    {% endif %}
+
+
 
     {% if not profile.user.company %}
         {% if profile.occupation.all %}
@@ -68,7 +72,12 @@
             </label>
             <br>
             {% for occupation in profile.occupation.all %}
-                {{ occupation.responsibility.name }}{% if not forloop.last %},{% endif %}
+                {% if occupation.responsibility.active %}
+                     <a href="{% url 'core:responsibility' occupation.responsibility.slug %}">{{ occupation.responsibility.name }}</a>{% if not forloop.last %},{% endif %}
+                {% else %}
+                    {{ occupation.responsibility.name }}
+                {% endif %}
+
             {% endfor %}
         </span>
         {% endif %}
