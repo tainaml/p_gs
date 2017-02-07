@@ -227,7 +227,7 @@
 }
 .mobile-perfil-navegation {
   overflow: auto;
-  margin-bottom: 20px;
+  margin: 20px -15px;
   display: none;
   align-items: center;
   border-top: 1px solid #e1e1e1;
@@ -236,8 +236,8 @@
   a {
     padding-top: 7px;
     padding-bottom: 7px;
-    margin-right: 21px;
-    margin-left: 21px;
+    margin-right: 10px;
+    margin-left: 10px;
     color: #616161;
     font-size: 16px;
     line-height: 22px;
