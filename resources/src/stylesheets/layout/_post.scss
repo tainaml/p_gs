@@ -11,6 +11,7 @@
     margin-bottom: 8px;
     color: #616161;
     font-size: 16px;
+    line-height: 120%;
   }
   &-header {
     font-size: 0.929em;
@@ -79,7 +80,6 @@
   }
   &-content {
     @extend %clearfix;
-    overflow: hidden;
     display: block;
     figure {
       float: left;
@@ -97,7 +97,6 @@
       }
     }
     &:hover {
-      // background: rgba(253, 252, 252, 0.58)
       figure > img {
         transform: scale(1.2);
       }
@@ -116,7 +115,6 @@
     padding-right: 4px;
     display: inline-block;
     > a {
-      // padding: 0 9px;
       display: inline-block;
       color: #616161;
       font-size: 15px;
@@ -199,7 +197,7 @@
   }
   &-share {
     position: relative;
-    color: #616161;
+    color: #888686;
     cursor: pointer;
     font-size: 15px;
     .gsticon { margin-right: 5px }
@@ -300,15 +298,46 @@
 }
 
 
-// @media only screen and (max-width : 992px) {}
 // @media only screen and (max-width : 1200px) {}
+// @media only screen and (max-width : 992px) {}
 @media only screen and (max-width : 768px) {
+}
+@media only screen and (max-width : 480px) {
   .post {
     margin-right: -15px;
     margin-left: -15px;
     border-right: none;
     border-left: none;
+
+    &-content {
+      figure {
+        width: 100px;
+        height: 90px;
+        &.post-content-thumb {
+          width: auto;
+          height: auto;
+          margin-right: -20px;
+          margin-left: -20px;
+          float: none;
+          // > img {}
+        }
+      }
+    }
+    &-nav {
+      margin-top: 0;
+      &-list {}
+      &-list li {}
+      &-list a { font-size: 10px }
+    }
+    &-creator {
+      &-image { margin-right: 14px }
+      &-userinfo {
+        justify-content: space-around;
+        time { font-size:12px }
+      }
+      &-username { font-size: 14px }
+      &-label { font-size: 13px }
+    }
   }
 }
-// @media only screen and (max-width : 480px) {}
 // @media only screen and (max-width : 320px) {}

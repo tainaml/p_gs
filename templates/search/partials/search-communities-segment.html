@@ -11,12 +11,14 @@
             <img src="{% thumbor_url community.get_picture.url width=82 height=82 smart=False fit_in=False %}" alt="{{ community.title }}" title="{{ community.title }}">
           </figure>
         </a>
-        <a class="perfil-name" href="{% url 'community:show' community.slug %}">{{ community.title }}</a>
-        <span class="perfil-counter"
-              data-counter="{{ community.followers }}"
-              data-refresh-counter="follow-{{ counter_content_type }}-{{ community.id }}">
-            <span class="counter-number">{{ community.followers }}</span> Seguidor{{ community.followers|pluralize:'es' }}
-        </span>
-        {% follow_action community request.path %}
+        <div>
+            <a class="perfil-name" href="{% url 'community:show' community.slug %}">{{ community.title }}</a>
+            <span class="perfil-counter"
+            data-counter="{{ community.followers }}"
+            data-refresh-counter="follow-{{ counter_content_type }}-{{ community.id }}">
+                <span class="counter-number">{{ community.followers }}</span> Seguidor{{ community.followers|pluralize:'es' }}
+            </span>
+            {% follow_action community request.path %}
+        </div>
     </div>
 </div>
