@@ -86,12 +86,10 @@
                 <span class="hidden-xs visible-lg-inline">Compartilhar</span>
             </span>
             <div class="dropdown-menu dropdown-menu-right">
-                <div class="share-buttons">
-                    <a class="social-button facebook" href="#" target="_blank">Facebook</a>
-                    <a class="social-button twitter" href="#" target="_blank">Twitter</a>
-                    <a class="social-button gplus" href="#" target="_blank">Google+</a>
-                    <a class="social-button linkedin" href="#" target="_blank">LinkedIn</a>
-                </div>
+                {% with instance_full_url="https://www.portalgsti.com.br"|add:instance.get_absolute_url title=instance.title %}
+                    {% include 'article/partials/share.html' with title=instance.title url=instance_full_url %}
+                {% endwith %}
+
             </div>
         </div>
     </footer>
