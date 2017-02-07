@@ -6,7 +6,7 @@
 {% set counter_content_type = "user" %}
 {% followers_count user as followers_count_value %}
 
-<div class="col-lg-4">
+<div class="col-lg-6">
     <div class="perfil">
         <a href="{% if  user.is_active %}{% url 'profile:show' user.get_username %}{% else %}javascript:;{% endif %}">
           <figure>
