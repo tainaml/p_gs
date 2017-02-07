@@ -6,7 +6,10 @@
 
 <div class="widget-item">
     <a href="{% url 'community:show' community_obj.slug %}">
-        <img  src="{% thumbor_url community_obj.get_picture.url width=100 height=100 smart=False fit_in=False %}" title="{{ community_obj.title }}" alt="{{ community_obj.title }}" width="100" height="100">
+        <figure>
+
+            <img  src="{% thumbor_url community_obj.get_picture.url width=100 height=100 smart=False fit_in=False %}" title="{{ community_obj.title }}" alt="{{ community_obj.title }}" width="100" height="100">
+        </figure>
     </a>
     <div>
         <a class="perfil-name" title="{{ comunity_obj.title }}" href="{% url 'community:show' community_obj.slug %}">

@@ -13,14 +13,8 @@
                                                 </a>
     </div>
 
-    {% with article_full_url="https://www.portalgsti.com.br"|add:article.get_absolute_url title=article.title %}
-{#        {% include '_partials/share.html' with show_all=True url=article_full_url %}#}
-    <div class="share-buttons">
-        <a class="social-button facebook" href="http://www.facebook.com/sharer/sharer.php?u={{ article_full_url }}&title={{ title|urlencode }}" target="_blank">Facebook</a>
-        <a class="social-button twitter" href="http://twitter.com/intent/tweet?status={{ title|urlencode }}+{{ article_full_url }}" target="_blank">Twitter</a>
-        <a class="social-button gplus" href="https://plus.google.com/share?url={{ article_full_url }}" target="_blank">Google+</a>
-        <a class="social-button linkedin" href="http://www.linkedin.com/shareArticle?mini=true&url={{ article_full_url }}&title={{ title|urlencode }}&source=portalgsti" target="_blank">LinkedIn</a>
-    </div>
+    {% with instance_full_url="https://www.portalgsti.com.br"|add:article.get_absolute_url title=article.title %}
+        {% include 'article/partials/share.html' with title=title url=instance_full_url %}
     {% endwith %}
 
 </div>

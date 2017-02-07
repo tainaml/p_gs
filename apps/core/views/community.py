@@ -313,7 +313,6 @@ class CommunityRelated(CoreCommunityView):
     template_path = "community/partials/community-related.html"
 
     def get(self, request, community_slug=None):
-
         communities = BusinessCommunity.get_related_communities(community_slug)
 
         context = {'communities': communities}
