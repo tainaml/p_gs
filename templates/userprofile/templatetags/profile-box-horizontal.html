@@ -14,15 +14,6 @@
         </a>
         <div>
             <a class="publication-author-name" href="#">{{ profile.user.get_full_name }}</a>
-            <div class="publication-author-relationship">
-                <div class="publication-author-followers"><span data-counter="{{ followers_count_value }}"
-    data-refresh-counter="follow-{{ user_content_type }}-{{ profile.user.id }}">
-      <span>{{ followers_count_value }}</span> Seguidor{{ followers_count_value|pluralize:'es'}}
-    </span></div>
-                <div class="publication-author-publications"><span>
-      <span>{% articles_count profile.user as articles_count_value %}{{ articles_count_value }}</span> Publicaç{{ articles_count_value|pluralize:'ão,ões' }}
-    </span></div>
-            </div>
             <div class="publication-author-atuation">
                 {% with occupations=profile.occupation.all %}
                   {% if occupations %}
@@ -32,7 +23,21 @@
                   {% endif %}
               {% endwith %}
             </div>
-
+            <div class="publication-author-relationship">
+                <div class="publication-author-followers">
+                    <span data-counter="{{ followers_count_value }}" data-refresh-counter="follow-{{ user_content_type }}-{{ profile.user.id }}">
+                        <span>{{ followers_count_value }}</span>
+                        Seguidor{{ followers_count_value|pluralize:'es'}}
+                    </span>
+                </div>
+                <div class="publication-author-publications">
+                    <span>
+                        <span>
+                            {% articles_count profile.user as articles_count_value %}{{ articles_count_value }}
+                        </span>Publicaç{{ articles_count_value|pluralize:'ão,ões' }}
+                    </span>
+                </div>
+            </div>
         </div>
     </div>
     {% if request.user != profile.user %}

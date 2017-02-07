@@ -13,7 +13,7 @@
   &-title {
     margin-top: 40px;
     color: #616161;
-    font: 600 35px/30px 'Open Sans';
+    font: 600 35px/48px 'Open Sans';
     text-align: center;
   }
   &-header {
@@ -72,6 +72,10 @@
     }
     h2 { font-size: 20px }
     h3 { font-size: 18px }
+    img {
+      max-width: 100%;
+      max-height: auto;
+    }
   }
   &-about {
     margin-bottom: 20px;
@@ -117,7 +121,9 @@
     }
     &:hover {
       img { opacity: .9 }
-      .single-author {}
+      .single-author {
+        color: lighten(#616161, 10%);
+      }
     }
   }
   &-reactions {
@@ -159,6 +165,9 @@
       &:last-child {
         border-right: none;
       }
+    }
+    :hover {
+      opacity: .9;
     }
   }
 }
@@ -213,27 +222,34 @@
   border-top: 1px solid #d6d4d4;
   border-bottom: 1px solid #d6d4d4;
 
-
-  &-image {
-    margin-right: 25px;
-  }
+  &-image { transition: transform .6s }
   &-name {
+    margin-bottom: 5px;
     color: #0160b0;
     font: 600 18px/22px 'Open Sans';
+  }
+  &-atuation {
+    margin-bottom: 17px;
+    color: #919090;
   }
   &-info {
     display: flex;
     color: #616161;
     font-size: 14px;
+    > a {
+      overflow: hidden;
+      margin-right: 25px;
+    }
     > div {
+      max-width: 500px;
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
     }
   }
   &-relationship {
     display: flex;
     flex-direction: row;
+    text-transform: uppercase;
   }
   &-followers {
     padding-right: 10px;
@@ -253,6 +269,12 @@
   .perfil-button {
     float: right;
     margin-top: -12.5%;
+  }
+  &:hover {
+    opacity: 0.9;
+    img {
+      transform: scale(1.2);
+    }
   }
 }
 
@@ -347,7 +369,9 @@
     &-followers {}
     &-publications {}
     &-about { margin-bottom: 26px }
-    &-atuation { font-size: 12px }
+    &-atuation {
+      font-size: 12px;
+    }
     .perfil-button-alt,
     .perfil-button {
       padding: 10px;

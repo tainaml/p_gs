@@ -13,6 +13,7 @@
     overflow: hidden;
     float: left;
     margin-right: 15px;
+    border: 1px solid $color-border;
   }
   img {
     transition: transform ease .6s;
