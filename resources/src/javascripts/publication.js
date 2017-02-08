@@ -73,9 +73,8 @@ function setData($form, data, $divToUpdate){
   }
   $form.find('[data-toggle="editor"]').summernote('reset');
   $divToUpdate.refreshEditors();
-  var $preInComment = $('.comment').find('code');
+  var $preInComment = $('.comment-text').find('code');
   $.each($preInComment, function (index, element) {
-      console.log(index);
       Prism.highlightElement(element);
   });
 
@@ -165,7 +164,7 @@ var form_submit = function(event, data){
                             $childs.renderList();
                         }
 
-                        var $preInComment = $('.comment').find('code');
+                        var $preInComment = $('.comment-text').find('code');
                         $.each($preInComment, function (index, element) {
                             Prism.highlightElement(element);
                         });
