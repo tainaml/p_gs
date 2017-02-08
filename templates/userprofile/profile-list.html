@@ -11,11 +11,7 @@
 {% block seo-og-image %}{% get_avatar profile.user width=200 height=200 smart=False fit_in=False %}{% endblock %}
 
 {% block seo-metas-extra %}
-
-    {# Block track if not publishes #}
-
     {% if feed_objects.object_list|length_is:0 %}
-
         <meta name="robots" content="nofollow,noindex">
 
     {% endif %}
@@ -53,9 +49,9 @@
                         <nav id="form-search" class="form-search filters-members" data-toggle="filters">
                             <form action="{% url 'profile:show' profile.user.username %}" method="GET" role="search">
                                 <div class="customform search{%if errors %} customform-error{% endif %}">
-                                    <input class="customform-input" id="criterio" type="text" name="criterio" data-toggle="input" >
+                                    <input class="customform-input" id="criterio" type="text" value="{{ request.GET.criterio }}" name="criterio" data-toggle="input" >
                                     <hr>
-                                    <label for="criterio" class="customform-label{% if value %} active {% endif %}">{{placehold|default:"Pesquise conteúdo de "|add:profile.user.first_name}}</label>
+                                    <label for="criterio" class="customform-label{% if request.GET.criterio %} active {% endif %}">{{placehold|default:"Pesquise conteúdo de "|add:profile.user.first_name}}</label>
                                     <button type="submit" class="form-search-button">
                                         <i class="gsticon gsticon-search"></i>
                                     </button>

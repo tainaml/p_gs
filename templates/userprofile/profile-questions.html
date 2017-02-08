@@ -31,12 +31,14 @@
                         {% include 'userprofile/partials/filters.html' with title="Minhas Perguntas" active="my-questions" has_filter=True has_navigation=True %}
                         <nav id="form-search" class="form-search filters-members" data-toggle="filters">
                             <form action="{% url 'profile:my-questions' %}" method="GET" role="search">
-                                <div class="form-search-input">
-                                    <input type="text" value="{{ request.GET.criterio }}" name="criterio" placeholder="{{placehold|default:"Procure pessoas, comunidades, etc."}}">
+                                <div class="customform search">
+                                 <input class="customform-input" type="text" value="{{ request.GET.criterio }}" data-toggle="input" name="criterio" placeholder="{{placehold|default:"Pesquise suas perguntas por título ou conteúdo"}}">
+                                    <hr>
+                                    <label for="criterio" class="customform-label{% if value %} active {% endif %}">Pesquisar perguntas</label>
+                                    <button type="submit" class="form-search-button">
+                                        <i class="gsticon gsticon-search"></i>
+                                    </button>
                                 </div>
-                                <button type="submit" class="form-search-button">
-                                    <i class="gsticon gsticon-search"></i>
-                                </button>
                             </form>
                         </nav>
 
