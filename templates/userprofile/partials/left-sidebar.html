@@ -51,7 +51,6 @@
         </div>
     {% endif %}
 
-    {% if not profile.user.is_company %}
         <span class="profile__sidebar__locale">
         <label>
             <i class="gsticon gsticon-map-marker"></i> Localização
@@ -60,9 +59,6 @@
         Mora em: {{ profile.city }} <br>
         De: {{ profile.city_hometown }}
     </span>
-    {% endif %}
-
-
 
     {% if not profile.user.company %}
         {% if profile.occupation.all %}
