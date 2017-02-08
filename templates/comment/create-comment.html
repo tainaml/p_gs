@@ -2,15 +2,19 @@
 
 {% url 'hint:list' content_type content_object.id as hint_list_url %}
 
-<form data-group-class=".form-group" name="comment-form" action="{% url 'comment:save' %}" data-logged="{% if request.user.is_authenticated %}true{% else %}false{% endif %}" data-token="{{ csrf_token }}" data-ajaxform="true" data-toggle="append" data-update="{{ to_update }}" method="post">
-    <div class="form-group">
-        {# O textarea do editor não pode ficar com "display: none" se ele tem o atributo required, bug no Chrome #}
-        {% render_field form.content data-hint-url=hint_list_url %}
+<form class="create-form" name="comment-form" method="post" action="{% url 'comment:save' %}" data-logged="{% if request.user.is_authenticated %}true{% else %}false{% endif %}" data-token="{{ csrf_token }}" data-ajaxform="true" data-toggle="append" data-update="{{ to_update }}" data-group-class=".form-group">
+    <span class="create-form-avatar">
+        <img src="https://randomuser.me/api/portraits/men/49.jpg" width="50" height="50" alt="Imagem do perfil de Random">
+    </span>
+    <div class="create-form-fields">
+        <div class="form-group">
+            {% render_field form.content data-hint-url=hint_list_url required=False %}
+        </div>
+        <div class="form-group">
+            <input class="btn create-form-submit" type="submit" value="Enviar" data-url-login="{% url 'account:is_logged' %}" {% if not request.user.is_authenticated %}data-trigger="login"{% endif %}>
+        </div>
     </div>
     <input type="hidden" name="content_type" value="{{ content_type }}">
     <input type="hidden" name="content_object_id" value="{{ content_object.id }}">
-     <div class="comment-form-footer">
-        <input class="btn btn-primary" type="submit" value="Enviar" data-url-login="{% url 'account:is_logged' %}" {% if not request.user.is_authenticated %}data-trigger="login"{% endif %}>
-    </div>
     {% csrf_token %}
 </form>

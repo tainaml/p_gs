@@ -5,69 +5,92 @@
 {% load humanize %}
 
 <div id="comment-{{ instance.id }}" class="comment">
-    <header class="post-header">
-        <span class="post-creator">
-            <img class="post-creator-image" src="{% get_avatar instance.author width=20 height=20 smart=False fit_in=False %}" alt="foto de {{ instance.author.get_full_name }}">
-            <span class="post-creator-userinfo">
-                <a href="{% if  instance.author.is_active %}{% url 'profile:show' instance.author.username %}{% else %}javascript:;{% endif %}" title="{{instance.author.get_full_name}}" class="post-creator-username">{{ instance.author.get_full_name }}</a>
-                <time datetime="{{ instance.creation_date|date:'d-m-Y' }}" itemprop="datePublished"
-                data-toggle="tooltip" data-placement="auto top" data-original-title="{{ instance.creation_date|date:'d/m/Y' }} às {{ instance.creation_date|date:'G:i' }}">
-                    {{ instance.creation_date|naturaltime }}
-                </time>
-            </span>
-        </span>
-        <div class="post-info">
-            <a class="post-actions" href="javascript:;" data-toggle="dropdown" data-selector="#setting-comment-{{ instance.id }}"><i class="gsticon gsticon-ellipsis-v"></i></a>
+    <header class="comment-header">
+
+        {% if instance.author == request.user %}
+        <div class="comment-info">
+            <a class="comment-actions" href="javascript:;" data-toggle="dropdown" data-selector="#setting-comment-{{ instance.id }}"><i class="gsticon gsticon-ellipsis-v"></i></a>
             <div class="dropdown-menu dropdown-menu-right" id="setting-comment-{{ instance.id }}">
                 <ul class="perfil-actions">
-                    {% if instance.author == request.user %}
-                    <li data-toggle="dropdown" data-target="#comment-edit-{{ instance.id }}"><a href="javascript:;"><i class="gsticon gsticon-edit"></i> Editar publicação</a></li>
+                    <li data-toggle="dropdown" data-target="#comment-edit-{{ instance.id }}">
+                        <a href="javascript:;">
+                            <i class="gsticon gsticon-edit"></i> Editar
+                        </a>
+                    </li>
                     <li>
                         <a href="javascript:;" data-delete-item="true" data-modal="#modal-confirmation"
                         data-url="{% url 'comment:delete' %}" data-item="{{ instance.id }}"
                         data-type="{{ instance.get_content_type }}"
                         data-title=" ({{ instance.content|safe|striptags|escape|slice:":50"}}...)">
-                            <i class="gsticon gsticon-trash"></i> Remover comentário
+                            <i class="gsticon gsticon-trash"></i> Remover
                         </a>
                     </li>
-                    {% else %}
-                    <li>
-                        <a href="{% url 'complaint:report' 'comment' instance.id %}" data-report="true"
-                        data-async-module="click" data-async-target="#modal-report" data-async-method="get">
-                        <i class="gsticon gsticon-exclamation-triangle"></i> Denunciar
-                    </a>
-                </li>
-                {% endif %}
-            </ul>
+                </ul>
+            </div>
         </div>
+        {% endif %}
+
+        <div class="comment-creator">
+            <span class="comment-userimage">
+                <img src="{% get_avatar instance.author width=50 height=50 smart=False fit_in=False %}" alt="foto do perfil {{ instance.author.get_full_name }}">
+            </span>
+            <a class="comment-username" href="{% if  instance.author.is_active %}{% url 'profile:show' instance.author.username %}{% else %}javascript:;{% endif %}" title="{{instance.author.get_full_name}}">
+                {{ instance.author.get_full_name }}
+            </a>
+
+            <span class="comment-replied-to">
+                <i class="gsticon gsticon-share"></i>
+                Felipeta da Bahia
+            </span>
+
+            <br>
+            <time class="comment-timestamp" datetime="{{ instance.creation_date|date:'d-m-Y' }}" data-toggle="tooltip" data-placement="auto top"
+            title="{{ instance.creation_date|date:'d/m/Y' }} às {{ instance.creation_date|date:'G:i' }}">
+                {{ instance.creation_date|naturaltime }}
+            </time>
+        </div>
+
+    </header>
+
+    <div class="comment-body">
+        {{ instance.content|safe }}
+
+        {% if instance.author == request.user %}
+        <div data-list id="comment-edit-{{ instance.id }}" class="dropdown-content comment-dropdown">
+            {% comment_edit instance %}
+        </div>
+        {% endif %}
+
+        {% if instance.content_type.model != "comment" %}
+        <footer class="comment-footer">
+            <div class="comment-reactions post-count">
+                {% like_box instance request.path "inline" %}
+            </div>
+            <a class="comment-action--answer" title="Responder" data-object-id="{{ instance.id }}" data-toggle="dropdown" data-target="#data-answer-{{ instance.id }}" href="javascript:;" data-token="{{ csrf_token }}">
+                <span class="comment-icon"></span>
+                <span class="hidden-xs">Responder</span>
+            </a>
+            {% if instance.author != request.user %}
+            <a class="comment-action--report" href="{% url 'complaint:report' 'comment' instance.id %}" data-report="true"
+            data-async-module="click" data-async-target="#modal-report" data-async-method="get">
+                <i class="gsticon gsticon-flag"></i>
+                <span class="hidden-xs">Denunciar</span>
+            </a>
+            {% endif %}
+        </footer>
+        {% endif %}
+
     </div>
-</header>
-<div class="comment-text">
-    <p>{{ instance.content|safe }}</p>
 </div>
 
-{% if instance.author == request.user %}
-<div data-list id="comment-edit-{{ instance.id }}" class="dropdown-content comment-dropdown">
-    {% comment_edit  instance %}
-</div>
-{% endif %}
-
-{% if instance.content_type.model != "comment" %}
-<footer class="clearfix">
-    <div class="post-toolbar">
-        <div class="post-count">{% like_box instance request.path "inline" %}</div>
-        <a class="post-count-comments" data-object-id="{{ instance.id }}" data-toggle="dropdown" data-target="#data-answer-{{ instance.id }}" href="javascript:;" data-token="{{ csrf_token }}">Responder comentário</a>
-    </div>
-</footer>
-{% endif %}
-</div>
 {% if instance.content_type.model != "comment" %}
 <div id="data-answer-{{ instance.id }}" class="dropdown-content comment-dropdown">
     {% with instance_id=instance.id|stringformat:"s" %}
-    {% with to_update="#list-"|add:instance.get_content_type|stringformat:"s"|add:"-"|add:instance_id %}
-    {% comment_create instance to_update %}
-    {% endwith %}
+        {% with to_update="#list-"|add:instance.get_content_type|stringformat:"s"|add:"-"|add:instance_id %}
+            {% comment_create instance to_update %}
+        {% endwith %}
     {% endwith %}
 </div>
 {% endif %}
+
 {% comment_list instance %}
