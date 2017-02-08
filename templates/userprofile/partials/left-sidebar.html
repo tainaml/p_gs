@@ -37,10 +37,9 @@
         {% follow_action profile.user request.path "btn-follow" %}
     {% endif %}
 
-    {% if not profile.user.company %}
-        {% include 'userprofile/partials/companies.html' %}
-    {% else %}
-        <div class="user__pages">
+
+    {% if profile.user.is_company %}
+         <div class="user__pages">
            <span class="user__pages__title">LOGAR COMO</span>
             <ul class="user__pages__list">
                 <li class="user__pages__page"><a href="{% url 'account:relogin' %}">
@@ -49,8 +48,9 @@
                 </a></li>
             </ul>
         </div>
-    {% endif %}
 
+    {% else %}
+       {% include 'userprofile/partials/companies.html' %}
         <span class="profile__sidebar__locale">
         <label>
             <i class="gsticon gsticon-map-marker"></i> Localização
@@ -59,6 +59,7 @@
         Mora em: {{ profile.city }} <br>
         De: {{ profile.city_hometown }}
     </span>
+{% endif %}
 
     {% if not profile.user.company %}
         {% if profile.occupation.all %}
