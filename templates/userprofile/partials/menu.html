@@ -1,0 +1,7 @@
+<nav class="perfil-navegation hidden-xs">
+    {% if profile.user == request.user %}<a href="{% url 'profile:feed' %}" {% if active == "feed" %}class="active"{% endif %} >Feed</a>{% endif %}
+    <a href="{% if  profile.user.is_active %}{% url 'profile:show' profile.user.get_username %}{% else %}javascript:;{% endif %}" {% if active == "posts" %}class="active"{% endif %} >Publicações</a>
+    {% if profile.user == request.user %}<a href="{% url 'profile:my-questions' %}" {% if active == "questions" %}class="active"{% endif %} >Minhas Perguntas</a>{% endif %}
+    <a href="{% url 'profile:communities' username=profile.user.username %}" {% if active == "communities" %}class="active"{% endif %} >Comunidades</a>
+    <a href="{% url 'profile:followers' username=profile.user.username %}" {% if active == "followers" %}class="active"{% endif %}>Relacionamentos</a>
+</nav>

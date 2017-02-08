@@ -19,13 +19,7 @@
 <main class="container main">
     <div class="row">
         <div class="col-lg-offset-3 col-lg-9">
-            <nav class="perfil-navegation hidden-xs">
-                {% if profile.user == request.user %}<a href="{% url 'profile:feed' %}">Feed</a>{% endif %}
-                <a  href="{% if  profile.user.is_active %}{% url 'profile:show' profile.user.get_username %}{% else %}javascript:;{% endif %}">Publicações</a>
-                {% if profile.user == request.user %}<a href="{% url 'profile:my-questions' %}">Minhas Perguntas</a>{% endif %}
-                <a href="{% url 'profile:communities' username=profile.user.username %}">Comunidades</a>
-                <a class="active" href="{% url 'profile:followers' username=profile.user.username %}">Relacionamentos</a>
-            </nav>
+            {% include 'userprofile/partials/menu.html' with active="followers" %}
         </div>
     </div>
     <div class="row">
