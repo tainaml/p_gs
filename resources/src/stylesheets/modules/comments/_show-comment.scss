@@ -68,6 +68,9 @@
   &.comment-edit {
     padding-left: 0;
     margin-top: 0;
+    .create-form-fields .form-group {
+      margin-right: 0;
+    }
   }
 }
 
