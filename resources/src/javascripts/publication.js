@@ -99,9 +99,14 @@ var form_submit = function(event, data){
   var $dataList = $divToUpdate.find("div[data-xhr]");
   $dataList.renderList();
   refreshAsyncLike();
-  $('[data-list]').on('show.bs.dropdown', function ( event ) {
-    $(event.target).siblings('.comment-text').hide()
-  })
+  $('[data-list]').on({
+    'show.bs.dropdown': function ( event ) {
+      $(event.target).siblings('.comment-text').hide()
+    },
+    'hide.bs.dropdown': function ( event ) {
+      $(event.target).siblings('.comment-text').show()
+    }
+  });
 
 };
 
@@ -175,9 +180,14 @@ var form_submit = function(event, data){
                 });
 
                 refreshAsyncLike();
-                $('[data-list]').on('show.bs.dropdown', function ( event ) {
-                  $(event.target).siblings('.comment-text').hide()
-                })
+                $('[data-list]').on({
+                  'show.bs.dropdown': function ( event ) {
+                    $(event.target).siblings('.comment-text').hide()
+                  },
+                  'hide.bs.dropdown': function ( event ) {
+                    $(event.target).siblings('.comment-text').show()
+                  }
+                });
             }
 
         });
