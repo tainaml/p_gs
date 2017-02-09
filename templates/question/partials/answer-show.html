@@ -5,74 +5,79 @@
 {% load comment_reply %}
 
 <div id="answer-{{ instance.id }}" class="comment">
-        <header class="post-header">
-            <div class="post-info">
-                <time datetime="{{ instance.answer_date|date:'m-d-Y' }}" data-toggle="tooltip" data-placement="auto top" data-original-title="{{ instance.answer_date|date:'d/m/Y' }} às {{ instance.answer_date|date:'G:i' }}" itemprop="datePublished">
-                    <span class="hidden-xs visible-lg-inline">{{ instance.answer_date|date:'d/m/Y' }} às {{ instance.answer_date|date:'G:i' }}</span>
-                    <i class="gsticon gsticon-clock-o hidden-lg"></i>
-                </time>
-                <a href="javascript:;" data-toggle="dropdown"><i class="gsticon gsticon-gear"></i></a>
-                <div class="dropdown-menu">
-                    <ul class="perfil-actions">
-                        {% if instance.author == request.user %}
-                            <li><a data-xhr-edit data-toggle="dropdown" data-target="#comment-edit-{{ instance.id }}" data-xhr-id="{{ instance.id }}" href="javascript:;"><i class="gsticon gsticon-edit"></i> Editar resposta</a></li>
-                            <li>
-                                <a href="javascript:;"
-                                   data-delete-item="true"
-                                   data-modal="#modal-confirmation"
-                                   data-url="{% url 'question:remove-answer' %}"
-                                   data-item="{{ instance.id }}"
-                                   data-type="{{ instance.get_content_type }}"
-                                   data-title="de {{ instance.author.first_name }} ({{ instance.description|safe|striptags|escape|slice:":50"}}...)">
-                                    <i class="gsticon gsticon-trash"></i> Remover resposta
-                                </a>
-                            </li>
-                        {% else %}
-                            <li><a href="{% url 'complaint:report' 'answer' instance.id %}" data-report="true" data-async-module="click" data-async-target="#modal-report" data-async-method="get"><i class="gsticon gsticon-exclamation-triangle"></i> Denunciar</a></li>
-                        {% endif %}
-                    </ul>
-                </div>
-            </div>
-            <a class="post-creator" href="{% if  instance.author.is_active %}{% url 'profile:show' instance.author.username %}{% else %}javascript:;{% endif %}">
-                <figure>
-                    <img src="{% get_avatar instance.author width=20 height=20 smart=False fit_in=False %}" alt="User Avatar">
-                    <figcaption>{{instance.author.get_full_name}}</figcaption>
-                </figure>
-            </a>
-            {% if instance.question.correct_answer == instance %}
-                <span class="label label-primary"><i class="gsticon gsticon-trophy"></i> Melhor resposta</span>
-            {% endif %}
-
-        </header>
-        <div class="answer-text">
-            <p>{{instance.description|safe}}</p>
-        </div>
-
-        <div id="comment-edit-{{ instance.id }}" class="dropdown-content comment-dropdown">
-            {% answer_edit_box instance %}
-        </div>
-
-        <footer class="post-footer clearfix">
-            <div class="post-toolbar pull-right">
-                <div class="post-count">{% like_box instance request.path "inline" %}</div>
-
-                <div class="post-count-comments">
-                    {% if instance.question.author == request.user %}
-                        <a href="{% url 'question:correct-answer' instance.id %}">
-                            {% if instance.question.correct_answer == instance %}
-                                <span class="label label-primary">Melhor resposta</span>
-                            {% else %}
-                                <span class="label label-link">Melhor resposta</span>
-                            {% endif %}
+    <header class="post-header">
+        <div class="post-info">
+            <time datetime="{{ instance.answer_date|date:'m-d-Y' }}" data-toggle="tooltip" data-placement="auto top" data-original-title="{{ instance.answer_date|date:'d/m/Y' }} às {{ instance.answer_date|date:'G:i' }}" itemprop="datePublished">
+                <span class="hidden-xs visible-lg-inline">{{ instance.answer_date|date:'d/m/Y' }} às {{ instance.answer_date|date:'G:i' }}</span>
+                <i class="gsticon gsticon-clock-o hidden-lg"></i>
+            </time>
+            <a href="javascript:;" data-toggle="dropdown"><i class="gsticon gsticon-gear"></i></a>
+            <div class="dropdown-menu">
+                <ul class="perfil-actions">
+                    {% if instance.author == request.user %}
+                    <li>
+                        <a data-xhr-edit data-toggle="dropdown" data-target="#comment-edit-{{ instance.id }}" data-xhr-id="{{ instance.id }}" href="javascript:;">
+                            <i class="gsticon gsticon-edit"></i>
+                            Editar
                         </a>
+                    </li>
+                    <li>
+                        <a href="javascript:;" data-delete-item="true" data-modal="#modal-confirmation"
+                        data-url="{% url 'question:remove-answer' %}" data-item="{{ instance.id }}"
+                        data-type="{{ instance.get_content_type }}" data-title="de {{ instance.author.first_name }} ({{ instance.description|safe|striptags|escape|slice:":50"}}...)">
+                            <i class="gsticon gsticon-trash"></i>
+                            Remover resposta
+                        </a>
+                    </li>
+                    {% else %}
+                    <li>
+                        <a href="{% url 'complaint:report' 'answer' instance.id %}" data-report="true" data-async-module="click" data-async-target="#modal-report" data-async-method="get">
+                            <i class="gsticon gsticon-exclamation-triangle"></i>
+                            Denunciar
+                        </a>
+                    </li>
                     {% endif %}
-                    <a class="post-count-comments" data-object-id="{{ instance.id }}" data-toggle="dropdown" data-target="#data-answer-{{ instance.id }}" href="javascript:;" data-token="{{ csrf_token }}">Comentar</a>
-                </div>
-
+                </ul>
             </div>
-        </footer>
+        </div>
+        <a class="post-creator" href="{% if  instance.author.is_active %}{% url 'profile:show' instance.author.username %}{% else %}javascript:;{% endif %}">
+            <figure>
+                <img src="{% get_avatar instance.author width=20 height=20 smart=False fit_in=False %}" alt="User Avatar">
+                <figcaption>{{instance.author.get_full_name}}</figcaption>
+            </figure>
+        </a>
+        {% if instance.question.correct_answer == instance %}
+            <span class="label label-primary"><i class="gsticon gsticon-trophy"></i> Melhor resposta</span>
+        {% endif %}
 
+    </header>
+    <div class="answer-text">{{instance.description|safe}}</div>
+
+    <div id="comment-edit-{{ instance.id }}" class="dropdown-content comment-dropdown">
+        {% answer_edit_box instance %}
+    </div>
+
+    <footer class="post-footer clearfix">
+        <div class="post-toolbar pull-right">
+            <div class="post-count">{% like_box instance request.path "inline" %}</div>
+
+            <div class="post-count-comments">
+                {% if instance.question.author == request.user %}
+                    <a href="{% url 'question:correct-answer' instance.id %}">
+                        {% if instance.question.correct_answer == instance %}
+                            <span class="label label-primary">Melhor resposta</span>
+                        {% else %}
+                            <span class="label label-link">Melhor resposta</span>
+                        {% endif %}
+                    </a>
+                {% endif %}
+                <a class="post-count-comments" data-object-id="{{ instance.id }}" data-toggle="dropdown" data-target="#data-answer-{{ instance.id }}" href="javascript:;" data-token="{{ csrf_token }}">Comentar</a>
+            </div>
+
+        </div>
+    </footer>
 </div>
+
 <div id="data-answer-{{ instance.id }}" class="dropdown-content comment-dropdown">
   {% with instance_id=instance.id|stringformat:"s" %}
   {% with to_update="#list-answer-"|add:instance_id %}

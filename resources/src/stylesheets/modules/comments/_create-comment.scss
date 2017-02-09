@@ -37,9 +37,7 @@
         flex-grow: 2;
         margin-left: 0;
       }
-      &:last-child {
-        margin-right: 0;
-      }
+      &:last-child { margin-right: 0 }
     }
   }
 }
@@ -58,9 +56,7 @@
           width: 100%;
           margin-bottom: 13px;
         }
-        .create-form-submit {
-          width: 100%;
-        }
+        .create-form-submit { width: 100% }
 
         &:first-child {}
         &:last-child {}
