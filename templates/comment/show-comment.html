@@ -31,9 +31,9 @@
         {% endif %}
 
         <div class="comment-creator">
-            <span class="comment-userimage">
+            <a class="comment-userimage" href="{% if  instance.author.is_active %}{% url 'profile:show' instance.author.username %}{% else %}javascript:;{% endif %}">
                 <img src="{% get_avatar instance.author width=50 height=50 smart=False fit_in=False %}" alt="foto do perfil {{ instance.author.get_full_name }}">
-            </span>
+            </a>
             <a class="comment-username" href="{% if  instance.author.is_active %}{% url 'profile:show' instance.author.username %}{% else %}javascript:;{% endif %}" title="{{instance.author.get_full_name}}">
                 {{ instance.author.get_full_name }}
             </a>
@@ -58,7 +58,9 @@
     </header>
 
     <div class="comment-body">
-        {{ instance.content|safe }}
+        <div class="comment-text">
+            {{ instance.content|safe }}
+        </div>
 
         {% if instance.author == request.user %}
         <div data-list id="comment-edit-{{ instance.id }}" class="dropdown-content comment-dropdown">
