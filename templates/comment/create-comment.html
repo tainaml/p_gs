@@ -10,7 +10,7 @@
         <div class="form-group">
             {% render_field form.content data-hint-url=hint_list_url required=False %}
         </div>
-        <div class="form-group">
+        <div class="form-group text-right">
             <input class="btn create-form-submit" type="submit" value="Enviar" data-url-login="{% url 'account:is_logged' %}" {% if not request.user.is_authenticated %}data-trigger="login"{% endif %}>
         </div>
     </div>
