@@ -920,6 +920,7 @@ SUMMERNOTE_CONFIG = {
             'airMode': False,
             'minHeight': 100,
             'lang': 'pt-BR',
+            'disableDragAndDrop': True,
             'hasHint': True,
             'toolbar': [
                 ['style', ['bold', 'italic']],
