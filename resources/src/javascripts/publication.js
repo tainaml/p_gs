@@ -172,6 +172,9 @@ var form_submit = function(event, data){
                 });
 
                 refreshAsyncLike();
+                $('[data-list]').on('show.bs.dropdown', function ( event ) {
+                  $(event.target).siblings('.comment-text').hide()
+                })
             }
 
         });
