@@ -47,7 +47,7 @@
                     <div class="col-lg-8">
                         <div class="row">
                             {% block filters %}
-                            <nav id="form-search" class="col-xs-9 filters-members" data-toggle="filters">
+                            <nav id="form-search" class="col-lg-8 filters-members" data-toggle="filters">
                                 <form action="{% url 'community:materials' community.slug %}" method="GET" role="search">
                                     <div class="customform search{%if errors %} customform-error{% endif %}">
                                         <input class="customform-input" id="criteria" type="text" name="criteria" data-toggle="input" placeholder="Pesquisar por materiais" value="{{ form.cleaned_data.criterio }}">
@@ -61,7 +61,7 @@
                             </nav>
                             {% endblock filters %}
                             {% if request|is_pc %}
-                            <div class="col-xs-3">
+                            <div class="col-lg-4">
                                 <div class="customform">
                                     <select class="customform-input" data-target="materials-type">
                                         <option {% if current_tag not in tags %}selected="selected"{% endif %} value="{% url 'community:materials' community.slug %}">Todos</option>
