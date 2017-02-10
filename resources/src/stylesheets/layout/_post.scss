@@ -78,6 +78,12 @@
       right: -21px;
       min-width: 250px;
       a { color: #616161 }
+      .perfil-actions {
+        a {
+          padding-top: 15px;
+          padding-bottom: 15px;
+        }
+      }
     }
 
     .gsticon-ellipsis-v {
