@@ -139,6 +139,18 @@
   }
   .dropdown-menu {
     width: 100%;
+    .perfil-actions {
+      a {
+        padding-top: 15px;
+        padding-bottom: 15px;
+        color: #616161;
+        font-size: 16px;
+        .gsticon {
+          margin-left: 10px;
+          margin-right: 20px;
+        }
+      }
+    }
   }
 }
 
