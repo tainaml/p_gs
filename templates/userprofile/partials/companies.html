@@ -4,22 +4,26 @@
 {%  if profile.user == request.user and profile.user.companies.all %}
 
  <div class="user__pages">
-    <span class="user__pages__title">LOGAR COMO</span>
+    <div class="user__pages__title companies">
+        <i class="gsticon gsticon-building" aria-hidden="true"></i>
+        Organização
+    </div>
     <ul class="user__pages__list" id="list-pages">
-            {% for company in profile.user.companies.all|slice:":3" %}
-                <li class="user__pages__page"><a href="{% url 'account:login_with_company' company.user.username  %}">
-                    {% if company.logo %}
-                        <img src="{% thumbor_url company.logo.url width=20 height=20 smart=False fit_in=False %}" alt="">
-                {% endif %}
-                    {{ company.name }}
-                </a></li>
-            {% endfor %}
+        {% for company in profile.user.companies.all|slice:":3" %}
+        <li class="user__pages__page"><a href="{% url 'account:login_with_company' company.user.username  %}">
+            {% if company.logo %}
+                <img src="{% thumbor_url company.logo.url width=20 height=20 smart=False fit_in=False %}" alt="Organization logo">
+            {% endif %}
+            {{ company.name }}
+        </a></li>
+        {% endfor %}
+        <li>
+            <a class="createorg" href="#">Criar organização</a>
+        </li>
     </ul>
 
     {% if profile.user.companies.all|length > 3 %}
-        <a class="showmore" href="{% url "profile:companies" %}">
-            Mais
-        </a>
+    <a class="showmore" href="{% url "profile:companies" %}">Mais</a>
     {% endif %}
 
 </div>

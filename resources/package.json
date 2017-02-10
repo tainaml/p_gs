@@ -7,7 +7,7 @@
     "javascript": "gulp webpack:development",
     "sass": "gulp sass",
     "copy:images": "gulp images",
-    "watch": "gulp"
+    "watch": "gulp --force"
   },
   "dependencies": {
     "codemirror": "^5.18.0",
@@ -32,6 +32,7 @@
     "del": "^1.2.0",
     "gulp": "^3.9.0",
     "gulp-autoprefixer": "^3.1.0",
+    "gulp-buffer": "0.0.2",
     "gulp-changed": "^1.2.1",
     "gulp-clean-css": "^2.0.13",
     "gulp-filesize": "0.0.6",
@@ -41,6 +42,8 @@
     "gulp-imagemin": "^2.3.0",
     "gulp-notify": "^2.2.0",
     "gulp-rename": "^1.2.2",
+    "gulp-rev": "^7.1.2",
+    "gulp-rev-napkin": "^0.1.0",
     "gulp-sass": "^2.0.4",
     "gulp-sequence": "^0.4.0",
     "gulp-sizereport": "^1.1.2",

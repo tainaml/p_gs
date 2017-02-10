@@ -66,7 +66,9 @@
           bottom: -6px; right: -10px;
           width: 26px;
           height: 26px;
+          background: #0160b0 url('../images/is-official.png') no-repeat center;
           color: transparent;
+          border-radius: 50%;
         }
     }
     &__name {
@@ -108,6 +110,36 @@
         margin-top: 40px;
         margin-bottom: 40px;
     }
+}
+.dropdown-publication {
+  .dropdown-action {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    padding: 10px 15px;
+    display: block;
+    border: 1px solid #0160b0;
+    background: transparent;
+    color: #0160b0;
+    border-radius: 3px;
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+    text-align: center;
+    vertical-align: middle;
+    touch-action: manipulation;
+    cursor: pointer;
+    white-space: nowrap;
+    user-select: none;
+    &:hover {
+      background-color: #f5f2f2;
+      color: #0160b0;
+      opacity: 0.5;
+    }
+  }
+  .dropdown-menu {
+    width: 100%;
+  }
 }
 
 @media (max-width: $screen-sm-min) {

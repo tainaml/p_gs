@@ -5,12 +5,15 @@
 {% load taxonomy_tags %}
 
 <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
-    {% if feed and feed.official %}
-    <div class="label-official-content" data-toggle="tooltip" data-original-title="Conteúdo Oficial"></div>
-    {% endif%}
     <header class="post-header">
         <a class="post-creator" href="{% if  instance.author.is_active %}{% url 'profile:show' instance.author.get_username %}{% else %}javascript:;{% endif %}">
-            <img class="post-creator-image" src="{% get_avatar instance.author width=40 height=40 smart=False fit_in=False %}" alt="foto de {{ instance.author.get_full_name }}">
+            <span class="post-creator-image">
+                <img src="{% get_avatar instance.author width=40 height=40 smart=False fit_in=False %}" alt="foto de {{ instance.author.get_full_name }}">
+                {# TODO: Altera essa codição para checar se o usuário é colaborador do portal #}
+                {% if feed and feed.official %}
+                <div class="is-official" data-toggle="tooltip" data-placement="bottom" title="Colaborador do GSTI"></div>
+                {% endif%}
+            </span>
             <span class="post-creator-userinfo">
                 <span class="post-creator-username">{{instance.author.get_full_name}}</span>
                 <time datetime="{{ instance.publishin|date:'d/m/Y G:i' }}">{{ instance.publishin|naturaltime }}</time>

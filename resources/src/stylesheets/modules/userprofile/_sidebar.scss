@@ -1,43 +1,58 @@
 .user__pages {
-    margin-top: 30px;
-    &__title {
-        margin-bottom: 5px;
-        display: block;
-        color: $link-color;
-        font-size: .85em;
+  margin-top: 30px;
+  &__title {
+    margin-bottom: 5px;
+    display: block;
+    color: $link-color;
+    font-size: .85em;
+    &.companies {
+      color: #616161;
+      font-size: 14px;
+      font-weight: 600;
+      .gsticon-building {
+        margin-right: 10px;
+        font-size: 16px;
+        line-height: 22px;
+      }
     }
-    &__list {
-        @include list-unstyled();
-        overflow: hidden;
-        transition: height 300ms ease-in;
-        &:target,
-        &.open {
-            height: auto;
-        }
+  }
+  &__list {
+    @include list-unstyled();
+    overflow: hidden;
+    transition: height 300ms ease-in;
+    &:target,
+    &.open { height: auto }
+  }
+  &__page {
+    padding-top: 2px;
+    padding-bottom: 2px;
+  }
+  &__page a {
+    position: relative;
+    padding: 3px;
+    display: block;
+    color: #616161;
+    img { margin-right: 10px }
+    &:hover { background-color: #ddd }
+    &:hover:after {
+      position: absolute;
+      top: 4px; right: 5px;
+      font-family: 'FontAwesome';
+      content: '\f090';
     }
-    &__page {
-        padding-top: 2px;
-        padding-bottom: 2px;
-    }
-    &__page a {
-        position: relative;
-        padding: 3px;
-        display: block;
-        img { margin-right: 10px }
-        &:hover { background-color: #ddd }
-        &:hover:after {
-            position: absolute;
-            top: 4px; right: 5px;
-            font-family: 'FontAwesome';
-            content: '\f090';
-        }
-    }
-    .showmore {
-        margin-bottom: 20px;
-        display: block;
-        color: #263646;
-        font-size: 13px;
-        text-align: center;
-        text-decoration: underline;
-    }
+  }
+  .createorg {
+    color: #878585;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+  }
+  .showmore {
+    margin-bottom: 20px;
+    display: block;
+    color: #263646;
+    font-size: 13px;
+    text-align: center;
+    text-decoration: underline;
+  }
 }
