@@ -211,10 +211,9 @@
   align-items: center;
   @media (max-width: $screen-lg-min) { margin-top: 20px }
 
-  > a {
+  > h2, a {
     padding-bottom: 7px;
-    margin-right: 10px;
-    margin-left: 10px;
+    margin: 0 10px;
     color: #616161;
     font-size: 15px;
     line-height: 22px;
