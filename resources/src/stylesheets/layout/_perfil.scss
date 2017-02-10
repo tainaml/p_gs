@@ -31,7 +31,7 @@
     color: #616161;
     font-weight: 600;
     font-size: 1.22em;
-    line-height: 100%;
+    line-height: 1.22em;
     display: block;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -235,11 +235,10 @@
   border-top: 1px solid #e1e1e1;
   border-bottom: 1px solid #e1e1e1;
   white-space: nowrap;
-  a {
+  h2, a {
     padding-top: 15px;
     padding-bottom: 14px;
-    margin-right: 10px;
-    margin-left: 10px;
+    margin: 0 10px;
     color: #616161;
     font-size: 14px;
     line-height: 22px;
