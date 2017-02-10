@@ -1,0 +1,8 @@
+<nav class="perfil-navegation">
+    <a {% if active == 'feed' %}class="active"{% endif %} href="{% url 'community:show' community.slug %}">Feed</a>
+    <a {% if active == 'questions' %}class="active"{% endif %} href="{% url 'community:questions' community.slug %}">Perguntas</a>
+    <a {% if active == 'members' %}class="active"{% endif %} href="{% url 'community:followers' community.slug %}">Membros</a>
+    <a {% if active == 'about' %}class="active"{% endif %} href="{% url 'community:about' community.slug %}">Sobre</a>
+    <a {% if active == 'videos' %}class="active"{% endif %} href="{% url 'community:videos' community.slug %}">Vídeos</a>
+    <a {% if active == 'materials' %}class="active"{% endif %} href="{% url 'community:materials' community.slug %}">Materiais</a>
+</nav>

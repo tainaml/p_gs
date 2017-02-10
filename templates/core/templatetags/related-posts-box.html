@@ -1,6 +1,7 @@
 {% load thumbor_tags %}
 {% load static %}
 {% load abs_url %}
+{% load ads %}
 {% if feed_records %}
     {% if is_amp %}
             <div class="widget widget-feed">
@@ -19,7 +20,7 @@
         {% else %}
 
             <div class="hidden-lg advertising-vertical">
-                <img src="http://placehold.it/300x250" alt="">
+                {% ads_only_production "community_right" "all" %}
             </div>
             <div class="widget recomendations">
                 <header class="widget-header">
