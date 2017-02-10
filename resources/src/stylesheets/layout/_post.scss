@@ -158,6 +158,9 @@
         &:hover { color: lighten(#d94545, 10%) }
         .icon-dislike { background-position: -91px 50% }
       }
+      &:hover {
+        opacity: .9;
+      }
     }
 
     &-comments {
@@ -172,6 +175,9 @@
         height: 22px;
         float: left;
         background: url('../images/comment-icon.png') no-repeat center;
+      }
+      &:hover {
+        opacity: .9;
       }
     }
   }
@@ -226,6 +232,9 @@
     &.open .dropdown-menu-right {
       right: -21px;
       min-width: 150px;
+    }
+    &:hover {
+      opacity: .9;
     }
   }
 }
@@ -292,6 +301,7 @@
 .is-official,
 .banner-collaborator {
   position: absolute;
+  overflow: hidden;
   bottom: -6px; right: -10px;
   width: 26px;
   height: 26px;

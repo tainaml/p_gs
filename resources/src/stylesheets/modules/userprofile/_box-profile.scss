@@ -61,15 +61,6 @@
         figure {
           position: relative;
         }
-        .banner-collaborator {
-          position: absolute;
-          bottom: -6px; right: -10px;
-          width: 26px;
-          height: 26px;
-          background: #0160b0 url('../images/is-official.png') no-repeat center;
-          color: transparent;
-          border-radius: 50%;
-        }
     }
     &__name {
         font-size: 18px;
@@ -119,8 +110,8 @@
     padding: 10px 15px;
     display: block;
     border: 1px solid #0160b0;
-    background: transparent;
-    color: #0160b0;
+    background: #0160b0;
+    color: #fff;
     border-radius: 3px;
     font-size: 14px;
     font-weight: 600;
@@ -132,9 +123,8 @@
     white-space: nowrap;
     user-select: none;
     &:hover {
-      background-color: #f5f2f2;
-      color: #0160b0;
-      opacity: 0.5;
+      background-color: #4e84b1;
+      // color: #0160b0;
     }
   }
   .dropdown-menu {
@@ -166,11 +156,7 @@
             position: relative;
           }
           .banner-collaborator {
-            position: absolute;
-            bottom: -6px; right: -10px;
-            width: 26px;
-            height: 26px;
-            color: transparent;
+            overflow: hidden;
           }
       }
       &__name {
