@@ -19,14 +19,7 @@
         {% if request|is_pc %}
         <div class="row">
             <div class="col-lg-offset-3 col-lg-9">
-                <nav class="perfil-navegation">
-                    <a href="{% url 'community:show' community.slug %}">Feed</a>
-                    <a href="{% url 'community:questions' community.slug %}">Perguntas</a>
-                    <a class="active" href="{% url 'community:followers' community.slug %}">Membros</a>
-                    <a href="{% url 'community:about' community.slug %}">Sobre</a>
-                    <a href="{% url 'community:videos' community.slug %}">Vídeos</a>
-                    <a href="{% url 'community:materials' community.slug %}">Materiais</a>
-                </nav>
+                {% include 'community/partials/navbar.html' with active='members' %}
             </div>
         </div>
         {% endif %}

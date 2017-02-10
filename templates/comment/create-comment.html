@@ -3,9 +3,6 @@
 {% url 'hint:list' content_type content_object.id as hint_list_url %}
 
 <form class="create-form" name="comment-form" method="post" action="{% url 'comment:save' %}" data-logged="{% if request.user.is_authenticated %}true{% else %}false{% endif %}" data-token="{{ csrf_token }}" data-ajaxform="true" data-toggle="append" data-update="{{ to_update }}" data-group-class=".form-group">
-    <span class="create-form-avatar">
-        <img src="https://randomuser.me/api/portraits/men/49.jpg" width="50" height="50" alt="Imagem do perfil de Random">
-    </span>
     <div class="create-form-fields">
         <div class="form-group">
             {% render_field form.content data-hint-url=hint_list_url required=False %}

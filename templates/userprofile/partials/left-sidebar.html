@@ -51,13 +51,22 @@
 
     {% else %}
        {% include 'userprofile/partials/companies.html' %}
-        <span class="profile__sidebar__locale">
-        <label>
+        {%  if profile.city or profile.city_hometown %}
+            <span class="profile__sidebar__locale">
+
+            <label>
             <i class="gsticon gsticon-map-marker"></i> Localização
         </label>
         <br>
-        Mora em: {{ profile.city }} <br>
-        De: {{ profile.city_hometown }}
+            {%  if profile.city %}
+                Mora em: {{ profile.city }} <br>
+            {% endif %}
+            {% if profile.city_hometown %}
+                De: {{ profile.city_hometown }}
+            {% endif %}
+
+        {% endif %}
+
     </span>
 {% endif %}
 
