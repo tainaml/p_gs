@@ -44,16 +44,18 @@
                         <form class=" row" id="form-search-followers"  name="filterMember" action="{% url 'community:search-followers' %}?next={{ request.path }}" method="GET" role="search" data-ajaxform="true" data-group-class=".form-group">
                     <input type="hidden" name="community" value="{{ community.id }}">
                     <div class="col-lg-7 col-xs-12">
-                        <div class="form-search-input">
-                            <input type="text" id="filterName" name="criteria" placeholder="{{ placehold|default:"Procure por pessoas" }}" autocomplete="off">
+                       <div class="customform search{%if errors %} customform-error{% endif %}">
+                                  <input class="customform-input" id="criteria" type="text" name="criteria" data-toggle="input" placeholder="Procure por pessoas" value="{{ form.cleaned_data.criterio }}">
+                                <hr>
+                                <label for="criterio" class="customform-label{% if request.GET.criterio %} active {% endif %}">Pesquisar</label>
+                                <button type="submit" class="form-search-button">
+                                    <i class="gsticon gsticon-search"></i>
+                                </button>
                         </div>
-                        <button type="submit" class="form-search-button">
-                            <i class="gsticon gsticon-search"></i>
-                        </button>
                     </div>
                     <div class="col-lg-2 col-xs-12 text-right">
-                        <div class="custom-select">
-                            <select class="form-control" id="filterState" name="state" data-ajax-change="true" data-url="{% url 'profile:get_city' %}" data-target="#filterCity">
+                        <div class="customform">
+                            <select class="customform-input" id="filterState" name="state" data-ajax-change="true" data-url="{% url 'profile:get_city' %}" data-target="#filterCity">
                                 <option value="" selected>Estado</option>
                                 {% for state in states %}
                                     <option value="{{ state.id }}">{{ state.name }}</option>
@@ -62,8 +64,8 @@
                         </div>
                     </div>
                     <div class="col-lg-3 col-xs-12 text-right">
-                        <div class="custom-select">
-                            <select class="form-control" id="filterCity" name="city">
+                        <div class="customform">
+                            <select class="customform-input" id="filterCity" name="city">
                                 <option value="">Cidade</option>
                             </select>
                         </div>
