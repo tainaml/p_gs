@@ -45,11 +45,37 @@
                 {% include 'community/partials/filters.html' with title="Materiais" active="materials" has_filter=True %}
                 <div class="row">
                     <div class="col-lg-8">
-                        {% if request|is_pc %}
-                        <header class="clearfix">
-                            <div class="order-by">
+                        <div class="row">
+                            {% block filters %}
+                            <nav id="form-search" class="col-xs-9 filters-members" data-toggle="filters">
+                                <form action="{% url 'community:materials' community.slug %}" method="GET" role="search">
+                                    <div class="customform search{%if errors %} customform-error{% endif %}">
+                                        <input class="customform-input" id="criteria" type="text" name="criteria" data-toggle="input" placeholder="Pesquisar por materiais" value="{{ form.cleaned_data.criterio }}">
+                                        <hr>
+                                        <label for="criterio" class="customform-label{% if request.GET.criterio %} active {% endif %}">Pesquisar</label>
+                                        <button type="submit" class="form-search-button">
+                                            <i class="gsticon gsticon-search"></i>
+                                        </button>
+                                    </div>
+                                </form>
+                            </nav>
+                            {% endblock filters %}
+                            {% if request|is_pc %}
+                            <div class="col-xs-3">
+                                <div class="customform">
+                                    <select class="customform-input" data-target="materials-type">
+                                        <option {% if current_tag not in tags %}selected="selected"{% endif %} value="{% url 'community:materials' community.slug %}">Todos</option>
+                                        {% for tag in tags %}
+                                        <option {% if current_tag == tag %}selected="selected"{% endif %} value="{% url 'community:materials' community.slug %}?tags={{ tag.id }}">{{ tag.tag_name }}</option>
+                                        <li >
+                                            <a href="" data-target=".area-content"></a>
+                                        </li>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                {% comment%}
                                 <div class="dropdown">
-                                    <button class="btn btn-default dropdown-toggle" type="button" id="filter-posts" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                    <button class="btn btn-block btn-default dropdown-toggle" type="button" id="filter-posts" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                                         <span>
                                             {% firstof form.cleaned_data.tags.tag_name 'Todos' %}
                                         </span> <i class="gsticon gsticon-caret-down"></i>
@@ -59,31 +85,16 @@
                                             <a href="{% url 'community:materials' community.slug %}" data-target=".area-content">Todos</a>
                                         </li>
                                         {% for tag in tags %}
-                                            <li {% if current_tag == tag %}class="active"{% endif %}>
-                                                <a href="{% url 'community:materials' community.slug %}?tags={{ tag.id }}" data-target=".area-content">{{ tag.tag_name }}</a>
-                                            </li>
+                                        <li {% if current_tag == tag %}class="active"{% endif %}>
+                                            <a href="{% url 'community:materials' community.slug %}?tags={{ tag.id }}" data-target=".area-content">{{ tag.tag_name }}</a>
+                                        </li>
                                         {% endfor %}
                                     </ul>
                                 </div>
+                                {% endcomment %}
                             </div>
-                            <!-- <h2>Materiais</h2> -->
-                        </header>
-                        {% endif %}
-                        {% block filters %}
-                            <nav id="form-search" class="form-search filters-members" data-toggle="filters">
-                                <form action="{% url 'community:materials' community.slug %}" method="GET" role="search">
-                                    <div class="customform search{%if errors %} customform-error{% endif %}">
-                                          <input class="customform-input" id="criteria" type="text" name="criteria" data-toggle="input" placeholder="Pesquisar por materiais" value="{{ form.cleaned_data.criterio }}">
-                                        <hr>
-                                        <label for="criterio" class="customform-label{% if request.GET.criterio %} active {% endif %}">Pesquisar</label>
-                                        <button type="submit" class="form-search-button">
-                                            <i class="gsticon gsticon-search"></i>
-                                        </button>
-                                    </div>
-                              </form>
-
-                            </nav>
-                        {% endblock filters %}
+                            {% endif %}
+                        </div>
 
                         <section class="j-scroll j-scroll-container" id="community-list">
                             {% include 'community/partials/community-materials-list.html' %}
@@ -119,6 +130,9 @@
                 contentSelect: ".j-scroll-container",
                 nextSelector: "a[data-jscroll-next]",
                 callback: refreshAsyncLike()
+            });
+            $('[data-target="materials-type"]').on('change', function ( event ) {
+                window.location.href = event.currentTarget.value;
             });
         });
     </script>
