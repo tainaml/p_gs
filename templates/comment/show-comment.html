@@ -38,16 +38,6 @@
                 {{ instance.author.get_full_name }}
             </a>
 
-            {% if instance.content_type.model == 'comment' %}
-                <span class="comment-replied-to">
-                    <i class="gsticon gsticon-share"></i>
-                        {{ instance.content_object.author.get_full_name }}
-                </span>
-
-            {% endif %}
-
-
-
             <br>
             <time class="comment-timestamp" datetime="{{ instance.creation_date|date:'d-m-Y' }}" data-toggle="tooltip" data-placement="auto top"
             title="{{ instance.creation_date|date:'d/m/Y' }} às {{ instance.creation_date|date:'G:i' }}">
