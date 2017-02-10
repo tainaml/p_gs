@@ -2,19 +2,24 @@
 
 .publication-actions {
   max-width: $screen-xs-max;
-  margin: 30px auto 35px;
+  margin: 40px auto;
   display: flex;
   justify-content: space-around;
   flex: 1 1 auto;
   align-items: stretch;
   .action-button {
     max-width: 25%;
+    padding: 3px 5px;
+    border-radius: 3px;
     color: #616161;
     font: 400 16px/22px "Open Sans";
     text-align: center;
     &.active { color: #0162b1 }
     > span {
       margin-left: 5px;
+    }
+    &:hover {
+      background-color: #f3f3f3;
     }
   }
 }

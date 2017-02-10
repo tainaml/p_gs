@@ -37,7 +37,6 @@
  &-item {
    padding: 0 15px;
    display: flex;
-   align-items: center;
    flex: 1 1 auto;
    color: #616161;
    &-body { margin-left: 17px }
@@ -53,9 +52,9 @@
   font: 400 12px/22px 'Open Sans';
   text-transform: uppercase;
   border-radius: 2px;
+  color: #616161;
   &:hover {
     background-color: #f3f3f3;
-    color: #616161;
   }
 }
 

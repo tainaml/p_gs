@@ -27,7 +27,7 @@
     text-align: center;
     span {
       min-width: 130px;
-      padding: 5px;
+      padding: 2px;
       margin: 0 auto;
       display: inline-block;
       background-color: #0162b1;
@@ -42,8 +42,20 @@
     .recomendation {
       color: #616161;
       font-size: 16px;
-      &:hover { color: #0160b0 }
-      img { margin-bottom: 15px }
+      span {
+        overflow: hidden;
+        display: block;
+        img {
+        margin-bottom: 15px;
+        transition: transform ease .6s;
+        }
+      }
+      &:hover {
+        color: #0160b0;
+        img {
+          transform: scale(1.2);
+        }
+      }
     }
   }
   .advertising-horizontal {
