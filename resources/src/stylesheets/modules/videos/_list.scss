@@ -35,6 +35,9 @@
       display: block;
       text-overflow: ellipsis;
       white-space: nowrap;
+      img {
+        margin-right: 5px;
+      }
     }
   }
 }

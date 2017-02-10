@@ -9,16 +9,13 @@
             <div class="list__video__item">
                 <a href="{{ item.get_absolute_url }}" title="{{ item.title }}">
                     <figure class="list__video__image">
-
-
                         {% if item.image_or_default %}
                             <img class="img-responsive" alt="{{ item.title }}"
                                  src="{% thumbor_url item.image_or_default.url width=150 height=113 smart=False fit_in=False %}">
                         {% else %}
-
                             {# TODO: Change the default image HERE #}
                             {% absolute_url '/static/images/gsti-video-placeholder.png' as image_placeholder %}
-                             <img class="img-responsive" src="{% thumbor_url image_placeholder width=150 height=113 smart=False fit_in=False %}" alt="{{ item.title }}" /> 
+                             <img class="img-responsive" src="{% thumbor_url image_placeholder width=150 height=113 smart=False fit_in=False %}" alt="{{ item.title }}" />
                         {% endif %}
 
                         {% if item.feed_object.official %}
@@ -26,15 +23,13 @@
                         {% endif %}
 
                     </figure>
-              <span class="post-creator">
-                <figure>
-                    <img src="{% get_avatar item.author width=20 %}" alt="foto de {{ item.author.get_full_name }}">
-                    <figcaption title="{{ item.author.get_full_name }}">{{ item.author.get_full_name }}</figcaption>
-                </figure>
-              </span>
-              <span class="list__video__description">
-                  {{ item.title|striptags|safe }}
-              </span>
+                    <span class="post-creator">
+                        <figure>
+                            <img src="{% get_avatar item.author width=20 %}" alt="foto de {{ item.author.get_full_name }}">
+                            <span title="{{ item.author.get_full_name }}">{{ item.author.get_full_name }}</span>
+                        </figure>
+                    </span>
+                    <span class="list__video__description">{{ item.title|striptags|safe }}</span>
                 </a>
                 <nav class="post-communities">
 
