@@ -76,10 +76,10 @@
 
 .btn-follow {
   @extend .btn;
+  padding: 10px 15px;
   @include button-variant($link-white, #41a764, #41a764);
   display: block;
-  font-weight: 600;
-  font-size: 1.286em;
+  font-size: 14px;
   text-transform: uppercase;
   border-radius: 3px;
 
@@ -93,12 +93,12 @@
 
 .btn-follow-alt {
   @extend .btn;
+  padding: 10px 15px;
   @include button-variant(#41a764, transparent, #41a764);
   position: relative;
   overflow: hidden;
   display: block;
-  font-weight: 600;
-  font-size: 1.286em;
+  font-size: 14px;
   text-transform: uppercase;
   border-radius: 3px;
   span {}
@@ -114,7 +114,7 @@
     top: 0; left: 0;
     width: 100%;
     height: 100%;
-    line-height: 2;
+    line-height: 2.8;
     text-align: center;
     opacity: 0;
   }
@@ -187,7 +187,7 @@
       color: $link-white;
       background: lighten($btn-danger-bg, 10%);
       opacity: 1;
-      transform: translate(0, 15%);
+      transform: translate(0, 20%);
     }
   }
 }

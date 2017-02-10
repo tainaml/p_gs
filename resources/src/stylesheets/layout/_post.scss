@@ -37,8 +37,16 @@
     color: $link-color;
     font-weight: 600;
     &-image {
-      overflow: hidden;
+      position: relative;
+      // overflow: hidden;
       margin-right: 13px;
+      .is-official {
+        right: -7px;
+        bottom: -2px;
+        width: 16px;
+        height: 16px;
+        background-size: cover;
+      }
     }
     &-userinfo {
       display: flex;
@@ -275,8 +283,33 @@
     .gsticon.gsticon-user { margin-right: 5px }
   }
 }
-.banner-collaborator {}
-.label-official-content {}
+.is-official,
+.banner-collaborator {
+  position: absolute;
+  bottom: -6px; right: -10px;
+  width: 26px;
+  height: 26px;
+  background: #0160b0 url('../images/is-official.png') no-repeat center;
+  color: transparent;
+  border-radius: 50%;
+}
+.tooltip {
+  white-space: nowrap;
+  &.bottom{ padding: 0 }
+  &-arrow {
+    border: 0;
+    display: none;
+  }
+  &-inner {
+    border-radius: 2px;
+    background-color: #616161;
+    color: #fff;
+    font-size: 10px;
+    font-weight: 600;
+    line-height: 22px;
+    text-transform: uppercase;
+  }
+}
 .article-excerpt {
   @extend %clearfix;
   padding-top: 15px;

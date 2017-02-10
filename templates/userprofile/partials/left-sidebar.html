@@ -14,7 +14,9 @@
       <figure>
         <img class="img-responsive" src="{% get_avatar profile.user width=130 height=130 smart=False fit_in=False %}" alt="{{ profile.user.get_full_name }}">
         {% if profile.isContributor %}
-        <div class="banner-collaborator">Colaborador do Portal GSTI</div>
+        <div class="banner-collaborator" data-toggle="tooltip" data-placement="bottom" title="Colaborador do GSTI">
+            Colaborador do GSTI
+        </div>
         {% endif %}
       </figure>
     </a>
@@ -35,6 +37,8 @@
 
     {% if request.user != profile.user %}
         {% follow_action profile.user request.path "btn-follow" %}
+    {% else %}
+        {% include 'userprofile/partials/dropdown-publication.html' %}
     {% endif %}
 
 
@@ -56,8 +60,8 @@
             <i class="gsticon gsticon-map-marker"></i> Localização
         </label>
         <br>
-        Mora em: {{ profile.city }} <br>
-        De: {{ profile.city_hometown }}
+        Mora em: <span class="tiny">{{ profile.city }}</span> <br>
+        De: <span class="tiny">{{ profile.city_hometown }}</span>
     </span>
 {% endif %}
 
