@@ -23,6 +23,8 @@ class StaticVersionedNode(default_static.StaticNode):
     @classmethod
     def handle_simple(cls, path):
         url = super(StaticVersionedNode, cls).handle_simple(path)
+        if settings.DEBUG is True:
+            return url
         return StaticVersionedNode.versioned_dict()[url]
 
 
