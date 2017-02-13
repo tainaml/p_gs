@@ -84,7 +84,7 @@
                 {% if occupation.responsibility.active %}
                      <a href="{% url 'core:responsibility' occupation.responsibility.slug %}">{{ occupation.responsibility.name }}</a>{% if not forloop.last %},{% endif %}
                 {% else %}
-                    {{ occupation.responsibility.name }}
+                    {{ occupation.responsibility.name }}{% if not forloop.last %}, {% endif %}
                 {% endif %}
 
             {% endfor %}
