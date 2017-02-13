@@ -57,8 +57,8 @@
               }
             },
            "headline":"{{ question.title|slice:":110"  }}",
-           "datePublished":"{{ question.question_date|date:'Y-m-d G:i' }}",
-           "dateModified":"{{ question.question_date|date:'Y-m-d G:i' }}",
+           "datePublished":"{{ question.question_date|date:'Y-d-m G:i' }}",
+           "dateModified":"{{ question.question_date|date:'Y-d-m G:i' }}",
            "answerCount": {{ question.counter_answer }},
            "upvoteCount": {{ question.like_count }},
            "downvoteCount": {{ question.dislike_count }}
@@ -101,7 +101,7 @@
                             <span class="single-author-image">
                                 <img width="40" height="40" src="{% get_avatar question.author width=40 height=40 smart=False fit_in=False %}" alt="foto de {{ instance.author.get_full_name }}">
                                 {% if question.author.profile.contributor %}
-                                <div class="is-official" data-toggle="tooltip" data-placement="bottom" title="Colaborador do GSTI"></div>
+                                <div class="is-official" data-toggle="tooltip" data-placement="bottom" title="Colaborador do Portal"></div>
                                 {% endif%}
                             </span>
                         </a>

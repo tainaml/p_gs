@@ -80,7 +80,7 @@ class SocialFilter(SimpleListFilter):
 class CoreUserAdmin(UserNewAdmin):
 
     form = CoreUserAdminForm
-    list_filter = ('is_active', 'profile__contributor', WizardFilter, SocialFilter)
+    list_filter = ('is_active', 'profile__contributor', 'usertype', WizardFilter, SocialFilter)
     list_display = [
         'username', 'show_full_name',
         'show_staff', 'is_active', 'show_contributor', 'show_wizard_is_complete',

@@ -62,8 +62,8 @@
               }
             },
            "headline":"{{ article.title }}",
-           "datePublished":"{{ article.publishin }}",
-           "dateModified":"{{ article.updatein }}",
+           "datePublished":"{{ article.publishin|date:'Y-d-m G:i' }}",
+           "dateModified":"{{ article.updatein|date:'Y-d-m G:i' }}",
            "commentCount": {{ article.comment_count|default_if_none:0 }},
            "interactionStatistic": [
                 {
@@ -122,7 +122,7 @@
                         <span class="single-author-image">
                             <img width="40" height="40" src="{% get_avatar article.author width=40 height=40 smart=False fit_in=False %}" alt="foto de {{ instance.author.get_full_name }}">
                             {% if article.author.profile.contributor %}
-                            <div class="is-official" data-toggle="tooltip" data-placement="bottom" title="Colaborador do GSTI"></div>
+                            <div class="is-official" data-toggle="tooltip" data-placement="bottom" title="Colaborador do Portal"></div>
                             {% endif%}
                         </span>
                     </a>

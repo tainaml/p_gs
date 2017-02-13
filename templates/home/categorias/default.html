@@ -11,7 +11,7 @@
 {% load ads %}
 {% load abs_url %}
 {% load seo_pagination_tags %}
-{% block seo-og-title %}{% block seo_title %}{{ category.description }} | Categoria{{ block.super }}{% endblock %}{% endblock %}
+{% block seo-og-title %}{% block seo_title %}{{ category.description }} {{ block.super }}{% endblock %}{% endblock %}
 {% block seo-og-description %}{% block seo-description %}Saiba tudo sobre {{ category.description }} através dessa categoria do site. Aqui está reunido o conteúdo criado por colaboradores do Portal sobre esse assunto.{% endblock %}{% endblock %}
 {% block seo-og-image %}{% thumbor_url category.community_related.get_picture.url width=82 height=82 smart=False fit_in=False %}{% endblock %}
 

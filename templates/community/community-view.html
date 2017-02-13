@@ -10,7 +10,7 @@
 {% load seo_pagination_tags %}
 {% load abs_url %}
 
-{% block seo-og-url %}{% block seo-canonical %}{% if from_root_category %}{% absolute_url 'category:show' community.taxonomy.slug %}{% else %}{% absolute_url request.get_full_path %}{% endif %}{% endblock %}{% endblock %}
+{% block seo-og-url %}{% block seo-canonical %}{% if from_root_category %}{% absolute_url 'category:show' community.taxonomy.slug %}{% else %}{% absolute_url request.path %}{% endif %}{% endblock %}{% endblock %}
 
 {% block link_pagination %}
     {% pagination_links feed_objects %}
