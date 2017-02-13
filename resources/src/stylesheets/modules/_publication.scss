@@ -44,15 +44,13 @@
       font-size: 16px;
       span {
         overflow: hidden;
-        display: block;
-        img {
         margin-bottom: 15px;
-        transition: transform ease .6s;
-        }
+        display: block;
+        img { transition: transform ease .6s }
       }
       &:hover {
         color: #0160b0;
-        img {
+        span img {
           transform: scale(1.2);
         }
       }
@@ -234,7 +232,7 @@
   border-top: 1px solid #d6d4d4;
   border-bottom: 1px solid #d6d4d4;
 
-  &-image { transition: transform .6s }
+  &-image img { transition: transform .6s }
   &-name {
     margin-bottom: 5px;
     color: #0160b0;
@@ -249,6 +247,7 @@
     color: #616161;
     font-size: 14px;
     > a {
+      position: relative;
       overflow: hidden;
       margin-right: 25px;
     }

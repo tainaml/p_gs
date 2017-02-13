@@ -10,10 +10,12 @@
 {#    <a class="btn pull-right text-center hidden-xs perfil-button-alt" data-action="follow" data-action-type="button" data-object="follow-user-24" data-action-text="Seguir" data-action-text-alt="Seguindo" data-class-name="perfil-button perfil-button-alt" data-hover="Não seguir" data-follow-object="24" data-follow-content_type="user" data-url-login="/conta/esta-logado/" data-trigger="login" data-token="jsIHlgxKXlgai8VqsHNB21L1mizWkoUHJ6ErY1ANj3RbklYpEL5nEdeP1ChnrBC8" href="/acoes-sociais/agir/xhr/24/user/follow?url_next=/2016/10/como-criar-paginas-amp-no-wordpress.html"><span>Seguindo</span></a>#}
     <div class="publication-author-info">
         <a href="{{ profile_url }}">
-            <img class="publication-author-image" src="{% get_avatar profile.user width=100 height=100 smart=False fit_in=False %}" alt="foto de {{ profile.user.get_full_name }}">
+            <span class="publication-author-image">
+                <img src="{% get_avatar profile.user width=100 height=100 smart=False fit_in=False %}" alt="foto de {{ profile.user.get_full_name }}">
+            </span>
             {% if profile.contributor %}
-                    <div class="is-official" data-toggle="tooltip" data-placement="bottom" title="Colaborador do GSTI"></div>
-                {% endif%}
+                <div class="is-official" data-toggle="tooltip" data-placement="bottom" title="Colaborador do GSTI"></div>
+            {% endif%}
         </a>
         <div>
             <a class="publication-author-name" href="{{ profile_url }}">{{ profile.user.get_full_name }}</a>

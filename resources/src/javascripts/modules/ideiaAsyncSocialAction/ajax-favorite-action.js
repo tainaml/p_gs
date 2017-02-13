@@ -54,23 +54,21 @@ require('../../vendor/jquery.tinypubsub.js');
           var toggleClasses = selector.data('className');
           if (isActed) {
             selector.addClass(toggleClasses)
-            selector.find( 'span' ).text(
-                  selector.data( 'actionTextAlt' ))
+            .find( 'span' ).text( selector.data( 'actionTextAlt' ))
           } else {
             selector.removeClass(toggleClasses)
-            selector.find( 'span' ).text(
-              selector.data( 'actionText' ))
+            .find( 'span' ).text( selector.data( 'actionText' ))
           }
         },
-        button: function (dataObject, action, isActed) {
+        button: function ( dataObject, action, isActed ) {
             var selector = $( '[data-object='+dataObject+'][data-action-type=button]' ),
             toggleClasses = selector.data( 'className' );
             if ( isActed ) {
-                selector.addClass( toggleClasses )
-                .find( 'span' ).text( selector.data( 'actionTextAlt' ))
+              selector.addClass( toggleClasses )
+              .find( 'span' ).text( selector.data( 'actionTextAlt' ))
             } else {
-                selector.removeClass( toggleClasses )
-                .find( 'span' ).text( selector.data( 'actionText' ))
+              selector.removeClass( toggleClasses )
+              .find( 'span' ).text( selector.data( 'actionText' ))
             }
         }
     };
