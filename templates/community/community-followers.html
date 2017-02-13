@@ -33,11 +33,6 @@
 
                 {% include 'community/partials/filters.html' with title="Membros" active="membros" has_filter=True %}
 
-                {% if request|is_pc %}
-                    <!-- <header class="area-title">
-                        <h2>Membros</h2>
-                    </header> -->
-                {% endif %}
 
                 {% block filters %}
                     <div id="form-search" class="filters-members" data-toggle="filters">
