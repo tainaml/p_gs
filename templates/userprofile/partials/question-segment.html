@@ -9,16 +9,16 @@
     <div class="label-official-content" data-toggle="tooltip" data-original-title="Conteúdo Oficial"></div>
     {% endif%}
     <header class="post-header">
-        <a class="post-creator" href="{% if  instance.author.is_active %}{% url 'profile:show' instance.author.get_username %}{% else %}javascript:;{% endif %}">
-            <span class="post-creator-image">
+        <span class="post-creator" >
+            <a class="post-creator-image" href="{% if  instance.author.is_active %}{% url 'profile:show' instance.author.get_username %}{% else %}javascript:;{% endif %}">
                 <img src="{% get_avatar instance.author width=40 height=40 smart=False fit_in=False %}" alt="foto de {{ instance.author.get_full_name }}">
                 {% if instance.author.profile.contributor %}
                     <div class="is-official" data-toggle="tooltip" data-placement="bottom" title="Colaborador do Portal"></div>
                 {% endif%}
-            </span>
+            </a>
             <span class="post-creator-userinfo">
                 <span class="post-creator-username">
-                    {{ instance.author.get_full_name }}
+                    <a href="{% if  instance.author.is_active %}{% url 'profile:show' instance.author.get_username %}{% else %}javascript:;{% endif %}">{{ instance.author.get_full_name }}</a>
                     <span class="post-creator-label">
                         <i class="gsticon gsticon-question-circle" aria-hidden="true"></i>
                         Pergunta
@@ -26,7 +26,7 @@
                 </span>
                 <time datetime="{{ instance.question_date|date:'d/m/Y G:i' }}">{{ instance.question_date|naturaltime }}</time>
             </span>
-        </a>
+        </span>
         <div class="post-info">
             <a class="post-actions" href="javascript:;" data-toggle="dropdown">
                 <i class="gsticon gsticon-ellipsis-v" aria-hidden="true"></i>

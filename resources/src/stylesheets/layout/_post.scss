@@ -38,7 +38,6 @@
     font-weight: 600;
     &-image {
       position: relative;
-      // overflow: hidden;
       margin-right: 13px;
       .is-official {
         right: -7px;
@@ -46,6 +45,9 @@
         width: 16px;
         height: 16px;
         background-size: cover;
+      }
+      &:hover {
+        opacity: .9;
       }
     }
     &-userinfo {
@@ -56,6 +58,9 @@
         border-right: none;
         color: #888686;
         font: 400 14px/100% 'Open Sans';
+        &:hover {
+          opacity: .9;
+        }
       }
     }
     &-username {
@@ -63,6 +68,14 @@
       font-weight: 600;
       font-size: 16px;
       line-height: 100%;
+      a {
+        color: #616161;
+      }
+      &:hover,
+      a:hover {
+        color: #616161;
+        opacity: .9;
+      }
     }
     &-label {
       margin-left: 15px;
@@ -110,6 +123,7 @@
       }
     }
     &:hover {
+      opacity: .9;
       figure > img {
         transform: scale(1.2);
       }
