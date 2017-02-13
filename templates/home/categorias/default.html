@@ -65,11 +65,11 @@
                 </div>
 
                 <div class="container-posts">
-                    <div class="banner-content-wide">
-                        <div class="banner">
-                            {% ads_only_production "category_middle" "all" %}
-                        </div>
-                    </div>
+{#                    <div class="banner-content-wide">#}
+{#                        <div class="banner">#}
+{#                            {% ads_only_production "category_middle" "all" %}#}
+{#                        </div>#}
+{#                    </div>#}
 
 
                     <section class="post-list col-sm-6 post-list--{{ class_name }}">
@@ -104,7 +104,7 @@
                         </div>
                     </section>
                     <div class="post-list--small">
-                            <img class="img-responsive" src="http://placehold.it/300" alt="Publicidade">
+                        {% ads_only_production "community_right" "all" %}
                     </div>
                 </div>
 
