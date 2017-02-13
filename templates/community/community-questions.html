@@ -66,7 +66,7 @@
                                 </div>
                             </div>
                         {% endif %}
-                    {% block filter %}
+                        {% block filter %}
                         <nav id="form-search" class="form-search filters-members" data-toggle="filters">
                             {% include 'community/partials/community-question-form-search.html' with placehold='Pesquise perguntas' %}
                              {% if request|is_mobile %}
@@ -90,17 +90,10 @@
                                 </div>
                                 {% endif %}
                         </nav>
-                    {% endblock filter %}
+                        {% endblock filter %}
 
-                        <section class="area-content">
-                            <!-- <div class="text-right">
-                                <a href="{% url "community:questions" community.slug %}?criterio={{ form.cleaned_data.criterio|urlencode }}&replies=reply&next={{ url_next|urlencode }}" class="btn btn-default">Respondidas</a>
-                                <a href="{% url "community:questions" community.slug %}?criterio={{ form.cleaned_data.criterio|urlencode }}&replies=non-reply&next={{ url_next|urlencode }}" class="btn btn-default">Não respondidas</a>
-                                <br><br>
-                            </div> -->
-                            <div id="community-feed-list" class="j-scroll j-scroll-container">
-                                    {% include "community/partials/community-question-list.html" %}
-                            </div>
+                        <section id="community-feed-list" class="j-scroll j-scroll-container">
+                        {% include "community/partials/community-question-list.html" %}
                         </section>
                     </div>
                     <div class="col-lg-4">

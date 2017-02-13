@@ -47,7 +47,7 @@
                     <div class="col-lg-8">
                         <div class="row">
                             {% block filters %}
-                            <nav id="form-search" class="col-lg-8 filters-members" data-toggle="filters">
+                            <nav id="form-search" class="col-lg-8 form-search filters-members" data-toggle="filters">
                                 <form action="{% url 'community:materials' community.slug %}" method="GET" role="search">
                                     <div class="customform search{%if errors %} customform-error{% endif %}">
                                         <input class="customform-input" id="criteria" type="text" name="criteria" data-toggle="input" placeholder="Pesquisar por materiais" value="{{ form.cleaned_data.criterio }}">
