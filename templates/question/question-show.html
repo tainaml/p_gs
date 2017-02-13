@@ -145,10 +145,11 @@
                         <span>Respostas {{ question.counter_answer }}</span>
                     </h2>
                 </header>
-                {%  include 'question/partials/list-answer.html' %}
 
                 <h3 class="publication-help-text">Consegue ajudar? A comunidade agradece</h3>
+
                 {% include 'question/partials/answer-create.html' with content_type='question' content_object_id=question.id %}
+                {%  include 'question/partials/list-answer.html' %}
             </div>
 
             <div class="single-aside">

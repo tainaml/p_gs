@@ -9,9 +9,8 @@
   }
   &-fields {
     display: flex;
-    // flex-direction: column;
     flex-flow: column wrap;
-    flex-grow: 2;
+    width: 100%;
     .form-group {
       .note-editor {
         overflow: hidden;

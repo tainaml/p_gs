@@ -81,7 +81,7 @@ function setData($form, data, $divToUpdate){
   return $divToUpdate
 }
 
-var form_submit = function(event, data){
+var form_submit = function(event, data) {
   var $form = $(this);
   var $divToUpdate = $($form.data("update"));
   $divToUpdate = setData($form, data, $divToUpdate);
@@ -107,6 +107,12 @@ var form_submit = function(event, data){
       $(event.target).siblings('.comment-text').show()
     }
   });
+
+  var $msgEmpty = $( '[data-toggle="message"]' );
+  if ( $msgEmpty.is( ':visible' )) {
+    $msgEmpty.hide();
+  }
+
 
 };
 
