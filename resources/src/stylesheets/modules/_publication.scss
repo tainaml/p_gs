@@ -103,7 +103,18 @@
       color: #616161;
       font-size: 18px;
       line-height: 22px;
-      &-image { margin-right: 10px }
+      &-image {
+        position: relative;
+        margin-right: 10px;
+        display: block;
+        .is-official {
+          right: -7px;
+          bottom: -7px;
+          width: 16px;
+          height: 16px;
+          background-size: cover;
+        }
+      }
     }
     .single-time {
       margin-right: 0;
