@@ -12,14 +12,13 @@ class StaticVersionedNode(default_static.StaticNode):
 
     @staticmethod
     def versioned_dict():
-
         if not StaticVersionedNode._VERSIONED_DICT:
             with open(os.path.join(settings.BASE_DIR, 'static', StaticVersionedNode.STATIC_JSON)) as json_file:
                 dict_file = json.load(json_file)
                 for key in dict_file:
-                    StaticVersionedNode._VERSIONED_DICT['/static/%s' % key] = '/static/%s' % dict_file[key]
+                    StaticVersionedNode._VERSIONED_DICT[os.path.join(settings.STATIC_URL, key)] = os.path.join(settings.STATIC_URL, dict_file[key])
 
-
+        print StaticVersionedNode._VERSIONED_DICT
         return StaticVersionedNode._VERSIONED_DICT
 
     @classmethod
