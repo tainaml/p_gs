@@ -232,7 +232,11 @@
   border-top: 1px solid #d6d4d4;
   border-bottom: 1px solid #d6d4d4;
 
-  &-image img { transition: transform .6s }
+  &-image {
+    overflow: hidden;
+    display: block;
+    img { transition: transform .6s }
+  }
   &-name {
     margin-bottom: 5px;
     color: #0160b0;
@@ -248,7 +252,6 @@
     font-size: 14px;
     > a {
       position: relative;
-      overflow: hidden;
       margin-right: 25px;
     }
     > div {
