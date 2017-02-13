@@ -1,12 +1,12 @@
 {%extends 'home/layout/base.html' %}
-
+{% load abs_url %}
 {% load thumbor_tags %}
 {% load ads %}
 {% load user_agents %}
 {% block seo-og-title %}{% block seo_title %}O que é {{ community.title }}{{ block.super }}{% endblock %}{% endblock %}
 {% block seo-og-description %}{% block seo-description %}Saiba o que é {{ community.title }} seus beneficios e aplicações. Aqui você pode ter noção de {{ community.title }} para depois se aprofundar mais no assunto{% endblock %}{% endblock %}
 {% block seo-og-image %}{% thumbor_url community.get_picture.url width=200 height=200 smart=False fit_in=False %}{% endblock %}
-
+{% block seo-canonical %}{% absolute_url request.path %}{% endblock %}
 
 {% block content %}
     <main class="container main">
