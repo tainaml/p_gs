@@ -18,7 +18,7 @@
 
 {% endblock %}
 
-{% block seo-canonical %}{% absolute_url request.get_full_path %}{% endblock %}
+{% block seo-canonical %}{% absolute_url request.path %}{% endblock %}
 {% block link_pagination %}
     {% pagination_links feed_objects %}
 {% endblock link_pagination %}
