@@ -290,6 +290,13 @@
   }
 }
 
+.publication-help-text {
+  margin-top: 40px;
+  margin-bottom: 35px;
+  color: #0160b0;
+  font-size: 22px;
+}
+
 @media (max-width: $screen-xs-max) {
   .single {
     &-title { font-size: 26px }

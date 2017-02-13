@@ -58,7 +58,19 @@
         background: url('../images/comment-icon.png') center no-repeat;
       }
     }
-    &--report { color: #7e7e7e }
+    &--report {
+      color: #7e7e7e;
+      .gsticon {
+        margin-right: 5px;
+      }
+    }
+    &--regard {
+      margin-right: 30px;
+      color: #7e7e7e;
+      .gsticon {
+        margin-right: 5px;
+      }
+    }
   }
 
 }

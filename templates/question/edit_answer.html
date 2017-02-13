@@ -5,19 +5,18 @@
 {% url 'account:is_logged' as is_logged %}
 {% url 'hint:list' 'answer' answer.id as hint_list_url %}
 
-<form action="{% url 'question:update_reply' %}" data-group-class=".answer-group" data-toggle="replace" data-update="#answer-{{ answer.id }}" data-ajaxform="true" class="create-comment" method="post">
-
-    {% csrf_token %}
+<form class="create-form" action="{% url 'question:update_reply' %}" method="post" data-group-class=".answer-group" data-toggle="replace" data-update="#answer-{{ answer.id }}" data-ajaxform="true" class="create-comment">
 
     {% include 'core/partials/messages-flash.html' with message_extra_tags="answer-edit" %}
 
-    <div class="answer-group {% if form.description.errors %} has-error{% endif %}">
-        {% render_field form.description class="form-control" placeholder="Deixe sua resposta" data-hint-url=hint_list_url data-url-login=is_logged data-trigger="login" data-token=csrf_token %}
+    <div class="create-form-fields">
+        <div class="form-group answer-group {% if form.description.errors %} has-error{% endif %}">
+            {% render_field form.description class="form-control" placeholder="Deixe sua resposta" data-hint-url=hint_list_url data-url-login=is_logged data-trigger="login" data-token=csrf_token %}
+        </div>
+        <div class="form-group text-right">
+            <input class="btn create-form-submit" type="submit" value="Enviar" data-url-login="{{ is_logged }}">
+        </div>
     </div>
-
-    <div class="comment-form-footer">
-        <input type="hidden" name="reply_id" value="{{ answer.id }}" />
-        <input class="btn btn-primary" type="submit" value="Enviar" data-url-login="{{ is_logged }}">
-    </div>
-
+    <input type="hidden" name="reply_id" value="{{ answer.id }}" />
+    {% csrf_token %}
 </form>
