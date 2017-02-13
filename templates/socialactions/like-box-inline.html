@@ -24,8 +24,8 @@
     </a>
 {% else %}
     <a data-url-login="{% url 'account:is_logged' %}" data-trigger="login" data-token="{{ csrf_token }}" href="javascript:void(0);" class="post-votes-up">
-        <span>{{ likes }}</span>
         <span class="icon-reaction icon-like"></span>
+        <span>{{ likes }}</span>
     </a>
     <a data-url-login="{% url 'account:is_logged' %}" data-trigger="login" data-token="{{ csrf_token }}" href="javascript:void(0);" class="post-votes-down">
         <span class="icon-reaction icon-dislike"></span>
