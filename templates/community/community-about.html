@@ -2,6 +2,7 @@
 
 {% load thumbor_tags %}
 {% load ads %}
+{% load user_agents %}
 {% block seo-og-title %}{% block seo_title %}O que é {{ community.title }}{{ block.super }}{% endblock %}{% endblock %}
 {% block seo-og-description %}{% block seo-description %}Saiba o que é {{ community.title }} seus beneficios e aplicações. Aqui você pode ter noção de {{ community.title }} para depois se aprofundar mais no assunto{% endblock %}{% endblock %}
 {% block seo-og-image %}{% thumbor_url community.get_picture.url width=200 height=200 smart=False fit_in=False %}{% endblock %}
@@ -9,12 +10,17 @@
 
 {% block content %}
     <main class="container main">
+        {% if request|is_pc %}
         <div class="row">
-            <!-- mudar para 2.5 -->
+            <div class="col-lg-offset-3 col-lg-9">
+                {% include 'community/partials/navbar.html' with active='about' %}
+            </div>
+        </div>
+        {% endif %}
+        <div class="row">
             <div class="col-lg-3">
                 {% include 'community/partials/community-sidebar-left.html' %}
             </div>
-            <!-- mudar para 9.5 -->
             <div class="col-lg-9">
                 {% include 'community/partials/filters.html' with title="Sobre" active="sobre" has_filter=False %}
                  <div class="banner">

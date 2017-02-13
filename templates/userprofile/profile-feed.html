@@ -14,18 +14,24 @@
     <meta name="robots" content="noindex, nofollow">
 {% endblock %}
 
+{% block page_class %}profile-page{% endblock page_class %}
 {% block content %}
     <main class="container main">
         <div class="row">
+            <div class="col-lg-offset-3 col-lg-9">
+                {% include 'userprofile/partials/menu.html' with active="feed" %}
+            </div>
+        </div>
+        <div class="row">
             <div class="col-lg-3">
-                {% include 'home/partials/sidebar-perfil.html' %}
+                {% include 'userprofile/partials/left-sidebar.html' %}
             </div>
             <div class="col-lg-9">
-                  {% include 'userprofile/partials/filters.html' with title="Feed" active="feed" has_filter=False has_navigation=True %}
+                {% include 'userprofile/partials/filters.html' with title="Feed" active="feed" has_filter=False has_navigation=True %}
                 <div class="row">
                     <div class="col-lg-8">
                         {% if profile.user == request.user %}
-                        <section class="area-content" data-target="content">
+                            {% include 'userprofile/partials/commit-box.html' %}
                             {% if feed_objects.object_list %}
                                 <div class="j-scroll j-scroll-container">
                                     {% include 'userprofile/partials/user-profile-feed.html' %}
@@ -34,10 +40,8 @@
                                 <span>{% trans 'Não existem itens a serem exibidos' %}</span>
                                 <hr>
                             {% endif %}
-                        </section>
                         {% endif %}
                     </div>
-                    <!-- Right bar -->
                     {% include 'userprofile/partials/profile-sidebar-right.html' %}
                 </div>
             </div>

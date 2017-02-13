@@ -28,6 +28,13 @@
 
 {% block content %}
     <main class="container main">
+        {% if request|is_pc %}
+        <div class="row">
+            <div class="col-lg-offset-3 col-lg-9">
+                {% include 'community/partials/navbar.html' with active='videos' %}
+            </div>
+        </div>
+        {% endif %}
         <div class="row">
             <!-- mudar para 2.5 -->
             <div class="col-lg-3">
@@ -39,22 +46,17 @@
 
                 <div class="row">
                     <div class="col-lg-8">
-
-                        {% if request|is_pc %}
-                            <header class="area-title">
-                                <h2>Vídeos</h2>
-                            </header>
-                        {% endif %}
-
                         {% block filters %}
                             <nav id="form-search" class="form-search filters-members" data-toggle="filters">
                             <form action="{% url 'community:videos' community.slug %}" method="GET" role="search">
-                                <div class="form-search-input">
-                                    <input type="text" name="criteria" placeholder="Procure vídeos" value="{{ form.cleaned_data.criteria }}">
-                                </div>
-                                <button type="submit" class="form-search-button">
-                                    <i class="gsticon gsticon-search"></i>
-                                </button>
+                                <div class="customform search{%if errors %} customform-error{% endif %}">
+                                          <input class="customform-input" id="criteria" type="text" name="criteria" data-toggle="input" placeholder="Pesquisar por vídeos" value="{{ form.cleaned_data.criterio }}">
+                                        <hr>
+                                        <label for="criterio" class="customform-label{% if request.GET.criteria %} active {% endif %}">Pesquisar</label>
+                                        <button type="submit" class="form-search-button">
+                                            <i class="gsticon gsticon-search"></i>
+                                        </button>
+                                    </div>
                             </form>
                         </nav>
                         {% endblock filters %}

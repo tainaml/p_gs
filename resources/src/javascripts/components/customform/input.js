@@ -1,9 +1,8 @@
 module.exports = ( name ) => {
   const $element = $( name )
 
-  // inputResize( name )
   $element.map( element => {
-    if ( $element[element].nodeName === 'TEXTAREA' ) {
+    if ( $element[element].nodeName === 'TEXTAREA' && ( $element[element].value.length !== 0 )) {
       setTimeout( inputResize( $element[element] ), 0)
     }
   })
@@ -29,6 +28,8 @@ module.exports = ( name ) => {
 
 const inputResize = ( selector ) => {
   const style = selector.style
+  const height = !!selector.scrollHeight ? selector.scrollHeight + 'px' : 'auto'
   style.height = 'auto'
-  style.height = selector.scrollHeight+'px'
+
+  style.height = height
 }

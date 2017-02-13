@@ -151,7 +151,7 @@ class SearchList(SearchBase):
                 form = self.form_user(6, False, request.GET)
                 states = BusinessUserProfile.get_states(1)
                 users = form.process()
-                responsibilities = Responsibility.objects.all()
+                responsibilities = Responsibility.objects.filter(avaiable_to_choose=True).only("id", "name").order_by("name")
                 context.update({
                     'users': users,
                     'form_user': form,

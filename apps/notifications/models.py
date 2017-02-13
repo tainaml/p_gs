@@ -8,7 +8,7 @@ from django.db import models
 
 class NotificationManager(models.Manager):
     def get_queryset(self):
-        return super(NotificationManager, self).get_queryset().select_related('author', 'to')
+        return super(NotificationManager, self).get_queryset().prefetch_related('author', 'to', 'target')
 
 class Notification(models.Model):
 

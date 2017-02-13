@@ -1,0 +1,17 @@
+.list-container {
+  padding-left: 70px;
+
+  .comment-userimage img {
+    width: 40px;
+    height: auto;
+  }
+}
+
+@media (max-width: $screen-xs-max) {
+  .list-container {
+    padding-left: 46px;
+    .comment-userimage img {
+      width: 30px;
+    }
+  }
+}

@@ -7,7 +7,8 @@
         data-target-id="{{ object_to_link }}-{{ content }}"
         data-target-id-action="{{ object_to_link }}-{{ content }}-like"
         data-url-login="{% url 'account:is_logged' %}" data-trigger="login" data-token="{{ csrf_token }}">
-    	<span class="count-like-post-{{ object_to_link }}-{{ content }}">{{ likes }}</span> <i class="gsticon gsticon-caret-up"></i>
+        <span class="icon-reaction icon-like"></span>
+        <span class="count-like-post-{{ object_to_link }}-{{ content }}">{{ likes }}</span>
     </a>
     <a href="{% url 'socialactions:act' object_to_link content 'unlike' %}?url_next={{ url_next|urlencode }}" class="post-votes-down {% if i_unliked %}unliked{% endif %}"
     	data-async-like="true"
@@ -18,9 +19,16 @@
         data-target-id-action="{{ object_to_link }}-{{ content }}-unlike"
         data-url-login="{% url 'account:is_logged' %}" data-trigger="login" data-token="{{ csrf_token }}"
         >
-    	<i class="gsticon gsticon-caret-down"></i> <span class="count-unlike-post-{{ object_to_link }}-{{ content }}">{{ unlikes }}</span>
+        <span class="icon-reaction icon-dislike"></span>
+        <span class="count-unlike-post-{{ object_to_link }}-{{ content }}">{{ unlikes }}</span>
     </a>
 {% else %}
-    <a data-url-login="{% url 'account:is_logged' %}" data-trigger="login" data-token="{{ csrf_token }}" href="javascript:void(0);" class="post-votes-up"><span>{{ likes }}</span> <i class="gsticon gsticon-caret-up"></i></a>
-    <a data-url-login="{% url 'account:is_logged' %}" data-trigger="login" data-token="{{ csrf_token }}" href="javascript:void(0);" class="post-votes-down"><i class="gsticon gsticon-caret-down"></i> <span>{{ unlikes }}</span></a>
+    <a data-url-login="{% url 'account:is_logged' %}" data-trigger="login" data-token="{{ csrf_token }}" href="javascript:void(0);" class="post-votes-up">
+        <span class="icon-reaction icon-like"></span>
+        <span>{{ likes }}</span>
+    </a>
+    <a data-url-login="{% url 'account:is_logged' %}" data-trigger="login" data-token="{{ csrf_token }}" href="javascript:void(0);" class="post-votes-down">
+        <span class="icon-reaction icon-dislike"></span>
+        <span>{{ unlikes }}</span>
+    </a>
 {% endif %}

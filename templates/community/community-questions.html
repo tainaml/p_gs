@@ -27,7 +27,13 @@
 
 {% block content %}
     <main class="container main">
-
+        {% if request|is_pc %}
+        <div class="row">
+            <div class="col-lg-offset-3 col-lg-9">
+                {% include 'community/partials/navbar.html' with active='questions' %}
+            </div>
+        </div>
+        {% endif %}
         <div class="row">
             <!-- mudar para 2.5 -->
             <div class="col-lg-3">
@@ -39,7 +45,6 @@
                 <div class="row">
                     <div class="col-lg-8">
                         {% if request|is_pc %}
-                        <header class="area-title">
                             <div class="order-by">
                                 <div class="dropdown">
                                     <button class="btn btn-default dropdown-toggle" type="button" id="dropdown-filter-posts" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
@@ -60,8 +65,6 @@
                                     </ul>
                                 </div>
                             </div>
-                            <h2>Perguntas</h2>
-                        </header>
                         {% endif %}
                     {% block filter %}
                         <nav id="form-search" class="form-search filters-members" data-toggle="filters">

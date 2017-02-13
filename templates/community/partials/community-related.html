@@ -6,31 +6,33 @@
 {% set counter_content_type = "community" %}
 
 {% if communities %}
-    <div class="widget widget-box widget-comunities">
-        <div class="widget-header">
-            <header class="area-title">
-                <h3>Relacionadas</h3>
-            </header>
-        </div>
+<div class="widget widget-box widget-comunities">
+    <header class="widget-header">
+        <h3 class="widget-title">
+            <span>Relacionadas</span>
+        </h3>
+    </header>
 
-        <div class="widget-content">
-            {% for community in communities %}
-                <div class="perfil">
-                    <a href="{% url 'community:show' community.slug %}">
-                      <figure>
-                        <img class="img-responsive" src="{% thumbor_url community.get_picture.url width=82 height=82 smart=False fit_in=False %}" title="{{ community.title }}" alt="{{ community.title }}">
-                      </figure>
-                    </a>
+    <div class="widget-content">
+        {% for community in communities %}
+            <div class="widget-item">
+                <a href="{% url 'community:show' community.slug %}">
+                  <figure>
+                    <img src="{% thumbor_url community.get_picture.url width=90 height=90 smart=False fit_in=False %}" title="{{ community.title }}" alt="{{ community.title }}">
+                  </figure>
+                </a>
+                <div>
                     <a class="perfil-name" title="{{ community.title }}" href="{% url 'community:show' community.slug %}">{{ community.title }}</a>
                     <span class="perfil-counter"
-                          data-counter="{{ community.followers }}"
-                          data-refresh-counter="follow-{{ counter_content_type }}-{{ community.id }}">
+                    data-counter="{{ community.followers }}"
+                    data-refresh-counter="follow-{{ counter_content_type }}-{{ community.id }}">
                         <span class="counter-number">{{ community.followers }}</span> Seguidor{{ community.followers|pluralize:'es' }}
                     </span>
                     {% follow_action community url_next %}
                 </div>
-            {% endfor %}
-        </div>
+            </div>
+        {% endfor %}
     </div>
+</div>
 {% endif %}
 {% endspaceless %}

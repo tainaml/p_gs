@@ -1,8 +1,10 @@
 from django import forms
 import logging
+from django.core.exceptions import ValidationError
 from django.forms import widgets
+from django.utils.encoding import force_text
 from apps.custom_base.widgets.material import InputTextMaterial, TextAreaMaterial, SelectMaterial, URLMaterial, \
-    EmailMaterial
+    EmailMaterial, NumberMaterial, BooleanMaterial, MaterialSelectMultiple
 
 logger = logging.getLogger('error')
 
@@ -46,6 +48,9 @@ MATERIAL_WIDGETS = {
     widgets.Select: SelectMaterial,
     widgets.URLInput: URLMaterial,
     widgets.EmailInput: EmailMaterial,
+    widgets.NumberInput: NumberMaterial,
+    widgets.CheckboxInput: BooleanMaterial,
+    widgets.SelectMultiple: MaterialSelectMultiple,
 }
 
 class MaterialModelForm(forms.ModelForm):
@@ -53,13 +58,14 @@ class MaterialModelForm(forms.ModelForm):
     def __update_fields__(self, attrs=None):
 
         for key in self.fields:
-            widget = self.fields[key].widget
 
-            if key not in self._meta.widgets and type(widget) in MATERIAL_WIDGETS:
-
-                self.fields[key].widget = MATERIAL_WIDGETS[type(widget)](attrs=attrs)
-                self.fields[key].widget.label = self.fields[key].label
-
+            field = self.fields[key]
+            widget = field.widget
+            if (not self._meta.widgets or key not in self._meta.widgets) and  type(widget) in MATERIAL_WIDGETS:
+                field.widget = MATERIAL_WIDGETS[type(widget)](attrs=attrs)
+                field.widget.label = field.label
+                if hasattr(field, "choices"):
+                    field.widget.choices = field.choices
 
     def __init__(self, *args, **kwargs):
         super(MaterialModelForm, self).__init__(*args, **kwargs)
@@ -72,10 +78,12 @@ class MaterialModelForm(forms.ModelForm):
 
 
     def __update_error__(self, field):
-        widget = self.fields[field].widget
-        if field and field not in self._meta.widgets \
-                and type(widget) in MATERIAL_WIDGETS.values() and field in self.errors:
-                self.fields[field].widget.errors = self.errors[field]
+        if field:
+            widget = self.fields[field].widget
+
+            if (not self._meta.widgets  or field and field not in self._meta.widgets) \
+                    and type(widget) in MATERIAL_WIDGETS.values() and field in self.errors:
+                    self.fields[field].widget.errors = self.errors[field]
 
     def is_valid(self):
         valid = super(MaterialModelForm, self).is_valid()
@@ -83,4 +91,3 @@ class MaterialModelForm(forms.ModelForm):
            self.__update_error__(field=key)
 
         return valid
-

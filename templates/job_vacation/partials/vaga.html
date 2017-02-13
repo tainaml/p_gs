@@ -1,0 +1,83 @@
+{% load widget_tweaks %}
+<div data-step-part="header">
+    <i class="gsticon gsticon-briefcase"></i>
+    VAGA
+</div>
+<div data-step-part="content" {% if form.company.errors or form.regime.errors or form.workload.errors or form.home_office.errors or form.benefits.errors or form.states.errors or form.cities.errors or form.salary_formset.errors.0 or form.salary_formset.non_field_errors %}data-error="true"{% endif %}>
+    <div class="row customrow">
+        <div class="col-sm-4">
+            {{ form.company }}
+        </div>
+    </div>
+    <div class="row customrow">
+        <div class="col-sm-4">
+            {{ form.regime }}
+        </div>
+        <div class="col-sm-4">
+            {{ form.workload }}
+        </div>
+        <div class="col-sm-4">
+            {{ form.home_office }}
+        </div>
+    </div>
+    <div class="row customrow">
+
+        <div class="col-sm-12">
+            <h3 class="formjob-title">benefícios</h3>
+        </div>
+        {{ form.benefits }}
+    </div>
+    <div class="row customrow">
+        <div class="col-sm-12">
+            <h3 class="formjob-title">localização</h3>
+        </div>
+
+        <div class="col-sm-5" data-location>
+
+            {% url 'geography:search' 'state' as state_url%}
+            {% render_field form.states data-component="geography" data-url=state_url  %}
+
+        </div>
+        <div class="col-sm-offset-2 col-sm-5" data-location>
+            {% url 'geography:search' 'city' as city_url%}
+            {% render_field form.cities data-component="geography" data-url=city_url  %}
+        </div>
+    </div>
+    <div class="row customrow customrow-bottom">
+        {{ form.salary_formset.management_form }}
+
+        <div class="col-sm-12">
+            <h3 class="formjob-title">salário</h3>
+        </div>
+        {% for salary_formset in form.salary_formset %}
+        <div class="col-sm-4">
+            {{ salary_formset.job_vacancy }}
+            {% render_field salary_formset.salary_type data-toggle="salary" %}
+        </div>
+        <div class="col-sm-5" data-salary="2">
+            {{ salary_formset.fixed_value }}
+        </div>
+        <div class="col-xs-12" data-salary="1">
+            <div class="row">
+                <div class="col-sm-5">
+                    {{ salary_formset.range_value_from }}
+                </div>
+                <div class="col-sm-offset-2 col-sm-5">
+                    {{ salary_formset.range_value_to }}
+                </div>
+            </div>
+        </div>
+            {% if salary_formset.non_field_errors %}
+                <div class="col-sm-12">
+                    {{ salary_formset.non_field_errors }}
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+    <div class="row">
+        <div class="col-sm-12 text-right">
+            <button type="submit" class="customform-button">Publicar</button>
+            <a href="#next" data-step-action="next" class="customform-button primary">Avançar</a>
+        </div>
+    </div>
+</div>

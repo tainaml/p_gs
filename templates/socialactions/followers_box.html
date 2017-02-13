@@ -12,21 +12,25 @@
             <div class="perfil">
                 <a href="{% url 'profile:show' follower.author.username %}">
                   <figure>
-                    <img class="img-responsive" src="{% get_avatar follower.author width=82 height=82 smart=False fit_in=False %}" alt="{{ follower.author.get_full_name }}">
+                    <img src="{% get_avatar follower.author width=90 height=90 smart=False fit_in=False %}" alt="{{ follower.author.get_full_name }}">
                   </figure>
                 </a>
-                <a class="perfil-name" title="{{ follower.author.get_full_name }}" href="{% if  follower.author.is_active %}{% url 'profile:show' follower.author.get_username %}{% else %}javascript:;{% endif %}">{{ follower.author.get_full_name }}</a>
-                <span class="perfil-counter"
-                      data-counter="{{ follower.author.followers }}"
-                      data-refresh-counter="follow-{{ counter_content_type }}-{{ follower.author.id }}">
+                <div>
+                    <a class="perfil-name" title="{{ follower.author.get_full_name }}" href="{% if  follower.author.is_active %}{% url 'profile:show' follower.author.get_username %}{% else %}javascript:;{% endif %}">{{ follower.author.get_full_name }}</a>
+                    <span class="perfil-counter"
+                    data-counter="{{ follower.author.followers }}"
+                    data-refresh-counter="follow-{{ counter_content_type }}-{{ follower.author.id }}">
                     <span class="counter-number">{{ follower.author.followers }}</span> Seguidor{{ follower.author.followers|pluralize:'es' }}
                 </span>
                 {% follow_action follower.author url_next %}
+                </div>
             </div>
         </div>
     {% endfor %}
+
     {% if followers|length > 3 and page <= followers.paginator.num_pages %}
-    <a data-jscroll-next href="{% url 'socialactions:get_followers' content_type_id=content_type.id object_filter_id=object.id %}?p={{ page }}&next={{ url_next|urlencode }}">next</a>
+
+        <a data-jscroll-next href="{% url 'socialactions:get_followers' content_type_id=content_type.id object_filter_id=object.id %}?p={{ page }}&next={{ url_next|urlencode }}">next</a>
     {% endif %}
 {% else %}
     <p class="text-center text-italic">{% trans 'Não existem itens a serem exibidos' %}</p>

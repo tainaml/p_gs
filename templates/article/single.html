@@ -1,4 +1,4 @@
-{% extends 'home/layout/base.html' %}
+{% extends "home/layout/base.html" %}
 
 {% load taxonomy_tags %}
 {% load core_tags %}
@@ -17,8 +17,6 @@
 {% load avatar_tags %}
 {% load thumbor_tags %}
 {% load utils %}
-
-
 {% block seo-og-title %}{% block seo_title %}{{ article.title }}{{ block.super }}{% endblock %}{% endblock %}
 {% block seo-og-description %}{% block seo-description %}{{ article.text|seo_description }}{% endblock %}{% endblock %}
 {% block seo-og-image %}{% if article.image and article.image.url  %}{% thumbor_url article.image.url width=480 height=250 smart=False fit_in=False %}{% else %}{{ block.super }}{% endif %}{% endblock %}
@@ -64,8 +62,8 @@
               }
             },
            "headline":"{{ article.title }}",
-           "datePublished":"{{ article.publishin|date:'Y-d-m G:i' }}",
-           "dateModified":"{{ article.updatein|date:'Y-d-m G:i' }}",
+           "datePublished":"{{ article.publishin }}",
+           "dateModified":"{{ article.updatein }}",
            "commentCount": {{ article.comment_count|default_if_none:0 }},
            "interactionStatistic": [
                 {
@@ -110,178 +108,107 @@
 
 {% block content %}
 
-    <main class="container main">
-        <div class="row">
-            {% block article-box-share %}
-                <ul class="box-share">
-                    <li class="comment-vote">
-                        {% like_box article request.path "share-box" %}
-                    </li>
-                    <li data-toggle="tooltip" data-placement="auto right" data-original-title="Favoritar"><a data-trigger="login" data-url-login="{% url 'account:is_logged' %}" data-token="{{ csrf_token }}" data-action="favourite" data-action-type="icon" data-object="favourite-{{ article.id }}" data-url-check="{% url 'socialactions:acted' article.id 'article' 'favourite' %}" href="{% url 'socialactions:act-xhr' article.id 'article' 'favourite' %}?url_next={{ request.path|urlencode }}"><i class="gsticon gsticon-star"></i></a></li>
-                    <li data-toggle="tooltip" data-placement="auto right" data-original-title="Ver depois"><a data-url-login="{% url 'account:is_logged' %}" data-trigger="login" data-token="{{ csrf_token }}" data-action="see-later" data-action-type="icon" data-url-check="{% url 'socialactions:acted' article.id 'article' 'see-later' %}" data-object="see-later-{{ article.id }}" href="{% url 'socialactions:act-xhr' article.id 'article' 'see-later' %}?url_next={{ request.path|urlencode }}"><i class="gsticon gsticon-eye"></i></a></li>
-                    <li data-toggle="tooltip" data-placement="auto right" data-original-title="Sugerir leitura">
-                        <a data-url-login="{% url 'account:is_logged' %}" data-trigger="login" data-token="{{ csrf_token }}" href="javascript:;" {% if request.user.is_authenticated %}data-suggest-modal="true"{% endif %} data-content="article" data-object="{{ article.id }}" data-url="{% url 'socialactions:act-suggest' article.id 'article' %}">
-                            <i class="gsticon gsticon-paper-plane"></i>
-                        </a>
-                    </li>
-                </ul>
-            {% endblock %}
+<main class="container single">
+{#    {% include "article/partials/advertising.html" %}#}
+    {% courses_by_taxonomies feed.taxonomies.all 4 %}
 
-            <div class="post-container">
-                <article class="full-post">
-                    {% if feed and feed.official %}
-                        <div class="label-official-content label-tall"
-                             data-toggle="tooltip"
-                             data-placement="auto top"
-                             data-original-title="Conteúdo Oficial"></div>
-                    {% endif %}
-                    <header class="post-header">
-                        <div class="post-info">
-                            {% if article.publishin != None  %}
-
-                                <time datetime="{{ article.publishin|date:'d/m/Y G:i' }}" data-toggle="tooltip" data-placement="auto top" data-original-title="{{ article.publishin|date:'d/m/Y' }} às {{ article.publishin|date:'G:i' }}" itemprop="datePublished">
-                                    <span class="hidden-xs visible-lg-inline">{{ article.publishin|naturaltime }}</span>
-                                    <i class="gsticon gsticon-clock-o hidden-lg"></i>
-                                </time>
-
-                            {% else %}
-                                <span class="list_post hidden-xs visible-lg-inline">Não publicado</span>
-                            {% endif %}
-                            <a href="javascript:;" data-toggle="dropdown"><i class="gsticon gsticon-gear"></i></a>
-                            <div class="dropdown-menu dropdown-menu-right">
-                                {% block article-profile-actions %}
-                                    <ul class="perfil-actions">
-                                        {% if article.author == request.user or perms.article.change_other_articles %}
-                                            <li><a href="{% url 'article:edit' article.id %}"><i class="gsticon gsticon-edit"></i> Editar publicação</a></li>
-                                        {% endif %}
-
-                                        {% block article-profile-more-actions %}
-                                            <li>
-                                                <a data-url-login="{% url 'account:is_logged' %}" data-trigger="login" data-token="{{ csrf_token }}" href="javascript:;" {% if request.user.is_authenticated %}data-suggest-modal="true"{% endif %} data-content="article" data-object="{{ article.id }}" data-url="{% url 'socialactions:act-suggest' article.id 'article' %}">
-                                                    <i class="gsticon gsticon-paper-plane"></i> Sugerir leitura
-                                                </a>
-                                            </li>
-                                            <li><a data-url-login="{% url 'account:is_logged' %}" data-trigger="login" data-token="{{ csrf_token }}" data-action="see-later" data-action-type="text" data-action-text="Ver depois" data-action-text-alt="Marcar como visto" data-object="see-later-{{ article.id }}" data-url-check="{% url 'socialactions:acted' article.id 'article' 'see-later' %}" href="{% url 'socialactions:act-xhr' article.id 'article' 'see-later' %}?url_next={{ request.path|urlencode }}"><i class="gsticon gsticon-eye"></i> <span>{{" Ver depois"}}</span></a></li>
-                                            <li><a data-url-login="{% url 'account:is_logged' %}" data-trigger="login" data-token="{{ csrf_token }}" data-action="favourite" data-action-type="text" data-action-text="Favoritar" data-action-text-alt="Desfavoritar" data-object="favourite-{{ article.id }}" data-article="{{ article.id }}" data-url-check="{% url 'socialactions:acted' article.id 'article' 'favourite' %}" href="{% url 'socialactions:act-xhr' article.id 'article' 'favourite' %}?url_next={{ request.path|urlencode }}"><i class="gsticon gsticon-star"></i> <span>{{" Favoritar"}}</span></a></li>
-                                            <li><a data-url-login="{% url 'account:is_logged' %}" data-trigger="login" data-token="{{ csrf_token }}" href="{% url 'complaint:report' 'article' article.id %}" data-report="true" data-async-module="click" data-async-target="#modal-report" data-async-method="get"><i class="gsticon gsticon-exclamation-triangle"></i> Denunciar</a></li>
-                                            {% if request.user.profile.isContributor %}
-                                                {% if feed.official %}
-                                                    <li><a href="{% url 'feed:set-content-official' 'article' article.id %}?next={{ request.path|urlencode }}"><i class="gsticon gsticon-bookmark"></i> Não oficial</a></li>
-                                                {% else %}
-                                                    <li><a href="{% url 'feed:set-content-official' 'article' article.id %}?next={{ request.path|urlencode }}"><i class="gsticon gsticon-bookmark"></i> Oficial</a></li>
-                                                {% endif %}
-                                            {% endif %}
-                                        {% endblock %}
-                                    </ul>
-                                {% endblock %}
-                            </div>
-                        </div>
-                        <a class="post-creator" href="{% if  article.author.is_active %}{% url 'profile:show' article.author.username %}{% else %}javascript:;{% endif %}">
-                            <figure>
-                                <img src="{% get_avatar article.author width=20 height=20 smart=False fit_in=False %}" alt="foto de {{ instance.author.get_full_name }}">
-                                <figcaption>
-                                    {{ article.author.get_full_name }}
-                                </figcaption>
-                            </figure>
-                        </a>
-                        <h1 class="full-post-title">{{ article.title }}</h1>
-                    </header>
-
-
-                    {% block article-post-footer %}
-                        <aside class="post-footer">
-                            {% include "taxonomy/taxonomies.html" with communities=feed.communities.all %}
-
-                            <div class="post-toolbar pull-right">
-                                <div class="post-count">{% like_box article request.path "inline" %}</div>
-                                <a href="#comments" class="post-count-comments">
-                            <span>
-                                <strong class="">{{ article.comment_count|default_if_none:"0" }}</strong>
-                                {% csrf_token %}
+    <h1 class="single-title">{{ article.title }}</h1>
+    {% include "article/partials/social-actions.html" %}
+    <div class="row">
+        <div class="single-main">
+            <div class="single-header">
+                <div class="single-main-about">
+                    <a href="{% if  article.author.is_active %}{% url 'profile:show' article.author.username %}{% else %}javascript:;{% endif %}">
+                        <span class="single-author-image">
+                            <img width="40" height="40" src="{% get_avatar article.author width=40 height=40 smart=False fit_in=False %}" alt="foto de {{ instance.author.get_full_name }}">
+                            {% if article.author.profile.contributor %}
+                            <div class="is-official" data-toggle="tooltip" data-placement="bottom" title="Colaborador do GSTI"></div>
+                            {% endif%}
+                        </span>
+                    </a>
+                    <div class="single-main-about-body">
+                        <a class="single-author" href="{% if  article.author.is_active %}{% url 'profile:show' article.author.username %}{% else %}javascript:;{% endif %}">{{ article.author.get_full_name }}</a>
+                        <span class="single-main-about-info">
+                            <time class="single-time" datetime="{{ article.publishin|date:'d/m/Y G:i' }}" data-toggle="tooltip" data-placement="auto top" data-original-title="{{ article.publishin|date:'d/m/Y' }} às {{ article.publishin|date:'G:i' }}" itemprop="datePublished" ><i class="gsticon gsticon-clock-o"></i>{{ article.publishin|naturaltime }}</time>
+                            {% if feed and feed.official %}
+                                <span class="single-official">
+                                <i class="gsti-rocket"></i> CONTEÚDO EM DESTAQUE
                             </span>
-                                    <span class="hidden-xs visible-lg-inline">Comentário(s)</span>
-                                    <span class="hidden-lg"><i class="gsticon gsticon-comment"></i></span>
-                                </a>
-                            </div>
-                        </aside>
-                    {% endblock %}
-                    <div class="full-post-content">
-                        {% comment %}
-                    {% if article.image %}
-                      <figure>
-                        <img class="full-post-image" src="{% thumbor_url article.image.url width=500 smart=True fit_in=True %}" />
-                      </figure>
-                    {% endif %}
-                    {% endcomment %}
-
-                        {% thumbor_replace article.text %}
-
-                        <div class="post-advertising text-center">
-                            {% ads_only_production "article_bottom" "all"  %}
-                        </div>
+                            {% endif %}
+                        </span>
                     </div>
-
-                    {% block article-post-share %}
-                        {% if not request|is_mobile %}
-                            <div class="full-post-share">
-                                <h3>COMPARTILHE</h3>
-                                {# TODO: Remover esta pog. É temporário #}
-                                {% with article_full_url="https://www.portalgsti.com.br"|add:article.get_absolute_url %}
-                                    {% include '_partials/share.html' with show_all=True url=article_full_url %}
-                                {% endwith %}
-                            </div>
-                        {% endif %}
-                    {% endblock %}
-                </article>
-
-                {% block article-comments-area %}
-                    <div id="comments">
-                        {% include 'userprofile/templatetags/profile-box.html' with profile=article.author.profile partial_template="userprofile/templatetags/profile-box-horizontal.html" %}
-                    </div>
-                    {% if request|is_mobile %}
-                        <div id="load-related-posts" data-load-async="true" data-load-async-url="{% url 'core:related-posts' article.id "article" "article" 4 %}" data-load-async-url-next="{{ request.path }}" data-load-async-method="get" data-load-async-response-type="json" data-load-async-timeout="1">
-                            <div class="load-async load-async-content">
-                                <div class="load-async-preload"></div>
-                            </div>
-                            {% csrf_token %}
-                        </div>
-                    {% endif %}
-
-                    <header class="area-title" id="comments">
-                        {% if has_old_comments %}
-                            <div class="order-by">
-                                <div class="dropdown">
-                                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdown-filter-posts" data-toggle="dropdown" aria-haspopup="true"><span> {% if request.GET.old_comment_style %}Mais antigos{% else %}Mais recentes{% endif %} </span><i class="gsticon gsticon-caret-down"></i></button>
-                                    <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown-filter-posts">
-                                        <li {% if not request.GET.old_comment_style %}class="active"{% endif %}><a href="{% url 'article:view' article.year article.month article.slug %}#comments" data-target=".area-content">Mais recentes</a></li>
-                                        <li {% if request.GET.old_comment_style %}class="active"{% endif %}><a href="{% url 'article:view' article.year article.month article.slug %}?old_comment_style=true#comments" data-target=".area-content">Mais antigos</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        {% endif %}
-
-                        <h2>Comentários</h2>
-                    </header>
-
-                    {% if request.GET.old_comment_style %}
-                        {% if has_old_comments %}
-                            {% old_comments article %}
-
-                        {% endif %}
-
-                    {% else %}
-                        {% comment_box article %}
-                    {% endif %}
-
-                {% endblock %}
-
+                </div>
+                <div class="single-main-reactions">
+                    {% like_box article request.path 'inline' %}
+                </div>
+                {% if feed.communities.all %}
+                    <nav class="single-communities">
+                    <label for="drop-communities" class="toggle-menu">
+                        Comunidades <span class="gsticon gsticon-angle-down"></span>
+                    </label>
+                    <input type="checkbox" name="toggle" id="drop-communities">
+                    <ul class="drop-communities">
+                        {% for community in feed.communities.all  %}
+                            <li><a href="{% url 'community:show' community.slug %}">{{ community.title }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </nav>
+                {% endif %}
 
             </div>
-            {% include "article/partials/article-sidebar-right.html" %}
-        </div>
-    </main>
-{% endblock %}
+            <div class="single-main-content" data-target="post-content">
+                {% thumbor_replace article.text %}
+            </div>
+            <div class="publication-main-footer">
+                <div class="clearfix">
+                    <a class="btn-denunciar pull-right" data-url-login="{% url 'account:is_logged' %}" data-trigger="login" data-token="{{ csrf_token }}" href="{% url 'complaint:report' 'article' article.id %}" data-report="true" data-async-module="click" data-async-target="#modal-report" data-async-method="get"><i class="gsticon gsticon-flag"></i> Denunciar</a>
 
+                </div>
+               {% include 'userprofile/templatetags/profile-box.html' with profile=article.author.profile partial_template="userprofile/templatetags/profile-box-horizontal.html" %}
+
+                <div id="load-related-posts" data-load-async="true" data-load-async-url="{% url 'core:related-posts' article.id "article" "article" 3 %}" data-load-async-url-next="{{ request.path }}" data-load-async-method="get" data-load-async-response-type="json" data-load-async-timeout="1">
+{#                    {% include "article/partials/recomendations.html" %}#}
+                    <div class="load-async load-async-content">
+                    <div class="load-async-preload"></div>
+                    </div>
+                    {% csrf_token %}
+                            <div class="advertising-horizontal hidden-xs">
+                        {% ads_only_production "article_bottom" "all"  %}
+                    </div>
+                </div>
+
+            </div>
+        <header class="widget" id="comments">
+            {% if has_old_comments %}
+                <div class="order-by">
+                    <div class="dropdown">
+                        <button class="btn btn-default dropdown-toggle" type="button" id="dropdown-filter-posts" data-toggle="dropdown" aria-haspopup="true"><span> {% if request.GET.old_comment_style %}Mais antigos{% else %}Mais recentes{% endif %} </span><i class="gsticon gsticon-caret-down"></i></button>
+                        <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown-filter-posts">
+                            <li {% if not request.GET.old_comment_style %}class="active"{% endif %}><a href="{% url 'article:view' article.year article.month article.slug %}#comments" data-target=".area-content">Mais recentes</a></li>
+                            <li {% if request.GET.old_comment_style %}class="active"{% endif %}><a href="{% url 'article:view' article.year article.month article.slug %}?old_comment_style=true#comments" data-target=".area-content">Mais antigos</a></li>
+                        </ul>
+                    </div>
+                </div>
+            {% endif %}
+
+            <h2 class="widget-title">
+                <span>Comentários</span>
+            </h2>
+        </header>
+
+
+        {% comment_box article %}
+        </div>
+        <div class="single-aside">
+            {% include "article/partials/single-aside.html" %}
+
+            {% ads_only_production "article_right" "pc" %}
+        </div>
+
+    </div>
+</main>
+
+{% endblock content %}
 
 {% block modals %}
     {{ block.super }}
@@ -290,235 +217,7 @@
 
 {% endblock %}
 
-
 {% block javascripts %}
-    {{ block.super }}
-    {#    {{ form_comment.media }}#}
-    <script src="{% static 'javascripts/vendor.js'%}" data-manual></script>
-
-    <script type="text/javascript">
-
-        var functionOpenModalToDelete = function(e) {
-            e.preventDefault();
-
-            var $btn = $(e.currentTarget),
-                    $modal = $($btn.data("modal"));
-
-            $modal.find("form").attr("action", $btn.data("url"));
-            $modal.find("#item-id").val($btn.data("item"));
-            $modal.find("#item-type").val($btn.data("type"));
-            $modal.find("#title-item-to-remove").html($btn.data("title"));
-            $modal.find(".loading-container").html("");
-            $modal.find(".alert-container").html("");
-            $modal.modal("show");
-        };
-
-        var functionAjaxSuccessDeleteItem = function(e, data) {
-            var $this = $(this),
-                    $modal = $($this.closest(".modal.fade")),
-                    itemId = $modal.find("#item-id").val(),
-                    itemType = $modal.find("#item-type").val();
-
-            $modal.modal("hide");
-            $modal.find("form").attr("action", "");
-            $modal.find("#item-id").val("");
-            $modal.find("#item-type").val("");
-            $modal.find("#title-item-to-remove").html("");
-            $modal.find(".loading-container").html("");
-            $modal.find(".alert-container").html("");
-
-            $("#" + itemType + "-" + itemId).fadeOut("slow", function(){
-                $('#list-'+itemType+'-'+itemId).remove();
-                $(this).remove();
-            });
-        };
-
-        function setData($form, data, $divToUpdate){
-
-            var action = $form.data("toggle");
-            var $form_to_hide = $form.parent(".dropdown-content");
-
-            if(action == "append" || action == "prepend") {
-
-                if (action == "append") {
-                    $divToUpdate.append(data.template);
-                } else {
-                    $divToUpdate.prepend(data.template);
-                }
-
-                if ($form_to_hide) {
-                    $form_to_hide.removeClass("open");
-                }
-                $form[0].reset();
-
-            }else if (action=="replace"){
-                var $element = $(data.template);
-                $divToUpdate.replaceWith($element);
-                var $newForm = $element.find("form[data-ajaxform=\"true\"]");
-                $divToUpdate = $element;
-            }
-            $form.find('[data-toggle="editor"]').summernote('reset');
-            $divToUpdate.refreshEditors();
-            var $preInComment = $('.comment-text').find('code');
-            $.each($preInComment, function (index, element) {
-                Prism.highlightElement(element);
-            });
-
-            return $divToUpdate
-        }
-
-        var form_submit = function(event, data){
-            var $form = $(this);
-            var $divToUpdate = $($form.data("update"));
-            $divToUpdate = setData($form, data, $divToUpdate);
-
-            var $subforms = $divToUpdate.find("form[data-ajaxform=\"true\"]");
-            $.each($subforms, function(i, value){
-                var $subform = $(value);
-                if(!$subform.data("plugin")){
-                    $subform.data("plugin", "true");
-                    $subform.IdeiaAjaxForm();
-                    $subform.on("ajaxform.success", form_submit);
-                }
-
-
-            });
-            var $dataList = $divToUpdate.find("div[data-xhr]");
-            $dataList.renderList();
-            refreshAsyncLike();
-
-        };
-
-        $.fn.renderList = function(){
-
-            return $.each(this, function(){
-
-
-                var $self = $(this);
-
-                if(!$self.data("rendered")){
-                    $self.data("rendered", "rendered");
-                    var url = $self.data('xhr-url');
-                    var $childs;
-
-                    var request = $.ajax({
-                        url: url,
-                        success: function(data){
-
-                            if(data.template){
-                                var $element = $(data.template);
-
-                                $self.append($element);
-                                var regex = /^data-list-([0-9]+)$/;
-                                if (regex.test($self.attr('id'))) {
-                                    var $parentSelf = $self.parent('.comments-children');
-                                    if ($self.children().length > 0) {
-                                        $parentSelf.removeClass('no-children');
-                                    } else {
-                                        $parentSelf.addClass('no-children');
-                                    }
-                                }
-
-                                $childs = $element.next('div[data-xhr-url]');
-                                $self.jscroll({
-                                    loadingHtml: '<div class="load-async-preload"></div>',
-                                    contentSelect: "#" + $self.attr("id"),
-                                    nextSelector: "a[data-jscroll-next]",
-                                    autoTrigger: false,
-                                    callback: function(data){
-                                        var $div_jscroll = $(".jscroll-added");
-                                        var $jscroll_subforms = $div_jscroll.find("form[data-ajaxform=\"true\"]");
-                                        $jscroll_subforms.IdeiaAjaxForm();
-                                        $jscroll_subforms.on("ajaxform.success", form_submit);
-                                        $jscroll_subforms.refreshEditors();
-                                        $div_jscroll.removeClass("jscroll-added");
-                                    }
-                                });
-
-                                var $subforms = $element.find("form[data-ajaxform=\"true\"]");
-                                $subforms.on("ajaxform.success", form_submit);
-                                $subforms.IdeiaAjaxForm();
-                                $subforms.refreshEditors();
-
-                                var async_like = $self.find('[data-async-like]');
-                                async_like.IdeiaAsyncLike();
-                                async_like.removeData("async-like");
-                            }
-
-                        },
-                        complete: function(){
-                            if($childs && $childs.length){
-                                $childs.renderList();
-                            }
-
-                            var $preInComment = $('.comment-text').find('code');
-                            $.each($preInComment, function (index, element) {
-                                Prism.highlightElement(element);
-                            });
-                        }
-                    });
-
-                    refreshAsyncLike();
-                }
-
-            });
-        };
-
-        var commentDropDown = function(event) {
-            event.stopPropagation();
-        };
-
-        $(function(){
-            var imagesContent = $('.full-post-content').find('img');
-            $.each(imagesContent, function (index, image) {
-                var $image = $(image);
-                var imageFloat = $image.css('float');
-                if (imageFloat) {
-                    if (imageFloat == 'left') {
-                        $image.css('margin-right', 20);
-                    } else if (imageFloat == 'right') {
-                        $image.css('margin-left', 20);
-                    }
-                }
-            });
-
-            var xhr_contents = $("div[data-xhr]");
-            xhr_contents.renderList();
-            var $comment_form = $("form[data-ajaxform=\"true\"]");
-
-            $comment_form.refreshEditors();
-            $comment_form.on("ajaxform.success", form_submit);
-
-            $("#confirmation-form").on("ajaxform.success", functionAjaxSuccessDeleteItem);
-            $(document).on("click", "[data-delete-item=true]", functionOpenModalToDelete);
-            $(document).on('click', '.comment-dropdown', commentDropDown);
-        });
-    </script>
-
-    <script>
-
-        {# If has is present, force to move for comment #}
-
-        function moveToHashPosition(){
-            var _hash = location.hash;
-            if(_hash){
-
-                var $target = $(_hash);
-
-                if(!$target.length){
-                    return;
-                }
-
-                $('html,body').animate({
-                    'scrollTop': $target.offset().top
-                })
-            }
-        }
-
-        moveToHashPosition();
-
-
-
-    </script>
-
-{% endblock %}
+     <script src="{% static 'javascripts/vendor.js'%}" data-manual></script>
+     <script src="{% static 'javascripts/publication.js'%}"></script>
+{% endblock javascripts %}

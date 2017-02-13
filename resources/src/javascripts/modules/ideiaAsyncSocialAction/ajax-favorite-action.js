@@ -24,8 +24,8 @@ require('../../vendor/jquery.tinypubsub.js');
     $.subscribe('check/act', checkActHandler);
     $.subscribe('click/act', clickActHandler);
 
-    function checkActHandler (event, element, url, action) {
-        $.get(url, function (data) {
+    function checkActHandler ( event, element, url, action ) {
+        $.get(url, function ( data ) {
             changeStyleButtonCheck[element.dataset.actionType](element.dataset.object, element.dataset.action, data.acted);
         });
     }
@@ -41,35 +41,34 @@ require('../../vendor/jquery.tinypubsub.js');
     }
 
     var changeStyleButtonCheck = {
-        icon: function (dataObject, action, isActed) {
-            var selector = $('[data-object='+dataObject+'][data-action-type=icon]');
-            if (isActed) {
-                selector.parent('li').addClass(defaults.activeClass);
-            } else {
-                selector.parent('li').removeClass(defaults.activeClass);
-            }
+        icon: function ( dataObject, action, isActed ) {
+          var selector = $('[data-object='+dataObject+'][data-action-type=icon]');
+          if (isActed) {
+            selector.parent( 'li' ).addClass(defaults.activeClass);
+          } else {
+            selector.parent( 'li' ).removeClass(defaults.activeClass);
+          }
         },
-        text: function (dataObject, action, isActed) {
-            var selector = $('[data-object='+dataObject+'][data-action-type=text]');
-            if (isActed) {
-                selector.find('span').text(
-                    selector.data('actionTextAlt'))
-            } else {
-                selector.find('span').text(
-                    selector.data('actionText'))
-            }
+        text: function ( dataObject, action, isActed ) {
+          var selector = $('[data-object='+dataObject+'][data-action-type=text]');
+          var toggleClasses = selector.data('className');
+          if (isActed) {
+            selector.addClass(toggleClasses)
+            .find( 'span' ).text( selector.data( 'actionTextAlt' ))
+          } else {
+            selector.removeClass(toggleClasses)
+            .find( 'span' ).text( selector.data( 'actionText' ))
+          }
         },
-        button: function (dataObject, action, isActed) {
-            var selector = $('[data-object='+dataObject+'][data-action-type=button]'),
-            toggleClasses = selector.data('className');
-            if (isActed) {
-                selector.toggleClass(toggleClasses)
-                .find('span').text(
-                    selector.data('actionTextAlt'))
+        button: function ( dataObject, action, isActed ) {
+            var selector = $( '[data-object='+dataObject+'][data-action-type=button]' ),
+            toggleClasses = selector.data( 'className' );
+            if ( isActed ) {
+              selector.addClass( toggleClasses )
+              .find( 'span' ).text( selector.data( 'actionTextAlt' ))
             } else {
-                selector.toggleClass(toggleClasses)
-                .find('span').text(
-                    selector.data('actionText'))
+              selector.removeClass( toggleClasses )
+              .find( 'span' ).text( selector.data( 'actionText' ))
             }
         }
     };

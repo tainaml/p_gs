@@ -1,10 +1,13 @@
+from django.urls import reverse
 from django.utils.translation import ugettext as _
-from django.http import JsonResponse, Http404
-from django.shortcuts import render
+from django.http import Http404
+from django.shortcuts import render, redirect
 from django.views.generic import View
-
 from .service.forms import JobSearchForm
 from .service.business import get_job
+from apps.job_vacancy.service.editforms import (
+    JobVacancyForm
+)
 
 
 def do_list(request):
@@ -74,3 +77,80 @@ class JobDetailView(BaseJobView):
         }
 
         return self.do_return(request, response_data)
+
+
+class JobEditView(View):
+
+    job = None
+    template_name = 'job_vacation/register.html'
+    form = None
+    form_class = JobVacancyForm
+
+    def get_context(self, request):
+        if request.method == 'GET':
+            self.form.responsibility_formset = self.form.responsibility_formset(instance=self.job)
+            self.form.salary_formset = self.form.salary_formset(instance=self.job)
+            self.form.requirements_formset = self.form.requirements_formset(instance=self.job)
+            self.form.aditional_requirements_formset = self.form.aditional_requirements_formset(instance=self.job)
+
+        return {
+            'form': self.form,
+        }
+
+    def get(self, request, job_id=None):
+
+        if job_id:
+            self.job = get_job(job_id)
+            if self.job and not self.job.can_modify(request.user):
+                raise Http404()
+
+        self.form = self.form_class(
+            instance=self.job
+        )
+
+        return render(
+
+            request,
+            template_name=self.template_name,
+            context=self.get_context(request)
+        )
+
+    def post(self, request, job_id=None):
+
+        if job_id:
+            self.job = get_job(job_id)
+            if self.job and not self.job.can_modify(request.user):
+                raise Http404()
+
+        self.form = self.form_class(
+            data=request.POST,
+            instance=self.job
+        )
+
+        self.form.responsibility_formset = self.form.responsibility_formset(request.POST, instance=self.form.instance)
+        for form in self.form.responsibility_formset:
+            form.author = request.user
+
+        self.form.salary_formset = self.form.salary_formset(request.POST, instance=self.form.instance)
+        self.form.requirements_formset = self.form.requirements_formset(request.POST, instance=self.form.instance)
+        self.form.aditional_requirements_formset = self.form.aditional_requirements_formset(request.POST, instance=self.form.instance)
+
+        context = self.get_context(request)
+
+        if self.form.is_valid():
+
+            self.form.set_author(request.user)
+            self.form.save()
+
+
+            return redirect(reverse("jobs:edit", args=[self.form.instance.id]))
+        else:
+            context.update({
+                'error_message': 'Not saved. Model error.'
+            })
+
+        return render(
+            request,
+            template_name=self.template_name,
+            context=context
+        )

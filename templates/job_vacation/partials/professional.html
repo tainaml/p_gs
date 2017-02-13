@@ -1,0 +1,81 @@
+<div data-step-part="header">
+    <i class="gsticon gsticon-user"></i>
+    PROFISSIONAL
+</div>
+<div data-step-part="content" {% if form.requirements_formset.errors.0 or form.requirements_formset.non_field_errors or form.aditional_requirements_formset.errors.0 or form.aditional_requirements_formset.non_field_errors %}data-error="true"{% endif %}>
+    <div class="row customrow">
+        <div class="col-sm-12">
+            <h3 class="formjob-title">
+                Conhecimentos
+                {% include "front_end/job/partials/tooltip.html" with content="Conhecimentos necessários ou desejáveis para a vaga de trabalho. " %}
+            </h3>
+        </div>
+    </div>
+
+    <div data-toggle="formset" data-add-text="Adicionar" data-prefix="{{ form.requirements_formset.prefix }}">
+        {% for requirements_formset in form.requirements_formset %}
+
+        <div class="row customrow" >
+            <div class="col-sm-4">
+                {% for hidden in requirements_formset.hidden_fields %}
+
+                {{ hidden }}
+                {% endfor %}
+                {% if requirements_formset.instance.pk %}
+                {{ requirements_formset.DELETE }}
+                {% endif %}
+                {{ requirements_formset.item }}
+            </div>
+            <div class="col-sm-4">
+                {{ requirements_formset.level }}
+            </div>
+            <div class="col-sm-3">
+                {{ requirements_formset.exigency }}
+            </div>
+            {% if requirements_formset.non_field_errors %}
+                <div class="col-sm-12">
+
+                    {{ requirements_formset.non_field_errors }}
+                </div>
+            {% endif %}
+        </div>
+        {% endfor %}
+        {{ form.requirements_formset.management_form }}
+
+    </div>
+
+    <div class="row customrow">
+        <div class="col-sm-12">
+            <h3 class="formjob-title">
+                Conhecimento Adicional
+                {% include "front_end/job/partials/tooltip.html" with content="Requisitos adicionais, tais como: Facilidade de trabalho em equipe, proatividade e etc." %}
+            </h3>
+        </div>
+    </div>
+
+
+    <div data-toggle="formset" data-add-text="Adicionar" data-prefix="{{ form.aditional_requirements_formset.prefix }}">
+        {%  for aditional_requirements_formset in form.aditional_requirements_formset %}
+        <div class="row customrow">
+            <div class="col-sm-11">
+                {% for hidden in aditional_requirements_formset.hidden_fields %}
+                {{ hidden }}
+                {% endfor %}
+                {% if aditional_requirements_formset.instance.pk %}
+                {{ aditional_requirements_formset.DELETE }}
+                {% endif %}
+                {{ aditional_requirements_formset.description }}
+            </div>
+        </div>
+        {% endfor %}
+        {{ form.aditional_requirements_formset.management_form }}
+    </div>
+
+
+    <div class="row">
+        <div class="col-sm-12 text-right">
+            <button type="submit" class="customform-button">Publicar</button>
+            <a href="#next" data-step-action="next" class="customform-button primary">Avançar</a>
+        </div>
+    </div>
+</div>

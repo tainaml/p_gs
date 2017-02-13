@@ -20,6 +20,13 @@
 {% block content %}
 
     <main class="container main">
+        {% if request|is_pc %}
+        <div class="row">
+            <div class="col-lg-offset-3 col-lg-9">
+                {% include 'community/partials/navbar.html' with active='feed' %}
+            </div>
+        </div>
+        {% endif %}
         <div class="row">
             <!-- mudar para 2.5 -->
             <div class="col-lg-3">
@@ -31,7 +38,6 @@
                 <div class="row">
                     <div class="col-lg-8">
                     {% if request|is_pc %}
-                    <header class="area-title">
                         <div class="order-by">
                             <div class="dropdown">
                                 <button class="btn btn-default dropdown-toggle" type="button" id="dropdown-filter-posts" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
@@ -49,20 +55,20 @@
                                 </ul>
                             </div>
                         </div>
-                        <h2>Feed</h2>
-                    </header>
                     {% endif %}
                     {% block filters %}
                         <nav id="form-search" class="form-search filters-members" data-toggle="filters">
                             <form action="{% url 'community:show' community.slug %}" method="GET" role="search">
-                                <div class="form-search-input">
-                                    <input type="text" name="criterio" placeholder="Pesquise publicações ou perguntas..." value="{{ form.cleaned_data.criterio }}">
-                                    <input type="hidden" name="official" value="{{ form.cleaned_data.official|default_if_none:False }}">
-                                </div>
 
-                                <button type="submit" class="form-search-button">
-                                    <i class="gsticon gsticon-search"></i>
-                                </button>
+                                    <div class="customform search{%if errors %} customform-error{% endif %}">
+                                          <input class="customform-input" id="criterio" type="text" name="criterio" data-toggle="input" placeholder="Pesquisar por publicações ou perguntas..." value="{{ form.cleaned_data.criterio }}">
+                                        <hr>
+                                        <label for="criterio" class="customform-label{% if request.GET.criterio %} active {% endif %}">Pesquisar</label>
+                                        <button type="submit" class="form-search-button">
+                                            <i class="gsticon gsticon-search"></i>
+                                        </button>
+                                    </div>
+                                    <input type="hidden" name="official" value="{{ form.cleaned_data.official|default_if_none:False }}">
                                 {% if request|is_mobile %}
                                 <div class="dropdown">
                                     <button class="btn btn-block btn-default dropdown-toggle" type="button" id="dropdown-filter-posts" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">

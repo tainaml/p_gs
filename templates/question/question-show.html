@@ -75,88 +75,95 @@
 {% endblock ld_json %}
 {% block content %}
 
-    <main class="container main">
-        <div>
-            <ul class="box-share">
-                <li class="comment-vote">{% like_box question question_url "share-box" %}</li>
-                <li data-toggle="tooltip" data-placement="auto right" data-original-title="Favoritar"><a data-url-login="{% url 'account:is_logged' %}" data-trigger="login" data-token="{{ csrf_token }}" data-action="favourite" data-action-type="icon" data-object="favourite-{{ question.id }}" data-url-check="{% url 'socialactions:acted' question.id 'question' 'favourite' %}" href="{% url 'socialactions:act-xhr' question.id 'question' 'favourite' %}?url_next={{ request.path|urlencode }}"><i class="gsticon gsticon-star"></i></a></li>
-                <li data-toggle="tooltip" data-placement="auto right" data-original-title="Ver depois"><a data-url-login="{% url 'account:is_logged' %}" data-trigger="login" data-token="{{ csrf_token }}" data-action="see-later" data-action-type="icon" data-url-check="{% url 'socialactions:acted' question.id 'question' 'see-later' %}" data-object="see-later-{{ question.id }}" href="{% url 'socialactions:act-xhr' question.id 'question' 'see-later' %}?url_next={{ request.path|urlencode }}"><i class="gsticon gsticon-eye"></i></a></li>
-                <li data-toggle="tooltip" data-placement="auto right" data-original-title="Sugerir leitura"><a data-url-login="{% url 'account:is_logged' %}" data-trigger="login" data-token="{{ csrf_token }}" href="javascript:;" data-suggest-modal="true" data-content="question" data-object="{{ question.id }}" data-url="{% url 'socialactions:act-suggest' question.id 'question' %}"><i class="gsticon gsticon-paper-plane"></i></a></li>
-            </ul>
-            <div class="post-container">
-                <article class="full-post">
-                    {% if feed and feed.official %}
-                        <div class="label-official-content label-tall"
-                             data-toggle="tooltip"
-                             data-original-title="Conteúdo Oficial"></div>
-                    {% endif%}
-                    <header class="post-header">
-                        <div class="post-info">
-                            <time datetime="{{ question.question_date|date:'m-d-Y' }}" data-toggle="tooltip" data-placement="auto top" data-original-title="{{ question.question_date|date:'d/m/Y' }} às {{ question.question_date|date:'G:i' }}" itemprop="datePublished">
-                                <span class="hidden-xs visible-lg-inline">{{ question.question_date|naturaltime }}</span>
-                                <i class="gsticon gsticon-clock-o hidden-lg"></i>
-                            </time>
-                            <a href="javascript:;" data-toggle="dropdown"><i class="gsticon gsticon-gear"></i></a>
-                            <div class="dropdown-menu">
-                                <ul class="perfil-actions">
-                                    {% if question.author_id == request.user.id or perms.question.change_other_questions %}
-                                    <li><a href="{% url 'question:edit' question.id %}"><i class="gsticon gsticon-edit"></i> Editar pergunta</a></li>
-                                    {% endif %}
-                                    <li><a data-url-login="{% url 'account:is_logged' %}" data-trigger="login" data-token="{{ csrf_token }}" href="javascript:;" {% if request.user.is_authenticated %}data-suggest-modal="true"{% endif %} data-content="article" data-object="{{ question.id }}" data-url="{% url 'socialactions:act-suggest' question.id 'question' %}"><i class="gsticon gsticon-paper-plane"></i> Sugerir leitura</a></li>
-                                    <li><a data-url-login="{% url 'account:is_logged' %}" data-trigger="login" data-token="{{ csrf_token }}" data-action="see-later" data-action-type="text" data-action-text="Ver depois" data-action-text-alt="Desmarcar como visto" data-url-check="{% url 'socialactions:acted' question.id 'question' 'see-later' %}" data-object="see-later-{{ question.id }}" href="{% url 'socialactions:act-xhr' question.id 'question' 'see-later' %}?url_next={{ request.path|urlencode }}"><i class="gsticon gsticon-eye"></i> <span>{{" Ver depois"}}</span></a></li>
-                                    <li><a data-url-login="{% url 'account:is_logged' %}" data-trigger="login" data-token="{{ csrf_token }}" data-action="favourite" data-action-type="text" data-action-text="Favoritar" data-action-text-alt="Favoritado" data-object="favourite-{{ question.id }}" data-url-check="{% url 'socialactions:acted' question.id 'question' 'favourite' %}" href="{% url 'socialactions:act-xhr' question.id 'question' 'favourite' %}?url_next={{ request.path|urlencode }}"><i class="gsticon gsticon-star"></i> <span>{{" Favoritar"}}</span></a></li>
-                                    <li><a data-url-login="{% url 'account:is_logged' %}" data-trigger="login" data-token="{{ csrf_token }}" href="{% url 'complaint:report' 'question' question.id %}" data-report="true" data-async-module="click" data-async-target="#modal-report" data-async-method="get"><i class="gsticon gsticon-exclamation-triangle"></i> Denunciar</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <a class="post-creator" href="{% if  question.author.is_active %}{% url 'profile:show' question.author.username %}{% else %}javascript:;{% endif %}">
-                          <figure>
-                            <img src="{% get_avatar question.author width=20 height=20 smart=False fit_in=False %}" alt="{{ question.author.get_full_name }}">
-                            <figcaption>{{ question.author.get_full_name }}</figcaption>
-                          </figure>
+    <main class="container single">
+        <div class="publication-carousel">
+            <div class="text-center">
+                  {% ads_only_production "question_bottom" "all" %}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="single-category">
+                    <span>PERGUNTA</span>
+                </div>
+            </div>
+        </div>
+
+        <h1 class="single-title">{{ question.title }}</h1>
+
+        {% include "question/partials/social-actions.html" %}
+
+        <div class="row">
+            <div class="single-main">
+                <div class="single-header">
+                    <div class="single-main-about">
+                        <a href="{% if question.author.is_active %}{% url 'profile:show' question.author.username %}{% else %}javascript:;{% endif %}">
+                            <span class="single-author-image">
+                                <img width="40" height="40" src="{% get_avatar question.author width=40 height=40 smart=False fit_in=False %}" alt="foto de {{ instance.author.get_full_name }}">
+                                {% if question.author.profile.contributor %}
+                                <div class="is-official" data-toggle="tooltip" data-placement="bottom" title="Colaborador do GSTI"></div>
+                                {% endif%}
+                            </span>
                         </a>
-                        <span class="label label-question">pergunta</span>
-                        <h1 class="full-post-title">
-                            {{ question.title }}
-                        </h1>
-                    </header>
-                    <aside class="post-footer">
-                        {% taxonomies question %}
-                        <div class="post-toolbar pull-right">
-                            <div class="post-count">
-                                {% like_box question request.path "inline" %}
-                            </div>
-                            <a class="post-count-comments" href="#comments">
-                              <strong>{{ question.counter_answer }}</strong>
-                              <span class="hidden-xs visible-lg-inline">Resposta(s)</span>
-                              <span class="hidden-lg"><i class="gsticon gsticon-comment"></i></span>
-                            </a>
-                        </div>
-                    </aside>
-                    <div class="full-post-content">
-                        <p>{{ question.description|safe }}</p>
-                        <div class="post-advertising text-center">
-                              {% ads_only_production "question_bottom" "all" %}
+                        <div class="single-main-about-body">
+                            <a class="single-author" href="{% if  question.author.is_active %}{% url 'profile:show' question.author.username %}{% else %}javascript:;{% endif %}">{{ question.author.get_full_name }}</a>
+                            <span class="single-main-about-info">
+                                <time class="single-time" datetime="{{ question.question_date|date:'m-d-Y' }}" data-toggle="tooltip" data-placement="auto top" data-original-title="{{ question.question_date|date:'d/m/Y' }} às {{ question.question_date|date:'G:i' }}"><i class="gsticon gsticon-clock-o"></i>{{ question.question_date|naturaltime }}</time>
+                                {% if feed and feed.official %}
+                                    <span class="single-official">
+                                    <i class="gsti-rocket"></i> CONTEÚDO EM DESTAQUE
+                                </span>
+                                {% endif %}
+                            </span>
                         </div>
                     </div>
-                    {% if not request|is_mobile %}
-                    <div class="full-post-share">
-                        <h3>COMPARTILHE</h3>
-                        {% include '_partials/share.html' with show_all=True %}
+                    <div class="single-main-reactions">
+                        {% like_box question request.path 'inline' %}
                     </div>
+                    {% if feed.communities.all %}
+                        <nav class="single-communities">
+                        <label for="drop-communities" class="toggle-menu">
+                            Comunidades <span class="gsticon gsticon-angle-down"></span>
+                        </label>
+                        <input type="checkbox" name="toggle" id="drop-communities">
+                        <ul class="drop-communities">
+                            {% for community in feed.communities.all  %}
+                                <li><a href="{% url 'community:show' community.slug %}">{{ community.title }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </nav>
                     {% endif %}
-                </article>
+                </div>
 
-                <header class="area-title">
-                    <h2 id="answers">Respostas</h2>
+                <div class="single-main-content" data-target="post-content">
+                    {% thumbor_replace question.description|safe %}
+                </div>
+
+                <div class="publication-main-footer">
+                    <div class="clearfix">
+                        <a class="btn-denunciar pull-right" data-url-login="{% url 'account:is_logged' %}" data-trigger="login" data-token="{{ csrf_token }}" href="{% url 'complaint:report' 'question' question.id %}" data-report="true" data-async-module="click" data-async-target="#modal-report" data-async-method="get"><i class="gsticon gsticon-flag"></i> Denunciar</a>
+                    </div>
+                </div>
+
+                <header class="widget" id="answers">
+                    <h2 class="widget-title">
+                        <span>
+                            Respostas
+                            <span class="widget-title-counter">{{ question.counter_answer }}</span>
+                        </span>
+                    </h2>
                 </header>
-                {%  include 'question/partials/list-answer.html' %}
 
-                <div class="alert alert-warning"><p>Consegue ajudar? A comunidade agradece</p></div>
+                <h3 class="publication-help-text">Consegue ajudar? A comunidade agradece</h3>
+
                 {% include 'question/partials/answer-create.html' with content_type='question' content_object_id=question.id %}
+                {%  include 'question/partials/list-answer.html' %}
             </div>
 
-            {% include "question/partials/question-sidebar-right.html" %}
+
+            <div class="single-aside">
+                {% include "question/partials/question-sidebar-right.html" %}
+            </div>
         </div>
     </main>
 {% endblock %}
@@ -172,202 +179,5 @@
 {% block javascripts %}
     <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-55e70ed11db7fa4e" async></script>
     <script src="{% static 'javascripts/vendor.js'%}"></script>
-    <script>
-
-        var functionOpenModalToDelete = function ( e ) {
-            e.preventDefault();
-
-            var $btn = $(e.currentTarget),
-                $modal = $($btn.data("modal"));
-
-            $modal.find("form").attr("action", $btn.data("url"));
-            $modal.find("#item-id").val($btn.data("item"));
-            $modal.find("#item-type").val($btn.data("type"));
-            $modal.find("#title-item-to-remove").html($btn.data("title"));
-            $modal.find(".loading-container").html("");
-            $modal.find(".alert-container").html("");
-            $modal.modal("show");
-        };
-
-        var functionAjaxSuccessDeleteItem = function(e, data) {
-            var $this = $(this),
-            $modal = $($this.closest(".modal.fade")),
-            itemId = $modal.find("#item-id").val(),
-            itemType = $modal.find("#item-type").val();
-
-            $modal.modal("hide");
-            $modal.find("form").attr("action", "");
-            $modal.find("#item-id").val("");
-            $modal.find("#item-type").val("");
-            $modal.find("#title-item-to-remove").html("");
-            $modal.find(".loading-container").html("");
-            $modal.find(".alert-container").html("");
-
-            $("#" + itemType + "-" + itemId).fadeOut("slow", function () {
-              $('#list-'+itemType+'-'+itemId).remove();
-              $(this).remove();
-            });
-        };
-
-        function setData($form, data, $divToUpdate){
-
-        var action = $form.data("toggle");
-        var $form_to_hide = $form.parent(".dropdown-content");
-
-        if (action=="append" || action=="prepend" ){
-
-          if (action=="append") {
-            $divToUpdate.append(data.template);
-          } else {
-            $divToUpdate.prepend(data.template);
-          }
-
-          if ($form_to_hide){
-            $form_to_hide.removeClass("open");
-          }
-          $form[0].reset();
-
-        } else if (action=="replace") {
-            var $element = $(data.template);
-            $divToUpdate.replaceWith($element);
-            var $newForm = $element.find("form[data-ajaxform=\"true\"]");
-            $divToUpdate = $element;
-        }
-        $form.find('[data-toggle="editor"]').summernote('reset');
-        $divToUpdate.refreshEditors();
-        var preInComment = $('.comment-text').find('code');
-        $.each(preInComment, function (index, element) {
-          Prism.highlightElement(element);
-        });
-
-        return $divToUpdate
-    }
-
-         var form_submit = function(event, data){
-        var $form = $(this);
-        var $divToUpdate = $($form.data("update"));
-        $divToUpdate = setData($form, data, $divToUpdate);
-
-        var $msgEmpty = $( '[data-toggle="message"]' );
-        if ($msgEmpty.is( ':visible' ) ) {
-          $msgEmpty.hide();
-        }
-
-        var $subforms = $divToUpdate.find("form[data-ajaxform=\"true\"]");
-        $.each($subforms, function(i, value){
-            var $subform = $(value);
-            if(!$subform.data("plugin")){
-                $subform.data("plugin", "true");
-                $subform.IdeiaAjaxForm();
-                $subform.on("ajaxform.success", form_submit);
-            }
-
-
-        });
-        var $dataList = $divToUpdate.find("div[data-xhr]");
-        $dataList.renderList();
-        refreshAsyncLike();
-
-    };
-
-        $.fn.renderList = function(){
-
-        return $.each(this, function(){
-
-            var $self = $(this);
-
-            if(!$self.data("rendered")){
-
-                $self.data("rendered", "rendered");
-                var url = $self.data('xhr-url');
-                var $childs;
-
-                var request = $.ajax({
-                    url: url,
-                    success: function(data){
-
-                        if(data.template){
-                            var $element = $(data.template);
-
-                            $self.append($element);
-                            var regex = /^data-list-([0-9]+)$/;
-                            if (regex.test($self.attr('id'))) {
-                                var $parentSelf = $self.parent('.comments-children');
-                                if ($self.children().length > 0) {
-                                  $parentSelf.removeClass('no-children');
-                                } else {
-                                  $parentSelf.addClass('no-children');
-                                }
-                            }
-
-                            $childs = $element.next('div[data-xhr-url]');
-                            $self.jscroll({
-                                loadingHtml: '<div class="load-async-preload"></div>',
-                                contentSelect: "#" + $self.attr("id"),
-                                nextSelector: "a[data-jscroll-next]",
-                                autoTrigger: false,
-                                callback: function(data){
-                                    var $div_jscroll = $(".jscroll-added");
-                                    var $jscroll_subforms = $div_jscroll.find("form[data-ajaxform=\"true\"]");
-                                    $jscroll_subforms.IdeiaAjaxForm();
-                                    $jscroll_subforms.on("ajaxform.success", form_submit);
-                                    $jscroll_subforms.refreshEditors();
-                                    $div_jscroll.removeClass("jscroll-added");
-                                }
-                            });
-
-                            var $subforms = $element.find("form[data-ajaxform=\"true\"]");
-                            $subforms.on("ajaxform.success", form_submit);
-                            $subforms.IdeiaAjaxForm();
-                            $subforms.refreshEditors();
-
-                            var async_like = $self.find('[data-async-like]');
-                            async_like.IdeiaAsyncLike();
-                            async_like.removeData("async-like");
-                        }
-
-                    },
-                    complete: function(){
-                        if($childs && $childs.length){
-                            $childs.renderList();
-                        }
-                    }
-                });
-
-                refreshAsyncLike();
-            }
-
-        });
-    };
-        var commentDropDown = function(event){
-          event.stopPropagation();
-        };
-
-        $(function(){
-          var imagesContent = $('.full-post-content').find('img');
-          $.each(imagesContent, function (index, image) {
-            var $image = $(image);
-            var imageFloat = $image.css('float');
-            if (imageFloat) {
-              if (imageFloat == 'left') {
-                $image.css('margin-right', 20);
-              } else if (imageFloat == 'right') {
-                $image.css('margin-left', 20);
-              }
-            }
-          });
-
-            var xhr_contents = $("div[data-xhr]");
-            xhr_contents.renderList();
-
-            var $forms = $("form[data-ajaxform=\"true\"]");
-            $forms.on("ajaxform.success", form_submit);
-            $forms.refreshEditors();
-
-            $("#confirmation-form").on("ajaxform.success", functionAjaxSuccessDeleteItem);
-            $(document).on("click", "[data-delete-item=true]", functionOpenModalToDelete);
-            $(document).on("click", ".comment-dropdown", commentDropDown);
-
-        });
-</script>
+    <script src="{% static 'javascripts/publication.js'%}"></script>
 {% endblock %}

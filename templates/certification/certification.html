@@ -1,0 +1,128 @@
+{% extends 'home/layout/base.html' %}
+{% block title %}{{ certification.title }}{% endblock title %}
+{% load ads %}
+{% block content %}
+    {% load thumbor_tags %}
+    <main class="container main">
+        <div class="row">
+            <div class="col-sm-9">
+                <form class="row filter" action="{% url 'core:certification-list' %}">
+                    <div class="col-sm-8 filter__inputbox">
+                        <div class="form-search-input">
+                            <input type="text" id="filter-profession" name="criteria"
+                                   placeholder="Pesquisar certificação" autocomplete="off">
+                        </div>
+                        <button type="submit" class="form-search-button">
+                            <i class="gsticon gsticon-search"></i>
+                        </button>
+                    </div>
+                    <div class="col-sm-4 filter__communities">
+                        <select class="form-control"  id="filter-community" name="category" data-filter="select">
+                            <option value="">Categorias</option>
+                            {% for category in categories %}
+                                <option value="{{ category.id }}" {% if request.GET.category == category.id|stringformat:"s" %}selected{% endif %}>{{ category.description }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-sm-12"><hr></div>
+                </form>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <header class="area-title">
+                            <h1>{{ certification.title }}</h1>
+                        </header>
+                        <span class="profession__categories">
+                          <strong>Relação: </strong>
+                          {% for taxonomy in certification.taxonomies.all %}
+                              {% if taxonomy.community_related %}
+                                  <a href="{% url 'community:show' taxonomy.community_related.slug %}">{{ taxonomy.community_related.title }}</a>{% if not forloop.last %}, {% endif %}
+                              {% endif %}
+                          {% endfor %}
+                        </span>
+                        <hr>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 profession">
+
+                        <div class="profession__img">
+                             {% block community_right_block %}
+                            {% ads_only_production "community_right" "all" %}
+                        {% endblock community_right_block %}
+                        </div>
+
+
+                        {% if certification.description %}
+                            <h2 class="profession-name">O que é a certificação {{ certification.title }}</h2>
+                            {{ certification.about|safe }}
+                        {% endif %}
+
+                        {% if certification.where_get %}
+                            <h2 class="profession-name">Onde obter a certificação {{ certification.title }}</h2>
+                            {{ certification.where_get|safe }}
+                        {% endif %}
+
+                        {% if certification.more_info %}
+                            <h2 class="profession-name">Mais informações</h2>
+                            {{ certification.more_info|safe }}
+                        {% endif %}
+
+                        {% if certification.guide %}
+                            <h2 class="profession-name">Guia</h2>
+                            <a href="{{ certification.guide }}">Guia para a certificação {{ certification.title }}</a>
+                        {% endif %}
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3">
+
+                {% if certification.courses.all %}
+                        <div class="related__items">
+                            <header class="area-title">
+                                <h3>Cursos</h3>
+                            </header>
+
+                            {% for related_course in certification.courses.all %}
+
+                                <a class="related" href="{% url 'course:show' related_course.slug %}">
+                                    <figure class="related__img">
+{#                                        {% if related_course.image %}#}
+{#                                            <img class="img-responsive" src="{% thumbor_url related_course.image.url width=100 height=100 %}" alt="{{ related_course.title }}">#}
+{#                                        {% else %}#}
+{#                                            <i>no image</i>#}
+{#                                        {% endif %}#}
+                                    </figure>
+                                    <div class="related__body">
+                                        <h3 class="related__title">{{ related_course.title }}</h3>
+                                        <div class="related__categories">
+                                            {% for taxonomy in related_course.taxonomies.all %}
+                                                {{ taxonomy.community_related.title }}{% if not forloop.last %} / {% endif %}
+                                            {% endfor %}
+                                        </div>
+                                <span class="thumb__course__avaliation">
+                                    <span style="width: {{ related_course.rating_percentage }}%"></span>
+                                </span>
+                                    </div>
+                                </a>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+
+                {% if profiles_with_this_responsibility %}
+                    {% include 'responsibilities/partials/board.html' %}
+                {% endif %}
+
+                {# Todo: Unhide when jobs module is active #}
+
+                {#                {% include 'front_end/professions/partials/jobs.html' %}#}
+
+            </div>
+        </div>
+    </main>
+{% endblock content %}
+
+{% block javascripts %}
+    {{ block.super }}
+
+{% endblock javascripts %}

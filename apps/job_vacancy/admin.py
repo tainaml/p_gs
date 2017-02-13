@@ -7,8 +7,8 @@ from django import forms
 
 from apps.certification.models import Certification
 from apps.job_vacancy.models import Requirement, JobVacancyCertification, Salary, JobVacancy, Benefit, \
-    JobRegime, Level, Exigency, Experience, SalaryType, JobVacancyResponsibility, WorkLoad, JobVacancyResponsibilityType, \
-    JobVacancyLocation, JobVacancyAdditionalRequirement
+    JobRegime, Level, Exigency, Experience, JobVacancyResponsibility, WorkLoad, JobVacancyResponsibilityType, \
+    JobVacancyAdditionalRequirement
 
 
 class RequirementInLine(admin.TabularInline):
@@ -19,8 +19,7 @@ class JobVacancyCertificationInLine(admin.TabularInline):
     model = JobVacancyCertification
 
 
-class JobVacancyLocationInLine(admin.TabularInline):
-    model = JobVacancyLocation
+
 
 class JobVacancyAdditionalRequirementInLine(admin.TabularInline):
     model = JobVacancyAdditionalRequirement
@@ -61,7 +60,6 @@ class JobVacancyAdmin(admin.ModelAdmin):
         return reverse('jobs:detail', args=[obj.slug, obj.id])
 
     inlines = [
-        JobVacancyLocationInLine,
         RequirementInLine,
         JobVacancyAdditionalRequirementInLine,
         JobVacancyCertificationInLine,
@@ -81,8 +79,9 @@ class JobVacancyAdmin(admin.ModelAdmin):
     show_salary.short_description = "Salário"
 
     def show_cargo(self, obj):
-        return "%s - %s" % (obj.resposibility.responsibility_type.description,
-                            obj.resposibility.responsibility.name)
+        return 'Cargo'
+        # return "%s - %s" % (obj.responsibility.responsibility_type.description,
+        #                     obj.responsibility.responsibility.name)
 
     show_cargo.short_description = "Cargo"
 
@@ -90,10 +89,7 @@ admin.site.register(Benefit)
 admin.site.register(JobRegime)
 admin.site.register(Level)
 admin.site.register(Exigency)
-admin.site.register(JobVacancyLocation)
-admin.site.register(Certification)
 admin.site.register(Experience)
-admin.site.register(SalaryType)
 admin.site.register(WorkLoad)
 admin.site.register(JobVacancyResponsibilityType)
 admin.site.register(JobVacancy, JobVacancyAdmin)

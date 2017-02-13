@@ -17,8 +17,8 @@ var defaultSettings = {
     searchField: 'name',
     create: false,
     render: {
-        'item': renderItem,
-        'option': renderOption
+        item: renderItem,
+        option: renderOption
     },
     load: loadItems
 };
@@ -72,6 +72,7 @@ function loadItems(query, callback) {
             callback()
         },
         success: function(res){
+          console.log(res);
             callback(res);
         }
     });

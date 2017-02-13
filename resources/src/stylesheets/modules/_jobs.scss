@@ -212,7 +212,12 @@
     text-transform: uppercase;
     .formjob-tooltip > .gsticon-info-circle { font-size: 12px }
   }
-  &-tooltip { vertical-align: super }
+  &-tooltip {
+    position: relative;
+    padding: 3px;
+    display: inline-block;
+    vertical-align: super;
+  }
   &-tooltip ~ .tooltip {
     opacity: 1;
     .tooltip-arrow {

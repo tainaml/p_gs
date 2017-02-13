@@ -1,0 +1,12 @@
+.badge{
+  &--best-answer {
+    padding: 6px;
+    margin-left: 30px;
+    border-radius: 3px;
+    background-color: #ebebeb;
+    color: #616161;
+    .gsticon-trophy {
+      color: #dbc402;
+    }
+  }
+}

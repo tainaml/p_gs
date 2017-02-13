@@ -84,7 +84,7 @@ class StepOneWizard(CoreProfileWizard):
         context = super(StepOneWizard, self).get_context(request, step, context)
         states = BusinessUserProfile.get_states(1)
         cities = BusinessUserProfile.get_cities(user_profile.city.state.id) if user_profile.city else None
-        responsabilities = Responsibility.objects.all().only("id", "name").order_by("name")
+        responsabilities = Responsibility.objects.filter(avaiable_to_choose=True).only("id", "name").order_by("name")
 
         context.update({
             'states': states,

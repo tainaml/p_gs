@@ -26,7 +26,7 @@ class WizardForm(IdeiaForm):
 class StepOneWizardForm(BaseSignupForm, WizardForm):
 
 
-    responsibility = forms.ModelChoiceField(queryset=Responsibility.objects.all(), required=False)
+    responsibility = forms.ModelChoiceField(queryset=Responsibility.objects.filter(avaiable_to_choose=True), required=False)
     state = forms.ModelChoiceField(queryset=State.objects.filter(country=1), required=False)
     birth = forms.DateField(input_formats=['%d/%m/%Y'], required=True)
     gender = forms.ChoiceField(choices=GenderType.CHOICES, required=True)

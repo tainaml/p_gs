@@ -1,0 +1,55 @@
+{% load widget_tweaks %}
+
+<div data-step-part="header" class="error">
+    <i class="gsticon gsticon-file"></i>
+    BÁSICO {{ form.responsibility_formset.errors.as_data }}
+</div>
+
+<div data-step-part="content" {% if form.title.errors or form.job_vacancy_responsibility.errors or form.quantity.errors or form.responsibility_formset.errors.0 or form.responsibility_formset.non_field_errors %}data-error="true"{% endif %}>
+    <div class="row customrow">
+        <div class="col-sm-12">
+            {{ form.title }}
+        </div>
+    </div>
+    <div class="row customrow">
+        <div class="col-sm-12">
+            {{ form.job_vacancy_responsibility }}
+        </div>
+    </div>
+
+
+    <div class="row customrow customrow-bottom">
+       {{ form.responsibility_formset.management_form }}
+       {% for formset_responsibility in form.responsibility_formset %}
+           {{ formset_responsibility.job_vacancy }}
+        <div class="col-sm-5 col-xs-12">
+            {% render_field formset_responsibility.responsibility data-module="profession" data-toggle="selectize" %}
+            {% render_field formset_responsibility.detached_responsibility data-toggle="detached" %}
+        </div>
+        <div class="col-sm-4 col-xs-12">
+            {{ formset_responsibility.responsibility_type }}
+        </div>
+
+       {% endfor %}
+
+        <div class="col-sm-3 col-xs-12">
+            {{ form.quantity }}
+        </div>
+    </div>
+    <div class="row customrow">
+        <div class="col-sm-12">
+            {{ form.email }}
+        </div>
+    </div>
+    <div class="row customrow">
+        <div class="col-sm-12 customform">
+            <p class="text-info">Para inserir mais detalhes à vaga de trabalho, clique em <i>"Avançar"</i>. Se deseja publicá-la com as informações já descritas, clique em <i>"Publicar"</i>. Uma vaga de trabalho mais detalhada tem mais chances de encontrar o profissional ideal.</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12 text-right">
+            <button type="submit" class="customform-button">Publicar</button>
+            <a href="#next" data-step-action="next" class="customform-button primary">Avançar</a>
+        </div>
+    </div>
+</div>

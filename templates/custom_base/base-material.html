@@ -1,8 +1,11 @@
 <div class="customform{%if errors %} customform-error{% endif %}">
     {% block input %}{% endblock input %}
     <hr>
-    <label for="{{ attrs.id }}" class="customform-label{% if value %} active {% endif %}">{{ label }}</label>
+    {% block label %}
+        <label for="{{ attrs.id }}" class="customform-label{% if value %} active {% endif %}">{{ label }}</label>
+    {% endblock label %}
     {% for error in errors %}
         <label class="error" for="{{ attrs.id }}">{{ error }}</label>
     {% endfor %}
 </div>
+

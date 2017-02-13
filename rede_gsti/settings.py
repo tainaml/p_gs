@@ -920,6 +920,7 @@ SUMMERNOTE_CONFIG = {
             'airMode': False,
             'minHeight': 100,
             'lang': 'pt-BR',
+            'disableDragAndDrop': True,
             'hasHint': True,
             'toolbar': [
                 ['style', ['bold', 'italic']],
@@ -963,6 +964,12 @@ SUMMERNOTE_CONFIG = {
         },
 
     }
+}
+
+#ARTICLE IMAGE
+ARTICLE_IMAGE_SIZE = {
+    'larger': {'width': 520, 'height': 270},
+    'medium': {'width': 170, 'height': 130},
 }
 
 

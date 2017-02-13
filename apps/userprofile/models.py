@@ -130,6 +130,7 @@ class UserProfile(models.Model):
         return self.contributor is True
 
 
+
 class Responsibility(models.Model):
     name = models.CharField(max_length=60, null=False, blank=False, verbose_name=_('Name'))
     slug = models.SlugField(null=False, blank=True, verbose_name=_('Slug'))
@@ -138,7 +139,11 @@ class Responsibility(models.Model):
     main_activity = models.TextField(null=True, blank=True, verbose_name=_('Main Activities'))
     more_info = models.TextField(null=True, blank=True, verbose_name=_('More info'))
     categories = models.ManyToManyField(to=Taxonomy, related_name='responsibilities', verbose_name=_('Categories'))
+
     active = models.BooleanField(default=False, verbose_name=_('Active'))
+    avaiable_to_choose = models.BooleanField(default=True, verbose_name=_('Avaiable'))
+
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='responsibilities', null=True)
 
     class Meta:
         ordering = ('name',)

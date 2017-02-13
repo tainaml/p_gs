@@ -1,0 +1,25 @@
+{% extends 'home/layout/base.html' %}
+
+{% load ads %}
+
+{% block title %}Registro de Vaga{% endblock title %}
+
+{% block content %}
+<main class="container main" data-page="register">
+    <div class="row">
+        <form class="col-sm-offset-1 col-sm-10" method="post">
+            {% csrf_token %}
+
+            <fieldset class="organization__register">
+                <legend class="organization__register__title">{% if form.instance.id %}Editar{% else %}Cadastrar{% endif %} vaga de trabalho</legend>
+                <div class="col-sm-offset-1 col-sm-10 steps wizard clearfix" data-module="steps" data-index="1">
+                    {% include "job_vacation/partials/basic.html" %}
+                    {% include "job_vacation/partials/vaga.html" %}
+                    {% include "job_vacation/partials/professional.html" %}
+                    {% include "job_vacation/partials/contact.html" %}
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</main>
+{% endblock content %}

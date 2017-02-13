@@ -13,16 +13,17 @@
             <div class="perfil">
                 <a href="{% if  following.content_object.is_active %}{% url 'profile:show' following.content_object.get_username %}{% else %}javascript:;{% endif %}">
                   <figure>
-                    <img class="img-responsive" src="{% get_avatar following.content_object width=82 height=82 smart=False fit_in=False %}" alt="{{ following.content_object.get_full_name }}">
+                    <img src="{% get_avatar following.content_object width=90 height=90 smart=False fit_in=False %}" alt="{{ following.content_object.get_full_name }}">
                   </figure>
                 </a>
-                <a class="perfil-name" title="{{ following.content_object.get_full_name }}" href="{% if  following.content_object.is_active %}{% url 'profile:show' following.content_object.get_username %}{% else %}javascript:;{% endif %}">{{ following.content_object.get_full_name }}</a>
-                <span class="perfil-counter"
-                      data-counter="{{ followers_count_value }}"
-                      data-refresh-counter="follow-{{ counter_content_type }}-{{ following.content_object.id }}">
-                    <span class="counter-number">{{ followers_count_value }}</span> Seguidor{{ followers_count_value|pluralize:'es' }}
-                </span>
-                {% follow_action following.content_object url_next %}
+                <div>
+                    <a class="perfil-name" title="{{ following.content_object.get_full_name }}" href="{% if  following.content_object.is_active %}{% url 'profile:show' following.content_object.get_username %}{% else %}javascript:;{% endif %}">{{ following.content_object.get_full_name }}</a>
+                    <span class="perfil-counter" data-counter="{{ followers_count_value }}"
+                    data-refresh-counter="follow-{{ counter_content_type }}-{{ following.content_object.id }}">
+                        <span class="counter-number">{{ followers_count_value }}</span> Seguidor{{ followers_count_value|pluralize:'es' }}
+                    </span>
+                    {% follow_action following.content_object url_next %}
+                </div>
             </div>
         </div>
     {% endfor %}

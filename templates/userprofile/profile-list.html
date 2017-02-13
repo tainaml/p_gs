@@ -11,11 +11,7 @@
 {% block seo-og-image %}{% get_avatar profile.user width=200 height=200 smart=False fit_in=False %}{% endblock %}
 
 {% block seo-metas-extra %}
-
-    {# Block track if not publishes #}
-
     {% if feed_objects.object_list|length_is:0 %}
-
         <meta name="robots" content="nofollow,noindex">
 
     {% endif %}
@@ -26,36 +22,45 @@
 {% block link_pagination %}
     {% pagination_links feed_objects %}
 {% endblock link_pagination %}
+
+{% block page_class %}profile-page{% endblock page_class %}
 {% block content %}
 
     <main class="container main">
         <div class="row">
+            <div class="col-lg-offset-3 col-lg-9">
+                {% include 'userprofile/partials/menu.html' with active="posts" %}
+            </div>
+        </div>
+        <div class="row">
             <div class="col-lg-3">
-                {% include 'home/partials/sidebar-perfil.html' %}
+                {% include 'userprofile/partials/left-sidebar.html' %}
             </div>
             <div class="col-lg-9">
-
                 {# TODO REFACTOR TO A BETTER APROACH #}
                 {% if request|is_pc %}
-                    {% include 'userprofile/partials/filters.html' with title="Publicações de "|add:profile.user.first_name  active="profile" has_filter=True has_navigation=True %}
+                {% include 'userprofile/partials/filters.html' with title="Publicações de "|add:profile.user.first_name  active="profile" has_filter=True has_navigation=True %}
                 {% else %}
-                    {% include 'userprofile/partials/filters.html' with title="Publicações"  active="profile" has_filter=True has_navigation=True %}
-                {% endif %} <div class="row">
+                {% include 'userprofile/partials/filters.html' with title="Publicações"  active="profile" has_filter=True has_navigation=True %}
+                {% endif %}
+                <div class="row">
                 <div class="col-lg-8">
                     {% block filters %}
                         <nav id="form-search" class="form-search filters-members" data-toggle="filters">
                             <form action="{% url 'profile:show' profile.user.username %}" method="GET" role="search">
-                                <div class="form-search-input">
-                                    <input type="text" name="criterio" placeholder="{{placehold|default:"Pesquise conteúdo de "|add:profile.user.first_name}}">
+                                <div class="customform search{%if errors %} customform-error{% endif %}">
+                                    <input class="customform-input" id="criterio" type="text" value="{{ request.GET.criterio }}" name="criterio" data-toggle="input" >
+                                    <hr>
+                                    <label for="criterio" class="customform-label{% if request.GET.criterio %} active {% endif %}">{{placehold|default:"Pesquise conteúdo de "|add:profile.user.first_name}}</label>
+                                    <button type="submit" class="form-search-button">
+                                        <i class="gsticon gsticon-search"></i>
+                                    </button>
                                 </div>
-                                <button type="submit" class="form-search-button">
-                                    <i class="gsticon gsticon-search"></i>
-                                </button>
                             </form>
                         </nav>
                     {% endblock filters %}
 
-                    <section class="area-content">
+                    <section>
                         {% if feed_objects.object_list %}
                             <div class="j-scroll j-scroll-container">
                                 {% include 'userprofile/partials/user-profile-list.html' %}

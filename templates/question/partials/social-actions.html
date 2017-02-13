@@ -1,0 +1,27 @@
+<div class="publication-social-actions">
+    <div class="publication-actions">
+        {% if question.author == request.user or perms.question.change_other_articles %}
+            <a href="{% url 'question:edit' question.id %}" class="action-button">
+                <i class="gsticon gsticon-edit"></i>
+                Editar
+            </a>
+        {% endif %}
+        <a class="action-button" data-class-name="active" data-url-login="{% url 'account:is_logged' %}" data-trigger="login" data-token="{{ csrf_token }}" data-action="favourite" data-action-type="text" data-action-text="Favoritar" data-action-text-alt="Favoritado" data-object="favourite-{{ question.id }}" data-url-check="{% url 'socialactions:acted' question.id 'question' 'favourite' %}" href="{% url 'socialactions:act-xhr' question.id 'question' 'favourite' %}?url_next={{ request.path|urlencode }}">
+            <i class="gsticon gsticon-star"></i>
+            <span>{{" Favoritar"}}</span>
+        </a>
+        <a class="action-button" data-class-name="active" data-url-login="{% url 'account:is_logged' %}" data-trigger="login" data-token="{{ csrf_token }}" data-action="see-later" data-action-type="text" data-action-text="Ver depois" data-action-text-alt="Marcar como visto" data-url-check="{% url 'socialactions:acted' question.id 'question' 'see-later' %}" data-object="see-later-{{ question.id }}" href="{% url 'socialactions:act-xhr' question.id 'question' 'see-later' %}?url_next={{ request.path|urlencode }}">
+            <i class="gsticon gsticon-eye"></i>
+            <span>{{" Ver depois"}}</span>
+        </a>
+        <a class="action-button" data-url-login="{% url 'account:is_logged' %}" data-trigger="login" data-token="{{ csrf_token }}" href="javascript:;" {% if request.user.is_authenticated %}data-suggest-modal="true"{% endif %} data-content="article" data-object="{{ question.id }}" data-url="{% url 'socialactions:act-suggest' question.id 'question' %}">
+            <i class="gsticon gsticon-paper-plane"></i>
+            Sugerir leitura
+        </a>
+    </div>
+
+    {% with instance_full_url="https://www.portalgsti.com.br"|add:question.get_absolute_url title=question.title %}
+        {% include 'question/partials/share.html' with title=title url=instance_full_url %}
+    {% endwith %}
+
+</div>

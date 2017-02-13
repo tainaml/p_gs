@@ -1,0 +1,94 @@
+{% extends 'home/layout/base.html' %}
+
+{% load seo_pagination_tags %}
+{% load ads %}
+{% block link_pagination %}
+
+    {% if certifications %}
+    {% pagination_links certifications %}
+    {% endif %}
+
+{% endblock link_pagination %}
+
+{% block title %}Profissões{% endblock title %}
+{% block content %}
+    <main class="container main">
+        <div class="row">
+            <div class="col-sm-9">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <header class="area-title">
+                            <h2>Certificações</h2>
+                        </header>
+                        <hr>
+                    </div>
+                </div>
+                <form id="form-search-responsibilities" class="row list__filter" action="#" data-toggle="filter" method="get">
+
+                    <div class="col-sm-12 list__filter__description">
+                        <p>Lista de certificações relacionadas a tecnologia</p>
+                    </div>
+                    <div class="col-sm-8 list__filter__inputbox">
+                        <div class="form-search-input">
+                            <input type="text" id="filter-profession" name="criteria"
+                                   placeholder="Pesquisar Profissão" autocomplete="off"
+                                    value="{{ request.GET.criteria|default_if_none:"" }}">
+                        </div>
+                        <button type="submit" class="form-search-button">
+                            <i class="gsticon gsticon-search"></i>
+                        </button>
+                    </div>
+                    <div class="col-sm-4 list__filter__communities">
+                        <select class="form-control"  id="filter-community" name="category" data-filter="select">
+                            <option value="">Categorias</option>
+                            {% for category in categories %}
+                                <option value="{{ category.id }}" {% if request.GET.category == category.id|stringformat:"s" %}selected{% endif %}>{{ category.description }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-sm-12"><hr></div>
+                </form>
+                <div class="row">
+                    <div class="col-xs-12 list__professions j-scroll j-scroll-container" data-list="professions">
+                        {% include 'certification/items.html' %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="squad-advertising">
+                     {% block community_right_block %}
+                            {% ads_only_production "community_right" "all" %}
+                        {% endblock community_right_block %}
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock content %}
+
+{% block javascripts %}
+    {{ block.super }}
+
+    <script>
+        $(function(){
+
+{#            var $form_search = $("#form-search-responsibilities");#}
+{#            var $list = $('.list__professions');#}
+{##}
+{#            $form_search.on("ajaxform.success", function AjaxSuccessSearch(e, data){#}
+{#                $list.empty().append($(data));#}
+{#            });#}
+
+            $(".j-scroll").jscroll({
+                loadingHtml: '<div class="load-async-preload"></div>',
+                contentSelect: ".j-scroll-container",
+                nextSelector: "a[data-jscroll-next]",
+                callback: function () {
+                    refreshAsyncLike();
+                }
+            });
+
+        });
+
+    </script>
+
+{% endblock javascripts %}

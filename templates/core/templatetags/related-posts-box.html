@@ -1,14 +1,59 @@
+{% load thumbor_tags %}
+{% load static %}
+{% load abs_url %}
+{% load ads %}
 {% if feed_records %}
-<div class="widget widget-feed">
-    <div class="widget-header">
-        <header class="area-title">
-            <h3>Relacionadas</h3>
-        </header>
-    </div>
-    <div class="widget-content">
-        {% for feed_record in feed_records %}
-            {% include template_path with record=feed_record.content_object %}
-        {% endfor %}
-    </div>
-</div>
+    {% if is_amp %}
+            <div class="widget widget-feed">
+                <div class="widget-header">
+                    <header class="area-title">
+                        <h3>Relacionadas</h3>
+                    </header>
+                </div>
+                <div class="widget-content">
+                    {% for feed_record in feed_records %}
+
+                        {% include template_path with record=feed_record.content_object %}
+                    {% endfor %}
+                </div>
+            </div>
+        {% else %}
+
+            <div class="hidden-lg advertising-vertical">
+                {% ads_only_production "community_right" "all" %}
+            </div>
+            <div class="widget recomendations">
+                <header class="widget-header">
+                    <h3 class="widget-title">
+                        <span>recomendamos para você</span>
+                    </h3>
+                </header>
+                <div class="row">
+                    {% for feed_record in feed_records %}
+                        {% with record=feed_record.content_object %}
+                             <a href="{% url 'article:view' record.year record.month record.slug %}" title="{{ record.title }}" class="col-sm-4 col-xs-12">
+                        <figure class="recomendation">
+                            <span>
+                                {% if record.get_image %}
+                                         <img class="img-responsive" src="{% thumbor_url record.get_image.url width=400 height=300 smart=False fit_in=False %}" alt="Imagem de {{ record.title }}">
+                                {% else %}
+                                         {% static 'images/recomendation.jpg' as image_url %}
+                                         <img class="img-responsive" src="{% thumbor_url image_url width=400 height=300 smart=False fit_in=False %}" alt="Imagem de {{ record.title }}">
+                                {% endif %}
+
+                            </span>
+                            <figcaption>{{ record.title }}</figcaption>
+                        </figure>
+                    </a>
+                        {% endwith %}
+
+                    {% endfor %}
+                </div>
+            </div>
+
+    {% endif %}
+
 {% endif %}
+
+
+

@@ -1,4 +1,4 @@
-{% load staticfiles %}{% load ads %}{% load abs_url %}{% load utils %}{% load core_tags %}{% load user_agents %}{% load var_tags %}{% load wizard_tags %}{% load thumbor_tags %}{% load avatar_tags %}
+{% load staticfiles %}{% load static_versioned %}{% load ads %}{% load abs_url %}{% load utils %}{% load core_tags %}{% load user_agents %}{% load var_tags %}{% load wizard_tags %}{% load thumbor_tags %}{% load avatar_tags %}
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -31,7 +31,7 @@
 
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700">
-    <link rel="stylesheet" href="{% static 'stylesheets/style.css' %}">
+    <link rel="stylesheet" href="{% static_versioned 'stylesheets/style.css' %}">
     {% block link_pagination %}{% endblock link_pagination %}
     <link rel="apple-touch-icon-precomposed" sizes="57x57" href="{% static 'images/apple-touch-icon-57x57.png' %}" />
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{% static 'images/apple-touch-icon-114x114.png' %}" />
@@ -66,7 +66,7 @@
 <div class="slideout-menu" id="slideout-menu">
     {% include 'home/partials/slideout-menu.html' %}
 </div>
-<div class="slideout-panel" id="wrapper">
+<div class="slideout-panel {% block page_class %}{% endblock page_class %}" id="wrapper">
     <header class="header">
         <div class="container">
             <div class="menu-mobile hidden-lg">

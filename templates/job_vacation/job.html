@@ -1,6 +1,6 @@
 {%extends 'home/layout/base.html' %}
 {% load humanize %}
-
+{% load ads %}
 {% block title %}{{ job.title }} - Portal GSTI{% endblock %}
 {% load thumbor_tags %}
 {% block content %}
@@ -21,11 +21,22 @@
                     <div class="job-box_title">{{ job.title }} {% if job.home_office %}<span class="label label-home-office">home-office</span>{% endif %}</div>
                     <strong class="job-box_employ-name">{{ job.company.name }}</strong>
                     <div class="job-box_location">
-                        {% for location in job.locations.all %}
-                            {% for city in location.cities.all %}
-                                <span class="location-item">{{ city.name }} - {{ location.state.acronym }}</span>
+                            {% if job.cities %}
+                                <strong>Cidades:</strong> {% for city in job.cities.all %}
+                                <span class="location-item">{{ city.name }}  ({{ city.state.acronym }}) </span>
+                                {% if not forloop.last %} ,
+                                {% endif %}
                             {% endfor %}
-                        {% endfor %}
+                            {% endif %}
+                            {% if job.states %}
+                                <strong>Estados:</strong>
+                                {% for state in job.states.all %}
+                                <span class="location-item">{{ state.name }}</span>
+                                {% if not forloop.last %} ,
+                                {% endif %}
+                            {% endfor %}
+                            {% endif %}
+
                     </div>
                     <div class="job-box_publication hidden-lg">
                         <i class="gsticon gsticon-clock-o"></i> {{ job.job_vacancy_date|naturalday }}
@@ -56,13 +67,13 @@
                     </div>
                 </li>
                 {% endif %}
-                {% if job.requirements.all %}
+                {% if job.requirements.all or job.additional_requirements.all %}
                 <li><i class="gsticon gsticon-check"></i>
                     <strong class="job-box_vacancy-title">Requisitos</strong>
                     <div class="job-box_vacancy-text">
                         <ul>
                             {% for requirement in job.requirements.all %}
-                                <li>{{ requirement.item.description }}{% if requirement.level %} - {{ requirement.level.description }}{% endif %}{% if requirement.exigency %} - {{ requirement.exigency.description }}{% endif %}{% if requirement.experience %} - {{ requirement.experience.description }}{% endif %}</li>
+                                <li>{% if requirement.item.community_related %}<a href="{% url "community:show" requirement.item.community_related.slug %}">{{ requirement.item.community_related.title }}</a>{% else %}{{ requirement.item.description }}{% endif %}{% if requirement.level %} {{ requirement.level.description|lower }}{% endif %}{% if requirement.exigency %} {{ requirement.exigency.description|lower }}{% endif %}{% if requirement.experience %} - {{ requirement.experience.description }}{% endif %}</li>
                             {% endfor %}
                             {% for requirement in job.additional_requirements.all %}
                                 <li>{{ requirement.description }}</li>
@@ -103,11 +114,17 @@
                         </div>
                     </li>
                 {% endif %}
-                {% if job.resposibility %}
+                {% if job.responsibility %}
                     <li><i class="gsticon gsticon-code"></i>
                         <strong class="job-box_vacancy-title">Área de Atuação</strong>
                         <div class="job-box_vacancy-text">
-                            {{ job.resposibility.responsibility.name }}{% if job.resposibility.responsibility_type %} - {{ job.resposibility.responsibility_type.description }}{% endif %}
+                            {% if job.responsibility.responsibility.active %}
+
+                                <a href="{% url "core:responsibility" job.responsibility.responsibility.slug %}">{{ job.responsibility.responsibility.name }}</a>{% if job.responsibility.responsibility_type %} - {{ job.responsibility.responsibility_type.description }}{% endif %}
+                            {% else %}
+                                {{ job.responsibility.responsibility.name }}{% if job.responsibility.responsibility_type %} - {{ job.responsibility.responsibility_type.description }}{% endif %}
+                            {% endif %}
+
                         </div>
                     </li>
                 {% endif %}
@@ -117,14 +134,14 @@
                         <div class="job-box_vacancy-text">
                             {% if job.phone_number %}<p>{{ job.phone_number }}</p>{% endif %}
                             {% if job.email %}<p><a href="mailto:{{ job.email }}">{{ job.email }}</a></p>{% endif %}
-                            {% if job.site %}<p><a href="{{ job.site }}" target="_blank">{{ job.site }}</a></p>{% endif %}
+                            {% if job.site %}<p><a href="{{ job.site }}" rel="nofollow" target="_blank">{{ job.site }}</a></p>{% endif %}
                         </div>
                     </li>
                 {% endif %}
-                {% if job.contact %}
+                {% if job.observation %}
                     <li><i class="gsticon gsticon-info"></i>
                         <strong class="job-box_vacancy-title">Mais informações</strong>
-                        <div class="job-box_vacancy-text">{{ job.contact }}</div>
+                        <div class="job-box_vacancy-text">{{ job.observation }}</div>
                     </li>
                 {% endif %}
             </ul>
@@ -132,7 +149,7 @@
     </div>
     <div class="col-lg-3">
         <div class="squad-advertising">
-            <img class="img-responsive" src="http://placehold.it/270x225" alt="Propaganda aqui">
+            {% ads_only_production "community_right" "all" %}
         </div>
     </div>
 </div>

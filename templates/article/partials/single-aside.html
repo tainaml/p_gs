@@ -1,0 +1,14 @@
+{% if feed.communities.all %}
+<div class="widget widget-feed hidden-xs">
+    <div class="widget-header">
+        <h3 class="widget-title">
+            <span>Comunidades</span>
+        </h3>
+    </div>
+    <div class="widget-content">
+        {% for community in feed.communities.all %}
+                {% include "article/partials/article-community-segment.html" with community_obj=community %}
+        {% endfor %}
+    </div>
+</div>
+{% endif %}

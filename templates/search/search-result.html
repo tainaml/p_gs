@@ -1,5 +1,5 @@
 {%extends 'home/layout/base.html' %}
-
+{% load ads %}
 {% load thumbor_tags %}
 {% load var_tags %}
 {% load seo_pagination_tags %}
@@ -73,7 +73,7 @@
 
             {% include "search/partials/search-sidebar-left.html" with local_context=request.path|cut:'/buscar'|cut:'/'|default:'all' %}
 
-            <div class="col-lg-9 result-wrapper">
+            <div class="col-lg-6 result-wrapper">
 
                 <div class="result-container">
 
@@ -82,8 +82,6 @@
                         <h2>Publicações</h2>
                     </header>
                     {% endif %}
-
-
 
                              {% if feed_articles %}
                                  <div class="area-content">
@@ -251,6 +249,9 @@
 {#                {% endif %}#}
 
             </div>
+        <div class="col-md-3">
+            {% ads_only_production "article_right" "all" %}
+        </div>
         </div>
     </main>
 {% endblock %}

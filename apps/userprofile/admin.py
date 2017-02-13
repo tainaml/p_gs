@@ -12,7 +12,7 @@ class ResponsibilityAdminForm(forms.ModelForm):
         self.fields['categories'].queryset = Taxonomy.objects.filter(term__slug='categoria')
 
     class Meta:
-        exclude = ()
+        exclude = ('author',)
         widgets = {
             'about': SummernoteWidget(editor_conf='responsibility'),
             'study': SummernoteWidget(editor_conf='responsibility'),
@@ -21,10 +21,13 @@ class ResponsibilityAdminForm(forms.ModelForm):
         }
 
 class ResponsibilityAdmin(admin.ModelAdmin):
-
     form = ResponsibilityAdminForm
-
     filter_horizontal  = ('categories',)
+    list_display = ('name', 'author', 'avaiable_to_choose')
+
+    def save_model(self, request, obj, form, change):
+        obj.author = request.user
+        super(ResponsibilityAdmin, self).save_model(request, obj, form, change)
 
 
 class UserProfileAdmin(admin.ModelAdmin):

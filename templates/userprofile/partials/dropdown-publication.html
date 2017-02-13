@@ -1,0 +1,22 @@
+<div class="dropdown dropdown-publication">
+    <button class="dropdown-action" id="btn-publications" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <i class="gsticon gsticon-pencil-square-o" aria-hidden="true"></i>
+        Publicar
+    </button>
+    <div class="dropdown-menu">
+        <ul class="perfil-actions" aria-labelledby="btn-publications">
+            <li><a href="{% url 'article:create' %}">
+                <i class="gsticon gsticon-file-text" aria-hidden="true"></i>
+                Artigo
+            </a></li>
+            <li><a href="{% url 'question:create' %}">
+                <i class="gsticon gsticon-question-circle" aria-hidden="true"></i>
+                Pergunta
+            </a></li>
+{#            <li><a href="{% url 'jobs:create' %}">#}
+{#                <i class="gsticon gsticon-briefcase" aria-hidden="true"></i>#}
+{#                Vaga de trabalho#}
+{#            </a></li>#}
+        </ul>
+    </div>
+</div>

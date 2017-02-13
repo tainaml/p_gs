@@ -1,0 +1,22 @@
+<form class="post hidden" action="#" method="post">
+    <div class="post-header">
+        <div class="post-creator">
+            <img class="post-creator-image" src="https://randomuser.me/api/portraits/men/35.jpg" width="40" height="40" alt="foto de {{ instance.author.get_full_name }}">
+            <span class="post-creator-userinfo">
+                <span class="post-creator-username">Lara Brandão</span>
+            </span>
+        </div>
+        <div class="post-info">
+            <strong class="char-countdown" data-target="countdown">256</strong>
+        </div>
+    </div>
+
+    <div class="post-content">
+        <textarea name="commit"></textarea>
+    </div>
+
+    <div class="post-footer">
+        {% include 'userprofile/partials/dropdown-publication.html' %}
+        <button class="btn btn-commit" type="button">Commit</button>
+    </div>
+</form>

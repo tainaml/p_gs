@@ -20,6 +20,7 @@
 }
 
 .list__video__item {
+  position: relative;
   padding: 7px;
   margin-top: 15px;
   margin-bottom: 15px;
@@ -35,6 +36,9 @@
       display: block;
       text-overflow: ellipsis;
       white-space: nowrap;
+      img {
+        margin-right: 5px;
+      }
     }
   }
 }
