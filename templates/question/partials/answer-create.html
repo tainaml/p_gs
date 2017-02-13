@@ -3,7 +3,7 @@
 {% load widget_tweaks %}
 {{ form.non_field_errors }}
 
-<form class="create-form" action="{% url 'question:comment_reply' %}" method="post" data-group-class=".answer-group" data-toggle="append" data-update="#container-answers" data-ajaxform="true">
+<form class="create-form" action="{% url 'question:comment_reply' %}" method="post" data-logged="{% if request.user.is_authenticated %}true{% else %}false{% endif %}" data-group-class=".answer-group" data-toggle="append" data-update="#container-answers" data-ajaxform="true">
     <div class="create-form-fields">
         <div class="form-group {% if form.content.errors %} has-error{% endif %}">
             {% url 'account:is_logged' as is_logged %}
@@ -12,7 +12,7 @@
         </div>
         <div class="form-group text-right">
             {# TODO: Traduzir o texto do botão #}
-            <input class="btn create-form-submit" type="submit" value="Responder" data-token="{{ csrf_token }}">
+            <input class="btn create-form-submit" type="submit" value="Responder" data-url-login="{% url 'account:is_logged' %}" {% if not request.user.is_authenticated %}data-trigger="login"{% endif %} data-token="{{ csrf_token }}">
         </div>
     </div>
     <input name="question_id" value="{{ content_object_id }}" type="hidden"/>
