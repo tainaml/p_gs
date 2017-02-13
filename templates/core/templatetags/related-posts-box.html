@@ -37,7 +37,7 @@
                                 {% if record.get_image %}
                                          <img class="img-responsive" src="{% thumbor_url record.get_image.url width=400 height=300 smart=False fit_in=False %}" alt="Imagem de {{ record.title }}">
                                 {% else %}
-                                         {% static 'images/gsti-default-og-image.png' as image_url %}
+                                         {% static 'images/recomendation.jpg' as image_url %}
                                          <img class="img-responsive" src="{% thumbor_url image_url width=400 height=300 smart=False fit_in=False %}" alt="Imagem de {{ record.title }}">
                                 {% endif %}
 

@@ -1,4 +1,4 @@
-{% load staticfiles %}{% load ads %}{% load abs_url %}{% load utils %}{% load core_tags %}{% load user_agents %}{% load var_tags %}{% load wizard_tags %}{% load thumbor_tags %}{% load avatar_tags %}
+{% load staticfiles %}{% load static_versioned %}{% load ads %}{% load abs_url %}{% load utils %}{% load core_tags %}{% load user_agents %}{% load var_tags %}{% load wizard_tags %}{% load thumbor_tags %}{% load avatar_tags %}
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -31,7 +31,7 @@
 
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700">
-    <link rel="stylesheet" href="{% static 'stylesheets/style.css' %}">
+    <link rel="stylesheet" href="{% static_versioned 'stylesheets/style.css' %}">
     {% block link_pagination %}{% endblock link_pagination %}
     <link rel="apple-touch-icon-precomposed" sizes="57x57" href="{% static 'images/apple-touch-icon-57x57.png' %}" />
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{% static 'images/apple-touch-icon-114x114.png' %}" />
