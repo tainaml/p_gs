@@ -18,7 +18,6 @@ class StaticVersionedNode(default_static.StaticNode):
                 for key in dict_file:
                     StaticVersionedNode._VERSIONED_DICT[os.path.join(settings.STATIC_URL, key)] = os.path.join(settings.STATIC_URL, dict_file[key])
 
-        print StaticVersionedNode._VERSIONED_DICT
         return StaticVersionedNode._VERSIONED_DICT
 
     @classmethod

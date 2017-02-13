@@ -120,6 +120,9 @@
                 <div class="single-main-about" href="{% if  article.author.is_active %}{% url 'profile:show' article.author.username %}{% else %}javascript:;{% endif %}">
                     <a href="{% if  article.author.is_active %}{% url 'profile:show' article.author.username %}{% else %}javascript:;{% endif %}">
                         <img class="single-author-image" width="40" height="40" src="{% get_avatar article.author width=40 height=40 smart=False fit_in=False %}" alt="foto de {{ instance.author.get_full_name }}">
+                        {% if instance.author.profile.contributor %}
+                    <div class="is-official" data-toggle="tooltip" data-placement="bottom" title="Colaborador do GSTI"></div>
+                {% endif%}
                     </a>
                     <span class="single-main-about-body">
                         <a class="single-author" href="{% if  article.author.is_active %}{% url 'profile:show' article.author.username %}{% else %}javascript:;{% endif %}">{{ article.author.get_full_name }}</a>

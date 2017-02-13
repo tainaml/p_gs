@@ -9,9 +9,8 @@
         <a class="post-creator" href="{% if  instance.author.is_active %}{% url 'profile:show' instance.author.get_username %}{% else %}javascript:;{% endif %}">
             <span class="post-creator-image">
                 <img src="{% get_avatar instance.author width=40 height=40 smart=False fit_in=False %}" alt="foto de {{ instance.author.get_full_name }}">
-                {# TODO: Altera essa codição para checar se o usuário é colaborador do portal #}
-                {% if feed and feed.official %}
-                <div class="is-official" data-toggle="tooltip" data-placement="bottom" title="Colaborador do GSTI"></div>
+                {% if instance.author.profile.contributor %}
+                    <div class="is-official" data-toggle="tooltip" data-placement="bottom" title="Colaborador do GSTI"></div>
                 {% endif%}
             </span>
             <span class="post-creator-userinfo">
