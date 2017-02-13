@@ -1,6 +1,6 @@
 {%extends 'home/layout/base.html' %}
 {% load humanize %}
-
+{% load ads %}
 {% block title %}{{ job.title }} - Portal GSTI{% endblock %}
 {% load thumbor_tags %}
 {% block content %}
@@ -149,7 +149,7 @@
     </div>
     <div class="col-lg-3">
         <div class="squad-advertising">
-            <img class="img-responsive" src="http://placehold.it/270x225" alt="Propaganda aqui">
+            {% ads_only_production "community_right" "all" %}
         </div>
     </div>
 </div>
