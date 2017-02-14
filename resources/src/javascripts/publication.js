@@ -1,15 +1,6 @@
 'use strict';
 
-const asyncModules = document.querySelectorAll( '[data-async]' )
-
-asyncModules.forEach((element, index) => {
-  const name = element.getAttribute( 'data-async' )
-
-  require.ensure([], function () {
-    module = require(`${name}`)
-    module( element )
-  })
-})
+import carousel from './components/publication-carousel';
 
 
 var functionOpenModalToDelete = function(e) {
@@ -112,8 +103,6 @@ var form_submit = function(event, data) {
   if ( $msgEmpty.is( ':visible' )) {
     $msgEmpty.hide();
   }
-
-
 };
 
     $.fn.renderList = function(){
@@ -203,17 +192,15 @@ var commentDropDown = function(event) {
     event.stopPropagation();
 };
 
+carousel( $( '[data-toggle="carousel"]' ))
+
 $(function(){
-  var imagesContent = $('.full-post-content').find('img');
+  var imagesContent = $( '[data-target="post-content"]' ).find( 'img' );
   $.each(imagesContent, function (index, image) {
     var $image = $(image);
-    var imageFloat = $image.css('float');
+    var imageFloat = $image.css( 'float' );
     if (imageFloat) {
-      if (imageFloat == 'left') {
-        $image.css('margin-right', 20);
-      } else if (imageFloat == 'right') {
-        $image.css('margin-left', 20);
-      }
+      $image.css(`margin-${imageFloat}`, 20);
     }
   });
 
@@ -240,7 +227,7 @@ function moveToHashPosition () {
     }
 
     $('html,body').animate({
-        'scrollTop': $target.offset().top
+      'scrollTop': $target.offset().top
     })
   }
 }

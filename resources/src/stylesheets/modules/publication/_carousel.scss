@@ -4,45 +4,78 @@
 
 
 /* Vendors  */
-@import "../../node_modules/slick-carousel/slick/slick.scss";
+.publication-carousel-wrapper {
+  margin: 20px auto;
+  position: relative;
+}
 
+/** Carousel **/
 
-.slick-arrow {
+.publication-carousel {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+}
+
+.publication-carousel ul {
+    width: 20000em;
+    position: relative;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.publication-carousel li {
+    float: left;
+    list-style: none;
+    border: 1px solid #fff;
+    box-sizing: border-box;
+}
+
+.publication-carousel img {
+    // display: block;
+    // max-width: 100%;
+    // height: auto !important;
+}
+
+/** Carousel Controls **/
+
+.jcarousel-control-prev,
+.jcarousel-control-next {
   position: absolute;
   top: 50%;
-  z-index: 2;
-  width: 20px;
-  height: 20px;
-  border: 0;
-  line-height: 0;
-  font-size: 0;
-  background: 0 0;
-  color: transparent;
-  &.slick-prev { left: -10px }
-  &.slick-prev::before { content: '\f104' }
-  &.slick-next { right: -10px }
-  &.slick-next::before { content: '\f105' }
-  &::before {
-    font-family: 'Fontawesome';
-    font-size: 28px;
-    line-height: 1;
-    color: #000;
-  }
+  margin-top: -15px;
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  color: #616161;
+  text-decoration: none;
+  // font-size: 24px/27px Arial, sans-serif;
+}
+
+.jcarousel-control-prev,
+.jcarousel-control-next {
+  display: none;
+}
+.jcarousel-control-prev {
+  left: -15px;
+}
+
+.jcarousel-control-next {
+  right: -15px;
 }
 
 .publication-carousel {
-  max-height: 80px;
-  margin-top: 30px;
-  margin-bottom: 10px;
   &-item {
-    padding: 0 15px;
     display: flex;
     flex: 1 1 auto;
+    float: left;
     color: #616161;
     &-body {
       margin-left: 17px;
       display: flex;
-      flex-flow: row wrap;
+      flex-flow: column wrap;
+      justify-content: space-between;
     }
     &:hover { color: #0162b1; }
   }
@@ -51,6 +84,7 @@
     width: 100px;
     span {
       overflow: hidden;
+      display: block;
       img {
         transition: transform ease .6s;
         &:hover {
@@ -64,6 +98,9 @@
     margin-top: 0;
     font: 600 14px/18px 'Open Sans';
     max-height: 57px;
+  }
+  &.advertising {
+    max-height: 100%;
   }
 }
 .btn-show-more {
@@ -79,13 +116,15 @@
 
 @media (max-width: $screen-xs-max) {
   .publication-carousel {
-    margin-bottom: 40px;
+    margin: 0 0 40px;
     &-title {}
-    &-item {
-      padding: 10px 15px;
-    }
+    &-item {}
   }
   .btn-show-more {
     display: none;
+  }
+  .jcarousel-control-prev,
+  .jcarousel-control-next {
+    display: block;
   }
 }

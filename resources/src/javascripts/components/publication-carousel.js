@@ -1,4 +1,4 @@
-import 'slick-carousel'
+import '../vendor/jquery.jcarousel'
 import '../vendor/rateYo/jquery.rateyo'
 
 const defaultRate = {
@@ -10,35 +10,34 @@ const defaultRate = {
 }
 
 module.exports = ( mod ) => {
-  const $rating = $( '[data-toggle="rating"]' )
+  const $rating = $( '[data-toggle="rating"]' );
+  const $module = $( mod );
 
-  $( mod ).slick({
-    slidesToShow: 4,
-    slidesToScroll: 4,
-    responsive: [
-      {
-        breakpoint: 1024,
-        settings: {
-          slidesToShow: 3,
-          slidesToScroll: 3
-        }
-      },
-      {
-        breakpoint: 768,
-        settings: {
-          slidesToShow: 2,
-          slidesToScroll: 2
-        }
-      },
-      {
-        breakpoint: 480,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
-        }
+  $module
+    .on('jcarousel:reload jcarousel:create', function () {
+      var carousel = $( this ),
+      width = carousel.innerWidth();
+
+      if (width > 768) {
+        width = width / 4;
+      } else if (width < 768 && width > 480 ) {
+        width = width / 2;
+      } else if (width <= 480) {
+        width = width;
       }
-    ]
-  })
+
+      carousel.jcarousel('items').css('width', Math.ceil(width) + 'px');
+    }).jcarousel({
+      wrap: 'circular'
+    });
+
+    $('.jcarousel-control-prev').jcarouselControl({
+      target: '-=1'
+    });
+
+    $('.jcarousel-control-next').jcarouselControl({
+      target: '+=1'
+    });
 
   $rating.each( ( index, item ) => {
     const $this = $( item )

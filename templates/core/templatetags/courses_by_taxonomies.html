@@ -1,20 +1,30 @@
 {% load thumbor_tags %}
-<div class="publication-carousel" data-async="./components/publication-carousel">
-    {% for course in courses %}
-        <div>
-        <a href="{% url 'course:show' course.slug %}" class="publication-carousel-item">
-            <span class="publication-carousel-image">
-                <span>
-                    <img width="100" height="94" src="{% thumbor_url course.image_or_default.url width=100 height=94 smart=False fit_in=False %}" width="100" height="94" alt="{{ course.title }}">
-                </span>
-            </span>
-            <span class="publication-carousel-item-body">
-                <h3 class="publication-carousel-title">{{ course.title }}</h3>
-                <span data-toggle="rating" data-config='{"starWidth": "16px", "rating": {{ course.rating|floatformat:".2" }}, "readOnly": true}'></span>
-            </span>
-        </a>
+<div class="publication-carousel-wrapper">
+    <div class="publication-carousel" data-toggle="carousel">
+        <ul>
+            {% for course in courses %}
+            <li class="col-sm-3">
+                <a href="{% url 'course:show' course.slug %}" data-carousel="item" class="publication-carousel-item">
+                    <span class="publication-carousel-image">
+                        <span>
+                            <img width="100" height="94" src="{% thumbor_url course.image_or_default.url width=100 height=94 smart=False fit_in=False %}" width="100" height="94" alt="{{ course.title }}">
+                        </span>
+                    </span>
+                    <span class="publication-carousel-item-body">
+                        <h3 class="publication-carousel-title">{{ course.title }}</h3>
+                        <span data-toggle="rating" data-config='{"starWidth": "16px", "rating": {{ course.rating|floatformat:".2" }}, "readOnly": true}'></span>
+                    </span>
+                </a>
+            </li>
+            {% endfor %}
+        </ul>
     </div>
-    {% endfor %}
+    <a href="#" class="jcarousel-control-prev">
+        <i class="gsticon gsticon-2x gsticon-angle-left" aria-hidden="true"></i>
+    </a>
+    <a href="#" class="jcarousel-control-next">
+        <i class="gsticon gsticon-2x gsticon-angle-right" aria-hidden="true"></i>
+    </a>
 </div>
 <div class="row">
     <div class="col-sm-12 text-right">
