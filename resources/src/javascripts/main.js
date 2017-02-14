@@ -63,7 +63,8 @@ $(function () {
         'panel': document.getElementById('wrapper'),
         'menu': document.getElementById('slideout-menu'),
         'padding': 256,
-        'tolerance': 70
+        'tolerance': 70,
+        'touch': false
     });
     $(document).on('click', '.toggle-slideout', function() {
         slideout.toggle();
