@@ -34,17 +34,36 @@
   max-height: 80px;
   margin-top: 30px;
   margin-bottom: 10px;
- &-item {
-   padding: 0 15px;
-   display: flex;
-   flex: 1 1 auto;
-   color: #616161;
-   &-body { margin-left: 17px }
-   &:hover { color: #0162b1; }
+  &-item {
+    padding: 0 15px;
+    display: flex;
+    flex: 1 1 auto;
+    color: #616161;
+    &-body {
+      margin-left: 17px;
+      display: flex;
+      flex-flow: row wrap;
+    }
+    &:hover { color: #0162b1; }
+  }
+  &-image {
+    position: relative;
+    width: 100px;
+    span {
+      overflow: hidden;
+      img {
+        transition: transform ease .6s;
+        &:hover {
+          transform: scale(1.2);
+        }
+      }
+    }
   }
   &-title {
+    overflow: hidden;
     margin-top: 0;
     font: 600 14px/18px 'Open Sans';
+    max-height: 57px;
   }
 }
 .btn-show-more {
