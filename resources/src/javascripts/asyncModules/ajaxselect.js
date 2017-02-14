@@ -32,21 +32,21 @@ function templateItem (item, escape) {
 }
 function templateOption (item, escape) {
     let name = item.name ? escape(item.name) : ''
-    var template = `<div class="item-float-notification">
+    let template = `<div class="item-float-notification">
       <span><img src="${item.img}" alt="${name}"></span>
       ${name}
     </div>`
-    console.log(template);
-      return template
+    return template
 }
 
-function loadUsers(query, callback) {
-    var options = this.$wrapper.prev().data();
+function loadUsers ( query, callback ) {
+    const options = this.$wrapper.prev().data();
+    const _data = {};
+
     if (!query.length) {
-        return callback()
+      return callback()
     }
 
-    var _data = {};
     _data[this.settings.searchField] = query;
     console.log(_data);
 
@@ -55,10 +55,10 @@ function loadUsers(query, callback) {
         type: 'GET',
         data: _data,
         error: function () {
-            callback()
+          callback()
         },
         success: function (res) {
-            callback(res.items);
+          callback(res.items);
         }
     })
 }

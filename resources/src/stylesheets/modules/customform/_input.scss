@@ -71,6 +71,9 @@ $input-error-color: #e10c14 !default;
         padding: 5px;
       }
     }
+    > .customform-input.selectize-dropdown.single {
+      background-color: #fff;
+    }
 	}
 
 	hr {
