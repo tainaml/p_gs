@@ -63,6 +63,7 @@ class CompanyForm(MaterialModelForm):
             })
 
         super(CompanyForm, self).__init__(*args, **kwargs)
+        self.fields['communities'].widget.label = _("Comunidades")
 
     class Meta:
 
