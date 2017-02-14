@@ -62,8 +62,8 @@
               }
             },
            "headline":"{{ article.title }}",
-           "datePublished":"{{ article.publishin|date:'Y-d-m G:i' }}",
-           "dateModified":"{{ article.updatein|date:'Y-d-m G:i' }}",
+           "datePublished":"{{ article.publishin|date:'Y-m-d G:i' }}",
+           "dateModified":"{{ article.updatein|date:'Y-m-d G:i' }}",
            "commentCount": {{ article.comment_count|default_if_none:0 }},
            "interactionStatistic": [
                 {
