@@ -2,32 +2,36 @@
 {% load thumbor_tags %}
 
 {% if communities %}
+
     {% for community in communities %}
-        <div class="suggestion">
-            <div class="perfil">
-              <figure>
-                <img src="{% thumbor_url community.get_picture.url width=82 height=82 smart=False fit_in=False %}" alt="{{ community.title }}" title="{{ community.title }}">
-              </figure>
-              <div>
-                  <span class="perfil-name" title="{{ community.title }}">{{ community.title }}</span>
-                  <span class="perfil-counter">
-                      <span class="counter-number">{% followers_count community as followers_count_value %}{{ followers_count_value }}</span> Seguidor{{ followers_count_value|pluralize:'es' }}
-                  </span>
-                  {% follow_action community url_next ajax=True %}
-              </div>
+    <div class="suggestion">
+        <div class="perfil">
+            <span>
+                <figure>
+                    <img width="80" height="80" src="{% thumbor_url community.get_picture.url width=80 height=80 smart=False fit_in=False %}" alt="{{ community.title }}" title="{{ community.title }}">
+                </figure>
+            </span>
+            <div>
+                <span class="perfil-name" title="{{ community.title }}">{{ community.title }}</span>
+                <span class="perfil-counter">
+                  <span class="counter-number">{% followers_count community as followers_count_value %}{{ followers_count_value }}</span> Seguidor{{ followers_count_value|pluralize:'es' }}
+                </span>
+                {% follow_action community url_next ajax=True %}
             </div>
         </div>
+    </div>
     {% endfor %}
 
     {% if communities and communities.has_next %}
-        <div class="col-lg-12 next-button-container">
-            <a class="btn-default btn-block btn-wizard-next-categories" data-jscroll-next href="{% url "profile:wizard" step=3 %}?criteria={{ criteria }}&page={{ page }}">Carregar mais comunidades</a>
-        </div>
+    <div class="col-lg-12 next-button-container">
+        <a class="btn-default btn-block btn-wizard-next-categories" data-jscroll-next href="{% url "profile:wizard" step=3 %}?criteria={{ criteria }}&page={{ page }}">Carregar mais comunidades</a>
+    </div>
     {% endif %}
 
 {% else %}
+
     <div class="col-lg-12">
-            Nenhuma comunidade encontrada com este critério de busca.
+        Nenhuma comunidade encontrada com este critério de busca.
     </div>
 
 {% endif %}
