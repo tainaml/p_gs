@@ -42,7 +42,7 @@
     {% endif %}
 
 
-    {% if profile.user.is_company %}
+    {% if profile.user.is_company and profile.user == request.user %}
          <div class="user__pages">
            <span class="user__pages__title">LOGAR COMO</span>
             <ul class="user__pages__list">
