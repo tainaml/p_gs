@@ -1,5 +1,6 @@
 {% extends "home/layout/base.html" %}
 
+{% load static_versioned %}
 {% load taxonomy_tags %}
 {% load core_tags %}
 {% load profile_tags %}
@@ -218,6 +219,6 @@
 {% endblock %}
 
 {% block javascripts %}
-     <script src="{% static 'javascripts/vendor.js'%}" data-manual></script>
-     <script src="{% static 'javascripts/publication.js'%}"></script>
+     <script src="{% static_versioned 'javascripts/vendor.js'%}" data-manual></script>
+     <script src="{% static_versioned 'javascripts/publication.js'%}"></script>
 {% endblock javascripts %}

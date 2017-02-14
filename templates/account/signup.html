@@ -205,8 +205,8 @@
           fjs.parentNode.insertBefore(js, fjs);
         }(document, 'script', 'facebook-jssdk'));</script>
         <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
-        <script src="{% static 'javascripts/shared.js'%}"></script>
-        <script src="{% static 'javascripts/main.js'%}"></script>
+        <script src="{% static_versioned 'javascripts/shared.js'%}"></script>
+        <script src="{% static_versioned 'javascripts/main.js'%}"></script>
         <script src="https://www.google.com/recaptcha/api.js?hl=pt-BR" async defer></script>
 
         {% include 'inline_scripts/modal.html' %}

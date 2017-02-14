@@ -6,7 +6,9 @@
 {% load widget_tweaks %}
 {% load core_tags %}
 {% block editorfiles %}
-  <script src="{% static 'javascripts/vendor.js'%}" data-manual></script>
+{% load static_versioned %}
+
+  <script src="{% static_versioned 'javascripts/vendor.js'%}" data-manual></script>
 {% endblock %}
 {% block content %}
     <main class="container main">
