@@ -121,7 +121,7 @@
                         </ul>
 
                         {% if not instance.class_link and instance.is_date_valid %}
-                                <a href="{{ instance.affiliate_link }}" rel="nofollow" class="btn btn-green course__btn" target="_blank">Tenho Interesse</a>
+                                <a href="{{ instance.affiliate_link }}" rel="nofollow" class="btn btn-green course__btn" target="_blank">Ver curso</a>
                         {% endif %}
                     </div>
                 </div>
@@ -143,7 +143,7 @@
                                     </div>
 
 
-                                        <a data-toggle="showmore" href="#class-{{ forloop.counter }}" target="_blank" rel="nofollow"><i class="gsticon gsticon-plus"></i> Detalhes</a>
+                                        <a data-toggle="showmore" href="#class-{{ forloop.counter }}" target="_blank" rel="nofollow"><i class="gsticon gsticon-plus"></i> Ver curso</a>
                                     {% endif %}
                                 </li>
                             {% endfor %}
@@ -159,10 +159,10 @@
                         {% endif %}
 
                         {% if not instance.class_link %}
-                            <a href="{{ instance.affiliate_link }}" target="_blank" rel="nofollow" class="btn btn-green course__btn">Detalhes</a>
+                            <a href="{{ instance.affiliate_link }}" target="_blank" rel="nofollow" class="btn btn-green course__btn">Ver curso</a>
                         {% else %}
 
-                            <a href="{{ instance.class_link }}" target="_blank" rel="nofollow" class="btn btn-green course__btn">Detalhes</a>
+                            <a href="{{ instance.class_link }}" target="_blank" rel="nofollow" class="btn btn-green course__btn">Ver curso</a>
                         {% endif %}
 
                         {% include "course/author.html" %}
