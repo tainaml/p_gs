@@ -58,16 +58,16 @@
 // Modal Suggestions
 // ==========================================================================
 .suggestion {
-    @include make-lg-column(4);
+    @include make-lg-column(3);
     padding-top: 1px;
     margin-bottom: 20px;
 
-    .perfil figure {
-      max-width: 90px;
-      float: left;
-      margin-right: 8px;
-      border: 4px solid #fff;
-      box-shadow: -1px 1px 1px #e1e1e1,1px -1px 1px #e1e1e1;
+    .perfil-button-alt
+    .perfil-button, {
+      width: 110px;
+      padding-right: 0;
+      padding-left: 0;
+      text-align: center;
     }
 }
 
