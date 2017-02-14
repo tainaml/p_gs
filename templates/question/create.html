@@ -5,7 +5,7 @@
 {% load json_filter %}
 {% load widget_tweaks %}
 {% load core_tags %}
-
+{% load static_versioned %}
 {% load avatar_tags %}
 {% load thumbor_tags %}
 
@@ -18,7 +18,7 @@
 
 
 {% block editorfiles %}
-  <script src="{% static 'javascripts/vendor.js'%}" data-manual></script>
+  <script src="{% static_versioned 'javascripts/vendor.js'%}" data-manual></script>
 {% endblock %}
 {% block content %}
     <main class="container main">

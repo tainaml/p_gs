@@ -13,7 +13,7 @@
 {% load url_utils %}
 {% load core_tags %}
 {% load utils %}
-
+{% load static_versioned %}
 {% block seo-og-title %}{% block seo_title %}{{ block.super }}{% endblock %}{% endblock %}
 {% block seo-og-description %}{% block seo-description %}{{ question.description|seo_description }}{% endblock %}{% endblock %}
 {% block seo-og-type %}article{% endblock %}
@@ -178,6 +178,6 @@
 
 {% block javascripts %}
     <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-55e70ed11db7fa4e" async></script>
-    <script src="{% static 'javascripts/vendor.js'%}"></script>
-    <script src="{% static 'javascripts/publication.js'%}"></script>
+    <script src="{% static_versioned 'javascripts/vendor.js'%}"></script>
+    <script src="{% static_versioned 'javascripts/publication.js'%}"></script>
 {% endblock %}
