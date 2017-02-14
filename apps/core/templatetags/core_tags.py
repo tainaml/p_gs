@@ -63,10 +63,10 @@ def courses_by_taxonomies(context, taxonomies=None, count=4):
     if not taxonomies:
         taxonomies = Taxonomy.objects.all()
 
-    courses = Course.objects.filter(taxonomies__in=taxonomies).distinct("id", "rating").order_by("-rating")[:count]
+    courses = Course.objects.filter(taxonomies__in=taxonomies, active=True).distinct("id", "rating").order_by("-rating")[:count]
     if len(courses) < count:
         # if not foud the minimum related, retrieve courses anyway!
-        courses = itertools.chain(courses, Course.objects.exclude(id__in=courses).order_by("-rating")[:count-len(courses)])
+        courses = itertools.chain(courses, Course.objects.filter(active=True).exclude(id__in=courses).order_by("-rating")[:count-len(courses)])
 
     return {
         'courses': courses

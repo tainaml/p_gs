@@ -24,12 +24,12 @@ def get_courses(itens_per_page=None, **cleaned_data):
     if cleaned_data.get('title'):
         criteria = criteria & Q(title__icontains=cleaned_data.get('title'))
 
-    if cleaned_data.get('category'):
-        criteria = criteria & (Q(taxonomies__parent=Taxonomy.objects.filter(slug=cleaned_data['category']))
-                               | Q(taxonomies=Taxonomy.objects.filter(slug=cleaned_data['category'])))
+    if cleaned_data.get('category') and cleaned_data['category'].slug:
+        criteria = criteria & (Q(taxonomies__parent=Taxonomy.objects.filter(slug=cleaned_data['category'].slug))
+                               | Q(taxonomies=Taxonomy.objects.filter(slug=cleaned_data['category'].slug)))
 
-    if cleaned_data.get('community'):
-        criteria = criteria & Q(taxonomies=Taxonomy.objects.filter(slug=cleaned_data['community']))
+    if cleaned_data.get('community') and cleaned_data['category'].slug:
+        criteria = criteria & Q(taxonomies=Taxonomy.objects.filter(slug=cleaned_data['community'].slug))
 
     order = cleaned_data.get('order') or "-rating"
 
