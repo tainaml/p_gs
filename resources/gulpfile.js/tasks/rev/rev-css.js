@@ -8,13 +8,14 @@ var revNapkin = require('gulp-rev-napkin')
 //    referenced asset hash changes, the parent hash will change as well
 gulp.task('rev-css', function(){
   return gulp.src([
-    path.join(config.publicAssets,'/**/*.css'),
-    '!'+path.join(config.publicAssets,'/selectize/*.css'),
+    path.join(config.publicAssets,'/**/*.{css,js}'),
+    '!'+path.join(config.publicAssets,'/selectize/*.{css,js}'),
+    '!'+path.join(config.publicAssets,'/src-noconflict/**/*.{css,js}'),
 
   ])
     .pipe(rev())
     .pipe(gulp.dest(config.publicAssets))
-    // .pipe(revNapkin({verbose: false, force: true}))
+    // .pipe(revNapkin({ force: true}))
     .pipe(rev.manifest(path.join(config.publicAssets, 'rev-manifest.json'), {
       merge: true
     }))
