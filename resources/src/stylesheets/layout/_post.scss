@@ -137,9 +137,6 @@
   &-text {
     color: #969595;
     font-size: 13px;
-    p {
-      margin-bottom: 0;
-    }
   }
   &-count {
     padding-right: 4px;
@@ -207,7 +204,6 @@
     position: relative;
     overflow: hidden;
     width: 100%;
-    margin-top: 10px;
     display: inline-block;
     &-list {
       position: relative;
