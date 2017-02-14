@@ -6,8 +6,12 @@ var iconFontConfig = require('../config/iconFont');
 
 gulp.task('clean', function (cb) {
   del([
-    path.join(config.publicAssets, 'stylesheets'),
-    path.join(config.publicAssets, 'javascripts')
+    path.join(config.publicAssets, 'stylesheets/**'),
+    path.join(config.publicAssets, 'javascripts/**'),
+    '!'+path.join(config.publicAssets, 'javascripts'),
+    '!'+path.join(config.publicAssets, 'javascripts/summernote-*.js'),
+    '!'+path.join(config.publicAssets, 'javascripts/jquery-*.js'),
+    '!'+path.join(config.publicAssets, 'javascripts/django-*.js'),
   ]
   , {force: true}
   , cb);

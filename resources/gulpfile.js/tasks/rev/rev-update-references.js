@@ -11,6 +11,9 @@ gulp.task('rev-update-references', function(){
     path.join(config.publicAssets,'/**/**.{css,js}'),
     '!'+path.join(config.publicAssets,'/selectize/*.{css,js}'),
     '!'+path.join(config.publicAssets,'/src-noconflict/*.{css,js}'),
+    '!'+path.join(config.publicAssets, 'javascripts/summernote-*.js'),
+    '!'+path.join(config.publicAssets, 'javascripts/jquery-*.js'),
+    '!'+path.join(config.publicAssets, 'javascripts/django-*.js'),
     ])
     .pipe(revReplace({manifest: manifest}))
     .pipe(gulp.dest(config.publicAssets))
