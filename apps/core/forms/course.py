@@ -1,4 +1,4 @@
-from apps.custom_base.service.custom import IdeiaForm, forms, MaterialModelForm
+from apps.custom_base.service.custom import IdeiaForm, forms
 from apps.core.business import course as course_business
 from apps.taxonomy.models import Taxonomy
 from django.utils.translation import ugettext_lazy as _
@@ -12,7 +12,7 @@ class CommunityTaxonomylChoiceField(forms.ModelChoiceField):
     def label_from_instance(self, obj):
         return obj.description
 
-class CourseListForm(MaterialModelForm):
+class CourseListForm(IdeiaForm):
 
     CHOICES_TAXONOMY = Taxonomy.objects.filter(term__slug='categoria')
 

@@ -483,7 +483,6 @@ class CoreProfileFollowersSearch(views.ProfileShowView):
             self.items_per_page,
             request.GET
         )
-        print profile_instance.user.followers()
 
         response = {}
         response_form = form.process()
