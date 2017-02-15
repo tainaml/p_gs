@@ -24,11 +24,10 @@
 {% block seo-og-type %}article{% endblock %}
 
 {% block seo-og-url %}{{ request.path|root  }}{% url 'article:view' article.year article.month article.get_first_slug %}{% endblock %}
-
 {% block seo-metas-extra %}
 
     {{ block.super }}
-
+    <meta property="article:author"  content="{{ article.author.get_full_name }}" />
     {% if article.feed.first.seo_no_index == True or article.feed.first.seo_no_follow == True %}
         <meta name="robots" content="{% seo_feed_robots article.feed.first.seo_no_index article.feed.first.seo_no_follow %}">
     {% endif %}
@@ -119,8 +118,8 @@
         <div class="single-main">
             <div class="single-header">
                 <div class="single-main-about">
-                    <a itemprop='author' itemscope='itemscope' itemtype='http://schema.org/Person' href="{% if  article.author.is_active %}{% url 'profile:show' article.author.username %}{% else %}javascript:;{% endif %}">
-                        <span itemprop='name' class="single-author-image">
+                    <a href="{% if  article.author.is_active %}{% url 'profile:show' article.author.username %}{% else %}javascript:;{% endif %}">
+                        <span class="single-author-image">
                             <img width="40" height="40" src="{% get_avatar article.author width=40 height=40 smart=False fit_in=False %}" alt="foto de {{ instance.author.get_full_name }}">
                             {% if article.author.profile.contributor %}
                             <div class="is-official" data-toggle="tooltip" data-placement="bottom" title="Colaborador do Portal"></div>
