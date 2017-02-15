@@ -107,7 +107,13 @@ $color-counter-notification: #b2b2b2 !default;
         color: #486075;
 
         &:hover { background-color: #f7f7f7; }
-
+        figure {
+          display: flex;
+        }
+        img {
+          margin-right: 10px;
+          float: left;
+        }
         span { color: #337ab7; }
         .perfil-counter { color: #7b787d }
         .icontype {
