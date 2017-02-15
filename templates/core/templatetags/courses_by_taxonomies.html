@@ -11,7 +11,7 @@
                         </span>
                     </span>
                     <span class="publication-carousel-item-body">
-                        <h3 class="publication-carousel-title">{{ course.title }}</h3>
+                        <h3 class="publication-carousel-title" title="{{ course.title }}">{% if course.title|length > 50 %}{{ course.title|slice:":50" }}...{% else %}{{ course.title }}{% endif %}</h3>
                         <span data-toggle="rating" data-config='{"starWidth": "16px", "rating": {{ course.rating|floatformat:".2" }}, "readOnly": true}'></span>
                     </span>
                 </a>
