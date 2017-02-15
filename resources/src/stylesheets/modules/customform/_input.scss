@@ -67,11 +67,12 @@ $input-error-color: #e10c14 !default;
       border: 1px solid $input-border-color;
     }
     .plugin-remove_button.selectize-dropdown {
+      background-color: #fff;
       [data-selectable] {
         padding: 5px;
       }
     }
-    > .customform-input.selectize-dropdown.single {
+    > .selectize-dropdown.single {
       background-color: #fff;
     }
 	}
