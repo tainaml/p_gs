@@ -119,8 +119,8 @@
         <div class="single-main">
             <div class="single-header">
                 <div class="single-main-about">
-                    <a href="{% if  article.author.is_active %}{% url 'profile:show' article.author.username %}{% else %}javascript:;{% endif %}">
-                        <span class="single-author-image">
+                    <a itemprop='author' itemscope='itemscope' itemtype='http://schema.org/Person' href="{% if  article.author.is_active %}{% url 'profile:show' article.author.username %}{% else %}javascript:;{% endif %}">
+                        <span itemprop='name' class="single-author-image">
                             <img width="40" height="40" src="{% get_avatar article.author width=40 height=40 smart=False fit_in=False %}" alt="foto de {{ instance.author.get_full_name }}">
                             {% if article.author.profile.contributor %}
                             <div class="is-official" data-toggle="tooltip" data-placement="bottom" title="Colaborador do Portal"></div>
@@ -202,8 +202,9 @@
         </div>
         <div class="single-aside">
             {% include "article/partials/single-aside.html" %}
-
-            {% ads_only_production "article_right" "pc" %}
+            {% if request|is_pc %}
+                {% ads_only_production "article_right" "all" %}
+            {% endif %}
         </div>
 
     </div>
