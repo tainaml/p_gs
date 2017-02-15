@@ -30,6 +30,7 @@
     {% url 'profile:show' article.author.username  as author_url%}
     <meta property="article:author"  content="{% absolute_url author_url %}" />
     <meta property="article:section"  content="Articles" />
+    <meta property="article:publisher"  content="https://www.facebook.com/PortalGSTIpage/?fref=ts" />
     {% if feed.communities %}
          <meta property="article:tag"  content="{% for community in  feed.communities.all %}{{ community.title }}{% if not forloop.last %}, {% endif %}{% endfor %}" />
     {% endif %}
