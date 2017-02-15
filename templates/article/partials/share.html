@@ -1,6 +1,11 @@
+{% load user_agents %}
 <div class="share-buttons">
     <a class="social-button facebook" href="http://www.facebook.com/sharer/sharer.php?u={{ instance_full_url }}&title={{ title|urlencode }}" target="_blank">Facebook</a>
     <a class="social-button twitter" href="http://twitter.com/intent/tweet?status={{ title|urlencode }}+{{ instance_full_url }}" target="_blank">Twitter</a>
     <a class="social-button gplus" href="https://plus.google.com/share?url={{ instance_full_url }}" target="_blank">Google+</a>
     <a class="social-button linkedin" href="http://www.linkedin.com/shareArticle?mini=true&url={{ instance_full_url }}&title={{ title|urlencode }}&source=portalgsti" target="_blank">LinkedIn</a>
+    {% comment %}Descomentar quando houver a classe{% endcomment %}
+    {#    {% if not request|is_pc %}<a class="social-button gsticon-whatsapp" href="whatsapp://send?text={{ instance_full_url }}" target="_blank">Whatsapp</a>{% endif %}#}
+    {% comment %}###################################{% endcomment %}
 </div>
+

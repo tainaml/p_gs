@@ -108,7 +108,6 @@ class CoreUserProfile(CoreUserView):
         )
 
         feed_objects = form.process()
-
         return {
             'feed_objects': feed_objects,
             'form': form,
@@ -487,15 +486,13 @@ class CoreProfileFollowersSearch(views.ProfileShowView):
         response = {}
         response_form = form.process()
 
-        if response_form:
-            response.update(response_form)
-
         return {
-            'items': response.get('items'),
+            'items': response_form,
             'content_type': response.get('content_type'),
             'object': response.get('object'),
             'form': form,
-            'page': form.cleaned_data.get('page', 0) + 1
+            'page': form.cleaned_data.get('page', 0) + 1,
+            'profile': profile_instance
         }
 
 

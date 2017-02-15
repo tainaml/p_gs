@@ -1,7 +1,7 @@
 <nav class="perfil-navegation hidden-xs">
-    {% if profile.user == request.user %}<a href="{% url 'profile:feed' %}" {% if active == "feed" %}class="active"{% endif %} >Feed</a>{% endif %}
-    <a href="{% if  profile.user.is_active %}{% url 'profile:show' profile.user.get_username %}{% else %}javascript:;{% endif %}" {% if active == "posts" %}class="active"{% endif %} >Publicações</a>
-    {% if profile.user == request.user %}<a href="{% url 'profile:my-questions' %}" {% if active == "questions" %}class="active"{% endif %} >Minhas Perguntas</a>{% endif %}
-    <a href="{% url 'profile:communities' username=profile.user.username %}" {% if active == "communities" %}class="active"{% endif %} >Comunidades</a>
-    <a href="{% url 'profile:followers' username=profile.user.username %}" {% if active == "followers" %}class="active"{% endif %}>Relacionamentos</a>
+    {% if profile.user == request.user %}{% if active == "feed" %}<h2 class="active">Feed</h2> {% else %}<a href="{% url 'profile:feed' %}">Feed</a>{% endif %}{% endif %}
+    {% if active == "posts" %}<h2 class="active">Publicações</h2> {% else %}<a href="{% url 'profile:show' profile.user.get_username  %}">Publicações</a>{% endif %}
+    {% if profile.user == request.user %}{% if active == "questions" %}<h2 class="active">Minhas perguntas</h2> {% else %}<a href="{% url 'profile:my-questions' %}">Minhas Perguntas</a>{% endif %}{% endif %}
+    {% if active == "communities" %}<h2 class="active">Comunidades</h2> {% else %}<a href="{% url 'profile:communities' username=profile.user.username %}">Comunidades</a>{% endif %}
+    {% if active == "followers" %}<h2 class="active">Relacionamentos</h2> {% else %}<a href="{% url 'profile:followers' username=profile.user.username %}">Relacionamentos</a>{% endif %}
 </nav>

@@ -2,7 +2,7 @@
     <div class="customform search{%if errors %} customform-error{% endif %}">
         <input class="customform-input" name="criteria" placeholder="{{placeholder|default:"Procure pessoas, comunidades, etc."}}" value="{{ form.cleaned_data.criteria|default:"" }}" data-toggle="input" >
         <hr>
-        <label for="criterio" class="customform-label{% if value %} active {% endif %}">{{placeholder|default:"Procure pessoas, comunidades, etc."}}</label>
+        <label for="criterio" class="customform-label{% if form.cleaned_data.criteria %} active {% endif %}">{{placeholder|default:"Procure pessoas, comunidades, etc."}}</label>
         <button type="submit" class="form-search-button">
             <i class="gsticon gsticon-search"></i>
         </button>

@@ -24,10 +24,16 @@
 {% block seo-og-type %}article{% endblock %}
 
 {% block seo-og-url %}{{ request.path|root  }}{% url 'article:view' article.year article.month article.get_first_slug %}{% endblock %}
-
 {% block seo-metas-extra %}
 
     {{ block.super }}
+    {% url 'profile:show' article.author.username  as author_url%}
+    <meta property="article:author"  content="{% absolute_url author_url %}" />
+    <meta property="article:section"  content="Articles" />
+    <meta property="article:publisher"  content="https://www.facebook.com/PortalGSTIpage/?fref=ts" />
+    {% if feed.communities %}
+         <meta property="article:tag"  content="{% for community in  feed.communities.all %}{{ community.title }}{% if not forloop.last %}, {% endif %}{% endfor %}" />
+    {% endif %}
 
     {% if article.feed.first.seo_no_index == True or article.feed.first.seo_no_follow == True %}
         <meta name="robots" content="{% seo_feed_robots article.feed.first.seo_no_index article.feed.first.seo_no_follow %}">
@@ -202,8 +208,9 @@
         </div>
         <div class="single-aside">
             {% include "article/partials/single-aside.html" %}
-
-            {% ads_only_production "article_right" "pc" %}
+            {% if request|is_pc %}
+                {% ads_only_production "article_right" "all" %}
+            {% endif %}
         </div>
 
     </div>
