@@ -1,9 +1,22 @@
-/*! Single */
+// ==========================================================================
+// Single of courses
+// ==========================================================================
 .course {
+  &__single {
+    hr {
+      margin-top: 58px;
+    }
+    .single-communities .drop-communities {
+      margin-top: 20px;
+      margin-bottom: 70px;
+      border-bottom: 1px solid #d6d4d4;
+    }
+  }
   &__title {
-    margin-bottom: 7px;
-    color: #666;
-    font: 400 30px 'Open Sans';
+    margin-top: 40px;
+    color: #616161;
+    font: 600 35px/48px 'Open Sans';
+    text-align: center;
   }
   &__avaliation {
     margin-bottom: 14px;
@@ -50,46 +63,57 @@
   &__btn {
     padding: 19px;
     display: block;
+    background-color: #1976d2;
+    color: #ffffff;
     font-weight: 400;
-    font-size: 18px;
+    font-size: 16px;
+    text-transform: uppercase;
+    border-radius: 6px;
+    &:hover {
+      color: #fff;
+      background-color: lighten(#1976d2, 10%);
+    }
+    &--small {
+      padding-top: 10px;
+      padding-bottom: 10px;
+    }
+  }
+  &__observation {
+    color: #666;
+    font-size: 16px;
+    line-height: 36px;
+    h4 {
+      color: #666;
+      font-size: 22px;
+    }
   }
   &__menu {
     &__title {
-      margin-top: 50px;
       color: #666;
       font: 400 25px 'Open Sans';
     }
     &__classes {
       padding-left: 0;
+      margin-bottom: 50px;
       list-style: none;
     }
-    &__class { padding-bottom: 30px }
+    &__class {}
     &__class__title {
-      padding-bottom: 18px;
-      border-bottom: 1px solid #e1e1e1;
       color: #666;
       font: 600 16px 'Open Sans';
-      span { margin-left: 30px }
-      &:before {
-        color: #666;
-        font: 400 14px FontAwesome;
-        content: '\f15c';
-      }
+      span {}
     }
     &__class__content {
       position: relative;
       overflow: hidden;
-      height: 80px;
-      padding-top: 14px;
       color: #666;
-      font-size: 14px;
-      line-height: 1.5;
+      font-size: 16px;
+      line-height: 36px;
       &:after {
         position: absolute;
         left: 0; bottom: -5px;
         width: 100%;
         height: 40px;
-        background: linear-gradient(to bottom, transparent, #fff);
         content: ' ';
       }
       &.open:after { display: none }
@@ -230,10 +254,8 @@
 
 @media (min-width: $screen-md-min) {
   .course {
-    &__title { margin-bottom: 13px }
     &__avaliation {
-      float: right;
-      margin-left: 140px;
+      margin-left: 40px;
       margin-bottom: 0;
       display: inline-block;
     }
@@ -251,16 +273,15 @@
     }
     &__btn {
       min-width: 200px;
-      margin-top: 57px;
+      margin-top: 25px;
       display: inline-block;
     }
     &__menu {
       &__title {
-        margin-top: 60px;
         font-size: 25px;
       }
       &__course__class {}
-      &__class__title { padding-bottom: 28px }
+      &__class__title {}
       &__class__content {}
     }
     &__author {
@@ -282,7 +303,6 @@
   }
   .related__items {
     &__title {
-      margin-top: 90px;
       margin-bottom: 30px;
     }
   }

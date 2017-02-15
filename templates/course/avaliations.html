@@ -19,10 +19,9 @@
             </span>
 
             <span class="avaliation__form__rating">
-              <span
-                      data-toggle="rating"
-                      data-reactions='["Muito ruim", "Ruim", "Razoável", "Bom", "Muito bom", "Excelente"]'
-                      data-config='{"rating": {{ form.instance.value|default_if_none:"0"|stringformat:"f" }}}'></span>
+                <span data-toggle="rating"
+                data-reactions='["Muito ruim", "Ruim", "Razoável", "Bom", "Muito bom", "Excelente"]'
+                data-config='{"rating": {{ form.instance.value|default_if_none:"0"|stringformat:"f" }}}'></span>
                 <span class="avaliation__reaction__text"></span>
             </span>
             {% if form.value.errors %}{{ form.value.errors }}{% endif %}
@@ -60,4 +59,18 @@
     {% else %}
         <p>Ninguém avaliou este curso ainda. Seja o primeiro...</p>
     {% endif %}
+</div>
+
+<div>
+  <!-- Nav tabs -->
+  <ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Home</a></li>
+    <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Profile</a></li>
+  </ul>
+
+  <!-- Tab panes -->
+  <div class="tab-content">
+    <div role="tabpanel" class="tab-pane active" id="home">...</div>
+    <div role="tabpanel" class="tab-pane" id="profile">...</div>
+  </div>
 </div>

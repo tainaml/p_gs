@@ -4,13 +4,9 @@
         {% include 'course/item.html' %}
     {% endfor %}
 
-    {% if courses.has_next %}
-        <div class="col-xs-12">
-            <a class="btn btn-block btn-primary" data-jscroll-next href="{% url 'course:list' %}?{{ form.querystring }}{{ next_querystring }}">Mais Cursos</a>
-        </div>
-
-    {% endif %}
-
+    {% if courses.has_next %}<div class="col-xs-12">
+        <a class="btn courses__btn courses__btn--loader" data-jscroll-next href="{% url 'course:list' %}?{{ form.querystring }}{{ next_querystring }}">Mais Cursos</a>
+    </div>{% endif %}
 {% else %}
 
     <div class="col-xs-12 courses__not_found">

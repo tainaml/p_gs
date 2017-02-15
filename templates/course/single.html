@@ -48,87 +48,97 @@
     </script>
 {% endblock ld_json %}
 {% block content %}
-    <main class="container main" data-page="courses" data-filtered="false">
-        <div class="row">
-            <div class="banner-content-wide">
-                <div class="banner">
-                    {% ads_only_production "videos_top" "all" %}
+    <main class="main" data-page="courses" data-filtered="false">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="banner-content">
+                        <div class="banner">
+                            {% ads_only_production "videos_top" "all" %}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="single-category">
+                        <span>CURSOS</span>
+                    </div>
                 </div>
             </div>
         </div>
-        <article class="row course__single">
-            <div class="col-xs-12">
-                <h1 class="course__title" title="{{ instance.title }}">{{ instance.title }}</h1>
-                <time class="course__date__publication" datetime="{{ instance.createdin|date:"d/m/Y" }}">
-                    <div class="course__avaliation">
-                        <span data-toggle="rating" data-config='{"rating": {{ instance.rating|stringformat:"f" }}, "readOnly": true}'></span>
-                         {{ instance.rating }}
-                    </div>
-                    <i class="gsticon gsticon-calendar-o"></i> {{ instance.createdin|date:"d/m/Y" }}
-                </time>
-                <div class="course__categories visible-lg-block">
-                    <a href="{% url 'course:list' %}" class="course__category">Cursos</a> /
-                    {% for taxonomy in instance.taxonomies.all %}
-                        {% if taxonomy.term.slug == 'categoria' %}
-
-                             <a href="{% url 'course:list' %}?category={{ taxonomy.slug }}" class="course__category">{{ taxonomy.community_related.title }}</a>
-                        {% else %}
-                            <a href="{% url 'course:list' %}?community={{ taxonomy.slug }}&category={{ taxonomy.parent.slug }}" class="course__category">{{ taxonomy.community_related.title }}</a>
-
-                        {% endif %}
-
-                        {% if not forloop.last %} / {% endif %}
-                    {% endfor %}
-                </div>
-                <div class="dropdown visible-xs course__categories">
-                    <a href="javascript:;" id="dLabel" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Comunidades
-                        <i class="gsticon gsticon-angle-down"></i>
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="dLabel">
-                        {% for community in course_communities %}
-                            <li><a href="{% url 'community:show' community.slug %}" class="course__category">{{ community.title }}</a></li>
-                        {% endfor %}
-                    </ul>
-                </div>
-            </div>
-            <div class="col-xs-12">
+        <article class="course__single">
+            <div class="container">
                 <div class="row">
-
-                    <div class="col-sm-7">
-                        {% if instance.embed %}
-                            <div class="embed-responsive embed-responsive-4by3">
-
-                                {{ instance.embed|safe }}
+                    <div class="col-xs-12">
+                        <h1 class="course__title" title="{{ instance.title }}">{{ instance.title }}</h1>
+                    </div>
+                    <div class="col-sm-8 col-sm-offset-2 col-xs-12">
+                        <nav class="single-communities">
+                            <label for="drop-communities" class="toggle-menu">
+                                Comunidades <span class="gsticon gsticon-angle-down"></span>
+                            </label>
+                            <input type="checkbox" name="toggle" id="drop-communities">
+                            <ul class="drop-communities">
+                                <li>
+                                    <a href="{% url 'course:list' %}">Cursos</a>
+                                </li>
+                                {% for taxonomy in instance.taxonomies.all %}
+                                <li>
+                                    {% if taxonomy.term.slug == 'categoria' %}
+                                    <a href="{% url 'course:list' %}?category={{ taxonomy.slug }}" class="course__category">{{ taxonomy.community_related.title }}</a>
+                                    {% else %}
+                                    <a href="{% url 'course:list' %}?community={{ taxonomy.slug }}&category={{ taxonomy.parent.slug }}" class="course__category">{{ taxonomy.community_related.title }}</a>
+                                    {% endif %}
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        </nav>
+                    </div>
+                    <div class="col-xs-12">
+                        <div class="row">
+                            <div class="col-sm-7">
+                                {% if instance.embed %}
+                                <div class="embed-responsive embed-responsive-4by3">{{ instance.embed|safe }}</div>
+                                {% elif instance.image %}
+                                <img class="img-responsive" src="{% thumbor_url instance.image.url width=670 height=440 %}" alt="Imagem destacada do curso {{ instance.title }}" />
+                                {% endif %}
                             </div>
-                        {% elif instance.image %}
-                            <img class="img-responsive" src="{% thumbor_url instance.image.url width=670 height=440 %}" alt="Imagem destacada do curso {{ instance.title }}" />
-                        {% endif %}
-                    </div>
-                    <div class="col-sm-5 course__about">
-                        <h2 class="course__about__title">Sobre o curso</h2>
-                        <div class="course__about__text">
-                            {{ instance.description|safe|truncatechars:409 }}
-                        </div>
-                        <ul class="course__about__list">
-                            <li>
-                                <i class="gsticon gsticon-globe"></i>
-                                Idioma: {% for language in instance.languages.all %}{{ language.description }}{% endfor %}
-                            </li>
-                            <li>
-                                <i class="gsticon gsticon-tag"></i> Plataforma: {{ instance.plataform.description }}
-                            </li>
-                        </ul>
+                            <div class="col-sm-5 course__about">
+                                <h2 class="course__about__title">
+                                    Sobre o curso
+                                    <div class="course__avaliation">
+                                        <span data-toggle="rating" data-config='{"rating": {{ instance.rating|stringformat:"f" }}, "readOnly": true}'></span>
+                                        {{ instance.rating }}
+                                    </div>
+                                </h2>
+                                <div class="course__about__text">
+                                    {{ instance.description|safe|truncatechars:409 }}
+                                </div>
+                                <ul class="course__about__list">
+                                    <li>
+                                        <i class="gsticon gsticon-calendar-o"></i>
+                                        Data de publicação: {{ instance.createdin|date:"d/m/Y" }}
+                                    </li>
+                                    <li>
+                                        <i class="gsticon gsticon-globe"></i>
+                                        Idioma: {% for language in instance.languages.all %}{{ language.description }}{% endfor %}
+                                    </li>
+                                    <li>
+                                        <i class="gsticon gsticon-tag"></i> Plataforma: {{ instance.plataform.description }}
+                                    </li>
+                                </ul>
 
-                        {% if not instance.class_link and instance.is_date_valid %}
-                                <a href="{{ instance.affiliate_link }}" rel="nofollow" class="btn btn-green course__btn" target="_blank">Ver curso</a>
-                        {% endif %}
+                                {% if not instance.class_link and instance.is_date_valid %}
+                                <a href="{{ instance.affiliate_link }}" rel="nofollow" class="btn course__btn" target="_blank">Ver curso</a>
+                                {% endif %}
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="col-xs-12">
+            <hr>
+            <div class="container">
                 <div class="row">
-                    <div class="col-sm-7 course__menu">
+                    <div class="col-sm-8 course__menu">
                         <h2 class="course__menu__title">Ementa do Curso</h2>
                         <ul class="course__menu__classes">
                             {% for curriculum in instance.curriculums.all %}
@@ -141,9 +151,6 @@
                                     <div class="course__menu__class__content" id="class-{{ forloop.counter }}">
                                         {{ curriculum.description|safe }}
                                     </div>
-
-
-                                        <a data-toggle="showmore" href="#class-{{ forloop.counter }}" target="_blank" rel="nofollow"><i class="gsticon gsticon-plus"></i> Mais</a>
                                     {% endif %}
                                 </li>
                             {% endfor %}
@@ -151,25 +158,32 @@
 
                         {% if instance.observation %}
                             {% if instance.observation|striptags %}
-                                <div>
+                            <div class="course__observation">
                                 <h4>Mais informações</h4>
                                 {{ instance.observation|safe }}
                             </div>
                             {% endif %}
                         {% endif %}
 
-                        {% if not instance.class_link %}
-                            <a href="{{ instance.affiliate_link }}" target="_blank" rel="nofollow" class="btn btn-green course__btn">Ver curso</a>
-                        {% else %}
+                        <a href="{% if not instance.class_link %}{{ instance.affiliate_link }}{% else %}{{ instance.class_link }}{% endif %}" target="_blank" rel="nofollow" class="btn course__btn course__btn--small">Ver curso</a>
 
-                            <a href="{{ instance.class_link }}" target="_blank" rel="nofollow" class="btn btn-green course__btn">Ver curso</a>
-                        {% endif %}
+                        {#% include "course/author.html" %#}
+                        {# TODO: implement userprofile with 'fakeuser' for course author #}
+                        {% include 'userprofile/templatetags/profile-box.html' with profile=instance.author.profile partial_template="userprofile/templatetags/profile-box-horizontal.html" %}
 
-                        {% include "course/author.html" %}
+                        {# TODO: Implement relateds content for courses #}
+                        <div id="load-related-posts" data-load-async="true" data-load-async-url="{% url 'core:related-posts' instance.id "course" "course" 3 %}" data-load-async-url-next="{{ request.path }}" data-load-async-method="get" data-load-async-response-type="json" data-load-async-timeout="1">
+                            <div class="load-async load-async-content">
+                                <div class="load-async-preload"></div>
+                            </div>
+                            {% csrf_token %}
+                        </div>
+
                         {% include "course/avaliations.html" %}
                     </div>
-                    <div class="col-sm-5">
-                    {% if instance.related_courses.all %}
+                    <div class="col-sm-3 col-sm-offset-1">
+
+                        {% if instance.related_courses.all %}
                         <div class="related__items">
                             <h2 class="related__items__title">Cursos Relacionados</h2>
 
@@ -190,30 +204,35 @@
                                                 {{ taxonomy.community_related.title }}{% if not forloop.last %} / {% endif %}
                                             {% endfor %}
                                         </div>
-                                <span class="thumb__course__avaliation">
-                                    <span style="width: {{ related_course.rating_percentage }}%"></span>
-                                </span>
+                                        <span class="thumb__course__avaliation">
+                                            <span style="width: {{ related_course.rating_percentage }}%"></span>
+                                        </span>
                                     </div>
                                 </a>
                             {% endfor %}
                         </div>
-                    {% endif %}
+                        {% endif %}
 
-                        <div class="related__items">
-                            <h2 class="related__items__title">Comunidades</h2>
+                        <div class="widget related__items">
+                            <header class="widget-header related__items__title">
+                                <h2 class="widget-title">
+                                    <span>Comunidades</span>
+                                </h2>
+                            </header>
 
                             {% for taxonomy in instance.taxonomies.all %}
-
-                                <div class="related">
-                                    <figure class="related__img">
-                                        <img class="img-responsive" src="{% thumbor_url taxonomy.community_related.image.url width=100 height=100 %}" alt="{{ taxonomy.community_related.title }}">
+                            <div class="widget-item">
+                                <span>
+                                    <figure>
+                                        <img src="{% thumbor_url taxonomy.community_related.image.url width=100 height=100 %}" alt="{{ taxonomy.community_related.title }}">
                                     </figure>
-                                    <div class="related__body">
-                                        <h3 class="related__title">{{ taxonomy.community_related.title }}</h3>
-                                        <div class="related__followers">{{ taxonomy.community_related.followers }} seguidor{{ taxonomy.community_related.followers|pluralize:"es" }}</div>
-                                        {% follow_action taxonomy.community_related None btn_class="btn perfil-button" %}
-                                    </div>
+                                </span>
+                                <div>
+                                    <h3 class="perfil-name">{{ taxonomy.community_related.title }}</h3>
+                                    <div class="perfil-counter">{{ taxonomy.community_related.followers }} seguidor{{ taxonomy.community_related.followers|pluralize:"es" }}</div>
+                                    {% follow_action taxonomy.community_related None btn_class="btn perfil-button" %}
                                 </div>
+                            </div>
                             {% endfor %}
                         </div>
                     </div>

@@ -23,57 +23,76 @@
 {% endblock %}
 
 {% block content %}
-    <main class="container main" data-page="courses" data-filtered="false">
+    <main class="main" data-page="courses" data-filtered="false">
+    <div class="container">
         <div class="row">
-        <div class="banner-content-wide">
-            <div class="banner">
-                {% ads_only_production "videos_top" "all" %}
+            <div class="banner-content-wide">
+                <div class="banner">
+                    {% ads_only_production "videos_top" "all" %}
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <header class="widget-header courses__title">
+                    <h1 class="widget-title">
+                        <span>Cursos</span>
+                    </h1>
+                </header>
             </div>
         </div>
     </div>
-    <div class="row">
-        <div class="col-xs-12">
-            <header class="area-title courses__title">
-                <h1>Cursos</h1 >
-            </header>
-        </div>
-    </div>
-    <form class="row filter__courses" action="#" data-form-send-enables>
-        <div class="col-sm-4 form-group clearfix">
-            <div class="form-search-input">
-                    {% render_field form.title placeholder="Pesquisar por cursos" type="search" autocomplete="off" %}
-            </div>
-            <button type="submit" class="form-search-button hidden-xs">
-                <i class="gsticon gsticon-search"></i>
-            </button>
-        </div>
-
-        <div class="collapse navbar-collapse" id="filters">
+    <form class="courses__filters" action="#" data-form-send-enables>
+        <div class="container">
             <div class="row">
-                <div class="col-sm-3 form-group">
-                  {% render_field form.category class="form-control" data-form-send="" %}
+                <div class="col-sm-4 clearfix">
+                    <div class="customform search">
+                        {% render_field form.title class="customform-input" placeholder="Pesquisar por cursos" type="search" autocomplete="off" %}
+                        <hr>
+                        <label class="customform-label" for="id_title">Pesquisar por cursos</label>
+                        <button type="submit" class="form-search-button">
+                            <i class="gsticon gsticon-search"></i>
+                        </button>
+                    </div>
                 </div>
-                <div class="col-sm-3 form-group">
-                  {% render_field form.community class="form-control" data-form-send="" %}
+                <div class="collapse navbar-collapse" id="filters">
+                    <div class="col-sm-3">
+                        <div class="customform">
+                            {% render_field form.category class="customform-input" data-form-send="" %}
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="customform">
+                            {% render_field form.community class="customform-input" data-form-send="" %}
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="customform">
+                            {% render_field form.order class="customform-input" data-form-send="1" %}
+                        </div>
+                    </div>
                 </div>
-                <div class="col-sm-2 form-group">
-                  {% render_field form.order class="form-control" data-form-send="1" %}
+                <div class="col-xs-12 visible-xs-block">
+                    <span class="btn btn-lg courses__btn courses__btn--filter" data-target="#filters" data-toggle="collapse">
+                        <i class="gsticon gsticon-filter" aria-hidden="true"></i>
+                        Filtrar por
+                    </span>
                 </div>
             </div>
-        </div>
-        <div class="col-xs-12 visible-xs-block form-group text-right">
-            <span class="btn btn-lg btn-primary btn-filter" data-target="#filters" data-toggle="collapse">Filtrar</span>
         </div>
     </form>
-    <div class="row">
-        <div class="col-xs-12">
-            <div class="row list__courses j-scroll clearfix" data-toggle="scroll">
-                <div class="j-scroll-container">
-                    {% include 'course/items.html' %}
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="row list__courses j-scroll clearfix" data-toggle="scroll">
+                    <div class="j-scroll-container">
+                        {% include 'course/items.html' %}
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+
 </main>
 {% endblock content %}
 

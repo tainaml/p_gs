@@ -1,11 +1,7 @@
-/* ==========================================================================
-   Publication section style (Comprehend article and question areas)
-   ========================================================================== */
+// ==========================================================================
+// Publication section style (Comprehend article and question areas)
+// ==========================================================================
 
-
-/*
-   Carousel
-   ========================================================================== */
 @import "publication/carousel";
 @import "publication/social-actions";
 
@@ -359,6 +355,7 @@
 	}
   .single-communities .drop-communities {
     position: absolute;
+    z-index: 1;
     width: auto;
     border: 1px solid #616161;
     background-color: #fff;
