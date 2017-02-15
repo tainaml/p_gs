@@ -4,13 +4,15 @@ from django.core.exceptions import ValidationError
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.core.urlresolvers import reverse
+from django.db.models import Q
 from django.utils import timezone
 from django.utils.functional import cached_property
 from django.utils.translation import ugettext as _
 from django.conf import settings
 from social.apps.django_app.default.models import UserSocialAuth
 from apps.core.business.content_types import ContentTypeCached
-from apps.socialactions.models import Counter
+from apps.custom_base.service.custom import CustomPaginator
+from apps.socialactions.models import Counter, UserAction
 from .manager import UserManager
 
 
@@ -41,6 +43,20 @@ class User(AbstractUser):
         swappable = 'AUTH_USER_MODEL'
         verbose_name = u'Usuário'
         verbose_name_plural = u'Usuários'
+
+
+    def followers_list(self, criteria=None, itens_per_page=10, page=1):
+        queryset = UserAction.objects.filter(
+            Q(action_type=settings.SOCIAL_FOLLOW) &
+            Q(content_type=ContentTypeCached.objects.get(model='user')) &
+            Q(object_id=self.id)
+        )
+        if criteria:
+            queryset.filter(criteria)
+
+        return CustomPaginator.paginate(queryset, itens_per_page, page)
+
+
 
     def get_full_name(self):
         return _('Anonymous') if not self.is_active else super(User, self).get_full_name()

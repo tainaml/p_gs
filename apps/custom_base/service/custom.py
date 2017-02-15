@@ -1,6 +1,7 @@
 from django import forms
 import logging
 from django.core.exceptions import ValidationError
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.forms import widgets
 from django.utils.encoding import force_text
 from apps.custom_base.widgets.material import InputTextMaterial, TextAreaMaterial, SelectMaterial, URLMaterial, \
@@ -91,3 +92,19 @@ class MaterialModelForm(forms.ModelForm):
            self.__update_error__(field=key)
 
         return valid
+
+class CustomPaginator():
+
+    @staticmethod
+    def paginate(queryset=None, itens_per_page=10, page=1):
+
+        paginated_list = Paginator(queryset, itens_per_page)
+
+        try:
+            paginated_list = paginated_list.page(page)
+        except PageNotAnInteger:
+            paginated_list = paginated_list.page(1)
+        except EmptyPage:
+            paginated_list = []
+
+        return paginated_list
