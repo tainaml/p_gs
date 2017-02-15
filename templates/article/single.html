@@ -27,7 +27,8 @@
 {% block seo-metas-extra %}
 
     {{ block.super }}
-    <meta property="article:author"  content="{% url 'profile:show' article.author.username %}" />
+    {% url 'profile:show' article.author.username  as author_url%}
+    <meta property="article:author"  content="{% absolute_url author_url %}" />
     <meta property="article:section"  content="Articles" />
     {% if feed.communities %}
          <meta property="article:tag"  content="{% for community in  feed.communities.all %}{{ community.title }}{% if not forloop.last %}, {% endif %}{% endfor %}" />
