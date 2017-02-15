@@ -45,16 +45,15 @@ class User(AbstractUser):
         verbose_name_plural = u'Usuários'
 
 
-    def followers_list(self, criteria=None, itens_per_page=10, page=1):
-        queryset = UserAction.objects.filter(
-            Q(action_type=settings.SOCIAL_FOLLOW) &
+    def followers_list(self, queryset=None, itens_per_page=10, page=1):
+        criteria =  (Q(action_type=settings.SOCIAL_FOLLOW) &
             Q(content_type=ContentTypeCached.objects.get(model='user')) &
-            Q(object_id=self.id)
-        )
-        if criteria:
-            queryset.filter(criteria)
+            Q(object_id=self.id))
 
-        return CustomPaginator.paginate(queryset, itens_per_page, page)
+        if queryset:
+            criteria = criteria & queryset
+
+        return CustomPaginator.paginate(UserAction.objects.filter(criteria), itens_per_page, page)
 
 
 

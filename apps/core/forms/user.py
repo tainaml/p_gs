@@ -1,8 +1,7 @@
 # coding=utf-8
 from django.contrib.auth.forms import UserChangeForm
 from django.db import transaction
-from django.utils.translation import ugettext as _
-from apps.question.models import Question
+from django.db.models import Q
 from apps.socialactions.models import UserAction
 from apps.article.models import Article
 from apps.userprofile.models import Responsibility
@@ -182,11 +181,11 @@ class CoreSearchFollowers(IdeiaForm):
         return cleaned_data
 
     def __process__(self):
-        return Business.get_followers(
-            self.author,
-            self.cleaned_data['criteria'],
-            self.items_per_page,
-            self.cleaned_data.get('page', 0)
+
+        return self.author.followers_list(
+            Q(author__first_name__icontains=self.cleaned_data['criteria']) |
+            Q(author__last_name__icontains=self.cleaned_data['criteria']),
+            self.items_per_page, self.cleaned_data['page']
         )
 
 
