@@ -226,7 +226,7 @@ def get_articles_feed_queryset(description=''):
                  "content_object__author",
                  "content_type",
                  "communities",
-                 "communities__taxonomy").order_by("-article__publishin")
+                 "communities__taxonomy").order_by("-article__publishin", "id").distinct("id", "article__publishin")
     else:
 
         main_criteria = get_feed_main_criteria()
@@ -239,7 +239,7 @@ def get_articles_feed_queryset(description=''):
                  "content_object__author",
                  "content_type",
                  "communities",
-                 "communities__taxonomy").order_by('-rank')
+                 "communities__taxonomy").order_by('-rank', "id").distinct("id", "rank")
 
     return articles
 

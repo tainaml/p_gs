@@ -108,7 +108,6 @@ class CoreUserProfile(CoreUserView):
         )
 
         feed_objects = form.process()
-
         return {
             'feed_objects': feed_objects,
             'form': form,
