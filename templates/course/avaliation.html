@@ -1,28 +1,27 @@
 {% load humanize %}
 {% load avatar_tags %}
 
-<div class="avaliation">
-    <figure class="avaliation__img">
-
-        <img class="img-responsive img-circle pull-left" src="{% get_avatar avaliation.author width=38 %}" alt="{{ avaliation.author.get_full_name }}">
-
-        <figcaption class="avaliator">
-            <time class="avaliation__time"
-                  datetime="{{ avaliation.rating_date|date:'d/m/Y G:i' }}"
-                  data-toggle="tooltip"
-                  data-placement="auto top"
-                  data-original-title="{{ avaliation.rating_date|date:'d/m/Y' }} às {{ avaliation.rating_date|date:'G:i' }}">
-                <span class="hidden-xs visible-lg-inline">{{ avaliation.rating_date|naturaltime }}</span>
-                <i class="gsticon gsticon-clock-o hidden-lg"></i>
+<div class="comment">
+    <div class="comment-header">
+        <div class="comment-creator">
+            <a class="comment-userimage" href="{% if  avaliation.author.is_active %}{% url 'profile:show' avaliation.author.username %}{% else %}javascript:;{% endif %}">
+                <img src="{% get_avatar avaliation.author width=50 height=50 smart=False fit_in=False %}" alt="foto do perfil {{ avaliation.author.get_full_name }}">
+            </a>
+            <a class="comment-username" href="{% url 'profile:show' avaliation.author.username %}" title="{{avaliation.author.get_full_name}}">
+                {{ avaliation.author.get_full_name }}
+            </a>
+            <br>
+            <time class="comment-timestamp" datetime="{{ avaliation.rating_date|date:'d/m/Y G:i' }}"
+            data-toggle="tooltip" data-placement="auto top"
+            data-original-title="{{ avaliation.rating_date|date:'d/m/Y' }} às {{ avaliation.rating_date|date:'G:i' }}">
+                {{ avaliation.rating_date|naturaltime }}
             </time>
-            <div class="avaliator__name">{{ avaliation.author.get_full_name }}</div>
-            <span class="avaliation__form__rating" >
-                <span data-toggle="rating" data-config='{ "rating": {{ avaliation.value|default_if_none:"0"|stringformat:"f" }}, "readOnly": true}'></span>
-            </span>
-        </figcaption>
-    </figure>
-    <div class="avaliation__comment">
-        {{ avaliation.comment|safe }}
+        </div>
+    </div>
+    <div class="comment-body">
+        <span class="avaliation__form__rating" >
+            <span data-toggle="rating" data-config='{ "rating": {{ avaliation.value|default_if_none:"0"|stringformat:"f" }}, "readOnly": true}'></span>
+        </span>
     </div>
 {#    <div class="avaliation__tools">#}
 {#        <a href="#">Denunciar</a>#}

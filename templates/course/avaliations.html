@@ -1,76 +1,73 @@
-{% load  widget_tweaks %}
+{% load widget_tweaks %}
+{% load comment_tags %}
+
 <div class="course__avaliations">
-    <h3 class="course__avaliations__title">Avaliações</h3>
-    <form class="clearfix avaliation__form" method="post" id="form-avaliacao" action="{% url 'rating:course' %}?#form-avaliacao">
+    <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation" class="active">
+            <a href="#comments" aria-controls="comments" role="tab" data-toggle="tab">
+                <!-- <span class="comment-icon"></span> -->
+                <i class="gsticon gsticon-comment-o" aria-hidden="true"></i>
+                Comentários
+            </a>
+        </li>
+        <li role="presentation">
+            <a href="#avaliations" aria-controls="avaliations" role="tab" data-toggle="tab">
+                <i class="gsticon gsticon-lg gsticon-star-o" aria-hidden="true"></i>
+                Avaliações
+            </a>
+        </li>
+    </ul>
 
-        {{ form.value }}
-        <input type="hidden" name="content_type" value="{{ content_data.content_type.id }}">
-        <input type="hidden" name="object_id" value="{{ content_data.object_id }}">
-
-        <div class="form-group">
-            <span class="avaliation__form__title" data-toggle="title-form">
-
-                {% if form.instance.id %}
-                    Minha avaliação
-                {% else %}
-                    Avalie este curso
+    <div class="tab-content">
+        <div role="tabpanel" class="tab-pane active" id="comments">
+            {% comment_box instance %}
+        </div>
+        <div role="tabpanel" class="tab-pane" id="avaliations">
+            <div class="box-comment">
+                <p class="comment-helper">Qual a sua avaliação para este hangout?</p>
+                <form class="comment-creator" method="post" id="form-avaliacao" action="{% url 'rating:course' %}?#form-avaliacao">
+                    {{ form.value }}
+                    <a class="comment-userimage" href="/perfil/annielcruz/">
+                        <img src="http://localhost:9000/AJyO6uSUX41DTrmRGeRXy3Asx48=/50x50/localhost:8000/media/uploads/userprofile/2016/10/17/profile.png" alt="foto do perfil Anniel Menezes Cruz">
+                    </a>
+                    <div class="avaliation-info">
+                        <a class="comment-username" href="/perfil/annielcruz/" title="Anniel Menezes Cruz">
+                            Anniel Menezes Cruz
+                        </a>
+                        <br>
+                        <span class="avaliation__form__rating">
+                            <span data-toggle="rating"
+                            data-reactions='["Muito ruim", "Ruim", "Razoável", "Bom", "Muito bom", "Excelente"]'
+                            data-config='{"rating": {% if form.instance.value %}{{form.instance.value|stringformat:"f"}}{% else %}"0"{% endif %}}'></span>
+                            <span class="avaliation__reaction__text"></span>
+                        </span>
+                    </div>
+                        {% if form.instance.id %}
+                            {#<a href="{% url 'rating:course-delete' form.instance.id %}" class="btn btn-link avaliation__form__delete">Deletar</a>#}
+                        {% endif %}
+                        <button class="btn course__btn__alt" data-url-login="{% url 'account:is_logged' %}" {% if not request.user.is_authenticated %}data-trigger="login"{% endif %}>
+                            {% if form.instance.id %}Atualizar{% else %}Enviar{% endif %}
+                        </button>
+                    <br>
+                    {% if form.value.errors %}{{ form.value.errors }}{% endif %}
+                    <input data-toggle="rating-value" id="id_value" name="value" type="hidden">
+                    <input type="hidden" name="content_type" value="{{ content_data.content_type.id }}">
+                    <input type="hidden" name="object_id" value="{{ content_data.object_id }}">
+                    {% csrf_token %}
+                </form>
+            </div>
+            <div class="widget-header">
+                <h3 class="widget-title">
+                    <span>AVALIAÇÕES</span>
+                </h3>
+            </div>
+            {% for avaliation in instance.ratings.all %}
+                {% if not avaliation.author == request.user %}
+                    {% include "course/avaliation.html" with avaliation=avaliation %}
                 {% endif %}
-
-            </span>
-
-            <span class="avaliation__form__rating">
-                <span data-toggle="rating"
-                data-reactions='["Muito ruim", "Ruim", "Razoável", "Bom", "Muito bom", "Excelente"]'
-                data-config='{"rating": {{ form.instance.value|default_if_none:"0"|stringformat:"f" }}}'></span>
-                <span class="avaliation__reaction__text"></span>
-            </span>
-            {% if form.value.errors %}{{ form.value.errors }}{% endif %}
+            {% empty %}
+                <p>Ninguém avaliou este curso ainda. Seja o primeiro...</p>
+            {% endfor %}
         </div>
-
-        {% csrf_token %}
-        <div class="form-group">
-            {% render_field form.comment rows="5" class="form-control" placeholder="Escreva um comentário (opcional)" %}
-        </div>
-
-        <div class="form-group text-right">
-
-            {% if form.instance.id %}
-
-                <a href="{% url 'rating:course-delete' form.instance.id %}" class="btn btn-link avaliation__form__delete">Deletar</a>
-
-            {% endif %}
-
-            <button class="btn btn-primary">
-                {% if form.instance.id %}Atualizar{% else %}Enviar{% endif %}
-            </button>
-
-        </div>
-
-
-
-    </form>
-
-    {% if instance.ratings %}
-        {% for avaliation in instance.ratings.all %}
-            {% if not avaliation.author == request.user %}
-                {% include "course/avaliation.html" with avaliation=avaliation %}
-            {% endif %}
-        {% endfor %}
-    {% else %}
-        <p>Ninguém avaliou este curso ainda. Seja o primeiro...</p>
-    {% endif %}
-</div>
-
-<div>
-  <!-- Nav tabs -->
-  <ul class="nav nav-tabs" role="tablist">
-    <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Home</a></li>
-    <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Profile</a></li>
-  </ul>
-
-  <!-- Tab panes -->
-  <div class="tab-content">
-    <div role="tabpanel" class="tab-pane active" id="home">...</div>
-    <div role="tabpanel" class="tab-pane" id="profile">...</div>
-  </div>
+    </div>
 </div>

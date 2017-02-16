@@ -36,9 +36,10 @@
     text-indent: -9999px;
     transition: transform .3s;
     &.facebook { background-position: 0 0 }
-    &.twitter { background-position: 33.5% 0 }
-    &.gplus { background-position: 67.5% 0 }
-    &.linkedin { background-position: 100% 0 }
+    &.twitter { background-position: 25% 0 }
+    &.gplus { background-position: 50% 0 }
+    &.linkedin { background-position: 75% 0 }
+    &.whatsapp { background-position: 100% 0 }
     &:hover {
       opacity: .9;
       transform: scale(.9);

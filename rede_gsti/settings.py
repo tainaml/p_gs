@@ -329,7 +329,7 @@ CELERY_TIMEZONE = 'America/Sao_Paulo'
 CONTACT_SEND_TO_EMAIL = config.get("CONTACT", "to")
 
 # Comment config
-ENTITY_TO_COMMENT = ['comment', 'article', 'answer']
+ENTITY_TO_COMMENT = ['comment', 'article', 'answer', 'course']
 MAX_LEVELS = 2
 
 ENTITY_TO_COMPLAINT = ['article', 'question', 'answer']
