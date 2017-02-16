@@ -10,8 +10,8 @@ const defaultRate = {
 }
 
 module.exports = ( mod ) => {
-  const $rating = $( '[data-toggle="rating"]' );
   const $module = $( mod );
+  const $rating = $module.find( '[data-toggle="rating"]' );
 
   $module
     .on('jcarousel:reload jcarousel:create', function () {

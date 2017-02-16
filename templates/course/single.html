@@ -1,5 +1,6 @@
 {% extends 'home/layout/base.html' %}
 
+{% load static_versioned %}
 {% load ads %}
 {% load widget_tweaks %}
 {% load seo_pagination_tags %}
@@ -240,7 +241,13 @@
             </div>
         </article>
     </main>
-
-
-
 {% endblock content %}
+
+{% block modals %}
+    {{ block.super }}
+    {% include "home/partials/modals/modal-confirmation.html" %}
+{% endblock modals %}
+{% block javascripts %}
+    <script src="{% static_versioned 'javascripts/vendor.js'%}" data-manual></script>
+    <script src="{% static_versioned 'javascripts/publication.js'%}"></script>
+{% endblock javascripts %}

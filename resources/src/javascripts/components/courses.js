@@ -1,4 +1,5 @@
 import '../vendor/rateYo/jquery.rateyo';
+
 module.exports = ( name ) => {
   const $showMore = $( '[data-toggle="showmore"]' )
   const $rating = $( '[data-toggle="rating"]' )
@@ -11,6 +12,7 @@ module.exports = ( name ) => {
     spacing: '2px',
     starWidth: '20px',
     onSet: function (rating, rateYoInstance) {
+      console.log(rating);
       formRating.val( rating )
     },
     onChange: function (rating, rateYoInstance) {
@@ -22,7 +24,7 @@ module.exports = ( name ) => {
   $rating.each( ( index, item ) => {
     const $this = $( item )
     const dataConfig = $this.data( 'config' )
-    const settings = $.extend({}, defaultSettings, dataConfig)
+    const settings = $.extend( {}, defaultSettings, dataConfig )
     $this.rateYo( settings )
   })
 
@@ -39,9 +41,9 @@ module.exports = ( name ) => {
     toggleHeight($( event.currentTarget ).attr( 'href' ))
     event.preventDefault()
   })
-  }
+}
 
-  const toggleHeight = ( seletor ) => {
+const toggleHeight = ( seletor ) => {
   const $this = $( seletor )
   const ANIMATION_TIME = $this.data( 'animationSpeed' ) || 200
 
