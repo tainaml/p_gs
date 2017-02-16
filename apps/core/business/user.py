@@ -61,7 +61,6 @@ def get_user_communities_list(author, width=20, height=20):
 
 
 def get_feed_objects(profile_instance=None, description=None, content_types_list=None, items_per_page=None, page=None, user=None):
-
     if not content_types_list:
         content_types_list = []
 
@@ -81,12 +80,15 @@ def get_feed_objects(profile_instance=None, description=None, content_types_list
         Q(content_type__in=content_types) &
         (
             Q(article__status=Article.STATUS_PUBLISH) |
-            Q(question__deleted=False)
+            Q(question__deleted=False) |
+            Q(profile_status__status=True)
         ) &
         (
-            Q(communities__id__in=community_list) |
-            Q(article__author__in=followers_id) |
-            Q(question__author__in=followers_id)
+            Q(communities__id__in=community_list)  |
+            (Q(article__author__in=followers_id) | Q(article__author=user))|
+            (Q(question__author__in=followers_id) | Q(question__author=user)) |
+            (Q(profile_status__author__in=followers_id) | Q(profile_status__author=user))
+
         )
     ).prefetch_related(
         "content_object",
@@ -177,7 +179,8 @@ def get_feed_objects(profile_instance=None, description=None, content_types_list
 def get_articles_from_user(profile_instance=None, description=None, content_type=None, items_per_page=None, page=None, user=None):
 
     feed_objects = get_articles_feed_queryset(description)
-    feed_objects = feed_objects.filter(article__author=profile_instance.user)
+    feed_objects = feed_objects.filter(Q(article__author=profile_instance.user) | Q(profile_status__author=profile_instance.user))
+
 
     items_per_page = items_per_page if items_per_page else 10
     page = page if page else 1

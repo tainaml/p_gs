@@ -5,7 +5,7 @@ from django.db.models import Q
 from apps.account.models import User
 from apps.article.models import Article
 from apps.community.models import Community
-from apps.feed.models import FeedObject
+from apps.feed.models import FeedObject, ProfileStatus
 from apps.question.models import Question
 from django.contrib.postgres.search import  SearchQuery, SearchRank
 
@@ -214,14 +214,14 @@ def get_articles(description=None, items_per_page=None, page=None):
 
 def get_feed_main_criteria():
     criteria = Q(
-        article__status = Article.STATUS_PUBLISH,
-    )
+        article__status = Article.STATUS_PUBLISH
+    ) | Q(profile_status__status=True)
 
     return criteria
 
 def get_articles_feed_queryset(description=''):
     if description == '':
-        articles = FeedObject.objects.filter(article__status=Article.STATUS_PUBLISH).prefetch_related(
+        articles = FeedObject.objects.filter(Q(profile_status__status=True) | Q(article__status=Article.STATUS_PUBLISH)).prefetch_related(
                  "content_object",
                  "content_object__author",
                  "content_type",
@@ -233,8 +233,8 @@ def get_articles_feed_queryset(description=''):
         query = SearchQuery(description)
 
         articles = FeedObject.objects.annotate(
-            rank=SearchRank(Article.VECTOR, query)
-        ).filter(main_criteria & Q(article__search_vector=query)).prefetch_related(
+            rank=SearchRank(Article.VECTOR + ProfileStatus.VECTOR, query)
+        ).filter(main_criteria & (Q(profile_status__search_vector=query) | Q(article__search_vector=query))).prefetch_related(
                  "content_object",
                  "content_object__author",
                  "content_type",

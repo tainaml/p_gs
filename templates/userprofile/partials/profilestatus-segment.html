@@ -1,0 +1,6 @@
+{% load humanize %}
+<hr>
+<a href="{% url 'profile:show' instance.author.username %}">{{ instance.author.get_full_name }}</a>
+<time datetime="{{ instance.publishin|date:'d/m/Y G:i' }}">{{ instance.publishin|naturaltime }}</time>
+<p>{{ instance.text }}</p>
+<hr>
