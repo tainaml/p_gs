@@ -1,7 +1,8 @@
 {% if feed_objects %}
 
     {% for feed in feed_objects.object_list %}
-        {% with template_name=feed.content_type|stringformat:"s"|add:"-segment.html" %}
+        {% with template_name=feed.content_type.model|stringformat:"s"|add:"-segment.html" %}
+
             {% with instance=feed.content_object %}
                 {% if instance %}
                     {% include 'userprofile/partials/'|add:template_name %}

@@ -1,13 +1,15 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from django.contrib.contenttypes.fields import GenericForeignKey
+from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelation
 from django.contrib.contenttypes.models import ContentType
+from django.contrib.postgres.search import SearchVector, SearchVectorField
 from django.db import models
-
+from django.conf import settings
 from apps.core.models.tags import Tags
 from apps.taxonomy.models import Taxonomy
 from apps.community.models import Community
+from django.utils.translation import ugettext as _
 
 
 class FeedObject(models.Model):
@@ -41,3 +43,19 @@ class FeedObject(models.Model):
                 return ("[{0}] - ".format(self.content_type.model)).upper() + self.content_object.title
 
         return "No related object"
+
+class ProfileStatus(models.Model):
+
+    text = models.TextField(null=False, max_length=256)
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, null=False, related_name='profile_status', verbose_name=_('Author'))
+    VECTOR = SearchVector("profile_status__text", weight="B")
+    updatein = models.DateTimeField(null=False, auto_now=True)
+    publishin = models.DateTimeField(null=True, db_index=True)
+    status = models.BooleanField(default=True)
+    feed = GenericRelation(FeedObject, related_name="profile_status", related_query_name="profile_status")
+
+    search_vector = SearchVectorField(null=True)
+
+    comment_count = models.PositiveIntegerField(null=True, blank=True)
+    like_count = models.PositiveIntegerField(null=True, blank=True)
+    dislike_count = models.PositiveIntegerField(null=True, blank=True)

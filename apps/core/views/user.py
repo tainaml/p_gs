@@ -39,7 +39,7 @@ class CoreUserView(views.ProfileShowView):
 
         form = self.form(
             profile_instance,
-            ['article', 'question'],
+            ['article', 'question', 'profilestatus'],
             items_by_page,
             request.user,
             request.GET
