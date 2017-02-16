@@ -10,6 +10,7 @@ from apps.core.models.tags import Tags
 from apps.taxonomy.models import Taxonomy
 from apps.community.models import Community
 from django.utils.translation import ugettext as _
+from django.utils import timezone
 
 
 class FeedObject(models.Model):
@@ -50,7 +51,7 @@ class ProfileStatus(models.Model):
     author = models.ForeignKey(settings.AUTH_USER_MODEL, null=False, related_name='profile_status', verbose_name=_('Author'))
     VECTOR = SearchVector("profile_status__text", weight="B")
     updatein = models.DateTimeField(null=False, auto_now=True)
-    publishin = models.DateTimeField(null=True, db_index=True)
+    publishin = models.DateTimeField(null=True, db_index=True, default=timezone.now)
     status = models.BooleanField(default=True)
     feed = GenericRelation(FeedObject, related_name="profile_status", related_query_name="profile_status")
 

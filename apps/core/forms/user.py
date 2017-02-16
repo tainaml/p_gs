@@ -2,6 +2,8 @@
 from django.contrib.auth.forms import UserChangeForm
 from django.db import transaction
 from django.db.models import Q
+from apps.core.business.content_types import ContentTypeCached
+from apps.feed.models import ProfileStatus, FeedObject
 from apps.socialactions.models import UserAction
 from apps.article.models import Article
 from apps.userprofile.models import Responsibility
@@ -12,13 +14,36 @@ from apps.socialactions.service import business as BusinessSocialActions
 from apps.core.business import socialactions as CoreBusinessSocialActions
 from apps.taxonomy.models import Taxonomy, Term
 from ..business import user as Business
-from apps.custom_base.service.custom import IdeiaForm, forms
+from apps.custom_base.service.custom import IdeiaForm, forms, MaterialModelForm
 from rede_gsti import settings
+from django.utils.translation import ugettext as _
 
 
 class CoreUserAdminForm(UserChangeForm):
     pass
 
+
+class FeedForm(MaterialModelForm):
+
+    class Meta:
+        model = ProfileStatus
+        fields = ('text', 'author',)
+
+        labels = {
+            'text': _("What do you want to share with your followers?")
+
+        }
+
+    @transaction.atomic()
+    def save(self, commit=True):
+        instance = super(FeedForm, self).save(commit)
+        feed = FeedObject(
+            content_type=ContentTypeCached.objects.get(model='profilestatus'),
+            object_id=instance.id,
+            date=instance.publishin
+
+        )
+        feed.save()
 
 class CoreUserSearchForm(IdeiaForm):
 

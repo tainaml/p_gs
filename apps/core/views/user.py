@@ -2,6 +2,7 @@
 from django.contrib.contenttypes.models import ContentType
 from django.db.models import Q
 from django.http import JsonResponse, Http404
+from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.views.generic import View
 from django.shortcuts import render, redirect
@@ -11,7 +12,7 @@ from apps.core.business.content_types import ContentTypeCached
 from apps.core.forms.WizardForm import WizardFormStepOne
 from apps.core.forms.user import CoreUserProfileForm, CoreUserProfileFullEditForm, CoreSearchFollowers, CoreSearchArticlesForm, CoreSearchVideosForm, \
     CoreSearchCommunitiesForm, CoreRemoveSocialActionForm, CoreSearchSocialActionsForm, CoreUserMyQuestionsForm, \
-    CoreSearchQuestionsForm, CoreUserProfileEditStepOne
+    CoreSearchQuestionsForm, CoreUserProfileEditStepOne, FeedForm
 from apps.core.forms.community import CoreCommunityFormSearch
 from apps.core.forms.user import CoreUserSearchForm, CoreUserProfileEditForm
 from apps.article.models import Article
@@ -153,16 +154,32 @@ class CoreUserSearch(CoreUserView):
 class CoreUserFeed(CoreUserView):
 
     template_path = 'userprofile/profile-feed.html'
+    feed_form = FeedForm
 
     @method_decorator(login_required)
     def get(self, request, **kwargs):
+        
+        return super(CoreUserFeed, self).get(request)
+
+    @method_decorator(login_required)
+    def post(self, request, **kwargs):
+
+        parameters = {'author': request.user.id}
+        parameters.update(request.POST.dict())
+        self.feed_form = self.feed_form(parameters)
+
+        if self.feed_form.is_valid():
+            self.feed_form.save()
+            return redirect(reverse('profile:feed'))
+
         return super(CoreUserFeed, self).get(request)
 
     def get_context(self, request, profile_instance=None):
         context = super(CoreUserFeed, self).get_context(request, profile_instance)
 
+
         categories = BusinessTaxonomy.get_categories()
-        context.update({'categories': categories})
+        context.update({'categories': categories, 'feed_form': self.feed_form})
 
         return context
 
