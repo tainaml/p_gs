@@ -7,27 +7,34 @@
     <a class="thumb__course" href="{% url 'course:show' item.slug %}" title="{{ item.title }}">
         <figure>
             {% if item.image_or_default %}
+                <img alt="{{ item.title }}"
                 {% if request|is_mobile %}
-                     <img class="img-responsive" alt="{{ item.title }}"
-                     src="{% thumbor_url item.image_or_default.url width=130 height=140 smart=False fit_in=False %}">
+                src="{% thumbor_url item.image_or_default.url width=130 height=140 smart=False fit_in=False %}">
                 {% else %}
-                         <img class="img-responsive" alt="{{ item.title }}"
-                     src="{% thumbor_url item.image_or_default.url width=270 height=160 smart=False fit_in=False %}">
+                src="{% thumbor_url item.image_or_default.url width=270 height=160 smart=False fit_in=False %}">
                 {% endif %}
 
             {% else %}
                 {% absolute_url '/static/images/gsti-video-placeholder.png' as image_placeholder %}
-                 <img class="img-responsive" src="{% thumbor_url image_placeholder width=150 height=113 smart=False fit_in=False %}" alt="{{ item.title }}" />
+                <img alt="{{ item.title }}"
+                {% if request|is_mobile %}
+                src="{% thumbor_url image_placeholder width=130 height=140 smart=False fit_in=False %}" />
+                {% else %}
+                src="{% thumbor_url image_placeholder width=270 height=160 smart=False fit_in=False %}" />
+                {% endif %}
             {% endif %}
         </figure>
-        <span class="thumb__course__title">{{ item.title }}</span>
-        <span class="thumb__course__categories">
-            {% for taxonomy in item.taxonomies.all %}
-                {{ taxonomy.community_related.title }}{% if not forloop.last %}, {% endif %}
-            {% endfor %}
-        </span>
-        <span class="thumb__course__avaliation">
-            <span style="width: {{ item.rating_percentage }}%"></span>
+        <span class="thumb__course__body">
+            <span class="thumb__course__title">{{ item.title }}</span>
+            <span class="thumb__course__categories">
+                {% for taxonomy in item.taxonomies.all %}
+                    {{ taxonomy.community_related.title }}{% if not forloop.last %}, {% endif %}
+                {% endfor %}
+            </span>
+            <span class="thumb__course__avaliation">
+                <span style="width: {{ item.rating_percentage }}%"></span>
+            </span>
+            <span class="thumb__course__flag">GRATUITO</span>
         </span>
     </a>
 </div>

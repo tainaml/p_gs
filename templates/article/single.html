@@ -149,7 +149,7 @@
                     {% like_box article request.path 'inline' %}
                 </div>
                 {% if feed.communities.all %}
-                    <nav class="single-communities">
+                <nav class="single-communities">
                     <label for="drop-communities" class="toggle-menu">
                         Comunidades <span class="gsticon gsticon-angle-down"></span>
                     </label>
@@ -171,7 +171,7 @@
                     <a class="btn-denunciar pull-right" data-url-login="{% url 'account:is_logged' %}" data-trigger="login" data-token="{{ csrf_token }}" href="{% url 'complaint:report' 'article' article.id %}" data-report="true" data-async-module="click" data-async-target="#modal-report" data-async-method="get"><i class="gsticon gsticon-flag"></i> Denunciar</a>
 
                 </div>
-               {% include 'userprofile/templatetags/profile-box.html' with profile=article.author.profile partial_template="userprofile/templatetags/profile-box-horizontal.html" %}
+                {% include 'userprofile/templatetags/profile-box.html' with profile=article.author.profile partial_template="userprofile/templatetags/profile-box-horizontal.html" %}
 
                 <div id="load-related-posts" data-load-async="true" data-load-async-url="{% url 'core:related-posts' article.id "article" "article" 3 %}" data-load-async-url-next="{{ request.path }}" data-load-async-method="get" data-load-async-response-type="json" data-load-async-timeout="1">
 {#                    {% include "article/partials/recomendations.html" %}#}
