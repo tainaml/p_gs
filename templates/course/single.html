@@ -170,7 +170,7 @@
 
                         {#% include "course/author.html" %#}
                         {# TODO: implement userprofile with 'fakeuser' for course author #}
-                        {% include 'userprofile/templatetags/profile-box.html' with profile=instance.author.profile partial_template="userprofile/templatetags/profile-box-horizontal.html" %}
+                        {% include 'userprofile/templatetags/profile-box.html' with profile=instance.profile partial_template="userprofile/templatetags/profile-box-horizontal.html" %}
 
                         {# TODO: Implement relateds content for courses #}
                         <div id="load-related-posts" data-load-async="true" data-load-async-url="{% url 'core:related-posts' instance.id "course" "course" 3 %}" data-load-async-url-next="{{ request.path }}" data-load-async-method="get" data-load-async-response-type="json" data-load-async-timeout="1">

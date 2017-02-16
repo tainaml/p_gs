@@ -4,7 +4,8 @@
 {% load avatar_tags %}
 
 {% set user_content_type = "user" %}
-{% followers_count profile.user as followers_count_value %}
+{#{% followers_count profile.user as followers_count_value %}#}
+{{ profile }}
 {% url 'profile:show' profile.user.username as profile_url %}
 <div class="publication-author">
 {#    <a class="btn pull-right text-center hidden-xs perfil-button-alt" data-action="follow" data-action-type="button" data-object="follow-user-24" data-action-text="Seguir" data-action-text-alt="Seguindo" data-class-name="perfil-button perfil-button-alt" data-hover="Não seguir" data-follow-object="24" data-follow-content_type="user" data-url-login="/conta/esta-logado/" data-trigger="login" data-token="jsIHlgxKXlgai8VqsHNB21L1mizWkoUHJ6ErY1ANj3RbklYpEL5nEdeP1ChnrBC8" href="/acoes-sociais/agir/xhr/24/user/follow?url_next=/2016/10/como-criar-paginas-amp-no-wordpress.html"><span>Seguindo</span></a>#}
@@ -46,7 +47,7 @@
         </div>
     </div>
     {% if request.user != profile.user %}
-        {% follow_action profile.user request.path %}
+{#        {% follow_action profile.user request.path %}#}
     {% endif %}
     <div class="publication-author-about">
         {{ profile.description|default_if_none:"" }}

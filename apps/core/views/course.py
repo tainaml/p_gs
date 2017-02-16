@@ -38,10 +38,13 @@ class CourseShowView(View):
         content_type = ContentTypeCached.objects.get(model="course")
         content_data = {"object_id": course.id, "content_type": content_type}
 
+
+
         try:
             if not request.user.is_authenticated():
                 raise Rating.DoesNotExist()
             instance = course.ratings.get(author=request.user)
+
             form = self.form(instance=instance)
 
         except Rating.DoesNotExist:

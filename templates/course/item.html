@@ -34,7 +34,9 @@
             <span class="thumb__course__avaliation">
                 <span style="width: {{ item.rating_percentage }}%"></span>
             </span>
+        {% if item.price == 0 %}
             <span class="thumb__course__flag">GRATUITO</span>
+        {% endif %}
         </span>
     </a>
 </div>

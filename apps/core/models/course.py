@@ -107,6 +107,7 @@ class Course(models.Model):
 
     embed = models.TextField(null=True, blank=True, verbose_name=_("Embed"), help_text="class=\"embed-responsive-item\"")
 
+    # If Null: Price is unknow. If price is 0, the course is free. Price > 0: The course has a price!
     price = models.DecimalField(max_digits=6, decimal_places=2, verbose_name=_('Price'), null=True, blank=True, help_text=_("0 to free courses, blank to unknow price"))
 
     @property
@@ -117,9 +118,11 @@ class Course(models.Model):
         return u'{}'.format(self.title)
 
     @cached_property
-    def author(self):
-        return self.internal_author or {'get_full_name': self.external_author,
-                                        'description' : self.external_author_description}
+    def profile(self):
+        return self.internal_author or {'user': {'get_full_name': self.external_author,
+                                        'description' : self.external_author_description}}
+
+
 
     def image_or_default(self):
         #TODO
