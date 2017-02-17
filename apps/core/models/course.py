@@ -119,7 +119,7 @@ class Course(models.Model):
 
     @cached_property
     def profile(self):
-        return self.internal_author.profile or {'user': {'get_full_name': self.external_author,
+        return self.internal_author.profile if self.internal_author else  {'user': {'get_full_name': self.external_author,
                                          'fake': True}, 'description' : self.external_author_description}
 
 
