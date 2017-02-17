@@ -28,11 +28,11 @@
         <div class="post-count">{% like_box instance request.path "inline" %}</div>
         <a href="#" class="post-count-comments">
             <span id="load-count-comment-{{ feed.content_type.model }}-{{ instance.id }}"
-            data-load-async="true" data-load-async-url="{% url 'comment:count' instance.id "article" %}"
+            data-load-async="true" data-load-async-url="{% url 'comment:count' instance.id "profilestatus" %}"
             data-load-async-method="get" data-load-async-response-type="json">
                 {% csrf_token %}
                 <span class="post-count-comments-icon"></span>
-                <strong class="load-async load-async-content">0</strong>
+                <strong class="load-async load-async-content">{{ instance.comment_count }}</strong>
             </span>
             <span class="hidden-xs visible-lg-inline">Comentário(s)</span>
         </a>
