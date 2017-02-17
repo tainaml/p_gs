@@ -402,6 +402,17 @@
   }
 }
 
+.single-commit {
+  .post {
+  }
+  .box-comment {
+    margin-top: 10px;
+    &-list {
+      margin-top: 38px;
+    }
+  }
+}
+
 
 // @media only screen and (max-width : 1200px) {}
 // @media only screen and (max-width : 992px) {}

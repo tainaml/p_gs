@@ -14,7 +14,6 @@
 {% block seo-metas-extra %}
     {% if feed_objects.object_list|length_is:0 %}
         <meta name="robots" content="nofollow,noindex">
-
     {% endif %}
 
 {% endblock %}
@@ -40,7 +39,7 @@
             <div class="col-lg-9">
                 <div class="row">
                 <div class="col-lg-8">
-                    <section>
+                    <section class="single-commit">
                        {% include 'feed/profilestatus/single.html' %}
                     </section>
                 </div>
