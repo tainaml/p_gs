@@ -16,6 +16,7 @@ import './modules/ideiaRestrict/'
 import './modules/ideiaValidationField/'
 import './modules/ideiaEditor/'
 import './components'
+import commitBox from './components/commit-box'
 
 
 $(function () {
@@ -82,4 +83,5 @@ $(function () {
         }
     });
     input($('[data-toggle="input"]'))
+    commitBox( '[data-toggle="commit-box"]' );
 });

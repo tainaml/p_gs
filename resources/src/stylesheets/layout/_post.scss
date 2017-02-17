@@ -248,8 +248,51 @@
       opacity: .9;
     }
   }
+  &.commit-box {
+    .btn-commit {
+      padding-top: 3px;
+      padding-bottom: 3px;
+      border: 1px solid #0160b0;
+      background: #0160b0;
+      color: #fff;
+      border-radius: 3px;
+      font-weight: 600;
+      &:hover {
+        background-color: #4e84b1;
+      }
+    }
+    .commit-box-text {
+      width: 100%;
+      height: 80px;
+      border: none;
+      color: #616161;
+      font: 300 14px 'Open Sans';
+      outline: none;
+      resize: none;
+    }
+    .commit-box-countdown {
+      color: #616161;
+      font-size: 16px;
+      font-weight: 600;
+    }
+    .dropdown-publication {
+      .dropdown-action {
+        padding-top: 3px;
+        padding-bottom: 3px;
+        border: none;
+        background-color: transparent;
+        color: #616161;
+        font: 400 15px 'Open Sans';
+        outline: none;
+        &:hover { background-color: #f3f3f3; }
+      }
+      .perfil-actions a {
+        padding-top: 0;
+        padding-bottom: 0;
+      }
+    }
+  }
 }
-.question { border: 1px solid $color-green }
 
 .area-content {
     @include clearfix();

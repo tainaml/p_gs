@@ -1,21 +1,21 @@
 {% load avatar_tags %}
 {% load widget_tweaks %}
-<form class="post" action="{% url 'profile:feed' %}" method="post">
+<form class="post commit-box" action="{% url 'profile:feed' %}" method="post" data-toggle="commit-box">
     <div class="post-header">
         <div class="post-creator">
-            <img class="post-creator-image" src="{% get_avatar request.user width=40 height=40 smart=False fit_in=False %}" width="40" height="40" alt="foto de {{ instance.author.get_full_name }}">
+            <img class="post-creator-image" src="{% get_avatar request.user width=40 height=40 smart=False fit_in=False %}" width="40" height="40" alt="foto de {{ request.user.get_full_name }}">
             <span class="post-creator-userinfo">
                 <span class="post-creator-username">{{ request.user.get_full_name }}</span>
             </span>
         </div>
         <div class="post-info">
-            <strong class="char-countdown" data-target="countdown">256</strong>
+            <strong class="commit-box-countdown" data-target="countdown-length" data-max-length="256">256</strong>
         </div>
     </div>
     {% csrf_token %}
     <div class="post-content">
-        {% render_field feed_form.text placeholder="..." %}
-{#        <textarea name="commit"></textarea>#}
+        {#% render_field feed_form.text %#}
+        <textarea class="commit-box-text" data-toggle="commit-text" name="text" id="id_text" placeholder="What do you want to share with your followers?"></textarea>
     </div>
 
     <div class="post-footer">
