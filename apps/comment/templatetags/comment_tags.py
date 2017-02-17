@@ -11,7 +11,7 @@ register = template.Library()
 def comment_box(context, content_object, **kwargs):
     request = context['request']
     form = CreateCommentForm(user=request.user)
-    content_type = ContentTypeCached.objects.get_for_model(model=content_object)
+    content_type = ContentTypeCached.objects.get_for_model(model=content_object).model
 
     return {
         'form': form,
