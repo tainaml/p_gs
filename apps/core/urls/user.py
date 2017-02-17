@@ -155,6 +155,10 @@ urlpatterns = [
     # Translators: URL de comunidades do usuario
     url(_(r'^(?P<username>[a-z0-9_-]+)/communities/$'), core_user.CoreProfileCommunitiesSearchView.as_view(), name='communities'),
 
+
+     # Translators: URL de atualizacao de status
+    url(_(r'^(?P<username>[a-z0-9_-]+)/status/(?P<feed_id>\d+)$'), core_user.ProfileStatusView.as_view(), name='profilestatus'),
+
     # Translators: URL de listagem de comunidades do usuario
     url(_(r'^(?P<username>[a-z0-9_-]+)/communities/list/$'), core_user.CoreProfileCommunitiesSearchListView.as_view(), name='communities-list'),
 

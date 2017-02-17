@@ -1,0 +1,75 @@
+{%extends 'home/layout/base.html' %}
+{% load staticfiles %}
+{% load i18n %}
+{% load user_agents %}
+{% load abs_url %}
+{% load seo_pagination_tags %}
+{% load avatar_tags %}
+{% load thumbor_tags %}
+{% block seo-og-title %}{% block seo_title %}{{ profile.user.get_full_name }}{{ block.super }}{% endblock %}{% endblock %}
+{% block seo-og-description %}{% block seo-description %}Todo o conteúdo de publicações realizadas por {{ profile.user.get_full_name }}. Siga {{ profile.user.get_full_name }} e receba no seu feed as informações enviadas por esse membro.{% endblock %}{% endblock %}
+{% block seo-og-image %}{% get_avatar profile.user width=200 height=200 smart=False fit_in=False %}{% endblock %}
+
+{% block seo-metas-extra %}
+    {% if feed_objects.object_list|length_is:0 %}
+        <meta name="robots" content="nofollow,noindex">
+
+    {% endif %}
+
+{% endblock %}
+
+{% block seo-canonical %}{% absolute_url request.path %}{% endblock %}
+{% block link_pagination %}
+    {% pagination_links feed_objects %}
+{% endblock link_pagination %}
+
+{% block page_class %}profile-page{% endblock page_class %}
+{% block content %}
+
+    <main class="container main">
+        <div class="row">
+            <div class="col-lg-offset-3 col-lg-9">
+                {% include 'userprofile/partials/menu.html' with active="posts" %}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-3">
+                {% include 'userprofile/partials/left-sidebar.html' %}
+            </div>
+            <div class="col-lg-9">
+                <div class="row">
+                <div class="col-lg-8">
+                    <section>
+                       {% include 'feed/profilestatus/single.html' %}
+                    </section>
+                </div>
+                {% include 'userprofile/partials/profile-sidebar-right.html' %}
+            </div>
+            </div>
+        </div>
+    </main>
+{% endblock %}
+
+
+{% block javascripts %}
+    {{ block.super }}
+
+    <script>
+        $(function() {
+            $(".j-scroll").jscroll({
+                loadingHtml: '<div class="load-async-preload"></div>',
+                contentSelect: ".j-scroll-container",
+                nextSelector: "a[data-jscroll-next]",
+                callback: refreshAsyncLike
+            });
+
+            var $social_count = $("[data-social-count=\"true\"]");
+            $.each($social_count, function(key, value){
+                var $obj = $(value);
+                $.get($obj.data("url"), function(data){
+                    $obj.text(data.count);
+                });
+            });
+        });
+    </script>
+{% endblock %}

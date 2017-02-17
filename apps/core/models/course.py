@@ -122,8 +122,6 @@ class Course(models.Model):
         return self.internal_author.profile if self.internal_author else  {'user': {'get_full_name': self.external_author,
                                          'fake': True}, 'description' : self.external_author_description}
 
-
-
     def image_or_default(self):
         #TODO
         return self.thumbnail or self.image or None

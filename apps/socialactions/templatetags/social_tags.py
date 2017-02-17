@@ -8,13 +8,14 @@ from ..service import business as Business
 register = template.Library()
 
 
-article_content_type = ContentTypeCached.objects.get(model='article')
-question_content_type = ContentTypeCached.objects.get(model='question')
+article_content_type = ContentTypeCached.objects.get(model='article').model
+question_content_type = ContentTypeCached.objects.get(model='question').model
+profile_status_content_type = ContentTypeCached.objects.get(model='profilestatus').model
 
 @register.inclusion_tag('socialactions/like_box.html', takes_context=True)
 def like_box(context, object_to_link, url_next, like_type=None):
     try:
-        content = Business.get_content_by_object(object_to_link)
+        content = Business.get_content_by_object(object_to_link).model
 
         user = context['request'].user
 
@@ -22,7 +23,7 @@ def like_box(context, object_to_link, url_next, like_type=None):
         i_liked = Business.user_liked_by_object(user=user,content_object=object_to_link)
         i_unliked = Business.user_unliked_by_object(user=user, content_object=object_to_link)
 
-        if content in [article_content_type, question_content_type]:
+        if content in [article_content_type, question_content_type, profile_status_content_type]:
             likes = object_to_link.like_count or Business.user_likes_by_object(user=user, content_object=object_to_link)
             unlikes =object_to_link.dislike_count or Business.user_unlikes_by_object(user=user, content_object=object_to_link)
         else:

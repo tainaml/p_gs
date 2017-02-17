@@ -16,6 +16,7 @@ from apps.core.forms.user import CoreUserProfileForm, CoreUserProfileFullEditFor
 from apps.core.forms.community import CoreCommunityFormSearch
 from apps.core.forms.user import CoreUserSearchForm, CoreUserProfileEditForm
 from apps.article.models import Article
+from apps.feed.models import FeedObject
 from apps.userprofile import views
 from apps.userprofile.models import Occupation, Responsibility
 from apps.userprofile.service import business as BusinessUserProfile
@@ -56,7 +57,7 @@ class CoreUserView(views.ProfileShowView):
 
         return context
 
-    def get(self, request, username=None):
+    def get(self, request, username=None, *args, **kwargs):
         profile = self.filter(request, request.user)
 
         context = {'profile': profile}
@@ -70,7 +71,7 @@ class CoreUserList(CoreUserView):
 
     template_path = 'userprofile/partials/user-profile-feed.html'
 
-    def get(self, request, username=None):
+    def get(self, request, username=None, *args, **kwargs):
 
         profile = self.filter(request, request.user)
         context = {'profile': profile}
@@ -85,7 +86,7 @@ class CoreUserProfile(CoreUserView):
 
     form = CoreUserProfileForm
 
-    def get(self, request, username=None):
+    def get(self, request, username=None, *args, **kwargs):
         profile = self.filter(request, username)
 
         context = {'profile': profile}
@@ -143,7 +144,7 @@ class CoreUserSearch(CoreUserView):
             'page': form.cleaned_data.get('page', 0) + 1
         }
 
-    def get(self, request, username=None):
+    def get(self, request, username=None, *args, **kwargs):
         profile = self.filter(request, username)
         context = {'profile': profile}
         context.update(self.get_context(request, profile))
@@ -766,6 +767,7 @@ class CoreProfileVideosList(CoreProfileVideosSearch):
     template_path = "userprofile/partials/profile-videos-list.html"
 
 
+
 class CoreProfileCommunitiesSearchView(views.ProfileBaseView):
 
     template_path = "userprofile/profile-communities.html"
@@ -1191,3 +1193,23 @@ class CoreDynamicUserImage(View):
 
         except Exception as e:
             raise Http404('Not found {}', e)
+
+
+class ProfileStatusView(CoreUserView):
+
+    template_path = 'userprofile/profile-profilestatus.html'
+    def get(self, request, username=None, feed_id=None, *args, **kwargs):
+
+        try:
+            profile = self.filter(request, username)
+            instance = FeedObject.objects.filter(id=feed_id, profile_status__author=profile.user).prefetch_related("content_object", "content_object__author").get()
+
+            context = {
+                'instance': instance.content_object,
+                'profile': profile
+            }
+
+            return render(request, self.template_path, context=context)
+        except FeedObject.DoesNotExist:
+            raise Http404()
+

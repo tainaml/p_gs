@@ -33,6 +33,7 @@ class FeedObject(models.Model):
     seo_no_follow = models.BooleanField(default=False)
 
 
+
     def __init__(self, *args, **kwargs):
         super(FeedObject, self).__init__(*args, **kwargs)
 
@@ -60,3 +61,11 @@ class ProfileStatus(models.Model):
     comment_count = models.PositiveIntegerField(null=True, blank=True)
     like_count = models.PositiveIntegerField(null=True, blank=True)
     dislike_count = models.PositiveIntegerField(null=True, blank=True)
+
+    def get_absolute_url(self):
+        from django.core.urlresolvers import reverse
+
+        feed_id =  self.feed.get().id
+        username = self.author.username
+        print feed_id, username
+        return reverse('profile:profilestatus', args=[username, feed_id])

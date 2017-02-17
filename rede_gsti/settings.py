@@ -329,7 +329,7 @@ CELERY_TIMEZONE = 'America/Sao_Paulo'
 CONTACT_SEND_TO_EMAIL = config.get("CONTACT", "to")
 
 # Comment config
-ENTITY_TO_COMMENT = ['comment', 'article', 'answer', 'course']
+ENTITY_TO_COMMENT = ['comment', 'article', 'answer', 'course', 'profilestatus']
 MAX_LEVELS = 2
 
 ENTITY_TO_COMPLAINT = ['article', 'question', 'answer']
@@ -374,8 +374,8 @@ SOCIAL_LABELS = {
 }
 
 SOCIAL_ENTITIES = {
-    SOCIAL_LIKE: ['comment', 'article', 'question', 'answer'],
-    SOCIAL_UNLIKE: ['comment', 'article', 'question', 'answer'],
+    SOCIAL_LIKE: ['comment', 'article', 'question', 'answer', 'profilestatus'],
+    SOCIAL_UNLIKE: ['comment', 'article', 'question', 'answer', 'profilestatus'],
     SOCIAL_FOLLOW: ['community', 'user'],
     SOCIAL_FAVOURITE: ['article', 'question'],
     SOCIAL_SUGGEST: ['article', 'question'],
