@@ -172,36 +172,28 @@
                         {# TODO: implement userprofile with 'fakeuser' for course author #}
                         {% include 'userprofile/templatetags/profile-box.html' with profile=instance.profile partial_template="userprofile/templatetags/profile-box-horizontal.html" %}
 
-                        {# TODO: Change layout for related course above #}
-{#                     {% if instance.related_courses.all %}#}
-{#                        <div class="related__items">#}
-{#                            <h2 class="related__items__title">Cursos Relacionados</h2>#}
-{##}
-{#                            {% for related_course in instance.related_courses.all %}#}
-{##}
-{#                                <a class="related" href="{% url 'course:show' related_course.slug %}">#}
-{#                                    <figure class="related__img">#}
-{#                                        {% if related_course.image %}#}
-{#                                            <img class="img-responsive" src="{% thumbor_url related_course.image.url width=100 height=100 %}" alt="{{ related_course.title }}">#}
-{#                                        {% else %}#}
-{#                                            <i>no image</i>#}
-{#                                        {% endif %}#}
-{#                                    </figure>#}
-{#                                    <div class="related__body">#}
-{#                                        <h3 class="related__title">{{ related_course.title }}</h3>#}
-{#                                        <div class="related__categories">#}
-{#                                            {% for taxonomy in related_course.taxonomies.all %}#}
-{#                                                {{ taxonomy.community_related.title }}{% if not forloop.last %} / {% endif %}#}
-{#                                            {% endfor %}#}
-{#                                        </div>#}
-{#                                        <span class="thumb__course__avaliation">#}
-{#                                            <span style="width: {{ related_course.rating_percentage }}%"></span>#}
-{#                                        </span>#}
-{#                                    </div>#}
-{#                                </a>#}
-{#                            {% endfor %}#}
-{#                        </div>#}
-{#                        {% endif %}#}
+                        {# TODO: Implement default image to course #}
+                        {% if instance.related_courses.all|slice:":3" %}
+                        <div class="widget recomendations">
+                            <header class="widget-header">
+                                <h2 class="widget-title">
+                                    <span>Cursos Relacionados</span>
+                                </h2>
+                            </header>
+                            <div class="row">{% for related_course in instance.related_courses.all %}
+                                <a class="col-sm-4 col-xs-12" href="{% url 'course:show' related_course.slug %}">
+                                    <figure class="recomendation">
+                                        <span>{% if related_course.image %}
+                                            <img class="img-responsive" src="{% thumbor_url related_course.image.url width=400 height=400 %}" alt="{{ related_course.title }}">
+                                        {% else %}
+                                            <img src="http://placehold.it/400" alt="" class="img-responsive">
+                                        {% endif %}</span>
+                                        <figcaption>{{ related_course.title }}</figcaption>
+                                    </figure>
+                                </a>
+                            {% endfor %}</div>
+                        </div>
+                        {% endif %}
 
                         {% include "course/avaliations.html" %}
                     </div>
