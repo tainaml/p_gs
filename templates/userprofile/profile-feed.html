@@ -31,7 +31,8 @@
                 <div class="row">
                     <div class="col-lg-8">
                         {% if profile.user == request.user %}
-                            {% include 'userprofile/partials/commit-box.html' %}
+                            {% comment %}UNcomment{% endcomment %}
+{#                            {% include 'userprofile/partials/commit-box.html' %}#}
                             {% if feed_objects.object_list %}
                                 <div class="j-scroll j-scroll-container">
                                     {% include 'userprofile/partials/user-profile-feed.html' %}
