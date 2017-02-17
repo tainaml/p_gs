@@ -250,4 +250,7 @@
 {% block javascripts %}
     <script src="{% static_versioned 'javascripts/vendor.js'%}" data-manual></script>
     <script src="{% static_versioned 'javascripts/publication.js'%}"></script>
+    <script>
+        $( 'a[href="'+ location.hash +'"]' ).tab( 'show' );
+    </script>
 {% endblock javascripts %}
