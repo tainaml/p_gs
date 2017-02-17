@@ -173,14 +173,16 @@
                         {% include 'userprofile/templatetags/profile-box.html' with profile=instance.profile partial_template="userprofile/templatetags/profile-box-horizontal.html" %}
 
                         {# TODO: Implement default image to course #}
-                        {% if instance.related_courses.all|slice:":3" %}
+                        {% if instance.related_courses.all %}
                         <div class="widget recomendations">
                             <header class="widget-header">
                                 <h2 class="widget-title">
                                     <span>Cursos Relacionados</span>
                                 </h2>
                             </header>
-                            <div class="row">{% for related_course in instance.related_courses.all %}
+                            <div class="row">
+
+                                {% for related_course in instance.related_courses.all|slice:":3" %}
                                 <a class="col-sm-4 col-xs-12" href="{% url 'course:show' related_course.slug %}">
                                     <figure class="recomendation">
                                         <span>{% if related_course.image %}
