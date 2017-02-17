@@ -18,6 +18,19 @@
                 <time datetime="{{ instance.publishin|date:'d/m/Y G:i' }}">{{ instance.publishin|naturaltime }}</time>
             </span>
         </div>
+        <div class="post-info">
+            <a class="post-actions" href="javascript:;" data-toggle="dropdown">
+                <i class="gsticon gsticon-ellipsis-v" aria-hidden="true"></i>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right">
+                <ul class="perfil-actions">
+                    {% if instance.author == request.user or perms.article.change_other_articles %}
+                        <li><a href="{% url 'article:edit' instance.id %}"><i class="gsticon gsticon-edit"></i> Editar publicação</a></li>
+                    {% endif %}
+                    <li><a data-url-login="{% url 'account:is_logged' %}" data-trigger="login" data-token="{{ csrf_token }}" href="{% url 'complaint:report' 'article' instance.id %}" data-report="true" data-async-module="click" data-async-target="#modal-report" data-async-method="get"><i class="gsticon gsticon-flag"></i> Denunciar</a></li>
+                </ul>
+            </div>
+        </div>
     </header>
     <a class="post-content" href="{{ instance.get_absolute_url }}">
         <div class="post-text">
