@@ -1,5 +1,6 @@
 {% load widget_tweaks %}
 {% load comment_tags %}
+{% load avatar_tags %}
 
 <div class="course__avaliations">
     <ul class="nav nav-tabs" role="tablist">
@@ -22,49 +23,54 @@
         <div role="tabpanel" class="tab-pane active" id="comments">
             {% comment_box instance %}
         </div>
+
+
         <div role="tabpanel" class="tab-pane" id="avaliations">
-            <div class="box-comment">
-                <p class="comment-helper">Qual a sua avaliação para este hangout?</p>
-                <form class="comment-creator" method="post" id="form-avaliacao" action="{% url 'rating:course' %}?#form-avaliacao">
-                    {{ form.value }}
-                    <a class="comment-userimage" href="/perfil/annielcruz/">
-                        <img src="http://localhost:9000/AJyO6uSUX41DTrmRGeRXy3Asx48=/50x50/localhost:8000/media/uploads/userprofile/2016/10/17/profile.png" alt="foto do perfil Anniel Menezes Cruz">
-                    </a>
-                    <div class="avaliation-info">
-                        <a class="comment-username" href="/perfil/annielcruz/" title="Anniel Menezes Cruz">
-                            Anniel Menezes Cruz
-                        </a>
+
+                  <div class="box-comment">
+                    <p class="comment-helper">{% if form.instance.id %}Editar avaliação sobre este curso{% else %}Qual a sua avaliação para este hangout?{% endif %}</p>
+                    <form class="comment-creator" method="post" id="form-avaliacao" action="{% url 'rating:course' %}?#avaliations">
+                        {{ form.value }}
+                        <a class="comment-userimage" href="{% if request.is_authenticated %}{% url 'profile:show' request.user.username %}{% else %}javascript:;{% endif %} ">
+
+                            <img src="{% get_avatar request.user width=50 height=50 smart=False fit_in=False %}" alt="foto de {{ request.user.get_full_name }}">
+{#                        </a>#}
+                        <div class="avaliation-info">
+                            <a class="comment-username" href="{% if request.is_authenticated %}{% url 'profile:show' request.user.username %}{% else %}javascript:;{% endif %}" title="{{ request.user.get_full_name }}">
+                                {{ form.instance.author.get_full_name }}
+                            </a>
+                            <br>
+                            <span class="avaliation__form__rating" >
+                                <span  data-toggle="rating"
+                                data-reactions='["Muito ruim", "Ruim", "Razoável", "Bom", "Muito bom", "Excelente"]'
+                                data-config='{"rating": {% if form.instance.value %}{{form.instance.value|stringformat:"f"}}{% else %}"0"{% endif %}}'></span>
+                                <span class="avaliation__reaction__text"></span>
+                            </span>
+                        </div>
+                            {% if form.instance.id %}
+                                {#<a href="{% url 'rating:course-delete' form.instance.id %}" class="btn btn-link avaliation__form__delete">Deletar</a>#}
+                            {% endif %}
+                            <button class="btn course__btn__alt" data-url-login="{% url 'account:is_logged' %}" {% if not request.user.is_authenticated %}data-trigger="login"{% endif %}>
+                                {% if form.instance.id %}Atualizar{% else %}Enviar{% endif %}
+                            </button>
                         <br>
-                        <span class="avaliation__form__rating">
-                            <span data-toggle="rating"
-                            data-reactions='["Muito ruim", "Ruim", "Razoável", "Bom", "Muito bom", "Excelente"]'
-                            data-config='{"rating": {% if form.instance.value %}{{form.instance.value|stringformat:"f"}}{% else %}"0"{% endif %}}'></span>
-                            <span class="avaliation__reaction__text"></span>
-                        </span>
-                    </div>
-                        {% if form.instance.id %}
-                            {#<a href="{% url 'rating:course-delete' form.instance.id %}" class="btn btn-link avaliation__form__delete">Deletar</a>#}
-                        {% endif %}
-                        <button class="btn course__btn__alt" data-url-login="{% url 'account:is_logged' %}" {% if not request.user.is_authenticated %}data-trigger="login"{% endif %}>
-                            {% if form.instance.id %}Atualizar{% else %}Enviar{% endif %}
-                        </button>
-                    <br>
-                    {% if form.value.errors %}{{ form.value.errors }}{% endif %}
-                    <input data-toggle="rating-value" id="id_value" name="value" type="hidden">
-                    <input type="hidden" name="content_type" value="{{ content_data.content_type.id }}">
-                    <input type="hidden" name="object_id" value="{{ content_data.object_id }}">
-                    {% csrf_token %}
-                </form>
-            </div>
+                        {% if form.value.errors %}{{ form.value.errors }}{% endif %}
+                        <input data-toggle="rating-value" id="id_value" name="value" type="hidden">
+                        <input type="hidden" name="content_type" value="{{ content_data.content_type.id }}">
+                        <input type="hidden" name="object_id" value="{{ content_data.object_id }}">
+                        {% csrf_token %}
+                    </form>
+                </div>
+
+
+
             <div class="widget-header">
                 <h3 class="widget-title">
                     <span>AVALIAÇÕES</span>
                 </h3>
             </div>
             {% for avaliation in instance.ratings.all %}
-                {% if not avaliation.author == request.user %}
                     {% include "course/avaliation.html" with avaliation=avaliation %}
-                {% endif %}
             {% empty %}
                 <p>Ninguém avaliou este curso ainda. Seja o primeiro...</p>
             {% endfor %}
