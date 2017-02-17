@@ -14,7 +14,7 @@ from apps.socialactions.service import business as BusinessSocialActions
 from apps.core.business import socialactions as CoreBusinessSocialActions
 from apps.taxonomy.models import Taxonomy, Term
 from ..business import user as Business
-from apps.custom_base.service.custom import IdeiaForm, forms, MaterialModelForm
+from apps.custom_base.service.custom import forms, IdeiaModelForm, IdeiaForm
 from rede_gsti import settings
 from django.utils.translation import ugettext as _
 
@@ -23,7 +23,7 @@ class CoreUserAdminForm(UserChangeForm):
     pass
 
 
-class FeedForm(MaterialModelForm):
+class FeedForm(IdeiaModelForm):
 
     class Meta:
         model = ProfileStatus

@@ -67,5 +67,4 @@ class ProfileStatus(models.Model):
 
         feed_id =  self.feed.get().id
         username = self.author.username
-        print feed_id, username
         return reverse('profile:profilestatus', args=[username, feed_id])

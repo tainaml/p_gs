@@ -3,12 +3,11 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-01-26 09:19-0300\n"
+"POT-Creation-Date: 2017-02-17 14:50-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,23 +17,23 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: apps/account/models.py:20
+#: apps/account/models.py:22
 msgid "This is not a valid user type"
 msgstr "Este não é um tipo de usuário válido"
 
-#: apps/account/models.py:29
+#: apps/account/models.py:31
 msgid "Person"
 msgstr "Pessoa"
 
-#: apps/account/models.py:30
+#: apps/account/models.py:32
 msgid "Organization"
 msgstr "Organização"
 
-#: apps/account/models.py:35
+#: apps/account/models.py:37
 msgid "User type"
 msgstr "Tipo de usuário"
 
-#: apps/account/models.py:46 apps/account/models.py:49
+#: apps/account/models.py:61 apps/account/models.py:64
 msgid "Anonymous"
 msgstr "Anônimo"
 
@@ -149,11 +148,11 @@ msgid "Publish"
 msgstr "Publicado"
 
 #: apps/article/models.py:62 apps/core/models/rating.py:45
-#: apps/job_vacancy/models.py:45
+#: apps/feed/models.py:52 apps/job_vacancy/models.py:45
 msgid "Author"
 msgstr "Autor"
 
-#: apps/article/models.py:84
+#: apps/article/models.py:106
 msgid "Can edit articles from others"
 msgstr "Permissão para editar artigos de outros autores"
 
@@ -190,15 +189,15 @@ msgstr "Publicação salva com sucesso"
 msgid "Generic Error"
 msgstr "Erro"
 
-#: apps/certification/models.py:8 apps/core/models/course.py:70
-#: apps/core/models/course.py:140 apps/job_vacancy/models.py:39
+#: apps/certification/models.py:10 apps/core/models/course.py:70
+#: apps/core/models/course.py:141 apps/job_vacancy/models.py:39
 #: templates/admin/base.html:284
 msgid "Title"
 msgstr "Título"
 
-#: apps/certification/models.py:9 apps/company/models.py:62
+#: apps/certification/models.py:11 apps/company/models.py:62
 #: apps/company/models.py:94 apps/company/models.py:101
-#: apps/core/models/course.py:72 apps/core/models/course.py:141
+#: apps/core/models/course.py:72 apps/core/models/course.py:142
 #: apps/core/models/languages.py:9 apps/core/models/plataform.py:21
 #: apps/job_vacancy/models.py:17 apps/job_vacancy/models.py:24
 #: apps/job_vacancy/models.py:32 apps/job_vacancy/models.py:129
@@ -206,6 +205,42 @@ msgstr "Título"
 #: apps/job_vacancy/models.py:158
 msgid "Description"
 msgstr "Descrição"
+
+#: apps/certification/models.py:13 apps/core/models/course.py:71
+#: apps/core/models/languages.py:8 apps/core/models/plataform.py:20
+#: apps/job_vacancy/models.py:40 apps/userprofile/models.py:136
+msgid "Slug"
+msgstr "Slug"
+
+#: apps/certification/models.py:14 apps/userprofile/models.py:137
+msgid "Sobre"
+msgstr "Sobre"
+
+#: apps/certification/models.py:15
+msgid "Where get"
+msgstr ""
+
+#: apps/certification/models.py:16 apps/userprofile/models.py:140
+msgid "More info"
+msgstr "Mais informações"
+
+#: apps/certification/models.py:17
+msgid "Related with"
+msgstr ""
+
+#: apps/certification/models.py:19
+#| msgid "Course"
+msgid "Courses"
+msgstr "Cursos"
+
+#: apps/certification/models.py:20
+msgid "Guide link"
+msgstr ""
+
+#: apps/certification/models.py:23 apps/core/models/course.py:103
+#: apps/job_vacancy/models.py:25 apps/userprofile/models.py:143
+msgid "Active"
+msgstr "Ativo"
 
 #: apps/comment/service/forms.py:161
 msgid "You do not have permission to perform this action."
@@ -296,7 +331,7 @@ msgid "Permission"
 msgstr "Permissão"
 
 #: apps/company/models.py:58 apps/core/admin/geral.py:126
-#: apps/userprofile/models.py:134 templates/contact/contact.html:11
+#: apps/userprofile/models.py:135 templates/contact/contact.html:11
 msgid "Name"
 msgstr "Nome"
 
@@ -387,9 +422,14 @@ msgstr "Todos"
 
 #: apps/core/forms/company.py:29 templates/account/password_forgot.html:8
 #: templates/account/resend_account_confirmation.html:8
-#: templates/account/signup.html:127 templates/contact/contact.html:14
+#: templates/account/signup.html:128 templates/contact/contact.html:14
 msgid "Email"
 msgstr "Email"
+
+#: apps/core/forms/company.py:66
+#| msgid "Cidade"
+msgid "Comunidades"
+msgstr "Comunidades"
 
 #: apps/core/forms/course.py:20 apps/core/forms/videos.py:20
 msgid "Default"
@@ -419,6 +459,10 @@ msgstr "Categoria"
 msgid "Community"
 msgstr "Comunidade"
 
+#: apps/core/forms/user.py:33
+msgid "What do you want to share with your followers?"
+msgstr "O que você gostaria de compartilhar com seus seguidores?"
+
 #: apps/core/forms/videos.py:23
 msgid "Likes Asc"
 msgstr "Menos curtidos"
@@ -438,12 +482,6 @@ msgstr "Gênero não permitido."
 #: apps/core/forms/wizard.py:130 apps/userprofile/service/forms.py:98
 msgid "Image size more than 1mb."
 msgstr "Tamanho da imagem excede 1mb"
-
-#: apps/core/models/course.py:71 apps/core/models/languages.py:8
-#: apps/core/models/plataform.py:20 apps/job_vacancy/models.py:40
-#: apps/userprofile/models.py:135
-msgid "Slug"
-msgstr "Slug"
 
 #: apps/core/models/course.py:73
 msgid "Observation"
@@ -497,11 +535,6 @@ msgstr "Taxonomia"
 msgid "Affiliate link"
 msgstr "Link afiliado"
 
-#: apps/core/models/course.py:103 apps/job_vacancy/models.py:25
-#: apps/userprofile/models.py:141
-msgid "Active"
-msgstr "Ativo"
-
 #: apps/core/models/course.py:105
 msgid "Plataform"
 msgstr "Plataforma"
@@ -514,19 +547,19 @@ msgstr "Link da Aula"
 msgid "Embed"
 msgstr "Embed"
 
-#: apps/core/models/course.py:110
+#: apps/core/models/course.py:111
 msgid "Price"
 msgstr "Preço"
 
-#: apps/core/models/course.py:110
+#: apps/core/models/course.py:111
 msgid "0 to free courses, blank to unknow price"
 msgstr "0 para cursos grátis, branco para preço desconhecido"
 
-#: apps/core/models/course.py:142
+#: apps/core/models/course.py:143
 msgid "Order"
 msgstr "Ordem"
 
-#: apps/core/models/course.py:143
+#: apps/core/models/course.py:144
 msgid "Course"
 msgstr "Curso"
 
@@ -547,7 +580,7 @@ msgstr "Valor é maior que máximo %(value)s"
 msgid "Date"
 msgstr "Data"
 
-#: apps/core/templatetags/core_tags.py:162
+#: apps/core/templatetags/core_tags.py:180
 msgid "Olá, gostaria de sugerir a comunidade: "
 msgstr "Olá, gostaria de sugerir a comunidade: "
 
@@ -844,27 +877,37 @@ msgstr "^profissoes-de-ti/$"
 msgid "^responsibilities/(?P<slug>[aA-zZ0-9-_]+)/$"
 msgstr "^profissoes-de-ti/(?P<slug>[aA-zZ0-9-_]+)/$"
 
+#: apps/core/urls/core.py:19
+#| msgid "^notifications/"
+msgid "^certifications/$"
+msgstr "^certificacoes/$"
+
+#: apps/core/urls/core.py:21
+#| msgid "^responsibilities/(?P<slug>[aA-zZ0-9-_]+)/$"
+msgid "^certifications/(?P<slug>[aA-zZ0-9-_]+)/$"
+msgstr "^certificacoes/(?P<slug>[aA-zZ0-9-_]+)/$"
+
 #. Translators: URL de videos
-#: apps/core/urls/core.py:23
+#: apps/core/urls/core.py:27
 msgid "^videos/$"
 msgstr "^videos/$"
 
 #. Translators: URL de sobre
-#: apps/core/urls/core.py:26
+#: apps/core/urls/core.py:30
 msgid "^about/"
 msgstr "^sobre/"
 
 #. Translators: URL de sobre
-#: apps/core/urls/core.py:29
+#: apps/core/urls/core.py:33
 msgid "^rules/"
 msgstr "^regras/"
 
 #. Translators: URL de sobre
-#: apps/core/urls/core.py:33
+#: apps/core/urls/core.py:37
 msgid "^politica-de-privacidade/"
 msgstr "^politica-de-privacidade/"
 
-#: apps/core/urls/core.py:35
+#: apps/core/urls/core.py:39
 msgid "^oembed/"
 msgstr "^oembed/"
 
@@ -1258,13 +1301,19 @@ msgstr "^(?P<username>[a-z0-9_-]+)/seguidores/buscar/listagem/$"
 msgid "^(?P<username>[a-z0-9_-]+)/communities/$"
 msgstr "^(?P<username>[a-z0-9_-]+)/comunidades/$"
 
+#. Translators: URL de atualizacao de status
+#: apps/core/urls/user.py:160
+#| msgid "^(?P<username>[a-z0-9_-]+)/$"
+msgid "^(?P<username>[a-z0-9_-]+)/status/(?P<feed_id>\\d+)$"
+msgstr "^(?P<username>[a-z0-9_-]+)/status/(?P<feed_id>\\d+)$"
+
 #. Translators: URL de listagem de comunidades do usuario
-#: apps/core/urls/user.py:159
+#: apps/core/urls/user.py:163
 msgid "^(?P<username>[a-z0-9_-]+)/communities/list/$"
 msgstr "^(?P<username>[a-z0-9_-]+)/comunidade/listagem/$"
 
 #. Translators: URL de carregamento assincrono de comunidades do usuario
-#: apps/core/urls/user.py:162
+#: apps/core/urls/user.py:166
 msgid "^(?P<username>[a-z0-9_-]+)/communities/load/ajax/$"
 msgstr "^(?P<username>[a-z0-9_-]+)/comunidade/carregar/ajax/$"
 
@@ -1275,7 +1324,7 @@ msgstr "^(?P<username>[a-z0-9_-]+)/comunidade/carregar/ajax/$"
 #. Translators: URL de listagem de busca de videos do usuario
 #. url(_(r'^(?P<username>[a-z0-9_-]+)/videos/search/list/$'), core_user.CoreProfileVideosList.as_view(), name='videos-search-list'),
 #. Translators: URL de carregamento assincrono de comunidades do usuario
-#: apps/core/urls/user.py:174
+#: apps/core/urls/user.py:178
 msgid "^ajax/user/communities/$"
 msgstr "^ajax/usuario/comunidade/$"
 
@@ -1304,6 +1353,11 @@ msgstr "É necessário seguir esta comunidade"
 msgid "Category not found or not root category."
 msgstr "Categoria não encontrada ou não é uma categoria raiz."
 
+#: apps/core/views/certification.py:72
+#| msgid "Notification not found!"
+msgid "Certification not found"
+msgstr "Certificação não encontrada"
+
 #. Translators:
 #: apps/core/views/configuration.py:70
 msgid "Configuration Notification"
@@ -1313,11 +1367,11 @@ msgstr "Configuração de Notificação"
 msgid "Your settings have been successfully changed!"
 msgstr "Suas configurações foi alteradas com sucesso!"
 
-#: apps/core/views/course.py:62
+#: apps/core/views/course.py:65
 msgid "Course not found"
 msgstr "Curso não encontrado"
 
-#: apps/core/views/course.py:84
+#: apps/core/views/course.py:87
 msgid "Rating does not exist"
 msgstr "Avaliação não existe"
 
@@ -1375,7 +1429,6 @@ msgid "Benefits"
 msgstr "Benefícios"
 
 #: apps/job_vacancy/models.py:53
-#| msgid "Job Vacancy"
 msgid "Job vacancy E-mail"
 msgstr "E-mail para contato"
 
@@ -1384,12 +1437,10 @@ msgid "Phone Number"
 msgstr "Número de Telefone"
 
 #: apps/job_vacancy/models.py:55
-#| msgid "Job Vacancy"
 msgid "Job vacancy Web Site"
 msgstr "website para contato"
 
 #: apps/job_vacancy/models.py:57
-#| msgid "Observation"
 msgid "Aditional Observation"
 msgstr "Observação adicional"
 
@@ -1455,7 +1506,7 @@ msgstr ""
 "É necessário preencher o intervalo com valores válidos. Certifique-se também "
 "que o intervalo comece com o menor número."
 
-#: apps/job_vacancy/models.py:136
+#: apps/job_vacancy/models.py:136 apps/job_vacancy/service/editforms.py:41
 msgid "Responsibility"
 msgstr "Área de atuação"
 
@@ -1488,11 +1539,11 @@ msgstr "Experiência"
 msgid "Certification"
 msgstr "Certificação"
 
-#: apps/job_vacancy/service/editforms.py:46
+#: apps/job_vacancy/service/editforms.py:73
 msgid "Cities related with the job vacancy"
 msgstr "Cidades relacionadas com a vaga"
 
-#: apps/job_vacancy/service/editforms.py:47
+#: apps/job_vacancy/service/editforms.py:74
 msgid "State related with the job vacancy"
 msgstr "Estados relacionados com a vaga"
 
@@ -1672,25 +1723,21 @@ msgstr "MASCULINO"
 msgid "FEMALE"
 msgstr "FEMININO"
 
-#: apps/userprofile/models.py:136
-msgid "Sobre"
-msgstr "Sobre"
-
-#: apps/userprofile/models.py:137
+#: apps/userprofile/models.py:138
 msgid "What study"
 msgstr "O que estudar"
 
-#: apps/userprofile/models.py:138
+#: apps/userprofile/models.py:139
 msgid "Main Activities"
 msgstr "Principais atividades"
 
-#: apps/userprofile/models.py:139
-msgid "More info"
-msgstr "Mais informações"
-
-#: apps/userprofile/models.py:140
+#: apps/userprofile/models.py:141
 msgid "Categories"
 msgstr "Categorias"
+
+#: apps/userprofile/models.py:144
+msgid "Avaiable"
+msgstr ""
 
 #: apps/userprofile/views.py:21
 msgid "Profile not Found."
@@ -1896,7 +1943,7 @@ msgstr "Mostrar perfil"
 #: templates/account/password_sent_email_successfully.html:4
 #: templates/account/recovery_validation.html:4
 #: templates/account/resend_account_confirmation_successfully.html:5
-#: templates/account/signup.html:160
+#: templates/account/signup.html:161
 #: templates/userprofile/occupation_add.html:21
 #: templates/userprofile/occupation_edit.html:22
 #: templates/userprofile/occupation_manage.html:22
@@ -1945,12 +1992,12 @@ msgstr "Inscrever-se"
 msgid "click here"
 msgstr "clique aqui"
 
-#: templates/account/old_login.html:8 templates/account/signup.html:132
+#: templates/account/old_login.html:8 templates/account/signup.html:133
 msgid "Username"
 msgstr "Nome de usuário"
 
 #: templates/account/old_login.html:12
-#: templates/account/password_recovery.html:9 templates/account/signup.html:140
+#: templates/account/password_recovery.html:9 templates/account/signup.html:141
 msgid "Password"
 msgstr "Senha"
 
@@ -1971,7 +2018,7 @@ msgstr ""
 #: templates/account/recovery_validation.html:4
 #: templates/account/resend_account_confirmation.html:15
 #: templates/account/resend_account_confirmation_successfully.html:5
-#: templates/account/signup.html:160 templates/userprofile/show.html:34
+#: templates/account/signup.html:161 templates/userprofile/show.html:34
 msgid "Login"
 msgstr "Login"
 
@@ -2003,7 +2050,7 @@ msgstr "Confirmação de nova senha"
 #: templates/account/password_forgot.html:12
 #: templates/account/password_recovery.html:20
 #: templates/account/resend_account_confirmation.html:14
-#: templates/account/signup.html:158
+#: templates/account/signup.html:159
 #: templates/userprofile/occupation_add.html:20
 #: templates/userprofile/occupation_edit.html:21
 msgid "Submit"
@@ -2018,7 +2065,7 @@ msgid "Nova senha"
 msgstr "Nova senha"
 
 #: templates/account/password_recovery.html:13
-#: templates/account/signup.html:145
+#: templates/account/signup.html:146
 msgid "Password Confirm"
 msgstr "Confirmação de senha"
 
@@ -2026,17 +2073,17 @@ msgstr "Confirmação de senha"
 msgid "Resend account confirmation"
 msgstr "Reenviar confirmação de conta"
 
-#: templates/account/signup.html:115
+#: templates/account/signup.html:116
 #: templates/core/partials/wizard/wizard-step-one.html:45
 msgid "First name"
 msgstr "Primeiro nome"
 
-#: templates/account/signup.html:121
+#: templates/account/signup.html:122
 #: templates/core/partials/wizard/wizard-step-one.html:54
 msgid "Last Name"
 msgstr "Último nome"
 
-#: templates/account/signup.html:217
+#: templates/account/signup.html:218
 msgid "Sending"
 msgstr "Enviando"
 
@@ -2106,34 +2153,34 @@ msgstr "Ver no portal!"
 msgid "Popup closing..."
 msgstr "Fechando popup..."
 
-#: templates/article/article-base.html:33
+#: templates/article/article-base.html:35
 msgctxt "update article"
 msgid "Update"
 msgstr "Atualizar publicação"
 
-#: templates/article/article-base.html:36
+#: templates/article/article-base.html:38
 msgctxt "save article"
 msgid "Save as draft"
 msgstr "Salvar como rascuho"
 
-#: templates/article/article-base.html:37
+#: templates/article/article-base.html:39
 #: templates/home/partials/slideout-menu.html:65
 #: templates/home/partials/user-actions.html:15
 msgctxt "publish article"
 msgid "Publish"
 msgstr "Publicar"
 
-#: templates/community/partials/community-followers-list.html:41
+#: templates/community/partials/community-followers-list.html:43
 #: templates/community/partials/community-list.html:20
-#: templates/socialactions/followers_box.html:32
-#: templates/socialactions/followings_box.html:34
-#: templates/userprofile/partials/followers-segment.html:30
-#: templates/userprofile/partials/followings-segment.html:30
-#: templates/userprofile/partials/profile-communities.html:44
-#: templates/userprofile/profile-communities.html:67
-#: templates/userprofile/profile-feed.html:34
-#: templates/userprofile/profile-list.html:64
-#: templates/userprofile/profile-questions.html:50
+#: templates/socialactions/followers_box.html:36
+#: templates/socialactions/followings_box.html:35
+#: templates/userprofile/partials/followers-segment.html:38
+#: templates/userprofile/partials/followings-segment.html:34
+#: templates/userprofile/partials/profile-communities.html:48
+#: templates/userprofile/profile-communities.html:66
+#: templates/userprofile/profile-feed.html:40
+#: templates/userprofile/profile-list.html:69
+#: templates/userprofile/profile-questions.html:56
 #: templates/userprofile/profile-search.html:43
 #: templates/userprofile/profile-videos.html:48
 msgid "Não existem itens a serem exibidos"
@@ -2165,7 +2212,7 @@ msgstr "Mensagem"
 msgid "submit"
 msgstr "Enviar"
 
-#: templates/core/amp/base.html:359
+#: templates/core/amp/base.html:360
 #: templates/home/partials/slideout-menu.html:56
 #: templates/home/partials/user-actions.html:47
 msgid "Sair"
@@ -2247,11 +2294,11 @@ msgstr "Selecione um estado"
 msgid "Selecione uma cidade"
 msgstr "Selecione uma cidade"
 
-#: templates/userprofile/profile-questions.html:41
+#: templates/userprofile/profile-questions.html:47
 msgid "Atenção!"
 msgstr "Atenção!"
 
-#: templates/userprofile/profile-questions.html:41
+#: templates/userprofile/profile-questions.html:47
 msgid "Apenas você pode visualizar a listagem com suas perguntas!"
 msgstr "Apenas você pode visualizar a listagem com suas perguntas."
 
