@@ -1,5 +1,6 @@
 {%extends 'home/layout/base.html' %}
 {% load staticfiles %}
+{% load static_versioned %}
 {% load i18n %}
 {% load user_agents %}
 {% load abs_url %}
@@ -53,23 +54,6 @@
 
 {% block javascripts %}
     {{ block.super }}
-
-    <script>
-        $(function() {
-            $(".j-scroll").jscroll({
-                loadingHtml: '<div class="load-async-preload"></div>',
-                contentSelect: ".j-scroll-container",
-                nextSelector: "a[data-jscroll-next]",
-                callback: refreshAsyncLike
-            });
-
-            var $social_count = $("[data-social-count=\"true\"]");
-            $.each($social_count, function(key, value){
-                var $obj = $(value);
-                $.get($obj.data("url"), function(data){
-                    $obj.text(data.count);
-                });
-            });
-        });
-    </script>
+    <script src="{% static_versioned 'javascripts/vendor.js'%}" data-manual></script>
+    <script src="{% static_versioned 'javascripts/publication.js'%}"></script>
 {% endblock %}
