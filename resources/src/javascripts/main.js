@@ -93,5 +93,12 @@ $(function () {
     }
 
     $( '#modal-delete-status' ).on( 'show.bs.modal', showDeleStatus );
-
 });
+
+global.changeurls = ( seletor, qsKey, qsValue ) => {
+  $.each( seletor, ( index, element ) => {
+    let href = element.href.split('?')[0]
+
+    element.href = `${href}?${qsKey}=${qsValue}`
+  })
+}
