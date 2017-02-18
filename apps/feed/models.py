@@ -68,3 +68,6 @@ class ProfileStatus(models.Model):
         feed_id =  self.feed.get().id
         username = self.author.username
         return reverse('profile:profilestatus', args=[username, feed_id])
+
+    def can_delete(self, user):
+        return self.author == user

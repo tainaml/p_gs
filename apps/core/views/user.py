@@ -16,7 +16,7 @@ from apps.core.forms.user import CoreUserProfileForm, CoreUserProfileFullEditFor
 from apps.core.forms.community import CoreCommunityFormSearch
 from apps.core.forms.user import CoreUserSearchForm, CoreUserProfileEditForm
 from apps.article.models import Article
-from apps.feed.models import FeedObject
+from apps.feed.models import FeedObject, ProfileStatus
 from apps.userprofile import views
 from apps.userprofile.models import Occupation, Responsibility
 from apps.userprofile.service import business as BusinessUserProfile
@@ -1211,5 +1211,22 @@ class ProfileStatusView(CoreUserView):
 
             return render(request, self.template_path, context=context)
         except FeedObject.DoesNotExist:
+            raise Http404()
+
+
+class ProfileDeleteStatus(View):
+
+    @method_decorator(login_required)
+    def get(self, request, status_id=None, *args, **kwargs):
+
+        try:
+
+            instance = ProfileStatus.objects.get(id=status_id, author=request.user)
+            feed = instance.feed.get()
+            instance.delete()
+            feed.delete()
+
+            return redirect(reverse('profile:feed'))
+        except ProfileStatus.DoesNotExist:
             raise Http404()
 
