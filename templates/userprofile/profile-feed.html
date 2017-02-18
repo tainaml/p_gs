@@ -49,6 +49,10 @@
     </main>
 {% endblock %}
 
+{% block modals %}
+    {% include "home/partials/modals/modal-delete-status.html" %}
+{% endblock %}
+
 {% block javascripts %}
     {{ block.super }}
     <script type="text/javascript">

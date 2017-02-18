@@ -1,0 +1,23 @@
+<div id="modal-delete-status" class="modal fade">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="pull-right close" data-dismiss="modal" aria-label="Close"><span class="gsticon gsticon-close"></span></span>
+                <h4 class="modal-title">Está certo disso?</h4>
+            </div>
+            <div class="modal-body">
+                <div class="modal-form">
+                    <p>Tem certeza que deseja remover?</p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                {% csrf_token %}
+                <a class="btn btn-danger pull-right" data-target="to-delete" href="#">
+                    <i class="gsticon gsticon-trash"></i> Remover
+                </a>
+
+                <a href="javascript:;" class="btn btn-default pull-left" data-dismiss="modal" aria-label="Close">Cancelar</a>
+            </div>
+        </div>
+    </div>
+</div>

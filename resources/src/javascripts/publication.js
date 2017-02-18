@@ -188,33 +188,31 @@ $.fn.renderList = function() {
   });
 };
 
-var commentDropDown = function(event) {
+var commentDropDown = function( event ) {
   event.stopPropagation();
 };
 
-carousel($('[data-toggle="carousel"]'))
+carousel($( '[data-toggle="carousel"]' ))
 
-$(function() {
-  var imagesContent = $('[data-target="post-content"]').find('img');
-  $.each(imagesContent, function(index, image) {
-    var $image = $(image);
-    var imageFloat = $image.css('float');
-    if (imageFloat) {
-      $image.css(`margin-${imageFloat}`, 20);
-    }
-  });
-
-  var xhr_contents = $("div[data-xhr]");
-  xhr_contents.renderList();
-  var $comment_form = $("form[data-ajaxform=\"true\"]");
-
-  $comment_form.refreshEditors();
-  $comment_form.on("ajaxform.success", form_submit);
-
-  $("#confirmation-form").on("ajaxform.success", functionAjaxSuccessDeleteItem);
-  $(document).on("click", "[data-delete-item=true]", functionOpenModalToDelete);
-  $(document).on('click', '.comment-dropdown', commentDropDown);
+var imagesContent = $( '[data-target="post-content"]' ).find( 'img' );
+$.each(imagesContent, function(index, image) {
+  var $image = $( image );
+  var imageFloat = $image.css( 'float' );
+  if (imageFloat) {
+    $image.css( `margin-${imageFloat}`, 20);
+  }
 });
+
+var xhr_contents = $( '[data-xhr]' );
+xhr_contents.renderList();
+var $comment_form = $( '[data-ajaxform="true"]');
+
+$comment_form.refreshEditors();
+$comment_form.on( 'ajaxform.success', form_submit);
+
+$("#confirmation-form").on( 'ajaxform.success', functionAjaxSuccessDeleteItem );
+$( document ).on( 'click', '[data-delete-item=true]', functionOpenModalToDelete );
+$( document ).on( 'click', '.comment-dropdown', commentDropDown );
 
 function moveToHashPosition() {
   var _hash = location.hash;

@@ -82,6 +82,16 @@ $(function () {
             inputSearch.blur();
         }
     });
-    input($('[data-toggle="input"]'))
+    input($( '[data-toggle="input"]' ))
     commitBox( '[data-toggle="commit-box"]' );
+
+    // TODO: Move for a async load
+    const showDeleStatus = ( event ) => {
+      const deleteUrl = $( event.relatedTarget ).data( 'deleteUrl' );
+      $( '[data-target="to-delete"]' ).attr( 'href', deleteUrl );
+      console.log($( '[data-target="to-delete"]' )[0]);
+    }
+
+    $( '#modal-delete-status' ).on( 'show.bs.modal', showDeleStatus );
+
 });

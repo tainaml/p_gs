@@ -50,6 +50,13 @@
     </main>
 {% endblock %}
 
+{% block modals %}
+    {{ block.super }}
+
+    {% include "home/partials/modals/modal-confirmation.html" %}
+    {% include "home/partials/modals/modal-delete-status.html" %}
+
+{% endblock %}
 
 {% block javascripts %}
     {{ block.super }}
