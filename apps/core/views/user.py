@@ -1217,11 +1217,10 @@ class ProfileStatusView(CoreUserView):
 class ProfileDeleteStatus(View):
 
     @method_decorator(login_required)
-    def get(self, request, status_id=None, *args, **kwargs):
-
+    def get(self, request, status_id=None):
         try:
-
             instance = ProfileStatus.objects.get(id=status_id, author=request.user)
+
             feed = instance.feed.get()
             instance.delete()
             feed.delete()

@@ -24,7 +24,7 @@
             </a>
             <div class="dropdown-menu dropdown-menu-right">
                 <ul class="perfil-actions">
-                    {% if instance.author == request.user or perms.article.change_other_articles %}
+                    {% if instance.author == request.user %}
                     <li>
                         <a href="#modal-delete-status" data-delete-url="{% url 'profile:delete_profilestatus' instance.id %}" data-toggle="modal">
                             <i class="gsticon gsticon-trash-o"></i> Remover
