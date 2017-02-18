@@ -30,7 +30,9 @@
                             <i class="gsticon gsticon-trash-o"></i> Remover
                         </a>
                     </li>
-                    {% endif %}
+                     {% endif %}
+                    <li><a data-url-login="{% url 'account:is_logged' %}" data-trigger="login" data-token="{{ csrf_token }}" href="{% url 'complaint:report' 'profilestatus' instance.id %}" data-report="true" data-async-module="click" data-async-target="#modal-report" data-async-method="get"><i class="gsticon gsticon-flag"></i> Denunciar</a></li>
+
                 </ul>
             </div>
         </div>
