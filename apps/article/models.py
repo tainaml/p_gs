@@ -1,4 +1,7 @@
-from django.db.models import Q
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+from django.core.exceptions import ValidationError
 import os
 from datetime import datetime
 from django.contrib.contenttypes.fields import GenericRelation
@@ -7,6 +10,7 @@ from django.db import models
 from django.template.defaultfilters import slugify
 from django.utils import timezone
 from django.utils.functional import cached_property
+from django.utils.html import strip_tags
 from django.utils.translation import ugettext as _
 from django.conf import settings
 from apps.comment.models import Comment
@@ -15,6 +19,11 @@ from apps.feed.models import FeedObject
 from apps.socialactions.models import Counter, UserAction
 from apps.core.utils import build_absolute_uri
 
+ARTICLE_MIN_TEXT = 200
+
+def validate_min_text(value):
+    if len(strip_tags(value)) < ARTICLE_MIN_TEXT:
+        raise ValidationError(_('An article must have %(value)s chars at minimum'), params={'value': ARTICLE_MIN_TEXT})
 
 def article_image_upload(instance, filename):
 
@@ -57,7 +66,7 @@ class Article(models.Model):
     first_slug = models.SlugField(default='', max_length=255, db_index=True)
 
 
-    text = models.TextField(null=False, max_length=settings.ARTICLE_TEXT_LIMIT if hasattr(settings, "ARTICLE_TEXT_LIMIT") else 10000)
+    text = models.TextField(null=False,  validators=[validate_min_text], max_length=settings.ARTICLE_TEXT_LIMIT if hasattr(settings, "ARTICLE_TEXT_LIMIT") else 10000)
     image = models.ImageField(max_length=100, upload_to=article_image_upload, blank=True, width_field="image_width", height_field="image_height")
     author = models.ForeignKey(settings.AUTH_USER_MODEL, null=False, related_name='articles', verbose_name=_('Author'))
 

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-17 14:50-0300\n"
+"POT-Creation-Date: 2017-02-20 17:13-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -135,24 +135,29 @@ msgstr "Nome de usuário está disponível"
 msgid "Username is not available!"
 msgstr "Nome de usuário não está disponível"
 
-#: apps/article/models.py:46
+#: apps/article/models.py:26
+#| msgid "An article must have %d chars at minimum"
+msgid "An article must have %(value)s chars at minimum"
+msgstr "Um artigo deve conter %(value)s caracteres no mínimo"
+
+#: apps/article/models.py:55
 msgid "Draft"
 msgstr "Rascunho"
 
-#: apps/article/models.py:47
+#: apps/article/models.py:56
 msgid "Trash"
 msgstr "Lixo"
 
-#: apps/article/models.py:48
+#: apps/article/models.py:57
 msgid "Publish"
 msgstr "Publicado"
 
-#: apps/article/models.py:62 apps/core/models/rating.py:45
+#: apps/article/models.py:71 apps/core/models/rating.py:45
 #: apps/feed/models.py:52 apps/job_vacancy/models.py:45
 msgid "Author"
 msgstr "Autor"
 
-#: apps/article/models.py:106
+#: apps/article/models.py:115
 msgid "Can edit articles from others"
 msgstr "Permissão para editar artigos de outros autores"
 
@@ -181,11 +186,11 @@ msgstr "Operação não permitida"
 msgid "This article has been deleted"
 msgstr "Publicação removida"
 
-#: apps/article/views.py:238
+#: apps/article/views.py:241
 msgid "Publicação salva com sucesso"
 msgstr "Publicação salva com sucesso"
 
-#: apps/article/views.py:242
+#: apps/article/views.py:245
 msgid "Generic Error"
 msgstr "Erro"
 
@@ -229,7 +234,6 @@ msgid "Related with"
 msgstr ""
 
 #: apps/certification/models.py:19
-#| msgid "Course"
 msgid "Courses"
 msgstr "Cursos"
 
@@ -427,7 +431,6 @@ msgid "Email"
 msgstr "Email"
 
 #: apps/core/forms/company.py:66
-#| msgid "Cidade"
 msgid "Comunidades"
 msgstr "Comunidades"
 
@@ -878,12 +881,10 @@ msgid "^responsibilities/(?P<slug>[aA-zZ0-9-_]+)/$"
 msgstr "^profissoes-de-ti/(?P<slug>[aA-zZ0-9-_]+)/$"
 
 #: apps/core/urls/core.py:19
-#| msgid "^notifications/"
 msgid "^certifications/$"
 msgstr "^certificacoes/$"
 
 #: apps/core/urls/core.py:21
-#| msgid "^responsibilities/(?P<slug>[aA-zZ0-9-_]+)/$"
 msgid "^certifications/(?P<slug>[aA-zZ0-9-_]+)/$"
 msgstr "^certificacoes/(?P<slug>[aA-zZ0-9-_]+)/$"
 
@@ -1303,17 +1304,20 @@ msgstr "^(?P<username>[a-z0-9_-]+)/comunidades/$"
 
 #. Translators: URL de atualizacao de status
 #: apps/core/urls/user.py:160
-#| msgid "^(?P<username>[a-z0-9_-]+)/$"
 msgid "^(?P<username>[a-z0-9_-]+)/status/(?P<feed_id>\\d+)$"
 msgstr "^(?P<username>[a-z0-9_-]+)/status/(?P<feed_id>\\d+)$"
 
+#: apps/core/urls/user.py:162
+msgid "^delete/profilestatus/(?P<status_id>\\d+)$"
+msgstr "^delete/profilestatus/(?P<status_id>\\d+)$"
+
 #. Translators: URL de listagem de comunidades do usuario
-#: apps/core/urls/user.py:163
+#: apps/core/urls/user.py:165
 msgid "^(?P<username>[a-z0-9_-]+)/communities/list/$"
 msgstr "^(?P<username>[a-z0-9_-]+)/comunidade/listagem/$"
 
 #. Translators: URL de carregamento assincrono de comunidades do usuario
-#: apps/core/urls/user.py:166
+#: apps/core/urls/user.py:168
 msgid "^(?P<username>[a-z0-9_-]+)/communities/load/ajax/$"
 msgstr "^(?P<username>[a-z0-9_-]+)/comunidade/carregar/ajax/$"
 
@@ -1324,7 +1328,7 @@ msgstr "^(?P<username>[a-z0-9_-]+)/comunidade/carregar/ajax/$"
 #. Translators: URL de listagem de busca de videos do usuario
 #. url(_(r'^(?P<username>[a-z0-9_-]+)/videos/search/list/$'), core_user.CoreProfileVideosList.as_view(), name='videos-search-list'),
 #. Translators: URL de carregamento assincrono de comunidades do usuario
-#: apps/core/urls/user.py:178
+#: apps/core/urls/user.py:180
 msgid "^ajax/user/communities/$"
 msgstr "^ajax/usuario/comunidade/$"
 
@@ -1354,7 +1358,6 @@ msgid "Category not found or not root category."
 msgstr "Categoria não encontrada ou não é uma categoria raiz."
 
 #: apps/core/views/certification.py:72
-#| msgid "Notification not found!"
 msgid "Certification not found"
 msgstr "Certificação não encontrada"
 
@@ -1587,36 +1590,36 @@ msgstr "Permissão para editar perguntas de outros autores"
 msgid "Your answer can not be blank"
 msgstr "Sua resposta não pode estar em branco."
 
-#: apps/question/views.py:140 apps/question/views.py:162
+#: apps/question/views.py:143 apps/question/views.py:165
 msgid "Question not created!"
 msgstr "Pergunta não criada"
 
-#: apps/question/views.py:142 apps/question/views.py:164
+#: apps/question/views.py:145 apps/question/views.py:167
 msgid "Question created successfully!"
 msgstr "Pergunta criada com sucesso!"
 
-#: apps/question/views.py:183 apps/question/views.py:204
-#: apps/question/views.py:244 apps/question/views.py:293
+#: apps/question/views.py:186 apps/question/views.py:207
+#: apps/question/views.py:247 apps/question/views.py:296
 msgid "Question is not exists!"
 msgstr "Pergunta não existe"
 
-#: apps/question/views.py:212
+#: apps/question/views.py:215
 msgid "Question updated successfully!"
 msgstr "Pergunta atualizada com sucesso"
 
-#: apps/question/views.py:263
+#: apps/question/views.py:266
 msgid "Question not found"
 msgstr "Pergunta não encontrada"
 
-#: apps/question/views.py:295
+#: apps/question/views.py:298
 msgid "Answer is not exists!"
 msgstr "Resposta não existe"
 
-#: apps/question/views.py:309
+#: apps/question/views.py:312
 msgid "Answer not found!"
 msgstr "Resposta não encontrada"
 
-#: apps/question/views.py:311
+#: apps/question/views.py:314
 msgid "Answer not found"
 msgstr "Resposta não encontrada"
 
