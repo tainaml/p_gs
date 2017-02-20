@@ -31,26 +31,6 @@
       text-transform: uppercase;
     }
   }
-  .recomendations {
-    margin-top: 55px;
-    header { margin-bottom: 40px }
-    .recomendation {
-      color: #616161;
-      font-size: 16px;
-      span {
-        overflow: hidden;
-        margin-bottom: 15px;
-        display: block;
-        img { transition: transform ease .6s }
-      }
-      &:hover {
-        color: #0160b0;
-        span img {
-          transform: scale(1.2);
-        }
-      }
-    }
-  }
   .advertising-horizontal {
     height: 90px;
     margin: 50px auto;
@@ -60,6 +40,26 @@
     margin-top: 23px;
     background-color: #ecebeb;
     text-align: center;
+  }
+}
+.recomendations {
+  margin-top: 55px;
+  header { margin-bottom: 40px }
+  .recomendation {
+    color: #616161;
+    font-size: 16px;
+    span {
+      overflow: hidden;
+      margin-bottom: 15px;
+      display: block;
+      img { transition: transform ease .6s }
+    }
+    &:hover {
+      color: #0160b0;
+      span img {
+        transform: scale(1.2);
+      }
+    }
   }
 }
 
@@ -308,7 +308,6 @@
 @media (max-width: $screen-xs-max) {
   .single {
     &-title { font-size: 26px }
-    &-category {}
   }
   .single-main {
     width: 100%;
