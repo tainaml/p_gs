@@ -1,7 +1,7 @@
 {% load thumbor_tags %}
 {% load avatar_tags %}
 
-<div id="notification-general-{{ notification.id }}" class="post {% if not notification.read %}not-visualized{% endif %}"
+<div id="notification-general-{{ notification.id }}" class="post{% if not notification.read %} not-visualized{% endif %}"
      data-notification-item="{{ notification.id }}"
      data-trigger="notification-as-read"
      data-csrf="{{ csrf_token }}"
@@ -11,9 +11,9 @@
     <header class="post-header">
         <div class="post-info"><time style="display: block;" datetime="{{ notification.notification_date }}" itemprop="datePublished"
             data-toggle="tooltip" data-placement="auto top" data-original-title="{{ notification.notification_date|date:'d/m/Y à\s H:i' }}" class="time">
-                <i class="gsticon gsticon-clock-o hidden-lg"></i>
+                <i class="gsticon gsticon-clock-o"></i>
             </time></div>
-        <div class="post-creator">
+        <div class="message">
             <a href="{% url 'profile:show' notification.author.get_username %}">{{ notification.author.get_full_name }}</a> te recomendou essa leitura <a href="{{ notification.target.get_absolute_url }}">{{ notification.target.title }}</a>
         </div>
     </header>

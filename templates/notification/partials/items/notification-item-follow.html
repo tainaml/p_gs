@@ -10,13 +10,11 @@
     <header class="post-header">
         <div class="post-info"><time style="display: block;" datetime="{{ notification.notification_date }}" itemprop="datePublished"
             data-toggle="tooltip" data-placement="auto top" data-original-title="{{ notification.notification_date|date:'d/m/Y à\s H:i' }}" class="time">
-                <i class="gsticon gsticon-clock-o hidden-lg"></i>
+                <i class="gsticon gsticon-clock-o"></i>
             </time></div>
-        <div class="post-creator">
+        <div class="message">
             <a href="{% url 'profile:show' notification.author.get_username %}">
-              <figure>
                 <img src="{% get_avatar notification.author width=20 height=20 smart=False fit_in=False %}" width="20" height="20" alt="{{ notification.author.get_full_name }}">
-              </figure>
             </a>
             <a href="{% url 'profile:show' notification.author.get_username %}">{{ notification.author.get_full_name }}</a> passou a te <a href="javascript:;">seguir</a>
         </div>

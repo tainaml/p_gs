@@ -5,7 +5,7 @@ $color-counter-notification: #b2b2b2 !default;
 // Placeholders
 %notification-container {
     @extend %clearfix;
-    overflow: hidden;
+    // overflow: hidden;
     width: 100%;
     padding-top: 20px;
 
@@ -15,8 +15,17 @@ $color-counter-notification: #b2b2b2 !default;
         margin-bottom: 0;
         color: #486075;
         font-weight: 600;
+        align-items: center;
 
-        .post-creator { color: inherit; }
+        .message {
+          width: 100%;
+          margin-left: 15px;
+          // float: left;
+          color: inherit;
+          img {
+            margin-right: 5px;
+          }
+        }
     }
 }
 .notfication-area {
