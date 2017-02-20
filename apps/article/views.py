@@ -193,6 +193,9 @@ class ArticleEditView(ArticleBaseView):
 
         initial_data = {}
 
+        if 'text' in request.GET:
+            initial_data.update({'text': request.GET['text']})
+
         if not article_id:
             article = None
             #article = self.get_temp_article(request.user)

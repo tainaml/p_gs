@@ -120,6 +120,9 @@ class CreateQuestionView(View):
 
         initial_data = self.prepare_initial_data({})
 
+        if 'text' in request.GET:
+            initial_data.update({'description': request.GET['text']})
+
         form = self.form(user=request.user, initial=initial_data)
 
         _context = {
