@@ -32,7 +32,7 @@
                 {% for feed_record in feed_records %}
                     {% with record=feed_record.content_object %}
                     <a href="{% url 'article:view' record.year record.month record.slug %}" title="{{ record.title }}" class="col-sm-4 col-xs-12">
-                        <figure class="recomendation">
+                        <figure class="clearfix recomendation">
                             <span>
                             {% if record.get_image %}
                                 <img class="img-responsive" src="{% thumbor_url record.get_image.url width=400 height=300 smart=False fit_in=False %}" alt="Imagem de {{ record.title }}">

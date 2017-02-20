@@ -410,14 +410,13 @@
   }
   .recomendations {
     .recomendation {
-      display: flex;
+      display: block;
       margin-bottom: 27px;
       border-bottom: 1px solid #dad7d7;
       span {
         width: 100px;
         margin-right: 18px;
-      }
-      img {
+        float: left;
       }
     }
   }
