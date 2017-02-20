@@ -7,7 +7,7 @@
                 <a href="{% url 'course:show' course.slug %}" data-carousel="item" class="publication-carousel-item">
                     <span class="publication-carousel-image">
                         <span>
-                            <img width="100" height="94" src="{% thumbor_url course.image_or_default.url width=100 height=94 smart=False fit_in=False %}" width="100" height="94" alt="{{ course.title }}">
+                            <img width="100" height="94" src="{% thumbor_url course.image_or_default.url width=100 height=94 smart=False fit_in=False %}" width="100" height="94" alt="{{ course.title }}" title="{{ course.title }}">
                         </span>
                     </span>
                     <span class="publication-carousel-item-body">
