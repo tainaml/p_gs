@@ -65,11 +65,12 @@
 
     <footer class="post-footer">
         <div class="post-count">{% like_box instance request.path "inline" %}</div>
-        <div class="post-count-comments">
+
+        <a href="{% url 'question:show' instance.slug instance.id %}#answers" class="post-count-comments">
             <i class="post-count-comments-icon"></i>
             <strong>{{ instance.counter_answer }}</strong>
             <span class="hidden-xs visible-lg-inline">Resposta(s)</span>
-        </div>
+        </a>
         <div class="post-share">
             <span data-toggle="dropdown">
                 <i class="gsticon gsticon-share-alt"></i>

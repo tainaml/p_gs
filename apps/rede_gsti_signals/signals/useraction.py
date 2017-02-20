@@ -37,7 +37,8 @@ def social_action(sender, **kwargs):
             'comment',
             'article',
             'question',
-            'answer'
+            'answer',
+            'profilestatus'
         ]
 
         not_allowed_content_type = [
