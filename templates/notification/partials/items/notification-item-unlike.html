@@ -1,0 +1,23 @@
+{% load thumbor_tags %}
+{% load avatar_tags %}
+
+<div class="post{% if not notification.read %} not-visualized{% endif %}" data-notification-item="{{ notification.id }}" data-trigger="notification-as-read" data-csrf="{{ csrf_token }}"
+data-url-mark-as-read="{% url 'notifications:mark-as-read-and-visualized' %}" data-notification="{{ notification.id }}"
+data-next-url="{{ notification.target.get_absolute_url }}{% if show_anchor %}#{{ notification.target_content_type.model }}-{{ notification.target.id }}{% endif %}">
+    <header class="post-header">
+        <div class="post-info">
+            <time style="display: block;" datetime="{{ notification.notification_date }}" itemprop="datePublished"
+            data-toggle="tooltip" data-placement="auto top" data-original-title="{{ notification.notification_date|date:'d/m/Y à\s H:i' }}" class="time">
+                <i class="gsticon gsticon-clock-o"></i>
+            </time>
+        </div>
+        <div class="message">
+             <a href="{{ notification.target.get_absolute_url }}" title="{{ notification.target.title }}">
+                  <figure>
+                    <img src="{% get_avatar notification.author width=20 height=20 smart=False fit_in=False %}" width="20" height="20" alt="{{ notification.author.get_full_name }}">
+                    <span>{{ notification.author.get_full_name }} </span> não gostou {% if notification.target_content_type.model == 'profilestatus' %} da sua atualização de status{% else %}da sua publicação{% endif %} <span>{{ notification.target.title }}</span>
+                  </figure>
+                </a>
+        </div>
+    </header>
+</div>
