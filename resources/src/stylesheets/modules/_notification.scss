@@ -116,13 +116,12 @@ $color-counter-notification: #b2b2b2 !default;
         color: #486075;
 
         &:hover { background-color: #f7f7f7; }
-        figure {
-          display: flex;
-          margin-right: 10px;
-        }
         img {
           margin-right: 10px;
           float: left;
+        }
+        figure > .search-avatar {
+          margin-right: 0;
         }
         span { color: #337ab7; }
         .perfil-counter { color: #7b787d }

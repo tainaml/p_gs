@@ -97,7 +97,12 @@
     overflow: hidden;
     max-height: 57px;
     margin-top: 0;
+    display: block; /* Fallback for non-webkit */
+    display: -webkit-box;
     font: 600 14px/18px 'Open Sans';
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
   }
   &.advertising {
     margin: 20px auto;
