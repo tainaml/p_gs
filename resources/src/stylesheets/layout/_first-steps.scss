@@ -58,17 +58,17 @@
 // Modal Suggestions
 // ==========================================================================
 .suggestion {
-    @include make-lg-column(3);
+    @include make-lg-column(4);
     padding-top: 1px;
     margin-bottom: 20px;
 
-    .perfil-button-alt
-    .perfil-button, {
-      width: 110px;
-      padding-right: 0;
-      padding-left: 0;
-      text-align: center;
-    }
+  .perfil-button-alt,
+  .perfil-button {
+    min-width: 110px;
+    padding-right: 0;
+    padding-left: 0;
+    text-align: center;
+  }
 }
 
 #wizard-container-communities {
