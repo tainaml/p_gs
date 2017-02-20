@@ -6,6 +6,6 @@
 
 {% block content %}
 
-    <span>{{ notification.author.get_full_name }}</span> gostou da sua publicação <span>{{ notification.target.title }}</span>
+    <span>{{ notification.author.get_full_name }}</span> {% if notification.target_content_type.model == 'profilestatus' %}da sua atualização de status{% else %}da sua publicação{% endif %} <span>{{ notification.target.title }}</span>
 
 {% endblock %}

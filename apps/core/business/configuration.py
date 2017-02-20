@@ -115,11 +115,15 @@ def check_config_to_notify(to_user, action, target_object=None):
 
 
     try:
-        config = ConfigValues.objects.get(
-            Q(object_id=to_user.id) &
-            Q(content_type=ContentTypeCached.objects.get_for_model(to_user)) &
-            Q(key=ConfigKey.objects.get(key=key_slug))
+
+        config, created = ConfigValues.objects.get_or_create(
+            object_id=to_user.id,
+            content_type=ContentTypeCached.objects.get_for_model(to_user),
+            key=ConfigKey.objects.get(key=key_slug)
         )
+        if created:
+            config.value = str(True)
+            config.save()
     except Exception as e:
         if settings.DEBUG:
             logger.error(e.message)
