@@ -67,7 +67,10 @@ $(function () {
         'tolerance': 70,
         'touch': false
     });
-    $(document).on('click', '.toggle-slideout', function() {
+    $( document ).on( 'click', '.toggle-slideout', function () {
+        slideout.toggle();
+    });
+    $( document ).on( 'click', '.slideout-menu--user-image', function () {
         slideout.toggle();
     });
     var mobileSearch = $('#mobile-search');

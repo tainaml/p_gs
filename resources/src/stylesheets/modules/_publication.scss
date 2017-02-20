@@ -413,10 +413,11 @@
       display: flex;
       margin-bottom: 27px;
       border-bottom: 1px solid #dad7d7;
-      img {
-        max-width: 100px;
+      span {
+        width: 100px;
         margin-right: 18px;
-        padding-bottom: 11px;
+      }
+      img {
       }
     }
   }
