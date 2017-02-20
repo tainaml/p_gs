@@ -19,7 +19,7 @@ from apps.feed.models import FeedObject
 from apps.socialactions.models import Counter, UserAction
 from apps.core.utils import build_absolute_uri
 
-ARTICLE_MIN_TEXT = 200
+ARTICLE_MIN_TEXT = 500
 
 def validate_min_text(value):
     if len(strip_tags(value)) < ARTICLE_MIN_TEXT:
