@@ -1,5 +1,6 @@
 'use strict';
 
+import 'jscroll';
 import carousel from './components/publication-carousel';
 
 

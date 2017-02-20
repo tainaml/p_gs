@@ -23,6 +23,7 @@
         </a>
         <div>
             <a class="publication-author-name" href="{{ profile_url }}">{{ profile.user.get_full_name }}</a>
+        {% if not profile.user.fake %}
             <div class="publication-author-atuation">
                 {% with occupations=profile.occupation.all %}
                   {% if occupations %}
@@ -32,7 +33,6 @@
                   {% endif %}
               {% endwith %}
             </div>
-        {% if not profile.user.fake %}
             <div class="publication-author-relationship">
                 <div class="publication-author-followers">
                     <span data-counter="{{ followers_count_value }}" data-refresh-counter="follow-{{ user_content_type }}-{{ profile.user.id }}">
@@ -48,15 +48,19 @@
                     </span>
                 </div>
             </div>
+        {% else %}
+            <div class="publication-author-about">
+                {{ profile.description|default_if_none:"" }}
+            </div>
         {% endif %}
 
         </div>
     </div>
     {% if request.user != profile.user and not profile.user.fake %}
         {% follow_action profile.user request.path %}
+        <div class="publication-author-about">
+            {{ profile.description|default_if_none:"" }}
+        </div>
     {% endif %}
-    <div class="publication-author-about">
-        {{ profile.description|default_if_none:"" }}
-    </div>
 
 </div>
