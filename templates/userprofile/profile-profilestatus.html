@@ -7,15 +7,12 @@
 {% load seo_pagination_tags %}
 {% load avatar_tags %}
 {% load thumbor_tags %}
-{% block seo-og-title %}{% block seo_title %}{{ profile.user.get_full_name }}{{ block.super }}{% endblock %}{% endblock %}
-{% block seo-og-description %}{% block seo-description %}Todo o conteúdo de publicações realizadas por {{ profile.user.get_full_name }}. Siga {{ profile.user.get_full_name }} e receba no seu feed as informações enviadas por esse membro.{% endblock %}{% endblock %}
+{% block seo-og-title %}{% block seo_title %}Atualização de {{ profile.user.get_full_name }}{{ block.super }}{% endblock %}{% endblock %}
+{% block seo-og-description %}{% block seo-description %}{{ instance.text|slice:":160" }}{% endblock %}{% endblock %}
 {% block seo-og-image %}{% get_avatar profile.user width=200 height=200 smart=False fit_in=False %}{% endblock %}
 
 {% block seo-metas-extra %}
-    {% if feed_objects.object_list|length_is:0 %}
         <meta name="robots" content="nofollow,noindex">
-    {% endif %}
-
 {% endblock %}
 
 {% block seo-canonical %}{% absolute_url request.path %}{% endblock %}
