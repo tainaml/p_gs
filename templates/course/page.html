@@ -47,7 +47,7 @@
             <div class="row">
                 <div class="col-sm-4 clearfix">
                     <div class="customform search">
-                        {% render_field form.title class="customform-input" placeholder="Pesquisar por cursos" type="search" autocomplete="off" %}
+                        {% render_field form.title class="customform-input" data-toggle="input" placeholder="Pesquisar por cursos" type="search" autocomplete="off" %}
                         <hr>
                         <label class="customform-label" for="id_title">Pesquisar por cursos</label>
                         <button type="submit" class="form-search-button">
@@ -58,17 +58,17 @@
                 <div class="collapse navbar-collapse" id="filters">
                     <div class="col-sm-3">
                         <div class="customform">
-                            {% render_field form.category class="customform-input" data-form-send="" %}
+                            {% render_field form.category class="customform-input" data-toggle="input" data-form-send="" %}
                         </div>
                     </div>
                     <div class="col-sm-3">
                         <div class="customform">
-                            {% render_field form.community class="customform-input" data-form-send="" %}
+                            {% render_field form.community class="customform-input" data-toggle="input" data-form-send="" %}
                         </div>
                     </div>
                     <div class="col-sm-2">
                         <div class="customform">
-                            {% render_field form.order class="customform-input" data-form-send="1" %}
+                            {% render_field form.order class="customform-input" data-toggle="input" data-form-send="1" %}
                         </div>
                     </div>
                 </div>
