@@ -7,6 +7,10 @@ module.exports = ( name ) => {
     }
   })
 
+  if ( $element.val() ) {
+    $element.siblings( 'label' ).addClass( 'active' )
+  }
+
   $element.on({
     focus: function ( event ) {
       const $this = $( this )
