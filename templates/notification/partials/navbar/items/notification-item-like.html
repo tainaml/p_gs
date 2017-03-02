@@ -1,5 +1,34 @@
 {% load thumbor_tags %}
 {% load avatar_tags %}
+{% load var_tags %}
+
+
+{% if notification.target_content_type.model == "article" %}
+    {% set action_target = "da sua publicação" %}
+    {% set post_name = notification.target.title %}
+    {% set url_next = notification.target.get_absolute_url %}
+    {% set show_anchor = False %}
+
+{% elif notification.target_content_type.model == "question" %}
+    {% set action_target = "da sua pergunta" %}
+    {% set post_name = notification.target.title %}
+    {% set url_next = notification.target.get_absolute_url %}
+    {% set show_anchor = False %}
+
+{% elif notification.target_content_type.model == "comment" %}
+    {{ notification.target.get_root_object }}
+    {% set action_target = "do seu comentário" %}
+    {% set post_name = notification.target.content_object.title %}
+    {% set url_next = notification.target.content_object.get_absolute_url %}
+    {% set show_anchor = True %}
+
+{% elif notification.target_content_type.model == "answer" %}
+    {% set action_target = "da sua resposta" %}
+    {% set post_name = notification.target.question.title %}
+    {% set url_next = notification.target.question.get_absolute_url %}
+    {% set show_anchor = True %}
+
+{% endif %}
 
 <li class="item-float-notification item-float-notification-link {% if not notification.read %}not-visualized{% endif %}"
     data-trigger="notification-as-read"
@@ -7,10 +36,10 @@
     data-url-mark-as-read="{% url 'notifications:mark-as-read-and-visualized' %}"
     data-next-url="{{ notification.target.get_absolute_url }}"
     data-notification="{{ notification.id }}">
-    <a href="{{ notification.target.get_absolute_url }}" title="{{ notification.target.title }}">
+    <a href="{{ url_next }}" title="{{ notification.target.title }}">
       <figure>
         <img src="{% get_avatar notification.author width=20 height=20 smart=False fit_in=False %}" width="20" height="20" alt="{{ notification.author.get_full_name }}">
-        <span>{{ notification.author.get_full_name }} </span> gostou {% if notification.target_content_type.model == 'profilestatus' %} da sua atualização de status{% else %}da sua publicação{% endif %} <span>{{ notification.target.title }}</span>
+        <span>{{ notification.author.get_full_name }} </span> gostou {{ action_target }} <span>{{ post_name }}</span>
       </figure>
     </a>
 {#    <!-- <a href="{% url 'profile:show' notification.author.get_username %}" title="{{ notification.author.get_full_name }}"></a> -->#}
