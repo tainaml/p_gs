@@ -25,6 +25,9 @@ class Answer(models.Model):
     def get_content_type(self):
         content = ContentTypeCached.objects.get(model="answer")
         return content.model
+    @cached_property
+    def title(self):
+        return self.question.title
 
 
 class Question(models.Model):

@@ -3,9 +3,11 @@ from django.db import models
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.utils import timezone
+from django.utils.functional import cached_property
 
 from apps.core.business.content_types import ContentTypeCached
 
+COMMENT_CONTENT_TYPE = ContentTypeCached.objects.get(model='comment')
 
 class Comment(models.Model):
 
@@ -24,4 +26,17 @@ class Comment(models.Model):
     def get_content_type(self):
         content = ContentTypeCached.objects.get(model="comment")
         return content.model
+
+    @cached_property
+    def get_root_object(self):
+        print self.id, self.content_object
+        if self.content_type == COMMENT_CONTENT_TYPE:
+
+            return self.content_object.get_root_object()
+        else:
+            return self.content_object
+
+
+
+
 
