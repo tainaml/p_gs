@@ -22,7 +22,7 @@ def course_image_upload(instance, filename):
 
 
     if isinstance(instance.profile, UserProfile):
-        owner = instance.profile.author.id or instance.profile.author
+        owner = instance.profile.user.id or instance.profile.user
     else:
         owner = instance.profile['user']['get_full_name']
 
@@ -39,7 +39,7 @@ def course_image_upload(instance, filename):
 def course_thumb_upload(instance, filename):
 
     if isinstance(instance.profile, UserProfile):
-        owner = instance.profile.author.id or instance.profile.author
+        owner = instance.profile.user.id or instance.profile.user
     else:
         owner = instance.profile['user']['get_full_name']
 
