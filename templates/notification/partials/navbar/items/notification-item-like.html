@@ -28,7 +28,7 @@
     {% set show_anchor = True %}
 
 {% elif notification.target_content_type.model == "profilestatus" %}
-    {% set action_target = "da sua atualização de status" %}
+    {% set action_target = "do seu commit" %}
     {% set post_name = notification.target.title %}
     {% set url_next = notification.target.get_absolute_url %}
     {% set show_anchor = True %}

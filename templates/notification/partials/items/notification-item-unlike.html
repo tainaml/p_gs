@@ -15,7 +15,7 @@ data-next-url="{{ notification.target.get_absolute_url }}{% if show_anchor %}#{{
              <a href="{{ notification.target.get_absolute_url }}" title="{{ notification.target.title }}">
                   <figure>
                     <img src="{% get_avatar notification.author width=20 height=20 smart=False fit_in=False %}" width="20" height="20" alt="{{ notification.author.get_full_name }}">
-                    <span>{{ notification.author.get_full_name }} </span> não gostou {% if notification.target_content_type.model == 'profilestatus' %} da sua atualização de status{% else %}da sua publicação{% endif %} <span>{{ notification.target.title }}</span>
+                    <span>{{ notification.author.get_full_name }} </span> não gostou {% if notification.target_content_type.model == 'profilestatus' %} do seu commit{% else %}da sua publicação{% endif %} <span>{{ notification.target.title }}</span>
                   </figure>
                 </a>
         </div>
