@@ -45,7 +45,7 @@ data-next-url="{{ url_next }}{% if show_anchor %}#{{ notification.target_content
                 <img src="{% get_avatar notification.author width=20 height=20 smart=False fit_in=False %}" width="20" height="20" alt="{{ notification.author.get_full_name }}">
               </figure>
             </a>
-            <a href="{% if  notification.author.is_active %}{% url 'profile:show' notification.author.username %}{% else %}javascript:;{% endif %}">{{ notification.author.get_full_name }}</a> {{ action_verb }} em <a href="{{ url_next }}{% if show_anchor %}#{{ notification.target_content_type.model }}-{{ notification.target.id }}{% endif %}" title="{{ post_name|slice }}...">{{ post_name|slice:":50" }}...</a>
+            <a href="{% if  notification.author.is_active %}{% url 'profile:show' notification.author.username %}{% else %}javascript:;{% endif %}">{{ notification.author.get_full_name }}</a> {{ action_verb }} em <a href="{{ url_next }}{% if show_anchor %}#{{ notification.target_content_type.model }}-{{ notification.target.id }}{% endif %}" title="{{ post_name|slice }}...">{{ post_name|truncatechars:30 }}...</a>
         </div>
     </header>
 </div>
