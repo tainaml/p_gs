@@ -21,7 +21,6 @@ def get_feed_objects(community_instance=None, description=None, content_types_li
 
     __articles = SearchBusiness.get_articles_feed_queryset(description)
     __questions = SearchBusiness.get_question_feed_queryset(description)
-
     query = SearchQuery(description)
     feed_objects = FeedObject.objects.filter(
         Q(content_type__in=content_types) &

@@ -239,7 +239,7 @@ def get_articles_feed_queryset(description=''):
                  "content_object__author",
                  "content_type",
                  "communities",
-                 "communities__taxonomy").order_by('-rank', "id").distinct("id", "rank")
+                 "communities__taxonomy").order_by('-rank', "id")
 
     return articles
 
