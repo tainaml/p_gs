@@ -36,7 +36,7 @@ def get_feed_objects(community_instance=None, description=None, content_types_li
         "content_object__author",
         "content_type",
         "communities",
-        "communities__taxonomy").distinct("id", "date").order_by("-date")
+        "communities__taxonomy").order_by("-rank", "-date")
 
     if official is True:
         feed_objects = feed_objects.filter(official=official)
