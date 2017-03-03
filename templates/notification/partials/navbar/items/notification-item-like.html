@@ -39,7 +39,7 @@
     data-trigger="notification-as-read"
     data-csrf="{{ csrf_token }}"
     data-url-mark-as-read="{% url 'notifications:mark-as-read-and-visualized' %}"
-    data-next-url="{{ notification.target.get_absolute_url }}"
+    data-next-url="{{ url_next }}"
     data-notification="{{ notification.id }}">
     <a href="{{ url_next }}" title="{{ notification.target.title }}">
       <figure>

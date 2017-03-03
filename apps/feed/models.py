@@ -6,6 +6,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.contrib.postgres.search import SearchVector, SearchVectorField
 from django.db import models
 from django.conf import settings
+from django.utils.functional import cached_property
 from apps.core.models.tags import Tags
 from apps.taxonomy.models import Taxonomy
 from apps.community.models import Community
@@ -71,3 +72,7 @@ class ProfileStatus(models.Model):
 
     def can_delete(self, user):
         return self.author == user
+
+    @cached_property
+    def title(self):
+        return self.text
