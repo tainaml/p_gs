@@ -30,7 +30,7 @@
 
 {% elif notification.target_content_type.model == "profilestatus" %}
     {% set action_target = "comentou sua atualização de status" %}
-    {% set post_name = "" %}
+    {% set post_name = notification.target.title %}
     {% set url_next = notification.target.get_absolute_url %}
     {% set show_anchor = True %}
 
@@ -50,7 +50,7 @@
         <img src="{% get_avatar notification.author width=20 height=20 smart=False fit_in=False %}" width="20" height="20" alt="{{ notification.author.get_full_name }}">
         <figcaption>
         </figcaption>
-          <span>{{ notification.author.get_full_name }}</span> {{ action_verb }} em <span>{{ post_name }}</span>
+          <span>{{ notification.author.get_full_name }}</span> {{ action_verb }} em <span>{{ post_name|truncatechars:30 }}</span>
       </figure>
     </a>
 </li>
