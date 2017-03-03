@@ -14,16 +14,17 @@ from django.conf import settings
 from datetime import datetime
 from django.template.defaultfilters import slugify
 import os
+from apps.userprofile.models import UserProfile
+
 
 def course_image_upload(instance, filename):
 
-    UserModel = get_user_model()
 
-    author = instance.profile['user']
-    if isinstance(author, UserModel):
-        owner = author.id or author
+
+    if isinstance(instance.profile, UserProfile):
+        owner = instance.profile.author.id or instance.profile.author
     else:
-        owner = author['get_full_name']
+        owner = instance.profile['user']['get_full_name']
 
     owner = slugify(owner)
 
@@ -37,13 +38,10 @@ def course_image_upload(instance, filename):
 
 def course_thumb_upload(instance, filename):
 
-    UserModel = get_user_model()
-
-    author = instance.profile['user']
-    if isinstance(author, UserModel):
-        owner = author.id or author
+    if isinstance(instance.profile, UserProfile):
+        owner = instance.profile.author.id or instance.profile.author
     else:
-        owner = author['get_full_name']
+        owner = instance.profile['user']['get_full_name']
 
     owner = slugify(owner)
 
