@@ -30,7 +30,7 @@ def get_feed_objects(community_instance=None, description=None, content_types_li
             (Q(question__deleted=False) & Q(id__in=__questions))
         )
     ).annotate(
-        rank=SearchRank(Question.VECTOR + Article.VECTOR, query)
+        rank=SearchRank(Article.VECTOR + Question.VECTOR , query)
     ).prefetch_related(
         "content_object",
         "content_object__author",
