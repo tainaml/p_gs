@@ -1,6 +1,7 @@
+
 {% if request.user and request.user != object_to_link %}
 
-{% url 'socialactions:act-xhr' object_to_link.id content 'follow' as act_url %}
+{#{% url 'socialactions:act-xhr' object_to_link.id content 'follow' as act_url %}#}
 
     {% if not followed %}
     <a class="btn {% if btn_class == "btn-follow" %}btn-follow{% else %}perfil-button{% endif %}"
@@ -10,7 +11,7 @@
         data-action-text-alt="{% if content == "community" %}Participando{% else %}Seguindo{% endif %}"
         data-class-name="{% if btn_class == "btn-follow" %}btn-follow-alt{% else %}perfil-button-alt{% endif %}"
         data-hover="{% if content == "community" %}Sair{% else %}Não seguir{% endif %}"
-        data-follow-content-type="{{ content }}"
+        data-follow-content-type="{{ content }}
         data-url-login="{% url 'account:is_logged' %}" data-trigger="login" data-token="{{ csrf_token }}"
         href="{{ act_url }}?url_next={{ url_next|urlencode }}">
         <span>

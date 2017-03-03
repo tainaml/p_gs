@@ -220,7 +220,12 @@
                                 <div>
                                     <h3 class="perfil-name">{{ taxonomy.community_related.title }}</h3>
                                     <div class="perfil-counter">{{ taxonomy.community_related.followers }} seguidor{{ taxonomy.community_related.followers|pluralize:"es" }}</div>
-                                    {% follow_action taxonomy.community_related None btn_class="btn perfil-button" %}
+
+
+                                    {% if taxonomy.community_related %}
+
+                                        {% follow_action taxonomy.community_related None btn_class="btn perfil-button" %}
+                                    {% endif %}
                                 </div>
                             </div>
                             {% endfor %}
