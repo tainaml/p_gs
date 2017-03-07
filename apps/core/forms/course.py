@@ -44,7 +44,7 @@ class CourseListForm(IdeiaForm):
         self.itens_per_page = itens_per_page
         category =  kwargs.get('data', {}).get('category', "")
         if category:
-            self.declared_fields['community'].queryset = Taxonomy.objects.filter(parent__slug=category)
+            self.declared_fields['community'].queryset = Taxonomy.objects.filter(parent__slug=category).prefetch_related("community_related")
         super(CourseListForm, self).__init__(*args, **kwargs)
 
     def clean(self):
