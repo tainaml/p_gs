@@ -1,7 +1,7 @@
 
 {% if request.user and request.user != object_to_link %}
 
-{#{% url 'socialactions:act-xhr' object_to_link.id content 'follow' as act_url %}#}
+{% url 'socialactions:act-xhr' object_to_link.id content 'follow' as act_url %}
 
     {% if not followed %}
     <a class="btn {% if btn_class == "btn-follow" %}btn-follow{% else %}perfil-button{% endif %}"
