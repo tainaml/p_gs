@@ -139,7 +139,7 @@ class Course(models.Model):
 
 class Curriculum(models.Model):
     title = models.CharField(max_length=255, verbose_name=_('Title'))
-    description = models.TextField(verbose_name=_('Description'), null=True, blank=True)
+    description = models.TextField(verbose_name=_('Description'), null=True, blank=True, max_length=400)
     order = models.PositiveSmallIntegerField(verbose_name=_("Order"), default=0)
     course = models.ForeignKey(Course, related_name="curriculums", verbose_name=_('Course'))
 

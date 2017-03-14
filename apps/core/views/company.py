@@ -1,5 +1,3 @@
-from django.db import transaction
-from django.db.models import Q
 from django.http import HttpResponseForbidden
 from apps.community.models import Community
 from apps.core.business.account import log_with_company
