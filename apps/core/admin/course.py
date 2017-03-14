@@ -92,16 +92,16 @@ class CoreCourseAdmin(admin.ModelAdmin):
         soup = BeautifulSoup(content, "html.parser")
         curriculums = soup.select(".content-container")
 
-        for curriculm in curriculums:
+        for i, curriculm in enumerate(curriculums):
 
             title = curriculm.select(".lecture-title-text")[0].get_text().strip()
             curriculm_dict = {'title': title}
             description = '<ul>'
-            for title in curriculm.select(".left-content"):
+            for title in curriculm.select(".title"):
                 description+= '<li>%s</li>' % title.get_text().strip()
             description+='</ul>'
             curriculm_dict['description'] = description
-
+            curriculm_dict['order'] = i
             initial.append(curriculm_dict)
 
 
