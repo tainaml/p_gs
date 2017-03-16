@@ -69,7 +69,7 @@ class Course(models.Model):
 
     title = models.CharField(max_length=255, verbose_name=_('Title'))
     slug = models.SlugField(max_length=200, verbose_name=_('Slug'))
-    description = models.TextField(verbose_name=_('Description'))
+    description = models.TextField(verbose_name=_('Description'), max_length=400)
     observation = models.TextField(null=True, blank=True, verbose_name=_('Observation'))
 
     start_date = models.DateTimeField(default=timezone.now, null=True, blank=True, verbose_name=_('Start Date'))
@@ -139,7 +139,7 @@ class Course(models.Model):
 
 class Curriculum(models.Model):
     title = models.CharField(max_length=255, verbose_name=_('Title'))
-    description = models.TextField(verbose_name=_('Description'), null=True, blank=True, max_length=400)
+    description = models.TextField(verbose_name=_('Description'), null=True, blank=True)
     order = models.PositiveSmallIntegerField(verbose_name=_("Order"), default=0)
     course = models.ForeignKey(Course, related_name="curriculums", verbose_name=_('Course'))
 
