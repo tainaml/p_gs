@@ -28,7 +28,7 @@ def get_courses(itens_per_page=None, **cleaned_data):
         criteria = criteria & (Q(taxonomies__parent=Taxonomy.objects.filter(slug=cleaned_data['category'].slug))
                                | Q(taxonomies=Taxonomy.objects.filter(slug=cleaned_data['category'].slug)))
 
-    if cleaned_data.get('community') and cleaned_data['category'].slug:
+    if cleaned_data.get('community') and cleaned_data['community'].slug:
         criteria = criteria & Q(taxonomies=Taxonomy.objects.filter(slug=cleaned_data['community'].slug))
 
     order = cleaned_data.get('order') or "-rating"

@@ -31,11 +31,22 @@ class CourseListForm(IdeiaForm):
     order = forms.ChoiceField(required=False, choices=CHOICES_ORDER_BY)
     page = forms.IntegerField(min_value=1, required=False)
 
+
+
     @property
     def querystring(self):
         querystring_dict = {}
         for key in self.cleaned_data:
             querystring_dict[key] = unicode(self.cleaned_data[key] or '').encode('utf-8')
+
+        taxonomy = self.cleaned_data.get("category", None)
+        if taxonomy:
+            querystring_dict['category'] = taxonomy.slug
+
+        community = self.cleaned_data.get("community", None)
+        if community:
+            querystring_dict['community'] = community.slug
+
 
         return urlencode(querystring_dict)
 
