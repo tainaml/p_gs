@@ -13,7 +13,6 @@ python-memcached==1.57
 PyYAML==3.10
 ua-parser==0.6.1
 user-agents==1.0.1
-django-smart-selects==1.2.6
 django-user-agents==0.3.0
 django-reversion==1.10.2
 micawber==0.3.3
