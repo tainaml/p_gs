@@ -55,6 +55,8 @@
     <meta name="msapplication-square310x310logo" content="{% static 'images/mstile-310x310.png' %}" />
 
 
+    <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script>window.jQuery || document.write('<script src="{% static 'javascripts/jquery-1.11.3.min.js' %}"><\/script>')</script>
     {% block extra_meta %}
     {% endblock %}
 {% ads_only_production "page_level" "all" %}
@@ -130,6 +132,8 @@
     {% include 'home/partials/modals/modal-alert-community-questions.html' %}
 {% endblock %}
 
+<script src="{% static_versioned 'javascripts/shared.js'%}"></script>
+<script src="{% static_versioned 'javascripts/main.js'%}"></script>
 
 {% if request.user.is_anonymous %}
     <script src="https://www.google.com/recaptcha/api.js?hl=pt-BR" async defer></script>
@@ -139,12 +143,6 @@
 
 {% include 'inline_scripts/modal.html' with is_contact_suggest_community_type=is_contact_suggest_community_type %}
 
-
-<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
-    <script>window.jQuery || document.write('<script src="{% static 'javascripts/jquery-1.11.3.min.js' %}"><\/script>')</script>
-
-<script src="{% static_versioned 'javascripts/shared.js'%}"></script>
-<script src="{% static_versioned 'javascripts/main.js'%}"></script>
 {% block javascripts %}
 {% endblock %}
 {% block editorfiles %}
