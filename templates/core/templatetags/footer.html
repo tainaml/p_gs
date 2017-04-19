@@ -6,17 +6,19 @@
     <nav class="footer-nav">
         <div class="container">
             <div class="row">
-                <ul class="links-help">
-                    <li class="list-item"><a class="gsti-link" href="/" title="Portal GSTI">Portal GSTI</a></li>
-                    <li class="list-item"><a href="{% url 'core:about' %}">Sobre</a></li>
-                    <li class="list-item"><a href="javascript:;" data-toggle="modal" data-target="#modal-rules">Regras do portal</a></li>
-                    <li class="list-item"><a href="{% url 'contact:create' %}" data-contact data-async-module="click" data-async-target="#modal-content-form-contact" data-async-method="get">Contato</a></li>
-                </ul>
-                <ul class="links-apoio">
-                    <li class="list-item">apoio:</li>
-                    <li class="list-item"><img src="{% static 'images/logo-fapesb.png'%}" alt=""></li>
-                    <li class="list-item"><img src="{% static 'images/logo-finep.png'%}" alt=""></li>
-                </ul>
+                <div class="col-xs-12 col-apoio">
+                    <ul class="links-help">
+                        <li class="list-item"><a class="gsti-link" href="/" title="Portal GSTI">Portal GSTI</a></li>
+                        <li class="list-item"><a href="{% url 'core:about' %}">Sobre</a></li>
+                        <li class="list-item"><a href="javascript:;" data-toggle="modal" data-target="#modal-rules">Regras do portal</a></li>
+                        <li class="list-item"><a href="{% url 'contact:create' %}" data-contact data-async-module="click" data-async-target="#modal-content-form-contact" data-async-method="get">Contato</a></li>
+                    </ul>
+                    <ul class="links-apoio">
+                        <li class="list-item">apoio:</li>
+                        <li class="list-item"><img src="{% static 'images/logo-fapesb.png'%}" alt=""></li>
+                        <li class="list-item"><img src="{% static 'images/logo-finep.png'%}" alt=""></li>
+                    </ul>
+                </div>
             </div>
         </div>
         <div class="copyright">
