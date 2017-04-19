@@ -2,14 +2,23 @@
 // Layout/Footer
 // ==========================================================================
 .footer {
-    background: #0160b0;
-    margin-top: 20px;
-    a {
-        color: $link-white;
-        &:hover {
-            color: darken($link-white, 10%);
-        }
+  // background: #0160b0;
+  margin-top: 20px;
+  a {
+    color: #0160b0;
+    &:hover {
+      color: darken(#0160b0, 10%);
     }
+  }
+  .gsti-link {
+    width: 126px;
+    height: 40px;
+    margin: 0 auto;
+    background: url(../images/gsti.png) center no-repeat;
+    color: inherit;
+    text-indent: -9999px;
+    display: inline-block;
+  }
 }
 .box-list {
     @include make-row;
@@ -39,35 +48,54 @@
     @include list-unstyled();
 }
 .footer-nav {
-    width: 100%;
-    padding-top: 10px;
-    margin-top: 1em;
-    min-height: 55px;
-    line-height: 35px;
-    background: #005398;
+  width: 100%;
+  margin-top: 1em;
+  min-height: 55px;
+  line-height: 35px;
 
-    .copyright {
-        @include make-sm-column(7);
-        @include make-md-column(9);
-        @include make-lg-column(9);
-        color: $link-white;
+  .copyright {
+    margin-top: 23px;
+    display: block;
+    background-color: #e6e6e6;
+    color: #616161;
+    font: 400 14px/3 "Open Sans";
+    text-align: center;
+  }
+}
+.links-help,
+.links-apoio {
+  width: 50%;
+  padding-left: 0;
+  margin-bottom: 0;
+  display: inline-flex;
+  color: #616161;
+  list-style: none;
+  font-family: "Open Sans";
+  font-size: 16px;
+  font-weight: 600;
 
-        @media (max-width: $screen-xs-max) {
-            width: 100%;
-            display: block;
-            text-align: center;
-        }
-    }
-    .links-help {
-        @include list-unstyled();
-        //@include make-sm-column(5);
-        //@include make-md-column(3);
-        //@include make-lg-column(3);
-        @extend .list-inline;
-        text-align: right;
+  .list-item {
+    padding-right: 30px;
+    display: flex;
+    align-items: flex-end;
+    line-height: 100%;
+  }
 
-        @media (max-width: $screen-xs-max) { text-align: center; }
-    }
+  @media (max-width: $screen-xs-max) {
+    display: none;
+  }
+}
+.links-apoio {
+  justify-content: flex-end;
+  text-transform: uppercase;
+
+  .list-item {
+    padding-left: 30px;
+    padding-right: 0;
+    display: flex;
+    align-items: center;
+    line-height: 100%;
+  }
 }
 
 #google-badge {
