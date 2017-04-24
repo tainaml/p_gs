@@ -66,7 +66,7 @@ class Article(models.Model):
     first_slug = models.SlugField(default='', max_length=255, db_index=True)
 
 
-    text = models.TextField(null=False,  validators=[validate_min_text], max_length=settings.ARTICLE_TEXT_LIMIT if hasattr(settings, "ARTICLE_TEXT_LIMIT") else 10000)
+    text = models.TextField(null=False,  max_length=settings.ARTICLE_TEXT_LIMIT if hasattr(settings, "ARTICLE_TEXT_LIMIT") else 10000)
     image = models.ImageField(max_length=100, upload_to=article_image_upload, blank=True, width_field="image_width", height_field="image_height")
     author = models.ForeignKey(settings.AUTH_USER_MODEL, null=False, related_name='articles', verbose_name=_('Author'))
 
