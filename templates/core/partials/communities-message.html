@@ -1,6 +1,5 @@
 {% load core_tags %}
 <div class="alert alert-info alert-dismissible" role="alert">
-Você só poderá enviar publicações ou perguntas para comunidades que esteja participando.
 Caso não encontre a comunidade que deseja vincular a publicação ou pergunta, você pode <strong><a href="{% url 'contact:create' %}" data-contact data-type="{% contact_suggest_community_type %}" data-message="{% contact_suggest_community_message %}" id="link-contact" data-async-module="click" data-async-target="#modal-content-form-contact" data-async-method="get">sugerir uma comunidade</a></strong>.
     <br>  Enquanto avaliamos sua sugestão, publique seu conteúdo nas comunidades globais: {% category_communities_links %}
 </div>
