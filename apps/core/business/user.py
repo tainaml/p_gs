@@ -59,6 +59,11 @@ def get_user_communities_list(author, width=20, height=20):
     communities_queryset = get_user_communities(author)
     return get_user_communities_list_from_queryset(communities_queryset, author, width, height)
 
+def get_all_communities_list(author, width=20, height=20):
+
+    communities_queryset = Community.objects.all()
+    return get_user_communities_list_from_queryset(communities_queryset, author, width, height)
+
 
 def get_feed_objects(profile_instance=None, description=None, content_types_list=None, items_per_page=None, page=None, user=None):
     if not content_types_list:

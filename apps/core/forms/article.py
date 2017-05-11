@@ -65,8 +65,6 @@ class CoreArticleBaseForm(ArticleForm, CoreTaxonomiesMixin):
             self.delete_taxonomies(process_feed, self.cleaned_data)
         process_tags = BusinessTags.save_feed_tags(process_feed, self.cleaned_data)
 
-        #process_official = BusinessCoreFeed.save_feed_official(process_feed, self.cleaned_data)
-
         if process_feed:
             clear_article_cache.send(sender=process_feed.__class__, instance=process_feed)
 

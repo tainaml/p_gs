@@ -42,8 +42,7 @@ class CoreTaxonomiesMixin(IdeiaModelForm):
                 pass
 
         if communities:
-            _user_communities = UserBusiness.get_user_communities(author)
-            communities.queryset = _user_communities
+            communities.queryset = Community.objects.all()
             if extra is not None and isinstance(extra, (QuerySet)):
                 communities.queryset = communities.queryset | extra
 

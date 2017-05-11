@@ -22,7 +22,7 @@ class CoreArticleEditView(views.ArticleEditView):
     def prepare_context(self, request, context):
         context = super(CoreArticleEditView, self).prepare_context(request, context)
 
-        communities = UserBusiness.get_user_communities_list(request.user)
+        communities = UserBusiness.get_all_communities_list(request.user)
 
         try:
 
