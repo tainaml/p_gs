@@ -164,6 +164,7 @@ THIRD_PART_APPS = (
     'djkombu',
     'djcelery',
     'kombu.transport.django',
+    'push_notifications'
 )
 
 INTERNAL_APPS = (
@@ -965,6 +966,18 @@ SUMMERNOTE_CONFIG = {
 
     }
 }
+
+# PUSH NOTIFICATIONS SETTINGS
+PUSH_NOTIFICATIONS_SETTINGS = {
+        "FCM_API_KEY": config.get("FCM", "key"),
+        "FCM_ERROR_TIMEOUT": 100,
+        "GCM_API_KEY": config.get("FCM", "key"),
+        "APNS_CERTIFICATE": "/path/to/your/certificate.pem",
+        "APNS_TOPIC": "com.example.push_test",
+        "WNS_PACKAGE_SECURITY_ID": "[your package security id, e.g: 'ms-app://e-3-4-6234...']",
+        "WNS_SECRET_KEY": "[your app secret key, e.g.: 'KDiejnLKDUWodsjmewuSZkk']",
+}
+
 
 #ARTICLE IMAGE
 ARTICLE_IMAGE_SIZE = {

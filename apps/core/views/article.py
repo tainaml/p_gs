@@ -11,7 +11,7 @@ from apps.comment.service.forms import CreateCommentForm
 from apps.community.models import Community
 from apps.feed.models import FeedObject
 from ..forms.article import CoreArticleBaseForm, CoreArticleContributorForm
-from ..business import feed as BusinessFeed
+from push_notifications.models import GCMDevice
 from apps.core.business import user as UserBusiness
 from apps.core.business import article as core_article_business        #self.fields.set('communities')
 
@@ -114,6 +114,9 @@ class CoreArticleView(views.ArticleView):
 
     def get(self, request, year, month, slug):
 
+
+        fcm_device = GCMDevice.objects.get(registration_id="token", cloud_message_type="FCM", user=request.user)
+        fcm_device.send_message("This is a message")
         prefetch = (
             'content_object__author',
              'content_object__author__profile', 'content_object__author__profile__occupation',

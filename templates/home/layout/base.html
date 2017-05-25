@@ -57,6 +57,54 @@
 
     <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
     <script>window.jQuery || document.write('<script src="{% static 'javascripts/jquery-1.11.3.min.js' %}"><\/script>')</script>
+
+
+    <script src="https://www.gstatic.com/firebasejs/4.0.0/firebase.js"></script>
+    <script>
+      // Initialize Firebase
+      var config = {
+        apiKey: "AIzaSyAW3kAvd1byTIeqvUKRr6s1tQOszDNPVwA",
+        authDomain: "portal-gsti-1205.firebaseapp.com",
+        databaseURL: "https://portal-gsti-1205.firebaseio.com",
+        projectId: "portal-gsti-1205",
+        storageBucket: "portal-gsti-1205.appspot.com",
+        messagingSenderId: "784080308511"
+      };
+
+      firebase.initializeApp(config);
+
+     const messaging = firebase.messaging();
+
+     navigator.serviceWorker.register('http://localhost:8000{% static "javascripts/firebase-messaging-sw.js" %}')
+        .then((registration) => {
+          messaging.useServiceWorker(registration);
+                messaging.requestPermission().then(function(){
+                            return messaging.getToken();
+                     }).then(function(token) {
+                        console.log(token);
+{#                              var data = {#}
+{#                                'registration_id': token#}
+{#                             };#}
+{#                             $.get("http://localhost:8000/push/subscribe/", data);#}
+                         }).catch(function(err){
+                             console.log(err);
+                });
+                 messaging.onTokenRefresh(function() {
+                  messaging.getToken()
+                  .then(function(refreshedToken) {
+                    console.log('Token refreshed.');
+                  })
+                  .catch(function(err) {
+                    console.log('Unable to retrieve refreshed token ', err);
+                  });
+                });
+        });
+
+
+
+    </script>
+
+
     {% block extra_meta %}
     {% endblock %}
 {% ads_only_production "page_level" "all" %}

@@ -52,6 +52,9 @@ urlpatterns = [
     # Translators: URL root de comentario
     url(_(r'^comment/'), include('apps.comment.urls', namespace='comment')),
 
+    # Translators: URL root de pergunta
+    url(_(r'^push/'), include('apps.core.urls.push', namespace='push')),
+
     # Translators: URL root de perfil de usuario
     url(_(r'^profile/'), include('apps.core.urls.user', namespace='profile')),
 
