@@ -31,7 +31,7 @@
                 <a class="perfil" href="{% url 'community:show' community.slug %}">
                   <figure>
                   {% if community.get_picture %}
-                    <img src="{% thumbor_url community.get_picture.url width=50 height=50 smart=False fit_in=False %}" width="50" height="50" alt="Foto de {{ community.title }}"  title="{{ community_obj.title }}">
+                    <img class="class="search-avatar"" src="{% thumbor_url community.get_picture.url width=50 height=50 smart=False fit_in=False %}" width="50" height="50" alt="Foto de {{ community.title }}"  title="{{ community_obj.title }}">
                   {% else %}
                     <img src="http://placehold.it/50?text={{ community.title|slice:":1" }}" width="50" height="50" alt="Foto de {{ community.title }}">
                   {% endif %}
