@@ -16,7 +16,6 @@ class Command(BaseCommand):
 
         device = GCMDevice.objects.get(registration_id=registration_id)
 
-        response  = device.send_message(message, title=title, extra={"icon": "https://www.portalgsti.com.br/static/images/favicon-96x96.png"})
-        print response
+        response = device.send_message(message, title=title, extra={'click_action': 'http://www.portalgsti.com.br/', "icon": "https://www.portalgsti.com.br/static/images/favicon-96x96.png"})
 
 
