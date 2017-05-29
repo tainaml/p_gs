@@ -35,6 +35,9 @@
 
       <div id="dropdown-perfil-action" class="header-dropdown-menu dropdown-menu-right">
           <ul class="perfil-actions">
+                {% if request.user.is_superuser %}
+                    <li><a href="{% url 'superuser:push' %}"><i class="gsticon gsticon-paper-plane"></i> Enviar notificações</a></li>
+                {% endif %}
               <li><a href="{% url 'profile:feed' %}"><i class="gsticon gsticon-feed"></i> Meu Feed</a></li>
               <li><a href="{% if  request.user.is_active %}{% url 'profile:show' request.user.username %}{% else %}javascript:;{% endif %}"><i class="gsticon gsticon-file-text"></i> Minhas Publicações</a></li>
               <li><a href="{% url 'profile:my-questions' %}"><i class="gsticon gsticon-question"></i> Minhas Perguntas</a></li>

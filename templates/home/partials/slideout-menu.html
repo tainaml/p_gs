@@ -41,6 +41,9 @@
         <i class="gsticon gsticon-bell"></i>
     </a>
 </div>
+    {% if request.user.is_superuser %}
+        <li><a  class="slideout-menu--link" href="{% url 'profile:feed' %}"><i class="gsticon gsticon-paper-plane"></i> Enviar notificações</a></li>
+    {% endif %}
 <a class="slideout-menu--link" href="{% url 'profile:feed' %}"><i class="gsticon gsticon-feed"></i> Meu Feed</a>
 <a class="slideout-menu--link" href="{% if  request.user.is_active %}{% url 'profile:show' request.user.username %}{% else %}javascript:;{% endif %}"><i class="gsticon gsticon-file-text"></i> Minhas Publicações</a>
 <a class="slideout-menu--link" href="{% url 'profile:my-questions' %}"><i class="gsticon gsticon-question"></i> Minhas Perguntas</a>
