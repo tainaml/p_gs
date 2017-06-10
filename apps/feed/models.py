@@ -30,8 +30,8 @@ class FeedObject(models.Model):
     official = models.BooleanField(null=False, blank=False, default=False)
 
     # SEO
-    seo_no_index = models.BooleanField(default=False)
-    seo_no_follow = models.BooleanField(default=False)
+    seo_no_index = models.BooleanField(default=True)
+    seo_no_follow = models.BooleanField(default=True)
 
 
 
