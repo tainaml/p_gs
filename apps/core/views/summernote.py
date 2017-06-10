@@ -4,7 +4,6 @@ from ideia_summernote.views import Upload, check_sizes
 from ideia_summernote.default import SUMMERNOTE_DEFAULT_CONFIG
 from django.http import JsonResponse
 from django.template.defaultfilters import slugify
-from django.views.generic import View
 from django.core.files.storage import default_storage
 from django.conf import settings
 from django.utils.translation import ugettext as _

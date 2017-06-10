@@ -1,4 +1,44 @@
 const messaging = firebase.messaging();
+const LOGGED = 1;
+const NOT_LOGGED = 0;
+
+
+function getLoggedAttr(){
+    return document.getElementsByTagName('body')[0].getAttribute("data-logged") == "true" ? LOGGED:NOT_LOGGED;
+}
+
+function setLocalLogged(){
+    var isLogged = getLoggedAttr();
+
+    window.localStorage.setItem('isLogged', isLogged);
+}
+
+function getLoggedLocalAttr(){
+    var localLogged  = window.localStorage.getItem('isLogged');
+
+    if (localLogged == null){
+       setLocalLogged();
+        return getLoggedLocalAttr();
+
+    }else{
+        return localLogged;
+    }
+}
+
+function hasLoggedStatusDifferent(){
+    return getLoggedAttr() != getLoggedLocalAttr()
+}
+
+
+window.onload = function() {
+    console.log(hasLoggedStatusDifferent());
+    if (hasLoggedStatusDifferent() && getLoggedLocalAttr() == NOT_LOGGED){
+        console.log("User logged, need to sent token again to server");
+        setLocalLogged();
+        setTokenSentToServer(false);
+    }
+
+};
 
 if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register(`/static/javascripts/sw.js`)
@@ -48,4 +88,6 @@ if ('serviceWorker' in navigator) {
     function setTokenSentToServer(sent) {
         window.localStorage.setItem('sentToServer', sent ? 1 : 0);
     }
+
+
 }

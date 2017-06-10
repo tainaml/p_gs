@@ -65,7 +65,7 @@
 {% ads_only_production "page_level" "all" %}
 {% tag_manager_script %}
 </head>
-<body>
+<body data-logged="{{ request.user.is_authenticated|yesno:"true,false" }}" >
 <div class="slideout-menu" id="slideout-menu">
     {% include 'home/partials/slideout-menu.html' %}
 </div>
