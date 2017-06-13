@@ -99,7 +99,7 @@
                       <form class="form-signup" action="{% url 'account:signup' %}" method="post">
                         {% csrf_token %}
                         <div class="form-group">
-                          <a class="btn-login-facebook" href="{% url 'social:begin' backend='facebook' %}">
+                          <a id="btn-facebook" class="btn-login-facebook" href="{% url 'social:begin' backend='facebook' %}">
                             <i class="gsticon gsticon-facebook"></i>
                             Facebook
                           </a>
