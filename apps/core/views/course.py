@@ -60,7 +60,7 @@ class CourseShowView(View):
     def get(self, request, course_slug):
 
         try:
-            course = Course.objects.prefetch_related("ratings", "curriculums", "related_courses").get(slug=course_slug)
+            course = Course.objects.prefetch_related("ratings", "curriculums", "related_courses").get(slug=course_slug, active=True)
         except Course.DoesNotExist:
             raise Http404(_('Course not found'))
 
