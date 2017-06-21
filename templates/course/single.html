@@ -213,12 +213,17 @@
                             {% for taxonomy in instance.taxonomies.all %}
                             <div class="widget-item">
                                 <span>
-                                    <figure>
-                                        <img src="{% thumbor_url taxonomy.community_related.image.url width=100 height=100 %}" alt="{{ taxonomy.community_related.title }}">
-                                    </figure>
+                                    <a href="{% url 'community:show' taxonomy.community_related.slug %}">
+                                        <figure>
+                                            <img src="{% thumbor_url taxonomy.community_related.image.url width=100 height=100 %}" alt="{{ taxonomy.community_related.title }}">
+                                        </figure>
+                                    </a>
+
                                 </span>
                                 <div>
+                                <a href="{% url 'community:show' taxonomy.community_related.slug %}">
                                     <h3 class="perfil-name">{{ taxonomy.community_related.title }}</h3>
+                                </a>
                                     <div class="perfil-counter">{{ taxonomy.community_related.followers }} seguidor{{ taxonomy.community_related.followers|pluralize:"es" }}</div>
 
 
