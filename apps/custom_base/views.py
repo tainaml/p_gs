@@ -122,12 +122,16 @@ class FormBasePaginetedListView(FormBaseListView):
         cleaned_data['page']+=1
         self.context.update(cleaned_data)
 
+    def after_fill(self, request, *args, **kwargs):
+        pass
+
     # @Override
     def do_process(self, request=None, *args, **kwargs):
         if not self.form:
             raise NotImplementedError("you must specify the class form. Ex: form = FooForm")
         self.before_process(request, *args, **kwargs)
         self.form = self.form(**self.fill_form_kwargs(request))
+        self.after_fill(request, *args, **kwargs)
         self.process_return = self.form.process()
         self.after_process(request, *args, **kwargs)
 

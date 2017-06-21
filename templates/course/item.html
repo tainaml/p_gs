@@ -3,7 +3,7 @@
 {% load avatar_tags %}
 {% load thumbor_tags %}
 {% load user_agents %}
-<div class="col-sm-3">
+<div class="col-sm-{% block columns %}3{% endblock columns %}">
     <a class="thumb__course" href="{% url 'course:show' item.slug %}" title="{{ item.title }}">
         <figure>
             {% if item.image_or_default %}

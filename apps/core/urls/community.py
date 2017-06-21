@@ -19,6 +19,9 @@ urlpatterns = [
     # Translators: URL de pagina principal de comunidade without bar
     url(_(r'^(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/$'), CoreViews.CoreCommunityFeedView.as_view(), name='show'),
 
+    # Translators: URL de pagina principal de comunidade without bar
+    url(_(r'^(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/cursos/$'), CoreViews.CoreCommunityCourses.as_view(), name='courses'),
+
     # Translators: URL de sobre da comunidade
     url(_(r'^(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/about/$'), CoreViews.CoreCommunityAboutView.as_view(), name='about'),
 
