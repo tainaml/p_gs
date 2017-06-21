@@ -1,3 +1,4 @@
+import copy
 from apps.custom_base.service.custom import IdeiaForm, forms
 from apps.core.business import course as course_business
 from apps.taxonomy.models import Taxonomy
@@ -78,6 +79,15 @@ class CourseListForm(IdeiaForm):
 
 
 
+class CourseCommunityListForm(CourseListForm):
+    communityInstance = None
 
+    def set_community(self, community):
+        self.communityInstance = community
 
+    def __process__(self):
+
+        data = copy.copy(self.cleaned_data)
+        data['community'] = self.communityInstance.taxonomy
+        return course_business.get_courses(self.itens_per_page, **data)
 

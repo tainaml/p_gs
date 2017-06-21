@@ -2,13 +2,15 @@
 # -*- coding: utf-8 -*-
 import urllib
 from django.core.urlresolvers import reverse
-from django.http import JsonResponse
+from django.http import JsonResponse, Http404
 from django.shortcuts import render, redirect
 from apps.community import views
 from apps.community.models import Community
 from apps.community.service import business as Business
 from apps.core.forms.community import CoreCommunityFeedFormSearch, CoreCommunityQuestionFeedFormSearch, \
     CoreCommunitySearchVideosForm, CoreCommunityFollowersForm, CoreCommunitySearchMaterialsForm, CoreCommunityGetAllForm
+from apps.core.forms.course import CourseCommunityListForm
+from apps.core.views.course import CourseListView
 from apps.core.views.search import encoded_dict
 from apps.custom_base.views import FormBaseListView
 from apps.socialactions.service.business import get_users_acted_by_model
@@ -97,6 +99,34 @@ class CoreCommunityFeedView(CoreCommunitySearch):
             return redirect(reverse("search:search")+"?%s" % urllib.urlencode(encoded_dict(querystring)))
 
         return super(CoreCommunityFeedView, self).get(request, community_slug)
+
+
+class CoreCommunityCourses(CourseListView):
+
+    form = CourseCommunityListForm
+    community = None
+
+    success_template_path = 'community/community-courses.html'
+    success_ajax_template_path = 'community/partials/community-course-items.html'
+    fail_validation_template_path = success_ajax_template_path
+
+    def after_process(self, request=None, *args, **kwargs):
+        super(CoreCommunityCourses, self).after_process(request, *args, **kwargs)
+        self.context.update({'community': self.community})
+
+    def after_fill(self, request, *args, **kwargs):
+        self.form.set_community(self.community)
+
+    def get(self, request=None, community_slug=None, *args, **kwargs):
+        try:
+            self.community = Community.objects.get(slug=community_slug)
+
+        except Community.DoesNotExist:
+            raise Http404()
+
+
+        return self.do_process(request, *args, **kwargs)
+
 
 
 class CoreCommunityQuestionSearch(CoreCommunityView):

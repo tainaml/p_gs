@@ -1,7 +1,6 @@
-
 {% if courses %}
     {% for item in courses %}
-        {% include 'course/item.html' %}
+        {% include 'community/partials/community-course-item.html' %}
     {% endfor %}
 
     {% if courses.has_next %}<div class="col-xs-12">
