@@ -105,7 +105,7 @@ class CoreCommunityCourses(CourseListView):
 
     form = CourseCommunityListForm
     community = None
-    itens_per_page = 9
+    itens_per_page = 6
 
     success_template_path = 'community/community-courses.html'
     success_ajax_template_path = 'community/partials/community-course-items.html'
