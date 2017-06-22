@@ -21,6 +21,7 @@
 {% comment %}TODO find a new way{% endcomment %}
     <a {% if active == "feed" %}class="active"{% endif %} href="{% url 'community:show' community.slug %}">Feed</a>
     <a {% if active == "perguntas" %}class="active"{% endif %} href="{% url 'community:questions' community.slug %}">Perguntas</a>
+    <a {% if active == "courses" %}class="active"{% endif %} href="{% url 'community:courses' community.slug %}">Cursos</a>
     <a {% if active == "membros" %}class="active"{% endif %} href="{% url 'community:followers' community.slug %}">Membros</a>
     <a {% if active == "sobre" %}class="active"{% endif %} href="{% url 'community:about' community.slug %}">Sobre</a>
     <a {% if active == "videos" %}class="active"{% endif %} href="{% url 'community:videos' community.slug %}">Vídeos</a>
