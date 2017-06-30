@@ -8,17 +8,7 @@ var profession,
   elementData,
   $element;
 
-var defaultSettings = {
-  // plugins: ['remove_button'],
-  // delimiter: ',',
-  // persist: false,
-  // create: true,
-  // render: {
-  //   option_create: function (item) {
-  //     return `<div class="create">${item.input}</div>`;
-  //   }
-  // }
-};
+var defaultSettings = {};
 
 profession = ( element ) => {
   const $element = $( element )
