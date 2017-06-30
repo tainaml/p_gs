@@ -32,6 +32,18 @@ class WizardMiddleware(object):
         'admin'
     ]
 
+    redirect_list = [
+        'complete',
+        'CoreForgotPassword',
+        'CoreRegisterView'
+
+    ]
+
+    redirect_black_list = [
+        'RegisteredSuccessView',
+
+    ]
+
     def __init__(self, get_response=None):
         self.get_response = get_response
 
@@ -53,5 +65,14 @@ class WizardMiddleware(object):
             step_to_go = request.user.user_profile.wizard_step + 1
 
             return redirect(to="profile:wizard", step=step_to_go)
+
+        if view_func.__name__ in self.redirect_list and view_func.__name__ not in self.redirect_black_list and 'HTTP_REFERER' in request.META and request.method == 'GET':
+
+            request.session['url_next'] = request.META['HTTP_REFERER']
+
+        if view_func.__name__ not in self.redirect_list and view_func.__name__ not in self.whitelist and request.session.get("url_next") and request.user.is_authenticated():
+            url_next = request.session['url_next']
+            del request.session['url_next']
+            return redirect(url_next)
 
         return None
