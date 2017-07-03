@@ -106,13 +106,7 @@
                     <div class="clearfix">
                         <div data-form-group class="col-lg-6 item-form">
                             {% url 'profile:get_city' as profile_get_city %}
-                            {% render_field form.state id="state" class="form-control" data-ajax-change="true" data-url=profile_get_city data-target="#city" %}
-                            {#                            <select name="state" id="state" class="form-control" data-ajax-change="true" data-url="{% url 'profile:get_city' %}" data-target="#city">#}
-                            {#                                <option value="0" {% if not form.data.state %}selected{% endif %}>Estado</option>#}
-                            {#                                {% for state in states %}#}
-                            {#                                    <option data-teste="{{ form.data.state }}" value="{{ state.id }}" {% if form.data.state == state.id %}selected{% endif %}>{{ state.name }}</option>#}
-                            {#                                {% endfor %}#}
-                            {#                            </select>#}
+                            {% render_field form.state id="state" data-ajax-change="true" data-url=profile_get_city data-target="#city" data-module="profession" %}
                             <span class="help-block">
                               Estado onde mora <br>
                                 {% if form.state.errors %}  {{ form.state.errors }} {% endif %}
@@ -120,9 +114,7 @@
                         </div>
                         <div data-form-group class="col-lg-6 item-form">
 
-{#                            {% render_field form.city_hometown class="form-control" id="city" %}#}
-
-                                <select name="city" id="city" class="form-control">
+                                <select name="city" id="city" data-module="profession">
                                     <option value="0" {% if not wizard_profile.city.id %}selected{% endif %} disabled>Cidade</option>
                                     {% for city in cities %}
                                         <option value="{{ city.id }}" {% if request.user.userprofile.city.id == city.id %}selected{% endif %}>{{ city.name }}</option>

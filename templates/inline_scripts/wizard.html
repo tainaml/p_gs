@@ -79,32 +79,8 @@
         var $form = $self.closest("form");
         $form.submit();
     };
-    var functionSearchCommunities = function(e, data){
 
-
-{#        var $containerCommunities = $("#wizard-container-communities");#}
-        {#      $containerCommunities.html(data.template);#}
-{##}
-{#        var $wizardJScroll = $('<div />',{#}
-{#            'class': 'j-scroll-wizard-communities j-scroll-wizard-communities-search'#}
-{#        });#}
-{##}
-{#        $wizardJScroll.html(data.template);#}
-{#        $containerCommunities.html($wizardJScroll);#}
-{#        refreshAsyncLike();#}
-{#        $wizardJScroll.jscroll({#}
-{#            autoTrigger: false,#}
-{#            loadingHtml: '<div class="load-async-preload"></div>',#}
-{#            contentSelect: '.j-scroll-wizard-communities-container',#}
-{#            nextSelector: "a[data-jscroll-next]",#}
-{#            refresh: true,#}
-{#            callback: function() {#}
-{#                refreshAsyncLike();#}
-{#            }#}
-{#        });#}
-    };
-
-    function fillValues($element) {
+    function fillValues($element, ajaxUpdate) {
 
         $.ajax({
             url: $element.data("url"),
@@ -115,23 +91,31 @@
                 csrfmiddlewaretoken: $("input:hidden[name='csrfmiddlewaretoken']").val()
             },
             success: function(response) {
+                /* id fixo do select de  */
                 $($element.data("target")).html(response);
+                if (ajaxUpdate) {
+                    var selectize = $('#city')[0].selectize;
+                    selectize.destroy();
+                    selectize.clearOptions();
+                    $($element.data("target")).html(response);
+                    $('#city').selectize();
+                }
             }
         });
     }
 
     var fillValuesIn = function(){
         $this = $(this);
-        fillValues($this);
+        fillValues($this, true);
     };
 
     $(function() {
 
-        $("[data-clean-action=\"true\"]").on("click", function(){
+        $("[data-clean-action=\"true\"]").on("click", function() {
             var $input_suggestions= $("form#form-filter-communities input[name=criteria]");
             $input_suggestions.val("");
         });
-        $.fn.inputTyping = function (timeInMillis, callback){
+        $.fn.inputTyping = function (timeInMillis, callback) {
             var $input = $(this);
             var typingTimer;
             $input.on('keyup', function () {
@@ -159,7 +143,7 @@
 
         $.each($elementsToChange, function(idx, value){
             var $elementToChange = $(value);
-            fillValues($elementToChange);
+            fillValues($elementToChange, false);
         });
 
 

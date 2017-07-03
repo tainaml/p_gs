@@ -43,11 +43,10 @@
                     dataType: obj.settings.dataType,
                     data: obj.settings.data,
                     success: function(data) {
-                        obj.settings.check( obj, event, data );
-                        // console.log(obj.settings.urlCheckLogin);
+                      obj.settings.check( obj, event, data );
                     },
                     error: function(status) {
-                        obj.settings.onFailure( obj, event, status );
+                      obj.settings.onFailure( obj, event, status );
                     }
                 });
 
@@ -55,34 +54,33 @@
 
             check: function( obj, event, data ) {
                 if ( data.is_logged == true ) {
-                    obj.settings.onSuccessIsLogged( obj, event, data );
+                  obj.settings.onSuccessIsLogged( obj, event, data );
                 } else {
-                    obj.settings.onSuccessIsNotLogged( obj, event, data );
+                  obj.settings.onSuccessIsNotLogged( obj, event, data );
                 }
             },
 
             onSuccessIsLogged: function( obj, event, data ) {
-                console.log( 'onSuccessIsLogged' );
+              console.log( 'onSuccessIsLogged' );
             },
 
             onSuccessIsNotLogged: function( obj, event, data ) {
-                event.preventDefault();
-
                 console.log( 'onSuccessIsNotLogged' );
 
                 var $modal = $(obj.settings.modal);
 
                 if (obj.settings.urlNext) {
-                    $modal.find("form").attr("action", obj.settings.urlNext);
+                    $modal.find('form').attr('action', obj.settings.urlNext);
                 }
 
-                if ( $modal.is( ':hidden' ) )
-                    $modal.modal('show');
+                if ( $modal.is(':hidden')) {
+                  $modal.modal('show');
+                  event.preventDefault();
+                }
             },
 
             onFailure: function( obj, event, status ) {
                 event.preventDefault();
-
                 console.log( 'onFailure' );
                 console.log( status );
             }
@@ -109,8 +107,8 @@
             plugin.settings = $.extend({}, defaults, options);
 
             // code goes here
-            $element.on( 'click, focus', function( event ) {
-                plugin.settings.verify( plugin, event );
+            $element.on( 'click, focus, touchstart', function( event ) {
+              plugin.settings.verify( plugin, event );
             });
         };
 
@@ -146,27 +144,28 @@
 
     };
 
-    $( document ).on( 'ready', function() {
-
-        $( '[data-trigger=login]' ).each( function () {
-            var $e = $( this );
-            $e.ideiaLogin( $e.data() );
-            $e.on('click', function(e) {
-                e.preventDefault();
-            });
+    $(document).on('ready', function() {
+      $('[data-trigger=login]').each(function() {
+        var ua = navigator.userAgent,
+        evnt = (ua.match(/iPad/i) || ua.match(/iPhone/)) ? 'touchstart' : 'click';
+        var $e = $( this );
+        $e.ideiaLogin( $e.data() );
+        $e.on(evnt, function(e) {
+            e.preventDefault();
         });
-
+      });
     });
 
-
-    $( document ).ajaxComplete( function(  event, jqXHR, ajaxOptions ) {
-        $( '[data-trigger=login]' ).each( function () {
-            var $e = $( this );
-            $e.ideiaLogin( $e.data() );
-            $e.on('click', function(e){
-                e.preventDefault();
-            });
+    $(document).ajaxComplete(function(event, jqXHR, ajaxOptions) {
+      var ua = navigator.userAgent,
+      evnt = (ua.match(/iPad/i) || ua.match(/iPhone/)) ? 'touchstart' : 'click';
+      $('[data-trigger=login]').each(function () {
+        var $e = $(this);
+        $e.ideiaLogin($e.data());
+        $e.on(evnt, function(e) {
+          e.preventDefault();
         });
+      });
     });
 
 })(jQuery);

@@ -124,7 +124,7 @@ $.fn.refreshEditors = function (){
         onFocus: function(e) {
           let $parentForm = $editor.closest('form');
           let formData = $parentForm.data();
-          if("logged" in formData && !formData.logged) {
+          if('logged' in formData && !formData.logged) {
             $modalLogin.modal('show');
             e.stopPropagation();
           }
