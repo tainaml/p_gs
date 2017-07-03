@@ -45,7 +45,7 @@ if ('serviceWorker' in navigator) {
     .then((registration) => {
         messaging.useServiceWorker(registration);
         messaging.requestPermission().then(() => getToken())
-        .catch((err) => console.error('Unable to get permission to notify.', err));
+        .catch((err) => console.info('Notifications blocked!.', err));
 
         messaging.onTokenRefresh(() => {
             messaging.getToken()

@@ -1,7 +1,6 @@
 import re
 from django.contrib.auth import get_user_model
 from django.shortcuts import redirect
-from django.urls import reverse
 
 from django.utils.html import strip_spaces_between_tags
 from django.conf import settings
