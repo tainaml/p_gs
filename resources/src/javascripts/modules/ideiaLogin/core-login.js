@@ -107,7 +107,11 @@
             plugin.settings = $.extend({}, defaults, options);
 
             // code goes here
-            $element.on( 'click, focus, touchstart', function( event ) {
+            // log
+            var ua = navigator.userAgent,
+            evnt = (ua.match(/iPad/i) || ua.match(/iPhone/)) ? 'touchstart' : 'click, focus';
+
+            $element.on( evnt, function( event ) {
               plugin.settings.verify( plugin, event );
             });
         };
@@ -151,7 +155,7 @@
         var $e = $( this );
         $e.ideiaLogin( $e.data() );
         $e.on(evnt, function(e) {
-            e.preventDefault();
+          e.preventDefault();
         });
       });
     });
