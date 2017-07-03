@@ -32,6 +32,7 @@ class WizardMiddleware(object):
     ]
 
     redirect_list = [
+        'auth',
         'complete',
         'CoreForgotPassword',
         'CoreRegisterView'
