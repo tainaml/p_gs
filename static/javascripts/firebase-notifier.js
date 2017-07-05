@@ -16,11 +16,11 @@ function getLoggedLocalAttr() {
   var localLogged  = window.localStorage.getItem('isLogged');
 
   if (localLogged) {
-    setLocalLogged();
-    return getLoggedLocalAttr();
+      return localLogged;
   }
+  setLocalLogged();
+  return getLoggedLocalAttr();
 
-  return localLogged;
 }
 
 function hasLoggedStatusDifferent() {
