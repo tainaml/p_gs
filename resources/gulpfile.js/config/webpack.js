@@ -44,10 +44,10 @@ module.exports = function(env) {
   if(env !== 'test') {
 
     // Karma doesn't need entry points or output settings
-    webpackConfig.entry= {
+    webpackConfig.entry = {
       publication: ['./publication.js'],
       main: [ './main.js' ],
-      vendor: [ './vendor.js' ],
+      vendor: [ './vendor.js' ]
     };
 
     webpackConfig.output = {

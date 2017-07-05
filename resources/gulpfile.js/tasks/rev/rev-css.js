@@ -14,7 +14,8 @@ gulp.task('rev-css', function(){
     '!'+path.join(config.publicAssets, 'javascripts/summernote-*.js'),
     '!'+path.join(config.publicAssets, 'javascripts/jquery-*.js'),
     '!'+path.join(config.publicAssets, 'javascripts/django-*.js'),
-
+    '!'+path.join(config.publicAssets, 'javascripts/sw.js'),
+    '!'+path.join(config.publicAssets, 'javascripts/firebase-*.js'),
   ])
     .pipe(rev())
     .pipe(gulp.dest(config.publicAssets))

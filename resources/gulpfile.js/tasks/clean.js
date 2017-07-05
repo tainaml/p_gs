@@ -12,6 +12,8 @@ gulp.task('clean', function (cb) {
     '!'+path.join(config.publicAssets, 'javascripts/summernote-*.js'),
     '!'+path.join(config.publicAssets, 'javascripts/jquery-*.js'),
     '!'+path.join(config.publicAssets, 'javascripts/django-*.js'),
+    '!'+path.join(config.publicAssets, 'javascripts/sw.js'),
+    '!'+path.join(config.publicAssets, 'javascripts/firebase-*.js'),
   ]
   , {force: true}
   , cb);
