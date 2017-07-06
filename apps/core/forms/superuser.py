@@ -14,8 +14,8 @@ from apps.userprofile.models import Responsibility
 class SearchNotificationSubscribe(IdeiaForm):
 
     q = forms.CharField(required=False)
-    communities = forms.ModelMultipleChoiceField(queryset=Community.objects.all(), required=False)
-    responsibility = forms.ModelMultipleChoiceField(Responsibility.objects.all(), required=False)
+    communities = forms.ModelMultipleChoiceField(queryset=Community.objects.all().order_by("title"), required=False)
+    responsibility = forms.ModelMultipleChoiceField(Responsibility.objects.all().order_by("name"), required=False)
 
     HAS_USER_CHOICES = (
         ("","Todos"),
