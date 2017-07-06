@@ -40,7 +40,7 @@ class SearchNotificationSubscribe(IdeiaForm):
         queryset = GCMDevice.objects.filter(active=True)
 
         if q:
-            queryset = queryset.filter(Q(user__first_name__icontains=q) | Q(user__last_name__icontains=q))
+            queryset = queryset.filter(Q(user__username=q))
 
 
         if has_user == "True":
