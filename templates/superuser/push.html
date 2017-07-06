@@ -58,7 +58,15 @@
                     </div>
                     <div class="col-sm-2 form-group">
 
-                      <button class="btn-block btn-action" type="submit">
+                        {% render_field form.has_user class+="form-control" %}
+
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+
+                      <button class="form-group btn-action pull-right" type="submit">
                           Pesquisar inscrições
                         </button>
 

@@ -17,22 +17,36 @@ class SearchNotificationSubscribe(IdeiaForm):
     communities = forms.ModelMultipleChoiceField(queryset=Community.objects.all(), required=False)
     responsibility = forms.ModelMultipleChoiceField(Responsibility.objects.all(), required=False)
 
+    HAS_USER_CHOICES = (
+        ("","Todos"),
+        (True, "Registrados"),
+        (False, "Sem registro")
+    )
+    has_user = forms.ChoiceField(required=False, choices=HAS_USER_CHOICES)
+
 
     def __has_search_field(self, key):
         if key in self.cleaned_data and self.cleaned_data[key] is not None and self.cleaned_data[key] != '':
             return self.cleaned_data[key]
         else:
-            return False
+            return None
 
     def _get_queryset(self):
         q = self.__has_search_field("q")
         communities = self.__has_search_field("communities")
         responsibility = self.__has_search_field("responsibility")
+        has_user = self.__has_search_field("has_user")
 
         queryset = GCMDevice.objects.filter(active=True)
 
         if q:
             queryset = queryset.filter(Q(user__first_name__icontains=q) | Q(user__last_name__icontains=q))
+
+
+        if has_user == "True":
+            queryset = queryset.filter(Q(user__isnull=False))
+        elif has_user == "False":
+            queryset = queryset.filter(Q(user__isnull=True))
 
         if communities:
             communities_id = [community.id for community in communities]

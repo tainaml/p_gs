@@ -1,14 +1,9 @@
 from apps.core.business import feed as FeedBusiness
-from django.db.models import Q
 from django.http import JsonResponse
 from django.shortcuts import render
 from django.template.loader import render_to_string
-from django.utils import timezone
 from django.utils.safestring import mark_safe
 from django.views.generic import View
-from apps.article.models import Article
-from apps.core.business.content_types import ContentTypeCached
-from apps.feed.models import FeedObject
 import micawber
 from micawber.providers import Provider
 
