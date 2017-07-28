@@ -1,5 +1,5 @@
 {% load i18n %}
-
+{% load ads %}
 {% if feed_objects %}
 
     {% for feed in feed_objects %}
@@ -15,6 +15,7 @@
     {% if feed_objects.has_next %}
         <a data-jscroll-next href="{% url 'community:show' community.slug %}?criterio={{ form.cleaned_data.criterio|urlencode }}&official={{ form.cleaned_data.official|default_if_none:False }}&page={{ page }}&next={{ url_next|urlencode }}">Próximo</a>
     {% endif %}
+    {% ads_only_production "feed" "all" %}
 
 {% else %}
     <p class="text-center text-italic">{% trans 'Não existem itens a serem exibidos' %}</p>
