@@ -116,9 +116,7 @@
       border-right: none;
       color: #616161;
       font-size: 12px;
-      .gsticon {
-        margin-right: 5px;
-      }
+      .gsticon { margin-right: 5px; }
     }
     .gsti-rocket {
       width: 13px;
@@ -137,9 +135,7 @@
     }
     &:hover {
       img { opacity: .9 }
-      .single-author {
-        color: lighten(#616161, 10%);
-      }
+      .single-author { color: lighten(#616161, 10%); }
     }
   }
   &-reactions {
@@ -178,14 +174,11 @@
         &:hover { color: lighten(#d94545, 10%) }
         .icon-dislike { background-position: -91px 50% }
       }
-      &:last-child {
-        border-right: none;
-      }
+      &:last-child { border-right: none; }
     }
-    :hover {
-      opacity: .9;
-    }
+    :hover { opacity: .9; }
   }
+  .share-buttons { justify-content: flex-start; }
 }
 .single-aside {
   width: 300px;
