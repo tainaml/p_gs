@@ -71,11 +71,29 @@
                 </a>
             </div>
             <h1 class="amp-publication-title">{{ article.title }}</h1>
+            <amp-ad
+                layout="responsive"
+                width=300
+                height=250
+                type="adsense"
+                data-ad-client="ca-pub-2686766225121981"
+                data-ad-slot="4266156451">
+                </amp-ad>
         </header>
         {% amp_normalize_text article.text as text %}
         <div class="amp-publication-content">
             {{ text|safe }}
+
+                <amp-ad
+                layout="responsive"
+                width=300
+                height=250
+                type="adsense"
+                data-ad-client="ca-pub-2686766225121981"
+                data-ad-slot="4366955154">
+                </amp-ad>
         </div>
+
     </article>
     <aside class="amp-content-aside">
 {#        {% ampcleaner responsive=False %}#}
