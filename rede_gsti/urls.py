@@ -167,4 +167,4 @@ if hasattr(settings, 'PROFILER_APP') and getattr(settings, 'PROFILER_APP') == 's
     urlpatterns += [
         url(r'^admin/silk/', include('silk.urls', namespace='silk'))
     ]
-urlpatterns += url_search_all
+# urlpatterns += url_search_all
