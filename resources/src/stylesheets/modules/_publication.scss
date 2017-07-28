@@ -56,9 +56,7 @@
     }
     &:hover {
       color: #0160b0;
-      span img {
-        transform: scale(1.2);
-      }
+      span img { transform: scale(1.2); }
     }
   }
 }
@@ -176,7 +174,7 @@
       }
       &:last-child { border-right: none; }
     }
-    :hover { opacity: .9; }
+    &:hover { opacity: .9; }
   }
   .share-buttons {
     display: inline-flex;
@@ -210,7 +208,6 @@
 }
 .single-communities li {
 	margin: 0;
-	display: inline-block;
 	float: left;
 }
 .single-communities a {
@@ -274,9 +271,7 @@
     padding-right: 10px;
     border-right: 1px solid #616161;
   }
-  &-publications {
-    padding-left: 10px;
-  }
+  &-publications { padding-left: 10px; }
   &-about {
     margin-top: 16px;
     color: #616161;
@@ -291,9 +286,7 @@
   }
   &:hover {
     opacity: 0.9;
-    img {
-      transform: scale(1.2);
-    }
+    img { transform: scale(1.2); }
   }
 }
 
@@ -305,9 +298,7 @@
 }
 
 @media (max-width: $screen-xs-max) {
-  .single {
-    &-title { font-size: 26px }
-  }
+  .single-title { font-size: 26px }
   .single-main {
     width: 100%;
     padding-left: 15px;
@@ -322,9 +313,7 @@
       border-bottom: 1px solid #d6d4d4;
       .single-reaction {
         width: 50%;
-        &:last-child {
-          border-right: none;
-        }
+        &:last-child { border-right: none; }
       }
     }
   }
@@ -363,9 +352,7 @@
     display: block;
     float: none;
     text-align: center;
-    &:last-child a {
-      border-bottom: none;
-    }
+    &:last-child a { border-bottom: none; }
   }
   .single-communities .drop-communities a {
     padding: 10px 0;
@@ -384,20 +371,10 @@
     border-top: 1px solid #d6d4d4;
     border-bottom: 1px solid #d6d4d4;
 
-    &-image {
-      margin-right: 16px;
-    }
-    &-name {}
-    &-info {
-      > div {}
-    }
+    &-image { margin-right: 16px; }
     &-relationship { font-size: 12px }
-    &-followers {}
-    &-publications {}
     &-about { margin-bottom: 26px }
-    &-atuation {
-      font-size: 12px;
-    }
+    &-atuation { font-size: 12px; }
     .perfil-button-alt,
     .perfil-button {
       padding: 10px;
