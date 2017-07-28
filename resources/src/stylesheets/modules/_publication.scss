@@ -178,7 +178,10 @@
     }
     :hover { opacity: .9; }
   }
-  .share-buttons { justify-content: flex-start; }
+  .share-buttons {
+    display: inline-flex;
+    justify-content: flex-start;
+  }
 }
 .single-aside {
   width: 300px;
