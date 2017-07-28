@@ -81,7 +81,7 @@
                         <h1 class="widget-title">
                             <span>Enviar Notificação para <strong>{{ items }}</strong> inscrições</span>
                         </h1>
-                    </header>
+                </header>
             </div>
         </div>
          {% if success_message %}
@@ -100,6 +100,8 @@
                     {% render_field form_send.q class="hidden" %}
                     {% render_field form_send.communities class="hidden" %}
                     {% render_field form_send.responsibility class="hidden" %}
+                    {% render_field form.has_user class+="hidden" %}
+
                     {% csrf_token %}
                     <div class="col-sm-12 form-group">
                         {% render_field form_send.title class+="form-control" placeholder="Título" %}
