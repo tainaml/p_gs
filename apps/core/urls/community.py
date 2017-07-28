@@ -14,10 +14,10 @@ urlpatterns = [
     url(_(r'^search/community/list/$'), search.SearchCommunitiesList.as_view(), name='search-filter'),
 
     # Translators: URL de pagina principal de comunidade
-    url(_(r'^(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)$'), CoreViews.CoreCommunityFeedView.as_view(), name='show-whithout-bar'),
+    # url(_(r'^(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)$'), CoreViews.CoreCommunityFeedView.as_view(), name='show-whithout-bar'),
 
     # Translators: URL de pagina principal de comunidade without bar
-    url(_(r'^(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/$'), CoreViews.CoreCommunityFeedView.as_view(), name='show'),
+    url(_(r'^(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/?$'), CoreViews.CoreCommunityFeedView.as_view(), name='show'),
 
     # Translators: URL de pagina principal de comunidade without bar
     url(_(r'^(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/cursos/$'), CoreViews.CoreCommunityCourses.as_view(), name='courses'),
