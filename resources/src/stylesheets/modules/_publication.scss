@@ -225,7 +225,10 @@
     background-color: #f3f3f3;
   }
 }
-.btn-denunciar { color: #616161; }
+.btn-denunciar {
+  color: #616161;
+  line-height: 34px;
+}
 
 .publication-author {
   padding-top: 25px;
