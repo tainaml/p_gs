@@ -1,3 +1,4 @@
+{% load ads %}
 {% if feed_objects %}
 
     {% for feed in feed_objects.object_list %}
@@ -12,5 +13,7 @@
     {% endfor %}
 
     <a data-jscroll-next href="{% url 'profile:show' profile.user.username %}?criterio={{ form.cleaned_data.criterio|urlencode }}&page={{ page|default_if_none:form.cleaned_data.page }}&next={{ url_next|urlencode }}">Próximo</a>
-
+    <div class="post">
+         {% ads_only_production "feed" "all" %}
+    </div>
 {% endif %}
