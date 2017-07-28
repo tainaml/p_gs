@@ -166,9 +166,16 @@
             <div class="single-main-content" data-target="post-content">
                 {% ads_only_production "article_top" "all" %}
                 {% thumbor_replace article.text %}
+
             </div>
+
             <div class="publication-main-footer">
+
                 <div class="clearfix">
+                <span class="btn-denunciar pull-left">COMPARTILHE:</span>
+                    {% with instance_full_url="https://www.portalgsti.com.br"|add:article.get_absolute_url title=article.title %}
+                        {% include 'article/partials/share.html' with title=title url=instance_full_url %}
+                    {% endwith %}
                     <a class="btn-denunciar pull-right" data-url-login="{% url 'account:is_logged' %}" data-trigger="login" data-token="{{ csrf_token }}" href="{% url 'complaint:report' 'article' article.id %}" data-report="true" data-async-module="click" data-async-target="#modal-report" data-async-method="get"><i class="gsticon gsticon-flag"></i> Denunciar</a>
 
                 </div>
