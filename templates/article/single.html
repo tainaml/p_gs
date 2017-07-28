@@ -129,7 +129,7 @@
                         <span class="single-author-image">
                             <img width="40" height="40" src="{% get_avatar article.author width=40 height=40 smart=False fit_in=False %}" alt="foto de {{ instance.author.get_full_name }}">
                             {% if article.author.profile.contributor %}
-                            <div class="is-official" data-toggle="tooltip" data-placement="bottom" title="Colaborador do Portal"></div>
+                            <div class="is-official" data-toggle="tooltip" data-placement="bottom" title="Equipe do Portal GSTI"></div>
                             {% endif%}
                         </span>
                     </a>
@@ -174,15 +174,16 @@
                 </div>
                 {% include 'userprofile/templatetags/profile-box.html' with profile=article.author.profile partial_template="userprofile/templatetags/profile-box-horizontal.html" %}
 
+                <div class="advertising-horizontal hidden-xs">
+                        {% ads_only_production "article_bottom" "all"  %}
+                </div>
                 <div id="load-related-posts" data-load-async="true" data-load-async-url="{% url 'core:related-posts' article.id "article" "article" 3 %}" data-load-async-url-next="{{ request.path }}" data-load-async-method="get" data-load-async-response-type="json" data-load-async-timeout="1">
 {#                    {% include "article/partials/recomendations.html" %}#}
                     <div class="load-async load-async-content">
                     <div class="load-async-preload"></div>
                     </div>
                     {% csrf_token %}
-                            <div class="advertising-horizontal hidden-xs">
-                        {% ads_only_production "article_bottom" "all"  %}
-                    </div>
+
                 </div>
 
             </div>
