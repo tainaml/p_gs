@@ -138,6 +138,24 @@
 
 <script src="{% static_versioned 'javascripts/shared.js'%}"></script>
 <script src="{% static_versioned 'javascripts/main.js'%}"></script>
+ <script>
+        $(function(){
+
+
+            var tigre = jQuery().tigreAgenteMR({
+                                tigreAppID: '6011F0D30DF54607A7BB8EE047D1E741',
+            fbAppId: '1486237578359462',
+            useFB: true,
+            useLoading: false,
+            fbScope: 'email,public_profile',
+            fbBtnLogin: 'btn-facebook',
+            onErrorUserRegister: function (s, m) { }
+
+            });
+
+
+        });
+    </script>
 
 {% if request.user.is_anonymous %}
     <script src="https://www.google.com/recaptcha/api.js?hl=pt-BR" async defer></script>
