@@ -21,7 +21,7 @@
                     </div>
                     {% endcomment %}
                     <div class="social-login">
-                        <a id="btn-facebook" class="btn-login-facebook" href="javascript:;">
+                        <a id="btn-facebook" class="btn-login-facebook" href="{% url 'social:begin' backend='facebook' %}">
                             <i class="gsticon gsticon-facebook"></i>
                             Facebook
                         </a>
