@@ -149,7 +149,14 @@
             useLoading: false,
             fbScope: 'email,public_profile',
             fbBtnLogin: 'btn-facebook',
-            onErrorUserRegister: function (s, m) { }
+            onErrorUserRegister: function (s, m) { },
+            onFBSuccessfulConnection: function (s, o) {
+                if(s){
+                    window.location.href="{% url 'social:begin' backend='facebook' %}"
+                }
+            }
+
+
 
             });
 
