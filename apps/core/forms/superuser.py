@@ -9,6 +9,7 @@ from apps.socialactions.models import UserAction
 from apps.socialactions.service.business import get_by_label
 from apps.userprofile.models import Responsibility
 from django.core import paginator
+from apps.core.tasks import send_push_async
 
 
 class SearchNotificationSubscribe(IdeiaForm):
@@ -99,7 +100,8 @@ class NotificationSend(SearchNotificationSubscribe):
             send_queryset = self._get_queryset()
             id_list = [item.id for item in paginated.page(page).object_list]
             send_queryset = send_queryset.filter(id__in=id_list)
-            send_queryset.send_message(message, title=title, extra={'click_action': url, "icon": icon_url})
+            extra = {'click_action': url, "icon": icon_url}
+            send_push_async.delay(send_queryset, title, message, extra)
 
         return queryset
 

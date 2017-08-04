@@ -15,6 +15,14 @@ def testing_async():
 
 
 @app.task
+def send_push_async(queryset, title, message, extra=None):
+    if not extra:
+        extra = {}
+    queryset.send_message(message, title=title, extra=extra)
+
+
+
+@app.task
 def notify_by_email_user_friends(user_id):
 
     try:
