@@ -93,10 +93,12 @@ class NotificationSend(SearchNotificationSubscribe):
         icon_url = generate_url(icon_url, width=60, height=60)
 
 
-        paginated = paginator.Paginator(queryset, 50)
+        per_page = 50
+        paginated = paginator.Paginator(queryset, per_page)
+        offset = 0
         for page in paginated.page_range:
-           paginated.page(page).object_list.send_message(message, title=title, extra={'click_action': url, "icon": icon_url})
-
+            queryset[offset*page:(offset*page)+per_page].send_message(message, title=title, extra={'click_action': url, "icon": icon_url})
+            offset = offset+ per_page
 
         return queryset
 
