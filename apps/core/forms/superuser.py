@@ -93,7 +93,7 @@ class NotificationSend(SearchNotificationSubscribe):
         icon_url = generate_url(icon_url, width=60, height=60)
 
 
-        per_page = 10
+        per_page = 25
         paginated = paginator.Paginator(queryset, per_page)
         for page in paginated.page_range:
             send_queryset = self._get_queryset()
