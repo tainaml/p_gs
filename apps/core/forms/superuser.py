@@ -8,6 +8,7 @@ from apps.custom_base.service.custom import forms,  IdeiaForm
 from apps.socialactions.models import UserAction
 from apps.socialactions.service.business import get_by_label
 from apps.userprofile.models import Responsibility
+from django.core import paginator
 
 
 class SearchNotificationSubscribe(IdeiaForm):
@@ -90,7 +91,12 @@ class NotificationSend(SearchNotificationSubscribe):
 
         icon_url = "https://www.portalgsti.com.br/static/images/favicon-96x96.png"
         icon_url = generate_url(icon_url, width=60, height=60)
-        queryset.send_message(message, title=title, extra={'click_action': url, "icon": icon_url})
+
+
+        paginated = paginator.Paginator(queryset, 50)
+        for page in paginated.page_range:
+           paginated.page(page).send_message(message, title=title, extra={'click_action': url, "icon": icon_url})
+
 
         return queryset
 
