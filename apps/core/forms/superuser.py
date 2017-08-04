@@ -90,8 +90,7 @@ class NotificationSend(SearchNotificationSubscribe):
 
         icon_url = "https://www.portalgsti.com.br/static/images/favicon-96x96.png"
         icon_url = generate_url(icon_url, width=60, height=60)
-        for item in queryset:
-            item.send_message(message, title=title, extra={'click_action': url, "icon": icon_url})
+        queryset.send_message(message, title=title, extra={'click_action': url, "icon": icon_url})
 
         return queryset
 
