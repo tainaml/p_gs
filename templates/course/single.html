@@ -140,6 +140,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-sm-8 course__menu">
+                        {% ads_only_production "article_top" "all" %}
                         <h2 class="course__menu__title">Ementa do Curso</h2>
                         <ul class="course__menu__classes">
                             {% for curriculum in instance.curriculums.all %}
