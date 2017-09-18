@@ -36,6 +36,9 @@ urlpatterns = [
     # Translators: URL de sobre
     url(_(r'^politica-de-privacidade/'), flatpagesviews.flatpage, {'url': '/privacity/'}, name='privacy'),
 
+    # Translators: URL de sobre
+    url(_(r'^midia-kit/'), flatpagesviews.flatpage, {'url': '/midia-kit/'}, name='midia-kit'),
+
     url(_(r'^oembed/'), CoreView.OEmbed.as_view(), name='oembed'),
 
 ]
