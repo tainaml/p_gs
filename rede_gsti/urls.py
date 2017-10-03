@@ -43,6 +43,9 @@ urlpatterns = [
     url(r'^jet/', include('jet.urls', 'jet')),  # Django JET URLS
     url(_(r'^admin/'), include(admin.site.urls)),
 
+    # API
+    url(r'^api/v(?P<version>(1.0))/', include('apps.api.urls', namespace='api')),
+
     # Job vacancy
     url_job_vacancy,
 

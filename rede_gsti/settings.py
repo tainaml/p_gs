@@ -164,10 +164,20 @@ THIRD_PART_APPS = (
     'djkombu',
     'djcelery',
     'kombu.transport.django',
-    'push_notifications'
+    'push_notifications',
+
+    #API
+    'rest_framework',
+     'oauth2_provider',
+    'social_django',
+    'rest_framework_social_oauth2',
+
+    #CORS
+    'corsheaders'
 )
 
 INTERNAL_APPS = (
+
 
     'apps.core',
     'apps.account',
@@ -191,11 +201,14 @@ INTERNAL_APPS = (
     'apps.certification',
     'apps.useralerts',
     'apps.temp_comment',
-    'apps.job_vacancy'
+    'apps.job_vacancy',
+    'apps.api'
 
 )
 
 DEBUG = False
+
+
 
 #SESSION
 SESSION_ENGINE = "django.contrib.sessions.backends.cache"
@@ -241,6 +254,8 @@ MIDDLEWARE_CLASSES = (
 
 AUTH_USER_MODEL = 'account.User'
 AVAIABLE_TYPES_TO_RATE = ['course']
+
+
 
 
 LOCALE_PATHS = (
@@ -986,10 +1001,37 @@ ARTICLE_IMAGE_SIZE = {
 }
 
 
+#REST FRAMEWORK
+REST_FRAMEWORK = {
+'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.URLPathVersioning',
+'DEFAULT_RENDERER_CLASSES': (
+        'rest_framework.renderers.JSONRenderer',
+        'rest_framework.renderers.BrowsableAPIRenderer',
+    ),
+'DEFAULT_AUTHENTICATION_CLASSES': (
+    'oauth2_provider.contrib.rest_framework.OAuth2Authentication',
+    'rest_framework_social_oauth2.authentication.SocialAuthentication',
+    ),
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination'
+}
+
+DRFSO2_URL_NAMESPACE = 'api:auth'
+
+
 # Setting Environment specific settings
 if ENVIRONMENT == "develop":
     DEBUG = True
 
+    MIDDLEWARE_CLASSES+= ('corsheaders.middleware.CorsMiddleware',)
+
+    CORS_ORIGIN_WHITELIST = (
+        'localhost:8100',
+        'localhost:9000',
+        '192.168.0.1:8100',
+        '192.168.0.12',
+        '*'
+
+    )
     profiler = config.get("DEVELOP", 'profiler')
 
     PROFILER_APP = None
@@ -1069,3 +1111,6 @@ elif ENVIRONMENT == "production":
                 'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
             }
         }
+
+
+ALLOWED_HOSTS = ['*']
