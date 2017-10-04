@@ -11,11 +11,6 @@ class FeedResultsSetPagination(PageNumberPagination):
     page_size_query_param = 'page_size'
     max_page_size = 50
 
-class CommunityResultsSetPagination(PageNumberPagination):
-    page_size = 5
-    page_size_query_param = 'page_size'
-    max_page_size = 5
-
 class CommentResultsSetPagination(PageNumberPagination):
     page_size = 10
     page_size_query_param = 'page_size'
@@ -26,3 +21,13 @@ class MatchesResultsSetPagination(PageNumberPagination):
     page_size = 380
     page_size_query_param = 'page_size'
     max_page_size = 100
+
+
+
+
+
+class CommunityResultsSetPagination(PageNumberPagination):
+    page_size = 10
+    page_size_query_param = 'page_size'
+    max_page_size = 50
+

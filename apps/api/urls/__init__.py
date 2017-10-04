@@ -8,3 +8,6 @@ urlpatterns = [
 
 
 ]
+
+
+urlpatterns += [url(r'^communities/', include('apps.api.urls.community', namespace='community'))]
