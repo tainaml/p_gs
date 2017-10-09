@@ -11,19 +11,18 @@ class CommunityViewset(viewsets.ModelViewSet):
     serializer_class = CommunitySerializer
     pagination_class = CommunityResultsSetPagination
 
+    _30_MINUTUES = 60 * 60 * 30
 
-    @method_decorator(cache_page(10))
+    @method_decorator(cache_page(_30_MINUTUES))
     def dispatch(self, request, *args, **kwargs):
         return super(CommunityViewset, self).dispatch(request, *args, **kwargs)
 
     def get_queryset(self):
         queryset = CommunityViewset.queryset
 
-
         term = self.request.query_params.get('term', None)
 
-        if term is not None:
-            print term
+        if term not in [None, ""]:
             queryset = queryset.filter(taxonomy__term__slug=term)
 
 

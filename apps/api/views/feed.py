@@ -10,7 +10,7 @@ from django.utils.decorators import method_decorator
 from django.views.decorators.cache import cache_page
 
 class FeedViewset(viewsets.ModelViewSet):
-    queryset = FeedObject.objects.all().prefetch_related("content_object", "content_type","content_object__author")
+    queryset = FeedObject.objects.all().prefetch_related("content_object", "content_type","content_object__author", "communities")
     serializer_class = FeedObjectSerializer
     pagination_class = FeedResultsSetPagination
     ordering_fields = ('date',)
@@ -54,19 +54,19 @@ class FeedViewset(viewsets.ModelViewSet):
 
 
 
-        if object_id is not None:
+        if object_id not in [None, ""]:
             queryset = queryset.filter(object_id=object_id)
 
-        if taxonomies is not None:
+        if taxonomies not in [None, ""]:
             queryset = queryset.filter(taxonomies__in=taxonomies.split(","))
 
-        if communities is not None:
+        if communities not in [None, ""]:
             queryset = queryset.filter(communities__in=communities.split(","))
 
-        if official is not None:
+        if official not in [None, ""]:
             queryset = queryset.filter(official=official.lower() == "true")
 
-        if after is not None:
+        if after not in [None, ""]:
             queryset = queryset.filter(id__gt=after)
 
 

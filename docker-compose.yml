@@ -3,7 +3,6 @@ services:
   thumbor:
     image: zanui/thumbor
     environment:
-      AUTO_WEBP: "False"
       USE_GIFSICLE_ENGINE: "True"
       MAX_AGE: 5000
       MAX_AGE_TEMP_IMAGE: 240
@@ -17,7 +16,7 @@ services:
       RESULT_STORAGE_STORES_UNSAFE: "True"
       RESULT_STORAGE: "thumbor.result_storages.file_storage"
     ports:
-      - "8888:9000"
+      - "9000:9000"
     network_mode: "host"
   memcached:
     image: memcached
