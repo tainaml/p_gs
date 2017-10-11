@@ -1,5 +1,4 @@
 from apps.api.serializers.community import CommunitySerializer
-from apps.api.serializers.content_type import ContentTypeSerializer
 from apps.api.serializers.user import SimpleUserSerializer
 from apps.article.models import Article
 from apps.feed.models import FeedObject
@@ -62,7 +61,7 @@ class SimpleArticleSerializer(serializers.ModelSerializer):
     text = serializers.SerializerMethodField('get_partial_text')
 
     def get_partial_text(self, obj):
-        return striptags(obj.text[:100])  + "..."
+        return striptags(obj.text[:100]) + "..."
 
     def get_abs_image(self, obj):
 
