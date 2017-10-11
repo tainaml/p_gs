@@ -11,3 +11,4 @@ urlpatterns = [
 
 
 urlpatterns += [url(r'^communities/', include('apps.api.urls.community', namespace='community'))]
+urlpatterns += [url(r'^articles/', include('apps.api.urls.article', namespace='article'))]

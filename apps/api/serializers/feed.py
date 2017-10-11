@@ -1,4 +1,4 @@
-from apps.api.serializers.article import ArticleSerializer
+from apps.api.serializers.article import SimpleArticleSerializer
 from apps.api.serializers.community import CommunitySerializer
 from apps.api.serializers.content_type import ContentTypeSerializer
 from apps.api.serializers.profilestatus import ProfileStatusSerializer
@@ -15,7 +15,7 @@ class RelatedContentObject(serializers.RelatedField):
     def to_representation(self, value):
         request =  self.context['request']
         if isinstance(value, Article):
-            serializer = ArticleSerializer(value, context={'request': request})
+            serializer = SimpleArticleSerializer(value, context={'request': request})
         elif isinstance(value, Question):
             serializer = QuestionSerializer(value, context={'request': request})
         elif isinstance(value, ProfileStatus):
@@ -46,3 +46,6 @@ class FeedObjectSerializer(serializers.ModelSerializer):
 
         )
         read_only_fields = fields
+
+
+

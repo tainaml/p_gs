@@ -17,7 +17,7 @@ services:
       RESULT_STORAGE: "thumbor.result_storages.file_storage"
     ports:
       - "9000:9000"
-    network_mode: "host"
+#    network_mode: "host"
   memcached:
     image: memcached
     ports:

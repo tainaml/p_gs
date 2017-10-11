@@ -9,6 +9,9 @@ from django.contrib.admin.models import ContentType
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import cache_page
 
+
+
+
 class FeedViewset(viewsets.ModelViewSet):
     queryset = FeedObject.objects.all().prefetch_related("content_object", "content_type","content_object__author", "communities")
     serializer_class = FeedObjectSerializer
@@ -35,6 +38,7 @@ class FeedViewset(viewsets.ModelViewSet):
         content_type = self.request.query_params.get('content_type', None)
         taxonomies = self.request.query_params.get('taxonomies', None)
         communities = self.request.query_params.get('communities', None)
+        q = self.request.query_params.get('q', None)
 
         official = self.request.query_params.get('official', None)
         object_id = self.request.query_params.get('object_id', None)
@@ -50,6 +54,16 @@ class FeedViewset(viewsets.ModelViewSet):
             except ContentType.DoesNotExist:
 
                 raise Http404()
+
+
+
+
+        if q not in [None, ""]:
+            queryset = queryset.filter(
+                Q(article__title__icontains=q)
+                | Q(question__title__icontains=q)
+                | Q(profile_status__text__icontains=q)
+            )
 
 
 
