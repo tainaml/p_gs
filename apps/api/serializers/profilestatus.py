@@ -10,6 +10,7 @@ class ProfileStatusSerializer(serializers.ModelSerializer):
     class Meta:
         model = ProfileStatus
         fields = (
+            "id",
             'text',
             'publishin',
             'comment_count',

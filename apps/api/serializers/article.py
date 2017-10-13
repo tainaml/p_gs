@@ -72,6 +72,7 @@ class SimpleArticleSerializer(serializers.ModelSerializer):
     class Meta:
         model = Article
         fields = (
+            "id",
             'title',
             'text',
             'createdin',
