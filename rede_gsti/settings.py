@@ -1006,7 +1006,7 @@ REST_FRAMEWORK = {
 'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.URLPathVersioning',
 'DEFAULT_RENDERER_CLASSES': (
         'rest_framework.renderers.JSONRenderer',
-        'rest_framework.renderers.BrowsableAPIRenderer',
+
     ),
 'DEFAULT_AUTHENTICATION_CLASSES': (
     'oauth2_provider.contrib.rest_framework.OAuth2Authentication',
@@ -1016,6 +1016,8 @@ REST_FRAMEWORK = {
 }
 
 DRFSO2_URL_NAMESPACE = 'api:auth'
+if DEBUG is True:
+    REST_FRAMEWORK['DEFAULT_RENDERER_CLASSES'] += ('rest_framework.renderers.BrowsableAPIRenderer',)
 
 
 # Setting Environment specific settings
