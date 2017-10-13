@@ -58,7 +58,6 @@ PyJWT==1.5.3
 python-dateutil==2.6.1
 python-memcached==1.57
 python-openid==2.2.5
-python-social-auth==0.3.6
 pytz==2017.2
 PyYAML==3.10
 requests==2.18.4
@@ -72,3 +71,4 @@ ua-parser==0.6.1
 urllib3==1.22
 user-agents==1.0.1
 django-cors-headers==2.1.0
+python-social-auth==0.2.21
