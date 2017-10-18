@@ -1,0 +1,70 @@
+.ranking__contributors {
+  margin-bottom: 20px;
+  border: 1px solid #e1e1e1;
+  &__title {
+    padding: 16px;
+    margin: 0;
+    color: #616161;
+    font-family: "Open Sans";
+    font-size: 18px;
+    font-weight: 400;
+    text-align: left;
+    text-transform: uppercase;
+  }
+  &__list {
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+
+    counter-reset: top_five;
+    li {
+      min-height: 87px;
+      padding-left: 14px;
+      background-color: #fbfbfb;
+      list-style: none;
+      display: flex;
+      align-items: center;
+      justify-self: center;
+      &::before {
+        counter-increment: top_five;
+        content: counter(top_five);
+        padding-right: 22px;
+        color: #616161;
+        font-family: "Open Sans";
+        font-size: 40px;
+        font-weight: 400;
+        text-transform: uppercase;
+        vertical-align: middle;
+      }
+      &:nth-child(even) {
+        background-color: #ffffff;
+        &::before {
+          color: #ff6f00;
+        }
+      }
+      .ranking__contributor {
+        //   display: flex;
+        //   flex-direction: column;
+        width: 100%;
+        text-align: left;
+        img {
+          float: left;
+          margin-right: 15px;
+        }
+        h3 {
+          margin: 0 0 12px;
+          color: #616161;
+          font: 400 16px/100% "Open Sans";
+        }
+        p {
+          margin: 0;
+          color: #adacac;
+          font: 400 11px/100% "Open Sans";
+          text-transform: uppercase;
+          letter-spacing: 0.55px;
+        }
+      }
+    }
+  }
+}

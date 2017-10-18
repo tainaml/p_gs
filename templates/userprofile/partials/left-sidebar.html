@@ -34,12 +34,17 @@
         </span>
     </div>
 
+    <div class="profile__sidebar__xp">
+        <span class="profile__sidebar__xp__label">XP</span>
+        <span class="profile__sidebar__xp__value">1052</span>
+    </div>
 
     {% if request.user != profile.user %}
         {% follow_action profile.user request.path "btn-follow" %}
     {% else %}
         {% include 'userprofile/partials/dropdown-publication.html' %}
     {% endif %}
+
 
 
     {% if profile.user.is_company and profile.user == request.user %}

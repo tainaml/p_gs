@@ -1,28 +1,71 @@
 {% load user_agents %}
 
 <div class="col-lg-4">
-{#    <div class="squad-advertising">#}
-{#        <img class="img-responsive" src="http://placehold.it/270x225" alt="Propaganda aqui">#}
-{#    </div>#}
+    {# <div class="squad-advertising">#}
+    {# <img class="img-responsive" src="http://placehold.it/270x225" alt="Propaganda aqui">#}
+    {# </div>#}
+
+    <div class="ranking__contributors">
+        <h2 class="ranking__contributors__title">TOP 5</h2>
+        <ol class="ranking__contributors__list">
+            <li>
+                <div class="ranking__contributor">
+                    <img width="40" height="40" src="https://randomuser.me/api/portraits/men/47.jpg" alt="Username Here" />
+                    <h3>Fernando Palma</h3>
+                    <p>XP 1900</p>
+                </div>
+            </li>
+            <li>
+                <div class="ranking__contributor">
+                    <img width="40" height="40" src="https://randomuser.me/api/portraits/men/47.jpg" alt="Username Here" />
+                    <h3>Fernando Palma</h3>
+                    <p>XP 1900</p>
+                </div>
+            </li>
+            <li>
+                <div class="ranking__contributor">
+                    <img width="40" height="40" src="https://randomuser.me/api/portraits/men/47.jpg" alt="Username Here" />
+                    <h3>Fernando Palma</h3>
+                    <p>XP 1900</p>
+                </div>
+            </li>
+            <li>
+                <div class="ranking__contributor">
+                    <img width="40" height="40" src="https://randomuser.me/api/portraits/men/47.jpg" alt="Username Here" />
+                    <h3>Fernando Palma</h3>
+                    <p>XP 1900</p>
+                </div>
+            </li>
+            <li>
+                <div class="ranking__contributor">
+                    <img width="40" height="40" src="https://randomuser.me/api/portraits/men/47.jpg" alt="Username Here" />
+                    <h3>Fernando Palma</h3>
+                    <p>XP 1900</p>
+                </div>
+            </li>
+        </ol>
+    </div>
 
     {% if request|is_pc %}
 
-        <!-- Comunidades -->
-        <div id="load-communities" data-load-async="true" data-load-async-url="{% url 'profile:communities-load-ajax' profile.user.username %}" data-load-async-url-next="{{ request.path }}" data-load-async-method="get" data-load-async-response-type="json">
-            <div class="load-async load-async-content">
-                <div class="load-async-preload"></div>
-            </div>
-            {% csrf_token %}
+    <!-- Comunidades -->
+    <div id="load-communities" data-load-async="true" data-load-async-url="{% url 'profile:communities-load-ajax' profile.user.username %}"
+        data-load-async-url-next="{{ request.path }}" data-load-async-method="get" data-load-async-response-type="json">
+        <div class="load-async load-async-content">
+            <div class="load-async-preload"></div>
         </div>
+        {% csrf_token %}
+    </div>
 
 
-        <!-- Seguindo -->
-        <div id="load-followings" data-load-async="true" data-load-async-url="{% url 'profile:followings-load-ajax' profile.user.username %}" data-load-async-url-next="{{ request.path }}" data-load-async-method="get" data-load-async-response-type="json">
-            <div class="load-async load-async-content">
-                <div class="load-async-preload"></div>
-            </div>
-            {% csrf_token %}
+    <!-- Seguindo -->
+    <div id="load-followings" data-load-async="true" data-load-async-url="{% url 'profile:followings-load-ajax' profile.user.username %}"
+        data-load-async-url-next="{{ request.path }}" data-load-async-method="get" data-load-async-response-type="json">
+        <div class="load-async load-async-content">
+            <div class="load-async-preload"></div>
         </div>
+        {% csrf_token %}
+    </div>
 
     {% endif %}
 
