@@ -72,3 +72,4 @@ urllib3==1.22
 user-agents==1.0.1
 django-cors-headers==2.1.0
 python-social-auth==0.2.21
+Django==1.10.7
