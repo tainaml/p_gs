@@ -9,11 +9,11 @@ from django.utils import timezone
 from django.utils.functional import cached_property
 from django.utils.translation import ugettext as _
 from django.conf import settings
-from social.apps.django_app.default.models import UserSocialAuth
 from apps.core.business.content_types import ContentTypeCached
 from apps.custom_base.service.custom import CustomPaginator
 from apps.socialactions.models import Counter, UserAction
 from .manager import UserManager
+from social_django.models import UserSocialAuth
 
 
 def limit_usertypes_to(value):

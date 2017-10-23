@@ -4,7 +4,7 @@ from django.shortcuts import redirect
 from django.utils.text import slugify
 from requests import request, HTTPError, ConnectionError
 from django.core.files.base import ContentFile
-from social.pipeline.partial import partial
+from social_core.pipeline.partial import partial
 from apps.account.models import User
 from django.core.exceptions import PermissionDenied
 from apps.userprofile.service.business import  get_profile as GetProfile
@@ -28,8 +28,8 @@ def require_email(strategy, details, user=None, is_new=False, *args, **kwargs):
             return redirect('require_email')
 
 
-@partial
 def validate_username(**kwargs):
+
     username = kwargs.get('username')
     if username:
         username = str(username).lower()
