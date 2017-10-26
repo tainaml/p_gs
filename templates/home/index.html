@@ -5,8 +5,13 @@
 {% load home_blocks %}
 {% load bighomecache %}
 {% load ads %}
+{% load static_versioned %}
 {% block seo-og-title %}{% block seo_title %}Portal GSTI - Um mundo de informações para TI{% endblock %}{% endblock %}
 {% block seo-og-description %}{% block seo-description %}O seu portal definitivo de TI. Conteúdo, área para tirar dúvidas, informações sobre vagas de trabalho, concursos e certificações. Conheça nossas comunidades!{% endblock %}{% endblock %}
+
+{% block page_stylesheet %}
+<link rel="stylesheet" href="{% static_versioned 'stylesheets/home.css' %}">
+{% endblock page_stylesheet %}
 
 {% block logo %}
 <h1 class="gsti">

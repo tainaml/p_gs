@@ -32,6 +32,8 @@
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700">
     <link rel="stylesheet" href="{% static_versioned 'stylesheets/style.css' %}">
+    {% block page_stylesheet %}{% endblock page_stylesheet %}
+
     {% block link_pagination %}{% endblock link_pagination %}
     <link rel="apple-touch-icon-precomposed" sizes="57x57" href="{% static 'images/apple-touch-icon-57x57.png' %}" />
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{% static 'images/apple-touch-icon-114x114.png' %}" />
