@@ -11,7 +11,8 @@ from apps.company.models import Company
 from apps.geography.models import City, State, Country
 from apps.taxonomy.models import Taxonomy
 from apps.userprofile.models import Responsibility
-from social.utils import slugify
+from social_core.utils import slugify
+
 
 class JobRegime(models.Model):
     description = models.CharField(blank=False, null=False, max_length=100, verbose_name=_('Description'))

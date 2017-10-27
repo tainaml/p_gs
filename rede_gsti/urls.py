@@ -71,7 +71,7 @@ urlpatterns = [
     url(_(r'^socialactions/'), include('apps.socialactions.urls', namespace='socialactions')),
 
     # Translators: URL root de redes sociais
-    url('', include('social.apps.django_app.urls', namespace='social')),
+    url('', include('social_django.urls', namespace='social')),
 
     # Translators: URL root de notificacoes
     url(_(r'^notifications/'), include('apps.core.urls.notifications', namespace='notifications')),
