@@ -201,7 +201,8 @@ INTERNAL_APPS = (
     'apps.useralerts',
     'apps.temp_comment',
     'apps.job_vacancy',
-    'apps.api'
+    'apps.api',
+    'apps.gamification'
 
 )
 

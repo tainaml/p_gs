@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-
+from __future__ import absolute_import
+from apps.core.models.embed import EmbedItem
 from django.core.exceptions import ValidationError
 import os
 from datetime import datetime
@@ -13,8 +14,6 @@ from django.utils.functional import cached_property
 from django.utils.html import strip_tags
 from django.utils.translation import ugettext as _
 from django.conf import settings
-from apps.comment.models import Comment
-from apps.core.models.embed import EmbedItem
 from apps.feed.models import FeedObject
 from apps.socialactions.models import Counter, UserAction
 from apps.core.utils import build_absolute_uri

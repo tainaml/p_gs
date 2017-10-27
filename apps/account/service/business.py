@@ -16,7 +16,7 @@ from apps.account.models import MailValidation, User
 
 __author__ = 'phillip'
 
-UserModel = get_user_model()
+# UserModel = get_user_model()
 def create_user_by_parameters(parameters):
 
     """
@@ -234,6 +234,7 @@ def log_in_user(request=None, user=None):
     :param user: user to attach
     :return:
     """
+    UserModel = get_user_model()
     if user and user.usertype == UserModel.ORGANIZATION:
         return False
     try:
@@ -244,7 +245,7 @@ def log_in_user(request=None, user=None):
 
 
 def log_in_user_no_credentials(request, user):
-
+    UserModel = get_user_model()
     if user.usertype == UserModel.ORGANIZATION:
         return
 
