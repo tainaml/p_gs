@@ -1,6 +1,8 @@
 // parts
 @import "layout/header";
-@import "layout/footer";
+@import "base/utilities/variables";
+@import "base/utilities/media-queries";
+@import "base/organisms/footer";
 
 // home parts
 @import "layout/home";

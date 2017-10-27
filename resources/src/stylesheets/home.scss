@@ -1,13 +1,14 @@
 
 // UTILITIES
-@import "home/utilities/variables";
-@import "home/utilities/media-queries";
+@import "base/utilities/variables";
+@import "base/utilities/media-queries";
 
 // ATOMS
 
 // MOLECULES
 
 // ORGANISMS
-@import "home/organisms/footer";
+@import "base/organisms/header";
+@import "base/organisms/footer";
 
 // TEMPLATES

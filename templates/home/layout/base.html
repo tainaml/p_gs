@@ -73,7 +73,16 @@
     {% include 'home/partials/slideout-menu.html' %}
 </div>
 <div class="slideout-panel {% block page_class %}{% endblock page_class %}" id="wrapper">
-    <header class="header">
+    <header class="header app-header">
+        <div class="app-header-container">
+            <div class="appt-header-button--menu">botão do menu mobile</div>
+            {% block logo %}
+            <div class="app-header-logo--mobile">
+                <a class="app-header-logo--mobile-link" href="{% url 'index' %}" title="Portal GSTI">Portal GSTI</a>
+            </div>
+            {% endblock logo %}
+            <div>{% include 'home/partials/user-actions.html' %}</div>
+        </div>
         <div class="container">
             <div class="menu-mobile hidden-lg">
                 <div class="mobile-search" id="mobile-search" style="display: none;">
@@ -92,11 +101,6 @@
                             <i class="gsticon gsticon-sign-in"></i>
                         {% endif %}
                     </a>
-                    {% block logo %}
-                    <div class="gsti">
-                        <a class="gsti-link" href="{% url 'index' %}" title="Portal GSTI">Portal GSTI</a>
-                    </div>
-                    {% endblock logo %}
                     <a class="btn-show-item toggle-search" data-item="#mobile-search" href="#">
                         <i class="gsticon gsticon-search"></i>
                     </a>
@@ -104,8 +108,8 @@
             </div>
             <div class="row menu-desktop visible-lg-block">
               {% block logo_mobile %}
-              <div class="gsti">
-                  <a class="gsti-link" href="{% url 'index' %}" title="Portal GSTI">Portal GSTI</a>
+              <div class="app-header-logo--mobile">
+                  <a class="gsti-link app-header-logo--mobile-link" href="{% url 'index' %}" title="Portal GSTI">Portal GSTI</a>
               </div>
               {% endblock logo_mobile %}
                 <div class="search-header-container{% if request.user.is_authenticated %}--logged{% endif %}">

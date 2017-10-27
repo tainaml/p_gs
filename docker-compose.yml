@@ -3,25 +3,27 @@ services:
   thumbor:
     image: zanui/thumbor
     environment:
+      AUTO_WEBP: "True"
       USE_GIFSICLE_ENGINE: "True"
       MAX_AGE: 5000
       MAX_AGE_TEMP_IMAGE: 240
       MAX_SOURCE_SIZE: 500
       QUALITY: 100
-      DETECTORS: "['thumbor.detectors.face_detector','thumbor.detectors.feature_detector']"
+#      OPTIMIZERS: "['thumbor_plugins.optimizers.pngcrush']"
+#      DETECTORS: "['thumbor.detectors.face_detector','thumbor.detectors.feature_detector']"
       LOADER: 'thumbor.loaders.http_loader'
-      FACE_DETECTOR_CASCADE_FILE: 'haarcascade_frontalface_alt.xml'
-      USE_GIFSICLE_ENGINE: "True"
+#      FACE_DETECTOR_CASCADE_FILE: 'haarcascade_frontalface_alt.xml'
+#      USE_GIFSICLE_ENGINE: "True"
       SECURITY_KEY: "MY_SECURE_KEY"
       RESULT_STORAGE_STORES_UNSAFE: "True"
       RESULT_STORAGE: "thumbor.result_storages.file_storage"
     ports:
       - "9000:9000"
-#    network_mode: "host"
-  memcached:
-    image: memcached
-    ports:
-      - "11211:11211"
+    network_mode: "host"
+  # memcached:
+  #   image: memcached
+  #   ports:
+  #     - "11211:11211"
   db:
     image: "postgres:9.3"
     environment:
