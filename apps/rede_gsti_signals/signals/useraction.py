@@ -1,12 +1,13 @@
+from apps.gamification.models import XP
 from django.db.models import Model
-from django.db.models.signals import post_save, post_delete
+from django.db.models.signals import post_save, post_delete, pre_delete
 from django.dispatch import receiver
 from apps.core.tasks import count_user_actions
 from apps.socialactions.models import UserAction
 from apps.article.models import Article
 from apps.core.business import embeditem
 from apps.notifications.service import business as Business
-
+from django.conf import settings
 
 @receiver(post_save, sender=UserAction)
 def counter_post_save(sender, **kwargs):
@@ -55,6 +56,8 @@ def social_action(sender, **kwargs):
         if not isinstance(_action_type, Model) and isinstance(action.content_object, Model):
             _action_type = action.content_object
 
+        XP.add_xp_for_action(action)
+
         if action.content_type.model not in not_allowed_content_type and to != author:
             Business.send_notification(
                 author=action.author,
@@ -62,6 +65,12 @@ def social_action(sender, **kwargs):
                 notification_action=action.action_type,
                 target_object=action.content_object
             )
+
+@receiver(pre_delete, sender=UserAction)
+def social_action_delete(sender, **kwargs):
+    action = kwargs['instance']
+    if action:
+        XP.add_xp_for_action(action, reverse=True)
 
 
 @receiver(post_save, sender=Article)
