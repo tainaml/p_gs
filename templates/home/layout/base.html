@@ -32,6 +32,8 @@
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700">
     <link rel="stylesheet" href="{% static_versioned 'stylesheets/style.css' %}">
+    {% block page_stylesheet %}{% endblock page_stylesheet %}
+
     {% block link_pagination %}{% endblock link_pagination %}
     <link rel="apple-touch-icon-precomposed" sizes="57x57" href="{% static 'images/apple-touch-icon-57x57.png' %}" />
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{% static 'images/apple-touch-icon-114x114.png' %}" />
@@ -144,7 +146,7 @@
 
             var tigre = jQuery().tigreAgenteMR({
             tigreAppID: '6011F0D30DF54607A7BB8EE047D1E741',
-            fbAppId: '1486240068359213',
+            fbAppId: '1486237578359462',
             useFB: true,
             useLoading: false,
             fbScope: 'email,public_profile',

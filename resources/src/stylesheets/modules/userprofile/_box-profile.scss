@@ -79,6 +79,24 @@
         text-align: center;
       }
     }
+    &__xp {
+      position: relative;
+      margin-bottom: 20px;
+      border-bottom: 2px solid #fcc194;
+      &__label {
+        color: #616161;
+        font-size: 12px;
+      }
+      &__value {
+        position: absolute;
+        bottom: -2px; left: 0;
+        width: 50%;
+        border-bottom: 2px solid #ff6f00;
+        color: #ff6f00;
+        font-size: 18px;
+        text-align: center;
+      }
+    }
     &__bio,
     &__website,
     &__locale,
@@ -175,6 +193,10 @@
           display: block;
           text-align: center;
         }
+      }
+      &__xp {
+        &__label {}
+        &__value {}
       }
       &__bio,
       &__website,
