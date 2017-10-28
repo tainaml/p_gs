@@ -75,14 +75,20 @@
 <div class="slideout-panel {% block page_class %}{% endblock page_class %}" id="wrapper">
     <header class="header app-header">
         <div class="app-header-container">
-            <div class="appt-header-button--menu">botão do menu mobile</div>
+            <a class="app-header-button--menu toggle-slideout" data-item="#slideout-menu" href="javascript:;">
+                <i class="gsticon gsticon-bars"></i>
+            </a>
             {% block logo %}
             <div class="app-header-logo--mobile">
                 <a class="app-header-logo--mobile-link" href="{% url 'index' %}" title="Portal GSTI">Portal GSTI</a>
             </div>
             {% endblock logo %}
-            <div>{% include 'home/partials/user-actions.html' %}</div>
+            <div class="app-header-right-content">
+                {% include "home/partials/search-header.html" with placehold="Procure por comunidades, conteúdo e profissionais de tecnologia" %}
+                {% include 'home/partials/user-actions.html' %}
+            </div>
         </div>
+        {% comment %}
         <div class="container">
             <div class="menu-mobile hidden-lg">
                 <div class="mobile-search" id="mobile-search" style="display: none;">
@@ -118,6 +124,7 @@
                 {% include 'home/partials/user-actions.html' %}
             </div>
         </div>
+        {% endcomment %}
     </header>
     {% include "home/partials/menu-geral.html" with menu_context=category_slug|default:'' class_name=class_name %}
     {% block content %}{% endblock %}
@@ -150,7 +157,7 @@
 
             var tigre = jQuery().tigreAgenteMR({
             tigreAppID: '6011F0D30DF54607A7BB8EE047D1E741',
-            fbAppId: '1486237578359462',
+            fbAppId: '1486240068359213',
             useFB: true,
             useLoading: false,
             fbScope: 'email,public_profile',

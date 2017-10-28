@@ -5,7 +5,7 @@
 
 {% if request.user.is_authenticated %}
 
-    <div class="user-actions-logged">
+    <div class="user-actions">
 
       {% notification_navbar "members" %}
       {% notification_navbar "posts" %}
@@ -48,17 +48,18 @@
               <li><a href="{% url 'profile:edit' %}"><i class="gsticon gsticon-pencil"></i> Editar Perfil</a></li>
               <li><a href="{% url 'configuration:account' %}"><i class="gsticon gsticon-gear"></i> Configurações</a></li>
               <li><a href="{% url 'account:logout' %}?next={{ request.path }}"><i class="gsticon gsticon-close"></i> {% trans "Sair" %}</a></li>
-          </ul>
-      </div>
-
+            </ul>
+        </div>
+        
+        <a class="user-actions-button-round" href="{% url 'article:create' %}"><i class="gsticon gsticon-file-text-o"></i> Criar Publicação</a>
     </div>
 
 {% else %}
 
     <div class="user-actions">
-        <a class="user-actions-link btn-publicar" href="javascript:;" data-toggle="modal" data-target="#modal-login">Publicar</a>
-        <a class="user-actions-link" href="{% url 'account:signup' %}">Cadastre-se</a>
-        <a class="user-actions-link" href="#modal-login" data-toggle="modal">Login</a>
+        <a class="user-actions-button-clean" href="#modal-login" data-toggle="modal">Entrar</a>
+        <a class="user-actions-button-round" href="{% url 'account:signup' %}">Inscreva-se</a>
+        <!-- <a class="user-actions-button-round" href="javascript:;" data-toggle="modal" data-target="#modal-login">Publicar</a> -->
     </div>
 
 {% endif %}

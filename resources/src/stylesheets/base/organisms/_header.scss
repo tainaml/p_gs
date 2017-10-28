@@ -1,10 +1,20 @@
 .app-header {
+  position: fixed;
+  z-index: 1000;
+  top: 0;
+  left: 0;
+  width: 100%;
   background-color: $primary-color;
   &-container {
     margin: 0 auto;
     display: flex;
     align-items: center;
     justify-content: space-between;
+  }
+  &-button--menu {
+    padding: 15px;
+    display: block;
+    color: #fff;
   }
   &-logo {
     margin: 0;
@@ -18,16 +28,44 @@
       text-indent: -9999px;
     }
   }
+  &-right-content {
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+@include at-most($screen-phone) {
+  .app-header {
+    &-right-content {
+      min-width: 42px;
+      min-height: 1px;
+      .searchbar {
+        position: absolute;
+        right: 0;
+        width: 425px;
+        min-height: 48px;
+        background-color: transparent;
+        border-radius: 0;
+        &-input {
+          padding-left: 15px;
+        }
+        &:focus-within {
+          background-color: rgba(255, 255, 255, 1);
+        }
+      }
+      // change that classes
+      .user-actions {
+        display: none;
+      }
+    }
+  }
 }
 
 @include at-least($screen-tablet) {
   .app-header {
-    &-logo {
-      margin: 20px 0;
-      &-link {
-        width: 136px;
-        height: 46px;
-      }
+    &-right-content {
+      padding: 5px 0;
     }
   }
 }
@@ -36,6 +74,46 @@
   .app-header {
     &-container {
       max-width: $container-desktop;
+    }
+    &-button--menu {
+      display: none;
+    }
+    &-logo {
+      margin: 20px 0;
+      &-link {
+        width: 136px;
+        height: 46px;
+      }
+    }
+    &-right-content {
+      width: 80%;
+      .searchbar {
+        min-width: 70%;
+      }
+      .user-actions {
+        min-width: 30%;
+        display: flex;
+        justify-content: flex-end;
+        &-button-clean {
+          @include button-variant($text-color: white, $background-color: transparent, $font: 700 14px "Open Sans");
+          width: 123px;
+          height: 43px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border: none;
+        }
+        &-button-round {
+          @include button-variant($background-color: white, $font: 700 14px "Open Sans");
+          width: 123px;
+          height: 43px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border: none;
+          border-radius: 20px;
+        }
+      }
     }
   }
 }

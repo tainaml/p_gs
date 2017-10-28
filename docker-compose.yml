@@ -20,10 +20,10 @@ services:
     ports:
       - "9000:9000"
     network_mode: "host"
-  # memcached:
-  #   image: memcached
-  #   ports:
-  #     - "11211:11211"
+  memcached:
+    image: memcached
+    ports:
+      - "11211:11211"
   db:
     image: "postgres:9.3"
     environment:

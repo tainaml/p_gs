@@ -1,10 +1,10 @@
 {% load user_agents %}
 
-<form class="search-header-form" action="{% url 'search:search' %}" method="GET" role="search">
-    <input class="search-header-input" type="text" maxlength="255" id="search-criteria" name="q" placeholder="{% if request|is_mobile %}Procurar{% else %}{{placehold|default:"Procure profissionais de tecnologia, comunidades e conteúdo"}}{% endif %}" autocomplete="off" {% if query_search %}value="{{ query_search }}"{% endif %}
+<form class="searchbar" action="{% url 'search:search' %}" method="GET" role="search">
+    <input class="searchbar-input" type="text" maxlength="255" id="search-criteria" name="q" placeholder="{% if request|is_mobile %}Procurar{% else %}{{placehold|default:"Procure profissionais de tecnologia, comunidades e conteúdo"}}{% endif %}" autocomplete="off" {% if query_search %}value="{{ query_search }}"{% endif %}
     data-autocomplete="true" data-autocomplete-timeout="500"
     data-autocomplete-target="#dropdown-search" data-autocomplete-url="{% url 'search:autocomplete' %}" />
     <div id="dropdown-search" class="dropdown-menu dropdown-search" data-toggle="custom-scroll"></div>
 
-    <button class="form-search-icon"><i class="gsticon gsticon-search"></i></button>
+    <button class="form-search-icon searchbar-icon"><i class="gsticon gsticon-search"></i></button>
 </form>

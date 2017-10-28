@@ -9,3 +9,9 @@
     @content;
   }
 }
+
+@mixin at-most($max-width) {
+  @media all and (max-width: $max-width) {
+    @content;
+  }
+}

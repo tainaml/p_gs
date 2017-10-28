@@ -4,8 +4,11 @@
 @import "base/utilities/media-queries";
 
 // ATOMS
+@import "base/atoms/button";
 
 // MOLECULES
+@import "base/molecules/searchbar";
+
 
 // ORGANISMS
 @import "base/organisms/header";
