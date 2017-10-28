@@ -5,9 +5,10 @@ from apps.account.models import User
 from apps.core.business import configuration
 from apps.socialactions.models import UserAction, UserActionCounter, Counter
 from rede_gsti.celery import app
-from social.apps.django_app.default.models import UserSocialAuth
 from apps.mailmanager.tasks import send_mail_async
 from django.conf import settings
+from social_django.models import UserSocialAuth
+
 
 @app.task
 def testing_async():

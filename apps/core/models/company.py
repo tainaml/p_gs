@@ -1,10 +1,10 @@
 from apps.account.service.business import username_is_available
-from social.utils import slugify
 from django.conf import settings
 from apps.taxonomy.models import Taxonomy
 from apps.company.models import Company, CompanyContact, CompanyManager, Membership
 from apps.account.models import User
 from apps.userprofile.models import UserProfile
+from social_core.utils import slugify
 
 
 class CompanyProxyManager(CompanyManager):

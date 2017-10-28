@@ -153,7 +153,6 @@ THIRD_PART_APPS = (
     'django_thumbor',
     # 'autofixture',
     'django_migration_fixture',
-    'social.apps.django_app.default',
     'django_user_agents',
     'smart_selects',
     'reversion',
@@ -202,7 +201,8 @@ INTERNAL_APPS = (
     'apps.useralerts',
     'apps.temp_comment',
     'apps.job_vacancy',
-    'apps.api'
+    'apps.api',
+    'apps.gamification'
 
 )
 
@@ -584,10 +584,10 @@ SOCIAL_AUTH_LINKEDIN_EXTRA_DATA = [('id', 'id'),
 
 
 AUTHENTICATION_BACKENDS = (
-    'social.backends.facebook.FacebookOAuth2',
+    'social_core.backends.facebook.FacebookOAuth2',
     'django.contrib.auth.backends.ModelBackend',
-    'social.backends.google.GoogleOAuth2',
-    'social.backends.linkedin.LinkedinOAuth',
+    'social_core.backends.google.GoogleOAuth2',
+    'social_core.backends.linkedin.LinkedinOAuth',
 )
 
 SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
@@ -595,23 +595,23 @@ SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
 }
 
 SOCIAL_AUTH_PIPELINE = (
-    'social.pipeline.social_auth.social_details',
-    'social.pipeline.social_auth.social_uid',
-    'social.pipeline.social_auth.auth_allowed',
-    'social.pipeline.social_auth.social_user',
-    'social.pipeline.user.get_username',
+    'social_core.pipeline.social_auth.social_details',
+    'social_core.pipeline.social_auth.social_uid',
+    'social_core.pipeline.social_auth.auth_allowed',
+    'social_core.pipeline.social_auth.social_user',
+    'social_core.pipeline.user.get_username',
     'apps.socialaccount.pipeline.require_email',
     'apps.socialaccount.pipeline.user_allowed_to_login',
-    'social.pipeline.mail.mail_validation',
+    'social_core.pipeline.mail.mail_validation',
     'apps.socialaccount.pipeline.username_slugify',
     'apps.socialaccount.pipeline.validate_username',
-    'social.pipeline.social_auth.associate_by_email',
-    'social.pipeline.user.create_user',
+    'social_core.pipeline.social_auth.associate_by_email',
+    'social_core.pipeline.user.create_user',
     'apps.socialaccount.pipeline.create_profile',
     'apps.socialaccount.pipeline.save_profile_picture',
-    'social.pipeline.social_auth.associate_user',
-    'social.pipeline.social_auth.load_extra_data',
-    'social.pipeline.user.user_details',
+    'social_core.pipeline.social_auth.associate_user',
+    'social_core.pipeline.social_auth.load_extra_data',
+    'social_core.pipeline.user.user_details',
 
 )
 
