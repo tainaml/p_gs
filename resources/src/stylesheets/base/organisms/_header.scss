@@ -43,7 +43,7 @@
       .searchbar {
         position: absolute;
         right: 0;
-        width: 425px;
+        width: 42px;
         min-height: 48px;
         background-color: transparent;
         border-radius: 0;
@@ -54,7 +54,6 @@
           background-color: rgba(255, 255, 255, 1);
         }
       }
-      // change that classes
       .user-actions {
         display: none;
       }
@@ -64,8 +63,22 @@
 
 @include at-least($screen-tablet) {
   .app-header {
+    &-container {
+      max-width: $container-tablet;
+    }
+    &-button--menu {
+      display: none;
+    background-color: white;
+    }
     &-right-content {
+      width: 80%;
       padding: 5px 0;
+      .searchbar {
+        min-width: 50%;
+      }
+      .user-actions {
+        min-width: 50%;
+      }
     }
   }
 }
@@ -75,11 +88,8 @@
     &-container {
       max-width: $container-desktop;
     }
-    &-button--menu {
-      display: none;
-    }
     &-logo {
-      margin: 20px 0;
+      margin: 18px 0;
       &-link {
         width: 136px;
         height: 46px;
@@ -88,31 +98,10 @@
     &-right-content {
       width: 80%;
       .searchbar {
-        min-width: 70%;
+        min-width: 60%;
       }
       .user-actions {
-        min-width: 30%;
-        display: flex;
-        justify-content: flex-end;
-        &-button-clean {
-          @include button-variant($text-color: white, $background-color: transparent, $font: 700 14px "Open Sans");
-          width: 123px;
-          height: 43px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          border: none;
-        }
-        &-button-round {
-          @include button-variant($background-color: white, $font: 700 14px "Open Sans");
-          width: 123px;
-          height: 43px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          border: none;
-          border-radius: 20px;
-        }
+        min-width: 40%;
       }
     }
   }

@@ -119,7 +119,7 @@
             location.href = item.attr('href');
         } else {
             console.log(e);
-            $('.search-header-form:visible').submit();
+            $("[data-toggle='search']").submit();
         }
     }
 

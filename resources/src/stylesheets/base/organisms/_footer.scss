@@ -71,9 +71,6 @@
       flex-direction: row;
       justify-content: space-between;
     }
-    &-profiles .gsticon:last-child {
-      margin-right: -20px;
-    }
     &-navigation-link {
       margin: 20px;
     }
@@ -88,6 +85,9 @@
     &-container,
     &-social {
       max-width: $container-desktop;
+    }
+    &-profiles .gsticon:last-child {
+      margin-right: -20px;
     }
   }
 }

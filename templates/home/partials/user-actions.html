@@ -3,63 +3,91 @@
 {% load notification_core_tags %}
 {% load avatar_tags %}
 
+
 {% if request.user.is_authenticated %}
+<div class="user-actions is-logged">
 
-    <div class="user-actions">
+    <div class="user-actions-notifications">
+        {% notification_navbar "members" %} {% notification_navbar "posts" %} {% notification_navbar "general" %}
+    </div>
+    <div class="dropdown">
+        <a class="user-actions-menu-action" href="#user-actions-dropdown" data-toggle="dropdown">
+            <img title="{{ request.user.get_full_name }}" src="{% get_avatar request.user width=30 height=30 smart=False fit_in=False %}"
+                alt="{{ request.user.get_full_name }}" class="img-circle">
+            <i class="gsticon gsticon-angle-down pull-right"></i>
+        </a>
 
-      {% notification_navbar "members" %}
-      {% notification_navbar "posts" %}
-      {% notification_navbar "general" %}
-
-      <div class="dropdown dropdown-item-header">
-        <span class="user-actions-logged-link--logged btn-publicar" id="dd-publicar" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{% trans "Publish" context "publish article" %}</span>
-        <div class="dropdown-menu header-dropdown-menu dropdown-notification" aria-labelledby="dd-publicar">
-          <div class="float-notifications">
-            <ul class="content-float-notifications">
-                <li class="item-float-notification item-float-notification-link"><a href="{% url 'article:create' %}"><i class="gsticon gsticon-file-text-o"> </i> Criar Publicação</a></li>
-                <li class="item-float-notification item-float-notification-link"><a href="{% url 'question:create' %}"><i class="gsticon gsticon-question-circle"> </i> Criar Pergunta</a></li>
-            </ul>
-          </div>
-        </div>
-      </div>
-
-      <a href="javascript:;" class="user-actions-logged-link--logged user-actions-profile" data-toggle="dropdown" data-target="#dropdown-perfil-action">
-          <img title="{{ request.user.get_full_name }}" src="{% get_avatar request.user width=40 height=40 smart=False fit_in=False %}" alt="{{ request.user.get_full_name }}" class="img-circle">
-          {% if request.user.first_name|length >= 10 %}
-              {{ request.user.first_name|slice:":10" }}...
-          {% else %}
-              {{ request.user.first_name }}
-          {% endif %}
-        <i class="gsticon gsticon-caret-down pull-right"></i>
-      </a>
-
-      <div id="dropdown-perfil-action" class="header-dropdown-menu dropdown-menu-right">
-          <ul class="perfil-actions">
+        <div id="user-actions-dropdown" class="user-actions-dropdown">
+            <ul class="user-actions-dropdown-list">
+                <li>
+                    <div class="user-actions-dropdown-profile">
+                        <div>
+                            <img title="{{ request.user.get_full_name }}" src="{% get_avatar request.user width=30 height=30 smart=False fit_in=False %}"
+                                alt="{{ request.user.get_full_name }}" class="img-circle">
+                        </div>
+                        <div>
+                            {{ request.user.get_full_name }}
+                            <a href="{% url 'profile:feed' %}">Ver meu perfil</a>
+                        </div>
+                    </div>
+                </li>
                 {% if request.user.is_superuser %}
-                    <li><a href="{% url 'superuser:push' %}"><i class="gsticon gsticon-paper-plane"></i> Enviar notificações</a></li>
+                <li class="user-actions-dropdown-list-item">
+                    <a href="{% url 'superuser:push' %}">
+                        <i class="gsticon gsticon-paper-plane"></i> Enviar notificações</a>
+                </li>
                 {% endif %}
-              <li><a href="{% url 'profile:feed' %}"><i class="gsticon gsticon-feed"></i> Meu Feed</a></li>
-              <li><a href="{% if  request.user.is_active %}{% url 'profile:show' request.user.username %}{% else %}javascript:;{% endif %}"><i class="gsticon gsticon-file-text"></i> Minhas Publicações</a></li>
-              <li><a href="{% url 'profile:my-questions' %}"><i class="gsticon gsticon-question"></i> Minhas Perguntas</a></li>
-              <li><a href="{% url 'article:create' %}"><i class="gsticon gsticon-file-text-o"></i> Criar Publicação</a></li>
-              <li><a href="{% url 'question:create' %}"><i class="gsticon gsticon-question-circle"></i> Perguntar</a></li>
-              <li><a href="{% url 'organization:create' %}"><i class="gsticon gsticon-building"></i> Criar organização</a></li>
-              <li><a href="{% url 'profile:edit-posts' %}"><i class="gsticon gsticon-pencil-square-o"></i> Editar Conteúdo</a></li>
-              <li><a href="{% url 'profile:edit' %}"><i class="gsticon gsticon-pencil"></i> Editar Perfil</a></li>
-              <li><a href="{% url 'configuration:account' %}"><i class="gsticon gsticon-gear"></i> Configurações</a></li>
-              <li><a href="{% url 'account:logout' %}?next={{ request.path }}"><i class="gsticon gsticon-close"></i> {% trans "Sair" %}</a></li>
+                <li class="user-actions-dropdown-list-item-divider">subtítulo do menu</li>
+                <li class="user-actions-dropdown-list-item">
+                    <a href="{% url 'profile:feed' %}">
+                        <i class="gsticon gsticon-fw gsticon-feed"></i> Meu Feed</a>
+                </li>
+                <li class="user-actions-dropdown-list-item">
+                    <a href="{% if  request.user.is_active %}{% url 'profile:show' request.user.username %}{% else %}javascript:;{% endif %}">
+                        <i class="gsticon gsticon-fw gsticon-file-text"></i> Minhas Publicações</a>
+                </li>
+                <li class="user-actions-dropdown-list-item">
+                    <a href="{% url 'profile:my-questions' %}">
+                        <i class="gsticon gsticon-fw gsticon-question"></i> Minhas Perguntas</a>
+                </li>
+                <li class="user-actions-dropdown-list-item-divider">subtítulo do menu</li>
+                <li class="user-actions-dropdown-list-item">
+                    <a href="{% url 'article:create' %}">
+                        <i class="gsticon gsticon-fw gsticon-file-text-o"></i> Criar Publicação</a>
+                </li>
+                <li class="user-actions-dropdown-list-item">
+                    <a href="{% url 'question:create' %}">
+                        <i class="gsticon gsticon-fw gsticon-question-circle"></i> Perguntar</a>
+                </li>
+                <li class="user-actions-dropdown-list-item">
+                    <a href="{% url 'organization:create' %}">
+                        <i class="gsticon gsticon-fw gsticon-building"></i> Criar organização</a>
+                </li>
+                <li class="user-actions-dropdown-list-item">
+                    <a href="{% url 'profile:edit-posts' %}">
+                        <i class="gsticon gsticon-fw gsticon-pencil-square-o"></i> Editar Conteúdo</a>
+                </li>
+                <li class="user-actions-dropdown-list-item">
+                    <a href="{% url 'profile:edit' %}">
+                        <i class="gsticon gsticon-fw gsticon-pencil"></i> Editar Perfil</a>
+                </li>
+                <li class="user-actions-dropdown-list-item">
+                    <a href="{% url 'configuration:account' %}">
+                        <i class="gsticon gsticon-fw gsticon-gear"></i> Configurações</a>
+                </li>
+                <li class="user-actions-dropdown-list-item-divider">subtítulo do menu</li>
+                <li class="user-actions-dropdown-list-item">
+                    <a href="{% url 'account:logout' %}?next={{ request.path }}">
+                        <i class="gsticon gsticon-fw gsticon-close"></i> {% trans "Sair" %}</a>
+                </li>
             </ul>
         </div>
-        
-        <a class="user-actions-button-round" href="{% url 'article:create' %}"><i class="gsticon gsticon-file-text-o"></i> Criar Publicação</a>
     </div>
-
+    <a class="user-actions-button-round" href="{% url 'article:create' %}">Publicar</a>
+</div>
 {% else %}
-
-    <div class="user-actions">
-        <a class="user-actions-button-clean" href="#modal-login" data-toggle="modal">Entrar</a>
-        <a class="user-actions-button-round" href="{% url 'account:signup' %}">Inscreva-se</a>
-        <!-- <a class="user-actions-button-round" href="javascript:;" data-toggle="modal" data-target="#modal-login">Publicar</a> -->
-    </div>
-
+<div class="user-actions">
+    <a class="user-actions-button-clean" href="#modal-login" data-toggle="modal">Entrar</a>
+    <a class="user-actions-button-round" href="{% url 'account:signup' %}">Inscreva-se</a>
+</div>
 {% endif %}

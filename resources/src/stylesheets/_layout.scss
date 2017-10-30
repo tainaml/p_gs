@@ -2,6 +2,12 @@
 @import "layout/header";
 @import "base/utilities/variables";
 @import "base/utilities/media-queries";
+@import "base/atoms/button";
+@import "base/molecules/dropdown-menu"; // TODO: Mudar o nome do arquivo
+@import "base/molecules/logo";
+@import "base/molecules/searchbar";
+@import "base/molecules/user-actions";
+@import "base/organisms/header";
 @import "base/organisms/footer";
 
 // home parts

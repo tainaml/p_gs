@@ -5,67 +5,113 @@
 {% load notification_core_tags %}
 {% load user_agents %}
 
-{% if request.user.is_authenticated %}
-<figure class="slideout-menu--user">
-    <img src="{% get_avatar request.user width=40 height=40 smart=False fit_in=False %}" alt="{{ request.user.get_full_name }}" class="slideout-menu--user-image img-circle">
-    <figcaption>{{ request.user.first_name }}</figcaption>
-</figure>
-<hr />
-<div class="slideout-menu--notification">
-    <a href="{% url 'notifications:members' %}" class="slideout-menu--notification-item"
-
-       data-is-mobile="{{ request|is_mobile }}"
-    data-trigger="notification" data-token="{% notification_token %}" data-type="members"
-    data-csrf="{{ csrf_token }}" data-url-count="{% url 'notifications:polling-count' 'members' %}"
-    data-url-load="{% url 'notifications:polling-load' 'members' %}" data-url-clear="{% url 'notifications:clear' %}"
-    data-notifications="{{ notifications_id }}" data-notification-receives-badge="members">
-        {% if count %}<span class="badge">{{ count }}</span>{% endif %}
-        <i class="gsticon gsticon-group"></i>
-    </a>
-    <a href="{% url 'notifications:posts' %}" class="slideout-menu--notification-item"
-       data-is-mobile="{{ request|is_mobile }}"
-    data-trigger="notification" data-token="{% notification_token %}" data-type="posts"
-    data-csrf="{{ csrf_token }}" data-url-count="{% url 'notifications:polling-count' 'posts' %}"
-    data-url-load="{% url 'notifications:polling-load' 'posts' %}" data-url-clear="{% url 'notifications:clear' %}"
-    data-notifications="{{ notifications_id }}" data-notification-receives-badge="posts">
-        {% if count %}<span class="badge">{{ count }}</span>{% endif %}
-        <i class="gsticon gsticon-comments"></i>
-    </a>
-    <a href="{% url 'notifications:general' %}" class="slideout-menu--notification-item"
-       data-is-mobile="{{ request|is_mobile }}"
-    data-trigger="notification" data-token="{% notification_token %}" data-type="general"
-    data-csrf="{{ csrf_token }}" data-url-count="{% url 'notifications:polling-count' 'general' %}"
-    data-url-load="{% url 'notifications:polling-load' 'general' %}" data-url-clear="{% url 'notifications:clear' %}"
-    data-notifications="{{ notifications_id }}" data-notification-receives-badge="general">
-        {% if count %}<span class="badge">{{ count }}</span>{% endif %}
-        <i class="gsticon gsticon-bell"></i>
-    </a>
-</div>
+<ul class="user-actions-dropdown-list">
+    {% if request.user.is_authenticated %}
+    <li>
+        <div class="user-actions-dropdown-profile">
+            <div>
+                <img title="{{ request.user.get_full_name }}" src="{% get_avatar request.user width=30 height=30 smart=False fit_in=False %}"
+                alt="{{ request.user.get_full_name }}" class="img-circle">
+            </div>
+            <div>
+                {{ request.user.get_full_name }}
+                <a href="{% url 'profile:feed' %}">Ver meu perfil</a>
+            </div>
+        </div>
+    </li>
     {% if request.user.is_superuser %}
-        <li><a  class="slideout-menu--link" href="{% url 'profile:feed' %}"><i class="gsticon gsticon-paper-plane"></i> Enviar notificações</a></li>
+    <li class="user-actions-dropdown-list-item">
+        <a href="{% url 'superuser:push' %}">
+            <i class="gsticon gsticon-paper-plane"></i> Enviar notificações</a>
+    </li>
     {% endif %}
-<a class="slideout-menu--link" href="{% url 'profile:feed' %}"><i class="gsticon gsticon-feed"></i> Meu Feed</a>
-<a class="slideout-menu--link" href="{% if  request.user.is_active %}{% url 'profile:show' request.user.username %}{% else %}javascript:;{% endif %}"><i class="gsticon gsticon-file-text"></i> Minhas Publicações</a>
-<a class="slideout-menu--link" href="{% url 'profile:my-questions' %}"><i class="gsticon gsticon-question"></i> Minhas Perguntas</a>
-    <a class="slideout-menu--link" href="{% url 'article:create' %}"><i class="gsticon gsticon-file-text-o"></i> Criar Publicação</a>
-    <a class="slideout-menu--link" href="{% url 'question:create' %}"><i class="gsticon gsticon-question-circle"></i> Perguntar</a>
-    <a class="slideout-menu--link" href="{% url 'organization:create' %}"><i class="gsticon gsticon-building"></i> Criar organização</a>
-    <a class="slideout-menu--link" href="{% url 'profile:favourite' %}"><i class="gsticon gsticon-star"></i> Favoritos</a>
-    <a class="slideout-menu--link" href="{% url 'profile:see-later' %}"><i class="gsticon gsticon-eye"></i> Ver depois</a>
-    <a class="slideout-menu--link" href="{% url 'profile:suggest' %}"><i class="gsticon gsticon-paper-plane"></i> Sugeridos</a>
-    <a class="slideout-menu--link" href="{% url 'profile:edit-posts' %}"><i class="gsticon gsticon-pencil-square-o"></i> Editar Conteúdo</a>
-    <a class="slideout-menu--link" href="{% url 'profile:edit' %}"><i class="gsticon gsticon-pencil"></i> Editar Perfil</a>
-    <a class="slideout-menu--link" href="{% url 'configuration:account' %}"><i class="gsticon gsticon-gear"></i> Configurações</a>
-<a class="slideout-menu--link" href="{% url 'account:logout' %}?next={{ request.path }}"><i class="gsticon gsticon-close"></i> {% trans "Sair" %}</a>
-{% else %}
-<div class="slideout-menu--user">
-  <figure class="slideout-menu--user-image">
-    <img src="{% static 'images/gsti.png' %}" alt="Portal GSTI">
-  </figure>
-  Portal GSTI
-</div>
-<hr />
-<a class="slideout-menu--link btn-publicar" href="javascript:;"  data-toggle="modal" data-target="#modal-login">{% trans "Publish" context "publish article" %}</a>
-<a class="slideout-menu--link" href="{% url 'account:signup' %}">Cadastre-se</a>
-<a class="slideout-menu--link" href="javascript:;" data-toggle="modal" data-target="#modal-login">Login</a>
-{% endif %}
+    <li class="user-actions-dropdown-list-item-notifications">
+        <a class="notification-link" href="{% url 'notifications:members' %}" data-is-mobile="{{ request|is_mobile }}"
+            data-trigger="notification" data-token="{% notification_token %}" data-type="members" data-csrf="{{ csrf_token }}" data-url-count="{% url 'notifications:polling-count' 'members' %}"
+            data-url-load="{% url 'notifications:polling-load' 'members' %}" data-url-clear="{% url 'notifications:clear' %}" data-notifications="{{ notifications_id }}"
+            data-notification-receives-badge="members">
+            {% if count %}<span class="user-actions-badge">{{ count }}</span>{% endif %}
+            <i class="gsticon gsticon-fw gsticon-group"></i>
+        </a>
+        <a class="notification-link" href="{% url 'notifications:posts' %}" data-is-mobile="{{ request|is_mobile }}"
+            data-trigger="notification" data-token="{% notification_token %}" data-type="posts" data-csrf="{{ csrf_token }}" data-url-count="{% url 'notifications:polling-count' 'posts' %}"
+            data-url-load="{% url 'notifications:polling-load' 'posts' %}" data-url-clear="{% url 'notifications:clear' %}" data-notifications="{{ notifications_id }}"
+            data-notification-receives-badge="posts">
+            {% if count %}<span class="user-actions-badge">{{ count }}</span>{% endif %}
+            <i class="gsticon gsticon-fw gsticon-comments"></i>
+        </a>
+        <a class="notification-link" href="{% url 'notifications:general' %}" data-is-mobile="{{ request|is_mobile }}"
+            data-trigger="notification" data-token="{% notification_token %}" data-type="general" data-csrf="{{ csrf_token }}" data-url-count="{% url 'notifications:polling-count' 'general' %}"
+            data-url-load="{% url 'notifications:polling-load' 'general' %}" data-url-clear="{% url 'notifications:clear' %}" data-notifications="{{ notifications_id }}"
+            data-notification-receives-badge="general">
+            {% if count %}<span class="user-actions-badge">{{ count }}</span>{% endif %}
+            <i class="gsticon gsticon-fw gsticon-bell"></i>
+        </a>
+    </li>
+    <li class="user-actions-dropdown-list-item">
+        <a href="#">
+            <i class="gsticon gsticon-fw gsticon-th"></i> Categorias
+            <i class="gsticon gsticon-fw gsticon-angle-right"></i>
+        </a>
+    </li>
+    <li class="user-actions-dropdown-list-item-divider">subtítulo do menu</li>
+    <li class="user-actions-dropdown-list-item">
+        <a href="{% url 'profile:feed' %}">
+            <i class="gsticon gsticon-fw gsticon-feed"></i> Meu Feed</a>
+    </li>
+    <li class="user-actions-dropdown-list-item">
+        <a href="{% if  request.user.is_active %}{% url 'profile:show' request.user.username %}{% else %}javascript:;{% endif %}">
+            <i class="gsticon gsticon-fw gsticon-file-text"></i> Minhas Publicações</a>
+    </li>
+    <li class="user-actions-dropdown-list-item">
+        <a href="{% url 'profile:my-questions' %}">
+            <i class="gsticon gsticon-fw gsticon-question"></i> Minhas Perguntas</a>
+    </li>
+    <li class="user-actions-dropdown-list-item-divider">subtítulo do menu</li>
+    <li class="user-actions-dropdown-list-item">
+        <a href="{% url 'article:create' %}">
+            <i class="gsticon gsticon-fw gsticon-file-text-o"></i> Criar Publicação</a>
+    </li>
+    <li class="user-actions-dropdown-list-item">
+        <a href="{% url 'question:create' %}">
+            <i class="gsticon gsticon-fw gsticon-question-circle"></i> Perguntar</a>
+    </li>
+    <li class="user-actions-dropdown-list-item">
+        <a href="{% url 'organization:create' %}">
+            <i class="gsticon gsticon-fw gsticon-building"></i> Criar organização</a>
+    </li>
+    <li class="user-actions-dropdown-list-item">
+        <a href="{% url 'profile:edit-posts' %}">
+            <i class="gsticon gsticon-fw gsticon-pencil-square-o"></i> Editar Conteúdo</a>
+    </li>
+    <li class="user-actions-dropdown-list-item">
+        <a href="{% url 'profile:edit' %}">
+            <i class="gsticon gsticon-fw gsticon-pencil"></i> Editar Perfil</a>
+    </li>
+    <li class="user-actions-dropdown-list-item">
+        <a href="{% url 'configuration:account' %}">
+            <i class="gsticon gsticon-fw gsticon-gear"></i> Configurações</a>
+    </li>
+    <li class="user-actions-dropdown-list-item-divider">subtítulo do menu</li>
+    <li class="user-actions-dropdown-list-item">
+        <a href="{% url 'account:logout' %}?next={{ request.path }}">
+            <i class="gsticon gsticon-fw gsticon-close"></i> {% trans "Sair" %}</a>
+    </li>
+    {% else %}
+    <li>
+        <div class="user-actions-dropdown-profile">
+            <div>
+                <img src="{% static 'images/gsti.png' %}" alt="Portal GSTI">
+            </div>
+        </div>
+    </li>
+    <li class="user-actions-dropdown-list-item">
+        <a href="#modal-login" data-toggle="modal">
+            <i class="gsticon gsticon-fw gsticon-file-text-o"></i> {% trans "Publish" context "publish article" %}</a></a>
+    </li>
+    <li class="user-actions-dropdown-list-item">
+        <a href="#modal-login" data-toggle="modal">
+            <i class="gsticon gsticon-fw gsticon-sign-in"></i> {% trans "Entrar" %}</a></a>
+    </li>
+    {% endif %}
+</ul>

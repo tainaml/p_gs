@@ -26,4 +26,7 @@
 
 .slideout-open .slideout-menu {
   display: block;
+  .user-actions-dropdown-list {
+    min-width: 100%;
+  }
 }

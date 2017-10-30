@@ -1,0 +1,11 @@
+.app-logo {
+  &-link {
+    width: 98px;
+    height: 36px;
+    margin: 0 auto;
+    display: block;
+    background: transparent url("../images/logo-header.png") no-repeat center;
+    background-size: contain;
+    text-indent: -9999px;
+  }
+}

@@ -1,37 +1,14 @@
 {% load core_tags %}
 
-<div class="header-navegation js-navigation {% if category_slug %}header-navegation-border {{ class_name }}{% endif %}">
-    <a class="toggle_menu-categories" href="javascript:;">Menu
-    <span class="toggle_menu-categories-icons">
-      <i class="gsticon gsticon-bars"></i> <i class="gsticon gsticon-close"></i>
-    </span>
-    </a>
-    <nav class="container">
-        {% communities_cached %}
-        <ul class="menu-social">
-            <li><a class="gsticon gsticon-facebook-square" href="https://www.facebook.com/PortalGSTIpage/" target="_blank"></a></li>
-            <li><a class="gsticon gsticon-google-plus-square" href="https://plus.google.com/b/109232763237126205281/+PortalgstiBr" target="_blank"></a></li>
-            <li><a class="gsticon gsticon-linkedin-square" href="https://www.linkedin.com/groups/4602615" target="_blank"></a></li>
-            <li><a class="gsticon gsticon-twitter-square" href="https://twitter.com/portal_gsti" target="_blank"></a></li>
-            <li><a class="gsticon gsticon-youtube-square" href="https://www.youtube.com/c/PortalgstiBr" target="_blank"></a></li>
-        </ul>
+<div class="header-navegation">
+    <nav class="app-header-container">
+    {% communities_cached %}
+    <a href="{% url 'jobs:index' %}">Vagas de trabalho</a>
+    <a href="{% url 'course:list'%}">Cursos</a>
+    <a href="{% url 'core:videos-list' %}">Videoaulas</a>
+    <a href="{% url 'core:responsibilities-list'%}">Profissões</a>
+    <a href="{% url 'search:search-content' 'communities' %}">Comunidades</a>
+    <a href="{% url 'search:search-content' 'users' %}">Membros</a>
+    <a href="{% url 'search:search-content' 'questions' %}">Perguntas</a>
     </nav>
-
-    <div class="header-navegation jobs-navigation">
-        <nav class="container">
-            <ul class="menu-categories menu-jobs">
-                <li class="item"><a href="{% url 'jobs:index' %}">Vagas de trabalho</a></li>
-                <li class="item"><a href="{% url 'course:list'%}">Cursos</a></li>
-                <li class="item"><a href="{% url 'core:videos-list' %}">Videoaulas</a></li>
-                <li class="item"><a href="{% url 'core:responsibilities-list'%}">Profissões</a></li>
-                <li class="item"><a href="{% url 'search:search-content' 'communities' %}">Comunidades</a></li>
-                <li class="item"><a href="{% url 'search:search-content' 'users' %}">Membros</a></li>
-                <li class="item"><a href="{% url 'search:search-content' 'questions' %}">Perguntas</a></li>
-
-                {#        <li class="item"><a href="#">Concursos</a></li>#}
-                {#        <li class="item"><a href="#">Certificações</a></li>#}
-                {#        <li class="item"><a href="#">Loja Virtual</a></li>#}
-            </ul>
-        </nav>
-    </div>
 </div>
