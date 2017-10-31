@@ -1,14 +1,30 @@
 {% load core_tags %}
 
-<div class="header-navegation">
-    <nav class="app-header-container">
-    {% communities_cached %}
-    <a href="{% url 'jobs:index' %}">Vagas de trabalho</a>
-    <a href="{% url 'course:list'%}">Cursos</a>
-    <a href="{% url 'core:videos-list' %}">Videoaulas</a>
-    <a href="{% url 'core:responsibilities-list'%}">Profissões</a>
-    <a href="{% url 'search:search-content' 'communities' %}">Comunidades</a>
-    <a href="{% url 'search:search-content' 'users' %}">Membros</a>
-    <a href="{% url 'search:search-content' 'questions' %}">Perguntas</a>
+<div class="app-header-navigation">
+    <nav class="app-header-navigation-container">
+        {% communities_cached %}
+        <ul class="app-header-navigation-menu">
+            <li class="app-header-navigation-item">
+                <a class="app-header-navigation-item-link" href="{% url 'jobs:index' %}">Vagas de trabalho</a>
+            </li>
+            <li class="app-header-navigation-item">
+                <a class="app-header-navigation-item-link" href="{% url 'course:list'%}">Cursos</a>
+            </li>
+            <li class="app-header-navigation-item">
+                <a class="app-header-navigation-item-link" href="{% url 'core:videos-list' %}">Videoaulas</a>
+            </li>
+            <li class="app-header-navigation-item">
+                <a class="app-header-navigation-item-link" href="{% url 'core:responsibilities-list'%}">Profissões</a>
+            </li>
+            <li class="app-header-navigation-item">
+                <a class="app-header-navigation-item-link" href="{% url 'search:search-content' 'communities' %}">Comunidades</a>
+            </li>
+            <li class="app-header-navigation-item">
+                <a class="app-header-navigation-item-link" href="{% url 'search:search-content' 'users' %}">Membros</a>
+            </li>
+            <li class="app-header-navigation-item">
+                <a class="app-header-navigation-item-link" href="{% url 'search:search-content' 'questions' %}">Perguntas</a>
+            </li>
+        </ul>
     </nav>
 </div>

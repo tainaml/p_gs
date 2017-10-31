@@ -14,7 +14,7 @@
 
 .slideout-panel {
   position: relative;
-  padding-top: 86px;
+  padding-top: 49px;
   background-color: #fff;
 }
 
@@ -28,5 +28,15 @@
   display: block;
   .user-actions-dropdown-list {
     min-width: 100%;
+  }
+}
+@media all and (min-width: 768px) {
+  .slideout-panel {
+    padding-top: 58px;
+  }
+}
+@media all and (min-width: 1024px) {
+  .slideout-panel {
+    padding-top: 82px;
   }
 }

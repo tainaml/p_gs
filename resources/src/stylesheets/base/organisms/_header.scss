@@ -98,10 +98,10 @@
     &-right-content {
       width: 80%;
       .searchbar {
-        min-width: 60%;
+        min-width: 50%;
       }
       .user-actions {
-        min-width: 40%;
+        min-width: 50%;
       }
     }
   }
@@ -121,6 +121,14 @@
   .app-header {
     &-container {
       max-width: $container-wide;
+    }
+    &-right-content {
+      .searchbar {
+        min-width: 60%;
+      }
+      .user-actions {
+        min-width: 40%;
+      }
     }
   }
 }

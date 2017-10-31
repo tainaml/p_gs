@@ -1,23 +1,134 @@
 <div class="cd-dropdown-wrapper">
-    <a class="cd-dropdown-trigger" href="#0">
+    <a class="cd-dropdown-trigger js-dropdown-trigger app-header-navigation-item-link" href="#menu-geral">
         <i class="gsticon gsticon-fw gsticon-th"></i>
-        Comunidades</a>
+        Categorias</a>
     <nav class="cd-dropdown">
-        <a href="#0" class="cd-close">Close</a>
+        <a href="#menu-geral" class="cd-close toggle-slideout">Close</a>
         <ul class="cd-dropdown-content">
             <li class="has-children">
-                <a href="http://codyhouse.co/?p=748">Clothing</a>
+                <a href="{% url 'category:show' 'governanca-e-gestao' %}">Governança e Gestão</a>
                 <ul class="cd-secondary-dropdown is-hidden">
-                    <li class="go-back"><a href="#0">Menu</a></li>
-                    <li class="see-all"><a href="http://codyhouse.co/?p=748">All Clothing</a></li>
+                    <li class="go-back"><a href="#menu-geral">Categorias</a></li>
+                    <li class="see-all"><a href="{% url 'category:show' 'governanca-e-gestao' %}">Ver Categoria</a></li>
                     <li class="has-children">
-                        <a href="http://codyhouse.co/?p=748">Accessories</a>
+                        <a href="{% url 'category:show' 'governanca-e-gestao' %}">Comunidades</a>
                         <ul class="is-hidden">
-                            <li class="go-back"><a href="#0">Clothing</a></li>
-                            <li><a href="http://codyhouse.co/?p=748">Glasses</a></li>
-                            <li><a href="http://codyhouse.co/?p=748">Gloves</a></li>
-                            <li><a href="http://codyhouse.co/?p=748">Jewellery</a></li>
-                            <li><a href="http://codyhouse.co/?p=748">Scarves</a></li>
+                            <li class="go-back"><a href="#menu-geral">Voltar</a></li>
+                            {% for community in categories.governanca_e_gestao %}
+                                <li><a href="{% url "community:show" community.slug %}" title="{{ community.title }}">{{ community.title }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li class="has-children">
+                <a href="{% url 'category:show' 'desenvolvimento' %}">Desenvolvimento</a>
+                <ul class="cd-secondary-dropdown is-hidden">
+                    <li class="go-back"><a href="#menu-geral">Categorias</a></li>
+                    <li class="see-all"><a href="{% url 'category:show' 'desenvolvimento' %}">Ver Categoria</a></li>
+                    <li class="has-children">
+                        <a href="{% url 'category:show' 'desenvolvimento' %}">Comunidades</a>
+                        <ul class="is-hidden">
+                            <li class="go-back"><a href="#menu-geral">Voltar</a></li>
+                            {% for community in categories.desenvolvimento %}
+                            <li><a href="{% url "community:show" community.slug %}" title="{{ community.title }}">{{ community.title }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li class="has-children">
+                <a href="{% url 'category:show' 'design' %}">Design</a>
+                <ul class="cd-secondary-dropdown is-hidden">
+                    <li class="go-back"><a href="#menu-geral">Categorias</a></li>
+                    <li class="see-all"><a href="{% url 'category:show' 'design' %}">Ver Categoria</a></li>
+                    <li class="has-children">
+                        <a href="{% url 'category:show' 'design' %}">Comunidades</a>
+                        <ul class="is-hidden">
+                            <li class="go-back"><a href="#menu-geral">Voltar</a></li>
+                            {% for community in categories.design %}
+                            <li><a href="{% url "community:show" community.slug %}" title="{{ community.title }}">{{ community.title }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li class="has-children">
+                <a href="{% url 'category:show' 'marketing-digital' %}">Marketing Digital</a>
+                <ul class="cd-secondary-dropdown is-hidden">
+                    <li class="go-back"><a href="#menu-geral">Categorias</a></li>
+                    <li class="see-all"><a href="{% url 'category:show' 'marketing-digital' %}">Ver Categoria</a></li>
+                    <li class="has-children">
+                        <a href="{% url 'category:show' 'marketing-digital' %}">Comunidades</a>
+                        <ul class="is-hidden">
+                            <li class="go-back"><a href="#menu-geral">Voltar</a></li>
+                            {% for community in categories.marketing_digital %}
+                            <li><a href="{% url "community:show" community.slug %}" title="{{ community.title }}">{{ community.title }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li class="has-children">
+                <a href="{% url 'category:show' 'banco-de-dados' %}">Banco de Dados</a>
+                <ul class="cd-secondary-dropdown is-hidden">
+                    <li class="go-back"><a href="#menu-geral">Categorias</a></li>
+                    <li class="see-all"><a href="{% url 'category:show' 'banco-de-dados' %}">Ver Categoria</a></li>
+                    <li class="has-children">
+                        <a href="{% url 'category:show' 'banco-de-dados' %}">Comunidades</a>
+                        <ul class="is-hidden">
+                            <li class="go-back"><a href="#menu-geral">Voltar</a></li>
+                            {% for community in categories.banco_de_dados %}
+                            <li><a href="{% url "community:show" community.slug %}" title="{{ community.title }}">{{ community.title }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li class="has-children">
+                <a href="{% url 'category:show' 'infraestrutura' %}">Infraestrutura</a>
+                <ul class="cd-secondary-dropdown is-hidden">
+                    <li class="go-back"><a href="#menu-geral">Categorias</a></li>
+                    <li class="see-all"><a href="{% url 'category:show' 'infraestrutura' %}">Ver Categoria</a></li>
+                    <li class="has-children">
+                        <a href="{% url 'category:show' 'infraestrutura' %}">Comunidades</a>
+                        <ul class="is-hidden">
+                            <li class="go-back"><a href="#menu-geral">Voltar</a></li>
+                            {% for community in categories.infraestrutura %}
+                            <li><a href="{% url "community:show" community.slug %}" title="{{ community.title }}">{{ community.title }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li class="has-children">
+                <a href="{% url 'category:show' 'mobile' %}">Mobile</a>
+                <ul class="cd-secondary-dropdown is-hidden">
+                    <li class="go-back"><a href="#menu-geral">Categorias</a></li>
+                    <li class="see-all"><a href="{% url 'category:show' 'mobile' %}">Ver Categoria</a></li>
+                    <li class="has-children">
+                        <a href="{% url 'category:show' 'mobile' %}">Comunidades</a>
+                        <ul class="is-hidden">
+                            <li class="go-back"><a href="#menu-geral">Voltar</a></li>
+                            {% for community in categories.mobile %}
+                            <li><a href="{% url "community:show" community.slug %}" title="{{ community.title }}">{{ community.title }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li class="has-children">
+                <a href="{% url 'category:show' 'mais' %}">Mais</a>
+                <ul class="cd-secondary-dropdown is-hidden">
+                    <li class="go-back"><a href="#menu-geral">Categorias</a></li>
+                    <li class="see-all"><a href="{% url 'category:show' 'mais' %}">Ver Categoria</a></li>
+                    <li class="has-children">
+                        <a href="{% url 'category:show' 'mais' %}">Comunidades</a>
+                        <ul class="is-hidden">
+                            <li class="go-back"><a href="#menu-geral">Voltar</a></li>
+                            {% for community in categories.mais %}
+                            <li><a href="{% url "community:show" community.slug %}" title="{{ community.title }}">{{ community.title }}</a></li>
+                            {% endfor %}
                         </ul>
                     </li>
                 </ul>
@@ -25,87 +136,3 @@
         </ul>
     </nav>
 </div>
-{% comment %}
-<ul class="menu-categories">
-    <li class="item governance">
-        <a href="{% url 'category:show' 'governanca-e-gestao' %}">Governança e Gestão</a>
-        <div class="submenu-categories sub-governance">
-            <ul class="commmunities">
-            {% for community in categories.governanca_e_gestao %}
-            <li class="community"><a href="{% url "community:show" community.slug %}" title="{{ community.title }}">{{ community.title }}</a></li>
-            {% endfor %}
-        </ul>
-    </div>
-</li>
-<li class="item development">
-    <a href="{% url 'category:show' 'desenvolvimento' %}">Desenvolvimento</a>
-    <div class="submenu-categories sub-development">
-        <ul class="commmunities">
-            {% for community in categories.desenvolvimento %}
-            <li class="community"><a href="{% url "community:show" community.slug %}" title="{{ community.title }}">{{ community.title }}</a></li>
-            {% endfor %}
-        </ul>
-    </div>
-</li>
-    <li class="item design">
-        <a href="{% url 'category:show' 'design' %}">Design</a>
-        <div class="submenu-categories sub-design">
-            <ul class="commmunities">
-                {% for community in categories.design %}
-                <li class="community"><a href="{% url "community:show" community.slug %}" title="{{ community.title }}">{{ community.title }}</a></li>
-                {% endfor %}
-            </ul>
-        </div>
-    </li>
-    <li class="item marketing">
-        <a href="{% url 'category:show' 'marketing-digital' %}">Marketing Digital</a>
-        <div class="submenu-categories sub-marketing">
-            <ul class="commmunities">
-                {% for community in categories.marketing_digital %}
-                <li class="community"><a href="{% url "community:show" community.slug %}" title="{{ community.title }}">{{ community.title }}</a></li>
-                {% endfor %}
-            </ul>
-        </div>
-    </li>
-    <li class="item databases">
-        <a href="{% url 'category:show' 'banco-de-dados' %}">Banco de Dados</a>
-        <div class="submenu-categories sub-databases">
-            <ul class="commmunities">
-                {% for community in categories.banco_de_dados %}
-                <li class="community"><a href="{% url "community:show" community.slug %}" title="{{ community.title }}">{{ community.title }}</a></li>
-                {% endfor %}
-            </ul>
-        </div>
-    </li>
-    <li class="item infra">
-        <a href="{% url 'category:show' 'infraestrutura' %}">Infraestrutura</a>
-        <div class="submenu-categories sub-infra">
-            <ul class="commmunities">
-                {% for community in categories.infraestrutura %}
-                <li class="community"><a href="{% url "community:show" community.slug %}" title="{{ community.title }}">{{ community.title }}</a></li>
-                {% endfor %}
-            </ul>
-        </div>
-    </li>
-    <li class="item mobile">
-        <a href="{% url 'category:show' 'mobile' %}">Mobile</a>
-        <div class="submenu-categories sub-mobile">
-            <ul class="commmunities">
-                {% for community in categories.mobile %}
-                <li class="community"><a href="{% url "community:show" community.slug %}" title="{{ community.title }}">{{ community.title }}</a></li>
-                {% endfor %}
-            </ul>
-        </div>
-    </li>
-    <li class="item more">
-        <a href="{% url 'category:show' 'mais' %}">Mais</a>
-        <div class="submenu-categories sub-more">
-            <ul class="commmunities">
-                {% for community in categories.mais %}
-                <li class="community"><a href="{% url "community:show" community.slug %}" title="{{ community.title }}">{{ community.title }}</a></li>
-            {% endfor %}
-        </ul>
-    </div>
-    </li>
-</ul>
-{% endcomment %}
