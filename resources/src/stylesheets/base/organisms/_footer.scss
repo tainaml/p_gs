@@ -2,13 +2,14 @@
   border-top: 1px solid #ebebeb;
   &-container,
   &-social {
-    max-width: 1316px;
+    max-width: 100%;
     margin: 0 auto;
   }
   &-container,
   &-social {
     display: flex;
     align-items: center;
+    flex-direction: column;
     justify-content: space-between;
   }
   &-support {
@@ -28,11 +29,8 @@
     display: flex;
     align-items: center;
     .gsticon {
-      margin: 20px;
+      padding: 20px;
       font-size: 16px;
-    }
-    .gsticon:last-child {
-      margin-right: 0;
     }
   }
   &-navigation {
@@ -43,32 +41,73 @@
     align-items: center;
   }
   &-navigation-link {
-    margin: 20px;
+    margin: 5px 10px;
     color: #ffffff;
     font: 600 14px/20px "Open Sans";
     letter-spacing: 0.35px;
+    text-align: center;
   }
   &-logo {
     width: 108px;
     height: 39px;
-    margin-left: 0;
     display: block;
     background: transparent url("../images/logo-footer.png") no-repeat center;
+    background-size: contain;
     text-indent: -999px;
   }
   &-copyright p {
-    margin: 0;
+    margin: 10px 0;
     color: #ffffff;
     font: 400 14px/20px "Open Sans";
     letter-spacing: 0.35px;
   }
 }
 
-@include at-least(1024) {
+@include at-least($screen-tablet) {
   .app-footer {
-    &-navigation,
+    &-container,
     &-social {
-      width: 100%;
+      max-width: $container-tablet;
+      flex-direction: row;
+      justify-content: space-between;
+    }
+    &-navigation-link {
+      margin: 20px;
+    }
+    &-logo {
+      margin-left: 0;
+    }
+  }
+}
+
+@include at-least($screen-desktop) {
+  .app-footer {
+    &-container,
+    &-social {
+      max-width: $container-desktop;
+    }
+    &-profiles .gsticon:last-child {
+      margin-right: -20px;
+    }
+  }
+}
+
+@include between(($screen-desktop + 1), $screen-wide) {
+  .app-footer {
+    &-container,
+    &-social {
+      max-width: 100%;
+      padding-right: 30px;
+      padding-left: 30px;
+    }
+  }
+}
+
+@include at-least($screen-wide) {
+  .app-footer {
+    &-container,
+    &-social {
+      max-width: $container-wide;
     }
   }
 }

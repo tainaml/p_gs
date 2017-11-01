@@ -1,0 +1,6 @@
+@mixin button-variant($text-color: $primary-color, $font: 400 1rem "Open Sans", $background-color: #fff) {
+    background-color: $background-color;
+    color: $text-color;
+    font: $font;
+    text-decoration: none;
+}

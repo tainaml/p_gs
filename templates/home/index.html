@@ -14,15 +14,10 @@
 {% endblock page_stylesheet %}
 
 {% block logo %}
-<h1 class="gsti">
-    <a class="gsti-link" href="{% url 'index' %}" title="Portal GSTI">Portal GSTI</a>
+<h1 class="app-header-logo">
+    <a class="app-header-logo-link" href="{% url 'index' %}" title="Portal GSTI">Portal GSTI</a>
 </h1>
 {% endblock logo %}
-{% block logo_mobile %}
-<div class="gsti">
-    <a class="gsti-link" href="{% url 'index' %}" title="Portal GSTI">Portal GSTI</a>
-</div>
-{% endblock logo_mobile %}
 
 {% block content %}
     {% bighomecache home %}

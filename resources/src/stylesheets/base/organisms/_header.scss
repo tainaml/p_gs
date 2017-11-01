@@ -1,0 +1,134 @@
+.app-header {
+  position: fixed;
+  z-index: 1000;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: $primary-color;
+  &-container {
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  &-button--menu {
+    padding: 15px;
+    display: block;
+    color: #fff;
+  }
+  &-logo {
+    margin: 0;
+    &-link {
+      width: 98px;
+      height: 36px;
+      margin: 0 auto;
+      display: block;
+      background: transparent url("../images/logo-header.png") no-repeat center;
+      background-size: contain;
+      text-indent: -9999px;
+    }
+  }
+  &-right-content {
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+@include at-most($screen-phone) {
+  .app-header {
+    &-right-content {
+      min-width: 42px;
+      min-height: 1px;
+      .searchbar {
+        position: absolute;
+        right: 0;
+        width: 42px;
+        min-height: 48px;
+        background-color: transparent;
+        border-radius: 0;
+        &-input {
+          padding-left: 15px;
+        }
+        &:focus-within {
+          background-color: rgba(255, 255, 255, 1);
+        }
+      }
+      .user-actions {
+        display: none;
+      }
+    }
+  }
+}
+
+@include at-least($screen-tablet) {
+  .app-header {
+    &-container {
+      max-width: $container-tablet;
+    }
+    &-button--menu {
+      display: none;
+    background-color: white;
+    }
+    &-right-content {
+      width: 80%;
+      padding: 5px 0;
+      .searchbar {
+        min-width: 50%;
+      }
+      .user-actions {
+        min-width: 50%;
+      }
+    }
+  }
+}
+
+@include at-least($screen-desktop) {
+  .app-header {
+    &-container {
+      max-width: $container-desktop;
+    }
+    &-logo {
+      margin: 18px 0;
+      &-link {
+        width: 136px;
+        height: 46px;
+      }
+    }
+    &-right-content {
+      width: 80%;
+      .searchbar {
+        min-width: 50%;
+      }
+      .user-actions {
+        min-width: 50%;
+      }
+    }
+  }
+}
+
+@include between(($screen-desktop + 1), $screen-wide) {
+  .app-header {
+    &-container {
+      max-width: 100%;
+      padding-right: 30px;
+      padding-left: 30px;
+    }
+  }
+}
+
+@include at-least($screen-wide) {
+  .app-header {
+    &-container {
+      max-width: $container-wide;
+    }
+    &-right-content {
+      .searchbar {
+        min-width: 60%;
+      }
+      .user-actions {
+        min-width: 40%;
+      }
+    }
+  }
+}

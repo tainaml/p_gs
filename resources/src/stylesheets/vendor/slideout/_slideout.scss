@@ -14,9 +14,8 @@
 
 .slideout-panel {
   position: relative;
-  padding-top: 50px;
+  padding-top: 49px;
   background-color: #fff;
-  // will-change: transform;
 }
 
 .slideout-open,
@@ -27,4 +26,17 @@
 
 .slideout-open .slideout-menu {
   display: block;
+  .user-actions-dropdown-list {
+    min-width: 100%;
+  }
+}
+@media all and (min-width: 768px) {
+  .slideout-panel {
+    padding-top: 58px;
+  }
+}
+@media all and (min-width: 1024px) {
+  .slideout-panel {
+    padding-top: 82px;
+  }
 }

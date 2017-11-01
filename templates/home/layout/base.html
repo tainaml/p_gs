@@ -73,44 +73,18 @@
     {% include 'home/partials/slideout-menu.html' %}
 </div>
 <div class="slideout-panel {% block page_class %}{% endblock page_class %}" id="wrapper">
-    <header class="header">
-        <div class="container">
-            <div class="menu-mobile hidden-lg">
-                <div class="mobile-search" id="mobile-search" style="display: none;">
-                    {% include 'home/partials/search-header.html' with placehold="Procurar" %}
-                    <a href="javascript:;" class="btn-hide-item toggle-search">
-                        <i class="gsticon gsticon-close"></i>
-                    </a>
-                </div>
-                <div class="row">
-                    <a class="btn-show-item toggle-slideout" data-item="#slideout-menu" href="javascript:;" {% if request.user.is_authenticated %}data-notification-group-badge{% endif %}>
-                        {% if request.user.is_authenticated %}
-                            <figure>
-                                <img src="{% get_avatar request.user width=40 height=40 smart=False fit_in=False %}" alt="{{ request.user.get_full_name }}" class="img-circle">
-                            </figure>
-                        {% else %}
-                            <i class="gsticon gsticon-sign-in"></i>
-                        {% endif %}
-                    </a>
-                    {% block logo %}
-                    <div class="gsti">
-                        <a class="gsti-link" href="{% url 'index' %}" title="Portal GSTI">Portal GSTI</a>
-                    </div>
-                    {% endblock logo %}
-                    <a class="btn-show-item toggle-search" data-item="#mobile-search" href="#">
-                        <i class="gsticon gsticon-search"></i>
-                    </a>
-                </div>
+    <header class="header app-header">
+        <div class="app-header-container">
+            <a class="app-header-button--menu toggle-slideout" data-item="#slideout-menu" href="#slideout-menu">
+                <i class="gsticon gsticon-fw gsticon-bars"></i>
+            </a>
+            {% block logo %}
+            <div class="app-header-logo">
+                <a class="app-header-logo-link" href="{% url 'index' %}" title="Portal GSTI">Portal GSTI</a>
             </div>
-            <div class="row menu-desktop visible-lg-block">
-              {% block logo_mobile %}
-              <div class="gsti">
-                  <a class="gsti-link" href="{% url 'index' %}" title="Portal GSTI">Portal GSTI</a>
-              </div>
-              {% endblock logo_mobile %}
-                <div class="search-header-container{% if request.user.is_authenticated %}--logged{% endif %}">
-                    {% include 'home/partials/search-header.html' %}
-                </div>
+            {% endblock logo %}
+            <div class="app-header-right-content">
+                {% include "home/partials/search-header.html" with placehold="Procure por comunidades, conteúdo e profissionais de tecnologia" %}
                 {% include 'home/partials/user-actions.html' %}
             </div>
         </div>
@@ -128,8 +102,7 @@
     {% include 'home/partials/modals/modal-resend-email-confirmation.html' %}
     {% include 'home/partials/modals/modal-sugerir.html' %}
     {% include 'home/partials/modals/modal-denunciar.html' %}
-
-{#    {% include 'home/partials/modals/modal-rules.html' %}#}
+    
     {% portal_rules %}
 
     {% include 'home/partials/modals/modal-contato.html' %}
@@ -141,10 +114,8 @@
 <script src="{% static_versioned 'javascripts/shared.js'%}"></script>
 <script src="{% static_versioned 'javascripts/main.js'%}"></script>
  <script>
-        $(function(){
-
-
-            var tigre = jQuery().tigreAgenteMR({
+    $(function(){
+        var tigre = jQuery().tigreAgenteMR({
             tigreAppID: '6011F0D30DF54607A7BB8EE047D1E741',
             fbAppId: '{% setting "SOCIAL_AUTH_FACEBOOK_KEY" %}',
             useFB: true,
@@ -157,14 +128,9 @@
                     window.location.href="{% url 'social:begin' backend='facebook' %}"
                 }
             }
-
-
-
-            });
-
-
         });
-    </script>
+    });
+</script>
 
 {% if request.user.is_anonymous %}
     <script src="https://www.google.com/recaptcha/api.js?hl=pt-BR" async defer></script>
