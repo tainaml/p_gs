@@ -30,12 +30,14 @@ class XP():
 
     @staticmethod
     def for_like(instance, communities):
+        size_communities = len(communities) if len(communities) > 0 else 1
         if type(instance) == Article:
-            return int(XP.FOR_LIKE_ARTICLE_XP / len(communities))
+
+            return int(XP.FOR_LIKE_ARTICLE_XP / size_communities)
         elif type(instance) == Question:
-            return int(XP.FOR_LIKE_QUESTION_XP / len(communities))
+            return int(XP.FOR_LIKE_QUESTION_XP / size_communities)
         elif type(instance) == Answer:
-            return int(XP.FOR_LIKE_ANSWER_XP / len(communities))
+            return int(XP.FOR_LIKE_ANSWER_XP)
         else:
             raise NotAGamificationEntityException("Must be an article, question or answer")
 
@@ -62,44 +64,62 @@ class XP():
 
         value = None
         if action.action_type \
-                in [settings.SOCIAL_LIKE, settings.SOCIAL_UNLIKE, settings.SOCIAL_FOLLOW]\
-                and action.content_object.author != action.author:
+                in [settings.SOCIAL_LIKE, settings.SOCIAL_UNLIKE, settings.SOCIAL_FOLLOW]:
 
             if action.action_type == settings.SOCIAL_FOLLOW:
                 communities = [None]
                 user = action.content_object
             else:
-                communities = action.content_object.feed.first().communities.all() or []
-                user = action.content_object.author
+                if isinstance(action.content_object, Answer):
+                    communities = [None]
+                else:
+                    communities = action.content_object.feed.first().communities.all() if action.content_object else []
+
+                user = action.content_object.author if action.content_object else None
 
 
-            transaction_type = None
-            if action.action_type == settings.SOCIAL_LIKE:
-                transaction_type = TransactionType.CREDIT if not reverse else TransactionType.DEBIT
-                value = XP.for_like(action.content_object, communities)
-            elif action.action_type == settings.SOCIAL_UNLIKE:
-                transaction_type = TransactionType.DEBIT if not reverse else TransactionType.CREDIT
-                value = XP.for_dislike(action.content_object, communities)
-            elif action.action_type == settings.SOCIAL_FOLLOW:
-                transaction_type = TransactionType.CREDIT if not reverse else TransactionType.DEBIT
-                value = XP.for_follow(action.content_object)
+            if  user and user.gamification_member and user != action.author and len(communities) > 0:
 
-            print communities
-            for community in communities:
-                print community, user
-                transaction = XPTransaction(
-                    transaction_type=transaction_type,
-                    action_type=action.action_type,
-                    value=value,
-                    user=user,
-                    city= user.profile.city,
-                    by=action.author,
-                    content_type=action.content_type,
-                    object_id=action.object_id,
-                    community=community
 
-                )
-                transaction.save()
+                transaction_type = None
+                if action.action_type == settings.SOCIAL_LIKE:
+                    transaction_type = TransactionType.CREDIT if not reverse else TransactionType.DEBIT
+                    value = XP.for_like(action.content_object, communities)
+                elif action.action_type == settings.SOCIAL_UNLIKE:
+                    transaction_type = TransactionType.DEBIT if not reverse else TransactionType.CREDIT
+                    value = XP.for_dislike(action.content_object, communities)
+                elif action.action_type == settings.SOCIAL_FOLLOW:
+                    transaction_type = TransactionType.CREDIT if not reverse else TransactionType.DEBIT
+                    value = XP.for_follow(action.content_object)
+
+                try:
+                    city = user.profile.city
+                except Exception:
+                    city = None
+
+                for community in communities:
+
+                    transaction = XPTransaction(
+                        transaction_type=transaction_type,
+                        action_type=action.action_type,
+                        value=value,
+                        user=user,
+                        city= city,
+                        by=action.author,
+                        content_type=action.content_type,
+                        object_id=action.object_id,
+                        community=community
+
+                    )
+                    transaction.save()
+                user_credits = XPTransaction.objects.filter(user=user,
+                                               transaction_type=TransactionType.CREDIT).aggregate(credits=Sum("value"))
+                debits = XPTransaction.objects.filter(user=user,
+                                                                   transaction_type=TransactionType.DEBIT).aggregate(debits=Sum("value"))
+                user_value = (user_credits['credits'] or 0) - (debits['debits'] or 0)
+
+                user.xp = user_value
+                user.save()
 
 
 
@@ -143,12 +163,16 @@ class XPTransaction(models.Model):
 
     community = models.ForeignKey(to=Community, verbose_name=_("Community"), related_name="transactions", null=True, blank=True)
 
+
+
     def save(self, force_insert=False, force_update=False, using=None,
              update_fields=None):
 
 
         super(XPTransaction, self).save(force_insert=force_insert,
                   force_update=force_update, using=using, update_fields=update_fields)
+
+
 
 
         if self.community:
@@ -167,7 +191,6 @@ class XPTransaction(models.Model):
             )
 
             community_rank.value = (user_credits['credits'] or 0) - (debits['debits'] or 0)
-            print community_rank.value
             community_rank.save()
 
 

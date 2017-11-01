@@ -36,7 +36,7 @@
 
     <div class="profile__sidebar__xp">
         <span class="profile__sidebar__xp__label">XP</span>
-        <span class="profile__sidebar__xp__value">1052</span>
+        <span class="profile__sidebar__xp__value">{{ profile.user.xp }}</span>
     </div>
 
     {% if request.user != profile.user %}
