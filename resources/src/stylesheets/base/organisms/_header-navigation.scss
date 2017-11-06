@@ -31,7 +31,7 @@
   }
 }
 
-@include at-most($screen-phone) {
+@include at-most($screen--phone) {
   .app-header-navigation {
     .cd-dropdown-trigger {
       display: none;
@@ -39,10 +39,10 @@
   }
 }
 
-@include at-least($screen-tablet) {
+@include at-least($screen--tablet) {
   .app-header-navigation {
     &-container {
-      max-width: $container-tablet;
+      max-width: $container--tablet;
     }
     &-menu {
       min-width: 80%;
@@ -51,10 +51,10 @@
   }
 }
 
-@include at-least($screen-desktop) {
+@include at-least($screen--desktop) {
   .app-header-navigation {
     &-container {
-      max-width: $container-desktop;
+      max-width: $container--desktop;
     }
     &-item-link {
       &.cd-dropdown-trigger {
@@ -65,7 +65,7 @@
   }
 }
 
-@include between(($screen-desktop + 1), $screen-wide) {
+@include between(($screen--desktop + 1), $screen--wide) {
   .app-header-navigation {
     &-container {
       max-width: 100%;
@@ -75,10 +75,10 @@
   }
 }
 
-@include at-least($screen-wide) {
+@include at-least($screen--wide) {
   .app-header-navigation {
     &-container {
-      max-width: $container-wide;
+      max-width: $container--wide;
     }
   }
 }

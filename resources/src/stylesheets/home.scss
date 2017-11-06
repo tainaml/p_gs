@@ -1,7 +1,7 @@
 
 // UTILITIES
-// @import "base/utilities/variables";
-// @import "base/utilities/media-queries";
+@import "base/utilities/variables";
+@import "base/utilities/media-queries";
 
 // ATOMS
 // @import "base/atoms/button";
@@ -9,6 +9,7 @@
 // MOLECULES
 // @import "base/molecules/searchbar";
 // @import "base/molecules/user-actions";
+@import "base/molecules/card-home";
 
 
 // ORGANISMS
@@ -16,3 +17,4 @@
 // @import "base/organisms/footer";
 
 // TEMPLATES
+@import "base/templates/home-page";

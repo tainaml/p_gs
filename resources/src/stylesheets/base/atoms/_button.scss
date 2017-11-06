@@ -1,6 +1,22 @@
-@mixin button-variant($text-color: $primary-color, $font: 400 1rem "Open Sans", $background-color: #fff) {
-    background-color: $background-color;
-    color: $text-color;
-    font: $font;
-    text-decoration: none;
+@mixin button-variant($text-color: $primary-color, $font: 400 1rem "Open Sans", $background-color: white) {
+  background-color: $background-color;
+  color: $text-color;
+  font: $font;
+  text-decoration: none;
+}
+
+.app-button {
+  &-round {
+    @include button-variant();
+  }
+  &-round-inverse {
+    @include button-variant($text-color: white, $background-color: $primary-color);
+  }
+  &-round-inverse,
+  &-round {
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-weight: 700;
+    font-size: 16px;
+  }
 }

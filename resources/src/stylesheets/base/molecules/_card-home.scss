@@ -1,0 +1,152 @@
+.app-card {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  &-author {
+    color: #616161;
+    font: 700 12px/24px "Open Sans";
+    letter-spacing: 0.3px;
+    img {
+      margin-right: 10px;
+      border: 1px solid #e1dede;
+    }
+  }
+  &-content {
+    padding: 15px 20px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    background-color: white;
+    border-left: 3px solid;
+  }
+  &-title {
+    margin: 20px 0 0;
+    color: #505050;
+    font: 600 16px/24px "Open Sans";
+    letter-spacing: 0.4px;
+    a {
+      color: inherit;
+    }
+  }
+  &-members,
+  &-sign-in {
+    .app-card-content {
+      height: 100%;
+      display: inline-block;
+      border-left: none;
+    }
+  }
+  &-members {
+    text-align: center;
+    h3 {
+      margin-top: 0;
+      color: $primary-color;
+      font: 700 20px "Open Sans";
+    }
+    img {
+      margin-right: -10px;
+      border: 3px solid white;
+    }
+    p {
+      max-width: 200px;
+      margin: 0 auto 20px;
+      color: #797979;
+      font: 600 13px "Open Sans";
+    }
+    .app-link {
+      margin-bottom: 12px;
+      display: block;
+      color: $primary-color;
+      font: 600 11px/24px "Open Sans";
+      letter-spacing: 0.28px;
+    }
+  }
+  &-no-image {
+    .app-card-title {
+      margin-bottom: 20px;
+      color: #505050;
+      font: 600 24px/36px "Open Sans";
+      letter-spacing: 0.6px;
+    }
+    .app-card-excerpt a {
+      color: #777777;
+      font: 400 14px/20px "Open Sans";
+      letter-spacing: 0.35px;
+    }
+  }
+  &-sign-in {
+    text-align: center;
+    .app-card-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background-color: $primary-color;
+      color: white;
+      h3 {
+        margin: 0 0 16px;
+        font: 700 20px "Open Sans";
+      }
+      p {
+        margin-bottom: 30px;
+        font: 400 16px/20px "Open Sans";
+      }
+    }
+  }
+  &.governance {
+    .app-card-title:hover,
+    .app-card-content {
+      border-left-color: $color-governance;
+      color: $color-governance;
+    }
+  }
+  &.development {
+    .app-card-title:hover,
+    .app-card-content {
+      border-left-color: $color-development;
+      color: $color-development;
+    }
+  }
+  &.design {
+    .app-card-title:hover,
+    .app-card-content {
+      border-left-color: $color-design;
+      color: $color-design;
+    }
+  }
+  &.marketing {
+    .app-card-title:hover,
+    .app-card-content {
+      border-left-color: $color-marketing;
+      color: $color-marketing;
+    }
+  }
+  &.infra {
+    .app-card-title:hover,
+    .app-card-content {
+      border-left-color: $color-infra;
+      color: $color-infra;
+    }
+  }
+  &.databases {
+    .app-card-title:hover,
+    .app-card-content {
+      border-left-color: $color-databases;
+      color: $color-databases;
+    }
+  }
+  &.mobile {
+    .app-card-title:hover,
+    .app-card-content {
+      border-left-color: $color-mobile;
+      color: $color-mobile;
+    }
+  }
+  &.more {
+    .app-card-title:hover,
+    .app-card-content {
+      border-left-color: $color-more;
+      color: $color-more;
+    }
+  }
+}

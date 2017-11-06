@@ -20,109 +20,111 @@
 {% endblock logo %}
 
 {% block content %}
-    {% bighomecache home %}
-        <main class="container main home">
-            <div class="container-posts">
-                <div class="banner-content-wide">
-                    <div class="banner">
-                        {% ads_only_production "home_top" "all" %}
+    {#% bighomecache home %#}
+        <main class="app-main page-home">
+            <div class="page-home-banner">
+                {% ads_only_production "home_top" "all" %}
+            </div>
+            <div class="page-home-container">
+                {% article_block 'large' 'governanca-e-gestao' class_name='governance' quantity=2 %}
+                <div class="app-card app-card-sign-in">
+                    <div class="app-card-content">
+                        <h3>Novo no Portal?</h3>
+                        <p>Inscreva-se para ficar por dentro do mundo da tecnologia, publicar seus artigos e muito mais!</p>
+                        <a class="app-button-round" href="{% url 'account:signup' %}">Inscreva-se</a>
                     </div>
                 </div>
             </div>
-            <div class="highlight-area">
-                <div class="highlight-left">
-                    <div class="post-list-container">
-
-                        {% article_block 'large' 'governanca-e-gestao' class_name='governance' quantity=2 %}
-                        {% article_block 'large' 'desenvolvimento' class_name='development' quantity=2 %}
-
-                    </div>
-                    <div class="clearfix" style="border-top: 1px solid #e1e1e1;">
-                        <div class="row">
-                            <div class="col-lg-6">
-                                {% article_block 'area-mini' 'design' class_name='design' quantity=1 %}
-                            </div>
-                            <div class="col-lg-6">
-                                {% article_block 'area-mini' 'design' class_name='design' quantity=1 %}
-                            </div>
-                        </div>
-                    </div>
-                    <div class="highlight-articles--large clearfix">
-                        <div class="row">
-
-                            {% article_block 'area-text' 'mobile' class_name='mobile' quantity=2 %}
-                            {% article_block 'area-text' 'mais' class_name='more' quantity=2 %}
-
-                        </div>
-                    </div>
-
-                </div>
-                <div class="highlight-right">
-
-                    {% article_block 'simple' 'banco-de-dados' class_name='databases' quantity=2 %}
-                    {% article_block 'simple' 'infraestrutura' class_name='infra' quantity=2 %}
-                    <div class="highlight-articles--large">
-                        {% article_block 'simple-image' 'marketing-digital' class_name='marketing' quantity=2 %}
-                    </div>
-
-                </div>
-            </div>
-            <div class="container-posts">
-
-                {% article_block 'full' 'governanca-e-gestao' class_name='governance' quantity=6 %}
-
-            </div>
-            <div class="container-posts">
-
-                {% article_block 'half3' 'desenvolvimento' class_name='development' quantity=5 show_communities=4 %}
-                {% article_block 'half3' 'marketing-digital' class_name='marketing' quantity=5 show_communities=4 %}
-
-            </div>
-            <div class="container-posts">
-                <div class="banner-content-wide">
-                    <div class="banner">
-                        {% ads_only_production "home_middle" "all" %}
+            <div class="page-home-container">
+                {% for i in "lore" %}
+                <div class="app-card ">
+                    <a href="#" title="#">
+                        <img class="app-card-image img-responsive" alt="#" src="https://loremflickr.com/313/230/technology">
+                    </a>
+                    <div class="app-card-content">
+                        <a class="app-card-author">
+                            <img class="img-circle" src="https://loremflickr.com/30/30/man,woman" alt="" /> Louis Wilton
+                        </a>
+                        <h3 class="app-card-title">
+                            <a href="#" title="#">
+                                Lorem Ipsum amet do site i is amend
+                            </a>
+                        </h3>
                     </div>
                 </div>
-
-                {% article_block 'half3' 'design' class_name='design' quantity=5 show_communities=4 %}
-                {% article_block 'half3' 'infraestrutura' class_name='infra' quantity=5 show_communities=4 %}
-
+                {% endfor %}
             </div>
-
-            <div class="container-posts">
-                {% article_block 'half3' 'banco-de-dados' class_name='databases' quantity=5 show_communities=4 %}
-                {% article_block 'half3' 'mobile' class_name='mobile' quantity=5 show_communities=4 %}
-            </div>
-
-            <div class="container-posts">
-
-                {% article_block 'third' 'mais' class_name='more' quantity=4 show_communities=4 %}
-
-                    <section class="post-list--small">
-                        <div class="post-list-header">
-                            <h2 class="post-list-heading">Conecte-se</h2>
+            <div class="page-home-container">
+                <div class="app-card app-card-no-image">
+                    <div class="app-card-content">
+                        <a class="app-card-author">
+                            <img class="img-circle" src="https://loremflickr.com/30/30/man,woman" alt="" /> Louis Wilton
+                        </a>
+                        <h3 class="app-card-title">
+                            <a href="#">
+                                 Aprenda como instalar e entenda a interface do Microsoft Access
+                            </a>
+                        </h3>
+                        <p class="app-card-excerpt">
+                            <a href="#">
+                             Aprenda como instalar e entenda a interface do Microsoft Access Lorem ipsum indolor...
+                            </a></p>
+                    </div>
+                </div>
+                {% for i in "lo" %}
+                <div class="app-card">
+                    <a href="#" title="#">
+                        <img class="app-card-image img-responsive" alt="#" src="https://loremflickr.com/313/230/technology">
+                    </a>
+                    <div class="app-card-content">
+                        <a class="app-card-author">
+                            <img class="img-circle" src="https://loremflickr.com/30/30/man,woman" alt="" /> Louis Wilton
+                        </a>
+                        <h3 class="app-card-title">
+                            <a href="#" title="#">
+                                Lorem Ipsum amet do site i is amend
+                            </a>
+                        </h3>
+                    </div>
+                </div>
+                {% endfor %}
+                <div class="app-card app-card-members">
+                    <div class="app-card-content">
+                        <h3>Junte-se a nós!</h3>
+                        <p>Somos mais de 13.333333 membros</p>
+                        <div class="members">
+                            {%for i in "loremipsumsitde" %}
+                            <img class="img-circle" src="https://loremflickr.com/50/50/man,woman" alt="" />
+                            {% endfor %}
                         </div>
-                        <div class="fb-page" data-href="https://www.facebook.com/PortalGSTIpage" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="false" data-show-posts="false"><div class="fb-xfbml-parse-ignore"><blockquote cite="https://www.facebook.com/PortalGSTIpage"><a href="https://www.facebook.com/PortalGSTIpage">Portal GSTI</a></blockquote></div></div>
-                        <div id="google-badge">
-                            <div class="g-page" data-width="270" data-href="https://plus.google.com/113333419239001929124" data-layout="landscape" data-rel="publisher"></div>
-                        </div>
-                    </section>
+                        <a class="app-link" href="{% url 'search:search-content' 'users' %}">Ver todos os membors</a>
+                        <a class="app-button-round-inverse" href="{% url 'account:signup' %}">Inscreva-se</a>
+                    </div>
+                </div>
             </div>
-
+            <div class="page-home-container">
+                carousel das comunidades
+            </div>
+            <div class="page-home-container">
+                <div class="page-home-categories">
+                     {% article_block 'half3' 'governanca-e-gestao' class_name='governance' quantity=3 %}
+                     {% article_block 'half3' 'desenvolvimento' class_name='development' quantity=3 %}
+                     {% article_block 'half3' 'design' class_name='design' quantity=3 %}
+                     {% article_block 'half3' 'marketing-digital' class_name='marketing' quantity=3 %}
+                     {% article_block 'half3' 'banco-de-dados' class_name='infra' quantity=3 %}
+                     {% article_block 'half3' 'infraestrutura' class_name='databases' quantity=3 %}
+                     {% article_block 'half3' 'mobile' class_name='mobile' quantity=3 %}
+                     {% article_block 'half3' 'mais' class_name='more' quantity=3 %}
+                </div>
+                <div class="page-home-aside">aside content</div>
+            </div>
         </main>
-    {% endbighomecache %}
+    {#% endbighomecache %#}
 {% endblock %}
 
 {% block javascripts %}
         <div id="fb-root"></div>
         <script>
-            (function() {
-                document.getElementsByClassName('g-page')[0].setAttribute('data-width', document.getElementById('google-badge').clientWidth);
-                var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
-                po.src = 'https://apis.google.com/js/platform.js';
-                var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
-            })();
 
             (function(d, s, id) {
                 var js, fjs = d.getElementsByTagName(s)[0];

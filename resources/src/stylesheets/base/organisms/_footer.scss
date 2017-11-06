@@ -63,11 +63,11 @@
   }
 }
 
-@include at-least($screen-tablet) {
+@include at-least($screen--tablet) {
   .app-footer {
     &-container,
     &-social {
-      max-width: $container-tablet;
+      max-width: $container--tablet;
       flex-direction: row;
       justify-content: space-between;
     }
@@ -80,19 +80,19 @@
   }
 }
 
-@include at-least($screen-desktop) {
+@include at-least($screen--desktop) {
   .app-footer {
     &-container,
     &-social {
-      max-width: $container-desktop;
+      max-width: $container--desktop;
     }
     &-profiles .gsticon:last-child {
-      margin-right: -20px;
+      margin-right: -15px;
     }
   }
 }
 
-@include between(($screen-desktop + 1), $screen-wide) {
+@include between(($screen--desktop + 1), $screen--wide) {
   .app-footer {
     &-container,
     &-social {
@@ -103,11 +103,11 @@
   }
 }
 
-@include at-least($screen-wide) {
+@include at-least($screen--wide) {
   .app-footer {
     &-container,
     &-social {
-      max-width: $container-wide;
+      max-width: $container--wide;
     }
   }
 }
