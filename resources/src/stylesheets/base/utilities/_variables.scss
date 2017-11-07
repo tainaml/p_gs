@@ -1,12 +1,21 @@
 // COLORS
 $primary-color: #0072bc !default;
+// categories colors
+$color-governance:  #0160b0 !default;
+$color-development: #3ea909 !default;
+$color-design:      #813889 !default;
+$color-marketing:   #f46b1b !default;
+$color-infra:       #1e5d4c !default;
+$color-databases:   #c30007 !default;
+$color-mobile:      #de1899 !default;
+$color-more:        #000000 !default;
 
 // SCREENS WIDTH
-$screen-phone: 480px !default;
-$screen-tablet: 768px !default;
-$screen-desktop: 1024px !default;
-$screen-wide: 1440px !default;
+$screen--phone:       480px !default;
+$screen--tablet:      768px !default;
+$screen--desktop:     1024px !default;
+$screen--wide:        1440px !default;
 
-$container-tablet: 738px !default;
-$container-desktop: 994px !default;
-$container-wide: 1316px !default;
+$container--tablet:   738px !default;
+$container--desktop:  994px !default;
+$container--wide:     1316px !default;

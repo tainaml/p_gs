@@ -35,7 +35,7 @@
   }
 }
 
-@include at-most($screen-phone) {
+@include at-most($screen--phone) {
   .app-header {
     &-right-content {
       min-width: 42px;
@@ -61,14 +61,14 @@
   }
 }
 
-@include at-least($screen-tablet) {
+@include at-least($screen--tablet) {
   .app-header {
     &-container {
-      max-width: $container-tablet;
+      max-width: $container--tablet;
     }
     &-button--menu {
       display: none;
-    background-color: white;
+      background-color: white;
     }
     &-right-content {
       width: 80%;
@@ -83,10 +83,10 @@
   }
 }
 
-@include at-least($screen-desktop) {
+@include at-least($screen--desktop) {
   .app-header {
     &-container {
-      max-width: $container-desktop;
+      max-width: $container--desktop;
     }
     &-logo {
       margin: 18px 0;
@@ -107,7 +107,7 @@
   }
 }
 
-@include between(($screen-desktop + 1), $screen-wide) {
+@include between(($screen--desktop + 1), $screen--wide) {
   .app-header {
     &-container {
       max-width: 100%;
@@ -117,10 +117,10 @@
   }
 }
 
-@include at-least($screen-wide) {
+@include at-least($screen--wide) {
   .app-header {
     &-container {
-      max-width: $container-wide;
+      max-width: $container--wide;
     }
     &-right-content {
       .searchbar {

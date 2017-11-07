@@ -44,6 +44,9 @@ $dropdown-triangle-size: 10px;
       text-align: center;
       border-radius: 50%;
     }
+    &.login {
+      margin-right: 30px;
+    }
   }
   &-button-round {
     @include button-variant($background-color: white, $font: 700 14px "Open Sans");

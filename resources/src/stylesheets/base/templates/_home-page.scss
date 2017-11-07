@@ -1,0 +1,152 @@
+.page-home {
+  padding-bottom: 50px;
+  background-color: #f5f5f5;
+  // display: inline-block;
+  &-banner {
+    padding-top: 20px;
+    padding-bottom: 30px;
+  }
+  &-container {
+    margin: 0 auto 25px;
+    display: flex;
+    align-items: stretch;
+    justify-content: space-between;
+  }
+  &-categories {
+    // width: 75%;
+  }
+  &-category-posts {
+    display: flex;
+  }
+  &-category {
+    position: relative;
+  }
+  &-vermais {
+  }
+  &-category-title {
+    border-bottom: 1px solid #d7d7d7;
+    font: 700 20px/18px "Open Sans";
+    a, span {
+      padding: 0 20px 9px 0;
+      margin-bottom: -1px;
+      display: inline-block;
+      border-bottom: 3px solid;
+    }
+    .governance {
+      color: $color-governance;
+      border-color: $color-governance;
+    }
+    .development {
+      color: $color-development;
+      border-color: $color-development;
+    }
+    .design {
+      color: $color-design;
+      border-color: $color-design;
+    }
+    .marketing {
+      color: $color-marketing;
+      border-color: $color-marketing;
+    }
+    .infra {
+      color: $color-infra;
+      border-color: $color-infra;
+    }
+    .databases {
+      color: $color-databases;
+      border-color: $color-databases;
+    }
+    .mobile {
+      color: $color-mobile;
+      border-color: $color-mobile;
+    }
+    .more {
+      color: $color-more;
+      border-color: $color-more;
+    }
+  }
+  &-aside {
+    // width: 25%;
+  }
+}
+
+@include at-most($screen--phone) {
+  .page-home {
+    &-container {
+      max-width: 95%;
+      flex-direction: column;
+      .app-card {
+        margin-bottom: 20px;
+      }
+    }
+    &-vermais {
+      padding: 15px;
+      display: block;
+      border: 1px solid #e5e5e5;
+      background-color: white;
+      text-align: center;
+    }
+    &-category-posts {
+      flex-direction: column;
+      .app-card {
+        margin-bottom: 20px;
+      }
+    }
+  }
+}
+
+@include at-least($screen--tablet) {
+  .page-home {
+    &-container {
+      max-width: $container--tablet;
+      .app-card {
+        padding-right: 10.6666667px;
+        padding-left: 10.6666667px;
+        &:first-child {
+          padding-left: 0;
+        }
+        &:last-child {
+          padding-right: 0;
+        }
+      }
+    }
+    &-categories {
+      width: 75%;
+    }
+    &-aside {
+      width: 25%;
+      padding-left: calc(10.6666667px * 2);
+    }
+    &-vermais {
+      position: absolute;
+      top: 0;
+      right: 0;
+    }
+  }
+}
+
+@include at-least($screen--desktop) {
+  .page-home {
+    &-container {
+      max-width: $container--desktop;
+    }
+  }
+}
+
+@include between(($screen--desktop + 1), $screen--wide) {
+  .page-home {
+    &-container {
+      max-width: 100%;
+      padding-right: 30px;
+      padding-left: 30px;
+    }
+  }
+}
+
+@include at-least($screen--wide) {
+  .page-home {
+    &-container {
+      max-width: $container--wide;
+    }
+  }
+}
