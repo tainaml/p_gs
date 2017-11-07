@@ -12,21 +12,19 @@
     align-items: stretch;
     justify-content: space-between;
   }
-  &-categories {
-    // width: 75%;
-  }
+  // &-categories {}
   &-category-posts {
     display: flex;
   }
   &-category {
     position: relative;
   }
-  &-vermais {
-  }
+  // &-vermais {}
   &-category-title {
     border-bottom: 1px solid #d7d7d7;
     font: 700 20px/18px "Open Sans";
-    a, span {
+    a,
+    span {
       padding: 0 20px 9px 0;
       margin-bottom: -1px;
       display: inline-block;
@@ -66,7 +64,187 @@
     }
   }
   &-aside {
-    // width: 25%;
+    &-advertising {
+      text-align: center;
+    }
+    &-box {
+      width: 100%;
+      margin-bottom: 35px;
+      display: inline-block;
+      background-color: white;
+    }
+    &-box-action {
+      display: block;
+      min-height: 50px;
+      background-color: $primary-color;
+      color: white;
+      font: 700 16px/3 "Open Sans";
+      text-align: center;
+    }
+    &-box-list {
+      padding: 0;
+      margin-bottom: 0;
+      list-style: none;
+    }
+    &-box-list-item {
+      display: inline-block;
+      &:first-child {
+        .page-home-aside-commit {
+          margin-top: 20px;
+        }
+      }
+      &:last-child {
+        .page-home-aside-commit {
+          margin-bottom: 12px;
+        }
+        .page-home-aside-question,
+        .page-home-aside-course {
+          border-bottom: none;
+        }
+      }
+    }
+    &-box-title {
+      margin: 20px 20px 0;
+      color: $primary-color;
+      font: 700 20px "Open Sans";
+    }
+    &-commit {
+      padding: 15px;
+      margin: 6px 20px;
+      display: block;
+      border: 1px solid #d7d7d7;
+      color: #616161;
+      &:hover {
+        color: $primary-color;
+      }
+    }
+    &-commit-author {
+      font: 700 12px/24px "Open Sans";
+      letter-spacing: 0.3px;
+    }
+    &-commit-content {
+      margin-top: 15px;
+      display: block;
+      font: 600 14px/20px "Open Sans";
+      letter-spacing: 0.35px;
+    }
+    &-commit-header {
+      height: 30px;
+      display: flex;
+      align-items: center;
+    }
+    &-commit-info {
+      display: flex;
+      flex-direction: column;
+    }
+    &-commit-image {
+      width: 30px;
+      height: 30px;
+      margin-right: 20px;
+      border: 1px solid #e1dede;
+    }
+    &-commit-publish {
+      font: 400 11px/18px "Open Sans";
+      letter-spacing: 0.28px;
+    }
+    &-course {
+      padding: 20px;
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px solid #d7d7d7;
+      &:hover,
+      &:focus {
+        .page-home-aside-course-title {
+          color: $primary-color;
+        }
+      }
+    }
+    &-course-content {
+      display: flex;
+      flex-direction: column;
+      justify-content: inherit;
+    }
+    &-course-flag {
+      color: $primary-color;
+      font: 400 12px/24px "Open Sans";
+      text-transform: uppercase;
+    }
+    &-course-image {
+      border: 1px solid #ebebeb;
+      margin-right: 24px;
+    }
+    &-course-title {
+      color: #505050;
+      font: 700 16px/24px "Open Sans";
+    }
+    &-question {
+      padding-bottom: 20px;
+      margin: 20px;
+      display: block;
+      border-bottom: 1px solid #e1e1e1;
+      color: #616161;
+      font: 600 16px/24px "Open Sans";
+      letter-spacing: 0.4px;
+      &:hover,
+      &:focus {
+        color: $primary-color;
+      }
+    }
+  }
+  &-communities {
+    padding: 20px 30px;
+    flex-direction: column;
+    background-color: white;
+    &-header {
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    &-title {
+      margin: 0;
+      color: #505050;
+      font: 700 20px/18px "Open Sans";
+      letter-spacing: 0.5px;
+    }
+    &-vermais {
+      color: #757474;
+      font: 600 12px/20px "Open Sans";
+      letter-spacing: 0.3px;
+      text-transform: uppercase;
+    }
+    &-arrow {
+      width: auto;
+      height: auto;
+      color: #b5b4b4;
+      font-size: 60px;
+      &:hover,
+      &:focus {
+        color: darken(#b5b4b4, 20%);
+      }
+      &::before {
+        content: "";
+      }
+    }
+  }
+  &-community {
+    color: #505050;
+    font: 600 14px/18px "Open Sans";
+    &-image {
+      margin: 0 auto;
+      border: 1px solid #ebebeb;
+    }
+    &-title {
+      margin-top: 10px;
+      display: block;
+      letter-spacing: 0.35px;
+    }
+    &-followers-count {
+      display: block;
+      font-size: 12px;
+      font-weight: 400;
+      letter-spacing: 0.3px;
+    }
   }
 }
 
@@ -92,6 +270,9 @@
         margin-bottom: 20px;
       }
     }
+    &-communities {
+      padding: 10px 15px;
+    }
   }
 }
 
@@ -115,6 +296,7 @@
     }
     &-aside {
       width: 25%;
+      padding-top: 50px;
       padding-left: calc(10.6666667px * 2);
     }
     &-vermais {

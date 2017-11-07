@@ -10,6 +10,8 @@
 {% block seo-og-description %}{% block seo-description %}O seu portal definitivo de TI. Conteúdo, área para tirar dúvidas, informações sobre vagas de trabalho, concursos e certificações. Conheça nossas comunidades!{% endblock %}{% endblock %}
 
 {% block page_stylesheet %}
+<link rel="stylesheet" href="\\unpkg.com/slick-carousel@1.8.1/slick/slick.css">
+<link rel="stylesheet" href="\\unpkg.com/slick-carousel@1.8.1/slick/slick-theme.css">
 <link rel="stylesheet" href="{% static_versioned 'stylesheets/home.css' %}">
 {% endblock page_stylesheet %}
 
@@ -36,23 +38,7 @@
                 </div>
             </div>
             <div class="page-home-container">
-                {% for i in "lore" %}
-                <div class="app-card ">
-                    <a href="#" title="#">
-                        <img class="app-card-image img-responsive" alt="#" src="https://loremflickr.com/313/230/technology">
-                    </a>
-                    <div class="app-card-content">
-                        <a class="app-card-author">
-                            <img class="img-circle" src="https://loremflickr.com/30/30/man,woman" alt="" /> Louis Wilton
-                        </a>
-                        <h3 class="app-card-title">
-                            <a href="#" title="#">
-                                Lorem Ipsum amet do site i is amend
-                            </a>
-                        </h3>
-                    </div>
-                </div>
-                {% endfor %}
+                 {% article_block 'large' 'governanca-e-gestao' class_name='governance' quantity=4 %}
             </div>
             <div class="page-home-container">
                 <div class="app-card app-card-no-image">
@@ -71,23 +57,7 @@
                             </a></p>
                     </div>
                 </div>
-                {% for i in "lo" %}
-                <div class="app-card">
-                    <a href="#" title="#">
-                        <img class="app-card-image img-responsive" alt="#" src="https://loremflickr.com/313/230/technology">
-                    </a>
-                    <div class="app-card-content">
-                        <a class="app-card-author">
-                            <img class="img-circle" src="https://loremflickr.com/30/30/man,woman" alt="" /> Louis Wilton
-                        </a>
-                        <h3 class="app-card-title">
-                            <a href="#" title="#">
-                                Lorem Ipsum amet do site i is amend
-                            </a>
-                        </h3>
-                    </div>
-                </div>
-                {% endfor %}
+                {% article_block 'large' 'governanca-e-gestao' class_name='governance' quantity=2 %}
                 <div class="app-card app-card-members">
                     <div class="app-card-content">
                         <h3>Junte-se a nós!</h3>
@@ -102,8 +72,21 @@
                     </div>
                 </div>
             </div>
-            <div class="page-home-container">
-                carousel das comunidades
+            <div class="page-home-container page-home-communities">
+                <div class="page-home-communities-header">
+                    <h2 class="page-home-communities-title">Comunidades</h2>
+                    <a class="page-home-communities-vermais" href="{% url 'search:search-content' 'communities' %}">
+                        <i class="gsticon gsticon-plus-circle" aria-hidden="true"></i> VER MAIS</a>
+                </div>
+                <div class="communities-carousel" data-toggle="carousel">
+                    {% for i in "loremipsum" %}
+                    <a class="page-home-community" href="#">
+                        <img class="page-home-community-image img-responsive" data-lazy="http://localhost:9000/unsafe/200x200/http://kenwheeler.github.io/slick/img/lazyfonz1.png" alt="Logotipo da comunidade X" />
+                        <span class="page-home-community-title">Rede de Computadores</span>
+                        <span class="page-home-community-followers-count">1.548 seguidores</span>
+                    </a>
+                    {% endfor %}
+                </div>
             </div>
             <div class="page-home-container">
                 <div class="page-home-categories">
@@ -116,17 +99,97 @@
                      {% article_block 'half3' 'mobile' class_name='mobile' quantity=3 %}
                      {% article_block 'half3' 'mais' class_name='more' quantity=3 %}
                 </div>
-                <div class="page-home-aside">aside content</div>
+                <div class="page-home-aside">
+                    <div class="page-home-aside-box">
+                        <h2 class="page-home-aside-box-title">Melhores cursos</h2>
+                        <ul class="page-home-aside-box-list">
+                            {% for i in "lore" %}
+                            <li class="page-home-aside-box-list-item">
+                                <a class="page-home-aside-course" href="#">
+                                    <img class="page-home-aside-course-image" src="http://localhost:9000/unsafe/100x100/http://kenwheeler.github.io/slick/img/lazyfonz1.png" alt="Imagem ilustrativa do curso A" />
+                                    <span class="page-home-aside-course-content">
+                                        <span class="page-home-aside-course-title">Curso online para certificação ITL</span>
+                                        <span class="page-home-aside-course-flag">gratuito</span>
+                                    </span>
+                                </a>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                        <a href="#" class="page-home-aside-box-action">Ver todos os cursos</a>
+                    </div>
+                    <div class="page-home-aside-box">
+                        <h2 class="page-home-aside-box-title">Tá todo mundo commitando...</h2>
+                        <ul class="page-home-aside-box-list">
+                            {% for i in "lorem" %}
+                            <li class="page-home-aside-box-list-item">
+                                <a class="page-home-aside-commit" href="#">
+                                    <span class="page-home-aside-commit-header">
+                                        <img class="page-home-aside-commit-image img-circle" src="http://localhost:9000/unsafe/30x30/http://kenwheeler.github.io/slick/img/lazyfonz1.png" alt="">
+                                        <span class="page-home-aside-commit-info">
+                                            <span class="page-home-aside-commit-author">Darth Vader</span>
+                                            <span class="page-home-aside-commit-publish">Há 2 dias</span>
+                                        </span>
+                                    </span>
+                                    <span class="page-home-aside-commit-content">Aprenda como instalar e entenda a interface do Microsoft</span>
+                                </a>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                        <a href="#" class="page-home-aside-box-action">Quero Commitar!</a>
+                    </div>
+                    <div class="page-home-aside-box">
+                        <h2 class="page-home-aside-box-title">Perguntas</h2>
+                        <ul class="page-home-aside-box-list">
+                            {% for i in "loremip" %}
+                            <li class="page-home-aside-box-list-item">
+                                <a class="page-home-aside-question" href="#">
+                                     Aprenda como instalar e entenda a interface do Microsoft Access?
+                                </a>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                        <a href="#" class="page-home-aside-box-action">Ver mais perguntas</a>
+                    </div>
+                    <div class="page-home-aside-advertising">
+                        <img src="https://placehold.it/300x600/" alt="">
+                    </div>
+                </div>
             </div>
         </main>
     {#% endbighomecache %#}
 {% endblock %}
 
 {% block javascripts %}
+    <script src="\\unpkg.com/slick-carousel@1.8.1/slick/slick.min.js"></script>
         <div id="fb-root"></div>
         <script>
-
-            (function(d, s, id) {
+            $(function() {
+                $('[data-toggle="carousel"]').slick({
+                    dots: false,
+                    infinite: true,
+                    prevArrow: "<button type='button' class='slick-prev page-home-communities-arrow'><i class='gsticon gsticon-angle-left' aria-hidden='true'></i></button>",
+                    nextArrow: "<button type='button' class='slick-next page-home-communities-arrow'><i class='gsticon gsticon-angle-right' aria-hidden='true'></i></button>",
+                    speed: 500,
+                    slidesToShow: 6,
+                    slidesToScroll: 1,
+                    responsive: [{
+                        breakpoint: 769,
+                        settings: {
+                            arrows: false,
+                            slidesToShow: 5
+                        }
+                    },
+                    {
+                        breakpoint: 480,
+                        settings: {
+                            arrows: false,
+                            slidesToScroll: 2,
+                            slidesToShow: 2
+                        }
+                    }]
+                });
+            });
+            ;(function(d, s, id) {
                 var js, fjs = d.getElementsByTagName(s)[0];
                 if (d.getElementById(id)) return;
                 js = d.createElement(s); js.id = id; js.async = true;
