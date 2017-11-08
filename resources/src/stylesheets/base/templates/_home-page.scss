@@ -179,7 +179,7 @@
     }
     &-question {
       padding-bottom: 20px;
-      margin: 20px;
+      margin: 20px 20px 0;
       display: block;
       border-bottom: 1px solid #e1e1e1;
       color: #616161;
@@ -317,6 +317,9 @@
 
 @include between(($screen--desktop + 1), $screen--wide) {
   .page-home {
+    &-communities {
+      max-width: calc(100% - 60px);
+    }
     &-container {
       max-width: 100%;
       padding-right: 30px;
