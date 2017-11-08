@@ -60,22 +60,7 @@
                 {% article_block 'large' 'governanca-e-gestao' class_name='governance' quantity=2 %}
                 {% join_us 20 %}
             </div>
-            <div class="page-home-container page-home-communities">
-                <div class="page-home-communities-header">
-                    <h2 class="page-home-communities-title">Comunidades</h2>
-                    <a class="page-home-communities-vermais" href="{% url 'search:search-content' 'communities' %}">
-                        <i class="gsticon gsticon-plus-circle" aria-hidden="true"></i> VER MAIS</a>
-                </div>
-                <div class="communities-carousel" data-toggle="carousel">
-                    {% for i in "loremipsum" %}
-                    <a class="page-home-community" href="#">
-                        <img class="page-home-community-image img-responsive" data-lazy="http://localhost:9000/unsafe/200x200/http://kenwheeler.github.io/slick/img/lazyfonz1.png" alt="Logotipo da comunidade X" />
-                        <span class="page-home-community-title">Rede de Computadores</span>
-                        <span class="page-home-community-followers-count">1.548 seguidores</span>
-                    </a>
-                    {% endfor %}
-                </div>
-            </div>
+            {% communities_slider %}
             <div class="page-home-container">
                 <div class="page-home-categories">
                      {% article_block 'half3' 'governanca-e-gestao' class_name='governance' quantity=3 %}
@@ -148,10 +133,11 @@
 {% endblock %}
 
 {% block javascripts %}
-    <script src="\\unpkg.com/slick-carousel@1.8.1/slick/slick.min.js"></script>
+
         <div id="fb-root"></div>
-        <script>
-            $(function() {
+    <script src="\\unpkg.com/slick-carousel@1.8.1/slick/slick.min.js"></script>
+    <script>
+        $(function() {
                 $('[data-toggle="carousel"]').slick({
                     dots: false,
                     infinite: true,
@@ -177,6 +163,9 @@
                     }]
                 });
             });
+    </script>
+        <script>
+
             ;(function(d, s, id) {
                 var js, fjs = d.getElementsByTagName(s)[0];
                 if (d.getElementById(id)) return;

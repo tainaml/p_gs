@@ -1,3 +1,4 @@
+from apps.community.models import Community
 from django import template
 from django.contrib.auth import get_user_model
 
@@ -12,3 +13,11 @@ def join_us(context, quantity):
     count = User.objects.all().count()
 
     return {"users": users, "count": count, "request": request}
+
+
+@register.inclusion_tag('home/partials/communities-slider.html')
+def communities_slider():
+
+    communities = Community.objects.all().order_by("?")
+
+    return {"communities": communities}
