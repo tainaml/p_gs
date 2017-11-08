@@ -4,7 +4,7 @@
 
 <div class="page-home-category">
     <h2 class="page-home-category-title">
-        <span class="{{class_name}}">{{ category.description }}</span>
+        <span class="{{ class_name }}">{{ category.description }}</span>
     </h2>
     <div class="page-home-category-posts">
         {% for article in articles %} {% url 'article:view' article.year article.month article.slug as article_link %}
@@ -31,6 +31,6 @@
         </div>
         {% endfor %}
     </div>
-    <a class="page-home-vermais" href="{% url 'category:show' category.slug %}" title="{{ category.description }}">
+    <a class="page-home-vermais {{ class_name }}" href="{% url 'category:show' category.slug %}" title="{{ category.description }}">
         <i class="gsticon gsticon-plus-circle" aria-hidden="true"></i> VER MAIS</a>
 </div>
