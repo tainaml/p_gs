@@ -95,15 +95,6 @@
         height: 46px;
       }
     }
-    &-right-content {
-      width: 80%;
-      .searchbar {
-        min-width: 50%;
-      }
-      .user-actions {
-        min-width: 50%;
-      }
-    }
   }
 }
 
@@ -114,6 +105,15 @@
       padding-right: 30px;
       padding-left: 30px;
     }
+    &-right-content {
+      width: 85%;
+      .searchbar {
+        min-width: 60%;
+      }
+      .user-actions {
+        min-width: 40%;
+      }
+    }
   }
 }
 
@@ -123,6 +123,7 @@
       max-width: $container--wide;
     }
     &-right-content {
+      width: 85%;
       .searchbar {
         min-width: 60%;
       }
