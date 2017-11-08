@@ -35,6 +35,8 @@ class User(AbstractUser):
     objects = UserManager()
 
     usertype = models.PositiveSmallIntegerField(verbose_name=_("User type"), validators=[limit_usertypes_to], default=PERSON)
+    xp = models.BigIntegerField(verbose_name=_("XP"), default=0)
+    gamification_member = models.BooleanField(verbose_name=_("Gamification Member"), default=True)
 
     def is_company(self):
         return self.usertype == User.ORGANIZATION
@@ -54,6 +56,7 @@ class User(AbstractUser):
             criteria = criteria & queryset
 
         return CustomPaginator.paginate(UserAction.objects.filter(criteria), itens_per_page, page)
+
 
 
 

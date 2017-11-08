@@ -31,6 +31,11 @@ class SimpleProfileSerializer(serializers.ModelSerializer):
 
 class UserSerializer(serializers.ModelSerializer):
 
+    thumb = serializers.SerializerMethodField('thumborized_picture')
+    def thumborized_picture(self, user):
+
+        return generate_url(user.profile.profile_picture.url, width=50, height=50) if user.profile and user.profile.profile_picture else None
+
     class Meta:
         model = get_user_model()
         fields = (
@@ -38,9 +43,10 @@ class UserSerializer(serializers.ModelSerializer):
             'id',
             'first_name',
             'last_name',
+            'thumb'
 
         )
-        read_only_fields = ('username', 'id',)
+        read_only_fields = fields
 
 
 class SimpleUserSerializer(serializers.ModelSerializer):

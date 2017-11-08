@@ -122,3 +122,4 @@ zope.component==4.0.2
 zope.event==4.0.1
 zope.hookable==3.4.1
 zope.interface==4.0.5
+coreapi

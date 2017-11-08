@@ -1,0 +1,16 @@
+{% load avatar_tags %}
+<div class="app-card app-card-members">
+    <div class="app-card-content">
+        <h3>Junte-se a nós!</h3>
+        <p>Somos mais de {{ count }} membros</p>
+        <div class="members">
+            {%for user in users %}
+                {% if user.profile and user.profile.profile_picture and user.profile.profile_picture.file %}
+                    <img class="img-circle" src="{% get_avatar user width=50 height=50 smart=False fit_in=False %}" alt="Foto de perfil de {{ user.get_full_name }}" />
+                {% endif %}
+            {% endfor %}
+        </div>
+        <a class="app-link" href="{% url 'search:search-content' 'users' %}">Ver todos os membors</a>
+        <a class="app-button-round-inverse" href="{% url 'account:signup' %}">Inscreva-se</a>
+    </div>
+</div>

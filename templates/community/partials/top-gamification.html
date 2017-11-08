@@ -1,0 +1,17 @@
+{% load thumbor_tags %}
+{% load avatar_tags %}
+<div class="ranking__contributors">
+        <h2 class="ranking__contributors__title">TOP {{ number }}</h2>
+        <ol class="ranking__contributors__list">
+            {% for ranked in top_ranked %}
+                <li>
+                    <div class="ranking__contributor">
+                        <img width="40" height="40" src="{% get_avatar ranked.user. width=40 height=40 smart=False fit_in=False %}" alt="Foto de {{ ranked.user.get_full_name }}" />
+                        <h3>{{ ranked.user.get_full_name }}</h3>
+                        <p>XP {{ ranked.value }}</p>
+                    </div>
+            </li>
+
+            {% endfor %}
+        </ol>
+    </div>

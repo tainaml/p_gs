@@ -2,11 +2,10 @@
 {% load user_agents %}
 {% load ads %}
 {% load cache %}
-    <div class="squad-advertising">
-        {% block community_right_block %}
-            {% ads_only_production "community_right" "all" %}
-        {% endblock community_right_block %}
-    </div>
+{% load gamification %}
+
+        {% top_community community 5  %}
+
 
 
     {% if request|is_pc %}
