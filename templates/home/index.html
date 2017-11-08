@@ -8,7 +8,7 @@
 {% load static_versioned %}
 {% block seo-og-title %}{% block seo_title %}Portal GSTI - Um mundo de informações para TI{% endblock %}{% endblock %}
 {% block seo-og-description %}{% block seo-description %}O seu portal definitivo de TI. Conteúdo, área para tirar dúvidas, informações sobre vagas de trabalho, concursos e certificações. Conheça nossas comunidades!{% endblock %}{% endblock %}
-
+{% load home %}
 {% block page_stylesheet %}
 <link rel="stylesheet" href="{% static_versioned 'stylesheets/home.css' %}">
 {% endblock page_stylesheet %}
@@ -88,19 +88,7 @@
                     </div>
                 </div>
                 {% endfor %}
-                <div class="app-card app-card-members">
-                    <div class="app-card-content">
-                        <h3>Junte-se a nós!</h3>
-                        <p>Somos mais de 13.333333 membros</p>
-                        <div class="members">
-                            {%for i in "loremipsumsitde" %}
-                            <img class="img-circle" src="https://loremflickr.com/50/50/man,woman" alt="" />
-                            {% endfor %}
-                        </div>
-                        <a class="app-link" href="{% url 'search:search-content' 'users' %}">Ver todos os membors</a>
-                        <a class="app-button-round-inverse" href="{% url 'account:signup' %}">Inscreva-se</a>
-                    </div>
-                </div>
+                {% join_us 20 %}
             </div>
             <div class="page-home-container">
                 carousel das comunidades

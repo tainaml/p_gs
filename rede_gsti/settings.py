@@ -1016,8 +1016,7 @@ REST_FRAMEWORK = {
 }
 
 DRFSO2_URL_NAMESPACE = 'api:auth'
-if DEBUG is True:
-    REST_FRAMEWORK['DEFAULT_RENDERER_CLASSES'] += ('rest_framework.renderers.BrowsableAPIRenderer',)
+
 
 
 # Setting Environment specific settings
@@ -1114,5 +1113,8 @@ elif ENVIRONMENT == "production":
             }
         }
 
-
+if DEBUG is True:
+    REST_FRAMEWORK['DEFAULT_RENDERER_CLASSES'] += ('rest_framework.renderers.BrowsableAPIRenderer',)
 ALLOWED_HOSTS = ['*']
+
+API_ENDPOINT = config.get("API", "endpoint")

@@ -4,6 +4,7 @@ from django.contrib.auth import get_user_model
 from oauth2_provider.contrib.rest_framework import OAuth2Authentication
 from ..pagination import StandardResultsSetPagination
 from rest_framework import viewsets
+from rest_framework.authentication import SessionAuthentication
 from rest_framework.parsers import FormParser, MultiPartParser
 from rest_framework.permissions import IsAuthenticated
 from django.utils.decorators import method_decorator
@@ -15,7 +16,7 @@ class UserViewSet(viewsets.ModelViewSet):
     serializer_class = UserSerializer
     pagination_class = StandardResultsSetPagination
     permission_classes = (IsAuthenticated, IsSelf)
-    authentication_classes = (OAuth2Authentication,)
+    authentication_classes = (OAuth2Authentication, SessionAuthentication)
 
     parser_classes = (FormParser, MultiPartParser)
 

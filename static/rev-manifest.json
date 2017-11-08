@@ -15,10 +15,10 @@
   "javascripts/jquery-1.11.3.min.js": "javascripts/jquery-1-895323ed2f.11.3.min.js",
   "javascripts/main-18ef652952-18ef652952.js": "javascripts/main-18ef652952-18ef652952-18ef652952.js",
   "javascripts/main-18ef652952.js": "javascripts/main-18ef652952-18ef652952.js",
-  "javascripts/main.js": "javascripts/main-70d63af912.js",
+  "javascripts/main.js": "javascripts/main-657bc0e02c.js",
   "javascripts/publication-d1605e477b-d1605e477b.js": "javascripts/publication-d1605e477b-d1605e477b-d1605e477b.js",
   "javascripts/publication-d1605e477b.js": "javascripts/publication-d1605e477b-d1605e477b.js",
-  "javascripts/publication.js": "javascripts/publication-d7bc0a78dc.js",
+  "javascripts/publication.js": "javascripts/publication-ee12e1f357.js",
   "javascripts/shared-17b4bec98e-17b4bec98e.js": "javascripts/shared-17b4bec98e-17b4bec98e-17b4bec98e.js",
   "javascripts/shared-17b4bec98e.js": "javascripts/shared-17b4bec98e-17b4bec98e.js",
   "javascripts/shared.js": "javascripts/shared-345c9c94e6.js",
@@ -33,8 +33,8 @@
   "javascripts/sw.js": "javascripts/sw-ddf9c9c2b4.js",
   "javascripts/vendor-547a53035e-547a53035e.js": "javascripts/vendor-547a53035e-547a53035e-547a53035e.js",
   "javascripts/vendor-547a53035e.js": "javascripts/vendor-547a53035e-547a53035e.js",
-  "javascripts/vendor.js": "javascripts/vendor-7edd485899.js",
-  "stylesheets/home.css": "stylesheets/home-47957cdc19.css",
+  "javascripts/vendor.js": "javascripts/vendor-bcc30ab11a.js",
+  "stylesheets/home.css": "stylesheets/home-f936113e82.css",
   "stylesheets/sorry.css": "stylesheets/sorry-b6bccdbd56.css",
-  "stylesheets/style.css": "stylesheets/style-af742d2496.css"
+  "stylesheets/style.css": "stylesheets/style-577b1e8d6e.css"
 }
