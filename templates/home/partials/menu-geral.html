@@ -5,25 +5,25 @@
         {% communities_cached %}
         <ul class="app-header-navigation-menu">
             <li class="app-header-navigation-item">
-                <a class="app-header-navigation-item-link" href="{% url 'jobs:index' %}">Vagas de trabalho</a>
+                <a class="app-header-navigation-item-link {% if request.path == "/vagas-de-trabalho/" %}is-active{% endif %}" href="{% url 'jobs:index' %}">Vagas de trabalho</a>
             </li>
             <li class="app-header-navigation-item">
-                <a class="app-header-navigation-item-link" href="{% url 'course:list'%}">Cursos</a>
+                <a class="app-header-navigation-item-link {% if request.path == "/cursos/" %}is-active{% endif %}" href="{% url 'course:list'%}">Cursos</a>
             </li>
             <li class="app-header-navigation-item">
-                <a class="app-header-navigation-item-link" href="{% url 'core:videos-list' %}">Videoaulas</a>
+                <a class="app-header-navigation-item-link {% if request.path == "/videos/" %}is-active{% endif %}" href="{% url 'core:videos-list' %}">Videoaulas</a>
             </li>
             <li class="app-header-navigation-item">
-                <a class="app-header-navigation-item-link" href="{% url 'core:responsibilities-list'%}">Profissões</a>
+                <a class="app-header-navigation-item-link {% if request.path == "/profissoes-de-ti/" %}is-active{% endif %}" href="{% url 'core:videos-list' %}" href="{% url 'core:responsibilities-list'%}">Profissões</a>
             </li>
             <li class="app-header-navigation-item">
-                <a class="app-header-navigation-item-link" href="{% url 'search:search-content' 'communities' %}">Comunidades</a>
+                <a class="app-header-navigation-item-link {% if request.path == "/buscando/communities" %}is-active{% endif %}" href="{% url 'search:search-content' 'communities' %}">Comunidades</a>
             </li>
             <li class="app-header-navigation-item">
-                <a class="app-header-navigation-item-link" href="{% url 'search:search-content' 'users' %}">Membros</a>
+                <a class="app-header-navigation-item-link {% if request.path == "/buscando/users" %}is-active{% endif %}"href="{% url 'search:search-content' 'users' %}">Membros</a>
             </li>
             <li class="app-header-navigation-item">
-                <a class="app-header-navigation-item-link" href="{% url 'search:search-content' 'questions' %}">Perguntas</a>
+                <a class="app-header-navigation-item-link {% if request.path == "/buscando/questions" %}is-active{% endif %}" href="{% url 'search:search-content' 'questions' %}">Perguntas</a>
             </li>
         </ul>
     </nav>

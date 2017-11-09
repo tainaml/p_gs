@@ -1,4 +1,5 @@
 .account {
+  padding-bottom: 50px;
   .col-md-4 {
     float: right;
     @media (max-width: $screen-sm-min) {
@@ -7,50 +8,57 @@
   }
 }
 .blue-flag {
-    // position: relative;
-    width: 100%;
-    min-height: 180px;
-    padding-top: 30px;
-    background: #0160b0;
-    @media (max-width: $screen-sm-min) {
-      padding-top: 0;
-    }
+  width: 100%;
+  min-height: 180px;
+  padding-top: 30px;
+  background: #0072bc;
+  @media (max-width: $screen-sm-min) {
+    padding-top: 0;
+  }
 }
 .form-signup {
-    padding: 10px;
-    margin-top: 20px;
-    border: 10px solid #005398;
-    background: #fff;
+  padding: 10px;
+  margin-top: 20px;
+  border: 10px solid #005398;
+  background: #fff;
 
-    @media (min-width: $screen-lg-min) { margin-top: -165px; }
+  @media (min-width: $screen-lg-min) {
+    margin-top: -165px;
+  }
 }
 .form-group-half {
-    width: 49%;
-    display: inline-block;
-    vertical-align: top;
-    + .form-group-half {
-      margin-left: 5px;
-    }
+  width: 49%;
+  display: inline-block;
+  vertical-align: top;
+  + .form-group-half {
+    margin-left: 5px;
+  }
 }
 .g-recaptcha {
   overflow: hidden;
 }
 
 .account-info {
-    //height: 180px;
-    color: #fff;
+  //height: 180px;
+  color: #fff;
 
-    p {
-        font-size: 20px;
-        line-height: 1;
-    }
+  p {
+    font-size: 20px;
+    line-height: 1;
+  }
 }
-.account-description { font-weight: 900; }
-.signup-video { margin-top: 40px; }
+.account-description {
+  font-weight: 900;
+}
+.signup-video {
+  margin-top: 40px;
+}
 .embed-responsive.embed-responsive-4by3-mobile {
-    margin-top: 40px;
+  margin-top: 40px;
 
-    @media (min-width: $screen-lg-min) { margin-top: 0; }
+  @media (min-width: $screen-lg-min) {
+    margin-top: 0;
+  }
 }
 .fb-account-box {
   margin-top: 25px;
@@ -59,20 +67,20 @@
   }
 }
 .menu-social-signup {
-    @include make-xs-column(12);
-    @include make-lg-column(10.4);
-    text-align: right;
+  @include make-xs-column(12);
+  @include make-lg-column(10.4);
+  text-align: right;
 
-    .gsticon {
-        margin: 0 5px 0;
-        color: #4D6479;
-        font-size: 1.5em;
-    }
-    .btn-login {
-        padding: 15px 20px;
-        display: inline-block;
-        border-left: 1px solid $color-border;
-        border-right: 1px solid $color-border;
-        color: #4D6479;
-    }
+  .gsticon {
+    margin: 0 5px 0;
+    color: #4d6479;
+    font-size: 1.5em;
+  }
+  .btn-login {
+    padding: 15px 20px;
+    display: inline-block;
+    border-left: 1px solid $color-border;
+    border-right: 1px solid $color-border;
+    color: #4d6479;
+  }
 }

@@ -8,7 +8,7 @@
     <div class="communities-carousel" data-toggle="carousel">
         {% for community in communities %}
         <a class="page-home-community" href="{% url "community:show" community.slug %}">
-            <img class="page-home-community-image img-responsive" data-lazy="{% thumbor_url community.image.url width=200 height=200 smart=False fit_in=False %}" alt="Logotipo da comunidade {{ community.title }}" />
+            <img class="page-home-community-image img-responsive" data-lazy="{% thumbor_url community.image.url width=190 height=190 smart=False fit_in=False %}" alt="Logotipo da comunidade {{ community.title }}" />
             <span class="page-home-community-title">{{ community.title }}</span>
             <span class="page-home-community-followers-count">{{ community.followers }} seguidores</span>
         </a>
