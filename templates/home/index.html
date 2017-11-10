@@ -40,6 +40,12 @@
             <div class="page-home-container">
                  {% article_block 'large' 'governanca-e-gestao' class_name='governance' quantity=4 %}
             </div>
+            <div class="page-home-container page-home-news">
+                <h2 class="page-home-news-title">Notícias</h2>
+                <div class="page-home-news-content">
+                    {% article_block 'large' 'governanca-e-gestao' class_name='governance' quantity=4 %}
+                </div>
+            </div>
             <div class="page-home-container">
                 <div class="app-card app-card-no-image">
                     <div class="app-card-content">
@@ -122,6 +128,27 @@
                             {% endfor %}
                         </ul>
                         <a href="#" class="page-home-aside-box-action">Ver mais perguntas</a>
+                    </div>
+                    <div class="page-home-aside-box">
+                        <h2 class="page-home-aside-box-title">Vídeos</h2>
+                        <ul class="page-home-aside-box-list">
+                            {% for i in "ab" %}
+                            <li class="page-home-aside-box-list-item">
+                                <div class="app-card app-card-video">
+                                    <a href="#">
+                                        <img class="app-card-image img-responsive" src="http://localhost:9000/unsafe/480x300/http://kenwheeler.github.io/slick/img/lazyfonz1.png" alt="">
+                                    </a>
+                                    <span class="app-card-content">
+                                        <h3 class="app-card-title">
+                                            <a href="#">
+                                                Aprenda como instalar e entenda a interface do Microsoft Access
+                                            </a>
+                                        </h3>
+                                    </span>
+                                </div>
+                            </li>
+                            {% endfor %}
+                        </ul>
                     </div>
                     <div class="page-home-aside-advertising">
                         <img class="img-responsive" src="https://placehold.it/300x600/" alt="">

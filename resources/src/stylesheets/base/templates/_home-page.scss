@@ -90,9 +90,11 @@
     &-box-list-item {
       display: block;
       &:first-child {
+        .app-card-video,
         .page-home-aside-commit {
           margin-top: 20px;
         }
+
       }
       &:last-child {
         .page-home-aside-commit {
@@ -262,6 +264,36 @@
       justify-self: flex-end;
     }
   }
+  &-news {
+    flex-direction: column;
+    &-content {
+      display: flex;
+    }
+    &-title {
+      position: relative;
+      margin-bottom: 35px;
+      color: $primary-color;
+      font: 700 20px/18px "Open Sans";
+      text-align: center;
+      text-transform: uppercase;
+      &::before,
+      &::after {
+        position: absolute;
+        top: 10px;
+        display: block;
+        content: " ";
+        width: 42%;
+        height: 1px;
+        background-color: $primary-color;
+      }
+      &::before {
+        left: 0;
+      }
+      &::after {
+        right: 0;
+      }
+    }
+  }
   &-vermais {
     &.governance {
       color: $color-governance;
@@ -348,6 +380,11 @@
       width: 100%;
       padding-left: 0;
     }
+    &-aside-box {
+      width: calc(50% - 20px);
+      margin: 0 10px;
+      float: left;
+    }
     &-categories {
       width: 100%;
     }
@@ -404,7 +441,8 @@
 @include between(($screen--desktop + 1), $screen--wide) {
   .page-home {
     &-container {
-      max-width: 100%;
+      width: 100%;
+      max-width: $container--wide;
       padding-right: 30px;
       padding-left: 30px;
     }

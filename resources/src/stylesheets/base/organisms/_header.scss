@@ -101,7 +101,8 @@
 @include between(($screen--desktop + 1), $screen--wide) {
   .app-header {
     &-container {
-      max-width: 100%;
+      width: 100%;
+      max-width: $container--wide;
       padding-right: 30px;
       padding-left: 30px;
     }
