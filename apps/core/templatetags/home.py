@@ -1,4 +1,7 @@
 from apps.community.models import Community
+from apps.core.models.course import Course
+from apps.feed.models import ProfileStatus
+from apps.question.models import Question
 from django import template
 from django.contrib.auth import get_user_model
 
@@ -11,6 +14,8 @@ def join_us(context, quantity):
     User = get_user_model()
     users = User.objects.filter(profile__profile_picture__isnull=False).prefetch_related("profile").order_by("?")[:quantity]
     count = User.objects.all().count()
+    # Workaround
+    count =  int(count / 1000) * 1000
 
     return {"users": users, "count": count, "request": request}
 
@@ -21,3 +26,26 @@ def communities_slider():
     communities = Community.objects.all().order_by("?")
 
     return {"communities": communities}
+
+
+@register.inclusion_tag('home/partials/commits.html')
+def commits(quantity):
+
+    commits = ProfileStatus.objects.all().prefetch_related("author").order_by("-publishin")[:quantity]
+
+    return {"commits": commits}
+
+
+@register.inclusion_tag('home/partials/last-courses.html')
+def last_courses(quantity):
+
+    last_courses = Course.objects.all().order_by("-createdin")[:quantity]
+
+    return {"last_courses": last_courses}
+
+@register.inclusion_tag('home/partials/last-questions.html')
+def last_questions(quantity):
+
+    questions = Question.objects.all().order_by("-question_date")[:quantity]
+
+    return {"questions": questions}

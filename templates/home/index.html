@@ -79,56 +79,9 @@
                      {% article_block 'half3' 'mais' class_name='more' quantity=3 %}
                 </div>
                 <div class="page-home-aside">
-                    <div class="page-home-aside-box">
-                        <h2 class="page-home-aside-box-title">Melhores cursos</h2>
-                        <ul class="page-home-aside-box-list">
-                            {% for i in "lore" %}
-                            <li class="page-home-aside-box-list-item">
-                                <a class="page-home-aside-course" href="#">
-                                    <img class="page-home-aside-course-image" src="http://localhost:9000/unsafe/100x100/http://kenwheeler.github.io/slick/img/lazyfonz1.png" alt="Imagem ilustrativa do curso A" />
-                                    <span class="page-home-aside-course-content">
-                                        <span class="page-home-aside-course-title">Curso online para certificação ITL</span>
-                                        <span class="page-home-aside-course-flag">gratuito</span>
-                                    </span>
-                                </a>
-                            </li>
-                            {% endfor %}
-                        </ul>
-                        <a href="#" class="page-home-aside-box-action">Ver todos os cursos</a>
-                    </div>
-                    <div class="page-home-aside-box">
-                        <h2 class="page-home-aside-box-title">Tá todo mundo commitando...</h2>
-                        <ul class="page-home-aside-box-list">
-                            {% for i in "lorem" %}
-                            <li class="page-home-aside-box-list-item">
-                                <a class="page-home-aside-commit" href="#">
-                                    <span class="page-home-aside-commit-header">
-                                        <img class="page-home-aside-commit-image img-circle" src="http://localhost:9000/unsafe/30x30/http://kenwheeler.github.io/slick/img/lazyfonz1.png" alt="">
-                                        <span class="page-home-aside-commit-info">
-                                            <span class="page-home-aside-commit-author">Darth Vader</span>
-                                            <span class="page-home-aside-commit-publish">Há 2 dias</span>
-                                        </span>
-                                    </span>
-                                    <span class="page-home-aside-commit-content">Aprenda como instalar e entenda a interface do Microsoft</span>
-                                </a>
-                            </li>
-                            {% endfor %}
-                        </ul>
-                        <a href="#" class="page-home-aside-box-action">Quero Commitar!</a>
-                    </div>
-                    <div class="page-home-aside-box">
-                        <h2 class="page-home-aside-box-title">Perguntas</h2>
-                        <ul class="page-home-aside-box-list">
-                            {% for i in "loremip" %}
-                            <li class="page-home-aside-box-list-item">
-                                <a class="page-home-aside-question" href="#">
-                                     Aprenda como instalar e entenda a interface do Microsoft Access?
-                                </a>
-                            </li>
-                            {% endfor %}
-                        </ul>
-                        <a href="#" class="page-home-aside-box-action">Ver mais perguntas</a>
-                    </div>
+                    {% last_courses 5 %}
+                    {% commits 5 %}
+                   {% last_questions 5 %}
                     <div class="page-home-aside-box">
                         <h2 class="page-home-aside-box-title">Vídeos</h2>
                         <ul class="page-home-aside-box-list">
@@ -136,7 +89,8 @@
                             <li class="page-home-aside-box-list-item">
                                 <div class="app-card app-card-video">
                                     <a href="#">
-                                        <img class="app-card-image img-responsive" src="http://localhost:9000/unsafe/480x300/http://kenwheeler.github.io/slick/img/lazyfonz1.png" alt="">
+                                        <img class="app-card-image img-responsive" src="http://localhost:9000/unsafe/480x300/http://kenwheeler.github.io/slick/img/lazyfonz1.png"
+                                            alt="">
                                     </a>
                                     <span class="app-card-content">
                                         <h3 class="app-card-title">
