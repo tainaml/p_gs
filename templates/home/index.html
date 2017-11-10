@@ -73,37 +73,9 @@
                      {% article_block 'half3' 'mais' class_name='more' quantity=3 %}
                 </div>
                 <div class="page-home-aside">
-                    <div class="page-home-aside-box">
-                        <h2 class="page-home-aside-box-title">Melhores cursos</h2>
-                        <ul class="page-home-aside-box-list">
-                            {% for i in "lore" %}
-                            <li class="page-home-aside-box-list-item">
-                                <a class="page-home-aside-course" href="#">
-                                    <img class="page-home-aside-course-image" src="http://localhost:9000/unsafe/100x100/http://kenwheeler.github.io/slick/img/lazyfonz1.png" alt="Imagem ilustrativa do curso A" />
-                                    <span class="page-home-aside-course-content">
-                                        <span class="page-home-aside-course-title">Curso online para certificação ITL</span>
-                                        <span class="page-home-aside-course-flag">gratuito</span>
-                                    </span>
-                                </a>
-                            </li>
-                            {% endfor %}
-                        </ul>
-                        <a href="#" class="page-home-aside-box-action">Ver todos os cursos</a>
-                    </div>
+                    {% last_courses 5 %}
                     {% commits 5 %}
-                    <div class="page-home-aside-box">
-                        <h2 class="page-home-aside-box-title">Perguntas</h2>
-                        <ul class="page-home-aside-box-list">
-                            {% for i in "loremip" %}
-                            <li class="page-home-aside-box-list-item">
-                                <a class="page-home-aside-question" href="#">
-                                     Aprenda como instalar e entenda a interface do Microsoft Access?
-                                </a>
-                            </li>
-                            {% endfor %}
-                        </ul>
-                        <a href="#" class="page-home-aside-box-action">Ver mais perguntas</a>
-                    </div>
+                   {% last_questions 5 %}
                     <div class="page-home-aside-advertising">
                         <img class="img-responsive" src="https://placehold.it/300x600/" alt="">
                     </div>

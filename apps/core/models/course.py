@@ -110,6 +110,9 @@ class Course(models.Model):
     # If Null: Price is unknow. If price is 0, the course is free. Price > 0: The course has a price!
     price = models.DecimalField(max_digits=6, decimal_places=2, verbose_name=_('Price'), null=True, blank=True, help_text=_("0 to free courses, blank to unknow price"))
 
+    def is_free(self):
+        return self.price == 0
+
     @property
     def is_date_valid(self):
         return (timezone.now() < self.due_date) if self.due_date else True

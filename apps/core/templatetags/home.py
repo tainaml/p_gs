@@ -1,5 +1,7 @@
 from apps.community.models import Community
+from apps.core.models.course import Course
 from apps.feed.models import ProfileStatus
+from apps.question.models import Question
 from django import template
 from django.contrib.auth import get_user_model
 
@@ -32,3 +34,18 @@ def commits(quantity):
     commits = ProfileStatus.objects.all().prefetch_related("author").order_by("-publishin")[:quantity]
 
     return {"commits": commits}
+
+
+@register.inclusion_tag('home/partials/last-courses.html')
+def last_courses(quantity):
+
+    last_courses = Course.objects.all().order_by("-createdin")[:quantity]
+
+    return {"last_courses": last_courses}
+
+@register.inclusion_tag('home/partials/last-questions.html')
+def last_questions(quantity):
+
+    questions = Question.objects.all().order_by("-question_date")[:quantity]
+
+    return {"questions": questions}
