@@ -1,0 +1,22 @@
+{% load humanize %}
+{% load avatar_tags %}
+<div class="page-home-aside-box">
+    <h2 class="page-home-aside-box-title">Commits...</h2>
+    <ul class="page-home-aside-box-list">
+        {% for commit in commits %}
+        <li class="page-home-aside-box-list-item">
+            <a class="page-home-aside-commit" href="{{ commit.get_absolute_url }}">
+                <span class="page-home-aside-commit-header">
+                    <img class="page-home-aside-commit-image img-circle" src="{% get_avatar commit.author width=30 height=30 smart=False fit_in=False %}" alt="Foto de perfil de {{ commit.author.get_full_name }}">
+                    <span class="page-home-aside-commit-info">
+                        <span class="page-home-aside-commit-author">{{ commit.author.get_full_name }}</span>
+                        <span class="page-home-aside-commit-publish">{{ commit.publishin|naturaltime }}</span>
+                    </span>
+                </span>
+                <span class="page-home-aside-commit-content">{{ commit.text|truncatechars:50  }}</span>
+            </a>
+        </li>
+        {% endfor %}
+    </ul>
+    <a href="{% url "profile:feed" %}" class="page-home-aside-box-action" data-url-login="{% url 'account:is_logged' %}" data-trigger="login" data-token="{{ csrf_token }}">Quero Commitar!</a>
+</div>
