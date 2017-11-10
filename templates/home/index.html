@@ -10,8 +10,8 @@
 {% block seo-og-description %}{% block seo-description %}O seu portal definitivo de TI. Conteúdo, área para tirar dúvidas, informações sobre vagas de trabalho, concursos e certificações. Conheça nossas comunidades!{% endblock %}{% endblock %}
 {% load home %}
 {% block page_stylesheet %}
-<link rel="stylesheet" href="\\unpkg.com/slick-carousel@1.8.1/slick/slick.css">
-<link rel="stylesheet" href="\\unpkg.com/slick-carousel@1.8.1/slick/slick-theme.css">
+<link rel="stylesheet" href="https://unpkg.com/slick-carousel@1.8.1/slick/slick.css">
+<link rel="stylesheet" href="https://unpkg.com/slick-carousel@1.8.1/slick/slick-theme.css">
 <link rel="stylesheet" href="{% static_versioned 'stylesheets/home.css' %}">
 {% endblock page_stylesheet %}
 
@@ -105,7 +105,7 @@
                         <a href="#" class="page-home-aside-box-action">Ver mais perguntas</a>
                     </div>
                     <div class="page-home-aside-advertising">
-                        <img src="https://placehold.it/300x600/" alt="">
+                        <img class="img-responsive" src="https://placehold.it/300x600/" alt="">
                     </div>
                 </div>
             </div>
@@ -114,45 +114,34 @@
 {% endblock %}
 
 {% block javascripts %}
-
-        <div id="fb-root"></div>
-    <script src="\\unpkg.com/slick-carousel@1.8.1/slick/slick.min.js"></script>
+    <div id="fb-root"></div>
+    <script src="https://unpkg.com/slick-carousel@1.8.1/slick/slick.min.js"></script>
     <script>
         $(function() {
-                $('[data-toggle="carousel"]').slick({
-                    dots: false,
-                    infinite: true,
-                    prevArrow: "<button type='button' class='slick-prev page-home-communities-arrow'><i class='gsticon gsticon-angle-left' aria-hidden='true'></i></button>",
-                    nextArrow: "<button type='button' class='slick-next page-home-communities-arrow'><i class='gsticon gsticon-angle-right' aria-hidden='true'></i></button>",
-                    speed: 500,
-                    slidesToShow: 6,
-                    slidesToScroll: 1,
-                    responsive: [{
-                        breakpoint: 769,
-                        settings: {
-                            arrows: false,
-                            slidesToShow: 5
-                        }
-                    },
-                    {
-                        breakpoint: 480,
-                        settings: {
-                            arrows: false,
-                            slidesToScroll: 2,
-                            slidesToShow: 2
-                        }
-                    }]
-                });
+            $('[data-toggle="carousel"]').slick({
+                dots: false,
+                infinite: true,
+                prevArrow: "<button type='button' class='slick-prev page-home-communities-arrow'><i class='gsticon gsticon-angle-left' aria-hidden='true'></i></button>",
+                nextArrow: "<button type='button' class='slick-next page-home-communities-arrow'><i class='gsticon gsticon-angle-right' aria-hidden='true'></i></button>",
+                speed: 500,
+                slidesToShow: 6,
+                slidesToScroll: 1,
+                responsive: [{
+                    breakpoint: 769,
+                    settings: {
+                        arrows: false,
+                        slidesToShow: 5
+                    }
+                },
+                {
+                    breakpoint: 480,
+                    settings: {
+                        arrows: false,
+                        slidesToScroll: 2,
+                        slidesToShow: 2
+                    }
+                }]
             });
+        });
     </script>
-        <script>
-
-            ;(function(d, s, id) {
-                var js, fjs = d.getElementsByTagName(s)[0];
-                if (d.getElementById(id)) return;
-                js = d.createElement(s); js.id = id; js.async = true;
-                js.src = "//connect.facebook.net/pt_BR/sdk.js#xfbml=1&version=v2.4&appId=625566967570537";
-                fjs.parentNode.insertBefore(js, fjs);
-            }(document, 'script', 'facebook-jssdk'));
-        </script>
 {% endblock %}

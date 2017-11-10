@@ -54,30 +54,17 @@
             {% include 'home/partials/slideout-menu.html' %}
         </div>
         <div class="slideout-panel" id="wrapper">
-            <header class="header">
-                <div class="container">
-                    <div class="menu-mobile hidden-lg">
-                        <div class="row">
-                            <a class="btn-show-item toggle-slideout" data-item="#slideout-menu" href="javascript:;">
-                                <i class="gsticon gsticon-sign-in"></i>
-                            </a>
-                            <h1 class="gsti">
-                                <a class="gsti-link" href="{% url 'index' %}">Portal GSTI</a>
-                            </h1>
-                        </div>
-                    </div>
-                    <div class="row menu-desktop visible-lg-block">
-                        <h1 class="gsti">
-                            <a href="{% url 'index' %}" class="gsti-link">Portal GSTI</a>
-                        </h1>
-                        <nav class="menu-social-signup">
-                            <a class="gsticon gsticon-facebook-square" href="https://www.facebook.com/PortalGSTIpage" target="_blank"></a>
-                            <a class="gsticon gsticon-google-plus-square" href="https://plus.google.com/b/109232763237126205281/+PortalgstiBr" target="_blank"></a>
-                            <a class="gsticon gsticon-linkedin-square" href="https://www.linkedin.com/groups/4602615" target="_blank"></a>
-                            <a class="gsticon gsticon-twitter-square" href="https://twitter.com/portal_gsti" target="_blank"></a>
-                            <a class="gsticon gsticon-youtube-square" href="https://www.youtube.com/c/PortalgstiBr" target="_blank"></a>
-                            <a class="btn-login" href="javascript:;" data-toggle="modal" data-target="#modal-login">Login</a>
-                        </nav>
+            <header class="app-header">
+                <div class="app-header-container">
+                    <a class="app-header-button--menu toggle-slideout" data-item="#slideout-menu" href="#slideout-menu">
+                        <i class="gsticon gsticon-fw gsticon-bars"></i>
+                    </a>
+                    <h1 class="app-header-logo">
+                        <a class="app-header-logo-link" href="{% url 'index' %}" title="Portal GSTI">Portal GSTI</a>
+                    </h1>
+                    <div class="app-header-right-content">
+                        {#% include "home/partials/search-header.html" with placehold="Procure por comunidades, conteúdo e profissionais de tecnologia" %#}
+                        {#% include 'home/partials/user-actions.html' %#}
                     </div>
                 </div>
             </header>
@@ -160,9 +147,6 @@
                         </button>
                         <!-- {% trans 'or' %} <a href="{% url 'account:login' %}">{% trans 'Login' %}</a> -->
                       </form>
-                      <div class="fb-account-box">
-                        <div class="fb-page" data-href="https://www.facebook.com/PortalGSTIpage" data-small-header="true" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true" data-show-posts="false"><div class="fb-xfbml-parse-ignore"><blockquote cite="https://www.facebook.com/PortalGSTIpage"><a href="https://www.facebook.com/PortalGSTIpage">Facebook</a></blockquote></div></div>
-                      </div>
                     </div>
                     <div class="col-md-8">
                       <div class="signup-video embed-responsive embed-responsive-4by3">
@@ -173,20 +157,7 @@
                 </div>
                 <!-- <div class="clearfix"></div> -->
             </main>
-            <footer class="footer">
-                <nav class="footer-nav">
-                    <div class="container">
-                        <div class="row">
-                            <span class="copyright">Portal GSTI © Copyright {% now "Y" %}</span>
-                            <ul class="links-help">
-                                <li class="list-item"><a href="{% url 'core:about' %}">Sobre</a></li>
-                                <li class="list-item"><a href="javascript:;" data-toggle="modal" data-target="#modal-rules">Regras do portal</a></li>
-                                <li class="list-item"><a href="{% url 'contact:create' %}" id="link-contact" data-contact data-async-module="click" data-async-target="#modal-content-form-contact" data-async-method="get">Contato</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </nav>
-            </footer>
+             {% footer %}
         </div>
 
         {% include 'home/partials/modals/modal-login.html' %}
