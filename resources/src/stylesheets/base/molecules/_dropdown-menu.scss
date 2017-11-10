@@ -74,7 +74,7 @@
   position: relative;
   z-index: 1;
   color: #585a70;
-  background-color: #111433;
+  background-color: #616161;
   border-bottom: 1px solid #242643;
 }
 .cd-dropdown .cd-close {
@@ -129,7 +129,7 @@
     height: auto;
     width: auto;
     background-color: white;
-    color: #111433;
+    color: #616161;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     opacity: 0;
     transform: translateX(0) translateY(30px);
@@ -257,7 +257,7 @@
   }
   .cd-dropdown-content a,
   .cd-dropdown-content ul a {
-    color: #111433;
+    color: #616161;
     height: 50px;
     line-height: 50px;
     font-size: 1.5rem;
@@ -367,7 +367,7 @@
   }
   .no-touch .cd-dropdown-content .cd-secondary-dropdown > .see-all a:hover {
     color: white;
-    background-color: #111433;
+    background-color: #616161;
   }
   .cd-dropdown-content .cd-secondary-dropdown .cd-dropdown-item,
   .cd-dropdown-content .cd-secondary-dropdown a {
@@ -393,6 +393,30 @@
     line-height: 30px;
     height: 30px;
     pointer-events: none;
+    &.governance {
+      color: $color-governance;
+    }
+    &.development {
+      color: $color-development;
+    }
+    &.design {
+      color: $color-design;
+    }
+    &.marketing {
+      color: $color-marketing;
+    }
+    &.infra {
+      color: $color-infra;
+    }
+    &.databases {
+      color: $color-databases;
+    }
+    &.mobile {
+      color: $color-mobile;
+    }
+    &.more {
+      color: $color-more;
+    }
   }
   .cd-dropdown-content .cd-secondary-dropdown > li > a::after,
   .cd-dropdown-content .cd-secondary-dropdown > li > a::before {
@@ -423,8 +447,8 @@
     display: none;
   }
   .cd-dropdown-content .cd-secondary-dropdown a {
-    line-height: 25px;
-    height: 25px;
+    line-height: 30px;
+    height: 30px;
     font-size: 1.3rem;
     padding-left: 0;
   }
@@ -471,8 +495,40 @@
   }
   .cd-dropdown-content > .has-children > a.is-active {
     /* hover effect for .cd-dropdown-content items with subnavigation */
-    box-shadow: inset 2px 0 0 $primary-color;
-    color: $primary-color;
+    // box-shadow: inset 2px 0 0 $primary-color;
+    // color: $primary-color;
+    &.governance {
+      box-shadow: inset 2px 0 0 $color-governance;
+      color: $color-governance;
+    }
+    &.development {
+      box-shadow: inset 2px 0 0 $color-development;
+      color: $color-development;
+    }
+    &.design {
+      box-shadow: inset 2px 0 0 $color-design;
+      color: $color-design;
+    }
+    &.marketing {
+      box-shadow: inset 2px 0 0 $color-marketing;
+      color: $color-marketing;
+    }
+    &.infra {
+      box-shadow: inset 2px 0 0 $color-infra;
+      color: $color-infra;
+    }
+    &.databases {
+      box-shadow: inset 2px 0 0 $color-databases;
+      color: $color-databases;
+    }
+    &.mobile {
+      box-shadow: inset 2px 0 0 $color-mobile;
+      color: $color-mobile;
+    }
+    &.more {
+      box-shadow: inset 2px 0 0 $color-more;
+      color: $color-more;
+    }
   }
   .cd-dropdown-content > .has-children > a.is-active::before,
   .cd-dropdown-content > .has-children > a.is-active::after {
@@ -569,6 +625,6 @@
     float: left;
   }
   .cd-dropdown-content .cd-secondary-dropdown {
-      width: 550px;
+    width: 550px;
   }
 }

@@ -23,6 +23,8 @@
       font: 700 13px "Open Sans";
       text-transform: uppercase;
       border-bottom: 3px solid transparent;
+      &:hover,
+      &:focus,
       &.is-active {
         color: $primary-color;
         border-bottom: 3px solid $primary-color;
@@ -45,7 +47,7 @@
       max-width: $container--tablet;
     }
     &-menu {
-      min-width: 80%;
+      min-width: 85%;
       margin-left: -20px;
     }
   }

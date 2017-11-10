@@ -18,7 +18,7 @@
   &-category {
     position: relative;
     margin-bottom: 20px;
-    display: inline-block; 
+    display: inline-block;
   }
   &-category-title {
     margin: 20px 0 15px;
@@ -149,6 +149,7 @@
       letter-spacing: 0.28px;
     }
     &-course {
+      overflow: hidden;
       padding: 20px;
       display: flex;
       justify-content: space-between;
@@ -226,9 +227,22 @@
       &::before {
         content: "";
       }
+      &.slick-prev {
+        left: -40px;
+      }
+      &.slick-next {
+        right: -40px;
+      }
     }
   }
   &-community {
+    max-width: 100px;
+    min-height: 166px;
+    margin: 0 31px;
+    display: flex !important;
+    flex: 1;
+    flex-direction: column;
+    justify-content: space-between;
     color: #505050;
     font: 600 14px/18px "Open Sans";
     &-image {
@@ -245,6 +259,7 @@
       font-size: 12px;
       font-weight: 400;
       letter-spacing: 0.3px;
+      justify-self: flex-end;
     }
   }
   &-vermais {
@@ -253,6 +268,30 @@
     }
     &.development {
       color: $color-development;
+    }
+    &.governance {
+      color: $color-governance;
+    }
+    &.development {
+      color: $color-development;
+    }
+    &.design {
+      color: $color-design;
+    }
+    &.marketing {
+      color: $color-marketing;
+    }
+    &.infra {
+      color: $color-infra;
+    }
+    &.databases {
+      color: $color-databases;
+    }
+    &.mobile {
+      color: $color-mobile;
+    }
+    &.more {
+      color: $color-more;
     }
     &.design {
       color: $color-design;
@@ -303,13 +342,28 @@
   }
 }
 
+@include at-most($screen--tablet) {
+  .page-home {
+    &-aside {
+      width: 100%;
+      padding-left: 0;
+    }
+    &-categories {
+      width: 100%;
+    }
+    &-content-after {
+      flex-direction: column;
+    }
+  }
+}
+
 @include at-least($screen--tablet) {
   .page-home {
     &-container {
       max-width: $container--tablet;
       .app-card {
-        padding-right: 10.6666667px;
-        padding-left: 10.6666667px;
+        padding-right: 13.6666667px;
+        padding-left: 13.6666667px;
         &:first-child {
           padding-left: 0;
         }
@@ -318,22 +372,27 @@
         }
       }
     }
+    &-vermais {
+      position: absolute;
+      top: 25px;
+      right: 0;
+      font-size: 12px;
+    }
+  }
+}
+
+@include at-least($screen--tablet + 1) {
+  .page-home {
     &-categories {
       width: 75%;
     }
     &-aside {
       width: 25%;
       padding-top: 50px;
-      padding-left: calc(10.6666667px * 2);
-    }
-    &-vermais {
-      position: absolute;
-      top: 25px;
-      right: 0;
+      padding-left: calc(13.6666667px * 2);
     }
   }
 }
-
 @include at-least($screen--desktop) {
   .page-home {
     &-container {
@@ -350,7 +409,9 @@
       padding-left: 30px;
     }
     &-communities {
-      max-width: calc(100% - 60px);
+      max-width: calc(100% - 100px);
+      padding-right: 50px;
+      padding-left: 50px;
     }
   }
 }
@@ -359,6 +420,11 @@
   .page-home {
     &-container {
       max-width: $container--wide;
+    }
+    &-communities {
+      max-width: calc(100% - 100px);
+      padding-right: 50px;
+      padding-left: 50px;
     }
   }
 }

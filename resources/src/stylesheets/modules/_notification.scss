@@ -105,6 +105,7 @@ $color-counter-notification: #b2b2b2 !default;
   overflow: auto;
   max-height: 300px;
   margin-bottom: 0;
+  background-color: white;
 }
 .item-float-notification {
   padding: 10px 20px;
@@ -120,6 +121,8 @@ $color-counter-notification: #b2b2b2 !default;
     border: none;
     border-bottom: 1px solid #e1e1e1;
     min-height: initial;
+    display: flex;
+    align-items: center;
   }
 }
 .item-float-notification-link {

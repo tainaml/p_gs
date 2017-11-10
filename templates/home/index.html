@@ -10,8 +10,8 @@
 {% block seo-og-description %}{% block seo-description %}O seu portal definitivo de TI. Conteúdo, área para tirar dúvidas, informações sobre vagas de trabalho, concursos e certificações. Conheça nossas comunidades!{% endblock %}{% endblock %}
 {% load home %}
 {% block page_stylesheet %}
-<link rel="stylesheet" href="https://unpkg.com/slick-carousel@1.8.1/slick/slick.css">
-<link rel="stylesheet" href="https://unpkg.com/slick-carousel@1.8.1/slick/slick-theme.css">
+<link rel="stylesheet" href="//unpkg.com/slick-carousel@1.8.1/slick/slick.css">
+<link rel="stylesheet" href="//unpkg.com/slick-carousel@1.8.1/slick/slick-theme.css">
 <link rel="stylesheet" href="{% static_versioned 'stylesheets/home.css' %}">
 {% endblock page_stylesheet %}
 
@@ -32,7 +32,7 @@
                 <div class="app-card app-card-sign-in">
                     <div class="app-card-content">
                         <h3>Novo no Portal?</h3>
-                        <p>Inscreva-se para ficar por dentro do mundo da tecnologia, publicar seus artigos e muito mais!</p>
+                        <p>Inscreva-se para ficar por dentro <br /> do mundo da tecnologia, publicar<br /> seus artigos e muito mais!</p>
                         <a class="app-button-round" href="{% url 'account:signup' %}">Inscreva-se</a>
                     </div>
                 </div>
@@ -61,7 +61,7 @@
                 {% join_us 20 %}
             </div>
             {% communities_slider %}
-            <div class="page-home-container">
+            <div class="page-home-container page-home-content-after">
                 <div class="page-home-categories">
                      {% article_block 'half3' 'governanca-e-gestao' class_name='governance' quantity=3 %}
                      {% article_block 'half3' 'desenvolvimento' class_name='development' quantity=3 %}
@@ -134,7 +134,7 @@
 
 {% block javascripts %}
     <div id="fb-root"></div>
-    <script src="https://unpkg.com/slick-carousel@1.8.1/slick/slick.min.js"></script>
+    <script src="//unpkg.com/slick-carousel@1.8.1/slick/slick.min.js"></script>
     <script>
         $(function() {
             $('[data-toggle="carousel"]').slick({
@@ -143,13 +143,13 @@
                 prevArrow: "<button type='button' class='slick-prev page-home-communities-arrow'><i class='gsticon gsticon-angle-left' aria-hidden='true'></i></button>",
                 nextArrow: "<button type='button' class='slick-next page-home-communities-arrow'><i class='gsticon gsticon-angle-right' aria-hidden='true'></i></button>",
                 speed: 500,
-                slidesToShow: 6,
+                variableWidth: true,
+                slidesToShow: 8,
                 slidesToScroll: 1,
                 responsive: [{
                     breakpoint: 769,
                     settings: {
                         arrows: false,
-                        slidesToShow: 5
                     }
                 },
                 {
@@ -157,7 +157,6 @@
                     settings: {
                         arrows: false,
                         slidesToScroll: 2,
-                        slidesToShow: 2
                     }
                 }]
             });

@@ -11,6 +11,9 @@
       border: 1px solid #e1dede;
     }
   }
+  > a  {
+    overflow: hidden;
+  }
   &-content {
     padding: 15px 20px;
     display: flex;
@@ -18,6 +21,10 @@
     flex: 1;
     background-color: white;
     border-left: 3px solid;
+  }
+  &-image {
+    min-height: 230px;
+    transition: transform ease .6s;
   }
   &-title {
     margin: 20px 0 0;
@@ -32,12 +39,19 @@
   &-sign-in {
     .app-card-content {
       height: 100%;
-      display: inline-block;
+      // display: inline-block;
       border-left: none;
     }
   }
   &-members {
     text-align: center;
+    .app-card-content {
+      justify-content: space-around;
+    }
+    .members {
+      max-width: 60%;
+      margin: 0 auto;
+    }
     h3 {
       margin-top: 0;
       color: $primary-color;
@@ -91,6 +105,15 @@
         margin-bottom: 30px;
         font: 400 16px/20px "Open Sans";
       }
+      .app-button-round {
+        width: 65%;
+      }
+    }
+  }
+  &:hover,
+  &:focus {
+    .app-card-image {
+      transform: scale(1.2);
     }
   }
   &.governance {

@@ -6,7 +6,7 @@
         <div class="members">
             {%for user in users %}
                 {% if user.profile and user.profile.profile_picture and user.profile.profile_picture.file %}
-                    <img class="img-circle" src="{% get_avatar user width=50 height=50 smart=False fit_in=False %}" alt="Foto de perfil de {{ user.get_full_name }}" />
+                    <img class="img-circle" src="{% get_avatar user width=30 height=30 smart=False fit_in=False %}" alt="Foto de perfil de {{ user.get_full_name }}" />
                 {% endif %}
             {% endfor %}
         </div>
