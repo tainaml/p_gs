@@ -1,4 +1,8 @@
+from apps.article.models import Article
 from apps.core.business import feed as FeedBusiness
+from apps.feed.models import FeedObject
+from apps.taxonomy.models import Taxonomy
+from django.db.models import Q
 from django.http import JsonResponse
 from django.shortcuts import render
 from django.template.loader import render_to_string
@@ -73,8 +77,21 @@ class CoreRelatedPosts(CoreBaseView):
 class Home(View):
 
     def get(self, request):
+        QUANTITY = 6
+        taxonomies = Taxonomy.objects.filter(term__slug="categoria")
+        feed_articles_list = {}
+        for taxonomy in taxonomies:
+            feed_articles = FeedObject.objects.all().\
+                prefetch_related("content_object", "content_type","content_object__author", "communities")
+            feed_articles = feed_articles.filter(
+            Q(article__status=Article.STATUS_PUBLISH)
+            & Q(object_id__isnull=False)
+            & Q(official=True)
+            & Q(taxonomies=taxonomy)
+            )[:QUANTITY]
+            feed_articles_list[taxonomy.slug] = feed_articles
 
-        return render(request, 'home/index.html')
+        return render(request, 'home/index.html', {"feed_articles_list": feed_articles_list})
 
 
 class About(View):

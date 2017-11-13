@@ -28,7 +28,11 @@
                 {% ads_only_production "home_top" "all" %}
             </div>
             <div class="page-home-container">
-                {% article_block 'large' 'governanca-e-gestao' class_name='governance' quantity=2 %}
+                    {% article_section_large 'governanca-e-gestao' feed_articles_list 1 "governance" %}
+                    {% article_section_large 'desenvolvimento' feed_articles_list 1 "development" %}
+{#                    {% article_block 'large' 'governanca-e-gestao' class_name='governance' quantity=1 %}#}
+{#                    {% article_block 'large' 'desenvolvimento' class_name='development' quantity=1 %}#}
+
                 <div class="app-card app-card-sign-in">
                     <div class="app-card-content">
                         <h3>Novo no Portal?</h3>
@@ -38,29 +42,17 @@
                 </div>
             </div>
             <div class="page-home-container">
-                 {% article_block 'large' 'governanca-e-gestao' class_name='governance' quantity=4 %}
+                 {% article_block 'large' 'design' class_name='design' quantity=2 %}
+                 {% article_block 'large' 'mobile' class_name='mobile' quantity=2 %}
             </div>
             <div class="page-home-container">
-                <div class="app-card app-card-no-image">
-                    <div class="app-card-content">
-                        <a class="app-card-author">
-                            <img class="img-circle" src="https://loremflickr.com/30/30/man,woman" alt="" /> Louis Wilton
-                        </a>
-                        <h3 class="app-card-title">
-                            <a href="#">
-                                 Aprenda como instalar e entenda a interface do Microsoft Access
-                            </a>
-                        </h3>
-                        <p class="app-card-excerpt">
-                            <a href="#">
-                             Aprenda como instalar e entenda a interface do Microsoft Access Lorem ipsum indolor...
-                            </a></p>
-                    </div>
-                </div>
-                {% article_block 'large' 'governanca-e-gestao' class_name='governance' quantity=2 %}
+               {% article_block 'large' 'marketing-digital' class_name='marketing' quantity=2 %}
+                {% article_block 'large' 'banco-de-dados' class_name='infra' quantity=1 %}
                 {% join_us 20 %}
             </div>
-            {% communities_slider %}
+            {% cache 30 "community-slider" %}
+                {% communities_slider %}
+            {% endcache %}
             <div class="page-home-container">
                 <div class="page-home-categories">
                      {% article_block 'half3' 'governanca-e-gestao' class_name='governance' quantity=3 %}
@@ -73,9 +65,11 @@
                      {% article_block 'half3' 'mais' class_name='more' quantity=3 %}
                 </div>
                 <div class="page-home-aside">
+
                     {% last_courses 5 %}
                     {% commits 5 %}
                    {% last_questions 5 %}
+
                     <div class="page-home-aside-advertising">
                         <img class="img-responsive" src="https://placehold.it/300x600/" alt="">
                     </div>

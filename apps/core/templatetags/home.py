@@ -48,4 +48,17 @@ def last_questions(quantity):
 
     questions = Question.objects.all().order_by("-question_date")[:quantity]
 
-    return {"questions": questions}
+    return {"questions": questions}\
+
+
+@register.inclusion_tag('home/blocks/article/large.html')
+def article_section_large(slug, feed_articles, quantity, class_name):
+
+    segmented_feed_article = feed_articles[slug]
+    feed_list = []
+    segmented_feed_article = list(segmented_feed_article)
+    for index in range(0, quantity):
+        feed_list.append(segmented_feed_article.pop())
+
+    print "here", feed_list
+    return {"feed_list": feed_list, "class_name": class_name}
