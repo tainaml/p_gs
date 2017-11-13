@@ -1,0 +1,93 @@
+.communities-slider {
+  padding: 20px 30px;
+  margin: 0 auto;
+  flex-direction: column;
+  background-color: white;
+  &-header {
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  &-title {
+    margin: 0;
+    color: #505050;
+    font: 700 20px/18px "Open Sans";
+    letter-spacing: 0.5px;
+  }
+  &-vermais {
+    color: #757474;
+    font: 600 12px/20px "Open Sans";
+    letter-spacing: 0.3px;
+    text-transform: uppercase;
+  }
+  &-arrow {
+    width: auto;
+    height: auto;
+    color: #b5b4b4;
+    font-size: 60px;
+    &:hover,
+    &:focus {
+      color: darken(#b5b4b4, 20%);
+    }
+    &::before {
+      content: "";
+    }
+    &.slick-prev {
+      left: -40px;
+    }
+    &.slick-next {
+      right: -40px;
+    }
+  }
+  .community {
+    max-width: 100px;
+    min-height: 166px;
+    margin: 0 37px;
+    display: flex !important;
+    flex: 1;
+    flex-direction: column;
+    justify-content: space-between;
+    color: #505050;
+    font: 600 14px/18px "Open Sans";
+    &-image {
+      margin: 0 auto;
+      border: 1px solid #ebebeb;
+    }
+    &-title {
+      margin-top: 10px;
+      display: block;
+      letter-spacing: 0.35px;
+    }
+    &-followers-count {
+      display: block;
+      font-size: 12px;
+      font-weight: 400;
+      letter-spacing: 0.3px;
+      justify-self: flex-end;
+    }
+  }
+}
+
+@include at-most($screen--phone) {
+  .communities-slider {
+    padding: 10px 15px;
+  }
+}
+
+@include between(($screen--desktop + 1), $screen--wide) {
+  .communities-slider {
+    width: calc(100% - 100px);
+    max-width: $container--wide;
+    padding-right: 50px;
+    padding-left: 50px;
+  }
+}
+
+@include at-least($screen--wide) {
+  .communities-slider {
+    max-width: $container--wide;
+    padding-right: 50px;
+    padding-left: 50px;
+  }
+}

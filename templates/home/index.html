@@ -6,9 +6,9 @@
 {% load bighomecache %}
 {% load ads %}
 {% load static_versioned %}
+{% load home %}
 {% block seo-og-title %}{% block seo_title %}Portal GSTI - Um mundo de informações para TI{% endblock %}{% endblock %}
 {% block seo-og-description %}{% block seo-description %}O seu portal definitivo de TI. Conteúdo, área para tirar dúvidas, informações sobre vagas de trabalho, concursos e certificações. Conheça nossas comunidades!{% endblock %}{% endblock %}
-{% load home %}
 {% block page_stylesheet %}
 <link rel="stylesheet" href="//unpkg.com/slick-carousel@1.8.1/slick/slick.css">
 <link rel="stylesheet" href="//unpkg.com/slick-carousel@1.8.1/slick/slick-theme.css">
@@ -40,12 +40,6 @@
             <div class="page-home-container">
                  {% article_block 'large' 'governanca-e-gestao' class_name='governance' quantity=4 %}
             </div>
-            <div class="page-home-container page-home-news">
-                <h2 class="page-home-news-title">Notícias</h2>
-                <div class="page-home-news-content">
-                    {% article_block 'large' 'governanca-e-gestao' class_name='governance' quantity=4 %}
-                </div>
-            </div>
             <div class="page-home-container">
                 <div class="app-card app-card-no-image">
                     <div class="app-card-content">
@@ -66,27 +60,33 @@
                 {% article_block 'large' 'governanca-e-gestao' class_name='governance' quantity=2 %}
                 {% join_us 20 %}
             </div>
+            <div class="page-home-container page-home-news">
+                <h2 class="page-home-news-title">Notícias</h2>
+                <div class="page-home-news-content">
+                    {% article_block 'large' 'governanca-e-gestao' class_name='governance' quantity=4 %}
+                </div>
+            </div>
             {% communities_slider %}
             <div class="page-home-container page-home-content-after">
                 <div class="page-home-categories">
-                     {% article_block 'half3' 'governanca-e-gestao' class_name='governance' quantity=3 %}
-                     {% article_block 'half3' 'desenvolvimento' class_name='development' quantity=3 %}
-                     {% article_block 'half3' 'design' class_name='design' quantity=3 %}
-                     {% article_block 'half3' 'marketing-digital' class_name='marketing' quantity=3 %}
-                     {% article_block 'half3' 'banco-de-dados' class_name='infra' quantity=3 %}
-                     {% article_block 'half3' 'infraestrutura' class_name='databases' quantity=3 %}
-                     {% article_block 'half3' 'mobile' class_name='mobile' quantity=3 %}
-                     {% article_block 'half3' 'mais' class_name='more' quantity=3 %}
+                    {% article_block 'half3' 'governanca-e-gestao' class_name='governance' quantity=3 %}
+                    {% article_block 'half3' 'desenvolvimento' class_name='development' quantity=3 %}
+                    {% article_block 'half3' 'design' class_name='design' quantity=3 %}
+                    {% article_block 'half3' 'marketing-digital' class_name='marketing' quantity=3 %}
+                    {% article_block 'half3' 'banco-de-dados' class_name='infra' quantity=3 %}
+                    {% article_block 'half3' 'infraestrutura' class_name='databases' quantity=3 %}
+                    {% article_block 'half3' 'mobile' class_name='mobile' quantity=3 %}
+                    {% article_block 'half3' 'mais' class_name='more' quantity=3 %}
                 </div>
                 <div class="page-home-aside">
-                    {% last_courses 5 %}
-                    {% commits 5 %}
+                   {% last_courses 5 %}
+                   {% commits 5 %}
                    {% last_questions 5 %}
-                    <div class="page-home-aside-box">
-                        <h2 class="page-home-aside-box-title">Vídeos</h2>
-                        <ul class="page-home-aside-box-list">
+                    <div class="aside-box">
+                        <h2 class="aside-box-title">Vídeos</h2>
+                        <ul class="aside-box-list">
                             {% for i in "ab" %}
-                            <li class="page-home-aside-box-list-item">
+                            <li class="aside-box-list-item">
                                 <div class="app-card app-card-video">
                                     <a href="#">
                                         <img class="app-card-image img-responsive" src="http://localhost:9000/unsafe/480x300/http://kenwheeler.github.io/slick/img/lazyfonz1.png"
@@ -114,15 +114,15 @@
 {% endblock %}
 
 {% block javascripts %}
-    <div id="fb-root"></div>
     <script src="//unpkg.com/slick-carousel@1.8.1/slick/slick.min.js"></script>
     <script>
         $(function() {
             $('[data-toggle="carousel"]').slick({
+                centerMode: true,
                 dots: false,
                 infinite: true,
-                prevArrow: "<button type='button' class='slick-prev page-home-communities-arrow'><i class='gsticon gsticon-angle-left' aria-hidden='true'></i></button>",
-                nextArrow: "<button type='button' class='slick-next page-home-communities-arrow'><i class='gsticon gsticon-angle-right' aria-hidden='true'></i></button>",
+                prevArrow: "<button type='button' class='slick-prev communities-slider-arrow'><i class='gsticon gsticon-angle-left' aria-hidden='true'></i></button>",
+                nextArrow: "<button type='button' class='slick-next communities-slider-arrow'><i class='gsticon gsticon-angle-right' aria-hidden='true'></i></button>",
                 speed: 500,
                 variableWidth: true,
                 slidesToShow: 8,

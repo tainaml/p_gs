@@ -18,7 +18,7 @@
             {% endif %}
             <div class="app-card-content">
                 <a class="app-card-author" href="{{ article.author.get_absolute_url }}">
-                    <img class="img-circle" src="{% get_avatar article.author width=40 height=40 smart=False fit_in=False %}" alt="" /> {{ article.author.get_full_name }}
+                    <img class="img-circle" src="{% get_avatar article.author width=30 height=30 smart=False fit_in=False %}" alt="" /> {{ article.author.get_full_name }}
                 </a>
                 <h3 class="app-card-title">
                     <a href="{{ article_link }}" title="{{ article.title }}">

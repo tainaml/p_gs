@@ -1,4 +1,4 @@
-.page-home {
+.page-category {
   padding-bottom: 50px;
   background-color: $background-color;
   &-banner {
@@ -11,19 +11,14 @@
     align-items: stretch;
     justify-content: space-between;
   }
-  &-category-posts {
+  &-posts {
     display: flex;
   }
-  &-category {
-    position: relative;
-    margin-bottom: 20px;
-    display: inline-block;
-  }
-  &-category-title {
-    margin: 20px 0 15px;
-    border-bottom: 1px solid #d7d7d7;
-    font: 700 20px/18px "Open Sans";
-    a,
+  &-subtitle,
+  &-title {
+    font: 700 20px/24px "Open Sans";
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
     span {
       padding: 0 20px 9px 0;
       margin-bottom: -1px;
@@ -36,7 +31,7 @@
     }
     .development {
       color: $color-development;
-      border-color: $color-development;
+      color: $color-development;
     }
     .design {
       color: $color-design;
@@ -63,68 +58,15 @@
       border-color: $color-more;
     }
   }
-  // &-aside {}
-  
-  &-news {
-    flex-direction: column;
-    &-content {
-      display: flex;
-    }
-    &-title {
-      position: relative;
-      margin-bottom: 35px;
-      color: $primary-color;
-      font: 700 20px/18px "Open Sans";
-      text-align: center;
-      text-transform: uppercase;
-      &::before,
-      &::after {
-        position: absolute;
-        top: 10px;
-        display: block;
-        content: " ";
-        width: 42%;
-        height: 1px;
-        background-color: $primary-color;
-      }
-      &::before {
-        left: 0;
-      }
-      &::after {
-        right: 0;
-      }
-    }
-  }
-  &-vermais {
-    &.governance {
-      color: $color-governance;
-    }
-    &.development {
-      color: $color-development;
-    }
-    &.design {
-      color: $color-design;
-    }
-    &.marketing {
-      color: $color-marketing;
-    }
-    &.infra {
-      color: $color-infra;
-    }
-    &.databases {
-      color: $color-databases;
-    }
-    &.mobile {
-      color: $color-mobile;
-    }
-    &.more {
-      color: $color-more;
-    }
+  &-subtitle {
+    margin: 20px 0 15px;
+    border-bottom: 1px solid #d7d7d7;
+    font: 700 20px/18px "Open Sans";
   }
 }
 
 @include at-most($screen--phone) {
-  .page-home {
+  .page-category {
     &-container {
       max-width: 95%;
       flex-direction: column;
@@ -139,20 +81,17 @@
       background-color: white;
       text-align: center;
     }
-    &-category-posts {
+    &-latests {
       flex-direction: column;
       .app-card {
         margin-bottom: 20px;
       }
     }
-    &-communities {
-      padding: 10px 15px;
-    }
   }
 }
 
 @include at-most($screen--tablet) {
-  .page-home {
+  .page-category {
     &-aside {
       width: 100%;
       padding-left: 0;
@@ -172,7 +111,7 @@
 }
 
 @include at-least($screen--tablet) {
-  .page-home {
+  .page-category {
     &-container {
       max-width: $container--tablet;
       .app-card {
@@ -196,9 +135,12 @@
 }
 
 @include at-least($screen--tablet + 1) {
-  .page-home {
-    &-categories {
+  .page-category {
+    &-latests {
       width: 75%;
+      .app-card {
+        margin-bottom: 30px;
+      }
     }
     &-aside {
       width: 25%;
@@ -208,7 +150,7 @@
   }
 }
 @include at-least($screen--desktop) {
-  .page-home {
+  .page-category {
     &-container {
       max-width: $container--desktop;
     }
@@ -216,30 +158,20 @@
 }
 
 @include between(($screen--desktop + 1), $screen--wide) {
-  .page-home {
+  .page-category {
     &-container {
       width: 100%;
       max-width: $container--wide;
       padding-right: 30px;
       padding-left: 30px;
     }
-    &-communities {
-      max-width: calc(100% - 100px);
-      padding-right: 50px;
-      padding-left: 50px;
-    }
   }
 }
 
 @include at-least($screen--wide) {
-  .page-home {
+  .page-category {
     &-container {
       max-width: $container--wide;
-    }
-    &-communities {
-      max-width: calc(100% - 100px);
-      padding-right: 50px;
-      padding-left: 50px;
     }
   }
 }

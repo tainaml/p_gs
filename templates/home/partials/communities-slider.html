@@ -1,16 +1,16 @@
 {% load thumbor_tags %}
-<div class="page-home-container page-home-communities">
-    <div class="page-home-communities-header">
-        <h2 class="page-home-communities-title">Comunidades</h2>
-        <a class="page-home-communities-vermais" href="{% url 'search:search-content' 'communities' %}">
+<div class="page-home-container communities-slider">
+    <div class="communities-slider-header">
+        <h2 class="communities-slider-title">Comunidades</h2>
+        <a class="communities-slider-vermais" href="{% url 'search:search-content' 'communities' %}">
             <i class="gsticon gsticon-plus-circle" aria-hidden="true"></i> VER MAIS</a>
     </div>
     <div class="communities-carousel" data-toggle="carousel">
         {% for community in communities %}
-        <a class="page-home-community" href="{% url "community:show" community.slug %}">
-            <img class="page-home-community-image img-responsive" data-lazy="{% thumbor_url community.image.url width=100 height=100 smart=False fit_in=False %}" alt="Logotipo da comunidade {{ community.title }}" />
-            <span class="page-home-community-title">{{ community.title }}</span>
-            <span class="page-home-community-followers-count">{{ community.followers }} seguidores</span>
+        <a class="community" href="{% url "community:show" community.slug %}">
+            <img class="community-image img-responsive" data-lazy="{% thumbor_url community.image.url width=100 height=100 smart=False fit_in=False %}" alt="Logotipo da comunidade {{ community.title }}" />
+            <span class="community-title">{{ community.title }}</span>
+            <span class="community-followers-count">{{ community.followers }} seguidores</span>
         </a>
         {% endfor %}
     </div>
