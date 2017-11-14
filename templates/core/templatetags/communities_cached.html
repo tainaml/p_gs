@@ -6,12 +6,14 @@
         <a href="#menu-geral" class="cd-close toggle-slideout">Close</a>
         <ul class="cd-dropdown-content">
             <li class="has-children">
-                <a href="{% url 'category:show' 'governanca-e-gestao' %}">Governança e Gestão</a>
+                <a class="governance" href="{% url 'category:show' 'governanca-e-gestao' %}">
+                    <i class="gsticon gsticon-fw gsticon-users" aria-hidden="true"></i>
+                    Governança e Gestão</a>
                 <ul class="cd-secondary-dropdown is-hidden">
                     <li class="go-back"><a href="#menu-geral">Categorias</a></li>
                     <li class="see-all"><a href="{% url 'category:show' 'governanca-e-gestao' %}">Ver Categoria</a></li>
                     <li class="has-children">
-                        <a href="{% url 'category:show' 'governanca-e-gestao' %}">Comunidades</a>
+                        <a class="governance" href="{% url 'category:show' 'governanca-e-gestao' %}">Comunidades</a>
                         <ul class="is-hidden">
                             <li class="go-back"><a href="#menu-geral">Voltar</a></li>
                             {% for community in categories.governanca_e_gestao %}
@@ -22,12 +24,14 @@
                 </ul>
             </li>
             <li class="has-children">
-                <a href="{% url 'category:show' 'desenvolvimento' %}">Desenvolvimento</a>
+                <a class="development" href="{% url 'category:show' 'desenvolvimento' %}">
+                    <i class="gsticon gsticon-fw gsticon-code" aria-hidden="true"></i>
+                    Desenvolvimento</a>
                 <ul class="cd-secondary-dropdown is-hidden">
                     <li class="go-back"><a href="#menu-geral">Categorias</a></li>
                     <li class="see-all"><a href="{% url 'category:show' 'desenvolvimento' %}">Ver Categoria</a></li>
                     <li class="has-children">
-                        <a href="{% url 'category:show' 'desenvolvimento' %}">Comunidades</a>
+                        <a class="development" href="{% url 'category:show' 'desenvolvimento' %}">Comunidades</a>
                         <ul class="is-hidden">
                             <li class="go-back"><a href="#menu-geral">Voltar</a></li>
                             {% for community in categories.desenvolvimento %}
@@ -38,12 +42,14 @@
                 </ul>
             </li>
             <li class="has-children">
-                <a href="{% url 'category:show' 'design' %}">Design</a>
+                <a class="design" href="{% url 'category:show' 'design' %}">
+                    <i class="gsticon gsticon-fw gsticon-eye" aria-hidden="true"></i>
+                    Design</a>
                 <ul class="cd-secondary-dropdown is-hidden">
                     <li class="go-back"><a href="#menu-geral">Categorias</a></li>
                     <li class="see-all"><a href="{% url 'category:show' 'design' %}">Ver Categoria</a></li>
                     <li class="has-children">
-                        <a href="{% url 'category:show' 'design' %}">Comunidades</a>
+                        <a class="design" href="{% url 'category:show' 'design' %}">Comunidades</a>
                         <ul class="is-hidden">
                             <li class="go-back"><a href="#menu-geral">Voltar</a></li>
                             {% for community in categories.design %}
@@ -54,12 +60,14 @@
                 </ul>
             </li>
             <li class="has-children">
-                <a href="{% url 'category:show' 'marketing-digital' %}">Marketing Digital</a>
+                <a class="marketing" href="{% url 'category:show' 'marketing-digital' %}">
+                    <i class="gsticon gsticon-fw gsticon-line-chart" aria-hidden="true"></i>
+                    Marketing Digital</a>
                 <ul class="cd-secondary-dropdown is-hidden">
                     <li class="go-back"><a href="#menu-geral">Categorias</a></li>
                     <li class="see-all"><a href="{% url 'category:show' 'marketing-digital' %}">Ver Categoria</a></li>
                     <li class="has-children">
-                        <a href="{% url 'category:show' 'marketing-digital' %}">Comunidades</a>
+                        <a class="marketing" href="{% url 'category:show' 'marketing-digital' %}">Comunidades</a>
                         <ul class="is-hidden">
                             <li class="go-back"><a href="#menu-geral">Voltar</a></li>
                             {% for community in categories.marketing_digital %}
@@ -70,12 +78,14 @@
                 </ul>
             </li>
             <li class="has-children">
-                <a href="{% url 'category:show' 'banco-de-dados' %}">Banco de Dados</a>
+                <a class="databases" href="{% url 'category:show' 'banco-de-dados' %}">
+                    <i class="gsticon gsticon-fw gsticon-database" aria-hidden="true"></i>
+                    Banco de Dados</a>
                 <ul class="cd-secondary-dropdown is-hidden">
                     <li class="go-back"><a href="#menu-geral">Categorias</a></li>
                     <li class="see-all"><a href="{% url 'category:show' 'banco-de-dados' %}">Ver Categoria</a></li>
                     <li class="has-children">
-                        <a href="{% url 'category:show' 'banco-de-dados' %}">Comunidades</a>
+                        <a class="databases" href="{% url 'category:show' 'banco-de-dados' %}">Comunidades</a>
                         <ul class="is-hidden">
                             <li class="go-back"><a href="#menu-geral">Voltar</a></li>
                             {% for community in categories.banco_de_dados %}
@@ -86,12 +96,14 @@
                 </ul>
             </li>
             <li class="has-children">
-                <a href="{% url 'category:show' 'infraestrutura' %}">Infraestrutura</a>
+                <a class="infra" href="{% url 'category:show' 'infraestrutura' %}">
+                    <i class="gsticon gsticon-fw gsticon-cog" aria-hidden="true"></i>
+                    Infraestrutura</a>
                 <ul class="cd-secondary-dropdown is-hidden">
                     <li class="go-back"><a href="#menu-geral">Categorias</a></li>
                     <li class="see-all"><a href="{% url 'category:show' 'infraestrutura' %}">Ver Categoria</a></li>
                     <li class="has-children">
-                        <a href="{% url 'category:show' 'infraestrutura' %}">Comunidades</a>
+                        <a class="infra" href="{% url 'category:show' 'infraestrutura' %}">Comunidades</a>
                         <ul class="is-hidden">
                             <li class="go-back"><a href="#menu-geral">Voltar</a></li>
                             {% for community in categories.infraestrutura %}
@@ -102,12 +114,14 @@
                 </ul>
             </li>
             <li class="has-children">
-                <a href="{% url 'category:show' 'mobile' %}">Mobile</a>
+                <a class="mobile" href="{% url 'category:show' 'mobile' %}">
+                    <i class="gsticon gsticon-fw gsticon-tablet" aria-hidden="true"></i>
+                    Mobile</a>
                 <ul class="cd-secondary-dropdown is-hidden">
                     <li class="go-back"><a href="#menu-geral">Categorias</a></li>
                     <li class="see-all"><a href="{% url 'category:show' 'mobile' %}">Ver Categoria</a></li>
                     <li class="has-children">
-                        <a href="{% url 'category:show' 'mobile' %}">Comunidades</a>
+                        <a class="mobile" href="{% url 'category:show' 'mobile' %}">Comunidades</a>
                         <ul class="is-hidden">
                             <li class="go-back"><a href="#menu-geral">Voltar</a></li>
                             {% for community in categories.mobile %}
@@ -118,12 +132,14 @@
                 </ul>
             </li>
             <li class="has-children">
-                <a href="{% url 'category:show' 'mais' %}">Mais</a>
+                <a class="more" href="{% url 'category:show' 'mais' %}">
+                    <i class="gsticon gsticon-fw gsticon-plus" aria-hidden="true"></i>
+                    Mais</a>
                 <ul class="cd-secondary-dropdown is-hidden">
                     <li class="go-back"><a href="#menu-geral">Categorias</a></li>
                     <li class="see-all"><a href="{% url 'category:show' 'mais' %}">Ver Categoria</a></li>
                     <li class="has-children">
-                        <a href="{% url 'category:show' 'mais' %}">Comunidades</a>
+                        <a class="more" href="{% url 'category:show' 'mais' %}">Comunidades</a>
                         <ul class="is-hidden">
                             <li class="go-back"><a href="#menu-geral">Voltar</a></li>
                             {% for community in categories.mais %}

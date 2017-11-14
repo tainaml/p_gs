@@ -9,15 +9,17 @@
             {% for community in communities %}
                 <li class="item-float-notification item-float-notification-link">
                     <a class="perfil" href="{% url 'community:show' community.slug %}">
-                      <figure>
-                      {% if community.get_picture %}
-                        <img class="search-avatar" src="{% thumbor_url community.get_picture.url width=50 height=50 smart=False fit_in=False %}" width="50" height="50" alt="Foto de {{ community.title }}"  title="{{ community_obj.title }}">
-                      {% else %}
-                        <img src="http://placehold.it/50?text={{ community.title|slice:":1" }}" width="50" height="50" alt="Foto de {{ community.title }}">
-                      {% endif %}
-                      </figure>
-                      <span>{{ community.title }}</span>
-                      <span class="perfil-counter">{% followers_count community as followers_count_value %}{{ followers_count_value }} Seguidor{{ followers_count_value|pluralize:'es' }}</span>
+                        <figure class="img-circle">
+                        {% if community.get_picture %}
+                        <img class="search-avatar" src="{% thumbor_url community.get_picture.url width=30 height=30 smart=False fit_in=False %}" width="30" height="30" alt="Foto de {{ community.title }}"  title="{{ community_obj.title }}">
+                        {% else %}
+                        <img src="http://placehold.it/30?text={{ community.title|slice:":1" }}" width="30" height="30" alt="Foto de {{ community.title }}">
+                        {% endif %}
+                        </figure>
+                        <span>{{ community.title }}</span>
+                        {% comment %}
+                        <span class="perfil-counter">{% followers_count community as followers_count_value %}{{ followers_count_value }} Seguidor{{ followers_count_value|pluralize:'es' }}</span>
+                        {% endcomment %}
                     </a>
                 </li>
             {% endfor %}
@@ -29,14 +31,18 @@
         {% for user in users %}
         <li class="item-float-notification item-float-notification-link">
             <a class="perfil" href="{% if  user.is_active %}{% url 'profile:show' user.get_username %}{% else %}javascript:;{% endif %}">
-                <span class="icontype">
-                    <i class="gsticon gsticon-{% if user.is_company %}building{% else %}user{% endif %}"></i>
-                </span>
-                <figure>
-                  <img class="search-avatar" src="{% get_avatar user width=50 height=50 smart=False fit_in=False %}" width="50" height="50" alt="Foto de {{ user.get_full_name }}">
+                {% comment %}
+                    <span class="icontype">
+                        <i class="gsticon gsticon-{% if user.is_company %}building{% else %}user{% endif %}"></i>
+                    </span>
+                {% endcomment %}
+                <figure class="img-circle">
+                  <img class="search-avatar" src="{% get_avatar user width=30 height=30 smart=False fit_in=False %}" width="30" height="30" alt="Foto de {{ user.get_full_name }}">
                 </figure>
                 <span>{{ user.get_full_name }}</span>
-                <span class="perfil-counter">{% followers_count user as followers_count_value %}{{ followers_count_value }} Seguidor{{ followers_count_value|pluralize:'es' }}</span>
+                {% comment %}
+                    <span class="perfil-counter">{% followers_count user as followers_count_value %}{{ followers_count_value }} Seguidor{{ followers_count_value|pluralize:'es' }}</span>
+                {% endcomment %}
             </a>
         </li>
         {% endfor %}

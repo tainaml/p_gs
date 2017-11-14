@@ -75,7 +75,6 @@ $(function() {
 
   const toggleSearch = $("[data-toggle='search']");
   toggleSearch.on("click", event => {
-    event.preventDefault();
     const currentTarget = $(event.currentTarget);
     if (window.innerWidth < 768) {
       currentTarget.animate(

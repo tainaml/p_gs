@@ -14,7 +14,7 @@
                 <a class="app-header-navigation-item-link {% if request.path == "/videos/" %}is-active{% endif %}" href="{% url 'core:videos-list' %}">Videoaulas</a>
             </li>
             <li class="app-header-navigation-item">
-                <a class="app-header-navigation-item-link {% if request.path == "/profissoes-de-ti/" %}is-active{% endif %}" href="{% url 'core:videos-list' %}" href="{% url 'core:responsibilities-list'%}">Profissões</a>
+                <a class="app-header-navigation-item-link {% if request.path == "/profissoes-de-ti/" %}is-active{% endif %}" href="{% url 'core:responsibilities-list'%}">Profissões</a>
             </li>
             <li class="app-header-navigation-item">
                 <a class="app-header-navigation-item-link {% if request.path == "/buscando/communities" %}is-active{% endif %}" href="{% url 'search:search-content' 'communities' %}">Comunidades</a>

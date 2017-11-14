@@ -242,7 +242,7 @@
           button: "Insert"
         },
         errorMessage: {
-          invalid_provider: 'Invalid Provider!'
+          invalid_provider: 'Invalid Provider or video does not support embedding'
         }
       },
       'pt-BR': {
@@ -256,7 +256,7 @@
           button: "Inserir"
         },
         errorMessage: {
-          invalid_provider: 'Provedor inválido'
+          invalid_provider: "Provedor inválido ou vídeo não aceita incorporação."
         }
       }
     },

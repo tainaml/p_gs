@@ -57,6 +57,12 @@ $dropdown-triangle-size: 10px;
     justify-content: center;
     border: none;
     border-radius: 20px;
+    &:hover,
+    &:focus {
+      background-color: transparent;
+      border: 1px solid white;
+      color: white;
+    }
   }
   &-dropdown {
     position: absolute;
@@ -103,19 +109,19 @@ $dropdown-triangle-size: 10px;
       &:hover {
         background-color: #faf8f8;
         a {
-          color: #0072bc;
+          color: $primary-color;
         }
       }
     }
     &-list-item-divider {
-      min-height: 43px;
+      min-height: 9px;
       padding-right: 18px;
       padding-left: 18px;
       display: flex;
       align-items: center;
       background-color: #f5f5f5;
       color: #616161;
-      font: 600 14px "Open Sans";
+      font: 600 14px/3 "Open Sans";
     }
     &-list-item-notifications {
       display: flex;

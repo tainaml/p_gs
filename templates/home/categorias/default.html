@@ -11,6 +11,8 @@
 {% load ads %}
 {% load abs_url %}
 {% load seo_pagination_tags %}
+{% load static_versioned %}
+{% load home %}
 {% block seo-og-title %}{% block seo_title %}{{ category.description }} {{ block.super }}{% endblock %}{% endblock %}
 {% block seo-og-description %}{% block seo-description %}Saiba tudo sobre {{ category.description }} através dessa categoria do site. Aqui está reunido o conteúdo criado por colaboradores do Portal sobre esse assunto.{% endblock %}{% endblock %}
 {% block seo-og-image %}{% thumbor_url category.community_related.get_picture.url width=82 height=82 smart=False fit_in=False %}{% endblock %}
@@ -20,109 +22,92 @@
     {% pagination_links feed_objects %}
 {% endblock link_pagination %}
 
+{% block page_stylesheet %}
+<link rel="stylesheet" href="//unpkg.com/slick-carousel@1.8.1/slick/slick.css">
+<link rel="stylesheet" href="//unpkg.com/slick-carousel@1.8.1/slick/slick-theme.css">
+<link rel="stylesheet" href="{% static_versioned 'stylesheets/category.css' %}">
+{% endblock page_stylesheet %}
+
 {% with class_name=class_name|default_if_none:"default" %}
 
     {% block content %}
-
-        <main class="container main home">
-
-                <div class="row">
-                    <div class="post-list--large post-list--{{ class_name }}">
-                        <div class="post-list-header">
-                            <h1 class="post-list-heading">{{ category.description }}</h1>
-                        </div>
-                    </div>
+    <main class="app-main page-category">
+        <div class="page-category-banner">
+            {% ads_only_production "category_top" "all" %}
+        </div>
+        <div class="page-category-container">
+            <h1 class="page-category-title">
+                <span class="{{ class_name }}">{{ category.description }}</span>
+            </h1>
+        </div>
+        <div class="page-category-container">
+            {% article_block 'large' category_slug class_name=class_name quantity=3 %}
+            {% with community=category.community_related %}
+                {% include "userprofile/partials/profile-card-community.html" with community_obj=community class_name=class_name %}
+            {% endwith %}
+        </div>
+        <div class="page-category-container">
+            {% article_block 'large' category_slug class_name=class_name quantity=4 %}
+        </div>
+        <div class="page-category-container">
+            {% article_block 'large' category_slug class_name=class_name quantity=4 %}
+        </div>
+        <div class="page-category-container">    
+            {% article_block 'large' category_slug class_name=class_name quantity=4 %}
+        </div>
+        {% communities_slider %}
+        <div class="page-category-container">
+            <div class="page-category-latests">
+                <h2 class="page-category-subtitle">
+                    <span class="{{ class_name }}">Últimas</span>
+                </h2>
+                <div class="page-category-posts">
+                    {% article_block 'large' category_slug class_name=class_name quantity=3 %}
                 </div>
-{#                {% bighomecache category_slug %}#}
-                <div class="highlight-area-category">
-                    <div class="highlight-left">
-                        <div class="banner">
-                            {% ads_only_production "category_top" "all" %}
-                        </div>
-                        <div class="post-list-container">
-{#                            {% article_block 'large' category_slug class_name=class_name quantity=4 offset=0 %}#}
-                            {% article_block_show 'large' 'articles' category_slug class_name=class_name quantity=4 %}
-                        </div>
-
-{#                        {% article_block 'simple' category_slug class_name=class_name quantity=2 differ="primeira" %}#}
-                        {% article_block_show 'simple' 'articles' category_slug class_name=class_name quantity=2 differ="primeira" %}
-
-                    </div>
-                    {% with community=category.community_related %}
-                        <div class="highlight-right">
-                            {% include "userprofile/partials/profile-community-segment.html" with community_obj=community %}
-
-{#                            {% article_block 'simple' category_slug class_name=class_name quantity=2 differ="lateral-1" %}#}
-                            {% article_block_show 'simple' 'articles' category_slug class_name=class_name quantity=2 differ="lateral-1" %}
-
-{#                            {% article_block 'simple' category_slug class_name=class_name quantity=2 differ="lateral-2" %}#}
-{#                            {% article_block 'simple-image' category_slug class_name=class_name quantity=1 offset=10 %}#}
-
-                            {% article_block_show 'simple' 'articles' category_slug class_name=class_name quantity=2 differ="lateral-2" %}
-                            {% article_block_show 'simple-image' 'articles' category_slug class_name=class_name quantity=1 offset=10 %}
-                        </div>
-                    {% endwith %}
+                <div class="page-category-posts">
+                    {% article_block 'large' category_slug class_name=class_name quantity=3 %}
                 </div>
-
-                <div class="container-posts">
-{#                    <div class="banner-content-wide">#}
-{#                        <div class="banner">#}
-{#                            {% ads_only_production "category_middle" "all" %}#}
-{#                        </div>#}
-{#                    </div>#}
-
-
-                    <section class="post-list col-sm-6 post-list--{{ class_name }}">
-                        <div class="post-list-header">
-                            <h2 class="post-list-heading">Últimas</h2>
-                        </div>
-
-                        <div class="post-list-container">
-                            <div class="col-lg-12 j-scroll-communities j-scroll-communities-container">
-                                {% include 'home/categorias/community-list.html' %}
-{#                                <a data-jscroll-next href="{% url 'category:list-community_articles' %}?category_id={{  category.id }}&page=1"></a>#}
+                <div class="page-category-posts">
+                    {% article_block 'large' category_slug class_name=class_name quantity=3 %}
+                </div>
+                <div class="page-category-posts">
+                    {% article_block 'large' category_slug class_name=class_name quantity=3 %}
+                </div>
+            </div>
+            <div class="page-category-aside">
+                {% last_courses 5 %}
+                <div class="aside-box">
+                    <h2 class="aside-box-title">Vídeos</h2>
+                    <ul class="aside-box-list">
+                        {% for i in "ab" %}
+                        <li class="aside-box-list-item">
+                            <div class="app-card app-card-video">
+                                <a href="#">
+                                    <img class="app-card-image img-responsive" src="http://localhost:9000/unsafe/480x300/http://kenwheeler.github.io/slick/img/lazyfonz1.png"
+                                        alt="">
+                                </a>
+                                <span class="app-card-content">
+                                    <h3 class="app-card-title">
+                                        <a href="#">
+                                            Aprenda como instalar e entenda a interface do Microsoft Access
+                                        </a>
+                                    </h3>
+                                </span>
                             </div>
-                        </div>
-                    </section>
-
-                    <section class="post-list--small">
-                        <div class="post-list-header">
-                            <h2 class="post-list-heading">Comunidades</h2>
-                        </div>
-
-{#                        {% cache 3600 'category_communities_related' category_slug %}#}
-                            {% communities_related category %}
-{#                        {% endcache %}#}
-
-                        <div class="post-list-header">
-                          <h2 class="post-list-heading">Conecte-se</h2>
-                        </div>
-                        <div class="fb-page" data-href="https://www.facebook.com/PortalGSTIpage" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="false" data-show-posts="false"><div class="fb-xfbml-parse-ignore"><blockquote cite="https://www.facebook.com/PortalGSTIpage"><a href="https://www.facebook.com/PortalGSTIpage">FB Portal GSTI</a></blockquote></div></div>
-                        <!-- Place this tag where you want the widget to render. -->
-                        <div id="google-badge">
-                            <div class="g-page" data-width="270" data-href="https://plus.google.com/113333419239001929124" data-layout="landscape" data-rel="publisher"></div>
-                        </div>
-                    </section>
-                    <div class="post-list--small">
-                        {% ads_only_production "community_right" "all" %}
-                    </div>
+                        </li>
+                        {% endfor %}
+                    </ul>
                 </div>
-
-
-
-        </main>
-
+            </div>
+        </div>
+    </main>
     {% endblock %}
 
     {% block javascripts %}
         <div id="fb-root"></div>
+        <script src="//unpkg.com/slick-carousel@1.8.1/slick/slick.min.js"></script>
         <script type="text/javascript">
             $(function() {
-                document.getElementsByClassName('g-page')[0].setAttribute('data-width', document.getElementById('google-badge').clientWidth);
-                var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
-                po.src = 'https://apis.google.com/js/platform.js';
-                var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
-
                 $(".j-scroll-communities").jscroll({
                     contentSelect: ".j-scroll-communities-container",
                     loadingHtml: '<div class="load-async-preload"></div>',
@@ -138,14 +123,31 @@
                         $obj.text(data.count);
                     });
                 });
+                $('[data-toggle="carousel"]').slick({
+                    centerMode: true,
+                    dots: false,
+                    infinite: true,
+                    prevArrow: "<button type='button' class='slick-prev communities-slider-arrow'><i class='gsticon gsticon-angle-left' aria-hidden='true'></i></button>",
+                    nextArrow: "<button type='button' class='slick-next communities-slider-arrow'><i class='gsticon gsticon-angle-right' aria-hidden='true'></i></button>",
+                    speed: 500,
+                    variableWidth: true,
+                    slidesToShow: 8,
+                    slidesToScroll: 1,
+                    responsive: [{
+                        breakpoint: 769,
+                        settings: {
+                            arrows: false,
+                        }
+                    },
+                    {
+                        breakpoint: 480,
+                        settings: {
+                            arrows: false,
+                            slidesToScroll: 2,
+                        }
+                    }]
+                });
             });
-
-            (function(d, s, id) {
-                var js, fjs = d.getElementsByTagName(s)[0];
-                if (d.getElementById(id)) return;
-                js = d.createElement(s); js.id = id; js.async = true;
-                js.src = "//connect.facebook.net/pt_BR/sdk.js#xfbml=1&version=v2.4&appId=625566967570537";
-                fjs.parentNode.insertBefore(js, fjs);
-            }(document, 'script', 'facebook-jssdk'));</script>
+        </script>
     {% endblock %}
 {% endwith %}

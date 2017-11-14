@@ -1,0 +1,131 @@
+.aside {
+  &-advertising {
+    text-align: center;
+  }
+  &-box {
+    width: 100%;
+    margin-bottom: 35px;
+    display: inline-block;
+    background-color: white;
+  }
+  &-box-action {
+    display: block;
+    min-height: 50px;
+    background-color: $primary-color;
+    color: white;
+    font: 700 16px/3 "Open Sans";
+    text-align: center;
+  }
+  &-box-list {
+    padding: 0;
+    margin-bottom: 0;
+    list-style: none;
+  }
+  &-box-list-item {
+    display: block;
+    &:first-child {
+      .app-card-video,
+      .page-home-aside-commit {
+        margin-top: 20px;
+      }
+    }
+    &:last-child {
+      .page-home-aside-commit {
+        margin-bottom: 12px;
+      }
+      .page-home-aside-question,
+      .page-home-aside-course {
+        border-bottom: none;
+      }
+    }
+  }
+  &-box-title {
+    margin: 20px 20px 0;
+    color: $primary-color;
+    font: 700 20px "Open Sans";
+  }
+  &-commit {
+    padding: 15px;
+    margin: 6px 20px;
+    display: inline-block;
+    border: 1px solid #d7d7d7;
+    color: #616161;
+    word-break: break-all;
+    &:hover {
+      color: $primary-color;
+    }
+  }
+  &-commit-author {
+    font: 700 12px/24px "Open Sans";
+    letter-spacing: 0.3px;
+  }
+  &-commit-content {
+    margin-top: 15px;
+    display: block;
+    font: 600 14px/20px "Open Sans";
+    letter-spacing: 0.35px;
+  }
+  &-commit-header {
+    height: 30px;
+    display: flex;
+    align-items: center;
+  }
+  &-commit-info {
+    display: flex;
+    flex-direction: column;
+  }
+  &-commit-image {
+    width: 30px;
+    height: 30px;
+    margin-right: 20px;
+    border: 1px solid #e1dede;
+  }
+  &-commit-publish {
+    font: 400 11px/18px "Open Sans";
+    letter-spacing: 0.28px;
+  }
+  &-course {
+    overflow: hidden;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #d7d7d7;
+    &:hover,
+    &:focus {
+      .page-home-aside-course-title {
+        color: $primary-color;
+      }
+    }
+  }
+  &-course-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: inherit;
+  }
+  &-course-flag {
+    color: $primary-color;
+    font: 400 12px/24px "Open Sans";
+    text-transform: uppercase;
+  }
+  &-course-image {
+    border: 1px solid #ebebeb;
+    margin-right: 24px;
+  }
+  &-course-title {
+    color: #505050;
+    font: 700 16px/24px "Open Sans";
+  }
+  &-question {
+    padding-bottom: 20px;
+    margin: 20px 20px 0;
+    display: block;
+    border-bottom: 1px solid #e1e1e1;
+    color: #616161;
+    font: 600 16px/24px "Open Sans";
+    letter-spacing: 0.4px;
+    &:hover,
+    &:focus {
+      color: $primary-color;
+    }
+  }
+}

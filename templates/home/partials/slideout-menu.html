@@ -54,48 +54,28 @@
             <i class="gsticon gsticon-fw gsticon-angle-right"></i>
         </a>
     </li>
-    <li class="user-actions-dropdown-list-item-divider">subtítulo do menu</li>
+    <li class="user-actions-dropdown-list-item-divider"></li>
     <li class="user-actions-dropdown-list-item">
         <a href="{% url 'profile:feed' %}">
-            <i class="gsticon gsticon-fw gsticon-feed"></i> Meu Feed</a>
+            <i class="gsticon gsticon-fw gsticon-id-card-o pull-left" aria-hidden="true"></i> Meu Feed</a>
     </li>
-    <li class="user-actions-dropdown-list-item">
-        <a href="{% if  request.user.is_active %}{% url 'profile:show' request.user.username %}{% else %}javascript:;{% endif %}">
-            <i class="gsticon gsticon-fw gsticon-file-text"></i> Minhas Publicações</a>
-    </li>
-    <li class="user-actions-dropdown-list-item">
-        <a href="{% url 'profile:my-questions' %}">
-            <i class="gsticon gsticon-fw gsticon-question"></i> Minhas Perguntas</a>
-    </li>
-    <li class="user-actions-dropdown-list-item-divider">subtítulo do menu</li>
+    <li class="user-actions-dropdown-list-item-divider">Publicar</li>
     <li class="user-actions-dropdown-list-item">
         <a href="{% url 'article:create' %}">
-            <i class="gsticon gsticon-fw gsticon-file-text-o"></i> Criar Publicação</a>
+            <i class="gsticon gsticon-fw gsticon-file-text-o pull-left" aria-hidden="true"></i> Artigo</a>
     </li>
     <li class="user-actions-dropdown-list-item">
         <a href="{% url 'question:create' %}">
-            <i class="gsticon gsticon-fw gsticon-question-circle"></i> Perguntar</a>
+            <i class="gsticon gsticon-fw gsticon-question-circle pull-left" aria-hidden="true"></i> Pergunta</a>
     </li>
-    <li class="user-actions-dropdown-list-item">
-        <a href="{% url 'organization:create' %}">
-            <i class="gsticon gsticon-fw gsticon-building"></i> Criar organização</a>
-    </li>
-    <li class="user-actions-dropdown-list-item">
-        <a href="{% url 'profile:edit-posts' %}">
-            <i class="gsticon gsticon-fw gsticon-pencil-square-o"></i> Editar Conteúdo</a>
-    </li>
-    <li class="user-actions-dropdown-list-item">
-        <a href="{% url 'profile:edit' %}">
-            <i class="gsticon gsticon-fw gsticon-pencil"></i> Editar Perfil</a>
-    </li>
+    <li class="user-actions-dropdown-list-item-divider"></li>
     <li class="user-actions-dropdown-list-item">
         <a href="{% url 'configuration:account' %}">
-            <i class="gsticon gsticon-fw gsticon-gear"></i> Configurações</a>
+            <i class="gsticon gsticon-fw gsticon-gear pull-left" aria-hidden="true"></i> Configurações</a>
     </li>
-    <li class="user-actions-dropdown-list-item-divider">subtítulo do menu</li>
     <li class="user-actions-dropdown-list-item">
         <a href="{% url 'account:logout' %}?next={{ request.path }}">
-            <i class="gsticon gsticon-fw gsticon-close"></i> {% trans "Sair" %}</a>
+            <i class="gsticon gsticon-fw gsticon-sign-out pull-left" aria-hidden="true"></i> {% trans "Sair" %}</a>
     </li>
     {% else %}
     <li>

@@ -63,6 +63,16 @@
   }
 }
 
+@include at-most($screen--phone) {
+  .app-footer {
+    &links,
+    &-logo,
+    &-support {
+      display: none;
+    }
+  }
+}
+
 @include at-least($screen--tablet) {
   .app-footer {
     &-container,

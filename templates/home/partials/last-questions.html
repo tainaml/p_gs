@@ -1,13 +1,13 @@
- <div class="page-home-aside-box">
-        <h2 class="page-home-aside-box-title">Perguntas</h2>
-        <ul class="page-home-aside-box-list">
-            {% for question in questions %}
-            <li class="page-home-aside-box-list-item">
-                <a class="page-home-aside-question" href="{{ question.get_absolute_url }}">
-                     {{ question.title|truncatechars:50  }}
-                </a>
-            </li>
-            {% endfor %}
-        </ul>
-        <a href="{% url "search:search-content" 'questions' %}" class="page-home-aside-box-action">Ver mais perguntas</a>
-    </div>
+ <div class="aside-box">
+    <h2 class="aside-box-title">Perguntas</h2>
+    <ul class="aside-box-list">
+        {% for question in questions %}
+        <li class="aside-box-list-item">
+            <a class="aside-question" href="{{ question.get_absolute_url }}">
+                    {{ question.title|truncatechars:50  }}
+            </a>
+        </li>
+        {% endfor %}
+    </ul>
+    <a href="{% url "search:search-content" 'questions' %}" class="aside-box-action">Ver mais perguntas</a>
+</div>

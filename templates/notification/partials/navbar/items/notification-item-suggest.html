@@ -17,7 +17,7 @@
     data-notification="{{ notification.id }}">
     <a href="{% absolute_from_path object_url %}" title="Notificação do Portal GSTI">
         <figure>
-            <img src="{% get_avatar notification.author width=20 height=20 smart=False fit_in=False %}" width="20" height="20" alt="{{ notification.author.get_full_name }}">
+            <img  class="img-circle" src="{% get_avatar notification.author width=20 height=20 smart=False fit_in=False %}" width="20" height="20" alt="{{ notification.author.get_full_name }}">
             {% if notification.target_content_type|stringformat:"s" == "article" %}
                 <span>{{ notification.author.get_full_name }}</span> recomendou a leitura de <span>{{ notification.target.title }}</span>
             {% elif notification.target_content_type|stringformat:"s" == "question"  %}
