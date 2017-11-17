@@ -33,12 +33,6 @@
     &::before {
       content: "";
     }
-    &.slick-prev {
-      left: -40px;
-    }
-    &.slick-next {
-      right: -40px;
-    }
   }
   .community {
     max-width: 100px;
@@ -72,6 +66,26 @@
 @include at-most($screen--phone) {
   .communities-slider {
     padding: 10px 15px;
+  }
+}
+
+@include at-most($screen--tablet) {
+  .communities-slider {
+    max-width: $container--tablet;
+  }
+}
+
+@include at-most($screen--desktop) {
+  .communities-slider {
+    max-width: $container--desktop;
+    &-arrow {
+      &.slick-prev {
+        left: -40px;
+      }
+      &.slick-next {
+        right: -40px;
+      }
+    }
   }
 }
 

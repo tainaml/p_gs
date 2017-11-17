@@ -156,11 +156,11 @@
     &-aside {
       width: 100%;
       padding-left: 0;
-    }
-    &-aside-box {
-      width: calc(50% - 20px);
-      margin: 0 10px;
-      float: left;
+      .aside-box {
+        width: calc(50% - 20px);
+        margin: 0 10px;
+        float: left;
+      }
     }
     &-categories {
       width: 100%;
