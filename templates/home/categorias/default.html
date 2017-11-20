@@ -55,8 +55,10 @@
         <div class="page-category-container">    
             {% article_block 'large' category_slug class_name=class_name quantity=4 %}
         </div>
-        {% communities_slider %}
         <div class="page-category-container">
+        {% communities_slider %}
+        </div>
+        <div class="page-category-container page-category-content-after">
             <div class="page-category-latests">
                 <h2 class="page-category-subtitle">
                     <span class="{{ class_name }}">Últimas</span>
