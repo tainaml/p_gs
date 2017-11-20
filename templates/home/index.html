@@ -53,14 +53,12 @@
             {% cache 30 "community-slider" %}
                 {% communities_slider %}
             {% endcache %}
-            <div class="page-home-container">
             <div class="page-home-container page-home-news">
                 <h2 class="page-home-news-title">Notícias</h2>
                 <div class="page-home-news-content">
                     {% article_block 'large' 'governanca-e-gestao' class_name='governance' quantity=4 %}
                 </div>
             </div>
-            {% communities_slider %}
             <div class="page-home-container page-home-content-after">
                 <div class="page-home-categories">
                     {% article_block 'half3' 'governanca-e-gestao' class_name='governance' quantity=3 %}
@@ -104,7 +102,7 @@
                     </div>
                 </div>
             </div>
-            </div>
+
         </main>
 
 

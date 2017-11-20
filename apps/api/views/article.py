@@ -17,6 +17,8 @@ class ArticleViewset(viewsets.ModelViewSet):
         return super(ArticleViewset, self).dispatch(request, *args, **kwargs)
 
     def get_queryset(self):
+
+
         queryset = ArticleViewset.queryset.prefetch_related("author", "author__profile")
 
         queryset = queryset.filter(
@@ -26,6 +28,7 @@ class ArticleViewset(viewsets.ModelViewSet):
         q = self.request.query_params.get('Q', None)
 
         if q is not None:
+
             queryset = queryset.filter(title__icontains=q)
 
 

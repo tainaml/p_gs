@@ -28,6 +28,8 @@ class CompanyEditView(View):
 
         company = None
 
+
+
         try:
             company = CompanyProxy.objects.get(id=company_id)
         except CompanyProxy.DoesNotExist, CompanyProxy.MultipleObjectsReturned:

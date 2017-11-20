@@ -15,7 +15,7 @@
   "javascripts/jquery-1.11.3.min.js": "javascripts/jquery-1-895323ed2f.11.3.min.js",
   "javascripts/main-18ef652952-18ef652952.js": "javascripts/main-18ef652952-18ef652952-18ef652952.js",
   "javascripts/main-18ef652952.js": "javascripts/main-18ef652952-18ef652952.js",
-  "javascripts/main.js": "javascripts/main-657bc0e02c.js",
+  "javascripts/main.js": "javascripts/main-76f1ccc1a4.js",
   "javascripts/publication-d1605e477b-d1605e477b.js": "javascripts/publication-d1605e477b-d1605e477b-d1605e477b.js",
   "javascripts/publication-d1605e477b.js": "javascripts/publication-d1605e477b-d1605e477b.js",
   "javascripts/publication.js": "javascripts/publication-ee12e1f357.js",
@@ -33,8 +33,9 @@
   "javascripts/sw.js": "javascripts/sw-ddf9c9c2b4.js",
   "javascripts/vendor-547a53035e-547a53035e.js": "javascripts/vendor-547a53035e-547a53035e-547a53035e.js",
   "javascripts/vendor-547a53035e.js": "javascripts/vendor-547a53035e-547a53035e.js",
-  "javascripts/vendor.js": "javascripts/vendor-bcc30ab11a.js",
-  "stylesheets/home.css": "stylesheets/home-af6be840c7.css",
+  "javascripts/vendor.js": "javascripts/vendor-53c0992787.js",
+  "stylesheets/category.css": "stylesheets/category-6604cee1c1.css",
+  "stylesheets/home.css": "stylesheets/home-7beab95d16.css",
   "stylesheets/sorry.css": "stylesheets/sorry-b6bccdbd56.css",
-  "stylesheets/style.css": "stylesheets/style-7ade3f6dfc.css"
+  "stylesheets/style.css": "stylesheets/style-7f651f3698.css"
 }
