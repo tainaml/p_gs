@@ -45,6 +45,7 @@
     font: 700 20px "Open Sans";
   }
   &-commit {
+    width: calc(100% - 40px);
     padding: 15px;
     margin: 6px 20px;
     display: inline-block;
