@@ -77,7 +77,7 @@ class CoreRelatedPosts(CoreBaseView):
 class Home(View):
 
     def get(self, request):
-        QUANTITY = 6
+        QUANTITY = 7
         taxonomies = Taxonomy.objects.filter(term__slug="categoria")
         feed_articles_list = {}
         for taxonomy in taxonomies:
