@@ -41,22 +41,22 @@
   }
 }
 
-@include at-least($screen--tablet) {
-  .app-header-navigation {
-    &-container {
-      max-width: $container--tablet;
-    }
-    &-menu {
-      min-width: 85%;
-      margin-left: -20px;
-    }
-  }
-}
+// @include at-least($screen--tablet) {
+//   .app-header-navigation {
+//     &-container {
+//       max-width: $container--tablet;
+//     }
+//   }
+// }
 
 @include at-least($screen--desktop) {
   .app-header-navigation {
     &-container {
       max-width: $container--desktop;
+    }
+    &-menu {
+      min-width: 86.5%;
+      margin-left: -20px;
     }
     &-item-link {
       &.cd-dropdown-trigger {

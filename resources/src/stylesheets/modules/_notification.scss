@@ -131,10 +131,11 @@ $color-counter-notification: #b2b2b2 !default;
     @include clearfix;
     display: block;
     padding: 10px 20px;
-    color: #486075;
+    color: #616161;
 
     &:hover {
       background-color: #f7f7f7;
+      color: #0072bc;
     }
     img {
       margin-right: 10px;
@@ -144,7 +145,7 @@ $color-counter-notification: #b2b2b2 !default;
       margin-right: 0;
     }
     span {
-      color: #337ab7;
+      // color: #616161;
     }
     .perfil-counter {
       color: #7b787d;
@@ -160,11 +161,19 @@ $color-counter-notification: #b2b2b2 !default;
   background-color: #fcfcfc;
 }
 
+#dropdown-search .content-float-notifications {
+  padding: 10px 0;
+}
+#dropdown-search .item-float-notification,
+#dropdown-search .item-float-notification > .perfil {
+  border-bottom: none;
+}
 #dropdown-search .item-float-notification.active,
 #dropdown-search .item-float-notification:hover,
 #dropdown-search .item-float-notification.active > .perfil,
 #dropdown-search .item-float-notification:hover > .perfil {
   background: #f7f7f7;
+  color: #0072bc;
 }
 
 // Form messages
