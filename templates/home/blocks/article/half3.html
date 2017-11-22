@@ -32,6 +32,6 @@
         </div>
         {% endfor %}
     </div>
-{#    <a class="page-home-vermais {{ class_name }}" href="{% url 'category:show' category.slug %}" title="{{ category.description }}">#}
-{#        <i class="gsticon gsticon-plus-circle" aria-hidden="true"></i> VER MAIS</a>#}
+    <a class="page-home-vermais {{ class_name }}" href="{% url 'category:show' community.taxonomy.slug %}" title="{{ community.taxonomy.description }}">
+        <i class="gsticon gsticon-plus-circle" aria-hidden="true"></i> VER MAIS</a>
 </div>

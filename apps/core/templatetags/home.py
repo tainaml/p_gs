@@ -1,3 +1,4 @@
+from apps.article.models import Article
 from apps.community.models import Community
 from apps.core.models.course import Course
 from apps.feed.models import ProfileStatus
@@ -71,13 +72,25 @@ def article_section_large(slug, feed_articles, quantity, class_name):
 def article_section_half(slug, feed_articles, quantity, class_name):
     community = None
     try:
-        Community.objects.get(taxonomy__slug=slug)
+        community  = Community.objects.get(taxonomy__slug=slug)
     except Community.DoesNotExist:
         pass
 
     response =  article_section(slug, feed_articles, quantity, class_name)
     response.update({"community": community})
-    print response
 
     return response
+
+@register.inclusion_tag('home/partials/videos.html')
+def video_section(quantity):
+    videos  = Article.objects.filter(
+            status=Article.STATUS_PUBLISH,
+            feed__tags__tag_slug='video'
+        ).prefetch_related(
+            'feed', 'author'
+        ).order_by('-publishin')[:quantity]
+
+    return {
+        "videos": videos
+    }
 

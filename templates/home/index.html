@@ -82,28 +82,7 @@
                    {% commits 5 %}
                    {% last_questions 5 %}
 
-                    <div class="aside-box">
-                        <h2 class="aside-box-title">Vídeos</h2>
-                        <ul class="aside-box-list">
-                            {% for i in "ab" %}
-                            <li class="aside-box-list-item">
-                                <div class="app-card app-card-video">
-                                    <a href="#">
-                                        <img class="app-card-image img-responsive" src="http://localhost:9000/unsafe/480x300/http://kenwheeler.github.io/slick/img/lazyfonz1.png"
-                                            alt="">
-                                    </a>
-                                    <span class="app-card-content">
-                                        <h3 class="app-card-title">
-                                            <a href="#">
-                                                Aprenda como instalar e entenda a interface do Microsoft Access
-                                            </a>
-                                        </h3>
-                                    </span>
-                                </div>
-                            </li>
-                            {% endfor %}
-                        </ul>
-                    </div>
+                    {% video_section 5 %}
                     <div class="page-home-aside-advertising">
                         <img class="img-responsive" src="https://placehold.it/300x600/" alt="">
                     </div>

@@ -1,0 +1,23 @@
+{% load thumbor_tags %}
+<div class="aside-box">
+    <h2 class="aside-box-title">Vídeos</h2>
+    <ul class="aside-box-list">
+        {% for video in videos %}
+        <li class="aside-box-list-item">
+            <div class="app-card app-card-video">
+                <a href="#">
+                    <img class="app-card-image img-responsive" src="{% thumbor_url video.image_or_default.url width=150 height=113 smart=False fit_in=False %}"
+                        alt="{{ video.title }}">
+                </a>
+                <span class="app-card-content">
+                    <h3 class="app-card-title">
+                        <a href="#">
+                            {{ video.title }}
+                        </a>
+                    </h3>
+                </span>
+            </div>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
