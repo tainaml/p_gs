@@ -4,33 +4,34 @@
 
 <div class="page-home-category">
     <h2 class="page-home-category-title">
-        <span class="{{ class_name }}">{{ category.description }}</span>
+        <span class="{{ class_name }}">{{ community.title}}
+        </span>
     </h2>
     <div class="page-home-category-posts">
-        {% for article in articles %} {% url 'article:view' article.year article.month article.slug as article_link %}
-        <div class="app-card {{class_name}} {% if not article.image %}app-card-no-image {% endif %}">
-            {% if article.image %}
-            <a href="{{ article_link }}" title="{{ article.title }}">
-                <img class="app-card-image img-responsive" src="{% thumbor_url article.image.url width=480 height=300 smart=False fit_in=False %}"
-                    alt="{% if article.title|length > 67 %}{{ article.title|slice:" :67
-                    " }}...{% else %}{{ article.title }}{% endif %}">
+        {% for article in feed_list %}
+            {% url 'article:view' article.content_object.year article.content_object.month article.content_object.slug as article_link %}
+        <div class="app-card {{class_name}} {% if not article.content_object.image %}app-card-no-image {% endif %}">
+            {% if article.content_object.image %}
+            <a href="{{ article_link }}" title="{{ article.content_object.title }}">
+                <img class="app-card-image img-responsive" src="{% thumbor_url article.content_object.image.url width=480 height=300 smart=False fit_in=False %}"
+                    alt="{% if article.content_object.title|length > 67 %}{{ article.content_object.title|slice:" :67" }}...{% else %}{{ article.content_object.title }}{% endif %}">
             </a>
             {% endif %}
             <div class="app-card-content">
-                <a class="app-card-author" href="{{ article.author.get_absolute_url }}">
-                    <img class="img-circle" src="{% get_avatar article.author width=30 height=30 smart=False fit_in=False %}" alt="" /> {{ article.author.get_full_name }}
+                <a class="app-card-author" href="{{ article.content_object.author.get_absolute_url }}">
+                    <img class="img-circle" src="{% get_avatar article.content_object.author width=30 height=30 smart=False fit_in=False %}" alt="" /> {{ article.content_object.author.get_full_name }}
                 </a>
                 <h3 class="app-card-title">
-                    <a href="{{ article_link }}" title="{{ article.title }}">
-                        {{ article.title }}
+                    <a href="{{ article_link }}" title="{{ article.content_object.title }}">
+                        {{ article.content_object.title }}
                     </a>
                 </h3>
 
-                {% if not article.image %} {{ article.text|striptags|truncatechars:100 }} {% endif %}
+                {% if not article.content_object.image %} {{ article.content_object.text|striptags|truncatechars:100 }} {% endif %}
             </div>
         </div>
         {% endfor %}
     </div>
-    <a class="page-home-vermais {{ class_name }}" href="{% url 'category:show' category.slug %}" title="{{ category.description }}">
-        <i class="gsticon gsticon-plus-circle" aria-hidden="true"></i> VER MAIS</a>
+{#    <a class="page-home-vermais {{ class_name }}" href="{% url 'category:show' category.slug %}" title="{{ category.description }}">#}
+{#        <i class="gsticon gsticon-plus-circle" aria-hidden="true"></i> VER MAIS</a>#}
 </div>
