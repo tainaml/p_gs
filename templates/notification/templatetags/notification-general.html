@@ -1,9 +1,8 @@
 {% load notification_core_tags %}
 
 <div class="dropdown dropdown-item-header">
-    <a href="javascript:void(0);" class="user-actions-button-clean"
+    <a href="#dropdown-notification" class="user-actions-button-clean"
        data-toggle="dropdown"
-       data-target="#dropdown-notification"
        data-trigger="notification"
        data-token="{% notification_token %}"
        data-csrf="{{ csrf_token }}"
@@ -25,12 +24,3 @@
       {% endwith %}
   </div>
 </div>
-
-
-{% comment %}
-<a href="javascript:void(0);" class="user-actions-logged-link--logged" data-toggle="dropdown" data-target="#dropdown-notification" data-trigger="notification" data-token="{{ token }}" data-csrf="{{ csrf_token }}" data-notification-type="general">
-    <i class="gsticon gsticon-bell"></i>
-</a>
-<div id="dropdown-notification" class="header-dropdown-menu dropdown-notification" data-toggle="custom-scroll"></div>
-
-{% endcomment %}

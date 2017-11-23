@@ -1,9 +1,8 @@
 {% load notification_core_tags %}
 
 <div class="dropdown dropdown-item-header">
-  <a href="javascript:void(0);" class="user-actions-button-clean"
+  <a href="#dropdown-comments" class="user-actions-button-clean"
      data-toggle="dropdown"
-     data-target="#dropdown-comments"
      data-trigger="notification"
      data-token="{% notification_token %}"
      data-csrf="{{ csrf_token }}"
@@ -28,12 +27,3 @@
 
   </div>
 </div>
-
-
-
-{% comment %}
-<a href="javascript:void(0);" class="user-actions-logged-link--logged" data-toggle="dropdown" data-target="#dropdown-comments" data-trigger="notification" data-token="{{ token }}" data-csrf="{{ csrf_token }}"  data-notification-type="posts">
-    <i class="gsticon gsticon-comments"></i>
-</a>
-<div id="dropdown-comments" class="header-dropdown-menu dropdown-notification" data-toggle="custom-scroll"></div>
-{% endcomment %}

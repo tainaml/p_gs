@@ -9,7 +9,7 @@
             <img src="{% thumbor_url community_obj.get_picture.url width=100 height=100 smart=False fit_in=False %}" alt="{{ community_obj.title }}"
                 title="{{ community_obj.title }}">
         </figure>
-        <a class="app-card-profile-name" title="{{ community_obj.title }}" href="{% url 'community:show' community_obj.slug %}">
+        <a class="app-card-profile-name {{ class_name }}" title="{{ community_obj.title }}" href="{% url 'community:show' community_obj.slug %}">
             {{ community_obj.title }}
         </a>
         <span class="app-card-profile-followers" data-counter="{{ community_obj.followers }}" data-refresh-counter="follow-{{ counter_content_type }}-{{ community_obj.id }}">

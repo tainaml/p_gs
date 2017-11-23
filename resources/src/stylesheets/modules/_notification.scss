@@ -5,7 +5,6 @@ $color-counter-notification: #b2b2b2 !default;
 // Placeholders
 %notification-container {
   @extend %clearfix;
-  // overflow: hidden;
   width: 100%;
   padding-top: 20px;
 
@@ -22,7 +21,6 @@ $color-counter-notification: #b2b2b2 !default;
     .message {
       width: 100%;
       margin-left: 15px;
-      // float: left;
       color: inherit;
       img {
         margin-right: 5px;
@@ -72,26 +70,39 @@ $color-counter-notification: #b2b2b2 !default;
 }
 
 .dropdown-notification {
-  // top: 115% !important;
   width: 90%;
   background-color: #fff;
+  &::before {
+    position: absolute;
+    top: -9px;
+    right: calc(50% - 10px);
+    content: " ";
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 10px solid #fff;
+  }
 }
 .float-notifcations {
-  border: 1px solid $color-border;
-  box-shadow: 0 3px 5px #595959;
+  box-shadow: 0 8px 8px rgba(0, 0, 0, 0.2);
 }
 .header-float-notifications {
-  padding: 10px 20px;
-  border-bottom: 1px solid $color-border;
-  color: $color-header-notification;
-  font-weight: 600;
-  font-size: 15px;
+  padding: 35px 20px 20px;
+  border-bottom: 9px solid $color-border;
+  color: #616161;
+  font: 600 14px/24px "Open Sans";
+  .gsticon {
+    display: none;
+  }
 }
 .footer-float-notifications {
-  padding: 10px;
+  padding: 20px;
   display: block;
-  background: #f2f2f2;
-  color: #486075;
+  // background: #f2f2f2;
+  border-top: 9px solid $color-border;
+  // color: #486075;
+  color: #616161;
   font-weight: 600;
   text-align: center;
 }
@@ -109,10 +120,10 @@ $color-counter-notification: #b2b2b2 !default;
 }
 .item-float-notification {
   padding: 10px 20px;
-  border-bottom: 1px solid $color-border;
+  // border-bottom: 1px solid $color-border;
   color: #486075;
-  font-weight: 600;
-  font-size: 13px;
+  font-weight: 400;
+  font-size: 12px;
 
   > i {
     margin: 0 5px;

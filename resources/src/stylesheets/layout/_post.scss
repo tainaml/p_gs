@@ -48,7 +48,7 @@
         background-size: cover;
       }
       &:hover {
-        opacity: .9;
+        opacity: 0.9;
       }
     }
     &-userinfo {
@@ -58,9 +58,9 @@
         margin-top: 13px;
         border-right: none;
         color: #888686;
-        font: 400 14px/100% 'Open Sans';
+        font: 400 14px/100% "Open Sans";
         &:hover {
-          opacity: .9;
+          opacity: 0.9;
         }
       }
     }
@@ -75,7 +75,7 @@
       &:hover,
       a:hover {
         color: #616161;
-        opacity: .9;
+        opacity: 0.9;
       }
     }
     &-label {
@@ -91,7 +91,9 @@
     &.open .dropdown-menu {
       right: -21px;
       min-width: 250px;
-      a { color: #616161 }
+      a {
+        color: #616161;
+      }
       .perfil-actions {
         a {
           padding-top: 15px;
@@ -102,7 +104,8 @@
 
     .gsticon-ellipsis-v {
       &:hover,
-      &.is-active {}
+      &.is-active {
+      }
     }
   }
   &-content {
@@ -114,7 +117,7 @@
       overflow: hidden;
       > img {
         border: 1px solid $color-border;
-        transition: transform ease .6s;
+        transition: transform ease 0.6s;
       }
       &.post-content-thumb {
         float: none;
@@ -122,7 +125,7 @@
       }
     }
     &:hover {
-      opacity: .9;
+      opacity: 0.9;
       figure > img {
         transform: scale(1.2);
       }
@@ -136,7 +139,9 @@
   &-text {
     color: #969595;
     font-size: 13px;
-    p { margin-bottom: 0; }
+    p {
+      margin-bottom: 0;
+    }
   }
   &-count {
     padding-right: 4px;
@@ -149,28 +154,42 @@
         padding-right: 20px;
         border-right: 1px solid #c5c2c2;
       }
-      &.post-votes-down { padding-left: 20px }
+      &.post-votes-down {
+        padding-left: 20px;
+      }
       .icon-reaction {
         width: 16px;
         height: 22px;
         margin-right: 5px;
         float: left;
-        background: url('../images/reaction-buttons.png') no-repeat;
-        &.icon-like { background-position: -4px 50% }
-        &.icon-dislike { background-position: -63px 50% }
+        background: url("../images/reaction-buttons.png") no-repeat;
+        &.icon-like {
+          background-position: -4px 50%;
+        }
+        &.icon-dislike {
+          background-position: -63px 50%;
+        }
       }
       &.post-votes-up.liked {
-          color: #41a764;
-          &:hover { color: lighten(#41a764, 10%) }
-          .icon-like { background-position: -33px 50% }
+        color: #41a764;
+        &:hover {
+          color: lighten(#41a764, 10%);
+        }
+        .icon-like {
+          background-position: -33px 50%;
+        }
       }
       &.post-votes-down.unliked {
         color: #d94545;
-        &:hover { color: lighten(#d94545, 10%) }
-        .icon-dislike { background-position: -91px 50% }
+        &:hover {
+          color: lighten(#d94545, 10%);
+        }
+        .icon-dislike {
+          background-position: -91px 50%;
+        }
       }
       &:hover {
-        opacity: .9;
+        opacity: 0.9;
       }
     }
 
@@ -185,11 +204,11 @@
         width: 22px;
         height: 22px;
         float: left;
-        background: url('../images/comment-icon.png') no-repeat right center;
+        background: url("../images/comment-icon.png") no-repeat right center;
       }
       &:hover {
         color: #888686;
-        opacity: .9;
+        opacity: 0.9;
       }
     }
   }
@@ -226,7 +245,9 @@
       line-height: 22px;
       text-decoration: none;
       text-transform: uppercase;
-      &:hover { background-color: #f3f3f3 }
+      &:hover {
+        background-color: #f3f3f3;
+      }
     }
   }
   &-share {
@@ -234,7 +255,9 @@
     color: #888686;
     cursor: pointer;
     font-size: 15px;
-    .gsticon { margin-right: 5px }
+    .gsticon {
+      margin-right: 5px;
+    }
     .share-buttons .social-button {
       width: 24px;
       height: 24px;
@@ -245,7 +268,9 @@
       right: -21px;
       min-width: 150px;
     }
-    &:hover { opacity: .9; }
+    &:hover {
+      opacity: 0.9;
+    }
   }
   &.commit-box {
     .btn-commit {
@@ -256,14 +281,16 @@
       color: #fff;
       border-radius: 3px;
       font-weight: 600;
-      &:hover { background-color: #4e84b1; }
+      &:hover {
+        background-color: #4e84b1;
+      }
     }
     .commit-box-text {
       width: 100%;
       height: 80px;
       border: none;
       color: #616161;
-      font: 300 14px 'Open Sans';
+      font: 300 14px "Open Sans";
       outline: none;
       resize: none;
     }
@@ -279,9 +306,11 @@
         border: none;
         background-color: transparent;
         color: #616161;
-        font: 400 15px 'Open Sans';
+        font: 400 15px "Open Sans";
         outline: none;
-        &:hover { background-color: #f3f3f3; }
+        &:hover {
+          background-color: #f3f3f3;
+        }
       }
       .perfil-actions a {
         padding-top: 0;
@@ -296,39 +325,45 @@
 }
 
 .area-content {
-    @include clearfix();
-    padding-top: 20px;
-    border-top: 1px solid $color-border;
+  @include clearfix();
+  padding-top: 20px;
+  border-top: 1px solid $color-border;
 }
 .header-dropdown-menu {
-    display: none;
-    position: absolute;
-    top: 100%; left: -160px;
-    z-index: 2000;
-    min-width: 320px;
-    > ul {
-        margin: 10px 0 0;
-        padding: 5px 20px;
-        box-shadow: 0 2px 3px lighten(#000000, 35%);
-        > li > a { font-size: 13px }
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: -122px;
+  z-index: 2000;
+  min-width: 280px;
+  > ul {
+    margin: 10px 0 0;
+    padding: 5px 20px;
+    box-shadow: 0 2px 3px lighten(#000000, 35%);
+    > li > a {
+      font-size: 13px;
     }
-    &.dropdown-menu-right {
-        left: auto;
-        min-width: 180px;
-    }
+  }
+  &.dropdown-menu-right {
+    left: auto;
+    min-width: 180px;
+  }
 }
 .dropdown-search .header-float-notifications {
-    background-color: $color-border;
+  background-color: $color-border;
 }
 
 .open > .header-dropdown-menu,
 .header-dropdown-menu.open {
-    display: block;
+  display: block;
 }
 
-.dropdown-content { display: none }
-.dropdown-content.open { display: block }
-
+.dropdown-content {
+  display: none;
+}
+.dropdown-content.open {
+  display: block;
+}
 
 .follower-content {
   @extend %clearfix;
@@ -347,26 +382,37 @@
     &.tiny {
       color: #337ab7;
     }
-    &:first-child { padding-top: 0 }
-    &:last-child { border-bottom: 0 }
-    .gsticon.gsticon-briefcase { margin-right: 5px }
-    .gsticon.gsticon-user { margin-right: 5px }
+    &:first-child {
+      padding-top: 0;
+    }
+    &:last-child {
+      border-bottom: 0;
+    }
+    .gsticon.gsticon-briefcase {
+      margin-right: 5px;
+    }
+    .gsticon.gsticon-user {
+      margin-right: 5px;
+    }
   }
 }
 .is-official,
 .banner-collaborator {
   position: absolute;
   overflow: hidden;
-  bottom: -6px; right: -10px;
+  bottom: -6px;
+  right: -10px;
   width: 26px;
   height: 26px;
-  background: #0160b0 url('../images/is-official.png') no-repeat center;
+  background: #0160b0 url("../images/is-official.png") no-repeat center;
   color: transparent;
   border-radius: 50%;
 }
 .tooltip {
   white-space: nowrap;
-  &.bottom{ padding: 0 }
+  &.bottom {
+    padding: 0;
+  }
   &-arrow {
     border: 0;
     display: none;
@@ -391,8 +437,12 @@
   font-size: 15px;
   line-height: 119%;
 
-  &:first-child { padding-top: 0 }
-  &:last-child { border-bottom: none }
+  &:first-child {
+    padding-top: 0;
+  }
+  &:last-child {
+    border-bottom: none;
+  }
   > figure {
     margin-right: 20px;
     float: left;
@@ -404,8 +454,6 @@
 }
 
 .single-commit {
-  .post {
-  }
   .box-comment {
     margin-top: 10px;
     &-list {
@@ -414,10 +462,7 @@
   }
 }
 
-
-// @media only screen and (max-width : 1200px) {}
-// @media only screen and (max-width : 992px) {}
-@media only screen and (max-width : 768px) {
+@media only screen and (max-width: 768px) {
   .post {
     margin-right: -15px;
     margin-left: -15px;
@@ -434,28 +479,30 @@
           margin-right: -20px;
           margin-left: -20px;
           float: none;
-          // > img {}
         }
       }
     }
     &-nav {
-      &-list {}
-      &-list li {}
-      &-list a { font-size: 10px }
+      &-list a {
+        font-size: 10px;
+      }
     }
     &-creator {
-      &-image { margin-right: 14px }
+      &-image {
+        margin-right: 14px;
+      }
       &-userinfo {
-        // justify-content: space-around;
         time {
           margin-top: 14px;
           font-size: 12px;
         }
       }
-      &-username { font-size: 14px }
-      &-label { font-size: 13px }
+      &-username {
+        font-size: 14px;
+      }
+      &-label {
+        font-size: 13px;
+      }
     }
   }
 }
-// @media only screen and (max-width : 480px) {}
-// @media only screen and (max-width : 320px) {}
