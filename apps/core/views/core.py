@@ -1,4 +1,5 @@
 from apps.article.models import Article
+from apps.community.models import Community
 from apps.core.business import feed as FeedBusiness
 from apps.feed.models import FeedObject
 from apps.taxonomy.models import Taxonomy
@@ -10,6 +11,7 @@ from django.utils.safestring import mark_safe
 from django.views.generic import View
 import micawber
 from micawber.providers import Provider
+from django.core.cache import cache
 
 
 class CoreBaseView(View):
@@ -74,22 +76,40 @@ class CoreRelatedPosts(CoreBaseView):
 
         return self.return_success(request, context)
 
+CACHE_TIME = 60 * 10
+CACHE_KEY = u'home_articles'
+CACHE_KEY_TAXONOMY = u'all_categories'
+
 class Home(View):
 
     def get(self, request):
         QUANTITY = 7
-        taxonomies = Taxonomy.objects.filter(term__slug="categoria")
-        feed_articles_list = {}
-        for taxonomy in taxonomies:
-            feed_articles = FeedObject.objects.all().\
-                prefetch_related("content_object", "content_type","content_object__author", "communities")
-            feed_articles = feed_articles.filter(
-            Q(article__status=Article.STATUS_PUBLISH)
-            & Q(object_id__isnull=False)
-            & Q(official=True)
-            & Q(taxonomies=taxonomy)
-            )[:QUANTITY]
-            feed_articles_list[taxonomy.slug] = feed_articles
+
+
+        feed_articles_list = cache.get(CACHE_KEY)
+        print feed_articles_list
+        if not feed_articles_list:
+            print "over here"
+            taxonomies = cache.get(CACHE_KEY_TAXONOMY)
+            if not taxonomies:
+                taxonomies = list(Taxonomy.objects.filter(term__slug="categoria"))
+                cache.set(CACHE_KEY_TAXONOMY, taxonomies, CACHE_TIME)
+            print taxonomies
+            feed_articles_list = {}
+            for taxonomy in taxonomies:
+                feed_articles = FeedObject.objects.all().\
+                    prefetch_related("content_object", "content_type","content_object__author", "content_object__author__profile", "communities", "communities__taxonomy")
+                feed_articles = feed_articles.filter(
+                Q(article__status=Article.STATUS_PUBLISH)
+                & Q(object_id__isnull=False)
+                & Q(official=True)
+                & Q(taxonomies=taxonomy)
+                )[:QUANTITY]
+                feed_articles_list[taxonomy.slug] = {"items": list(feed_articles), "community": Community.objects.filter(taxonomy__slug=taxonomy.slug).prefetch_related("taxonomy").get()}
+            cache.set(CACHE_KEY, feed_articles_list, CACHE_TIME)
+
+
+        print feed_articles_list
 
         return render(request, 'home/index.html', {"feed_articles_list": feed_articles_list})
 

@@ -1,10 +1,11 @@
 from apps.article.models import Article
 from apps.community.models import Community
 from apps.core.models.course import Course
-from apps.feed.models import ProfileStatus
+from apps.feed.models import ProfileStatus, FeedObject
 from apps.question.models import Question
 from django import template
 from django.contrib.auth import get_user_model
+from django.db.models import Q
 
 register = template.Library()
 
@@ -53,14 +54,14 @@ def last_questions(quantity):
 
 
 def article_section(slug, feed_articles, quantity, class_name):
-    segmented_feed_article = feed_articles[slug]
+
     feed_list = []
-    segmented_feed_article = list(segmented_feed_article)
+
     for index in range(0, quantity):
-        feed_list.append(segmented_feed_article.pop())
+        feed_list.append(feed_articles[slug]["items"].pop())
 
 
-    return {"feed_list": feed_list, "class_name": class_name}
+    return {"feed_list": feed_list, "class_name": class_name, "community": feed_articles[slug]["community"]}
 
 
 
@@ -70,15 +71,8 @@ def article_section_large(slug, feed_articles, quantity, class_name):
 
 @register.inclusion_tag('home/blocks/article/half3.html')
 def article_section_half(slug, feed_articles, quantity, class_name):
-    community = None
-    try:
-        community  = Community.objects.get(taxonomy__slug=slug)
-    except Community.DoesNotExist:
-        pass
 
     response =  article_section(slug, feed_articles, quantity, class_name)
-    response.update({"community": community})
-
     return response
 
 @register.inclusion_tag('home/partials/videos.html')
@@ -93,4 +87,31 @@ def video_section(quantity):
     return {
         "videos": videos
     }
+
+@register.inclusion_tag('home/blocks/article/large.html')
+def news(feed_articles, quantity):
+
+    ids = []
+    for item in feed_articles:
+        feeds = feed_articles[item]
+
+        for feed in feeds["items"]:
+            ids.append(feed.id)
+    feed_list = FeedObject.objects.prefetch_related(
+        "content_object",
+        "content_type",
+        "content_object__author",
+        "content_object__author__profile",
+        "communities",
+        "communities__taxonomy").filter(
+                Q(article__status=Article.STATUS_PUBLISH)
+                & Q(object_id__isnull=False)
+                & Q(tags__tag_slug='noticia')
+                & Q(official=True)).exclude(id__in=ids)[:quantity]
+
+
+
+    return {"feed_list": feed_list}
+
+
 

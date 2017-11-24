@@ -34,13 +34,20 @@
 {#                    {% article_block 'large' 'governanca-e-gestao' class_name='governance' quantity=1 %}#}
 {#                    {% article_block 'large' 'desenvolvimento' class_name='development' quantity=1 %}#}
 
-                <div class="app-card app-card-sign-in">
-                    <div class="app-card-content">
-                        <h3>Novo no Portal?</h3>
-                        <p>Inscreva-se para ficar por dentro <br /> do mundo da tecnologia, publicar<br /> seus artigos e muito mais!</p>
-                        <a class="app-button-round" href="{% url 'account:signup' %}">Inscreva-se</a>
+
+                {% if request.user.is_authenticated %}
+                    {% article_section_large 'infraestrutura' feed_articles_list 1 "databases" %}
+
+                {% else %}
+                     <div class="app-card app-card-sign-in">
+                        <div class="app-card-content">
+                            <h3>Novo no Portal?</h3>
+                            <p>Inscreva-se para ficar por dentro <br /> do mundo da tecnologia, publicar<br /> seus artigos e muito mais!</p>
+                            <a class="app-button-round" href="{% url 'account:signup' %}">Inscreva-se</a>
+                        </div>
                     </div>
-                </div>
+                {% endif %}
+
             </div>
             <div class="page-home-container">
                  {% article_section_large 'design' feed_articles_list 2 "design" %}
@@ -53,15 +60,18 @@
                 {% article_section_large 'banco-de-dados' feed_articles_list 1 "databases" %}
 {#               {% article_block 'large' 'marketing-digital' class_name='marketing' quantity=2 %}#}
 {#                {% article_block 'large' 'banco-de-dados' class_name='infra' quantity=1 %}#}
-                {% join_us 15 %}
+                {% cache 3600 "join-us" %}
+                    {% join_us 15 %}
+                {% endcache %}
+
             </div>
-            {% cache 30 "community-slider" %}
+            {% cache 3600 "community-slider" %}
                 {% communities_slider %}
             {% endcache %}
             <div class="page-home-container page-home-news">
                 <h2 class="page-home-news-title">Notícias</h2>
                 <div class="page-home-news-content">
-                    {% article_block 'large' 'governanca-e-gestao' class_name='governance' quantity=4 %}
+                    {% news feed_articles_list 3 %}
                 </div>
             </div>
             <div class="page-home-container page-home-content-after">
@@ -78,11 +88,13 @@
                     {% article_section_half 'mais' feed_articles_list 3 'more' %}
                 </div>
                 <div class="page-home-aside">
-                   {% last_courses 5 %}
-                   {% commits 5 %}
-                   {% last_questions 5 %}
+                  {% cache 3600 "home-sidebar-right" %}
+                       {% last_courses 5 %}
+                       {% commits 5 %}
+                       {% last_questions 5 %}
 
-                    {% video_section 2 %}
+                        {% video_section 2 %}
+                    {% endcache %}
                     <div class="page-home-aside-advertising">
                         <img class="img-responsive" src="https://placehold.it/300x600/" alt="">
                     </div>
