@@ -67,7 +67,7 @@ class CoreCategoryPageView(View):
                 & Q(taxonomies=taxonomy)
                 )[:QUANTITY]
                 feed_articles_list[taxonomy.slug] = {"items": list(feed_articles), "community": Community.objects.filter(taxonomy__slug=taxonomy.slug).prefetch_related("taxonomy").get()}
-        self.context.update({"feed_articles": feed_articles_list[self.category.slug]["items"]})
+        self.context.update({"feed_articles_list": feed_articles_list})
 
 
         if context and isinstance(context, list):
