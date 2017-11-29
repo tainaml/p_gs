@@ -41,19 +41,19 @@
             </h1>
         </div>
         <div class="page-category-container">
-            {% article_block 'large' category_slug class_name=class_name quantity=3 %}
+            {% article_section_large category_slug feed_articles_list 3 class_name %}
             {% with community=category.community_related %}
                 {% include "userprofile/partials/profile-card-community.html" with community_obj=community class_name=class_name %}
             {% endwith %}
         </div>
         <div class="page-category-container">
-            {% article_block 'large' category_slug class_name=class_name quantity=4 %}
+            {% article_section_large category_slug feed_articles_list 4 class_name %}
         </div>
         <div class="page-category-container">
-            {% article_block 'large' category_slug class_name=class_name quantity=4 %}
+            {% article_section_large category_slug feed_articles_list 4 class_name %}
         </div>
         <div class="page-category-container">    
-            {% article_block 'large' category_slug class_name=class_name quantity=4 %}
+            {% article_section_large category_slug feed_articles_list 4 class_name %}
         </div>
         {% communities_slider %}
         <div class="page-category-container page-category-content-after">
@@ -62,42 +62,21 @@
                     <span class="{{ class_name }}">Últimas</span>
                 </h2>
                 <div class="page-category-posts">
-                    {% article_block 'large' category_slug class_name=class_name quantity=3 %}
+                    {% article_section_large category_slug feed_articles_list 3 class_name %}
                 </div>
                 <div class="page-category-posts">
-                    {% article_block 'large' category_slug class_name=class_name quantity=3 %}
+                    {% article_section_large category_slug feed_articles_list 3 class_name %}
                 </div>
                 <div class="page-category-posts">
-                    {% article_block 'large' category_slug class_name=class_name quantity=3 %}
+                    {% article_section_large category_slug feed_articles_list 3 class_name %}
                 </div>
                 <div class="page-category-posts">
-                    {% article_block 'large' category_slug class_name=class_name quantity=3 %}
+                    {% article_section_large category_slug feed_articles_list 3 class_name %}
                 </div>
             </div>
             <div class="page-category-aside">
                 {% last_courses 5 %}
-                <div class="aside-box">
-                    <h2 class="aside-box-title">Vídeos</h2>
-                    <ul class="aside-box-list">
-                        {% for i in "ab" %}
-                        <li class="aside-box-list-item">
-                            <div class="app-card app-card-video">
-                                <a href="#">
-                                    <img class="app-card-image img-responsive" src="http://localhost:9000/unsafe/480x300/http://kenwheeler.github.io/slick/img/lazyfonz1.png"
-                                        alt="">
-                                </a>
-                                <span class="app-card-content">
-                                    <h3 class="app-card-title">
-                                        <a href="#">
-                                            Aprenda como instalar e entenda a interface do Microsoft Access
-                                        </a>
-                                    </h3>
-                                </span>
-                            </div>
-                        </li>
-                        {% endfor %}
-                    </ul>
-                </div>
+                {% video_section 2 %}
             </div>
         </div>
     </main>
