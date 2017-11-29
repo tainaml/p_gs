@@ -1,6 +1,6 @@
 'use strict';
 
-import $ from 'jquery';
+// import $ from 'jquery';
 import 'jscroll';
 
 module.exports = (name) => {

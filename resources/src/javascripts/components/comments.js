@@ -1,4 +1,4 @@
-import $ from 'jquery'
+// import $ from 'jquery'
 import 'jscroll'
 import './comments/jquery.render-list'
 

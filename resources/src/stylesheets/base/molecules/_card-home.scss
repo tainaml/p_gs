@@ -34,6 +34,7 @@
     letter-spacing: -0.05em;
     a {
       color: inherit;
+      display: inherit;
     }
   }
   &-members,
@@ -113,6 +114,15 @@
       font: 700 14px/24px "Open Sans";
       letter-spacing: 0.35px;
     }
+    .perfil-button-alt {
+      background: white !important;
+      &::before {
+        line-height: 3.4;
+      }
+      &:hover::before {
+        transform: translate(0, 0);
+      }
+    }
   }
   &-sign-in {
     text-align: center;
@@ -167,12 +177,18 @@
       border-left-color: $color-governance;
       color: $color-governance;
     }
+    .perfil-button {
+      background: $color-governance;
+    }
   }
   &.development {
     .app-card-title:hover,
     .app-card-content {
       border-left-color: $color-development;
       color: $color-development;
+    }
+    .perfil-button {
+      background: $color-development;
     }
   }
   &.design {
@@ -181,12 +197,18 @@
       border-left-color: $color-design;
       color: $color-design;
     }
+    .perfil-button {
+      background: $color-design;
+    }
   }
   &.marketing {
     .app-card-title:hover,
     .app-card-content {
       border-left-color: $color-marketing;
       color: $color-marketing;
+    }
+    .perfil-button {
+      background: $color-marketing;
     }
   }
   &.infra {
@@ -195,12 +217,18 @@
       border-left-color: $color-infra;
       color: $color-infra;
     }
+    .perfil-button {
+      background: $color-infra;
+    }
   }
   &.databases {
     .app-card-title:hover,
     .app-card-content {
       border-left-color: $color-databases;
       color: $color-databases;
+    }
+    .perfil-button {
+      background: $color-databases;
     }
   }
   &.mobile {
@@ -209,12 +237,18 @@
       border-left-color: $color-mobile;
       color: $color-mobile;
     }
+    .perfil-button {
+      background: $color-mobile;
+    }
   }
   &.more {
     .app-card-title:hover,
     .app-card-content {
       border-left-color: $color-more;
       color: $color-more;
+    }
+    .perfil-button {
+      background: $color-more;
     }
   }
 }

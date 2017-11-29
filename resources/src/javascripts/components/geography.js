@@ -1,8 +1,8 @@
 'use strict';
 
+// import $ from 'jquery';
 require('selectize');
 
-import $ from 'jquery';
 
 let defaultSettings = {
   plugins: ['remove_button'],
