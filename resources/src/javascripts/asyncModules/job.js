@@ -1,8 +1,8 @@
 'use strict';
 
+// import $ from 'jquery';
 require('selectize');
 
-import $ from 'jquery';
 
 var job,
   elementData,
