@@ -87,14 +87,12 @@ class Home(View):
 
 
         feed_articles_list = cache.get(CACHE_KEY)
-        print feed_articles_list
+
         if not feed_articles_list:
-            print "over here"
             taxonomies = cache.get(CACHE_KEY_TAXONOMY)
             if not taxonomies:
                 taxonomies = list(Taxonomy.objects.filter(term__slug="categoria"))
                 cache.set(CACHE_KEY_TAXONOMY, taxonomies, CACHE_TIME)
-            print taxonomies
             feed_articles_list = {}
             for taxonomy in taxonomies:
                 feed_articles = FeedObject.objects.all().\
@@ -106,10 +104,7 @@ class Home(View):
                 & Q(taxonomies=taxonomy)
                 )[:QUANTITY]
                 feed_articles_list[taxonomy.slug] = {"items": list(feed_articles), "community": Community.objects.filter(taxonomy__slug=taxonomy.slug).prefetch_related("taxonomy").get()}
-            cache.set(CACHE_KEY, feed_articles_list, CACHE_TIME)
 
-
-        print feed_articles_list
 
         return render(request, 'home/index.html', {"feed_articles_list": feed_articles_list})
 

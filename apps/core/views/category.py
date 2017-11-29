@@ -1,6 +1,7 @@
 from apps.article.models import Article
 from apps.core.business.content_types import ContentTypeCached
 from apps.core.templatetags.article_blocks import get_article_community_by_category
+from apps.feed.models import FeedObject
 from django.core.cache import cache
 from django.db.models import Q, Prefetch
 from django.http import Http404
@@ -14,6 +15,10 @@ from apps.custom_base.views import FormBaseListView
 
 from apps.taxonomy.models import Taxonomy
 
+
+CACHE_TIME = 60 * 10
+CACHE_KEY = u'home_articles'
+CACHE_KEY_TAXONOMY = u'all_categories'
 
 class CoreCategoryPageView(View):
 
@@ -34,13 +39,37 @@ class CoreCategoryPageView(View):
 
         if self.category:
             templates.append(self.base_template % str(self.category.slug))
-            pass
 
         templates.append(self.base_template % self.default_template)
 
         return templates
 
     def get_context(self, context=None):
+
+        QUANTITY = 7
+
+
+        feed_articles_list = cache.get(CACHE_KEY)
+
+        if not feed_articles_list:
+            taxonomies = cache.get(CACHE_KEY_TAXONOMY)
+            if not taxonomies:
+                taxonomies = list(Taxonomy.objects.filter(term__slug="categoria"))
+                cache.set(CACHE_KEY_TAXONOMY, taxonomies, CACHE_TIME)
+            feed_articles_list = {}
+            for taxonomy in taxonomies:
+                feed_articles = FeedObject.objects.all().\
+                    prefetch_related("content_object", "content_type","content_object__author", "content_object__author__profile", "communities", "communities__taxonomy")
+                feed_articles = feed_articles.filter(
+                Q(article__status=Article.STATUS_PUBLISH)
+                & Q(object_id__isnull=False)
+                & Q(official=True)
+                & Q(taxonomies=taxonomy)
+                )[:QUANTITY]
+                feed_articles_list[taxonomy.slug] = {"items": list(feed_articles), "community": Community.objects.filter(taxonomy__slug=taxonomy.slug).prefetch_related("taxonomy").get()}
+        self.context.update({"feed_articles": feed_articles_list[self.category.slug]["items"]})
+
+
         if context and isinstance(context, list):
             self.context.update(context)
 
