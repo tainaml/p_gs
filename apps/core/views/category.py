@@ -46,7 +46,7 @@ class CoreCategoryPageView(View):
 
     def get_context(self, context=None):
 
-        QUANTITY = 7
+        QUANTITY = 27
 
 
         feed_articles_list = cache.get(CACHE_KEY)
