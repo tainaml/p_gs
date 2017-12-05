@@ -1,10 +1,10 @@
 {
   "javascripts/1-065310668c-065310668c.1.js": "javascripts/1-065310668c-065310668c-065310668c.1.js",
   "javascripts/1-065310668c.1.js": "javascripts/1-065310668c-065310668c.1.js",
-  "javascripts/1.1.js": "javascripts/1-065310668c.1.js",
+  "javascripts/1.1.js": "javascripts/1-1afa2cc62b.1.js",
   "javascripts/2-944c98acb7-944c98acb7.2.js": "javascripts/2-944c98acb7-944c98acb7-944c98acb7.2.js",
   "javascripts/2-944c98acb7.2.js": "javascripts/2-944c98acb7-944c98acb7.2.js",
-  "javascripts/2.2.js": "javascripts/2-7b5a0e457a.2.js",
+  "javascripts/2.2.js": "javascripts/2-e5ef3e4078.2.js",
   "javascripts/3.3.js": "javascripts/3-fc5f329db4.3.js",
   "javascripts/4.4.js": "javascripts/4-c629f36ea8.4.js",
   "javascripts/django-jquery-adapter-5cfd6fe2cc.js": "javascripts/django-jquery-adapter-5cfd6fe2cc-5cfd6fe2cc.js",
@@ -15,7 +15,7 @@
   "javascripts/jquery-1.11.3.min.js": "javascripts/jquery-1-895323ed2f.11.3.min.js",
   "javascripts/main-18ef652952-18ef652952.js": "javascripts/main-18ef652952-18ef652952-18ef652952.js",
   "javascripts/main-18ef652952.js": "javascripts/main-18ef652952-18ef652952.js",
-  "javascripts/main.js": "javascripts/main-76f1ccc1a4.js",
+  "javascripts/main.js": "javascripts/main-99548a27a3.js",
   "javascripts/publication-d1605e477b-d1605e477b.js": "javascripts/publication-d1605e477b-d1605e477b-d1605e477b.js",
   "javascripts/publication-d1605e477b.js": "javascripts/publication-d1605e477b-d1605e477b.js",
   "javascripts/publication.js": "javascripts/publication-ee12e1f357.js",
@@ -33,9 +33,9 @@
   "javascripts/sw.js": "javascripts/sw-ddf9c9c2b4.js",
   "javascripts/vendor-547a53035e-547a53035e.js": "javascripts/vendor-547a53035e-547a53035e-547a53035e.js",
   "javascripts/vendor-547a53035e.js": "javascripts/vendor-547a53035e-547a53035e.js",
-  "javascripts/vendor.js": "javascripts/vendor-53c0992787.js",
-  "stylesheets/category.css": "stylesheets/category-c2ee40dfbc.css",
-  "stylesheets/home.css": "stylesheets/home-91ed463d39.css",
+  "javascripts/vendor.js": "javascripts/vendor-5910963189.js",
+  "stylesheets/category.css": "stylesheets/category-96227808cb.css",
+  "stylesheets/home.css": "stylesheets/home-1dbc35d5d4.css",
   "stylesheets/sorry.css": "stylesheets/sorry-b6bccdbd56.css",
-  "stylesheets/style.css": "stylesheets/style-30273e85b8.css"
+  "stylesheets/style.css": "stylesheets/style-9909419b4b.css"
 }

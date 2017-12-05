@@ -1,0 +1,75 @@
+.app-download {
+  &-content {
+    max-width: 300px;
+    margin: 0 auto;
+    background: linear-gradient(
+      155deg,
+      #016aae 0%,
+      #016aae 60%,
+      white 60%,
+      white 100%
+    );
+    color: white;
+    text-align: center;
+  }
+  &-button {
+    width: 210px;
+    height: 60px;
+    margin: 0 auto 13px;
+    display: block;
+    color: white;
+    box-shadow: -1px -2px 6px 1px rgba(0, 0, 0, 0.16);
+    border-radius: 4px;
+    background-color: #0072bc;
+    font: 500 17px/24px Roboto;
+    letter-spacing: 1.7px;
+    text-align: left;
+    text-decoration: none;
+    span {
+      width: 63px;
+      height: 60px;
+      margin-right: 20px;
+      float: left;
+      border-bottom-left-radius: 4px;
+      border-top-left-radius: 4px;
+      background-color: #155a99;
+      text-align: center;
+    }
+    small {
+      padding-top: 10px;
+      display: block;
+      font-size: 9px;
+      line-height: 9px;
+      text-transform: uppercase;
+    }
+    &:hover,
+    &:focus {
+      color: white;
+    }
+  }
+  &-close {
+    margin: 10px 10px 0 0;
+    color: white;
+    font-size: 18px;
+  }
+  &-label {
+    margin: 0 0 20px;
+    font: 300 16px/24px Roboto;
+    text-transform: uppercase;
+  }
+  &-icon {
+    width: 2em;
+    height: 2.3em;
+    margin-top: 14px;
+    display: inline-block;
+    stroke-width: 0;
+    stroke: currentColor;
+    fill: currentColor;
+  }
+  &-title {
+    padding-top: 34px;
+    margin-bottom: 10px;
+    font: 500 20px/24px Roboto;
+    letter-spacing: 0.5px;
+  }
+}

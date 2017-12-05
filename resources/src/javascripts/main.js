@@ -54,6 +54,7 @@ $(function() {
       .parents("[data-target=modal]")
       .modal("hide");
   });
+  $("#modal-app-download").modal();
 
   // Tooltips
   $('[data-toggle="tooltip"]').tooltip();
