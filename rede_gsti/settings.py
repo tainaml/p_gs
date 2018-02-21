@@ -1059,6 +1059,9 @@ if ENVIRONMENT == "develop":
             'default': {
                 'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
                 'LOCATION': '%s:%s' % (config.get("CACHE", "host"), config.get("CACHE", "port"),),
+                'OPTIONS': {
+                        'server_max_value_length': 1024 * 1024 * 150,
+                }
             },
         }
     else:
@@ -1079,6 +1082,9 @@ elif ENVIRONMENT == "test":
             'default': {
                 'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
                 'LOCATION': '%s:%s' % (config.get("CACHE", "host"), config.get("CACHE", "port"),),
+                'OPTIONS': {
+                        'server_max_value_length': 1024 * 1024 * 150,
+                }
             },
         }
     else:
@@ -1096,6 +1102,9 @@ elif ENVIRONMENT == "production":
         'default': {
             'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
             'LOCATION': '%s:%s' % (config.get("CACHE", "host"), config.get("CACHE", "port"),),
+            'OPTIONS': {
+                        'server_max_value_length': 1024 * 1024 * 150,
+                }
         },
     }
     if USE_CACHE:
@@ -1104,6 +1113,9 @@ elif ENVIRONMENT == "production":
             'default': {
                 'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
                 'LOCATION': '%s:%s' % (config.get("CACHE", "host"), config.get("CACHE", "port"),),
+                'OPTIONS': {
+                        'server_max_value_length': 1024 * 1024 * 150,
+                }
             },
         }
     else:

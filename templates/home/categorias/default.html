@@ -55,7 +55,12 @@
         <div class="page-category-container">    
             {% article_section_large category_slug feed_articles_list 4 class_name %}
         </div>
-        {% communities_slider %}
+    {% with key=category.slug|add:"_communities" %}
+
+            {% communities_slider category 3600 %}
+
+    {% endwith %}
+
         <div class="page-category-container page-category-content-after">
             <div class="page-category-latests">
                 <h2 class="page-category-subtitle">
@@ -75,8 +80,11 @@
                 </div>
             </div>
             <div class="page-category-aside">
-                {% last_courses 5 %}
-                {% video_section 2 %}
+                {% cache 3600 "category-sidebar-right" %}
+                    {% last_courses 5 %}
+                    {% video_section 2 %}
+                {% endcache %}
+
             </div>
         </div>
     </main>

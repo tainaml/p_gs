@@ -33,6 +33,19 @@ class FeedObject(models.Model):
     seo_no_index = models.BooleanField(default=True)
     seo_no_follow = models.BooleanField(default=True)
 
+    @property
+    def title(self):
+        return self.content_object.title
+
+    @property
+    def image(self):
+        return self.content_object.image if hasattr(self.content_object, "image") else None
+
+    @property
+    def author_full_name(self):
+        return self.content_object.author.get_full_name()
+
+
 
 
     def __init__(self, *args, **kwargs):

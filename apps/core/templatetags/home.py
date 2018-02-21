@@ -6,6 +6,7 @@ from apps.question.models import Question
 from django import template
 from django.contrib.auth import get_user_model
 from django.db.models import Q
+from django.core.cache import cache
 
 register = template.Library()
 
@@ -23,9 +24,30 @@ def join_us(context, quantity):
 
 
 @register.inclusion_tag('home/partials/communities-slider.html')
-def communities_slider():
+def communities_slider(category=None, cache_time=3600):
 
-    communities = Community.objects.all().order_by("?")
+    communities_queryset = Community.objects.all().order_by("?")
+
+    if category is None:
+        cache_key = "all"
+        communities = cache.get(cache_key)
+        if communities is None:
+            communities = communities_queryset
+            cache.set(cache_key, list(communities), cache_time)
+
+    else:
+        cache_key = "communities_{0}".format(category.slug)
+        communities = cache.get(cache_key)
+        if communities is None:
+            communities = communities_queryset.filter(Q(taxonomy=category) | Q(taxonomy__parent=category))
+            for community in communities:
+                #workaround to execute the query
+                community.followers = community.followers
+            cache.set(cache_key, communities, cache_time)
+
+
+
+
 
     return {"communities": communities}
 
@@ -53,26 +75,26 @@ def last_questions(quantity):
     return {"questions": questions}\
 
 
-def article_section(slug, feed_articles, quantity, class_name):
+def article_section(request, slug, feed_articles, quantity, class_name):
 
     feed_list = []
-
     for index in range(0, quantity):
-        feed_list.append(feed_articles[slug]["items"].pop())
+         feed_list.append(feed_articles[slug]["items"].pop())
 
 
-    return {"feed_list": feed_list, "class_name": class_name, "community": feed_articles[slug]["community"]}
+    return {"request": request, "feed_list": feed_list, "class_name": class_name, "community": feed_articles[slug]["community"]}
 
 
 
-@register.inclusion_tag('home/blocks/article/large.html')
-def article_section_large(slug, feed_articles, quantity, class_name):
-    return article_section(slug, feed_articles, quantity, class_name)\
+@register.inclusion_tag('home/blocks/article/large.html', takes_context=True)
+def article_section_large(context, slug, feed_articles, quantity, class_name):
+    request = context['request']
+    return article_section(request, slug, feed_articles, quantity, class_name)\
 
-@register.inclusion_tag('home/blocks/article/half3.html')
-def article_section_half(slug, feed_articles, quantity, class_name):
-
-    response =  article_section(slug, feed_articles, quantity, class_name)
+@register.inclusion_tag('home/blocks/article/half3.html', takes_context=True)
+def article_section_half(context, slug, feed_articles, quantity, class_name):
+    request = context['request']
+    response =  article_section(request, slug, feed_articles, quantity, class_name)
     return response
 
 @register.inclusion_tag('home/partials/videos.html')
