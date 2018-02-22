@@ -1,9 +1,10 @@
 #!/bin/bash
 
 # Declaring LOG and Branch vars
-LOG_PATH="/var/log/rede_gsti/update.log"
-BRANCH="develop"
+LOG_PATH="/ebs/log/rede_gsti/update.log"
+BRANCH="master"
 SUPERVISOR_PROCESS="rede_gsti"
+ENVIRONMENT="production"
 
 #pull the changes
 git pull origin $BRANCH
@@ -11,8 +12,17 @@ git pull origin $BRANCH
 # Getting current date
 dt=$(date '+%d/%m/%Y %H:%M:%S');
 
+#exporting environment
+export PROJECT_ENVIRONMENT=$ENVIRONMENT
+
 # Writing in log
 echo "[$dt] - Pulling test and restartig..." >> $LOG_PATH
+
+#Compiling messages
+python manage.py compilemessages
+
+# Running makemigrations merge if necessary
+python manage.py makemigrations --merge
 
 # Running Django migrate
 python manage.py migrate >> $LOG_PATH
