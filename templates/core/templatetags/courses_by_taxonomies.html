@@ -1,4 +1,5 @@
 {% load thumbor_tags %}
+{% load l10n %}
 <div class="publication-carousel-wrapper">
     <div class="publication-carousel" data-toggle="carousel">
         <ul>
@@ -15,7 +16,12 @@
                         <h3 class="publication-carousel-title" title="{{ course.title }}">{% if course.title|length > 43 %}{{ course.title|slice:":43" }}...{% else %}{{ course.title }}{% endif %}</h3>
                         {% endcomment %}
                         <h3 class="publication-carousel-title" title="{{ course.title }}">{{ course.title }}</h3>
-                        <span data-toggle="rating" data-config='{"starWidth": "16px", "rating": {{ course.rating|floatformat:".2" }}, "readOnly": true}'></span>
+                       {% localize off %}
+                            <span data-toggle="rating" data-config='{"starWidth": "16px", "rating":  {{ course.rating|unlocalize  }}, "readOnly": true}'></span>
+
+                        {% endlocalize %}
+
+
                     </span>
                 </a>
             </li>
