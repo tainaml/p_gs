@@ -97,12 +97,13 @@ class XP():
                 except Exception:
                     city = None
 
+                communities_count = communities.count()
                 for community in communities:
 
                     transaction = XPTransaction(
                         transaction_type=transaction_type,
                         action_type=action.action_type,
-                        value=value,
+                        value=value/communities_count if communities_count != 0 else value,
                         user=user,
                         city= city,
                         by=action.author,
