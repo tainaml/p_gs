@@ -8,7 +8,7 @@
                 <li>
                     <div class="ranking__contributor">
                            <img width="40" height="40" src="{% get_avatar ranked.user width=40 height=40 smart=False fit_in=False %}" alt="Foto de {{ ranked.user.get_full_name }}" />
-                        <h3>{{ ranked.user.get_full_name }}</h3>
+                        <h3 title="{{ ranked.user.get_full_name }}">{{ ranked.user.get_full_name|truncatechars:15 }}</h3>
                         <p>XP {{ ranked.value }}</p>
                     </div>
 
