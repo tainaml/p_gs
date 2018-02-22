@@ -92,7 +92,6 @@ class Home(View):
                 taxonomies = list(Taxonomy.objects.filter(term__slug="categoria"))
                 cache.set(CACHE_KEY_TAXONOMY, taxonomies, CACHE_TIME)
             feed_articles_list = {}
-            queryset_articles = Article.objects.select_related("title", "id")[:QUANTITY]
 
             for taxonomy in taxonomies:
                 feed_articles = FeedObject.objects.filter(

@@ -1,3 +1,4 @@
+from __future__ import unicode_literals
 from django.forms.utils import flatatt
 from django.forms.widgets import Input, Select, CheckboxInput, CheckboxSelectMultiple, SelectMultiple
 from django.shortcuts import render
@@ -8,6 +9,33 @@ from django.utils.safestring import mark_safe
 
 
 class InputMaterial(Input):
+
+    def render_option(self, selected_choices, option_value, option_label):
+        if option_value is None:
+            option_value = ''
+        option_value = force_text(option_value)
+        if option_value in selected_choices:
+            selected_html = mark_safe(' selected="selected"')
+            if not self.allow_multiple_selected:
+                # Only allow for a single selection.
+                selected_choices.remove(option_value)
+        else:
+            selected_html = ''
+        return format_html('<option value="{}"{}>{}</option>', option_value, selected_html, force_text(option_label))
+
+    def render_options(self, selected_choices):
+        # Normalize to strings.
+        selected_choices = set(force_text(v) for v in selected_choices)
+        output = []
+        for option_value, option_label in self.choices:
+            if isinstance(option_label, (list, tuple)):
+                output.append(format_html('<optgroup label="{}">', force_text(option_value)))
+                for option in option_label:
+                    output.append(self.render_option(selected_choices, *option))
+                output.append('</optgroup>')
+            else:
+                output.append(self.render_option(selected_choices, option_value, option_label))
+        return '\n'.join(output)
 
     errors = None
     show_errors = True
@@ -30,10 +58,10 @@ class InputMaterial(Input):
             aditional_attrs['value'] = force_text(self.format_value(value))
         return aditional_attrs
 
-    def render(self, name, value, attrs=None):
+    def render(self, name, value, attrs=None, renderer=None):
         if value is None:
             value = ''
-        final_attrs = self.build_attrs(attrs, type=self.input_type, name=name)
+        final_attrs = self.build_attrs(attrs, extra_attrs={"type": self.input_type, "name": name})
         final_attrs.update(self.get_aditional_attrs(name=name, value=value, attrs=attrs))
 
         if 'class' not in final_attrs and self.class_name:
@@ -101,7 +129,9 @@ class TextAreaMaterial(InputMaterial):
 
 
 class SelectMaterial(InputMaterial, Select):
-    
+
+
+
     def get_aditional_context(self, name, value, attrs=None):
         return {'options': self.render_options([value])}
 
@@ -110,6 +140,7 @@ class SelectMaterial(InputMaterial, Select):
 class MaterialSelectMultiple(InputMaterial, SelectMultiple):
 
     _empty_value = []
+
 
     def value_from_datadict(self, data, files, name):
         if isinstance(data, MultiValueDict):
@@ -122,11 +153,11 @@ class MaterialSelectMultiple(InputMaterial, SelectMultiple):
 
     template = 'custom_base/selectize-material.html'
 
-    def render(self, name, value, attrs=None):
+    def render(self, name, value, attrs=None, renderer=None):
 
         if value is None:
             value = []
-        final_attrs = self.build_attrs(attrs, name=name)
+        final_attrs = self.build_attrs(attrs, extra_attrs={"name": name})
 
         options = self.render_options(value)
         if 'class' not in final_attrs and self.class_name:
@@ -156,7 +187,7 @@ class CheckboxSelectMultipleMaterial(InputMaterial, SelectMultiple):
             choices.append([force_text(key), value])
         return {'choices': choices}
 
-    def render(self, name, value, attrs=None):
+    def render(self, name, value, attrs=None, renderer=None):
         if value:
             value= set(force_text(v) for v in value)
         return super(CheckboxSelectMultipleMaterial, self).render(name=name, value=value, attrs=attrs)
