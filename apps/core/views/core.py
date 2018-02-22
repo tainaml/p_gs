@@ -102,7 +102,7 @@ class Home(View):
                     & Q(taxonomies=taxonomy)
                 ).prefetch_related("content_object", "content_type", "content_object__author",
                                    "content_object__author__profile", "communities",
-                                   "communities__taxonomy").order_by("-date")[:QUANTITY]
+                                   "communities__taxonomy").order_by("-article__publishin")[:QUANTITY]
 
                 feed_articles_list[taxonomy.slug] = {"items": list(feed_articles),
                                                      "community": Community.objects.filter(
