@@ -63,9 +63,10 @@ def save_feed_item(article, data=None):
     feed_object = BusinessFeed.feed_get_or_create(article)
     feed_object.date = article.publishin if article.is_published() else None
 
-    for(key, value) in data.items():
-        if hasattr(feed_object, key):
-            setattr(feed_object, key, value)
+    # for(key, value) in data.items():
+    #     print "here", data.items(), key, feed_object, feed_object.key
+    #     if hasattr(feed_object, key):
+    #         setattr(feed_object, key, value)
 
     feed_object.save()
 
