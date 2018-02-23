@@ -50,6 +50,8 @@ class CoreCategoryPageView(View):
         CACHE_KEY = "home_{0}".format(self.category.slug)
         feed_articles_list = cache.get(CACHE_KEY)
 
+
+
         if not feed_articles_list:
 
             taxonomy = self.category
@@ -60,9 +62,12 @@ class CoreCategoryPageView(View):
             & Q(object_id__isnull=False)
             & Q(official=True)
             & Q(taxonomies=taxonomy)
-            )[:QUANTITY]
+            ).order_by("-date")[:QUANTITY]
             feed_articles_list = {}
-            feed_articles_list[taxonomy.slug] = {"items": list(feed_articles), "community": taxonomy.community_related}
+
+            items = list(reversed(list(feed_articles)))
+
+            feed_articles_list[taxonomy.slug] = {"items": items, "community": taxonomy.community_related}
 
             cache.set(CACHE_KEY, feed_articles_list, CACHE_TIME)
         self.context.update({"feed_articles_list": feed_articles_list})

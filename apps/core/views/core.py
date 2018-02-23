@@ -93,17 +93,23 @@ class Home(View):
                 cache.set(CACHE_KEY_TAXONOMY, taxonomies, CACHE_TIME)
             feed_articles_list = {}
 
+            not_in_list = []
+
             for taxonomy in taxonomies:
                 feed_articles = FeedObject.objects.filter(
                     Q(article__status=Article.STATUS_PUBLISH)
                     & Q(object_id__isnull=False)
                     & Q(official=True)
                     & Q(taxonomies=taxonomy)
+                    & ~Q(id__in=not_in_list)
                 ).prefetch_related("content_object", "content_type", "content_object__author",
                                    "content_object__author__profile", "communities",
-                                   "communities__taxonomy").order_by("-article__publishin")[:QUANTITY]
+                                   "communities__taxonomy").order_by("-date")[:QUANTITY]
 
-                feed_articles_list[taxonomy.slug] = {"items": list(feed_articles),
+                items = list(reversed(list(feed_articles)))
+                id_list = [item.id for  item in feed_articles]
+                not_in_list = not_in_list + id_list
+                feed_articles_list[taxonomy.slug] = {"items": items,
                                                      "community": Community.objects.filter(
                                                          taxonomy__slug=taxonomy.slug).prefetch_related(
                                                          "taxonomy").get()}
