@@ -5,7 +5,10 @@
         {% communities_cached %}
         <ul class="app-header-navigation-menu">
             <li class="app-header-navigation-item">
-                <a class="app-header-navigation-item-link {% if request.path == "/vagas-de-trabalho/" %}is-active{% endif %}" href="{% url 'jobs:index' %}">Vagas de trabalho</a>
+                <a class="app-header-navigation-item-link {% if request.path == "/" %}is-active{% endif %}" href="{% url 'index' %}">Início</a>
+            </li>
+            <li class="app-header-navigation-item">
+                <a class="app-header-navigation-item-link {% if request.path == "/vagas-de-trabalho/" %}is-active{% endif %}" href="{% url 'jobs:index' %}">Vagas</a>
             </li>
             <li class="app-header-navigation-item">
                 <a class="app-header-navigation-item-link {% if request.path == "/cursos/" %}is-active{% endif %}" href="{% url 'course:list'%}">Cursos</a>

@@ -29,7 +29,7 @@
                         </div>
                         <div>
                             {{ request.user.get_full_name }}
-                            <a href="{% url 'profile:feed' %}">Ver meu perfil</a>
+                            <a href="{% url 'profile:show' request.user.username %}">Ver meu perfil</a>
                         </div>
                     </div>
                 </li>
