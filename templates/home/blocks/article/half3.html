@@ -26,8 +26,10 @@
                         {{ article.content_object.title }}
                     </a>
                 </h3>
+                <p>
+                    {% if not article.content_object.image %} {{ article.content_object.text|striptags|truncatechars:100 }} {% endif %}
+                </p>
 
-                {% if not article.content_object.image %} {{ article.content_object.text|striptags|truncatechars:100 }} {% endif %}
             </div>
         </div>
         {% endfor %}
