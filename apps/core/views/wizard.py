@@ -15,6 +15,7 @@ from django.views import View
 from apps.userprofile.service import business as BusinessUserProfile
 from ..business import community as Business
 from rede_gsti import settings
+import copy
 
 
 class CoreProfileWizard(View):
@@ -45,7 +46,7 @@ class CoreProfileWizard(View):
 
         self.user = request.user
 
-        data = request.POST
+        data = copy.copy(request.POST)
         data.update({
             'wizard_step': step
         })

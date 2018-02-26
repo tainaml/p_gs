@@ -77,8 +77,8 @@ class XP():
 
                 user = action.content_object.author if action.content_object else None
 
-
-            if  user and user.gamification_member and user != action.author and len(communities) > 0:
+            UserModel = get_user_model()
+            if  user and type(user) == UserModel and user.gamification_member and user != action.author and len(communities) > 0:
 
 
                 transaction_type = None
