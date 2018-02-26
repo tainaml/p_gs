@@ -166,6 +166,7 @@
 .area-title {
   padding: 10px 20px;
   margin-bottom: 20px;
+  margin-top: 20px;
   border-left: 4px solid $background-button;
   color: $background-button;
   > h1, h2, h3, h4, h5 {
@@ -214,7 +215,6 @@
   margin-bottom: 30px;
   display: flex;
   align-items: center;
-  margin-top: 15px;
   @media (max-width: $screen-lg-min) { margin-top: 20px }
 
   > h2, a {
