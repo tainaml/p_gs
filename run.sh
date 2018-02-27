@@ -1,6 +1,6 @@
 #!/bin/bash
 
-NAME="PORTAL GSTI"
+NAME="rede_gsti"
 DJANGODIR=/var/www/rede_gsti
 SOCKFILE=/var/www/rede_gsti/run/gunicorn.sock
 USER=ubuntu
@@ -14,7 +14,7 @@ echo "Starting $NAME as `whoami`"
 
 
 cd $DJANGODIR
-source venv/bin/activate
+source $DJANGODIR/venv/bin/activate
 export DJANGO_SETTINGS_MODULE=$DJANGO_SETTINGS_MODULE
 export PYTHONPATH=$DJANGODIR:$PYTHONPATH
 export PROJECT_ENVIRONMENT=$PROJECT_ENVIRONMENT
