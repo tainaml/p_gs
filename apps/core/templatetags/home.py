@@ -129,7 +129,7 @@ def news(feed_articles, quantity):
                 Q(article__status=Article.STATUS_PUBLISH)
                 & Q(object_id__isnull=False)
                 & Q(tags__tag_slug='noticia')
-                & Q(official=True)).exclude(id__in=ids)[:quantity]
+                & Q(official=True)).exclude(id__in=ids).order_by("-article__publishin")[:quantity]
 
 
 
