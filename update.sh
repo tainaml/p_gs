@@ -5,8 +5,8 @@ LOG_PATH="/var/log/rede_gsti/update.log"
 BRANCH="master"
 SUPERVISOR_PROCESS="rede_gsti"
 ENVIRONMENT="production"
-VIRTUAL_ENV_DIR="/var/www/rede_gsti/venv"
-
+PROJECT_PATH="/var/www/rede_gsti"
+VIRTUAL_ENV_DIR="$PROJECT_PATH/venv"
 
 source $VIRTUAL_ENV_DIR/bin/activate
 #pull the changes
