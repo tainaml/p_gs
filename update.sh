@@ -5,7 +5,10 @@ LOG_PATH="/var/log/rede_gsti/update.log"
 BRANCH="master"
 SUPERVISOR_PROCESS="rede_gsti"
 ENVIRONMENT="production"
+VIRTUAL_ENV_DIR="/var/www/rede_gsti/venv"
 
+
+source $VIRTUAL_ENV_DIR/bin/activate
 #pull the changes
 git pull origin $BRANCH
 
