@@ -8,6 +8,7 @@ ENVIRONMENT="production"
 PROJECT_PATH="/var/www/rede_gsti"
 VIRTUAL_ENV_DIR="$PROJECT_PATH/venv"
 
+cd $PROJECT_PATH
 source $VIRTUAL_ENV_DIR/bin/activate
 #pull the changes
 git pull origin $BRANCH
