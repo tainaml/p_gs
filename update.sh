@@ -2,19 +2,21 @@
 
 # Declaring LOG and Branch vars
 LOG_PATH="/var/log/rede_gsti/update.log"
+DJANGODIR=/var/www/rede_gsti
 BRANCH="master"
 SUPERVISOR_PROCESS="rede_gsti"
 ENVIRONMENT="production"
-PROJECT_PATH="/var/www/rede_gsti"
-VIRTUAL_ENV_DIR="$PROJECT_PATH/venv"
+
 DJANGO_SETTINGS_MODULE=rede_gsti.settings
 DJANGO_WSGI_MODULE=rede_gsti.wsgi
 
 
-cd $PROJECT_PATH
-source $VIRTUAL_ENV_DIR/bin/activate
+cd $DJANGODIR
+source $DJANGODIR/venv/bin/activate
 export DJANGO_SETTINGS_MODULE=$DJANGO_SETTINGS_MODULE
-export PYTHONPATH=$PROJECT_PATH:$PYTHONPATH
+export PYTHONPATH=$DJANGODIR:$PYTHONPATH
+export LC_ALL=en_US.UTF-8
+export LANG=en_US.UTF-8
 #pull the changes
 
 git pull origin $BRANCH
