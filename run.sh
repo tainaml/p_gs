@@ -9,6 +9,7 @@ NUM_WORKERS=9
 DJANGO_SETTINGS_MODULE=rede_gsti.settings
 DJANGO_WSGI_MODULE=rede_gsti.wsgi
 PROJECT_ENVIRONMENT=production
+IP_PORT_PAIR=127.0.0.1:8000
 
 echo "Starting $NAME as `whoami`"
 
@@ -25,6 +26,7 @@ test -d $RUNDIR || mkdir -p $RUNDIR
 
 exec venv/bin/gunicorn ${DJANGO_WSGI_MODULE}:application \
   --name $NAME \
+  -b $IP_PORT_PAIR \
   --workers $NUM_WORKERS \
   --user=$USER \
   --bind=unix:$SOCKFILE
