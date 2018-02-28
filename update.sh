@@ -7,10 +7,16 @@ SUPERVISOR_PROCESS="rede_gsti"
 ENVIRONMENT="production"
 PROJECT_PATH="/var/www/rede_gsti"
 VIRTUAL_ENV_DIR="$PROJECT_PATH/venv"
+DJANGO_SETTINGS_MODULE=rede_gsti.settings
+DJANGO_WSGI_MODULE=rede_gsti.wsgi
+
 
 cd $PROJECT_PATH
 source $VIRTUAL_ENV_DIR/bin/activate
+export DJANGO_SETTINGS_MODULE=$DJANGO_SETTINGS_MODULE
+export PYTHONPATH=$PROJECT_PATH:$PYTHONPATH
 #pull the changes
+
 git pull origin $BRANCH
 
 # Getting current date
