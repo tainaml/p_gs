@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Declaring LOG and Branch vars
-LOG_PATH="/ebs/log/rede_gsti/update.log"
+LOG_PATH="/var/log/rede_gsti/update.log"
 BRANCH="master"
 SUPERVISOR_PROCESS="rede_gsti"
 ENVIRONMENT="production"
