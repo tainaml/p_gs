@@ -19,7 +19,7 @@ from django.contrib import admin
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 from django.views.decorators.cache import cache_page
-from apps.core.views.core import Home
+from apps.core.views.core import Home, CoreAllRanking
 from apps.core.views import search as CoreSearch
 from apps.core.views.frontend import FrontEndBase
 from django.contrib.sitemaps import views as sitemap_views
@@ -40,6 +40,7 @@ url_job_vacancy = url(_(r'^jobs/'), include('apps.job_vacancy.urls', namespace='
 urlpatterns = [
 
     url(r'^$', Home.as_view(), name='index'),
+    url(r'^ranking/$', CoreAllRanking.as_view(), name='ranking'),
     url(r'^jet/', include('jet.urls', 'jet')),  # Django JET URLS
     url(_(r'^admin/'), include(admin.site.urls)),
 

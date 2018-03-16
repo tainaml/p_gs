@@ -1,0 +1,99 @@
+{%extends 'home/layout/base.html' %}
+
+{% load core_tags %}
+{% load staticfiles %}
+{% load i18n %}
+{% load user_agents %}
+{% load thumbor_tags %}
+{% load ads %}
+{% block seo-og-title %}{% block seo_title %}Ranking de {{ community.title }}{{ block.super }}{% endblock %}{% endblock %}
+{% block seo-og-description %}{% block seo-description %}Ranking social de {{ community.title }}. Listagem de xp de {{ community.title }} por usuário.{% endblock %}{% endblock %}
+{% block seo-og-image %}{% thumbor_url community.get_picture.url width=200 height=200 smart=False fit_in=False %}{% endblock %}
+{% load seo_pagination_tags %}
+{% load abs_url %}
+{% load widget_tweaks %}
+{% block seo-canonical %}{% absolute_url request.path %}{% endblock %}
+{% block link_pagination %}
+    {% pagination_links feed_objects %}
+{% endblock link_pagination %}
+
+{% block seo-metas-extra %}
+    {{ block.super }}
+
+
+{% endblock %}
+
+{% block content %}
+    <main class="container main">
+        {% if request|is_pc %}
+        <div class="row">
+            <div class="col-lg-offset-3 col-lg-9">
+                {% include 'community/partials/navbar.html' with active='ranking' %}
+            </div>
+        </div>
+        {% endif %}
+        <div class="row">
+            <!-- mudar para 2.5 -->
+            <div class="col-lg-3">
+                {% include 'community/partials/community-sidebar-left.html' %}
+            </div>
+            <!-- mudar para 9.5 -->
+            <div class="col-lg-9">
+                {% include 'community/partials/filters.html' with title="Ranking" active="ranking" has_filter=True %}
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="row">
+                            {% block filters %}
+                            <nav id="form-search" class="col-lg-12 form-search filters-members" data-toggle="filters">
+                                <form action="{% url 'community:ranking' community.slug %}" method="GET" role="search">
+                                    <div class="customform search{%if errors %} customform-error{% endif %}">
+                                        {% render_field form.q class="customform-input" id="criteria" data-toggle="input" placeholder="Pesquisar por usuários" %}
+                                        <hr>
+                                        <label for="criterio" class="customform-label{% if request.GET.criterio %} active {% endif %}">Pesquisar</label>
+                                        <button type="submit" class="form-search-button">
+                                            <i class="gsticon gsticon-search"></i>
+                                        </button>
+                                    </div>
+                                </form>
+                            </nav>
+                            {% endblock filters %}
+
+                        </div>
+                        
+                        <section class="j-scroll j-scroll-container" data-toggle="scroll" id="ranking-list">
+                            {% include 'ranking/ranking-list.html' %}
+                        </section>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock %}
+
+
+{% block community_right_block %}
+    {% ads_only_production "community_materials_right" "all" %}
+{% endblock community_right_block %}
+
+
+<div class="modal">
+    modal here
+</div>
+
+
+{% block javascripts %}
+    {{ block.super }}
+
+    <script>
+        $(function() {
+            $(".j-scroll").jscroll({
+                loadingHtml: '<div class="load-async-preload"></div>',
+                contentSelect: ".j-scroll-container",
+                nextSelector: "a[data-jscroll-next]",
+                autoTrigger: false
+            });
+
+        });
+    </script>
+{% endblock %}

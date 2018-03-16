@@ -1,0 +1,38 @@
+{% load avatar_tags %}
+
+<section class="area-content" data-target="content">
+
+    {% if list %}
+        <h2 class="ranking__contributors__title">TOP {{ top_itens }}</h2>
+         <ol class="ranking__contributors__list">
+            {% for item in list %}
+                 <li>
+                 <span class="rank_position{% cycle ' rank-odd' ' rank-even' %}">{{ item.rank_position }}</span>
+                     <div class="ranking__contributor">
+                        <a href="{{ item.user.get_absolute_url }}">
+                             <img width="40" height="40" src="{% get_avatar item.user width=40 height=40 smart=False fit_in=False %}" alt="Foto de {{ item.user.get_full_name }}">
+                             <h3 title="{{ item.user.get_full_name }}">{{ item.user.get_full_name }}</h3>
+                             <p>XP {{ item.value }}</p>
+                        </a>
+                     </div>
+                </li>
+            {% endfor %}
+        </ol>
+    {% else %}
+        <h2 class="ranking__contributors__title">Ops,</h2>
+        <div class="col-xs-12 courses__not_found">
+        <p>Não foram encontrados usuários que pontuaram para estarem neste ranking.</p>
+    </div>
+    {% endif %}
+
+
+
+</section>
+{% if list.has_next %}
+<div class="col-xs-12">
+    <a class="btn courses__btn courses__btn--loader" data-jscroll-next href="{{ request.path }}?{{ form.querystring }}{{ next_querystring }}">Mais resultados</a>
+
+</div>
+{% endif %}
+
+

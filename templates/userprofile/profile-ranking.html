@@ -1,0 +1,70 @@
+{%extends 'home/layout/base.html' %}
+
+{% load staticfiles %}
+{% load i18n %}
+{% load avatar_tags %}
+{% block seo-og-title %}{% block seo_title %}Ranking | {{ profile.user.get_full_name }}{{ block.super }}{% endblock %}{% endblock %}
+{% block seo-og-description %}{% block seo-description %}Ranking de posicionamento do usuário {{ profile.user.get_full_name }}{% endblock %}{% endblock %}
+{% block seo-og-image %}{% get_avatar profile.user width=200 height=200 smart=False fit_in=False %}{% endblock %}
+{% block seo-metas-extra %}
+{% load widget_tweaks %}
+<meta name="robots" content="noindex, nofollow">
+{% endblock %}
+{% block page_class %}profile-page{% endblock page_class %}
+{% block content %}
+    <main class="container main">
+        <div class="row">
+            <div class="col-lg-offset-3 col-lg-9">
+                {% include 'userprofile/partials/menu.html' with active="ranking"|striptags %}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-3">
+                {% include 'userprofile/partials/left-sidebar.html' %}
+            </div>
+            <div class="col-lg-9">
+                {% include 'userprofile/partials/filters.html' with title="Feed" active="feed" has_filter=False has_navigation=True %}
+                <div class="row">
+                     {% block filters %}
+                            <nav id="form-search" class="col-lg-12 form-search filters-members" data-toggle="filters">
+                                <form action="{{ request.path }}" method="GET" role="search">
+                                    <div class="customform search{%if errors %} customform-error{% endif %}">
+                                        {% render_field form.community_title class="customform-input" id="criteria" data-toggle="input" placeholder="Pesquisar por comunidade" %}
+                                        <hr>
+                                        <label for="criterio" class="customform-label{% if request.GET.criterio %} active {% endif %}">Pesquisar</label>
+                                        <button type="submit" class="form-search-button">
+                                            <i class="gsticon gsticon-search"></i>
+                                        </button>
+                                    </div>
+                                </form>
+                            </nav>
+                            {% endblock filters %}
+                    <div class="col-lg-12">
+                        <h2 class="ranking__contributors__title">Posição por comunidade</h2>
+                        <div class="j-scroll j-scroll-container">
+                            {% include 'ranking/community-ranking-list.html' %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock %}
+
+{% block modals %}
+    {% include "home/partials/modals/modal-denunciar.html" %}
+    {% include "home/partials/modals/modal-delete-status.html" %}
+{% endblock %}
+
+{% block javascripts %}
+    {{ block.super }}
+    <script type="text/javascript">
+        $(function() {
+            $(".j-scroll").jscroll({
+                loadingHtml: '<div class="load-async-preload"></div>',
+                contentSelect: ".j-scroll-container",
+                nextSelector: "a[data-jscroll-next]"
+            });
+        });
+    </script>
+{% endblock %}

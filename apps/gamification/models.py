@@ -1,6 +1,7 @@
 from __future__ import unicode_literals, absolute_import
 from apps.article.models import Article
 from apps.community.models import Community
+from rede_gsti.celery import app
 
 from apps.geography.models import City
 from apps.question.models import Question, Answer
@@ -177,32 +178,48 @@ class XPTransaction(models.Model):
 
 
         if self.community:
-            user_credits = XPTransaction.objects.filter(user=self.user, community=self.community,
-                                                   transaction_type=TransactionType.CREDIT).aggregate(credits=Sum("value"))
-            debits = XPTransaction.objects.filter(user=self.user, community=self.community,
-                                                   transaction_type=TransactionType.DEBIT).aggregate(debits=Sum("value"))
-
-
-            # print user_credits['credits'], user_credits['credits'] or 0
-
-            community_rank, created = CommunityRank.objects.get_or_create(
-                user=self.user,
-                community=self.community
-
-            )
-
-            community_rank.value = (user_credits['credits'] or 0) - (debits['debits'] or 0)
-            community_rank.save()
-
-
+            update_rank.delay(self.user, self.community)
 
 
 class CommunityRank(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='community_ranks')
     community = models.ForeignKey(to=Community, verbose_name=_("Community"), related_name="rank")
     value = models.BigIntegerField(verbose_name="Value", null=True, blank=True)
+    rank_position = models.PositiveIntegerField(verbose_name="Position", default=0)
 
     class Meta:
         ordering = ['-value']
+
+
+@app.task
+def update_rank(user, community):
+    if community:
+
+        user_credits = XPTransaction.objects.filter(user=user, community=community,
+                                               transaction_type=TransactionType.CREDIT).aggregate(credits=Sum("value"))
+        debits = XPTransaction.objects.filter(user=user, community=community,
+                                               transaction_type=TransactionType.DEBIT).aggregate(debits=Sum("value"))
+
+
+        community_rank, created = CommunityRank.objects.get_or_create(
+            user=user,
+            community=community
+
+        )
+
+        community_rank.value = (user_credits['credits'] or 0) - (debits['debits'] or 0)
+        community_rank.save()
+        update_rank_positions.delay(community)
+
+
+@app.task
+def update_rank_positions(community):
+    community_rank_list = CommunityRank.objects.filter(community=community).order_by("-value")
+
+    rank_position = 1
+    for community_rank in community_rank_list:
+        community_rank.rank_position = rank_position
+        community_rank.save()
+        rank_position+= 1
 
 

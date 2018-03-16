@@ -1,5 +1,7 @@
 # coding=utf-8
+import copy
 from django.contrib import messages
+from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
 from django.db import models
@@ -8,6 +10,8 @@ from django.shortcuts import render, redirect
 from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _
 from django.views.generic import View
+from apps.core.forms.ranking import RankingListForm
+from apps.custom_base.views import FormBasePaginetedListView
 
 from apps.userprofile.models import GenderType
 from apps.userprofile.service import business as Business
@@ -404,3 +408,36 @@ class ProfileCommunitiesView(ProfileShowView):
             'page': (communities.number if communities and communities.number else 0) + 1,
             'url_next': url_next
         }
+
+
+
+
+class CoreProfileRanking(FormBasePaginetedListView):
+
+    success_template_path = 'userprofile/profile-ranking.html'
+    success_ajax_template_path = 'ranking/community-ranking-list.html'
+    fail_validation_template_path = 'ranking/community-ranking-list.html'
+    form = RankingListForm
+    itens_per_page = 50
+
+    User = get_user_model()
+
+    def fill_form_kwargs(self, request=None, *args, **kwargs):
+        data = copy.copy(request.GET)
+        data['user'] = self.profile.id
+        return {'data': data, 'itens_per_page': self.itens_per_page}
+
+    # @Override
+    def after_process(self, request=None, *args, **kwargs):
+        super(CoreProfileRanking, self).after_process(*args, **kwargs)
+
+        self.context.update({'list': self.process_return, 'profile': self.profile, 'form': self.form, 'top_itens': self.itens_per_page * (self.context['page']-1) })
+
+    def get(self, request=None, username=None, *args, **kwargs):
+        try:
+            self.profile =  Business.get_profile(CoreProfileRanking.User.objects.get(username=username))
+        except CoreProfileRanking.User.DoesNotExist or CoreProfileRanking.User.MultipleObjectsReturned:
+            raise Http404()
+
+
+        return self.do_process(request, *args, **kwargs)

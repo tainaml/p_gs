@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+import copy
 import urllib
 from django.core.urlresolvers import reverse
 from django.http import JsonResponse, Http404
@@ -10,9 +11,10 @@ from apps.community.service import business as Business
 from apps.core.forms.community import CoreCommunityFeedFormSearch, CoreCommunityQuestionFeedFormSearch, \
     CoreCommunitySearchVideosForm, CoreCommunityFollowersForm, CoreCommunitySearchMaterialsForm, CoreCommunityGetAllForm
 from apps.core.forms.course import CourseCommunityListForm
+from apps.core.forms.ranking import RankingListForm
 from apps.core.views.course import CourseListView
 from apps.core.views.search import encoded_dict
-from apps.custom_base.views import FormBaseListView
+from apps.custom_base.views import FormBaseListView, FormBasePaginetedListView
 from apps.socialactions.service.business import get_users_acted_by_model
 from rede_gsti import settings
 from apps.core.business import community as BusinessCommunity
@@ -417,3 +419,34 @@ class CoreCommunityMaterialsView(CoreCommunityMaterialsSearch):
 class CoreCommunityMaterialsList(CoreCommunityMaterialsSearch):
 
     template_path = "community/partials/community-materials-list.html"
+
+
+class CoreCommunityRanking(FormBasePaginetedListView):
+
+    success_template_path = 'community/community-ranking.html'
+    success_ajax_template_path = 'ranking/ranking-list.html'
+    fail_validation_template_path = 'ranking/ranking-list.html'
+    form = RankingListForm
+    itens_per_page = 50
+
+
+
+    def fill_form_kwargs(self, request=None, *args, **kwargs):
+        data = copy.copy(request.GET)
+        data['community'] = self.community.slug
+        return {'data': data, 'itens_per_page': self.itens_per_page}
+
+    # @Override
+    def after_process(self, request=None, *args, **kwargs):
+        super(CoreCommunityRanking, self).after_process(*args, **kwargs)
+        self.context.update({'list': self.process_return, 'form': self.form,
+                             'community': self.community, 'top_itens': self.itens_per_page * (self.context['page']-1) })
+
+    def get(self, request=None, community_slug=None, *args, **kwargs):
+        try:
+            self.community = Community.objects.get(slug=community_slug)
+        except Community.DoesNotExist:
+            raise Http404()
+
+
+        return self.do_process(request, *args, **kwargs)

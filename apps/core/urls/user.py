@@ -146,6 +146,10 @@ urlpatterns = [
     # Translators: URL root de seguidores
     url(_(r'^(?P<username>[a-z0-9_-]+)/followers/$'), views.ProfileFollowersView.as_view(), name='followers'),
 
+
+    # Translators: URL root de ranking
+    url(_(r'^(?P<username>[a-z0-9_-]+)/ranking/$'), views.CoreProfileRanking.as_view(), name='ranking'),
+
     # Translators: URL de procura de seguidores
     url(_(r'^(?P<username>[a-z0-9_-]+)/followers/search/$'), core_user.CoreProfileFollowersSearch.as_view(), name='followers-search'),
 

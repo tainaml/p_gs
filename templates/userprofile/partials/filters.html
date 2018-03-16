@@ -8,6 +8,7 @@
 
     <a {% if active == "community" %}class="active"{% endif %} href="{% url 'profile:communities' username=profile.user.username %}">Comunidades</a>
     <a {% if active == "relationship" %}class="active"{% endif %} href="{% url 'profile:followers' username=profile.user.username %}">Relacionamentos</a>
+    <a {% if active == "ranking" %}class="active"{% endif %} href="{% url 'profile:ranking' username=profile.user.username %}">Ranking</a>
 </nav>
 {% endif %}
 
@@ -16,7 +17,8 @@
     <div class="toggle-box">
         {% if has_filter %}<a class="btn-toggle" data-target="#form-search" href="javascript:;">
             <i class="gsticon gsticon-filter"></i>
-        </a>{% endif %}
+        </a>
+        {% endif %}
     </div>
 </header>
 {% endif %}

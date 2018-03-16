@@ -1,6 +1,8 @@
 from apps.article.models import Article
 from apps.community.models import Community
 from apps.core.business import feed as FeedBusiness
+from apps.core.forms.ranking import RankingAllForm
+from apps.custom_base.views import FormBasePaginetedListView
 from apps.feed.models import FeedObject
 from apps.taxonomy.models import Taxonomy
 from django.db.models import Q, Prefetch
@@ -167,3 +169,19 @@ class OEmbed(View):
 
         except Exception as e:
             return JsonResponse({'success': False, 'message': e.message})
+
+
+
+class CoreAllRanking(FormBasePaginetedListView):
+
+    success_template_path = 'ranking/all-ranking.html'
+    success_ajax_template_path = 'ranking/all-ranking-list.html'
+    fail_validation_template_path = 'ranking/all-ranking-list.html'
+    form = RankingAllForm
+    itens_per_page = 50
+
+    # @Override
+    def after_process(self, request=None, *args, **kwargs):
+        super(CoreAllRanking, self).after_process(*args, **kwargs)
+
+        self.context.update({'list': self.process_return, 'form': self.form })

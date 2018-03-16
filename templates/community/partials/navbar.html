@@ -6,5 +6,6 @@
     {% if active == 'about' %}<h2 class="active">Sobre</h2>{% else %}<a href="{% url 'community:about' community.slug %}">Sobre</a>{% endif %}
     {% if active == 'videos' %}<h2 class="active">Vídeos</h2>{% else %}<a href="{% url 'community:videos' community.slug %}">Vídeos</a>{% endif %}
     {% if active == 'materials' %}<h2 class="active">Materiais</h2>{% else %}<a href="{% url 'community:materials' community.slug %}">Materiais</a>{% endif %}
+    {% if active == 'ranking' %}<h2 class="active">Ranking</h2>{% else %}<a href="{% url 'community:ranking' community.slug %}">Ranking</a>{% endif %}
 
 </nav>

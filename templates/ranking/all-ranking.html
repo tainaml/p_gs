@@ -1,0 +1,71 @@
+{% extends 'home/layout/base.html' %}
+
+{% load ads %}
+{% load widget_tweaks %}
+{% load seo_pagination_tags %}
+
+{% block title %}Ranking Geral{% endblock title %}
+{% block seo-og-description %}{% block seo-description %}Ranking geral de participação no Portal GSTI. Veja as primeiras colocações de quem pontuou melhor no ranking.{% endblock %}{% endblock %}
+
+{% block link_pagination %}
+
+    {% if courses %}
+        {% pagination_links courses %}
+    {% endif %}
+
+{% endblock link_pagination %}
+
+{% block extra_meta %}
+    {{ block.super }}
+
+{% endblock %}
+
+{% block content %}
+    <main class="main" data-page="courses" data-filtered="false">
+    <div class="container">
+        <div class="row">
+            <div class="banner-content-wide">
+                <div class="banner">
+                    {% ads_only_production "videos_top" "all" %}
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 profession">
+                <header class="widget-header courses__title">
+                    <h1 class="widget-title">
+                        <span>Ranking Geral</span>
+                    </h1>
+                </header>
+                <p>Ranking geral de pontuação de usuários do Portal GSTI. Saiba quem são os membros que mais contribuem.</p>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="j-scroll clearfix" data-toggle="scroll">
+                    <div class="j-scroll-container">
+                        {% include 'ranking/all-ranking-list.html' %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</main>
+{% endblock content %}
+
+{% block javascripts %}
+    <script>
+    $(function(){
+        var $element = $(".j-scroll-container");
+        $element.jscroll({
+            loadingHtml: '<div class="load-async-preload"></div>',
+            nextSelector: "a[data-jscroll-next]",
+            autoTrigger: false
+        });
+    });
+
+    </script>
+{% endblock javascripts %}

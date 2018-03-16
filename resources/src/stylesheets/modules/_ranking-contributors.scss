@@ -26,17 +26,6 @@
       display: flex;
       align-items: center;
       justify-self: center;
-      &::before {
-        counter-increment: top_five;
-        content: counter(top_five);
-        padding-right: 22px;
-        color: #616161;
-        font-family: "Open Sans";
-        font-size: 40px;
-        font-weight: 400;
-        text-transform: uppercase;
-        vertical-align: middle;
-      }
       &:nth-child(even) {
         background-color: #ffffff;
         &::before {
@@ -68,3 +57,20 @@
     }
   }
 }
+
+ .rank_position {
+    padding-right: 22px;
+    color: #616161;
+    font-family: "Open Sans", serif;
+    font-size: 40px;
+    font-weight: 400;
+    text-transform: uppercase;
+    vertical-align: middle;
+  }
+
+  .rank-even {
+    color: #ff6f00;
+  }
+.rank-odd {
+    color: #616161;
+  }

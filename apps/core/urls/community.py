@@ -30,7 +30,8 @@ urlpatterns = [
     # Translators: URL de pagina de busca da comunidade
     url(_(r'^(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/search/$'), CoreViews.CoreCommunitySearch.as_view(), name='search'),
 
-    # Translators: URL de listagem da comunidade
+# Translators: URL de pagina de ranking da comunidade
+    url(_(r'^(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/ranking/$'), CoreViews.CoreCommunityRanking.as_view(), name='ranking'),
 
     # Translators: URL de perguntas da comunidade
     url(_(r'^(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/questions/$'), CoreViews.CoreCommunityQuestionFeedView.as_view(), name='questions'),
@@ -67,6 +68,8 @@ urlpatterns = [
 
     # Translators: URL de pagina de materials da comunidade
     url(_(r'^(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/materials/$'), CoreViews.CoreCommunityMaterialsView.as_view(), name='materials'),
+
+
 
     # Translators: URL de pagina de procura de videos da comunidade
     url(_(r'^(?P<community_slug>[a-z0-9]+(?:(-|_)[a-z0-9]+)*)/materials/search/$'), CoreViews.CoreCommunityMaterialsSearch.as_view(), name='materials-search'),

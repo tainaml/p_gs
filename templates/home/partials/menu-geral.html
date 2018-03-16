@@ -4,30 +4,68 @@
     <nav class="app-header-navigation-container">
         {% communities_cached %}
         <ul class="app-header-navigation-menu">
+
+
+            {% comment %}HOME INDEX: {% endcomment %}
+        {% url 'index' as home_url %}
             <li class="app-header-navigation-item">
-                <a class="app-header-navigation-item-link {% if request.path == "/" %}is-active{% endif %}" href="{% url 'index' %}">Início</a>
+                <a class="app-header-navigation-item-link {% if request.path == home_url %}is-active{% endif %}" href="{{ home_url }}">Início</a>
             </li>
+
+
+            {% comment %}JOBS: {% endcomment %}
+            {% url 'jobs:index' as jobs_url %}
             <li class="app-header-navigation-item">
-                <a class="app-header-navigation-item-link {% if request.path == "/vagas-de-trabalho/" %}is-active{% endif %}" href="{% url 'jobs:index' %}">Vagas</a>
+                <a class="app-header-navigation-item-link {% if request.path == jobs_url %}is-active{% endif %}" href="{{ jobs_url }}">Vagas</a>
             </li>
+
+
+            {% comment %}COURSES: {% endcomment %}
+            {% url 'course:list' as course_url %}
             <li class="app-header-navigation-item">
-                <a class="app-header-navigation-item-link {% if request.path == "/cursos/" %}is-active{% endif %}" href="{% url 'course:list'%}">Cursos</a>
+                <a class="app-header-navigation-item-link {% if request.path == course_url %}is-active{% endif %}" href="{{ course_url }}">Cursos</a>
             </li>
+
+
+            {% comment %}VIDEOS: {% endcomment %}
+            {% url 'core:videos-list' as videos_url %}
             <li class="app-header-navigation-item">
-                <a class="app-header-navigation-item-link {% if request.path == "/videos/" %}is-active{% endif %}" href="{% url 'core:videos-list' %}">Videoaulas</a>
+                <a class="app-header-navigation-item-link {% if request.path == videos_url %}is-active{% endif %}" href="{{ videos_url }}">Videoaulas</a>
             </li>
+
+            {% comment %}SEARCH OCCUPATIONS: {% endcomment %}
+            {% url 'core:responsibilities-list' as responsibility_url %}
             <li class="app-header-navigation-item">
-                <a class="app-header-navigation-item-link {% if request.path == "/profissoes-de-ti/" %}is-active{% endif %}" href="{% url 'core:responsibilities-list'%}">Profissões</a>
+                <a class="app-header-navigation-item-link {% if request.path == responsibility_url %}is-active{% endif %}" href="{{ responsibility_url }}">Profissões</a>
             </li>
+
+            {% comment %}SEARCH COMMUNITIES: {% endcomment %}
+            {% url 'search:search-content' 'communities' as search_community_url %}
             <li class="app-header-navigation-item">
-                <a class="app-header-navigation-item-link {% if request.path == "/buscando/communities" %}is-active{% endif %}" href="{% url 'search:search-content' 'communities' %}">Comunidades</a>
+                <a class="app-header-navigation-item-link {% if request.path == search_community_url %}is-active{% endif %}" href="{{ search_community_url }}">Comunidades</a>
             </li>
+
+            {% comment %}SEARCH USERS: {% endcomment %}
+            {% url 'search:search-content' 'users' as search_users_url %}
             <li class="app-header-navigation-item">
-                <a class="app-header-navigation-item-link {% if request.path == "/buscando/users" %}is-active{% endif %}"href="{% url 'search:search-content' 'users' %}">Membros</a>
+                <a class="app-header-navigation-item-link {% if request.path == search_users_url %}is-active{% endif %}"href="{{ search_users_url }}">Membros</a>
             </li>
+
+
+            {% comment %}SEARCH QUESTIONS: {% endcomment %}
+            {% url 'search:search-content' 'questions' as question_url %}
             <li class="app-header-navigation-item">
-                <a class="app-header-navigation-item-link {% if request.path == "/buscando/questions" %}is-active{% endif %}" href="{% url 'search:search-content' 'questions' %}">Perguntas</a>
+                <a class="app-header-navigation-item-link {% if request.path == question_url %}is-active{% endif %}" href="{{ question_url }}">Perguntas</a>
             </li>
+
+
+            {% comment %}RANKING: {% endcomment %}
+              {% url 'ranking' as ranking_url %}
+            <li class="app-header-navigation-item">
+                <a class="app-header-navigation-item-link {% if request.path == ranking_url %}is-active{% endif %}" href="{{ ranking_url }}">Ranking</a>
+            </li>
+
+
         </ul>
     </nav>
 </div>

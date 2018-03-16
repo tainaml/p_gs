@@ -2,6 +2,7 @@ from __future__ import absolute_import
 from django.conf import settings
 from django.contrib.contenttypes.fields import GenericRelation
 from django.contrib.contenttypes.models import ContentType
+from django.urls import reverse
 from django.utils.functional import cached_property
 from django.utils.translation import ugettext as _
 from django.db import models
@@ -48,6 +49,9 @@ class Community(models.Model):
             ).count
         except:
             return 0
+
+    def get_abolute_url(self):
+        return reverse('profile:show', args=[self.username])
 
 
 
