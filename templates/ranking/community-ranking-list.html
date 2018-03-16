@@ -10,7 +10,7 @@
                  <li>
                 {% url "community:show" item.community.slug as community_url %}
 
-                 <span class="rank_position{% cycle ' rank-odd' ' rank-even' %}">{{ item.rank_position }}º</span>
+                 <span class="rank_position{% cycle ' rank-odd' ' rank-even' %}">{{ item.rank_position }}</span>
                      <div class="ranking__contributor">
                         <a href="{{ community_url }}">
                              <img width="40" height="40" src="{% thumbor_url item.community.image.url width=40 height=40 smart=False fit_in=False %}" alt="Foto de {{ item.user.get_full_name }}">

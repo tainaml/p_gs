@@ -44,8 +44,7 @@ class RankingListForm(IdeiaForm):
         return self.cleaned_data[key] if key in self.cleaned_data else None
 
     def __process__(self):
-        queryset = CommunityRank.objects.all().order_by("value")
-
+        queryset = CommunityRank.objects.all().order_by("rank_position")
         q = self.has_key('q')
         community = self.has_key('community')
         user = self.has_key('user')
