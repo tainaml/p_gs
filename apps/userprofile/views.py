@@ -13,7 +13,7 @@ from django.views.generic import View
 from apps.core.forms.ranking import RankingListForm
 from apps.custom_base.views import FormBasePaginetedListView
 
-from apps.userprofile.models import GenderType
+from apps.userprofile.models import GenderType, UserProfile
 from apps.userprofile.service import business as Business
 from apps.socialactions.service import business as SocialBusiness
 from apps.userprofile.service.forms import EditProfileForm, OccupationForm
@@ -424,7 +424,7 @@ class CoreProfileRanking(FormBasePaginetedListView):
 
     def fill_form_kwargs(self, request=None, *args, **kwargs):
         data = copy.copy(request.GET)
-        data['user'] = self.profile.id
+        data['user'] = self.profile.user.id
         return {'data': data, 'itens_per_page': self.itens_per_page}
 
     # @Override
@@ -435,7 +435,7 @@ class CoreProfileRanking(FormBasePaginetedListView):
 
     def get(self, request=None, username=None, *args, **kwargs):
         try:
-            self.profile =  Business.get_profile(CoreProfileRanking.User.objects.get(username=username))
+            self.profile =  UserProfile.objects.prefetch_related("user").get(user__username=username)
         except CoreProfileRanking.User.DoesNotExist or CoreProfileRanking.User.MultipleObjectsReturned:
             raise Http404()
 

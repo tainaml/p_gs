@@ -62,7 +62,7 @@ class RankingListForm(IdeiaForm):
         if community_title:
             queryset = queryset.filter(community__title__icontains=community_title)
 
-        return CustomPaginator.paginate(queryset.prefetch_related("user", "user__profile", "community"), self.itens_per_page, self.cleaned_data['page'])
+        return CustomPaginator.paginate(queryset.select_related("user", "user__profile", "community"), self.itens_per_page, self.cleaned_data['page'])
 
 class RankingAllForm(IdeiaForm):
 

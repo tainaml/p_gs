@@ -12,6 +12,23 @@ from apps.socialactions.models import Counter
 from apps.geography.models import State, City, Country
 
 
+
+class UserProfileManager(models.Manager):
+
+    prefetch_fields = [
+
+    ]
+
+    select_related_fields = [
+        'user', "city", "city__state", "city_hometown",  "city_hometown__state", "user__profile", "user__profile"
+    ]
+
+    def get_queryset(self):
+        qs = super(UserProfileManager, self).get_queryset()
+        qs = qs.prefetch_related(*self.prefetch_fields).select_related(*self.select_related_fields)
+        return qs
+
+
 class GenderType:
     def __init__(self):
         pass
@@ -31,6 +48,9 @@ class GenderType:
 
 
 class UserProfile(models.Model):
+
+    objects = UserProfileManager()
+
     user = models.OneToOneField(settings.AUTH_USER_MODEL, related_name='profile')
     birth = models.DateField(null=True, blank=True)
     gender = models.CharField(max_length=1, null=True, blank=True)
