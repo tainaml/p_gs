@@ -74,6 +74,7 @@
 {% url "index" as url_home %}
 
 <body {% if request.path == url_home %}class="home-body"{% endif %} data-logged="{{ request.user.is_authenticated|yesno:"true,false" }}" >
+{% tag_manager_iframe %}
 <div class="slideout-menu" id="slideout-menu">
     {% include 'home/partials/slideout-menu.html' %}
 </div>
@@ -151,6 +152,6 @@
 {% block editorfiles %}
 {% endblock %}
 
-{% tag_manager_iframe %}
+
 </body>
 </html>
