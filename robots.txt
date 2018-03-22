@@ -1,2 +1,5 @@
 User-agent: *
 Allow: /
+Disallow: /pesquisando/listagem/
+
+Sitemap: https://www.portalgsti.com.br/sitemap.xml
