@@ -85,9 +85,9 @@ def notify_by_email_user_friends(user_id):
         )
 
         context = {
-            'social_friend': social_friend.user.__dict__,
+            'social_friend': social_friend.user,
             'gender_string': gender_string,
-            'user': user.__dict__
+            'user': user
         }
 
         print('Pode? {}'.format(configuration.check_config_to_notify(social_friend.user, 'mail_notification', None)))

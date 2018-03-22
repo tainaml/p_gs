@@ -85,7 +85,7 @@ def register_user(parameters=None):
 
     if user and user.email:
 
-        token = register_token(user=user.__dict__, token_type=TokenType.REGISTER_ACCOUNT_CONFIRM)
+        token = register_token(user=user, token_type=TokenType.REGISTER_ACCOUNT_CONFIRM)
 
         send_mail_async.delay(
             to=str(user.email),
@@ -293,7 +293,7 @@ def forgot_password(user_email=None):
             to=str(user.email),
             subject=_('Password Recovery'),
             template='mailmanager/password-recovery.html',
-            context={'user': user.__dict__, 'token': token, 'base_url': settings.SITE_URL}
+            context={'user': user, 'token': token, 'base_url': settings.SITE_URL}
         )
 
     except User.DoesNotExist:
