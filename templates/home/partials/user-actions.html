@@ -65,7 +65,13 @@
             </ul>
         </div>
     </div>
-    <a class="user-actions-button-round" href="{% url 'article:create' %}">Publicar</a>
+{% url "article:create" as url_article_create %}
+{% url "question:create" as url_question_create %}
+
+    {% if request.path != url_article_create and request.path != url_question_create %}
+        <a class="user-actions-button-round" href="{% url 'article:create' %}">Publicar</a>
+    {% endif %}
+
 </div>
 {% else %}
 <div class="user-actions">
