@@ -24,5 +24,5 @@ def create_profile(sender, **kwargs):
             to=str(settings.CONTACT_SEND_TO_EMAIL),
             subject=email_subject,
             template='mailmanager/contact.html',
-            context={'contact': instance}
+            context={'contact': instance.__dict__}
         )
