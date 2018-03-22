@@ -64,31 +64,33 @@ class XP():
     def add_xp_for_action(action, reverse=False):
 
         value = None
-        if action.action_type \
-                in [settings.SOCIAL_LIKE, settings.SOCIAL_UNLIKE, settings.SOCIAL_FOLLOW]:
+        communities = None
+        if action.action_type in [settings.SOCIAL_LIKE, settings.SOCIAL_UNLIKE, settings.SOCIAL_FOLLOW]:
 
             if action.action_type == settings.SOCIAL_FOLLOW:
-                communities = [None]
+                communities = None
                 user = action.content_object
             else:
                 if isinstance(action.content_object, Answer):
-                    communities = [None]
+                    communities = None
                 else:
+                    print "hey"
                     communities = action.content_object.feed.first().communities.all() if action.content_object else []
 
                 user = action.content_object.author if action.content_object else None
 
             UserModel = get_user_model()
-            if  user and type(user) == UserModel and user.gamification_member and user != action.author and len(communities) > 0:
+            if  user and type(user) == UserModel and user.gamification_member and user != action.author:
 
 
                 transaction_type = None
-                if action.action_type == settings.SOCIAL_LIKE:
-                    transaction_type = TransactionType.CREDIT if not reverse else TransactionType.DEBIT
-                    value = XP.for_like(action.content_object, communities)
-                elif action.action_type == settings.SOCIAL_UNLIKE:
-                    transaction_type = TransactionType.DEBIT if not reverse else TransactionType.CREDIT
-                    value = XP.for_dislike(action.content_object, communities)
+                if  communities and len(communities) > 0:
+                    if action.action_type == settings.SOCIAL_LIKE:
+                        transaction_type = TransactionType.CREDIT if not reverse else TransactionType.DEBIT
+                        value = XP.for_like(action.content_object, communities)
+                    elif action.action_type == settings.SOCIAL_UNLIKE:
+                        transaction_type = TransactionType.DEBIT if not reverse else TransactionType.CREDIT
+                        value = XP.for_dislike(action.content_object, communities)
                 elif action.action_type == settings.SOCIAL_FOLLOW:
                     transaction_type = TransactionType.CREDIT if not reverse else TransactionType.DEBIT
                     value = XP.for_follow(action.content_object)
@@ -98,22 +100,40 @@ class XP():
                 except Exception:
                     city = None
 
-                communities_count = communities.count()
-                for community in communities:
 
+
+                if communities:
+                    communities_count = communities.count()
+                    for community in communities:
+
+                        transaction = XPTransaction(
+                            transaction_type=transaction_type,
+                            action_type=action.action_type,
+                            value=value/communities_count if communities_count != 0 else value,
+                            user=user,
+                            city= city,
+                            by=action.author,
+                            content_type=action.content_type,
+                            object_id=action.object_id,
+                            community=community
+
+                        )
+                        transaction.save()
+                else:
                     transaction = XPTransaction(
-                        transaction_type=transaction_type,
-                        action_type=action.action_type,
-                        value=value/communities_count if communities_count != 0 else value,
-                        user=user,
-                        city= city,
-                        by=action.author,
-                        content_type=action.content_type,
-                        object_id=action.object_id,
-                        community=community
+                            transaction_type=transaction_type,
+                            action_type=action.action_type,
+                            value=value,
+                            user=user,
+                            city= city,
+                            by=action.author,
+                            content_type=action.content_type,
+                            object_id=action.object_id,
+                            community=None
 
-                    )
+                        )
                     transaction.save()
+
                 user_credits = XPTransaction.objects.filter(user=user,
                                                transaction_type=TransactionType.CREDIT).aggregate(credits=Sum("value"))
                 debits = XPTransaction.objects.filter(user=user,
