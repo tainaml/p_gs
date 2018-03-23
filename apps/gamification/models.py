@@ -1,6 +1,8 @@
 from __future__ import unicode_literals, absolute_import
 from apps.article.models import Article
+from apps.comment.models import Comment
 from apps.community.models import Community
+from apps.feed.models import ProfileStatus
 from rede_gsti.celery import app
 
 from apps.geography.models import City
@@ -65,7 +67,7 @@ class XP():
 
         value = None
         communities = None
-        if action.action_type in [settings.SOCIAL_LIKE, settings.SOCIAL_UNLIKE, settings.SOCIAL_FOLLOW]:
+        if action.action_type in [settings.SOCIAL_LIKE, settings.SOCIAL_UNLIKE, settings.SOCIAL_FOLLOW] and not isinstance(action.content_object, Comment) and not isinstance(action.content_object, ProfileStatus):
 
             if action.action_type == settings.SOCIAL_FOLLOW:
                 communities = None
@@ -73,8 +75,7 @@ class XP():
             else:
                 if isinstance(action.content_object, Answer):
                     communities = None
-                else:
-                    print "hey"
+                elif not isinstance(action.content_object, Comment):
                     communities = action.content_object.feed.first().communities.all() if action.content_object else []
 
                 user = action.content_object.author if action.content_object else None
