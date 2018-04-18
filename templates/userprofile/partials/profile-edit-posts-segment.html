@@ -26,14 +26,20 @@
             {% endif %}
                 <nav class="publication-footer-menu">
                     <a class="publication-footer-menu-item" href="{% url 'article:edit' post.content_object.id %}">Editar</a>
-                    <a class="publication-footer-menu-item" href="{% url 'article:view' post.content_object.year post.content_object.month post.content_object.slug %}" target="_blank">Visualizar</a>
+
+                {% if post.content_object.slug != '' %}
+                    {% url 'article:view' post.content_object.year post.content_object.month post.content_object.slug as view_url %}
+                {% endif %}
+                    {% if not post.content_object.status == post.content_object.STATUS_DRAFT or post.content_object.status == post.content_object.STATUS_TRASH   %}
+                        <a class="publication-footer-menu-item" href="{{ view_url }}" target="_blank">Visualizar</a>
+                    {% endif %}
                     {% if post.content_object.status != post.content_object.STATUS_TRASH %}
                     <a class="publication-footer-menu-item text-danger" href="{% url 'article:delete' post.content_object.id %}" data-delete-item="true" data-url="{% url 'article:delete-async' post.content_object.id %}" data-item="{{ post.content_object.id }}" data-title="{{ post.content_object.title }}"  data-modal="#modal-confirmation">Excluir</a>
                     {% endif %}
                 </nav>
             </footer>
         </article>
-    {% endfor %}
+    {% endfor %}{% if post.content_object.status == post.content_object.STATUS_DRAFT %}<span class="label label-draft">Rascunho</span>{% endif %}
     <a data-jscroll-next href="{% url 'profile:edit-posts-list' %}?criteria={{ form.cleaned_data.criteria|default:"" }}&status={{ form.cleaned_data.status|default:"" }}&page={{ page }}&next={{ url_next|urlencode }}">next</a>
 {% else %}
     {% if posts.number == 1 %}
