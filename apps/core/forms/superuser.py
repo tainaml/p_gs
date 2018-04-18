@@ -95,13 +95,17 @@ class NotificationSend(SearchNotificationSubscribe):
 
 
         per_page = 25
+        seconds=0
+        batch = 3
         paginated = paginator.Paginator(queryset, per_page)
-        for page in paginated.page_range:
+        for index, page in enumerate(paginated.page_range):
             send_queryset = self._get_queryset()
             id_list = [item.id for item in paginated.page(page).object_list]
             send_queryset = send_queryset.filter(id__in=id_list)
             extra = {'click_action': url, "icon": icon_url}
-            send_push_async.delay(send_queryset, title, message, extra)
+            send_push_async.apply_async(args=[send_queryset, title, message, extra], countdown=seconds)
+            if index % batch == 0:
+                seconds+=1
 
         return queryset
 
