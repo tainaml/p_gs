@@ -26,7 +26,7 @@ def get_avatar(context, user, **kwargs):
         return generate_url(image_url, **kwargs)
 
 
-    if user.is_active or (request.user == user and request.user.is_authenticated()):
+    if request and (user.is_active or (request.user == user and request.user.is_authenticated())):
 
         if user_profile and user_profile.profile_picture and user_profile.profile_picture.name:
             image_url = '%s/%s' % (settings.THUMBOR_MEDIA_URL, user_profile.profile_picture.name)
