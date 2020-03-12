@@ -77,7 +77,7 @@ parsedatetime==2.1
 pexif==0.15
 # Pillow==3.0.0
 prettytable==0.7.2
-psutil==5.0.1
+psutil==5.6.6
 psycopg2==2.6.1 # <<<--------------------
 pyasn1==0.2.3
 pyasn1-modules==0.0.9
