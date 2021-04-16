@@ -28,7 +28,7 @@ Django==1.11.10
 django-braces==1.11.0
 django-celery==3.1.17
 django-cors-headers==2.1.0
-django-debug-toolbar==1.5
+django-debug-toolbar==1.11.1
 django-ideia-summernote==0.5.3
 django-jet==1.0.3
 django-kombu==0.9.4
