@@ -3,6 +3,6 @@ psycopg2==2.5.4
 django-devserver==0.8.0
 django-compressor==1.4
 django-debug-toolbar==1.2.2
-Pillow==2.6.1
+Pillow==8.2.0
 gunicorn==19.1.1
 fabric==1.10.0
