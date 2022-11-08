@@ -13,7 +13,7 @@
   "dependencies": {
     "codemirror": "^5.18.0",
     "fg-loadcss": "^1.2.1",
-    "imports-loader": "^0.6.5",
+    "imports-loader": "^4.0.1",
     "jquery": "2.1.4",
     "jquery-mousewheel": "^3.1.13",
     "jquery.inputmask": "^3.2.0",
@@ -27,7 +27,7 @@
   },
   "devDependencies": {
     "babel-core": "^5.8.3",
-    "babel-loader": "^5.3.2",
+    "babel-loader": "^9.1.0",
     "browser-sync": "^2.9.11",
     "compression": "^1.5.1",
     "del": "^1.2.0",
@@ -63,6 +63,6 @@
     "pretty-hrtime": "~1.0.0",
     "require-dir": "^0.3.0",
     "vinyl-source-stream": "~1.1.0",
-    "webpack": "^1.12.12"
+    "webpack": "^5.74.0"
   }
 }
